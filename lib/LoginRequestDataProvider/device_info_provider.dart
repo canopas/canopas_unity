@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -21,7 +22,7 @@ class LoginRequestDataProvider {
           email: email,
           deviceType: androidDeviceType,
           deviceId: androidInfo.androidId!,
-          version: int.parse(packageInfo.version),
+          version: int.parse(packageInfo.buildNumber),
           deviceName: androidInfo.model!,
           osVersion: androidInfo.version.toString(),
         );
