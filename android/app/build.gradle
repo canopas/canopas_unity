@@ -42,12 +42,15 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+
+
     defaultConfig {
+        def parts = flutterVersionName.split("\\.").collect { it.toInteger() }
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.canopas.projectunity"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
+        versionCode parts[0] * 10000 + parts[1] * 100 + parts[2]
         versionName flutterVersionName
     }
     signingConfigs {

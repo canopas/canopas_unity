@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/services/handle_sign_in.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:projectunity/ViewModel/login_vm.dart';
+import 'package:projectunity/utils/service_locator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,19 +11,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  SignIn signIn = SignIn();
-
   @override
   void initState() {
     super.initState();
-    googleSignIn.signInSilently();
-    googleSignIn.onCurrentUserChanged.listen((event) {
-      if (event != null) {
-        print('user successfully logged in !');
-      } else {
-        throw Exception('user not found');
-      }
-    });
   }
 
   @override
@@ -53,7 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         )),
-                    onPressed: () => signIn.handleSignIn(),
+                    onPressed: () {
+                      try {
+                        getIt<LoginVM>().signInWithGoogle();
+                      } on Exception catch (error) {
+                        showAlertDialog(context, error.toString());
+                      }
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
@@ -81,5 +79,18 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Widget showAlertDialog(BuildContext context, String message) {
+    AlertDialog dialog = AlertDialog(
+      title: const Text('Google sign in failed!!'),
+      content: Text(message),
+      elevation: 5,
+      actions: [
+        ElevatedButton(
+            onPressed: () => Navigator.pop(context), child: const Text('Ok'))
+      ],
+    );
+    return dialog;
   }
 }
