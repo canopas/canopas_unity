@@ -2,10 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:projectunity/utils/constant.dart';
 
 Dio createDio() {
-  var _dio= Dio(BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: 50000,
-      receiveTimeout: 3000));
+  var _dio = Dio(BaseOptions(
+      baseUrl: baseUrl, connectTimeout: 50000, receiveTimeout: 3000));
   _dio.interceptors.add(LoginInterceptor());
   return _dio;
 }

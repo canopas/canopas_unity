@@ -23,7 +23,7 @@ class NetworkApiService extends BaseApiService {
 
     try {
       Response response = await dio.post(
-       '/api/v1/login-with-google',
+        '/api/v1/login-with-google',
         data: data,
       );
 
