@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LeaveScreen extends StatelessWidget {
@@ -6,8 +5,8 @@ class LeaveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
+    return const Scaffold(
+      body:  Center(
         child: Text('Leave Screen'),
       ),
     );
