@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:projectunity/ViewModel/login_vm.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:projectunity/ViewModel/api_response.dart';
+import 'package:projectunity/ViewModel/login_bloc.dart';
+import 'package:projectunity/Widget/error_banner.dart';
+import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/utils/service_locator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,9 +14,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _bloc = getIt<LoginBloc>();
+
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -45,32 +56,70 @@ class _LoginScreenState extends State<LoginScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         )),
-                    onPressed: () {
+                    onPressed: () async {
                       try {
-                        getIt<LoginVM>().signInWithGoogle();
-                      } on Exception catch (error) {
-                        showAlertDialog(context, error.toString());
+                        await _bloc.isSignedIn();
+                      } catch (error) {
+                        SchedulerBinding.instance?.addPostFrameCallback(
+                            (_) => showErrorBanner(error.toString(), context));
                       }
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              child: Image.asset(
-                            'assets/images/google_logo.png',
-                            fit: BoxFit.cover,
-                          )),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text('Sign in with Google',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 25)),
-                        ],
-                      ),
-                    ),
+                    child: StreamBuilder<ApiResponse<bool>>(
+                        stream: _bloc.loginResponse,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data != null) {
+                              switch (snapshot.data!.status) {
+                                case Status.loading:
+                                  return const CircularProgressIndicator();
+                                case Status.completed:
+                                  var success = snapshot.data?.data ?? true;
+                                  if (success) {
+                                    SchedulerBinding.instance
+                                        ?.addPostFrameCallback((_) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeScreen()));
+                                    });
+                                  }
+                                  break;
+                                case Status.error:
+                                  SchedulerBinding.instance
+                                      ?.addPostFrameCallback((_) =>
+                                          showErrorBanner(
+                                              snapshot.error.toString(),
+                                              context));
+                              }
+                            }
+                          }
+                          if (snapshot.hasError) {
+                            SchedulerBinding.instance?.addPostFrameCallback(
+                              (_) => showErrorBanner(
+                                  snapshot.error.toString(), context),
+                            );
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                    child: Image.asset(
+                                  'assets/images/google_logo.png',
+                                  fit: BoxFit.cover,
+                                )),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text('Sign in with Google',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 25)),
+                              ],
+                            ),
+                          );
+                        }),
                   ),
                 ),
               ],
@@ -79,18 +128,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  Widget showAlertDialog(BuildContext context, String message) {
-    AlertDialog dialog = AlertDialog(
-      title: const Text('Google sign in failed!!'),
-      content: Text(message),
-      elevation: 5,
-      actions: [
-        ElevatedButton(
-            onPressed: () => Navigator.pop(context), child: const Text('Ok'))
-      ],
-    );
-    return dialog;
   }
 }

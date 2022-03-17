@@ -1,60 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/Widget/user_widget.dart';
+import 'package:projectunity/ui/User/employee_list_screen.dart';
+import 'package:projectunity/ui/User/setting_screen.dart';
+import 'leave_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int selectedIndex = 0;
+  List<Widget> screenList = [
+    EmployeeListScreen(),
+    LeaveScreen(),
+    SettingScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 50, 15, 0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(
-                Icons.account_circle_rounded,
-                size: 50,
-              ),
-              IconButton(
-                icon: const Icon(Icons.search),
-                iconSize: 30,
-                onPressed: () {},
-              )
-            ],
-          ),
-        ),
-        const Expanded(
-          child: Text(
-            'Hi,Sneha Sanghani',
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.normal),
-          ),
-        ),
-        const Expanded(
-          child: Text(
-              'Know your colleague,find their contact information and get in touch with him/her ',
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                  fontSize: 20)),
-        ),
-        Expanded(
-          flex: 8,
-          child: ListView.builder(
-              itemCount: 10,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return UserWidget();
-              }),
-        ),
-      ]),
-    );
+    return MaterialApp(
+        home: SafeArea(
+      child: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            bottomNavigationBar: BottomNavigationBar(
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_box_rounded), label: 'Leave'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.nine_mp_sharp), label: 'Setting'),
+              ],
+              currentIndex: selectedIndex,
+              backgroundColor: Colors.blueGrey,
+              selectedItemColor: Colors.white54,
+              selectedFontSize: 20,
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+            ),
+            body: screenList.elementAt(selectedIndex),
+          )),
+    ));
   }
 }

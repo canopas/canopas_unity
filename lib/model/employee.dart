@@ -1,10 +1,10 @@
 import 'dart:core';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user.g.dart';
+part 'employee.g.dart';
 
 @JsonSerializable()
-class User {
+class Employee {
   int id;
   @JsonKey(name: 'employee_id')
   String employeeId;
@@ -28,7 +28,7 @@ class User {
   String? bloodGroup;
   Session? session;
 
-  User(
+  Employee(
       {required this.id,
       required this.employeeId,
       this.roleId,
@@ -46,9 +46,10 @@ class User {
       this.bloodGroup,
       this.session});
 
-  factory User.fromJson(Map<String, dynamic> map) => _$UserFromJson(map);
+  factory Employee.fromJson(Map<String, dynamic> map) =>
+      _$EmployeerFromJson(map);
 
-  Map<String, dynamic> userToJson(User user) => _$UserToJson(this);
+  Map<String, dynamic> employeeToJson(Employee user) => _$EmployeeToJson(this);
 }
 
 @JsonSerializable()
