@@ -1,11 +1,15 @@
+import 'package:injectable/injectable.dart';
 import 'package:projectunity/ViewModel/api_response.dart';
 import 'package:projectunity/model/employee.dart';
 import 'package:projectunity/services/network_repository.dart';
-import 'package:projectunity/utils/service_locator.dart';
 import 'package:rxdart/rxdart.dart';
 
+@Singleton()
 class EmployeeListBloc {
-  final NetworkRepository _networkRepository = getIt<NetworkRepository>();
+  final NetworkRepository _networkRepository;
+
+  EmployeeListBloc(this._networkRepository);
+
   final BehaviorSubject<ApiResponse<List<Employee>>> _employeeList =
       BehaviorSubject<ApiResponse<List<Employee>>>();
 

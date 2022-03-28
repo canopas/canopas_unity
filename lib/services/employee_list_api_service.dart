@@ -1,16 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
-import 'package:projectunity/utils/service_locator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+@Injectable()
 class EmployeeListApiService {
-  final Dio _dio = getIt<Dio>();
+  final Dio _dio;
+  final UserPreference _userPreference;
+
+  EmployeeListApiService(this._dio, this._userPreference);
 
   Future<List<Employee>> getEmployeeListFromAPI() async {
-    await getIt.isReady<SharedPreferences>();
-    final pref = getIt<SharedPreferences>();
-    String? accessToken = pref.getString(kAccessToken);
+    String? accessToken = _userPreference.getAccessToken();
 
     try {
       Response response = await _dio.get(getEmployeeListApi,

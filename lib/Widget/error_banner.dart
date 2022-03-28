@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void showErrorBanner(String message, BuildContext context) {
   ScaffoldMessenger.of(context).showMaterialBanner(
- MaterialBanner(
+    MaterialBanner(
         content: Text(message,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
         actions: [
@@ -15,5 +15,5 @@ void showErrorBanner(String message, BuildContext context) {
                 ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
               })
         ]),
-  ) ;
+  );
 }

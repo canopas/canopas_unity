@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/ui/User/home_screen.dart';
+import 'package:projectunity/ui/User/leave_screen.dart';
+import 'package:projectunity/ui/User/setting_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
-import 'package:projectunity/utils/service_locator.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setUpLocator();
-  runApp(const MaterialApp(
-    title: 'ProjectUnity flutter',
-    home: LoginScreen(),
-  ));
+  await configureDependencies();
+  runApp(
+    MaterialApp(
+      title: 'ProjectUnity flutter',
+      routes: {
+        '/': (context) => const LoginScreen(),
+        '/homeScreen': (context) => const HomeScreen(),
+        '/leaveScreen': (context) =>const LeaveScreen(),
+        '/settingScreen': (context) =>const SettingScreen(),
+      },
+      initialRoute: '/',
+    ),
+  );
 }

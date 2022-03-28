@@ -19,8 +19,9 @@ dependencies:
   dio: ^4.0.4
   get_it: ^7.2.0
   shared_preferences: ^2.0.13
-  bloc: ^8.0.3
   rxdart: ^0.27.3
+  injectable: ^1.5.3
+  bloc: ^8.0.3
 
 dev_dependencies:
   flutter_test:
@@ -28,9 +29,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   json_serializable: ^6.1.4
   build_runner: ^2.1.7
-
-
-
+  injectable_generator:
 
 flutter:
   uses-material-design: true

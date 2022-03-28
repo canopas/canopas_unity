@@ -1,7 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-
-@JsonSerializable()
-class LoginRequest {
+class LoginRequestData {
   String googleIdToken;
   String email;
   int deviceType;
@@ -10,7 +7,7 @@ class LoginRequest {
   String deviceName;
   String osVersion;
 
-  LoginRequest(
+  LoginRequestData(
       {required this.googleIdToken,
       required this.email,
       required this.deviceType,
@@ -19,7 +16,7 @@ class LoginRequest {
       required this.deviceName,
       required this.osVersion});
 
-  Map<String, dynamic> loginRequestToJson(LoginRequest deviceInfo) {
+  Map<String, dynamic> loginRequestToJson(LoginRequestData deviceInfo) {
     return <String, dynamic>{
       "google_id_token": deviceInfo.googleIdToken,
       "email": deviceInfo.email,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/services/login/login_service.dart';

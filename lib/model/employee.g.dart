@@ -6,13 +6,13 @@ part of 'employee.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Employee _$EmployeerFromJson(Map<String, dynamic> json) => Employee(
+Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       id: json['id'] as int,
       employeeId: json['employee_id'] as String,
       roleId: json['role_id'] as int?,
       name: json['name'] as String?,
       email: json['email'] as String,
-      phone: json['phone'] as String,
+      phone: json['phone'] as String?,
       imageUrl: json['image_url'] as String?,
       address: json['address'] as String?,
       gender: json['gender'] as int?,
@@ -51,7 +51,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       employeeId: json['employee_id'] as int,
       deviceId: json['device_id'] as String?,
       deviceToken: json['device_token'] as String?,
-      deviceType: json['device-type'] as int?,
+      deviceType: json['device_type'] as int?,
       version: json['version'] as int?,
       deviceName: json['device_name'] as String?,
       osVersion: json['os_version'] as String?,
@@ -63,7 +63,7 @@ Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'employee_id': instance.employeeId,
       'device_id': instance.deviceId,
       'device_token': instance.deviceToken,
-      'device-type': instance.deviceType,
+      'device_type': instance.deviceType,
       'version': instance.version,
       'device_name': instance.deviceName,
       'os_version': instance.osVersion,

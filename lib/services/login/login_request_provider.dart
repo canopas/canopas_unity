@@ -1,22 +1,23 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:projectunity/model/login_request.dart';
 import 'package:projectunity/utils/constant.dart';
-import 'package:projectunity/utils/service_locator.dart';
 
+@Injectable()
 class LoginRequestDataProvider {
-  DeviceInfoPlugin deviceInfoPlugin = getIt<DeviceInfoPlugin>();
-  late LoginRequest loginRequest;
+  late LoginRequestData _loginRequestData;
 
-  Future<LoginRequest> getLoginRequestData(
+  Future<LoginRequestData> getLoginRequestData(
       String googleIdToken, String email) async {
+    final DeviceInfoPlugin _deviceInfoPlugin = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     try {
       if (Platform.isAndroid) {
-        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-        loginRequest = LoginRequest(
+        AndroidDeviceInfo androidInfo = await _deviceInfoPlugin.androidInfo;
+     _loginRequestData = LoginRequestData(
           googleIdToken: googleIdToken,
           email: email,
           deviceType: androidDeviceType,
@@ -26,8 +27,8 @@ class LoginRequestDataProvider {
           osVersion: androidInfo.version.toString(),
         );
       } else if (Platform.isIOS) {
-        IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
-        loginRequest = LoginRequest(
+        IosDeviceInfo iosInfo = await _deviceInfoPlugin.iosInfo;
+        _loginRequestData = LoginRequestData(
             googleIdToken: googleIdToken,
             email: email,
             deviceType: iosDeviceType,
@@ -39,6 +40,6 @@ class LoginRequestDataProvider {
     } on PlatformException {
       throw Exception('Failed to get platform version');
     }
-    return loginRequest;
+    return _loginRequestData;
   }
 }
