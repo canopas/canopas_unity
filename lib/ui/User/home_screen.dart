@@ -13,9 +13,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   List<Widget> screenList = [
-    EmployeeListScreen(),
-    LeaveScreen(),
-    SettingScreen(),
+    const EmployeeListScreen(),
+    const LeaveScreen(),
+    const SettingScreen(),
   ];
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'employee.g.dart';
@@ -47,7 +48,7 @@ class Employee {
       this.session});
 
   factory Employee.fromJson(Map<String, dynamic> map) =>
-      _$EmployeerFromJson(map);
+      _$EmployeeFromJson(map);
 
   Map<String, dynamic> employeeToJson(Employee user) => _$EmployeeToJson(this);
 }
