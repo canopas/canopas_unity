@@ -6,8 +6,6 @@ import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/model/employee.dart';
 import 'package:projectunity/user/user_manager.dart';
-import 'package:projectunity/user/user_preference.dart';
-
 import '../../di/service_locator.dart';
 
 class EmployeeListScreen extends StatefulWidget {
