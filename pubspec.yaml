@@ -22,6 +22,8 @@ dependencies:
   rxdart: ^0.27.3
   injectable: ^1.5.3
   bloc: ^8.0.3
+  freezed: ^1.1.1
+  freezed_annotation: ^1.1.0
 
 dev_dependencies:
   flutter_test:

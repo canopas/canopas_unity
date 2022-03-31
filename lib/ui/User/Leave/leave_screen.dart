@@ -13,7 +13,7 @@ class LeaveScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-             const Text(
+              const Text(
                 'Hey! Your upcoming leaves are ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -23,7 +23,10 @@ class LeaveScreen extends StatelessWidget {
               ),
               OutlinedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> LeaveDetailScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LeaveDetailScreen()));
                   },
                   child: const Text(
                     'View All',

@@ -12,10 +12,7 @@ class _LeaveDetailScreenState extends State<LeaveDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Scaffold(
-          body: Center(child: Text('All Leaves'))
-
-      ),
+      child: Scaffold(body: Center(child: Text('All Leaves'))),
     );
   }
 }

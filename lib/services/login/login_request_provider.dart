@@ -17,7 +17,7 @@ class LoginRequestDataProvider {
     try {
       if (Platform.isAndroid) {
         AndroidDeviceInfo androidInfo = await _deviceInfoPlugin.androidInfo;
-     _loginRequestData = LoginRequestData(
+        _loginRequestData = LoginRequestData(
           googleIdToken: googleIdToken,
           email: email,
           deviceType: androidDeviceType,
