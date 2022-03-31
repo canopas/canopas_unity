@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/User/home_screen.dart';
-import 'package:projectunity/ui/User/leave_screen.dart';
+import 'package:projectunity/ui/User/Leave/leave_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 
@@ -14,7 +14,7 @@ void main() async {
       routes: {
         '/': (context) => const LoginScreen(),
         '/homeScreen': (context) => const HomeScreen(),
-        '/leaveScreen': (context) =>const LeaveScreen(),
+        '/leaveScreen': (context) => LeaveScreen(),
         '/settingScreen': (context) =>const SettingScreen(),
       },
       initialRoute: '/',

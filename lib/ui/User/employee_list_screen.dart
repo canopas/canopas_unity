@@ -6,8 +6,6 @@ import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/model/employee.dart';
 import 'package:projectunity/user/user_manager.dart';
-import 'package:projectunity/user/user_preference.dart';
-
 import '../../di/service_locator.dart';
 
 class EmployeeListScreen extends StatefulWidget {
@@ -83,30 +81,15 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                   stream: _bloc.allEmployee,
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      switch (snapshot.data.status) {
-                        case Status.completed:
-                          return EmployeeListWidget(
-                            employeeList: snapshot.data.data,
-                          );
-
-                        case Status.loading:
-                          return const CircularProgressIndicator();
-
-                        case Status.error:
-                          print('error found in sign in!');
-                          SchedulerBinding.instance?.addPostFrameCallback((_) =>
-                              showErrorBanner(
-                                  snapshot.data.error.toString(), context));
-                          return Container();
-                      }
-                    } else if (snapshot.hasError) {
-                      print('error found in snapshot');
-                      SchedulerBinding.instance?.addPostFrameCallback((_) =>
-                          showErrorBanner(snapshot.error.toString(), context));
-                      return Container();
-                    }
-                    return Container();
+                    return snapshot.data!.when(idle: () {
+                      return;
+                    }, loading: () {
+                      return const Center(child: CircularProgressIndicator());
+                    }, completed: (List<Employee> list) {
+                      return EmployeeListWidget(employeeList: list);
+                    }, error: (String error) {
+                      return Text(error);
+                    });
                   }),
             ),
           ]),

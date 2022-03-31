@@ -26,14 +26,15 @@ class LoginBloc {
         GoogleSignInAuthentication googleKey = await account.authentication;
         String? googleIdToken = googleKey.idToken!;
         String email = account.email;
-
+        _loginSubject.sink.add(const ApiResponse.loading());
         await _networkRepository.googleLogin(googleIdToken, email);
-        _loginSubject.sink.add(ApiResponse.completed(true));
+        _loginSubject.sink.add(const ApiResponse.completed(data: true));
       } else {
-        _loginSubject.sink.addError(ApiResponse.error("Unable to sign in"));
+        _loginSubject.sink
+            .add(const ApiResponse.error(message: 'User not found'));
       }
     } catch (error) {
-      _loginSubject.sink.addError(ApiResponse.error(error.toString()));
+      _loginSubject.sink.add(ApiResponse.error(message: error.toString()));
     }
   }
 
