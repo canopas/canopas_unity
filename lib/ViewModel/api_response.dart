@@ -1,13 +1,14 @@
-class ApiResponse<T> {
-  Status status;
-  T? data;
-  String? message;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  ApiResponse.loading() : status = Status.loading;
+part 'api_response.freezed.dart';
 
-  ApiResponse.completed(this.data) : status = Status.completed;
+@freezed
+abstract class ApiResponse<T> with _$ApiResponse<T> {
+  const factory ApiResponse.idle() = Idle<T>;
 
-  ApiResponse.error(this.message) : status = Status.error;
+  const factory ApiResponse.loading() = Loading<T>;
+
+  const factory ApiResponse.completed({required T data}) = Success<T>;
+
+  const factory ApiResponse.error({required String message}) = Failure<T>;
 }
-
-enum Status { loading, completed, error }

@@ -16,11 +16,12 @@ class EmployeeListBloc {
   BehaviorSubject<ApiResponse<List<Employee>>> get allEmployee => _employeeList;
 
   getEmployeeList() async {
+    _employeeList.sink.add(ApiResponse.loading());
     try {
       List<Employee> list = await _networkRepository.getEmployeeListFromRepo();
-      _employeeList.sink.add(ApiResponse.completed(list));
+      _employeeList.sink.add(ApiResponse.completed(data: list));
     } catch (error) {
-      _employeeList.sink.addError(ApiResponse.error(error.toString()));
+      _employeeList.sink.add(ApiResponse.error(message: error.toString()));
     }
   }
 
