@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'leave_detail_screen.dart';
 
 class LeaveScreen extends StatelessWidget {
-  LeaveScreen({Key? key}) : super(key: key);
+  const LeaveScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class LeaveScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LeaveDetailScreen()));
+                            builder: (context) => const LeaveDetailScreen()));
                   },
                   child: const Text(
                     'View All',

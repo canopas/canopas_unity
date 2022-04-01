@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/services/login/login_service.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
-import 'package:projectunity/utils/data_exception.dart';
 
 @Injectable()
 class LoginApiService {
@@ -17,11 +17,12 @@ class LoginApiService {
   Future login(String googleIdToken, String email) async {
     Map<String, dynamic> data =
         await _loginService.getLoginData(googleIdToken, email);
-    Response response = await _dio.post(
-      loginWithGoogleApi,
-      data: data,
-    );
-    try {
+    try{
+      Response response = await _dio.post(
+        loginWithGoogleApi,
+        data: data,
+      );
+
       if (response.statusCode == 200) {
         Map<String, dynamic> employeeData = response.data;
         String employee = jsonEncode(employeeData);
@@ -35,8 +36,9 @@ class LoginApiService {
       } else {
         throw DataException(response.data.toString());
       }
-    } on DioError catch (error) {
+    }on DioError catch(error){
       throw DataException(error.message);
     }
+
   }
 }

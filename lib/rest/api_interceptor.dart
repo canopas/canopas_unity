@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:projectunity/utils/data_exception.dart';
+import 'package:projectunity/rest/data_exception.dart';
+
 
 class ApiInterceptor extends Interceptor {
-  final networkError = "No Interner connection!";
+  final networkError = "No Internet connection!";
   final serverError = "Something went wrong";
 
   @override

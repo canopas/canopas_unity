@@ -83,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     stream: _bloc.loginResponse,
                     initialData: const ApiResponse.idle(),
                     builder: (context, snapshot) {
-                      print(snapshot.data.toString());
                       return snapshot.data!.when(idle: () {
                         return Container();
                       }, loading: () {

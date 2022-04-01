@@ -13,7 +13,7 @@ class EmployeeListBloc {
   final BehaviorSubject<ApiResponse<List<Employee>>> _employeeList =
       BehaviorSubject<ApiResponse<List<Employee>>>();
 
-  BehaviorSubject<ApiResponse<List<Employee>>> get allEmployee => _employeeList;
+  Stream<ApiResponse<List<Employee>>> get allEmployee => _employeeList.stream;
 
   getEmployeeList() async {
     _employeeList.sink.add(const ApiResponse.loading());
