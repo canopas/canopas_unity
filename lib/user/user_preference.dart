@@ -39,5 +39,4 @@ class UserPreference {
   void setRefreshToken(String? refreshToken) {
     _preferences.setString(userPrefKeyRefreshToken, refreshToken ?? "");
   }
-
 }

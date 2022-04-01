@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
+import 'package:projectunity/utils/data_exception.dart';
 
 @Injectable()
 class EmployeeListApiService {
@@ -23,11 +24,10 @@ class EmployeeListApiService {
             parsedData.map((user) => Employee.fromJson(user)).toList();
         return userList;
       } else {
-        throw Exception(
-            '${response.statusCode}  : ${response.data.toString()}');
+        throw DataException('Unable to load data');
       }
-    } catch (error) {
-      throw Exception('Error to get employee list ' + error.toString());
+    } on DioError catch (error) {
+      throw DataException(error.message);
     }
   }
 }

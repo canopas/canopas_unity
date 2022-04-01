@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:projectunity/di/service_locator.dart';
-import '../../ViewModel/api_response.dart';
+import '../../rest/api_response.dart';
 import '../../ViewModel/login_bloc.dart';
 import '../../Widget/error_banner.dart';
 
@@ -96,9 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         }
                         return Container();
-                      }, error: (String reason) {
-                        showErrorBanner(reason, context);
-                        return Text(reason);
+                      }, error: (String error) {
+                        SchedulerBinding.instance?.addPostFrameCallback((_) {
+                          showErrorBanner(error, context);
+                        });
+
+                        return Container();
                       });
                     }),
               ],
