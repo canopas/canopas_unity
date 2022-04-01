@@ -1,6 +1,6 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/ViewModel/api_response.dart';
+import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
 import '../services/network_repository.dart';
 
@@ -30,10 +30,9 @@ class LoginBloc {
         await _networkRepository.googleLogin(googleIdToken, email);
         _loginSubject.sink.add(const ApiResponse.completed(data: true));
       } else {
-        _loginSubject.sink
-            .add(const ApiResponse.error(message: 'User not found'));
+        _loginSubject.sink.add(const ApiResponse.error(message: 'user not found'));
       }
-    } catch (error) {
+    } on Exception catch (error) {
       _loginSubject.sink.add(ApiResponse.error(message: error.toString()));
     }
   }

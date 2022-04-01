@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:projectunity/ViewModel/api_response.dart';
+import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ViewModel/employee_list_bloc.dart';
 import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
@@ -78,17 +78,22 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             Expanded(
               flex: 8,
               child: StreamBuilder<ApiResponse<List<Employee>>>(
+                  initialData: const ApiResponse.idle(),
                   stream: _bloc.allEmployee,
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     return snapshot.data!.when(idle: () {
-                      return;
+                      return Container();
                     }, loading: () {
                       return const Center(child: CircularProgressIndicator());
                     }, completed: (List<Employee> list) {
                       return EmployeeListWidget(employeeList: list);
                     }, error: (String error) {
-                      return Text(error);
+                      SchedulerBinding.instance?.addPostFrameCallback((_) {
+                        showErrorBanner(error, context);
+                      });
+
+                      return const Center(child: CircularProgressIndicator());
                     });
                   }),
             ),
