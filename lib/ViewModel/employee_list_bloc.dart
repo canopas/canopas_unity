@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/ViewModel/api_response.dart';
+import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/model/employee.dart';
 import 'package:projectunity/services/network_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -13,14 +13,14 @@ class EmployeeListBloc {
   final BehaviorSubject<ApiResponse<List<Employee>>> _employeeList =
       BehaviorSubject<ApiResponse<List<Employee>>>();
 
-  BehaviorSubject<ApiResponse<List<Employee>>> get allEmployee => _employeeList;
+  Stream<ApiResponse<List<Employee>>> get allEmployee => _employeeList.stream;
 
   getEmployeeList() async {
-    _employeeList.sink.add(ApiResponse.loading());
+    _employeeList.sink.add(const ApiResponse.loading());
     try {
       List<Employee> list = await _networkRepository.getEmployeeListFromRepo();
       _employeeList.sink.add(ApiResponse.completed(data: list));
-    } catch (error) {
+    } on Exception catch (error) {
       _employeeList.sink.add(ApiResponse.error(message: error.toString()));
     }
   }

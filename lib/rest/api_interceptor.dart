@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:projectunity/rest/data_exception.dart';
 
-const AUTH_REQUEST_CODE_UNAUTHORIZED = 401;
 
 class ApiInterceptor extends Interceptor {
-  final networkError = "No Interner connection!";
+  final networkError = "No Internet connection!";
   final serverError = "Something went wrong";
 
   @override
@@ -16,16 +16,16 @@ class ApiInterceptor extends Interceptor {
       case DioErrorType.connectTimeout:
       case DioErrorType.receiveTimeout:
       case DioErrorType.sendTimeout:
-        return Exception(networkError);
+        throw DataException(networkError);
       case DioErrorType.response:
-        if (statusCode == AUTH_REQUEST_CODE_UNAUTHORIZED) {
-          return err.response;
+        if (statusCode != 200) {
+          throw DataException(serverError);
         }
-        return Exception(serverError);
+        throw DataException(serverError);
       case DioErrorType.cancel:
         break;
       case DioErrorType.other:
-        return Exception(networkError);
+        throw DataException(networkError);
     }
   }
 }
