@@ -32,11 +32,10 @@ class LoginBloc {
         await _networkRepository.googleLogin(googleIdToken, email);
         _loginSubject.sink.add(const ApiResponse.completed(data: true));
       } else {
-        _loginSubject.sink
-            .add(const ApiResponse.error(message: 'User not found'));
+        _loginSubject.sink.add(const ApiResponse.error(message: 'user not found'));
       }
-    } on DioError catch (error) {
-      _loginSubject.sink.add(ApiResponse.error(message: error.message));
+    } on Exception catch (error) {
+      _loginSubject.sink.add(ApiResponse.error(message: error.toString()));
     }
   }
 

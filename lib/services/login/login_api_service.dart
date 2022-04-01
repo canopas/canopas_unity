@@ -17,18 +17,18 @@ class LoginApiService {
   Future login(String googleIdToken, String email) async {
     Map<String, dynamic> data =
         await _loginService.getLoginData(googleIdToken, email);
-    Response response = await _dio.post(
-      loginWithGoogleApi,
-      data: data,
-    );
-    try {
+    try{
+      Response response = await _dio.post(
+        loginWithGoogleApi,
+        data: data,
+      );
       if (response.statusCode == 200) {
         Map<String, dynamic> employeeData = response.data;
         String employee = jsonEncode(employeeData);
         _userPreference.updateCurrentUser(employee);
 
-        String? accessToken = response.headers.value(kAccessToken);
-        _userPreference.setAccessToken(accessToken);
+      String? accessToken = response.headers.value(kAccessToken);
+      _userPreference.setAccessToken(accessToken);
 
         String? refreshToken = response.headers.value(kRefreshToken);
         _userPreference.setRefreshToken(refreshToken);
