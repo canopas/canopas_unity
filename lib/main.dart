@@ -14,7 +14,7 @@ void main() async {
       routes: {
         '/': (context) => const LoginScreen(),
         '/homeScreen': (context) => const HomeScreen(),
-        '/leaveScreen': (context) => LeaveScreen(),
+        '/leaveScreen': (context) => const LeaveScreen(),
         '/settingScreen': (context) =>const SettingScreen(),
       },
       initialRoute: '/',

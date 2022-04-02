@@ -1,10 +1,10 @@
 class DataException implements Exception {
-  final String message;
+  final String? message;
 
   DataException(this.message);
 
   @override
   String toString() {
-    return message;
+    return message ?? 'Something went wrong';
   }
 }

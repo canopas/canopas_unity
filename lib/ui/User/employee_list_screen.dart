@@ -92,8 +92,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                       SchedulerBinding.instance?.addPostFrameCallback((_) {
                         showErrorBanner(error, context);
                       });
-
-                      return const Center(child: CircularProgressIndicator());
+                      return Container();
                     });
                   }),
             ),

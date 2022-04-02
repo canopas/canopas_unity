@@ -20,7 +20,7 @@ class UserPreference {
 
   Employee? getCurrentUser() {
     final data = _preferences.getString(userPrefKeyUser) ?? "";
- //   if (data.isEmpty) return null;
+    if (data.isEmpty) return null;
     return Employee.fromJson(jsonDecode(data));
   }
 
@@ -39,5 +39,4 @@ class UserPreference {
   void setRefreshToken(String? refreshToken) {
     _preferences.setString(userPrefKeyRefreshToken, refreshToken ?? "");
   }
-
 }

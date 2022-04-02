@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/rest/api_response.dart';
+import 'package:projectunity/utils/data_exception.dart';
 import 'package:rxdart/rxdart.dart';
 import '../services/network_repository.dart';
 
@@ -15,9 +17,9 @@ class LoginBloc {
 
   LoginBloc(this._networkRepository);
 
-  final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
+  final _loginSubject = PublishSubject<ApiResponse<bool>>();
 
-  BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
+  PublishSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
 
   signInWithGoogle() async {
     try {
