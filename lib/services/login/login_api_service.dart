@@ -17,7 +17,7 @@ class LoginApiService {
   Future login(String googleIdToken, String email) async {
     Map<String, dynamic> data =
         await _loginService.getLoginData(googleIdToken, email);
-    try{
+    try {
       Response response = await _dio.post(
         loginWithGoogleApi,
         data: data,
