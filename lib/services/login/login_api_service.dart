@@ -17,7 +17,7 @@ class LoginApiService {
   Future login(String googleIdToken, String email) async {
     Map<String, dynamic> data =
         await _loginService.getLoginData(googleIdToken, email);
-    try{
+    try {
       Response response = await _dio.post(
         loginWithGoogleApi,
         data: data,
@@ -27,8 +27,8 @@ class LoginApiService {
         String employee = jsonEncode(employeeData);
         _userPreference.updateCurrentUser(employee);
 
-      String? accessToken = response.headers.value(kAccessToken);
-      _userPreference.setAccessToken(accessToken);
+        String? accessToken = response.headers.value(kAccessToken);
+        _userPreference.setAccessToken(accessToken);
 
         String? refreshToken = response.headers.value(kRefreshToken);
         _userPreference.setRefreshToken(refreshToken);

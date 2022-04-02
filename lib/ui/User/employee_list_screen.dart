@@ -78,7 +78,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             Expanded(
               flex: 8,
               child: StreamBuilder<ApiResponse<List<Employee>>>(
-                initialData: const ApiResponse.idle(),
+                  initialData: const ApiResponse.idle(),
                   stream: _bloc.allEmployee,
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
