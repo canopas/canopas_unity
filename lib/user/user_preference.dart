@@ -1,12 +1,8 @@
 import 'dart:convert';
-
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const userPrefKeyUser = "user";
-const userPrefKeyAccessToken = "user_accessToken";
-const userPrefKeyRefreshToken = "user_refreshToken";
 
 @Injectable()
 class UserPreference {

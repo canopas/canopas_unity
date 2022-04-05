@@ -13,6 +13,7 @@ void showErrorBanner(String message, BuildContext context) {
               ),
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                Navigator.pop(context);
               })
         ]),
   );
