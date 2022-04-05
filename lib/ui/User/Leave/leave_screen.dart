@@ -1,41 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'leave_detail_screen.dart';
+
 
 class LeaveScreen extends StatelessWidget {
   const LeaveScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-        child: Center(
-          child: Column(
-            children: [
-              const Text(
-                'Hey! Your upcoming leaves are ',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500),
-              ),
-              OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LeaveDetailScreen()));
-                  },
-                  child: const Text(
-                    'View All',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ))
-            ],
-          ),
+        padding:  EdgeInsets.fromLTRB(30, 50, 20, 0),
+        child: Text(
+          'Hey! You have 10 leaves in your account ',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 30,
+              color: Colors.grey,
+              fontWeight: FontWeight.w500),
         ),
-      ),
-    );
+    ));
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectunity/Widget/show_leave_bottom_sheet.dart';
 import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
 import 'Leave/leave_screen.dart';
@@ -58,6 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onTabTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if(index == 1){
+        showLeaveModalBottomSheet(context);
+        return;
+      }
     });
   }
+
+
+
 }
