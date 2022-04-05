@@ -12,3 +12,4 @@ const int iosDeviceType = 2;
 
 const String loginWithGoogleApi = '/api/v1/login-with-google';
 const String getEmployeeListApi = '/api/v1/employees/all';
+const String getEmployeeByIdApi = '/api/v1/employees/';
