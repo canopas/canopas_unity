@@ -20,6 +20,7 @@ class EmployeeListBloc {
     try {
       List<Employee> list = await _networkRepository.getEmployeeListFromRepo();
       _employeeList.sink.add(ApiResponse.completed(data: list));
+
     } on Exception catch (error) {
       _employeeList.sink.add(ApiResponse.error(message: error.toString()));
     }

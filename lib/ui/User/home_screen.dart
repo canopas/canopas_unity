@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/User/employee_list_screen.dart';
+import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
 import 'Leave/leave_screen.dart';
 
@@ -13,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  final List<Widget> _screenList =  [
-  const  EmployeeListScreen(),
+  final List<Widget> _screenList = [
+    const EmployeeListScreen(),
     LeaveScreen(),
     const SettingScreen(),
   ];
@@ -30,32 +30,24 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: _onTabTapped,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text(
-                'Home',
-                style: TextStyle(fontSize: 15),
-              )),
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_box_rounded),
-              title: Text(
-                'Leave',
-                style: TextStyle(fontSize: 15),
-              )),
+            icon: Icon(Icons.account_box_rounded),
+            label: 'Leave',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.nine_mp_sharp),
-              title: Text(
-                'Setting',
-                style: TextStyle(fontSize: 15),
-              )),
+            icon: Icon(Icons.nine_mp_sharp),
+            label: 'Setting',
+          ),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(
           builder: (context) {
-            return CupertinoApp(
-              home: CupertinoPageScaffold(
-                child: _screenList.elementAt(index),
-              ),
+            return CupertinoPageScaffold(
+              child: _screenList.elementAt(index),
             );
           },
         );

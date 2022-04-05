@@ -6,6 +6,3 @@ GetIt getIt = GetIt.instance;
 
 @InjectableInit()
 Future<void> configureDependencies() async => await $initGetIt(getIt);
-
-
-
