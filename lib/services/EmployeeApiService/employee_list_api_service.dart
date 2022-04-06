@@ -4,7 +4,7 @@ import 'package:projectunity/model/employee.dart';
 import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
-import 'package:projectunity/utils/data_exception.dart';
+
 
 @Injectable()
 class EmployeeListApiService {
