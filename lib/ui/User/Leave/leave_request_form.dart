@@ -1,6 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/User/Leave/leave_screen.dart';
+import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/model/leave_request_data.dart';
+import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/employee_all_leaves.dart';
+
 
 enum Leave { fullDay, firstHalf, secondHalf }
 
@@ -13,11 +16,28 @@ class LeaveRequestForm extends StatefulWidget {
 
 class _LeaveRequestFormState extends State<LeaveRequestForm> {
   Leave? _selectedLeave = Leave.fullDay;
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _selectedDate = DateTime.now();
+  DateTime? startDate = DateTime.now();
+  DateTime? endDate = DateTime.now();
+  int startDateToInt = 0;
+  int endDateToInt = 0;
   String selectedName = '';
   int selectedEmployeeId = 0;
-  TextEditingController _textEditingController = TextEditingController();
+  late TextEditingController _textEditingController;
   String reasonForLeave = '';
+  final ApplyForLeaveApiService _apiService = getIt<ApplyForLeaveApiService>();
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textEditingController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,24 +115,19 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           width: 2,
                         ),
                         Text(
-                          '${_selectedDate.toLocal()}'.split(' ')[0],
+                          '${startDate?.toLocal()}'.split(' ')[0],
                           style: const TextStyle(fontSize: 20),
                         ),
                         IconButton(
                           icon: const Icon(Icons.apps_outlined),
                           onPressed: () async {
-                            DateTime? startDate = await showDatePicker(
-                                context: context,
-                                initialDate: _selectedDate,
-                                textDirection: TextDirection.ltr,
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2030));
-                            if (startDate != null &&
-                                startDate != _selectedDate) {
-                              setState(() {
-                                _selectedDate = startDate;
-                              });
-                            }
+                            startDate = await getDate(_selectedDate);
+                            String formattedString = startDate.toString();
+                            DateTime date = DateTime.parse(formattedString);
+                            String dateString = date.day.toString() +
+                                date.month.toString() +
+                                date.year.toString();
+                            startDateToInt = int.parse(dateString);
                           },
                         )
                       ],
@@ -133,25 +148,20 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           width: 2,
                         ),
                         Text(
-                          '${_selectedDate.toLocal()}'.split(' ')[0],
+                          '${endDate?.toLocal()}'.split(' ')[0],
                           style: const TextStyle(fontSize: 20),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.apps_outlined),
-                          onPressed: () async {
-                            DateTime? endDate = await showDatePicker(
-                                context: context,
-                                initialDate: _selectedDate,
-                                textDirection: TextDirection.ltr,
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2030));
-                            if (endDate != null && endDate != _selectedDate) {
-                              setState(() {
-                                _selectedDate = endDate;
-                              });
-                            }
-                          },
-                        )
+                            icon: const Icon(Icons.apps_outlined),
+                            onPressed: () async {
+                              endDate = await getDate(_selectedDate);
+                              String formattedString = endDate.toString();
+                              DateTime date = DateTime.parse(formattedString);
+                              String dateString = date.day.toString() +
+                                  date.month.toString() +
+                                  date.year.toString();
+                              endDateToInt = int.parse(dateString);
+                            })
                       ],
                     ))
                   ],
@@ -229,29 +239,32 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all(Colors.blueGrey),
+                          MaterialStateProperty.all(Colors.blueGrey),
                     ),
                     child: const Text(
                       'CANCEL',
                       style: TextStyle(fontSize: 20),
                     )),
                 ElevatedButton(
-                    onPressed: () {
-                      reasonForLeave = _textEditingController.text;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LeaveScreen()));
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.blueGrey),
-                    ),
-                    child: const Text(
-                      'APPLY',
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+                  ),
+                  child: const Text(
+                    'APPLY',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () async {
+                    LeaveRequestData leaveRequestData = LeaveRequestData(
+                        startDate: startDateToInt,
+                        endDate: endDateToInt,
+                        totalLeaves: 2.0,
+                        reason: _textEditingController.text,
+                        emergencyContactPerson: selectedEmployeeId);
 
+                    await _apiService.applyForLeave(leaveRequestData);
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>EmployeeAllLeaves()));
+                  },
+                ),
               ],
             ),
           ],
@@ -262,4 +275,18 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
 
   List<String> employeeList = ['Sneha', 'Radhi', 'Jimmy', 'Ami'];
   List<int> employeeID = [0, 1, 2, 3];
+
+  Future<DateTime?> getDate(DateTime selectedDate) async {
+    DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2030));
+    if (date != null && date != selectedDate) {
+      setState(() {
+        selectedDate = date;
+      });
+    }
+    return date;
+  }
 }
