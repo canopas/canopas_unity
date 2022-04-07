@@ -6,6 +6,7 @@ import 'package:projectunity/services/login/login_service.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
 
+
 @Injectable()
 class LoginApiService {
   final UserPreference _userPreference;
@@ -21,8 +22,8 @@ class LoginApiService {
       Response response = await _dio.post(
         loginWithGoogleApi,
         data: data,
-      );
 
+      );
       if (response.statusCode == 200) {
         Map<String, dynamic> employeeData = response.data;
         String employee = jsonEncode(employeeData);
