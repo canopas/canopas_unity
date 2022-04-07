@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screenList = [
     const EmployeeListScreen(),
-    LeaveScreen(),
+    const LeaveScreen(),
     const SettingScreen(),
   ];
 
@@ -60,4 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
+
+
+
 }

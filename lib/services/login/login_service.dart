@@ -11,7 +11,7 @@ class LoginService {
       String googleIdToken, String email) async {
     final loginData = await _loginRequestDataProvider.getLoginRequestData(
         googleIdToken, email);
-    Map<String, dynamic> data = loginData.loginRequestToJson(loginData);
+    Map<String, dynamic> data = loginData.toJson(loginData);
     return data;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
 import 'package:projectunity/utils/data_exception.dart';
@@ -20,7 +20,7 @@ class EmployeeDetailApiService {
           options: Options(headers: {kAccessToken: accessToken}));
       if (response.statusCode == 200) {
         Map<String, dynamic> data = response.data;
-        Employee employee = Employee.fromJson(data);
+        Employee? employee = Employee.fromJson(data);
         return employee;
       } else {
         throw DataException('Unable to load Employee Detail');

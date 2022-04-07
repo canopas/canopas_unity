@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/services/network_repository.dart';
 import 'package:rxdart/rxdart.dart';

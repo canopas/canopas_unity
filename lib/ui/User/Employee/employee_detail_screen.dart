@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:projectunity/ViewModel/employee_detail_bloc.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
 
 class EmployeeDetailScreen extends StatefulWidget {

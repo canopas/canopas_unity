@@ -17,9 +17,9 @@ class LoginBloc {
 
   LoginBloc(this._networkRepository);
 
-  final _loginSubject = PublishSubject<ApiResponse<bool>>();
+  final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
 
-  PublishSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
+  BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
 
   signInWithGoogle() async {
     try {

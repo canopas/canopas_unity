@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/user/user_preference.dart';
 
 @Singleton()
