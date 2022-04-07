@@ -4,7 +4,6 @@ import 'package:projectunity/model/leave_request_data.dart';
 import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/employee_all_leaves.dart';
 
-
 enum Leave { fullDay, firstHalf, secondHalf }
 
 class LeaveRequestForm extends StatefulWidget {
@@ -43,231 +42,192 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
           body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text(
-              'Apply for Leaves: ',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Day type: ',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-              child: Column(
-                children: [
-                  RadioListTile<Leave>(
-                      activeColor: Colors.blueGrey,
-                      title: const Text('Full-Day'),
-                      value: Leave.fullDay,
-                      groupValue: _selectedLeave,
-                      onChanged: (Leave? value) {
-                        setState(() {
-                          _selectedLeave = value;
-                        });
-                      }),
-                  RadioListTile<Leave>(
-                      activeColor: Colors.blueGrey,
-                      title: const Text('First-Half'),
-                      value: Leave.firstHalf,
-                      groupValue: _selectedLeave,
-                      onChanged: (Leave? value) {
-                        setState(() {
-                          _selectedLeave = value;
-                        });
-                      }),
-                  RadioListTile<Leave>(
-                      activeColor: Colors.blueGrey,
-                      title: const Text('Second-Half'),
-                      value: Leave.secondHalf,
-                      groupValue: _selectedLeave,
-                      onChanged: (Leave? value) {
-                        setState(() {
-                          _selectedLeave = value;
-                        });
-                      })
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Apply for Leaves: ',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'From: ',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Card(
-                        child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          '${startDate?.toLocal()}'.split(' ')[0],
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.apps_outlined),
-                          onPressed: () async {
-                            startDate = await getDate(_selectedDate);
-                            String formattedString = startDate.toString();
-                            DateTime date = DateTime.parse(formattedString);
-                            String dateString = date.day.toString() +
-                                date.month.toString() +
-                                date.year.toString();
-                            startDateToInt = int.parse(dateString);
-                          },
-                        )
-                      ],
-                    ))
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'To: ',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Card(
-                        child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          '${endDate?.toLocal()}'.split(' ')[0],
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        IconButton(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'From: ',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Card(
+                          child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            '${startDate?.toLocal()}'.split(' ')[0],
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          IconButton(
                             icon: const Icon(Icons.apps_outlined),
                             onPressed: () async {
-                              endDate = await getDate(_selectedDate);
-                              String formattedString = endDate.toString();
+                              startDate = await getDate(_selectedDate);
+                              String formattedString = startDate.toString();
                               DateTime date = DateTime.parse(formattedString);
                               String dateString = date.day.toString() +
                                   date.month.toString() +
                                   date.year.toString();
-                              endDateToInt = int.parse(dateString);
-                            })
-                      ],
-                    ))
-                  ],
-                ),
-              ],
-            ),
-            Card(
-                child: ListTile(
-                    title: const Text(
-                      'You can Contact: ',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    subtitle: Text(
-                      selectedName,
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                    trailing: PopupMenuButton(
-                        icon: const Icon(Icons.add),
-                        onSelected: (index) {
-                          setState(() {
-                            selectedEmployeeId = index as int;
-                            selectedName =
-                                employeeList.elementAt(selectedEmployeeId);
-                          });
-                        },
-                        itemBuilder: (BuildContext context) => List.generate(
-                              4,
-                              (index) => PopupMenuItem(
-                                  child: Text(employeeList.elementAt(index)),
-                                  value: employeeID.elementAt(index)),
-                            )))),
-            const Text(
-              "Reason",
-              style: TextStyle(fontSize: 20),
-            ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      maxLines: 5,
-                      decoration: const InputDecoration.collapsed(
-                        hintText: 'Enter reason',
+                              startDateToInt = int.parse(dateString);
+                            },
+                          )
+                        ],
+                      ))
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'To: ',
+                        style: TextStyle(fontSize: 20),
                       ),
-                      autofocus: true,
-                      controller: _textEditingController,
-                      keyboardType: TextInputType.multiline,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            reasonForLeave = _textEditingController.text;
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blueGrey),
+                      Card(
+                          child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 2,
                           ),
-                          child: const Text(
-                            'OK',
-                            style: TextStyle(fontSize: 20),
-                          )),
-                    )
-                  ],
+                          Text(
+                            '${endDate?.toLocal()}'.split(' ')[0],
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          IconButton(
+                              icon: const Icon(Icons.apps_outlined),
+                              onPressed: () async {
+                                endDate = await getDate(_selectedDate);
+                                String formattedString = endDate.toString();
+                                DateTime date =
+                                    DateTime.parse(formattedString);
+                                String dateString = date.day.toString() +
+                                    date.month.toString() +
+                                    date.year.toString();
+                                endDateToInt = int.parse(dateString);
+                              })
+                        ],
+                      ))
+                    ],
+                  ),
+                ],
+              ),
+              Card(
+                  child: ListTile(
+                      title: const Text(
+                        'You can Contact: ',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        selectedName,
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      trailing: PopupMenuButton(
+                          icon: const Icon(Icons.add),
+                          onSelected: (index) {
+                            setState(() {
+                              selectedEmployeeId = index as int;
+                              selectedName =
+                                  employeeList.elementAt(selectedEmployeeId);
+                            });
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              List.generate(
+                                4,
+                                (index) => PopupMenuItem(
+                                    child:
+                                        Text(employeeList.elementAt(index)),
+                                    value: employeeID.elementAt(index)),
+                              )))),
+              const Text(
+                "Reason",
+                style: TextStyle(fontSize: 20),
+              ),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        maxLines: 5,
+                        decoration: const InputDecoration.collapsed(
+                          hintText: 'Enter reason',
+                        ),
+                        autofocus: true,
+                        controller: _textEditingController,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              reasonForLeave = _textEditingController.text;
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blueGrey),
+                            ),
+                            child: const Text(
+                              'OK',
+                              style: TextStyle(fontSize: 20),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+
+                      },
+                      child: const Text(
+                        'CANCEL',
+                        style: TextStyle(fontSize: 20,color: Colors.blueGrey),
+                      )),
+                  ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.blueGrey),
                     ),
                     child: const Text(
-                      'CANCEL',
+                      'APPLY',
                       style: TextStyle(fontSize: 20),
-                    )),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
-                  ),
-                  child: const Text(
-                    'APPLY',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () async {
-                    LeaveRequestData leaveRequestData = LeaveRequestData(
-                        startDate: startDateToInt,
-                        endDate: endDateToInt,
-                        totalLeaves: 2.0,
-                        reason: _textEditingController.text,
-                        emergencyContactPerson: selectedEmployeeId);
+                    ),
+                    onPressed: () async {
+                      LeaveRequestData leaveRequestData = LeaveRequestData(
+                          startDate: startDateToInt,
+                          endDate: endDateToInt,
+                          totalLeaves: 2.0,
+                          reason: _textEditingController.text,
+                          emergencyContactPerson: selectedEmployeeId);
 
-                    await _apiService.applyForLeave(leaveRequestData);
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>EmployeeAllLeaves()));
-                  },
-                ),
-              ],
-            ),
-          ],
+                      await _apiService.applyForLeave(leaveRequestData);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EmployeeAllLeaves()));
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       )),
     );
