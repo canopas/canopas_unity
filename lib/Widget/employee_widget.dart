@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 
 class EmployeeWidget extends StatelessWidget {
   const EmployeeWidget({Key? key, required this.employee, required this.ontap})

@@ -21,7 +21,7 @@ class LeaveRequestData {
       required this.reason,
       required this.emergencyContactPerson});
 
-  Map<String, dynamic> leaveRequestDataToJson(
+  Map<String, dynamic> toJson(
           LeaveRequestData leaveRequestData) =>
       _$LeaveRequestDataToJson(this);
 }

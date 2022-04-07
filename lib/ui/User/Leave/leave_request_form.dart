@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/leave_request_data.dart';
+import 'package:projectunity/model/Leave/leave_request_data.dart';
 import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/employee_all_leaves.dart';
 

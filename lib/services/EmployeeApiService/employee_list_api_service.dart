@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';

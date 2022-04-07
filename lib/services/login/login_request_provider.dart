@@ -3,7 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:projectunity/model/login_request_data.dart';
+import 'package:projectunity/model/Login/login_request_data.dart';
 import 'package:projectunity/utils/constant.dart';
 import 'package:projectunity/utils/data_exception.dart';
 

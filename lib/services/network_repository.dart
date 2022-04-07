@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/services/EmployeeApiService/employee_detail_api_service.dart';
 import 'package:projectunity/services/EmployeeApiService/employee_list_api_service.dart';
 import 'package:projectunity/services/login/login_api_service.dart';

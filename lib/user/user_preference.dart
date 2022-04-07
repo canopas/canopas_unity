@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

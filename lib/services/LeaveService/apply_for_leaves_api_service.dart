@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/leave_request_data.dart';
+import 'package:projectunity/model/Leave/leave_request_data.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
 import 'package:projectunity/utils/data_exception.dart';
@@ -14,7 +14,7 @@ class ApplyForLeaveApiService {
 
   Future applyForLeave(LeaveRequestData leaveRequestData) async {
     String? accessToken = _userPreference.getAccessToken();
-    var data = leaveRequestData.leaveRequestDataToJson(leaveRequestData);
+    var data = leaveRequestData.toJson(leaveRequestData);
 
     Response response = await _dio.post(applyForLeaveApi,
         data: data, options: Options(headers: {kAccessToken: accessToken}));
