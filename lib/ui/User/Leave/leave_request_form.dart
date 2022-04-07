@@ -14,7 +14,6 @@ class LeaveRequestForm extends StatefulWidget {
 }
 
 class _LeaveRequestFormState extends State<LeaveRequestForm> {
-  Leave? _selectedLeave = Leave.fullDay;
   final DateTime _selectedDate = DateTime.now();
   DateTime? startDate = DateTime.now();
   DateTime? endDate = DateTime.now();
@@ -22,20 +21,23 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   int endDateToInt = 0;
   String selectedName = '';
   int selectedEmployeeId = 0;
-  late TextEditingController _textEditingController;
-  String reasonForLeave = '';
+  late TextEditingController _reasonEditingController;
+  late TextEditingController _leaveEditingController;
   final ApplyForLeaveApiService _apiService = getIt<ApplyForLeaveApiService>();
+  bool _hasBeenPressed = false;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController();
+    _reasonEditingController = TextEditingController();
+    _leaveEditingController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _textEditingController.dispose();
+    _reasonEditingController.dispose();
+    _leaveEditingController.dispose();
   }
 
   @override
@@ -52,6 +54,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
               const Text(
                 'Apply for Leaves: ',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+             const SizedBox(
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,6 +129,32 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                   ),
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                const Expanded(flex:2,child: Text('Total Leaves: ',style: TextStyle(fontSize: 20),)),
+                  Expanded(
+
+                    child:SizedBox(
+                      height: 50,
+                      child: Card(
+                        child: Padding(
+                          padding:const EdgeInsets.all(10),
+                          child: TextFormField(
+
+                            decoration: const InputDecoration.collapsed(
+                                hintText: 'leaves'
+                            ),
+                            keyboardType: TextInputType.number,
+                            controller: _leaveEditingController,
+                          ),
+                        ),
+                      ),
+                    )
+
+                  ),
+                ],
+              ),
               Card(
                   child: ListTile(
                       title: const Text(
@@ -166,24 +197,10 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           hintText: 'Enter reason',
                         ),
                         autofocus: true,
-                        controller: _textEditingController,
-                        keyboardType: TextInputType.multiline,
+                        controller: _reasonEditingController,
+                        keyboardType: TextInputType.text,
                       ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              reasonForLeave = _textEditingController.text;
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.blueGrey),
-                            ),
-                            child: const Text(
-                              'OK',
-                              style: TextStyle(fontSize: 20),
-                            )),
-                      )
+
                     ],
                   ),
                 ),
@@ -194,8 +211,11 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                   OutlinedButton(
                       onPressed: () {
                         Navigator.pop(context);
-
-                      },
+                        _hasBeenPressed= !_hasBeenPressed;
+                        },
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor:_hasBeenPressed? Colors.blueGrey:Colors.white54
+                      ),
                       child: const Text(
                         'CANCEL',
                         style: TextStyle(fontSize: 20,color: Colors.blueGrey),
@@ -213,8 +233,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                       LeaveRequestData leaveRequestData = LeaveRequestData(
                           startDate: startDateToInt,
                           endDate: endDateToInt,
-                          totalLeaves: 2.0,
-                          reason: _textEditingController.text,
+                          totalLeaves: double.parse(_leaveEditingController.text),
+                          reason: _reasonEditingController.text,
                           emergencyContactPerson: selectedEmployeeId);
 
                       await _apiService.applyForLeave(leaveRequestData);

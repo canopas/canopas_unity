@@ -20,7 +20,7 @@ class EmployeeDetailApiService {
           options: Options(headers: {kAccessToken: accessToken}));
       if (response.statusCode == 200) {
         Map<String, dynamic> data = response.data;
-        Employee employee = Employee.fromJson(data);
+        Employee? employee = Employee.fromJson(data);
         return employee;
       } else {
         throw DataException('Unable to load Employee Detail');
