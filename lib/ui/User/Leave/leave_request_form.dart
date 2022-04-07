@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/Leave/leave_request_data.dart';
+import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/employee_all_leaves.dart';
 
@@ -52,7 +54,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Apply for Leaves: ',
+                'Apply for Leaves ',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
              const SizedBox(
@@ -230,18 +232,24 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () async {
-                      LeaveRequestData leaveRequestData = LeaveRequestData(
-                          startDate: startDateToInt,
-                          endDate: endDateToInt,
-                          totalLeaves: double.parse(_leaveEditingController.text),
-                          reason: _reasonEditingController.text,
-                          emergencyContactPerson: selectedEmployeeId);
+                      try{
+                        LeaveRequestData leaveRequestData = LeaveRequestData(
+                            startDate: startDateToInt,
+                            endDate: endDateToInt,
+                            totalLeaves: double.parse(_leaveEditingController.text),
+                            reason: _reasonEditingController.text,
+                            emergencyContactPerson: selectedEmployeeId);
 
-                      await _apiService.applyForLeave(leaveRequestData);
+                        await _apiService.applyForLeave(leaveRequestData);
+                      }on Exception catch (error){
+                        showErrorBanner('Please fill all details', context);
+                       throw DataException(error.toString());
+                      }
+
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EmployeeAllLeaves()));
+                              builder: (context) => const EmployeeAllLeaves()));
                     },
                   ),
                 ],

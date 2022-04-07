@@ -10,6 +10,6 @@ class EmployeeAllLeaves extends StatefulWidget {
 class _EmployeeAllLeavesState extends State<EmployeeAllLeaves> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(child: Text('all leaves'));
   }
 }
