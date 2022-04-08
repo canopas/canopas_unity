@@ -17,20 +17,31 @@ class LoginBloc {
 
   LoginBloc(this._networkRepository);
 
-  final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
+  final _loginSubject = PublishSubject<ApiResponse<GoogleSignInAccount?>>();
 
-  BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
+  PublishSubject<ApiResponse<GoogleSignInAccount?>> get loginResponse => _loginSubject;
+
+  isLogin() {
+    googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? currentUser) {
+        _loginSubject.sink.add( ApiResponse.completed(data: currentUser));
+
+      print('already have a account');
+    });
+    googleSignIn.signInSilently();
+  }
 
   signInWithGoogle() async {
     try {
-      GoogleSignInAccount? account = await googleSignIn.signIn();
+     GoogleSignInAccount?  account = await googleSignIn.signIn();
+      print('Google SigninAccount in loginbloc');
       if (account != null) {
         GoogleSignInAuthentication googleKey = await account.authentication;
         String? googleIdToken = googleKey.idToken!;
         String email = account.email;
         _loginSubject.sink.add(const ApiResponse.loading());
         await _networkRepository.googleLogin(googleIdToken, email);
-        _loginSubject.sink.add(const ApiResponse.completed(data: true));
+        print('try to fetch account detail in login bloc');
+        _loginSubject.sink.add(ApiResponse.completed(data: account));
       } else {
         _loginSubject.sink
             .add(const ApiResponse.error(message: 'user not found'));

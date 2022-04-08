@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:projectunity/di/service_locator.dart';
 import '../../rest/api_response.dart';
 import '../../ViewModel/login_bloc.dart';
@@ -18,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    _bloc.isLogin();
   }
 
   @override
@@ -28,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -40,18 +43,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   fit: BoxFit.cover,
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 40, vertical: 50),
                   child: Text(
                     'To Continue with Unity please login here...',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    style:
+                    TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0),
                   child: OutlinedButton(
                     style: TextButton.styleFrom(
-                        side: const BorderSide(color: Colors.grey, width: 3),
+                        side: const BorderSide(
+                            color: Colors.grey, width: 3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         )),
@@ -65,49 +72,60 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Expanded(
                               child: Image.asset(
-                            'assets/images/google_logo.png',
-                            fit: BoxFit.cover,
-                          )),
+                                'assets/images/google_logo.png',
+                                fit: BoxFit.cover,
+                              )),
                           const SizedBox(
                             width: 10,
                           ),
                           const Text('Sign in with Google',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 25)),
+                              style: TextStyle(
+                                  color: Colors.grey, fontSize: 25)),
+                    StreamBuilder<ApiResponse<GoogleSignInAccount?>>(
+                        stream: _bloc.loginResponse,
+                        initialData: const ApiResponse.idle(),
+                        builder: (context, snapshot) {
+                          print('loginScreen: '+snapshot.data.toString());
+                          return snapshot.data!.when(idle: () {
+                            return Container();
+                          }, loading: () {
+                            return const Center(child: CircularProgressIndicator());
+                          }, completed: (account) {
+                            if (account != null) {
+                              print('user has been navigate to homeScreen');
+                              SchedulerBinding.instance?.addPostFrameCallback((_) {
+                                Navigator.pushNamed(context, '/homeScreen');
+
+                              });
+
+                            } return Container();
+                          }, error: (String error) {
+                            SchedulerBinding.instance?.addPostFrameCallback((_) {
+                              showErrorBanner(error, context);
+                            });
+
+                            return Container();
+                          });
+                        }),
                         ],
                       ),
                     ),
                   ),
                 ),
-                StreamBuilder<ApiResponse<bool>>(
-                    stream: _bloc.loginResponse,
-                    initialData: const ApiResponse.idle(),
-                    builder: (context, snapshot) {
-                      return snapshot.data!.when(idle: () {
-                        return Container();
-                      }, loading: () {
-                        return const Center(child: CircularProgressIndicator());
-                      }, completed: (bool success) {
-                        bool userSignIn = success;
-                        if (userSignIn) {
-                          SchedulerBinding.instance?.addPostFrameCallback((_) {
-                            Navigator.pushNamed(context, '/homeScreen');
-                          });
-                        }
-                        return Container();
-                      }, error: (String error) {
-                        SchedulerBinding.instance?.addPostFrameCallback((_) {
-                          showErrorBanner(error, context);
-                        });
-
-                        return Container();
-                      });
-                    }),
               ],
             ),
           ),
         ),
       ),
     );
+
   }
 }
+
+
+
+
+
+
+
+
