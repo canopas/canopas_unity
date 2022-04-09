@@ -5,7 +5,6 @@ import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/constant.dart';
 import 'package:projectunity/utils/data_exception.dart';
 
-
 @Injectable()
 class EmployeeListApiService {
   final Dio _dio;

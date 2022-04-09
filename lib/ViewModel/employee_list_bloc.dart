@@ -10,8 +10,8 @@ class EmployeeListBloc {
 
   EmployeeListBloc(this._networkRepository);
 
-  final BehaviorSubject<ApiResponse<List<Employee>>> _employeeList =
-      BehaviorSubject<ApiResponse<List<Employee>>>();
+  final PublishSubject<ApiResponse<List<Employee>>> _employeeList =
+      PublishSubject<ApiResponse<List<Employee>>>();
 
   Stream<ApiResponse<List<Employee>>> get allEmployee => _employeeList.stream;
 
@@ -20,7 +20,6 @@ class EmployeeListBloc {
     try {
       List<Employee> list = await _networkRepository.getEmployeeListFromRepo();
       _employeeList.sink.add(ApiResponse.completed(data: list));
-
     } on Exception catch (error) {
       _employeeList.sink.add(ApiResponse.error(message: error.toString()));
     }

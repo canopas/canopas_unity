@@ -6,7 +6,6 @@ import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/services/network_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-
 @Singleton()
 class EmployeeDetailBloc {
   final NetworkRepository _networkRepository;

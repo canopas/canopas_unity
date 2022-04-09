@@ -52,6 +52,7 @@ mixin _$ApiResponse<T> {
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
@@ -60,6 +61,7 @@ mixin _$ApiResponse<T> {
     TResult Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
@@ -69,6 +71,7 @@ mixin _$ApiResponse<T> {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Idle<T> value) idle,
@@ -77,6 +80,7 @@ mixin _$ApiResponse<T> {
     required TResult Function(Failure<T> value) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
@@ -85,6 +89,7 @@ mixin _$ApiResponse<T> {
     TResult Function(Failure<T> value)? error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
@@ -109,6 +114,7 @@ class _$ApiResponseCopyWithImpl<T, $Res>
   _$ApiResponseCopyWithImpl(this._value, this._then);
 
   final ApiResponse<T> _value;
+
   // ignore: unused_field
   final $Res Function(ApiResponse<T>) _then;
 }
@@ -345,6 +351,7 @@ abstract class Loading<T> implements ApiResponse<T> {
 abstract class $SuccessCopyWith<T, $Res> {
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) then) =
       _$SuccessCopyWithImpl<T, $Res>;
+
   $Res call({T data});
 }
 
@@ -479,6 +486,7 @@ abstract class Success<T> implements ApiResponse<T> {
   const factory Success({required T data}) = _$Success<T>;
 
   T get data;
+
   @JsonKey(ignore: true)
   $SuccessCopyWith<T, Success<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -488,6 +496,7 @@ abstract class Success<T> implements ApiResponse<T> {
 abstract class $FailureCopyWith<T, $Res> {
   factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) then) =
       _$FailureCopyWithImpl<T, $Res>;
+
   $Res call({String message});
 }
 
@@ -622,6 +631,7 @@ abstract class Failure<T> implements ApiResponse<T> {
   const factory Failure({required String message}) = _$Failure<T>;
 
   String get message;
+
   @JsonKey(ignore: true)
   $FailureCopyWith<T, Failure<T>> get copyWith =>
       throw _privateConstructorUsedError;
