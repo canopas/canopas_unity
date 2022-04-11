@@ -19,4 +19,9 @@ class UserManager {
     String? imageUrl = employee?.imageUrl;
     return imageUrl;
   }
+
+  Employee? isUserLogged() {
+    Employee? user = employee;
+    return user;
+  }
 }
