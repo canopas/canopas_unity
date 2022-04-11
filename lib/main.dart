@@ -19,7 +19,7 @@ void main() async {
         '/leaveScreen': (context) => const LeaveScreen(),
         '/settingScreen': (context) => const SettingScreen(),
       },
-      initialRoute: '/rootScreen',
+      initialRoute: '/',
     ),
   );
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:projectunity/rest/api_response.dart';
-import 'package:projectunity/ui/User/home_screen.dart';
+import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'ViewModel/welcome_bloc.dart';
 import 'Widget/error_banner.dart';
@@ -48,7 +48,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
+                          builder: (context) => const EmployeeListScreen()));
                 });
               }
               return Container();
