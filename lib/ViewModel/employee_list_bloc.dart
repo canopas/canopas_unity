@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/model/Employee/employee.dart';
+import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/services/network_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -10,10 +10,10 @@ class EmployeeListBloc {
 
   EmployeeListBloc(this._networkRepository);
 
-  final PublishSubject<ApiResponse<List<Employee>>> _employeeList =
-      PublishSubject<ApiResponse<List<Employee>>>();
+  final BehaviorSubject<ApiResponse<List<Employee>>> _employeeList =
+      BehaviorSubject<ApiResponse<List<Employee>>>();
 
-  Stream<ApiResponse<List<Employee>>> get allEmployee => _employeeList.stream;
+  BehaviorSubject<ApiResponse<List<Employee>>> get allEmployee => _employeeList;
 
   getEmployeeList() async {
     _employeeList.sink.add(const ApiResponse.loading());

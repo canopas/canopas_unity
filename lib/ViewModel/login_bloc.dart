@@ -2,6 +2,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../services/network_repository.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
@@ -15,9 +16,9 @@ class LoginBloc {
 
   LoginBloc(this._networkRepository);
 
-  final _loginSubject = PublishSubject<ApiResponse<bool>>();
+  final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
 
-  PublishSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
+  BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
 
   signInWithGoogle() async {
     try {
