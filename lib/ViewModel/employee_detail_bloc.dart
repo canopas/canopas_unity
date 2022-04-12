@@ -6,17 +6,16 @@ import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/services/network_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-
 @Singleton()
 class EmployeeDetailBloc {
   final NetworkRepository _networkRepository;
 
   EmployeeDetailBloc(this._networkRepository);
 
-  final PublishSubject<ApiResponse<Employee>> _employee =
-      PublishSubject<ApiResponse<Employee>>();
+  final BehaviorSubject<ApiResponse<Employee>> _employee =
+      BehaviorSubject<ApiResponse<Employee>>();
 
-  PublishSubject<ApiResponse<Employee>> get employeeDetail => _employee;
+  BehaviorSubject<ApiResponse<Employee>> get employeeDetail => _employee;
 
   Future getEmployeeDetailByID(int id) async {
     _employee.sink.add(const ApiResponse.loading());

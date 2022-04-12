@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/utils/constant.dart';
@@ -35,5 +36,4 @@ class UserPreference {
   void setRefreshToken(String? refreshToken) {
     _preferences.setString(userPrefKeyRefreshToken, refreshToken ?? "");
   }
-
 }

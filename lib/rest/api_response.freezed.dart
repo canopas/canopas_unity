@@ -52,7 +52,6 @@ mixin _$ApiResponse<T> {
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
@@ -61,7 +60,6 @@ mixin _$ApiResponse<T> {
     TResult Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,

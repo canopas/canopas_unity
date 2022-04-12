@@ -74,35 +74,38 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Text('Sign in with Google',
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 25)),
+                          StreamBuilder<ApiResponse<bool>>(
+                              stream: _bloc.loginResponse,
+                              initialData: const ApiResponse.idle(),
+                              builder: (context, snapshot) {
+                                return snapshot.data!.when(idle: () {
+                                  return Container();
+                                }, loading: () {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }, completed: (bool hasAccount) {
+                                  if (hasAccount) {
+                                    SchedulerBinding.instance
+                                        ?.addPostFrameCallback((_) {
+                                      Navigator.pushNamed(
+                                          context, '/homeScreen');
+                                    });
+                                  }
+                                  return Container();
+                                }, error: (String error) {
+                                  SchedulerBinding.instance
+                                      ?.addPostFrameCallback((_) {
+                                    showErrorBanner(error, context);
+                                  });
+
+                                  return Container();
+                                });
+                              }),
                         ],
                       ),
                     ),
                   ),
                 ),
-                StreamBuilder<ApiResponse<bool>>(
-                    stream: _bloc.loginResponse,
-                    initialData: const ApiResponse.idle(),
-                    builder: (context, snapshot) {
-                      return snapshot.data!.when(idle: () {
-                        return Container();
-                      }, loading: () {
-                        return const Center(child: CircularProgressIndicator());
-                      }, completed: (bool success) {
-                        bool userSignIn = success;
-                        if (userSignIn) {
-                          SchedulerBinding.instance?.addPostFrameCallback((_) {
-                            Navigator.pushNamed(context, '/homeScreen');
-                          });
-                        }
-                        return Container();
-                      }, error: (String error) {
-                        SchedulerBinding.instance?.addPostFrameCallback((_) {
-                          showErrorBanner(error, context);
-                        });
-
-                        return Container();
-                      });
-                    }),
               ],
             ),
           ),
