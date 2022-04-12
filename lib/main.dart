@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/ui/User/Leave/leave_screen.dart';
 import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
@@ -12,7 +11,7 @@ void main() async {
   await configureDependencies();
   runApp(MaterialApp(
     title: 'ProjectUnity Flutter',
-    home: const MyApp(),
+    home: MyApp(),
     routes: {
       '/loginScreen': (context) => const LoginScreen(),
       '/homeScreen': (context) => const HomeScreen(),
@@ -22,26 +21,14 @@ void main() async {
   ));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  final UserManager _userManager = getIt<UserManager>();
 
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  UserManager userManager = getIt<UserManager>();
-  Employee? user;
-
-  @override
-  void initState() {
-    super.initState();
-    user = userManager.employee;
-  }
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (user == null) {
+    if (_userManager.employee == null) {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
         Navigator.pushNamed(context, '/loginScreen');
       });
