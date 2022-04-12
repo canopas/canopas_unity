@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
 import 'package:projectunity/user/user_manager.dart';
 
 import 'leave_request_form.dart';
@@ -27,13 +29,18 @@ class _LeaveScreenState extends State<LeaveScreen> {
                 fontSize: 30, color: Colors.black, fontWeight: FontWeight.w500),
           ),
           const Text(
-            'You have 10 leaves in your account ',
+            'View your  ',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 30, color: Colors.grey, fontWeight: FontWeight.w500),
           ),
           OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AllLeavesUserScreen()));
+              },
               child: const Text('All Leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
               style: ElevatedButton.styleFrom(
@@ -42,14 +49,19 @@ class _LeaveScreenState extends State<LeaveScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(10))),
           OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UpComingLeavesUserScreen()));
+              },
               child: const Text('Upcoming leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
               style: ElevatedButton.styleFrom(
                   shadowColor: Colors.blueGrey[100],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  padding:const EdgeInsets.all(10))),
+                  padding: const EdgeInsets.all(10))),
           OutlinedButton(
               onPressed: () {},
               child: const Text('Team Leaves',

@@ -4,7 +4,7 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/Leave/leave_request_data.dart';
 import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
-import 'package:projectunity/ui/User/Leave/LeaveDetail/employee_all_leaves.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 
 enum Leave { fullDay, firstHalf, secondHalf }
 
@@ -245,16 +245,15 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                     emergencyContactPerson: selectedEmployeeId);
 
                             await _apiService.applyForLeave(leaveRequestData);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AllLeavesUserScreen()));
                           } on Exception catch (error) {
                             showErrorBanner('Please fill all details', context);
                             throw DataException(error.toString());
                           }
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const EmployeeAllLeaves()));
                         },
                       ),
                     ],
