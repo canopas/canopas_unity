@@ -4,6 +4,7 @@ import 'package:projectunity/model/Leave/leave_detail.dart';
 import 'package:projectunity/services/EmployeeApiService/employee_detail_api_service.dart';
 import 'package:projectunity/services/EmployeeApiService/employee_list_api_service.dart';
 import 'package:projectunity/services/LeaveService/logged_in_user_api_service.dart';
+import 'package:projectunity/services/LeaveService/team_leaves_api_service.dart';
 import 'package:projectunity/services/login/login_api_service.dart';
 
 @Injectable()
@@ -12,9 +13,14 @@ class NetworkRepository {
   final EmployeeListApiService _employeeListApiService;
   final EmployeeDetailApiService _employeeDetailByID;
   final UserLeavesApiService _userLeavesApiService;
+  final TeamLeavesApiService _teamLeavesApiService;
 
-  NetworkRepository(this._loginApiService, this._employeeListApiService,
-      this._employeeDetailByID, this._userLeavesApiService);
+  NetworkRepository(
+      this._loginApiService,
+      this._employeeListApiService,
+      this._employeeDetailByID,
+      this._userLeavesApiService,
+      this._teamLeavesApiService);
 
   Future googleLogin(String googleIdToken, String email) {
     return _loginApiService.login(googleIdToken, email);
@@ -30,5 +36,9 @@ class NetworkRepository {
 
   Future<LeaveDetail> getLeavesOfUserFromRepo() {
     return _userLeavesApiService.getUserLeaves();
+  }
+
+  Future<LeaveDetail> getTeamLeavesFromRepo() {
+    return _teamLeavesApiService.getTeamLeaves();
   }
 }

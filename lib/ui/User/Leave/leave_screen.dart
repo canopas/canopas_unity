@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/team_leaves.dart';
 import 'package:projectunity/user/user_manager.dart';
 
 import 'leave_request_form.dart';
@@ -53,7 +54,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UpComingLeavesUserScreen()));
+                        builder: (context) =>
+                            const UpComingLeavesUserScreen()));
               },
               child: const Text('Upcoming leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
@@ -63,14 +65,19 @@ class _LeaveScreenState extends State<LeaveScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(10))),
           OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TeamLeavesScreen()));
+              },
               child: const Text('Team Leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
               style: ElevatedButton.styleFrom(
                   shadowColor: Colors.blueGrey[100],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  padding:const  EdgeInsets.all(10))),
+                  padding: const EdgeInsets.all(10))),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SizedBox(
