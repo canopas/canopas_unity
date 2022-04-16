@@ -5,17 +5,22 @@ import 'package:projectunity/user/user_preference.dart';
 @Singleton()
 class UserManager {
   final UserPreference _userPreference;
-  Employee? employee;
 
-  UserManager(this._userPreference)
-      : employee = _userPreference.getCurrentUser();
+  UserManager(this._userPreference);
+
+  Employee? getEmployee() {
+    final employee = _userPreference.getCurrentUser();
+    return employee;
+  }
 
   String? getUserName() {
+    final employee = getEmployee();
     String? name = employee?.name;
     return name;
   }
 
   String? getUserImage() {
+    final employee = getEmployee();
     String? imageUrl = employee?.imageUrl;
     return imageUrl;
   }

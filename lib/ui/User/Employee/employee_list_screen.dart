@@ -37,7 +37,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body:Padding(
+        body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 50, 15, 0),
           child: SingleChildScrollView(
             child:
@@ -112,7 +112,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                   }),
             ]),
           ),
-        ) ,
+        ),
       ),
     );
   }
