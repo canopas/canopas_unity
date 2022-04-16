@@ -32,10 +32,11 @@ class LeaveWidget extends StatelessWidget {
                         style: const TextStyle(fontSize: 20)),
                     Text('Reason: ${leave.reason}',
                         style: const TextStyle(fontSize: 20)),
-                    Text('Proxy: ${leave.emergencyContactPerson}',
-                        style: const TextStyle(fontSize: 20)),
-                    Text('Status: ${leave.status} ',
-                        style: const TextStyle(fontSize: 20))
+                    leave.status == 1
+                        ? const Text('Status: Pending',
+                            style: TextStyle(fontSize: 20))
+                        : const Text('Status: Approved',
+                            style: TextStyle(fontSize: 20))
                   ]),
             ),
           );
