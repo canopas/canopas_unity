@@ -24,6 +24,7 @@ dependencies:
   bloc: ^8.0.3
   freezed: ^1.1.1
   freezed_annotation: ^1.1.0
+  intl: ^0.17.0
 
 
 dev_dependencies:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/Leave/leave_request_data.dart';
@@ -77,7 +78,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                 width: 2,
                               ),
                               Text(
-                                '${startDate?.toLocal()}'.split(' ')[0],
+                                DateFormat.yMMMd().format(startDate!),
                                 style: const TextStyle(fontSize: 20),
                               ),
                               IconButton(
@@ -111,7 +112,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                 width: 2,
                               ),
                               Text(
-                                '${endDate?.toLocal()}'.split(' ')[0],
+                                DateFormat.yMMMd().format(endDate!),
                                 style: const TextStyle(fontSize: 20),
                               ),
                               IconButton(
