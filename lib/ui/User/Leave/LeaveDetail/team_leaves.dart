@@ -70,9 +70,9 @@ class _TeamLeavesScreenState extends State<TeamLeavesScreen> {
                     List<Leave>? allLeaves = leaveDetail.all;
                     List<Leave>? upcomingLeaves = leaveDetail.upcoming;
                     return TabBarView(children: [
-                      TeamAllLeavesScreen(allLeavesList: allLeaves),
+                      TeamAllLeavesScreen(leaveList: allLeaves),
                       TeamUpcomingLeavesScreen(
-                        upcomingLeavesList: upcomingLeaves,
+                        leaveList: upcomingLeaves,
                       ),
                     ]);
                   },

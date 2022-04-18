@@ -85,13 +85,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                 icon: const Icon(Icons.apps_outlined),
                                 onPressed: () async {
                                   startDate = await getDate(_selectedDate);
-                                  String formattedString = startDate.toString();
-                                  DateTime date =
-                                      DateTime.parse(formattedString);
-                                  String dateString = date.day.toString() +
-                                      date.month.toString() +
-                                      date.year.toString();
-                                  startDateToInt = int.parse(dateString);
+                                  String formattedDate = startDate.toString();
+                                  DateTime date = DateTime.parse(formattedDate);
+                                  startDateToInt = date.microsecondsSinceEpoch;
                                 },
                               )
                             ],
@@ -119,13 +115,10 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                   icon: const Icon(Icons.apps_outlined),
                                   onPressed: () async {
                                     endDate = await getDate(_selectedDate);
-                                    String formattedString = endDate.toString();
                                     DateTime date =
-                                        DateTime.parse(formattedString);
-                                    String dateString = date.day.toString() +
-                                        date.month.toString() +
-                                        date.year.toString();
-                                    endDateToInt = int.parse(dateString);
+                                        DateTime.parse(endDate.toString());
+
+                                    endDateToInt = date.microsecondsSinceEpoch;
                                   })
                             ],
                           ))

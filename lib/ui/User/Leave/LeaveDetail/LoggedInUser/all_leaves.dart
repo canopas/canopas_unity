@@ -44,7 +44,17 @@ class _AllLeavesUserScreenState extends State<AllLeavesUserScreen> {
               return const Center(child: CircularProgressIndicator());
             }, completed: (LeaveDetail leaveDetail) {
               List<Leave>? allLeaves = leaveDetail.all;
-              return LeaveWidget(leaveList: allLeaves);
+              if (allLeaves.isEmpty) {
+                return const Center(
+                  child: Text('No any leave'),
+                );
+              }
+              return ListView.builder(
+                  itemCount: allLeaves.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Leave leave = allLeaves[index];
+                    return LeaveWidget(leave: leave);
+                  });
             }, error: (String error) {
               SchedulerBinding.instance?.addPostFrameCallback((_) {
                 showErrorBanner(error, context);

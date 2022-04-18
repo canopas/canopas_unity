@@ -44,7 +44,18 @@ class _UpComingLeavesUserScreenState extends State<UpComingLeavesUserScreen> {
                 loading: () => const Center(child: CircularProgressIndicator()),
                 completed: (LeaveDetail leaveDetail) {
                   List<Leave> upcomingLeaves = leaveDetail.upcoming;
-                  return LeaveWidget(leaveList: upcomingLeaves);
+                  if (upcomingLeaves.isEmpty) {
+                    return const Center(
+                      child: Text('No any leave'),
+                    );
+                  }
+
+                  return ListView.builder(
+                      itemCount: upcomingLeaves.length,
+                      itemBuilder: (context, index) {
+                        Leave leave = upcomingLeaves[index];
+                        return LeaveWidget(leave: leave);
+                      });
                 },
                 error: (String error) {
                   SchedulerBinding.instance?.addPostFrameCallback((_) {

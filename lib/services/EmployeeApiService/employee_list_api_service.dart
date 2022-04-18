@@ -20,7 +20,6 @@ class EmployeeListApiService {
           options: Options(headers: {kAccessToken: accessToken}));
       if (response.statusCode == 200) {
         List<dynamic> parsedData = response.data;
-
         List<Employee> userList =
             parsedData.map((user) => Employee.fromJson(user)).toList();
         return userList;
