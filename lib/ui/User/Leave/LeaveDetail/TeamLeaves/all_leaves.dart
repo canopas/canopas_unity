@@ -9,16 +9,11 @@ class TeamAllLeavesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: leaveList.length,
-        itemBuilder: (context, index) {
-          Leave leave = leaveList[index];
-          if (leaveList.isEmpty) {
-            return const Center(
-              child: Text('No any leave'),
-            );
-          }
-          return LeaveWidget(leave: leave);
-        });
+    if (leaveList.isEmpty) {
+      return const Center(
+        child: Text('No any leave'),
+      );
+    }
+    return LeaveWidget(leaveList: leaveList);
   }
 }

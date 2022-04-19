@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:projectunity/ViewModel/all_leaves_user_bloc.dart';
+import 'package:projectunity/ViewModel/employee_detail_bloc.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/Widget/leave_widget.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -17,6 +18,7 @@ class AllLeavesUserScreen extends StatefulWidget {
 
 class _AllLeavesUserScreenState extends State<AllLeavesUserScreen> {
   final _bloc = getIt<AllLeavesUserBloc>();
+  final _employeeBloc = getIt<EmployeeDetailBloc>();
 
   @override
   void initState() {
@@ -49,12 +51,10 @@ class _AllLeavesUserScreenState extends State<AllLeavesUserScreen> {
                   child: Text('No any leave'),
                 );
               }
-              return ListView.builder(
-                  itemCount: allLeaves.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Leave leave = allLeaves[index];
-                    return LeaveWidget(leave: leave);
-                  });
+
+              _employeeBloc.getEmployeeDetailByID(1);
+
+              return LeaveWidget(leaveList: allLeaves);
             }, error: (String error) {
               SchedulerBinding.instance?.addPostFrameCallback((_) {
                 showErrorBanner(error, context);

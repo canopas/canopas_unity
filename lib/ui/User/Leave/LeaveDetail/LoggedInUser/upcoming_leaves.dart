@@ -50,12 +50,7 @@ class _UpComingLeavesUserScreenState extends State<UpComingLeavesUserScreen> {
                     );
                   }
 
-                  return ListView.builder(
-                      itemCount: upcomingLeaves.length,
-                      itemBuilder: (context, index) {
-                        Leave leave = upcomingLeaves[index];
-                        return LeaveWidget(leave: leave);
-                      });
+                  return LeaveWidget(leaveList: upcomingLeaves);
                 },
                 error: (String error) {
                   SchedulerBinding.instance?.addPostFrameCallback((_) {

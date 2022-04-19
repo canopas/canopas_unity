@@ -14,6 +14,9 @@ class EmployeeListBloc {
       BehaviorSubject<ApiResponse<List<Employee>>>();
 
   BehaviorSubject<ApiResponse<List<Employee>>> get allEmployee => _employeeList;
+  BehaviorSubject<String> _selectedName = BehaviorSubject<String>();
+
+  Stream<String> get emplyeeName => _selectedName.stream;
 
   getEmployeeList() async {
     _employeeList.sink.add(const ApiResponse.loading());

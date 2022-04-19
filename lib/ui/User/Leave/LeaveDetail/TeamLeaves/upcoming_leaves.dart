@@ -15,11 +15,6 @@ class TeamUpcomingLeavesScreen extends StatelessWidget {
         child: Text('No any leave'),
       );
     }
-    return ListView.builder(
-        itemCount: leaveList.length,
-        itemBuilder: (context, index) {
-          Leave leave = leaveList[index];
-          return LeaveWidget(leave: leave);
-        });
+          return LeaveWidget(leaveList: leaveList);
   }
 }

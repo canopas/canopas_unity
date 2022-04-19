@@ -12,7 +12,7 @@ class TeamLeavesBloc {
 
   final _allLeaves = BehaviorSubject<ApiResponse<LeaveDetail>>();
 
-  BehaviorSubject<ApiResponse<LeaveDetail>> get allTeamLeaves => _allLeaves;
+  Stream<ApiResponse<LeaveDetail>> get allTeamLeaves => _allLeaves.stream;
 
   getTeamLeaves() async {
     _allLeaves.sink.add(const ApiResponse.loading());
