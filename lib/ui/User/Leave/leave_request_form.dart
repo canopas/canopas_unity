@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/Leave/leave_request_data.dart';
 import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
-import 'package:projectunity/ui/User/Leave/LeaveDetail/employee_all_leaves.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 
 enum Leave { fullDay, firstHalf, secondHalf }
 
@@ -77,20 +78,16 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                 width: 2,
                               ),
                               Text(
-                                '${startDate?.toLocal()}'.split(' ')[0],
+                                DateFormat.yMMMd().format(startDate!),
                                 style: const TextStyle(fontSize: 20),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.apps_outlined),
                                 onPressed: () async {
                                   startDate = await getDate(_selectedDate);
-                                  String formattedString = startDate.toString();
-                                  DateTime date =
-                                      DateTime.parse(formattedString);
-                                  String dateString = date.day.toString() +
-                                      date.month.toString() +
-                                      date.year.toString();
-                                  startDateToInt = int.parse(dateString);
+                                  String formattedDate = startDate.toString();
+                                  DateTime date = DateTime.parse(formattedDate);
+                                  startDateToInt = date.microsecondsSinceEpoch;
                                 },
                               )
                             ],
@@ -111,20 +108,17 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                 width: 2,
                               ),
                               Text(
-                                '${endDate?.toLocal()}'.split(' ')[0],
+                                DateFormat.yMMMd().format(endDate!),
                                 style: const TextStyle(fontSize: 20),
                               ),
                               IconButton(
                                   icon: const Icon(Icons.apps_outlined),
                                   onPressed: () async {
                                     endDate = await getDate(_selectedDate);
-                                    String formattedString = endDate.toString();
                                     DateTime date =
-                                        DateTime.parse(formattedString);
-                                    String dateString = date.day.toString() +
-                                        date.month.toString() +
-                                        date.year.toString();
-                                    endDateToInt = int.parse(dateString);
+                                        DateTime.parse(endDate.toString());
+
+                                    endDateToInt = date.microsecondsSinceEpoch;
                                   })
                             ],
                           ))
@@ -245,16 +239,15 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                     emergencyContactPerson: selectedEmployeeId);
 
                             await _apiService.applyForLeave(leaveRequestData);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AllLeavesUserScreen()));
                           } on Exception catch (error) {
                             showErrorBanner('Please fill all details', context);
                             throw DataException(error.toString());
                           }
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const EmployeeAllLeaves()));
                         },
                       ),
                     ],

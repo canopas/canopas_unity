@@ -12,16 +12,20 @@ import 'package:shared_preferences/shared_preferences.dart' as _i6;
 import '../services/EmployeeApiService/employee_detail_api_service.dart' as _i9;
 import '../services/EmployeeApiService/employee_list_api_service.dart' as _i10;
 import '../services/LeaveService/apply_for_leaves_api_service.dart' as _i8;
+import '../services/LeaveService/logged_in_user_api_service.dart' as _i13;
+import '../services/LeaveService/team_leaves_api_service.dart' as _i12;
 import '../services/login/login_api_service.dart' as _i11;
 import '../services/login/login_request_provider.dart' as _i4;
 import '../services/login/login_service.dart' as _i5;
-import '../services/network_repository.dart' as _i12;
-import '../user/user_manager.dart' as _i13;
+import '../services/network_repository.dart' as _i15;
+import '../user/user_manager.dart' as _i14;
 import '../user/user_preference.dart' as _i7;
-import '../ViewModel/employee_detail_bloc.dart' as _i14;
-import '../ViewModel/employee_list_bloc.dart' as _i15;
-import '../ViewModel/login_bloc.dart' as _i16;
-import 'AppModule.dart' as _i17; // ignore_for_file: unnecessary_lambdas
+import '../ViewModel/all_leaves_user_bloc.dart' as _i17;
+import '../ViewModel/employee_detail_bloc.dart' as _i18;
+import '../ViewModel/employee_list_bloc.dart' as _i19;
+import '../ViewModel/login_bloc.dart' as _i20;
+import '../ViewModel/team_leaves_bloc.dart' as _i16;
+import 'AppModule.dart' as _i21; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -46,17 +50,27 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       _i10.EmployeeListApiService(get<_i3.Dio>(), get<_i7.UserPreference>()));
   gh.factory<_i11.LoginApiService>(() => _i11.LoginApiService(
       get<_i7.UserPreference>(), get<_i3.Dio>(), get<_i5.LoginService>()));
-  gh.factory<_i12.NetworkRepository>(() => _i12.NetworkRepository(
+  gh.singleton<_i12.TeamLeavesApiService>(
+      _i12.TeamLeavesApiService(get<_i3.Dio>(), get<_i7.UserPreference>()));
+  gh.singleton<_i13.UserLeavesApiService>(
+      _i13.UserLeavesApiService(get<_i3.Dio>(), get<_i7.UserPreference>()));
+  gh.singleton<_i14.UserManager>(_i14.UserManager(get<_i7.UserPreference>()));
+  gh.factory<_i15.NetworkRepository>(() => _i15.NetworkRepository(
       get<_i11.LoginApiService>(),
       get<_i10.EmployeeListApiService>(),
-      get<_i9.EmployeeDetailApiService>()));
-  gh.singleton<_i13.UserManager>(_i13.UserManager(get<_i7.UserPreference>()));
-  gh.singleton<_i14.EmployeeDetailBloc>(
-      _i14.EmployeeDetailBloc(get<_i12.NetworkRepository>()));
-  gh.singleton<_i15.EmployeeListBloc>(
-      _i15.EmployeeListBloc(get<_i12.NetworkRepository>()));
-  gh.singleton<_i16.LoginBloc>(_i16.LoginBloc(get<_i12.NetworkRepository>()));
+      get<_i9.EmployeeDetailApiService>(),
+      get<_i13.UserLeavesApiService>(),
+      get<_i12.TeamLeavesApiService>()));
+  gh.singleton<_i16.TeamLeavesBloc>(
+      _i16.TeamLeavesBloc(get<_i15.NetworkRepository>()));
+  gh.singleton<_i17.AllLeavesUserBloc>(
+      _i17.AllLeavesUserBloc(get<_i15.NetworkRepository>()));
+  gh.singleton<_i18.EmployeeDetailBloc>(
+      _i18.EmployeeDetailBloc(get<_i15.NetworkRepository>()));
+  gh.singleton<_i19.EmployeeListBloc>(
+      _i19.EmployeeListBloc(get<_i15.NetworkRepository>()));
+  gh.singleton<_i20.LoginBloc>(_i20.LoginBloc(get<_i15.NetworkRepository>()));
   return get;
 }
 
-class _$AppModule extends _i17.AppModule {}
+class _$AppModule extends _i21.AppModule {}
