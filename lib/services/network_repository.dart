@@ -3,8 +3,8 @@ import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/model/Leave/leave_detail.dart';
 import 'package:projectunity/services/EmployeeApiService/employee_detail_api_service.dart';
 import 'package:projectunity/services/EmployeeApiService/employee_list_api_service.dart';
-import 'package:projectunity/services/LeaveService/logged_in_user_api_service.dart';
 import 'package:projectunity/services/LeaveService/team_leaves_api_service.dart';
+import 'package:projectunity/services/LeaveService/user_leaves_api_service.dart';
 import 'package:projectunity/services/login/login_api_service.dart';
 
 @Injectable()

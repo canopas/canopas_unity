@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:projectunity/ViewModel/all_leaves_user_bloc.dart';
+import 'package:projectunity/ViewModel/user_leaves_bloc.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/Widget/leave_widget.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -17,7 +17,7 @@ class UpComingLeavesUserScreen extends StatefulWidget {
 }
 
 class _UpComingLeavesUserScreenState extends State<UpComingLeavesUserScreen> {
-  final _bloc = getIt<AllLeavesUserBloc>();
+  final _bloc = getIt<UserLeavesBloc>();
 
   @override
   void initState() {
