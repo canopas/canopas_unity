@@ -17,13 +17,13 @@ class UpComingLeavesUserScreen extends StatefulWidget {
 }
 
 class _UpComingLeavesUserScreenState extends State<UpComingLeavesUserScreen> {
+  final _bloc = getIt<AllLeavesUserBloc>();
+
   @override
   void initState() {
     super.initState();
     _bloc.getAllLeaves();
   }
-
-  final _bloc = getIt<AllLeavesUserBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,6 @@ class _UpComingLeavesUserScreenState extends State<UpComingLeavesUserScreen> {
                       child: Text('No any leave'),
                     );
                   }
-
                   return LeaveWidget(leaveList: upcomingLeaves);
                 },
                 error: (String error) {

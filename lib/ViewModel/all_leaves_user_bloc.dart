@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/model/Leave/leave_detail.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/services/network_repository.dart';
@@ -9,6 +10,16 @@ class AllLeavesUserBloc {
   final NetworkRepository _networkRepository;
 
   AllLeavesUserBloc(this._networkRepository);
+
+  Future getEmployeeList(int index) async {
+    List<Employee> employeeList =
+        await _networkRepository.getEmployeeListFromRepo();
+    employeeList.map((e) {
+      if (e.employeeId == index) ;
+      print(e.name);
+      return e;
+    });
+  }
 
   final _allLeaves = BehaviorSubject<ApiResponse<LeaveDetail>>();
 

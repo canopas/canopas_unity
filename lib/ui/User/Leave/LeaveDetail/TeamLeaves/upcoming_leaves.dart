@@ -15,6 +15,6 @@ class TeamUpcomingLeavesScreen extends StatelessWidget {
         child: Text('No any leave'),
       );
     }
-          return LeaveWidget(leaveList: leaveList);
+    return LeaveWidget(leaveList: leaveList);
   }
 }

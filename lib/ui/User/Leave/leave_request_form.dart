@@ -243,7 +243,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AllLeavesUserScreen()));
+                                        const AllLeavesUserScreen()));
                           } on Exception catch (error) {
                             showErrorBanner('Please fill all details', context);
                             throw DataException(error.toString());
