@@ -12,19 +12,19 @@ import 'package:shared_preferences/shared_preferences.dart' as _i6;
 import '../services/EmployeeApiService/employee_detail_api_service.dart' as _i9;
 import '../services/EmployeeApiService/employee_list_api_service.dart' as _i10;
 import '../services/LeaveService/apply_for_leaves_api_service.dart' as _i8;
-import '../services/LeaveService/logged_in_user_api_service.dart' as _i13;
 import '../services/LeaveService/team_leaves_api_service.dart' as _i12;
+import '../services/LeaveService/user_leaves_api_service.dart' as _i13;
 import '../services/login/login_api_service.dart' as _i11;
 import '../services/login/login_request_provider.dart' as _i4;
 import '../services/login/login_service.dart' as _i5;
 import '../services/network_repository.dart' as _i15;
 import '../user/user_manager.dart' as _i14;
 import '../user/user_preference.dart' as _i7;
-import '../ViewModel/all_leaves_user_bloc.dart' as _i17;
 import '../ViewModel/employee_detail_bloc.dart' as _i18;
 import '../ViewModel/employee_list_bloc.dart' as _i19;
 import '../ViewModel/login_bloc.dart' as _i20;
 import '../ViewModel/team_leaves_bloc.dart' as _i16;
+import '../ViewModel/user_leaves_bloc.dart' as _i17;
 import 'AppModule.dart' as _i21; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
@@ -63,8 +63,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i12.TeamLeavesApiService>()));
   gh.singleton<_i16.TeamLeavesBloc>(
       _i16.TeamLeavesBloc(get<_i15.NetworkRepository>()));
-  gh.singleton<_i17.AllLeavesUserBloc>(
-      _i17.AllLeavesUserBloc(get<_i15.NetworkRepository>()));
+  gh.singleton<_i17.UserLeavesBloc>(
+      _i17.UserLeavesBloc(get<_i15.NetworkRepository>()));
   gh.singleton<_i18.EmployeeDetailBloc>(
       _i18.EmployeeDetailBloc(get<_i15.NetworkRepository>()));
   gh.singleton<_i19.EmployeeListBloc>(
