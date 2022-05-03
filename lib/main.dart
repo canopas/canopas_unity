@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/ui/User/Leave/leave_screen.dart';
 import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/user/user_manager.dart';
+
+import 'di/service_locator.dart';
+import 'model/Employee/employee.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

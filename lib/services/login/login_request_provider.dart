@@ -1,11 +1,13 @@
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:projectunity/model/Login/login_request_data.dart';
-import 'package:projectunity/utils/constant.dart';
-import 'package:projectunity/utils/data_exception.dart';
+import 'package:projectunity/rest/data_exception.dart';
+
+import '../../utils/Constant/other_constant.dart';
 
 @Injectable()
 class LoginRequestDataProvider {

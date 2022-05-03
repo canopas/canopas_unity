@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:projectunity/rest/api_interceptor.dart';
-import 'package:projectunity/utils/constant.dart';
+
+import '../utils/Constant/api_constant.dart';
 
 Dio createDio() {
   Dio _dio = Dio(BaseOptions(
