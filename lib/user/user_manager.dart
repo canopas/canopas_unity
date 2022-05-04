@@ -24,4 +24,8 @@ class UserManager {
     String? imageUrl = employee?.imageUrl;
     return imageUrl;
   }
+
+  bool isUserLoggedIn() {
+    return getEmployee() == null ? false : true;
+  }
 }

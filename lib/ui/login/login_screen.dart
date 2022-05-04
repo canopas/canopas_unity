@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/Navigation%20/login_state.dart';
 import 'package:projectunity/di/service_locator.dart';
 
 import '../../ViewModel/login_bloc.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _bloc = getIt<LoginBloc>();
+  final _loginState = getIt<LoginState>();
 
   @override
   void initState() {
@@ -138,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }, completed: (bool hasAccount) {
                       if (hasAccount) {
                         SchedulerBinding.instance?.addPostFrameCallback((_) {
-                          Navigator.pushNamed(context, '/homeScreen');
+                          _loginState.setUserLogin(hasAccount);
                         });
                       }
                       return Container();

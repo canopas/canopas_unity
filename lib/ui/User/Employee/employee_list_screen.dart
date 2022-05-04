@@ -5,7 +5,6 @@ import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
-import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
 import 'package:projectunity/user/user_manager.dart';
 
 import '../../../di/service_locator.dart';
@@ -30,7 +29,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   void dispose() {
     super.dispose();
-    _bloc.dispose();
+   // _bloc.dispose();
   }
 
   @override
@@ -92,14 +91,9 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                           return EmployeeWidget(
                             employee: _employee,
                             ontap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EmployeeDetailScreen(
-                                              id: _employee.id)));
-                            },
-                          );
+                                //   _appState.setSelectedEmployee(_employee.id);
+                                //    print('OnTap ' +_appState.selectedEmployee.toString());
+                              });
                         },
                       );
                     }, error: (String error) {

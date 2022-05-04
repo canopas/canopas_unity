@@ -23,10 +23,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
     _bloc.getEmployeeDetailByID(widget.id);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
