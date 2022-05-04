@@ -5,6 +5,7 @@ import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
+import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/user/user_manager.dart';
 
 import '../../../di/service_locator.dart';
@@ -19,6 +20,7 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   final _bloc = getIt<EmployeeListBloc>();
   final _userManager = getIt<UserManager>();
+  TabState _state = TabState();
 
   @override
   void initState() {
@@ -91,9 +93,9 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                           return EmployeeWidget(
                             employee: _employee,
                             ontap: () {
-                                //   _appState.setSelectedEmployee(_employee.id);
-                                //    print('OnTap ' +_appState.selectedEmployee.toString());
-                              });
+                              print(_employee.id.toString());
+                              _state.setEmployeeId(_employee.id);
+                            });
                         },
                       );
                     }, error: (String error) {

@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TabState _state = TabState();
   late AppState _appState;
   late int index;
+   int? selectedEmployeeId;
 
   @override
   void initState() {
@@ -26,8 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
     _appState = _state.state;
     _state.addListener(() {
       setState(() {
+        selectedEmployeeId = _state.selectedEmployeeId;
         index = _state.selectedIndex;
         _appState = _state.state;
+        print(selectedEmployeeId.toString());
+        print(_appState.toString());
       });
     });
 
@@ -59,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
         pages: [
           _appState.when(
             home: () => const MaterialPage(child: EmployeeListScreen()),
-            employeeDetail: (index) =>
-                MaterialPage(child: EmployeeDetailScreen(id: index)),
+            employeeDetail: (selectedEmployeeId) =>
+                MaterialPage(child: EmployeeDetailScreen(id: selectedEmployeeId)),
             leave: () => const MaterialPage(child: LeaveScreen()),
             leaveRequestForm: () =>
                 const MaterialPage(child: ui.LeaveRequestForm()),
@@ -78,17 +82,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class TabState extends ChangeNotifier {
   AppState _state = const AppState.home();
-
   AppState get state => _state;
   int _selectedIndex = 0;
-
   int get selectedIndex => _selectedIndex;
+
+  int? _selectedEmployeeId ;
+  int? get selectedEmployeeId=>_selectedEmployeeId;
 
   void updateTabIndex(int index) {
     _selectedIndex = index;
     switch (_selectedIndex) {
       case 0:
         _state = const AppState.home();
+        if(_selectedEmployeeId != null){
+          print(_selectedEmployeeId.toString());
+          _state = AppState.employeeDetail(employeeId: _selectedEmployeeId!);
+        }
         break;
       case 1:
         _state = const AppState.leave();
@@ -97,7 +106,10 @@ class TabState extends ChangeNotifier {
         _state = const AppState.setting();
         break;
     }
-
     notifyListeners();
+  }
+
+  void setEmployeeId(int id){
+    _selectedEmployeeId= id;
   }
 }
