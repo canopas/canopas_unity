@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/ViewModel/employee_list_bloc.dart';
 import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
-import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/user/user_manager.dart';
 
 import '../../../di/service_locator.dart';
 
 class EmployeeListScreen extends StatefulWidget {
-  const EmployeeListScreen({Key? key}) : super(key: key);
+  VoidCallback ontap;
+
+  EmployeeListScreen({Key? key, required this.ontap}) : super(key: key);
 
   @override
   _EmployeeListScreenState createState() => _EmployeeListScreenState();
@@ -20,18 +22,20 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   final _bloc = getIt<EmployeeListBloc>();
   final _userManager = getIt<UserManager>();
-  TabState _state = TabState();
+  AppStateManager appStateManager = AppStateManager();
+  late VoidCallback onTap;
 
   @override
   void initState() {
     super.initState();
     _bloc.getEmployeeList();
+    onTap = widget.ontap;
   }
 
   @override
   void dispose() {
     super.dispose();
-   // _bloc.dispose();
+    // _bloc.dispose();
   }
 
   @override
@@ -91,11 +95,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           Employee _employee = list[index];
                           return EmployeeWidget(
-                            employee: _employee,
-                            ontap: () {
-                              print(_employee.id.toString());
-                              _state.setEmployeeId(_employee.id);
-                            });
+                              employee: _employee, ontap: onTap);
                         },
                       );
                     }, error: (String error) {

@@ -21,6 +21,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   void initState() {
     super.initState();
     _bloc.getEmployeeDetailByID(widget.id);
+    print(widget.id.toString());
   }
 
   //

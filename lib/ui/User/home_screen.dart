@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/Navigation%20/app_state.dart';
+import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
 import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
-import 'package:projectunity/ui/User/Leave/leave_request_form.dart' as ui;
 import 'package:projectunity/ui/User/setting_screen.dart';
 
 import 'Leave/leave_screen.dart';
@@ -16,22 +15,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TabState _state = TabState();
-  late AppState _appState;
-  late int index;
-   int? selectedEmployeeId;
+  List<AppState> appState = List.filled(10, AppState.home, growable: true);
+
+  int index = 0;
+
+  AppStateManager appStateManager = AppStateManager();
+  late int selectedEmployee;
 
   @override
   void initState() {
-    index = _state.selectedIndex;
-    _appState = _state.state;
-    _state.addListener(() {
+    selectedEmployee = appStateManager.selectedEmployeeId;
+    appStateManager.addListener(() {
       setState(() {
-        selectedEmployeeId = _state.selectedEmployeeId;
-        index = _state.selectedIndex;
-        _appState = _state.state;
-        print(selectedEmployeeId.toString());
-        print(_appState.toString());
+        selectedEmployee = appStateManager.selectedEmployeeId;
       });
     });
 
@@ -43,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
-        onTap: _state.updateTabIndex,
+        onTap: onClick,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -60,56 +56,76 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Navigator(
-        pages: [
-          _appState.when(
-            home: () => const MaterialPage(child: EmployeeListScreen()),
-            employeeDetail: (selectedEmployeeId) =>
-                MaterialPage(child: EmployeeDetailScreen(id: selectedEmployeeId)),
-            leave: () => const MaterialPage(child: LeaveScreen()),
-            leaveRequestForm: () =>
-                const MaterialPage(child: ui.LeaveRequestForm()),
-            setting: () => const MaterialPage(child: SettingScreen()),
-          )
-        ],
+        pages: appState.map((e) {
+          switch (e) {
+            case AppState.home:
+              return MaterialPage(child: EmployeeListScreen(ontap: () {
+                setState(() {
+                  appState.add(AppState.employeeDetail);
+                });
+              }));
+            case AppState.employeeDetail:
+              return MaterialPage(
+                  child: EmployeeDetailScreen(
+                id: selectedEmployee,
+              ));
+            case AppState.leave:
+              return const MaterialPage(child: LeaveScreen());
+            case AppState.setting:
+              return const MaterialPage(child: SettingScreen());
+            default:
+              return const MaterialPage(child: HomeScreen());
+          }
+        }).toList(),
         onPopPage: (route, result) {
+          appState.clear();
           if (route.didPop(result)) return false;
           return true;
         },
       ),
     );
   }
-}
 
-class TabState extends ChangeNotifier {
-  AppState _state = const AppState.home();
-  AppState get state => _state;
-  int _selectedIndex = 0;
-  int get selectedIndex => _selectedIndex;
-
-  int? _selectedEmployeeId ;
-  int? get selectedEmployeeId=>_selectedEmployeeId;
-
-  void updateTabIndex(int index) {
-    _selectedIndex = index;
-    switch (_selectedIndex) {
-      case 0:
-        _state = const AppState.home();
-        if(_selectedEmployeeId != null){
-          print(_selectedEmployeeId.toString());
-          _state = AppState.employeeDetail(employeeId: _selectedEmployeeId!);
-        }
-        break;
-      case 1:
-        _state = const AppState.leave();
-        break;
-      case 2:
-        _state = const AppState.setting();
-        break;
-    }
-    notifyListeners();
-  }
-
-  void setEmployeeId(int id){
-    _selectedEmployeeId= id;
+  void onClick(selectedIndex) {
+    setState(() {
+      index = selectedIndex;
+      if (index == 0) {
+        appState.add(AppState.home);
+      } else if (index == 1) {
+        appState.add(AppState.leave);
+      } else {
+        appState.add(AppState.setting);
+      }
+    });
   }
 }
+
+enum AppState { home, leave, setting, employeeDetail, allLeavesUserScreen }
+//
+// class TabState extends ChangeNotifier {
+//   AppState _state = const AppState.home();
+//   AppState get state => _state;
+//   int _selectedIndex = 0;
+//   int get selectedIndex => _selectedIndex;
+//
+//   int? _selectedEmployeeId ;
+//   int? get selectedEmployeeId=>_selectedEmployeeId;
+//
+//   void updateTabIndex(int index) {
+//     _selectedIndex = index;
+//     switch (_selectedIndex) {
+//       case 0:
+//         _state = const AppState.home();
+//
+//         break;
+//       case 1:
+//         _state = const AppState.leave();
+//         break;
+//       case 2:
+//         _state = const AppState.setting();
+//         break;
+//     }
+//     notifyListeners();
+//   }
+//
+// }
