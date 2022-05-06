@@ -11,9 +11,9 @@ import 'package:projectunity/user/user_manager.dart';
 import '../../../di/service_locator.dart';
 
 class EmployeeListScreen extends StatefulWidget {
-  VoidCallback ontap;
+  Function onTap;
 
-  EmployeeListScreen({Key? key, required this.ontap}) : super(key: key);
+  EmployeeListScreen({Key? key, required this.onTap}) : super(key: key);
 
   @override
   _EmployeeListScreenState createState() => _EmployeeListScreenState();
@@ -22,14 +22,12 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   final _bloc = getIt<EmployeeListBloc>();
   final _userManager = getIt<UserManager>();
-  AppStateManager appStateManager = AppStateManager();
-  late VoidCallback onTap;
+  AppStateManager appStateManager = getIt<AppStateManager>();
 
   @override
   void initState() {
     super.initState();
     _bloc.getEmployeeList();
-    onTap = widget.ontap;
   }
 
   @override
@@ -95,7 +93,8 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           Employee _employee = list[index];
                           return EmployeeWidget(
-                              employee: _employee, ontap: onTap);
+                              employee: _employee,
+                              ontap: () => appStateManager.onTap(_employee.id));
                         },
                       );
                     }, error: (String error) {

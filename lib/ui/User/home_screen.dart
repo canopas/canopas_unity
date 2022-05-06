@@ -14,14 +14,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final _stateManager = getIt<AppStateManager>();
   late int selectedTab;
 
-  final navigatorkey = GlobalKey<NavigatorState>();
-
   @override
   void initState() {
-    selectedTab = _stateManager.selectedTab;
+    selectedTab = _stateManager.selectedBottomIndex;
     _stateManager.addListener(() {
       setState(() {
-        selectedTab = _stateManager.selectedTab;
+        selectedTab = _stateManager.selectedBottomIndex;
       });
     });
     super.initState();
@@ -33,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedTab,
         onTap: (selectedTab) {
-          _stateManager.onTabClick(selectedTab);
+          _stateManager.onBottomTabClick(selectedTab);
         },
         items: const [
           BottomNavigationBarItem(
@@ -51,15 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Navigator(
-          key: navigatorkey,
           pages: _stateManager.buildPages(),
           onPopPage: (route, result) {
             if (!route.didPop(result)) {
-              print('cant pop');
               return false;
             }
             _stateManager.pop();
-            print('you can go back');
             return true;
           }),
     );

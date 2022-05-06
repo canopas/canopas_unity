@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
@@ -13,39 +12,45 @@ import 'app_state.dart';
 
 @Singleton()
 class AppStateManager extends ChangeNotifier {
-  int selectedEmployee = 1;
-  int selectedTab = 0;
+  int _selectedBottomIndex = 0;
 
-  List<TabScreen> screens = [
-    TabScreen(appState: const AppState.Home(), id: 0),
+  int get selectedBottomIndex => _selectedBottomIndex;
+
+  late int selectedEmployeeID;
+
+  List<TabScreen> screens = <TabScreen>[
+    TabScreen(appState: const AppState.home(), id: 0),
   ];
 
-  TabScreen get currentScreen {
-    print(screens.last.appState.toString());
-    return screens.last;
-  }
+  TabScreen get currentScreen => screens.last;
+
+  List<AppState> appStateList = const [
+    AppState.home(),
+    AppState.leave(),
+    AppState.settings()
+  ];
 
   List<Page> buildPages() {
     List<Page> pageList = screens
         .map((e) => e.appState.when(
-              Home: () {
-                return MaterialPage(child: EmployeeListScreen(ontap: onTap));
+              home: () {
+                return MaterialPage(child: EmployeeListScreen(onTap: onTap));
               },
-              EmployeeDetail: (selectedEmployee) {
+              employeeDetail: (selectedEmployee) {
                 return MaterialPage(
                     child: EmployeeDetailScreen(
                   id: selectedEmployee,
                 ));
               },
-              Leave: () {
+              leave: () {
                 return const MaterialPage(child: LeaveScreen());
               },
-              UserAllLeave: () =>
+              userAllLeave: () =>
                   const MaterialPage(child: AllLeavesUserScreen()),
-              UserUpcomingLeave: () =>
+              userUpcomingLeave: () =>
                   const MaterialPage(child: UpComingLeavesUserScreen()),
-              LeaveRequest: () => const MaterialPage(child: LeaveRequestForm()),
-              Settings: () => const MaterialPage(child: SettingScreen()),
+              leaveRequest: () => const MaterialPage(child: LeaveRequestForm()),
+              settings: () => const MaterialPage(child: SettingScreen()),
             ))
         .toList(growable: true);
 
@@ -53,50 +58,35 @@ class AppStateManager extends ChangeNotifier {
     return pageList;
   }
 
-  void onTabClick(index) {
-    selectedTab = index;
-    print('SelectedTab in onclick: ' + selectedTab.toString());
-    switch (selectedTab) {
-      case 0:
-        screens
-            .add(TabScreen(appState: const AppState.Home(), id: selectedTab));
-        break;
-      case 1:
-        screens
-            .add(TabScreen(appState: const AppState.Leave(), id: selectedTab));
-        break;
-      case 2:
-        screens.add(
-            TabScreen(appState: const AppState.Settings(), id: selectedTab));
-        break;
-    }
-    print('length of pages after tabclick: ' + screens.length.toString());
-    notifyListeners();
-  }
-
-  void onTap() {
-    if (currentScreen.appState == AppState.Home()) {
+  void onBottomTabClick(index) {
+    _selectedBottomIndex = index;
+    if (_selectedBottomIndex != currentScreen.id) {
       screens.add(TabScreen(
-          appState: AppState.EmployeeDetail(id: selectedEmployee),
-          id: selectedTab));
-      print('added!');
-      notifyListeners();
+          appState: appStateList[_selectedBottomIndex],
+          id: _selectedBottomIndex));
     }
+    notifyListeners();
   }
 
   TabScreen? pop() {
-    if (screens.last.id == selectedTab) {
-      final poppedPage = screens.removeLast();
-      int id = screens.last.id;
-      print('ID: ' + id.toString());
-      if (id != selectedTab) {
-        onTabClick(id);
-      }
+    final poppedPage = screens.removeLast();
+    int id = currentScreen.id;
+    if (id != _selectedBottomIndex) {
+      onBottomTabClick(0);
       return poppedPage;
-    } else {
-      onTabClick(selectedTab);
     }
+    onBottomTabClick(_selectedBottomIndex);
     notifyListeners();
+    return null;
+  }
+
+  void onTap(int selectedEmployeeID) {
+    if (currentScreen.appState == const AppState.home()) {
+      screens.add(TabScreen(
+          appState: AppState.employeeDetail(id: selectedEmployeeID),
+          id: _selectedBottomIndex));
+      notifyListeners();
+    }
   }
 }
 
