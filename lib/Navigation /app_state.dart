@@ -17,4 +17,6 @@ abstract class AppState with _$AppState {
   const factory AppState.leaveRequest() = LeaveRequest;
 
   const factory AppState.settings() = Settings;
+
+  const factory AppState.teamLeaves() = TeamLeaves;
 }

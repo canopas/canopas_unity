@@ -94,7 +94,8 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                           Employee _employee = list[index];
                           return EmployeeWidget(
                               employee: _employee,
-                              ontap: () => appStateManager.onTap(_employee.id));
+                              ontap: () => appStateManager
+                                  .onTapOfEmployee(_employee.id));
                         },
                       );
                     }, error: (String error) {

@@ -4,6 +4,7 @@ import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
 import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
+import 'package:projectunity/ui/User/Leave/LeaveDetail/team_leaves.dart';
 import 'package:projectunity/ui/User/Leave/leave_request_form.dart';
 import 'package:projectunity/ui/User/Leave/leave_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
@@ -34,7 +35,8 @@ class AppStateManager extends ChangeNotifier {
     List<Page> pageList = screens
         .map((e) => e.appState.when(
               home: () {
-                return MaterialPage(child: EmployeeListScreen(onTap: onTap));
+                return MaterialPage(
+                    child: EmployeeListScreen(onTap: onTapOfEmployee));
               },
               employeeDetail: (selectedEmployee) {
                 return MaterialPage(
@@ -43,7 +45,7 @@ class AppStateManager extends ChangeNotifier {
                 ));
               },
               leave: () {
-                return const MaterialPage(child: LeaveScreen());
+                return MaterialPage(child: LeaveScreen());
               },
               userAllLeave: () =>
                   const MaterialPage(child: AllLeavesUserScreen()),
@@ -51,9 +53,9 @@ class AppStateManager extends ChangeNotifier {
                   const MaterialPage(child: UpComingLeavesUserScreen()),
               leaveRequest: () => const MaterialPage(child: LeaveRequestForm()),
               settings: () => const MaterialPage(child: SettingScreen()),
+              teamLeaves: () => const MaterialPage(child: TeamLeavesScreen()),
             ))
         .toList(growable: true);
-
     notifyListeners();
     return pageList;
   }
@@ -80,11 +82,53 @@ class AppStateManager extends ChangeNotifier {
     return null;
   }
 
-  void onTap(int selectedEmployeeID) {
+  void onTapOfEmployee(int selectedEmployeeID) {
     if (currentScreen.appState == const AppState.home()) {
       screens.add(TabScreen(
           appState: AppState.employeeDetail(id: selectedEmployeeID),
           id: _selectedBottomIndex));
+      notifyListeners();
+    }
+  }
+
+  void onTapOfLeaveRequest() {
+    if (currentScreen.appState == const AppState.leave()) {
+      screens.add(TabScreen(
+          appState: const AppState.leaveRequest(), id: _selectedBottomIndex));
+      notifyListeners();
+    }
+  }
+
+  void onTapForUserAllLeaves() {
+    if (currentScreen.appState == AppState.leave()) {
+      screens.add(TabScreen(
+          appState: const AppState.userAllLeave(), id: _selectedBottomIndex));
+      notifyListeners();
+    }
+  }
+
+  void onPopBackToDesiredScreen(TabScreen currentScreen) {
+    screens.remove(currentScreen);
+  }
+
+  void onTapForApplyLeaves() {
+    onPopBackToDesiredScreen(currentScreen);
+    onTapForUserAllLeaves();
+  }
+
+  void onTapForUserUpComingLeaves() {
+    if (currentScreen.appState == const AppState.leave()) {
+      screens.add(TabScreen(
+          appState: const AppState.userUpcomingLeave(),
+          id: _selectedBottomIndex));
+      notifyListeners();
+    }
+  }
+
+  void onTapForTeamLeaves() {
+    if (currentScreen.appState == AppState.leave()) {
+      screens.add(
+          TabScreen(appState: AppState.teamLeaves(), id: _selectedBottomIndex));
       notifyListeners();
     }
   }

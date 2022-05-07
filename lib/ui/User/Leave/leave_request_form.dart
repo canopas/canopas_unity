@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/Leave/leave_request_data.dart';
 import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/services/LeaveService/apply_for_leaves_api_service.dart';
-import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 
 enum Leave { fullDay, firstHalf, secondHalf }
 
@@ -28,6 +28,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   late TextEditingController _leaveEditingController;
   final ApplyForLeaveApiService _apiService = getIt<ApplyForLeaveApiService>();
   bool _hasBeenPressed = false;
+  AppStateManager _stateManager = getIt<AppStateManager>();
 
   @override
   void initState() {
@@ -237,13 +238,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                         _leaveEditingController.text),
                                     reason: _reasonEditingController.text,
                                     emergencyContactPerson: selectedEmployeeId);
-
                             await _apiService.applyForLeave(leaveRequestData);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AllLeavesUserScreen()));
+                            _stateManager.onTapForApplyLeaves();
                           } on Exception catch (error) {
                             showErrorBanner('Please fill all details', context);
                             throw DataException(error.toString());
