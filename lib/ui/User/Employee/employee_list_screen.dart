@@ -11,9 +11,7 @@ import 'package:projectunity/user/user_manager.dart';
 import '../../../di/service_locator.dart';
 
 class EmployeeListScreen extends StatefulWidget {
-  Function onTap;
-
-  EmployeeListScreen({Key? key, required this.onTap}) : super(key: key);
+  const EmployeeListScreen({Key? key}) : super(key: key);
 
   @override
   _EmployeeListScreenState createState() => _EmployeeListScreenState();
@@ -33,7 +31,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   void dispose() {
     super.dispose();
-    // _bloc.dispose();
   }
 
   @override

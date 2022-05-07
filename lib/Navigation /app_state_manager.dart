@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/Navigation%20/screen_state.dart';
 import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
 import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
 import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
@@ -17,43 +18,40 @@ class AppStateManager extends ChangeNotifier {
 
   int get selectedBottomIndex => _selectedBottomIndex;
 
-  late int selectedEmployeeID;
+  final List<ScreenState> _screens = <ScreenState>[homeScreenState];
 
-  List<TabScreen> screens = <TabScreen>[
-    TabScreen(appState: const AppState.home(), id: 0),
-  ];
-
-  TabScreen get currentScreen => screens.last;
+  ScreenState get currentScreen => _screens.last;
 
   List<AppState> appStateList = const [
-    AppState.home(),
-    AppState.leave(),
-    AppState.settings()
+    AppState.homeState(),
+    AppState.leaveState(),
+    AppState.settingsState()
   ];
 
   List<Page> buildPages() {
-    List<Page> pageList = screens
-        .map((e) => e.appState.when(
-              home: () {
-                return MaterialPage(
-                    child: EmployeeListScreen(onTap: onTapOfEmployee));
+    List<Page> pageList = _screens
+        .map((e) => currentScreen.appState.when(
+              homeState: () {
+                return MaterialPage(child: EmployeeListScreen());
               },
-              employeeDetail: (selectedEmployee) {
+              employeeDetailState: (int selectedEmployee) {
                 return MaterialPage(
                     child: EmployeeDetailScreen(
                   id: selectedEmployee,
                 ));
               },
-              leave: () {
+              leaveState: () {
                 return MaterialPage(child: LeaveScreen());
               },
-              userAllLeave: () =>
+              userAllLeaveState: () =>
                   const MaterialPage(child: AllLeavesUserScreen()),
-              userUpcomingLeave: () =>
+              userUpcomingLeaveState: () =>
                   const MaterialPage(child: UpComingLeavesUserScreen()),
-              leaveRequest: () => const MaterialPage(child: LeaveRequestForm()),
-              settings: () => const MaterialPage(child: SettingScreen()),
-              teamLeaves: () => const MaterialPage(child: TeamLeavesScreen()),
+              leaveRequestState: () =>
+                  const MaterialPage(child: LeaveRequestForm()),
+              settingsState: () => const MaterialPage(child: SettingScreen()),
+              teamLeavesState: () =>
+                  const MaterialPage(child: TeamLeavesScreen()),
             ))
         .toList(growable: true);
     notifyListeners();
@@ -63,15 +61,15 @@ class AppStateManager extends ChangeNotifier {
   void onBottomTabClick(index) {
     _selectedBottomIndex = index;
     if (_selectedBottomIndex != currentScreen.id) {
-      screens.add(TabScreen(
+      _screens.add(ScreenState(
           appState: appStateList[_selectedBottomIndex],
           id: _selectedBottomIndex));
     }
     notifyListeners();
   }
 
-  TabScreen? pop() {
-    final poppedPage = screens.removeLast();
+  ScreenState? pop() {
+    final poppedPage = _screens.removeLast();
     int id = currentScreen.id;
     if (id != _selectedBottomIndex) {
       onBottomTabClick(0);
@@ -82,33 +80,25 @@ class AppStateManager extends ChangeNotifier {
     return null;
   }
 
-  void onTapOfEmployee(int selectedEmployeeID) {
-    if (currentScreen.appState == const AppState.home()) {
-      screens.add(TabScreen(
-          appState: AppState.employeeDetail(id: selectedEmployeeID),
-          id: _selectedBottomIndex));
-      notifyListeners();
-    }
+  void onTapOfEmployee(int id) {
+    _screens.add(ScreenState(
+        appState: AppState.employeeDetailState(id: id),
+        id: _selectedBottomIndex));
+    notifyListeners();
   }
 
   void onTapOfLeaveRequest() {
-    if (currentScreen.appState == const AppState.leave()) {
-      screens.add(TabScreen(
-          appState: const AppState.leaveRequest(), id: _selectedBottomIndex));
-      notifyListeners();
-    }
+    _screens.add(leaveRequestScreenState);
+    notifyListeners();
   }
 
   void onTapForUserAllLeaves() {
-    if (currentScreen.appState == AppState.leave()) {
-      screens.add(TabScreen(
-          appState: const AppState.userAllLeave(), id: _selectedBottomIndex));
-      notifyListeners();
-    }
+    _screens.add(userAllLeavesScreenState);
+    notifyListeners();
   }
 
-  void onPopBackToDesiredScreen(TabScreen currentScreen) {
-    screens.remove(currentScreen);
+  void onPopBackToDesiredScreen(ScreenState currentScreen) {
+    _screens.remove(currentScreen);
   }
 
   void onTapForApplyLeaves() {
@@ -117,26 +107,12 @@ class AppStateManager extends ChangeNotifier {
   }
 
   void onTapForUserUpComingLeaves() {
-    if (currentScreen.appState == const AppState.leave()) {
-      screens.add(TabScreen(
-          appState: const AppState.userUpcomingLeave(),
-          id: _selectedBottomIndex));
-      notifyListeners();
-    }
+    _screens.add(userUpComingLeavesScreenState);
+    notifyListeners();
   }
 
   void onTapForTeamLeaves() {
-    if (currentScreen.appState == AppState.leave()) {
-      screens.add(
-          TabScreen(appState: AppState.teamLeaves(), id: _selectedBottomIndex));
-      notifyListeners();
-    }
+    _screens.add(teamLeavesScreenState);
+    notifyListeners();
   }
-}
-
-class TabScreen {
-  AppState appState;
-  int id;
-
-  TabScreen({required this.appState, required this.id});
 }

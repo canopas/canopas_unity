@@ -4,19 +4,20 @@ part 'app_state.freezed.dart';
 
 @freezed
 abstract class AppState with _$AppState {
-  const factory AppState.home() = Home;
+  const factory AppState.homeState() = HomeState;
 
-  const factory AppState.employeeDetail({required int id}) = EmployeeDetail;
+  const factory AppState.employeeDetailState({required int id}) =
+      EmployeeDetailState;
 
-  const factory AppState.leave() = Leave;
+  const factory AppState.leaveState() = LeaveState;
 
-  const factory AppState.userAllLeave() = UserAllLeave;
+  const factory AppState.userAllLeaveState() = UserAllLeaveState;
 
-  const factory AppState.userUpcomingLeave() = UserUpcomingLeave;
+  const factory AppState.userUpcomingLeaveState() = UserUpcomingLeaveState;
 
-  const factory AppState.leaveRequest() = LeaveRequest;
+  const factory AppState.leaveRequestState() = LeaveRequestState;
 
-  const factory AppState.settings() = Settings;
+  const factory AppState.settingsState() = SettingsState;
 
-  const factory AppState.teamLeaves() = TeamLeaves;
+  const factory AppState.teamLeavesState() = TeamLeavesState;
 }

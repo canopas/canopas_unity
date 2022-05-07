@@ -18,38 +18,38 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AppStateTearOff {
   const _$AppStateTearOff();
 
-  Home home() {
-    return const Home();
+  HomeState homeState() {
+    return const HomeState();
   }
 
-  EmployeeDetail employeeDetail({required int id}) {
-    return EmployeeDetail(
+  EmployeeDetailState employeeDetailState({required int id}) {
+    return EmployeeDetailState(
       id: id,
     );
   }
 
-  Leave leave() {
-    return const Leave();
+  LeaveState leaveState() {
+    return const LeaveState();
   }
 
-  UserAllLeave userAllLeave() {
-    return const UserAllLeave();
+  UserAllLeaveState userAllLeaveState() {
+    return const UserAllLeaveState();
   }
 
-  UserUpcomingLeave userUpcomingLeave() {
-    return const UserUpcomingLeave();
+  UserUpcomingLeaveState userUpcomingLeaveState() {
+    return const UserUpcomingLeaveState();
   }
 
-  LeaveRequest leaveRequest() {
-    return const LeaveRequest();
+  LeaveRequestState leaveRequestState() {
+    return const LeaveRequestState();
   }
 
-  Settings settings() {
-    return const Settings();
+  SettingsState settingsState() {
+    return const SettingsState();
   }
 
-  TeamLeaves teamLeaves() {
-    return const TeamLeaves();
+  TeamLeavesState teamLeavesState() {
+    return const TeamLeavesState();
   }
 }
 
@@ -60,75 +60,76 @@ const $AppState = _$AppStateTearOff();
 mixin _$AppState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -150,35 +151,35 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $HomeCopyWith<$Res> {
-  factory $HomeCopyWith(Home value, $Res Function(Home) then) =
-      _$HomeCopyWithImpl<$Res>;
+abstract class $HomeStateCopyWith<$Res> {
+  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
+      _$HomeStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HomeCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $HomeCopyWith<$Res> {
-  _$HomeCopyWithImpl(Home _value, $Res Function(Home) _then)
-      : super(_value, (v) => _then(v as Home));
+class _$HomeStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements $HomeStateCopyWith<$Res> {
+  _$HomeStateCopyWithImpl(HomeState _value, $Res Function(HomeState) _then)
+      : super(_value, (v) => _then(v as HomeState));
 
   @override
-  Home get _value => super._value as Home;
+  HomeState get _value => super._value as HomeState;
 }
 
 /// @nodoc
 
-class _$Home implements Home {
-  const _$Home();
+class _$HomeState implements HomeState {
+  const _$HomeState();
 
   @override
   String toString() {
-    return 'AppState.home()';
+    return 'AppState.homeState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Home);
+        (other.runtimeType == runtimeType && other is HomeState);
   }
 
   @override
@@ -187,48 +188,48 @@ class _$Home implements Home {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return home();
+    return homeState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return home?.call();
+    return homeState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (home != null) {
-      return home();
+    if (homeState != null) {
+      return homeState();
     }
     return orElse();
   }
@@ -236,80 +237,83 @@ class _$Home implements Home {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return home(this);
+    return homeState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return home?.call(this);
+    return homeState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (home != null) {
-      return home(this);
+    if (homeState != null) {
+      return homeState(this);
     }
     return orElse();
   }
 }
 
-abstract class Home implements AppState {
-  const factory Home() = _$Home;
+abstract class HomeState implements AppState {
+  const factory HomeState() = _$HomeState;
 }
 
 /// @nodoc
-abstract class $EmployeeDetailCopyWith<$Res> {
-  factory $EmployeeDetailCopyWith(
-          EmployeeDetail value, $Res Function(EmployeeDetail) then) =
-      _$EmployeeDetailCopyWithImpl<$Res>;
+abstract class $EmployeeDetailStateCopyWith<$Res> {
+  factory $EmployeeDetailStateCopyWith(
+          EmployeeDetailState value, $Res Function(EmployeeDetailState) then) =
+      _$EmployeeDetailStateCopyWithImpl<$Res>;
+
   $Res call({int id});
 }
 
 /// @nodoc
-class _$EmployeeDetailCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $EmployeeDetailCopyWith<$Res> {
-  _$EmployeeDetailCopyWithImpl(
-      EmployeeDetail _value, $Res Function(EmployeeDetail) _then)
-      : super(_value, (v) => _then(v as EmployeeDetail));
+class _$EmployeeDetailStateCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res>
+    implements $EmployeeDetailStateCopyWith<$Res> {
+  _$EmployeeDetailStateCopyWithImpl(
+      EmployeeDetailState _value, $Res Function(EmployeeDetailState) _then)
+      : super(_value, (v) => _then(v as EmployeeDetailState));
 
   @override
-  EmployeeDetail get _value => super._value as EmployeeDetail;
+  EmployeeDetailState get _value => super._value as EmployeeDetailState;
 
   @override
   $Res call({
     Object? id = freezed,
   }) {
-    return _then(EmployeeDetail(
+    return _then(EmployeeDetailState(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -320,22 +324,22 @@ class _$EmployeeDetailCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EmployeeDetail implements EmployeeDetail {
-  const _$EmployeeDetail({required this.id});
+class _$EmployeeDetailState implements EmployeeDetailState {
+  const _$EmployeeDetailState({required this.id});
 
   @override
   final int id;
 
   @override
   String toString() {
-    return 'AppState.employeeDetail(id: $id)';
+    return 'AppState.employeeDetailState(id: $id)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is EmployeeDetail &&
+            other is EmployeeDetailState &&
             const DeepCollectionEquality().equals(other.id, id));
   }
 
@@ -345,54 +349,54 @@ class _$EmployeeDetail implements EmployeeDetail {
 
   @JsonKey(ignore: true)
   @override
-  $EmployeeDetailCopyWith<EmployeeDetail> get copyWith =>
-      _$EmployeeDetailCopyWithImpl<EmployeeDetail>(this, _$identity);
+  $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith =>
+      _$EmployeeDetailStateCopyWithImpl<EmployeeDetailState>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return employeeDetail(id);
+    return employeeDetailState(id);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return employeeDetail?.call(id);
+    return employeeDetailState?.call(id);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (employeeDetail != null) {
-      return employeeDetail(id);
+    if (employeeDetailState != null) {
+      return employeeDetailState(id);
     }
     return orElse();
   }
@@ -400,92 +404,95 @@ class _$EmployeeDetail implements EmployeeDetail {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return employeeDetail(this);
+    return employeeDetailState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return employeeDetail?.call(this);
+    return employeeDetailState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (employeeDetail != null) {
-      return employeeDetail(this);
+    if (employeeDetailState != null) {
+      return employeeDetailState(this);
     }
     return orElse();
   }
 }
 
-abstract class EmployeeDetail implements AppState {
-  const factory EmployeeDetail({required int id}) = _$EmployeeDetail;
+abstract class EmployeeDetailState implements AppState {
+  const factory EmployeeDetailState({required int id}) = _$EmployeeDetailState;
 
   int get id;
+
   @JsonKey(ignore: true)
-  $EmployeeDetailCopyWith<EmployeeDetail> get copyWith =>
+  $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LeaveCopyWith<$Res> {
-  factory $LeaveCopyWith(Leave value, $Res Function(Leave) then) =
-      _$LeaveCopyWithImpl<$Res>;
+abstract class $LeaveStateCopyWith<$Res> {
+  factory $LeaveStateCopyWith(
+          LeaveState value, $Res Function(LeaveState) then) =
+      _$LeaveStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LeaveCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $LeaveCopyWith<$Res> {
-  _$LeaveCopyWithImpl(Leave _value, $Res Function(Leave) _then)
-      : super(_value, (v) => _then(v as Leave));
+class _$LeaveStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements $LeaveStateCopyWith<$Res> {
+  _$LeaveStateCopyWithImpl(LeaveState _value, $Res Function(LeaveState) _then)
+      : super(_value, (v) => _then(v as LeaveState));
 
   @override
-  Leave get _value => super._value as Leave;
+  LeaveState get _value => super._value as LeaveState;
 }
 
 /// @nodoc
 
-class _$Leave implements Leave {
-  const _$Leave();
+class _$LeaveState implements LeaveState {
+  const _$LeaveState();
 
   @override
   String toString() {
-    return 'AppState.leave()';
+    return 'AppState.leaveState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Leave);
+        (other.runtimeType == runtimeType && other is LeaveState);
   }
 
   @override
@@ -494,48 +501,48 @@ class _$Leave implements Leave {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return leave();
+    return leaveState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return leave?.call();
+    return leaveState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (leave != null) {
-      return leave();
+    if (leaveState != null) {
+      return leaveState();
     }
     return orElse();
   }
@@ -543,89 +550,90 @@ class _$Leave implements Leave {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return leave(this);
+    return leaveState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return leave?.call(this);
+    return leaveState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (leave != null) {
-      return leave(this);
+    if (leaveState != null) {
+      return leaveState(this);
     }
     return orElse();
   }
 }
 
-abstract class Leave implements AppState {
-  const factory Leave() = _$Leave;
+abstract class LeaveState implements AppState {
+  const factory LeaveState() = _$LeaveState;
 }
 
 /// @nodoc
-abstract class $UserAllLeaveCopyWith<$Res> {
-  factory $UserAllLeaveCopyWith(
-          UserAllLeave value, $Res Function(UserAllLeave) then) =
-      _$UserAllLeaveCopyWithImpl<$Res>;
+abstract class $UserAllLeaveStateCopyWith<$Res> {
+  factory $UserAllLeaveStateCopyWith(
+          UserAllLeaveState value, $Res Function(UserAllLeaveState) then) =
+      _$UserAllLeaveStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$UserAllLeaveCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $UserAllLeaveCopyWith<$Res> {
-  _$UserAllLeaveCopyWithImpl(
-      UserAllLeave _value, $Res Function(UserAllLeave) _then)
-      : super(_value, (v) => _then(v as UserAllLeave));
+class _$UserAllLeaveStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements $UserAllLeaveStateCopyWith<$Res> {
+  _$UserAllLeaveStateCopyWithImpl(
+      UserAllLeaveState _value, $Res Function(UserAllLeaveState) _then)
+      : super(_value, (v) => _then(v as UserAllLeaveState));
 
   @override
-  UserAllLeave get _value => super._value as UserAllLeave;
+  UserAllLeaveState get _value => super._value as UserAllLeaveState;
 }
 
 /// @nodoc
 
-class _$UserAllLeave implements UserAllLeave {
-  const _$UserAllLeave();
+class _$UserAllLeaveState implements UserAllLeaveState {
+  const _$UserAllLeaveState();
 
   @override
   String toString() {
-    return 'AppState.userAllLeave()';
+    return 'AppState.userAllLeaveState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is UserAllLeave);
+        (other.runtimeType == runtimeType && other is UserAllLeaveState);
   }
 
   @override
@@ -634,48 +642,48 @@ class _$UserAllLeave implements UserAllLeave {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return userAllLeave();
+    return userAllLeaveState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return userAllLeave?.call();
+    return userAllLeaveState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (userAllLeave != null) {
-      return userAllLeave();
+    if (userAllLeaveState != null) {
+      return userAllLeaveState();
     }
     return orElse();
   }
@@ -683,89 +691,91 @@ class _$UserAllLeave implements UserAllLeave {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return userAllLeave(this);
+    return userAllLeaveState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return userAllLeave?.call(this);
+    return userAllLeaveState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (userAllLeave != null) {
-      return userAllLeave(this);
+    if (userAllLeaveState != null) {
+      return userAllLeaveState(this);
     }
     return orElse();
   }
 }
 
-abstract class UserAllLeave implements AppState {
-  const factory UserAllLeave() = _$UserAllLeave;
+abstract class UserAllLeaveState implements AppState {
+  const factory UserAllLeaveState() = _$UserAllLeaveState;
 }
 
 /// @nodoc
-abstract class $UserUpcomingLeaveCopyWith<$Res> {
-  factory $UserUpcomingLeaveCopyWith(
-          UserUpcomingLeave value, $Res Function(UserUpcomingLeave) then) =
-      _$UserUpcomingLeaveCopyWithImpl<$Res>;
+abstract class $UserUpcomingLeaveStateCopyWith<$Res> {
+  factory $UserUpcomingLeaveStateCopyWith(UserUpcomingLeaveState value,
+          $Res Function(UserUpcomingLeaveState) then) =
+      _$UserUpcomingLeaveStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$UserUpcomingLeaveCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $UserUpcomingLeaveCopyWith<$Res> {
-  _$UserUpcomingLeaveCopyWithImpl(
-      UserUpcomingLeave _value, $Res Function(UserUpcomingLeave) _then)
-      : super(_value, (v) => _then(v as UserUpcomingLeave));
+class _$UserUpcomingLeaveStateCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res>
+    implements $UserUpcomingLeaveStateCopyWith<$Res> {
+  _$UserUpcomingLeaveStateCopyWithImpl(UserUpcomingLeaveState _value,
+      $Res Function(UserUpcomingLeaveState) _then)
+      : super(_value, (v) => _then(v as UserUpcomingLeaveState));
 
   @override
-  UserUpcomingLeave get _value => super._value as UserUpcomingLeave;
+  UserUpcomingLeaveState get _value => super._value as UserUpcomingLeaveState;
 }
 
 /// @nodoc
 
-class _$UserUpcomingLeave implements UserUpcomingLeave {
-  const _$UserUpcomingLeave();
+class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
+  const _$UserUpcomingLeaveState();
 
   @override
   String toString() {
-    return 'AppState.userUpcomingLeave()';
+    return 'AppState.userUpcomingLeaveState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is UserUpcomingLeave);
+        (other.runtimeType == runtimeType && other is UserUpcomingLeaveState);
   }
 
   @override
@@ -774,48 +784,48 @@ class _$UserUpcomingLeave implements UserUpcomingLeave {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return userUpcomingLeave();
+    return userUpcomingLeaveState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return userUpcomingLeave?.call();
+    return userUpcomingLeaveState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (userUpcomingLeave != null) {
-      return userUpcomingLeave();
+    if (userUpcomingLeaveState != null) {
+      return userUpcomingLeaveState();
     }
     return orElse();
   }
@@ -823,89 +833,90 @@ class _$UserUpcomingLeave implements UserUpcomingLeave {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return userUpcomingLeave(this);
+    return userUpcomingLeaveState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return userUpcomingLeave?.call(this);
+    return userUpcomingLeaveState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (userUpcomingLeave != null) {
-      return userUpcomingLeave(this);
+    if (userUpcomingLeaveState != null) {
+      return userUpcomingLeaveState(this);
     }
     return orElse();
   }
 }
 
-abstract class UserUpcomingLeave implements AppState {
-  const factory UserUpcomingLeave() = _$UserUpcomingLeave;
+abstract class UserUpcomingLeaveState implements AppState {
+  const factory UserUpcomingLeaveState() = _$UserUpcomingLeaveState;
 }
 
 /// @nodoc
-abstract class $LeaveRequestCopyWith<$Res> {
-  factory $LeaveRequestCopyWith(
-          LeaveRequest value, $Res Function(LeaveRequest) then) =
-      _$LeaveRequestCopyWithImpl<$Res>;
+abstract class $LeaveRequestStateCopyWith<$Res> {
+  factory $LeaveRequestStateCopyWith(
+          LeaveRequestState value, $Res Function(LeaveRequestState) then) =
+      _$LeaveRequestStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LeaveRequestCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $LeaveRequestCopyWith<$Res> {
-  _$LeaveRequestCopyWithImpl(
-      LeaveRequest _value, $Res Function(LeaveRequest) _then)
-      : super(_value, (v) => _then(v as LeaveRequest));
+class _$LeaveRequestStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements $LeaveRequestStateCopyWith<$Res> {
+  _$LeaveRequestStateCopyWithImpl(
+      LeaveRequestState _value, $Res Function(LeaveRequestState) _then)
+      : super(_value, (v) => _then(v as LeaveRequestState));
 
   @override
-  LeaveRequest get _value => super._value as LeaveRequest;
+  LeaveRequestState get _value => super._value as LeaveRequestState;
 }
 
 /// @nodoc
 
-class _$LeaveRequest implements LeaveRequest {
-  const _$LeaveRequest();
+class _$LeaveRequestState implements LeaveRequestState {
+  const _$LeaveRequestState();
 
   @override
   String toString() {
-    return 'AppState.leaveRequest()';
+    return 'AppState.leaveRequestState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is LeaveRequest);
+        (other.runtimeType == runtimeType && other is LeaveRequestState);
   }
 
   @override
@@ -914,48 +925,48 @@ class _$LeaveRequest implements LeaveRequest {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return leaveRequest();
+    return leaveRequestState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return leaveRequest?.call();
+    return leaveRequestState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (leaveRequest != null) {
-      return leaveRequest();
+    if (leaveRequestState != null) {
+      return leaveRequestState();
     }
     return orElse();
   }
@@ -963,87 +974,90 @@ class _$LeaveRequest implements LeaveRequest {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return leaveRequest(this);
+    return leaveRequestState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return leaveRequest?.call(this);
+    return leaveRequestState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (leaveRequest != null) {
-      return leaveRequest(this);
+    if (leaveRequestState != null) {
+      return leaveRequestState(this);
     }
     return orElse();
   }
 }
 
-abstract class LeaveRequest implements AppState {
-  const factory LeaveRequest() = _$LeaveRequest;
+abstract class LeaveRequestState implements AppState {
+  const factory LeaveRequestState() = _$LeaveRequestState;
 }
 
 /// @nodoc
-abstract class $SettingsCopyWith<$Res> {
-  factory $SettingsCopyWith(Settings value, $Res Function(Settings) then) =
-      _$SettingsCopyWithImpl<$Res>;
+abstract class $SettingsStateCopyWith<$Res> {
+  factory $SettingsStateCopyWith(
+          SettingsState value, $Res Function(SettingsState) then) =
+      _$SettingsStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SettingsCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $SettingsCopyWith<$Res> {
-  _$SettingsCopyWithImpl(Settings _value, $Res Function(Settings) _then)
-      : super(_value, (v) => _then(v as Settings));
+class _$SettingsStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements $SettingsStateCopyWith<$Res> {
+  _$SettingsStateCopyWithImpl(
+      SettingsState _value, $Res Function(SettingsState) _then)
+      : super(_value, (v) => _then(v as SettingsState));
 
   @override
-  Settings get _value => super._value as Settings;
+  SettingsState get _value => super._value as SettingsState;
 }
 
 /// @nodoc
 
-class _$Settings implements Settings {
-  const _$Settings();
+class _$SettingsState implements SettingsState {
+  const _$SettingsState();
 
   @override
   String toString() {
-    return 'AppState.settings()';
+    return 'AppState.settingsState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Settings);
+        (other.runtimeType == runtimeType && other is SettingsState);
   }
 
   @override
@@ -1052,48 +1066,48 @@ class _$Settings implements Settings {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return settings();
+    return settingsState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return settings?.call();
+    return settingsState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (settings != null) {
-      return settings();
+    if (settingsState != null) {
+      return settingsState();
     }
     return orElse();
   }
@@ -1101,88 +1115,90 @@ class _$Settings implements Settings {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return settings(this);
+    return settingsState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return settings?.call(this);
+    return settingsState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (settings != null) {
-      return settings(this);
+    if (settingsState != null) {
+      return settingsState(this);
     }
     return orElse();
   }
 }
 
-abstract class Settings implements AppState {
-  const factory Settings() = _$Settings;
+abstract class SettingsState implements AppState {
+  const factory SettingsState() = _$SettingsState;
 }
 
 /// @nodoc
-abstract class $TeamLeavesCopyWith<$Res> {
-  factory $TeamLeavesCopyWith(
-          TeamLeaves value, $Res Function(TeamLeaves) then) =
-      _$TeamLeavesCopyWithImpl<$Res>;
+abstract class $TeamLeavesStateCopyWith<$Res> {
+  factory $TeamLeavesStateCopyWith(
+          TeamLeavesState value, $Res Function(TeamLeavesState) then) =
+      _$TeamLeavesStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$TeamLeavesCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements $TeamLeavesCopyWith<$Res> {
-  _$TeamLeavesCopyWithImpl(TeamLeaves _value, $Res Function(TeamLeaves) _then)
-      : super(_value, (v) => _then(v as TeamLeaves));
+class _$TeamLeavesStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements $TeamLeavesStateCopyWith<$Res> {
+  _$TeamLeavesStateCopyWithImpl(
+      TeamLeavesState _value, $Res Function(TeamLeavesState) _then)
+      : super(_value, (v) => _then(v as TeamLeavesState));
 
   @override
-  TeamLeaves get _value => super._value as TeamLeaves;
+  TeamLeavesState get _value => super._value as TeamLeavesState;
 }
 
 /// @nodoc
 
-class _$TeamLeaves implements TeamLeaves {
-  const _$TeamLeaves();
+class _$TeamLeavesState implements TeamLeavesState {
+  const _$TeamLeavesState();
 
   @override
   String toString() {
-    return 'AppState.teamLeaves()';
+    return 'AppState.teamLeavesState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is TeamLeaves);
+        (other.runtimeType == runtimeType && other is TeamLeavesState);
   }
 
   @override
@@ -1191,48 +1207,48 @@ class _$TeamLeaves implements TeamLeaves {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function(int id) employeeDetail,
-    required TResult Function() leave,
-    required TResult Function() userAllLeave,
-    required TResult Function() userUpcomingLeave,
-    required TResult Function() leaveRequest,
-    required TResult Function() settings,
-    required TResult Function() teamLeaves,
+    required TResult Function() homeState,
+    required TResult Function(int id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
   }) {
-    return teamLeaves();
+    return teamLeavesState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
   }) {
-    return teamLeaves?.call();
+    return teamLeavesState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function(int id)? employeeDetail,
-    TResult Function()? leave,
-    TResult Function()? userAllLeave,
-    TResult Function()? userUpcomingLeave,
-    TResult Function()? leaveRequest,
-    TResult Function()? settings,
-    TResult Function()? teamLeaves,
+    TResult Function()? homeState,
+    TResult Function(int id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (teamLeaves != null) {
-      return teamLeaves();
+    if (teamLeavesState != null) {
+      return teamLeavesState();
     }
     return orElse();
   }
@@ -1240,53 +1256,54 @@ class _$TeamLeaves implements TeamLeaves {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Home value) home,
-    required TResult Function(EmployeeDetail value) employeeDetail,
-    required TResult Function(Leave value) leave,
-    required TResult Function(UserAllLeave value) userAllLeave,
-    required TResult Function(UserUpcomingLeave value) userUpcomingLeave,
-    required TResult Function(LeaveRequest value) leaveRequest,
-    required TResult Function(Settings value) settings,
-    required TResult Function(TeamLeaves value) teamLeaves,
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
   }) {
-    return teamLeaves(this);
+    return teamLeavesState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
   }) {
-    return teamLeaves?.call(this);
+    return teamLeavesState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Home value)? home,
-    TResult Function(EmployeeDetail value)? employeeDetail,
-    TResult Function(Leave value)? leave,
-    TResult Function(UserAllLeave value)? userAllLeave,
-    TResult Function(UserUpcomingLeave value)? userUpcomingLeave,
-    TResult Function(LeaveRequest value)? leaveRequest,
-    TResult Function(Settings value)? settings,
-    TResult Function(TeamLeaves value)? teamLeaves,
+    TResult Function(HomeState value)? homeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
     required TResult orElse(),
   }) {
-    if (teamLeaves != null) {
-      return teamLeaves(this);
+    if (teamLeavesState != null) {
+      return teamLeavesState(this);
     }
     return orElse();
   }
 }
 
-abstract class TeamLeaves implements AppState {
-  const factory TeamLeaves() = _$TeamLeaves;
+abstract class TeamLeavesState implements AppState {
+  const factory TeamLeavesState() = _$TeamLeavesState;
 }

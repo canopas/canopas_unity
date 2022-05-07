@@ -21,14 +21,12 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   void initState() {
     super.initState();
     _bloc.getEmployeeDetailByID(widget.id);
-    print(widget.id.toString());
   }
 
-  //
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
