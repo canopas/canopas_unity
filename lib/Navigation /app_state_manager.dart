@@ -32,7 +32,7 @@ class AppStateManager extends ChangeNotifier {
     List<Page> pageList = _screens
         .map((e) => currentScreen.appState.when(
               homeState: () {
-                return MaterialPage(child: EmployeeListScreen());
+                return const MaterialPage(child: EmployeeListScreen());
               },
               employeeDetailState: (int selectedEmployee) {
                 return MaterialPage(
@@ -60,6 +60,7 @@ class AppStateManager extends ChangeNotifier {
 
   void onBottomTabClick(index) {
     _selectedBottomIndex = index;
+
     if (_selectedBottomIndex != currentScreen.id) {
       _screens.add(ScreenState(
           appState: appStateList[_selectedBottomIndex],
