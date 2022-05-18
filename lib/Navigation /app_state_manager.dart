@@ -7,9 +7,6 @@ import 'app_state.dart';
 
 @Singleton()
 class AppStateManager extends ChangeNotifier {
-  int _selectedBottomIndex = 0;
-
-  int get selectedBottomIndex => _selectedBottomIndex;
 
   final List<AppState> _screens = <AppState>[const AppState.homeState()];
 
@@ -19,9 +16,7 @@ class AppStateManager extends ChangeNotifier {
 
   void push(int id) {
     _screens.clear();
-    _selectedBottomIndex = id;
-
-    switch (_selectedBottomIndex) {
+    switch (id) {
       case 0:
         _screens.add(const AppState.homeState());
         break;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
 
+import '../../Navigation /app_state.dart';
 import '../../di/service_locator.dart';
 import 'Employee/employee_detail_screen.dart';
 import 'Employee/employee_list_screen.dart';
@@ -20,14 +21,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _stateManager = getIt<AppStateManager>();
-  late int selectedTab;
+  int selectedTab = 0;
+  late List<AppState> stateList;
 
   @override
   void initState() {
-    selectedTab = _stateManager.selectedBottomIndex;
+    stateList = _stateManager.screens;
     _stateManager.addListener(() {
       setState(() {
-        selectedTab = _stateManager.selectedBottomIndex;
+        stateList = _stateManager.screens;
       });
     });
     super.initState();
@@ -38,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedTab,
-        onTap: _stateManager.push,
+        onTap: _ontap,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -55,32 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Navigator(
-          pages: _stateManager.screens
-              .map((state) => state.when(
-                    homeState: () {
-                      return const MaterialPage(child: EmployeeListScreen());
-                    },
-                    employeeDetailState: (int selectedEmployee) {
-                      return MaterialPage(
-                          child: EmployeeDetailScreen(
-                        id: selectedEmployee,
-                      ));
-                    },
-                    leaveState: () {
-                      return MaterialPage(child: LeaveScreen());
-                    },
-                    userAllLeaveState: () =>
-                        const MaterialPage(child: AllLeavesUserScreen()),
-                    userUpcomingLeaveState: () =>
-                        const MaterialPage(child: UpComingLeavesUserScreen()),
-                    leaveRequestState: () =>
-                        const MaterialPage(child: LeaveRequestForm()),
-                    settingsState: () =>
-                        const MaterialPage(child: SettingScreen()),
-                    teamLeavesState: () =>
-                        const MaterialPage(child: TeamLeavesScreen()),
-                  ))
-              .toList(growable: true),
+          pages: _buildPages(),
           onPopPage: (route, result) {
             if (!route.didPop(result)) {
               return false;
@@ -89,5 +66,41 @@ class _HomeScreenState extends State<HomeScreen> {
             return true;
           }),
     );
+  }
+
+  void _ontap(int id) {
+    setState(() {
+      selectedTab = id;
+    });
+    _stateManager.push(selectedTab);
+  }
+
+  List<Page> _buildPages() {
+    List<Page> list = stateList
+        .map((state) => state.when(
+              homeState: () {
+                return const MaterialPage(child: EmployeeListScreen());
+              },
+              employeeDetailState: (int selectedEmployee) {
+                return MaterialPage(
+                    child: EmployeeDetailScreen(
+                  id: selectedEmployee,
+                ));
+              },
+              leaveState: () {
+                return MaterialPage(child: LeaveScreen());
+              },
+              userAllLeaveState: () =>
+                  const MaterialPage(child: AllLeavesUserScreen()),
+              userUpcomingLeaveState: () =>
+                  const MaterialPage(child: UpComingLeavesUserScreen()),
+              leaveRequestState: () =>
+                  const MaterialPage(child: LeaveRequestForm()),
+              settingsState: () => const MaterialPage(child: SettingScreen()),
+              teamLeavesState: () =>
+                  const MaterialPage(child: TeamLeavesScreen()),
+            ))
+        .toList(growable: true);
+    return list;
   }
 }
