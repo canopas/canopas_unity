@@ -5,7 +5,6 @@ import 'package:projectunity/ui/login/login_screen.dart';
 
 import 'di/service_locator.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
@@ -41,8 +40,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Navigator(
       pages: [
-        if (isLogin == false) const MaterialPage(child: LoginScreen()),
-        if (isLogin == true) const MaterialPage(child: HomeScreen()),
+        isLogin
+            ? const MaterialPage(child: HomeScreen())
+            : const MaterialPage(child: LoginScreen()),
       ],
       onPopPage: (route, result) {
         if (route.didPop(result)) {

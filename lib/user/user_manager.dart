@@ -26,6 +26,6 @@ class UserManager {
   }
 
   bool isUserLoggedIn() {
-    return getEmployee() == null ? false : true;
+    return getEmployee() != null;
   }
 }
