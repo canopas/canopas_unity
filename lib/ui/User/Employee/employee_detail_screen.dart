@@ -45,7 +45,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               employee: employee,
             );
           }, error: (String error) {
-            SchedulerBinding.instance?.addPostFrameCallback((_) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
               showErrorBanner(error, context);
             });
             return Container();

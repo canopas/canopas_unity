@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/ViewModel/employee_list_bloc.dart';
 import 'package:projectunity/Widget/employee_widget.dart';
 import 'package:projectunity/Widget/error_banner.dart';
 import 'package:projectunity/model/Employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
-import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
 import 'package:projectunity/user/user_manager.dart';
 
 import '../../../di/service_locator.dart';
@@ -20,6 +20,7 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   final _bloc = getIt<EmployeeListBloc>();
   final _userManager = getIt<UserManager>();
+  AppStateManager appStateManager = getIt<AppStateManager>();
 
   @override
   void initState() {
@@ -30,7 +31,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   void dispose() {
     super.dispose();
-    _bloc.dispose();
   }
 
   @override
@@ -90,20 +90,13 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           Employee _employee = list[index];
                           return EmployeeWidget(
-                            employee: _employee,
-                            ontap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EmployeeDetailScreen(
-                                              id: _employee.id)));
-                            },
-                          );
+                              employee: _employee,
+                              ontap: () => appStateManager
+                                  .onTapOfEmployee(_employee.id));
                         },
                       );
                     }, error: (String error) {
-                      SchedulerBinding.instance?.addPostFrameCallback((_) {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
                         showErrorBanner(error, context);
                       });
 

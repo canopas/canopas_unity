@@ -1,7 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
+import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
+
+import '../../Navigation /app_state.dart';
+import '../../di/service_locator.dart';
+import 'Employee/employee_detail_screen.dart';
+import 'Employee/employee_list_screen.dart';
+import 'Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
+import 'Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
+import 'Leave/LeaveDetail/team_leaves.dart';
+import 'Leave/leave_request_form.dart';
 import 'Leave/leave_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,22 +20,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  final List<Widget> _screenList = [
-    const EmployeeListScreen(),
-    const LeaveScreen(),
-    const SettingScreen(),
-  ];
+  final _stateManager = getIt<AppStateManager>();
+  int selectedTab = 0;
+  late List<AppState> stateList;
+
+  @override
+  void initState() {
+    stateList = _stateManager.screens;
+    _stateManager.addListener(() {
+      setState(() {
+        stateList = _stateManager.screens;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        iconSize: 30,
-        activeColor: Colors.blueGrey,
-        inactiveColor: Colors.grey,
-        currentIndex: _selectedIndex,
-        onTap: _onTabTapped,
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedTab,
+        onTap: _ontap,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -43,21 +56,51 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(
-          builder: (context) {
-            return CupertinoPageScaffold(
-              child: _screenList.elementAt(index),
-            );
-          },
-        );
-      },
+      body: Navigator(
+          pages: _buildPages(),
+          onPopPage: (route, result) {
+            if (!route.didPop(result)) {
+              return false;
+            }
+            _stateManager.pop();
+            return true;
+          }),
     );
   }
 
-  void _onTabTapped(int index) {
+  void _ontap(int id) {
     setState(() {
-      _selectedIndex = index;
+      selectedTab = id;
     });
+    _stateManager.push(selectedTab);
+  }
+
+  List<Page> _buildPages() {
+    List<Page> list = stateList
+        .map((state) => state.when(
+              homeState: () {
+                return const MaterialPage(child: EmployeeListScreen());
+              },
+              employeeDetailState: (int selectedEmployee) {
+                return MaterialPage(
+                    child: EmployeeDetailScreen(
+                  id: selectedEmployee,
+                ));
+              },
+              leaveState: () {
+                return MaterialPage(child: LeaveScreen());
+              },
+              userAllLeaveState: () =>
+                  const MaterialPage(child: AllLeavesUserScreen()),
+              userUpcomingLeaveState: () =>
+                  const MaterialPage(child: UpComingLeavesUserScreen()),
+              leaveRequestState: () =>
+                  const MaterialPage(child: LeaveRequestForm()),
+              settingsState: () => const MaterialPage(child: SettingScreen()),
+              teamLeavesState: () =>
+                  const MaterialPage(child: TeamLeavesScreen()),
+            ))
+        .toList(growable: true);
+    return list;
   }
 }
