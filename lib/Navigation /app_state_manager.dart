@@ -2,14 +2,6 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/ui/User/Employee/employee_detail_screen.dart';
-import 'package:projectunity/ui/User/Employee/employee_list_screen.dart';
-import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
-import 'package:projectunity/ui/User/Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
-import 'package:projectunity/ui/User/Leave/LeaveDetail/team_leaves.dart';
-import 'package:projectunity/ui/User/Leave/leave_request_form.dart';
-import 'package:projectunity/ui/User/Leave/leave_screen.dart';
-import 'package:projectunity/ui/User/setting_screen.dart';
 
 import 'app_state.dart';
 
@@ -21,37 +13,9 @@ class AppStateManager extends ChangeNotifier {
 
   final List<AppState> _screens = <AppState>[const AppState.homeState()];
 
-  AppState get currentState => _screens[_selectedBottomIndex];
+  AppState get currentState => _screens.last;
 
-  List<Page> buildPages() {
-    List<Page> pageList = _screens
-        .map((screen) => screen.when(
-              homeState: () {
-                return const MaterialPage(child: EmployeeListScreen());
-              },
-              employeeDetailState: (int selectedEmployee) {
-                return MaterialPage(
-                    child: EmployeeDetailScreen(
-                  id: selectedEmployee,
-                ));
-              },
-              leaveState: () {
-                return MaterialPage(child: LeaveScreen());
-          },
-          userAllLeaveState: () =>
-          const MaterialPage(child: AllLeavesUserScreen()),
-          userUpcomingLeaveState: () =>
-          const MaterialPage(child: UpComingLeavesUserScreen()),
-          leaveRequestState: () =>
-                  const MaterialPage(child: LeaveRequestForm()),
-              settingsState: () => const MaterialPage(child: SettingScreen()),
-              teamLeavesState: () =>
-                  const MaterialPage(child: TeamLeavesScreen()),
-            ))
-        .toList(growable: true);
-    notifyListeners();
-    return pageList;
-  }
+  List<AppState> get screens => _screens;
 
   void push(int id) {
     _screens.clear();
