@@ -30,9 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedTab,
-        onTap: (selectedTab) {
-          _stateManager.onBottomTabClick(selectedTab);
-        },
+        onTap: _stateManager.push,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

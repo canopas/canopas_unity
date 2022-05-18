@@ -294,7 +294,6 @@ abstract class $EmployeeDetailStateCopyWith<$Res> {
   factory $EmployeeDetailStateCopyWith(
           EmployeeDetailState value, $Res Function(EmployeeDetailState) then) =
       _$EmployeeDetailStateCopyWithImpl<$Res>;
-
   $Res call({int id});
 }
 
@@ -456,7 +455,6 @@ abstract class EmployeeDetailState implements AppState {
   const factory EmployeeDetailState({required int id}) = _$EmployeeDetailState;
 
   int get id;
-
   @JsonKey(ignore: true)
   $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith =>
       throw _privateConstructorUsedError;

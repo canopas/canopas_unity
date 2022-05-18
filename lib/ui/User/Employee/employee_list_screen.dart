@@ -96,7 +96,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                         },
                       );
                     }, error: (String error) {
-                      SchedulerBinding.instance?.addPostFrameCallback((_) {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
                         showErrorBanner(error, context);
                       });
 
