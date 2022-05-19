@@ -35,11 +35,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Employee? user = _userManager.getEmployee();
     if (user == null) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushNamed(context, '/loginScreen');
       });
     } else {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushNamed(context, '/homeScreen');
       });
     }

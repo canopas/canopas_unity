@@ -137,13 +137,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     }, completed: (bool hasAccount) {
                       if (hasAccount) {
-                        SchedulerBinding.instance?.addPostFrameCallback((_) {
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
                           Navigator.pushNamed(context, '/homeScreen');
                         });
                       }
                       return Container();
                     }, error: (String error) {
-                      SchedulerBinding.instance?.addPostFrameCallback((_) {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
                         showErrorBanner(error, context);
                       });
 
