@@ -36,7 +36,6 @@ class _MyAppState extends State<MyApp> {
         isLogin = _loginState.isLogin;
         isOnBoardComplete = _loginState.onBoardComplete;
       });
-      ;
     });
     super.initState();
   }
@@ -45,11 +44,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Navigator(
       pages: [
-        const MaterialPage(child: LoginScreen()),
-        if (isLogin && !isOnBoardComplete)
-          const MaterialPage(child: OnBoardScreen()),
-        if (isLogin && isOnBoardComplete)
-          const MaterialPage(child: HomeScreen())
+        const MaterialPage(child: OnBoardScreen()),
+        if (isOnBoardComplete && !isLogin)
+          const MaterialPage(child: LoginScreen()),
+        if (isOnBoardComplete && isLogin)
+          const MaterialPage(child: HomeScreen()),
       ],
       onPopPage: (route, result) {
         if (route.didPop(result)) {
@@ -60,4 +59,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
