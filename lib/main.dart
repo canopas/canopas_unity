@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/ui/OnBoardScreen/onboard_screen.dart';
 import 'package:projectunity/Navigation%20/login_state.dart';
 import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
@@ -10,7 +11,7 @@ void main() async {
   await configureDependencies();
   runApp(const MaterialApp(
     title: 'ProjectUnity Flutter',
-    home: MyApp(),
+    home: OnBoardScreen(),
   ));
 }
 
