@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/OnBoardScreen/onboard_screen1.dart';
 import 'package:projectunity/ui/User/Leave/leave_screen.dart';
 import 'package:projectunity/ui/User/home_screen.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
@@ -15,8 +14,7 @@ void main() async {
   await configureDependencies();
   runApp(MaterialApp(
     title: 'ProjectUnity Flutter',
-    //   home: MyApp(),
-    home: OnBoardScreen1(),
+    home: MyApp(),
     routes: {
       '/loginScreen': (context) => const LoginScreen(),
       '/homeScreen': (context) => const HomeScreen(),
