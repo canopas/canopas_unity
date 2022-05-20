@@ -37,4 +37,12 @@ class UserPreference {
   void setRefreshToken(String? refreshToken) {
     _preferences.setString(userPrefKeyRefreshToken, refreshToken ?? "");
   }
+
+  bool? getOnBoardCompleted() {
+    return _preferences.getBool(onBoardCompleted);
+  }
+
+  void setOnBoardCompleted(bool isComplete) {
+    _preferences.setBool(onBoardCompleted, isComplete);
+  }
 }

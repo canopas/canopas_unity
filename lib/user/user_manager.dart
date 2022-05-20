@@ -28,4 +28,8 @@ class UserManager {
   bool isUserLoggedIn() {
     return getEmployee() != null;
   }
+
+  bool isOnBoardCompleted() {
+    return _userPreference.getOnBoardCompleted() != null;
+  }
 }
