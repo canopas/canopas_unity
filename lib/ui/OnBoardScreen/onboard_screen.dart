@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/Navigation%20/login_state.dart';
+import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/OnBoardScreen/onBoarding_contents.dart';
+import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/Constant/color_constant.dart';
 
 final buttonStyle = ElevatedButton.styleFrom(
@@ -17,6 +20,8 @@ class OnBoardScreen extends StatefulWidget {
 class _OnBoardScreenState extends State<OnBoardScreen> {
   final PageController _controller = PageController();
   int currentPage = 0;
+  final LoginState _loginState = getIt<LoginState>();
+  final UserPreference _preference = getIt<UserPreference>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +33,20 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, right: 20),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: TextButton(
-                    onPressed: () {
-                      _controller.jumpToPage(2);
-                    },
-                    child: Text(
-                      'Skip',
-                      style: GoogleFonts.ibmPlexSans(
-                          color: Colors.grey,
+            currentPage + 1 == OnBoardingContents.contents.length
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 20, right: 20),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: TextButton(
+                          onPressed: () {
+                            _controller.jumpToPage(2);
+                          },
+                          child: Text(
+                            'Skip',
+                            style: GoogleFonts.ibmPlexSans(
+                                color: Colors.grey,
                           fontSize: (height >= 850) ? 22 : 17),
                     )),
               ),
@@ -107,7 +114,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                       width: width / 2,
                       child: ElevatedButton(
                         style: buttonStyle,
-                        onPressed: () {},
+                        onPressed: () {
+                          _loginState.setOnBoardComplete(true);
+                          _preference.setOnBoardCompleted(true);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(
