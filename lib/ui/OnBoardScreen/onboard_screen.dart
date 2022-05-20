@@ -127,7 +127,9 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                       width: width / 4,
                       child: ElevatedButton(
                         style: buttonStyle,
-                        onPressed: () {},
+                        onPressed: () {
+                          _controller.jumpToPage(currentPage + 1);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Row(
