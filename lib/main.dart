@@ -11,7 +11,8 @@ void main() async {
   await configureDependencies();
   runApp(const MaterialApp(
     title: 'ProjectUnity Flutter',
-    home: MyApp(),
+    //  home: MyApp(),
+    home: HomeScreen(),
   ));
 }
 
