@@ -28,10 +28,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
     _bloc.getEmployeeList();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -51,11 +51,10 @@ class _MyAppState extends State<MyApp> {
           const MaterialPage(child: HomeScreen()),
       ],
       onPopPage: (route, result) {
-        if (route.didPop(result)) {
-          return false;
-        }
-        return true;
-      },
-    );
+        if (!route.didPop(result)) {
+            return false;
+          }
+          return true;
+      });
   }
 }

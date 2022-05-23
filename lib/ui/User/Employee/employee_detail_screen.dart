@@ -24,11 +24,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
