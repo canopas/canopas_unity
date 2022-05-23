@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Navigator(
       pages: [
-        const MaterialPage(child: OnBoardScreen()),
+        if (!isOnBoardComplete) const MaterialPage(child: OnBoardScreen()),
         if (isOnBoardComplete && !isLogin)
           const MaterialPage(child: LoginScreen()),
         if (isOnBoardComplete && isLogin)
