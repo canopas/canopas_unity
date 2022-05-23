@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/ui/User/setting_screen.dart';
+import 'package:projectunity/utils/Constant/color_constant.dart';
 
 import '../../Navigation /app_state.dart';
 import '../../di/service_locator.dart';
@@ -39,20 +40,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(kSecondaryColor),
+        selectedItemColor: const Color(selectedTabColor),
+        unselectedItemColor: const Color(kPrimaryColour),
+        selectedFontSize: 15,
         currentIndex: selectedTab,
         onTap: _ontap,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_rounded),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_box_rounded),
+            icon: Icon(Icons.date_range_rounded),
             label: 'Leave',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.nine_mp_sharp),
-            label: 'Setting',
+            icon: Icon(Icons.manage_accounts_rounded),
+            label: 'Settings',
           ),
         ],
       ),

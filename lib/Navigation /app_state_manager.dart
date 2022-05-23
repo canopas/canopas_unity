@@ -8,7 +8,7 @@ import 'app_state.dart';
 @Singleton()
 class AppStateManager extends ChangeNotifier {
 
-  final List<AppState> _screens = <AppState>[const AppState.homeState()];
+   List<AppState> _screens = <AppState>[const AppState.homeState()];
 
   AppState get currentState => _screens.last;
 
@@ -30,7 +30,11 @@ class AppStateManager extends ChangeNotifier {
   }
 
   void pop() {
-    _screens.removeLast();
+    if (_screens.length > 1) {
+      _screens.removeLast();
+    }
+    _screens = [_screens.last];
+
     notifyListeners();
   }
 
