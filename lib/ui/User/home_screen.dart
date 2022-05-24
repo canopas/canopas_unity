@@ -61,16 +61,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: EmployeeListScreen(),
-      // body: Navigator(
-      //     pages: _buildPages(),
-      //     onPopPage: (route, result) {
-      //       if (!route.didPop(result)) {
-      //         return false;
-      //       }
-      //       _stateManager.pop();
-      //       return true;
-      //     }),
+      //  body: EmployeeListScreen(),
+      body: Navigator(
+          pages: _buildPages(),
+          onPopPage: (route, result) {
+            if (!route.didPop(result)) {
+              return false;
+            }
+            _stateManager.pop();
+            return true;
+          }),
     );
   }
 
