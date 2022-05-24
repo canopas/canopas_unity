@@ -13,8 +13,11 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      backgroundColor: Color(kPrimaryColour).withOpacity(.5),
+      backgroundColor: const Color(kPrimaryColour).withOpacity(0.4),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -24,7 +27,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      radius: MediaQuery.of(context).size.height / 100 * 5,
+                      radius: height / 100 * 5,
                       backgroundImage: const AssetImage(profileImage),
                     ),
                     Text(
@@ -45,13 +48,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20)),
                   ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Container(
                           height: 40,
-                          width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.grey.shade200),
@@ -61,21 +63,89 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                               cursorColor: Colors.black54,
                               style: GoogleFonts.ibmPlexSans(
                                   fontSize: 20, color: Colors.black87),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey,
-                                ),
-                                hintText: 'Search',
-                              ),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: const Icon(
+                                    Icons.search,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: 'Search your Colleagues by name',
+                                  hintStyle: height >= 700
+                                      ? TextStyle(fontSize: 20)
+                                      : TextStyle(fontSize: 16)),
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.text,
                             ),
                           ),
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Expanded(
+                            child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10.0,
+                                right: 10,
+                                bottom: 10,
+                              ),
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: height / 100 * 3.5,
+                                        backgroundImage:
+                                            const AssetImage(profileImage),
+                                      ),
+                                      SizedBox(
+                                        width: width / 10,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Sneha Sanghani',
+                                            textAlign: TextAlign.start,
+                                            style: height >= 700
+                                                ? GoogleFonts.ibmPlexSans(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w500)
+                                                : GoogleFonts.ibmPlexSans(
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                          ),
+                                          const SizedBox(
+                                            height: 7,
+                                          ),
+                                          Text(
+                                            'Flutter developer',
+                                            textAlign: TextAlign.start,
+                                            style: height >= 700
+                                                ? GoogleFonts.ibmPlexSans(
+                                                    fontSize: 18,
+                                                    color: Colors.black54)
+                                                : GoogleFonts.ibmPlexSans(
+                                                    fontSize: 15,
+                                                    color: Colors.black54),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                //   const  Divider(color: Colors.grey,indent: 80,)
+                              ),
+                            );
+                          },
+                        ))
+                      ],
+                    ),
                   ),
                 ),
               ),
