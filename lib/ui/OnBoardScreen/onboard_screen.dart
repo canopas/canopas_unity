@@ -28,29 +28,30 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
+    bool _isLastPage = currentPage + 1 == OnBoardingContents.contents.length;
+
     return Scaffold(
-      backgroundColor: const Color(0xffffffff),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            currentPage + 1 == OnBoardingContents.contents.length
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.only(top: 20, right: 20),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: TextButton(
-                          onPressed: () {
-                            _controller.jumpToPage(2);
-                          },
-                          child: Text(
-                            'Skip',
-                            style: GoogleFonts.ibmPlexSans(
-                                color: Colors.grey,
-                          fontSize: (height >= 850) ? 22 : 17),
-                    )),
-              ),
-            ),
+            Visibility(
+                visible: !_isLastPage,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, right: 20),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton(
+                        onPressed: () {
+                          _controller.jumpToPage(2);
+                        },
+                        child: Text(
+                          'SKIP',
+                          style: GoogleFonts.ibmPlexSans(
+                              color: Colors.grey, fontSize: 17),
+                        )),
+                  ),
+                )),
             Expanded(
               flex: 4,
               child: PageView.builder(
@@ -81,7 +82,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.ibmPlexSans(
                                   color: Colors.black,
-                                  fontSize: (height >= 750) ? 35 : 25,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.w700),
                             ),
                             Padding(
@@ -89,8 +90,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                               child: Text(
                                 OnBoardingContents.contents[index].info,
                                 style: GoogleFonts.ibmPlexSans(
-                                    fontSize: (height >= 750) ? 17 : 14,
-                                    color: Colors.grey),
+                                    fontSize: 14, color: Colors.grey),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -102,70 +102,35 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                 },
               ),
             ),
-            Expanded(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(OnBoardingContents.contents.length,
-                        (index) => _buildDots(index)))),
-            currentPage + 1 == OnBoardingContents.contents.length
-                ? Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(
-                      width: width / 2,
-                      child: ElevatedButton(
-                        style: buttonStyle,
-                        onPressed: () {
-                          _loginState.setOnBoardComplete(true);
-                          _preference.setOnBoardCompleted(true);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            'Start',
-                            style: GoogleFonts.ibmPlexSans(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black54,
-                                fontSize: (height >= 700) ? 22 : 17),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(
-                      width: width / 4,
-                      child: ElevatedButton(
-                        style: buttonStyle,
-                        onPressed: () {
-                          _controller.jumpToPage(currentPage + 1);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Next',
-                                style: GoogleFonts.ibmPlexSans(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54,
-                                    fontSize: (height >= 700) ? 22 : 17),
-                              ),
-                              const SizedBox(
-                                width: 2,
-                              ),
-                              const Icon(
-                                Icons.arrow_forward,
-                                size: 17,
-                                color: Colors.black54,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(OnBoardingContents.contents.length,
+                    (index) => _buildDots(index))),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: ElevatedButton(
+                style: buttonStyle,
+                onPressed: () {
+                  if (_isLastPage) {
+                    _loginState.setOnBoardComplete(true);
+                    _preference.setOnBoardCompleted(true);
+                  } else {
+                    _controller.jumpToPage(currentPage + 1);
+                  }
+                },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                  child: Text(
+                    _isLastPage ? 'START' : 'NEXT',
+                    style: GoogleFonts.ibmPlexSans(
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        fontSize: 17),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
