@@ -20,7 +20,7 @@ class EmployeeCard extends StatelessWidget {
           appStateManager.onTapOfEmployee(employee.id);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 10.0, left: 40, bottom: 20),
+          padding: const EdgeInsets.only(top: 20.0, left: 40, bottom: 10),
           child: Row(
             children: [
               EmployeeImage(imageUrl: employee.imageUrl),
