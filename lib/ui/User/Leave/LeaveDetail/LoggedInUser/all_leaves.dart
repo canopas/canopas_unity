@@ -51,7 +51,7 @@ class _AllLeavesUserScreenState extends State<AllLeavesUserScreen> {
               }
               return LeaveWidget(leaveList: allLeaves);
             }, error: (String error) {
-              SchedulerBinding.instance.addPostFrameCallback((_) {
+              SchedulerBinding.instance?.addPostFrameCallback((_) {
                 showErrorBanner(error, context);
               });
               return Container();

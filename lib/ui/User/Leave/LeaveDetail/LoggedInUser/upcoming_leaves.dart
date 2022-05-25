@@ -52,7 +52,7 @@ class _UpComingLeavesUserScreenState extends State<UpComingLeavesUserScreen> {
                   return LeaveWidget(leaveList: upcomingLeaves);
                 },
                 error: (String error) {
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                  SchedulerBinding.instance?.addPostFrameCallback((_) {
                     showErrorBanner(error, context);
                   });
                   return Container();
