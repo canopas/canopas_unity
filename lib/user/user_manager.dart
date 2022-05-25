@@ -13,12 +13,11 @@ class UserManager {
     return employee;
   }
 
-  String? getUserFullName() {
+  String? getUserName() {
     final employee = getEmployee();
     String? fullName = employee?.name;
     List<String>? words = fullName?.split(" ");
     String name = words![0];
-
     return name;
   }
 

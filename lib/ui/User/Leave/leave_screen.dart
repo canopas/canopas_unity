@@ -22,7 +22,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
       child: Column(
         children: [
           Text(
-            'Hi  ${_userManager.getUserFullName() ?? ''} !',
+            'Hi  ${_userManager.getUserName() ?? ''} !',
             style: const TextStyle(
                 fontSize: 30, color: Colors.black, fontWeight: FontWeight.w500),
           ),
