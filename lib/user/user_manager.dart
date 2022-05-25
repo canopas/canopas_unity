@@ -15,7 +15,9 @@ class UserManager {
 
   String? getUserName() {
     final employee = getEmployee();
-    String? name = employee?.name;
+    String? fullName = employee?.name;
+    List<String>? words = fullName?.split(" ");
+    String name = words![0];
     return name;
   }
 
