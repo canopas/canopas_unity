@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/Navigation%20/login_state.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/OnBoardScreen/onBoarding_contents.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/Constant/color_constant.dart';
+
+import '../../Navigation/login_state.dart';
 
 final buttonStyle = ElevatedButton.styleFrom(
     primary: const Color(kPrimaryColour),
@@ -115,7 +116,9 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     _loginState.setOnBoardComplete(true);
                     _preference.setOnBoardCompleted(true);
                   } else {
-                    _controller.jumpToPage(currentPage + 1);
+                    _controller.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease);
                   }
                 },
                 child: Padding(

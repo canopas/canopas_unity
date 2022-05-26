@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/Navigation%20/login_state.dart';
+import 'package:projectunity/Navigation/login_state.dart';
 import 'package:projectunity/Widget/circular_progress_indicator.dart';
 import 'package:projectunity/di/service_locator.dart';
 
