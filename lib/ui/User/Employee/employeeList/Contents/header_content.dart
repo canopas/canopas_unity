@@ -25,7 +25,7 @@ class HeaderContent extends StatelessWidget {
               Text(
                 'Hi, ${_userManager.getUserName()}!',
                 style: GoogleFonts.ibmPlexSans(
-                    fontSize: 30,
+                    fontSize: 24,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/Navigation/navigation_stack_item.dart';
+import 'package:projectunity/Navigation/navigation_stack_manager.dart';
 
-import '../../../../../Navigation /app_state_manager.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../model/Employee/employee.dart';
 
 class EmployeeCard extends StatelessWidget {
   EmployeeCard({Key? key, required this.employee}) : super(key: key);
 
-  final AppStateManager appStateManager = getIt<AppStateManager>();
+  final NavigationStackManager _stackManager = getIt<NavigationStackManager>();
   final Employee employee;
 
   @override
@@ -17,7 +18,8 @@ class EmployeeCard extends StatelessWidget {
       color: Colors.white54,
       child: InkWell(
         onTap: () {
-          appStateManager.onTapOfEmployee(employee.id);
+          _stackManager.push(NavigationStackItem.employeeDetailState(
+              id: employee.id.toString()));
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 40, bottom: 10),

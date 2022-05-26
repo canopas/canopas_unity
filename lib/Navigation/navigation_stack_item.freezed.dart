@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'app_state.dart';
+part of 'navigation_stack_item.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,14 +15,14 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$AppStateTearOff {
-  const _$AppStateTearOff();
+class _$NavigationStackItemTearOff {
+  const _$NavigationStackItemTearOff();
 
   HomeState homeState() {
     return const HomeState();
   }
 
-  EmployeeDetailState employeeDetailState({required int id}) {
+  EmployeeDetailState employeeDetailState({required String id}) {
     return EmployeeDetailState(
       id: id,
     );
@@ -54,14 +54,14 @@ class _$AppStateTearOff {
 }
 
 /// @nodoc
-const $AppState = _$AppStateTearOff();
+const $NavigationStackItem = _$NavigationStackItemTearOff();
 
 /// @nodoc
-mixin _$AppState {
+mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -73,7 +73,7 @@ mixin _$AppState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -85,7 +85,7 @@ mixin _$AppState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -136,18 +136,20 @@ mixin _$AppState {
 }
 
 /// @nodoc
-abstract class $AppStateCopyWith<$Res> {
-  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
-      _$AppStateCopyWithImpl<$Res>;
+abstract class $NavigationStackItemCopyWith<$Res> {
+  factory $NavigationStackItemCopyWith(
+          NavigationStackItem value, $Res Function(NavigationStackItem) then) =
+      _$NavigationStackItemCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
-  _$AppStateCopyWithImpl(this._value, this._then);
+class _$NavigationStackItemCopyWithImpl<$Res>
+    implements $NavigationStackItemCopyWith<$Res> {
+  _$NavigationStackItemCopyWithImpl(this._value, this._then);
 
-  final AppState _value;
+  final NavigationStackItem _value;
   // ignore: unused_field
-  final $Res Function(AppState) _then;
+  final $Res Function(NavigationStackItem) _then;
 }
 
 /// @nodoc
@@ -157,7 +159,8 @@ abstract class $HomeStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$HomeStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class _$HomeStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $HomeStateCopyWith<$Res> {
   _$HomeStateCopyWithImpl(HomeState _value, $Res Function(HomeState) _then)
       : super(_value, (v) => _then(v as HomeState));
@@ -173,7 +176,7 @@ class _$HomeState implements HomeState {
 
   @override
   String toString() {
-    return 'AppState.homeState()';
+    return 'NavigationStackItem.homeState()';
   }
 
   @override
@@ -189,7 +192,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -204,7 +207,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -219,7 +222,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -285,7 +288,7 @@ class _$HomeState implements HomeState {
   }
 }
 
-abstract class HomeState implements AppState {
+abstract class HomeState implements NavigationStackItem {
   const factory HomeState() = _$HomeState;
 }
 
@@ -294,12 +297,12 @@ abstract class $EmployeeDetailStateCopyWith<$Res> {
   factory $EmployeeDetailStateCopyWith(
           EmployeeDetailState value, $Res Function(EmployeeDetailState) then) =
       _$EmployeeDetailStateCopyWithImpl<$Res>;
-  $Res call({int id});
+  $Res call({String id});
 }
 
 /// @nodoc
 class _$EmployeeDetailStateCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $EmployeeDetailStateCopyWith<$Res> {
   _$EmployeeDetailStateCopyWithImpl(
       EmployeeDetailState _value, $Res Function(EmployeeDetailState) _then)
@@ -316,7 +319,7 @@ class _$EmployeeDetailStateCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -327,11 +330,11 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   const _$EmployeeDetailState({required this.id});
 
   @override
-  final int id;
+  final String id;
 
   @override
   String toString() {
-    return 'AppState.employeeDetailState(id: $id)';
+    return 'NavigationStackItem.employeeDetailState(id: $id)';
   }
 
   @override
@@ -355,7 +358,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -370,7 +373,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -385,7 +388,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -451,10 +454,11 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   }
 }
 
-abstract class EmployeeDetailState implements AppState {
-  const factory EmployeeDetailState({required int id}) = _$EmployeeDetailState;
+abstract class EmployeeDetailState implements NavigationStackItem {
+  const factory EmployeeDetailState({required String id}) =
+      _$EmployeeDetailState;
 
-  int get id;
+  String get id;
   @JsonKey(ignore: true)
   $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -468,7 +472,8 @@ abstract class $LeaveStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LeaveStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class _$LeaveStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $LeaveStateCopyWith<$Res> {
   _$LeaveStateCopyWithImpl(LeaveState _value, $Res Function(LeaveState) _then)
       : super(_value, (v) => _then(v as LeaveState));
@@ -484,7 +489,7 @@ class _$LeaveState implements LeaveState {
 
   @override
   String toString() {
-    return 'AppState.leaveState()';
+    return 'NavigationStackItem.leaveState()';
   }
 
   @override
@@ -500,7 +505,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -515,7 +520,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -530,7 +535,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -596,7 +601,7 @@ class _$LeaveState implements LeaveState {
   }
 }
 
-abstract class LeaveState implements AppState {
+abstract class LeaveState implements NavigationStackItem {
   const factory LeaveState() = _$LeaveState;
 }
 
@@ -608,7 +613,8 @@ abstract class $UserAllLeaveStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserAllLeaveStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class _$UserAllLeaveStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $UserAllLeaveStateCopyWith<$Res> {
   _$UserAllLeaveStateCopyWithImpl(
       UserAllLeaveState _value, $Res Function(UserAllLeaveState) _then)
@@ -625,7 +631,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
 
   @override
   String toString() {
-    return 'AppState.userAllLeaveState()';
+    return 'NavigationStackItem.userAllLeaveState()';
   }
 
   @override
@@ -641,7 +647,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -656,7 +662,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -671,7 +677,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -737,7 +743,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   }
 }
 
-abstract class UserAllLeaveState implements AppState {
+abstract class UserAllLeaveState implements NavigationStackItem {
   const factory UserAllLeaveState() = _$UserAllLeaveState;
 }
 
@@ -750,7 +756,7 @@ abstract class $UserUpcomingLeaveStateCopyWith<$Res> {
 
 /// @nodoc
 class _$UserUpcomingLeaveStateCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $UserUpcomingLeaveStateCopyWith<$Res> {
   _$UserUpcomingLeaveStateCopyWithImpl(UserUpcomingLeaveState _value,
       $Res Function(UserUpcomingLeaveState) _then)
@@ -767,7 +773,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
 
   @override
   String toString() {
-    return 'AppState.userUpcomingLeaveState()';
+    return 'NavigationStackItem.userUpcomingLeaveState()';
   }
 
   @override
@@ -783,7 +789,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -798,7 +804,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -813,7 +819,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -879,7 +885,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   }
 }
 
-abstract class UserUpcomingLeaveState implements AppState {
+abstract class UserUpcomingLeaveState implements NavigationStackItem {
   const factory UserUpcomingLeaveState() = _$UserUpcomingLeaveState;
 }
 
@@ -891,7 +897,8 @@ abstract class $LeaveRequestStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LeaveRequestStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class _$LeaveRequestStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $LeaveRequestStateCopyWith<$Res> {
   _$LeaveRequestStateCopyWithImpl(
       LeaveRequestState _value, $Res Function(LeaveRequestState) _then)
@@ -908,7 +915,7 @@ class _$LeaveRequestState implements LeaveRequestState {
 
   @override
   String toString() {
-    return 'AppState.leaveRequestState()';
+    return 'NavigationStackItem.leaveRequestState()';
   }
 
   @override
@@ -924,7 +931,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -939,7 +946,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -954,7 +961,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -1020,7 +1027,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   }
 }
 
-abstract class LeaveRequestState implements AppState {
+abstract class LeaveRequestState implements NavigationStackItem {
   const factory LeaveRequestState() = _$LeaveRequestState;
 }
 
@@ -1032,7 +1039,8 @@ abstract class $SettingsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SettingsStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class _$SettingsStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $SettingsStateCopyWith<$Res> {
   _$SettingsStateCopyWithImpl(
       SettingsState _value, $Res Function(SettingsState) _then)
@@ -1049,7 +1057,7 @@ class _$SettingsState implements SettingsState {
 
   @override
   String toString() {
-    return 'AppState.settingsState()';
+    return 'NavigationStackItem.settingsState()';
   }
 
   @override
@@ -1065,7 +1073,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -1080,7 +1088,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -1095,7 +1103,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -1161,7 +1169,7 @@ class _$SettingsState implements SettingsState {
   }
 }
 
-abstract class SettingsState implements AppState {
+abstract class SettingsState implements NavigationStackItem {
   const factory SettingsState() = _$SettingsState;
 }
 
@@ -1173,7 +1181,8 @@ abstract class $TeamLeavesStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TeamLeavesStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class _$TeamLeavesStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
     implements $TeamLeavesStateCopyWith<$Res> {
   _$TeamLeavesStateCopyWithImpl(
       TeamLeavesState _value, $Res Function(TeamLeavesState) _then)
@@ -1190,7 +1199,7 @@ class _$TeamLeavesState implements TeamLeavesState {
 
   @override
   String toString() {
-    return 'AppState.teamLeavesState()';
+    return 'NavigationStackItem.teamLeavesState()';
   }
 
   @override
@@ -1206,7 +1215,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
-    required TResult Function(int id) employeeDetailState,
+    required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
@@ -1221,7 +1230,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -1236,7 +1245,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
-    TResult Function(int id)? employeeDetailState,
+    TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
@@ -1302,6 +1311,6 @@ class _$TeamLeavesState implements TeamLeavesState {
   }
 }
 
-abstract class TeamLeavesState implements AppState {
+abstract class TeamLeavesState implements NavigationStackItem {
   const factory TeamLeavesState() = _$TeamLeavesState;
 }

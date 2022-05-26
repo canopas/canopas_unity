@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/Navigation%20/app_state_manager.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/user/user_manager.dart';
+
+import '../../../Navigation/navigation_stack_item.dart';
+import '../../../Navigation/navigation_stack_manager.dart';
 
 class LeaveScreen extends StatefulWidget {
   LeaveScreen({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class LeaveScreen extends StatefulWidget {
 
 class _LeaveScreenState extends State<LeaveScreen> {
   final UserManager _userManager = getIt<UserManager>();
-  final _stateManager = getIt<AppStateManager>();
+  final _stateManager = getIt<NavigationStackManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                 fontSize: 30, color: Colors.grey, fontWeight: FontWeight.w500),
           ),
           OutlinedButton(
-              onPressed: () => _stateManager.onTapForUserAllLeaves(),
+              onPressed: () => _stateManager
+                  .push(const NavigationStackItem.userAllLeaveState()),
               child: const Text('All Leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
               style: ElevatedButton.styleFrom(
@@ -42,7 +45,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(10))),
           OutlinedButton(
-              onPressed: () => _stateManager.onTapForUserUpComingLeaves(),
+              onPressed: () => _stateManager
+                  .push(const NavigationStackItem.userUpcomingLeaveState()),
               child: const Text('Upcoming leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
               style: ElevatedButton.styleFrom(
@@ -51,7 +55,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(10))),
           OutlinedButton(
-              onPressed: () => _stateManager.onTapForTeamLeaves(),
+              onPressed: () => _stateManager
+                  .push(const NavigationStackItem.teamLeavesState()),
               child: const Text('Team Leaves',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
               style: ElevatedButton.styleFrom(
@@ -69,7 +74,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                         MaterialStateProperty.all(const EdgeInsets.all(10)),
                     backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
                   ),
-                  onPressed: () => _stateManager.onTapOfLeaveRequest(),
+                  onPressed: () => _stateManager
+                      .push(const NavigationStackItem.leaveRequestState()),
                   child: const Text(
                     'Apply for Leaves',
                     style: TextStyle(fontSize: 20),

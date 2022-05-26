@@ -8,7 +8,7 @@ import 'package:projectunity/rest/api_response.dart';
 
 class EmployeeDetailScreen extends StatefulWidget {
   const EmployeeDetailScreen({Key? key, required this.id}) : super(key: key);
-  final int id;
+  final String id;
 
   @override
   _EmployeeDetailScreenState createState() => _EmployeeDetailScreenState();
@@ -20,7 +20,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _bloc.getEmployeeDetailByID(widget.id);
+    _bloc.getEmployeeDetailByID(int.parse(widget.id));
   }
 
   @override
