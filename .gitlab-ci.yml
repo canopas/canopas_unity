@@ -1,0 +1,80 @@
+stages:
+  - test
+  - build
+  - deploy
+
+.android_docker_image:
+  image: cirrusci/flutter:latest
+
+test:
+  extends: .android_docker_image
+  stage: test
+  script:
+    - flutter test
+
+android_build_apk:
+  stage: build
+  extends: .android_docker_image
+  before_script:
+    - flutter clean
+  script:
+    - file='VERSION'
+    - fileData=`cat $file`
+    - IFS='.'
+    - read -a versionValue <<< "$fileData"
+    - buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
+    - IFS=''
+    - buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
+    - echo "Genrating android build $buildName $buildNumber"
+    - flutter build apk --release --build-number=$buildNumber --build-name=$buildName
+    - mv build/app/outputs/apk/release/ProjectUnity*.apk .
+  artifacts:
+    paths:
+      - ProjectUnity*.apk
+  when: manual
+
+android_build_aab:
+  stage: build
+  extends: .android_docker_image
+  before_script:
+    - flutter clean
+  script:
+    - file='VERSION'
+    - fileData=`cat $file`
+    - IFS='.'
+    - read -a versionValue <<< "$fileData"
+    - buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
+    - IFS=''
+    - buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
+    - echo "Genrating android build $buildName $buildNumber"
+    - flutter build appbundle --build-number=$buildNumber --build-name=$buildName
+    - mv build/app/outputs/bundle/release/app-release.aab .
+  artifacts:
+    paths:
+      - app-release.aab
+  when: manual
+
+
+deploy_internal_android:
+  stage: deploy
+  extends: .android_docker_image
+  before_script:
+    - file='VERSION'
+    - fileData=`cat $file`
+    - IFS='.'
+    - read -a versionValue <<< "$fileData"
+    - buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
+    - IFS=''
+    - buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
+    - cd android
+    - apt-get -qq update
+    - apt-get install -qqy --no-install-recommends build-essential ruby-full
+    - gem install bundler fastlane
+    - echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
+    - export APKSIGN_KEYSTORE=`pwd`/release.jks
+    - echo $APP_PLAY_SERVICE_JSON > ~/google_play_api_key.json
+  script:
+    - bundle exec fastlane supply init --track internal
+    - bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
+  only:
+    - main

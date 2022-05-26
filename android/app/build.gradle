@@ -42,23 +42,34 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-
-
     defaultConfig {
-        def parts = flutterVersionName.split("\\.").collect { it.toInteger() }
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.canopas.projectunity"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode parts[0] * 10000 + parts[1] * 100 + parts[2]
+        versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "ProjectUnity-${variant.name}-${versionName}-${versionCode}.apk"
+            }
+        }
     }
     signingConfigs {
-        release {
-            keyAlias 'ProjectUnity'
-            keyPassword 'ProjectUnity'
-            storeFile file('development.jks')
-            storePassword 'ProjectUnity'
+        if (System.getenv("APKSIGN_KEYSTORE") != null) {
+            release {
+                storeFile file(System.getenv("APKSIGN_KEYSTORE"))
+                storePassword System.getenv("APKSIGN_KEYSTORE_PASS")
+                keyAlias System.getenv("APKSIGN_KEY_ALIAS")
+                keyPassword System.getenv("APKSIGN_KEY_PASS")
+            }
+        } else {
+            release {
+                keyAlias 'ProjectUnity'
+                keyPassword 'ProjectUnity'
+                storeFile file('development.jks')
+                storePassword 'ProjectUnity'
+            }
         }
     }
     buildTypes {
