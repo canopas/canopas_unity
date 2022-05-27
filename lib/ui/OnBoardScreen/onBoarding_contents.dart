@@ -21,7 +21,7 @@ class OnBoardingContents {
             'but understanding the contributions our colleagues make to our companies and teams.'),
     OnBoardingContents(
         title: 'Create & Organize your Workspace',
-        image: onBoardScreen3Image,
+        image: onboardScreen3Image,
         info:
             'A digital workspace that helps you to visually organize ideas, to map any content & to share inspiration.'),
   ];
