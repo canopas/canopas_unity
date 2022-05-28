@@ -5,7 +5,6 @@ import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/user/user_preference.dart';
 
 import '../../utils/Constant/api_constant.dart';
-import '../../utils/Constant/token_constant.dart';
 
 @Singleton()
 class ApplyForLeaveApiService {
@@ -18,8 +17,7 @@ class ApplyForLeaveApiService {
     String? accessToken = _userPreference.getAccessToken();
     var data = leaveRequestData.toJson(leaveRequestData);
 
-    Response response = await _dio.post(applyForLeaveApi,
-        data: data, options: Options(headers: {kAccessToken: accessToken}));
+    Response response = await _dio.post(applyForLeaveApi);
     try {
       if (response.statusCode == 200) {
         String responseData = response.data;

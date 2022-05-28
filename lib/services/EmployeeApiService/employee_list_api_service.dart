@@ -5,7 +5,6 @@ import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/user/user_preference.dart';
 
 import '../../utils/Constant/api_constant.dart';
-import '../../utils/Constant/token_constant.dart';
 
 @Injectable()
 class EmployeeListApiService {
@@ -18,8 +17,7 @@ class EmployeeListApiService {
     String? accessToken = _userPreference.getAccessToken();
 
     try {
-      Response response = await _dio.get(getEmployeeListApi,
-          options: Options(headers: {kAccessToken: accessToken}));
+      Response response = await _dio.get(getEmployeeListApi);
       if (response.statusCode == 200) {
         List<dynamic> parsedData = response.data;
         List<Employee> userList =
