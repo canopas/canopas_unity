@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'navigation_stack_item.freezed.dart';
 
 @freezed
-abstract class NavigationStackItem with _$NavigationStackItem {
+class NavigationStackItem with _$NavigationStackItem {
   const factory NavigationStackItem.homeState() = HomeState;
 
   const factory NavigationStackItem.employeeDetailState({required String id}) =

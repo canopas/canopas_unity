@@ -1,9 +1,10 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/rest/api_response.dart';
+import 'package:projectunity/services/auth_manager.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../services/network_repository.dart';
+import '../services/login/login_request_provider.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
   'email',
@@ -12,13 +13,21 @@ GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
 
 @Singleton()
 class LoginBloc {
-  final NetworkRepository _networkRepository;
+  final AuthManager _authManager;
 
-  LoginBloc(this._networkRepository);
+  LoginBloc(this._authManager);
 
   final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
 
   BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
+
+  Future<Map<String, dynamic>> _getLoginData(
+      String googleIdToken, String email) async {
+    final loginData = await LoginRequestDataProvider.getLoginRequestData(
+        googleIdToken, email);
+    Map<String, dynamic> data = loginData.toJson(loginData);
+    return data;
+  }
 
   signInWithGoogle() async {
     try {
@@ -28,7 +37,8 @@ class LoginBloc {
         String? googleIdToken = googleKey.idToken!;
         String email = account.email;
         _loginSubject.sink.add(const ApiResponse.loading());
-        await _networkRepository.googleLogin(googleIdToken, email);
+        Map<String, dynamic> data = await _getLoginData(googleIdToken, email);
+        await _authManager.login(data);
         _loginSubject.sink.add(const ApiResponse.completed(data: true));
       } else {
         _loginSubject.sink

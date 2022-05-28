@@ -3,29 +3,21 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/rest/data_exception.dart';
-import 'package:projectunity/services/login/login_service.dart';
 import 'package:projectunity/user/user_preference.dart';
 
-import '../../utils/Constant/api_constant.dart';
-import '../../utils/Constant/token_constant.dart';
+import '../utils/Constant/api_constant.dart';
+import '../utils/Constant/token_constant.dart';
 
-@Injectable()
-class LoginApiService {
+@Singleton()
+class AuthManager {
   final UserPreference _userPreference;
   final Dio _dio;
-  final LoginService _loginService;
 
-  LoginApiService(this._userPreference, this._dio, this._loginService);
+  AuthManager(this._userPreference, this._dio);
 
-  Future login(String googleIdToken, String email) async {
-    Map<String, dynamic> data =
-        await _loginService.getLoginData(googleIdToken, email);
+  Future login(Map<String, dynamic> data) async {
     try {
-      Response response = await _dio.post(
-        loginWithGoogleApi,
-        data: data,
-
-      );
+      Response response = await _dio.post(loginWithGoogleApi, data: data);
       if (response.statusCode == 200) {
         Map<String, dynamic> employeeData = response.data;
         String employee = jsonEncode(employeeData);
@@ -39,9 +31,8 @@ class LoginApiService {
       } else {
         throw DataException(response.data.toString());
       }
-    }on DioError catch(error){
+    } on DioError catch (error) {
       throw DataException(error.message);
     }
-
   }
 }

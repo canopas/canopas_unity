@@ -5,26 +5,19 @@ import 'package:projectunity/services/EmployeeApiService/employee_detail_api_ser
 import 'package:projectunity/services/EmployeeApiService/employee_list_api_service.dart';
 import 'package:projectunity/services/LeaveService/team_leaves_api_service.dart';
 import 'package:projectunity/services/LeaveService/user_leaves_api_service.dart';
-import 'package:projectunity/services/login/login_api_service.dart';
 
 @Injectable()
 class NetworkRepository {
-  final LoginApiService _loginApiService;
   final EmployeeListApiService _employeeListApiService;
   final EmployeeDetailApiService _employeeDetailByID;
   final UserLeavesApiService _userLeavesApiService;
   final TeamLeavesApiService _teamLeavesApiService;
 
   NetworkRepository(
-      this._loginApiService,
       this._employeeListApiService,
       this._employeeDetailByID,
       this._userLeavesApiService,
       this._teamLeavesApiService);
-
-  Future googleLogin(String googleIdToken, String email) {
-    return _loginApiService.login(googleIdToken, email);
-  }
 
   Future<List<Employee>> getEmployeeListFromRepo() {
     return _employeeListApiService.getEmployeeListFromAPI();

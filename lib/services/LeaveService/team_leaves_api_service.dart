@@ -5,7 +5,6 @@ import 'package:projectunity/rest/data_exception.dart';
 import 'package:projectunity/user/user_preference.dart';
 
 import '../../utils/Constant/api_constant.dart';
-import '../../utils/Constant/token_constant.dart';
 
 @Singleton()
 class TeamLeavesApiService {
@@ -16,8 +15,7 @@ class TeamLeavesApiService {
 
   Future<LeaveDetail> getTeamLeaves() async {
     String? accessToken = _userPreference.getAccessToken();
-    Response response = await _dio.get(getLeavesOfTeamApi,
-        options: Options(headers: {kAccessToken: accessToken}));
+    Response response = await _dio.get(getLeavesOfTeamApi);
     try {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = response.data;

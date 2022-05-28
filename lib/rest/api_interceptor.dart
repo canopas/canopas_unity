@@ -1,11 +1,28 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:projectunity/rest/data_exception.dart';
 
+import '../user/user_preference.dart';
+import '../utils/Constant/token_constant.dart';
+
+@Singleton()
 class ApiInterceptor extends Interceptor {
+  final UserPreference userPreference;
   final networkError = "No Internet connection!";
   final serverError = "Something went wrong";
+
+  ApiInterceptor(this.userPreference);
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    String? accessToken = userPreference.getAccessToken();
+    if (accessToken != null) {
+      options.headers[kAccessToken] = accessToken;
+    }
+    return super.onRequest(options, handler);
+  }
 
   @override
   FutureOr<dynamic> onError(DioError err, ErrorInterceptorHandler handler) {
