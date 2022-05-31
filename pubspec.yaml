@@ -26,6 +26,7 @@ dependencies:
   freezed_annotation: ^1.1.0
   intl: ^0.17.0
   google_fonts: ^2.3.2
+  font_awesome_flutter:
 
 
 dev_dependencies:
