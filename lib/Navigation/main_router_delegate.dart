@@ -7,7 +7,7 @@ import '../ui/User/Employee/employeeList/employee_list_screen.dart';
 import '../ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 import '../ui/User/Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
 import '../ui/User/Leave/LeaveDetail/team_leaves.dart';
-import '../ui/User/Leave/leave_request_form.dart';
+import '../ui/User/Leave/LeaveRequestForm/leave_request_form.dart';
 import '../ui/User/Leave/leave_screen.dart';
 import '../ui/User/setting_screen.dart';
 
