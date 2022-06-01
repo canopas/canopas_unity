@@ -23,8 +23,6 @@ class _DatePickerCardState extends State<DatePickerCard> {
     selectedDate = widget.date;
   }
 
-  String startDate = 'Start Date';
-  String endDate = 'End Date';
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +31,21 @@ class _DatePickerCardState extends State<DatePickerCard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+           const SizedBox(
               width: 2,
             ),
             Text(
-              startDate,
+              DateFormat.yMMMd().format(selectedDate),
               style:
                   GoogleFonts.ibmPlexSans(color: Colors.black87, fontSize: 17),
             ),
             IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.calendar,
-                  color: Color(kPrimaryColour),
-                ),
-                onPressed: () async {
-                  DateTime? formattedDate =
-                      await getDate(context, selectedDate);
-                  DateTime date = DateTime.parse(formattedDate.toString());
-                  startDate = DateFormat.yMMMd().format(date);
-                }),
+              icon: const FaIcon(
+                FontAwesomeIcons.calendar,
+                color: Color(kPrimaryColour),
+              ),
+              onPressed: () async => await getDate(context, selectedDate),
+            ),
           ],
         ),
       ),
