@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/date_picker_card.dart';
-import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/day_type_card.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/leave_type_card.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/reason_card.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/supervisor_card.dart';
+import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/time_picker_card.dart';
 import 'package:projectunity/utils/Constant/color_constant.dart';
 
 class LeaveRequestForm extends StatefulWidget {
@@ -44,27 +44,52 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
           margin: const EdgeInsets.all(20),
           child: Stack(children: [
             SizedBox(
-              height: double.infinity,
+              //  height: double.infinity,
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LeaveTypeCard(leaveType: leaveType),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('From:',
+                          style: GoogleFonts.ibmPlexSans(
+                              fontSize: 20, color: Colors.grey)),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           DatePickerCard(date: startLeaveDate),
-                          DatePickerCard(date: endLeaveDate),
+                          TimePickerCard()
                         ],
                       ),
                     ),
-                    const DayTypeCard(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('To:',
+                          style: GoogleFonts.ibmPlexSans(
+                              fontSize: 20, color: Colors.grey)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DatePickerCard(date: startLeaveDate),
+                          const TimePickerCard()
+                        ],
+                      ),
+                    ),
                     ReasonCard(controller: _reasonEditingController),
                     SupervisorCard(
                       employeeId: employeeId,
+                    ),
+                    Container(
+                      height: 200,
                     ),
                   ],
                 ),

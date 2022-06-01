@@ -31,7 +31,16 @@ class _DatePickerCardState extends State<DatePickerCard> {
     return Expanded(
       child: Card(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              startDate,
+              style:
+                  GoogleFonts.ibmPlexSans(color: Colors.black87, fontSize: 17),
+            ),
             IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.calendar,
@@ -43,10 +52,6 @@ class _DatePickerCardState extends State<DatePickerCard> {
                   DateTime date = DateTime.parse(formattedDate.toString());
                   startDate = DateFormat.yMMMd().format(date);
                 }),
-            Text(
-              startDate,
-              style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 17),
-            )
           ],
         ),
       ),
