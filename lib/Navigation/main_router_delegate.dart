@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/Navigation/navigation_stack_manager.dart';
 
+import '../ui/User/Employee/EmployeeDetail/employee_detail_screen.dart';
 import '../ui/User/Employee/employeeList/employee_list_screen.dart';
-import '../ui/User/Employee/employee_detail_screen.dart';
 import '../ui/User/Leave/LeaveDetail/LoggedInUser/all_leaves.dart';
 import '../ui/User/Leave/LeaveDetail/LoggedInUser/upcoming_leaves.dart';
 import '../ui/User/Leave/LeaveDetail/team_leaves.dart';
@@ -54,8 +54,8 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
                     id: selectedEmployee,
                   ));
             },
-            leaveState: () => MaterialPage(
-                key: const ValueKey("leave"), child: LeaveScreen()),
+            leaveState: () => const MaterialPage(
+                key: ValueKey("leave"), child: LeaveScreen()),
             userAllLeaveState: () => const MaterialPage(
                 key: ValueKey("user-all-leave"), child: AllLeavesUserScreen()),
             userUpcomingLeaveState: () => const MaterialPage(
