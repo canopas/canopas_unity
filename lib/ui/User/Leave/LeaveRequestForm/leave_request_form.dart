@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/select_date_picker.dart';
-import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/select_leave_type.dart';
+import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/date_picker_card.dart';
+import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/day_type_card.dart';
+import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/leave_type_card.dart';
+import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/reason_card.dart';
+import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/supervisor_card.dart';
 import 'package:projectunity/utils/Constant/color_constant.dart';
 
 class LeaveRequestForm extends StatefulWidget {
@@ -14,15 +17,16 @@ class LeaveRequestForm extends StatefulWidget {
 class _LeaveRequestFormState extends State<LeaveRequestForm> {
   DateTime startLeaveDate = DateTime.now();
   DateTime endLeaveDate = DateTime.now();
-  bool fullDaySelected = false;
-  bool halfDaySelected = true;
-  TextEditingController _reasonEditingController = TextEditingController();
-  String supervisor = '';
+  String? leaveType;
+  int? employeeId;
+
+  final TextEditingController _reasonEditingController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
@@ -32,125 +36,94 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
         centerTitle: true,
         title: const Text('Request Leave'),
         titleTextStyle: GoogleFonts.ibmPlexSans(
-            color: Colors.black54, fontSize: 19, fontWeight: FontWeight.w600),
+            color: Colors.black54, fontSize: 22, fontWeight: FontWeight.w600),
         backgroundColor: const Color(appBarColor),
       ),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const SelectLeaveType(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SelectDatePicker(date: startLeaveDate),
-                  SelectDatePicker(date: endLeaveDate),
-                ],
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: Color(kPrimaryColour)),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Row(
+          child: Stack(children: [
+            SizedBox(
+              height: double.infinity,
+              child: SingleChildScrollView(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          fullDaySelected = !fullDaySelected;
-                          halfDaySelected = !halfDaySelected;
-                        });
-                      },
-                      child: Text(
-                        'Full-day',
-                        style: GoogleFonts.ibmPlexSans(color: Colors.black87),
+                    LeaveTypeCard(leaveType: leaveType),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DatePickerCard(date: startLeaveDate),
+                          DatePickerCard(date: endLeaveDate),
+                        ],
                       ),
-                      style: ElevatedButton.styleFrom(
-                        primary: fullDaySelected
-                            ? Colors.white
-                            : const Color(kPrimaryColour),
-                        onPrimary: Color(kPrimaryColour),
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                      ),
-                    )),
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          fullDaySelected = !fullDaySelected;
-                          halfDaySelected = !halfDaySelected;
-                        });
-                      },
-                      child: Text('Half-day',
-                          style:
-                              GoogleFonts.ibmPlexSans(color: Colors.black87)),
-                      style: ElevatedButton.styleFrom(
-                        primary: halfDaySelected
-                            ? Colors.white
-                            : const Color(kPrimaryColour),
-                        onPrimary: Color(kPrimaryColour),
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                      ),
-                    ))
+                    ),
+                    const DayTypeCard(),
+                    ReasonCard(controller: _reasonEditingController),
+                    SupervisorCard(
+                      employeeId: employeeId,
+                    ),
                   ],
                 ),
               ),
-              Card(
-                  child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: TextFormField(
-                  style: GoogleFonts.ibmPlexSans(color: Colors.black87),
-                  cursorColor: const Color(kPrimaryColour),
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Reason',
-                  ),
-                  autofocus: true,
-                  controller: _reasonEditingController,
-                  keyboardType: TextInputType.text,
-                  onChanged: (data) {},
-                ),
-              )),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'Supervisor',
-                    style: GoogleFonts.ibmPlexSans(color: Colors.grey),
-                  ),
-                  trailing: DropdownButton(
-                    underline: Container(),
-                    isExpanded: false,
-                    focusColor: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    items: leaves.map((String person) {
-                      return DropdownMenuItem<String>(
-                          value: person,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(person),
-                          ));
-                    }).toList(),
-                    style: GoogleFonts.ibmPlexSans(
-                        fontSize: 15, color: Colors.black87),
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Colors.black87,
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Reset',
+                        style: GoogleFonts.ibmPlexSans(
+                            color: Colors.black54,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        primary: const Color(kPrimaryColour),
+                        onPrimary: const Color(kPrimaryColour),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                      ),
                     ),
-                    onChanged: (String? value) {
-                      supervisor = value!;
-                    },
-                    value: leaves.first,
                   ),
-                ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Apply Leave',
+                        style: GoogleFonts.ibmPlexSans(
+                            color: Colors.black54,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        primary: const Color(kPrimaryColour),
+                        onPrimary: const Color(kPrimaryColour),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ]),
         ),
       ),
     );
