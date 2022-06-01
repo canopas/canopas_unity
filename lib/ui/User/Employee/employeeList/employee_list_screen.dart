@@ -29,10 +29,11 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(appBarColor),
-      body: SafeArea(
-        child: NestedScrollView(
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+        backgroundColor: const Color(appBarColor),
+        body: NestedScrollView(
           controller: ScrollController(),
           headerSliverBuilder: (_, __) => [
             SliverAppBar(
@@ -45,6 +46,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             )
           ],
           body: Container(
+            height: double.infinity,
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -62,11 +64,10 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                         return Container();
                       }, loading: () {
                         return const SizedBox(
-                            height: 500,
                             child: Center(
                                 child: CircularProgressIndicator(
-                              color: Color(kPrimaryColour),
-                            )));
+                          color: Color(kPrimaryColour),
+                        )));
                       }, completed: (List<Employee> list) {
                         return EmployeeList(employees: list);
                       }, error: (String error) {
