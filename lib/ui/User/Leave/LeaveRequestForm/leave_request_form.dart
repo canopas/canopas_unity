@@ -7,6 +7,7 @@ import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/supervisor_
 import 'package:projectunity/utils/Constant/color_constant.dart';
 
 import 'Contents/DateTimeCard/end_leave_card.dart';
+import 'Contents/bottom_button.dart';
 
 class LeaveRequestForm extends StatefulWidget {
   const LeaveRequestForm({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
           onPressed: () {},
         ),
         centerTitle: true,
-        title: const Text('Request Leave'),
+        title: const Text('Leave Request'),
         titleTextStyle: GoogleFonts.ibmPlexSans(
             color: Colors.black54, fontSize: 22, fontWeight: FontWeight.w600),
         backgroundColor: const Color(appBarColor),
@@ -94,52 +95,23 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Reset',
-                              style: GoogleFonts.ibmPlexSans(
-                                  color: Colors.black54,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              side: const BorderSide(
-                                  width: 2, color: Colors.grey),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              primary: Colors.white,
-                              onPrimary: const Color(kPrimaryColour),
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                            ),
+                          child: BottomButton(
+                            text: 'Reset',
+                            onPress: () {},
+                            color: Colors.white,
+                            borderColor: Colors.grey.shade300,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Expanded(
                           flex: 2,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Apply Leave',
-                              style: GoogleFonts.ibmPlexSans(
-                                  color: Colors.black54,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              side: const BorderSide(
-                                  width: 2, color: Color(kPrimaryColour)),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              primary: const Color(kPrimaryColour),
-                              onPrimary: const Color(kPrimaryColour),
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                            ),
-                          ),
+                          child: BottomButton(
+                              text: 'Apply Leave',
+                              onPress: () {},
+                              color: Color(kPrimaryColour),
+                              borderColor: Color(kPrimaryColour)),
                         ),
                       ],
                     ),
