@@ -18,3 +18,4 @@ void showErrorBanner(String message, BuildContext context) {
         ]),
   );
 }
+

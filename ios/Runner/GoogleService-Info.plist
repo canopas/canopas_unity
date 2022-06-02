@@ -6,9 +6,31 @@
 	<string>606541170752-f1hrsvl3n0eaib89dtne9a1migbhuef6.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.606541170752-f1hrsvl3n0eaib89dtne9a1migbhuef6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>606541170752-diep72j5eq30ndopbrgm2hdvgq9bdjda.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA5pKnaQSE9MpdWnb-UzziGqdlM19bKaoo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>606541170752</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.canopas.CanopasUnity</string>
+	<key>PROJECT_ID</key>
+	<string>canopasunity-334006</string>
+	<key>STORAGE_BUCKET</key>
+	<string>canopasunity-334006.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:606541170752:ios:3b23ae23e1d33d8de337a5</string>
 </dict>
 </plist>

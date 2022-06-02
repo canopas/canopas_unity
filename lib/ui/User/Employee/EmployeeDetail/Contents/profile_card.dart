@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/ui/User/Employee/employeeList/Contents/employee_card.dart';
+import 'package:projectunity/utils/Constant/color_constant.dart';
 
 import '../../../../../model/Employee/employee.dart';
 
@@ -20,18 +20,20 @@ class ProfileCard extends StatelessWidget {
           Positioned(
             right: 0,
             left: 0,
-            top: 60 * 2 - 50,
+            top: 60,
             child: Card(
               child: Padding(
-                padding: const EdgeInsets.only(top: 50, bottom: 25),
+                padding: const EdgeInsets.only(top: 70, bottom: 25),
                 child: Column(
                   children: [
                     EmployeeName(name: employee.name),
-                    EmployeeLevel(level: employee.level),
-                    DesignationAndRoleCard(
-                      designation: employee.designation,
-                      role: employee.status,
+                    const SizedBox(height: 6),
+                    Text(
+                      employee.designation,
+                      style: GoogleFonts.ibmPlexSans(
+                          fontSize: 18, color: Colors.grey),
                     ),
+                    const SizedBox(height: 25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -39,10 +41,12 @@ class ProfileCard extends StatelessWidget {
                           color: Colors.deepOrange,
                           icon: FaIcon(FontAwesomeIcons.phone),
                         ),
+                        SizedBox(width: 20),
                         ContactIcon(
                           color: Colors.green,
                           icon: FaIcon(FontAwesomeIcons.whatsapp),
                         ),
+                        SizedBox(width: 20),
                         ContactIcon(
                           color: Colors.blue,
                           icon: FaIcon(FontAwesomeIcons.envelope),
@@ -64,6 +68,32 @@ class ProfileCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class EmployeeImage extends StatelessWidget {
+  const EmployeeImage({Key? key, required this.imageUrl, required this.radius})
+      : super(key: key);
+  final String? imageUrl;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return imageUrl == null
+        ? const Icon(
+            Icons.account_circle_rounded,
+            size: 120,
+          )
+        : Container(
+            child: PhysicalShape(
+              color: Colors.transparent,
+              shadowColor: Colors.black,
+              elevation: 24,
+              clipper: const ShapeBorderClipper(shape: CircleBorder()),
+              child: CircleAvatar(
+                  radius: radius, backgroundImage: NetworkImage(imageUrl!)),
+            ),
+          );
   }
 }
 
@@ -103,8 +133,8 @@ class EmployeeName extends StatelessWidget {
 }
 
 class DesignationAndRoleCard extends StatelessWidget {
-  final String? designation;
-  final int? role;
+  final String designation;
+  final String role;
 
   const DesignationAndRoleCard(
       {Key? key, required this.designation, required this.role})
@@ -114,10 +144,10 @@ class DesignationAndRoleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: Column(
               children: [
                 Text(
@@ -125,7 +155,7 @@ class DesignationAndRoleCard extends StatelessWidget {
                   style:
                       GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.grey),
                 ),
-                Text(designation ?? '-',
+                Text(designation,
                     style: GoogleFonts.ibmPlexSans(
                         fontSize: 20,
                         color: Colors.black,
@@ -139,38 +169,24 @@ class DesignationAndRoleCard extends StatelessWidget {
             endIndent: 25,
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: Column(children: [
               Text(
                 'Role',
                 style:
                     GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.grey),
               ),
-              _createRole(role!)
+              Text(
+                role,
+                style: GoogleFonts.ibmPlexSans(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500),
+              )
             ]),
           )
         ],
       ),
-    );
-  }
-
-  Text _createRole(int role) {
-    String name = '';
-    switch (role) {
-      case 1:
-        name = 'Admin';
-        break;
-      case 2:
-        name = 'HR';
-        break;
-      case 3:
-        name = 'Standard';
-    }
-    return Text(
-      name,
-      style: GoogleFonts.ibmPlexSans(
-          fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
     );
   }
 }
@@ -185,8 +201,19 @@ class ContactIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      height: 60,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: const Color(kPrimaryColour).withOpacity(0.3),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
       child: IconButton(onPressed: () {}, icon: icon, color: Colors.white),
     );
   }
