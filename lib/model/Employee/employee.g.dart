@@ -7,48 +7,40 @@ part of 'employee.dart';
 // **************************************************************************
 
 Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
-      id: json['id'] as int,
+      id: json['id'] as String,
+      roleType: json['role_type'] as int,
+      name: json['name'] as String,
       employeeId: json['employee_id'] as String,
-      roleId: json['role_id'] as int?,
-      name: json['name'] as String?,
       email: json['email'] as String,
+      designation: json['designation'] as String,
       phone: json['phone'] as String?,
       imageUrl: json['image_url'] as String?,
       address: json['address'] as String?,
       gender: json['gender'] as int?,
       dateOfBirth: json['date_of_birth'] as int?,
       dateOfJoining: json['date_of_joining'] as int?,
-      designation: json['designation'] as String?,
-      status: json['status'] as int?,
       level: json['level'] as String?,
       bloodGroup: json['blood_group'] as String?,
-      session: json['session'] == null
-          ? null
-          : Session.fromJson(json['session'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$EmployeeToJson(Employee instance) => <String, dynamic>{
       'id': instance.id,
-      'employee_id': instance.employeeId,
-      'role_id': instance.roleId,
+      'role_type': instance.roleType,
       'name': instance.name,
       'email': instance.email,
+      'employee_id': instance.employeeId,
+      'designation': instance.designation,
       'phone': instance.phone,
       'image_url': instance.imageUrl,
       'address': instance.address,
       'gender': instance.gender,
       'date_of_birth': instance.dateOfBirth,
       'date_of_joining': instance.dateOfJoining,
-      'designation': instance.designation,
-      'status': instance.status,
       'level': instance.level,
       'blood_group': instance.bloodGroup,
-      'session': instance.session,
     };
 
 Session _$SessionFromJson(Map<String, dynamic> json) => Session(
-      id: json['id'] as int,
-      employeeId: json['employee_id'] as int,
       deviceId: json['device_id'] as String?,
       deviceToken: json['device_token'] as String?,
       deviceType: json['device_type'] as int?,
@@ -59,8 +51,6 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
     );
 
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
-      'id': instance.id,
-      'employee_id': instance.employeeId,
       'device_id': instance.deviceId,
       'device_token': instance.deviceToken,
       'device_type': instance.deviceType,

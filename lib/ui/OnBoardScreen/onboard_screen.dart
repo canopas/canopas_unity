@@ -44,7 +44,8 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     alignment: Alignment.topRight,
                     child: TextButton(
                         onPressed: () {
-                          _controller.jumpToPage(2);
+                          _loginState.setOnBoardComplete(true);
+                          _preference.setOnBoardCompleted(true);
                         },
                         child: Text(
                           'SKIP',

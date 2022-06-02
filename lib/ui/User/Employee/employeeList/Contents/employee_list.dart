@@ -15,12 +15,14 @@ class EmployeeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: ListView.builder(
-      itemCount: employees.length,
-      itemBuilder: (BuildContext context, int index) {
-        Employee employee = employees[index];
-        return EmployeeCard(employee: employee);
-      },
-    ));
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: employees.length,
+        itemBuilder: (BuildContext context, int index) {
+          Employee employee = employees[index];
+          return EmployeeCard(employee: employee);
+        },
+      ),
+    );
   }
 }

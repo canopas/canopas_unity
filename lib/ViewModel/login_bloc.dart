@@ -1,10 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/services/auth_manager.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../services/login/login_request_provider.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
   'email',
@@ -21,35 +21,80 @@ class LoginBloc {
 
   BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
 
-  Future<Map<String, dynamic>> _getLoginData(
-      String googleIdToken, String email) async {
-    final loginData = await LoginRequestDataProvider.getLoginRequestData(
-        googleIdToken, email);
-    Map<String, dynamic> data = loginData.toJson(loginData);
-    return data;
+  signIn() async {
+    _loginSubject.add(const ApiResponse.loading());
+
+    try {
+      User? user = await _signInWithGoogle();
+
+      if (user != null) {
+        if (user.email == null) {
+          _loginSubject.add(const ApiResponse.error(message: "Invalid email"));
+          return;
+        }
+
+        final data = await _authManager.getUser(user.email!);
+
+        if (data == null) {
+          _loginSubject.add(const ApiResponse.error(message: 'User not found'));
+          return;
+        }
+        _authManager.updateUser(data);
+
+        _loginSubject.add(const ApiResponse.completed(data: true));
+      } else {
+        _loginSubject.add(const ApiResponse.error(message: 'User not found'));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      if (e.code == 'invalid-credential') {
+        _loginSubject
+            .add(const ApiResponse.error(message: "Invalid credential"));
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      _loginSubject
+          .add(const ApiResponse.error(message: "Something went wrong"));
+    }
   }
 
-  signInWithGoogle() async {
-    try {
-      GoogleSignInAccount? account = await googleSignIn.signIn();
-      if (account != null) {
-        GoogleSignInAuthentication googleKey = await account.authentication;
-        String? googleIdToken = googleKey.idToken!;
-        String email = account.email;
-        _loginSubject.sink.add(const ApiResponse.loading());
-        Map<String, dynamic> data = await _getLoginData(googleIdToken, email);
-        await _authManager.login(data);
-        _loginSubject.sink.add(const ApiResponse.completed(data: true));
-      } else {
-        _loginSubject.sink
-            .add(const ApiResponse.error(message: 'user not found'));
-      }
-    } on Exception catch (error) {
-      _loginSubject.sink.add(ApiResponse.error(message: error.toString()));
+  Future<User?> _signInWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+
+      user = userCredential.user;
+
+      return user;
     }
+    return null;
   }
 
   void dispose() {
     _loginSubject.close();
+  }
+
+  void reset() {
+    _loginSubject.sink.add(const ApiResponse.idle());
   }
 }

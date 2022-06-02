@@ -1,18 +1,23 @@
 import 'dart:core';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'employee.g.dart';
 
+const int kRoleTypeAdmin = 1;
+const int kRoleTypeEmployee = 2;
+
 @JsonSerializable()
 class Employee {
-  int id;
+  String id;
+  @JsonKey(name: 'role_type')
+  int roleType = kRoleTypeEmployee;
+  String name;
+  String email;
   @JsonKey(name: 'employee_id')
   String employeeId;
-  @JsonKey(name: 'role_id')
-  int? roleId;
-  String? name;
-  String email;
+  String designation;
   String? phone;
   @JsonKey(name: 'image_url')
   String? imageUrl;
@@ -22,42 +27,85 @@ class Employee {
   int? dateOfBirth;
   @JsonKey(name: 'date_of_joining')
   int? dateOfJoining;
-  String? designation;
-  int? status;
   String? level;
   @JsonKey(name: 'blood_group')
   String? bloodGroup;
-  Session? session;
 
   Employee(
       {required this.id,
+      required this.roleType,
+      required this.name,
       required this.employeeId,
-      this.roleId,
-      this.name,
       required this.email,
+      required this.designation,
       this.phone,
       this.imageUrl,
       this.address,
       this.gender,
       this.dateOfBirth,
       this.dateOfJoining,
-      this.designation,
-      this.status,
       this.level,
-      this.bloodGroup,
-      this.session});
+      this.bloodGroup});
+
+  String getRole() {
+    if (roleType == kRoleTypeAdmin) {
+      return "Admin";
+    } else if (roleType == kRoleTypeEmployee) {
+      return "Employee";
+    } else {
+      return "HR";
+    }
+  }
 
   factory Employee.fromJson(Map<String, dynamic> map) =>
       _$EmployeeFromJson(map);
 
-  Map<String, dynamic> employeeToJson(Employee user) => _$EmployeeToJson(this);
+  Map<String, dynamic> employeeToJson() => _$EmployeeToJson(this);
+
+  factory Employee.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+
+    return Employee(
+      id: snapshot.reference.id,
+      roleType: data?['role_type'],
+      email: data?['email'],
+      name: data?['name'],
+      employeeId: data?['employee_id'],
+      phone: data?['phone'],
+      imageUrl: data?['image_url'],
+      address: data?['address'],
+      gender: data?['gender'],
+      dateOfBirth: data?['date_of_birth'],
+      dateOfJoining: data?['date_of_joining'],
+      designation: data?['designation'],
+      level: data?['level'],
+      bloodGroup: data?['blood_group'],
+    );
+  }
+
+  Map<String, dynamic> _$EmployeeToJson(Employee instance) => <String, dynamic>{
+        'id': instance.id,
+        'role_type': instance.roleType,
+        'name': instance.name,
+        'email': instance.email,
+        'employee_id': instance.employeeId,
+        'phone': instance.phone,
+        'image_url': instance.imageUrl,
+        'address': instance.address,
+        'gender': instance.gender,
+        'date_of_birth': instance.dateOfBirth,
+        'date_of_joining': instance.dateOfJoining,
+        'designation': instance.designation,
+        'level': instance.level,
+        'blood_group': instance.bloodGroup,
+      };
 }
 
 @JsonSerializable()
 class Session {
-  int id;
-  @JsonKey(name: 'employee_id')
-  int employeeId;
   @JsonKey(name: 'device_id')
   String? deviceId;
   @JsonKey(name: 'device_token')
@@ -73,9 +121,7 @@ class Session {
   int? lastAccessedOn;
 
   Session(
-      {required this.id,
-      required this.employeeId,
-      this.deviceId,
+      {this.deviceId,
       this.deviceToken,
       this.deviceType,
       this.version,
@@ -85,5 +131,22 @@ class Session {
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 
-  Map<String, dynamic> sessionToJson(Session session) => _$SessionToJson(this);
+  Map<String, dynamic> sessionToJson() => _$SessionToJson(this);
+
+  factory Session.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+
+    return Session(
+      deviceId: data?['device_id'],
+      deviceToken: data?['device_token'],
+      deviceType: data?['device_type'],
+      version: data?['version'],
+      deviceName: data?['device_name'],
+      osVersion: data?['os_version'],
+      lastAccessedOn: data?['last_accessed-on'],
+    );
+  }
 }

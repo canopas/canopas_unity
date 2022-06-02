@@ -14,6 +14,7 @@ class EmployeeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Material(
       color: Colors.white54,
       child: InkWell(
@@ -25,7 +26,10 @@ class EmployeeCard extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0, left: 40, bottom: 10),
           child: Row(
             children: [
-              EmployeeImage(imageUrl: employee.imageUrl),
+              EmployeeImage(
+                imageUrl: employee.imageUrl,
+                radius: height / 100 * 3.5,
+              ),
               const SizedBox(
                 width: 15,
               ),
@@ -48,20 +52,20 @@ class EmployeeCard extends StatelessWidget {
 }
 
 class EmployeeImage extends StatelessWidget {
-  const EmployeeImage({Key? key, required this.imageUrl}) : super(key: key);
+  const EmployeeImage({Key? key, required this.imageUrl, required this.radius})
+      : super(key: key);
   final String? imageUrl;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return imageUrl == null
         ? const Icon(
             Icons.account_circle_rounded,
             size: 70,
           )
         : CircleAvatar(
-            radius: height / 100 * 3.5,
-            backgroundImage: NetworkImage(imageUrl!));
+            radius: radius, backgroundImage: NetworkImage(imageUrl!));
   }
 }
 

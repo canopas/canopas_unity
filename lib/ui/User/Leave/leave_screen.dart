@@ -6,7 +6,7 @@ import '../../../Navigation/navigation_stack_item.dart';
 import '../../../Navigation/navigation_stack_manager.dart';
 
 class LeaveScreen extends StatefulWidget {
-  LeaveScreen({Key? key}) : super(key: key);
+  const LeaveScreen({Key? key}) : super(key: key);
 
   @override
   _LeaveScreenState createState() => _LeaveScreenState();
