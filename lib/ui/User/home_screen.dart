@@ -20,35 +20,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color(kSecondaryColor),
-          selectedItemColor: const Color(selectedTabColor),
-          unselectedItemColor: const Color(kPrimaryColour),
-          selectedFontSize: 15,
-          currentIndex: selectedTab,
-          onTap: _ontap,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.date_range_rounded),
-              label: 'Leave',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.manage_accounts_rounded),
-              label: 'Settings',
-            ),
-          ],
-        ),
-        body: Builder(
-          builder: (context) => MaterialApp.router(
-            routerDelegate: MainRouterDelegate(stack: _stateManager),
-            routeInformationParser: HomeRouterInfoParser(),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: const Color(kSecondaryColor),
+            selectedItemColor: const Color(selectedTabColor),
+            unselectedItemColor: const Color(kPrimaryColour),
+            selectedFontSize: 15,
+            currentIndex: selectedTab,
+            onTap: _ontap,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_rounded),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.date_range_rounded),
+                label: 'Leave',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.manage_accounts_rounded),
+                label: 'Settings',
+              ),
+            ],
           ),
-        ));
+          body: Builder(
+            builder: (context) => MaterialApp.router(
+              routerDelegate: MainRouterDelegate(stack: _stateManager),
+              routeInformationParser: HomeRouterInfoParser(),
+            ),
+          )),
+    );
   }
 
   void _ontap(int id) {
