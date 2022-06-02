@@ -44,12 +44,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Navigator(
       pages: [
-        if (!isOnBoardComplete) const MaterialPage(child: OnBoardScreen()),
-        if (isOnBoardComplete && !isLogin)
-          const MaterialPage(child: LoginScreen()),
-        if (isOnBoardComplete && isLogin)
-          const MaterialPage(child: HomeScreen()),
-      ],
+          if (!isOnBoardComplete) const MaterialPage(child: OnBoardScreen()),
+          if (isOnBoardComplete && !isLogin)
+            const MaterialPage(child: LoginScreen()),
+          if (isOnBoardComplete && isLogin)
+            const MaterialPage(child: HomeScreen()),
+        ],
       onPopPage: (route, result) {
         if (!route.didPop(result)) {
             return false;

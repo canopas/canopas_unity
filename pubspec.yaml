@@ -29,6 +29,7 @@ dependencies:
   font_awesome_flutter:
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -36,6 +37,7 @@ dev_dependencies:
   json_serializable: ^6.1.4
   build_runner: ^2.1.7
   injectable_generator:
+
 
 
 flutter:
