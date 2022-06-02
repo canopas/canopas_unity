@@ -110,8 +110,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           child: BottomButton(
                               text: 'Apply Leave',
                               onPress: () {},
-                              color: Color(kPrimaryColour),
-                              borderColor: Color(kPrimaryColour)),
+                              color: const Color(kPrimaryColour),
+                              borderColor: const Color(kPrimaryColour)),
                         ),
                       ],
                     ),
