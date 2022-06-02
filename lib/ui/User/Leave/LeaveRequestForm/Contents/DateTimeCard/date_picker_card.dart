@@ -4,10 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../utils/Constant/color_constant.dart';
+import '../../../../../../utils/Constant/color_constant.dart';
+import '../../../../../../utils/Constant/other_constant.dart';
 
 class DatePickerCard extends StatefulWidget {
-  final DateTime date;
+  final int date;
 
   const DatePickerCard({Key? key, required this.date}) : super(key: key);
 
@@ -16,13 +17,13 @@ class DatePickerCard extends StatefulWidget {
 }
 
 class _DatePickerCardState extends State<DatePickerCard> {
-  late DateTime selectedDate;
+  late int selectedDate;
+  DateTime currentDate = DateTime.now();
 
   @override
   initState() {
     selectedDate = widget.date;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +36,23 @@ class _DatePickerCardState extends State<DatePickerCard> {
               width: 2,
             ),
             Text(
-              DateFormat.yMMMd().format(selectedDate),
-              style:
-                  GoogleFonts.ibmPlexSans(color: Colors.black87, fontSize: 17),
+              DateFormat.yMMMd().format(currentDate),
+              style: GoogleFonts.ibmPlexSans(
+                  color: Colors.black87, fontSize: kLeaveRequestFontSize),
             ),
             IconButton(
               icon: const FaIcon(
                 FontAwesomeIcons.calendar,
                 color: Color(kPrimaryColour),
               ),
-              onPressed: () async => await getDate(context, selectedDate),
+              onPressed: () async {
+                DateTime? selectedLeaveDate =
+                    await getDate(context, selectedDate);
+                String formattedDate = selectedLeaveDate.toString();
+                DateTime date = DateTime.parse(formattedDate);
+                int startDateToInt = date.microsecondsSinceEpoch;
+                print(startDateToInt.toString());
+              },
             ),
           ],
         ),
@@ -52,17 +60,21 @@ class _DatePickerCardState extends State<DatePickerCard> {
     );
   }
 
-  Future<DateTime?> getDate(BuildContext context, DateTime? dateTime) async {
-    DateTime? date = await showDatePicker(
+  Future<DateTime?> getDate(BuildContext context, int dateInt) async {
+    DateTime? selectedDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2021),
         lastDate: DateTime(2025));
-    if (dateTime != DateTime.now() && dateTime != null) {
+    if (selectedDate != currentDate && selectedDate != null) {
+      String formattedDate = selectedDate.toString();
+      DateTime date = DateTime.parse(formattedDate);
+      int startDateToInt = date.microsecondsSinceEpoch;
       setState(() {
-        selectedDate = dateTime;
+        currentDate = selectedDate;
+        dateInt = startDateToInt;
       });
     }
-    return date;
+    return selectedDate;
   }
 }
