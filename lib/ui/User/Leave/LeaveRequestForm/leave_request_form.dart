@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/Navigation/navigation_stack_item.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/DateTimeCard/start_leave_card.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/leave_type_card.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/reason_card.dart';
 import 'package:projectunity/ui/User/Leave/LeaveRequestForm/Contents/supervisor_card.dart';
 import 'package:projectunity/utils/Constant/color_constant.dart';
 
+import '../../../../Navigation/navigation_stack_manager.dart';
+import '../../../../di/service_locator.dart';
 import 'Contents/DateTimeCard/end_leave_card.dart';
 import 'Contents/bottom_button.dart';
 
@@ -26,6 +29,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
 
   final TextEditingController _reasonEditingController =
       TextEditingController();
+  final _stateManager = getIt<NavigationStackManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.black54,
-          onPressed: () {},
+          onPressed: () {
+            _stateManager.pop();
+          },
         ),
         centerTitle: true,
         title: const Text('Leave Request'),
@@ -83,9 +89,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                   right: 0,
                   bottom: 0,
                   child: Container(
-                    decoration: const BoxDecoration(boxShadow: [
+                    decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                        color: Colors.white,
+                        color: Colors.grey.shade50,
                         blurRadius: 10,
                         spreadRadius: 15,
                       ),
@@ -109,7 +115,11 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           flex: 2,
                           child: BottomButton(
                               text: 'Apply Leave',
-                              onPress: () {},
+                              onPress: () {
+                                _stateManager.push(const NavigationStackItem
+                                    .userAllLeaveState());
+                                _stateManager.setBottomBar(true);
+                              },
                               color: const Color(kPrimaryColour),
                               borderColor: const Color(kPrimaryColour)),
                         ),

@@ -8,6 +8,14 @@ import 'navigation_stack_item.dart';
 @Singleton()
 class NavigationStackManager extends ChangeNotifier {
   List<NavigationStackItem> _screens = [const NavigationStackItem.homeState()];
+  bool _showBottomBar = true;
+
+  bool get showBottomBar => _showBottomBar;
+
+  void setBottomBar(bool show) {
+    _showBottomBar = show;
+    notifyListeners();
+  }
 
   set screens(List<NavigationStackItem> newItems) {
     _screens = List.from(newItems);

@@ -17,24 +17,35 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
   int selectedTab = 0;
+  bool show = false;
+
+  @override
+  void initState() {
+    _stateManager.addListener(() {
+      setState(() {
+        show = _stateManager.showBottomBar;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: const Color(kSecondaryColor),
-            selectedItemColor: const Color(selectedTabColor),
-            unselectedItemColor: const Color(kPrimaryColour),
-            selectedFontSize: 15,
-            currentIndex: selectedTab,
-            onTap: _ontap,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
-                label: 'Home',
-              ),
+          bottomNavigationBar: show
+              ? BottomNavigationBar(
+                  backgroundColor: const Color(kSecondaryColor),
+                  selectedItemColor: const Color(selectedTabColor),
+                  unselectedItemColor: const Color(kPrimaryColour),
+                  selectedFontSize: 15,
+                  currentIndex: selectedTab,
+                  onTap: _ontap,
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home_rounded),
+                      label: 'Home',
+                    ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.date_range_rounded),
                 label: 'Leave',
@@ -44,12 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Settings',
               ),
             ],
-          ),
+          ) : null,
           body: Builder(
-            builder: (context) => MaterialApp.router(
-              routerDelegate: MainRouterDelegate(stack: _stateManager),
-              routeInformationParser: HomeRouterInfoParser(),
-            ),
+            builder: (context) =>
+                MaterialApp.router(
+                  routerDelegate: MainRouterDelegate(stack: _stateManager),
+                  routeInformationParser: HomeRouterInfoParser(),
+                ),
           )),
     );
   }

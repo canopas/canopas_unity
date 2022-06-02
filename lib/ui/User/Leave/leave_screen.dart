@@ -74,8 +74,11 @@ class _LeaveScreenState extends State<LeaveScreen> {
                         MaterialStateProperty.all(const EdgeInsets.all(10)),
                     backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
                   ),
-                  onPressed: () => _stateManager
-                      .push(const NavigationStackItem.leaveRequestState()),
+                  onPressed: () {
+                    _stateManager.setBottomBar(false);
+                    _stateManager
+                        .push(const NavigationStackItem.leaveRequestState());
+                  },
                   child: const Text(
                     'Apply for Leaves',
                     style: TextStyle(fontSize: 20),
