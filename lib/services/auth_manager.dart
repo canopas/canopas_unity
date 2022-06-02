@@ -1,38 +1,27 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/rest/data_exception.dart';
-import 'package:projectunity/user/user_preference.dart';
+import 'package:projectunity/model/Employee/employee.dart';
 
-import '../utils/Constant/api_constant.dart';
-import '../utils/Constant/token_constant.dart';
+import '../user/user_preference.dart';
+import 'auth_service.dart';
+import 'login/device_info_provider.dart';
 
 @Singleton()
 class AuthManager {
+  final AuthService _authService;
   final UserPreference _userPreference;
-  final Dio _dio;
 
-  AuthManager(this._userPreference, this._dio);
+  AuthManager(this._userPreference, this._authService);
 
-  Future login(Map<String, dynamic> data) async {
-    try {
-      Response response = await _dio.post(loginWithGoogleApi, data: data);
-      if (response.statusCode == 200) {
-        Map<String, dynamic> employeeData = response.data;
-        String employee = jsonEncode(employeeData);
-        _userPreference.updateCurrentUser(employee);
+  updateUser(Employee user) async {
+    final session = await DeviceInfoProvider.getDeviceInfo();
+    _authService.updateUserData(user, session);
+    _userPreference.updateCurrentUser(jsonEncode(user.employeeToJson()));
+  }
 
-        String? accessToken = response.headers.value(kAccessToken);
-        _userPreference.setAccessToken(accessToken);
-
-        String? refreshToken = response.headers.value(kRefreshToken);
-        _userPreference.setRefreshToken(refreshToken);
-      } else {
-        throw DataException(response.data.toString());
-      }
-    } on DioError catch (error) {
-      throw DataException(error.message);
-    }
+  Future<Employee?> getUser(String email) async {
+    var employee = await _authService.getUserData(email);
+    return employee;
   }
 }

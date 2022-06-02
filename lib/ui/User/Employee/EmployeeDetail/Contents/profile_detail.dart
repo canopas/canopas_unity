@@ -14,6 +14,10 @@ class ProfileDetail extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Details(
+          title: 'Role: ',
+          subTitle: employee.getRole(),
+        ),
+        Details(
           title: 'Mobile: ',
           subTitle: employee.phone,
         ),

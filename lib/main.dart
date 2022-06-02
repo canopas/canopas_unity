@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/ui/OnBoardScreen/onboard_screen.dart';
 import 'package:projectunity/ui/User/home_screen.dart';
@@ -8,6 +9,7 @@ import 'di/service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await configureDependencies();
   runApp(const MaterialApp(
     title: 'ProjectUnity Flutter',
@@ -43,18 +45,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      pages: [
-        if (!isOnBoardComplete) const MaterialPage(child: OnBoardScreen()),
-        if (isOnBoardComplete && !isLogin)
-          const MaterialPage(child: LoginScreen()),
-        if (isOnBoardComplete && isLogin)
-          const MaterialPage(child: HomeScreen()),
-      ],
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) {
+        pages: [
+          if (!isOnBoardComplete) const MaterialPage(child: OnBoardScreen()),
+          if (isOnBoardComplete && !isLogin)
+            const MaterialPage(child: LoginScreen()),
+          if (isOnBoardComplete && isLogin)
+            const MaterialPage(child: HomeScreen()),
+        ],
+        onPopPage: (route, result) {
+          if (!route.didPop(result)) {
             return false;
           }
           return true;
-      });
+        });
   }
 }

@@ -29,7 +29,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _bloc.getEmployeeDetailByID(int.parse(widget.id));
+    _bloc.getEmployeeDetailByID(widget.id);
   }
 
   @override
@@ -38,12 +38,12 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => _navigationStackManager.pop(),
-          icon: const Icon(FontAwesomeIcons.angleLeft, color: Colors.black45),
+          icon: const Icon(FontAwesomeIcons.angleLeft, color: Colors.black),
         ),
         title: Text(
           'Profile',
           style: GoogleFonts.ibmPlexSans(
-              color: Colors.black54, fontSize: 20, fontWeight: FontWeight.w600),
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
         ),
         backgroundColor: const Color(kSecondaryColor),
       ),
