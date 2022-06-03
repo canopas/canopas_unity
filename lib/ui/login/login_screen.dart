@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/Navigation/login_state.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/navigation/login_state.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
-import 'package:projectunity/utils/Constant/color_constant.dart';
+import 'package:projectunity/utils/const/color_constant.dart';
 
-import '../../ViewModel/login_bloc.dart';
 import '../../rest/api_response.dart';
-import '../../utils/Constant/image_constant.dart';
+import '../../utils/const/image_constant.dart';
+import '../../viewmodel/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

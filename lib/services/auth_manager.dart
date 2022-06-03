@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/Employee/employee.dart';
+import 'package:projectunity/model/employee/employee.dart';
 
+import '../model/login/device_info_provider.dart';
 import '../user/user_preference.dart';
 import 'auth_service.dart';
-import 'login/device_info_provider.dart';
 
 @Singleton()
 class AuthManager {
