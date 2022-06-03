@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/Constant/color_constant.dart';
-import '../../../utils/Constant/image_constant.dart';
+import '../../../utils/const/color_constant.dart';
+import '../../../utils/const/image_constant.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({

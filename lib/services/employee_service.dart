@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
-import '../model/Employee/employee.dart';
+import '../model/employee/employee.dart';
 
 @Singleton()
 class EmployeeService {

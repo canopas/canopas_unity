@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/Employee/employee.dart';
+import 'package:projectunity/model/employee/employee.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/Constant/token_constant.dart';
+import '../utils/const/token_constant.dart';
 
 @Injectable()
 class UserPreference {
