@@ -32,6 +32,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
     return SafeArea(
       bottom: false,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(appBarColor),
         body: NestedScrollView(
           controller: ScrollController(),
@@ -45,40 +46,45 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               ),
             )
           ],
-          body: Container(
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-            ),
-            child: Column(
-              children: [
-                const SearchBar(),
-                StreamBuilder<ApiResponse<List<Employee>>>(
-                    initialData: const ApiResponse.idle(),
-                    stream: _bloc.allEmployee,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<dynamic> snapshot) {
-                      return snapshot.data!.when(idle: () {
-                        return Container();
-                      }, loading: () {
-                        return const SizedBox(
-                            child: Center(
-                                child: CircularProgressIndicator(
-                          color: Color(kPrimaryColour),
-                        )));
-                      }, completed: (List<Employee> list) {
-                        return EmployeeList(employees: list);
-                      }, error: (String error) {
-                        SchedulerBinding.instance.addPostFrameCallback((_) {
-                          showErrorBanner(error, context);
-                        });
+          body: SingleChildScrollView(
+            child: Container(
+              clipBehavior: Clip.antiAlias,
+              height: MediaQuery.of(context).size.height - 100,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+              ),
+              child: Column(
+                children: [
+                  const SearchBar(),
+                  StreamBuilder<ApiResponse<List<Employee>>>(
+                      initialData: const ApiResponse.idle(),
+                      stream: _bloc.allEmployee,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        return snapshot.data!.when(idle: () {
+                          return Container();
+                        }, loading: () {
+                          return const SizedBox(
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                            color: Color(kPrimaryColour),
+                          )));
+                        }, completed: (List<Employee> list) {
+                          return EmployeeList(employees: list);
+                        }, error: (String error) {
+                          SchedulerBinding.instance.addPostFrameCallback((_) {
+                            showErrorBanner(error, context);
+                          });
 
-                        return const Center(child: CircularProgressIndicator());
-                      });
-                    }),
-              ],
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        });
+                      }),
+                ],
+              ),
             ),
           ),
         ),
