@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/user/user_manager.dart';
 
 import 'navigation_stack_item.dart';
 import 'navigation_stack_manager.dart';
 
 class HomeRouterInfoParser
     extends RouteInformationParser<NavigationStackManager> {
+  final _stackManager = getIt<NavigationStackManager>();
+  final _userManager = getIt<UserManager>();
+
   @override
   Future<NavigationStackManager> parseRouteInformation(
       RouteInformation routeInformation) async {
     final items = await itemsForRouteInformation(routeInformation);
-    final stackManager = NavigationStackManager();
-    stackManager.screens = items;
-    return stackManager;
+    _stackManager.screens = items;
+    return _stackManager;
   }
 
   @override
-  RouteInformation restoreRouteInformation(
-      NavigationStackManager configuration) {
+  RouteInformation restoreRouteInformation(NavigationStackManager configuration) {
     final location =
-        configuration.screens.fold<String>("", (previousValue, element) {
+    configuration.screens.fold<String>("", (previousValue, element) {
       return previousValue +
           element.when(
+              adminHomeState: () => "/admin",
               homeState: () => "/home",
               leaveState: () => "/leave",
               settingsState: () => "/settings",
@@ -33,18 +37,20 @@ class HomeRouterInfoParser
     return RouteInformation(location: location);
   }
 
-  Future<List<NavigationStackItem>> itemsForRouteInformation(
-      RouteInformation routeInformation) async {
+  Future<List<NavigationStackItem>> itemsForRouteInformation(RouteInformation routeInformation) async {
     final uri = Uri.parse(routeInformation.location ?? "");
     final items = <NavigationStackItem>[];
     for (var i = 0, j = 1;
-        i < uri.pathSegments.length && j < uri.pathSegments.length;
-        i = i + 2, j = j + 2) {
+    i < uri.pathSegments.length && j < uri.pathSegments.length;
+    i = i + 2, j = j + 2) {
       final key = uri.pathSegments[i];
       final value = uri.pathSegments[j];
 
       print("Key $key value $value uri $uri");
       switch (key) {
+        case "admin":
+          items.add(const NavigationStackItem.adminHomeState());
+          break;
         case "home":
           items.add(const NavigationStackItem.homeState());
           break;
@@ -75,7 +81,11 @@ class HomeRouterInfoParser
     }
 
     if (items.isEmpty) {
-      items.add(const NavigationStackItem.homeState());
+      if (_userManager.isAdmin()) {
+        items.add(const NavigationStackItem.adminHomeState());
+      } else {
+        items.add(const NavigationStackItem.homeState());
+      }
     }
 
     return items;

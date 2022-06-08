@@ -7,6 +7,7 @@ import 'package:projectunity/ui/user/leave/detail/team_leaves.dart';
 import 'package:projectunity/ui/user/leave/detail/upcoming_leaves.dart';
 import 'package:projectunity/ui/user/leave/leave_screen.dart';
 import 'package:projectunity/ui/user/leave/request/leave_request_form.dart';
+import 'package:projectunity/ui/admin/home/admin_home_screen.dart';
 
 import 'navigation_stack_manager.dart';
 
@@ -44,6 +45,8 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
 
   List<Page> _buildPages() => stack.screens
       .map((state) => state.when(
+            adminHomeState: () => const MaterialPage(
+                key: ValueKey("admin"), child: AdminHomeScreen()),
             homeState: () => const MaterialPage(
                 key: ValueKey("home"), child: EmployeeListScreen()),
             employeeDetailState: (String selectedEmployee) {
@@ -55,17 +58,17 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
             },
             leaveState: () => const MaterialPage(
                 key: ValueKey("leave"), child: LeaveScreen()),
-            userAllLeaveState: () => const MaterialPage(
-                key: ValueKey("user-all-leave"), child: AllLeavesUserScreen()),
-            userUpcomingLeaveState: () => const MaterialPage(
-                key: ValueKey("user-upcoming-leave"),
-                child: UpComingLeavesUserScreen()),
-            leaveRequestState: () => const MaterialPage(
-                key: ValueKey("leave-request"), child: LeaveRequestForm()),
-            settingsState: () => const MaterialPage(
-                key: ValueKey("settings"), child: SettingScreen()),
-            teamLeavesState: () => const MaterialPage(
-                key: ValueKey("team-leave"), child: TeamLeavesScreen()),
+    userAllLeaveState: () => const MaterialPage(
+        key: ValueKey("user-all-leave"), child: AllLeavesUserScreen()),
+    userUpcomingLeaveState: () => const MaterialPage(
+        key: ValueKey("user-upcoming-leave"),
+        child: UpComingLeavesUserScreen()),
+    leaveRequestState: () => const MaterialPage(
+        key: ValueKey("leave-request"), child: LeaveRequestForm()),
+    settingsState: () => const MaterialPage(
+        key: ValueKey("settings"), child: SettingScreen()),
+    teamLeavesState: () => const MaterialPage(
+        key: ValueKey("team-leave"), child: TeamLeavesScreen()),
           ))
       .toList();
 

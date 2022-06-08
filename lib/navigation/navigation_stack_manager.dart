@@ -2,15 +2,25 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/user/user_manager.dart';
 
 import 'navigation_stack_item.dart';
 
 @Singleton()
 class NavigationStackManager extends ChangeNotifier {
-  List<NavigationStackItem> _screens = [const NavigationStackItem.homeState()];
+  final UserManager _userManager;
+  List<NavigationStackItem> _screens = [];
   bool _showBottomBar = true;
 
   bool get showBottomBar => _showBottomBar;
+
+  NavigationStackManager(this._userManager)
+      : _screens = [
+          if (_userManager.isAdmin())
+            const NavigationStackItem.adminHomeState()
+          else
+            const NavigationStackItem.homeState()
+        ];
 
   void setBottomBar(bool show) {
     _showBottomBar = show;

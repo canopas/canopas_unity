@@ -5,33 +5,32 @@ import 'package:projectunity/user/user_preference.dart';
 @Singleton()
 class UserManager {
   final UserPreference _userPreference;
+  late Employee? _employee;
 
-  UserManager(this._userPreference);
-
-  Employee? getEmployee() {
-    final employee = _userPreference.getCurrentUser();
-    return employee;
-  }
+  UserManager(this._userPreference)
+      : _employee = _userPreference.getCurrentUser();
 
   String? getUserName() {
-    final employee = getEmployee();
-    String? fullName = employee?.name;
+    String? fullName = _employee?.name;
     List<String>? words = fullName?.split(" ");
     String name = words![0];
-    return name;
+    return fullName;
   }
 
   String? getUserImage() {
-    final employee = getEmployee();
-    String? imageUrl = employee?.imageUrl;
+    String? imageUrl = _employee?.imageUrl;
     return imageUrl;
   }
 
   bool isUserLoggedIn() {
-    return getEmployee() != null;
+    return _employee != null;
   }
 
   bool isOnBoardCompleted() {
     return _userPreference.getOnBoardCompleted() != null;
+  }
+
+  bool isAdmin() {
+    return _employee?.roleType == kRoleTypeAdmin;
   }
 }
