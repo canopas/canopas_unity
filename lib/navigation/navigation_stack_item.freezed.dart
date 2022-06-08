@@ -22,6 +22,10 @@ class _$NavigationStackItemTearOff {
     return const HomeState();
   }
 
+  AdminHomeState adminHomeState() {
+    return const AdminHomeState();
+  }
+
   EmployeeDetailState employeeDetailState({required String id}) {
     return EmployeeDetailState(
       id: id,
@@ -61,6 +65,7 @@ mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -73,6 +78,7 @@ mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -85,6 +91,7 @@ mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -98,6 +105,7 @@ mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -111,6 +119,7 @@ mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -123,6 +132,7 @@ mixin _$NavigationStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -192,6 +202,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -207,6 +218,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -222,6 +234,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -241,6 +254,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -257,6 +271,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -272,6 +287,7 @@ class _$HomeState implements HomeState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -290,6 +306,154 @@ class _$HomeState implements HomeState {
 
 abstract class HomeState implements NavigationStackItem {
   const factory HomeState() = _$HomeState;
+}
+
+/// @nodoc
+abstract class $AdminHomeStateCopyWith<$Res> {
+  factory $AdminHomeStateCopyWith(
+          AdminHomeState value, $Res Function(AdminHomeState) then) =
+      _$AdminHomeStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$AdminHomeStateCopyWithImpl<$Res>
+    extends _$NavigationStackItemCopyWithImpl<$Res>
+    implements $AdminHomeStateCopyWith<$Res> {
+  _$AdminHomeStateCopyWithImpl(
+      AdminHomeState _value, $Res Function(AdminHomeState) _then)
+      : super(_value, (v) => _then(v as AdminHomeState));
+
+  @override
+  AdminHomeState get _value => super._value as AdminHomeState;
+}
+
+/// @nodoc
+
+class _$AdminHomeState implements AdminHomeState {
+  const _$AdminHomeState();
+
+  @override
+  String toString() {
+    return 'NavigationStackItem.adminHomeState()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is AdminHomeState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() homeState,
+    required TResult Function() adminHomeState,
+    required TResult Function(String id) employeeDetailState,
+    required TResult Function() leaveState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() teamLeavesState,
+  }) {
+    return adminHomeState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? homeState,
+    TResult Function()? adminHomeState,
+    TResult Function(String id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
+  }) {
+    return adminHomeState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? homeState,
+    TResult Function()? adminHomeState,
+    TResult Function(String id)? employeeDetailState,
+    TResult Function()? leaveState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? teamLeavesState,
+    required TResult orElse(),
+  }) {
+    if (adminHomeState != null) {
+      return adminHomeState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(LeaveState value) leaveState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(TeamLeavesState value) teamLeavesState,
+  }) {
+    return adminHomeState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
+  }) {
+    return adminHomeState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(LeaveState value)? leaveState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(TeamLeavesState value)? teamLeavesState,
+    required TResult orElse(),
+  }) {
+    if (adminHomeState != null) {
+      return adminHomeState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AdminHomeState implements NavigationStackItem {
+  const factory AdminHomeState() = _$AdminHomeState;
 }
 
 /// @nodoc
@@ -358,6 +522,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -373,6 +538,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -388,6 +554,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -407,6 +574,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -423,6 +591,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -438,6 +607,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -505,6 +675,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -520,6 +691,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -535,6 +707,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -554,6 +727,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -570,6 +744,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -585,6 +760,7 @@ class _$LeaveState implements LeaveState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -647,6 +823,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -662,6 +839,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -677,6 +855,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -696,6 +875,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -712,6 +892,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -727,6 +908,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -789,6 +971,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -804,6 +987,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -819,6 +1003,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -838,6 +1023,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -854,6 +1040,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -869,6 +1056,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -931,6 +1119,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -946,6 +1135,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -961,6 +1151,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -980,6 +1171,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -996,6 +1188,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1011,6 +1204,7 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1073,6 +1267,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -1088,6 +1283,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -1103,6 +1299,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -1122,6 +1319,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -1138,6 +1336,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1153,6 +1352,7 @@ class _$SettingsState implements SettingsState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1215,6 +1415,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() homeState,
+    required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() leaveState,
     required TResult Function() userAllLeaveState,
@@ -1230,6 +1431,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -1245,6 +1447,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? homeState,
+    TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? leaveState,
     TResult Function()? userAllLeaveState,
@@ -1264,6 +1467,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HomeState value) homeState,
+    required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(LeaveState value) leaveState,
     required TResult Function(UserAllLeaveState value) userAllLeaveState,
@@ -1280,6 +1484,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1295,6 +1500,7 @@ class _$TeamLeavesState implements TeamLeavesState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HomeState value)? homeState,
+    TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(LeaveState value)? leaveState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,

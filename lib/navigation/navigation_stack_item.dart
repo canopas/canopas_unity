@@ -6,6 +6,8 @@ part 'navigation_stack_item.freezed.dart';
 class NavigationStackItem with _$NavigationStackItem {
   const factory NavigationStackItem.homeState() = HomeState;
 
+  const factory NavigationStackItem.adminHomeState() = AdminHomeState;
+
   const factory NavigationStackItem.employeeDetailState({required String id}) =
       EmployeeDetailState;
 

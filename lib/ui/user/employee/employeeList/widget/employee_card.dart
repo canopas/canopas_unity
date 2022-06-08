@@ -16,19 +16,18 @@ class EmployeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Material(
-      color: Colors.white54,
       child: InkWell(
         onTap: () {
           _stackManager.push(NavigationStackItem.employeeDetailState(
               id: employee.id.toString()));
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 40, bottom: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
             children: [
               EmployeeImage(
                 imageUrl: employee.imageUrl,
-                radius: height / 100 * 3.5,
+                radius: height / 100 * 2,
               ),
               const SizedBox(
                 width: 15,
@@ -59,13 +58,25 @@ class EmployeeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return imageUrl == null
-        ? const Icon(
+    if (imageUrl == null) {
+      return Container(
+          width: 70,
+          height: 70,
+          child: Icon(
             Icons.account_circle_rounded,
             size: 70,
-          )
-        : CircleAvatar(
-            radius: radius, backgroundImage: NetworkImage(imageUrl!));
+            color: Colors.grey[900],
+          ));
+    } else {
+      return Container(
+        width: 70,
+        height: 70,
+        child: CircleAvatar(
+          radius: 70,
+          backgroundImage: NetworkImage(imageUrl!),
+        ),
+      );
+    }
   }
 }
 
