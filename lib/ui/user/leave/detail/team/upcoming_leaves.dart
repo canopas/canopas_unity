@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/widget/leave_widget.dart';
+
+import '../../../../../model/leave/leave.dart';
 
 class TeamUpcomingLeavesScreen extends StatelessWidget {
   List<Leave> leaveList;
