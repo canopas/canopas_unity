@@ -40,7 +40,6 @@ class LoginBloc {
           return;
         }
         _authManager.updateUser(data);
-
         _loginSubject.add(const ApiResponse.completed(data: true));
       } else {
         _loginSubject.add(const ApiResponse.error(message: 'User not found'));

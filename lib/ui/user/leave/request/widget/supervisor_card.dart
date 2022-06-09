@@ -39,11 +39,11 @@ class _SupervisorCardState extends State<SupervisorCard> {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
         child: ListTile(
-          title: Text(
+          title: const Text(
             'Supervisor',
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
+            style:
+                TextStyle(color: Colors.grey, fontSize: kLeaveRequestFontSize),
           ),
           trailing: DropdownButton(
             underline: Container(),
@@ -64,7 +64,7 @@ class _SupervisorCardState extends State<SupervisorCard> {
                     ),
                   ));
             }),
-            style: GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.black87),
+            style: const TextStyle(fontSize: 15, color: Colors.black87),
             icon: const Icon(
               Icons.keyboard_arrow_down_rounded,
               color: Colors.black87,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/ui/user/leave/request/widget/datetimecard/time_picker_card.dart';
 
 import '../../../../../../utils/const/other_constant.dart';
@@ -32,12 +31,12 @@ class _StartLeaveCardState extends State<StartLeaveCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10, left: 5),
+        const Padding(
+          padding: EdgeInsets.only(top: 10, left: 5),
           child: Text(
             'From:',
-            style: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
+            style:
+                TextStyle(color: Colors.grey, fontSize: kLeaveRequestFontSize),
           ),
         ),
         Padding(

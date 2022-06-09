@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -30,7 +29,7 @@ class SearchBar extends StatelessWidget {
             child: TextField(
               cursorColor: Colors.black54,
               style:
-                  GoogleFonts.ibmPlexSans(fontSize: 20, color: Colors.black87),
+                  const TextStyle(fontSize: 20, color: Colors.black87),
               decoration: const InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(bottom: 13),

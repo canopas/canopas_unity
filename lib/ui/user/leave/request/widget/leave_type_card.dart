@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../utils/const/other_constant.dart';
 
@@ -37,11 +36,11 @@ class _LeaveTypeCardState extends State<LeaveTypeCard> {
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Card(
         child: ListTile(
-          title: Text(
+          title: const Text(
             'Leave Type',
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
+            style:
+                TextStyle(color: Colors.grey, fontSize: kLeaveRequestFontSize),
           ),
           trailing: DropdownButton(
             underline: Container(),
@@ -56,7 +55,7 @@ class _LeaveTypeCardState extends State<LeaveTypeCard> {
                     child: Text(leave),
                   ));
             }).toList(),
-            style: GoogleFonts.ibmPlexSans(
+            style: const TextStyle(
                 fontSize: kLeaveRequestFontSize, color: Colors.black87),
             icon: const Icon(
               Icons.keyboard_arrow_down_rounded,

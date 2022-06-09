@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../utils/const/color_constant.dart';
+import '../../../../../configs/colors.dart';
 import '../../../../../utils/const/other_constant.dart';
 
 class ReasonCard extends StatefulWidget {
@@ -29,15 +28,15 @@ class _ReasonCardState extends State<ReasonCard> {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: TextFormField(
-          style: GoogleFonts.ibmPlexSans(
+          style: const TextStyle(
               color: Colors.black87, fontSize: kLeaveRequestFontSize),
-          cursorColor: const Color(kPrimaryColour),
+          cursorColor: AppColors.peachColor,
           maxLines: 5,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'Reason',
-            hintStyle: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
+            hintStyle:
+                TextStyle(color: Colors.grey, fontSize: kLeaveRequestFontSize),
           ),
           autofocus: true,
           controller: _controller,

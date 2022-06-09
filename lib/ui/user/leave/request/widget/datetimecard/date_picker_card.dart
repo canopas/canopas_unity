@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../../utils/const/color_constant.dart';
+import '../../../../../../configs/colors.dart';
 import '../../../../../../utils/const/other_constant.dart';
 
 class DatePickerCard extends StatefulWidget {
@@ -36,13 +35,13 @@ class _DatePickerCardState extends State<DatePickerCard> {
             ),
             Text(
               DateFormat.yMMMd().format(currentDate),
-              style: GoogleFonts.ibmPlexSans(
+              style: const TextStyle(
                   color: Colors.black87, fontSize: kLeaveRequestFontSize),
             ),
             IconButton(
               icon: const FaIcon(
                 FontAwesomeIcons.calendar,
-                color: Color(kPrimaryColour),
+                color: AppColors.peachColor,
               ),
               onPressed: () async {
                 DateTime? selectedLeaveDate =
@@ -50,7 +49,6 @@ class _DatePickerCardState extends State<DatePickerCard> {
                 String formattedDate = selectedLeaveDate.toString();
                 DateTime date = DateTime.parse(formattedDate);
                 int startDateToInt = date.microsecondsSinceEpoch;
-                print(startDateToInt.toString());
               },
             ),
           ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/navigation/navigation_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
@@ -87,13 +86,11 @@ class EmployeeName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Text(
-      name ?? '',
-      textAlign: TextAlign.start,
-      style: height >= 700
-          ? GoogleFonts.ibmPlexSans(fontSize: 20, fontWeight: FontWeight.w500)
-          : GoogleFonts.ibmPlexSans(fontSize: 17, fontWeight: FontWeight.w500),
-    );
+    return Text(name ?? '',
+        textAlign: TextAlign.start,
+        style: height >= 700
+            ? const TextStyle(fontSize: 20, fontWeight: FontWeight.w300)
+            : const TextStyle(fontSize: 17, fontWeight: FontWeight.w300));
   }
 }
 
@@ -109,8 +106,8 @@ class EmployeeDesignation extends StatelessWidget {
       designation ?? '',
       textAlign: TextAlign.start,
       style: height >= 700
-          ? GoogleFonts.ibmPlexSans(fontSize: 18, color: Colors.black54)
-          : GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.black54),
+          ? const TextStyle(fontSize: 18, color: Colors.black54)
+          : const TextStyle(fontSize: 15, color: Colors.black54),
     );
   }
 }

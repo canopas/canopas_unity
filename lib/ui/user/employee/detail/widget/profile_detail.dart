@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../model/employee/employee.dart';
 
@@ -71,13 +70,11 @@ class Details extends StatelessWidget {
             children: [
               Text(
                 title,
-                style:
-                    GoogleFonts.ibmPlexSans(fontSize: 20, color: Colors.grey),
+                style: const TextStyle(fontSize: 20, color: Colors.grey),
               ),
               Text(
                 subTitle ?? '-',
-                style:
-                    GoogleFonts.ibmPlexSans(fontSize: 20, color: Colors.black),
+                style: const TextStyle(fontSize: 20, color: Colors.black),
               ),
             ],
           ),
