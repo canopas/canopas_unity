@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/user/employee/employeeList/widget/employee_card.dart';
 import 'package:projectunity/user/user_manager.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
 import 'package:projectunity/viewmodel/employee_list_bloc.dart';
 import 'package:projectunity/widget/app_bar.dart';
 import 'package:projectunity/widget/error_banner.dart';
+
+import '../../../configs/colors.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           width: width,
           height: 180.0,
           decoration: const BoxDecoration(
-            color: primaryBlue,
+            color: AppColors.primaryBlue,
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.elliptical(100, 6),
                 bottomRight: Radius.elliptical(100, 6)),
@@ -80,7 +80,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     const Icon(
                       Icons.people,
                       size: 26,
-                      color: primaryGreen,
+                      color: AppColors.primaryGreen,
                     ),
                     "60",
                     "Employee"),
@@ -88,7 +88,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     const Icon(
                       Icons.notifications_active_rounded,
                       size: 26,
-                      color: primaryDarkYellow,
+                      color: AppColors.primaryDarkYellow,
                     ),
                     "1",
                     "Leave Request"),
@@ -96,7 +96,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     const Icon(
                       Icons.calendar_month_rounded,
                       size: 26,
-                      color: primaryPink,
+                      color: AppColors.primaryPink,
                     ),
                     "2",
                     "Absence"),
@@ -113,10 +113,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       children: [
         icon,
         Text(desc,
-            style: GoogleFonts.ibmPlexSans(fontSize: 16, color: secondaryText)),
+            style:
+                const TextStyle(fontSize: 16, color: AppColors.secondaryText)),
         Text(title,
-            style: GoogleFonts.ibmPlexSans(
-                fontSize: 20, color: darkText, fontWeight: FontWeight.bold)),
+            style: const TextStyle(
+                fontSize: 20,
+                color: AppColors.darkText,
+                fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -132,7 +135,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             return const SizedBox(
                 child: Center(
                     child: CircularProgressIndicator(
-              color: primaryBlue,
+                      color: AppColors.primaryBlue,
             )));
           }, completed: (List<Employee> list) {
             return _buildEmployeeList(employees: list);
@@ -158,11 +161,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   Widget _buildYourEmployeeHeader() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24),
+    return const Padding(
+      padding: EdgeInsets.only(left: 24, right: 24),
       child: Text("Your Employee",
-          style: GoogleFonts.ibmPlexSans(
-              fontSize: 24, color: darkText, fontWeight: FontWeight.bold)),
+          style: TextStyle(
+              fontSize: 24,
+              color: AppColors.darkText,
+              fontWeight: FontWeight.bold)),
     );
   }
 }

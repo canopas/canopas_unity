@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/font_style.dart';
 import 'package:projectunity/navigation/login_state.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
 
+import 'configs/colors.dart';
 import 'di/service_locator.dart';
 import 'ui/admin/admin_dashboard_screen.dart';
 
@@ -11,10 +13,26 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await configureDependencies();
-  runApp(const MaterialApp(
-    title: 'ProjectUnity Flutter',
-    home: MyApp(),
-  ));
+  runApp(const AppTheme());
+}
+
+class AppTheme extends StatelessWidget {
+  const AppTheme({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      color: Colors.white,
+      title: 'ProjectUnity Flutter',
+      theme: ThemeData(
+          fontFamily: AppFonts.ibmPlexSans,
+          scaffoldBackgroundColor: Colors.white,
+          splashColor: AppColors.peachColor),
+      home: const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {

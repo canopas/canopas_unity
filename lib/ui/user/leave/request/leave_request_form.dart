@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/navigation/navigation_stack_item.dart';
 
+import '../../../../configs/colors.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../navigation/navigation_stack_manager.dart';
-import '../../../../utils/const/color_constant.dart';
 import '../../../user/leave/request/widget/bottom_button.dart';
 import '../../../user/leave/request/widget/datetimecard/end_leave_card.dart';
 import '../../../user/leave/request/widget/datetimecard/start_leave_card.dart';
@@ -34,6 +33,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         leading: IconButton(
@@ -45,9 +45,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
         ),
         centerTitle: true,
         title: const Text('Leave Request'),
-        titleTextStyle: GoogleFonts.ibmPlexSans(
+        titleTextStyle: const TextStyle(
             color: Colors.black54, fontSize: 22, fontWeight: FontWeight.w600),
-        backgroundColor: const Color(appBarColor),
+        backgroundColor: AppColors.lightPinkColor,
       ),
       body: SafeArea(
         bottom: false,
@@ -120,8 +120,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                                     .userAllLeaveState());
                                 _stateManager.setBottomBar(true);
                               },
-                              color: const Color(kPrimaryColour),
-                              borderColor: const Color(kPrimaryColour)),
+                              color: AppColors.peachColor,
+                              borderColor: AppColors.peachColor),
                         ),
                       ],
                     ),

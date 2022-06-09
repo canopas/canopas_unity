@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../utils/const/color_constant.dart';
+import '../../../../../configs/colors.dart';
 
 class BottomButton extends StatelessWidget {
   final String text;
@@ -22,7 +21,7 @@ class BottomButton extends StatelessWidget {
     return OutlinedButton(
       child: Text(
         text,
-        style: GoogleFonts.ibmPlexSans(
+        style: const TextStyle(
             color: Colors.black54, fontSize: 22, fontWeight: FontWeight.w500),
       ),
       style: ElevatedButton.styleFrom(
@@ -30,7 +29,7 @@ class BottomButton extends StatelessWidget {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
         primary: color,
-        onPrimary: const Color(kPrimaryColour),
+        onPrimary: AppColors.peachColor,
         padding: const EdgeInsets.symmetric(vertical: 10),
       ),
       onPressed: onPress,

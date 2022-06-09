@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
 
+import '../../../../../configs/colors.dart';
 import '../../../../../model/employee/employee.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -83,15 +83,13 @@ class EmployeeImage extends StatelessWidget {
             Icons.account_circle_rounded,
             size: 120,
           )
-        : Container(
-            child: PhysicalShape(
-              color: Colors.transparent,
-              shadowColor: Colors.black,
-              elevation: 24,
-              clipper: const ShapeBorderClipper(shape: CircleBorder()),
-              child: CircleAvatar(
-                  radius: radius, backgroundImage: NetworkImage(imageUrl!)),
-            ),
+        : PhysicalShape(
+            color: Colors.transparent,
+            shadowColor: Colors.black,
+            elevation: 24,
+            clipper: const ShapeBorderClipper(shape: CircleBorder()),
+            child: CircleAvatar(
+                radius: radius, backgroundImage: NetworkImage(imageUrl!)),
           );
   }
 }
@@ -108,7 +106,7 @@ class EmployeeLevel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       level ?? '',
-      style: GoogleFonts.ibmPlexSans(fontSize: 20, color: Colors.black54),
+      style: const TextStyle(fontSize: 20, color: Colors.black54),
     );
   }
 }
@@ -125,7 +123,7 @@ class EmployeeName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       name ?? '-',
-      style: GoogleFonts.ibmPlexSans(
+      style: const TextStyle(
           fontSize: 30, color: Colors.black, fontWeight: FontWeight.w500),
     );
   }
@@ -154,11 +152,13 @@ class DesignationAndRoleCard extends StatelessWidget {
                   style:
                       GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.grey),
                 ),
-                Text(designation,
-                    style: GoogleFonts.ibmPlexSans(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500))
+                Text(
+                  designation,
+                  style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500),
+                )
               ],
             ),
           ),
@@ -170,18 +170,13 @@ class DesignationAndRoleCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: Column(children: [
-              Text(
-                'Role',
-                style:
-                    GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.grey),
-              ),
-              Text(
-                role,
-                style: GoogleFonts.ibmPlexSans(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500),
-              )
+              const Text('Role',
+                  style: TextStyle(fontSize: 15, color: Colors.grey)),
+              Text(role,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500))
             ]),
           )
         ],
@@ -206,10 +201,10 @@ class ContactIcon extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: const Color(kPrimaryColour).withOpacity(0.3),
+            color: AppColors.peachColor.withOpacity(0.3),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),

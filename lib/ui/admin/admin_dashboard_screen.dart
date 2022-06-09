@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
 import 'package:projectunity/navigation/router_info_parser.dart';
 
+import '../../configs/colors.dart';
 import '../../di/service_locator.dart';
 import '../../navigation/navigation_stack_item.dart';
 import '../../navigation/navigation_stack_manager.dart';
-import '../../utils/const/color_constant.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({Key? key}) : super(key: key);
@@ -22,9 +22,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: bottomBarColor,
-        selectedItemColor: selectedBottomTab,
-        unselectedItemColor: defaultBottomTab,
+        backgroundColor: AppColors.bottomBarColor,
+        selectedItemColor: AppColors.selectedBottomTab,
+        unselectedItemColor: AppColors.defaultBottomTab,
         selectedFontSize: 18,
         unselectedFontSize: 15,
         currentIndex: selectedTab,

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/widget/app_circular_indicator.dart';
 
+import '../../../../configs/colors.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../rest/api_response.dart';
@@ -40,12 +39,12 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           onPressed: () => _navigationStackManager.pop(),
           icon: const Icon(FontAwesomeIcons.angleLeft, color: Colors.black),
         ),
-        title: Text(
+        title: const Text(
           'Profile',
-          style: GoogleFonts.ibmPlexSans(
+          style: TextStyle(
               color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
         ),
-        backgroundColor: const Color(kSecondaryColor),
+        backgroundColor: AppColors.creamColor,
       ),
       body: StreamBuilder<ApiResponse<Employee>>(
         stream: _bloc.employeeDetail,
@@ -54,7 +53,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           return snapshot.data?.when(idle: () {
             return Container();
           }, loading: () {
-            return kCircularProgressIndicator;
+            return const AppCircularIndicator();
           }, completed: (Employee employee) {
             return SingleChildScrollView(
               child: Column(children: [
