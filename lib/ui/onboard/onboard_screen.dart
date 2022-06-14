@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/configs/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/user/user_preference.dart';
+import 'package:projectunity/utils/const/color_constant.dart';
 
 import '../../navigation/login_state.dart';
 import '../onboard/onBoarding_contents.dart';
 
 final buttonStyle = ElevatedButton.styleFrom(
-    primary: AppColors.peachColor,
+    primary: const Color(kPrimaryColour),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)));
 
 class OnBoardScreen extends StatefulWidget {
@@ -46,9 +47,11 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                           _loginState.setOnBoardComplete(true);
                           _preference.setOnBoardCompleted(true);
                         },
-                        child: const Text('SKIP',
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 17))),
+                        child: Text(
+                          'SKIP',
+                          style: GoogleFonts.ibmPlexSans(
+                              color: Colors.grey, fontSize: 17),
+                        )),
                   ),
                 )),
             Expanded(
@@ -79,7 +82,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                             Text(
                               OnBoardingContents.contents[index].title,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
+                              style: GoogleFonts.ibmPlexSans(
                                   color: Colors.black,
                                   fontSize: 25,
                                   fontWeight: FontWeight.w700),
@@ -88,7 +91,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
                                 OnBoardingContents.contents[index].info,
-                                style: const TextStyle(
+                                style: GoogleFonts.ibmPlexSans(
                                     fontSize: 14, color: Colors.grey),
                                 textAlign: TextAlign.center,
                               ),
@@ -124,7 +127,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: Text(
                     _isLastPage ? 'START' : 'NEXT',
-                    style: const TextStyle(
+                    style: GoogleFonts.ibmPlexSans(
                         fontWeight: FontWeight.w800,
                         color: Colors.white,
                         fontSize: 17),
@@ -143,7 +146,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
       duration: const Duration(milliseconds: 200),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(50)),
-        color: currentPage == index ? AppColors.peachColor : Colors.grey,
+        color: currentPage == index ? const Color(kPrimaryColour) : Colors.grey,
       ),
       margin: const EdgeInsets.only(right: 5),
       height: 10,

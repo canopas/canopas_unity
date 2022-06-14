@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
+import 'package:projectunity/utils/const/color_constant.dart';
 
-import '../../configs/colors.dart';
 import '../../di/service_locator.dart';
 import '../../navigation/navigation_stack_item.dart';
 import '../../navigation/navigation_stack_manager.dart';
@@ -35,9 +35,9 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
       child: Scaffold(
           bottomNavigationBar: show
               ? BottomNavigationBar(
-                  backgroundColor: AppColors.creamColor,
-                  selectedItemColor: AppColors.darkPinkColor,
-                  unselectedItemColor: AppColors.peachColor,
+                  backgroundColor: const Color(kSecondaryColor),
+                  selectedItemColor: const Color(selectedTabColor),
+                  unselectedItemColor: const Color(kPrimaryColour),
                   selectedFontSize: 15,
                   currentIndex: selectedTab,
                   onTap: _ontap,
@@ -50,11 +50,11 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                       icon: Icon(Icons.date_range_rounded),
                       label: 'Leave',
                     ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.manage_accounts_rounded),
-                label: 'Settings',
-              ),
-            ],
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.manage_accounts_rounded),
+                      label: 'Settings',
+                    ),
+                  ],
           ) : null,
           body: Builder(
             builder: (context) =>

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/bloc/employee_list_bloc.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee/employee.dart';
+import 'package:projectunity/navigation/navigation_stack_item.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/user/employee/employeeList/widget/employee_card.dart';
-import 'package:projectunity/user/user_manager.dart';
-import 'package:projectunity/viewmodel/employee_list_bloc.dart';
+import 'package:projectunity/utils/const/color_constant.dart';
 import 'package:projectunity/widget/app_bar.dart';
 import 'package:projectunity/widget/error_banner.dart';
-
-import '../../../configs/colors.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
-  final UserManager _userManager = getIt<UserManager>();
+  final _stateManager = getIt<NavigationStackManager>();
   final _bloc = getIt<EmployeeListBloc>();
 
   @override
@@ -40,7 +41,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           width: width,
           height: 180.0,
           decoration: const BoxDecoration(
-            color: AppColors.primaryBlue,
+            color: primaryBlue,
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.elliptical(100, 6),
                 bottomRight: Radius.elliptical(100, 6)),
@@ -49,7 +50,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customAppBar('Employee Summary'),
+            customAppBar(
+                title: 'Employee Summary',
+                onActionPressed: () {
+                  _stateManager.setBottomBar(false);
+                  _stateManager
+                      .push(const NavigationStackItem.addMemberState());
+                }),
             const SizedBox(height: 50),
             _buildSummaryView(),
             const SizedBox(height: 24),
@@ -80,7 +87,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     const Icon(
                       Icons.people,
                       size: 26,
-                      color: AppColors.primaryGreen,
+                      color: primaryGreen,
                     ),
                     "60",
                     "Employee"),
@@ -88,7 +95,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     const Icon(
                       Icons.notifications_active_rounded,
                       size: 26,
-                      color: AppColors.primaryDarkYellow,
+                      color: primaryDarkYellow,
                     ),
                     "1",
                     "Leave Request"),
@@ -96,7 +103,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     const Icon(
                       Icons.calendar_month_rounded,
                       size: 26,
-                      color: AppColors.primaryPink,
+                      color: primaryPink,
                     ),
                     "2",
                     "Absence"),
@@ -113,13 +120,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       children: [
         icon,
         Text(desc,
-            style:
-                const TextStyle(fontSize: 16, color: AppColors.secondaryText)),
+            style: GoogleFonts.ibmPlexSans(fontSize: 16, color: secondaryText)),
         Text(title,
-            style: const TextStyle(
-                fontSize: 20,
-                color: AppColors.darkText,
-                fontWeight: FontWeight.bold)),
+            style: GoogleFonts.ibmPlexSans(
+                fontSize: 20, color: darkText, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -135,7 +139,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             return const SizedBox(
                 child: Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.primaryBlue,
+                      color: primaryBlue,
             )));
           }, completed: (List<Employee> list) {
             return _buildEmployeeList(employees: list);
@@ -161,13 +165,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   Widget _buildYourEmployeeHeader() {
-    return const Padding(
-      padding: EdgeInsets.only(left: 24, right: 24),
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24),
       child: Text("Your Employee",
-          style: TextStyle(
-              fontSize: 24,
-              color: AppColors.darkText,
-              fontWeight: FontWeight.bold)),
+          style: GoogleFonts.ibmPlexSans(
+              fontSize: 24, color: darkText, fontWeight: FontWeight.bold)),
     );
   }
 }

@@ -23,4 +23,6 @@ class NavigationStackItem with _$NavigationStackItem {
   const factory NavigationStackItem.settingsState() = SettingsState;
 
   const factory NavigationStackItem.teamLeavesState() = TeamLeavesState;
+
+  const factory NavigationStackItem.addMemberState() = AddMemberState;
 }
