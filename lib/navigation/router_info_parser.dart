@@ -19,9 +19,10 @@ class HomeRouterInfoParser
   }
 
   @override
-  RouteInformation restoreRouteInformation(NavigationStackManager configuration) {
+  RouteInformation restoreRouteInformation(
+      NavigationStackManager configuration) {
     final location =
-    configuration.screens.fold<String>("", (previousValue, element) {
+        configuration.screens.fold<String>("", (previousValue, element) {
       return previousValue +
           element.when(
               adminHomeState: () => "/admin",
@@ -32,17 +33,19 @@ class HomeRouterInfoParser
               userAllLeaveState: () => "/user-all-leave",
               userUpcomingLeaveState: () => "/user-upcoming-leave",
               leaveRequestState: () => "/leave-request",
-              teamLeavesState: () => "/team-leave");
+              teamLeavesState: () => "/team-leave",
+              addMemberState: () => "/add-member");
     });
     return RouteInformation(location: location);
   }
 
-  Future<List<NavigationStackItem>> itemsForRouteInformation(RouteInformation routeInformation) async {
+  Future<List<NavigationStackItem>> itemsForRouteInformation(
+      RouteInformation routeInformation) async {
     final uri = Uri.parse(routeInformation.location ?? "");
     final items = <NavigationStackItem>[];
     for (var i = 0, j = 1;
-    i < uri.pathSegments.length && j < uri.pathSegments.length;
-    i = i + 2, j = j + 2) {
+        i < uri.pathSegments.length && j < uri.pathSegments.length;
+        i = i + 2, j = j + 2) {
       final key = uri.pathSegments[i];
       final value = uri.pathSegments[j];
 
@@ -74,6 +77,9 @@ class HomeRouterInfoParser
           break;
         case "team-leave":
           items.add(const NavigationStackItem.teamLeavesState());
+          break;
+        case "add-member":
+          items.add(const NavigationStackItem.addMemberState());
           break;
         default:
           items.add(const NavigationStackItem.homeState());

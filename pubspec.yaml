@@ -50,16 +50,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-  fonts:
-    - family: IBMPlexSans
-      fonts:
-        - asset: assets/fonts/IBMPlexSans-Regular.ttf
-        - asset: assets/fonts/IBMPlexSans-Medium.ttf
-          weight: 300
-        - asset: assets/fonts/IBMPlexSans-Bold.ttf
-          weight: 900
-        - asset: assets/fonts/IBMPlexSans-SemiBold.ttf
-          weight: 500
 
 
 

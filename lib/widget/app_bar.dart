@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget customAppBar(String title) {
+Widget customAppBar(
+    {required String title, required Function onActionPressed}) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -21,7 +22,7 @@ Widget customAppBar(String title) {
           size: 34,
         ),
         onPressed: () {
-          //action for search icon button
+          onActionPressed();
         },
       ),
     ],

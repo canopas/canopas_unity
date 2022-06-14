@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/di/service_locator.dart';
 
 import '../../../../../user/user_manager.dart';
@@ -23,14 +24,15 @@ class HeaderContent extends StatelessWidget {
             children: [
               Text(
                 'Hi, ${_userManager.getUserName()}!',
-                style: const TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
-              const Text(
+                style: GoogleFonts.ibmPlexSans(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
                 'Know your Team ',
-                style: TextStyle(
-                    fontSize: 17, color: Colors.black54, letterSpacing: 0.1),
+                style: GoogleFonts.ibmPlexSans(
+                    color: Colors.black54, letterSpacing: 0.1, fontSize: 17),
               ),
             ],
           ),

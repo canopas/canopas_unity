@@ -7,10 +7,11 @@ part 'employee.g.dart';
 
 const int kRoleTypeAdmin = 1;
 const int kRoleTypeEmployee = 2;
+const int kRoleTypeHR = 3;
 
 @JsonSerializable()
 class Employee {
-  String id;
+  String? id;
   @JsonKey(name: 'role_type')
   int roleType = kRoleTypeEmployee;
   String name;
@@ -32,7 +33,7 @@ class Employee {
   String? bloodGroup;
 
   Employee(
-      {required this.id,
+      {this.id,
       required this.roleType,
       required this.name,
       required this.employeeId,
