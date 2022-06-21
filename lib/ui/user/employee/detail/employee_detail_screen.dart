@@ -58,7 +58,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           }, completed: (Employee employee) {
             return SingleChildScrollView(
               child: Column(children: [
-                SizedBox(height: 400, child: ProfileCard(employee: employee)),
+                SizedBox(
+                    height: 400,
+                    child: ProfileCard(
+                      employee: employee,
+                    )),
                 ProfileDetail(employee: employee),
               ]),
             );
