@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +33,7 @@ class _DatePickerCardState extends State<DatePickerCard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           const SizedBox(
+            const SizedBox(
               width: 2,
             ),
             Text(
@@ -46,7 +48,7 @@ class _DatePickerCardState extends State<DatePickerCard> {
               ),
               onPressed: () async {
                 DateTime? selectedLeaveDate =
-                    await getDate(context, selectedDate);
+                await getDate(context, selectedDate);
                 String formattedDate = selectedLeaveDate.toString();
                 DateTime date = DateTime.parse(formattedDate);
                 int startDateToInt = date.microsecondsSinceEpoch;

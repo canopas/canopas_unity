@@ -1,15 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:projectunity/ui/user/employee/employeeList/widget/employee_list.dart';
+import 'package:projectunity/ui/user/employee/employeeList/widget/header_content.dart';
 import 'package:projectunity/ui/user/employee/employeeList/widget/serach_bar.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
 
 import '../../../../bloc/employee_list_bloc.dart';
+import '../../../../configs/colors.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/error_banner.dart';
-import 'widget/employee_list.dart';
-import 'widget/header_content.dart';
 
 class EmployeeListScreen extends StatefulWidget {
   const EmployeeListScreen({Key? key}) : super(key: key);
@@ -33,14 +34,14 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       bottom: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(appBarColor),
+        backgroundColor: AppColors.peachColor,
         body: NestedScrollView(
           controller: ScrollController(),
           headerSliverBuilder: (_, __) => [
             SliverAppBar(
               floating: true,
               expandedHeight: 100,
-              backgroundColor: const Color(appBarColor),
+              backgroundColor: AppColors.peachColor,
               flexibleSpace: FlexibleSpaceBar(
                 background: HeaderContent(),
               ),
@@ -68,19 +69,14 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                           return Container();
                         }, loading: () {
                           return const SizedBox(
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                            color: Color(kPrimaryColour),
-                          )));
+                              child: CircularProgressIndicator());
                         }, completed: (List<Employee> list) {
                           return EmployeeList(employees: list);
                         }, error: (String error) {
                           SchedulerBinding.instance.addPostFrameCallback((_) {
                             showErrorBanner(error, context);
                           });
-
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const CircularProgressIndicator();
                         });
                       }),
                 ],

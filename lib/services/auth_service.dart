@@ -15,8 +15,12 @@ class AuthService {
     }
     ref
         .update(user.employeeToJson())
-        .then((value) => {print("Successfully updated")})
-        .catchError((error) => {print("Error while updating: $error")});
+        .then((value) => {
+              // check to see data updated successfully
+            })
+        .catchError((error) => {
+              //  print("Error while updating: $error")
+            });
   }
 
   Future getUserData(String email) async {
@@ -28,19 +32,14 @@ class AuthService {
     await ref.get().then(
       (res) {
         if (res.docs.isEmpty) {
-          print("No User found");
           employee = null;
         }
-        print("Successfully completed");
         employee = res.docs[0].data();
       },
       onError: (e) {
-        print("Error completing: $e");
         employee = null;
       },
     );
-
-    print("Block completed");
     return employee;
   }
 }

@@ -27,8 +27,6 @@ dependencies:
   intl: ^0.17.0
   google_fonts: ^2.3.2
   font_awesome_flutter:
-
-
   firebase_core: ^1.17.1
   firebase_auth: ^3.3.19
   cloud_firestore: ^3.1.17
