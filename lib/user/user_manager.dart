@@ -31,6 +31,7 @@ class UserManager {
   }
 
   bool isAdmin() {
+    print(_employee?.roleType == kRoleTypeAdmin);
     return _employee?.roleType == kRoleTypeAdmin;
   }
 }
