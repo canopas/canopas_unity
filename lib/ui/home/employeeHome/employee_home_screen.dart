@@ -53,8 +53,8 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               Padding(
                   padding: const EdgeInsets.only(
                       top: 60,
-                      left: primaryVerticalSpacing,
-                      right: primaryVerticalSpacing),
+                      left: primaryHorizontalSpacing,
+                      right: primaryHorizontalSpacing),
                   child: Column(
                     children: [
                       LeaveNavigationCard(

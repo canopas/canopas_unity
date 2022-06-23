@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/configs/font_size.dart';
 
-import '../../../../../utils/const/other_constant.dart';
+import '../../../../../configs/colors.dart';
 
 List<String> employees = <String>[
   'Darpan Vithani',
@@ -39,16 +39,16 @@ class _SupervisorCardState extends State<SupervisorCard> {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
         child: ListTile(
-          title: Text(
+          title: const Text(
             'Supervisor',
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
+            style: TextStyle(
+                color: AppColors.secondaryText, fontSize: subTitleTextSize),
           ),
           trailing: DropdownButton(
             underline: Container(),
             isExpanded: false,
-            focusColor: Colors.white,
+            focusColor: AppColors.whiteColor,
             borderRadius: BorderRadius.circular(20),
             items: List<DropdownMenuItem<String>>.generate(employees.length,
                 (index) {
@@ -58,16 +58,17 @@ class _SupervisorCardState extends State<SupervisorCard> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
                       employees[index],
-                      style: GoogleFonts.ibmPlexSans(
-                          color: Colors.black87,
-                          fontSize: kLeaveRequestFontSize),
+                      style: const TextStyle(
+                          color: AppColors.darkText,
+                          fontSize: subTitleTextSize),
                     ),
                   ));
             }),
-            style: GoogleFonts.ibmPlexSans(fontSize: 15, color: Colors.black87),
+            style: const TextStyle(
+                fontSize: bodyTextSize, color: AppColors.darkText),
             icon: const Icon(
               Icons.keyboard_arrow_down_rounded,
-              color: Colors.black87,
+              color: AppColors.darkText,
             ),
             onChanged: (String? value) {
               setState(() {

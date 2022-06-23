@@ -26,7 +26,7 @@ class HomeRouterInfoParser
       return previousValue +
           element.when(
               adminHomeState: () => "/admin",
-              homeState: () => "/home",
+              employeeHomeState: () => "/home",
               leaveState: () => "/leave",
               settingsState: () => "/settings",
               employeeDetailState: (id) => "/employee/$id",
@@ -55,7 +55,7 @@ class HomeRouterInfoParser
           items.add(const NavigationStackItem.adminHomeState());
           break;
         case "home":
-          items.add(const NavigationStackItem.homeState());
+          items.add(const NavigationStackItem.employeeHomeState());
           break;
         case "employee":
           items.add(NavigationStackItem.employeeDetailState(id: value));
@@ -82,7 +82,7 @@ class HomeRouterInfoParser
           items.add(const NavigationStackItem.addMemberState());
           break;
         default:
-          items.add(const NavigationStackItem.homeState());
+          items.add(const NavigationStackItem.employeeHomeState());
       }
     }
 
@@ -90,7 +90,7 @@ class HomeRouterInfoParser
       if (_userManager.isAdmin()) {
         items.add(const NavigationStackItem.adminHomeState());
       } else {
-        items.add(const NavigationStackItem.homeState());
+        items.add(const NavigationStackItem.employeeHomeState());
       }
     }
 
