@@ -4,7 +4,7 @@ part 'navigation_stack_item.freezed.dart';
 
 @freezed
 class NavigationStackItem with _$NavigationStackItem {
-  const factory NavigationStackItem.homeState() = HomeState;
+  const factory NavigationStackItem.employeeHomeState() = EmployeeHomeState;
 
   const factory NavigationStackItem.adminHomeState() = AdminHomeState;
 

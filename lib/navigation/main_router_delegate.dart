@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
-import '../ui/home/employeeHome/home_screen.dart';
+import '../ui/home/employeeHome/employee_home_screen.dart';
 import '../ui/setting/setting_screen.dart';
 import '../ui/user/employee/detail/employee_detail_screen.dart';
 import '../ui/user/leave/detail/all_leaves.dart';
@@ -48,7 +48,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
       .map((state) => state.when(
       adminHomeState: () => const MaterialPage(
               key: ValueKey("admin"), child: AdminHomeScreen()),
-          homeState: () => const MaterialPage(
+          employeeHomeState: () => const MaterialPage(
               key: ValueKey("home"), child: EmployeeHomeScreen()),
           employeeDetailState: (String selectedEmployee) {
             return MaterialPage(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/configs/font_size.dart';
 
-import '../../../../../../utils/const/color_constant.dart';
-import '../../../../../../utils/const/other_constant.dart';
+import '../../../../../../configs/colors.dart';
 
 class TimePickerCard extends StatefulWidget {
   TimeOfDay time;
@@ -28,20 +27,17 @@ class _TimePickerCardState extends State<TimePickerCard> {
     return Expanded(
       child: Card(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SizedBox(
-              width: 2,
-            ),
             Text(
               time.format(context),
-              style: GoogleFonts.ibmPlexSans(
-                  color: Colors.black87, fontSize: kLeaveRequestFontSize),
+              style: const TextStyle(
+                  color: AppColors.darkText, fontSize: bodyTextSize),
             ),
             IconButton(
               icon: const FaIcon(
                 FontAwesomeIcons.clock,
-                color: Color(kPrimaryColour),
+                color: AppColors.secondaryText,
               ),
               onPressed: () async => await _getTime(context, time),
             ),

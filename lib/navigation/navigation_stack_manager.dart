@@ -19,7 +19,7 @@ class NavigationStackManager extends ChangeNotifier {
           if (_userManager.isAdmin())
             const NavigationStackItem.adminHomeState()
           else
-            const NavigationStackItem.homeState()
+            const NavigationStackItem.employeeHomeState()
         ];
 
   void setBottomBar(bool show) {
