@@ -6,9 +6,9 @@ import 'package:projectunity/ui/home/employeeHome/widget/notification_icon.dart'
 import 'package:projectunity/ui/home/employeeHome/widget/team_leave_card.dart';
 import 'package:projectunity/utils/const/other_constant.dart';
 
-import '../../../../widget/expand_app_bar.dart';
+import '../../../../widget/expanded_app_bar.dart';
 import '../../../configs/colors.dart';
-import '../../../widget/expand_app_bar.dart';
+import '../../../widget/expanded_app_bar.dart';
 
 class EmployeeHomeScreen extends StatefulWidget {
   const EmployeeHomeScreen({Key? key}) : super(key: key);

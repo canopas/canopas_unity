@@ -84,7 +84,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
     switch (id) {
       case 0:
-        _stateManager.clearAndPush(const NavigationStackItem.adminHomeState());
+        _stateManager
+            .clearAndPush(const NavigationStackItem.employeeHomeState());
         break;
       case 1:
         _stateManager.clearAndPush(const NavigationStackItem.leaveState());
