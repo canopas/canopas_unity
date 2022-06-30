@@ -25,7 +25,6 @@ class EmployeeListBloc {
       _employeeList.sink.add(ApiResponse.error(message: error.toString()));
     }
   }
-
   void dispose() {
     _employeeList.close();
   }

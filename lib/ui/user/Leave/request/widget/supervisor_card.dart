@@ -22,9 +22,7 @@ List<String> employees = <String>[
 ];
 
 class SupervisorCard extends StatefulWidget {
-  int? employeeId;
-
-  SupervisorCard({Key? key, required this.employeeId}) : super(key: key);
+  const SupervisorCard({Key? key}) : super(key: key);
 
   @override
   State<SupervisorCard> createState() => _SupervisorCardState();

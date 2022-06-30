@@ -4,7 +4,7 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/user/user_preference.dart';
 import 'package:projectunity/utils/const/color_constant.dart';
 
-import '../../navigation/login_state.dart';
+import '../../stateManager/login_state.dart';
 import '../onboard/onBoarding_contents.dart';
 
 final buttonStyle = ElevatedButton.styleFrom(

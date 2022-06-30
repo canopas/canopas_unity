@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/ui/user/leave/request/widget/datetimecard/date_picker_card.dart';
-import 'package:projectunity/ui/user/leave/request/widget/datetimecard/time_picker_card.dart';
+import 'package:projectunity/ui/user/Leave/request/widget/datetimecard/start_leave_card.dart';
+import 'package:projectunity/ui/user/leave/request/widget/datetimecard/picker_card.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../../stateManager/apply_leave_state_provider.dart';
 import '../../../../../../utils/const/other_constant.dart';
 
-class EndLeaveCard extends StatefulWidget {
-  final TimeOfDay time;
-  final int date;
-
-  const EndLeaveCard({Key? key, required this.date, required this.time})
-      : super(key: key);
-
-  @override
-  State<EndLeaveCard> createState() => _EndLeaveCardState();
-}
-
-class _EndLeaveCardState extends State<EndLeaveCard> {
-  late TimeOfDay time;
-  late int date;
-
-  @override
-  void initState() {
-    time = widget.time;
-    date = widget.date;
-    super.initState();
-  }
+class EndLeaveCard extends StatelessWidget {
+  const EndLeaveCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +26,27 @@ class _EndLeaveCardState extends State<EndLeaveCard> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
-            children: [DatePickerCard(date: date), TimePickerCard(time: time)],
+            children: [
+              Consumer<ApplyLeaveStateProvider>(
+                builder: (BuildContext context, leaveService, Widget? child) =>
+                    DatePickerCard(
+                  currentDate: leaveService.endLeaveDate,
+                  onPress: () async {
+                    DateTime? date = await pickDate(context);
+                    leaveService.setEndLeaveDate(date);
+                  },
+                ),
+              ),
+              Consumer<ApplyLeaveStateProvider>(
+                builder: (_, leaveService, __) => TimePickerCard(
+                  onPress: () async {
+                    TimeOfDay time = (await pickTime(context));
+                    leaveService.setEndTime(time);
+                  },
+                  time: leaveService.endTime,
+                ),
+              )
+            ],
           ),
         )
       ],

@@ -33,7 +33,7 @@ class HomeRouterInfoParser
               userAllLeaveState: () => "/user-all-leave",
               userUpcomingLeaveState: () => "/user-upcoming-leave",
               leaveRequestState: () => "/leave-request",
-              teamLeavesState: () => "/team-leave",
+              requestedLeaves: () => "/team-leave",
               addMemberState: () => "/add-member");
     });
     return RouteInformation(location: location);
@@ -76,7 +76,7 @@ class HomeRouterInfoParser
           items.add(const NavigationStackItem.settingsState());
           break;
         case "team-leave":
-          items.add(const NavigationStackItem.teamLeavesState());
+          items.add(const NavigationStackItem.requestedLeaves());
           break;
         case "add-member":
           items.add(const NavigationStackItem.addMemberState());

@@ -1,74 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/configs/font_size.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../utils/const/other_constant.dart';
+import '../../../../../stateManager/apply_leave_state_provider.dart';
 
-List<String> leaves = <String>[
-  'Casual Leave',
-  'Sick Leave',
-  'Annual Leave',
-  'Paternity Leave',
-  'Maternity Leave',
-  'Marriage Leave',
-  'Bereavement Leave',
-];
+Map<String, int> leaves = {
+  'Casual Leave': 0,
+  'Sick Leave': 1,
+  'Annual Leave': 2,
+  'Paternity Leave': 3,
+  'Maternity Leave': 4,
+  'Marriage Leave': 5,
+  'Bereavement Leave': 6
+};
 
-class LeaveTypeCard extends StatefulWidget {
-  String? leaveType;
-
-  LeaveTypeCard({Key? key, required this.leaveType}) : super(key: key);
-
-  @override
-  State<LeaveTypeCard> createState() => _LeaveTypeCardState();
-}
-
-class _LeaveTypeCardState extends State<LeaveTypeCard> {
-  @override
-  void initState() {
-    leaveType = widget.leaveType;
-    super.initState();
-  }
-
-  String? leaveType;
+class LeaveTypeCard extends StatelessWidget {
+  const LeaveTypeCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+    ApplyLeaveStateProvider _leaveService =
+        Provider.of<ApplyLeaveStateProvider>(context);
+    int? leaveType = _leaveService.leaveType;
+    return SizedBox(
+      width: double.infinity,
       child: Card(
-        child: ListTile(
-          title: Text(
-            'Leave Type',
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
-          ),
-          trailing: DropdownButton(
-            underline: Container(),
-            isExpanded: false,
-            focusColor: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            items: leaves.map((String leave) {
-              return DropdownMenuItem<String>(
-                  value: leave,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(leave),
-                  ));
-            }).toList(),
-            style: GoogleFonts.ibmPlexSans(
-                fontSize: kLeaveRequestFontSize, color: Colors.black87),
-            icon: const Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color: Colors.black87,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'Leave Type',
+                  style:
+                      TextStyle(color: Colors.grey, fontSize: subTitleTextSize),
+                ),
+              ),
             ),
-            onChanged: (String? value) {
-              setState(() {
-                leaveType = value ?? '';
-              });
-            },
-            value: leaveType,
-          ),
+            Expanded(
+              child: DropdownButtonFormField<int>(
+                  decoration: const InputDecoration(
+                      errorStyle: TextStyle(height: 0, fontSize: 0),
+                      border: InputBorder.none,
+                      errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
+                  hint: const Text(
+                    'Select',
+                    style: TextStyle(
+                        color: Colors.grey, fontSize: subTitleTextSize),
+                  ),
+                  items: leaves
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            DropdownMenuItem<int>(
+                              value: value,
+                              child: Text(key),
+                            ));
+                      })
+                      .values
+                      .toList(),
+                  value: leaveType,
+                  validator: (int? value) {
+                    return value == null ? '' : null;
+                  },
+                  onChanged: (int? value) {
+                    leaveType = value;
+                    _leaveService.setLeaveType(leaveType);
+                  }),
+            ),
+          ],
         ),
       ),
     );

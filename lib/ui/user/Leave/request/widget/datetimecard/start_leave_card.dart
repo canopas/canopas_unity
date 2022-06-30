@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/user/leave/request/widget/datetimecard/time_picker_card.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../configs/colors.dart';
+import '../../../../../../stateManager/apply_leave_state_provider.dart';
 import '../../../../../../utils/const/other_constant.dart';
-import 'date_picker_card.dart';
+import 'picker_card.dart';
 
-class StartLeaveCard extends StatefulWidget {
-  TimeOfDay time;
-  int date;
 
-  StartLeaveCard({Key? key, required this.time, required this.date})
-      : super(key: key);
-
-  @override
-  State<StartLeaveCard> createState() => _StartLeaveCardState();
-}
-
-class _StartLeaveCardState extends State<StartLeaveCard> {
-  late TimeOfDay time;
-  late int date;
-
-  @override
-  void initState() {
-    time = widget.time;
-    date = widget.date;
-    super.initState();
-  }
+class StartLeaveCard extends StatelessWidget {
+  const StartLeaveCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +27,46 @@ class _StartLeaveCardState extends State<StartLeaveCard> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
-            children: [DatePickerCard(date: date), TimePickerCard(time: time)],
+            children: [
+              Consumer<ApplyLeaveStateProvider>(
+                builder: (context, _leaveService, _) => DatePickerCard(
+                    onPress: () async {
+                      DateTime? date = await pickDate(context);
+                      _leaveService.setStartLeaveDate(date);
+                    },
+                    currentDate: _leaveService.startLeaveDate),
+              ),
+              Consumer<ApplyLeaveStateProvider>(
+                builder: (context, _leaveService, _) => TimePickerCard(
+                  onPress: () async {
+                    TimeOfDay time = (await pickTime(context));
+                    _leaveService.setStartTime(time);
+                  },
+                  time: _leaveService.startTime,
+                ),
+              )
+            ],
           ),
         )
       ],
     );
   }
+}
+
+Future<DateTime> pickDate(BuildContext context) async {
+  DateTime? pickDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2025));
+  if (pickDate == null) return DateTime.now();
+  return pickDate;
+}
+
+Future<TimeOfDay> pickTime(BuildContext context) async {
+  TimeOfDay timeOfDay = TimeOfDay.now();
+  TimeOfDay? time =
+      await showTimePicker(context: context, initialTime: timeOfDay);
+  if (time == null) return timeOfDay;
+  return time;
 }

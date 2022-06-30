@@ -19,7 +19,7 @@ class EmployeeCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           _stackManager
-              .push(NavigationStackItem.employeeDetailState(id: employee.id!));
+              .push(NavigationStackItem.employeeDetailState(id: employee.id));
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
