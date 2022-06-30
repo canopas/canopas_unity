@@ -8,6 +8,8 @@ part of 'leave_request_data.dart';
 
 LeaveRequestData _$LeaveRequestDataFromJson(Map<String, dynamic> json) =>
     LeaveRequestData(
+      uid: json['uid'] as String,
+      leaveType: json['leave_type'] as int?,
       startDate: json['start_date'] as int,
       endDate: json['end_date'] as int,
       totalLeaves: (json['total_leaves'] as num).toDouble(),
@@ -17,6 +19,8 @@ LeaveRequestData _$LeaveRequestDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$LeaveRequestDataToJson(LeaveRequestData instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
+      'leave_type': instance.leaveType,
       'start_date': instance.startDate,
       'end_date': instance.endDate,
       'total_leaves': instance.totalLeaves,

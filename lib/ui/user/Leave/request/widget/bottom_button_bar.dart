@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:projectunity/services/leave/apply_leave_service.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../navigation/navigation_stack_item.dart';
 import '../../../../../navigation/navigation_stack_manager.dart';
+import '../../../../../stateManager/apply_leave_state_provider.dart';
+import '../../../leave/request/leave_request_form.dart';
 
 class BottomButtonBar extends StatelessWidget {
   final _stateManager = getIt<NavigationStackManager>();
+  final service = getIt<ApplyLeaveService>();
 
-  BottomButtonBar({
-    Key? key,
-  }) : super(key: key);
+  BottomButtonBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _leaveService =
+        Provider.of<ApplyLeaveStateProvider>(context, listen: false);
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Colors.grey.shade50,
+          color: AppColors.boxShadowColor,
           blurRadius: 10,
           spreadRadius: 10,
         ),
@@ -37,7 +43,10 @@ class BottomButtonBar extends StatelessWidget {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                formKey.currentState?.reset();
+                _leaveService.resetForm();
+              },
               style: ElevatedButton.styleFrom(primary: AppColors.secondaryText),
             ),
           ),
@@ -58,9 +67,16 @@ class BottomButtonBar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                _stateManager
-                    .push(const NavigationStackItem.userAllLeaveState());
-                _stateManager.setBottomBar(true);
+                if (formKey.currentState!.validate()) {
+                  LeaveRequestData data = _leaveService.getLeaveRequestData();
+                  service.applyForLeave(data);
+                  _stateManager.clearAndPush(
+                      const NavigationStackItem.userAllLeaveState());
+                  _stateManager.setBottomBar(true);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please fill all details')));
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: AppColors.primaryBlue,

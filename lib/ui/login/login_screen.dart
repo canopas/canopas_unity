@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/login_state.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
 import 'package:projectunity/utils/const/color_constant.dart';
 
 import '../../bloc/login_bloc.dart';
 import '../../rest/api_response.dart';
+import '../../stateManager/login_state.dart';
 import '../../utils/const/image_constant.dart';
 
 class LoginScreen extends StatefulWidget {

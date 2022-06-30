@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/ui/user/Leave/all_leaves_screen.dart';
+import 'package:projectunity/ui/user/Leave/requested_leave_screen.dart';
+import 'package:projectunity/ui/user/Leave/upcoming_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
 import '../ui/home/employeeHome/employee_home_screen.dart';
 import '../ui/setting/setting_screen.dart';
 import '../ui/user/employee/detail/employee_detail_screen.dart';
-import '../ui/user/leave/detail/all_leaves.dart';
-import '../ui/user/leave/detail/team_leaves.dart';
-import '../ui/user/leave/detail/upcoming_leaves.dart';
 import '../ui/user/leave/leave_screen.dart';
 import '../ui/user/leave/request/leave_request_form.dart';
 import 'navigation_stack_manager.dart';
@@ -60,16 +60,16 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
           leaveState: () =>
               const MaterialPage(key: ValueKey("leave"), child: LeaveScreen()),
           userAllLeaveState: () => const MaterialPage(
-              key: ValueKey("user-all-leave"), child: AllLeavesUserScreen()),
+              key: ValueKey("user-all-leave"), child: AllLeaveScreen()),
           userUpcomingLeaveState: () => const MaterialPage(
               key: ValueKey("user-upcoming-leave"),
-              child: UpComingLeavesUserScreen()),
+              child: UpcomingLeaveScreen()),
           leaveRequestState: () => const MaterialPage(
               key: ValueKey("leave-request"), child: LeaveRequestForm()),
           settingsState: () => const MaterialPage(
               key: ValueKey("settings"), child: SettingScreen()),
-          teamLeavesState: () => const MaterialPage(
-              key: ValueKey("team-leave"), child: TeamLeavesScreen()),
+          requestedLeaves: () => const MaterialPage(
+              key: ValueKey("team-leave"), child: RequestedLeaveScreen()),
           addMemberState: () => const MaterialPage(
               key: ValueKey("add-member"), child: AdminAddMemberScreen())))
       .toList();

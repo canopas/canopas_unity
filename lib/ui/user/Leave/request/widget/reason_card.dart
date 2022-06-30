@@ -1,26 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../utils/const/other_constant.dart';
+import '../../../../../stateManager/apply_leave_state_provider.dart';
 
-class ReasonCard extends StatefulWidget {
-  TextEditingController controller;
-
-  ReasonCard({Key? key, required this.controller}) : super(key: key);
-
-  @override
-  State<ReasonCard> createState() => _ReasonCardState();
-}
-
-class _ReasonCardState extends State<ReasonCard> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    _controller = widget.controller;
-  }
+class ReasonCard extends StatelessWidget {
+  const ReasonCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +20,25 @@ class _ReasonCardState extends State<ReasonCard> {
               color: AppColors.darkText, fontSize: bodyTextSize),
           cursorColor: AppColors.secondaryText,
           maxLines: 5,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'Reason',
-            hintStyle: GoogleFonts.ibmPlexSans(
-                color: Colors.grey, fontSize: kLeaveRequestFontSize),
+            hintStyle:
+                TextStyle(color: Colors.grey, fontSize: subTitleTextSize),
           ),
+          validator: (String? value) {
+            if (value == null || value == '') {
+              return 'Please enter valid reason';
+            }
+            return null;
+          },
           autofocus: true,
-          controller: _controller,
+          controller: Provider.of<ApplyLeaveStateProvider>(context)
+              .leaveReasonController,
           keyboardType: TextInputType.text,
-          onChanged: (data) {},
         ),
       )),
     );
   }
 }
+

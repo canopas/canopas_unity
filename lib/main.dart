@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/navigation/login_state.dart';
+import 'package:projectunity/stateManager/login_state.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
 
@@ -11,10 +11,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await configureDependencies();
-  runApp(const MaterialApp(
-    title: 'ProjectUnity Flutter',
-    home: MyApp(),
-  ));
+  runApp(
+    const MaterialApp(
+      title: 'ProjectUnity Flutter',
+      home: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
