@@ -6,8 +6,8 @@ import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/widget/employee_form.dart';
 import 'package:projectunity/ui/admin/addmember/widget/header_title.dart';
 import 'package:projectunity/utils/const/color_constant.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 
-import '../../../configs/colors.dart';
 import '../../../model/employee/employee.dart';
 
 class AdminAddMemberScreen extends StatefulWidget {
@@ -88,11 +88,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                             employeeService.addEmployee(employee);
                             snapshot.data == true ? _stateManager.pop() : () {};
                           } catch (error) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('Failed to add'),
-                              backgroundColor: AppColors.primaryDarkYellow,
-                            ));
+                            buildSnackBar(context, 'Something went wrong');
                           }
                         },
                       );
