@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/utils/const/color_constant.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../../../bloc/employee_detail_bloc.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../rest/api_response.dart';
-import '../../../../widget/error_banner.dart';
 import 'widget/profile_card.dart';
 import 'widget/profile_detail.dart';
 
@@ -68,8 +68,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
             );
           }, error: (String error) {
             SchedulerBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Something went wrong')));
+              buildSnackBar(context, 'Something went wrong');
             });
             return Container();
           });
