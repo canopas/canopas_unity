@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/model/leave/leave_request_data.dart';
 import 'package:projectunity/services/leave/apply_leave_service.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../configs/colors.dart';
@@ -71,11 +72,10 @@ class BottomButtonBar extends StatelessWidget {
                   LeaveRequestData data = _leaveService.getLeaveRequestData();
                   service.applyForLeave(data);
                   _stateManager.clearAndPush(
-                      const NavigationStackItem.userAllLeaveState());
+                      const NavigationStackItem.employeeHomeState());
                   _stateManager.setBottomBar(true);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please fill all details')));
+                  buildSnackBar(context, 'Please fill all details');
                 }
               },
               style: ElevatedButton.styleFrom(

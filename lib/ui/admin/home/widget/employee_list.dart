@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:projectunity/ui/user/employee/employeeList/widget/employee_list.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../../../bloc/employee_list_bloc.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../rest/api_response.dart';
-import '../../../../widget/error_banner.dart';
 
 class EmployeeListView extends StatefulWidget {
   const EmployeeListView({Key? key}) : super(key: key);
@@ -40,7 +39,7 @@ class _EmployeeListViewState extends State<EmployeeListView> {
             return EmployeeList(employees: list);
           }, error: (String error) {
             SchedulerBinding.instance.addPostFrameCallback((_) {
-              showErrorBanner(error, context);
+              buildSnackBar(context, 'Something went wrong');
             });
             return Container();
           });

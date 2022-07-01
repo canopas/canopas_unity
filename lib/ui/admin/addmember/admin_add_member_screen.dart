@@ -6,7 +6,7 @@ import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/widget/employee_form.dart';
 import 'package:projectunity/ui/admin/addmember/widget/header_title.dart';
 import 'package:projectunity/utils/const/color_constant.dart';
-import 'package:projectunity/widget/error_banner.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../../model/employee/employee.dart';
 
@@ -88,7 +88,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                             employeeService.addEmployee(employee);
                             snapshot.data == true ? _stateManager.pop() : () {};
                           } catch (error) {
-                            showErrorBanner('Please fill all details', context);
+                            buildSnackBar(context, 'Something went wrong');
                           }
                         },
                       );
