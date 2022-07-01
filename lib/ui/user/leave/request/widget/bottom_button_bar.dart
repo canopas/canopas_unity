@@ -71,11 +71,12 @@ class BottomButtonBar extends StatelessWidget {
                   LeaveRequestData data = _leaveService.getLeaveRequestData();
                   service.applyForLeave(data);
                   _stateManager.clearAndPush(
-                      const NavigationStackItem.userAllLeaveState());
+                      const NavigationStackItem.employeeHomeState());
                   _stateManager.setBottomBar(true);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please fill all details')));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Please fill all details'),
+                  ));
                 }
               },
               style: ElevatedButton.styleFrom(

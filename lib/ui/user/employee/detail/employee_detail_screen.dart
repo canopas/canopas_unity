@@ -68,7 +68,8 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
             );
           }, error: (String error) {
             SchedulerBinding.instance.addPostFrameCallback((_) {
-              showErrorBanner(error, context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Something went wrong')));
             });
             return Container();
           });
