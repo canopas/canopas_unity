@@ -12,7 +12,7 @@ class UserPreference {
 
   UserPreference(this._preferences);
 
-  void updateCurrentUser(String employee) {
+  void setCurrentUser(String employee) {
     _preferences.setString(userPrefKeyUser, employee);
   }
 
@@ -20,22 +20,6 @@ class UserPreference {
     final data = _preferences.getString(userPrefKeyUser) ?? "";
     if (data.isEmpty) return null;
     return Employee.fromJson(jsonDecode(data));
-  }
-
-  String? getAccessToken() {
-    return _preferences.getString(userPrefKeyAccessToken);
-  }
-
-  void setAccessToken(String? accessToken) {
-    _preferences.setString(userPrefKeyAccessToken, accessToken ?? "");
-  }
-
-  String? getRefreshToken() {
-    return _preferences.getString(userPrefKeyRefreshToken);
-  }
-
-  void setRefreshToken(String? refreshToken) {
-    _preferences.setString(userPrefKeyRefreshToken, refreshToken ?? "");
   }
 
   bool? getOnBoardCompleted() {

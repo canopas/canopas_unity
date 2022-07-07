@@ -6,6 +6,7 @@ import 'package:projectunity/ui/home/employeeHome/widget/leave_navigation_card.d
 import 'package:projectunity/ui/home/employeeHome/widget/leave_status.dart';
 import 'package:projectunity/ui/home/employeeHome/widget/notification_icon.dart';
 import 'package:projectunity/ui/home/employeeHome/widget/team_leave_card.dart';
+import 'package:projectunity/user/user_manager.dart';
 import 'package:projectunity/utils/const/other_constant.dart';
 
 import '../../../../widget/expanded_app_bar.dart';
@@ -22,42 +23,48 @@ class EmployeeHomeScreen extends StatefulWidget {
 
 class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
+  final _userManager = getIt<UserManager>();
 
   @override
   Widget build(BuildContext context) {
+    final String? _imageLink = _userManager.getUserImage();
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                ExpandedAppBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.menu,
-                            color: AppColors.whiteColor,
-                          )),
-                      Row(
-                        children: const [
-                          NotificationIcon(),
-                          CircleAvatar(
-                            child: ClipOval(
-                              child: Image(
-                                image:
-                                AssetImage('assets/images/angelaYu.jpeg'),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              ExpandedAppBar(
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.menu,
+                          color: AppColors.whiteColor,
+                        )),
+                    Row(
+                      children: [
+                        const NotificationIcon(),
+                        _imageLink == null
+                            ? const Icon(Icons.account_circle_rounded)
+                            : CircleAvatar(
+                                radius: 23,
+                                backgroundColor: AppColors.whiteColor,
+                                child: CircleAvatar(
+                                  radius: 22,
+                                  backgroundImage: NetworkImage(
+                                      _userManager.getUserImage()!),
+                                ),
+                              )
+                      ],
+                    ),
+                  ],
                 ),
-                Padding(
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
                     padding: const EdgeInsets.only(
                         top: 60,
                         left: primaryHorizontalSpacing,
@@ -87,15 +94,16 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                         _buildTitle(onPress: () {}),
                         const TeamLeaveCard(
                           length: 5,
-                        )
+                        ),
                       ],
-                    ))
-              ],
-            ),
-            const Positioned(
-                top: 140, right: 10, left: 10, child: LeaveStatus())
-          ],
-        ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const Positioned(top: 110, right: 10, left: 10, child: LeaveStatus())
+        ],
       ),
     );
   }

@@ -17,7 +17,7 @@ class AuthManager {
   updateUser(Employee user) async {
     final session = await DeviceInfoProvider.getDeviceInfo();
     _authService.updateUserData(user, session);
-    _userPreference.updateCurrentUser(jsonEncode(user.employeeToJson()));
+    _userPreference.setCurrentUser(jsonEncode(user.employeeToJson()));
   }
 
   Future<Employee?> getUser(String email) async {
