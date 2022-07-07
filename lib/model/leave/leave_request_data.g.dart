@@ -15,6 +15,8 @@ LeaveRequestData _$LeaveRequestDataFromJson(Map<String, dynamic> json) =>
       totalLeaves: (json['total_leaves'] as num).toDouble(),
       reason: json['reason'] as String,
       emergencyContactPerson: json['emergency_contact_person'] as int,
+      leaveStatus: json['leave_status'] as int,
+      reject: json['reject'] as String?,
     );
 
 Map<String, dynamic> _$LeaveRequestDataToJson(LeaveRequestData instance) =>
@@ -26,4 +28,6 @@ Map<String, dynamic> _$LeaveRequestDataToJson(LeaveRequestData instance) =>
       'total_leaves': instance.totalLeaves,
       'reason': instance.reason,
       'emergency_contact_person': instance.emergencyContactPerson,
+      'leave_status': instance.leaveStatus,
+      'reject': instance.reject,
     };

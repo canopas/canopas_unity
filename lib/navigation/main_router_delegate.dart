@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/user/Leave/all_leaves_screen.dart';
-import 'package:projectunity/ui/user/Leave/requested_leave_screen.dart';
-import 'package:projectunity/ui/user/Leave/upcoming_leave_screen.dart';
+import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
+import 'package:projectunity/ui/user/leave/requested_leave_screen.dart';
+import 'package:projectunity/ui/user/leave/upcoming_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
@@ -59,8 +59,8 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
           },
           leaveState: () =>
               const MaterialPage(key: ValueKey("leave"), child: LeaveScreen()),
-          userAllLeaveState: () => const MaterialPage(
-              key: ValueKey("user-all-leave"), child: AllLeaveScreen()),
+          userAllLeaveState: () => MaterialPage(
+              key: const ValueKey("user-all-leave"), child: AllLeaveScreen()),
           userUpcomingLeaveState: () => const MaterialPage(
               key: ValueKey("user-upcoming-leave"),
               child: UpcomingLeaveScreen()),

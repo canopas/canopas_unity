@@ -2,17 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../model/leave/leave_request_data.dart';
 import '../../../../../stateManager/apply_leave_state_provider.dart';
-
-Map<String, int> leaves = {
-  'Casual Leave': 0,
-  'Sick Leave': 1,
-  'Annual Leave': 2,
-  'Paternity Leave': 3,
-  'Maternity Leave': 4,
-  'Marriage Leave': 5,
-  'Bereavement Leave': 6
-};
 
 class LeaveTypeCard extends StatelessWidget {
   const LeaveTypeCard({Key? key}) : super(key: key);
@@ -50,13 +41,13 @@ class LeaveTypeCard extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey, fontSize: subTitleTextSize),
                   ),
-                  items: leaves
+                  items: leaveTypeMap
                       .map((key, value) {
                         return MapEntry(
                             key,
                             DropdownMenuItem<int>(
-                              value: value,
-                              child: Text(key),
+                              value: key,
+                              child: Text(value),
                             ));
                       })
                       .values

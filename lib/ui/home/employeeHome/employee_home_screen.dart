@@ -74,7 +74,10 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                         LeaveNavigationCard(
                             color: AppColors.primaryDarkYellow,
                             leaveText: 'All Leaves',
-                            onPress: () {}),
+                            onPress: () {
+                              _stateManager.push(const NavigationStackItem
+                                  .userAllLeaveState());
+                            }),
                         LeaveNavigationCard(
                             color: AppColors.primaryGreen,
                             leaveText: 'Requested Leaves',
