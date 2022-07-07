@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/leave/leave_request_data.dart';
@@ -95,7 +94,8 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
         endDate: timeStampToInt(endDateTime()),
         totalLeaves: totalDays,
         reason: leaveReasonController.text,
-        emergencyContactPerson: _employeeId);
+        emergencyContactPerson: _employeeId,
+        leaveStatus: 1);
     return leaveRequestData;
   }
 

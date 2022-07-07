@@ -17,6 +17,9 @@ class LeaveRequestData {
   String reason;
   @JsonKey(name: 'emergency_contact_person')
   int emergencyContactPerson;
+  @JsonKey(name: 'leave_status')
+  int leaveStatus;
+  String? reject;
 
   LeaveRequestData(
       {required this.uid,
@@ -25,21 +28,24 @@ class LeaveRequestData {
       required this.endDate,
       required this.totalLeaves,
       required this.reason,
-      required this.emergencyContactPerson});
+      required this.emergencyContactPerson,
+      required this.leaveStatus,
+      this.reject});
 
   factory LeaveRequestData.fromFireStore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     Map<String, dynamic>? data = snapshot.data();
     return LeaveRequestData(
-      uid: data?['uid'] as String,
-      leaveType: data?['leave_type'] as int?,
-      startDate: data?['start_date'] as int,
-      endDate: data?['end_date'] as int,
-      totalLeaves: (data?['total_leaves'] as num).toDouble(),
-      reason: data?['reason'] as String,
-      emergencyContactPerson: data?['emergency_contact_person'] as int,
-    );
+        uid: data?['uid'] as String,
+        leaveType: data?['leave_type'] as int?,
+        startDate: data?['start_date'] as int,
+        endDate: data?['end_date'] as int,
+        totalLeaves: (data?['total_leaves'] as num).toDouble(),
+        reason: data?['reason'] as String,
+        emergencyContactPerson: data?['emergency_contact_person'] as int,
+        leaveStatus: data?['leave_status'],
+        reject: data?['reject']);
   }
 
   Map<String, dynamic> toFireStore(LeaveRequestData instance) =>
@@ -51,5 +57,23 @@ class LeaveRequestData {
         'total_leaves': instance.totalLeaves,
         'reason': instance.reason,
         'emergency_contact_person': instance.emergencyContactPerson,
+        'leave_status': instance.leaveStatus,
+        'reject': instance.reject,
       };
 }
+
+Map<int, String> leaveStatusMap = Map.unmodifiable({
+  1: 'Pending',
+  2: 'Approved',
+  3: 'Rejected',
+});
+
+Map<int, String> leaveTypeMap = Map.unmodifiable({
+  0: 'Casual Leave',
+  1: 'Sick Leave',
+  2: 'Annual Leave',
+  3: 'Paternity Leave',
+  4: 'Maternity Leave',
+  5: 'Marriage Leave',
+  6: 'Bereavement Leave'
+});

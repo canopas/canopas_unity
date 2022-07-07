@@ -27,4 +27,6 @@ class AppColors {
   static const Color secondaryText = Color(0xFF94a1b3);
   static const Color darkText = Color(0xFF0b2556);
   static Color boxShadowColor = Colors.grey.shade50;
+
+  static const Color lightGreyColor = Color(0xffe7e7e7);
 }
