@@ -5,7 +5,7 @@ import 'package:projectunity/user/user_preference.dart';
 @Singleton()
 class UserManager {
   final UserPreference _userPreference;
-  late Employee? _employee;
+  late final Employee? _employee;
 
   UserManager(this._userPreference)
       : _employee = _userPreference.getCurrentUser();
@@ -31,7 +31,6 @@ class UserManager {
   }
 
   bool isAdmin() {
-    print(_employee?.roleType == kRoleTypeAdmin);
     return _employee?.roleType == kRoleTypeAdmin;
   }
 }

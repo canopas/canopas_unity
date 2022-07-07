@@ -18,37 +18,36 @@ class LeaveNavigationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.whiteColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                color: color,
-                width: 5,
-                height: 70,
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Text(
-                leaveText,
-                style: const TextStyle(
-                    fontSize: subTitleTextSize,
-                    color: AppColors.darkText,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-          IconButton(
-            icon: const Icon(
+      child: InkWell(
+        onTap: onPress,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  color: color,
+                  width: 5,
+                  height: 70,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  leaveText,
+                  style: const TextStyle(
+                      fontSize: subTitleTextSize,
+                      color: AppColors.darkText,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            const Icon(
               Icons.chevron_right,
               color: AppColors.blackColor,
-            ),
-            onPressed: onPress,
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
