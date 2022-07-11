@@ -34,7 +34,8 @@ class HomeRouterInfoParser
               userUpcomingLeaveState: () => "/user-upcoming-leave",
               leaveRequestState: () => "/leave-request",
               requestedLeaves: () => "/team-leave",
-              addMemberState: () => "/add-member");
+              addMemberState: () => "/add-member",
+              adminLeaveRequestState: () => '/admin-leave-request');
     });
     return RouteInformation(location: location);
   }
@@ -49,7 +50,6 @@ class HomeRouterInfoParser
       final key = uri.pathSegments[i];
       final value = uri.pathSegments[j];
 
-      print("Key $key value $value uri $uri");
       switch (key) {
         case "admin":
           items.add(const NavigationStackItem.adminHomeState());
@@ -80,6 +80,9 @@ class HomeRouterInfoParser
           break;
         case "add-member":
           items.add(const NavigationStackItem.addMemberState());
+          break;
+        case 'admin-leave-request':
+          items.add(NavigationStackItem.adminLeaveRequestState());
           break;
         default:
           items.add(const NavigationStackItem.employeeHomeState());

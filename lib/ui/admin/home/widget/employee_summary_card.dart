@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/navigation/navigation_stack_item.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 class EmployeeSummaryCard extends StatelessWidget {
-  const EmployeeSummaryCard({Key? key}) : super(key: key);
+  EmployeeSummaryCard({Key? key}) : super(key: key);
+  final _stackManager = getIt<NavigationStackManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,24 +52,29 @@ class EmployeeSummaryCard extends StatelessWidget {
 
   Widget _buildSummaryContent(
       {required icon, required color, required title, required desc}) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          size: 26,
-          color: color,
-        ),
-        Text(desc,
-            style:
-                const TextStyle(fontSize: 16, color: AppColors.secondaryText)),
-        Text(title,
-            style: TextStyle(
-                fontSize: titleTextSize,
-                color: AppColors.darkText,
-                fontWeight: FontWeight.bold)),
-      ],
+    return InkWell(
+      onTap: () {
+        _stackManager.push(const NavigationStackItem.adminLeaveRequestState());
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 26,
+            color: color,
+          ),
+          Text(desc,
+              style: const TextStyle(
+                  fontSize: 16, color: AppColors.secondaryText)),
+          Text(title,
+              style: const TextStyle(
+                  fontSize: titleTextSize,
+                  color: AppColors.darkText,
+                  fontWeight: FontWeight.bold)),
+        ],
+      ),
     );
   }
 }
