@@ -60,8 +60,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             const EmployeeListView(),
           ],
         ),
-        const Positioned(
-            top: 130, right: 10, left: 10, child: EmployeeSummaryCard()),
+         Positioned(top: 130, right: 10, left: 10, child: EmployeeSummaryCard()),
       ],
     ));
   }

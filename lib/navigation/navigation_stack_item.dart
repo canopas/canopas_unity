@@ -25,4 +25,7 @@ class NavigationStackItem with _$NavigationStackItem {
   const factory NavigationStackItem.requestedLeaves() = RequestedLeavesState;
 
   const factory NavigationStackItem.addMemberState() = AddMemberState;
+
+  const factory NavigationStackItem.adminLeaveRequestState() =
+      AdminLeaveRequestState;
 }
