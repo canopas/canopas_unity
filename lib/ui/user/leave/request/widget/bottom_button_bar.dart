@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/model/leave/leave_request_data.dart';
-import 'package:projectunity/services/leave/apply_leave_service.dart';
+import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +14,7 @@ import '../../../leave/request/leave_request_form.dart';
 
 class BottomButtonBar extends StatelessWidget {
   final _stateManager = getIt<NavigationStackManager>();
-  final service = getIt<ApplyLeaveService>();
+  final service = getIt<UserLeaveService>();
 
   BottomButtonBar({Key? key}) : super(key: key);
 

@@ -10,7 +10,7 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
   final int _employeeId = 0;
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now();
-  TextEditingController leaveReasonController = TextEditingController();
+  String _reasonOfLeave = '';
   TimeOfDay _startTime = TimeOfDay.now();
   TimeOfDay _endTime = TimeOfDay.now();
 
@@ -18,6 +18,13 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
 
   void setLeaveType(int? value) {
     _leaveType = value;
+    notifyListeners();
+  }
+
+  String get reasonOfLeave => _reasonOfLeave;
+
+  setReasonOfLeave(String value) {
+    _reasonOfLeave = value;
     notifyListeners();
   }
 
@@ -93,8 +100,9 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
         startDate: timeStampToInt(startDateTime()),
         endDate: timeStampToInt(endDateTime()),
         totalLeaves: totalDays,
-        reason: leaveReasonController.text,
+        reason: _reasonOfLeave,
         emergencyContactPerson: _employeeId,
+        appliedOn: timeStampToInt(DateTime.now()),
         leaveStatus: 1);
     return leaveRequestData;
   }
@@ -105,7 +113,7 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
     _endDate = DateTime.now();
     _startTime = TimeOfDay.now();
     _endTime = TimeOfDay.now();
-    leaveReasonController.clear();
+    _reasonOfLeave = '';
     notifyListeners();
   }
 }

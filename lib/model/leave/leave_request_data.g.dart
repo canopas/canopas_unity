@@ -16,6 +16,7 @@ LeaveRequestData _$LeaveRequestDataFromJson(Map<String, dynamic> json) =>
       reason: json['reason'] as String,
       emergencyContactPerson: json['emergency_contact_person'] as int,
       leaveStatus: json['leave_status'] as int,
+      appliedOn: json['applied_on'] as int,
       reject: json['reject'] as String?,
     );
 
@@ -30,4 +31,5 @@ Map<String, dynamic> _$LeaveRequestDataToJson(LeaveRequestData instance) =>
       'emergency_contact_person': instance.emergencyContactPerson,
       'leave_status': instance.leaveStatus,
       'reject': instance.reject,
+      'applied_on': instance.appliedOn,
     };

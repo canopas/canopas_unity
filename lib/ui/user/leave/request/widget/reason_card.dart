@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import '../../../../../stateManager/apply_leave_state_provider.dart';
 
 class ReasonCard extends StatelessWidget {
-  const ReasonCard({Key? key}) : super(key: key);
+  ReasonCard({Key? key}) : super(key: key);
+  final TextEditingController _textEditingController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,7 @@ class ReasonCard extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: TextFormField(
+          focusNode: focusNode,
           style: const TextStyle(
               color: AppColors.darkText, fontSize: bodyTextSize),
           cursorColor: AppColors.secondaryText,
@@ -27,15 +30,15 @@ class ReasonCard extends StatelessWidget {
                 TextStyle(color: Colors.grey, fontSize: subTitleTextSize),
           ),
           validator: (String? value) {
-            if (value == null || value == '') {
-              return 'Please enter valid reason';
-            }
-            return null;
-          },
-          autofocus: true,
-          controller: Provider.of<ApplyLeaveStateProvider>(context)
-              .leaveReasonController,
-          keyboardType: TextInputType.text,
+                if (value == null || value == '') {
+                  return 'Please enter valid reason';
+                }
+                Provider.of<ApplyLeaveStateProvider>(context, listen: false)
+                    .setReasonOfLeave(value);
+                return null;
+              },
+              controller: _textEditingController,
+              keyboardType: TextInputType.text,
         ),
       )),
     );
