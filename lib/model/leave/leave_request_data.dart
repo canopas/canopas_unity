@@ -20,6 +20,8 @@ class LeaveRequestData {
   @JsonKey(name: 'leave_status')
   int leaveStatus;
   String? reject;
+  @JsonKey(name: 'applied_on')
+  int appliedOn;
 
   LeaveRequestData(
       {required this.uid,
@@ -30,6 +32,7 @@ class LeaveRequestData {
       required this.reason,
       required this.emergencyContactPerson,
       required this.leaveStatus,
+      required this.appliedOn,
       this.reject});
 
   factory LeaveRequestData.fromFireStore(
@@ -45,6 +48,7 @@ class LeaveRequestData {
         reason: data?['reason'] as String,
         emergencyContactPerson: data?['emergency_contact_person'] as int,
         leaveStatus: data?['leave_status'],
+        appliedOn: data?['applied_on'],
         reject: data?['reject']);
   }
 
@@ -59,6 +63,7 @@ class LeaveRequestData {
         'emergency_contact_person': instance.emergencyContactPerson,
         'leave_status': instance.leaveStatus,
         'reject': instance.reject,
+        'applied_on': instance.appliedOn
       };
 }
 

@@ -58,10 +58,10 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      LeaveTypeCard(),
+                      const LeaveTypeCard(),
                       const StartLeaveCard(),
                       const EndLeaveCard(),
-                      const ReasonCard(),
+                      ReasonCard(),
                       //  const SupervisorCard(),
                       Container(height: 50)
                     ],

@@ -17,7 +17,8 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    String? accessToken = userPreference.getAccessToken();
+    // String? accessToken = userPreference.getAccessToken();
+    String accessToken = '';
     if (accessToken != null) {
       options.headers[kAccessToken] = accessToken;
     }

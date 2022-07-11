@@ -23,24 +23,9 @@ Color getContainerColor(int status) {
 }
 
 class LeaveWidget extends StatelessWidget {
-  final int leaveType;
-  final String reason;
-  final double totalLeaves;
-  final int startDate;
-  final int endDate;
-  final int leaveStatus;
-  final String? rejection;
+  final LeaveRequestData leave;
 
-  const LeaveWidget(
-      {Key? key,
-      required this.leaveType,
-      required this.totalLeaves,
-      required this.endDate,
-      required this.startDate,
-      required this.reason,
-      required this.rejection,
-      required this.leaveStatus})
-      : super(key: key);
+  const LeaveWidget({Key? key, required this.leave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,31 +35,31 @@ class LeaveWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             BuildLeaveDateContainer(
-              startDate: startDate,
-              endDate: endDate,
-              color: getContainerColor(leaveStatus),
+              startDate: leave.startDate,
+              endDate: leave.endDate,
+              color: getContainerColor(leave.leaveStatus),
             ),
             const SizedBox(
               width: 20,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 140,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      getLeaveStatus(leaveType, leaveTypeMap) ?? '',
+                      getLeaveStatus(leave.leaveType ?? 1, leaveTypeMap) ?? '',
                       style: const TextStyle(
                           color: AppColors.darkText,
                           fontSize: subTitleTextSize,
                           fontWeight: FontWeight.w700),
                     ),
-                    const Text(
-                      'Hey! need some urgent leaves due to medical emergency in family',
+                    Text(
+                      leave.reason,
                       overflow: TextOverflow.visible,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: bodyTextSize,
                           color: AppColors.secondaryText),
                     ),
@@ -83,8 +68,8 @@ class LeaveWidget extends StatelessWidget {
                     ),
                     _buildLeaveStatus(
                         leaveStatus:
-                            getLeaveStatus(leaveStatus, leaveStatusMap)),
-                    if (rejection != null) _buildRejectionCause(),
+                            getLeaveStatus(leave.leaveStatus, leaveStatusMap)),
+                    if (leave.reject != null) _buildRejectionCause(),
                   ],
                 ),
               ),
@@ -108,7 +93,7 @@ class LeaveWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500),
             children: [
               TextSpan(
-                  text: rejection,
+                  text: leave.reject,
                   style: const TextStyle(
                       color: AppColors.secondaryText, fontSize: bodyTextSize))
             ]));
