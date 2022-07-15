@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
-import 'package:projectunity/ui/user/Leave/request/widget/bottom_button_bar.dart';
-import 'package:projectunity/ui/user/Leave/request/widget/leave_type_card.dart';
+import 'package:projectunity/ui/user/leave/request/widget/bottom_button_bar.dart';
+import 'package:projectunity/ui/user/leave/request/widget/leave_type_card.dart';
 import 'package:projectunity/utils/const/other_constant.dart';
 import 'package:provider/provider.dart';
 

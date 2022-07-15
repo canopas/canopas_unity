@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/ui/admin/leave/all_request_screen.dart';
-import 'package:projectunity/ui/user/Leave/requested_leave_screen.dart';
-import 'package:projectunity/ui/user/Leave/upcoming_leave_screen.dart';
+import 'package:projectunity/ui/user/leave/requested_leave_screen.dart';
+import 'package:projectunity/ui/user/leave/upcoming_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
