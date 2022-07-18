@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/admin/leave/leaveRequestCard/reason_dialogue.dart';
+import 'package:projectunity/ui/admin/leave/requests/leaveRequestCard/reason_dialogue.dart';
 
-import '../../../../configs/colors.dart';
-import '../../../../configs/font_size.dart';
+import '../../../../../configs/colors.dart';
+import '../../../../../configs/font_size.dart';
+
 
 class ButtonContent extends StatelessWidget {
   const ButtonContent({

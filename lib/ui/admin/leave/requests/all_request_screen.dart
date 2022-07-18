@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/utils/const/other_constant.dart';
 
-import '../../../configs/colors.dart';
+import '../../../../configs/colors.dart';
 import 'leaveRequestCard/leave_request_card.dart';
 
 class AdminLeaveRequestsScreen extends StatefulWidget {
@@ -52,7 +51,7 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
             left: primaryHorizontalSpacing),
         child: ListView.separated(
           itemBuilder: (BuildContext context, int index) {
-            return const LeaveRequestCard();
+            return LeaveRequestCard();
           },
           itemCount: 10,
           separatorBuilder: (BuildContext context, int index) {

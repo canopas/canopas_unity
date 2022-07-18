@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../configs/colors.dart';
-import '../../../../configs/font_size.dart';
+import '../../../../../configs/colors.dart';
+import '../../../../../configs/font_size.dart';
 
 class EmployeeContent extends StatelessWidget {
   const EmployeeContent({

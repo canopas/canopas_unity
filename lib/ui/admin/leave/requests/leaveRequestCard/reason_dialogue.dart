@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../configs/colors.dart';
-import '../../../../utils/const/other_constant.dart';
+import '../../../../../configs/colors.dart';
+import '../../../../../utils/const/other_constant.dart';
 
 class ReasonDialogue extends StatelessWidget {
   ReasonDialogue({

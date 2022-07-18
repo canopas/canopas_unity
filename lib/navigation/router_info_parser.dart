@@ -35,7 +35,8 @@ class HomeRouterInfoParser
               leaveRequestState: () => "/leave-request",
               requestedLeaves: () => "/team-leave",
               addMemberState: () => "/add-member",
-              adminLeaveRequestState: () => '/admin-leave-request');
+              adminLeaveRequestState: () => '/admin-leave-request',
+              adminLeaveRequestDetailState: () => 'admin-leave-request-detail');
     });
     return RouteInformation(location: location);
   }
@@ -83,6 +84,9 @@ class HomeRouterInfoParser
           break;
         case 'admin-leave-request':
           items.add(NavigationStackItem.adminLeaveRequestState());
+          break;
+        case 'admin-leave-request-detail':
+          items.add(NavigationStackItem.adminLeaveRequestDetailState());
           break;
         default:
           items.add(const NavigationStackItem.employeeHomeState());

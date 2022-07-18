@@ -28,4 +28,7 @@ class NavigationStackItem with _$NavigationStackItem {
 
   const factory NavigationStackItem.adminLeaveRequestState() =
       AdminLeaveRequestState;
+
+  const factory NavigationStackItem.adminLeaveRequestDetailState() =
+      AdminLeaveRequestDetailState;
 }

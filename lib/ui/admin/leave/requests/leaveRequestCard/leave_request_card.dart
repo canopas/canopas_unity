@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/navigation/navigation_stack_item.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
-import '../../../../configs/colors.dart';
-import '../../../../configs/font_size.dart';
-import '../../../../utils/const/other_constant.dart';
+import '../../../../../configs/colors.dart';
+import '../../../../../configs/font_size.dart';
+import '../../../../../di/service_locator.dart';
+import '../../../../../utils/const/other_constant.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
+  final _stackManager = getIt<NavigationStackManager>();
 
-  const LeaveRequestCard({
+  LeaveRequestCard({
     Key? key,
   }) : super(key: key);
 
@@ -28,8 +32,32 @@ class LeaveRequestCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildLeaveTypeContent(),
-          buildLeaveDateContent(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildLeaveTypeContent(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildLeaveDateContent(),
+                ],
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                ),
+                onPressed: () {
+                  _stackManager.push(
+                      const NavigationStackItem.adminLeaveRequestDetailState());
+                },
+              )
+            ],
+          ),
+
           Divider(color: Colors.grey.shade300),
           const EmployeeContent(),
           const SizedBox(
@@ -48,7 +76,7 @@ class LeaveRequestCard extends StatelessWidget {
     );
   }
 
-  Text buildLeaveTypeContent() {
+  Widget buildLeaveTypeContent() {
     return const Text(
       'Sick Leave',
       style: TextStyle(
