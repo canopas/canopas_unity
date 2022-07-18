@@ -8,6 +8,7 @@ import 'package:projectunity/ui/home/employeeHome/widget/notification_icon.dart'
 import 'package:projectunity/ui/home/employeeHome/widget/team_leave_card.dart';
 import 'package:projectunity/user/user_manager.dart';
 import 'package:projectunity/utils/const/other_constant.dart';
+import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../widget/expanded_app_bar.dart';
 import '../../../configs/colors.dart';
@@ -46,17 +47,9 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                     Row(
                       children: [
                         const NotificationIcon(),
-                        _imageLink == null
-                            ? const Icon(Icons.account_circle_rounded)
-                            : CircleAvatar(
-                                radius: 23,
-                                backgroundColor: AppColors.whiteColor,
-                                child: CircleAvatar(
-                                  radius: 22,
-                                  backgroundImage: NetworkImage(
-                                      _userManager.getUserImage()!),
-                                ),
-                              )
+                        UserProfileImage(
+                          imageUrl: _userManager.getUserImage(),
+                        )
                       ],
                     ),
                   ],

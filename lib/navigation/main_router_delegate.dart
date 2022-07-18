@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/admin/leave/all_request_screen.dart';
+import 'package:projectunity/ui/admin/leave/requests/all_request_screen.dart';
 import 'package:projectunity/ui/user/leave/requested_leave_screen.dart';
 import 'package:projectunity/ui/user/leave/upcoming_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
+import '../ui/admin/leave/detail/leave_detail_screen.dart';
 import '../ui/home/employeeHome/employee_home_screen.dart';
 import '../ui/setting/setting_screen.dart';
 import '../ui/user/employee/detail/employee_detail_screen.dart';
@@ -74,7 +75,9 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
           addMemberState: () => const MaterialPage(
               key: ValueKey("add-member"), child: AdminAddMemberScreen()),
           adminLeaveRequestState: () =>
-              const MaterialPage(child: AdminLeaveRequestsScreen())))
+              const MaterialPage(child: AdminLeaveRequestsScreen()),
+          adminLeaveRequestDetailState: () =>
+              const MaterialPage(child: AdminLeaveRequestDetailScreen())))
       .toList();
 
   @override
