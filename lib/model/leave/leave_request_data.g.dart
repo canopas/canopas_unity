@@ -8,6 +8,7 @@ part of 'leave_request_data.dart';
 
 LeaveRequestData _$LeaveRequestDataFromJson(Map<String, dynamic> json) =>
     LeaveRequestData(
+      leaveId: json['leaveId'] as String,
       uid: json['uid'] as String,
       leaveType: json['leave_type'] as int?,
       startDate: json['start_date'] as int,
@@ -17,11 +18,12 @@ LeaveRequestData _$LeaveRequestDataFromJson(Map<String, dynamic> json) =>
       emergencyContactPerson: json['emergency_contact_person'] as int,
       leaveStatus: json['leave_status'] as int,
       appliedOn: json['applied_on'] as int,
-      reject: json['reject'] as String?,
+      rejectionReason: json['rejectionReason'] as String?,
     );
 
 Map<String, dynamic> _$LeaveRequestDataToJson(LeaveRequestData instance) =>
     <String, dynamic>{
+      'leaveId': instance.leaveId,
       'uid': instance.uid,
       'leave_type': instance.leaveType,
       'start_date': instance.startDate,
@@ -30,6 +32,6 @@ Map<String, dynamic> _$LeaveRequestDataToJson(LeaveRequestData instance) =>
       'reason': instance.reason,
       'emergency_contact_person': instance.emergencyContactPerson,
       'leave_status': instance.leaveStatus,
-      'reject': instance.reject,
+      'rejectionReason': instance.rejectionReason,
       'applied_on': instance.appliedOn,
     };

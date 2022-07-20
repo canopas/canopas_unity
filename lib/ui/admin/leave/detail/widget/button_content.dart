@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/admin/leave/requests/leaveRequestCard/reason_dialogue.dart';
+import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/stateManager/admin/leave_status_update.dart';
+import 'package:projectunity/ui/admin/leave/detail/widget/reason_dialogue.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
 
-
 class ButtonContent extends StatelessWidget {
-  const ButtonContent({
+  final _updateLeaveStatus = getIt<UpdateLeaveStatus>();
+
+  ButtonContent({
     Key? key,
   }) : super(key: key);
 
@@ -17,6 +20,7 @@ class ButtonContent extends StatelessWidget {
       children: [
         TextButton(
             onPressed: () {
+              _updateLeaveStatus.updateStatus(3);
               showDialog(
                   context: context,
                   builder: (_) {
@@ -32,7 +36,11 @@ class ButtonContent extends StatelessWidget {
           width: 20,
         ),
         ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _updateLeaveStatus.updateStatus(2);
+              //Pass leaveId instead of empty string
+              _updateLeaveStatus.addLeaveApproval('');
+            },
             style: ElevatedButton.styleFrom(primary: AppColors.primaryBlue),
             child: const Text(
               'APPROVE',

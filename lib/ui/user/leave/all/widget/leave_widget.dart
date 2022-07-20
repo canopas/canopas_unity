@@ -69,7 +69,7 @@ class LeaveWidget extends StatelessWidget {
                     _buildLeaveStatus(
                         leaveStatus:
                             getLeaveStatus(leave.leaveStatus, leaveStatusMap)),
-                    if (leave.reject != null) _buildRejectionCause(),
+                    if (leave.rejectionReason != null) _buildRejectionCause(),
                   ],
                 ),
               ),
@@ -93,7 +93,7 @@ class LeaveWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500),
             children: [
               TextSpan(
-                  text: leave.reject,
+                  text: leave.rejectionReason,
                   style: const TextStyle(
                       color: AppColors.secondaryText, fontSize: bodyTextSize))
             ]));
