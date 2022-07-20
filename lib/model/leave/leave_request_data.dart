@@ -5,6 +5,7 @@ part 'leave_request_data.g.dart';
 
 @JsonSerializable()
 class LeaveRequestData {
+  String leaveId;
   String uid;
   @JsonKey(name: 'leave_type')
   int? leaveType;
@@ -19,12 +20,13 @@ class LeaveRequestData {
   int emergencyContactPerson;
   @JsonKey(name: 'leave_status')
   int leaveStatus;
-  String? reject;
+  String? rejectionReason;
   @JsonKey(name: 'applied_on')
   int appliedOn;
 
   LeaveRequestData(
-      {required this.uid,
+      {required this.leaveId,
+      required this.uid,
       this.leaveType,
       required this.startDate,
       required this.endDate,
@@ -33,13 +35,13 @@ class LeaveRequestData {
       required this.emergencyContactPerson,
       required this.leaveStatus,
       required this.appliedOn,
-      this.reject});
+      this.rejectionReason});
 
-  factory LeaveRequestData.fromFireStore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
+  factory LeaveRequestData.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     Map<String, dynamic>? data = snapshot.data();
     return LeaveRequestData(
+        leaveId: data?['leaveId'] as String,
         uid: data?['uid'] as String,
         leaveType: data?['leave_type'] as int?,
         startDate: data?['start_date'] as int,
@@ -49,11 +51,12 @@ class LeaveRequestData {
         emergencyContactPerson: data?['emergency_contact_person'] as int,
         leaveStatus: data?['leave_status'],
         appliedOn: data?['applied_on'],
-        reject: data?['reject']);
+        rejectionReason: data?['reject']);
   }
 
   Map<String, dynamic> toFireStore(LeaveRequestData instance) =>
       <String, dynamic>{
+        'leaveId': instance.leaveId,
         'uid': instance.uid,
         'leave_type': instance.leaveType,
         'start_date': instance.startDate,
@@ -62,7 +65,7 @@ class LeaveRequestData {
         'reason': instance.reason,
         'emergency_contact_person': instance.emergencyContactPerson,
         'leave_status': instance.leaveStatus,
-        'reject': instance.reject,
+        'reject': instance.rejectionReason,
         'applied_on': instance.appliedOn
       };
 }

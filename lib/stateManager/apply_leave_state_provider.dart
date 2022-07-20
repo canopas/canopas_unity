@@ -93,8 +93,9 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
 
   double get totalDays => getTotalOfLeaves();
 
-  LeaveRequestData getLeaveRequestData() {
+  LeaveRequestData getLeaveRequestData(String id) {
     LeaveRequestData leaveRequestData = LeaveRequestData(
+        leaveId: id,
         uid: FirebaseAuth.instance.currentUser!.uid,
         leaveType: _leaveType,
         startDate: timeStampToInt(startDateTime()),

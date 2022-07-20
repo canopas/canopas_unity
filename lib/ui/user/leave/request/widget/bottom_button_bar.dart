@@ -69,7 +69,8 @@ class BottomButtonBar extends StatelessWidget {
               ),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  LeaveRequestData data = _leaveService.getLeaveRequestData();
+                  LeaveRequestData data =
+                      _leaveService.getLeaveRequestData(leaveId);
                   service.applyForLeave(data);
                   _stateManager.clearAndPush(
                       const NavigationStackItem.employeeHomeState());
