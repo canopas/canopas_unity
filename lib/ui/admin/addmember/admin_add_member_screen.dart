@@ -81,7 +81,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                     stream: _bloc.validateSubmit,
                     builder: (BuildContext context, snapshot) {
                       return SubmitButton(
-                        data: snapshot.data!,
+                        isEnabled: snapshot.data ?? false,
                         onPress: () {
                           Employee employee = _bloc.submit(selectedRole);
                           try {
@@ -105,11 +105,11 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
 }
 
 class SubmitButton extends StatelessWidget {
-  const SubmitButton({Key? key, required this.onPress, required this.data})
+  const SubmitButton({Key? key, required this.onPress, required this.isEnabled})
       : super(key: key);
 
   final VoidCallback onPress;
-  final bool data;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +117,7 @@ class SubmitButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 100.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: data == true ? secondaryBlue : primaryBlue,
+            primary: isEnabled ? secondaryBlue : primaryBlue,
           ),
           onPressed: onPress,
           child: const Padding(

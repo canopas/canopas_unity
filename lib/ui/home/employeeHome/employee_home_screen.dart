@@ -98,7 +98,8 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               ),
             ],
           ),
-          const Positioned(top: 110, right: 10, left: 10, child: LeaveStatus())
+          const Positioned(
+              top: topSpacing, right: 10, left: 10, child: LeaveStatus())
         ],
       ),
     );
