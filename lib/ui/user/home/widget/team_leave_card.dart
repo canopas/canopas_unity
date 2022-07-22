@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../configs/colors.dart';
+import '../../../../../configs/colors.dart';
 import 'overlap_profile.dart';
 
 class TeamLeaveCard extends StatelessWidget {

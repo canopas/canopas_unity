@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/navigation_stack_item.dart';
+import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_list.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
@@ -53,8 +53,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       onPressed: () {
                         _stateManager.setBottomBar(false);
-                        _stateManager
-                            .push(const NavigationStackItem.addMemberState());
+                        _stateManager.push(
+                            const AdminNavigationStackItem.addMemberState());
                       }),
                 ])),
             _buildYourEmployeeHeader(),

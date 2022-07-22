@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/user/user_manager.dart';
 
-import 'navigation_stack_item.dart';
+import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
+import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
+import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
 import 'navigation_stack_manager.dart';
 
 class HomeRouterInfoParser
@@ -18,28 +20,27 @@ class HomeRouterInfoParser
     return _stackManager;
   }
 
-  @override
-  RouteInformation restoreRouteInformation(
-      NavigationStackManager configuration) {
-    final location =
-        configuration.screens.fold<String>("", (previousValue, element) {
-      return previousValue +
-          element.when(
-              adminHomeState: () => "/admin",
-              employeeHomeState: () => "/home",
-              leaveState: () => "/leave",
-              settingsState: () => "/settings",
-              employeeDetailState: (id) => "/employee/$id",
-              userAllLeaveState: () => "/user-all-leave",
-              userUpcomingLeaveState: () => "/user-upcoming-leave",
-              leaveRequestState: () => "/leave-request",
-              requestedLeaves: () => "/team-leave",
-              addMemberState: () => "/add-member",
-              adminLeaveRequestState: () => '/admin-leave-request',
-              adminLeaveRequestDetailState: () => 'admin-leave-request-detail');
-    });
-    return RouteInformation(location: location);
-  }
+  // @override
+  // RouteInformation restoreRouteInformation(
+  //     NavigationStackManager configuration) {
+  //   final location =
+  //       configuration.screens.fold<String>("", (previousValue, element) {
+  //     return previousValue +
+  //         element.when(
+  //             adminHomeState: () => "/admin",
+  //             employeeHomeState: () => "/home",
+  //             leaveState: () => "/leave",
+  //             settingsState: () => "/settings",
+  //             employeeDetailState: (id) => "/employee/$id",
+  //             userAllLeaveState: () => "/user-all-leave",
+  //             userUpcomingLeaveState: () => "/user-upcoming-leave",
+  //             leaveRequestState: () => "/leave-request",
+  //             requestedLeaves: () => "/team-leave",
+  //             addMemberState: () => "/add-member",
+  //             adminLeaveRequestState: () => '/admin-leave-request');
+  //   });
+  //   return RouteInformation(location: location);
+  // }
 
   Future<List<NavigationStackItem>> itemsForRouteInformation(
       RouteInformation routeInformation) async {
@@ -52,52 +53,52 @@ class HomeRouterInfoParser
       final value = uri.pathSegments[j];
 
       switch (key) {
-        case "admin":
-          items.add(const NavigationStackItem.adminHomeState());
+        case "admin-home":
+          items.add(const AdminNavigationStackItem.adminHomeState());
           break;
-        case "home":
-          items.add(const NavigationStackItem.employeeHomeState());
+        case "employee-home":
+          items.add(const EmployeeNavigationStackItem.employeeHomeState());
           break;
         case "employee":
-          items.add(NavigationStackItem.employeeDetailState(id: value));
+          items.add(AdminNavigationStackItem.employeeDetailState(id: value));
           break;
         case "leave":
-          items.add(const NavigationStackItem.leaveState());
+          items.add(const EmployeeNavigationStackItem.staffState());
           break;
         case "user-all-leave":
-          items.add(const NavigationStackItem.userAllLeaveState());
+          items.add(const EmployeeNavigationStackItem.userAllLeaveState());
           break;
         case "user-upcoming-leave":
-          items.add(const NavigationStackItem.userUpcomingLeaveState());
+          items.add(const EmployeeNavigationStackItem.userUpcomingLeaveState());
           break;
         case "leave-request":
-          items.add(const NavigationStackItem.leaveRequestState());
+          items.add(const EmployeeNavigationStackItem.leaveRequestState());
           break;
         case "settings":
-          items.add(const NavigationStackItem.settingsState());
+          items.add(const EmployeeNavigationStackItem.settingsState());
           break;
         case "team-leave":
-          items.add(const NavigationStackItem.requestedLeaves());
+          items.add(const EmployeeNavigationStackItem.requestedLeaves());
           break;
         case "add-member":
-          items.add(const NavigationStackItem.addMemberState());
+          items.add(const AdminNavigationStackItem.addMemberState());
           break;
         case 'admin-leave-request':
-          items.add(NavigationStackItem.adminLeaveRequestState());
+          items.add(AdminNavigationStackItem.adminLeaveRequestState());
           break;
         case 'admin-leave-request-detail':
-          items.add(NavigationStackItem.adminLeaveRequestDetailState());
+          items.add(AdminNavigationStackItem.adminLeaveRequestDetailState());
           break;
         default:
-          items.add(const NavigationStackItem.employeeHomeState());
+          items.add(const EmployeeNavigationStackItem.employeeHomeState());
       }
     }
 
     if (items.isEmpty) {
       if (_userManager.isAdmin()) {
-        items.add(const NavigationStackItem.adminHomeState());
+        items.add(const AdminNavigationStackItem.adminHomeState());
       } else {
-        items.add(const NavigationStackItem.employeeHomeState());
+        items.add(const EmployeeNavigationStackItem.employeeHomeState());
       }
     }
 

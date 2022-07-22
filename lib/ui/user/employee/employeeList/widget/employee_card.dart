@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/navigation/navigation_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../di/service_locator.dart';
 import '../../../../../model/employee/employee.dart';
+import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 
 class EmployeeCard extends StatelessWidget {
   EmployeeCard({Key? key, required this.employee}) : super(key: key);
@@ -18,8 +18,8 @@ class EmployeeCard extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
-          _stackManager
-              .push(NavigationStackItem.employeeDetailState(id: employee.id));
+          _stackManager.push(
+              AdminNavigationStackItem.employeeDetailState(id: employee.id));
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
