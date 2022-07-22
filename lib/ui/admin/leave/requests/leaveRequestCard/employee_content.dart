@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
+import '../../../../../model/employee/employee.dart';
 
 class EmployeeContent extends StatelessWidget {
-  const EmployeeContent({
-    Key? key,
-  }) : super(key: key);
+  Employee employee;
+
+  EmployeeContent({Key? key, required this.employee}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +23,20 @@ class EmployeeContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
+            children: [
               Text(
-                'Thomas Richards',
-                style: TextStyle(
+                employee.name,
+                style: const TextStyle(
                     fontSize: subTitleTextSize,
                     color: AppColors.darkText,
                     fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(
-                'Employee ID: CA-1044',
-                style: TextStyle(
+                'Employee ID: ${employee.employeeId}',
+                style: const TextStyle(
                     fontSize: bodyTextSize, color: AppColors.secondaryText),
               ),
             ],

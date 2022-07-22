@@ -1,22 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectunity/core/utils/leave_string_utils.dart';
+import 'package:projectunity/model/leave/leave_request_data.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
 
 class LeaveTitleRow extends StatelessWidget {
-  const LeaveTitleRow({
-    Key? key,
-  }) : super(key: key);
+  LeaveRequestData leave;
+
+  LeaveTitleRow({Key? key, required this.leave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String _leaveType = getLeaveStatus(leave.leaveType ?? 1, leaveTypeMap)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildLeaveTypeHeader(leaveType: 'Sick Leave'),
+          _buildLeaveTypeHeader(leaveType: _leaveType),
           Row(
             children: [
               (const Icon(

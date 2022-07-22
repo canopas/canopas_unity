@@ -4,11 +4,12 @@ import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
+import '../../../../../model/employee/employee.dart';
 
 class UserContent extends StatelessWidget {
-  const UserContent({
-    Key? key,
-  }) : super(key: key);
+  Employee employee;
+
+  UserContent({Key? key, required this.employee}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +24,11 @@ class UserContent extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildUserName(name: 'Dorothy Boone'),
+              _buildUserName(name: employee.name),
               const SizedBox(
                 height: 3,
               ),
-              _buildDesignation(designation: 'PHP designer')
+              _buildDesignation(designation: employee.designation)
             ],
           ),
         ],

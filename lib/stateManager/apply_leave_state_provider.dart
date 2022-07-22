@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/leave/leave_request_data.dart';
@@ -93,10 +92,9 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
 
   double get totalDays => getTotalOfLeaves();
 
-  LeaveRequestData getLeaveRequestData(String id) {
+  LeaveRequestData getLeaveRequestData({required String userId}) {
     LeaveRequestData leaveRequestData = LeaveRequestData(
-        leaveId: id,
-        uid: FirebaseAuth.instance.currentUser!.uid,
+        uid: userId,
         leaveType: _leaveType,
         startDate: timeStampToInt(startDateTime()),
         endDate: timeStampToInt(endDateTime()),

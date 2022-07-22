@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/user/user_manager.dart';
 
+import '../model/employee_leave.dart';
 import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
 import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
@@ -86,9 +87,9 @@ class HomeRouterInfoParser
         case 'admin-leave-request':
           items.add(AdminNavigationStackItem.adminLeaveRequestState());
           break;
-        case 'admin-leave-request-detail':
-          items.add(AdminNavigationStackItem.adminLeaveRequestDetailState());
-          break;
+        // case 'admin-leave-request-detail':
+        //   items.add(AdminNavigationStackItem.adminLeaveRequestDetailState());
+        //  break;
         default:
           items.add(const EmployeeNavigationStackItem.employeeHomeState());
       }

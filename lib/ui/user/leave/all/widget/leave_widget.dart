@@ -2,16 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
+import '../../../../../core/utils/leave_string_utils.dart';
 import '../../../../../model/leave/leave_request_data.dart';
 import 'leave_date_container.dart';
-
-String? getLeaveStatus(int status, Map map) {
-  String? leaveStatus;
-  for (int key in map.keys) {
-    if (key == status) leaveStatus = map[status];
-  }
-  return leaveStatus;
-}
 
 Color getContainerColor(int status) {
   if (status == 2) {

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:rxdart/rxdart.dart';
@@ -64,7 +63,6 @@ class EmployeeValidationBloc {
 
   Employee submit(int selectedRoleType) {
     final employee = Employee(
-        id: FirebaseAuth.instance.currentUser!.uid,
         roleType: selectedRoleType,
         name: _name.stream.value,
         employeeId: _employeeId.value,

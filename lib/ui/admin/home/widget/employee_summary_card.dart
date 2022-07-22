@@ -8,6 +8,7 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 class EmployeeSummaryCard extends StatelessWidget {
   EmployeeSummaryCard({Key? key}) : super(key: key);
+
   final _stackManager = getIt<NavigationStackManager>();
 
   @override
