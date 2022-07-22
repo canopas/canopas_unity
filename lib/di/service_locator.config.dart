@@ -13,9 +13,9 @@ import '../bloc/employee_detail_bloc.dart' as _i15;
 import '../bloc/employee_leave_bloc.dart' as _i16;
 import '../bloc/employee_list_bloc.dart' as _i17;
 import '../bloc/employee_validation.dart' as _i7;
-import '../bloc/leaves/user_all_leaves_bloc.dart' as _i19;
+import '../bloc/leaves/user_all_leaves_bloc.dart' as _i22;
 import '../bloc/login_bloc.dart' as _i18;
-import '../navigation/navigation_stack_manager.dart' as _i22;
+import '../navigation/navigation_stack_manager.dart' as _i21;
 import '../rest/api_interceptor.dart' as _i12;
 import '../services/auth_manager.dart' as _i13;
 import '../services/auth_service.dart' as _i5;
@@ -24,8 +24,8 @@ import '../services/leave/admin_leave_service.dart' as _i3;
 import '../services/leave/user_leave_service.dart' as _i10;
 import '../stateManager/admin/leave_status_update.dart' as _i9;
 import '../stateManager/apply_leave_state_provider.dart' as _i4;
-import '../stateManager/login_state.dart' as _i21;
-import '../user/user_manager.dart' as _i20;
+import '../stateManager/login_state.dart' as _i20;
+import '../user/user_manager.dart' as _i19;
 import '../user/user_preference.dart' as _i11;
 import 'AppModule.dart' as _i23; // ignore_for_file: unnecessary_lambdas
 
@@ -59,12 +59,12 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.singleton<_i17.EmployeeListBloc>(
       _i17.EmployeeListBloc(get<_i6.EmployeeService>()));
   gh.singleton<_i18.LoginBloc>(_i18.LoginBloc(get<_i13.AuthManager>()));
-  gh.singleton<_i19.UserAllLeavesBloc>(
-      _i19.UserAllLeavesBloc(get<_i10.UserLeaveService>()));
-  gh.singleton<_i20.UserManager>(_i20.UserManager(get<_i11.UserPreference>()));
-  gh.singleton<_i21.LoginState>(_i21.LoginState(get<_i20.UserManager>()));
-  gh.singleton<_i22.NavigationStackManager>(
-      _i22.NavigationStackManager(get<_i20.UserManager>()));
+  gh.singleton<_i19.UserManager>(_i19.UserManager(get<_i11.UserPreference>()));
+  gh.singleton<_i20.LoginState>(_i20.LoginState(get<_i19.UserManager>()));
+  gh.singleton<_i21.NavigationStackManager>(
+      _i21.NavigationStackManager(get<_i19.UserManager>()));
+  gh.singleton<_i22.UserAllLeavesBloc>(_i22.UserAllLeavesBloc(
+      get<_i10.UserLeaveService>(), get<_i19.UserManager>()));
   return get;
 }
 

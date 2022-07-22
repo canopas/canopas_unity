@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 extension DateExtention on int {
-  DateTime toDate() {
-    return DateTime.fromMillisecondsSinceEpoch(this);
-  }
+  DateTime get toDate => DateTime.fromMillisecondsSinceEpoch(this);
 }
 
 extension DateFormation on DateTime {
-  String dateToString() => DateFormat.yMMM().format(this);
+  String get dateToString => DateFormat.yMMM().format(this);
+}
+
+extension TimestampExtension on DateTime {
+  int get timeStampToInt => Timestamp.fromDate(this).millisecondsSinceEpoch;
 }

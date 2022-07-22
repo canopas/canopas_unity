@@ -5,7 +5,7 @@ part 'leave_request_data.g.dart';
 
 @JsonSerializable()
 class LeaveRequestData {
-  String? leaveId;
+  String leaveId;
   String uid;
   @JsonKey(name: 'leave_type')
   int? leaveType;
@@ -25,7 +25,7 @@ class LeaveRequestData {
   int appliedOn;
 
   LeaveRequestData(
-      {this.leaveId,
+      {required this.leaveId,
       required this.uid,
       this.leaveType,
       required this.startDate,

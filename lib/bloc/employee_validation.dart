@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:uuid/uuid.dart';
 
 @Singleton()
 class EmployeeValidationBloc {
@@ -63,6 +64,7 @@ class EmployeeValidationBloc {
 
   Employee submit(int selectedRoleType) {
     final employee = Employee(
+        id: const Uuid().v4(),
         roleType: selectedRoleType,
         name: _name.stream.value,
         employeeId: _employeeId.value,

@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:uuid/uuid.dart';
 
 @Singleton()
 class ApplyLeaveStateProvider extends ChangeNotifier {
@@ -55,20 +56,20 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int timeStampToInt(DateTime dateTime) {
-    Timestamp timeStamp = Timestamp.fromDate(dateTime);
-    int dateToInt = timeStamp.millisecondsSinceEpoch;
-    return dateToInt;
-  }
+  // int timeStampToInt(DateTime dateTime) {
+  //   Timestamp timeStamp = Timestamp.fromDate(dateTime);
+  //   int dateToInt = timeStamp.millisecondsSinceEpoch;
+  //   return dateToInt;
+  // }
 
-  DateTime startDateTime() => DateTime(_startDate.year, _startDate.month,
+  DateTime get startDateTime => DateTime(_startDate.year, _startDate.month,
       _startDate.day, _startTime.hour, _startTime.minute);
 
-  DateTime endDateTime() => DateTime(_endDate.year, _endDate.month,
+  DateTime get endDateTime => DateTime(_endDate.year, _endDate.month,
       _endDate.day, _endTime.hour, _endTime.minute);
 
   double getTotalOfLeaves() {
-    int totalHours = endDateTime().difference(startDateTime()).inHours;
+    int totalHours = endDateTime.difference(startDateTime).inHours;
     double totalLeaves = getLeaveByHours(totalHours);
     notifyListeners();
     return totalLeaves;
@@ -94,14 +95,15 @@ class ApplyLeaveStateProvider extends ChangeNotifier {
 
   LeaveRequestData getLeaveRequestData({required String userId}) {
     LeaveRequestData leaveRequestData = LeaveRequestData(
+        leaveId: Uuid().v4(),
         uid: userId,
         leaveType: _leaveType,
-        startDate: timeStampToInt(startDateTime()),
-        endDate: timeStampToInt(endDateTime()),
+        startDate: startDateTime.timeStampToInt,
+        endDate: endDateTime.timeStampToInt,
         totalLeaves: totalDays,
         reason: _reasonOfLeave,
         emergencyContactPerson: _employeeId,
-        appliedOn: timeStampToInt(DateTime.now()),
+        appliedOn: DateTime.now().timeStampToInt,
         leaveStatus: 1);
     return leaveRequestData;
   }

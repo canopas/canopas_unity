@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/leave_string_utils.dart';
@@ -28,7 +27,7 @@ class BuildLeaveDateContainer extends StatelessWidget {
       width: 50,
       child: Center(
           child: Text(
-            dateInDoubleLine(startDate.toDate(), endDate.toDate()),
+            dateInDoubleLine(startTimeStamp: startDate, endTimeStamp: endDate),
         style: TextStyle(
             color: color == AppColors.blackColor
                 ? AppColors.whiteColor

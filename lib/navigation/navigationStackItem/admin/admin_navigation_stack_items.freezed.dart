@@ -1024,7 +1024,6 @@ abstract class $AdminLeaveRequestDetailStateCopyWith<$Res> {
           AdminLeaveRequestDetailState value,
           $Res Function(AdminLeaveRequestDetailState) then) =
       _$AdminLeaveRequestDetailStateCopyWithImpl<$Res>;
-
   $Res call({EmployeeLeave employeeLeave});
 }
 
@@ -1190,7 +1189,6 @@ abstract class AdminLeaveRequestDetailState
       _$AdminLeaveRequestDetailState;
 
   EmployeeLeave get employeeLeave;
-
   @JsonKey(ignore: true)
   $AdminLeaveRequestDetailStateCopyWith<AdminLeaveRequestDetailState>
       get copyWith => throw _privateConstructorUsedError;
