@@ -9,7 +9,7 @@ class LeaveStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Card(
           color: AppColors.primaryDarkYellow,
           elevation: 8,
@@ -17,7 +17,7 @@ class LeaveStatus extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(14.0),
+            padding: const EdgeInsets.all(20.0),
             child: IntrinsicHeight(
               child: Row(
                 mainAxisSize: MainAxisSize.max,

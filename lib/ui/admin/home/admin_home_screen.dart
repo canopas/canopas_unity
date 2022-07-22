@@ -5,6 +5,7 @@ import 'package:projectunity/navigation/navigation_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_list.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
+import 'package:projectunity/utils/const/other_constant.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 
 import '../../../configs/colors.dart';
@@ -60,7 +61,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             const EmployeeListView(),
           ],
         ),
-         Positioned(top: 130, right: 10, left: 10, child: EmployeeSummaryCard()),
+        Positioned(
+            top: topSpacing, right: 10, left: 10, child: EmployeeSummaryCard()),
       ],
     ));
   }
