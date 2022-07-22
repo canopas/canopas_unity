@@ -4,28 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/user/user_manager.dart';
 
-import 'navigation_stack_item.dart';
+import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
+import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
+import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
 
 @Singleton()
 class NavigationStackManager extends ChangeNotifier {
   final UserManager _userManager;
   List<NavigationStackItem> _screens = [];
   bool _showBottomBar = true;
+  NavigationStack<NavigationStackItem> navigation;
+  List<AdminNavigationStackItem> adminStackList = [
+    const AdminNavigationStackItem.adminHomeState()
+  ];
+  List<EmployeeNavigationStackItem> employeeStackList = [
+    const EmployeeNavigationStackItem.employeeHomeState()
+  ];
 
   bool get showBottomBar => _showBottomBar;
 
   NavigationStackManager(this._userManager)
-      : _screens = [
-          if (_userManager.isAdmin())
-            const NavigationStackItem.adminHomeState()
-          else
-            const NavigationStackItem.employeeHomeState()
-        ];
+      : navigation = _userManager.isAdmin()
+            ? const NavigationStack.admin()
+            : const NavigationStack.employee();
 
   void setBottomBar(bool show) {
     _showBottomBar = show;
     notifyListeners();
   }
+
+  bool get isAdmin => _userManager.isAdmin();
 
   set screens(List<NavigationStackItem> newItems) {
     _screens = List.from(newItems);
@@ -34,7 +42,9 @@ class NavigationStackManager extends ChangeNotifier {
 
   NavigationStackItem get currentState => _screens.last;
 
-  List<NavigationStackItem> get screens => _screens;
+  List<NavigationStackItem> get screens => navigation.when(
+      admin: () => _screens = adminStackList,
+      employee: () => _screens = employeeStackList);
 
   void push(NavigationStackItem item) {
     _screens.add(item);
@@ -56,4 +66,7 @@ class NavigationStackManager extends ChangeNotifier {
       return null;
     }
   }
+
+
+
 }

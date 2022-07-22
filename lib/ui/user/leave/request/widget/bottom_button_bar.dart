@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../di/service_locator.dart';
-import '../../../../../navigation/navigation_stack_item.dart';
+import '../../../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../stateManager/apply_leave_state_provider.dart';
 import '../../../leave/request/leave_request_form.dart';
@@ -72,7 +72,7 @@ class BottomButtonBar extends StatelessWidget {
                   LeaveRequestData data = _leaveService.getLeaveRequestData();
                   service.applyForLeave(data);
                   _stateManager.clearAndPush(
-                      const NavigationStackItem.employeeHomeState());
+                      const EmployeeNavigationStackItem.employeeHomeState());
                   _stateManager.setBottomBar(true);
                 } else {
                   buildSnackBar(context, 'Please fill all details');

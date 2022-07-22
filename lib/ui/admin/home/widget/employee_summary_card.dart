@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/navigation_stack_item.dart';
+import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 class EmployeeSummaryCard extends StatelessWidget {
@@ -54,7 +54,8 @@ class EmployeeSummaryCard extends StatelessWidget {
       {required icon, required color, required title, required desc}) {
     return InkWell(
       onTap: () {
-        _stackManager.push(const NavigationStackItem.adminLeaveRequestState());
+        _stackManager
+            .push(const AdminNavigationStackItem.adminLeaveRequestState());
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

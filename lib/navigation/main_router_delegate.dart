@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/ui/admin/leave/requests/all_request_screen.dart';
+import 'package:projectunity/ui/user/home/employee_home_screen.dart';
+import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
+import 'package:projectunity/ui/user/leave/request/leave_request_form.dart';
 import 'package:projectunity/ui/user/leave/requested_leave_screen.dart';
 import 'package:projectunity/ui/user/leave/upcoming_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
 import '../ui/admin/leave/detail/leave_detail_screen.dart';
-import '../ui/home/employeeHome/employee_home_screen.dart';
 import '../ui/setting/setting_screen.dart';
+import '../ui/staff/staff_screen.dart';
 import '../ui/user/employee/detail/employee_detail_screen.dart';
-import '../ui/user/leave/all/all_leaves_screen.dart';
-import '../ui/user/leave/leave_screen.dart';
-import '../ui/user/leave/request/leave_request_form.dart';
 import 'navigation_stack_manager.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
@@ -34,50 +34,64 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: navigatorKey,
-      pages: _buildPages(),
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) {
-          return false;
-        }
-        stack.pop();
-        return true;
-      },
-    );
+        key: navigatorKey,
+        pages: stack.screens == stack.adminStackList
+            ? _buildAdminStack()
+            : buildEmployeeStack(),
+        onPopPage: _onPopPage);
   }
 
-  List<Page> _buildPages() => stack.screens
+
+  bool _onPopPage(Route route, dynamic result) {
+    if (!route.didPop(result)) {
+      return false;
+    }
+    stack.pop();
+    return true;
+  }
+
+  List<Page> buildEmployeeStack() => stack.employeeStackList
       .map((state) => state.when(
-      adminHomeState: () => const MaterialPage(
-              key: ValueKey("admin"), child: AdminHomeScreen()),
-      employeeHomeState: () => const MaterialPage(
-              key: ValueKey("home"), child: EmployeeHomeScreen()),
-          employeeDetailState: (String selectedEmployee) {
-            return MaterialPage(
-                key: const ValueKey("employee"),
+            employeeHomeState: () => const MaterialPage(
+                key: ValueKey("employee-home"), child: EmployeeHomeScreen()),
+            userAllLeaveState: () => MaterialPage(
+                key: const ValueKey("user-all-leave"), child: AllLeaveScreen()),
+            userUpcomingLeaveState: () => const MaterialPage(
+                key: ValueKey("user-upcoming"), child: UpcomingLeaveScreen()),
+            leaveRequestState: () => const MaterialPage(
+                key: ValueKey("apply-leave"), child: LeaveRequestForm()),
+            settingsState: () => const MaterialPage(
+                key: ValueKey("setting"), child: SettingScreen()),
+            requestedLeaves: () => const MaterialPage(
+                key: ValueKey("user-requested-leave"),
+                child: RequestedLeaveScreen()),
+            staffState: () => const MaterialPage(
+                key: ValueKey('staff'), child: StaffScreen()),
+          ))
+      .toList();
+
+  List<Page> _buildAdminStack() => stack.adminStackList
+      .map((state) => state.when(
+    adminHomeState: () => const MaterialPage(
+                key: ValueKey("admin-home"), child: AdminHomeScreen()),
+            employeeDetailState: (String selectedEmployee) => MaterialPage(
+                key: const ValueKey('employee-detail'),
                 child: EmployeeDetailScreen(
                   id: selectedEmployee,
-                ));
-          },
-          leaveState: () =>
-              const MaterialPage(key: ValueKey("leave"), child: LeaveScreen()),
-          userAllLeaveState: () => MaterialPage(
-              key: const ValueKey("user-all-leave"), child: AllLeaveScreen()),
-          userUpcomingLeaveState: () => const MaterialPage(
-              key: ValueKey("user-upcoming-leave"),
-              child: UpcomingLeaveScreen()),
-          leaveRequestState: () => const MaterialPage(
-              key: ValueKey("leave-request"), child: LeaveRequestForm()),
-          settingsState: () => const MaterialPage(
-              key: ValueKey("settings"), child: SettingScreen()),
-          requestedLeaves: () => const MaterialPage(
-              key: ValueKey("team-leave"), child: RequestedLeaveScreen()),
-          addMemberState: () => const MaterialPage(
-              key: ValueKey("add-member"), child: AdminAddMemberScreen()),
-          adminLeaveRequestState: () =>
-              const MaterialPage(child: AdminLeaveRequestsScreen()),
-          adminLeaveRequestDetailState: () =>
-              const MaterialPage(child: AdminLeaveRequestDetailScreen())))
+                )),
+            settingsState: () => const MaterialPage(
+                key: ValueKey("setting"), child: SettingScreen()),
+            staffState: () => const MaterialPage(
+                key: ValueKey('staff'), child: StaffScreen()),
+            addMemberState: () => const MaterialPage(
+                key: ValueKey("add-member"), child: AdminAddMemberScreen()),
+            adminLeaveRequestState: () => const MaterialPage(
+                key: ValueKey("requested-leaves"),
+                child: AdminLeaveRequestsScreen()),
+            adminLeaveRequestDetailState: () => const MaterialPage(
+                key: ValueKey('admin-requested-levae-detail'),
+                child: const AdminLeaveRequestDetailScreen()),
+          ))
       .toList();
 
   @override

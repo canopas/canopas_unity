@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/navigation/navigation_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
 import '../../../../../di/service_locator.dart';
+import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../../../utils/const/other_constant.dart';
 import 'employee_content.dart';
 
@@ -51,8 +51,8 @@ class LeaveRequestCard extends StatelessWidget {
                   size: 15,
                 ),
                 onPressed: () {
-                  _stackManager.push(
-                      const NavigationStackItem.adminLeaveRequestDetailState());
+                  _stackManager.push(const AdminNavigationStackItem
+                      .adminLeaveRequestDetailState());
                 },
               )
             ],

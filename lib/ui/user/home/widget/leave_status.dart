@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 
-import '../../../../configs/colors.dart';
+import '../../../../../configs/colors.dart';
 
 class LeaveStatus extends StatelessWidget {
   const LeaveStatus({Key? key}) : super(key: key);

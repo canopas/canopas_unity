@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
 import 'package:projectunity/navigation/router_info_parser.dart';
 
-import '../../di/service_locator.dart';
-import '../../navigation/navigation_stack_item.dart';
-import '../../navigation/navigation_stack_manager.dart';
-import '../../utils/const/color_constant.dart';
+import '../di/service_locator.dart';
+import '../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
+import '../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
+import '../navigation/navigation_stack_manager.dart';
+import '../utils/const/color_constant.dart';
 
-class AdminDashboardScreen extends StatefulWidget {
-  const AdminDashboardScreen({Key? key}) : super(key: key);
+class AppDashboardScreen extends StatefulWidget {
+  const AppDashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<AdminDashboardScreen> createState() => _AdminDashboardScreenState();
+  State<AppDashboardScreen> createState() => _AppDashboardScreenState();
 }
 
-class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
+class _AppDashboardScreenState extends State<AppDashboardScreen> {
   int selectedTab = 0;
   final _stateManager = getIt<NavigationStackManager>();
   bool show = false;
@@ -81,17 +82,27 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     setState(() {
       selectedTab = id;
     });
+    _stateManager.isAdmin
+        ? getBottomNavigation(id, adminBottomBar)
+        : getBottomNavigation(id, employeeBottomBar);
+  }
 
-    switch (id) {
-      case 0:
-        _stateManager
-            .clearAndPush(const NavigationStackItem.employeeHomeState());
-        break;
-      case 1:
-        _stateManager.clearAndPush(const NavigationStackItem.leaveState());
-        break;
-      case 2:
-        _stateManager.clearAndPush(const NavigationStackItem.settingsState());
+  void getBottomNavigation(int index, Map map) {
+    for (var key in map.keys) {
+      if (key == index) {
+        _stateManager.clearAndPush(map[index]);
+      }
     }
   }
+
+  Map employeeBottomBar = {
+    0: const EmployeeNavigationStackItem.employeeHomeState(),
+    1: const EmployeeNavigationStackItem.staffState(),
+    2: const EmployeeNavigationStackItem.settingsState(),
+  };
+  Map adminBottomBar = {
+    0: const AdminNavigationStackItem.adminHomeState(),
+    1: const AdminNavigationStackItem.staffState(),
+    2: const AdminNavigationStackItem.settingsState(),
+  };
 }

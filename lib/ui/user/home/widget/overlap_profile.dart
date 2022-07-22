@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../configs/colors.dart';
+import '../../../../../configs/colors.dart';
 
 class OverlapProfile extends StatelessWidget {
   OverlapProfile({

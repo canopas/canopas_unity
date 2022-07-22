@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/stateManager/login_state.dart';
+import 'package:projectunity/ui/app_dashboard_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
 
 import 'di/service_locator.dart';
-import 'ui/admin/admin_dashboard_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
           if (isOnBoardComplete && !isLogin)
             const MaterialPage(child: LoginScreen()),
           if (isOnBoardComplete && isLogin)
-            const MaterialPage(child: AdminDashboardScreen()),
+            const MaterialPage(child: AppDashboardScreen()),
         ],
         onPopPage: (route, result) {
           if (!route.didPop(result)) {
