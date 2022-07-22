@@ -4,24 +4,25 @@ import 'package:injectable/injectable.dart';
 import '../../model/employee/employee.dart';
 
 @Singleton()
-class EmployeeService {
-  final _collection = FirebaseFirestore.instance
-      .collection("users")
-      .withConverter(
-          fromFirestore: Employee.fromFirestore,
-          toFirestore: (Employee emp, _) => emp.employeeToJson());
+final userCollection = FirebaseFirestore.instance
+    .collection("users")
+    .withConverter(
+        fromFirestore: Employee.fromFirestore,
+        toFirestore: (Employee emp, _) => emp.employeeToJson());
 
+class EmployeeService {
   Future<List<Employee>> getEmployees() async {
-    final data = await _collection.get();
+    final data = await userCollection.get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
   Future<Employee?> getEmployee(String id) async {
-    final data = await _collection.doc(id).get();
+    final data = await userCollection.doc(id).get();
     return data.data();
   }
 
   Future<void> addEmployee(Employee employee) async {
-    await _collection.add(employee);
+    await userCollection.add(employee).then(
+        (value) => userCollection.doc(value.id).update({'uid': value.id}));
   }
 }

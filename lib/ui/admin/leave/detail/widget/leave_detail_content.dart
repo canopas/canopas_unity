@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/utils/leave_string_utils.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
+import '../../../../../model/leave/leave_request_data.dart';
 
 class LeaveDetailContent extends StatelessWidget {
-  const LeaveDetailContent({
-    Key? key,
-  }) : super(key: key);
+  LeaveRequestData leave;
+
+  LeaveDetailContent({Key? key, required this.leave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String totalDays = totalLeaves(leave.totalLeaves);
+    String duration =
+        dateInSingleLine(leave.startDate.toDate(), leave.endDate.toDate());
+    String reason = leave.reason;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildFieldColumn(title: 'Total Days', value: '2 days'),
+            _buildFieldColumn(title: 'Total Days', value: totalDays),
             _buildDivider(),
-            _buildFieldColumn(
-                title: 'Duration', value: 'Nov 19 - Nov 22, 2022'),
+            _buildFieldColumn(title: 'Duration', value: duration),
             _buildDivider(),
             _buildFieldColumn(
               title: 'Reason',
-              value:
-                  'Hey! need urgent vacation due to medical emergency in family so kindly consider it',
+              value: reason,
             ),
           ],
         ),

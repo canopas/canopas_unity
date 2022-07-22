@@ -81,4 +81,3 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
     );
   }
 }
-

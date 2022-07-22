@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/model/employee_leave.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_detail_content.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_title_row.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leaves_left_content.dart';
@@ -8,16 +9,12 @@ import '../../../../configs/colors.dart';
 import '../../../../utils/const/other_constant.dart';
 import 'widget/button_content.dart';
 
-class AdminLeaveRequestDetailScreen extends StatefulWidget {
-  const AdminLeaveRequestDetailScreen({Key? key}) : super(key: key);
+class AdminLeaveRequestDetailScreen extends StatelessWidget {
+  EmployeeLeave employeeLeave;
 
-  @override
-  State<AdminLeaveRequestDetailScreen> createState() =>
-      _AdminLeaveRequestDetailScreenState();
-}
+  AdminLeaveRequestDetailScreen({Key? key, required this.employeeLeave})
+      : super(key: key);
 
-class _AdminLeaveRequestDetailScreenState
-    extends State<AdminLeaveRequestDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +37,13 @@ class _AdminLeaveRequestDetailScreenState
             bottom: 10),
         child: Column(
           children: [
-            UserContent(),
-            LeavesLeftContent(),
-            Divider(color: AppColors.secondaryText),
-            LeaveTitleRow(),
-            LeaveDetailContent(),
+            UserContent(employee: employeeLeave.employee),
+            const LeavesLeftContent(),
+            const Divider(color: AppColors.secondaryText),
+            LeaveTitleRow(
+              leave: employeeLeave.leave,
+            ),
+            LeaveDetailContent(leave: employeeLeave.leave),
             ButtonContent(),
           ],
         ),

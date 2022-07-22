@@ -21,7 +21,7 @@ class LeavesLeftContent extends StatelessWidget {
       ),
     );
   }
-
+//TODO:Add functionality so admin can see all the leaves of user by tapping on this button
   TextButton buildLeaveHistoryButton() {
     return TextButton(
         onPressed: () {},
@@ -31,6 +31,7 @@ class LeavesLeftContent extends StatelessWidget {
         ));
   }
 
+//TODO: Count remaining leaves of user from AL
   Text buildRemainingDays({required int day}) {
     return Text(
       'Remaining: $day/30',
