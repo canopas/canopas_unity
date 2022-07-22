@@ -14,6 +14,7 @@ class UserManager {
     String? fullName = _employee?.name;
     List<String>? words = fullName?.split(" ");
     String name = words![0];
+
     return fullName;
   }
 
@@ -22,7 +23,10 @@ class UserManager {
     return imageUrl;
   }
 
-  String getId() => _employee!.id!;
+  String getId() {
+    print(_employee!.id.toString());
+    return _employee!.id!;
+  }
 
   bool isUserLoggedIn() {
     return _employee != null;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/utils/leave_string_utils.dart';
 
 import '../../../../../configs/colors.dart';
@@ -14,8 +13,8 @@ class LeaveDetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String totalDays = totalLeaves(leave.totalLeaves);
-    String duration =
-        dateInSingleLine(leave.startDate.toDate(), leave.endDate.toDate());
+    String duration = dateInSingleLine(
+        startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
     String reason = leave.reason;
     return Expanded(
       child: Padding(

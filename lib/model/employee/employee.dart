@@ -11,7 +11,7 @@ const int kRoleTypeHR = 3;
 
 @JsonSerializable()
 class Employee {
-  String? id;
+  String id;
   @JsonKey(name: 'role_type')
   int roleType = kRoleTypeEmployee;
   String name;
@@ -33,7 +33,7 @@ class Employee {
   String? bloodGroup;
 
   Employee(
-      {this.id,
+      {required this.id,
       required this.roleType,
       required this.name,
       required this.employeeId,

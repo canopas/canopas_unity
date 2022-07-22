@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee_leave.dart';
 import 'package:projectunity/model/leave/leave_request_data.dart';
@@ -48,9 +47,9 @@ class LeaveRequestCard extends StatelessWidget {
                     height: 10,
                   ),
                   buildLeaveDateContent(
-              totalDays: leave.totalLeaves,
-              startDate: leave.startDate.toDate(),
-              endDate: leave.endDate.toDate()),
+                      totalDays: leave.totalLeaves,
+                      startTimeStamp: leave.startDate,
+                      endTimeStamp: leave.endDate),
                 ],
               ),
               IconButton(
@@ -81,9 +80,10 @@ class LeaveRequestCard extends StatelessWidget {
 
   Text buildLeaveDateContent(
       {required double totalDays,
-      required DateTime startDate,
-      required DateTime endDate}) {
-    String date = dateInSingleLine(startDate, endDate);
+      required int startTimeStamp,
+      required int endTimeStamp}) {
+    String date = dateInSingleLine(
+        startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
     String days = totalLeaves(totalDays);
 
     return Text(
