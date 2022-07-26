@@ -3,7 +3,7 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../stateManager/apply_leave_state_provider.dart';
+import '../../../../../stateManager/user/leave_request_data_manager.dart';
 
 class ReasonCard extends StatelessWidget {
   ReasonCard({Key? key}) : super(key: key);
@@ -33,8 +33,8 @@ class ReasonCard extends StatelessWidget {
                 if (value == null || value == '') {
                   return 'Please enter valid reason';
                 }
-                Provider.of<ApplyLeaveStateProvider>(context, listen: false)
-                    .setReasonOfLeave(value);
+                Provider.of<LeaveRequestDataManager>(context, listen: false)
+                .setReasonOfLeave(value);
                 return null;
               },
               controller: _textEditingController,

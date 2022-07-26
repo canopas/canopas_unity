@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/core/utils/const/leave_status.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
-import '../../../../../core/utils/leave_string_utils.dart';
-import '../../../../../model/leave/leave_request_data.dart';
+import '../../../../../core/utils/const/leave_map.dart';
+import '../../../../../core/utils/date_string_utils.dart';
+import '../../../../../model/leave/leave.dart';
 import 'leave_date_container.dart';
 
 Color getContainerColor(int status) {
@@ -16,7 +18,7 @@ Color getContainerColor(int status) {
 }
 
 class LeaveWidget extends StatelessWidget {
-  final LeaveRequestData leave;
+  final Leave leave;
 
   const LeaveWidget({Key? key, required this.leave}) : super(key: key);
 
@@ -43,7 +45,9 @@ class LeaveWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      getLeaveStatus(leave.leaveType ?? 1, leaveTypeMap) ?? '',
+                      getLeaveStatus(leave.leaveType ?? pendingLeaveStatus,
+                              leaveTypeMap) ??
+                          '',
                       style: const TextStyle(
                           color: AppColors.darkText,
                           fontSize: subTitleTextSize,

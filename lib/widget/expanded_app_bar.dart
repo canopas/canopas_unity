@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../configs/colors.dart';
-import '../utils/const/other_constant.dart';
+import '../core/utils/const/other_constant.dart';
 
 class ExpandedAppBar extends StatelessWidget {
   final Widget content;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/bloc/employee_validation.dart';
+import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
+import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
 
-import '../../../../utils/const/color_constant.dart';
+import '../../../../configs/colors.dart';
+import '../../../../core/utils/const/role.dart';
 
 class EmployeeForm extends StatefulWidget {
   int selectedRole;
@@ -104,8 +104,10 @@ class TitleText extends StatelessWidget {
       child: Text(
         title,
         textAlign: TextAlign.start,
-        style: GoogleFonts.ibmPlexSans(
-            fontSize: 18, color: secondaryText, fontWeight: FontWeight.w500),
+        style: const TextStyle(
+            fontSize: subTitleTextSize,
+            color: AppColors.secondaryText,
+            fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -133,12 +135,13 @@ class CustomTextField extends StatelessWidget {
           onChanged: onChanged,
           cursorColor: Colors.black,
           autocorrect: false,
-          style: GoogleFonts.ibmPlexSans(fontSize: 18, color: darkText),
+          style: const TextStyle(
+              fontSize: subTitleTextSize, color: AppColors.darkText),
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             errorText: snapshot.hasError ? snapshot.error.toString() : null,
-            hintStyle:
-                GoogleFonts.ibmPlexSans(fontSize: 18, color: secondaryText),
+            hintStyle: const TextStyle(
+                fontSize: subTitleTextSize, color: AppColors.secondaryText),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             hintText: hintText,
           ),

@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/login/device_info.dart';
-import 'package:projectunity/rest/data_exception.dart';
 
 class DeviceInfoProvider {
   static Future<Session?> getDeviceInfo() async {
@@ -31,7 +30,7 @@ class DeviceInfoProvider {
             osVersion: iosInfo.systemVersion!);
       }
     } on PlatformException {
-      throw DataException('Failed to get platform version');
+      throw Exception('Failed to get platform version');
     }
     return null;
   }

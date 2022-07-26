@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:projectunity/bloc/leaves/user_all_leaves_bloc.dart';
+import 'package:projectunity/bloc/leaves/user/leaves/all_leaves_bloc.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/user/leave/all/widget/leave_widget.dart';
@@ -61,27 +61,27 @@ class _AllLeaveScreenState extends State<AllLeaveScreen> {
             height: 20,
           ),
           Expanded(
-            child: StreamBuilder<ApiResponse<List<LeaveRequestData>>>(
+            child: StreamBuilder<ApiResponse<List<Leave>>>(
                 stream: _userAllLeavesBloc.allLeaves,
                 initialData: const ApiResponse.idle(),
                 builder: (context, snapshot) {
                   return snapshot.data!.when(
                       idle: () => Container(),
                       loading: () => const kCircularProgressIndicator(),
-                      completed: (List<LeaveRequestData> leaves) {
+                      completed: (List<Leave> leaves) {
                         return ListView.builder(
                             itemCount: leaves.length,
                             itemBuilder: (BuildContext context, int index) {
                               leaves.sortedByDate();
-                              LeaveRequestData leave = leaves[index];
+                              Leave leave = leaves[index];
                               return LeaveWidget(
-                     leave: leave,
+                                leave: leave,
                               );
                             });
                       },
                       error: (String error) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
-                          buildSnackBar(context, error);
+                          showSnackBar(context, error);
                         });
                         return Container();
                       });

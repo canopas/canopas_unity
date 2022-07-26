@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/bloc/employee_validation.dart';
+import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/widget/employee_form.dart';
 import 'package:projectunity/ui/admin/addmember/widget/header_title.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
+import '../../../configs/colors.dart';
+import '../../../core/utils/const/role.dart';
 import '../../../model/employee/employee.dart';
 
 class AdminAddMemberScreen extends StatefulWidget {
@@ -34,13 +35,13 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
     return MaterialApp(
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: primaryBlue,
+        backgroundColor: AppColors.primaryBlue,
         body: Stack(
           children: [
             NestedScrollView(
               headerSliverBuilder: (_, __) => [
                 SliverAppBar(
-                  backgroundColor: primaryBlue,
+                  backgroundColor: AppColors.primaryBlue,
                   leading: IconButton(
                     icon: const Icon(
                       Icons.arrow_back_rounded,
@@ -88,7 +89,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                             employeeService.addEmployee(employee);
                             snapshot.data == true ? _stateManager.pop() : () {};
                           } catch (error) {
-                            buildSnackBar(context, 'Something went wrong');
+                            showSnackBar(context, 'Something went wrong');
                           }
                         },
                       );
@@ -117,7 +118,7 @@ class SubmitButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 100.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: isEnabled ? secondaryBlue : primaryBlue,
+            primary: isEnabled ? AppColors.darkBlue : AppColors.primaryBlue,
           ),
           onPressed: onPress,
           child: const Padding(

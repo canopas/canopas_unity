@@ -2,8 +2,8 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/user/user_manager.dart';
 
+import '../provider/user_data.dart';
 import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
 import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
@@ -24,7 +24,7 @@ class NavigationStackManager extends ChangeNotifier {
   bool get showBottomBar => _showBottomBar;
 
   NavigationStackManager(this._userManager)
-      : navigation = _userManager.isAdmin()
+      : navigation = _userManager.isAdmin
             ? const NavigationStack.admin()
             : const NavigationStack.employee();
 
@@ -33,7 +33,7 @@ class NavigationStackManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isAdmin => _userManager.isAdmin();
+  bool get isAdmin => _userManager.isAdmin;
 
   set screens(List<NavigationStackItem> newItems) {
     _screens = List.from(newItems);

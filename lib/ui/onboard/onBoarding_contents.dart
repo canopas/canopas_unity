@@ -1,4 +1,4 @@
-import '../../utils/const/image_constant.dart';
+import '../../core/utils/const/image_constant.dart';
 
 class OnBoardingContents {
   String title;

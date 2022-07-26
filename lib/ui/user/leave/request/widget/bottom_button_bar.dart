@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
-import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
-import 'package:projectunity/user/user_manager.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,8 @@ import '../../../../../configs/colors.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../../../../../navigation/navigation_stack_manager.dart';
-import '../../../../../stateManager/apply_leave_state_provider.dart';
+import '../../../../../provider/user_data.dart';
+import '../../../../../stateManager/user/leave_request_data_manager.dart';
 import '../../../leave/request/leave_request_form.dart';
 
 class BottomButtonBar extends StatelessWidget {
@@ -23,7 +23,7 @@ class BottomButtonBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _leaveService =
-        Provider.of<ApplyLeaveStateProvider>(context, listen: false);
+        Provider.of<LeaveRequestDataManager>(context, listen: false);
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
@@ -71,15 +71,15 @@ class BottomButtonBar extends StatelessWidget {
               ),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  String _userId = _userManager.getId();
-                  LeaveRequestData data =
+                  String _userId = _userManager.employeeId;
+                  Leave data =
                       _leaveService.getLeaveRequestData(userId: _userId);
                   service.applyForLeave(data);
                   _stateManager.clearAndPush(
                       const EmployeeNavigationStackItem.employeeHomeState());
                   _stateManager.setBottomBar(true);
                 } else {
-                  buildSnackBar(context, 'Please fill all details');
+                  showSnackBar(context, 'Please fill all details');
                 }
               },
               style: ElevatedButton.styleFrom(

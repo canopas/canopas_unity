@@ -3,7 +3,7 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/stateManager/admin/leave_status_update.dart';
 
 import '../../../../../configs/colors.dart';
-import '../../../../../utils/const/other_constant.dart';
+import '../../../../../core/utils/const/other_constant.dart';
 
 class ReasonDialogue extends StatelessWidget {
   final _updateLeaveStatus = getIt<UpdateLeaveStatus>();

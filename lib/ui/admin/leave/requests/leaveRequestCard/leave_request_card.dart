@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee_leave.dart';
-import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
-import '../../../../../core/utils/leave_string_utils.dart';
+import '../../../../../core/utils/const/leave_map.dart';
+import '../../../../../core/utils/const/other_constant.dart';
+import '../../../../../core/utils/date_string_utils.dart';
 import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
-import '../../../../../utils/const/other_constant.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
@@ -19,7 +20,7 @@ class LeaveRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LeaveRequestData leave = employeeLeave.leave;
+    Leave leave = employeeLeave.leave;
 
     return Container(
       padding: const EdgeInsets.only(

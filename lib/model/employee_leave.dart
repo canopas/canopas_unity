@@ -1,9 +1,9 @@
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:projectunity/model/leave/leave.dart';
 
 class EmployeeLeave {
   Employee employee;
-  LeaveRequestData leave;
+  Leave leave;
 
   EmployeeLeave({required this.employee, required this.leave});
 }

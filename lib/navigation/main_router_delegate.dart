@@ -9,10 +9,10 @@ import 'package:projectunity/ui/user/leave/upcoming_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
+import '../ui/admin/home/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/leave/detail/leave_detail_screen.dart';
 import '../ui/setting/setting_screen.dart';
 import '../ui/staff/staff_screen.dart';
-import '../ui/user/employee/detail/employee_detail_screen.dart';
 import 'navigation_stack_manager.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>

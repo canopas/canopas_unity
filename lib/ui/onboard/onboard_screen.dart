@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/user/user_preference.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
 
-import '../../stateManager/login_state.dart';
+import '../../configs/colors.dart';
+import '../../pref/user_preference.dart';
+import '../../stateManager/login_state_manager.dart';
 import '../onboard/onBoarding_contents.dart';
 
-final buttonStyle = ElevatedButton.styleFrom(
-    primary: const Color(kPrimaryColour),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)));
 
 class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
@@ -47,10 +44,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                           _loginState.setOnBoardComplete(true);
                           _preference.setOnBoardCompleted(true);
                         },
-                        child: Text(
+                        child: const Text(
                           'SKIP',
-                          style: GoogleFonts.ibmPlexSans(
-                              color: Colors.grey, fontSize: 17),
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: subTitleTextSize),
                         )),
                   ),
                 )),
@@ -82,17 +79,17 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                             Text(
                               OnBoardingContents.contents[index].title,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.ibmPlexSans(
+                              style: const TextStyle(
                                   color: Colors.black,
-                                  fontSize: 25,
+                                  fontSize: onboardTitleTextSize,
                                   fontWeight: FontWeight.w700),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
                                 OnBoardingContents.contents[index].info,
-                                style: GoogleFonts.ibmPlexSans(
-                                    fontSize: 14, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: bodyTextSize, color: Colors.grey),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -111,7 +108,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: ElevatedButton(
-                style: buttonStyle,
+                style: ElevatedButton.styleFrom(
+                    primary: AppColors.peachColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25))),
                 onPressed: () {
                   if (_isLastPage) {
                     _loginState.setOnBoardComplete(true);
@@ -127,10 +127,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: Text(
                     _isLastPage ? 'START' : 'NEXT',
-                    style: GoogleFonts.ibmPlexSans(
+                    style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         color: Colors.white,
-                        fontSize: 17),
+                        fontSize: subTitleTextSize),
                   ),
                 ),
               ),
@@ -146,7 +146,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
       duration: const Duration(milliseconds: 200),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(50)),
-        color: currentPage == index ? const Color(kPrimaryColour) : Colors.grey,
+        color: currentPage == index ? AppColors.peachColor : Colors.grey,
       ),
       margin: const EdgeInsets.only(right: 5),
       height: 10,

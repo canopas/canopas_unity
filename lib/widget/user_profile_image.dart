@@ -3,23 +3,25 @@ import 'package:flutter/material.dart';
 
 import '../configs/colors.dart';
 
-class UserProfileImage extends StatelessWidget {
+class ImageProfile extends StatelessWidget {
   String? imageUrl;
+  double iconSize;
 
-  UserProfileImage({Key? key, this.imageUrl}) : super(key: key);
+  ImageProfile({Key? key, this.imageUrl, required this.iconSize})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return imageUrl == null
-        ? const Icon(
+        ? Icon(
             Icons.account_circle_rounded,
-            size: 50,
+            size: iconSize,
           )
         : CircleAvatar(
-            radius: 23,
+            radius: iconSize / 2 + 1,
             backgroundColor: AppColors.whiteColor,
             child: CircleAvatar(
-              radius: 22,
+              radius: iconSize / 2,
               backgroundImage: NetworkImage(imageUrl!),
             ),
           );
