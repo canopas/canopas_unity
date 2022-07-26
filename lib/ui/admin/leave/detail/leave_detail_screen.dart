@@ -6,7 +6,7 @@ import 'package:projectunity/ui/admin/leave/detail/widget/leaves_left_content.da
 import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../utils/const/other_constant.dart';
+import '../../../../core/utils/const/other_constant.dart';
 import 'widget/button_content.dart';
 
 class AdminLeaveRequestDetailScreen extends StatelessWidget {

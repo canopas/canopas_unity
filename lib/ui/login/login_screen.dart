@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
 
-import '../../bloc/login_bloc.dart';
+import '../../bloc/login/login_bloc.dart';
+import '../../core/utils/const/image_constant.dart';
 import '../../rest/api_response.dart';
-import '../../stateManager/login_state.dart';
-import '../../utils/const/image_constant.dart';
+import '../../stateManager/login_state_manager.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -117,8 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             _showProrgress
                                 ? const Center(
-                                    child: CircularProgressIndicator(
-                                        color: Color(kPrimaryColour)))
+                                    child: CircularProgressIndicator())
                                 : SignInButton(onPressed: _bloc.signIn),
                           ]),
                         ]),
@@ -144,19 +142,22 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Text buildSubTitle() {
-    return Text(
+    return const Text(
       'to Unity!',
-      style: GoogleFonts.ibmPlexSans(
-          fontSize: 50, letterSpacing: 1, color: Colors.black87, height: 1),
+      style: TextStyle(
+          fontSize: appTitleTextSize,
+          letterSpacing: 1,
+          color: Colors.black87,
+          height: 1),
     );
   }
 
   Text buildTitle() {
-    return Text(
+    return const Text(
       'Welcome',
-      style: GoogleFonts.ibmPlexSans(
+      style: TextStyle(
           height: 2,
-          fontSize: 50,
+          fontSize: appTitleTextSize,
           color: Colors.black87,
           fontStyle: FontStyle.italic),
     );

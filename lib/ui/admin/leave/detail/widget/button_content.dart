@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/stateManager/admin/leave_status_update.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/reason_dialogue.dart';
@@ -20,7 +21,7 @@ class ButtonContent extends StatelessWidget {
       children: [
         TextButton(
             onPressed: () {
-              _updateLeaveStatus.updateStatus(3);
+              _updateLeaveStatus.updateStatus(rejectLeaveStatus);
               showDialog(
                   context: context,
                   builder: (_) {
@@ -37,7 +38,7 @@ class ButtonContent extends StatelessWidget {
         ),
         ElevatedButton(
             onPressed: () {
-              _updateLeaveStatus.updateStatus(2);
+              _updateLeaveStatus.updateStatus(approveLeaveStatus);
               //Pass leaveId instead of empty string
               _updateLeaveStatus.addLeaveApproval('');
             },

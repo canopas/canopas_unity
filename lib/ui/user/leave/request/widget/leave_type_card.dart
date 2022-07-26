@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../model/leave/leave_request_data.dart';
-import '../../../../../stateManager/apply_leave_state_provider.dart';
+import '../../../../../core/utils/const/leave_map.dart';
+import '../../../../../stateManager/user/leave_request_data_manager.dart';
 
 class LeaveTypeCard extends StatelessWidget {
   const LeaveTypeCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ApplyLeaveStateProvider _leaveService =
-        Provider.of<ApplyLeaveStateProvider>(context);
+    LeaveRequestDataManager _leaveService =
+        Provider.of<LeaveRequestDataManager>(context);
     int? leaveType = _leaveService.leaveType;
     return SizedBox(
       width: double.infinity,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/ui/user/leave/request/widget/bottom_button_bar.dart';
 import 'package:projectunity/ui/user/leave/request/widget/leave_type_card.dart';
-import 'package:projectunity/utils/const/other_constant.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../configs/colors.dart';
+import '../../../../core/utils/const/other_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../navigation/navigation_stack_manager.dart';
-import '../../../../stateManager/apply_leave_state_provider.dart';
+import '../../../../stateManager/user/leave_request_data_manager.dart';
 import '../../../user/leave/request/widget/datetimecard/end_leave_card.dart';
 import '../../../user/leave/request/widget/datetimecard/start_leave_card.dart';
 import '../../../user/leave/request/widget/reason_card.dart';
@@ -28,7 +28,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ApplyLeaveStateProvider(),
+      create: (_) => LeaveRequestDataManager(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(

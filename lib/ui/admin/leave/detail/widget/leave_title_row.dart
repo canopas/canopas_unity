@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/utils/leave_string_utils.dart';
-import 'package:projectunity/model/leave/leave_request_data.dart';
+import 'package:projectunity/core/utils/date_string_utils.dart';
+import 'package:projectunity/model/leave/leave.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
+import '../../../../../core/utils/const/leave_map.dart';
 
 class LeaveTitleRow extends StatelessWidget {
-  LeaveRequestData leave;
+  Leave leave;
 
   LeaveTitleRow({Key? key, required this.leave}) : super(key: key);
 

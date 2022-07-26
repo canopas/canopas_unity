@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/stateManager/login_state.dart';
+import 'package:projectunity/stateManager/login_state_manager.dart';
 import 'package:projectunity/ui/app_dashboard_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
@@ -12,9 +12,10 @@ void main() async {
   await Firebase.initializeApp();
   await configureDependencies();
   runApp(
-    const MaterialApp(
+    MaterialApp(
+      theme: ThemeData(fontFamily: 'IBMPlexSans'),
       title: 'ProjectUnity Flutter',
-      home: MyApp(),
+      home: const MyApp(),
     ),
   );
 }

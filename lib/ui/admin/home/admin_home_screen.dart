@@ -3,12 +3,12 @@ import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/ui/admin/home/widget/employee_list.dart';
+import 'package:projectunity/ui/admin/home/widget/employee_list_view.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
-import 'package:projectunity/utils/const/other_constant.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 
 import '../../../configs/colors.dart';
+import '../../../core/utils/const/other_constant.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -69,7 +69,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   Widget _buildYourEmployeeHeader() {
     return const Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, top: 80, bottom: 15),
+      padding: EdgeInsets.only(left: 24, right: 24, top: 80),
       child: Text("Your Employee",
           style: TextStyle(
               fontSize: headerTextSize,

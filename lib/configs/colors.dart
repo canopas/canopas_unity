@@ -19,6 +19,7 @@ class AppColors {
   static const Color primaryPink = Color(0xFFda9090);
   static const Color primaryGreen = Color(0xFF74d8c1);
   static const Color primaryBlue = Color(0xFF75a2ed);
+  static const Color darkBlue = Color(0xff0072bb);
   static const Color primaryText = Color(0xFF505256);
   static const Color blueGrey = Colors.blueGrey;
   static const Color blackColor = Colors.black;
@@ -29,4 +30,6 @@ class AppColors {
   static Color boxShadowColor = Colors.grey.shade50;
 
   static const Color lightGreyColor = Color(0xffe7e7e7);
+
+  static const Color textFieldBg = Color(0xFFf2f3f7);
 }

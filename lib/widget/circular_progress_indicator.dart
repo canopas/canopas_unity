@@ -7,11 +7,9 @@ class kCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: CircularProgressIndicator(
-          color: AppColors.primaryBlue,
-        ),
+    return const Center(
+      child: CircularProgressIndicator(
+        color: AppColors.primaryBlue,
       ),
     );
   }

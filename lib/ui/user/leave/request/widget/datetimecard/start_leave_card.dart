@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../configs/colors.dart';
-import '../../../../../../stateManager/apply_leave_state_provider.dart';
-import '../../../../../../utils/const/other_constant.dart';
+import '../../../../../../stateManager/user/leave_request_data_manager.dart';
 import 'picker_card.dart';
-
 
 class StartLeaveCard extends StatelessWidget {
   const StartLeaveCard({Key? key}) : super(key: key);
@@ -20,15 +19,14 @@ class StartLeaveCard extends StatelessWidget {
           child: Text(
             'From:',
             style: TextStyle(
-                color: AppColors.secondaryText,
-                fontSize: kLeaveRequestFontSize),
+                color: AppColors.secondaryText, fontSize: titleTextSize),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
             children: [
-              Consumer<ApplyLeaveStateProvider>(
+              Consumer<LeaveRequestDataManager>(
                 builder: (context, _leaveService, _) => DatePickerCard(
                     onPress: () async {
                       DateTime? date = await pickDate(context);
@@ -36,7 +34,7 @@ class StartLeaveCard extends StatelessWidget {
                     },
                     currentDate: _leaveService.startLeaveDate),
               ),
-              Consumer<ApplyLeaveStateProvider>(
+              Consumer<LeaveRequestDataManager>(
                 builder: (context, _leaveService, _) => TimePickerCard(
                   onPress: () async {
                     TimeOfDay time = (await pickTime(context));

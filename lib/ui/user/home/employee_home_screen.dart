@@ -6,12 +6,12 @@ import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
 import 'package:projectunity/ui/user/home/widget/notification_icon.dart';
 import 'package:projectunity/ui/user/home/widget/team_leave_card.dart';
-import 'package:projectunity/user/user_manager.dart';
-import 'package:projectunity/utils/const/other_constant.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../configs/colors.dart';
+import '../../../core/utils/const/other_constant.dart';
 import '../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
+import '../../../provider/user_data.dart';
 import '../../../widget/expanded_app_bar.dart';
 
 class EmployeeHomeScreen extends StatefulWidget {
@@ -27,7 +27,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String? _imageLink = _userManager.getUserImage();
     return Scaffold(
       body: Stack(
         children: [
@@ -46,8 +45,9 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                     Row(
                       children: [
                         const NotificationIcon(),
-                        UserProfileImage(
-                          imageUrl: _userManager.getUserImage(),
+                        ImageProfile(
+                          imageUrl: _userManager.userImage,
+                          iconSize: 50,
                         )
                       ],
                     ),

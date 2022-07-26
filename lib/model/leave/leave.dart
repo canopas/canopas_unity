@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'leave.g.dart';
 
 @JsonSerializable()
 class Leave {
-  int id;
-  @JsonKey(name: 'employee_id')
-  int employeeId;
+  String leaveId;
+  String uid;
+  @JsonKey(name: 'leave_type')
+  int? leaveType;
   @JsonKey(name: 'start_date')
   int startDate;
   @JsonKey(name: 'end_date')
@@ -16,17 +18,31 @@ class Leave {
   String reason;
   @JsonKey(name: 'emergency_contact_person')
   int emergencyContactPerson;
-  int status;
+  @JsonKey(name: 'leave_status')
+  int leaveStatus;
+  String? rejectionReason;
+  @JsonKey(name: 'applied_on')
+  int appliedOn;
 
   Leave(
-      {required this.id,
-      required this.employeeId,
+      {required this.leaveId,
+      required this.uid,
+      this.leaveType,
       required this.startDate,
       required this.endDate,
       required this.totalLeaves,
       required this.reason,
       required this.emergencyContactPerson,
-      required this.status});
+      required this.leaveStatus,
+      required this.appliedOn,
+      this.rejectionReason});
 
-  factory Leave.fromJson(Map<String, dynamic> map) => _$LeaveFromJson(map);
+  factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options) {
+    Map<String, dynamic>? data = snapshot.data();
+    return _$LeaveFromJson(data);
+  }
+
+  Map<String, dynamic> toFireStore(Leave instance) => _$LeaveToJson(instance);
 }
+

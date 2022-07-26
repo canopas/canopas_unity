@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
 import 'package:projectunity/navigation/router_info_parser.dart';
 
@@ -6,7 +7,6 @@ import '../di/service_locator.dart';
 import '../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../navigation/navigation_stack_manager.dart';
-import '../utils/const/color_constant.dart';
 
 class AppDashboardScreen extends StatefulWidget {
   const AppDashboardScreen({Key? key}) : super(key: key);
@@ -34,9 +34,9 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
     return Scaffold(
       bottomNavigationBar: show
           ? BottomNavigationBar(
-              backgroundColor: bottomBarColor,
-              selectedItemColor: selectedBottomTab,
-              unselectedItemColor: defaultBottomTab,
+              backgroundColor: AppColors.bottomBarColor,
+              selectedItemColor: AppColors.selectedBottomTab,
+              unselectedItemColor: AppColors.defaultBottomTab,
               selectedFontSize: 18,
               unselectedFontSize: 15,
               currentIndex: selectedTab,
@@ -68,6 +68,7 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
           : null,
       body: Builder(
         builder: (context) => MaterialApp.router(
+          theme: ThemeData(fontFamily: 'IBMPlexSans'),
           routerDelegate: MainRouterDelegate(stack: _stateManager),
           routeInformationParser: HomeRouterInfoParser(),
         ),
@@ -88,7 +89,7 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
   }
 
   void getBottomNavigation(int index, Map map) {
-    for (var key in map.keys) {
+    for (int key in map.keys) {
       if (key == index) {
         _stateManager.clearAndPush(map[index]);
       }

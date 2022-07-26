@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/utils/leave_string_utils.dart';
+import 'package:projectunity/core/utils/date_string_utils.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
-import '../../../../../model/leave/leave_request_data.dart';
+import '../../../../../model/leave/leave.dart';
 
 class LeaveDetailContent extends StatelessWidget {
-  LeaveRequestData leave;
+  Leave leave;
 
   LeaveDetailContent({Key? key, required this.leave}) : super(key: key);
 

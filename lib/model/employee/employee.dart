@@ -3,11 +3,9 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'employee.g.dart';
+import '../../core/utils/const/role.dart';
 
-const int kRoleTypeAdmin = 1;
-const int kRoleTypeEmployee = 2;
-const int kRoleTypeHR = 3;
+part 'employee.g.dart';
 
 @JsonSerializable()
 class Employee {
@@ -66,44 +64,8 @@ class Employee {
   factory Employee.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
-  ) {
-    final data = snapshot.data();
-
-    return Employee(
-      id: data?['id'],
-      roleType: data?['role_type'],
-      email: data?['email'],
-      name: data?['name'],
-      employeeId: data?['employee_id'],
-      phone: data?['phone'],
-      imageUrl: data?['image_url'],
-      address: data?['address'],
-      gender: data?['gender'],
-      dateOfBirth: data?['date_of_birth'],
-      dateOfJoining: data?['date_of_joining'],
-      designation: data?['designation'],
-      level: data?['level'],
-      bloodGroup: data?['blood_group'],
-    );
-  }
-
-  Map<String, dynamic> _$EmployeeToJson(Employee instance) =>
-      <String, dynamic>{
-        'id': instance.id,
-        'role_type': instance.roleType,
-        'name': instance.name,
-        'email': instance.email,
-        'employee_id': instance.employeeId,
-        'phone': instance.phone,
-        'image_url': instance.imageUrl,
-        'address': instance.address,
-        'gender': instance.gender,
-        'date_of_birth': instance.dateOfBirth,
-        'date_of_joining': instance.dateOfJoining,
-        'designation': instance.designation,
-        'level': instance.level,
-        'blood_group': instance.bloodGroup,
-      };
+  ) =>
+      _$EmployeeFromJson(snapshot.data()!);
 }
 
 @JsonSerializable()
@@ -122,33 +84,18 @@ class Session {
   @JsonKey(name: 'last_accessed-on')
   int? lastAccessedOn;
 
-  Session(
-      {this.deviceId,
-      this.deviceToken,
-      this.deviceType,
-      this.version,
-      this.deviceName,
-      this.osVersion,
-      this.lastAccessedOn});
+  Session({this.deviceId,
+    this.deviceToken,
+    this.deviceType,
+    this.version,
+    this.deviceName,
+    this.osVersion,
+    this.lastAccessedOn});
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 
+  factory Session.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options,) => _$SessionFromJson(snapshot.data());
+
   Map<String, dynamic> sessionToJson() => _$SessionToJson(this);
-
-  factory Session.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
-    final data = snapshot.data();
-
-    return Session(
-      deviceId: data?['device_id'],
-      deviceToken: data?['device_token'],
-      deviceType: data?['device_type'],
-      version: data?['version'],
-      deviceName: data?['device_name'],
-      osVersion: data?['os_version'],
-      lastAccessedOn: data?['last_accessed-on'],
-    );
-  }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/utils/const/color_constant.dart';
+import 'package:projectunity/configs/font_size.dart';
+
+import '../../../../configs/colors.dart';
+import '../../../../core/utils/const/role.dart';
 
 class ToggleButton extends StatefulWidget {
   final Function(int role) onRoleChange;
@@ -33,7 +34,7 @@ class _ToggleButtonState extends State<ToggleButton> {
       child: Container(
         height: height,
         decoration: const BoxDecoration(
-          color: textFieldBg,
+          color: AppColors.textFieldBg,
           borderRadius: BorderRadius.all(
             Radius.circular(12.0),
           ),
@@ -47,7 +48,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 height: height,
                 decoration: const BoxDecoration(
-                  color: primaryDarkYellow,
+                  color: AppColors.primaryDarkYellow,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.0),
                   ),
@@ -67,12 +68,12 @@ class _ToggleButtonState extends State<ToggleButton> {
                   width: width * 0.5,
                   color: Colors.transparent,
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Employee',
                     textAlign: TextAlign.start,
-                    style: GoogleFonts.ibmPlexSans(
-                        fontSize: 16,
-                        color: darkText,
+                    style: TextStyle(
+                        fontSize: bodyTextSize,
+                        color: AppColors.darkText,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -91,12 +92,12 @@ class _ToggleButtonState extends State<ToggleButton> {
                   width: width * 0.5,
                   color: Colors.transparent,
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'HR',
                     textAlign: TextAlign.start,
-                    style: GoogleFonts.ibmPlexSans(
-                        fontSize: 16,
-                        color: darkText,
+                    style: TextStyle(
+                        fontSize: bodyTextSize,
+                        color: AppColors.darkText,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
