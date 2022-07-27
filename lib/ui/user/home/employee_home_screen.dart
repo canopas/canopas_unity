@@ -66,19 +66,21 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                         LeaveNavigationCard(
                             color: AppColors.primaryDarkYellow,
                             leaveText: 'All Leaves',
-                            onPress: () {
-                              _stateManager.push(
-                                  const EmployeeNavigationStackItem
-                                      .userAllLeaveState());
-                            }),
+                            onPress: () => _stateManager.push(
+                                const EmployeeNavigationStackItem
+                                    .userAllLeaveState())),
                         LeaveNavigationCard(
                             color: AppColors.primaryGreen,
                             leaveText: 'Requested Leaves',
-                            onPress: () {}),
+                            onPress: () => _stateManager.push(
+                                const EmployeeNavigationStackItem
+                                    .requestedLeaves())),
                         LeaveNavigationCard(
                             color: AppColors.primaryBlue,
                             leaveText: 'Upcoming Leaves',
-                            onPress: () {}),
+                            onPress: () => _stateManager.push(
+                                const EmployeeNavigationStackItem
+                                    .userUpcomingLeaveState())),
                         LeaveNavigationCard(
                             color: AppColors.peachColor,
                             leaveText: 'Apply for Leave',

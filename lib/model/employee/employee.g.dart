@@ -6,21 +6,21 @@ part of 'employee.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
-      id: json['id'] as String,
-      roleType: json['role_type'] as int,
-      name: json['name'] as String,
-      employeeId: json['employee_id'] as String,
-      email: json['email'] as String,
-      designation: json['designation'] as String,
-      phone: json['phone'] as String?,
-      imageUrl: json['image_url'] as String?,
-      address: json['address'] as String?,
-      gender: json['gender'] as int?,
-      dateOfBirth: json['date_of_birth'] as int?,
-      dateOfJoining: json['date_of_joining'] as int?,
-      level: json['level'] as String?,
-      bloodGroup: json['blood_group'] as String?,
+Employee _$EmployeeFromJson(Map<String, dynamic>? json) => Employee(
+      id: json?['id'] as String,
+      roleType: json?['role_type'] as int,
+      name: json?['name'] as String,
+      employeeId: json?['employee_id'] as String,
+      email: json?['email'] as String,
+      designation: json?['designation'] as String,
+      phone: json?['phone'] as String?,
+      imageUrl: json?['image_url'] as String?,
+      address: json?['address'] as String?,
+      gender: json?['gender'] as int?,
+      dateOfBirth: json?['date_of_birth'] as int?,
+      dateOfJoining: json?['date_of_joining'] as int?,
+      level: json?['level'] as String?,
+      bloodGroup: json?['blood_group'] as String?,
     );
 
 Map<String, dynamic> _$EmployeeToJson(Employee instance) => <String, dynamic>{
