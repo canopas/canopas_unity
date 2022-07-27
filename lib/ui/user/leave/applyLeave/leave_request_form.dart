@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
-import 'package:projectunity/ui/user/leave/request/widget/bottom_button_bar.dart';
-import 'package:projectunity/ui/user/leave/request/widget/leave_type_card.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/bottom_button_bar.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/end_leave_card.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/start_leave_card.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/reason_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../configs/colors.dart';
@@ -9,9 +12,6 @@ import '../../../../core/utils/const/other_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../navigation/navigation_stack_manager.dart';
 import '../../../../stateManager/user/leave_request_data_manager.dart';
-import '../../../user/leave/request/widget/datetimecard/end_leave_card.dart';
-import '../../../user/leave/request/widget/datetimecard/start_leave_card.dart';
-import '../../../user/leave/request/widget/reason_card.dart';
 
 GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

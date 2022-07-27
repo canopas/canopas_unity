@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
-import 'package:projectunity/ui/user/leave/request/widget/datetimecard/picker_card.dart';
-import 'package:projectunity/ui/user/leave/request/widget/datetimecard/start_leave_card.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/picker_card.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/start_leave_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../stateManager/user/leave_request_data_manager.dart';
