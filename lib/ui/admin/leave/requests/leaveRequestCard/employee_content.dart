@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
@@ -13,8 +14,9 @@ class EmployeeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CircleAvatar(
-          backgroundImage: AssetImage('assets/images/angelaYu.jpeg'),
+        ImageProfile(
+          iconSize: 50,
+          imageUrl: employee.imageUrl,
         ),
         const SizedBox(
           width: 10,

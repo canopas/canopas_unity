@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/stateManager/admin/leave_status_manager.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
+import '../../../../../stateManager/admin/leave_status_manager.dart';
 
 class ReasonDialogue extends StatelessWidget {
   final _updateLeaveStatus = getIt<LeaveStatusManager>();

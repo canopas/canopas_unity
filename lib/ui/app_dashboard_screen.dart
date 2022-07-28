@@ -77,9 +77,6 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
   }
 
   void _ontap(int id) {
-    if (selectedTab == id) {
-      return;
-    }
     setState(() {
       selectedTab = id;
     });
