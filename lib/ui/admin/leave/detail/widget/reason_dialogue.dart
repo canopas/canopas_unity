@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/stateManager/admin/leave_status_update.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../core/utils/const/other_constant.dart';
+import 'package:projectunity/stateManager/admin/leave_status_manager.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 
 class ReasonDialogue extends StatelessWidget {
-  final _updateLeaveStatus = getIt<UpdateLeaveStatus>();
+  final _updateLeaveStatus = getIt<LeaveStatusManager>();
 
   ReasonDialogue({
     Key? key,
@@ -16,37 +14,27 @@ class ReasonDialogue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        padding: const EdgeInsets.all(primaryHorizontalSpacing),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-          color: AppColors.whiteColor,
-        ),
-        height: 200,
+    return AlertDialog(
+      content: SizedBox(
         width: 300,
-        child: Column(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: controller,
-                decoration: const InputDecoration(
-                    hintText: ('Please enter reason'),
-                    border: InputBorder.none),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: TextButton(
-                  onPressed: () {
-                    _updateLeaveStatus.setReason(controller.text);
-                    Navigator.pop(context);
-                  },
-                  child: const Text('OK')),
-            )
-          ],
+        child: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+              hintText: ('Please enter reason'), border: InputBorder.none),
         ),
       ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              if (controller.text == '') {
+                showSnackBar(context, 'Please provide reason for rejection');
+              } else if (controller.text != '') {
+                _updateLeaveStatus.setReason(controller.text);
+              }
+              Navigator.pop(context);
+            },
+            child: const Text('OK'))
+      ],
     );
   }
 }

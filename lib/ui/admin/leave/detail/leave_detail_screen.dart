@@ -18,6 +18,7 @@ class AdminLeaveRequestDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
@@ -37,14 +38,22 @@ class AdminLeaveRequestDetailScreen extends StatelessWidget {
             bottom: 10),
         child: Column(
           children: [
-            UserContent(employee: employeeLeave.employee),
-            const LeavesLeftContent(),
-            const Divider(color: AppColors.secondaryText),
-            LeaveTitleRow(
-              leave: employeeLeave.leave,
+            Expanded(
+              child: ListView(
+                children: [
+                  UserContent(employee: employeeLeave.employee),
+                  const LeavesLeftContent(),
+                  const Divider(color: AppColors.secondaryText),
+                  LeaveTitleRow(
+                    leave: employeeLeave.leave,
+                  ),
+                  LeaveDetailContent(leave: employeeLeave.leave),
+                ],
+              ),
             ),
-            LeaveDetailContent(leave: employeeLeave.leave),
-            ButtonContent(),
+            ButtonContent(
+              leaveId: employeeLeave.leave.leaveId,
+            ),
           ],
         ),
       ),

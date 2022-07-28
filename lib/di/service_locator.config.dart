@@ -21,7 +21,7 @@ import '../services/auth/auth_service.dart' as _i5;
 import '../services/employee/employee_service.dart' as _i6;
 import '../services/leave/admin_leave_service.dart' as _i3;
 import '../services/leave/user_leave_service.dart' as _i10;
-import '../stateManager/admin/leave_status_update.dart' as _i9;
+import '../stateManager/admin/leave_status_manager.dart' as _i9;
 import '../stateManager/auth/auth_manager.dart' as _i12;
 import '../stateManager/login_state_manager.dart' as _i18;
 import '../stateManager/user/leave_request_data_manager.dart' as _i4;
@@ -40,8 +40,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.singleton<_i7.EmployeeValidationBloc>(_i7.EmployeeValidationBloc());
   await gh.factoryAsync<_i8.SharedPreferences>(() => appModule.preferences,
       preResolve: true);
-  gh.singleton<_i9.UpdateLeaveStatus>(
-      _i9.UpdateLeaveStatus(get<_i3.AdminLeaveService>()));
+  gh.singleton<_i9.LeaveStatusManager>(
+      _i9.LeaveStatusManager(get<_i3.AdminLeaveService>()));
   gh.singleton<_i10.UserLeaveService>(_i10.UserLeaveService());
   gh.factory<_i11.UserPreference>(
       () => _i11.UserPreference(get<_i8.SharedPreferences>()));

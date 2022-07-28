@@ -16,22 +16,20 @@ class LeaveDetailContent extends StatelessWidget {
     String duration = dateInSingleLine(
         startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
     String reason = leave.reason;
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildFieldColumn(title: 'Total Days', value: totalDays),
-            _buildDivider(),
-            _buildFieldColumn(title: 'Duration', value: duration),
-            _buildDivider(),
-            _buildFieldColumn(
-              title: 'Reason',
-              value: reason,
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildFieldColumn(title: 'Total Days', value: totalDays),
+          _buildDivider(),
+          _buildFieldColumn(title: 'Duration', value: duration),
+          _buildDivider(),
+          _buildFieldColumn(
+            title: 'Reason',
+            value: reason,
+          ),
+        ],
       ),
     );
   }
