@@ -3,10 +3,10 @@ import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
 
 @Singleton()
-class UpdateLeaveStatus {
+class LeaveStatusManager {
   final AdminLeaveService _adminLeaveService;
 
-  UpdateLeaveStatus(this._adminLeaveService);
+  LeaveStatusManager(this._adminLeaveService);
 
   int _leaveStatus = pendingLeaveStatus;
   String? _reason;
@@ -23,16 +23,17 @@ class UpdateLeaveStatus {
     _reason = value;
   }
 
-  void addLeaveApproval(String leaveId) {
+  bool addLeaveApproval(String leaveId) {
     if (_leaveStatus == pendingLeaveStatus) {
-      return;
+      return false;
     } else if (_leaveStatus != pendingLeaveStatus && reason == null) {
-      return;
+      return false;
     }
     Map<String, dynamic> map = <String, dynamic>{
-      'leaveStatus': _leaveStatus,
+      'leave_status': _leaveStatus,
       'rejectionReason': reason
     };
     _adminLeaveService.updateLeaveStatus(leaveId, map);
+    return true;
   }
 }
