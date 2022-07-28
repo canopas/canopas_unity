@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:projectunity/navigation/navigationStackItem/navigationStack/navigation_stack_item.dart';
 
-import '../../../model/employee_leave.dart';
+import '../../../model/leave_application.dart';
 
 part 'admin_navigation_stack_items.freezed.dart';
 
@@ -24,5 +24,5 @@ class AdminNavigationStackItem
       AdminLeaveRequestState;
 
   const factory AdminNavigationStackItem.adminLeaveRequestDetailState(
-      EmployeeLeave employeeLeave) = AdminLeaveRequestDetailState;
+      LeaveApplication employeeLeave) = AdminLeaveRequestDetailState;
 }

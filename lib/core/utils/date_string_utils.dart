@@ -5,6 +5,7 @@ String dateInDoubleLine(
     {required int startTimeStamp, required int endTimeStamp}) {
   DateTime startDate = startTimeStamp.toDate;
   DateTime endDate = endTimeStamp.toDate;
+
   if (startDate.month == endDate.month) {
     String month = DateFormat.MMM().format(endDate);
     if (startDate.day == endDate.day) {
@@ -12,7 +13,10 @@ String dateInDoubleLine(
     }
     return '${startDate.day} - ${endDate.day}\n$month';
   }
-  return '${startDate.dateToString}\n to \n${endDate.dateToString}';
+  String startMonth = DateFormat.MMM().format(startDate);
+  String endMonth = DateFormat.MMM().format(endDate);
+
+  return '${startDate.day}  $startMonth\n to \n${endDate.day} $endMonth ';
 }
 
 String dateInSingleLine(
@@ -22,7 +26,6 @@ String dateInSingleLine(
   String year = DateFormat.y().format(endDate);
   if (startDate.month == endDate.month) {
     String month = DateFormat.MMM().format(endDate);
-
     if (startDate.day == endDate.day) {
       return '${startDate.day} $month, $year';
     }

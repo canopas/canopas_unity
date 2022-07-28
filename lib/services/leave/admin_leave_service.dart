@@ -5,7 +5,7 @@ import '../../model/leave/leave.dart';
 
 @Injectable()
 class AdminLeaveService {
-  final _leaveCollection = FirebaseFirestore.instance
+  final _leaveDbCollection = FirebaseFirestore.instance
       .collection('leaves')
       .withConverter(
           fromFirestore: Leave.fromFireStore,
@@ -13,6 +13,12 @@ class AdminLeaveService {
               leaveRequestData.toFireStore(leaveRequestData));
 
   Future<void> updateLeaveStatus(String id, Map<String, dynamic> map) async {
-    await _leaveCollection.doc(id).update(map);
+    await _leaveDbCollection.doc(id).update(map);
+  }
+
+  Future<List<Leave>> getAllRequests() async {
+    final data =
+        await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
+    return data.docs.map((doc) => doc.data()).toList();
   }
 }

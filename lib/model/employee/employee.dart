@@ -57,15 +57,32 @@ class Employee {
   }
 
   factory Employee.fromJson(Map<String, dynamic>? map) =>
-      _$EmployeeFromJson(map);
+      _$EmployeeFromJson(map!);
 
   Map<String, dynamic> employeeToJson() => _$EmployeeToJson(this);
 
   factory Employee.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
-  ) =>
-      _$EmployeeFromJson(snapshot.data()!);
+  ) {
+    Map<String, dynamic>? data = snapshot.data();
+    return Employee(
+      id: data?['id'] as String,
+      roleType: data?['role_type'] as int,
+      name: data?['name'] as String,
+      employeeId: data?['employee_id'] as String,
+      email: data?['email'] as String,
+      designation: data?['designation'] as String,
+      phone: data?['phone'] as String?,
+      imageUrl: data?['image_url'] as String?,
+      address: data?['address'] as String?,
+      gender: data?['gender'] as int?,
+      dateOfBirth: data?['date_of_birth'] as int?,
+      dateOfJoining: data?['date_of_joining'] as int?,
+      level: data?['level'] as String?,
+      bloodGroup: data?['blood_group'] as String?,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -94,8 +111,21 @@ class Session {
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 
-  factory Session.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,) => _$SessionFromJson(snapshot.data());
+  factory Session.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    Map<String, dynamic>? data = snapshot.data();
+    return Session(
+      deviceId: data?['device_id'] as String?,
+      deviceToken: data?['device_token'] as String?,
+      deviceType: data?['device_type'] as int?,
+      version: data?['version'] as int?,
+      deviceName: data?['device_name'] as String?,
+      osVersion: data?['os_version'] as String?,
+      lastAccessedOn: data?['last_accessed-on'] as int?,
+    );
+  }
 
   Map<String, dynamic> sessionToJson() => _$SessionToJson(this);
 }
