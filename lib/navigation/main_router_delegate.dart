@@ -3,8 +3,7 @@ import 'package:projectunity/model/employee_leave.dart';
 import 'package:projectunity/ui/admin/leave/requests/all_request_screen.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
-import 'package:projectunity/ui/user/leave/requested/requested_leave_screen.dart';
-import 'package:projectunity/ui/user/leave/upcoming_leave_screen/upcoming_leave_screen.dart';
+import 'package:projectunity/ui/user/leave/requestedLeave/requested_leave_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
@@ -13,6 +12,7 @@ import '../ui/admin/leave/detail/leave_detail_screen.dart';
 import '../ui/setting/setting_screen.dart';
 import '../ui/staff/staff_screen.dart';
 import '../ui/user/leave/applyLeave/leave_request_form.dart';
+import '../ui/user/leave/upcomingLeave/upcoming_leave_screen.dart';
 import 'navigation_stack_manager.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
@@ -65,7 +65,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
                 key: ValueKey("setting"), child: SettingScreen()),
             requestedLeaves: () => const MaterialPage(
                 key: ValueKey("user-requested-leave"),
-                child: RequestedLeavesScreen()),
+                child: RequestedLeaveScreen()),
             staffState: () => const MaterialPage(
                 key: ValueKey('staff'), child: StaffScreen()),
           ))
