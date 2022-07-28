@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/model/employee_leave.dart';
+import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_detail_content.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_title_row.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leaves_left_content.dart';
@@ -10,7 +10,7 @@ import '../../../../core/utils/const/other_constant.dart';
 import 'widget/button_content.dart';
 
 class AdminLeaveRequestDetailScreen extends StatelessWidget {
-  EmployeeLeave employeeLeave;
+  LeaveApplication employeeLeave;
 
   AdminLeaveRequestDetailScreen({Key? key, required this.employeeLeave})
       : super(key: key);

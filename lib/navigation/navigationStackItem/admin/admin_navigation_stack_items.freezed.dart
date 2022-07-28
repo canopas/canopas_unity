@@ -45,7 +45,7 @@ class _$AdminNavigationStackItemTearOff {
   }
 
   AdminLeaveRequestDetailState adminLeaveRequestDetailState(
-      EmployeeLeave employeeLeave) {
+      LeaveApplication employeeLeave) {
     return AdminLeaveRequestDetailState(
       employeeLeave,
     );
@@ -65,7 +65,7 @@ mixin _$AdminNavigationStackItem {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) =>
       throw _privateConstructorUsedError;
@@ -77,7 +77,8 @@ mixin _$AdminNavigationStackItem {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -88,7 +89,8 @@ mixin _$AdminNavigationStackItem {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -196,7 +198,7 @@ class _$AdminHomeState implements AdminHomeState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return adminHomeState();
@@ -211,7 +213,8 @@ class _$AdminHomeState implements AdminHomeState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return adminHomeState?.call();
   }
@@ -225,7 +228,8 @@ class _$AdminHomeState implements AdminHomeState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (adminHomeState != null) {
@@ -360,7 +364,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return employeeDetailState(id);
@@ -375,7 +379,8 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return employeeDetailState?.call(id);
   }
@@ -389,7 +394,8 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (employeeDetailState != null) {
@@ -506,7 +512,7 @@ class _$SettingsState implements SettingsState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return settingsState();
@@ -521,7 +527,8 @@ class _$SettingsState implements SettingsState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return settingsState?.call();
   }
@@ -535,7 +542,8 @@ class _$SettingsState implements SettingsState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (settingsState != null) {
@@ -645,7 +653,7 @@ class _$StaffState implements StaffState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return staffState();
@@ -660,7 +668,8 @@ class _$StaffState implements StaffState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return staffState?.call();
   }
@@ -674,7 +683,8 @@ class _$StaffState implements StaffState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (staffState != null) {
@@ -785,7 +795,7 @@ class _$AddMemberState implements AddMemberState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return addMemberState();
@@ -800,7 +810,8 @@ class _$AddMemberState implements AddMemberState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return addMemberState?.call();
   }
@@ -814,7 +825,8 @@ class _$AddMemberState implements AddMemberState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (addMemberState != null) {
@@ -925,7 +937,7 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return adminLeaveRequestState();
@@ -940,7 +952,8 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return adminLeaveRequestState?.call();
   }
@@ -954,7 +967,8 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (adminLeaveRequestState != null) {
@@ -1024,7 +1038,8 @@ abstract class $AdminLeaveRequestDetailStateCopyWith<$Res> {
           AdminLeaveRequestDetailState value,
           $Res Function(AdminLeaveRequestDetailState) then) =
       _$AdminLeaveRequestDetailStateCopyWithImpl<$Res>;
-  $Res call({EmployeeLeave employeeLeave});
+
+  $Res call({LeaveApplication employeeLeave});
 }
 
 /// @nodoc
@@ -1048,7 +1063,7 @@ class _$AdminLeaveRequestDetailStateCopyWithImpl<$Res>
       employeeLeave == freezed
           ? _value.employeeLeave
           : employeeLeave // ignore: cast_nullable_to_non_nullable
-              as EmployeeLeave,
+              as LeaveApplication,
     ));
   }
 }
@@ -1059,7 +1074,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
   const _$AdminLeaveRequestDetailState(this.employeeLeave);
 
   @override
-  final EmployeeLeave employeeLeave;
+  final LeaveApplication employeeLeave;
 
   @override
   String toString() {
@@ -1094,7 +1109,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     required TResult Function() staffState,
     required TResult Function() addMemberState,
     required TResult Function() adminLeaveRequestState,
-    required TResult Function(EmployeeLeave employeeLeave)
+    required TResult Function(LeaveApplication employeeLeave)
         adminLeaveRequestDetailState,
   }) {
     return adminLeaveRequestDetailState(employeeLeave);
@@ -1109,7 +1124,8 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
   }) {
     return adminLeaveRequestDetailState?.call(employeeLeave);
   }
@@ -1123,7 +1139,8 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     TResult Function()? staffState,
     TResult Function()? addMemberState,
     TResult Function()? adminLeaveRequestState,
-    TResult Function(EmployeeLeave employeeLeave)? adminLeaveRequestDetailState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
     required TResult orElse(),
   }) {
     if (adminLeaveRequestDetailState != null) {
@@ -1185,10 +1202,11 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
 
 abstract class AdminLeaveRequestDetailState
     implements AdminNavigationStackItem {
-  const factory AdminLeaveRequestDetailState(EmployeeLeave employeeLeave) =
+  const factory AdminLeaveRequestDetailState(LeaveApplication employeeLeave) =
       _$AdminLeaveRequestDetailState;
 
-  EmployeeLeave get employeeLeave;
+  LeaveApplication get employeeLeave;
+
   @JsonKey(ignore: true)
   $AdminLeaveRequestDetailStateCopyWith<AdminLeaveRequestDetailState>
       get copyWith => throw _privateConstructorUsedError;

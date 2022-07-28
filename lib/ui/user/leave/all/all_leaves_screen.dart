@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/bloc/leaves/user/leaves/all_leaves_bloc.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
+import '../../../../bloc/leaves/user/leaves/all_leaves_bloc.dart';
 import '../leaveScreen/leave_screen.dart';
 
 class AllLeaveScreen extends StatefulWidget {
@@ -13,7 +12,6 @@ class AllLeaveScreen extends StatefulWidget {
 }
 
 class _AllLeaveScreenState extends State<AllLeaveScreen> {
-  final _stateManager = getIt<NavigationStackManager>();
   final _userAllLeavesBloc = getIt<UserAllLeavesBloc>();
 
   @override

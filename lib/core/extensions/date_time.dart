@@ -6,7 +6,7 @@ extension DateExtention on int {
 }
 
 extension DateFormation on DateTime {
-  String get dateToString => DateFormat.yMMM().format(this);
+  String get dateToString => DateFormat.yMMMd().format(this);
 }
 
 extension TimestampExtension on DateTime {

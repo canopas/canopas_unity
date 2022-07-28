@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
 @Singleton()
@@ -20,9 +21,11 @@ class UserLeaveService {
     return data.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<List<Leave>> getAllRequests() async {
-    final data =
-        await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
+  Future<List<Leave>> getRequestedLeave(String id) async {
+    final data = await _leaveDbCollection
+        .where('uid', isEqualTo: id)
+        .where('leave_status', isEqualTo: pendingLeaveStatus)
+        .get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 }

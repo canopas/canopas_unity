@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/model/employee_leave.dart';
 import 'package:projectunity/model/leave/leave.dart';
+import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/colors.dart';
@@ -13,7 +13,7 @@ import '../../../../../navigation/navigationStackItem/admin/admin_navigation_sta
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
-  EmployeeLeave employeeLeave;
+  LeaveApplication employeeLeave;
   final _stackManager = getIt<NavigationStackManager>();
 
   LeaveRequestCard({Key? key, required this.employeeLeave}) : super(key: key);
