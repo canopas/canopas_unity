@@ -28,4 +28,12 @@ class UserLeaveService {
         .get();
     return data.docs.map((doc) => doc.data()).toList();
   }
+
+  Future<List<Leave>> getUpcomingLeaves(String employeeId) async {
+    final data = await _leaveDbCollection
+        .where('uid', isEqualTo: employeeId)
+        .where('leave_status', isEqualTo: approveLeaveStatus)
+        .get();
+    return data.docs.map((doc) => doc.data()).toList();
+  }
 }

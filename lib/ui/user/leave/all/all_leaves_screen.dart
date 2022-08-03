@@ -17,6 +17,7 @@ class _AllLeaveScreenState extends State<AllLeaveScreen> {
   @override
   void initState() {
     _userAllLeavesBloc.getAllLeaves();
+    super.initState();
   }
 
   @override
