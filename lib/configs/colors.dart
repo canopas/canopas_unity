@@ -7,7 +7,14 @@ class AppColors {
   static const creamColor = Color(0xfffef9f5);
   static const lightPinkColor = Color(0xfff2cec3);
   static const darkPinkColor = Color(0xffd95555);
+
+  //Color used for rejected status container
   static const redColor = Colors.red;
+  static Color bgLightRedColor = Colors.redAccent.shade100;
+
+  // Color used for approve status container
+  static const greenColor = Colors.green;
+  static Color bgLidghtGreenColor = Colors.lightGreen.shade100;
 
   static const Color bottomBarColor = Color(0xFFFFFFFF);
   static const Color selectedBottomTab = primaryBlue;

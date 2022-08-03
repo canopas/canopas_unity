@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:projectunity/navigation/navigationStackItem/navigationStack/navigation_stack_item.dart';
 
+import '../../../model/leave/leave.dart';
+
 part 'employee_navigation_stack_item.freezed.dart';
 
 @freezed
@@ -25,4 +27,7 @@ class EmployeeNavigationStackItem
 
   const factory EmployeeNavigationStackItem.requestedLeaves() =
       RequestedLeavesState;
+
+  const factory EmployeeNavigationStackItem.leaveDetailState(Leave leave) =
+      LeaveDetailState;
 }

@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_widget.dart';
+import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../configs/font_size.dart';
@@ -67,7 +67,7 @@ class LeaveScreen extends StatelessWidget {
                             itemBuilder: (BuildContext context, int index) {
                               leaves.sortedByDate();
                               Leave leave = leaves[index];
-                              return LeaveWidget(
+                              return LeaveCard(
                                 leave: leave,
                               );
                             });

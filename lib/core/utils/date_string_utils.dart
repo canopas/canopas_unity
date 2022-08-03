@@ -31,7 +31,7 @@ String dateInSingleLine(
     }
     return '${startDate.day} - ${endDate.day}  $month, $year';
   }
-  return '${startDate.dateToString} to ${endDate.dateToString}, $year';
+  return '${startDate.dateToString} to ${endDate.dateToString},';
 }
 
 String totalLeaves(double days) {
