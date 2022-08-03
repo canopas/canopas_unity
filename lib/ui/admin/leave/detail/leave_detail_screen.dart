@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_detail_content.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_title_row.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leaves_left_content.dart';
@@ -11,6 +13,7 @@ import 'widget/button_content.dart';
 
 class AdminLeaveRequestDetailScreen extends StatelessWidget {
   LeaveApplication employeeLeave;
+  final _stateManger = getIt<NavigationStackManager>();
 
   AdminLeaveRequestDetailScreen({Key? key, required this.employeeLeave})
       : super(key: key);
@@ -28,7 +31,7 @@ class AdminLeaveRequestDetailScreen extends StatelessWidget {
             Icons.arrow_back_ios,
             color: AppColors.darkText,
           ),
-          onPressed: () {},
+          onPressed: () => _stateManger.pop(),
         ),
       ),
       body: Padding(

@@ -23,11 +23,11 @@ class BuildLeaveDateContainer extends StatelessWidget {
           color: color,
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
-      height: 140,
       width: 50,
+      height: 140,
       child: Center(
           child: Text(
-            dateInDoubleLine(startTimeStamp: startDate, endTimeStamp: endDate),
+        dateInDoubleLine(startTimeStamp: startDate, endTimeStamp: endDate),
         style: TextStyle(
             color: color == AppColors.blackColor
                 ? AppColors.whiteColor

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/core/utils/date_string_utils.dart';
 
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 import '../../../../../model/leave/leave.dart';
+import '../../../../../widget/leave_detail.dart';
 
 class LeaveDetailContent extends StatelessWidget {
   Leave leave;
@@ -21,11 +20,11 @@ class LeaveDetailContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildFieldColumn(title: 'Total Days', value: totalDays),
-          _buildDivider(),
-          _buildFieldColumn(title: 'Duration', value: duration),
-          _buildDivider(),
-          _buildFieldColumn(
+          buildFieldColumn(title: 'Total Days', value: totalDays),
+          buildDivider(),
+          buildFieldColumn(title: 'Duration', value: duration),
+          buildDivider(),
+          buildFieldColumn(
             title: 'Reason',
             value: reason,
           ),
@@ -34,52 +33,5 @@ class LeaveDetailContent extends StatelessWidget {
     );
   }
 
-  Widget _buildFieldColumn({required String title, required String value}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildTitle(title: title),
-        const SizedBox(
-          height: 5,
-        ),
-        _buildValue(value: value),
-      ],
-    );
-  }
 
-  Text _buildValue({required String value}) {
-    return Text(
-      value,
-      style: const TextStyle(
-        color: AppColors.darkText,
-        fontSize: subTitleTextSize,
-      ),
-    );
-  }
-
-  Text _buildTitle({required String title}) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: AppColors.secondaryText,
-        fontSize: bodyTextSize,
-      ),
-    );
-  }
-
-  Widget _buildDivider() {
-    return Column(
-      children: const [
-        SizedBox(
-          height: 10,
-        ),
-        Divider(
-          color: AppColors.lightGreyColor,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-      ],
-    );
-  }
 }

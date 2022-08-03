@@ -71,6 +71,7 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
           theme: ThemeData(fontFamily: 'IBMPlexSans'),
           routerDelegate: MainRouterDelegate(stack: _stateManager),
           routeInformationParser: HomeRouterInfoParser(),
+          debugShowCheckedModeBanner: false,
         ),
       ),
     );

@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   google_sign_in: ^5.2.1
   json_annotation: ^4.4.0
   device_info_plus: ^3.2.1

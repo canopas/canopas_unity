@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/ui/admin/leave/requests/all_request_screen.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
 
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
 import '../ui/admin/home/employee/detail/employee_detail_screen.dart';
+import '../ui/admin/leave/application/all_request_screen.dart';
 import '../ui/admin/leave/detail/leave_detail_screen.dart';
 import '../ui/setting/setting_screen.dart';
 import '../ui/staff/staff_screen.dart';
 import '../ui/user/leave/applyLeave/leave_request_form.dart';
+import '../ui/user/leave/detail/leave_detail_screen.dart';
 import '../ui/user/leave/requested/requested_leave_screen.dart';
 import '../ui/user/leave/upcomingLeave/upcoming_leave_screen.dart';
 import 'navigation_stack_manager.dart';
@@ -68,6 +69,9 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
                 child: RequestedLeaveScreen()),
             staffState: () => const MaterialPage(
                 key: ValueKey('staff'), child: StaffScreen()),
+            leaveDetailState: (leave) => MaterialPage(
+                key: const ValueKey('user_leave-detail'),
+                child: UserLeaveDetailScreen(leave: leave)),
           ))
       .toList();
 

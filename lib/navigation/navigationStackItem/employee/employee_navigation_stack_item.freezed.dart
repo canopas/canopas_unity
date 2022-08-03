@@ -45,6 +45,12 @@ class _$EmployeeNavigationStackItemTearOff {
   RequestedLeavesState requestedLeaves() {
     return const RequestedLeavesState();
   }
+
+  LeaveDetailState leaveDetailState(Leave leave) {
+    return LeaveDetailState(
+      leave,
+    );
+  }
 }
 
 /// @nodoc
@@ -61,6 +67,7 @@ mixin _$EmployeeNavigationStackItem {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,6 +79,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +91,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -96,6 +105,7 @@ mixin _$EmployeeNavigationStackItem {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -107,6 +117,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -118,6 +129,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -189,6 +201,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return employeeHomeState();
   }
@@ -203,6 +216,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return employeeHomeState?.call();
   }
@@ -217,6 +231,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (employeeHomeState != null) {
@@ -236,6 +251,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return employeeHomeState(this);
   }
@@ -250,6 +266,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return employeeHomeState?.call(this);
   }
@@ -264,6 +281,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (employeeHomeState != null) {
@@ -324,6 +342,7 @@ class _$StaffState implements StaffState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return staffState();
   }
@@ -338,6 +357,7 @@ class _$StaffState implements StaffState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return staffState?.call();
   }
@@ -352,6 +372,7 @@ class _$StaffState implements StaffState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (staffState != null) {
@@ -371,6 +392,7 @@ class _$StaffState implements StaffState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return staffState(this);
   }
@@ -385,6 +407,7 @@ class _$StaffState implements StaffState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return staffState?.call(this);
   }
@@ -399,6 +422,7 @@ class _$StaffState implements StaffState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (staffState != null) {
@@ -460,6 +484,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return userAllLeaveState();
   }
@@ -474,6 +499,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return userAllLeaveState?.call();
   }
@@ -488,6 +514,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (userAllLeaveState != null) {
@@ -507,6 +534,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return userAllLeaveState(this);
   }
@@ -521,6 +549,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return userAllLeaveState?.call(this);
   }
@@ -535,6 +564,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (userAllLeaveState != null) {
@@ -596,6 +626,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return userUpcomingLeaveState();
   }
@@ -610,6 +641,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return userUpcomingLeaveState?.call();
   }
@@ -624,6 +656,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (userUpcomingLeaveState != null) {
@@ -643,6 +676,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return userUpcomingLeaveState(this);
   }
@@ -657,6 +691,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return userUpcomingLeaveState?.call(this);
   }
@@ -671,6 +706,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (userUpcomingLeaveState != null) {
@@ -732,6 +768,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return leaveRequestState();
   }
@@ -746,6 +783,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return leaveRequestState?.call();
   }
@@ -760,6 +798,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (leaveRequestState != null) {
@@ -779,6 +818,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return leaveRequestState(this);
   }
@@ -793,6 +833,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return leaveRequestState?.call(this);
   }
@@ -807,6 +848,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (leaveRequestState != null) {
@@ -868,6 +910,7 @@ class _$SettingsState implements SettingsState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return settingsState();
   }
@@ -882,6 +925,7 @@ class _$SettingsState implements SettingsState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return settingsState?.call();
   }
@@ -896,6 +940,7 @@ class _$SettingsState implements SettingsState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (settingsState != null) {
@@ -915,6 +960,7 @@ class _$SettingsState implements SettingsState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return settingsState(this);
   }
@@ -929,6 +975,7 @@ class _$SettingsState implements SettingsState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return settingsState?.call(this);
   }
@@ -943,6 +990,7 @@ class _$SettingsState implements SettingsState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (settingsState != null) {
@@ -1004,6 +1052,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     required TResult Function() leaveRequestState,
     required TResult Function() settingsState,
     required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
   }) {
     return requestedLeaves();
   }
@@ -1018,6 +1067,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
   }) {
     return requestedLeaves?.call();
   }
@@ -1032,6 +1082,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function()? leaveRequestState,
     TResult Function()? settingsState,
     TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (requestedLeaves != null) {
@@ -1051,6 +1102,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     required TResult Function(LeaveRequestState value) leaveRequestState,
     required TResult Function(SettingsState value) settingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
     return requestedLeaves(this);
   }
@@ -1065,6 +1117,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
     return requestedLeaves?.call(this);
   }
@@ -1079,6 +1132,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function(LeaveRequestState value)? leaveRequestState,
     TResult Function(SettingsState value)? settingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
     if (requestedLeaves != null) {
@@ -1090,4 +1144,177 @@ class _$RequestedLeavesState implements RequestedLeavesState {
 
 abstract class RequestedLeavesState implements EmployeeNavigationStackItem {
   const factory RequestedLeavesState() = _$RequestedLeavesState;
+}
+
+/// @nodoc
+abstract class $LeaveDetailStateCopyWith<$Res> {
+  factory $LeaveDetailStateCopyWith(
+          LeaveDetailState value, $Res Function(LeaveDetailState) then) =
+      _$LeaveDetailStateCopyWithImpl<$Res>;
+
+  $Res call({Leave leave});
+}
+
+/// @nodoc
+class _$LeaveDetailStateCopyWithImpl<$Res>
+    extends _$EmployeeNavigationStackItemCopyWithImpl<$Res>
+    implements $LeaveDetailStateCopyWith<$Res> {
+  _$LeaveDetailStateCopyWithImpl(
+      LeaveDetailState _value, $Res Function(LeaveDetailState) _then)
+      : super(_value, (v) => _then(v as LeaveDetailState));
+
+  @override
+  LeaveDetailState get _value => super._value as LeaveDetailState;
+
+  @override
+  $Res call({
+    Object? leave = freezed,
+  }) {
+    return _then(LeaveDetailState(
+      leave == freezed
+          ? _value.leave
+          : leave // ignore: cast_nullable_to_non_nullable
+              as Leave,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LeaveDetailState implements LeaveDetailState {
+  const _$LeaveDetailState(this.leave);
+
+  @override
+  final Leave leave;
+
+  @override
+  String toString() {
+    return 'EmployeeNavigationStackItem.leaveDetailState(leave: $leave)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is LeaveDetailState &&
+            const DeepCollectionEquality().equals(other.leave, leave));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(leave));
+
+  @JsonKey(ignore: true)
+  @override
+  $LeaveDetailStateCopyWith<LeaveDetailState> get copyWith =>
+      _$LeaveDetailStateCopyWithImpl<LeaveDetailState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() employeeHomeState,
+    required TResult Function() staffState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() settingsState,
+    required TResult Function() requestedLeaves,
+    required TResult Function(Leave leave) leaveDetailState,
+  }) {
+    return leaveDetailState(leave);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? employeeHomeState,
+    TResult Function()? staffState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
+  }) {
+    return leaveDetailState?.call(leave);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? employeeHomeState,
+    TResult Function()? staffState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? settingsState,
+    TResult Function()? requestedLeaves,
+    TResult Function(Leave leave)? leaveDetailState,
+    required TResult orElse(),
+  }) {
+    if (leaveDetailState != null) {
+      return leaveDetailState(leave);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmployeeHomeState value) employeeHomeState,
+    required TResult Function(StaffState value) staffState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(LeaveDetailState value) leaveDetailState,
+  }) {
+    return leaveDetailState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(EmployeeHomeState value)? employeeHomeState,
+    TResult Function(StaffState value)? staffState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
+  }) {
+    return leaveDetailState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmployeeHomeState value)? employeeHomeState,
+    TResult Function(StaffState value)? staffState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(SettingsState value)? settingsState,
+    TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(LeaveDetailState value)? leaveDetailState,
+    required TResult orElse(),
+  }) {
+    if (leaveDetailState != null) {
+      return leaveDetailState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LeaveDetailState implements EmployeeNavigationStackItem {
+  const factory LeaveDetailState(Leave leave) = _$LeaveDetailState;
+
+  Leave get leave;
+
+  @JsonKey(ignore: true)
+  $LeaveDetailStateCopyWith<LeaveDetailState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
