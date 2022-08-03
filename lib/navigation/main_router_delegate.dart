@@ -12,7 +12,7 @@ import '../ui/setting/setting_screen.dart';
 import '../ui/staff/staff_screen.dart';
 import '../ui/user/leave/applyLeave/leave_request_form.dart';
 import '../ui/user/leave/requested/requested_leave_screen.dart';
-import '../ui/user/leave/upcomingLeave/upcoming_leave_screen.dart';
+import '../ui/user/leave/upcoming/upcoming_leave_screen.dart';
 import 'navigation_stack_manager.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>

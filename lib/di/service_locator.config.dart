@@ -12,8 +12,9 @@ import '../bloc/admin/employee/employee_detail_bloc.dart' as _i14;
 import '../bloc/admin/employee/employee_list_bloc.dart' as _i15;
 import '../bloc/admin/employee/employee_validation.dart' as _i6;
 import '../bloc/admin/leave/leave_application_bloc.dart' as _i7;
-import '../bloc/leaves/user/leaves/all_leaves_bloc.dart' as _i21;
+import '../bloc/leaves/user/leaves/all_leaves_bloc.dart' as _i22;
 import '../bloc/leaves/user/leaves/requested_leave_bloc.dart' as _i18;
+import '../bloc/leaves/user/leaves/upcoming_leave_bloc.dart' as _i21;
 import '../bloc/login/login_bloc.dart' as _i16;
 import '../navigation/navigation_stack_manager.dart' as _i20;
 import '../pref/user_preference.dart' as _i12;
@@ -26,7 +27,7 @@ import '../stateManager/admin/leave_status_manager.dart' as _i9;
 import '../stateManager/auth/auth_manager.dart' as _i13;
 import '../stateManager/login_state_manager.dart' as _i19;
 import '../stateManager/user/leave_request_data_manager.dart' as _i8;
-import 'AppModule.dart' as _i22; // ignore_for_file: unnecessary_lambdas
+import 'AppModule.dart' as _i23; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -61,9 +62,11 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.singleton<_i19.LoginState>(_i19.LoginState(get<_i17.UserManager>()));
   gh.singleton<_i20.NavigationStackManager>(
       _i20.NavigationStackManager(get<_i17.UserManager>()));
-  gh.singleton<_i21.UserAllLeavesBloc>(_i21.UserAllLeavesBloc(
+  gh.singleton<_i21.UpcomingLeaveBloc>(_i21.UpcomingLeaveBloc(
+      get<_i17.UserManager>(), get<_i11.UserLeaveService>()));
+  gh.singleton<_i22.UserAllLeavesBloc>(_i22.UserAllLeavesBloc(
       get<_i11.UserLeaveService>(), get<_i17.UserManager>()));
   return get;
 }
 
-class _$AppModule extends _i22.AppModule {}
+class _$AppModule extends _i23.AppModule {}
