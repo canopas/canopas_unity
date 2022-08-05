@@ -33,26 +33,29 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Visibility(
-                visible: !_isLastPage,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20, right: 20),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                        onPressed: () {
-                          _loginState.setOnBoardComplete(true);
-                          _preference.setOnBoardCompleted(true);
-                        },
-                        child: const Text(
-                          'SKIP',
-                          style: TextStyle(
-                              color: Colors.grey, fontSize: subTitleTextSize),
-                        )),
-                  ),
-                )),
             Expanded(
-              flex: 4,
+              flex: 1,
+              child: Visibility(
+                  visible: !_isLastPage,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20, right: 20),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: TextButton(
+                          onPressed: () {
+                            _loginState.setOnBoardComplete(true);
+                            _preference.setOnBoardCompleted(true);
+                          },
+                          child: const Text(
+                            'SKIP',
+                            style: TextStyle(
+                                color: Colors.grey, fontSize: subTitleTextSize),
+                          )),
+                    ),
+                  )),
+            ),
+            Expanded(
+              flex: 8,
               child: PageView.builder(
                 itemCount: OnBoardingContents.contents.length,
                 physics: const AlwaysScrollableScrollPhysics(),
