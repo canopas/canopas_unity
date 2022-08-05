@@ -36,4 +36,8 @@ class UserLeaveService {
         .get();
     return data.docs.map((doc) => doc.data()).toList();
   }
+
+  Future<void> deleteLeaveRequest(String leaveId) async {
+    await _leaveDbCollection.doc(leaveId).delete();
+  }
 }

@@ -1151,7 +1151,6 @@ abstract class $LeaveDetailStateCopyWith<$Res> {
   factory $LeaveDetailStateCopyWith(
           LeaveDetailState value, $Res Function(LeaveDetailState) then) =
       _$LeaveDetailStateCopyWithImpl<$Res>;
-
   $Res call({Leave leave});
 }
 
@@ -1313,7 +1312,6 @@ abstract class LeaveDetailState implements EmployeeNavigationStackItem {
   const factory LeaveDetailState(Leave leave) = _$LeaveDetailState;
 
   Leave get leave;
-
   @JsonKey(ignore: true)
   $LeaveDetailStateCopyWith<LeaveDetailState> get copyWith =>
       throw _privateConstructorUsedError;
