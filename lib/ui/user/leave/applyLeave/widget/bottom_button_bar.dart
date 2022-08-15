@@ -7,6 +7,7 @@ import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../../../../../navigation/navigation_stack_manager.dart';
@@ -28,6 +29,7 @@ class BottomButtonBar extends StatelessWidget {
     final _leaveService =
         Provider.of<LeaveRequestDataManager>(context, listen: false);
     return Container(
+      padding:  const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           color: AppColors.boxShadowColor,
