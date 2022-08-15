@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
 
@@ -14,11 +15,11 @@ class StartLeaveCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 10, left: 5),
+        Padding(
+          padding: const EdgeInsets.only(top: 10, left: 5),
           child: Text(
-            'From:',
-            style: TextStyle(
+            AppLocalizations.of(context).user_apply_leave_from_tag,
+            style: const TextStyle(
                 color: AppColors.secondaryText, fontSize: titleTextSize),
           ),
         ),

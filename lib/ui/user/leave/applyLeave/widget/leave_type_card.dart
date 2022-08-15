@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../stateManager/user/leave_request_data_manager.dart';
 
@@ -13,19 +15,21 @@ class LeaveTypeCard extends StatelessWidget {
     LeaveRequestDataManager _leaveService =
         Provider.of<LeaveRequestDataManager>(context);
     int? leaveType = _leaveService.leaveType;
+    var _localization = AppLocalizations.of(context);
     return SizedBox(
       width: double.infinity,
       child: Card(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.only(left: 10.0),
+                padding: const EdgeInsets.only(left: 10.0),
                 child: Text(
-                  'Leave Type',
-                  style:
-                      TextStyle(color: Colors.grey, fontSize: subTitleTextSize),
+                  _localization.leave_type_tag,
+                  style: const TextStyle(
+                      color: AppColors.secondaryText,
+                      fontSize: subTitleTextSize),
                 ),
               ),
             ),
@@ -36,10 +40,11 @@ class LeaveTypeCard extends StatelessWidget {
                       border: InputBorder.none,
                       errorBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.red))),
-                  hint: const Text(
-                    'Select',
-                    style: TextStyle(
-                        color: Colors.grey, fontSize: subTitleTextSize),
+                  hint: Text(
+                    AppLocalizations.of(context).user_apply_leave_select_tag,
+                    style: const TextStyle(
+                        color: AppColors.secondaryText,
+                        fontSize: subTitleTextSize),
                   ),
                   items: leaveTypeMap
                       .map((key, value) {
@@ -47,7 +52,8 @@ class LeaveTypeCard extends StatelessWidget {
                             key,
                             DropdownMenuItem<int>(
                               value: key,
-                              child: Text(value),
+                              child: Text(_localization
+                                  .leave_type_placeholder_leave_status(key)),
                             ));
                       })
                       .values

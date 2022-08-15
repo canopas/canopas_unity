@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 
 import '../../../../../../model/employee/employee.dart';
@@ -10,28 +11,34 @@ class ProfileDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Details(
-          title: 'Role: ',
+          title: _localization.employee_role_tag,
           subTitle: employee.getRole(),
         ),
         Details(
-          title: 'Mobile: ',
+          title: _localization.employee_mobile_tag,
           subTitle: employee.phone,
         ),
-        Details(title: 'Email: ', subTitle: employee.email),
-        Details(title: 'Address: ', subTitle: employee.address),
         Details(
-          title: 'Date of Birth: ',
+            title: _localization.employee_email_tag, subTitle: employee.email),
+        Details(
+            title: _localization.employee_address_tag,
+            subTitle: employee.address),
+        Details(
+          title: _localization.employee_dateOfBirth_tag,
           subTitle: employee.dateOfBirth.toString(),
         ),
         Details(
-          title: 'Date of Joining: ',
+          title: _localization.employee_dateOfJoin_tag,
           subTitle: employee.dateOfJoining.toString(),
         ),
-        Details(title: 'Employee ID: ', subTitle: employee.employeeId)
+        Details(
+            title: _localization.employee_employeeID_tag,
+            subTitle: employee.employeeId)
       ],
     );
   }
@@ -70,7 +77,7 @@ class Details extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                '$title:',
                 style: const TextStyle(
                     fontSize: titleTextSize, color: Colors.grey),
               ),

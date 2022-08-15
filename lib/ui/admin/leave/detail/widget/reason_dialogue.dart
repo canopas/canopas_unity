@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
@@ -15,26 +16,29 @@ class ReasonDialogue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
     return AlertDialog(
       content: SizedBox(
         width: 300,
         child: TextField(
           controller: controller,
-          decoration: const InputDecoration(
-              hintText: ('Please enter reason'), border: InputBorder.none),
+          decoration: InputDecoration(
+              hintText: (_localization.admin_leave_detail_error_reason),
+              border: InputBorder.none),
         ),
       ),
       actions: [
         TextButton(
             onPressed: () {
               if (controller.text == '') {
-                showSnackBar(context, 'Please provide reason for rejection');
+                showSnackBar(context,
+                    _localization.admin_leave_detail_error_reason_rejection);
               } else if (controller.text != '') {
                 _updateLeaveStatus.setReason(controller.text);
               }
               Navigator.pop(context);
             },
-            child: const Text('OK'))
+            child: Text(_localization.admin_leave_detail_button_ok))
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
@@ -22,6 +23,8 @@ class BottomButtonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
+
     final _leaveService =
         Provider.of<LeaveRequestDataManager>(context, listen: false);
     return Container(
@@ -37,11 +40,11 @@ class BottomButtonBar extends StatelessWidget {
           Expanded(
             flex: 1,
             child: ElevatedButton(
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  'Reset',
-                  style: TextStyle(
+                  _localization.user_apply_leave_button_reset,
+                  style: const TextStyle(
                     fontSize: titleTextSize,
                   ),
                 ),
@@ -59,11 +62,11 @@ class BottomButtonBar extends StatelessWidget {
           Expanded(
             flex: 2,
             child: ElevatedButton(
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  'Apply Leave',
-                  style: TextStyle(
+                  _localization.user_apply_leave_button_apply_leave,
+                  style: const TextStyle(
                       color: AppColors.whiteColor,
                       fontSize: titleTextSize,
                       fontWeight: FontWeight.w500),
@@ -73,13 +76,16 @@ class BottomButtonBar extends StatelessWidget {
                 if (formKey.currentState!.validate()) {
                   String _userId = _userManager.employeeId;
                   Leave data =
-                      _leaveService.getLeaveRequestData(userId: _userId);
+                  _leaveService.getLeaveRequestData(userId: _userId);
                   service.applyForLeave(data);
                   _stateManager.clearAndPush(
                       const EmployeeNavigationStackItem.employeeHomeState());
                   _stateManager.setBottomBar(true);
                 } else {
-                  showSnackBar(context, 'Please fill all details');
+                  showSnackBar(
+                      context,
+                      _localization
+                          .user_apply_leave_error_message_fill_details);
                 }
               },
               style: ElevatedButton.styleFrom(

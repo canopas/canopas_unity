@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -65,25 +66,29 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                       children: [
                         LeaveNavigationCard(
                             color: AppColors.primaryDarkYellow,
-                            leaveText: 'All Leaves',
+                            leaveText: AppLocalizations.of(context)
+                                .user_home_all_leaves_tag,
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .userAllLeaveState())),
                         LeaveNavigationCard(
                             color: AppColors.primaryGreen,
-                            leaveText: 'Requested Leaves',
+                            leaveText: AppLocalizations.of(context)
+                                .user_home_requested_leaves_tag,
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .requestedLeaves())),
                         LeaveNavigationCard(
                             color: AppColors.primaryBlue,
-                            leaveText: 'Upcoming Leaves',
+                            leaveText: AppLocalizations.of(context)
+                                .user_home_upcoming_leaves_tag,
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .userUpcomingLeaveState())),
                         LeaveNavigationCard(
                             color: AppColors.peachColor,
-                            leaveText: 'Apply for Leave',
+                            leaveText: AppLocalizations.of(context)
+                                .user_home_apply_leave_tag,
                             onPress: () {
                               _stateManager.setBottomBar(false);
                               _stateManager.push(
@@ -92,7 +97,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                             }),
                         _buildTitle(onPress: () {}),
                         const TeamLeaveCard(
-                          length: 5,
+                          length: 10,
                         ),
                       ],
                     ),
@@ -116,21 +121,21 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
         children: [
-          const Text(
-            'Who\'s on leave today?',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context).user_home_who_onLeave_tag,
+            style: const TextStyle(
               fontSize: titleTextSize,
               color: AppColors.secondaryText,
             ),
           ),
           TextButton(
               onPressed: onPress,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 5.0),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 5.0),
                 child: Text(
-                  'View All',
-                  style: TextStyle(
-                    color: Colors.blueGrey,
+                  AppLocalizations.of(context).user_home_button_view_all,
+                  style: const TextStyle(
+                    color: AppColors.blueGrey,
                     fontSize: smallTextSize,
                   ),
                 ),

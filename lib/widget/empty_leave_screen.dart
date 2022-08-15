@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/core/utils/const/image_constant.dart';
 
@@ -15,16 +16,16 @@ class EmptyLeaveScreen extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Image(
+          children: [
+            const Image(
               image: AssetImage(emptyLeaveStateImage),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text('You haven\'t applied for any \n leaves yet!',
+            Text(AppLocalizations.of(context).empty_leave_state_message,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColors.secondaryText,
                   fontSize: subTitleTextSize,
                 )),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
@@ -23,16 +24,17 @@ class ReasonCard extends StatelessWidget {
               color: AppColors.darkText, fontSize: bodyTextSize),
           cursorColor: AppColors.secondaryText,
           maxLines: 5,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Reason',
-            hintStyle:
-                TextStyle(color: Colors.grey, fontSize: subTitleTextSize),
+            hintText: AppLocalizations.of(context).leave_reason_tag,
+            hintStyle: const TextStyle(
+                color: AppColors.secondaryText, fontSize: subTitleTextSize),
           ),
           validator: (String? value) {
                 if (value == null || value == '') {
-                  return 'Please enter valid reason';
-                }
+                  return AppLocalizations.of(context)
+                  .user_apply_leave_error_valid_reason;
+            }
                 Provider.of<LeaveRequestDataManager>(context, listen: false)
                 .setReasonOfLeave(value);
                 return null;

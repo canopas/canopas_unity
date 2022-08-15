@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/font_size.dart';
 
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/image_constant.dart';
@@ -27,11 +29,12 @@ class SignInButton extends StatelessWidget {
             googleLogoImage,
             height: 40,
           ),
-          const Expanded(
+           Expanded(
             child: Text(
-              'Sign in with Google',
+              AppLocalizations.of(context).login_button_text,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black54, fontSize: 20),
+              style: const TextStyle(
+                      color: AppColors.blackColor, fontSize: titleTextSize),
             ),
           )
         ]));

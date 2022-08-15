@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -43,10 +44,10 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           onPressed: () => _navigationStackManager.pop(),
           icon: const Icon(FontAwesomeIcons.angleLeft, color: Colors.black),
         ),
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-              color: Colors.black,
+        title: Text(
+          AppLocalizations.of(context).admin_employee_detail_profile_tag,
+          style: const TextStyle(
+              color: AppColors.blackColor,
               fontSize: titleTextSize,
               fontWeight: FontWeight.w600),
         ),

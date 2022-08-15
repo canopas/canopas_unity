@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:projectunity/l10n/l10n.dart';
 import 'package:projectunity/stateManager/login_state_manager.dart';
 import 'package:projectunity/ui/app_dashboard_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
@@ -15,6 +18,12 @@ void main() async {
     MaterialApp(
       theme: ThemeData(fontFamily: 'IBMPlexSans'),
       title: 'ProjectUnity Flutter',
+      supportedLocales: L10n.all,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       home: const MyApp(),
     ),
   );

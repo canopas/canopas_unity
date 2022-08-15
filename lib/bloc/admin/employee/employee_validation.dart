@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:rxdart/rxdart.dart';
@@ -23,39 +25,43 @@ class EmployeeValidationBloc {
 
   Stream<String> get designation => _designation.stream;
 
-  void validateEmail(String email) {
+  void validateEmail(String email, BuildContext context) {
     if (email.isNotEmpty && email.length > 4) {
       if (email.contains('@')) {
         _email.sink.add(email);
       }
     } else {
-      _email.sink.addError('Please enter valid email');
+      _email.sink
+          .addError(AppLocalizations.of(context).admin_add_member_error_email);
     }
   }
 
-  void validateName(String name) {
+  void validateName(String name, BuildContext context) {
     if (name.isNotEmpty && name.length >= 4) {
       _name.sink.add(name);
     } else {
-      _name.sink.addError('Please enter at least 4 character of your name ');
+      _name.sink
+          .addError(AppLocalizations.of(context).admin_add_member_error_name);
     }
   }
 
-  void validateDesignation(String designation) {
+  void validateDesignation(String designation, BuildContext context) {
     if (designation.length > 4) {
       _designation.sink.add(designation);
     } else {
-      _designation.sink.addError('Please complete this mandatory field');
+      _designation.sink.addError(
+          AppLocalizations.of(context).admin_add_member_error_complete_field);
     }
   }
 
-  void validateEmployeeId(String employeeId) {
+  void validateEmployeeId(String employeeId, BuildContext context) {
     if (employeeId.length > 4) {
       if (employeeId.contains(RegExp(r'[0-9]'))) {
         _employeeId.sink.add(employeeId);
       }
     } else {
-      _employeeId.sink.addError('Please complete this mandatory field');
+      _employeeId.sink.addError(
+          AppLocalizations.of(context).admin_add_member_error_complete_field);
     }
   }
 

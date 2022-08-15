@@ -14,6 +14,12 @@ class OverlapProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final int num;
     const overlap = 25;
+    if (length == 0) {
+      return const Icon(
+        Icons.account_circle_rounded,
+        size: 50,
+      );
+    }
     length <= 3 ? num = length : num = 3;
     List<Widget> stackLayers = List<Widget>.generate(num, (index) {
       return Padding(
@@ -33,14 +39,14 @@ class OverlapProfile extends StatelessWidget {
     });
     if (length > 3) {
       stackLayers.add(
-        const Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(75.0, 5, 0, 0),
           child: CircleAvatar(
             radius: 20,
             backgroundColor: AppColors.primaryBlue,
             child: Text(
-              '+2..',
-              style: TextStyle(color: Colors.white),
+              '+${(length - num)}..',
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),

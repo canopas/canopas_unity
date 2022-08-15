@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/configs/font_size.dart';
@@ -16,13 +17,14 @@ class DatePickerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _localeName = AppLocalizations.of(context).localeName;
     return Expanded(
       child: Card(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              DateFormat.yMMMd().format(currentDate),
+              DateFormat.yMMMd(_localeName).format(currentDate),
               style: const TextStyle(
                   color: AppColors.darkText, fontSize: bodyTextSize),
             ),

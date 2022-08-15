@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -17,6 +18,7 @@ class ButtonContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -35,9 +37,9 @@ class ButtonContent extends StatelessWidget {
                   ? _stackManager.pop()
                   : null;
             },
-            child: const Text(
-              'REJECT',
-              style: TextStyle(
+            child: Text(
+              _localization.admin_leave_detail_button_reject,
+              style: const TextStyle(
                   color: AppColors.darkText, fontSize: subTitleTextSize),
             )),
         const SizedBox(
@@ -51,9 +53,9 @@ class ButtonContent extends StatelessWidget {
                   : null;
             },
             style: ElevatedButton.styleFrom(primary: AppColors.primaryBlue),
-            child: const Text(
-              'APPROVE',
-              style: TextStyle(fontSize: subTitleTextSize),
+            child: Text(
+              _localization.admin_leave_detail_button_approve,
+              style: const TextStyle(fontSize: subTitleTextSize),
             ))
       ],
     );

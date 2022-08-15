@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/utils/const/leave_map.dart';
@@ -25,10 +26,11 @@ class UserLeaveDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String _leaveType =
-        getLeaveStatus(leave.leaveStatus, leaveTypeMap) ?? '';
+    var _localization = AppLocalizations.of(context);
     final _duration = dateInSingleLine(
-        startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
+        startTimeStamp: leave.startDate,
+        endTimeStamp: leave.endDate,
+        locale: _localization.localeName);
     final _totalDays = totalLeaves(leave.totalLeaves);
     final String _reason = leave.reason;
     final String? _rejectionReason = leave.rejectionReason;
@@ -48,9 +50,10 @@ class UserLeaveDetailScreen extends StatelessWidget {
           ),
           onPressed: () => _stackManager.pop(),
         ),
-        title: const Text(
-          'Approval Status',
-          style: TextStyle(fontSize: titleTextSize, color: AppColors.darkText),
+        title: Text(
+          _localization.user_leave_detail_approval_Status_tag,
+          style: const TextStyle(
+              fontSize: titleTextSize, color: AppColors.darkText),
         ),
         actions: canCancelLeave
             ? [
@@ -60,14 +63,13 @@ class UserLeaveDetailScreen extends StatelessWidget {
                     showSnackBar(context, 'Leave Application is cancelled!');
                     _stackManager.pop();
                   },
-                  child: const Text(
-                    "CANCEL",
-                    style: TextStyle(
-                        fontSize: subTitleTextSize, color: AppColors.blueGrey),
-                  ),
-                )
-              ]
-            : null,
+                  child: Text(
+              _localization.user_leave_detail_button_cancel,
+                    style: const TextStyle(
+                  fontSize: subTitleTextSize, color: AppColors.blueGrey),
+            ),
+          )
+        ]: null,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -75,21 +77,31 @@ class UserLeaveDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildFieldColumn(title: 'Leave Type', value: _leaveType),
+              buildFieldColumn(
+                  title: _localization.leave_type_tag,
+                  value: _localization
+                      .leave_type_placeholder_leave_status(leave.leaveStatus)),
               buildDivider(),
               Row(
                 children: [
                   Expanded(
                       child: buildFieldColumn(
-                          title: 'Duration', value: _duration)),
-                  buildFieldColumn(title: ' Total days', value: '⚈ $_totalDays')
+                          title: _localization.leave_duration_text,
+                          value: _duration)),
+                  buildFieldColumn(
+                      title: _localization.leave_totalDays_tag,
+                      value: '⚈ $_totalDays')
                 ],
               ),
               buildDivider(),
-              buildFieldColumn(title: 'Reason', value: _reason),
+              buildFieldColumn(
+                  title: _localization.leave_reason_tag, value: _reason),
               buildDivider(),
-              buildFieldColumn(title: 'Approval Status:', value: ''),
-              _buildStatus(leave.leaveStatus),
+              buildFieldColumn(
+                  title:
+                      '${_localization.user_leave_detail_approval_Status_tag}:',
+                  value: ''),
+              _buildStatus(leave.leaveStatus, context),
               _rejectionReason != null
                   ? buildFieldColumn(title: '', value: _rejectionReason)
                   : Container(),
@@ -101,7 +113,7 @@ class UserLeaveDetailScreen extends StatelessWidget {
   }
 }
 
-Widget _buildStatus(int leaveStatus) {
+Widget _buildStatus(int leaveStatus, BuildContext context) {
   switch (leaveStatus) {
     case 1:
       return const PendingStatus();
@@ -110,5 +122,5 @@ Widget _buildStatus(int leaveStatus) {
     case 3:
       return const RejectStatus();
   }
-  throw Exception('Something went wrong');
+  throw Exception(AppLocalizations.of(context).error_something_went_wrong);
 }

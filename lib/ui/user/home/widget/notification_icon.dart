@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../configs/colors.dart';
+
 class NotificationIcon extends StatelessWidget {
   const NotificationIcon({
     Key? key,
@@ -10,7 +12,7 @@ class NotificationIcon extends StatelessWidget {
     return Stack(
       children: [
         IconButton(
-          color: Colors.white,
+          color: AppColors.whiteColor,
           icon: const Icon(
             Icons.notifications,
             size: 30,
@@ -23,7 +25,7 @@ class NotificationIcon extends StatelessWidget {
             child: Icon(
               Icons.brightness_1,
               size: 10,
-              color: Colors.red,
+              color: AppColors.redColor,
             ))
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 
 import '../../../../configs/colors.dart';
@@ -29,6 +30,7 @@ class _ToggleButtonState extends State<ToggleButton> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    var _localization = AppLocalizations.of(context);
 
     return Center(
       child: Container(
@@ -68,10 +70,10 @@ class _ToggleButtonState extends State<ToggleButton> {
                   width: width * 0.5,
                   color: Colors.transparent,
                   alignment: Alignment.center,
-                  child: const Text(
-                    'Employee',
+                  child: Text(
+                    _localization.admin_home_employee_tag,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: bodyTextSize,
                         color: AppColors.darkText,
                         fontWeight: FontWeight.bold),
@@ -92,10 +94,10 @@ class _ToggleButtonState extends State<ToggleButton> {
                   width: width * 0.5,
                   color: Colors.transparent,
                   alignment: Alignment.center,
-                  child: const Text(
-                    'HR',
+                  child: Text(
+                    _localization.admin_addMember_hr_roleTag,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: bodyTextSize,
                         color: AppColors.darkText,
                         fontWeight: FontWeight.bold),

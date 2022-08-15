@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 
@@ -25,8 +26,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    List<OnBoardingContents> onBoardContents =
+        OnBoardingContents.contents(context);
 
-    bool _isLastPage = currentPage + 1 == OnBoardingContents.contents.length;
+    bool _isLastPage = currentPage + 1 == onBoardContents.length;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -46,18 +49,17 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                             _loginState.setOnBoardComplete(true);
                             _preference.setOnBoardCompleted(true);
                           },
-                          child: const Text(
-                            'SKIP',
-                            style: TextStyle(
-                                color: Colors.grey, fontSize: subTitleTextSize),
-                          )),
-                    ),
-                  )),
-            ),
+                          child: Text(
+                          AppLocalizations.of(context).onBoard_skip_button,
+                            style: const TextStyle(
+                              color: Colors.grey, fontSize: subTitleTextSize),
+                        )),
+                  ),
+                )),),
             Expanded(
               flex: 8,
               child: PageView.builder(
-                itemCount: OnBoardingContents.contents.length,
+                itemCount: onBoardContents.length,
                 physics: const AlwaysScrollableScrollPhysics(),
                 controller: _controller,
                 onPageChanged: (index) {
@@ -70,7 +72,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        OnBoardingContents.contents[index].image,
+                        onBoardContents[index].image,
                         height: height / 3,
                         width: width,
                         fit: BoxFit.contain,
@@ -80,7 +82,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         child: Column(
                           children: [
                             Text(
-                              OnBoardingContents.contents[index].title,
+                              onBoardContents[index].title,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   color: Colors.black,
@@ -90,7 +92,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                OnBoardingContents.contents[index].info,
+                                onBoardContents[index].info,
                                 style: const TextStyle(
                                     fontSize: bodyTextSize, color: Colors.grey),
                                 textAlign: TextAlign.center,
@@ -106,8 +108,8 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(OnBoardingContents.contents.length,
-                    (index) => _buildDots(index))),
+                children: List.generate(
+                    onBoardContents.length, (index) => _buildDots(index))),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: ElevatedButton(
@@ -129,7 +131,9 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: Text(
-                    _isLastPage ? 'START' : 'NEXT',
+                    _isLastPage
+                        ? AppLocalizations.of(context).onBoard_start_button
+                        : AppLocalizations.of(context).onBoard_next_button,
                     style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         color: Colors.white,

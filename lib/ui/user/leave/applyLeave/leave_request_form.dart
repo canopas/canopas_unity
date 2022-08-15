@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/bottom_button_bar.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/end_leave_card.dart';
@@ -27,6 +28,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return ChangeNotifierProvider(
       create: (_) => LeaveRequestDataManager(),
       child: Scaffold(
@@ -41,7 +44,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
             },
           ),
           centerTitle: true,
-          title: const Text('Leave Request'),
+          title: Text(localization.leave_request_tag),
           titleTextStyle: const TextStyle(
               fontSize: headerTextSize, fontWeight: FontWeight.w600),
           backgroundColor: AppColors.primaryBlue,
@@ -62,6 +65,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                       const StartLeaveCard(),
                       const EndLeaveCard(),
                       ReasonCard(),
+                      //Implementation of supervisor in case of leave of employee.
                       //  const SupervisorCard(),
                       Container(height: 50)
                     ],
