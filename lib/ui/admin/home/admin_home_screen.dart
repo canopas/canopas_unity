@@ -30,35 +30,36 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedAppBar(
-                content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.menu,
-                        color: AppColors.whiteColor,
-                      )),
-                  Text(
-                    AppLocalizations.of(context)
-                        .admin_home_employee_summary_tag,
-                    style: const TextStyle(
-                        fontSize: titleTextSize,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.w600),
+                content: Row(children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.menu,
+                    color: AppColors.whiteColor,
+                  )),
+              const Spacer(
+                flex: 1,
+              ),
+              IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    color: AppColors.whiteColor,
                   ),
-                  IconButton(
-                      icon: const Icon(
-                        Icons.add,
-                        size: 34,
-                        color: AppColors.whiteColor,
-                      ),
-                      onPressed: () {
-                        _stateManager.setBottomBar(false);
-                        _stateManager.push(
-                            const AdminNavigationStackItem.addMemberState());
-                      }),
-                ])),
+                  onPressed: () {
+                    _stateManager.setBottomBar(false);
+                    _stateManager
+                        .push(const AdminNavigationStackItem.addMemberState());
+                  }),
+              IconButton(
+                  icon: const Icon(
+                    Icons.settings,
+                    color: AppColors.whiteColor,
+                  ),
+                  onPressed: () {
+                    _stateManager
+                        .push(const AdminNavigationStackItem.settingsState());
+                  }),
+            ])),
             _buildYourEmployeeHeader(),
             const EmployeeListView(),
           ],
