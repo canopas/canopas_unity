@@ -17,6 +17,7 @@ class EmployeeList extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         shrinkWrap: true,
+        padding: const EdgeInsets.only(bottom: 40),
         itemCount: employees.length,
         itemBuilder: (BuildContext context, int index) {
           Employee employee = employees[index];

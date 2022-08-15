@@ -5,9 +5,6 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
-import 'package:projectunity/ui/user/home/widget/notification_icon.dart';
-import 'package:projectunity/ui/user/home/widget/team_leave_card.dart';
-import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
@@ -45,11 +42,16 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                         )),
                     Row(
                       children: [
-                        const NotificationIcon(),
-                        ImageProfile(
-                          imageUrl: _userManager.userImage,
-                          iconSize: 50,
-                        )
+                        IconButton(
+                            onPressed: () {
+                              _stateManager.push(
+                                  const EmployeeNavigationStackItem
+                                      .settingsState());
+                            },
+                            icon: const Icon(
+                              Icons.settings,
+                              color: AppColors.whiteColor,
+                            )),
                       ],
                     ),
                   ],
@@ -59,34 +61,34 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 60,
+                        top: 80,
                         left: primaryHorizontalSpacing,
                         right: primaryHorizontalSpacing),
                     child: Column(
                       children: [
                         LeaveNavigationCard(
-                            color: AppColors.primaryDarkYellow,
+                            color: AppColors.primaryPink,
                             leaveText: AppLocalizations.of(context)
                                 .user_home_all_leaves_tag,
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .userAllLeaveState())),
                         LeaveNavigationCard(
-                            color: AppColors.primaryGreen,
+                            color: AppColors.primaryBlue,
                             leaveText: AppLocalizations.of(context)
                                 .user_home_requested_leaves_tag,
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .requestedLeaves())),
                         LeaveNavigationCard(
-                            color: AppColors.primaryBlue,
+                            color: AppColors.primaryGreen,
                             leaveText: AppLocalizations.of(context)
                                 .user_home_upcoming_leaves_tag,
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .userUpcomingLeaveState())),
                         LeaveNavigationCard(
-                            color: AppColors.peachColor,
+                            color: AppColors.primaryDarkYellow,
                             leaveText: AppLocalizations.of(context)
                                 .user_home_apply_leave_tag,
                             onPress: () {
@@ -95,10 +97,10 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                                   const EmployeeNavigationStackItem
                                       .leaveRequestState());
                             }),
-                        _buildTitle(onPress: () {}),
+                        /* _buildTitle(onPress: () {}),
                         const TeamLeaveCard(
                           length: 10,
-                        ),
+                        ),*/
                       ],
                     ),
                   ),

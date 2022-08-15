@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
 import 'package:projectunity/navigation/router_info_parser.dart';
 
@@ -21,55 +20,15 @@ class AppDashboardScreen extends StatefulWidget {
 class _AppDashboardScreenState extends State<AppDashboardScreen> {
   int selectedTab = 0;
   final _stateManager = getIt<NavigationStackManager>();
-  bool show = false;
 
   @override
   void initState() {
-    _stateManager.addListener(() {
-      setState(() {
-        show = _stateManager.showBottomBar;
-      });
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: show
-          ? BottomNavigationBar(
-              backgroundColor: AppColors.bottomBarColor,
-              selectedItemColor: AppColors.selectedBottomTab,
-              unselectedItemColor: AppColors.defaultBottomTab,
-              selectedFontSize: 18,
-              unselectedFontSize: 15,
-              currentIndex: selectedTab,
-              onTap: _ontap,
-              items: [
-                BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.home_rounded,
-                    size: 34,
-                  ),
-                  label: AppLocalizations.of(context).appDashBoard_home_tab,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.people,
-                    size: 34,
-                  ),
-                  label: AppLocalizations.of(context).appDashBoard_staff_tab,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.settings,
-                    size: 34,
-                  ),
-                  label: AppLocalizations.of(context).appDashBoard_setting_tab,
-                ),
-              ],
-            )
-          : null,
       body: Builder(
         builder: (context) => MaterialApp.router(
           theme: ThemeData(fontFamily: 'IBMPlexSans'),

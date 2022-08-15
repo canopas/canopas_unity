@@ -18,7 +18,7 @@ class ExpandedAppBar extends StatelessWidget {
           borderRadius:
               BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
       child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: content),
     );
   }
