@@ -50,35 +50,6 @@ class EmployeeCard extends StatelessWidget {
   }
 }
 
-class EmployeeImage extends StatelessWidget {
-  const EmployeeImage({Key? key, required this.imageUrl, required this.radius})
-      : super(key: key);
-  final String? imageUrl;
-  final double radius;
-
-  @override
-  Widget build(BuildContext context) {
-    if (imageUrl == null) {
-      return SizedBox(
-          width: 70,
-          height: 70,
-          child: Icon(
-            Icons.account_circle_rounded,
-            size: 70,
-            color: Colors.grey[900],
-          ));
-    } else {
-      return SizedBox(
-        width: 70,
-        height: 70,
-        child: CircleAvatar(
-          radius: 70,
-          backgroundImage: NetworkImage(imageUrl!),
-        ),
-      );
-    }
-  }
-}
 
 class EmployeeName extends StatelessWidget {
   const EmployeeName({Key? key, required this.name}) : super(key: key);

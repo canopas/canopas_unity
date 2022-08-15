@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -6,7 +7,6 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
-import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../core/utils/date_string_utils.dart';
 import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
@@ -43,14 +43,16 @@ class LeaveRequestCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildLeaveTypeContent(leaveType: leave.leaveType ?? 1),
+                  buildLeaveTypeContent(
+                      leaveType: leave.leaveType ?? 1, context: context),
                   const SizedBox(
                     height: 10,
                   ),
                   buildLeaveDateContent(
                       totalDays: leave.totalLeaves,
                       startTimeStamp: leave.startDate,
-                      endTimeStamp: leave.endDate),
+                      endTimeStamp: leave.endDate,
+                      context: context),
                 ],
               ),
               IconButton(
@@ -82,9 +84,13 @@ class LeaveRequestCard extends StatelessWidget {
   Text buildLeaveDateContent(
       {required double totalDays,
       required int startTimeStamp,
-      required int endTimeStamp}) {
+      required int endTimeStamp,
+      required BuildContext context}) {
+    String localeName = AppLocalizations.of(context).localeName;
     String date = dateInSingleLine(
-        startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
+        startTimeStamp: startTimeStamp,
+        endTimeStamp: endTimeStamp,
+        locale: localeName);
     String days = totalLeaves(totalDays);
 
     return Text(
@@ -94,10 +100,11 @@ class LeaveRequestCard extends StatelessWidget {
     );
   }
 
-  Widget buildLeaveTypeContent({required int leaveType}) {
-    String leaveTypeText = getLeaveStatus(leaveType, leaveTypeMap)!;
+  Widget buildLeaveTypeContent(
+      {required int leaveType, required BuildContext context}) {
     return Text(
-      leaveTypeText,
+      AppLocalizations.of(context)
+          .leave_type_placeholder_leave_status(leaveType),
       style: const TextStyle(
           color: AppColors.darkText,
           fontSize: subTitleTextSize,

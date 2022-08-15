@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/utils/date_string_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/font_size.dart';
-import '../../../../../core/utils/const/leave_map.dart';
 
 class LeaveTitleRow extends StatelessWidget {
   Leave leave;
@@ -14,13 +13,15 @@ class LeaveTitleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _leaveType = getLeaveStatus(leave.leaveType ?? 1, leaveTypeMap)!;
+    var _localization = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildLeaveTypeHeader(leaveType: _leaveType),
+          _buildLeaveTypeHeader(
+              leaveType: _localization
+                  .leave_type_placeholder_leave_status(leave.leaveStatus)),
           Row(
             children: [
               (const Icon(
@@ -31,7 +32,11 @@ class LeaveTitleRow extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              _buildApplyDate(date: '8 july,2022')
+
+              //TODO: Pass actual application date of leave request from leave data instead of Datetime.now()
+              _buildApplyDate(
+                  date: AppLocalizations.of(context)
+                      .date_format_yMMMd(DateTime.now()))
             ],
           )
         ],

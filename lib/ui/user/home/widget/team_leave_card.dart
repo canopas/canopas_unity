@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/font_size.dart';
 
 import '../../../../../configs/colors.dart';
 import 'overlap_profile.dart';
@@ -22,12 +24,15 @@ class TeamLeaveCard extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          const Expanded(
-              flex: 1,
+           Expanded(
               child: Text(
-                'Radhika & 4 others..',
-                style: TextStyle(fontSize: 16, color: AppColors.darkText),
-              ))
+            //Pass name of any employee who is on leave instead of 'Radhika'
+            //Minus 1 from length to maintain proper value in ui like 'Radhika and 4 others are'
+            AppLocalizations.of(context)
+                .user_home_placeholder_onleave_member(length - 1, 'Radhika'),
+            style: const TextStyle(
+                fontSize: subTitleTextSize, color: AppColors.darkText),
+          ))
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/admin/home/employee/list/employee_list.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
@@ -39,7 +40,8 @@ class _EmployeeListViewState extends State<EmployeeListView> {
             return EmployeeList(employees: list);
           }, error: (String error) {
             SchedulerBinding.instance.addPostFrameCallback((_) {
-              showSnackBar(context, 'Something went wrong');
+              showSnackBar(context,
+                  AppLocalizations.of(context).error_something_went_wrong);
             });
             return Container();
           });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -21,6 +22,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
   @override
   Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -56,28 +58,30 @@ class _EmployeeFormState extends State<EmployeeForm> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const TitleText(title: 'Employee Id'),
+                    TitleText(title: _localization.employee_employeeID_tag),
                     CustomTextField(
-                        hintText: 'CA1001',
+                        hintText: _localization.admin_addMember_hint_employeeId,
                         stream: _bloc.employeeId,
                         onChanged: (employeeId) =>
-                            _bloc.validateEmployeeId(employeeId)),
-                    const TitleText(title: 'Member Name'),
+                            _bloc.validateEmployeeId(employeeId, context)),
+                    TitleText(title: _localization.employee_name_tag),
                     CustomTextField(
-                        hintText: 'Andrew Jhone',
+                        hintText: _localization.admin_addMember_hint_name,
                         stream: _bloc.name,
-                        onChanged: (name) => _bloc.validateName(name)),
-                    const TitleText(title: 'Email'),
+                        onChanged: (name) => _bloc.validateName(name, context)),
+                    TitleText(title: _localization.employee_email_tag),
                     CustomTextField(
-                        hintText: 'andrew@canopas.com',
+                        hintText: _localization.admin_addMember_hint_email,
                         stream: _bloc.email,
-                        onChanged: (email) => _bloc.validateEmail(email)),
-                    const TitleText(title: 'Designation'),
+                        onChanged: (email) =>
+                            _bloc.validateEmail(email, context)),
+                    TitleText(title: _localization.employee_designation_tag),
                     CustomTextField(
-                        hintText: 'Android developer',
+                        hintText:
+                            _localization.admin_addMember_hint_designation,
                         stream: _bloc.designation,
                         onChanged: (designation) =>
-                            _bloc.validateDesignation(designation)),
+                            _bloc.validateDesignation(designation, context)),
                     Container(
                       height: 200,
                     )

@@ -1,0 +1,175 @@
+{
+   "language": "English",
+   "appTitle": "Unity",
+
+   "onBoard_skip_button": "SKIP",
+   "onBoard_next_button": "NEXT",
+   "onBoard_start_button": "START",
+
+   "onBoard_screen1_title": "Bring A Team Together",
+   "onBoard_screen1_description": "Unity is strength..when there is teamwork and collaboration, wonderful things can be achieved.",
+
+   "onBoard_screen2_title": "Stay organized with Team",
+   "onBoard_screen2_description": "but understanding the contributions our colleagues make to our companies and teams.",
+
+   "onBoard_screen3_title": "Stay organized with Team",
+   "onBoard_screen3_description": "but understanding the contributions our colleagues make to our companies and teams.",
+
+   "login_welcome_text": "Welcome",
+   "login_toUnity_text": "to Unity!",
+   "login_guide_description": "To continue with Unity please",
+   "login_button_text": "Sign in with Google",
+
+   "appDashBoard_home_tab": "Home",
+   "appDashBoard_staff_tab": "Staff",
+   "appDashBoard_setting_tab": "Settings",
+
+
+    "user_home_available_tag": "Available",
+    "user_home_all_tag": "All",
+    "user_home_used_tag": "Used",
+    "user_home_placeholder_leave": "{leave} Days",
+         "@user_home_placeholder_leave":{
+            "description": "Pass the value of leaves for leaveStatusCard",
+              "placeholders": {
+                "leave":{
+                   "type": "int"
+                         }
+                      }
+                  },
+
+   "user_home_all_leaves_tag": "All Leaves",
+   "user_home_requested_leaves_tag": "Requested Leaves",
+   "user_home_upcoming_leaves_tag": "Upcoming Leaves",
+   "user_home_apply_leave_tag": "Apply for Leave",
+   "user_home_who_onLeave_tag": "Who's on leave today?",
+   "user_home_button_view_all": "View All",
+
+
+   "user_home_placeholder_onleave_member": "{totalMember,plural, =0 {No member on leave, today.} =1{{name} is on leave today}} other{{name} & {totalMember} others...}}",
+        "@user_home_placeholder_onleave_member":{
+            "description": "team members on leave",
+               "placeholders": {
+                  "totalMember":{
+                    "type":"int"
+                          },
+                  "name":{
+                    "type":"String"
+                         }
+                   }
+                 },
+
+   "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
+        "@leave_type_placeholder_leave_status":{
+           "description":"get leave type from leave status",
+             "placeholders":{
+                "leaveStatus":{
+                   "type":"int"
+                        }
+                     }
+                 },
+   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected} }",
+        "@leave_status_placeholder_text":{
+            "description":"get leave type from leave status",
+                "placeholders":{
+                    "leaveStatus":{
+                       "type":"int"
+                            }
+                         }
+                      },
+
+
+      "date_format_yMMMd": "{date}",
+          "@date_format_yMMMd":{
+              "placeholders":{
+                       "date":{
+                          "type":"DateTime",
+                          "format": "yMMMd"
+                               }
+                             }
+                         },
+
+      "leave_reason_tag":"Reason",
+      "leave_type_tag":"Leave Type",
+      "leave_request_tag":"Leave Request",
+      "leave_totalDays_tag":"Total Days",
+      "leave_duration_text":"Duration",
+
+      "user_apply_leave_select_tag": "Select",
+      "user_apply_leave_from_tag": "From:",
+      "user_apply_leave_to_tag": "To",
+      "user_apply_leave_button_reset": "Reset",
+      "user_leave_detail_button_cancel":"CANCEL",
+      "user_apply_leave_button_apply_leave": "Apply Leave",
+      "user_apply_leave_error_message_fill_details": "Please fill all details",
+      "user_apply_leave_error_valid_reason": "Please enter valid reason",
+      "user_leave_detail_approval_Status_tag":"Approval Status",
+
+
+      "admin_home_employee_summary_tag":"Employee Summary",
+      "admin_home_your_employee_tag":"Your Employee",
+      "admin_home_employee_tag": "Employee",
+      "admin_home_request_tag":"Requests",
+      "admin_home_absence_tag":"Absence",
+
+       "admin_employee_detail_profile_tag":"Profile",
+
+      "employee_designation_tag":"Designation",
+      "employee_role_tag":"Role",
+      "employee_mobile_tag":"Mobile",
+      "employee_email_tag":"Email",
+      "employee_address_tag":"Address",
+      "employee_dateOfBirth_tag":"Date Of Birth",
+      "employee_dateOfJoin_tag":"Date of Joining",
+      "employee_employeeID_tag":"Employee Id",
+      "employee_name_tag":"Name",
+
+
+
+      "admin_leave_detail_button_reject":"REJECT",
+      "admin_leave_detail_button_approve":"APPROVE",
+      "admin_leave_detail_button_seeHistory":"See History",
+      "admin_leave_detail_button_ok":"OK",
+      "admin_leave_detail_daysLeft_tag":"Days left",
+
+
+      "admin_addMember_button_submit":"SUBMIT",
+      "admin_addMember_designation_tag":"Designation",
+      "admin_addMember_memberName_tag":"MemberName",
+       "admin_addMember_addMember_tag":"Add Member",
+       "admin_addMember_hr_roleTag":"HR",
+      "admin_addMember_hint_name":"Andrew Jhone",
+      "admin_addMember_hint_employeeId":"CA 1001",
+      "admin_addMember_hint_email":"andrew@canopas.com",
+      "admin_addMember_hint_designation":"Android developer",
+
+
+      "admin_leave_detail_placeholder_remaining_days":"{Remaining: {day}/30}",
+        "@admin_leave_detail_placeholder_remaining_days":{
+           "placeholders":{
+             "day":{
+              "type":"int"
+                }
+          }
+      },
+
+     "error_something_went_wrong": "Something went wrong",
+
+     "admin_leave_detail_error_reason":"Please enter reason",
+     "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
+
+     "admin_add_member_error_email":"Please enter valid email",
+     "admin_add_member_error_name": "Please enter at least 4 character of your name",
+     "admin_add_member_error_complete_field": "Please complete this mandatory field",
+
+     "empty_leave_state_message":"You haven't applied for any leaves yet!"
+
+
+
+
+
+
+
+
+
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 
 import '../../../../../configs/colors.dart';
@@ -24,20 +25,24 @@ class LeaveStatus extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const LeaveInfo(
-                    title: 'Available',
-                    value: '7',
+                  LeaveInfo(
+                    title: AppLocalizations.of(context).user_home_available_tag,
+                    value: 7,
                   ),
                   Container(
                     width: 1,
                     color: Colors.grey,
                   ),
-                  const LeaveInfo(title: 'All', value: '26'),
+                  LeaveInfo(
+                      title: AppLocalizations.of(context).user_home_all_tag,
+                      value: 30),
                   Container(
                     width: 1,
                     color: AppColors.secondaryText,
                   ),
-                  const LeaveInfo(title: 'Used', value: '19'),
+                  LeaveInfo(
+                      title: AppLocalizations.of(context).user_home_used_tag,
+                      value: 23),
                 ],
               ),
             ),
@@ -48,7 +53,7 @@ class LeaveStatus extends StatelessWidget {
 
 class LeaveInfo extends StatelessWidget {
   final String title;
-  final String value;
+  final int value;
 
   const LeaveInfo({Key? key, required this.title, required this.value})
       : super(key: key);
@@ -66,10 +71,10 @@ class LeaveInfo extends StatelessWidget {
         const SizedBox(
           height: 7,
         ),
-        Text('$value Days ',
+        Text(AppLocalizations.of(context).user_home_placeholder_leave(value),
             style: const TextStyle(
                 color: AppColors.darkText,
-                fontSize: 16,
+                fontSize: subTitleTextSize,
                 fontWeight: FontWeight.w500))
       ],
     );

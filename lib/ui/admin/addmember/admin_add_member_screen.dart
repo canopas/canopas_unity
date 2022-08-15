@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -8,6 +9,7 @@ import 'package:projectunity/ui/admin/addmember/widget/header_title.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../../configs/colors.dart';
+import '../../../configs/font_size.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../model/employee/employee.dart';
 
@@ -32,19 +34,18 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: AppColors.primaryBlue,
-        body: Stack(
-          children: [
-            NestedScrollView(
-              headerSliverBuilder: (_, __) => [
-                SliverAppBar(
-                  backgroundColor: AppColors.primaryBlue,
-                  leading: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_rounded,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppColors.primaryBlue,
+      body: Stack(
+        children: [
+          NestedScrollView(
+            headerSliverBuilder: (_, __) => [
+              SliverAppBar(
+                backgroundColor: AppColors.primaryBlue,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
                       size: 24,
                     ),
                     onPressed: () {
@@ -89,8 +90,11 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                             employeeService.addEmployee(employee);
                             snapshot.data == true ? _stateManager.pop() : () {};
                           } catch (error) {
-                            showSnackBar(context, 'Something went wrong');
-                          }
+                            showSnackBar(
+                              context,
+                              AppLocalizations.of(context)
+                                  .error_something_went_wrong);
+                        }
                         },
                       );
                     },
@@ -100,7 +104,6 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
             )
           ],
         ),
-      ),
     );
   }
 }
@@ -121,11 +124,11 @@ class SubmitButton extends StatelessWidget {
             primary: isEnabled ? AppColors.darkBlue : AppColors.primaryBlue,
           ),
           onPressed: onPress,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
-              'Submit',
-              style: TextStyle(fontSize: 20),
+              AppLocalizations.of(context).admin_addMember_button_submit,
+              style: const TextStyle(fontSize: titleTextSize),
             ),
           )),
     );

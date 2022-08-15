@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 import '../../core/utils/const/image_constant.dart';
 
 class OnBoardingContents {
@@ -8,21 +11,20 @@ class OnBoardingContents {
   OnBoardingContents(
       {required this.title, required this.image, required this.info});
 
-  static List<OnBoardingContents> contents = [
-    OnBoardingContents(
-        title: 'Bring A Team Together',
-        image: onBoardScreen1Image,
-        info:
-            'Unity is strength..when there is teamwork and collaboration, wonderful things can be achieved.'),
-    OnBoardingContents(
-        title: 'Stay organized with Team',
-        image: onboardScreen2Image,
-        info:
-            'but understanding the contributions our colleagues make to our companies and teams.'),
-    OnBoardingContents(
-        title: 'Create & Organize your Workspace',
-        image: onboardScreen3Image,
-        info:
-            'A digital workspace that helps you to visually organize ideas, to map any content & to share inspiration.'),
-  ];
+  static List<OnBoardingContents> contents(BuildContext context) {
+    return [
+      OnBoardingContents(
+          title: AppLocalizations.of(context).onBoard_screen1_title,
+          image: onBoardScreen1Image,
+          info: AppLocalizations.of(context).onBoard_screen1_description),
+      OnBoardingContents(
+          title: AppLocalizations.of(context).onBoard_screen2_title,
+          image: onboardScreen2Image,
+          info: AppLocalizations.of(context).onBoard_screen2_description),
+      OnBoardingContents(
+          title: AppLocalizations.of(context).onBoard_screen3_title,
+          image: onboardScreen3Image,
+          info: AppLocalizations.of(context).onBoard_screen3_description),
+    ];
+  }
 }

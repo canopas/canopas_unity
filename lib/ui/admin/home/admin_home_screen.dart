@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
@@ -38,9 +39,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         Icons.menu,
                         color: AppColors.whiteColor,
                       )),
-                  const Text(
-                    'Employee Summary',
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)
+                        .admin_home_employee_summary_tag,
+                    style: const TextStyle(
                         fontSize: titleTextSize,
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600),
@@ -68,10 +70,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   Widget _buildYourEmployeeHeader() {
-    return const Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, top: 80),
-      child: Text("Your Employee",
-          style: TextStyle(
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 80),
+      child: Text(AppLocalizations.of(context).admin_home_your_employee_tag,
+          style: const TextStyle(
               fontSize: headerTextSize,
               color: AppColors.secondaryText,
               fontWeight: FontWeight.bold)),

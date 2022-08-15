@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -31,19 +32,19 @@ class EmployeeSummaryCard extends StatelessWidget {
                   icon: Icons.people,
                   color: AppColors.primaryGreen,
                   title: '60',
-                  desc: 'Employee',
+                  desc: AppLocalizations.of(context).admin_home_employee_tag,
                 ),
                 _buildSummaryContent(
                   icon: Icons.notifications_active_rounded,
                   color: AppColors.primaryDarkYellow,
                   title: '1',
-                  desc: 'Leave Request',
+                  desc: AppLocalizations.of(context).admin_home_request_tag,
                 ),
                 _buildSummaryContent(
                   icon: Icons.calendar_month_rounded,
                   color: AppColors.primaryPink,
                   title: '2',
-                  desc: 'Absence',
+                  desc: AppLocalizations.of(context).admin_home_absence_tag,
                 ),
               ],
             ),

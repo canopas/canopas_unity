@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
 
 import '../../../../bloc/leaves/user/leaves/all_leaves_bloc.dart';
@@ -21,10 +22,16 @@ class _AllLeaveScreenState extends State<AllLeaveScreen> {
   }
 
   @override
+  void dispose() {
+    // _userAllLeavesBloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LeaveScreen(
       leaveStream: _userAllLeavesBloc.allLeaves,
-      header: 'All Leaves',
+      header: AppLocalizations.of(context).user_home_all_leaves_tag,
     );
   }
 }

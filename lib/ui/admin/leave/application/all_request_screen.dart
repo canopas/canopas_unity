@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/leave/leave_application_bloc.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -46,9 +47,9 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
             _stackManager.pop();
           },
         ),
-        title: const Text(
-          "Requests",
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).admin_home_request_tag,
+          style: const TextStyle(
               color: AppColors.darkText,
               fontSize: headerTextSize,
               fontWeight: FontWeight.w600),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
 import 'package:projectunity/navigation/router_info_parser.dart';
 
 import '../di/service_locator.dart';
+import '../l10n/l10n.dart';
 import '../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../navigation/navigation_stack_manager.dart';
@@ -27,6 +30,7 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
         show = _stateManager.showBottomBar;
       });
     });
+    super.initState();
   }
 
   @override
@@ -41,27 +45,27 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
               unselectedFontSize: 15,
               currentIndex: selectedTab,
               onTap: _ontap,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.home_rounded,
                     size: 34,
                   ),
-                  label: 'Home',
+                  label: AppLocalizations.of(context).appDashBoard_home_tab,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.people,
                     size: 34,
                   ),
-                  label: 'Staff',
+                  label: AppLocalizations.of(context).appDashBoard_staff_tab,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.settings,
                     size: 34,
                   ),
-                  label: 'Settings',
+                  label: AppLocalizations.of(context).appDashBoard_setting_tab,
                 ),
               ],
             )
@@ -71,7 +75,12 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
           theme: ThemeData(fontFamily: 'IBMPlexSans'),
           routerDelegate: MainRouterDelegate(stack: _stateManager),
           routeInformationParser: HomeRouterInfoParser(),
-          debugShowCheckedModeBanner: false,
+          supportedLocales: L10n.all,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
         ),
       ),
     );
