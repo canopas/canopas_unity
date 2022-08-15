@@ -49,36 +49,23 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
               fontSize: headerTextSize, fontWeight: FontWeight.w600),
           backgroundColor: AppColors.primaryBlue,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: primaryHorizontalSpacing, vertical: 15),
-          child: Stack(children: [
-            SizedBox(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const LeaveTypeCard(),
-                      const StartLeaveCard(),
-                      const EndLeaveCard(),
-                      ReasonCard(),
-                      //Implementation of supervisor in case of leave of employee.
-                      //  const SupervisorCard(),
-                      Container(height: 50)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-                child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: BottomButtonBar())),
-          ]),
+        body: Form(
+          key: formKey,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(
+                horizontal: primaryHorizontalSpacing, vertical: 15),
+            children: [
+              const LeaveTypeCard(),
+              const StartLeaveCard(),
+              const EndLeaveCard(),
+              ReasonCard(),
+              //  const SupervisorCard(),
+              Container(height: 50)
+            ],
+          ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: BottomButtonBar(),
       ),
     );
   }
