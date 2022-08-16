@@ -16,8 +16,7 @@ class LoginBloc {
   final AuthManager _authManager;
 
   LoginBloc(this._authManager);
-
-  final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
+  var _loginSubject = BehaviorSubject<ApiResponse<bool>>();
 
   BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
 
@@ -63,9 +62,8 @@ class LoginBloc {
   }
 
   Future<User?> _signInWithGoogle() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
-
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     final GoogleSignInAccount? googleSignInAccount =
@@ -97,4 +95,9 @@ class LoginBloc {
   void reset() {
     _loginSubject.sink.add(const ApiResponse.idle());
   }
+
+  void restart(){
+    _loginSubject = BehaviorSubject<ApiResponse<bool>>();
+  }
+
 }

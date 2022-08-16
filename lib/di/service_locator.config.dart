@@ -6,6 +6,7 @@
 
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
+import 'package:projectunity/bloc/user/setting_view_bloc.dart' as _i24;
 import 'package:shared_preferences/shared_preferences.dart' as _i10;
 
 import '../bloc/admin/employee/employee_detail_bloc.dart' as _i14;
@@ -66,6 +67,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i17.UserManager>(), get<_i11.UserLeaveService>()));
   gh.singleton<_i22.UserAllLeavesBloc>(_i22.UserAllLeavesBloc(
       get<_i11.UserLeaveService>(), get<_i17.UserManager>()));
+  gh.singleton<_i24.SettingViewBLoc>(_i24.SettingViewBLoc());
   return get;
 }
 

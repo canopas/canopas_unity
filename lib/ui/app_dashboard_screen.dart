@@ -23,6 +23,9 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
 
   @override
   void initState() {
+    _stateManager.isAdmin
+        ? getBottomNavigation(selectedTab, adminBottomBar)
+        : getBottomNavigation(selectedTab, employeeBottomBar);
     super.initState();
   }
 
