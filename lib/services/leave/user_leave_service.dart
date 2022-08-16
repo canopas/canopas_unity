@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/model/leave/leave.dart';
@@ -10,6 +11,8 @@ class UserLeaveService {
       .withConverter(
           fromFirestore: Leave.fromFireStore,
           toFirestore: (Leave leave, _) => leave.toFireStore(leave));
+
+  final _totalLeavesCount = FirebaseFirestore.instance.collection('totalLeavesCount');
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveUid = leaveRequestData.leaveId;
@@ -40,4 +43,23 @@ class UserLeaveService {
   Future<void> deleteLeaveRequest(String leaveId) async {
     await _leaveDbCollection.doc(leaveId).delete();
   }
+
+  Future<int> getUserAllLeaveCount() async {
+    return await _totalLeavesCount.get().then((val){
+      if(val.docs.isNotEmpty) return int.parse(val.docs[0].data()['leaveCount']);
+      return 0;
+    });
+  }
+  
+  Future<int> getUserUsedLeaveCount(String id) async {
+   List<Leave> allLeaves = await getAllLeavesOfUser(id);
+   int _leaveCount = 0;
+   for (var element in allLeaves){
+     if(element.leaveStatus == approveLeaveStatus){
+       _leaveCount++;
+     }
+  }
+  return _leaveCount;
+  }
+
 }

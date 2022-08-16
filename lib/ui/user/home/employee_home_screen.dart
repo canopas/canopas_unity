@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
+import 'package:projectunity/ui/user/home/widget/notification_icon.dart';
+import 'package:projectunity/ui/user/home/widget/team_leave_card.dart';
+import 'package:projectunity/widget/user_profile_image.dart';
+import '../../../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart';
 
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
@@ -22,7 +27,13 @@ class EmployeeHomeScreen extends StatefulWidget {
 class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
   final _userManager = getIt<UserManager>();
+  final _leaveCount = getIt<EmployeeLeaveCountBlock>();
 
+  @override
+  void initState() {
+    _leaveCount.fetchLeaveSummary();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,8 +119,11 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               ),
             ],
           ),
-          const Positioned(
-              top: topSpacing, right: 10, left: 10, child: LeaveStatus())
+            Positioned(
+              top: topSpacing, right: 10, left: 10, child: StreamBuilder(
+                stream: _leaveCount.leaveCounts.stream,
+                builder: (context,AsyncSnapshot snapshot) => LeaveStatus(leaveCounts: (snapshot.hasData)?snapshot.data:LeaveCounts(availableLeaveCount: 0, usedLeaveCount: 0, allLeaveCount: 0)))
+              )
         ],
       ),
     );

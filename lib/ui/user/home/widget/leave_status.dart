@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
-
 import '../../../../../configs/colors.dart';
+import '../../../../model/employee_leave_count/employee_leave_count.dart';
 
 class LeaveStatus extends StatelessWidget {
-  const LeaveStatus({Key? key}) : super(key: key);
+   const LeaveStatus({Key? key, required this.leaveCounts}) : super(key: key);
+
+  final LeaveCounts leaveCounts;
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +29,18 @@ class LeaveStatus extends StatelessWidget {
                 children: [
                   LeaveInfo(
                     title: AppLocalizations.of(context).user_home_available_tag,
-                    value: 7,
+                    counts: leaveCounts.availableLeaveCount,
                   ),
                   Container(
                     width: 1,
                     color: Colors.grey,
                   ),
-                  LeaveInfo(
-                      title: AppLocalizations.of(context).user_home_all_tag,
-                      value: 30),
+                  LeaveInfo(title: AppLocalizations.of(context).user_home_all_tag, counts: leaveCounts.allLeaveCount),
                   Container(
                     width: 1,
                     color: AppColors.secondaryText,
                   ),
-                  LeaveInfo(
-                      title: AppLocalizations.of(context).user_home_used_tag,
-                      value: 23),
+                  LeaveInfo(title: AppLocalizations.of(context).user_home_used_tag, counts: leaveCounts.usedLeaveCount),
                 ],
               ),
             ),
@@ -53,9 +51,9 @@ class LeaveStatus extends StatelessWidget {
 
 class LeaveInfo extends StatelessWidget {
   final String title;
-  final int value;
+  final int counts;
 
-  const LeaveInfo({Key? key, required this.title, required this.value})
+  const LeaveInfo({Key? key, required this.title, required this.counts})
       : super(key: key);
 
   @override
@@ -71,7 +69,7 @@ class LeaveInfo extends StatelessWidget {
         const SizedBox(
           height: 7,
         ),
-        Text(AppLocalizations.of(context).user_home_placeholder_leave(value),
+        Text(AppLocalizations.of(context).user_home_placeholder_leave(counts),
             style: const TextStyle(
                 color: AppColors.darkText,
                 fontSize: subTitleTextSize,
