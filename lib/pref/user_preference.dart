@@ -26,6 +26,10 @@ class UserPreference {
     return _preferences.getBool(onBoardCompleted);
   }
 
+  Future<bool> removeCurrentUser() async {
+    return await _preferences.remove(userPrefKeyUser);
+  }
+
   void setOnBoardCompleted(bool isComplete) {
     _preferences.setBool(onBoardCompleted, isComplete);
   }

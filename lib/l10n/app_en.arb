@@ -162,12 +162,9 @@
      "admin_add_member_error_name": "Please enter at least 4 character of your name",
      "admin_add_member_error_complete_field": "Please complete this mandatory field",
 
-     "empty_leave_state_message":"You haven't applied for any leaves yet!"
+     "empty_leave_state_message":"You haven't applied for any leaves yet!",
 
-
-
-
-
+     "logout_button_text": "Log Out"
 
 
 
