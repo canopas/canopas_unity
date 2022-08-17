@@ -37,99 +37,99 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(loginPageBackgroundImage), fit: BoxFit.cover)),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: StreamBuilder<ApiResponse<bool>>(
-            stream: _bloc.loginResponse,
-            initialData: const ApiResponse.idle(),
-            builder: (context, snapshot) {
-              snapshot.data!.when(
-                  idle: () {},
-                  loading: () {
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      setState(() {
-                        _showProgress = true;
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(loginPageBackgroundImage), fit: BoxFit.cover)),
+          child: StreamBuilder<ApiResponse<bool>>(
+              stream: _bloc.loginResponse,
+              initialData: const ApiResponse.idle(),
+              builder: (context, snapshot) {
+                snapshot.data!.when(
+                    idle: () {},
+                    loading: () {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                        setState(() {
+                          _showProgress = true;
+                        });
                       });
-                    });
-                  },
-                  completed: (bool hasAccount) {
-                    if (hasAccount) {
+                    },
+                    completed: (bool hasAccount) {
+                      if (hasAccount) {
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            _showProgress = false;
+                          });
+                          _loginState.setUserLogin(hasAccount);
+                        });
+                      }
+                    },
+                    error: (String error) {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
                         setState(() {
                           _showProgress = false;
                         });
-                        _loginState.setUserLogin(hasAccount);
-                      });
-                    }
-                  },
-                  error: (String error) {
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      setState(() {
-                        _showProgress = false;
-                      });
-                      final snackBar = SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text(error),
-                        action: SnackBarAction(
-                          label: 'Ok',
-                          onPressed: () {
-                            // Some code to undo the change.
-                          },
-                        ),
-                      );
-
-                      // Find the ScaffoldMessenger in the widget tree
-                      // and use it to show a SnackBar.
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      _bloc.reset();
-                    });
-                  });
-
-              return SingleChildScrollView(
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20, left: 20),
-                            child: Column(
-                              children: [
-                                buildTitle(),
-                                buildSubTitle(),
-                              ],
-                            ),
+                        final snackBar = SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text(error),
+                          action: SnackBarAction(
+                            label: 'Ok',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
                           ),
-                          buildImage(context),
-                          Column(children: [
-                             Center(
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .login_guide_description,
-                                style: const TextStyle(
-                                    color: AppColors.secondaryText,
-                                    fontSize: bodyTextSize),
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        _bloc.reset();
+                      });
+                    });
+
+                return SingleChildScrollView(
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20, left: 20),
+                              child: Column(
+                                children: [
+                                  buildTitle(),
+                                  buildSubTitle(),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            _showProgress
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : SignInButton(onPressed: _bloc.signIn),
+                            buildImage(context),
+                            Column(children: [
+                              Center(
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .login_guide_description,
+                                  style: const TextStyle(
+                                      color: AppColors.secondaryText,
+                                      fontSize: bodyTextSize),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              _showProgress
+                                  ? const Center(
+                                  child: CircularProgressIndicator())
+                                  : SignInButton(onPressed: _bloc.signIn),
+                            ]),
                           ]),
-                        ]),
+                    ),
                   ),
-                ),
-              );
-            }),
-      ),
+                );
+              }),
+        ),
     );
   }
 
