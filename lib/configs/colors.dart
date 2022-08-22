@@ -39,4 +39,6 @@ class AppColors {
   static const Color lightGreyColor = Color(0xffe7e7e7);
 
   static const Color textFieldBg = Color(0xFFf2f3f7);
+
+  static const Color greyColor = Colors.grey;
 }

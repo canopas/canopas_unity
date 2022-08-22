@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
 
+@Singleton()
 class EmployeeLeaveCountBlock {
 
   final UserLeaveService _userLeaveService;

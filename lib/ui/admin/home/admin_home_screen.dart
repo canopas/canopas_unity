@@ -57,7 +57,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   ),
                   onPressed: () {
                     _stateManager
-                        .push(const AdminNavigationStackItem.settingsState());
+                        .push(const AdminNavigationStackItem.adminSettingsState());
                   }),
             ])),
             _buildYourEmployeeHeader(),

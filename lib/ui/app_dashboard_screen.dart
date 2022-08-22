@@ -68,11 +68,11 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
   Map employeeBottomBar = {
     0: const EmployeeNavigationStackItem.employeeHomeState(),
     1: const EmployeeNavigationStackItem.staffState(),
-    2: const EmployeeNavigationStackItem.settingsState(),
+    2: const EmployeeNavigationStackItem.employeeSettingsState(),
   };
   Map adminBottomBar = {
     0: const AdminNavigationStackItem.adminHomeState(),
     1: const AdminNavigationStackItem.staffState(),
-    2: const AdminNavigationStackItem.settingsState(),
+    2: const AdminNavigationStackItem.adminSettingsState(),
   };
 }

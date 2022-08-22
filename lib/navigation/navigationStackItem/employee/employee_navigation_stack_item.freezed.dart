@@ -38,8 +38,8 @@ class _$EmployeeNavigationStackItemTearOff {
     return const LeaveRequestState();
   }
 
-  SettingsState settingsState() {
-    return const SettingsState();
+  EmployeeSettingsState employeeSettingsState() {
+    return const EmployeeSettingsState();
   }
 
   RequestedLeavesState requestedLeaves() {
@@ -65,7 +65,7 @@ mixin _$EmployeeNavigationStackItem {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) =>
@@ -77,7 +77,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) =>
@@ -89,7 +89,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -103,7 +103,8 @@ mixin _$EmployeeNavigationStackItem {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) =>
@@ -115,7 +116,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) =>
@@ -127,7 +128,7 @@ mixin _$EmployeeNavigationStackItem {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -199,7 +200,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -214,7 +215,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -229,7 +230,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -249,7 +250,8 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -264,7 +266,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -279,7 +281,7 @@ class _$EmployeeHomeState implements EmployeeHomeState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -340,7 +342,7 @@ class _$StaffState implements StaffState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -355,7 +357,7 @@ class _$StaffState implements StaffState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -370,7 +372,7 @@ class _$StaffState implements StaffState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -390,7 +392,8 @@ class _$StaffState implements StaffState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -405,7 +408,7 @@ class _$StaffState implements StaffState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -420,7 +423,7 @@ class _$StaffState implements StaffState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -482,7 +485,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -497,7 +500,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -512,7 +515,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -532,7 +535,8 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -547,7 +551,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -562,7 +566,7 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -624,7 +628,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -639,7 +643,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -654,7 +658,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -674,7 +678,8 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -689,7 +694,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -704,7 +709,7 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -766,7 +771,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -781,7 +786,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -796,7 +801,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -816,7 +821,8 @@ class _$LeaveRequestState implements LeaveRequestState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -831,7 +837,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -846,7 +852,7 @@ class _$LeaveRequestState implements LeaveRequestState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -863,38 +869,38 @@ abstract class LeaveRequestState implements EmployeeNavigationStackItem {
 }
 
 /// @nodoc
-abstract class $SettingsStateCopyWith<$Res> {
-  factory $SettingsStateCopyWith(
-          SettingsState value, $Res Function(SettingsState) then) =
-      _$SettingsStateCopyWithImpl<$Res>;
+abstract class $EmployeeSettingsStateCopyWith<$Res> {
+  factory $EmployeeSettingsStateCopyWith(EmployeeSettingsState value,
+          $Res Function(EmployeeSettingsState) then) =
+      _$EmployeeSettingsStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SettingsStateCopyWithImpl<$Res>
+class _$EmployeeSettingsStateCopyWithImpl<$Res>
     extends _$EmployeeNavigationStackItemCopyWithImpl<$Res>
-    implements $SettingsStateCopyWith<$Res> {
-  _$SettingsStateCopyWithImpl(
-      SettingsState _value, $Res Function(SettingsState) _then)
-      : super(_value, (v) => _then(v as SettingsState));
+    implements $EmployeeSettingsStateCopyWith<$Res> {
+  _$EmployeeSettingsStateCopyWithImpl(
+      EmployeeSettingsState _value, $Res Function(EmployeeSettingsState) _then)
+      : super(_value, (v) => _then(v as EmployeeSettingsState));
 
   @override
-  SettingsState get _value => super._value as SettingsState;
+  EmployeeSettingsState get _value => super._value as EmployeeSettingsState;
 }
 
 /// @nodoc
 
-class _$SettingsState implements SettingsState {
-  const _$SettingsState();
+class _$EmployeeSettingsState implements EmployeeSettingsState {
+  const _$EmployeeSettingsState();
 
   @override
   String toString() {
-    return 'EmployeeNavigationStackItem.settingsState()';
+    return 'EmployeeNavigationStackItem.employeeSettingsState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is SettingsState);
+        (other.runtimeType == runtimeType && other is EmployeeSettingsState);
   }
 
   @override
@@ -908,11 +914,11 @@ class _$SettingsState implements SettingsState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
-    return settingsState();
+    return employeeSettingsState();
   }
 
   @override
@@ -923,11 +929,11 @@ class _$SettingsState implements SettingsState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
-    return settingsState?.call();
+    return employeeSettingsState?.call();
   }
 
   @override
@@ -938,13 +944,13 @@ class _$SettingsState implements SettingsState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
   }) {
-    if (settingsState != null) {
-      return settingsState();
+    if (employeeSettingsState != null) {
+      return employeeSettingsState();
     }
     return orElse();
   }
@@ -958,11 +964,12 @@ class _$SettingsState implements SettingsState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
-    return settingsState(this);
+    return employeeSettingsState(this);
   }
 
   @override
@@ -973,11 +980,11 @@ class _$SettingsState implements SettingsState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
-    return settingsState?.call(this);
+    return employeeSettingsState?.call(this);
   }
 
   @override
@@ -988,20 +995,20 @@ class _$SettingsState implements SettingsState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
   }) {
-    if (settingsState != null) {
-      return settingsState(this);
+    if (employeeSettingsState != null) {
+      return employeeSettingsState(this);
     }
     return orElse();
   }
 }
 
-abstract class SettingsState implements EmployeeNavigationStackItem {
-  const factory SettingsState() = _$SettingsState;
+abstract class EmployeeSettingsState implements EmployeeNavigationStackItem {
+  const factory EmployeeSettingsState() = _$EmployeeSettingsState;
 }
 
 /// @nodoc
@@ -1050,7 +1057,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -1065,7 +1072,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -1080,7 +1087,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -1100,7 +1107,8 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -1115,7 +1123,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -1130,7 +1138,7 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),
@@ -1216,7 +1224,7 @@ class _$LeaveDetailState implements LeaveDetailState {
     required TResult Function() userAllLeaveState,
     required TResult Function() userUpcomingLeaveState,
     required TResult Function() leaveRequestState,
-    required TResult Function() settingsState,
+    required TResult Function() employeeSettingsState,
     required TResult Function() requestedLeaves,
     required TResult Function(Leave leave) leaveDetailState,
   }) {
@@ -1231,7 +1239,7 @@ class _$LeaveDetailState implements LeaveDetailState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
   }) {
@@ -1246,7 +1254,7 @@ class _$LeaveDetailState implements LeaveDetailState {
     TResult Function()? userAllLeaveState,
     TResult Function()? userUpcomingLeaveState,
     TResult Function()? leaveRequestState,
-    TResult Function()? settingsState,
+    TResult Function()? employeeSettingsState,
     TResult Function()? requestedLeaves,
     TResult Function(Leave leave)? leaveDetailState,
     required TResult orElse(),
@@ -1266,7 +1274,8 @@ class _$LeaveDetailState implements LeaveDetailState {
     required TResult Function(UserUpcomingLeaveState value)
         userUpcomingLeaveState,
     required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(SettingsState value) settingsState,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
     required TResult Function(RequestedLeavesState value) requestedLeaves,
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) {
@@ -1281,7 +1290,7 @@ class _$LeaveDetailState implements LeaveDetailState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) {
@@ -1296,7 +1305,7 @@ class _$LeaveDetailState implements LeaveDetailState {
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
     TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
     TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(SettingsState value)? settingsState,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(RequestedLeavesState value)? requestedLeaves,
     TResult Function(LeaveDetailState value)? leaveDetailState,
     required TResult orElse(),

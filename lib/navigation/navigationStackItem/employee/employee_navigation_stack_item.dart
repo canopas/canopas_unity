@@ -23,7 +23,7 @@ class EmployeeNavigationStackItem
   const factory EmployeeNavigationStackItem.leaveRequestState() =
       LeaveRequestState;
 
-  const factory EmployeeNavigationStackItem.settingsState() = SettingsState;
+  const factory EmployeeNavigationStackItem.employeeSettingsState() = EmployeeSettingsState;
 
   const factory EmployeeNavigationStackItem.requestedLeaves() =
       RequestedLeavesState;
