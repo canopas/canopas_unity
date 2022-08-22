@@ -57,7 +57,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                             onPressed: () {
                               _stateManager.push(
                                   const EmployeeNavigationStackItem
-                                      .settingsState());
+                                      .employeeSettingsState());
                             },
                             icon: const Icon(
                               Icons.settings,

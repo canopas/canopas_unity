@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
-
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
 import '../ui/admin/home/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/leave/application/all_request_screen.dart';
 import '../ui/admin/leave/detail/leave_detail_screen.dart';
-import '../ui/setting/setting_screen.dart';
+import '../ui/admin/setting/admin_setting_screen.dart';
+import '../ui/admin/setting/update_leave_count/admin_update_leave_counts_screen.dart';
 import '../ui/staff/staff_screen.dart';
 import '../ui/user/leave/applyLeave/leave_request_form.dart';
 import '../ui/user/leave/detail/leave_detail_screen.dart';
 import '../ui/user/leave/requested/requested_leave_screen.dart';
 import '../ui/user/leave/upcoming/upcoming_leave_screen.dart';
+import '../ui/user/setting/user_setting_screen.dart';
 import 'navigation_stack_manager.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
@@ -62,8 +63,8 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
                 key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
             leaveRequestState: () => const MaterialPage(
                 key: ValueKey("apply-leave"), child: LeaveRequestForm()),
-            settingsState: () => const MaterialPage(
-                key: ValueKey("setting"), child: SettingScreen()),
+            employeeSettingsState: () =>    const MaterialPage(
+                key:  ValueKey("employee-setting"), child: EmployeeSettingScreen()),
             requestedLeaves: () => const MaterialPage(
                 key: ValueKey("user-requested-leave"),
                 child: RequestedLeaveScreen()),
@@ -84,8 +85,10 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
                 child: EmployeeDetailScreen(
                   id: selectedEmployee,
                 )),
-            settingsState: () => const MaterialPage(
-                key: ValueKey("setting"), child: SettingScreen()),
+            adminSettingsState: () => const MaterialPage(
+                key: ValueKey("admin-setting"), child: AdminSettingScreen()),
+    updateLeaveCountsState: () => const MaterialPage(
+        key: ValueKey("admin-update-leave-count"), child: AdminUpdateLeaveCountsScreen()),
             staffState: () => const MaterialPage(
                 key: ValueKey('staff'), child: StaffScreen()),
             addMemberState: () => const MaterialPage(

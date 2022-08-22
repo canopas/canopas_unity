@@ -74,8 +74,14 @@ class HomeRouterInfoParser
         case "leave-request":
           items.add(const EmployeeNavigationStackItem.leaveRequestState());
           break;
-        case "settings":
-          items.add(const EmployeeNavigationStackItem.settingsState());
+        case "employee-settings":
+          items.add(const EmployeeNavigationStackItem.employeeSettingsState());
+          break;
+        case "admin-settings":
+          items.add(const AdminNavigationStackItem.adminSettingsState());
+          break;
+        case "admin-update-leave-count":
+          items.add(const AdminNavigationStackItem.updateLeaveCountsState());
           break;
         case "team-leave":
           items.add(const EmployeeNavigationStackItem.requestedLeaves());

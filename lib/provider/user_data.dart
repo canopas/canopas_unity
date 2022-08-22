@@ -24,6 +24,10 @@ class UserManager {
 
   String get employeeId => _employee!.id;
 
+  String get employeeDesignation => _employee!.designation;
+
+  String get userName => getUserName()!;
+
   bool get isUserLoggedIn => _employee != null;
 
   bool get isOnBoardCompleted => _userPreference.getOnBoardCompleted() != null;

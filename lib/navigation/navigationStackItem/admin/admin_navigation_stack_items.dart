@@ -14,7 +14,9 @@ class AdminNavigationStackItem
   const factory AdminNavigationStackItem.employeeDetailState(
       {required String id}) = EmployeeDetailState;
 
-  const factory AdminNavigationStackItem.settingsState() = SettingsState;
+  const factory AdminNavigationStackItem.adminSettingsState() = AdminSettingsState;
+
+  const factory AdminNavigationStackItem.updateLeaveCountsState() = UpdateLeaveCountState;
 
   const factory AdminNavigationStackItem.staffState() = StaffState;
 

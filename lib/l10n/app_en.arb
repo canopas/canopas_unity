@@ -157,6 +157,7 @@
 
      "admin_leave_detail_error_reason":"Please enter reason",
      "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
+     "admin_update_total_leave_count_error":"Failed to update total leave count!",
 
      "admin_add_member_error_email":"Please enter valid email",
      "admin_add_member_error_name": "Please enter at least 4 character of your name",
@@ -164,9 +165,13 @@
 
      "empty_leave_state_message":"You haven't applied for any leaves yet!",
 
-     "logout_button_text": "Log Out"
-
-
+     "logout_button_text": "Log Out",
+     "update_button_text": "Update",
+     "settings_setting_text": "Settings",
+     "settings_account_text": "Accounts",
+     "admin_total_leave_count_text":"Total leave count",
+     "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
+     "something_went_wrong_text":"Something went wrong!"
 
 
 }
