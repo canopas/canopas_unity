@@ -40,22 +40,20 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
               flex: 1,
               child: Visibility(
                   visible: !_isLastPage,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20, right: 20),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: TextButton(
-                          onPressed: () {
-                            _loginState.setOnBoardComplete(true);
-                            _preference.setOnBoardCompleted(true);
-                          },
-                          child: Text(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton(
+                        onPressed: () {
+                          _loginState.setOnBoardComplete(true);
+                          _preference.setOnBoardCompleted(true);
+                        },
+                        child: Text(
                           AppLocalizations.of(context).onBoard_skip_button,
-                            style: const TextStyle(
+                          style: const TextStyle(
                               color: Colors.grey, fontSize: subTitleTextSize),
                         )),
-                  ),
-                )),),
+                  )),
+            ),
             Expanded(
               flex: 8,
               child: PageView.builder(
@@ -87,16 +85,15 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: onboardTitleTextSize,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w600),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(20.0),
-                              child: Text(
-                                onBoardContents[index].info,
-                                style: const TextStyle(
-                                    fontSize: bodyTextSize, color: Colors.grey),
-                                textAlign: TextAlign.center,
-                              ),
+                              child: Text(onBoardContents[index].info,
+                                  style: const TextStyle(
+                                      fontSize: onboardSubTitleTextSize,
+                                      color: Colors.grey),
+                                  textAlign: TextAlign.center),
                             ),
                           ],
                         ),

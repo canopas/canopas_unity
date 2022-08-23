@@ -5,9 +5,9 @@ import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
+import 'package:projectunity/widget/empty_leave_screen.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../configs/font_size.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
@@ -28,31 +28,25 @@ class LeaveScreen extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.primaryBlue,
         leading: IconButton(
           onPressed: () {
             _stateManager.pop();
           },
           icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+            Icons.arrow_back,
+            color: AppColors.whiteColor,
           ),
         ),
         title: Text(
           header,
-          style: const TextStyle(
-              color: AppColors.darkText,
-              fontSize: headerTextSize,
-              fontWeight: FontWeight.w800),
+          style: const TextStyle(color: AppColors.whiteColor),
         ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 20,
-          ),
           Expanded(
             child: StreamBuilder<ApiResponse<List<Leave>>>(
                 stream: leaveStream,
@@ -62,15 +56,21 @@ class LeaveScreen extends StatelessWidget {
                       idle: () => Container(),
                       loading: () => const kCircularProgressIndicator(),
                       completed: (List<Leave> leaves) {
-                        return ListView.builder(
-                            itemCount: leaves.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              leaves.sortedByDate();
-                              Leave leave = leaves[index];
-                              return LeaveCard(
-                                leave: leave,
-                              );
-                            });
+                        if (leaves.isEmpty) {
+                          return const EmptyLeaveScreen();
+                        } else {
+                          return ListView.builder(
+                              itemCount: leaves.length,
+                              padding: const EdgeInsets.only(
+                                  top: 20, bottom: 20, right: 16),
+                              itemBuilder: (BuildContext context, int index) {
+                                leaves.sortedByDate();
+                                Leave leave = leaves[index];
+                                return LeaveCard(
+                                  leave: leave,
+                                );
+                              });
+                        }
                       },
                       error: (String error) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {

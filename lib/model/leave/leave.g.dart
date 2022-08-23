@@ -9,7 +9,7 @@ part of 'leave.dart';
 Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       leaveId: json['leaveId'] as String,
       uid: json['uid'] as String,
-      leaveType: json['leave_type'] as int?,
+      leaveType: json['leave_type'] as int,
       startDate: json['start_date'] as int,
       endDate: json['end_date'] as int,
       totalLeaves: (json['total_leaves'] as num).toDouble(),

@@ -44,7 +44,6 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
         onPopPage: _onPopPage);
   }
 
-
   bool _onPopPage(Route route, dynamic result) {
     if (!route.didPop(result)) {
       return false;
@@ -55,7 +54,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
 
   List<Page> buildEmployeeStack() => stack.employeeStackList
       .map((state) => state.when(
-    employeeHomeState: () => const MaterialPage(
+            employeeHomeState: () => const MaterialPage(
                 key: ValueKey("employee-home"), child: EmployeeHomeScreen()),
             userAllLeaveState: () => MaterialPage(
                 key: const ValueKey("user-all-leave"), child: AllLeaveScreen()),
@@ -78,7 +77,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
 
   List<Page> _buildAdminStack() => stack.adminStackList
       .map((state) => state.when(
-    adminHomeState: () => const MaterialPage(
+            adminHomeState: () => const MaterialPage(
                 key: ValueKey("admin-home"), child: AdminHomeScreen()),
             employeeDetailState: (String selectedEmployee) => MaterialPage(
                 key: const ValueKey('employee-detail'),
@@ -96,7 +95,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
             adminLeaveRequestState: () => const MaterialPage(
                 key: ValueKey("requested-leaves"),
                 child: AdminLeaveRequestsScreen()),
-    adminLeaveRequestDetailState: (LeaveApplication employeeLeave) =>
+            adminLeaveRequestDetailState: (LeaveApplication employeeLeave) =>
                 MaterialPage(
                     key: const ValueKey('admin-requested-levae-detail'),
                     child: AdminLeaveRequestDetailScreen(

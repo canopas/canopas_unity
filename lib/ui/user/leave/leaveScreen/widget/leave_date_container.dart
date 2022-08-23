@@ -20,26 +20,28 @@ class BuildLeaveDateContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _localeName = AppLocalizations.of(context).localeName;
-    print(_localeName);
 
     return Container(
       decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
-      height: 140,
+      height: 150,
       width: 50,
-      child: Center(
-          child: Text(
-        dateDoubleLine(
-            startDate: startDate, endDate: endDate, locale: _localeName),
-        style: TextStyle(
-            color: color == AppColors.blackColor
-                ? AppColors.whiteColor
-                : AppColors.darkText,
-            fontWeight: FontWeight.w500),
-        textAlign: TextAlign.center,
-      )),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Center(
+            child: Text(
+          dateDoubleLine(
+              startDate: startDate, endDate: endDate, locale: _localeName),
+          style: TextStyle(
+              color: color == AppColors.blackColor
+                  ? AppColors.whiteColor
+                  : AppColors.darkText,
+              fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        )),
+      ),
     );
   }
 }

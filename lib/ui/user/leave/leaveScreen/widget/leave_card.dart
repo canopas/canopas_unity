@@ -28,10 +28,9 @@ class LeaveCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _color = getContainerColor(leave.leaveStatus);
-    final String _leaveType =
-        getLeaveStatus(leave.leaveStatus, leaveTypeMap) ?? '';
+    final String _leaveType = getLeaveStatus(leave.leaveType, leaveTypeMap);
     final String _leaveStatus =
-        getLeaveStatus(leave.leaveStatus, leaveStatusMap)!;
+        getLeaveStatus(leave.leaveStatus, leaveStatusMap);
     return Column(
       children: [
         InkWell(
@@ -62,18 +61,11 @@ class LeaveCard extends StatelessWidget {
                             fontSize: subTitleTextSize,
                             fontWeight: FontWeight.w700),
                       ),
-                      Text(
-                        leave.reason,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        style: const TextStyle(
-                            fontSize: bodyTextSize,
-                            color: AppColors.secondaryText),
-                      ),
+                      _buildReason(),
                       const SizedBox(
                         height: 5,
                       ),
-                      _buildLeaveStatus(leaveStatus: _leaveStatus),
+                      _buildLeaveStatus(leaveStatusText: _leaveStatus),
                       //  if (leave.rejectionReason != null) _buildRejectionCause(),
                     ],
                   ),
@@ -105,26 +97,36 @@ class LeaveCard extends StatelessWidget {
             ]));
   }
 
-  Widget _buildLeaveStatus({required String? leaveStatus}) {
+  Widget _buildReason() {
+    return Text(
+      leave.reason,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 3,
+      style: const TextStyle(
+          fontSize: bodyTextSize, color: AppColors.secondaryText),
+    );
+  }
+
+  Widget _buildLeaveStatus({required String leaveStatusText}) {
     return Row(
       children: [
-        if (leaveStatus == 'Pending')
+        if (leave.leaveStatus == pendingLeaveStatus)
           const Icon(
             Icons.error,
             color: AppColors.secondaryText,
-          ),
-        if (leaveStatus == 'Rejected')
+          )
+        else if (leave.leaveStatus == rejectLeaveStatus)
           const Icon(
             Icons.dangerous,
             color: AppColors.primaryPink,
-          ),
-        if (leaveStatus == 'Approved')
+          )
+        else if (leave.leaveStatus == approveLeaveStatus)
           const Icon(
             Icons.check_circle,
             color: AppColors.primaryGreen,
           ),
         Text(
-          leaveStatus ?? '',
+          leaveStatusText,
           style: const TextStyle(
               color: AppColors.darkText, fontSize: bodyTextSize),
         )

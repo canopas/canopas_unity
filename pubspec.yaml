@@ -52,19 +52,13 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: IBMPlexSans
+    - family: inter
       fonts:
-        - asset: assets/fonts/IBMPlexSans-Regular.ttf
-        - asset: assets/fonts/IBMPlexSans-SemiBold.ttf
-          weight: 500
-        - asset: assets/fonts/IBMPlexSans-Bold.ttf
-          weight: 900
-
-
-
-
-
-
+        - asset: assets/fonts/inter_regular.ttf
+        - asset: assets/fonts/inter_bold.ttf
+        - asset: assets/fonts/inter_light.ttf
+        - asset: assets/fonts/inter_medium.ttf
+        - asset: assets/fonts/inter_semi_bold.ttf
 
 
 

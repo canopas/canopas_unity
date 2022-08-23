@@ -6,8 +6,6 @@ import 'package:projectunity/navigation/router_info_parser.dart';
 
 import '../di/service_locator.dart';
 import '../l10n/l10n.dart';
-import '../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
-import '../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../navigation/navigation_stack_manager.dart';
 
 class AppDashboardScreen extends StatefulWidget {
@@ -18,23 +16,14 @@ class AppDashboardScreen extends StatefulWidget {
 }
 
 class _AppDashboardScreenState extends State<AppDashboardScreen> {
-  int selectedTab = 0;
   final _stateManager = getIt<NavigationStackManager>();
-
-  @override
-  void initState() {
-    _stateManager.isAdmin
-        ? getBottomNavigation(selectedTab, adminBottomBar)
-        : getBottomNavigation(selectedTab, employeeBottomBar);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(
         builder: (context) => MaterialApp.router(
-          theme: ThemeData(fontFamily: 'IBMPlexSans'),
+          theme: ThemeData(fontFamily: 'inter'),
           routerDelegate: MainRouterDelegate(stack: _stateManager),
           routeInformationParser: HomeRouterInfoParser(),
           supportedLocales: L10n.all,
@@ -47,32 +36,4 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
       ),
     );
   }
-
-  void _ontap(int id) {
-    setState(() {
-      selectedTab = id;
-    });
-    _stateManager.isAdmin
-        ? getBottomNavigation(id, adminBottomBar)
-        : getBottomNavigation(id, employeeBottomBar);
-  }
-
-  void getBottomNavigation(int index, Map map) {
-    for (int key in map.keys) {
-      if (key == index) {
-        _stateManager.clearAndPush(map[index]);
-      }
-    }
-  }
-
-  Map employeeBottomBar = {
-    0: const EmployeeNavigationStackItem.employeeHomeState(),
-    1: const EmployeeNavigationStackItem.staffState(),
-    2: const EmployeeNavigationStackItem.employeeSettingsState(),
-  };
-  Map adminBottomBar = {
-    0: const AdminNavigationStackItem.adminHomeState(),
-    1: const AdminNavigationStackItem.staffState(),
-    2: const AdminNavigationStackItem.adminSettingsState(),
-  };
 }

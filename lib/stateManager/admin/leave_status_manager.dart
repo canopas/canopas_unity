@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
+
+import '../../model/leave/leave.dart';
 
 @Singleton()
 class LeaveStatusManager {

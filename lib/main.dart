@@ -16,7 +16,7 @@ void main() async {
   await configureDependencies();
   runApp(
     MaterialApp(
-      theme: ThemeData(fontFamily: 'IBMPlexSans'),
+      theme: ThemeData(fontFamily: 'inter'),
       title: 'ProjectUnity Flutter',
       supportedLocales: L10n.all,
       localizationsDelegates: const [

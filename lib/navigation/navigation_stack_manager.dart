@@ -13,7 +13,11 @@ class NavigationStackManager extends ChangeNotifier {
   final UserManager _userManager;
   List<NavigationStackItem> _screens = [];
   bool _showBottomBar = true;
-  NavigationStack<NavigationStackItem> navigation;
+
+  NavigationStack<NavigationStackItem> get navigation => _userManager.isAdmin
+      ? const NavigationStack.admin()
+      : const NavigationStack.employee();
+
   List<AdminNavigationStackItem> adminStackList = [
     const AdminNavigationStackItem.adminHomeState()
   ];
@@ -23,10 +27,7 @@ class NavigationStackManager extends ChangeNotifier {
 
   bool get showBottomBar => _showBottomBar;
 
-  NavigationStackManager(this._userManager)
-      : navigation = _userManager.isAdmin
-            ? const NavigationStack.admin()
-            : const NavigationStack.employee();
+  NavigationStackManager(this._userManager);
 
   void setBottomBar(bool show) {
     _showBottomBar = show;
@@ -66,7 +67,4 @@ class NavigationStackManager extends ChangeNotifier {
       return null;
     }
   }
-
-
-
 }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/utils/const/leave_map.dart';
-import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/core/utils/date_string_utils.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';

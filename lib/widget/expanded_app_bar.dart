@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../configs/colors.dart';
-import '../core/utils/const/other_constant.dart';
 
 class ExpandedAppBar extends StatelessWidget {
   final Widget content;
@@ -12,14 +11,17 @@ class ExpandedAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: appBarHeight,
+      alignment: Alignment.topRight,
+      height: 150,
       decoration: const BoxDecoration(
           color: AppColors.primaryBlue,
           borderRadius:
               BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: content),
+      child: SafeArea(
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: content),
+      ),
     );
   }
 }

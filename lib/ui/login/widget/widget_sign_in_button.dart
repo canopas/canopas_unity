@@ -17,24 +17,27 @@ class SignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
-          fixedSize: Size( MediaQuery.of(context).size.width / 1.5, 50),
-          side: const BorderSide(color: AppColors.peachColor, width: 2),
-          backgroundColor: AppColors.creamColor.withOpacity(0.2),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          primary:  AppColors.peachColor.withOpacity(0.2)
-        ),
+            fixedSize: Size(MediaQuery.of(context).size.width * 0.70, 50),
+            side: const BorderSide(color: AppColors.peachColor, width: 2),
+            backgroundColor: AppColors.creamColor.withOpacity(0.2),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            primary: AppColors.peachColor.withOpacity(0.2)),
         onPressed: onPressed,
-        child: Row(children: [
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Image.asset(
             googleLogoImage,
             height: 40,
           ),
-           Expanded(
+          Expanded(
             child: Text(
               AppLocalizations.of(context).login_button_text,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                      color: AppColors.blackColor, fontSize: titleTextSize),
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.blackColor,
+                  fontSize: titleTextSize),
             ),
           )
         ]));
