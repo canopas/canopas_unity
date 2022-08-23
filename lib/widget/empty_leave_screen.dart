@@ -19,6 +19,8 @@ class EmptyLeaveScreen extends StatelessWidget {
           children: [
             const Image(
               image: AssetImage(emptyLeaveStateImage),
+              height: 100,
+              width: 100,
             ),
             const SizedBox(
               height: 20,

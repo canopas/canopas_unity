@@ -83,54 +83,54 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
 
-                        // Find the ScaffoldMessenger in the widget tree
-                        // and use it to show a SnackBar.
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        _bloc.reset();
-                      });
+                      // Find the ScaffoldMessenger in the widget tree
+                      // and use it to show a SnackBar.
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      _bloc.reset();
                     });
+                  });
 
-                return SingleChildScrollView(
-                  child: SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20, left: 20),
-                              child: Column(
-                                children: [
-                                  buildTitle(),
-                                  buildSubTitle(),
-                                ],
+              return SingleChildScrollView(
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, left: 20),
+                            child: Column(
+                              children: [
+                                buildTitle(),
+                                buildSubTitle(),
+                              ],
+                            ),
+                          ),
+                          buildImage(context),
+                          Column(children: [
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .login_guide_description,
+                                style: const TextStyle(
+                                    color: AppColors.secondaryText,
+                                    fontSize: bodyTextSize),
                               ),
                             ),
-                            buildImage(context),
-                            Column(children: [
-                              Center(
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .login_guide_description,
-                                  style: const TextStyle(
-                                      color: AppColors.secondaryText,
-                                      fontSize: bodyTextSize),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              _showProgress
-                                  ? const Center(
-                                  child: CircularProgressIndicator())
-                                  : SignInButton(onPressed: _bloc.signIn),
-                            ]),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            _showProgress
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : SignInButton(onPressed: _bloc.signIn),
                           ]),
-                    ),
+                        ]),
                   ),
-                );
-              }),
-        ),
+                ),
+              );
+            }),
+      ),
     );
   }
 

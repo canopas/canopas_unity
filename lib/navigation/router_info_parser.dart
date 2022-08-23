@@ -95,8 +95,6 @@ class HomeRouterInfoParser
         // case 'admin-leave-request-detail':
         //   items.add(AdminNavigationStackItem.adminLeaveRequestDetailState());
         //  break;
-        default:
-          items.add(const EmployeeNavigationStackItem.employeeHomeState());
       }
     }
 

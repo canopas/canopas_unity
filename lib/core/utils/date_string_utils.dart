@@ -15,7 +15,7 @@ String dateDoubleLine(
     if (startLeaveDate.day == endLeaveDate.day) {
       return '$startLeaveday\n$month';
     }
-    return '$startLeaveday - $endLeaveDay\n$month';
+    return '$startLeaveday-$endLeaveDay\n$month';
   }
   String startMonth = DateFormat.MMM(locale).format(startLeaveDate);
   String endMonth = DateFormat.MMM(locale).format(endLeaveDate);
@@ -50,8 +50,8 @@ String totalLeaves(double days) {
   return '$days Days';
 }
 
-String? getLeaveStatus(int status, Map map) {
-  String? leaveStatus;
+String getLeaveStatus(int status, Map map) {
+  String leaveStatus = "";
   for (int key in map.keys) {
     if (key == status) leaveStatus = map[status];
   }

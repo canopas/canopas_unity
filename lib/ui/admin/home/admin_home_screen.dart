@@ -9,7 +9,6 @@ import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 
 import '../../../configs/colors.dart';
-import '../../../core/utils/const/other_constant.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -64,8 +63,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             const EmployeeListView(),
           ],
         ),
-        Positioned(
-            top: topSpacing, right: 10, left: 10, child: EmployeeSummaryCard()),
+        Positioned(top: 90, right: 10, left: 10, child: EmployeeSummaryCard()),
       ],
     ));
   }

@@ -3,12 +3,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'leave.g.dart';
 
+const int pendingLeaveStatus = 1;
+const int approveLeaveStatus = 2;
+const int rejectLeaveStatus = 3;
+
 @JsonSerializable()
 class Leave {
   String leaveId;
   String uid;
   @JsonKey(name: 'leave_type')
-  int? leaveType;
+  int leaveType;
   @JsonKey(name: 'start_date')
   int startDate;
   @JsonKey(name: 'end_date')
@@ -27,7 +31,7 @@ class Leave {
   Leave(
       {required this.leaveId,
       required this.uid,
-      this.leaveType,
+      required this.leaveType,
       required this.startDate,
       required this.endDate,
       required this.totalLeaves,

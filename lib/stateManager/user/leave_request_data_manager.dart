@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:uuid/uuid.dart';
 
 @Singleton()
 class LeaveRequestDataManager extends ChangeNotifier {
-  int? _leaveType;
+  int _leaveType = 0;
   final int _employeeId = 0;
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now();
@@ -17,7 +16,7 @@ class LeaveRequestDataManager extends ChangeNotifier {
 
   int? get leaveType => _leaveType;
 
-  void setLeaveType(int? value) {
+  void setLeaveType(int value) {
     _leaveType = value;
     notifyListeners();
   }
@@ -104,7 +103,7 @@ class LeaveRequestDataManager extends ChangeNotifier {
   }
 
   void resetForm() {
-    _leaveType = null;
+    _leaveType = -1;
     _startDate = DateTime.now();
     _endDate = DateTime.now();
     _startTime = TimeOfDay.now();

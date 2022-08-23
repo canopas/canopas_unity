@@ -7,10 +7,9 @@ import '../core/utils/const/role.dart';
 @Singleton()
 class UserManager {
   final UserPreference _userPreference;
-  late final Employee? _employee;
+  Employee? get _employee => _userPreference.getCurrentUser();
 
-  UserManager(this._userPreference)
-      : _employee = _userPreference.getCurrentUser();
+  UserManager(this._userPreference);
 
   String? getUserName() {
     String? fullName = _employee?.name;

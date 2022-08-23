@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/core/utils/const/leave_status.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/stateManager/admin/leave_status_manager.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/reason_dialogue.dart';

@@ -64,7 +64,7 @@ class LeaveTypeCard extends StatelessWidget {
                   },
                   onChanged: (int? value) {
                     leaveType = value;
-                    _leaveService.setLeaveType(leaveType);
+                    _leaveService.setLeaveType(leaveType ?? -1);
                   }),
             ),
           ],

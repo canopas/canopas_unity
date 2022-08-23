@@ -6,15 +6,11 @@ import 'package:projectunity/model/employee_leave_count/employee_leave_count.dar
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
-import 'package:projectunity/ui/user/home/widget/notification_icon.dart';
-import 'package:projectunity/ui/user/home/widget/team_leave_card.dart';
-import 'package:projectunity/widget/user_profile_image.dart';
-import '../../../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart';
 
+import '../../../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
 import '../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
-import '../../../provider/user_data.dart';
 import '../../../widget/expanded_app_bar.dart';
 
 class EmployeeHomeScreen extends StatefulWidget {
@@ -26,7 +22,6 @@ class EmployeeHomeScreen extends StatefulWidget {
 
 class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
-  final _userManager = getIt<UserManager>();
   final _leaveCount = getIt<EmployeeLeaveCountBlock>();
 
   @override
@@ -34,6 +29,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
     _leaveCount.fetchLeaveSummary();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +68,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 80,
+                        top: 60,
                         left: primaryHorizontalSpacing,
                         right: primaryHorizontalSpacing),
                     child: Column(
@@ -84,6 +80,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .userAllLeaveState())),
+                        const SizedBox(height: 4),
                         LeaveNavigationCard(
                             color: AppColors.primaryBlue,
                             leaveText: AppLocalizations.of(context)
@@ -91,6 +88,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .requestedLeaves())),
+                        const SizedBox(height: 4),
                         LeaveNavigationCard(
                             color: AppColors.primaryGreen,
                             leaveText: AppLocalizations.of(context)
@@ -98,6 +96,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                             onPress: () => _stateManager.push(
                                 const EmployeeNavigationStackItem
                                     .userUpcomingLeaveState())),
+                        const SizedBox(height: 4),
                         LeaveNavigationCard(
                             color: AppColors.primaryDarkYellow,
                             leaveText: AppLocalizations.of(context)
@@ -108,10 +107,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                                   const EmployeeNavigationStackItem
                                       .leaveRequestState());
                             }),
-                        /* _buildTitle(onPress: () {}),
-                        const TeamLeaveCard(
-                          length: 10,
-                        ),*/
                       ],
                     ),
                   ),
@@ -119,11 +114,19 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               ),
             ],
           ),
-            Positioned(
-              top: topSpacing, right: 10, left: 10, child: StreamBuilder(
-                stream: _leaveCount.leaveCounts.stream,
-                builder: (context,AsyncSnapshot snapshot) => LeaveStatus(leaveCounts: (snapshot.hasData)?snapshot.data:LeaveCounts(availableLeaveCount: 0, usedLeaveCount: 0, allLeaveCount: 0)))
-              )
+          Positioned(
+              top: 90,
+              right: 10,
+              left: 10,
+              child: StreamBuilder(
+                  stream: _leaveCount.leaveCounts.stream,
+                  builder: (context, AsyncSnapshot snapshot) => LeaveStatus(
+                      leaveCounts: (snapshot.hasData)
+                          ? snapshot.data
+                          : LeaveCounts(
+                              availableLeaveCount: 0,
+                              usedLeaveCount: 0,
+                              allLeaveCount: 0))))
         ],
       ),
     );

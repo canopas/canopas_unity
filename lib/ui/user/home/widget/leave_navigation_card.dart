@@ -23,29 +23,29 @@ class LeaveNavigationCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  color: color,
-                  width: 5,
-                  height: 70,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  leaveText,
-                  style: const TextStyle(
-                      fontSize: subTitleTextSize,
-                      color: AppColors.darkText,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
+            Container(
+              color: color,
+              width: 5,
+              height: 75,
             ),
-            const Icon(
-              Icons.chevron_right,
-              color: AppColors.blackColor,
-            )
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              leaveText,
+              style: const TextStyle(
+                  fontSize: subTitleTextSize,
+                  color: AppColors.darkText,
+                  fontWeight: FontWeight.w500),
+            ),
+            const Spacer(flex: 1),
+            const Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: Icon(
+                Icons.chevron_right,
+                color: AppColors.blackColor,
+              ),
+            ),
           ],
         ),
       ),

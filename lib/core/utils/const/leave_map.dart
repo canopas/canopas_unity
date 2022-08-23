@@ -1,7 +1,9 @@
+import '../../../model/leave/leave.dart';
+
 Map<int, String> leaveStatusMap = Map.unmodifiable({
-  1: 'Pending',
-  2: 'Approved',
-  3: 'Rejected',
+  pendingLeaveStatus: 'Pending',
+  approveLeaveStatus: 'Approved',
+  rejectLeaveStatus: 'Rejected',
 });
 
 Map<int, String> leaveTypeMap = Map.unmodifiable({
