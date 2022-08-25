@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/widget/employee_form.dart';
 import 'package:projectunity/ui/admin/addmember/widget/header_title.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../configs/colors.dart';
-import '../../../configs/font_size.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../model/employee/employee.dart';
 
@@ -55,7 +54,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                   expandedHeight: 150,
                   floating: false,
                   pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
+                  flexibleSpace: const FlexibleSpaceBar(
                     collapseMode: CollapseMode.pin,
                     centerTitle: true,
                     title: HeaderTitle(),
@@ -128,7 +127,7 @@ class SubmitButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
               AppLocalizations.of(context).admin_addMember_button_submit,
-              style: const TextStyle(fontSize: titleTextSize),
+              style: AppTextStyle.titleText
             ),
           )),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/leave/leave_application_bloc.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -49,10 +50,7 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
         ),
         title: Text(
           AppLocalizations.of(context).admin_home_request_tag,
-          style: const TextStyle(
-              color: AppColors.darkText,
-              fontSize: headerTextSize,
-              fontWeight: FontWeight.w600),
+          style: AppTextStyle.headerDark600,
         ),
       ),
       body: Padding(

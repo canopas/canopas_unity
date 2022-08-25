@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 
 import '../../../../../configs/colors.dart';
 
@@ -18,7 +18,11 @@ class LeaveNavigationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius:  BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+      ),
       child: InkWell(
+        borderRadius: const BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
         onTap: onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,10 +37,7 @@ class LeaveNavigationCard extends StatelessWidget {
             ),
             Text(
               leaveText,
-              style: const TextStyle(
-                  fontSize: subTitleTextSize,
-                  color: AppColors.darkText,
-                  fontWeight: FontWeight.w500),
+              style: AppTextStyle.subTitleTextStyle,
             ),
             const Spacer(flex: 1),
             const Padding(

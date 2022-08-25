@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/utils/date_string_utils.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -50,8 +50,7 @@ class UserLeaveDetailScreen extends StatelessWidget {
         ),
         title: Text(
           _localization.user_leave_detail_approval_Status_tag,
-          style: const TextStyle(
-              fontSize: titleTextSize, color: AppColors.darkText),
+          style: AppTextStyle.approvalStatusDark,
         ),
         actions: canCancelLeave
             ? [
@@ -63,8 +62,7 @@ class UserLeaveDetailScreen extends StatelessWidget {
                   },
                   child: Text(
               _localization.user_leave_detail_button_cancel,
-                    style: const TextStyle(
-                  fontSize: subTitleTextSize, color: AppColors.blueGrey),
+                    style: AppTextStyle.leaveDetailSubtitle,
             ),
           )
         ]: null,

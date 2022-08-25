@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:projectunity/configs/text_style.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 
 class RejectStatus extends StatelessWidget {
   const RejectStatus({
@@ -19,16 +18,15 @@ class RejectStatus extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Row(
-          children: const [
-            Icon(
+          children:  [
+            const Icon(
               Icons.dangerous,
               color: AppColors.redColor,
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             Text(
               'Rejected',
-              style: TextStyle(
-                  color: AppColors.darkText, fontSize: subTitleTextSize),
+              style: AppTextStyle.subtitleTextDark,
             ),
           ],
         ),

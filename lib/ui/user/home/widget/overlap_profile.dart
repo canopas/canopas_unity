@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../configs/text_style.dart';
 
 class OverlapProfile extends StatelessWidget {
-  OverlapProfile({
+  const OverlapProfile({
     Key? key,
     required this.length,
   }) : super(key: key);
 
-  int length;
+  final int length;
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +41,13 @@ class OverlapProfile extends StatelessWidget {
     if (length > 3) {
       stackLayers.add(
         Padding(
-          padding: EdgeInsets.fromLTRB(75.0, 5, 0, 0),
+          padding: const EdgeInsets.fromLTRB(75.0, 5, 0, 0),
           child: CircleAvatar(
             radius: 20,
             backgroundColor: AppColors.primaryBlue,
             child: Text(
               '+${(length - num)}..',
-              style: const TextStyle(color: Colors.white),
+              style: AppTextStyle.subtitleText.copyWith(color: Colors.white),
             ),
           ),
         ),

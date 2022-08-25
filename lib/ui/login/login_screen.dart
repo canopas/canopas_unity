@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
-
 import '../../bloc/login/login_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
 import '../../rest/api_response.dart';
@@ -112,9 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 AppLocalizations.of(context)
                                     .login_guide_description,
-                                style: const TextStyle(
-                                    color: AppColors.secondaryText,
-                                    fontSize: bodyTextSize),
+                                style: AppTextStyle.secondaryBodyText
                               ),
                             ),
                             const SizedBox(
@@ -150,22 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Text buildSubTitle() {
     return Text(
       AppLocalizations.of(context).login_toUnity_text,
-      style: const TextStyle(
-          fontSize: appTitleTextSize,
-          letterSpacing: 1,
-          color: AppColors.blackColor,
-          height: 1),
+      style: AppTextStyle.appTitleText.copyWith(height: 1, letterSpacing: 1),
     );
   }
 
   Text buildTitle() {
     return Text(
       AppLocalizations.of(context).login_welcome_text,
-      style: const TextStyle(
-          height: 2,
-          fontSize: appTitleTextSize,
-          color: AppColors.blackColor,
-          fontStyle: FontStyle.italic),
+      style: AppTextStyle.appTitleText.copyWith(height: 2, fontStyle: FontStyle.italic),
     );
   }
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
-
-import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/role.dart';
 
 class EmployeeForm extends StatefulWidget {
@@ -108,10 +106,7 @@ class TitleText extends StatelessWidget {
       child: Text(
         title,
         textAlign: TextAlign.start,
-        style: const TextStyle(
-            fontSize: subTitleTextSize,
-            color: AppColors.secondaryText,
-            fontWeight: FontWeight.w500),
+        style: AppTextStyle.secondarySubtitle500,
       ),
     );
   }
@@ -139,13 +134,11 @@ class CustomTextField extends StatelessWidget {
           onChanged: onChanged,
           cursorColor: Colors.black,
           autocorrect: false,
-          style: const TextStyle(
-              fontSize: subTitleTextSize, color: AppColors.darkText),
+          style:  AppTextStyle.subtitleTextDark,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             errorText: snapshot.hasError ? snapshot.error.toString() : null,
-            hintStyle: const TextStyle(
-                fontSize: subTitleTextSize, color: AppColors.secondaryText),
+            hintStyle: AppTextStyle.secondarySubtitle500,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             hintText: hintText,
           ),

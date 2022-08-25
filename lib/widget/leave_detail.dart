@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:projectunity/configs/text_style.dart';
 import '../configs/colors.dart';
 import '../configs/font_size.dart';
 
@@ -30,10 +30,7 @@ Text _buildValue({required String value}) {
 Text _buildTitle({required String title}) {
   return Text(
     title,
-    style: const TextStyle(
-      color: AppColors.secondaryText,
-      fontSize: bodyTextSize,
-    ),
+    style: AppTextStyle.secondaryBodyText,
   );
 }
 

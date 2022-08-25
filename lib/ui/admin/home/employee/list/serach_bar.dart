@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -15,24 +15,24 @@ class SearchBar extends StatelessWidget {
       decoration: ShapeDecoration(
           shape: const StadiumBorder(), color: Colors.grey.shade200),
       child: Row(
-        children: const [
-          Icon(
+        children:  [
+          const Icon(
             Icons.search,
             color: Colors.grey,
             size: 26,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
             child: TextField(
               cursorColor: Colors.black54,
-              style: TextStyle(fontSize: titleTextSize, color: Colors.black87),
-              decoration: InputDecoration(
+              style: AppTextStyle.titleText.copyWith(color: Colors.black87),
+              decoration:  InputDecoration(
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(bottom: 13),
+                  contentPadding: const EdgeInsets.only(bottom: 13),
                   hintText: 'Search your Colleagues by name',
-                  hintStyle: TextStyle(fontSize: 17)),
+                  hintStyle: AppTextStyle.subtitleText,),
               textAlign: TextAlign.start,
               keyboardType: TextInputType.text,
               textAlignVertical: TextAlignVertical.center,

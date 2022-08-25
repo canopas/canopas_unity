@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../../configs/colors.dart';
@@ -39,10 +40,7 @@ class UserContent extends StatelessWidget {
   Text _buildDesignation({required String designation}) {
     return Text(
       designation,
-      style: const TextStyle(
-          color: AppColors.secondaryText,
-          fontSize: subTitleTextSize,
-          fontWeight: FontWeight.w500),
+      style: AppTextStyle.secondarySubtitle500
     );
   }
 }
@@ -50,9 +48,6 @@ class UserContent extends StatelessWidget {
 Text _buildUserName({required String name}) {
   return Text(
     name,
-    style: const TextStyle(
-        color: AppColors.darkText,
-        fontSize: titleTextSize,
-        fontWeight: FontWeight.w500),
+    style: AppTextStyle.secondarySubtitle500,
   );
 }

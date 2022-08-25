@@ -4,9 +4,7 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
+import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../core/utils/date_string_utils.dart';
 import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
@@ -83,9 +81,9 @@ class LeaveRequestCard extends StatelessWidget {
 
   Text buildLeaveDateContent(
       {required double totalDays,
-      required int startTimeStamp,
-      required int endTimeStamp,
-      required BuildContext context}) {
+        required int startTimeStamp,
+        required int endTimeStamp,
+        required BuildContext context}) {
     String localeName = AppLocalizations.of(context).localeName;
     String date = dateInSingleLine(
         startTimeStamp: startTimeStamp,
@@ -95,8 +93,7 @@ class LeaveRequestCard extends StatelessWidget {
 
     return Text(
       '$days  ⚈ $date ',
-      style: const TextStyle(
-          color: AppColors.secondaryText, fontSize: bodyTextSize),
+      style: AppTextStyle.secondaryBodyText,
     );
   }
 
@@ -105,10 +102,10 @@ class LeaveRequestCard extends StatelessWidget {
     return Text(
       AppLocalizations.of(context)
           .leave_type_placeholder_leave_status(leaveType),
-      style: const TextStyle(
-          color: AppColors.darkText,
-          fontSize: subTitleTextSize,
-          fontWeight: FontWeight.w500),
+      style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),
     );
   }
 }
+
+
+

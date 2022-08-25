@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/bloc/leaves/user/leaves/upcoming_leave_bloc.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../leaveScreen/leave_screen.dart';
 
@@ -31,6 +32,6 @@ class _UpComingLeaveScreenState extends State<UpComingLeaveScreen> {
   Widget build(BuildContext context) {
     return LeaveScreen(
         leaveStream: _upcomingLeaveBloc.upcomingLeaves,
-        header: 'Upcoming leaves');
+        header: AppLocalizations.of(context).user_home_upcoming_leaves_tag);
   }
 }

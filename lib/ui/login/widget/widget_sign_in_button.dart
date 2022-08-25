@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/image_constant.dart';
@@ -34,10 +34,7 @@ class SignInButton extends StatelessWidget {
             child: Text(
               AppLocalizations.of(context).login_button_text,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: AppColors.blackColor,
-                  fontSize: titleTextSize),
+              style: AppTextStyle.titleText.copyWith(color: AppColors.darkText),
             ),
           )
         ]));

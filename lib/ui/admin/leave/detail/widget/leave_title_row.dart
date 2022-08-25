@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/model/leave/leave.dart';
-
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 
 class LeaveTitleRow extends StatelessWidget {
   Leave leave;
@@ -47,16 +46,12 @@ class LeaveTitleRow extends StatelessWidget {
   Text _buildApplyDate({required String date}) {
     return Text(
       date,
-      style: const TextStyle(
-          color: AppColors.secondaryText, fontSize: bodyTextSize),
+      style: AppTextStyle.secondaryBodyText,
     );
   }
 
   Text _buildLeaveTypeHeader({required String leaveType}) {
     return Text(leaveType,
-        style: const TextStyle(
-            fontSize: headerTextSize,
-            fontWeight: FontWeight.w500,
-            color: AppColors.darkText));
+        style: AppTextStyle.headerTextNormal);
   }
 }

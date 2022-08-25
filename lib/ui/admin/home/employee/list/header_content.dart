@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
@@ -25,10 +26,7 @@ class HeaderContent extends StatelessWidget {
             children: [
               Text(
                 'Hi, ${_userManager.getUserName()}!',
-                style: const TextStyle(
-                    fontSize: headerTextSize,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+                style: AppTextStyle.headerTextBold.copyWith(color: const Color(0xff000000))
               ),
               const Text(
                 'Know your Team ',

@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
-
-import '../../../../../configs/colors.dart';
+import '../../../../configs/text_style.dart';
 import 'overlap_profile.dart';
 
 class TeamLeaveCard extends StatelessWidget {
@@ -30,8 +28,7 @@ class TeamLeaveCard extends StatelessWidget {
             //Minus 1 from length to maintain proper value in ui like 'Radhika and 4 others are'
             AppLocalizations.of(context)
                 .user_home_placeholder_onleave_member(length - 1, 'Radhika'),
-            style: const TextStyle(
-                fontSize: subTitleTextSize, color: AppColors.darkText),
+            style: AppTextStyle.subtitleTextDark,
           ))
         ],
       ),

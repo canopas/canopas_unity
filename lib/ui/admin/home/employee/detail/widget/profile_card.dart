@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../../../configs/colors.dart';
@@ -126,9 +127,9 @@ class DesignationAndRoleCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: Column(
               children: [
-                const Text(
+                 Text(
                   'Designation',
-                  style: TextStyle(fontSize: bodyTextSize, color: Colors.grey),
+                  style: AppTextStyle.bodyTextGrey
                 ),
                 Text(designation,
                     style: const TextStyle(
