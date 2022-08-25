@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/provider/user_data.dart';
+import 'package:projectunity/ui/admin/setting/widgets/settingOption.dart';
 import '../../../bloc/admin/leave_count/all_leave_count.dart';
 import '../../../bloc/user/setting_view_bloc.dart';
 import '../../../di/service_locator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../navigation/navigation_stack_manager.dart';
+import '../../../widget/setting_screen_subtitle.dart';
 
 class AdminSettingScreen extends StatefulWidget {
   const AdminSettingScreen({Key? key}) : super(key: key);
@@ -39,10 +41,10 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(30),
         children: [
-           Text(_localizations.settings_setting_text, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold,color: AppColors.blackColor),),
+           Text(_localizations.settings_setting_text, style: AppTextStyle.largeHeaderBold),
           settingSubTitle(subtitle: _localizations.settings_account_text),
           InkWell(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
             onTap: (){},
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -64,11 +66,9 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_userManager.userName, style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),),
+                      Text(_userManager.userName, style: AppTextStyle.headerTextBold),
                       const SizedBox(height: 5,),
-                      Text(_userManager.employeeDesignation, style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.normal),),
+                      Text(_userManager.employeeDesignation, style: AppTextStyle.bodyTextDark,),
 
                     ],
                   ),
@@ -99,44 +99,4 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
     );
   }
 }
-settingSubTitle({required String subtitle}){
-  return  Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child:  Text(subtitle, style: const TextStyle(fontSize: 22, color: AppColors.greyColor, fontWeight:FontWeight.w600,))
-  );
-}
 
-class SettingOption extends StatelessWidget {
-  SettingOption({required this.icon,
-    required this.title,
-    required this.onTap,
-    this.iconColor = AppColors.blackColor,
-    this.titleColor = AppColors.blackColor,
-    Key? key})
-      : super(key: key);
-  Color titleColor;
-  Color iconColor;
-  IconData icon;
-  String title;
-  void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      leading: Icon(
-        icon,
-        size: 32,
-        color: iconColor,
-      ),
-      onTap: onTap,
-      title: Text(
-        title,
-        style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w600, color: titleColor),
-      ),
-    );
-  }
-}

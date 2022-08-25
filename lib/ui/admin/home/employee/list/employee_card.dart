@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
@@ -30,14 +31,14 @@ class EmployeeCard extends StatelessWidget {
                 iconSize: 60,
               ),
               const SizedBox(
-                width: 15,
+                width: 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   EmployeeName(name: employee.name),
                   const SizedBox(
-                    height: 7,
+                    height: 5,
                   ),
                   EmployeeDesignation(designation: employee.designation)
                 ],
@@ -61,11 +62,10 @@ class EmployeeName extends StatelessWidget {
     return Text(
       name ?? '',
       textAlign: TextAlign.start,
+      overflow: TextOverflow.ellipsis,
       style: height >= 700
-          ? const TextStyle(
-              fontSize: titleTextSize, fontWeight: FontWeight.w500)
-          : const TextStyle(
-              fontSize: subTitleTextSize, fontWeight: FontWeight.w500),
+          ? AppTextStyle.titleText
+          : AppTextStyle.subtitleText
     );
   }
 }
@@ -81,9 +81,10 @@ class EmployeeDesignation extends StatelessWidget {
     return Text(
       designation ?? '',
       textAlign: TextAlign.start,
+      overflow: TextOverflow.ellipsis,
       style: height >= 700
-          ? const TextStyle(fontSize: subTitleTextSize, color: Colors.black54)
-          : const TextStyle(fontSize: bodyTextSize, color: Colors.black54),
+          ? AppTextStyle.secondaryBodyText.copyWith(fontSize: subTitleTextSize)
+          : AppTextStyle.secondaryBodyText
     );
   }
 }

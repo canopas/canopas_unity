@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
 import '../../../../../configs/colors.dart';
+import '../../../../configs/text_style.dart';
 import '../../../../model/employee_leave_count/employee_leave_count.dart';
 
 class LeaveStatus extends StatelessWidget {
@@ -63,17 +63,14 @@ class LeaveInfo extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-              color: AppColors.blueGrey, fontSize: bodyTextSize),
+          style: AppTextStyle.leaveStatusCardTitle,
         ),
         const SizedBox(
           height: 7,
         ),
         Text(AppLocalizations.of(context).user_home_placeholder_leave(counts),
-            style: const TextStyle(
-                color: AppColors.darkText,
-                fontSize: subTitleTextSize,
-                fontWeight: FontWeight.w500))
+            style: AppTextStyle.subTitleTextStyle,
+        )
       ],
     );
   }

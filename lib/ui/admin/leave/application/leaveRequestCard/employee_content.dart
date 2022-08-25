@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../../configs/colors.dart';
@@ -30,18 +31,14 @@ class EmployeeContent extends StatelessWidget {
             children: [
               Text(
                 employee.name,
-                style: const TextStyle(
-                    fontSize: subTitleTextSize,
-                    color: AppColors.darkText,
-                    fontWeight: FontWeight.w500),
+                style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
                 '${_localization.employee_employeeID_tag}: ${employee.employeeId}',
-                style: const TextStyle(
-                    fontSize: bodyTextSize, color: AppColors.secondaryText),
+                style: AppTextStyle.secondaryBodyText,
               ),
             ],
           ),
@@ -52,19 +49,14 @@ class EmployeeContent extends StatelessWidget {
           children: [
             Text(
               _localization.admin_leave_detail_daysLeft_tag,
-              style: const TextStyle(
-                  fontSize: subTitleTextSize,
-                  color: AppColors.darkText,
-                  fontWeight: FontWeight.w500),
-            ),
+              style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),),
             const SizedBox(
               height: 5,
             ),
-            const Text(
+            Text(
               //TODO :Add actual remaining leaves(21) from total leaves(30)
               '21/30',
-              style: TextStyle(
-                  fontSize: bodyTextSize, color: AppColors.secondaryText),
+              style: AppTextStyle.secondaryBodyText,
             ),
           ],
         ),

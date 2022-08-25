@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
+import 'package:projectunity/configs/text_style.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 import '../../../../../model/leave/leave.dart';
 import 'leave_date_container.dart';
 
@@ -48,17 +47,12 @@ class LeaveWidget extends StatelessWidget {
                   children: [
                     Text(
                       _leaveType,
-                      style: const TextStyle(
-                          color: AppColors.darkText,
-                          fontSize: subTitleTextSize,
-                          fontWeight: FontWeight.w700),
+                      style: AppTextStyle.darkSubtitle700,
                     ),
                     Text(
                       leave.reason,
                       overflow: TextOverflow.visible,
-                      style: const TextStyle(
-                          fontSize: bodyTextSize,
-                          color: AppColors.secondaryText),
+                      style: AppTextStyle.secondaryBodyText
                     ),
                     const SizedBox(
                       height: 5,
@@ -84,15 +78,11 @@ class LeaveWidget extends StatelessWidget {
         overflow: TextOverflow.visible,
         text: TextSpan(
             text: reason,
-            style: const TextStyle(
-                color: AppColors.secondaryText,
-                fontSize: subTitleTextSize,
-                fontWeight: FontWeight.w500),
+            style: AppTextStyle.darkSubtitle700,
             children: [
               TextSpan(
                   text: leave.rejectionReason,
-                  style: const TextStyle(
-                      color: AppColors.secondaryText, fontSize: bodyTextSize))
+                  style: AppTextStyle.secondaryBodyText)
             ]));
   }
 
@@ -116,8 +106,7 @@ class LeaveWidget extends StatelessWidget {
           ),
         Text(
           leaveStatus ?? '',
-          style: const TextStyle(
-              color: AppColors.darkText, fontSize: bodyTextSize),
+          style: AppTextStyle.bodyTextDark,
         )
       ],
     );

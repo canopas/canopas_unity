@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/bloc/admin/leave_count/all_leave_count.dart';
 import 'package:projectunity/configs/colors.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../configs/font_size.dart';
@@ -41,20 +42,14 @@ class _AdminUpdateLeaveCountsScreenState
         children: [
            Text(
             _localizations.settings_setting_text,
-            style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: AppColors.blackColor),
+            style: AppTextStyle.largeHeaderBold,
           ),
           const SizedBox(
             height: 5,
           ),
            Text(
             _localizations.admin_total_yearly_paid_leave_text,
-            style: const TextStyle(
-                color: AppColors.greyColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+            style: AppTextStyle.settingSubTitle.copyWith(fontSize: subTitleTextSize),
           ),
           const SizedBox(
             height: 20,
@@ -64,12 +59,10 @@ class _AdminUpdateLeaveCountsScreenState
             keyboardType: TextInputType.number,
             controller: _allLeaveCountController,
             cursorColor: Colors.black,
-            style: const TextStyle(
-                fontSize: subTitleTextSize, color: AppColors.darkText),
+            style: AppTextStyle.subtitleTextDark,
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
-              hintStyle: const TextStyle(
-                  fontSize: subTitleTextSize, color: AppColors.secondaryText),
+              hintStyle: AppTextStyle.secondarySubtitle500,
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               hintText: "Total Leaves",
@@ -90,7 +83,7 @@ class _AdminUpdateLeaveCountsScreenState
               onPressed: (_allLeaveCountController.text.isNotEmpty)
                   ? _onUpdateLeaveCount
                   : null,
-              child: Text(_localizations.update_button_text, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),)),
+              child: Text(_localizations.update_button_text, style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.w700),)),
         ],
       ),
       backgroundColor: AppColors.whiteColor,

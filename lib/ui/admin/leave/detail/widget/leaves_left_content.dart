@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
+import 'package:projectunity/configs/text_style.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 
 class LeavesLeftContent extends StatelessWidget {
   const LeavesLeftContent({
@@ -39,10 +38,7 @@ class LeavesLeftContent extends StatelessWidget {
     return Text(
       AppLocalizations.of(context)
           .admin_leave_detail_placeholder_remaining_days(13),
-      style: const TextStyle(
-          fontSize: titleTextSize,
-          fontWeight: FontWeight.w500,
-          color: AppColors.secondaryText),
+      style: AppTextStyle.titleText.copyWith(color: AppColors.secondaryText)
     );
   }
 }

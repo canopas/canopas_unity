@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
+import '../../../../../configs/text_style.dart';
 
 class PendingStatus extends StatelessWidget {
   const PendingStatus({
@@ -19,18 +18,17 @@ class PendingStatus extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Row(
-          children: const [
-            Icon(
+          children: [
+            const Icon(
               Icons.error,
               color: AppColors.secondaryText,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(
               'Pending',
-              style: TextStyle(
-                  color: AppColors.darkText, fontSize: subTitleTextSize),
+              style: AppTextStyle.subtitleTextDark,
             ),
           ],
         ),

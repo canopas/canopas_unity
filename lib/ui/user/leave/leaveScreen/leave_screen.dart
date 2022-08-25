@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
-import 'package:projectunity/widget/empty_leave_screen.dart';
-
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
+import '../../../../widget/empty_leave_screen.dart';
 import '../../../../widget/error_snackbar.dart';
 
 class LeaveScreen extends StatelessWidget {
@@ -40,7 +39,7 @@ class LeaveScreen extends StatelessWidget {
         ),
         title: Text(
           header,
-          style: const TextStyle(color: AppColors.whiteColor),
+          style: AppTextStyle.headerTextStyle,
         ),
       ),
       body: Column(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/date_string_utils.dart';
 import '../../../../../model/leave/leave.dart';
@@ -56,10 +55,7 @@ class LeaveCard extends StatelessWidget {
                     children: [
                       Text(
                         _leaveType,
-                        style: const TextStyle(
-                            color: AppColors.darkText,
-                            fontSize: subTitleTextSize,
-                            fontWeight: FontWeight.w700),
+                        style: AppTextStyle.darkSubtitle700,
                       ),
                       _buildReason(),
                       const SizedBox(
@@ -85,15 +81,11 @@ class LeaveCard extends StatelessWidget {
         overflow: TextOverflow.visible,
         text: TextSpan(
             text: 'Reason: ',
-            style: const TextStyle(
-                color: AppColors.secondaryText,
-                fontSize: subTitleTextSize,
-                fontWeight: FontWeight.w500),
+            style: AppTextStyle.secondarySubtitle500,
             children: [
               TextSpan(
                   text: leave.rejectionReason,
-                  style: const TextStyle(
-                      color: AppColors.secondaryText, fontSize: bodyTextSize))
+                  style: AppTextStyle.secondaryBodyText)
             ]));
   }
 
@@ -102,8 +94,7 @@ class LeaveCard extends StatelessWidget {
       leave.reason,
       overflow: TextOverflow.ellipsis,
       maxLines: 3,
-      style: const TextStyle(
-          fontSize: bodyTextSize, color: AppColors.secondaryText),
+      style: AppTextStyle.secondaryBodyText,
     );
   }
 
@@ -127,8 +118,7 @@ class LeaveCard extends StatelessWidget {
           ),
         Text(
           leaveStatusText,
-          style: const TextStyle(
-              color: AppColors.darkText, fontSize: bodyTextSize),
+          style: AppTextStyle.bodyTextDark,
         )
       ],
     );

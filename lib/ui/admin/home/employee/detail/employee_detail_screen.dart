@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../../../bloc/admin/employee/employee_detail_bloc.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../di/service_locator.dart';
@@ -46,10 +45,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
         ),
         title: Text(
           AppLocalizations.of(context).admin_employee_detail_profile_tag,
-          style: const TextStyle(
-              color: AppColors.blackColor,
-              fontSize: titleTextSize,
-              fontWeight: FontWeight.w600),
+          style: AppTextStyle.titleBlack600,
         ),
       ),
       body: StreamBuilder<ApiResponse<Employee>>(
@@ -79,8 +75,8 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                 });
                 return Container();
               });
-        },
-      ),
+           },
+        ),
     );
   }
 }

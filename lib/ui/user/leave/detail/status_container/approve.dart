@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
+import '../../../../../configs/text_style.dart';
 
 class ApproveStatus extends StatelessWidget {
   const ApproveStatus({
@@ -20,16 +19,15 @@ class ApproveStatus extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Row(
-          children: const [
-            Icon(
+          children: [
+            const Icon(
               Icons.check_circle,
               color: AppColors.greenColor,
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             Text(
               'Approved',
-              style: TextStyle(
-                  color: AppColors.darkText, fontSize: subTitleTextSize),
+              style: AppTextStyle.subtitleTextDark,
             ),
           ],
         ),

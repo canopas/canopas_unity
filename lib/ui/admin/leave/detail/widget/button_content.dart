@@ -5,9 +5,8 @@ import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/stateManager/admin/leave_status_manager.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/reason_dialogue.dart';
-
+import 'package:projectunity/configs/text_style.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 
 class ButtonContent extends StatelessWidget {
   final _leaveStatusManager = getIt<LeaveStatusManager>();
@@ -39,8 +38,7 @@ class ButtonContent extends StatelessWidget {
             },
             child: Text(
               _localization.admin_leave_detail_button_reject,
-              style: const TextStyle(
-                  color: AppColors.darkText, fontSize: subTitleTextSize),
+              style: AppTextStyle.subtitleTextDark,
             )),
         const SizedBox(
           width: 20,
@@ -55,7 +53,7 @@ class ButtonContent extends StatelessWidget {
             style: ElevatedButton.styleFrom(primary: AppColors.primaryBlue),
             child: Text(
               _localization.admin_leave_detail_button_approve,
-              style: const TextStyle(fontSize: subTitleTextSize),
+              style: AppTextStyle.subtitleText,
             ))
       ],
     );

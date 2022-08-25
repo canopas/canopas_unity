@@ -7,8 +7,8 @@ import 'package:projectunity/navigation/router_info_parser.dart';
 import '../di/service_locator.dart';
 import '../l10n/l10n.dart';
 import '../navigation/navigation_stack_manager.dart';
-
 class AppDashboardScreen extends StatefulWidget {
+
   const AppDashboardScreen({Key? key}) : super(key: key);
 
   @override
@@ -34,6 +34,7 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
           ],
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

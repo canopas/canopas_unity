@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/provider/user_data.dart';
 import '../../../bloc/user/setting_view_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../di/service_locator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
+import '../../../widget/setting_screen_subtitle.dart';
 class EmployeeSettingScreen extends StatefulWidget {
   const EmployeeSettingScreen({Key? key}) : super(key: key);
 
@@ -27,10 +30,10 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(30),
         children: [
-          Text(_localizations.settings_setting_text, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold,color: AppColors.blackColor),),
+          Text(_localizations.settings_setting_text, style: AppTextStyle.largeHeaderBold),
           settingSubTitle(subtitle: _localizations.settings_account_text),
           InkWell(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
             onTap: (){},
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -52,11 +55,8 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_userManager.userName, style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),),
-                      const SizedBox(height: 5,),
-                      Text(_userManager.employeeDesignation, style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.normal),),
+                      Text(_userManager.userName, style: AppTextStyle.headerTextBold), const SizedBox(height: 5,),
+                      Text(_userManager.employeeDesignation, style: AppTextStyle.bodyTextDark),
 
                     ],
                   ),
@@ -73,7 +73,7 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
                   primary: AppColors.redColor,
                   fixedSize:  Size(MediaQuery.of(context).size.width, 50),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
+                      borderRadius: BorderRadius.circular(12)
                   )
               ),
               onPressed: (){
@@ -90,9 +90,4 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
 }
 
 
-settingSubTitle({required String subtitle}){
-  return  Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child:  Text(subtitle, style: const TextStyle(fontSize: 22, color: AppColors.greyColor, fontWeight:FontWeight.w600,))
-  );
-}
+

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
-
+import '../../../../../../configs/text_style.dart';
 import '../../../../../../model/employee/employee.dart';
 
 class ProfileDetail extends StatelessWidget {
@@ -78,13 +77,11 @@ class Details extends StatelessWidget {
             children: [
               Text(
                 '$title:',
-                style: const TextStyle(
-                    fontSize: titleTextSize, color: Colors.grey),
+                style: AppTextStyle.titleText.copyWith(color: Colors.grey),
               ),
               Text(
                 subTitle ?? '-',
-                style: const TextStyle(
-                    fontSize: titleTextSize, color: Colors.black),
+                style: AppTextStyle.titleText,
               ),
             ],
           ),

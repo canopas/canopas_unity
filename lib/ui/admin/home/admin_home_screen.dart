@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_list_view.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
-
 import '../../../configs/colors.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -23,7 +22,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
+    body: Stack(
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,9 +35,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     Icons.menu,
                     color: AppColors.whiteColor,
                   )),
-              const Spacer(
-                flex: 1,
-              ),
+              const Spacer(),
               IconButton(
                   icon: const Icon(
                     Icons.add,
@@ -72,10 +69,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Padding(
       padding: const EdgeInsets.only(left: 24, right: 24, top: 80),
       child: Text(AppLocalizations.of(context).admin_home_your_employee_tag,
-          style: const TextStyle(
-              fontSize: headerTextSize,
-              color: AppColors.secondaryText,
-              fontWeight: FontWeight.bold)),
+          style: AppTextStyle.settingSubTitle),
     );
   }
 }

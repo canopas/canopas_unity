@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
-
 import '../../configs/colors.dart';
+import '../../configs/text_style.dart';
 import '../../pref/user_preference.dart';
 import '../../stateManager/login_state_manager.dart';
 import '../onboard/onBoarding_contents.dart';
-
 
 class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
@@ -49,8 +47,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         },
                         child: Text(
                           AppLocalizations.of(context).onBoard_skip_button,
-                          style: const TextStyle(
-                              color: Colors.grey, fontSize: subTitleTextSize),
+                            style: AppTextStyle.subtitleText.copyWith(color: AppColors.secondaryText)
                         )),
                   )),
             ),
@@ -82,17 +79,12 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                             Text(
                               onBoardContents[index].title,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: onboardTitleTextSize,
-                                  fontWeight: FontWeight.w600),
+                              style: AppTextStyle.onBoardTitle
                             ),
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(onBoardContents[index].info,
-                                  style: const TextStyle(
-                                      fontSize: onboardSubTitleTextSize,
-                                      color: Colors.grey),
+                                  style: AppTextStyle.secondaryBodyText,
                                   textAlign: TextAlign.center),
                             ),
                           ],
@@ -131,10 +123,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     _isLastPage
                         ? AppLocalizations.of(context).onBoard_start_button
                         : AppLocalizations.of(context).onBoard_next_button,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        fontSize: subTitleTextSize),
+                    style: AppTextStyle.onBoardButton,
                   ),
                 ),
               ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../di/service_locator.dart';
@@ -46,9 +45,7 @@ class BottomButtonBar extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   _localization.user_apply_leave_button_reset,
-                  style: const TextStyle(
-                    fontSize: titleTextSize,
-                  ),
+                  style: AppTextStyle.leaveRequestBottomBarTextStyle
                 ),
               ),
               onPressed: () {
@@ -68,10 +65,7 @@ class BottomButtonBar extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   _localization.user_apply_leave_button_apply_leave,
-                  style: const TextStyle(
-                      color: AppColors.whiteColor,
-                      fontSize: titleTextSize,
-                      fontWeight: FontWeight.w500),
+                  style: AppTextStyle.leaveRequestBottomBarTextStyle
                 ),
               ),
               onPressed: () {
