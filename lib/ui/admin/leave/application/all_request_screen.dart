@@ -38,11 +38,10 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.primaryBlue,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.darkText,
           ),
           onPressed: () {
             _stackManager.pop();
@@ -50,40 +49,38 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
         ),
         title: Text(
           AppLocalizations.of(context).admin_home_request_tag,
-          style: AppTextStyle.headerDark600,
+          style: AppTextStyle.headerTextBold,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-            top: primaryHorizontalSpacing,
-            right: primaryHorizontalSpacing,
-            left: primaryHorizontalSpacing),
-        child: StreamBuilder<ApiResponse<List<LeaveApplication>>>(
-            initialData: const ApiResponse.idle(),
-            stream: _leaveApplicationBloc.leaveApplication,
-            builder: (context, snapshot) {
-              return snapshot.data!.when(
-                  idle: () => Container(),
-                  loading: () => const kCircularProgressIndicator(),
-                  completed: (List<LeaveApplication> list) {
-                    return ListView.separated(
-                      itemCount: list.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        LeaveApplication employeeLeave = list[index];
-                        return LeaveRequestCard(employeeLeave: employeeLeave);
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 10,
-                        );
-                      },
-                    );
-                  },
-                  error: (String error) {
-                    return showSnackBar(context, error);
-                  });
-            }),
-      ),
+      body: StreamBuilder<ApiResponse<List<LeaveApplication>>>(
+          initialData: const ApiResponse.idle(),
+          stream: _leaveApplicationBloc.leaveApplication,
+          builder: (context, snapshot) {
+            return snapshot.data!.when(
+                idle: () => Container(),
+                loading: () => const kCircularProgressIndicator(),
+                completed: (List<LeaveApplication> list) {
+                  return ListView.separated(
+                    padding: const EdgeInsets.only(
+                        top: primaryHorizontalSpacing,
+                        right: primaryHorizontalSpacing,
+                        left: primaryHorizontalSpacing),
+                    itemCount: list.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      LeaveApplication employeeLeave = list[index];
+                      return LeaveRequestCard(employeeLeave: employeeLeave);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(
+                        height: 10,
+                      );
+                    },
+                  );
+                },
+                error: (String error) {
+                  return showSnackBar(context, error);
+                });
+          }),
     );
   }
 }

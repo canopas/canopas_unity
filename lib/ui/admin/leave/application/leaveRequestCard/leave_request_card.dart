@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -11,7 +12,7 @@ import '../../../../../navigation/navigationStackItem/admin/admin_navigation_sta
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
-  LeaveApplication employeeLeave;
+  final LeaveApplication employeeLeave;
   final _stackManager = getIt<NavigationStackManager>();
 
   LeaveRequestCard({Key? key, required this.employeeLeave}) : super(key: key);
@@ -20,61 +21,61 @@ class LeaveRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Leave leave = employeeLeave.leave;
 
-    return Container(
-      padding: const EdgeInsets.only(
-        left: primaryHorizontalSpacing,
-        right: primaryHorizontalSpacing,
-        top: primaryHorizontalSpacing,
-      ),
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.grey),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildLeaveTypeContent(
-                      leaveType: leave.leaveType ?? 1, context: context),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildLeaveDateContent(
-                      totalDays: leave.totalLeaves,
-                      startTimeStamp: leave.startDate,
-                      endTimeStamp: leave.endDate,
-                      context: context),
-                ],
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: () {
+        _stackManager.push(
+            AdminNavigationStackItem.adminLeaveRequestDetailState(
+                employeeLeave));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(primaryHorizontalSpacing),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.primaryBlue),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildLeaveTypeContent(
+                        leaveType: leave.leaveType ?? 1, context: context),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildLeaveDateContent(
+                        totalDays: leave.totalLeaves,
+                        startTimeStamp: leave.startDate,
+                        endTimeStamp: leave.endDate,
+                        context: context),
+                  ],
                 ),
-                onPressed: () {
-                  _stackManager.push(
-                      AdminNavigationStackItem.adminLeaveRequestDetailState(
-                          employeeLeave));
-                },
-              )
-            ],
-          ),
-          Divider(color: Colors.grey.shade300),
-          EmployeeContent(
-            employee: employeeLeave.employee,
-          ),
-          const SizedBox(
-            height: 10,
-          )
-          // const ButtonContent()
-        ],
+                const Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                    color: AppColors.primaryBlue,
+                  ),
+                )
+              ],
+            ),
+            const Divider(
+                height:30,
+                color: AppColors.primaryBlue),
+            EmployeeContent(
+              employee: employeeLeave.employee,
+            ),
+
+            // const ButtonContent()
+          ],
+        ),
       ),
     );
   }
@@ -99,10 +100,17 @@ class LeaveRequestCard extends StatelessWidget {
 
   Widget buildLeaveTypeContent(
       {required int leaveType, required BuildContext context}) {
-    return Text(
-      AppLocalizations.of(context)
-          .leave_type_placeholder_leave_status(leaveType),
-      style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: AppColors.primaryBlue.withOpacity(0.15)
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      child: Text(
+        AppLocalizations.of(context)
+            .leave_type_placeholder_leave_status(leaveType),
+        style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500, color: AppColors.primaryBlue),
+      ),
     );
   }
 }
