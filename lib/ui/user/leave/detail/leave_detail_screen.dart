@@ -50,7 +50,7 @@ class UserLeaveDetailScreen extends StatelessWidget {
         ),
         title: Text(
           _localization.user_leave_detail_approval_Status_tag,
-          style: AppTextStyle.approvalStatusDark,
+          style: AppTextStyle.appBarTitle,
         ),
         actions: canCancelLeave
             ? [

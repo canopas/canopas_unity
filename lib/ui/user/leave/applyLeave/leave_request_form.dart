@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/bottom_button_bar.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/end_leave_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/leave_request_form_subtitle.dart';
@@ -35,17 +35,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              _stateManager.pop();
-              _stateManager.setBottomBar(true);
-            },
-          ),
-          centerTitle: true,
-          title: Text(_localization.leave_request_tag),
-          titleTextStyle: const TextStyle(
-              fontSize: headerTextSize, fontWeight: FontWeight.w600),
+          title: Text(_localization.leave_request_tag, style: AppTextStyle.appBarTitle),
           backgroundColor: AppColors.primaryBlue,
         ),
         body: Form(

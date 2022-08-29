@@ -5,7 +5,6 @@ import 'font_size.dart';
 class AppTextStyle{
   static TextStyle subTitleTextStyle = const TextStyle(fontSize: subTitleTextSize, color: AppColors.darkText, fontWeight: FontWeight.w500);
   static TextStyle leaveStatusCardTitle = const TextStyle(color: AppColors.blueGrey, fontSize: bodyTextSize);
-  static TextStyle headerTextStyle = const TextStyle(color: AppColors.darkText, fontSize: headerTextSize, fontWeight: FontWeight.w800);
   static TextStyle headerTextNormal  = const TextStyle(color: AppColors.darkText, fontSize: headerTextSize);
 
   static TextStyle leaveRequestFormTitle =  const TextStyle(color: AppColors.secondaryText, fontSize: titleTextSize);

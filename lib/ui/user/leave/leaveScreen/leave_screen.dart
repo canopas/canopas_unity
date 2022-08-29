@@ -39,7 +39,7 @@ class LeaveScreen extends StatelessWidget {
         ),
         title: Text(
           header,
-          style: AppTextStyle.headerTextStyle,
+          style: AppTextStyle.appBarTitle,
         ),
       ),
       body: Column(

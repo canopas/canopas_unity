@@ -39,17 +39,9 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primaryBlue,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-          ),
-          onPressed: () {
-            _stackManager.pop();
-          },
-        ),
         title: Text(
           AppLocalizations.of(context).admin_home_request_tag,
-          style: AppTextStyle.headerTextBold,
+          style: AppTextStyle.appBarTitle,
         ),
       ),
       body: StreamBuilder<ApiResponse<List<LeaveApplication>>>(
