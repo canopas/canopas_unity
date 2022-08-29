@@ -45,7 +45,9 @@ Future<DateTime> pickDate(BuildContext context) async {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2021),
-      lastDate: DateTime(2025));
+      lastDate: DateTime(2025),
+      selectableDayPredicate: (day) => day.isAfter(DateTime.now().subtract(const Duration(days: 1))),
+  );
   if (pickDate == null) return DateTime.now();
   return pickDate;
 }
