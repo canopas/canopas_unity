@@ -6,7 +6,6 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/widget/employee_form.dart';
-import 'package:projectunity/ui/admin/addmember/widget/header_title.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
@@ -54,10 +53,13 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                   expandedHeight: 150,
                   floating: false,
                   pinned: true,
-                  flexibleSpace: const FlexibleSpaceBar(
+                  flexibleSpace: FlexibleSpaceBar(
+                    expandedTitleScale: 2,
                     collapseMode: CollapseMode.pin,
-                    centerTitle: true,
-                    title: HeaderTitle(),
+                    title: Text(
+                      AppLocalizations.of(context).admin_addMember_addMember_tag,
+                      style: AppTextStyle.appBarTitle,
+                    ),
                   ),
                 )
               ],
