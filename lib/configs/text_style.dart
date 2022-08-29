@@ -27,6 +27,7 @@ class AppTextStyle{
   static TextStyle settingOptions = const TextStyle(fontSize: subTitleTextSize, fontWeight: FontWeight.w600,);
   static TextStyle headerTextBold = const TextStyle(fontSize: headerTextSize, fontWeight: FontWeight.bold);
   static TextStyle largeHeaderBold = const TextStyle(fontSize: largeTitleTextSize, fontWeight: FontWeight.bold,color: AppColors.blackColor);
+  static TextStyle appBarTitle = const TextStyle(color: AppColors.whiteColor, fontSize: titleTextSize, fontWeight: FontWeight.w600);
 
   static TextStyle subtitleText = const TextStyle(fontSize: subTitleTextSize, fontWeight: FontWeight.w500);
   static TextStyle titleText = const TextStyle(fontSize: titleTextSize, fontWeight: FontWeight.w500);
