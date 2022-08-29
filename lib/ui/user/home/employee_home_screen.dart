@@ -114,7 +114,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
             ],
           ),
           Positioned(
-              top: 90,
+              top: 100,
               right: 10,
               left: 10,
               child: StreamBuilder(

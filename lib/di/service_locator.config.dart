@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart' as _i10;
 import '../bloc/admin/employee/employee_detail_bloc.dart' as _i14;
 import '../bloc/admin/employee/employee_list_bloc.dart' as _i15;
 import '../bloc/admin/employee/employee_validation.dart' as _i6;
+import '../bloc/admin/employees_summary/employees_summary_bloc.dart' as _i28;
 import '../bloc/admin/leave/leave_application_bloc.dart' as _i7;
 import '../bloc/admin/leave_count/all_leave_count.dart' as _i26;
 import '../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart' as _i25;
@@ -73,6 +74,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.singleton<_i25.EmployeeLeaveCountBlock>(_i25.EmployeeLeaveCountBlock(
     get<_i17.UserManager>(),get<_i11.UserLeaveService>()));
   gh.singleton<_i26.AdminLeaveCount>(_i26.AdminLeaveCount());
+  gh.singleton<_i28.EmployeesSummaryBloc>(_i28.EmployeesSummaryBloc(
+      _i3.AdminLeaveService(),_i5.EmployeeService()));
   return get;
 }
 

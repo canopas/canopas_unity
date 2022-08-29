@@ -21,4 +21,19 @@ class AdminLeaveService {
         await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
     return data.docs.map((doc) => doc.data()).toList();
   }
+
+  Future<int> getAbsenceCount() async {
+    int todayDate = DateTime.now().millisecondsSinceEpoch;
+    final data = await _leaveDbCollection.where('end_date', isGreaterThan: todayDate).get();
+    return data.docs.map((e){
+      if(e.data().startDate < todayDate && e.data().leaveStatus == approveLeaveStatus){
+        return e.data();
+      }
+    }).toList().length;
+  }
+
+  Future<int> getRequestsCount() async {
+    final data = await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
+    return data.docs.map((doc) => doc.data()).toList().length;
+  }
 }

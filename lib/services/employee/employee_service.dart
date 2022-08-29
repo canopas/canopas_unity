@@ -21,6 +21,11 @@ class EmployeeService {
     return data.data();
   }
 
+  Future<int> getEmployeesCount() async {
+    final data = await _userDbCollection.get();
+     return data.docs.map((doc) => doc.data()).toList().length;
+  }
+
   Future<void> addEmployee(Employee employee) async {
     final docId = employee.id;
     await _userDbCollection.doc(docId).set(employee);
