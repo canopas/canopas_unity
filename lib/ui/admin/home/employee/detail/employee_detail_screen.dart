@@ -45,7 +45,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
         ),
         title: Text(
           AppLocalizations.of(context).admin_employee_detail_profile_tag,
-          style: AppTextStyle.titleBlack600,
+          style: AppTextStyle.appBarTitle,
         ),
       ),
       body: StreamBuilder<ApiResponse<Employee>>(
