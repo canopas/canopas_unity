@@ -35,76 +35,70 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.primaryBlue,
-      body: Stack(
-        children: [
-          NestedScrollView(
-            headerSliverBuilder: (_, __) => [
-              SliverAppBar(
-                backgroundColor: AppColors.primaryBlue,
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_rounded,
-                      size: 24,
-                    ),
-                    onPressed: () {
-                      _stateManager.pop();
-                    },
-                  ),
-                  expandedHeight: 150,
-                  floating: false,
-                  pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    expandedTitleScale: 2,
-                    collapseMode: CollapseMode.pin,
-                    title: Text(
-                      AppLocalizations.of(context).admin_addMember_addMember_tag,
-                      style: AppTextStyle.appBarTitle,
-                    ),
-                  ),
-                )
-              ],
-              body: EmployeeForm(selectedRole: selectedRole),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade50,
-                      blurRadius: 10,
-                      spreadRadius: 15,
-                    ),
-                  ]),
-                  //   color: Colors.white,
-                  child: StreamBuilder<bool>(
-                    initialData: false,
-                    stream: _bloc.validateSubmit,
-                    builder: (BuildContext context, snapshot) {
-                      return SubmitButton(
-                        isEnabled: snapshot.data ?? false,
-                        onPress: () {
-                          Employee employee = _bloc.submit(selectedRole);
-                          try {
-                            employeeService.addEmployee(employee);
-                            snapshot.data == true ? _stateManager.pop() : () {};
-                          } catch (error) {
-                            showSnackBar(
-                              context,
-                              AppLocalizations.of(context)
-                                  .error_something_went_wrong);
-                        }
-                        },
-                      );
-                    },
-                  ),
+      body: NestedScrollView(
+        headerSliverBuilder: (_, __) => [
+          SliverAppBar(
+            backgroundColor: AppColors.primaryBlue,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                  size: 24,
+                ),
+                onPressed: () {
+                  _stateManager.pop();
+                },
+              ),
+              expandedHeight: 150,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                expandedTitleScale: 2,
+                collapseMode: CollapseMode.pin,
+                title: Text(
+                  AppLocalizations.of(context).admin_addMember_addMember_tag,
+                  style: AppTextStyle.appBarTitle,
                 ),
               ),
             )
           ],
+          body: EmployeeForm(selectedRole: selectedRole),
         ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade50,
+              blurRadius: 10,
+              spreadRadius: 15,
+            ),
+          ]),
+          //   color: Colors.white,
+          child: StreamBuilder<bool>(
+            initialData: false,
+            stream: _bloc.validateSubmit,
+            builder: (BuildContext context, snapshot) {
+              return SubmitButton(
+                isEnabled: snapshot.data ?? false,
+                onPress: () {
+                  Employee employee = _bloc.submit(selectedRole);
+                  try {
+                    employeeService.addEmployee(employee);
+                    snapshot.data == true ? _stateManager.pop() : () {};
+                  } catch (error) {
+                    showSnackBar(
+                        context,
+                        AppLocalizations.of(context)
+                            .error_something_went_wrong);
+                  }
+                },
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }
