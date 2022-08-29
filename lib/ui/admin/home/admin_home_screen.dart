@@ -7,6 +7,7 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_list_view.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
+import '../../../bloc/admin/employees_summary/employees_summary_bloc.dart';
 import '../../../configs/colors.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -18,6 +19,18 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
+  final _employeeSummary = getIt<EmployeesSummaryBloc>();
+  @override
+  void initState() {
+    _employeeSummary.fetchEmployeeSummary();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _employeeSummary.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +73,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             const EmployeeListView(),
           ],
         ),
-        Positioned(top: 90, right: 10, left: 10, child: EmployeeSummaryCard()),
+        Positioned(top: 100, right: 10, left: 10, child:
+            StreamBuilder(
+              stream: _employeeSummary.employeeSummary.stream,
+              builder: (context,AsyncSnapshot snapshot) => EmployeeSummaryCard(employeesSummary: _employeeSummary.employeeSummary.value),
+            )
+
+        ),
       ],
     ));
   }
