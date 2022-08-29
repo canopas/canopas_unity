@@ -27,68 +27,64 @@ class _EmployeeFormState extends State<EmployeeForm> {
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(15), topLeft: Radius.circular(15)),
       ),
-      child: Padding(
+      child: ListView(
         padding: const EdgeInsets.only(
           left: 30.0,
           right: 30,
           top: 40,
         ),
-        child: Column(
-          children: [
-            ToggleButton(
-              onRoleChange: (role) {
-                switch (role) {
-                  case kRoleTypeEmployee:
-                    setState(() {
-                      widget.selectedRole = kRoleTypeEmployee;
-                    });
-                    break;
-                  case kRoleTypeHR:
-                    setState(() {
-                      widget.selectedRole = kRoleTypeHR;
-                    });
-                }
-              },
+        children: [
+          ToggleButton(
+            onRoleChange: (role) {
+              switch (role) {
+                case kRoleTypeEmployee:
+                  setState(() {
+                    widget.selectedRole = kRoleTypeEmployee;
+                  });
+                  break;
+                case kRoleTypeHR:
+                  setState(() {
+                    widget.selectedRole = kRoleTypeHR;
+                  });
+              }
+            },
+          ),
+          const SizedBox(height: 10),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleText(title: _localization.employee_employeeID_tag),
+                CustomTextField(
+                    hintText: _localization.admin_addMember_hint_employeeId,
+                    stream: _bloc.employeeId,
+                    onChanged: (employeeId) =>
+                        _bloc.validateEmployeeId(employeeId, context)),
+                TitleText(title: _localization.employee_name_tag),
+                CustomTextField(
+                    hintText: _localization.admin_addMember_hint_name,
+                    stream: _bloc.name,
+                    onChanged: (name) => _bloc.validateName(name, context)),
+                TitleText(title: _localization.employee_email_tag),
+                CustomTextField(
+                    hintText: _localization.admin_addMember_hint_email,
+                    stream: _bloc.email,
+                    onChanged: (email) =>
+                        _bloc.validateEmail(email, context)),
+                TitleText(title: _localization.employee_designation_tag),
+                CustomTextField(
+                    hintText:
+                        _localization.admin_addMember_hint_designation,
+                    stream: _bloc.designation,
+                    onChanged: (designation) =>
+                        _bloc.validateDesignation(designation, context)),
+                Container(
+                  height: 200,
+                )
+              ],
             ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TitleText(title: _localization.employee_employeeID_tag),
-                    CustomTextField(
-                        hintText: _localization.admin_addMember_hint_employeeId,
-                        stream: _bloc.employeeId,
-                        onChanged: (employeeId) =>
-                            _bloc.validateEmployeeId(employeeId, context)),
-                    TitleText(title: _localization.employee_name_tag),
-                    CustomTextField(
-                        hintText: _localization.admin_addMember_hint_name,
-                        stream: _bloc.name,
-                        onChanged: (name) => _bloc.validateName(name, context)),
-                    TitleText(title: _localization.employee_email_tag),
-                    CustomTextField(
-                        hintText: _localization.admin_addMember_hint_email,
-                        stream: _bloc.email,
-                        onChanged: (email) =>
-                            _bloc.validateEmail(email, context)),
-                    TitleText(title: _localization.employee_designation_tag),
-                    CustomTextField(
-                        hintText:
-                            _localization.admin_addMember_hint_designation,
-                        stream: _bloc.designation,
-                        onChanged: (designation) =>
-                            _bloc.validateDesignation(designation, context)),
-                    Container(
-                      height: 200,
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

@@ -46,7 +46,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               alignment: Alignment(selectedAt, 0),
               duration: const Duration(milliseconds: 300),
               child: Container(
-                width: width * 0.5,
+                width: width * 0.43,
                 height: height,
                 decoration: const BoxDecoration(
                   color: AppColors.primaryDarkYellow,
@@ -66,7 +66,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               child: Align(
                 alignment: const Alignment(-1, 0),
                 child: Container(
-                  width: width * 0.5,
+                  width: width * 0.43,
                   color: Colors.transparent,
                   alignment: Alignment.center,
                   child: Text(
@@ -87,7 +87,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               child: Align(
                 alignment: const Alignment(hr, 0),
                 child: Container(
-                  width: width * 0.5,
+                  width: width * 0.43,
                   color: Colors.transparent,
                   alignment: Alignment.center,
                   child: Text(
