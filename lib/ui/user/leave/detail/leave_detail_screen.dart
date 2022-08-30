@@ -76,7 +76,7 @@ class UserLeaveDetailScreen extends StatelessWidget {
               buildFieldColumn(
                   title: _localization.leave_type_tag,
                   value: _localization
-                      .leave_type_placeholder_leave_status(leave.leaveStatus)),
+                      .leave_type_placeholder_leave_status(leave.leaveType)),
               buildDivider(),
               Row(
                 children: [
