@@ -103,7 +103,7 @@ class LeaveRequestDataManager extends ChangeNotifier {
   }
 
   void resetForm() {
-    _leaveType = -1;
+    _leaveType = 0;
     _startDate = DateTime.now();
     _endDate = DateTime.now();
     _startTime = TimeOfDay.now();
