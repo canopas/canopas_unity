@@ -8,7 +8,6 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:projectunity/bloc/user/setting_view_bloc.dart' as _i24;
 import 'package:shared_preferences/shared_preferences.dart' as _i10;
-
 import '../bloc/admin/employee/employee_detail_bloc.dart' as _i14;
 import '../bloc/admin/employee/employee_list_bloc.dart' as _i15;
 import '../bloc/admin/employee/employee_validation.dart' as _i6;
@@ -16,9 +15,7 @@ import '../bloc/admin/employees_summary/employees_summary_bloc.dart' as _i28;
 import '../bloc/admin/leave/leave_application_bloc.dart' as _i7;
 import '../bloc/admin/leave_count/all_leave_count.dart' as _i26;
 import '../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart' as _i25;
-import '../bloc/leaves/user/leaves/all_leaves_bloc.dart' as _i22;
-import '../bloc/leaves/user/leaves/requested_leave_bloc.dart' as _i18;
-import '../bloc/leaves/user/leaves/upcoming_leave_bloc.dart' as _i21;
+import '../bloc/leaves/user/leaves/user_leave_bloc.dart' as _i22;
 import '../bloc/login/login_bloc.dart' as _i16;
 import '../navigation/navigation_stack_manager.dart' as _i20;
 import '../pref/user_preference.dart' as _i12;
@@ -61,21 +58,16 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       _i15.EmployeeListBloc(get<_i5.EmployeeService>()));
   gh.singleton<_i16.LoginBloc>(_i16.LoginBloc(get<_i13.AuthManager>()));
   gh.singleton<_i17.UserManager>(_i17.UserManager(get<_i12.UserPreference>()));
-  gh.singleton<_i18.UserRequestedLeaveBloc>(_i18.UserRequestedLeaveBloc(
-      get<_i17.UserManager>(), get<_i11.UserLeaveService>()));
   gh.singleton<_i19.LoginState>(_i19.LoginState(get<_i17.UserManager>()));
   gh.singleton<_i20.NavigationStackManager>(
       _i20.NavigationStackManager(get<_i17.UserManager>()));
-  gh.singleton<_i21.UpcomingLeaveBloc>(_i21.UpcomingLeaveBloc(
-      get<_i17.UserManager>(), get<_i11.UserLeaveService>()));
-  gh.singleton<_i22.UserAllLeavesBloc>(_i22.UserAllLeavesBloc(
-      get<_i11.UserLeaveService>(), get<_i17.UserManager>()));
   gh.singleton<_i24.SettingViewBLoc>(_i24.SettingViewBLoc());
   gh.singleton<_i25.EmployeeLeaveCountBlock>(_i25.EmployeeLeaveCountBlock(
     get<_i17.UserManager>(),get<_i11.UserLeaveService>()));
   gh.singleton<_i26.AdminLeaveCount>(_i26.AdminLeaveCount());
   gh.singleton<_i28.EmployeesSummaryBloc>(_i28.EmployeesSummaryBloc(
       _i3.AdminLeaveService(),_i5.EmployeeService()));
+  gh.singleton<_i22.UserLeavesBloc>(_i22.UserLeavesBloc( get<_i11.UserLeaveService>(),get<_i17.UserManager>()));
   return get;
 }
 
