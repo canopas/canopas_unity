@@ -56,8 +56,8 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
       .map((state) => state.when(
             employeeHomeState: () => const MaterialPage(
                 key: ValueKey("employee-home"), child: EmployeeHomeScreen()),
-            userAllLeaveState: () => MaterialPage(
-                key: const ValueKey("user-all-leave"), child: AllLeaveScreen()),
+            userAllLeaveState: () => const MaterialPage(
+                key: ValueKey("user-all-leave"), child: AllLeaveScreen()),
             userUpcomingLeaveState: () => const MaterialPage(
                 key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
             leaveRequestState: () => const MaterialPage(
