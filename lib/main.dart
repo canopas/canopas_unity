@@ -8,6 +8,7 @@ import 'package:projectunity/ui/app_dashboard_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
 
+import 'configs/theme.dart';
 import 'di/service_locator.dart';
 
 void main() async {
@@ -16,7 +17,7 @@ void main() async {
   await configureDependencies();
   runApp(
     MaterialApp(
-      theme: ThemeData(fontFamily: 'inter'),
+      theme: AppTheme.lightTheme,
       title: 'ProjectUnity Flutter',
       supportedLocales: L10n.all,
       localizationsDelegates: const [

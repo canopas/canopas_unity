@@ -37,8 +37,6 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primaryBlue,
         title: Text(
           AppLocalizations.of(context).admin_home_request_tag,
           style: AppTextStyle.appBarTitle,

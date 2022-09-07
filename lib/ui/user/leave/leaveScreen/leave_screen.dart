@@ -48,20 +48,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primaryBlue,
-        leading: IconButton(
-          onPressed: () {
-            _stateManager.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: AppColors.whiteColor,
-          ),
-        ),
         title: Text(
           _header(context),
-          style: AppTextStyle.appBarTitle,
         ),
       ),
       body: Column(
