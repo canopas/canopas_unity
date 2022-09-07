@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/provider/user_data.dart';
+
 import '../../../bloc/user/setting_view_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../di/service_locator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../widget/setting_screen_subtitle.dart';
 class EmployeeSettingScreen extends StatefulWidget {
   const EmployeeSettingScreen({Key? key}) : super(key: key);
