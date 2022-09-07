@@ -6,19 +6,19 @@ import 'package:projectunity/core/utils/date_string_utils.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/user/leave/detail/status_container/approve.dart';
 import 'package:projectunity/ui/user/leave/detail/status_container/pending.dart';
 import 'package:projectunity/ui/user/leave/detail/status_container/rejected.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:projectunity/widget/leave_detail.dart';
 
+import '../../../../bloc/leaves/user/leaves/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 
 class UserLeaveDetailScreen extends StatelessWidget {
   final Leave leave;
   final _stackManager = getIt<NavigationStackManager>();
-  final _userLeaveService = getIt<UserLeaveService>();
+  final _userLeavesBLoc = getIt<UserLeavesBloc>();
 
   UserLeaveDetailScreen({Key? key, required this.leave}) : super(key: key);
 
@@ -48,7 +48,7 @@ class UserLeaveDetailScreen extends StatelessWidget {
             ? [
                 TextButton(
                   onPressed: () {
-                    _userLeaveService.deleteLeaveRequest(leave.leaveId);
+                    _userLeavesBLoc.cancelLeave(leave: leave);
                     showSnackBar(context, 'Leave Application is cancelled!');
                     _stackManager.pop();
                   },
