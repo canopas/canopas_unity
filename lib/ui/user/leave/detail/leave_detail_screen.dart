@@ -12,7 +12,7 @@ import 'package:projectunity/ui/user/leave/detail/status_container/rejected.dart
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:projectunity/widget/leave_detail.dart';
 
-import '../../../../bloc/leaves/user/leaves/user_leave_bloc.dart';
+import '../../../../bloc/user/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 
 class UserLeaveDetailScreen extends StatelessWidget {

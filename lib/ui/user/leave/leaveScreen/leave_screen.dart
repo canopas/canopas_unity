@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/bloc/user/user_leave_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
@@ -8,7 +9,6 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
 
-import '../../../../bloc/leaves/user/leaves/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../rest/api_response.dart';
@@ -53,45 +53,37 @@ class _LeaveScreenState extends State<LeaveScreen> {
           _header(context),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: StreamBuilder<ApiResponse<List<Leave>>>(
-                stream: _userLeavesBLoc.leaveList,
-                initialData: const ApiResponse.idle(),
-                builder: (context, snapshot) {
-                  return snapshot.data!.when(
-                      idle: () => Container(),
-                      loading: () => const kCircularProgressIndicator(),
-                      completed: (List<Leave> leaves) {
-                        if (leaves.isEmpty) {
-                          return const EmptyLeaveScreen();
-                        } else {
-                          return ListView.builder(
-                              itemCount: leaves.length,
-                              padding: const EdgeInsets.only(
-                                  top: 20, bottom: 20, right: 16),
-                              itemBuilder: (BuildContext context, int index) {
-                                leaves.sortedByDate();
-                                Leave leave = leaves[index];
-                                return LeaveCard(
-                                  leave: leave,
-                                );
-                              });
-                        }
-                      },
-                      error: (String error) {
-                        SchedulerBinding.instance.addPostFrameCallback((_) {
-                          showSnackBar(context, error);
+      body: StreamBuilder<ApiResponse<List<Leave>>>(
+          stream: _userLeavesBLoc.leaveList,
+          initialData: const ApiResponse.idle(),
+          builder: (context, snapshot) {
+            return snapshot.data!.when(
+                idle: () => Container(),
+                loading: () => const kCircularProgressIndicator(),
+                completed: (List<Leave> leaves) {
+                  if (leaves.isEmpty) {
+                    return const EmptyLeaveScreen();
+                  } else {
+                    return ListView.builder(
+                        itemCount: leaves.length,
+                        padding: const EdgeInsets.only(
+                            top: 20, bottom: 20, right: 16),
+                        itemBuilder: (BuildContext context, int index) {
+                          leaves.sortedByDate();
+                          Leave leave = leaves[index];
+                          return LeaveCard(
+                            leave: leave,
+                          );
                         });
-                        return Container();
-                      });
-                }),
-          )
-        ],
-      ),
+                  }
+                },
+                error: (String error) {
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    showSnackBar(context, error);
+                  });
+                  return Container();
+                });
+          }),
     );
   }
 

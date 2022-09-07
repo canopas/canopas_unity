@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/bloc/admin/leave/leave_application_bloc.dart';
+import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/stateManager/admin/leave_status_manager.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/reason_dialogue.dart';
-import 'package:projectunity/configs/text_style.dart';
+
 import '../../../../../configs/colors.dart';
 
 class ButtonContent extends StatelessWidget {
   final _leaveStatusManager = getIt<LeaveStatusManager>();
   final _stackManager = getIt<NavigationStackManager>();
+  final _leaveApplicationBloc = getIt<LeaveApplicationBloc>();
   final String leaveId;
 
   ButtonContent({Key? key, required this.leaveId}) : super(key: key);
@@ -31,10 +34,10 @@ class ButtonContent extends StatelessWidget {
                       return ReasonDialogue();
                     });
               }
-
-              _leaveStatusManager.addLeaveApproval(leaveId)
-                  ? _stackManager.pop()
-                  : null;
+              if (_leaveStatusManager.leaveApprove(leaveId)) {
+                _leaveApplicationBloc.deleteLeaveApplication(leaveId);
+                _stackManager.pop();
+              }
             },
             child: Text(
               _localization.admin_leave_detail_button_reject,
@@ -46,11 +49,13 @@ class ButtonContent extends StatelessWidget {
         ElevatedButton(
             onPressed: () {
               _leaveStatusManager.updateStatus(approveLeaveStatus);
-              _leaveStatusManager.addLeaveApproval(leaveId)
-                  ? _stackManager.pop()
-                  : null;
+              if (_leaveStatusManager.leaveApprove(leaveId)) {
+                _leaveApplicationBloc.deleteLeaveApplication(leaveId);
+                _stackManager.pop();
+              }
             },
-            style: ElevatedButton.styleFrom(primary: AppColors.primaryBlue),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryBlue),
             child: Text(
               _localization.admin_leave_detail_button_approve,
               style: AppTextStyle.subtitleText,

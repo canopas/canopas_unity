@@ -1,13 +1,15 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
 
+import '../../bloc/admin/leave/leave_application_bloc.dart';
 import '../../model/leave/leave.dart';
 
 @Singleton()
 class LeaveStatusManager {
   final AdminLeaveService _adminLeaveService;
+  final LeaveApplicationBloc leaveApplicationBloc;
 
-  LeaveStatusManager(this._adminLeaveService);
+  LeaveStatusManager(this._adminLeaveService, this.leaveApplicationBloc);
 
   int _leaveStatus = pendingLeaveStatus;
   String? _reason;
@@ -24,16 +26,21 @@ class LeaveStatusManager {
     _reason = value;
   }
 
-  bool addLeaveApproval(String leaveId) {
-    if (_leaveStatus == pendingLeaveStatus) {
-      return false;
-    } else if (_leaveStatus != pendingLeaveStatus && reason == null) {
-      return false;
-    }
+  Map<String, dynamic> setLeaveApproval(int leaveStatus, String? reason) {
     Map<String, dynamic> map = <String, dynamic>{
-      'leave_status': _leaveStatus,
+      'leave_status': leaveStatus,
       'rejectionReason': reason
     };
+    return map;
+  }
+
+  bool leaveApprove(String leaveId) {
+    if (_leaveStatus == pendingLeaveStatus) {
+      return false;
+    } else if (_leaveStatus == rejectLeaveStatus && reason == null) {
+      return false;
+    }
+    Map<String, dynamic> map = setLeaveApproval(_leaveStatus, reason);
     _adminLeaveService.updateLeaveStatus(leaveId, map);
     return true;
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/leave/leave_application_bloc.dart';
-import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -58,7 +57,7 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
                     itemCount: list.length,
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication employeeLeave = list[index];
-                      return LeaveRequestCard(employeeLeave: employeeLeave);
+                      return LeaveRequestCard(leaveApplication: employeeLeave);
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(

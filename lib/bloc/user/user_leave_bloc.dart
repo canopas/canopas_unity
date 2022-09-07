@@ -3,12 +3,11 @@ import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../../provider/user_data.dart';
 import '../../../../services/leave/user_leave_service.dart';
 
 @Singleton()
-class UserLeavesBloc{
+class UserLeavesBloc {
   final UserManager _userManager;
   final UserLeaveService _userLeaveService;
 
@@ -29,8 +28,8 @@ class UserLeavesBloc{
       String employeeId = _userManager.employeeId;
       if (leaveScreenType == LeaveScreenType.allLeaves) {
         _leaves = await _userLeaveService.getAllLeavesOfUser(employeeId);
-      } else if (leaveScreenType == LeaveScreenType.requestedLeave) {
-        _leaves = await _userLeaveService.getRequestedLeave(employeeId);
+      } else if (leaveScreenType == LeaveScreenType.requestedLeave){
+      _leaves = await _userLeaveService.getRequestedLeave(employeeId);
       } else {
         _leaves = await _userLeaveService.getUpcomingLeaves(employeeId);
       }
