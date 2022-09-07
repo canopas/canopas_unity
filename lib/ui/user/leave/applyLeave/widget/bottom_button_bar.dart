@@ -32,8 +32,8 @@ class BottomButtonBar extends StatelessWidget {
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           color: AppColors.boxShadowColor,
-          blurRadius: 10,
-          spreadRadius: 10,
+          blurRadius: 5,
+          spreadRadius: 3,
         ),
       ]),
       child: Row(
@@ -84,9 +84,6 @@ class BottomButtonBar extends StatelessWidget {
                           .user_apply_leave_error_message_fill_details);
                 }
               },
-              style: ElevatedButton.styleFrom(
-                primary: AppColors.primaryBlue,
-              ),
             ),
           ),
         ],

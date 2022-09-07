@@ -34,9 +34,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
       create: (_) => LeaveRequestDataManager(),
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          title: Text(_localization.leave_request_tag, style: AppTextStyle.appBarTitle),
-          backgroundColor: AppColors.primaryBlue,
+          title: Text(_localization.leave_request_tag,),
         ),
         body: Form(
           key: formKey,

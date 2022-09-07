@@ -6,7 +6,7 @@ import 'package:projectunity/ui/admin/leave/detail/widget/leave_detail_content.d
 import 'package:projectunity/ui/admin/leave/detail/widget/leave_title_row.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/leaves_left_content.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
 import 'widget/button_content.dart';
@@ -24,15 +24,7 @@ class AdminLeaveRequestDetailScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.darkText,
-          ),
-          onPressed: () => _stateManger.pop(),
-        ),
+        title: Text(AppLocalizations.of(context).leave_detail_title),
       ),
       body: Padding(
         padding: const EdgeInsets.only(

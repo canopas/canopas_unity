@@ -38,16 +38,6 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
       body: NestedScrollView(
         headerSliverBuilder: (_, __) => [
           SliverAppBar(
-            backgroundColor: AppColors.primaryBlue,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_rounded,
-                  size: 24,
-                ),
-                onPressed: () {
-                  _stateManager.pop();
-                },
-              ),
               expandedHeight: 150,
               floating: false,
               pinned: true,

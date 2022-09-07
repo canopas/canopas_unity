@@ -171,7 +171,7 @@
      "settings_account_text": "Accounts",
      "admin_total_leave_count_text":"Total leave count",
      "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
-     "something_went_wrong_text":"Something went wrong!"
-
+     "something_went_wrong_text":"Something went wrong!",
+     "leave_detail_title":"Requested leave details"
 
 }

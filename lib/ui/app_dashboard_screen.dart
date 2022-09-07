@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:projectunity/navigation/main_router_delegate.dart';
 import 'package:projectunity/navigation/router_info_parser.dart';
 
+import '../configs/theme.dart';
 import '../di/service_locator.dart';
 import '../l10n/l10n.dart';
 import '../navigation/navigation_stack_manager.dart';
@@ -23,7 +24,7 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
     return Scaffold(
       body: Builder(
         builder: (context) => MaterialApp.router(
-          theme: ThemeData(fontFamily: 'inter'),
+          theme: AppTheme.lightTheme,
           routerDelegate: MainRouterDelegate(stack: _stateManager),
           routeInformationParser: HomeRouterInfoParser(),
           supportedLocales: L10n.all,

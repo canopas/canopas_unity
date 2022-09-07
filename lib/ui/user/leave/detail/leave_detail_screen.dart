@@ -39,17 +39,9 @@ class UserLeaveDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.whiteColor,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.darkText,
-          ),
-          onPressed: () => _stackManager.pop(),
-        ),
+
         title: Text(
-          _localization.user_leave_detail_approval_Status_tag,
+          _localization.leave_detail_title,
           style: AppTextStyle.appBarTitle,
         ),
         actions: canCancelLeave
