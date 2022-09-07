@@ -5,6 +5,7 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
+
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../core/utils/date_string_utils.dart';
@@ -12,21 +13,22 @@ import '../../../../../navigation/navigationStackItem/admin/admin_navigation_sta
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
-  final LeaveApplication employeeLeave;
+  final LeaveApplication leaveApplication;
   final _stackManager = getIt<NavigationStackManager>();
 
-  LeaveRequestCard({Key? key, required this.employeeLeave}) : super(key: key);
+  LeaveRequestCard({Key? key, required this.leaveApplication})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Leave leave = employeeLeave.leave;
+    Leave leave = leaveApplication.leave;
 
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: () {
         _stackManager.push(
             AdminNavigationStackItem.adminLeaveRequestDetailState(
-                employeeLeave));
+                leaveApplication));
       },
       child: Container(
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
@@ -70,7 +72,7 @@ class LeaveRequestCard extends StatelessWidget {
                 height:30,
                 color: AppColors.primaryBlue),
             EmployeeContent(
-              employee: employeeLeave.employee,
+              employee: leaveApplication.employee,
             ),
 
             // const ButtonContent()

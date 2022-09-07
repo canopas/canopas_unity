@@ -7,7 +7,6 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../model/employee/employee.dart';
 import '../../../model/leave/leave.dart';
-import '../../../model/leave_application.dart';
 
 @Singleton()
 class LeaveApplicationBloc {
@@ -29,30 +28,37 @@ class LeaveApplicationBloc {
   Stream<ApiResponse<List<LeaveApplication>>> get leaveApplication =>
       _leaveApplication.stream;
 
-  getEmployee() async {
+  void getEmployee() async {
     List<Employee> employees = await _employeeService.getEmployees();
     _employee.add(employees);
   }
 
-  getLeaves() async {
+  void getLeaves() async {
     List<Leave> leaves = await _adminLeaveService.getAllRequests();
     _leaves.add(leaves);
   }
 
-  getLeaveApplication() {
+  List<LeaveApplication> leaveApplications = <LeaveApplication>[];
+
+  List<LeaveApplication> getLeaveApplications(
+      List<Leave> leaveList, List<Employee> employees) {
+    leaveApplications = leaveList.map((leave) {
+      final employee = employees.firstWhere((emp) => emp.id == leave.uid);
+      return LeaveApplication(employee: employee, leave: leave);
+    }).toList();
+    return leaveApplications;
+  }
+
+  void getLeaveApplication() {
     _leaveApplication.add(const ApiResponse.loading());
     try {
       getLeaves();
       getEmployee();
       Rx.combineLatest2(
-        leaves.stream,
-        employee.stream,
-        (List<Leave> leavesList, List<Employee> employees) =>
-            leavesList.map((leave) {
-          final employee = employees.firstWhere((emp) => emp.id == leave.uid);
-          return LeaveApplication(employee: employee, leave: leave);
-        }).toList(),
-      ).listen(
+          leaves.stream,
+          employee.stream,
+          (List<Leave> leavesList, List<Employee> employees) =>
+              getLeaveApplications(leavesList, employees)).listen(
         (event) {
           _leaveApplication.add(ApiResponse.completed(data: event));
         },
@@ -60,5 +66,11 @@ class LeaveApplicationBloc {
     } on Exception catch (error) {
       throw Exception(error.toString());
     }
+  }
+
+  void deleteLeaveApplication(String leaveId) {
+    leaveApplications
+        .removeWhere((element) => element.leave.leaveId == leaveId);
+    _leaveApplication.add(ApiResponse.completed(data: leaveApplications));
   }
 }
