@@ -7,7 +7,6 @@ class AppTextStyle{
   static TextStyle leaveStatusCardTitle = const TextStyle(color: AppColors.blueGrey, fontSize: bodyTextSize);
   static TextStyle headerTextNormal  = const TextStyle(color: AppColors.darkText, fontSize: headerTextSize);
 
-  static TextStyle leaveRequestFormTitle =  const TextStyle(color: AppColors.secondaryText, fontSize: titleTextSize);
   static TextStyle bodyTextDark = const TextStyle(color: AppColors.darkText, fontSize: bodyTextSize);
   static TextStyle leaveRequestFormSubtitle =  const TextStyle(color: AppColors.secondaryText, fontSize: subTitleTextSize);
   static TextStyle removeTextStyle = const TextStyle(height: 0, fontSize: 0);

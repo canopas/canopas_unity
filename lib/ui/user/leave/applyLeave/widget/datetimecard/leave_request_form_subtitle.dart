@@ -10,7 +10,7 @@ class LeaveRequestSubTitle extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10, left: 5),
       child: Text(
         subtitle,
-        style: AppTextStyle.leaveRequestFormTitle,
+        style: AppTextStyle.leaveRequestFormSubtitle,
       ),
     );
   }
