@@ -102,6 +102,7 @@
       "user_leave_detail_button_cancel":"CANCEL",
       "user_apply_leave_button_apply_leave": "Apply Leave",
       "user_apply_leave_error_message_fill_details": "Please fill all details",
+      "user_apply_leave_error_message_min_time":"Please Apply for minimum 1 Hour",
       "user_apply_leave_error_valid_reason": "Please enter valid reason",
       "user_leave_detail_approval_Status_tag":"Approval Status",
 

@@ -70,6 +70,7 @@ class BottomButtonBar extends StatelessWidget {
               ),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
+                  if(_leaveService.startDateTime.isBefore(_leaveService.endDateTime.subtract(const Duration(hours: 1)))){
                   String _userId = _userManager.employeeId;
                   Leave data =
                   _leaveService.getLeaveRequestData(userId: _userId);
@@ -77,6 +78,9 @@ class BottomButtonBar extends StatelessWidget {
                   _stateManager.clearAndPush(
                       const EmployeeNavigationStackItem.employeeHomeState());
                   _stateManager.setBottomBar(true);
+                  } else {
+                    showSnackBar(context, _localization.user_apply_leave_error_message_min_time);
+                  }
                 } else {
                   showSnackBar(
                       context,
