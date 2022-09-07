@@ -96,7 +96,7 @@
       "leave_duration_text":"Duration",
 
       "user_apply_leave_select_tag": "Select",
-      "user_apply_leave_from_tag": "From:",
+      "user_apply_leave_from_tag": "From",
       "user_apply_leave_to_tag": "To",
       "user_apply_leave_button_reset": "Reset",
       "user_leave_detail_button_cancel":"CANCEL",

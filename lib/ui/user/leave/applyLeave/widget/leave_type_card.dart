@@ -15,10 +15,12 @@ class LeaveTypeCard extends StatelessWidget {
     int? leaveType = _leaveService.leaveType;
     var _localization = AppLocalizations.of(context);
     return Card(
+      margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
+            flex: 11,
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Text(
@@ -28,23 +30,30 @@ class LeaveTypeCard extends StatelessWidget {
             ),
           ),
           Expanded(
+            flex: 12,
             child: DropdownButtonFormField<int>(
-
+              icon: const Padding(
+                padding: EdgeInsets.only(right: 5),
+                child: Icon(
+                  Icons.arrow_drop_down,
+                ),
+              ),
+              borderRadius: BorderRadius.circular(4),
                 decoration: InputDecoration(
                     errorStyle: AppTextStyle.removeTextStyle,
                     border: InputBorder.none,
                     errorBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.red))),
                 hint: Text(
-                  " " + AppLocalizations.of(context).user_apply_leave_select_tag,
-                  style: AppTextStyle.leaveRequestFormSubtitle,),
+                   AppLocalizations.of(context).user_apply_leave_select_tag,
+                  style: AppTextStyle.leaveRequestFormSubtitle, overflow: TextOverflow.ellipsis),
                 items: leaveTypeMap
                     .map((key, value) {
                       return MapEntry(
                           key,
                           DropdownMenuItem<int>(
                             value: key,
-                            child: Text(_localization
+                            child: Text(" " + _localization
                                 .leave_type_placeholder_leave_status(key)),
                           ));
                     })

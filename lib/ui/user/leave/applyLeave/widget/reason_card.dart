@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:provider/provider.dart';
-
+import '../../../../../configs/text_style.dart';
 import '../../../../../stateManager/user/leave_request_data_manager.dart';
 
 class ReasonCard extends StatelessWidget {
@@ -27,8 +27,7 @@ class ReasonCard extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: AppLocalizations.of(context).leave_reason_tag,
-            hintStyle: const TextStyle(
-                color: AppColors.secondaryText, fontSize: subTitleTextSize),
+            hintStyle:  AppTextStyle.leaveRequestFormSubtitle,
           ),
           validator: (String? value) {
                 if (value == null || value == '') {

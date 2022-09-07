@@ -23,9 +23,9 @@ class DatePickerCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           onTap: onPress,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 13),
+            padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 13),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(DateFormat.yMMMd(_localeName).format(currentDate), style: AppTextStyle.bodyTextDark),
                 const FaIcon(
@@ -56,9 +56,9 @@ class TimePickerCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           onTap: onPress,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 13),
+            padding: const EdgeInsets.symmetric(vertical: 13,horizontal: 13),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(time.format(context), style: AppTextStyle.bodyTextDark),
                 const FaIcon(
