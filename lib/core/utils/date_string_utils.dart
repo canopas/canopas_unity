@@ -40,7 +40,7 @@ String dateInSingleLine(
     }
     return '$startLeaveDay - $endLeaveDay  $month, $year';
   }
-  return '${startDate.dateToString(locale)} to ${endDate.dateToString(locale)},';
+  return '${startDate.dateToString(locale)} to ${endDate.dateToString(locale)}';
 }
 
 String totalLeaves(double days) {
