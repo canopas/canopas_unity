@@ -43,38 +43,31 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
         children: [
            Text(_localizations.settings_setting_text, style: AppTextStyle.largeHeaderBold),
           settingSubTitle(subtitle: _localizations.settings_account_text),
-          InkWell(
-            borderRadius: BorderRadius.circular(12),
-            onTap: (){},
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
+          Row(
+            children: [
+              (_userManager.userImage == null)
+                  ? CircleAvatar(
+                backgroundColor: AppColors.primaryGray,
+                radius: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.09,
+                child: const Icon(Icons.person, size: 40, color: AppColors.blackColor),
+              )
+                  : CircleAvatar(
+                backgroundImage: NetworkImage(_userManager.userImage!),
+              ),
+              const SizedBox(width: 20,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  (_userManager.userImage == null)
-                      ? CircleAvatar(
-                    backgroundColor: AppColors.primaryGray,
-                    radius: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.09,
-                    child: const Icon(Icons.person, size: 40, color: AppColors.blackColor),
-                  )
-                      : CircleAvatar(
-                    backgroundImage: NetworkImage(_userManager.userImage!),
-                  ),
-                  const SizedBox(width: 20,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(_userManager.userName, style: AppTextStyle.headerTextBold),
-                      const SizedBox(height: 5,),
-                      Text(_userManager.employeeDesignation, style: AppTextStyle.bodyTextDark,),
+                  Text(_userManager.userName, style: AppTextStyle.headerTextBold),
+                  const SizedBox(height: 5,),
+                  Text(_userManager.employeeDesignation, style: AppTextStyle.bodyTextDark,),
 
-                    ],
-                  ),
                 ],
               ),
-            ),
+            ],
           ),
          settingSubTitle(subtitle: _localizations.settings_setting_text),
           SettingOption(
