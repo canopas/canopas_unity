@@ -17,10 +17,7 @@ import '../../../../configs/colors.dart';
 
 class UserLeaveDetailScreen extends StatelessWidget {
   final Leave leave;
-  final _stackManager = getIt<NavigationStackManager>();
-  final _userLeavesBLoc = getIt<UserLeavesBloc>();
-
-  UserLeaveDetailScreen({Key? key, required this.leave}) : super(key: key);
+  const UserLeaveDetailScreen({Key? key, required this.leave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,83 +29,108 @@ class UserLeaveDetailScreen extends StatelessWidget {
     final _totalDays = totalLeaves(leave.totalLeaves);
     final String _reason = leave.reason;
     final String? _rejectionReason = leave.rejectionReason;
-    var currentTimeStamp = DateTime.now().timeStampToInt;
 
-    bool canCancelLeave = leave.leaveStatus == pendingLeaveStatus ||
-        leave.startDate >= currentTimeStamp;
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
-
-        title: Text(
-          _localization.leave_detail_title,
-          style: AppTextStyle.appBarTitle,
-        ),
-        actions: canCancelLeave
-            ? [
-                TextButton(
-                  onPressed: () {
-                    _userLeavesBLoc.cancelLeave(leave: leave);
-                    showSnackBar(context, 'Leave Application is cancelled!');
-                    _stackManager.pop();
-                  },
-                  child: Text(
-              _localization.user_leave_detail_button_cancel,
-                    style: AppTextStyle.leaveDetailSubtitle,
-            ),
-          )
-        ]: null,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildFieldColumn(
-                  title: _localization.leave_type_tag,
-                  value: _localization
-                      .leave_type_placeholder_leave_status(leave.leaveType)),
-              buildDivider(),
-              Row(
-                children: [
-                  Expanded(
-                      child: buildFieldColumn(
-                          title: _localization.leave_duration_text,
-                          value: _duration)),
-                  buildFieldColumn(
-                      title: _localization.leave_totalDays_tag,
-                      value: '⚈ $_totalDays')
-                ],
-              ),
-              buildDivider(),
-              buildFieldColumn(
-                  title: _localization.leave_reason_tag, value: _reason),
-              buildDivider(),
-              buildFieldColumn(
-                  title:
-                      '${_localization.user_leave_detail_approval_Status_tag}:',
-                  value: ''),
-              _buildStatus(leave.leaveStatus, context),
-              _rejectionReason != null
-                  ? buildFieldColumn(title: '', value: _rejectionReason)
-                  : Container(),
-            ],
+        backgroundColor: AppColors.whiteColor,
+        appBar: AppBar(
+          title: Text(
+            _localization.leave_detail_title,
+            style: AppTextStyle.appBarTitle,
           ),
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildFieldColumn(
+                    title: _localization.leave_type_tag,
+                    value: _localization
+                        .leave_type_placeholder_leave_status(leave.leaveType)),
+                buildDivider(),
+                Row(
+                  children: [
+                    Expanded(
+                        child: buildFieldColumn(
+                            title: _localization.leave_duration_text,
+                            value: _duration)),
+                    buildFieldColumn(
+                        title: _localization.leave_totalDays_tag,
+                        value: '⚈ $_totalDays')
+                  ],
+                ),
+                buildDivider(),
+                buildFieldColumn(
+                    title: _localization.leave_reason_tag, value: _reason),
+                buildDivider(),
+                buildFieldColumn(
+                    title:
+                        '${_localization.user_leave_detail_approval_Status_tag}:',
+                    value: ''),
+                _buildStatus(leave.leaveStatus, context),
+                _rejectionReason != null
+                    ? buildFieldColumn(title: '', value: _rejectionReason)
+                    : Container(),
+              ],
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: (leave.leaveStatus != approveLeaveStatus ||
+                leave.startDate > DateTime.now().timeStampToInt)
+            ? _LeaveActionButton(leave: leave,)
+            : null);
   }
 }
 
 Widget _buildStatus(int leaveStatus, BuildContext context) {
   switch (leaveStatus) {
-    case 1:
+    case pendingLeaveStatus:
       return const PendingStatus();
-    case 2:
+    case approveLeaveStatus:
       return const ApproveStatus();
-    case 3:
+    case rejectLeaveStatus:
       return const RejectStatus();
   }
   throw Exception(AppLocalizations.of(context).error_something_went_wrong);
+}
+
+///
+/// leave details screen floating action button.
+///
+class _LeaveActionButton extends StatelessWidget {
+  _LeaveActionButton({Key? key, required this.leave}) : super(key: key);
+  final Leave leave;
+  final UserLeavesBloc _userLeavesBLoc = getIt<UserLeavesBloc>();
+  final NavigationStackManager _stackManager = getIt<NavigationStackManager>();
+
+
+  @override
+  Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
+    return ElevatedButton(
+      onPressed: () {
+        _userLeavesBLoc.cancelLeave(leave: leave);
+        showSnackBar(context,
+            (leave.leaveStatus == pendingLeaveStatus)
+                ? _localization.user_leave_detail_cancel_leave_message
+                : _localization.user_leave_detail_delete_leave_message);
+        _stackManager.pop();
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: (leave.leaveStatus == pendingLeaveStatus)
+            ? AppColors.greyColor
+            : AppColors.redColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        elevation: 0,
+        fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
+      ),
+      child: Text(
+          (leave.leaveStatus == pendingLeaveStatus)
+              ? _localization.user_leave_detail_button_cancel
+              : _localization.user_leave_detail_button_delete,
+          style: AppTextStyle.subtitleText),
+    );
+  }
 }
