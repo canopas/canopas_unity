@@ -38,7 +38,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
       body: NestedScrollView(
         headerSliverBuilder: (_, __) => [
           SliverAppBar(
-              expandedHeight: 150,
+              expandedHeight: MediaQuery.of(context).size.height*0.18,
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
