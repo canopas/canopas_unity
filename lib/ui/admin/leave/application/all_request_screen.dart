@@ -50,10 +50,7 @@ class _AdminLeaveRequestsScreenState extends State<AdminLeaveRequestsScreen> {
                 loading: () => const kCircularProgressIndicator(),
                 completed: (List<LeaveApplication> list) {
                   return ListView.separated(
-                    padding: const EdgeInsets.only(
-                        top: primaryHorizontalSpacing,
-                        right: primaryHorizontalSpacing,
-                        left: primaryHorizontalSpacing),
+                    padding: const EdgeInsets.all(primaryHorizontalSpacing),
                     itemCount: list.length,
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication employeeLeave = list[index];
