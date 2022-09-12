@@ -17,6 +17,7 @@ import '../bloc/admin/leave/leave_application_bloc.dart' as _i9;
 import '../bloc/admin/leave_count/all_leave_count.dart' as _i3;
 import '../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart'
     as _i20;
+import '../bloc/admin/leave_details_screen/admin_leave_details_bloc.dart' as _i25;
 import '../bloc/login/login_bloc.dart' as _i18;
 import '../bloc/user/setting_view_bloc.dart' as _i23;
 import '../bloc/user/user_leave_bloc.dart' as _i24;
@@ -31,7 +32,7 @@ import '../stateManager/admin/leave_status_manager.dart' as _i11;
 import '../stateManager/auth/auth_manager.dart' as _i15;
 import '../stateManager/login_state_manager.dart' as _i21;
 import '../stateManager/user/leave_request_data_manager.dart' as _i10;
-import 'AppModule.dart' as _i25; // ignore_for_file: unnecessary_lambdas
+import 'AppModule.dart' as _i26; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -73,7 +74,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       _i23.SettingViewBLoc(get<_i14.UserPreference>(), get<_i21.LoginState>()));
   gh.singleton<_i24.UserLeavesBloc>(_i24.UserLeavesBloc(
       get<_i13.UserLeaveService>(), get<_i19.UserManager>()));
+  gh.singleton<_i25.AdminLeaveDetailsScreenBloc>(_i25.AdminLeaveDetailsScreenBloc(get<_i13.UserLeaveService>()));
   return get;
 }
 
-class _$AppModule extends _i25.AppModule {}
+class _$AppModule extends _i26.AppModule {}

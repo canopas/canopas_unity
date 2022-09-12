@@ -75,7 +75,7 @@ class _AdminUpdateLeaveCountsScreenState
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 primary: AppColors.primaryBlue,
-                fixedSize: Size(MediaQuery.of(context).size.width, 50),
+                fixedSize: Size(MediaQuery.of(context).size.width, 45),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50)
                 )
@@ -83,7 +83,7 @@ class _AdminUpdateLeaveCountsScreenState
               onPressed: (_allLeaveCountController.text.isNotEmpty)
                   ? _onUpdateLeaveCount
                   : null,
-              child: Text(_localizations.update_button_text, style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.w700),)),
+              child: Text(_localizations.update_button_text, style: AppTextStyle.subtitleText,)),
         ],
       ),
       backgroundColor: AppColors.whiteColor,

@@ -47,7 +47,18 @@ String totalLeaves(double days) {
   if (days <= 1) {
     return '$days Day';
   }
-  return '$days Days';
+  return '${days.toInt()} Days';
+}
+
+String daysFinder(double days) {
+  if (days < 1) {
+    int hours = (days*24).toInt();
+    return '$hours Hours';
+  } else if(days - days.toInt() != 0.0){
+    int hours = ((days - days.toInt())*24).toInt();
+      return '${days.toInt()} Days $hours Hours';
+  }
+  return '${days.toInt()} Days';
 }
 
 String getLeaveStatus(int status, Map map) {

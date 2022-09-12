@@ -59,20 +59,20 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 90,right: 90, top: 380),
+            padding:  EdgeInsets.only(left: 90,right: 90, top: MediaQuery.of(context).size.height*0.48),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: AppColors.redColor,
-                  fixedSize:  Size(MediaQuery.of(context).size.width, 50),
+                  fixedSize:  Size(MediaQuery.of(context).size.width, 45),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)
+                      borderRadius: BorderRadius.circular(50)
                   )
               ),
               onPressed: (){
                 getIt<SettingViewBLoc>().singOut();
               },
-              child: Text(_localizations.logout_button_text),
+              child: Text(_localizations.logout_button_text, style: AppTextStyle.subtitleText,),
             ),
           ),
         ],

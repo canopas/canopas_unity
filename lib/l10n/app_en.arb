@@ -68,6 +68,16 @@
                         }
                      }
                  },
+  "leave_details_screen_leave_type_title":"{leaveStatus, select, 0{Casual leave} 1{Sick leave} 2{Annual leave} 3{Paternity leave} 4{Maternity leave} 5{Marriage leave} 6{Bereavement leave}} request",
+  "@leave_details_screen_leave_type_title":{
+    "description":"get leave type from leave status",
+    "placeholders":{
+      "leaveStatus":{
+        "type":"int"
+      }
+    }
+  },
+
    "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected} }",
         "@leave_status_placeholder_text":{
             "description":"get leave type from leave status",
@@ -130,8 +140,8 @@
 
 
 
-      "admin_leave_detail_button_reject":"REJECT",
-      "admin_leave_detail_button_approve":"APPROVE",
+      "admin_leave_detail_button_reject":"Reject",
+      "admin_leave_detail_button_approve":"Approve",
       "admin_leave_detail_button_seeHistory":"See History",
       "admin_leave_detail_button_ok":"OK",
       "admin_leave_detail_daysLeft_tag":"Days left",
@@ -148,7 +158,7 @@
       "admin_addMember_hint_designation":"Android developer",
 
 
-      "admin_leave_detail_placeholder_remaining_days":"{Remaining: {day}/30}",
+      "admin_leave_detail_placeholder_remaining_days":"{day} leaves remaining",
         "@admin_leave_detail_placeholder_remaining_days":{
            "placeholders":{
              "day":{
@@ -159,7 +169,8 @@
 
      "error_something_went_wrong": "Something went wrong",
 
-     "admin_leave_detail_error_reason":"Please enter reason",
+     "admin_leave_detail_error_reason":"Enter Message",
+     "admin_leave_detail_message_title_text": "Approval or rejection message",
      "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
      "admin_update_total_leave_count_error":"Failed to update total leave count!",
 
@@ -176,6 +187,6 @@
      "admin_total_leave_count_text":"Total leave count",
      "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
      "something_went_wrong_text":"Something went wrong!",
-     "leave_detail_title":"Requested leave details"
+     "leave_detail_title":"Leave details"
 
 }

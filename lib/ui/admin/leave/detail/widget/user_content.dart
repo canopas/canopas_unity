@@ -2,23 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
+import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../model/employee/employee.dart';
 
 class UserContent extends StatelessWidget {
-  Employee employee;
+  final Employee employee;
 
-  UserContent({Key? key, required this.employee}) : super(key: key);
+  const UserContent({Key? key, required this.employee}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+      padding:  const EdgeInsets.all(primaryHorizontalSpacing),
       child: Row(
         children: [
-          ImageProfile(iconSize: 50, imageUrl: employee.imageUrl),
+          ImageProfile(iconSize: 60, imageUrl: employee.imageUrl),
           const SizedBox(
             width: 10,
           ),
@@ -40,7 +38,7 @@ class UserContent extends StatelessWidget {
   Text _buildDesignation({required String designation}) {
     return Text(
       designation,
-      style: AppTextStyle.secondarySubtitle500
+      style: AppTextStyle.secondaryBodyText
     );
   }
 }
@@ -48,6 +46,6 @@ class UserContent extends StatelessWidget {
 Text _buildUserName({required String name}) {
   return Text(
     name,
-    style: AppTextStyle.secondarySubtitle500,
+    style: AppTextStyle.subtitleTextDark.copyWith(fontWeight: FontWeight.w600),
   );
 }

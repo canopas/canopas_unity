@@ -64,25 +64,9 @@ class LeaveRequestDataManager extends ChangeNotifier {
 
   double getTotalOfLeaves() {
     int totalHours = endDateTime.difference(startDateTime).inHours;
-    double totalLeaves = getLeaveByHours(totalHours);
+    double totalDays = totalHours / 24;
     notifyListeners();
-    return totalLeaves;
-  }
-
-  double getLeaveByHours(int leaveHours) {
-    int fullDays = leaveHours ~/ 24;
-    var remainder = leaveHours.remainder(24);
-    double remainingHours(remainder) {
-      if (remainder == 0) {
-        return 0;
-      } else if (remainder < 6) {
-        return 0.5;
-      } else {
-        return 1;
-      }
-    }
-
-    return fullDays + remainingHours(remainder);
+    return totalDays;
   }
 
   double get totalDays => getTotalOfLeaves();

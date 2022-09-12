@@ -43,20 +43,22 @@ class LeaveRequestCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildLeaveTypeContent(
-                        leaveType: leave.leaveType ?? 1, context: context),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    buildLeaveDateContent(
-                        totalDays: leave.totalLeaves,
-                        startTimeStamp: leave.startDate,
-                        endTimeStamp: leave.endDate,
-                        context: context),
-                  ],
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildLeaveTypeContent(
+                          leaveType: leave.leaveType ?? 1, context: context),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      buildLeaveDateContent(
+                          totalDays: leave.totalLeaves,
+                          startTimeStamp: leave.startDate,
+                          endTimeStamp: leave.endDate,
+                          context: context),
+                    ],
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(right: 15),
@@ -92,11 +94,12 @@ class LeaveRequestCard extends StatelessWidget {
         startTimeStamp: startTimeStamp,
         endTimeStamp: endTimeStamp,
         locale: localeName);
-    String days = totalLeaves(totalDays);
+    String days = daysFinder(totalDays);
 
     return Text(
       '$days  ⚈ $date ',
       style: AppTextStyle.secondaryBodyText,
+      overflow: TextOverflow.ellipsis,
     );
   }
 
