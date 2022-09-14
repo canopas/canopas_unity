@@ -47,7 +47,10 @@ class EmployeeSummaryCard extends StatelessWidget {
                   desc: AppLocalizations.of(context).admin_home_request_tag,
                 ),
                 _buildSummaryContent(
-                  onTap: (){},
+                  onTap: (){
+                    _stackManager
+                        .push(const AdminNavigationStackItem.adminLeaveAbsenceState());
+                  },
                   icon: Icons.calendar_month_rounded,
                   color: AppColors.primaryPink,
                   title: employeesSummary.absenceCount.toString(),

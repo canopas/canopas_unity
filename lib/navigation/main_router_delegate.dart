@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/model/leave_application.dart';
+import 'package:projectunity/ui/admin/leave/absence/absence_screen.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
 
@@ -97,6 +98,9 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
             adminLeaveRequestState: () => const MaterialPage(
                 key: ValueKey("requested-leaves"),
                 child: AdminLeaveRequestsScreen()),
+            adminLeaveAbsenceState: () => const MaterialPage(
+                key: ValueKey("absence-employees"),
+                child: AdminAbsenceScreen()),
             adminLeaveRequestDetailState: (LeaveApplication employeeLeave) =>
                 MaterialPage(
                     key: const ValueKey('admin-requested-levae-detail'),

@@ -89,6 +89,9 @@ class HomeRouterInfoParser
         case "add-member":
           items.add(const AdminNavigationStackItem.addMemberState());
           break;
+        case "absence-employees":
+          items.add(const AdminNavigationStackItem.adminLeaveAbsenceState());
+          break;
         case 'admin-leave-request':
           items.add(AdminNavigationStackItem.adminLeaveRequestState());
           break;

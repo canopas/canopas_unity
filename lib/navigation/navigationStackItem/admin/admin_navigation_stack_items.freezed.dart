@@ -32,6 +32,10 @@ class _$AdminNavigationStackItemTearOff {
     return const AdminSettingsState();
   }
 
+  AdminLeaveAbsenceState adminLeaveAbsenceState() {
+    return const AdminLeaveAbsenceState();
+  }
+
   UpdateLeaveCountState updateLeaveCountsState() {
     return const UpdateLeaveCountState();
   }
@@ -66,6 +70,7 @@ mixin _$AdminNavigationStackItem {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -79,6 +84,7 @@ mixin _$AdminNavigationStackItem {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -92,6 +98,7 @@ mixin _$AdminNavigationStackItem {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -106,6 +113,8 @@ mixin _$AdminNavigationStackItem {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -121,6 +130,7 @@ mixin _$AdminNavigationStackItem {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -134,6 +144,7 @@ mixin _$AdminNavigationStackItem {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -206,6 +217,7 @@ class _$AdminHomeState implements AdminHomeState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -222,6 +234,7 @@ class _$AdminHomeState implements AdminHomeState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -238,6 +251,7 @@ class _$AdminHomeState implements AdminHomeState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -258,6 +272,8 @@ class _$AdminHomeState implements AdminHomeState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -276,6 +292,7 @@ class _$AdminHomeState implements AdminHomeState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -292,6 +309,7 @@ class _$AdminHomeState implements AdminHomeState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -379,6 +397,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -395,6 +414,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -411,6 +431,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -431,6 +452,8 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -449,6 +472,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -465,6 +489,7 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -534,6 +559,7 @@ class _$AdminSettingsState implements AdminSettingsState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -550,6 +576,7 @@ class _$AdminSettingsState implements AdminSettingsState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -566,6 +593,7 @@ class _$AdminSettingsState implements AdminSettingsState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -586,6 +614,8 @@ class _$AdminSettingsState implements AdminSettingsState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -604,6 +634,7 @@ class _$AdminSettingsState implements AdminSettingsState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -620,6 +651,7 @@ class _$AdminSettingsState implements AdminSettingsState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -637,6 +669,162 @@ class _$AdminSettingsState implements AdminSettingsState {
 
 abstract class AdminSettingsState implements AdminNavigationStackItem {
   const factory AdminSettingsState() = _$AdminSettingsState;
+}
+
+/// @nodoc
+abstract class $AdminLeaveAbsenceStateCopyWith<$Res> {
+  factory $AdminLeaveAbsenceStateCopyWith(AdminLeaveAbsenceState value,
+          $Res Function(AdminLeaveAbsenceState) then) =
+      _$AdminLeaveAbsenceStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$AdminLeaveAbsenceStateCopyWithImpl<$Res>
+    extends _$AdminNavigationStackItemCopyWithImpl<$Res>
+    implements $AdminLeaveAbsenceStateCopyWith<$Res> {
+  _$AdminLeaveAbsenceStateCopyWithImpl(AdminLeaveAbsenceState _value,
+      $Res Function(AdminLeaveAbsenceState) _then)
+      : super(_value, (v) => _then(v as AdminLeaveAbsenceState));
+
+  @override
+  AdminLeaveAbsenceState get _value => super._value as AdminLeaveAbsenceState;
+}
+
+/// @nodoc
+
+class _$AdminLeaveAbsenceState implements AdminLeaveAbsenceState {
+  const _$AdminLeaveAbsenceState();
+
+  @override
+  String toString() {
+    return 'AdminNavigationStackItem.adminLeaveAbsenceState()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is AdminLeaveAbsenceState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() adminHomeState,
+    required TResult Function(String id) employeeDetailState,
+    required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
+    required TResult Function() updateLeaveCountsState,
+    required TResult Function() staffState,
+    required TResult Function() addMemberState,
+    required TResult Function() adminLeaveRequestState,
+    required TResult Function(LeaveApplication employeeLeave)
+        adminLeaveRequestDetailState,
+  }) {
+    return adminLeaveAbsenceState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? adminHomeState,
+    TResult Function(String id)? employeeDetailState,
+    TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
+    TResult Function()? updateLeaveCountsState,
+    TResult Function()? staffState,
+    TResult Function()? addMemberState,
+    TResult Function()? adminLeaveRequestState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
+  }) {
+    return adminLeaveAbsenceState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? adminHomeState,
+    TResult Function(String id)? employeeDetailState,
+    TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
+    TResult Function()? updateLeaveCountsState,
+    TResult Function()? staffState,
+    TResult Function()? addMemberState,
+    TResult Function()? adminLeaveRequestState,
+    TResult Function(LeaveApplication employeeLeave)?
+        adminLeaveRequestDetailState,
+    required TResult orElse(),
+  }) {
+    if (adminLeaveAbsenceState != null) {
+      return adminLeaveAbsenceState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AdminHomeState value) adminHomeState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
+    required TResult Function(UpdateLeaveCountState value)
+        updateLeaveCountsState,
+    required TResult Function(StaffState value) staffState,
+    required TResult Function(AddMemberState value) addMemberState,
+    required TResult Function(AdminLeaveRequestState value)
+        adminLeaveRequestState,
+    required TResult Function(AdminLeaveRequestDetailState value)
+        adminLeaveRequestDetailState,
+  }) {
+    return adminLeaveAbsenceState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AdminHomeState value)? adminHomeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
+    TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
+    TResult Function(StaffState value)? staffState,
+    TResult Function(AddMemberState value)? addMemberState,
+    TResult Function(AdminLeaveRequestState value)? adminLeaveRequestState,
+    TResult Function(AdminLeaveRequestDetailState value)?
+        adminLeaveRequestDetailState,
+  }) {
+    return adminLeaveAbsenceState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AdminHomeState value)? adminHomeState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
+    TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
+    TResult Function(StaffState value)? staffState,
+    TResult Function(AddMemberState value)? addMemberState,
+    TResult Function(AdminLeaveRequestState value)? adminLeaveRequestState,
+    TResult Function(AdminLeaveRequestDetailState value)?
+        adminLeaveRequestDetailState,
+    required TResult orElse(),
+  }) {
+    if (adminLeaveAbsenceState != null) {
+      return adminLeaveAbsenceState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AdminLeaveAbsenceState implements AdminNavigationStackItem {
+  const factory AdminLeaveAbsenceState() = _$AdminLeaveAbsenceState;
 }
 
 /// @nodoc
@@ -683,6 +871,7 @@ class _$UpdateLeaveCountState implements UpdateLeaveCountState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -699,6 +888,7 @@ class _$UpdateLeaveCountState implements UpdateLeaveCountState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -715,6 +905,7 @@ class _$UpdateLeaveCountState implements UpdateLeaveCountState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -735,6 +926,8 @@ class _$UpdateLeaveCountState implements UpdateLeaveCountState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -753,6 +946,7 @@ class _$UpdateLeaveCountState implements UpdateLeaveCountState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -769,6 +963,7 @@ class _$UpdateLeaveCountState implements UpdateLeaveCountState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -831,6 +1026,7 @@ class _$StaffState implements StaffState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -847,6 +1043,7 @@ class _$StaffState implements StaffState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -863,6 +1060,7 @@ class _$StaffState implements StaffState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -883,6 +1081,8 @@ class _$StaffState implements StaffState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -901,6 +1101,7 @@ class _$StaffState implements StaffState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -917,6 +1118,7 @@ class _$StaffState implements StaffState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -980,6 +1182,7 @@ class _$AddMemberState implements AddMemberState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -996,6 +1199,7 @@ class _$AddMemberState implements AddMemberState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -1012,6 +1216,7 @@ class _$AddMemberState implements AddMemberState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -1032,6 +1237,8 @@ class _$AddMemberState implements AddMemberState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -1050,6 +1257,7 @@ class _$AddMemberState implements AddMemberState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -1066,6 +1274,7 @@ class _$AddMemberState implements AddMemberState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -1129,6 +1338,7 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -1145,6 +1355,7 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -1161,6 +1372,7 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -1181,6 +1393,8 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -1199,6 +1413,7 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -1215,6 +1430,7 @@ class _$AdminLeaveRequestState implements AdminLeaveRequestState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -1307,6 +1523,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     required TResult Function() adminHomeState,
     required TResult Function(String id) employeeDetailState,
     required TResult Function() adminSettingsState,
+    required TResult Function() adminLeaveAbsenceState,
     required TResult Function() updateLeaveCountsState,
     required TResult Function() staffState,
     required TResult Function() addMemberState,
@@ -1323,6 +1540,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -1339,6 +1557,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     TResult Function()? adminHomeState,
     TResult Function(String id)? employeeDetailState,
     TResult Function()? adminSettingsState,
+    TResult Function()? adminLeaveAbsenceState,
     TResult Function()? updateLeaveCountsState,
     TResult Function()? staffState,
     TResult Function()? addMemberState,
@@ -1359,6 +1578,8 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     required TResult Function(AdminHomeState value) adminHomeState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
     required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(AdminLeaveAbsenceState value)
+        adminLeaveAbsenceState,
     required TResult Function(UpdateLeaveCountState value)
         updateLeaveCountsState,
     required TResult Function(StaffState value) staffState,
@@ -1377,6 +1598,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
@@ -1393,6 +1615,7 @@ class _$AdminLeaveRequestDetailState implements AdminLeaveRequestDetailState {
     TResult Function(AdminHomeState value)? adminHomeState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
     TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(AdminLeaveAbsenceState value)? adminLeaveAbsenceState,
     TResult Function(UpdateLeaveCountState value)? updateLeaveCountsState,
     TResult Function(StaffState value)? staffState,
     TResult Function(AddMemberState value)? addMemberState,
