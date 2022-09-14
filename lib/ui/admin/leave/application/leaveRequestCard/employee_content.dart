@@ -15,7 +15,7 @@ class EmployeeContent extends StatelessWidget {
     return Row(
       children: [
         ImageProfile(
-          iconSize: 50,
+          radius: 25,
           imageUrl: employee.imageUrl,
         ),
         const SizedBox(

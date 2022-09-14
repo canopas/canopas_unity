@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../navigation/navigation_stack_manager.dart';
 import '../../../widget/setting_screen_subtitle.dart';
+import '../../../widget/user_profile_image.dart';
 
 class AdminSettingScreen extends StatefulWidget {
   const AdminSettingScreen({Key? key}) : super(key: key);
@@ -45,18 +46,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
           settingSubTitle(subtitle: _localizations.settings_account_text),
           Row(
             children: [
-              (_userManager.userImage == null)
-                  ? CircleAvatar(
-                backgroundColor: AppColors.primaryGray,
-                radius: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.09,
-                child: const Icon(Icons.person, size: 40, color: AppColors.blackColor),
-              )
-                  : CircleAvatar(
-                backgroundImage: NetworkImage(_userManager.userImage!),
-              ),
+              ImageProfile(imageUrl: _userManager.userImage, radius: 35),
               const SizedBox(width: 20,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

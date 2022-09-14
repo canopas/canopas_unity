@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import '../../../../../bloc/admin/employee/employee_detail_bloc.dart';
-import '../../../../../configs/colors.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../rest/api_response.dart';
@@ -25,7 +20,6 @@ class EmployeeDetailScreen extends StatefulWidget {
 
 class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   final _bloc = getIt<EmployeeDetailBloc>();
-  final _navigationStackManager = getIt<NavigationStackManager>();
 
   @override
   void initState() {
@@ -37,37 +31,20 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => _navigationStackManager.pop(),
-          icon: const Icon(FontAwesomeIcons.angleLeft, color: Colors.black),
-        ),
-        title: Text(
-          AppLocalizations.of(context).admin_employee_detail_profile_tag,
-          style: AppTextStyle.appBarTitle,
-        ),
       ),
       body: StreamBuilder<ApiResponse<Employee>>(
         stream: _bloc.employeeDetail,
         initialData: const ApiResponse.idle(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return snapshot.data!.when(
-              idle: () {
-                return Container();
-              },
+              idle: () => Container(),
               loading: () => const kCircularProgressIndicator(),
               completed: (Employee employee) {
-                return SingleChildScrollView(
-                  child: Column(children: [
-                    SizedBox(
-                        height: 400,
-                        child: ProfileCard(
-                          employee: employee,
-                        )),
+                return ListView(
+                    children: [
+                    ProfileCard(employee: employee),
                     ProfileDetail(employee: employee),
-                  ]),
-                );
+                ]);
               },
               error: (String error) {
                 SchedulerBinding.instance.addPostFrameCallback((_) {

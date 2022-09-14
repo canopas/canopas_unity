@@ -7,6 +7,7 @@ import '../../../bloc/user/setting_view_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../di/service_locator.dart';
 import '../../../widget/setting_screen_subtitle.dart';
+import '../../../widget/user_profile_image.dart';
 class EmployeeSettingScreen extends StatefulWidget {
   const EmployeeSettingScreen({Key? key}) : super(key: key);
 
@@ -34,18 +35,7 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
           settingSubTitle(subtitle: _localizations.settings_account_text),
           Row(
             children: [
-              (_userManager.userImage == null)
-                  ? CircleAvatar(
-                backgroundColor: AppColors.primaryGray,
-                radius: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.09,
-                child: const Icon(Icons.person, size: 40, color: AppColors.blackColor),
-              )
-                  : CircleAvatar(
-                backgroundImage: NetworkImage(_userManager.userImage!),
-              ),
+              ImageProfile(imageUrl: _userManager.userImage, radius: 35),
               const SizedBox(width: 20,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
