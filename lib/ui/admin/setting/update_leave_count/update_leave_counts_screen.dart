@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/leave_count/all_leave_count.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 import '../../../../configs/font_size.dart';
 import '../../../../di/service_locator.dart';
 

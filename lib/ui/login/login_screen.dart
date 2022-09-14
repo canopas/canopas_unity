@@ -5,7 +5,8 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
-import '../../bloc/login/login_bloc.dart';
+
+import '../../bloc/authentication/login_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
 import '../../rest/api_response.dart';
 import '../../stateManager/login_state_manager.dart';

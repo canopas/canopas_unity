@@ -4,6 +4,7 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
+
 import '../../../../../di/service_locator.dart';
 import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 
@@ -26,7 +27,7 @@ class EmployeeLeaveCard extends StatelessWidget {
           children: [
             ImageProfile(
               imageUrl: employeeLeave.employee.imageUrl,
-              iconSize: 60,
+              radius: 30,
             ),
             const SizedBox(
               width: 10,

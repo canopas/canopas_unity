@@ -20,6 +20,11 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
   final _stateManager = getIt<NavigationStackManager>();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(

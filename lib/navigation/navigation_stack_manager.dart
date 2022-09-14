@@ -7,12 +7,13 @@ import '../provider/user_data.dart';
 import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
 import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
-
 @Singleton()
 class NavigationStackManager extends ChangeNotifier {
   final UserManager _userManager;
   List<NavigationStackItem> _screens = [];
   bool _showBottomBar = true;
+
+  NavigationStackManager(this._userManager);
 
   NavigationStack<NavigationStackItem> get navigation => _userManager.isAdmin
       ? const NavigationStack.admin()
@@ -27,8 +28,6 @@ class NavigationStackManager extends ChangeNotifier {
 
   bool get showBottomBar => _showBottomBar;
 
-  NavigationStackManager(this._userManager);
-
   void setBottomBar(bool show) {
     _showBottomBar = show;
     notifyListeners();
@@ -36,7 +35,7 @@ class NavigationStackManager extends ChangeNotifier {
 
   bool get isAdmin => _userManager.isAdmin;
 
-  set screens(List<NavigationStackItem> newItems) {
+  set setScreens(List<NavigationStackItem> newItems) {
     _screens = List.from(newItems);
     notifyListeners();
   }
@@ -56,6 +55,12 @@ class NavigationStackManager extends ChangeNotifier {
     _screens.clear();
     _screens.add(item);
     notifyListeners();
+  }
+
+  @override
+  @disposeMethod
+  void dispose() {
+    super.dispose();
   }
 
   NavigationStackItem? pop() {
