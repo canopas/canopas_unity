@@ -16,7 +16,7 @@ class HomeRouterInfoParser
   Future<NavigationStackManager> parseRouteInformation(
       RouteInformation routeInformation) async {
     final items = await itemsForRouteInformation(routeInformation);
-    _stackManager.screens = items;
+    _stackManager.setScreens = items;
     return _stackManager;
   }
 

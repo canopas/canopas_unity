@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/provider/user_data.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/user_intro_content.dart';
 
-import '../../../bloc/user/setting_view_bloc.dart';
+import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../di/service_locator.dart';
 import '../../../widget/setting_screen_subtitle.dart';
@@ -16,60 +17,65 @@ class EmployeeSettingScreen extends StatefulWidget {
 }
 
 class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
+  final _logOutBloc = getIt<LogOutBloc>();
 
-  final _userManager = getIt<UserManager>();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final _localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.whiteColor, elevation: 0, foregroundColor: AppColors.blackColor,
-      ),
       backgroundColor: AppColors.whiteColor,
-      body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(30),
-        children: [
-          Text(_localizations.settings_setting_text, style: AppTextStyle.largeHeaderBold),
-          settingSubTitle(subtitle: _localizations.settings_account_text),
-          Row(
-            children: [
-              ImageProfile(imageUrl: _userManager.userImage, radius: 35),
-              const SizedBox(width: 20,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_userManager.userName, style: AppTextStyle.headerTextBold), const SizedBox(height: 5,),
-                  Text(_userManager.employeeDesignation, style: AppTextStyle.bodyTextDark),
-
-                ],
-              ),
-
-            ],
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left: 90,right: 90, top: MediaQuery.of(context).size.height*0.48),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: AppColors.redColor,
-                  fixedSize:  Size(MediaQuery.of(context).size.width, 45),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
-                  )
-              ),
-              onPressed: (){
-                getIt<SettingViewBLoc>().singOut();
-              },
-              child: Text(_localizations.logout_button_text, style: AppTextStyle.subtitleText,),
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        backgroundColor: AppColors.whiteColor,
+        foregroundColor: AppColors.blackColor,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(_localizations.settings_setting_text,
+                style: AppTextStyle.largeHeaderBold),
+            buildSettingSubTitle(
+                subtitle: _localizations.settings_account_text),
+            UserIntroContent(),
+            Expanded(child: Container()),
+            Center(child: signOutButton(onTap: () async {
+              bool isSignOut = await _logOutBloc.signOutFromApp();
+              isSignOut
+                  ? showSnackBar(context, 'You have successfully logged out!')
+                  : null;
+            })),
+          ],
+        ),
       ),
     );
   }
 
+  Widget signOutButton({required VoidCallback onTap}) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          elevation: 0,
+          backgroundColor: AppColors.redColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+      onPressed: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Text(AppLocalizations.of(context).logout_button_text),
+      ),
+    );
+  }
 }
 
 

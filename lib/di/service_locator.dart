@@ -5,4 +5,7 @@ import 'package:projectunity/di/service_locator.config.dart';
 GetIt getIt = GetIt.instance;
 
 @InjectableInit()
-Future<void> configureDependencies() async => await $initGetIt(getIt);
+Future<void> configureDependencies() async {
+  await $initGetIt(getIt);
+}
+

@@ -15,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await configureDependencies();
+
   runApp(
     MaterialApp(
       theme: AppTheme.lightTheme,
@@ -53,6 +54,11 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
