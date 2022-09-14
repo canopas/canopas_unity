@@ -135,6 +135,7 @@
       "employee_address_tag":"Address",
       "employee_dateOfBirth_tag":"Date Of Birth",
       "employee_dateOfJoin_tag":"Date of Joining",
+      "employee_level_tag":"Level",
       "employee_employeeID_tag":"Employee Id",
       "employee_name_tag":"Name",
 

@@ -50,7 +50,7 @@ class Employee {
     if (roleType == kRoleTypeAdmin) {
       return "Admin";
     } else if (roleType == kRoleTypeEmployee) {
-      return "employee";
+      return "Employee";
     } else {
       return "HR";
     }

@@ -16,7 +16,7 @@ class UserContent extends StatelessWidget {
       padding:  const EdgeInsets.all(primaryHorizontalSpacing),
       child: Row(
         children: [
-          ImageProfile(iconSize: 60, imageUrl: employee.imageUrl),
+          ImageProfile(radius: 30, imageUrl: employee.imageUrl),
           const SizedBox(
             width: 10,
           ),

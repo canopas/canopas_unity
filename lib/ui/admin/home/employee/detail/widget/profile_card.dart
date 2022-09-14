@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/widget/user_profile_image.dart';
-
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import '../../../../../../configs/colors.dart';
 import '../../../../../../model/employee/employee.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import '../../../../../../widget/user_profile_image.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({Key? key, required this.employee}) : super(key: key);
@@ -14,182 +13,99 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 50.0),
-      child: Stack(
-        children: [
-          Positioned(
-            right: 0,
-            left: 0,
-            top: 60,
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 70, bottom: 25),
-                child: Column(
-                  children: [
-                    EmployeeName(name: employee.name),
-                    const SizedBox(height: 6),
-                    Text(
-                      employee.designation,
-                      style: const TextStyle(
-                          fontSize: subTitleTextSize, color: Colors.grey),
-                    ),
-                    const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        ContactIcon(
-                          color: Colors.deepOrange,
-                          icon: FaIcon(FontAwesomeIcons.phone),
-                        ),
-                        SizedBox(width: 20),
-                        ContactIcon(
-                          color: Colors.green,
-                          icon: FaIcon(FontAwesomeIcons.whatsapp),
-                        ),
-                        SizedBox(width: 20),
-                        ContactIcon(
-                          color: Colors.blue,
-                          icon: FaIcon(FontAwesomeIcons.envelope),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ImageProfile(
-              iconSize: 120,
-              imageUrl: employee.imageUrl,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class EmployeeLevel extends StatelessWidget {
-  const EmployeeLevel({
-    Key? key,
-    required this.level,
-  }) : super(key: key);
-
-  final String? level;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      level ?? '',
-      style: const TextStyle(fontSize: titleTextSize, color: Colors.black54),
-    );
-  }
-}
-
-class EmployeeName extends StatelessWidget {
-  const EmployeeName({
-    Key? key,
-    required this.name,
-  }) : super(key: key);
-
-  final String? name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      name ?? '-',
-      style: const TextStyle(
-          fontSize: largeTitleTextSize,
-          color: Colors.black,
-          fontWeight: FontWeight.w500),
-    );
-  }
-}
-
-class DesignationAndRoleCard extends StatelessWidget {
-  final String designation;
-  final String role;
-
-  const DesignationAndRoleCard(
-      {Key? key, required this.designation, required this.role})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: Column(
-              children: [
-                 Text(
-                  'Designation',
-                  style: AppTextStyle.bodyTextGrey
-                ),
-                Text(designation,
-                    style: const TextStyle(
-                        fontSize: titleTextSize,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500))
-              ],
-            ),
-          ),
-          const VerticalDivider(
-            color: Colors.grey,
-            indent: 25,
-            endIndent: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: Column(children: [
-              const Text(
-                'Role',
-                style: TextStyle(fontSize: bodyTextSize, color: Colors.grey),
-              ),
-              Text(
-                role,
-                style: const TextStyle(
-                    fontSize: titleTextSize,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500),
+    var _localization = AppLocalizations.of(context);
+    return Stack(
+      alignment: const Alignment(0,-1),
+      children: [
+        Container(
+          height: 150,
+          decoration: const BoxDecoration(
+              color: AppColors.primaryBlue,
+              borderRadius:
+              BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0,0),
+                color: AppColors.greyColor.withOpacity(0.15),
+                spreadRadius: 3,
+                blurRadius: 5,
               )
-            ]),
-          )
-        ],
-      ),
+            ],
+          ),
+          margin: const EdgeInsets.only(top: 70.0,bottom: 5,left: primaryHorizontalSpacing, right: primaryHorizontalSpacing),
+          padding: const EdgeInsets.only(top: 70, bottom: 30,left: 10,right: 10),
+          child: Column(
+            children: [
+              Text(
+                  employee.name,
+                  style: AppTextStyle.headerDark600,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                employee.designation,
+                style: AppTextStyle.secondarySubtitle500
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height*0.03),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextColumn(
+                    title:  _localization.employee_role_tag,
+                    subtitle:  employee.getRole(),
+                  ),
+                  Container(height: MediaQuery.of(context).size.height*0.06,width: 1, color: AppColors.greyColor,),
+                  TextColumn(
+                    title:   _localization.employee_employeeID_tag,
+                    subtitle:  employee.employeeId,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        ProfilePic(imageUrl: employee.imageUrl),
+      ],
     );
   }
 }
 
-class ContactIcon extends StatelessWidget {
-  final Color color;
-  final FaIcon icon;
+class TextColumn extends StatelessWidget {
+  const TextColumn({Key? key, required this.title, required this.subtitle}) : super(key: key);
 
-  const ContactIcon({Key? key, required this.icon, required this.color})
-      : super(key: key);
+  final String title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.peachColor.withOpacity(0.3),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
+    return Column(
+      children: [
+        Text(title, style: AppTextStyle.secondarySubtitle500),
+        const SizedBox(height: 6),
+        Text(subtitle ?? "-", style: AppTextStyle.titleText,),
+      ],
+    );
+  }
+}
+
+class ProfilePic extends StatelessWidget {
+  const ProfilePic({Key? key, required this.imageUrl}) : super(key: key);
+
+  final String? imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: primaryHorizontalSpacing),
+      child: CircleAvatar(
+        radius: 55,
+        backgroundColor: AppColors.whiteColor,
+        child: ImageProfile(imageUrl: imageUrl, radius: 50),
       ),
-      child: IconButton(onPressed: () {}, icon: icon, color: Colors.white),
     );
   }
 }

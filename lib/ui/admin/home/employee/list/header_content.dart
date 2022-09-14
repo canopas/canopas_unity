@@ -40,7 +40,7 @@ class HeaderContent extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
               child: ImageProfile(
-                iconSize: 50,
+                radius: 25,
                 imageUrl: _userManager.userImage,
               )),
         ],
