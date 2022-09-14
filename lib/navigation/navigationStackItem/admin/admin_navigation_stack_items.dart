@@ -16,6 +16,8 @@ class AdminNavigationStackItem
 
   const factory AdminNavigationStackItem.adminSettingsState() = AdminSettingsState;
 
+  const factory AdminNavigationStackItem.adminLeaveAbsenceState() = AdminLeaveAbsenceState;
+
   const factory AdminNavigationStackItem.updateLeaveCountsState() = UpdateLeaveCountState;
 
   const factory AdminNavigationStackItem.staffState() = StaffState;

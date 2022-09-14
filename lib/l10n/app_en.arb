@@ -173,6 +173,7 @@
      "admin_leave_detail_message_title_text": "Approval or rejection message",
      "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
      "admin_update_total_leave_count_error":"Failed to update total leave count!",
+     "empty_absence_state_message":"No one on leave today!",
 
      "admin_add_member_error_email":"Please enter valid email",
      "admin_add_member_error_name": "Please enter at least 4 character of your name",

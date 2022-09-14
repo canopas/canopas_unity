@@ -22,14 +22,23 @@ class AdminLeaveService {
     return data.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<int> getAbsenceCount() async {
+  Future<List<Leave>> getAllAbsence() async {
     int todayDate = DateTime.now().millisecondsSinceEpoch;
-    final data = await _leaveDbCollection.where('end_date', isGreaterThan: todayDate).get();
-    return data.docs.map((e){
-      if(e.data().startDate < todayDate && e.data().leaveStatus == approveLeaveStatus){
-        return e.data();
+    final _data = await _leaveDbCollection.where('end_date', isGreaterThan: todayDate).get();
+    List<Leave> _leaves = <Leave>[];
+    List _users = [];
+    for (var e in _data.docs) {
+      if(e.data().startDate < todayDate && e.data().leaveStatus == approveLeaveStatus && !_users.contains(e.data().uid)){
+        _users.add(e.data().uid);
+        _leaves.add(e.data());
       }
-    }).toList().length;
+    }
+    return _leaves;
+  }
+
+  Future<int> getAbsenceCount() async {
+    List<Leave> _leave = await getAllAbsence();
+    return _leave.length;
   }
 
   Future<int> getRequestsCount() async {

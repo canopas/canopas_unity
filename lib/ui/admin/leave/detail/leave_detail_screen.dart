@@ -9,6 +9,7 @@ import 'package:projectunity/ui/admin/leave/detail/widget/remaining_leave_conten
 import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
+import '../../../../model/leave/leave.dart';
 import 'widget/button_content.dart';
 
 class AdminLeaveRequestDetailScreen extends StatefulWidget {
@@ -38,11 +39,11 @@ class _AdminLeaveRequestDetailScreenState extends State<AdminLeaveRequestDetailS
            UserContent(employee: widget.employeeLeave.employee),
           RemainingLeaveContainer(employeeLeave: widget.employeeLeave),
           ReasonField(reason: widget.employeeLeave.leave.reason,),
-          _approvalRejectionMessage(context: context),
-          ButtonContent(
+          (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)?_approvalRejectionMessage(context: context):Container(),
+          (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)?ButtonContent(
             leaveId: widget.employeeLeave.leave.leaveId,
             reason: _approvalOrRejectionMassage.text,
-          ),
+          ):Container(),
         ],
       ),
     );

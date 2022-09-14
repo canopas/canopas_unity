@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 import '../../../../../model/employee/employee.dart';
 
 class EmployeeContent extends StatelessWidget {
