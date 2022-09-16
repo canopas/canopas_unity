@@ -7,6 +7,7 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/request_list/request_list.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
+
 import '../../../bloc/admin/employees_summary/employees_summary_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
@@ -21,22 +22,23 @@ class AdminHomeScreen extends StatefulWidget {
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
   final _employeeSummary = getIt<EmployeesSummaryBloc>();
+
   @override
   void initState() {
-    _employeeSummary.fetchEmployeeSummary();
+    _employeeSummary.attach();
     super.initState();
   }
 
   @override
   void dispose() {
-   _employeeSummary.dispose();
+   _employeeSummary.detach();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: Stack(
+        body: Stack(
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,21 +68,23 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     color: AppColors.whiteColor,
                   ),
                   onPressed: () {
-                    _stateManager
-                        .push(const AdminNavigationStackItem.adminSettingsState());
+                    _stateManager.push(
+                        const AdminNavigationStackItem.adminSettingsState());
                   }),
             ])),
             _buildRequestHeader(),
             const AdminLeaveRequestsList(),
           ],
         ),
-        Positioned(top: 100, right: 10, left: 10, child:
-            StreamBuilder(
+        Positioned(
+            top: 100,
+            right: 10,
+            left: 10,
+            child: StreamBuilder(
               stream: _employeeSummary.employeeSummary.stream,
-              builder: (context,AsyncSnapshot snapshot) => EmployeeSummaryCard(employeesSummary: _employeeSummary.employeeSummary.value),
-            )
-
-        ),
+              builder: (context, AsyncSnapshot snapshot) => EmployeeSummaryCard(
+                  employeesSummary: _employeeSummary.employeeSummary.value),
+            )),
       ],
     ),
         backgroundColor: AppColors.whiteColor,
