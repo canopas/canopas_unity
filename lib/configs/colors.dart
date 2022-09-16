@@ -14,6 +14,7 @@ class AppColors {
 
   // Color used for approve status container
   static const greenColor = Colors.green;
+  static const orangeColor = Colors.orange;
   static Color bgLidghtGreenColor = Colors.lightGreen.shade100;
 
   static const Color bottomBarColor = Color(0xFFFFFFFF);

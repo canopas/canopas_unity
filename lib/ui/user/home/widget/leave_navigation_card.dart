@@ -30,7 +30,7 @@ class LeaveNavigationCard extends StatelessWidget {
             Container(
               color: color,
               width: 5,
-              height: 75,
+              height: MediaQuery.of(context).size.height*0.09,
             ),
             const SizedBox(
               width: 20,

@@ -34,7 +34,7 @@ class EmployeeContent extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                '${_localization.employee_employeeID_tag}: ${employee.employeeId}',
+                employee.employeeId,
                 style: AppTextStyle.secondaryBodyText,
               ),
             ],
