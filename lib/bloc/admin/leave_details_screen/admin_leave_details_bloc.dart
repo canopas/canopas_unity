@@ -23,6 +23,9 @@ class AdminLeaveDetailsScreenBloc{
     _userAllDays = await _userLeaveService.getUserAllLeaveCount();
     _userUsedDays = await _userLeaveService.getUserUsedLeaveCount(id);
     _remainingLeaveRef = _userAllDays - _userUsedDays;
+    if(_remainingLeaveRef < 0){
+      _remainingLeaveRef = 0;
+    }
     double _percentage = ( ( 100 / _userAllDays ) * _remainingLeaveRef ) / 100;
     if(_percentage > 1){
       _percentage = 1;

@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 
-
 String dateDoubleLine(
     {required int startDate, required int endDate, required String locale}) {
   DateTime startLeaveDate = startDate.toDate;
@@ -31,14 +30,15 @@ String dateInSingleLine(
 
   String startLeaveDay = DateFormat.d(locale).format(startDate);
   String endLeaveDay = DateFormat.d(locale).format(endDate);
-
-  String year = DateFormat.y(locale).format(endDate);
-  if (startDate.month == endDate.month) {
-    String month = DateFormat.MMM(locale).format(endDate);
-    if (startDate.day == endDate.day) {
-      return '$startLeaveDay $month, $year';
+  if (startDate.year == endDate.year) {
+    if (startDate.month == endDate.month) {
+      String month = DateFormat.MMM(locale).format(endDate);
+      if (startDate.day == endDate.day) {
+        return '$startLeaveDay $month';
+      }
+      return '$startLeaveDay - $endLeaveDay  $month';
     }
-    return '$startLeaveDay - $endLeaveDay  $month, $year';
+    return '${startDate.day} ${DateFormat.MMM(locale).format(startDate)} - ${endDate.day} ${DateFormat.MMM(locale).format(endDate)}';
   }
   return '${startDate.dateToString(locale)} to ${endDate.dateToString(locale)}';
 }

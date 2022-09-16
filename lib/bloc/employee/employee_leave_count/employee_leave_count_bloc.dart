@@ -21,6 +21,9 @@ class EmployeeLeaveCountBlock {
         _userManager.employeeId);
     var _allLeaveCount = await _userLeaveService.getUserAllLeaveCount();
     var _availableLeaveCount = _allLeaveCount - _usedLeaveCount;
+    if(_availableLeaveCount<0){
+      _availableLeaveCount = 0;
+    }
     _leaveCounts.sink.add(LeaveCounts(availableLeaveCount: _availableLeaveCount,
         usedLeaveCount: _usedLeaveCount,
         allLeaveCount: _allLeaveCount));
