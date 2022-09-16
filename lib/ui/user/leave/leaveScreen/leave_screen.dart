@@ -62,7 +62,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
                   if (leaves.isEmpty) {
                     return const EmptyLeaveScreen();
                   } else {
-                    return ListView.builder(
+                    return ListView.separated(
                         itemCount: leaves.length,
                         padding: const EdgeInsets.only(
                             top: 20, bottom: 20, right: 16),
@@ -72,7 +72,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
                           return LeaveCard(
                             leave: leave,
                           );
-                        });
+                        }, separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),);
                   }
                 },
                 error: (String error) {

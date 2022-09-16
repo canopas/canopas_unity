@@ -52,7 +52,9 @@ class BottomButtonBar extends StatelessWidget {
                 formKey.currentState?.reset();
                 _leaveService.resetForm();
               },
-              style: ElevatedButton.styleFrom(primary: AppColors.secondaryText),
+              style: ElevatedButton.styleFrom(primary: AppColors.secondaryText,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50),),
+              ),
             ),
           ),
           const SizedBox(
@@ -61,6 +63,9 @@ class BottomButtonBar extends StatelessWidget {
           Expanded(
             flex: 2,
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50),),
+              ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(

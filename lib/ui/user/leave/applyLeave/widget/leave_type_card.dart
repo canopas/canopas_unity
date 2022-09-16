@@ -15,7 +15,6 @@ class LeaveTypeCard extends StatelessWidget {
     int? leaveType = _leaveService.leaveType;
     var _localization = AppLocalizations.of(context);
     return Card(
-      margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

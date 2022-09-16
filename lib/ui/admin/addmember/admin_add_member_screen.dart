@@ -103,10 +103,12 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0),
+      padding: const EdgeInsets.symmetric(horizontal: 100),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50),),
             primary: isEnabled ? AppColors.darkBlue : AppColors.primaryBlue,
+            elevation: 0,
           ),
           onPressed: onPress,
           child: Padding(
