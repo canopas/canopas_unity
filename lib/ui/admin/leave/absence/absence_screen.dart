@@ -51,10 +51,12 @@ class _AdminAbsenceScreenState extends State<AdminAbsenceScreen> {
             return snapshot.data!.when(
                 idle: () => Container(),
                 loading: () => const kCircularProgressIndicator(),
-                completed: (List<LeaveApplication> list) => (list.isNotEmpty)?ListView.separated(
+                completed: (List<LeaveApplication> list) => (list.isNotEmpty)?ListView.builder(
                     itemCount: list.length,
-                    itemBuilder: (BuildContext context, int index) => EmployeeLeaveCard(employeeLeave: list[index],),
-                    separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
+                    itemBuilder: (BuildContext context, int index) {
+                      LeaveApplication _leaveApplication = list[index];
+                      return EmployeeLeaveCard(employeeLeave: _leaveApplication);
+                    }
                 ):const EmptyAbsenceScreen(),
                 error: (String error) => showSnackBar(context, error),
             );

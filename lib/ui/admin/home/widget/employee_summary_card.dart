@@ -30,17 +30,16 @@ class EmployeeSummaryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _buildSummaryContent(
-                  onTap: null,
+                  onTap: (){
+                    _stackManager.push(const AdminNavigationStackItem.adminEmployeeListState());
+                  },
                   icon: Icons.people,
                   color: AppColors.primaryGreen,
                   title: employeesSummary.totalEmployeesCount.toString(),
                   desc: AppLocalizations.of(context).admin_home_employee_tag,
                 ),
                 _buildSummaryContent(
-                  onTap: () {
-                    _stackManager
-                        .push(const AdminNavigationStackItem.adminLeaveRequestState());
-                  },
+                  onTap: null,
                   icon: Icons.notifications_active_rounded,
                   color: AppColors.primaryDarkYellow,
                   title: employeesSummary.requestCount.toString(),

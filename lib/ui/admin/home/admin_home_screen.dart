@@ -4,11 +4,12 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/ui/admin/home/widget/employee_list_view.dart';
+import 'package:projectunity/ui/admin/home/request_list/request_list.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 import '../../../bloc/admin/employees_summary/employees_summary_bloc.dart';
 import '../../../configs/colors.dart';
+import '../../../core/utils/const/other_constant.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   @override
   void dispose() {
-    _employeeSummary.dispose();
+   _employeeSummary.dispose();
     super.dispose();
   }
 
@@ -69,8 +70,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         .push(const AdminNavigationStackItem.adminSettingsState());
                   }),
             ])),
-            _buildYourEmployeeHeader(),
-            const EmployeeListView(),
+            _buildRequestHeader(),
+            const AdminLeaveRequestsList(),
           ],
         ),
         Positioned(top: 100, right: 10, left: 10, child:
@@ -81,13 +82,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
         ),
       ],
-    ));
+    ),
+        backgroundColor: AppColors.whiteColor,
+    );
   }
 
-  Widget _buildYourEmployeeHeader() {
+  Widget _buildRequestHeader() {
     return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24, top: 80),
-      child: Text(AppLocalizations.of(context).admin_home_your_employee_tag,
+      padding: const EdgeInsets.only(left: primaryHorizontalSpacing, right: primaryHorizontalSpacing, top: 80, bottom: 10),
+      child: Text(AppLocalizations.of(context).admin_home_request_tag,
           style: AppTextStyle.settingSubTitle),
     );
   }

@@ -92,8 +92,8 @@ class HomeRouterInfoParser
         case "absence-employees":
           items.add(const AdminNavigationStackItem.adminLeaveAbsenceState());
           break;
-        case 'admin-leave-request':
-          items.add(AdminNavigationStackItem.adminLeaveRequestState());
+        case "employee-list-admin":
+          items.add(const AdminNavigationStackItem.adminEmployeeListState());
           break;
         // case 'admin-leave-request-detail':
         //   items.add(AdminNavigationStackItem.adminLeaveRequestDetailState());

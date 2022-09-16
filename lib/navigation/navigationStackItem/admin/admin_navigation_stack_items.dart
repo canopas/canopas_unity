@@ -22,10 +22,9 @@ class AdminNavigationStackItem
 
   const factory AdminNavigationStackItem.staffState() = StaffState;
 
-  const factory AdminNavigationStackItem.addMemberState() = AddMemberState;
+  const factory AdminNavigationStackItem.adminEmployeeListState() = AdminEmployeeListState;
 
-  const factory AdminNavigationStackItem.adminLeaveRequestState() =
-      AdminLeaveRequestState;
+  const factory AdminNavigationStackItem.addMemberState() = AddMemberState;
 
   const factory AdminNavigationStackItem.adminLeaveRequestDetailState(
       LeaveApplication employeeLeave) = AdminLeaveRequestDetailState;
