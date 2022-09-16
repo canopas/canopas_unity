@@ -53,8 +53,8 @@ class UserLeaveService {
    List<Leave> allLeaves = await getAllLeavesOfUser(id);
    int _leaveCount = 0;
    for (var element in allLeaves){
-     if(element.leaveStatus == approveLeaveStatus){
-       _leaveCount++;
+     if(element.leaveStatus == approveLeaveStatus && element.startDate < DateTime.now().millisecondsSinceEpoch){
+       _leaveCount += element.totalLeaves.toInt();
      }
   }
   return _leaveCount;

@@ -88,6 +88,9 @@
                          }
                       },
 
+      "approved_tag":"Approved",
+      "rejected_tag":"Rejected",
+      "pending_tag":"Pending",
 
       "date_format_yMMMd": "{date}",
           "@date_format_yMMMd":{
@@ -171,7 +174,7 @@
      "error_something_went_wrong": "Something went wrong",
 
      "admin_leave_detail_error_reason":"Enter Message",
-     "admin_leave_detail_message_title_text": "Approval or rejection message",
+     "admin_leave_detail_message_title_text": "Note",
      "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
      "admin_update_total_leave_count_error":"Failed to update total leave count!",
      "empty_absence_state_message":"No one on leave today!",

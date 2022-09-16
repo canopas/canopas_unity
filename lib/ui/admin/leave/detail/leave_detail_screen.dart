@@ -3,9 +3,9 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/ui/admin/leave/detail/widget/leave_details_header_content.dart';
-import 'package:projectunity/ui/admin/leave/detail/widget/reason_content.dart';
-import 'package:projectunity/ui/admin/leave/detail/widget/remaining_leave_content.dart';
+import 'package:projectunity/widget/Leave_details_screen_widgets/leave_details_header_content.dart';
+import 'package:projectunity/widget/Leave_details_screen_widgets/reason_content.dart';
+import 'package:projectunity/widget/Leave_details_screen_widgets/remaining_leave_content.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
@@ -34,23 +34,25 @@ class _AdminLeaveRequestDetailScreenState extends State<AdminLeaveRequestDetailS
         title: Text(AppLocalizations.of(context).leave_detail_title),
       ),
       body: ListView(
+        padding: const EdgeInsets.only(bottom: 100),
         children: [
           LeaveTypeAgoTitle(timeAgo: widget.employeeLeave.leave.appliedOn.toDate.timeAgo(),leaveType: widget.employeeLeave.leave.leaveType),
            UserContent(employee: widget.employeeLeave.employee),
-          RemainingLeaveContainer(employeeLeave: widget.employeeLeave),
+          RemainingLeaveContainer(employeeId: widget.employeeLeave.employee.id, leave: widget.employeeLeave.leave),
           ReasonField(reason: widget.employeeLeave.leave.reason,),
           (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)?_approvalRejectionMessage(context: context):Container(),
-          (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)?ButtonContent(
-            leaveId: widget.employeeLeave.leave.leaveId,
-            reason: _approvalOrRejectionMassage.text,
-          ):Container(),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)?ButtonContent(
+        leaveId: widget.employeeLeave.leave.leaveId,
+        reason: _approvalOrRejectionMassage.text,
+      ):null,
     );
   }
   _approvalRejectionMessage({required BuildContext context}){
     return Padding(
-      padding: const EdgeInsets.all(primaryHorizontalSpacing),
+      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

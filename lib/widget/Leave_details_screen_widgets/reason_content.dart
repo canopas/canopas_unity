@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/other_constant.dart';
+import '../../configs/text_style.dart';
+import '../../core/utils/const/other_constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class ReasonField extends StatelessWidget {
