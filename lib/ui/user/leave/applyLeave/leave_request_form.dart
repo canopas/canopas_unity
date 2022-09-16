@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/bottom_button_bar.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/end_leave_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/leave_request_form_subtitle.dart';
@@ -8,7 +7,6 @@ import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/start_
 import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/reason_card.dart';
 import 'package:provider/provider.dart';
-import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../navigation/navigation_stack_manager.dart';
@@ -39,8 +37,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
         body: Form(
           key: formKey,
           child: ListView(
-            padding: const EdgeInsets.symmetric(
-                horizontal: primaryHorizontalSpacing, vertical: 15),
+            padding: const EdgeInsets.all(primaryHorizontalSpacing),
             children: [
               const LeaveTypeCard(),
               LeaveRequestSubTitle(subtitle: _localization.user_apply_leave_from_tag),

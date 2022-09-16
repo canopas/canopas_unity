@@ -9,31 +9,28 @@ class EndLeaveCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Consumer<LeaveRequestDataManager>(
-            builder: (BuildContext context, leaveService, Widget? child) =>
-                DatePickerCard(
-                  currentDate: leaveService.endLeaveDate,
-                  onPress: () async {
-                    DateTime? date = await pickDate(context);
-                    leaveService.setEndLeaveDate(date);
-                  },
-                ),
+    return Row(
+      children: [
+        Consumer<LeaveRequestDataManager>(
+          builder: (BuildContext context, leaveService, Widget? child) =>
+              DatePickerCard(
+                currentDate: leaveService.endLeaveDate,
+                onPress: () async {
+                  DateTime? date = await pickDate(context);
+                  leaveService.setEndLeaveDate(date);
+                },
+              ),
+        ),
+        Consumer<LeaveRequestDataManager>(
+          builder: (_, leaveService, __) => TimePickerCard(
+            onPress: () async {
+              TimeOfDay time = (await pickTime(context));
+              leaveService.setEndTime(time);
+            },
+            time: leaveService.endTime,
           ),
-          Consumer<LeaveRequestDataManager>(
-            builder: (_, leaveService, __) => TimePickerCard(
-              onPress: () async {
-                TimeOfDay time = (await pickTime(context));
-                leaveService.setEndTime(time);
-              },
-              time: leaveService.endTime,
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

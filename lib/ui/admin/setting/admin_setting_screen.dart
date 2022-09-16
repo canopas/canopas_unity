@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
 
 import '../../../bloc/admin/leave_count/all_leave_count.dart';
@@ -47,7 +48,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
         ),
         backgroundColor: AppColors.whiteColor,
         body: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(primaryHorizontalSpacing),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(_localizations.settings_setting_text,

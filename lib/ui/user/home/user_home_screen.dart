@@ -66,49 +66,47 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 60,
-                        left: primaryHorizontalSpacing,
-                        right: primaryHorizontalSpacing),
-                    child: Column(
-                      children: [
-                        LeaveNavigationCard(
-                            color: AppColors.primaryPink,
-                            leaveText: AppLocalizations.of(context)
-                                .user_home_all_leaves_tag,
-                            onPress: () => _stateManager.push(
+                  padding: const EdgeInsets.only(
+                      top: 60,
+                      left: primaryHorizontalSpacing,
+                      right: primaryHorizontalSpacing),
+                  child: Column(
+                    children: [
+                      LeaveNavigationCard(
+                          color: AppColors.primaryPink,
+                          leaveText: AppLocalizations.of(context)
+                              .user_home_all_leaves_tag,
+                          onPress: () => _stateManager.push(
+                              const EmployeeNavigationStackItem
+                                  .userAllLeaveState())),
+                      const SizedBox(height: 4),
+                      LeaveNavigationCard(
+                          color: AppColors.primaryBlue,
+                          leaveText: AppLocalizations.of(context)
+                              .user_home_requested_leaves_tag,
+                          onPress: () => _stateManager.push(
+                              const EmployeeNavigationStackItem
+                                  .requestedLeaves())),
+                      const SizedBox(height: 4),
+                      LeaveNavigationCard(
+                          color: AppColors.primaryGreen,
+                          leaveText: AppLocalizations.of(context)
+                              .user_home_upcoming_leaves_tag,
+                          onPress: () => _stateManager.push(
+                              const EmployeeNavigationStackItem
+                                  .userUpcomingLeaveState())),
+                      const SizedBox(height: 4),
+                      LeaveNavigationCard(
+                          color: AppColors.primaryDarkYellow,
+                          leaveText: AppLocalizations.of(context)
+                              .user_home_apply_leave_tag,
+                          onPress: () {
+                            _stateManager.setBottomBar(false);
+                            _stateManager.push(
                                 const EmployeeNavigationStackItem
-                                    .userAllLeaveState())),
-                        const SizedBox(height: 4),
-                        LeaveNavigationCard(
-                            color: AppColors.primaryBlue,
-                            leaveText: AppLocalizations.of(context)
-                                .user_home_requested_leaves_tag,
-                            onPress: () => _stateManager.push(
-                                const EmployeeNavigationStackItem
-                                    .requestedLeaves())),
-                        const SizedBox(height: 4),
-                        LeaveNavigationCard(
-                            color: AppColors.primaryGreen,
-                            leaveText: AppLocalizations.of(context)
-                                .user_home_upcoming_leaves_tag,
-                            onPress: () => _stateManager.push(
-                                const EmployeeNavigationStackItem
-                                    .userUpcomingLeaveState())),
-                        const SizedBox(height: 4),
-                        LeaveNavigationCard(
-                            color: AppColors.primaryDarkYellow,
-                            leaveText: AppLocalizations.of(context)
-                                .user_home_apply_leave_tag,
-                            onPress: () {
-                              _stateManager.setBottomBar(false);
-                              _stateManager.push(
-                                  const EmployeeNavigationStackItem
-                                      .leaveRequestState());
-                            }),
-                      ],
-                    ),
+                                    .leaveRequestState());
+                          }),
+                    ],
                   ),
                 ),
               ),
