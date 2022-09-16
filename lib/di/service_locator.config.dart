@@ -4,7 +4,6 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i12;
@@ -47,7 +46,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.singleton<_i5.AuthService>(_i5.AuthService());
   gh.singleton<_i6.EmployeeService>(_i6.EmployeeService());
   gh.singleton<_i7.EmployeeValidationBloc>(_i7.EmployeeValidationBloc());
-  gh.singleton<_i8.EmployeesSummaryBloc>(_i8.EmployeesSummaryBloc(
+  gh.factory<_i8.EmployeesSummaryBloc>(() => _i8.EmployeesSummaryBloc(
       get<_i4.AdminLeaveService>(), get<_i6.EmployeeService>()));
   gh.singleton<_i9.LeaveApplicationBloc>(_i9.LeaveApplicationBloc(
       get<_i6.EmployeeService>(), get<_i4.AdminLeaveService>()));
