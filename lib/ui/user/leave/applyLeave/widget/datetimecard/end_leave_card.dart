@@ -16,7 +16,7 @@ class EndLeaveCard extends StatelessWidget {
               DatePickerCard(
                 currentDate: leaveService.endLeaveDate,
                 onPress: () async {
-                  DateTime? date = await pickDate(context);
+                  DateTime date = await pickDate(context: context, initialDate: leaveService.endDateTime);
                   leaveService.setEndLeaveDate(date);
                 },
               ),
@@ -24,7 +24,7 @@ class EndLeaveCard extends StatelessWidget {
         Consumer<LeaveRequestDataManager>(
           builder: (_, leaveService, __) => TimePickerCard(
             onPress: () async {
-              TimeOfDay time = (await pickTime(context));
+              TimeOfDay time = (await pickTime(context: context,initialTime: leaveService.endTime));
               leaveService.setEndTime(time);
             },
             time: leaveService.endTime,
