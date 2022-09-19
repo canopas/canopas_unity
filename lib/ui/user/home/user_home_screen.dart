@@ -7,7 +7,7 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
 
-import '../../../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart';
+import '../../../bloc/employee/employee_leave_count/employee_home_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
 import '../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
@@ -22,12 +22,18 @@ class EmployeeHomeScreen extends StatefulWidget {
 
 class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
-  final _leaveCount = getIt<EmployeeLeaveCountBlock>();
+  final _leaveCount = getIt<EmployeeHomeBLoc>();
 
   @override
   void initState() {
-    _leaveCount.fetchLeaveSummary();
+    _leaveCount.attach();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _leaveCount.detach();
+    super.dispose();
   }
 
   @override
@@ -102,9 +108,8 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                               .user_home_apply_leave_tag,
                           onPress: () {
                             _stateManager.setBottomBar(false);
-                            _stateManager.push(
-                                const EmployeeNavigationStackItem
-                                    .leaveRequestState());
+                            _stateManager.push(const EmployeeNavigationStackItem
+                                .leaveRequestState());
                           }),
                     ],
                   ),

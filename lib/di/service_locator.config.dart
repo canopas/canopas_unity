@@ -19,8 +19,7 @@ import '../bloc/admin/leave_details_screen/admin_leave_details_bloc.dart'
     as _i16;
 import '../bloc/authentication/login_bloc.dart' as _i20;
 import '../bloc/authentication/logout_bloc.dart' as _i26;
-import '../bloc/employee/employee_leave_count/employee_leave_count_bloc.dart'
-    as _i22;
+import '../bloc/employee/employee_leave_count/employee_home_bloc.dart' as _i22;
 import '../bloc/user/user_leave_bloc.dart' as _i25;
 import '../navigation/navigation_stack_manager.dart' as _i24;
 import '../pref/user_preference.dart' as _i14;
@@ -70,7 +69,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       _i19.EmployeeListBloc(get<_i6.EmployeeService>()));
   gh.singleton<_i20.LoginBloc>(_i20.LoginBloc(get<_i17.AuthManager>()));
   gh.singleton<_i21.UserManager>(_i21.UserManager(get<_i14.UserPreference>()));
-  gh.singleton<_i22.EmployeeLeaveCountBlock>(_i22.EmployeeLeaveCountBlock(
+  gh.factory<_i22.EmployeeHomeBLoc>(() => _i22.EmployeeHomeBLoc(
       get<_i21.UserManager>(), get<_i13.UserLeaveService>()));
   gh.singleton<_i23.LoginState>(_i23.LoginState(get<_i21.UserManager>()));
   gh.singleton<_i24.NavigationStackManager>(
