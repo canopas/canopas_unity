@@ -31,12 +31,24 @@ class UserLeavesBloc {
       } else if (leaveScreenType == LeaveScreenType.requestedLeave){
       _leaves = await _userLeaveService.getRequestedLeave(employeeId);
       } else {
-        _leaves = await _userLeaveService.getUpcomingLeaves(employeeId);
+        _leaves = await _getUpcomingLeaves(employeeId);
       }
       _leaveList.add(ApiResponse.completed(data: _leaves));
     } on Exception catch (error) {
       leaveList.add(ApiResponse.error(message: error.toString()));
     }
+  }
+
+  Future<List<Leave>> _getUpcomingLeaves(String employeeId) async {
+    List<Leave> _allApprovedLeaves = await _userLeaveService.getUpcomingLeaves(employeeId);
+    List<Leave> _upcomingLeave = <Leave>[];
+    int currentTime = DateTime.now().millisecondsSinceEpoch;
+    for (var leave in _allApprovedLeaves) {
+      if(leave.startDate >= currentTime){
+        _upcomingLeave.add(leave);
+      }
+    }
+    return _upcomingLeave;
   }
 
   void cancelLeave({required Leave leave}) {
