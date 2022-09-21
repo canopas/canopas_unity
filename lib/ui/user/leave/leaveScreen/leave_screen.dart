@@ -11,7 +11,7 @@ import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
-import '../../../../widget/empty_leave_screen.dart';
+import '../../../../widget/empty_screen.dart';
 import '../../../../widget/error_snackbar.dart';
 
 class LeaveScreen extends StatefulWidget {
@@ -60,7 +60,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
                 loading: () => const kCircularProgressIndicator(),
                 completed: (List<Leave> leaves) {
                   if (leaves.isEmpty) {
-                    return const EmptyLeaveScreen();
+                    return EmptyScreen(message: AppLocalizations.of(context).empty_leave_state_message,);
                   } else {
                     return ListView.separated(
                         itemCount: leaves.length,
