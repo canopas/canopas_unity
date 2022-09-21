@@ -124,6 +124,7 @@
 
 
       "admin_home_employee_summary_tag":"Employee Summary",
+      "admin_home_empty_leave_request_message": "There is no request today!",
       "admin_home_your_employee_tag":"Your Employee",
       "admin_home_employee_tag": "Employees",
       "admin_home_request_tag":"Requests",

@@ -7,9 +7,9 @@ import '../../../../di/service_locator.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
+import '../../../../widget/empty_screen.dart';
 import '../../../../widget/error_snackbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'empty_absence_screen/empty_absence_screen.dart';
 
 class AdminAbsenceScreen extends StatefulWidget {
   const AdminAbsenceScreen({Key? key}) : super(key: key);
@@ -57,7 +57,7 @@ class _AdminAbsenceScreenState extends State<AdminAbsenceScreen> {
                       LeaveApplication _leaveApplication = list[index];
                       return EmployeeLeaveCard(employeeLeave: _leaveApplication);
                     }
-                ):const EmptyAbsenceScreen(),
+                ):EmptyScreen(message: AppLocalizations.of(context).empty_absence_state_message,),
                 error: (String error) => showSnackBar(context, error),
             );
           }),
