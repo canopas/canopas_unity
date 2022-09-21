@@ -5,26 +5,23 @@ import 'package:projectunity/pref/user_preference.dart';
 
 import '../../di/service_locator.dart';
 import '../../navigation/navigation_stack_manager.dart';
-import '../../provider/user_data.dart';
 import '../../stateManager/login_state_manager.dart';
 
-@Singleton()
+@Injectable()
 class LogOutBloc {
   final LoginState _loginState;
 
   final UserPreference _userPreference;
-  final NavigationStackManager _stateManager;
-  final UserManager _userManager;
 
-  LogOutBloc(this._loginState, this._userPreference, this._stateManager,
-      this._userManager);
+  LogOutBloc(
+    this._loginState,
+    this._userPreference,
+  );
 
   Future<bool> signOutFromApp() async {
     bool success = await _signOut();
     if (success) {
-      await getIt.unregister(instance: _stateManager);
-      getIt.registerLazySingleton(() => NavigationStackManager(_userManager));
-
+      await getIt.resetLazySingleton<NavigationStackManager>();
       return true;
     } else {
       return false;

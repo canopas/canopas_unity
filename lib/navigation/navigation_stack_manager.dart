@@ -7,7 +7,8 @@ import '../provider/user_data.dart';
 import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
 import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
-@Singleton()
+
+@lazySingleton
 class NavigationStackManager extends ChangeNotifier {
   final UserManager _userManager;
   List<NavigationStackItem> _screens = [];
