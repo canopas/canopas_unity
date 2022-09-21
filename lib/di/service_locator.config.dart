@@ -72,16 +72,13 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i22.EmployeeHomeBLoc>(() => _i22.EmployeeHomeBLoc(
       get<_i21.UserManager>(), get<_i13.UserLeaveService>()));
   gh.singleton<_i23.LoginState>(_i23.LoginState(get<_i21.UserManager>()));
-  gh.singleton<_i24.NavigationStackManager>(
-      _i24.NavigationStackManager(get<_i21.UserManager>()),
+  gh.lazySingleton<_i24.NavigationStackManager>(
+      () => _i24.NavigationStackManager(get<_i21.UserManager>()),
       dispose: (i) => i.dispose());
   gh.singleton<_i25.UserLeavesBloc>(_i25.UserLeavesBloc(
       get<_i13.UserLeaveService>(), get<_i21.UserManager>()));
-  gh.singleton<_i26.LogOutBloc>(_i26.LogOutBloc(
-      get<_i23.LoginState>(),
-      get<_i14.UserPreference>(),
-      get<_i24.NavigationStackManager>(),
-      get<_i21.UserManager>()));
+  gh.factory<_i26.LogOutBloc>(() =>
+      _i26.LogOutBloc(get<_i23.LoginState>(), get<_i14.UserPreference>()));
   return get;
 }
 
