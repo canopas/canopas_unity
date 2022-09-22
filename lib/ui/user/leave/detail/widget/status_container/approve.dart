@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import '../../../../../../configs/colors.dart';
 import '../../../../../../configs/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -18,7 +19,7 @@ class ApproveStatus extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             color: AppColors.bgLidghtGreenColor),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
+          padding: const EdgeInsets.symmetric(vertical: 5,horizontal: primaryVerticalSpacing),
           child: Row(
             children: [
               const Icon(

@@ -14,7 +14,12 @@ class AppTheme{
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.primaryBlue,
+        fixedSize: const Size.fromHeight(45),
+        backgroundColor: AppColors.primaryBlue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        elevation: 0,
       )
     )
   );

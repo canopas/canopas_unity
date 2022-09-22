@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:projectunity/widget/user_intro_content.dart';
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../configs/colors.dart';
@@ -51,10 +50,7 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
             UserIntroContent(),
             Expanded(child: Container()),
             Center(child: signOutButton(onTap: () async {
-              bool isSignOut = await _logOutBloc.signOutFromApp();
-              isSignOut
-                  ? showSnackBar(context, 'You have successfully logged out!')
-                  : null;
+               await _logOutBloc.signOutFromApp();
             })),
           ],
         ),
@@ -65,15 +61,11 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
   Widget signOutButton({required VoidCallback onTap}) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          elevation: 0,
           backgroundColor: AppColors.redColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-      onPressed: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Text(AppLocalizations.of(context).logout_button_text),
+          fixedSize: Size(MediaQuery.of(context).size.width*0.3, 45),
       ),
+      onPressed: onTap,
+      child: Text(AppLocalizations.of(context).logout_button_text),
     );
   }
 }

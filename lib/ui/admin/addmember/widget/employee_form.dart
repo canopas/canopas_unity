@@ -4,6 +4,7 @@ import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
+import '../../../../core/utils/const/other_constant.dart';
 import '../../../../core/utils/const/role.dart';
 
 class EmployeeForm extends StatefulWidget {
@@ -98,7 +99,7 @@ class TitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 8),
+      padding:  const EdgeInsets.only(top: primaryHorizontalSpacing, bottom: primaryVerticalSpacing),
       child: Text(
         title,
         textAlign: TextAlign.start,

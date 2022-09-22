@@ -8,7 +8,7 @@ class LeaveRequestSubTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.only(top: primaryHorizontalSpacing, left: 5, bottom: 8),
+      padding:  const EdgeInsets.only(top: primaryHorizontalSpacing, left: 5, bottom: primaryVerticalSpacing),
       child: Text(
         subtitle,
         style: AppTextStyle.leaveRequestFormSubtitle,

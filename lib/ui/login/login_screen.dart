@@ -3,9 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
-
 import '../../bloc/authentication/login_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
 import '../../rest/api_response.dart';
@@ -93,12 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
               return SingleChildScrollView(
                 child: SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(primaryHorizontalSpacing),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 20, left: 20),
+                            padding: const EdgeInsets.all(primaryHorizontalSpacing),
                             child: Column(
                               children: [
                                 buildTitle(),
@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             const SizedBox(
-                              height: 30,
+                              height: primaryHorizontalSpacing,
                             ),
                             _showProgress
                                 ? const Center(

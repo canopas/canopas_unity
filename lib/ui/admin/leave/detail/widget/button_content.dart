@@ -35,10 +35,6 @@ class ButtonContent extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               fixedSize: Size(MediaQuery.of(context).size.width*0.3, 45),
               backgroundColor: AppColors.redColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              elevation: 0,
             ),
             onPressed: () {
               _leaveStatusManager.updateStatus(rejectLeaveStatus);
@@ -54,10 +50,6 @@ class ButtonContent extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               fixedSize: Size(MediaQuery.of(context).size.width*0.3, 45),
               backgroundColor: AppColors.greenColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              elevation: 0,
             ),
             onPressed: () {
               _leaveStatusManager.updateStatus(approveLeaveStatus);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
@@ -22,7 +23,7 @@ class EmployeeLeaveCard extends StatelessWidget {
             AdminNavigationStackItem.adminLeaveRequestDetailState(employeeLeave));
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing, vertical: primaryVerticalSpacing),
         child: Row(
           children: [
             ImageProfile(

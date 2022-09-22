@@ -8,15 +8,11 @@ import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../widget/error_snackbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-///
-/// leave details screen floating action button.
-///
 class LeaveActionButton extends StatelessWidget {
   LeaveActionButton({Key? key, required this.leave}) : super(key: key);
   final Leave leave;
   final UserLeavesBloc _userLeavesBLoc = getIt<UserLeavesBloc>();
   final NavigationStackManager _stackManager = getIt<NavigationStackManager>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +30,7 @@ class LeaveActionButton extends StatelessWidget {
         backgroundColor: (leave.leaveStatus == pendingLeaveStatus)
             ? AppColors.greyColor
             : AppColors.redColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        elevation: 0,
-        fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
+        fixedSize: Size(MediaQuery.of(context).size.width * 0.918518, 45),
       ),
       child: Text(
           (leave.leaveStatus == pendingLeaveStatus)

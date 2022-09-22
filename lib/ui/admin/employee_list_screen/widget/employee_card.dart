@@ -6,6 +6,7 @@ import 'package:projectunity/widget/user_profile_image.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
+import '../../../../core/utils/const/other_constant.dart';
 
 class EmployeeCard extends StatelessWidget {
   EmployeeCard({Key? key, required this.employee}) : super(key: key);
@@ -21,7 +22,7 @@ class EmployeeCard extends StatelessWidget {
             AdminNavigationStackItem.employeeDetailState(id: employee.id));
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing, vertical: primaryVerticalSpacing),
         child: Row(
           children: [
             ImageProfile(
