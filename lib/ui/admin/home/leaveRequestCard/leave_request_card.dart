@@ -138,7 +138,7 @@ class LeaveRequestCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: color!,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: primaryVerticalSpacing),
       child: Text(
         AppLocalizations.of(context)
             .leave_type_placeholder_leave_status(leaveType),

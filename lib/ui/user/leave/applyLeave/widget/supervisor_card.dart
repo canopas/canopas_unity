@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 
 import '../../../../../configs/colors.dart';
 
@@ -53,7 +54,7 @@ class _SupervisorCardState extends State<SupervisorCard> {
               return DropdownMenuItem(
                   value: employees[index],
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
                     child: Text(
                       employees[index],
                       style: const TextStyle(

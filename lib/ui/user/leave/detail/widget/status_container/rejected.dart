@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import '../../../../../../configs/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
@@ -17,7 +18,7 @@ class RejectStatus extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             color: AppColors.bgLightRedColor),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
+          padding: const EdgeInsets.symmetric(vertical: 5,horizontal: primaryVerticalSpacing),
           child: Row(
             children:  [
               const Icon(

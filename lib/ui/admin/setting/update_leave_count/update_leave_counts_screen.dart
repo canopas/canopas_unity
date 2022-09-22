@@ -3,8 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/leave_count/all_leave_count.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../../configs/font_size.dart';
 import '../../../../di/service_locator.dart';
 
@@ -46,14 +46,14 @@ class _AdminUpdateLeaveCountsScreenState
             style: AppTextStyle.largeHeaderBold,
           ),
           const SizedBox(
-            height: 5,
+            height: primaryVerticalSpacing,
           ),
            Text(
             _localizations.admin_total_yearly_paid_leave_text,
             style: AppTextStyle.settingSubTitle.copyWith(fontSize: subTitleTextSize),
           ),
           const SizedBox(
-            height: 20,
+            height: primaryHorizontalSpacing,
           ),
           TextField(
             onChanged: (val){setState(() {});},
@@ -70,17 +70,9 @@ class _AdminUpdateLeaveCountsScreenState
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: primaryHorizontalSpacing,
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: AppColors.primaryBlue,
-                fixedSize: Size(MediaQuery.of(context).size.width, 45),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)
-                )
-              ),
               onPressed: (_allLeaveCountController.text.isNotEmpty)
                   ? _onUpdateLeaveCount
                   : null,

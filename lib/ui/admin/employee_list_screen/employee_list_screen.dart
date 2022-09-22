@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import '../../../bloc/admin/employee/employee_list_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
@@ -45,6 +46,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               idle: () => Container(),
               loading: () => const kCircularProgressIndicator(),
               completed: (List<Employee> list) => ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
                 itemCount: list.length,
                 itemBuilder: (BuildContext context, int index) {
                   Employee employee = list[index];

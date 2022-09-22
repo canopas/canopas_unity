@@ -43,7 +43,7 @@ class TextColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(primaryHorizontalSpacing),
+      padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

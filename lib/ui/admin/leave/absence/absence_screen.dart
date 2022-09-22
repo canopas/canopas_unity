@@ -3,6 +3,7 @@ import 'package:projectunity/ui/admin/leave/absence/widget/employee_leave_card.d
 import '../../../../bloc/admin/leave/absence_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
+import '../../../../core/utils/const/other_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../rest/api_response.dart';
@@ -52,6 +53,7 @@ class _AdminAbsenceScreenState extends State<AdminAbsenceScreen> {
                 idle: () => Container(),
                 loading: () => const kCircularProgressIndicator(),
                 completed: (List<LeaveApplication> list) => (list.isNotEmpty)?ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
                     itemCount: list.length,
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication _leaveApplication = list[index];
