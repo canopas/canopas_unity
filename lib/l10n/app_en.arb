@@ -187,6 +187,7 @@
      "empty_leave_state_message":"You haven't applied for any leaves yet!",
 
      "logout_button_text": "Sign Out",
+     "sign_out_failed_message":"SignOut Failed!",
      "update_button_text": "Update",
      "settings_setting_text": "Settings",
      "settings_account_text": "Accounts",
