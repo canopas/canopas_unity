@@ -19,7 +19,8 @@ class EmployeeSummaryCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20),
       child: Card(
-          elevation: 8,
+          elevation: 6,
+          shadowColor: AppColors.greyColor.withOpacity(0.25),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 
@@ -41,6 +42,17 @@ String dateInSingleLine(
     return '${startDate.day} ${DateFormat.MMM(locale).format(startDate)} - ${endDate.day} ${DateFormat.MMM(locale).format(endDate)}';
   }
   return '${startDate.dateToString(locale)} to ${endDate.dateToString(locale)}';
+}
+
+String dateToDayMonth({required DateTime date, required String locale}){
+   DateTime todayDate = DateUtils.dateOnly(DateTime.now());
+  if(date == todayDate){
+    return "Today";
+  } else if(date == todayDate.subtract(const Duration(days: 1))){
+    return "Yesterday";
+  } else {
+    return "${date.day} ${DateFormat.MMMM(locale).format(date)}";
+  }
 }
 
 String totalLeaves(double days) {

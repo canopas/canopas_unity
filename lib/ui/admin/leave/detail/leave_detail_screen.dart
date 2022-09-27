@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/bloc/admin/leave/leave_application_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/di/service_locator.dart';
@@ -11,7 +10,6 @@ import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/leave_details_header_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/reason_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/remaining_leave_content.dart';
-
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../model/leave/leave.dart';
@@ -33,7 +31,6 @@ class _AdminLeaveRequestDetailScreenState
       TextEditingController();
   final _leaveStatusManager = getIt<LeaveStatusManager>();
   final _stackManager = getIt<NavigationStackManager>();
-  final _leaveApplicationBloc = getIt<LeaveApplicationBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +84,6 @@ class _AdminLeaveRequestDetailScreenState
               _leaveStatusManager.updateStatus(rejectLeaveStatus);
               _leaveStatusManager.setReason(reason);
               if (_leaveStatusManager.leaveApprove(leaveId)) {
-                _leaveApplicationBloc.deleteLeaveApplication(leaveId);
                 _stackManager.pop();
               }
             },
@@ -105,7 +101,6 @@ class _AdminLeaveRequestDetailScreenState
               _leaveStatusManager.updateStatus(approveLeaveStatus);
               _leaveStatusManager.setReason(reason);
               if (_leaveStatusManager.leaveApprove(leaveId)) {
-                _leaveApplicationBloc.deleteLeaveApplication(leaveId);
                 _stackManager.pop();
               }
             },

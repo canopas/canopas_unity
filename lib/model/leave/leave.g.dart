@@ -14,7 +14,7 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       endDate: json['end_date'] as int,
       totalLeaves: (json['total_leaves'] as num).toDouble(),
       reason: json['reason'] as String,
-      emergencyContactPerson: json['emergency_contact_person'] as int,
+      emergencyContactPerson: json['emergency_contact_person'] as int?,
       leaveStatus: json['leave_status'] as int,
       appliedOn: json['applied_on'] as int,
       rejectionReason: json['rejectionReason'] as String?,
