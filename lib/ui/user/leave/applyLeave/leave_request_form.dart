@@ -7,9 +7,8 @@ import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/start_
 import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/reason_card.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../core/utils/const/other_constant.dart';
-import '../../../../di/service_locator.dart';
-import '../../../../navigation/navigation_stack_manager.dart';
 import '../../../../stateManager/user/leave_request_data_manager.dart';
 
 GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -22,7 +21,6 @@ class LeaveRequestForm extends StatefulWidget {
 }
 
 class _LeaveRequestFormState extends State<LeaveRequestForm> {
-  final _stateManager = getIt<NavigationStackManager>();
 
   @override
   Widget build(BuildContext context) {

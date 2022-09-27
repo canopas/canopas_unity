@@ -32,7 +32,7 @@ class LogOutBloc extends BaseBLoc{
       await getIt.resetLazySingleton<NavigationStackManager>();
       _signOutSubject.add(const ApiResponse.completed(data: true));
     } else {
-      _signOutSubject.add(const ApiResponse.error(message: ''));
+      _signOutSubject.add(const ApiResponse.error(error: ''));
     }
   }
 

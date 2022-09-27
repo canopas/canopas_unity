@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/admin/leave/leave_application_bloc.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../widget/empty_screen.dart';
 import '../leaveRequestCard/leave_request_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AdminLeaveRequestsList extends StatefulWidget {
   const AdminLeaveRequestsList({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _AdminLeaveRequestsListState extends State<AdminLeaveRequestsList> {
                     :  Expanded(child: EmptyScreen(message: AppLocalizations.of(context).admin_home_empty_leave_request_message,));
               },
               error: (String error) {
-                return showSnackBar(context, error);
+                return showSnackBar(context: context, error: error);
               });
         });
   }

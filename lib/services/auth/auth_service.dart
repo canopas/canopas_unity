@@ -12,34 +12,26 @@ class AuthService {
 
     if (session != null) {
       ref.collection('session').doc().set(session.sessionToJson());
+
+      ref.update(user.employeeToJson());
     }
-    ref
-        .update(user.employeeToJson())
-        .then((value) => {
-              // check to see data updated successfully
-            })
-        .catchError((error) => {
-              //  print("Error while updating: $error")
-            });
   }
 
-  Future getUserData(String email) async {
-    final ref = _db.where('email', isEqualTo: email).limit(1).withConverter(
-        fromFirestore: Employee.fromFirestore,
-        toFirestore: (Employee emp, _) => emp.employeeToJson());
-
+  Future<Employee> getUserData(String email) async {
+    final _employeeDbCollection = _db
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .withConverter(
+            fromFirestore: Employee.fromFirestore,
+            toFirestore: (Employee emp, _) => emp.employeeToJson());
     Employee? employee;
-    await ref.get().then(
-      (res) {
-        if (res.docs.isEmpty) {
-          employee = null;
-        }
-        employee = res.docs[0].data();
-      },
-      onError: (e) {
-        employee = null;
-      },
-    );
+
+    final data = await _employeeDbCollection.get();
+    if (data.docs.isEmpty) {
+      employee = null;
+    }
+    employee = data.docs[0].data();
+
     return employee;
   }
 }

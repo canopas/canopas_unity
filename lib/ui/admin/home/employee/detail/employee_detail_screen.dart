@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../../../../bloc/admin/employee/employee_detail_bloc.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../../model/employee/employee.dart';
@@ -47,10 +47,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                 ]);
               },
               error: (String error) {
-                SchedulerBinding.instance.addPostFrameCallback((_) {
-                  showSnackBar(context, error);
-                });
-                return Container();
+                return showSnackBar(context: context, error: error);
               });
            },
         ),

@@ -26,21 +26,17 @@ class _AppDashboardScreenState extends State<AppDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Builder(
-        builder: (context) => MaterialApp.router(
-          theme: AppTheme.lightTheme,
-          routerDelegate: MainRouterDelegate(stack: _stateManager),
+    return MaterialApp(
+      supportedLocales: L10n.all,
+      theme: AppTheme.lightTheme,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: Router(
           routeInformationParser: HomeRouterInfoParser(),
-          supportedLocales: L10n.all,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-        ),
-      ),
-      resizeToAvoidBottomInset: false,
+          routerDelegate: MainRouterDelegate(stack: _stateManager)),
     );
   }
 }

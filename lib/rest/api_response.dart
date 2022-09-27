@@ -10,5 +10,5 @@ class ApiResponse<T> with _$ApiResponse<T> {
 
   const factory ApiResponse.completed({required T data}) = Success<T>;
 
-  const factory ApiResponse.error({required String message}) = Failure<T>;
+  const factory ApiResponse.error({required String error}) = Failure<T>;
 }

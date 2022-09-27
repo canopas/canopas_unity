@@ -53,20 +53,15 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           Icons.menu,
                           color: AppColors.whiteColor,
                         )),
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              _stateManager.push(
-                                  const EmployeeNavigationStackItem
-                                      .employeeSettingsState());
-                            },
-                            icon: const Icon(
-                              Icons.settings,
-                              color: AppColors.whiteColor,
-                            )),
-                      ],
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          _stateManager.push(const EmployeeNavigationStackItem
+                              .employeeSettingsState());
+                        },
+                        icon: const Icon(
+                          Icons.settings,
+                          color: AppColors.whiteColor,
+                        )),
                   ],
                 ),
               ),

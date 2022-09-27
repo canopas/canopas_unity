@@ -6,6 +6,8 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../bloc/authentication/login_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
 import '../../rest/api_response.dart';
@@ -70,22 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     error: (String error) {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
                         setState(() {
-                          _showProgress = false;
-                        });
-                        final snackBar = SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text(error),
-                          action: SnackBarAction(
-                            label: 'Ok',
-                            onPressed: () {
-                              // Some code to undo the change.
-                            },
-                          ),
-                        );
-
-                      // Find the ScaffoldMessenger in the widget tree
-                      // and use it to show a SnackBar.
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        _showProgress = false;
+                      });
+                      showSnackBar(context: context, error: error);
                       _bloc.reset();
                     });
                   });

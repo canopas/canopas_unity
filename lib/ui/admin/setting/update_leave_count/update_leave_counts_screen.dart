@@ -5,8 +5,10 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../../../configs/font_size.dart';
 import '../../../../di/service_locator.dart';
+import '../../../../exception/error_const.dart';
 
 class AdminUpdateLeaveCountsScreen extends StatefulWidget {
   const AdminUpdateLeaveCountsScreen({Key? key}) : super(key: key);
@@ -92,10 +94,10 @@ class _AdminUpdateLeaveCountsScreenState
       _allLeaveCountController.text =
           _adminLeaveCount.totalLeaveCount.value.toString();
       if (res.isNotEmpty) {
-        showSnackBar(context, res);
+        showSnackBar(context: context, msg: res);
       }
     } catch (e){
-      showSnackBar(context, AppLocalizations.of(context).something_went_wrong_text);
+      showSnackBar(context: context, error: undefinedError);
     }
   }
 }

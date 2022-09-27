@@ -5,6 +5,7 @@ import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:projectunity/widget/user_intro_content.dart';
+
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../di/service_locator.dart';
@@ -60,7 +61,9 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
                   loading: () => const CircularProgressIndicator(),
                   completed: (data) => _signOutButton(),
                   error: (error){
-                    showSnackBar(context, _localizations.sign_out_failed_message);
+                    showSnackBar(
+                        error: _localizations.sign_out_failed_message,
+                        context: context);
                     return _signOutButton();
                   }
               ),
