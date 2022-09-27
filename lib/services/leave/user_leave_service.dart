@@ -10,7 +10,6 @@ class UserLeaveService {
           fromFirestore: Leave.fromFireStore,
           toFirestore: (Leave leave, _) => leave.toFireStore(leave));
 
-  final _totalLeavesCount = FirebaseFirestore.instance.collection('totalLeavesCount');
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveUid = leaveRequestData.leaveId;
@@ -43,13 +42,6 @@ class UserLeaveService {
     await _leaveDbCollection.doc(leaveId).delete();
   }
 
-  Future<int> getUserAllLeaveCount() async {
-    return await _totalLeavesCount.get().then((val){
-      if(val.docs.isNotEmpty) return int.parse(val.docs[0].data()['leaveCount']);
-      return 0;
-    });
-  }
-  
   Future<int> getUserUsedLeaveCount(String id) async {
    List<Leave> allLeaves = await getAllLeavesOfUser(id);
    int _leaveCount = 0;

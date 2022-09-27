@@ -5,12 +5,16 @@ import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../services/leave/paid_leave_service.dart';
+
 @Injectable()
 class EmployeeHomeBLoc extends BaseBLoc {
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
+  final PaidLeaveService _paidLeaveService;
 
-  EmployeeHomeBLoc(this._userManager, this._userLeaveService);
+  EmployeeHomeBLoc(
+      this._userManager, this._userLeaveService, this._paidLeaveService);
 
   final _leaveCounts = BehaviorSubject<LeaveCounts>.seeded(LeaveCounts());
 
@@ -21,15 +25,15 @@ class EmployeeHomeBLoc extends BaseBLoc {
 
     var usedLeaveCount =
         await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);
-    var allLeaveCount = await _userLeaveService.getUserAllLeaveCount();
+    var paidLeaves = await _paidLeaveService.getPaidLeaves();
 
     var availableLeaveCount =
-        allLeaveCount < usedLeaveCount ? 0 : allLeaveCount - usedLeaveCount;
+        paidLeaves < usedLeaveCount ? 0 : paidLeaves - usedLeaveCount;
 
     _leaveCounts.sink.add(LeaveCounts(
         availableLeaveCount: availableLeaveCount,
         usedLeaveCount: usedLeaveCount,
-        allLeaveCount: allLeaveCount));
+        allLeaveCount: paidLeaves));
   }
 
   @override
