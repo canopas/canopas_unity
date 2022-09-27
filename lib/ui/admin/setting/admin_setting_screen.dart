@@ -5,6 +5,7 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
+
 import '../../../bloc/admin/leave_count/all_leave_count.dart';
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../di/service_locator.dart';
@@ -76,9 +77,11 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                               loading: () =>const Center(child: CircularProgressIndicator()),
                               completed: (data) => _signOutButton(),
                               error: (error){
-                                showSnackBar(context, _localizations.sign_out_failed_message);
-                                return _signOutButton();
-                              }
+                                showSnackBar(
+                          context: context,
+                          error: _localizations.sign_out_failed_message);
+                      return _signOutButton();
+                    }
                           );
                         } ,
                     ),
@@ -89,8 +92,8 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
     return SettingOption(
       icon: Icons.logout_rounded,
       title: AppLocalizations.of(context).logout_button_text,
-      onTap: () async {
-        await _logOutBloc.signOutFromApp();
+              onTap: () async {
+                await _logOutBloc.signOutFromApp();
       },
       iconColor: AppColors.redColor,
       titleColor: AppColors.redColor,

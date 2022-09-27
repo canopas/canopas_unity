@@ -194,6 +194,18 @@
      "admin_total_leave_count_text":"Total leave count",
      "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
      "something_went_wrong_text":"Something went wrong!",
-     "leave_detail_title":"Leave details"
+     "leave_detail_title":"Leave details",
+
+     "check_your_connection_error":"Please check you Internet connection",
+
+
+     "user_account_not_found_error_message": "Don't have google account? Please create it first",
+     "user_not_found_error_message":"User with this email doesn't exist, Please ask your manager to add it",
+     "user_data_not_update_error_message": "Error in Updating your account information, Please check that you have signed in correct account",
+     "firestore_fetch_data_error_message": "Please check your Internet connection",
+     "firebase_auth_error_message": "Error occurred while Google sign in. Try again",
+     "sign_out_error_message": "Your attempt to sign out failed,Please try again later",
+     "undefined_error_message": "Something went wrong"
+
 
 }

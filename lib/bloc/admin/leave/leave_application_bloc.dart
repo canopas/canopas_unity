@@ -5,6 +5,7 @@ import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../exception/error_const.dart';
 import '../../../model/employee/employee.dart';
 import '../../../model/leave/leave.dart';
 
@@ -63,8 +64,9 @@ class LeaveApplicationBloc {
           _leaveApplication.add(ApiResponse.completed(data: event));
         },
       );
-    } on Exception catch (error) {
-      throw Exception(error.toString());
+    } on Exception {
+     _leaveApplication
+          .add(const ApiResponse.error(error: firestoreFetchDataError));
     }
   }
 

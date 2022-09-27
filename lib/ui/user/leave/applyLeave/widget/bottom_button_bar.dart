@@ -43,17 +43,15 @@ class BottomButtonBar extends StatelessWidget {
             child: ElevatedButton(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  _localization.user_apply_leave_button_reset,
-                  style: AppTextStyle.leaveRequestBottomBarTextStyle
-                ),
+                child: Text(_localization.user_apply_leave_button_reset,
+                    style: AppTextStyle.leaveRequestBottomBarTextStyle),
               ),
               onPressed: () {
                 formKey.currentState?.reset();
                 _leaveService.resetForm();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.secondaryText,
+                  backgroundColor: AppColors.secondaryText,
               ),
             ),
           ),
@@ -73,20 +71,25 @@ class BottomButtonBar extends StatelessWidget {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   if(_leaveService.startDateTime.isBefore(_leaveService.endDateTime.subtract(const Duration(hours: 1)))){
-                  String _userId = _userManager.employeeId;
-                  Leave data =
-                  _leaveService.getLeaveRequestData(userId: _userId);
-                  service.applyForLeave(data);
-                  _stateManager.clearAndPush(
-                      const EmployeeNavigationStackItem.employeeHomeState());
-                  _stateManager.setBottomBar(true);
+                    String _userId = _userManager.employeeId;
+                    Leave data =
+                        _leaveService.getLeaveRequestData(userId: _userId);
+
+                    service.applyForLeave(data);
+
+                    _stateManager.clearAndPush(
+                        const EmployeeNavigationStackItem.employeeHomeState());
+                    _stateManager.setBottomBar(true);
                   } else {
-                    showSnackBar(context, _localization.user_apply_leave_error_message_min_time);
+                    showSnackBar(
+                        context: context,
+                        msg: _localization
+                            .user_apply_leave_error_message_min_time);
                   }
                 } else {
                   showSnackBar(
-                      context,
-                      _localization
+                      context: context,
+                      msg: _localization
                           .user_apply_leave_error_message_fill_details);
                 }
               },

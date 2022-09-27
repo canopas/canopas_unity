@@ -32,9 +32,9 @@ class _$ApiResponseTearOff {
     );
   }
 
-  Failure<T> error<T>({required String message}) {
+  Failure<T> error<T>({required String error}) {
     return Failure<T>(
-      message: message,
+      error: error,
     );
   }
 }
@@ -49,7 +49,7 @@ mixin _$ApiResponse<T> {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function(T data) completed,
-    required TResult Function(String message) error,
+    required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,7 +57,7 @@ mixin _$ApiResponse<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,7 +65,7 @@ mixin _$ApiResponse<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -154,7 +154,7 @@ class _$Idle<T> implements Idle<T> {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function(T data) completed,
-    required TResult Function(String message) error,
+    required TResult Function(String error) error,
   }) {
     return idle();
   }
@@ -165,7 +165,7 @@ class _$Idle<T> implements Idle<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
   }) {
     return idle?.call();
   }
@@ -176,7 +176,7 @@ class _$Idle<T> implements Idle<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -268,7 +268,7 @@ class _$Loading<T> implements Loading<T> {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function(T data) completed,
-    required TResult Function(String message) error,
+    required TResult Function(String error) error,
   }) {
     return loading();
   }
@@ -279,7 +279,7 @@ class _$Loading<T> implements Loading<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
   }) {
     return loading?.call();
   }
@@ -290,7 +290,7 @@ class _$Loading<T> implements Loading<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -406,7 +406,7 @@ class _$Success<T> implements Success<T> {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function(T data) completed,
-    required TResult Function(String message) error,
+    required TResult Function(String error) error,
   }) {
     return completed(data);
   }
@@ -417,7 +417,7 @@ class _$Success<T> implements Success<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
   }) {
     return completed?.call(data);
   }
@@ -428,7 +428,7 @@ class _$Success<T> implements Success<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -488,7 +488,7 @@ abstract class Success<T> implements ApiResponse<T> {
 abstract class $FailureCopyWith<T, $Res> {
   factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) then) =
       _$FailureCopyWithImpl<T, $Res>;
-  $Res call({String message});
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -502,12 +502,12 @@ class _$FailureCopyWithImpl<T, $Res> extends _$ApiResponseCopyWithImpl<T, $Res>
 
   @override
   $Res call({
-    Object? message = freezed,
+    Object? error = freezed,
   }) {
     return _then(Failure<T>(
-      message: message == freezed
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -516,14 +516,14 @@ class _$FailureCopyWithImpl<T, $Res> extends _$ApiResponseCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$Failure<T> implements Failure<T> {
-  const _$Failure({required this.message});
+  const _$Failure({required this.error});
 
   @override
-  final String message;
+  final String error;
 
   @override
   String toString() {
-    return 'ApiResponse<$T>.error(message: $message)';
+    return 'ApiResponse<$T>.error(error: $error)';
   }
 
   @override
@@ -531,12 +531,12 @@ class _$Failure<T> implements Failure<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Failure<T> &&
-            const DeepCollectionEquality().equals(other.message, message));
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -549,9 +549,9 @@ class _$Failure<T> implements Failure<T> {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function(T data) completed,
-    required TResult Function(String message) error,
+    required TResult Function(String error) error,
   }) {
-    return error(message);
+    return error(this.error);
   }
 
   @override
@@ -560,9 +560,9 @@ class _$Failure<T> implements Failure<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
   }) {
-    return error?.call(message);
+    return error?.call(this.error);
   }
 
   @override
@@ -571,11 +571,11 @@ class _$Failure<T> implements Failure<T> {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function(T data)? completed,
-    TResult Function(String message)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message);
+      return error(this.error);
     }
     return orElse();
   }
@@ -619,9 +619,9 @@ class _$Failure<T> implements Failure<T> {
 }
 
 abstract class Failure<T> implements ApiResponse<T> {
-  const factory Failure({required String message}) = _$Failure<T>;
+  const factory Failure({required String error}) = _$Failure<T>;
 
-  String get message;
+  String get error;
   @JsonKey(ignore: true)
   $FailureCopyWith<T, Failure<T>> get copyWith =>
       throw _privateConstructorUsedError;

@@ -46,14 +46,13 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               idle: () => Container(),
               loading: () => const kCircularProgressIndicator(),
               completed: (List<Employee> list) => ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
-                itemCount: list.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Employee employee = list[index];
-                  return EmployeeCard(employee: employee);
-                }
-              ),
-              error: (String error) => showSnackBar(context, error),
+                  padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),itemCount: list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Employee employee = list[index];
+                    return EmployeeCard(employee: employee);
+                  }),
+              error: (String error) =>
+                  showSnackBar(context: context, error: error),
             );
           }),
     );

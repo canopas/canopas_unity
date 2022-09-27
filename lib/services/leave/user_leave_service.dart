@@ -27,6 +27,7 @@ class UserLeaveService {
         .where('uid', isEqualTo: id)
         .where('leave_status', isEqualTo: pendingLeaveStatus)
         .get();
+
     return data.docs.map((doc) => doc.data()).toList();
   }
 

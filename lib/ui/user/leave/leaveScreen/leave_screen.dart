@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/user/user_leave_bloc.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../rest/api_response.dart';
@@ -27,7 +26,6 @@ class LeaveScreen extends StatefulWidget {
 
 class _LeaveScreenState extends State<LeaveScreen> {
 
-  final _stateManager = getIt<NavigationStackManager>();
   final _userLeavesBLoc = getIt<UserLeavesBloc>();
 
   @override
@@ -76,10 +74,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
                   }
                 },
                 error: (String error) {
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                    showSnackBar(context, error);
-                  });
-                  return Container();
+                  return showSnackBar(context: context, error: error);
                 });
           }),
     );

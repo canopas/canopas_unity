@@ -17,9 +17,8 @@ class UserPreference {
   }
 
   Employee? getCurrentUser() {
-    final data = _preferences.getString(userPrefKeyUser) ?? "";
-    if (data.isEmpty) return null;
-    return Employee.fromJson(jsonDecode(data));
+    final data = _preferences.getString(userPrefKeyUser);
+    return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
   bool? getOnBoardCompleted() {
