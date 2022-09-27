@@ -1,15 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
-
-import '../../bloc/admin/leave/leave_application_bloc.dart';
 import '../../model/leave/leave.dart';
 
 @Singleton()
 class LeaveStatusManager {
   final AdminLeaveService _adminLeaveService;
-  final LeaveApplicationBloc leaveApplicationBloc;
 
-  LeaveStatusManager(this._adminLeaveService, this.leaveApplicationBloc);
+  LeaveStatusManager(this._adminLeaveService);
 
   int _leaveStatus = pendingLeaveStatus;
   String? _reason;

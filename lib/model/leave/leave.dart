@@ -21,7 +21,7 @@ class Leave {
   double totalLeaves;
   String reason;
   @JsonKey(name: 'emergency_contact_person')
-  int emergencyContactPerson;
+  int? emergencyContactPerson;
   @JsonKey(name: 'leave_status')
   int leaveStatus;
   String? rejectionReason;
@@ -36,7 +36,7 @@ class Leave {
       required this.endDate,
       required this.totalLeaves,
       required this.reason,
-      required this.emergencyContactPerson,
+      this.emergencyContactPerson,
       required this.leaveStatus,
       required this.appliedOn,
       this.rejectionReason});

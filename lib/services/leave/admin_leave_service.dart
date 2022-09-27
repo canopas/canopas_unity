@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-
+import 'package:rxdart/rxdart.dart';
 import '../../model/leave/leave.dart';
 
 @Injectable()
@@ -16,10 +16,19 @@ class AdminLeaveService {
     await _leaveDbCollection.doc(id).update(map);
   }
 
-  Future<List<Leave>> getAllRequests() async {
-    final data =
-        await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
-    return data.docs.map((doc) => doc.data()).toList();
+  final BehaviorSubject<List<Leave>> _leaves = BehaviorSubject<List<Leave>>();
+
+  BehaviorSubject<List<Leave>> getAllRequests() {
+     _leaveDbCollection.where('leave_status', isEqualTo: 1).snapshots().listen((event) {
+      _leaves.add(event.docs.map((doc) => doc.data()).toList());
+    }, onError: (error) {
+      _leaves.addError(error);
+    });
+    return _leaves;
+  }
+
+  detachAllRequest(){
+    _leaves.close();
   }
 
   Future<List<Leave>> getAllAbsence() async {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -25,6 +26,7 @@ class LeaveRequestCard extends StatelessWidget {
     Color? color = leaveRequestCardColor[leaveApplication.leave.leaveType];
 
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -73,7 +75,7 @@ class LeaveRequestCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 buildLeaveTypeContent(
-                                    leaveType: leave.leaveType ?? 1, context: context),
+                                    leaveType: leave.leaveType, context: context),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -98,6 +100,7 @@ class LeaveRequestCard extends StatelessWidget {
                           color: AppColors.greyColor),
                       EmployeeContent(
                         employee: leaveApplication.employee,
+                        leaveCounts: leaveApplication.leaveCounts ??  LeaveCounts(),
                       ),
 
                       // const ButtonContent()
