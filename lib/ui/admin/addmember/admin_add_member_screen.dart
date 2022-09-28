@@ -31,64 +31,48 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.primaryBlue,
-      body: NestedScrollView(
-        headerSliverBuilder: (_, __) => [
-          SliverAppBar(
-              expandedHeight: MediaQuery.of(context).size.height*0.18,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                expandedTitleScale: 2,
-                collapseMode: CollapseMode.pin,
-                title: Text(
-                  AppLocalizations.of(context).admin_addMember_addMember_tag,
-                  style: AppTextStyle.appBarTitle,
-                ),
-              ),
-            )
-          ],
-          body: EmployeeForm(selectedRole: selectedRole),
-        ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade50,
-              blurRadius: 10,
-              spreadRadius: 15,
-            ),
-          ]),
-          //   color: Colors.white,
-          child: StreamBuilder<bool>(
-            initialData: false,
-            stream: _bloc.validateSubmit,
-            builder: (BuildContext context, snapshot) {
-              return SubmitButton(
-                isEnabled: snapshot.data ?? false,
-                onPress: () {
-                  Employee employee = _bloc.submit(selectedRole);
-                  try {
-                    employeeService.addEmployee(employee);
-                    snapshot.data == true ? _stateManager.pop() : () {};
-                  } catch (error) {
-                    showSnackBar(
-                        context: context, error: firestoreFetchDataError);
-                  }
-                },
-              );
-            },
-          ),
-        ),
+      resizeToAvoidBottomInset: true,
+      backgroundColor: AppColors.whiteColor,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).admin_addMember_addMember_tag),
       ),
+      body: Stack(children: [
+        EmployeeForm(selectedRole: selectedRole),
+        Visibility(
+          visible: !keyboardIsOpen,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              width: double.infinity,
+              child: StreamBuilder<bool>(
+                initialData: false,
+                stream: _bloc.validateSubmit,
+                builder: (BuildContext context, snapshot) {
+                  return SubmitButton(
+                    isEnabled: snapshot.data ?? false,
+                    onPress: () {
+                      Employee employee = _bloc.submit(selectedRole);
+                      try {
+                        employeeService.addEmployee(employee);
+                        snapshot.data == true ? _stateManager.pop() : () {};
+                      } catch (error) {
+                        showSnackBar(
+                            context: context, error: firestoreFetchDataError);
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        )
+      ]),
     );
   }
 }
@@ -103,18 +87,18 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100),
+      padding: const EdgeInsets.symmetric(horizontal: 60),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: isEnabled ? AppColors.darkBlue : AppColors.primaryBlue,
+            backgroundColor:
+                isEnabled ? AppColors.primaryBlue : AppColors.greyColor,
           ),
           onPressed: onPress,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
-              AppLocalizations.of(context).admin_addMember_button_submit,
-              style: AppTextStyle.titleText
-            ),
+                AppLocalizations.of(context).admin_addMember_button_submit,
+                style: AppTextStyle.subtitleText),
           )),
     );
   }

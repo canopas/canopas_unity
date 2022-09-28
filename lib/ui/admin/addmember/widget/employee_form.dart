@@ -4,6 +4,7 @@ import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
+
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../core/utils/const/role.dart';
 
@@ -22,71 +23,57 @@ class _EmployeeFormState extends State<EmployeeForm> {
   @override
   Widget build(BuildContext context) {
     var _localization = AppLocalizations.of(context);
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15), topLeft: Radius.circular(15)),
+    return ListView(
+      padding: const EdgeInsets.only(
+        left: primaryHorizontalSpacing,
+        right: primaryHorizontalSpacing,
+        top: 24,
       ),
-      child: ListView(
-        padding: const EdgeInsets.only(
-          left: 30.0,
-          right: 30,
-          top: 40,
+      children: [
+        ToggleButton(
+          onRoleChange: (role) {
+            switch (role) {
+              case kRoleTypeEmployee:
+                setState(() {
+                  widget.selectedRole = kRoleTypeEmployee;
+                });
+                break;
+              case kRoleTypeHR:
+                setState(() {
+                  widget.selectedRole = kRoleTypeHR;
+                });
+            }
+          },
         ),
-        children: [
-          ToggleButton(
-            onRoleChange: (role) {
-              switch (role) {
-                case kRoleTypeEmployee:
-                  setState(() {
-                    widget.selectedRole = kRoleTypeEmployee;
-                  });
-                  break;
-                case kRoleTypeHR:
-                  setState(() {
-                    widget.selectedRole = kRoleTypeHR;
-                  });
-              }
-            },
-          ),
-          const SizedBox(height: 10),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TitleText(title: _localization.employee_employeeID_tag),
-                CustomTextField(
-                    hintText: _localization.admin_addMember_hint_employeeId,
-                    stream: _bloc.employeeId,
-                    onChanged: (employeeId) =>
-                        _bloc.validateEmployeeId(employeeId, context)),
-                TitleText(title: _localization.employee_name_tag),
-                CustomTextField(
-                    hintText: _localization.admin_addMember_hint_name,
-                    stream: _bloc.name,
-                    onChanged: (name) => _bloc.validateName(name, context)),
-                TitleText(title: _localization.employee_email_tag),
-                CustomTextField(
-                    hintText: _localization.admin_addMember_hint_email,
-                    stream: _bloc.email,
-                    onChanged: (email) =>
-                        _bloc.validateEmail(email, context)),
-                TitleText(title: _localization.employee_designation_tag),
-                CustomTextField(
-                    hintText:
-                        _localization.admin_addMember_hint_designation,
-                    stream: _bloc.designation,
-                    onChanged: (designation) =>
-                        _bloc.validateDesignation(designation, context)),
-                Container(
-                  height: 200,
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+        const SizedBox(height: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleText(title: _localization.employee_employeeID_tag),
+            CustomTextField(
+                hintText: _localization.admin_addMember_hint_employeeId,
+                stream: _bloc.employeeId,
+                onChanged: (employeeId) =>
+                    _bloc.validateEmployeeId(employeeId, context)),
+            TitleText(title: _localization.employee_name_tag),
+            CustomTextField(
+                hintText: _localization.admin_addMember_hint_name,
+                stream: _bloc.name,
+                onChanged: (name) => _bloc.validateName(name, context)),
+            TitleText(title: _localization.employee_email_tag),
+            CustomTextField(
+                hintText: _localization.admin_addMember_hint_email,
+                stream: _bloc.email,
+                onChanged: (email) => _bloc.validateEmail(email, context)),
+            TitleText(title: _localization.employee_designation_tag),
+            CustomTextField(
+                hintText: _localization.admin_addMember_hint_designation,
+                stream: _bloc.designation,
+                onChanged: (designation) =>
+                    _bloc.validateDesignation(designation, context))
+          ],
+        )
+      ],
     );
   }
 }
@@ -99,7 +86,7 @@ class TitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.only(top: primaryHorizontalSpacing, bottom: primaryVerticalSpacing),
+      padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Text(
         title,
         textAlign: TextAlign.start,
