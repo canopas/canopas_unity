@@ -29,7 +29,7 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
 
   @override
   void dispose() {
-    _adminDetailsScreenBloc.dispose();
+    _adminDetailsScreenBloc.detach();
     super.dispose();
   }
 
