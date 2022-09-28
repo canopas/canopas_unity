@@ -83,14 +83,11 @@ class BottomButtonBar extends StatelessWidget {
                   } else {
                     showSnackBar(
                         context: context,
-                        msg: _localization
-                            .user_apply_leave_error_message_min_time);
+                        msg: _localization.user_apply_leave_error_message_min_time);
                   }
                 } else {
                   showSnackBar(
-                      context: context,
-                      msg: _localization
-                          .user_apply_leave_error_message_fill_details);
+                      context: context, msg: _localization.user_apply_leave_error_message_fill_details);
                 }
               },
             ),

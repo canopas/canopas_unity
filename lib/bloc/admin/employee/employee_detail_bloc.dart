@@ -29,7 +29,7 @@ class EmployeeDetailBloc {
       }
       _employee.sink.add(ApiResponse.completed(data: employee!));
     } on Exception catch (error) {
-      _employee.sink.add(ApiResponse.error(error: undefinedError));
+      _employee.sink.add(const ApiResponse.error(error: undefinedError));
     }
   }
 

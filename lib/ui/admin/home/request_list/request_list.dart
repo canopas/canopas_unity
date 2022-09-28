@@ -35,7 +35,7 @@ class _AdminLeaveRequestsListState extends State<AdminLeaveRequestsList> {
                 return Expanded(
                     child: ListView(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 0),
+                  padding: const EdgeInsets.only(bottom: primaryVerticalSpacing),
                   children: leaveApplicationMap.entries.map((mapEntry) => StickyHeader(
                             header: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -47,7 +47,7 @@ class _AdminLeaveRequestsListState extends State<AdminLeaveRequestsList> {
                                         spreadRadius: 1,
                                         offset: const Offset(0, 2),
                                       )]),
-                                padding: const EdgeInsets.only(top: primaryHorizontalSpacing, bottom: primaryVerticalSpacing,),
+                                padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: primaryVerticalSpacing),
                                 child: Text(dateToDayMonth(date: mapEntry.key, locale: AppLocalizations.of(context).localeName), style: AppTextStyle.settingSubTitle)),
                             content: Column(
                               children: mapEntry.value.map((leaveApplication) => LeaveRequestCard(leaveApplication: leaveApplication)).toList(),

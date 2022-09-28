@@ -5,8 +5,6 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
-
-import '../../../bloc/admin/leave_count/all_leave_count.dart';
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../di/service_locator.dart';
 import '../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
@@ -24,20 +22,7 @@ class AdminSettingScreen extends StatefulWidget {
 
 class _AdminSettingScreenState extends State<AdminSettingScreen> {
   final _stateManager = getIt<NavigationStackManager>();
-  final _adminLeaveCount = getIt<AdminLeaveCount>();
   final _logOutBloc = getIt<LogOutBloc>();
-
-  @override
-  void initState() {
-    _adminLeaveCount.fetchTotalLeaveCounts();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _logOutBloc.detach();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

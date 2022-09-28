@@ -28,6 +28,9 @@ extension ExceptionMessage on String {
         break;
       case undefinedError:
         msg = appLocale.something_went_wrong_text;
+        break;
+      case wrongNumInputError:
+        msg = appLocale.please_enter_valid_number;
     }
     return msg;
   }
