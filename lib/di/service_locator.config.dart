@@ -77,11 +77,11 @@ Future<_i1.GetIt> $initGetIt(
         get<_i12.UserLeaveService>(),
         get<_i10.PaidLeaveService>(),
       ));
-  gh.singleton<_i16.AdminLeaveDetailsScreenBloc>(
-      _i16.AdminLeaveDetailsScreenBloc(
-    get<_i12.UserLeaveService>(),
-    get<_i10.PaidLeaveService>(),
-  ));
+  gh.factory<_i16.AdminLeaveDetailsScreenBloc>(
+      () => _i16.AdminLeaveDetailsScreenBloc(
+            get<_i12.UserLeaveService>(),
+            get<_i10.PaidLeaveService>(),
+          ));
   gh.singleton<_i17.AuthManager>(_i17.AuthManager(
     get<_i13.UserPreference>(),
     get<_i4.AuthService>(),
