@@ -39,6 +39,7 @@
                   },
 
    "user_home_all_leaves_tag": "All Leaves",
+   "total_paid_leaves":"Total Leaves",
    "user_home_requested_leaves_tag": "Requested Leaves",
    "user_home_upcoming_leaves_tag": "Upcoming Leaves",
    "user_home_apply_leave_tag": "Apply for Leave",
@@ -173,6 +174,7 @@
       },
 
      "error_something_went_wrong": "Something went wrong",
+     "please_enter_valid_number": "Please enter valid number!",
 
      "admin_leave_detail_error_reason":"Enter Message",
      "admin_leave_detail_message_title_text": "Note",

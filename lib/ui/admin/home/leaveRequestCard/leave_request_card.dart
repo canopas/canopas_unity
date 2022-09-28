@@ -26,7 +26,7 @@ class LeaveRequestCard extends StatelessWidget {
     Color? color = leaveRequestCardColor[leaveApplication.leave.leaveType];
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
+      margin: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing, horizontal: primaryHorizontalSpacing),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
