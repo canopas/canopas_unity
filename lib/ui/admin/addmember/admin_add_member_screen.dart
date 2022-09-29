@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/bloc/admin/employee/employee_validation.dart';
+import 'package:projectunity/bloc/admin/employee/add_memeber_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/services/employee/employee_service.dart';
-import 'package:projectunity/ui/admin/addmember/widget/employee_form.dart';
+import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
-import '../../../model/employee/employee.dart';
+import 'widget/role_toggle_button.dart';
 
 class AdminAddMemberScreen extends StatefulWidget {
   const AdminAddMemberScreen({Key? key}) : super(key: key);
@@ -21,14 +19,23 @@ class AdminAddMemberScreen extends StatefulWidget {
 }
 
 class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
-  final employeeService = getIt<EmployeeService>();
-  final _stateManager = getIt<NavigationStackManager>();
-  final EmployeeValidationBloc _bloc = getIt<EmployeeValidationBloc>();
+  final AddMemberBloc _bloc = getIt<AddMemberBloc>();
   int selectedRole = kRoleTypeEmployee;
 
   @override
   void initState() {
+    _bloc.addEmployeeStream.listen((event) {
+      event.whenOrNull(error: (error) {
+        showSnackBar(context: context, error: error.toString());
+      });
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.detach();
+    super.dispose();
   }
 
   @override
@@ -41,65 +48,142 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).admin_addMember_addMember_tag),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _buildFooter(keyboardIsOpen),
       body: Stack(children: [
-        EmployeeForm(selectedRole: selectedRole),
-        Visibility(
-          visible: !keyboardIsOpen,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              width: double.infinity,
-              child: StreamBuilder<bool>(
-                initialData: false,
-                stream: _bloc.validateSubmit,
-                builder: (BuildContext context, snapshot) {
-                  return SubmitButton(
-                    isEnabled: snapshot.data ?? false,
-                    onPress: () {
-                      Employee employee = _bloc.submit(selectedRole);
-                      try {
-                        employeeService.addEmployee(employee);
-                        snapshot.data == true ? _stateManager.pop() : () {};
-                      } catch (error) {
-                        showSnackBar(
-                            context: context, error: firestoreFetchDataError);
-                      }
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-        )
+        _buildForm(),
       ]),
     );
   }
-}
 
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({Key? key, required this.onPress, required this.isEnabled})
-      : super(key: key);
+  _buildFooter(bool keyboardIsOpen) {
+    return Visibility(
+        visible: !keyboardIsOpen,
+        child: Container(
+            margin: const EdgeInsets.only(bottom: 30),
+            child: StreamBuilder<ApiResponse<bool>>(
+                initialData: const ApiResponse.idle(),
+                stream: _bloc.addEmployeeStream,
+                builder: (context, snapshot) {
+                  return snapshot.data!.when(
+                    idle: () => _buildButton(),
+                    loading: () => const CircularProgressIndicator(
+                        color: AppColors.primaryBlue),
+                    completed: (bool) => Container(),
+                    error: (error) => _buildButton(),
+                  );
+                })));
+  }
 
-  final VoidCallback onPress;
-  final bool isEnabled;
+  _buildForm() {
+    var _localization = AppLocalizations.of(context);
+    return ListView(
+      padding: const EdgeInsets.only(
+        left: primaryHorizontalSpacing,
+        right: primaryHorizontalSpacing,
+        top: 24,
+      ),
+      children: [
+        ToggleButton(
+          onRoleChange: (role) {
+            switch (role) {
+              case kRoleTypeEmployee:
+                _bloc.setSelectedRole(kRoleTypeEmployee);
+                break;
+              case kRoleTypeHR:
+                _bloc.setSelectedRole(kRoleTypeHR);
+                break;
+            }
+          },
+        ),
+        const SizedBox(height: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTextFieldTitle(title: _localization.employee_employeeID_tag),
+            _buildTextField(
+                hintText: _localization.admin_addMember_hint_employeeId,
+                stream: _bloc.employeeId,
+                onChanged: (employeeId) =>
+                    _bloc.validateEmployeeId(employeeId, context)),
+            _buildTextFieldTitle(title: _localization.employee_name_tag),
+            _buildTextField(
+                hintText: _localization.admin_addMember_hint_name,
+                stream: _bloc.name,
+                onChanged: (name) => _bloc.validateName(name, context)),
+            _buildTextFieldTitle(title: _localization.employee_email_tag),
+            _buildTextField(
+                hintText: _localization.admin_addMember_hint_email,
+                stream: _bloc.email,
+                onChanged: (email) => _bloc.validateEmail(email, context)),
+            _buildTextFieldTitle(title: _localization.employee_designation_tag),
+            _buildTextField(
+                hintText: _localization.admin_addMember_hint_designation,
+                stream: _bloc.designation,
+                onChanged: (designation) =>
+                    _bloc.validateDesignation(designation, context))
+          ],
+        )
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor:
-                isEnabled ? AppColors.primaryBlue : AppColors.greyColor,
+  _buildTextField(
+      {required String hintText,
+      required Stream<String> stream,
+      required void Function(String) onChanged}) {
+    return StreamBuilder<String>(
+      stream: stream,
+      builder: (context, snapshot) {
+        return TextField(
+          textInputAction: TextInputAction.next,
+          onChanged: onChanged,
+          cursorColor: Colors.black,
+          autocorrect: false,
+          style: AppTextStyle.subtitleTextDark,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            errorText: snapshot.hasError ? snapshot.error.toString() : null,
+            hintStyle: AppTextStyle.secondarySubtitle500,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            hintText: hintText,
           ),
-          onPressed: onPress,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Text(
-                AppLocalizations.of(context).admin_addMember_button_submit,
-                style: AppTextStyle.subtitleText),
-          )),
+        );
+      },
+    );
+  }
+
+  _buildTextFieldTitle({required String title}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 24, bottom: 8),
+      child: Text(
+        title,
+        textAlign: TextAlign.start,
+        style: AppTextStyle.secondarySubtitle500,
+      ),
+    );
+  }
+
+  _buildButton() {
+    return StreamBuilder<bool>(
+      initialData: false,
+      stream: _bloc.validateSubmit,
+      builder: (BuildContext context, snapshot) {
+        return Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 60),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: (snapshot.data ?? false)
+                      ? AppColors.primaryBlue
+                      : AppColors.greyColor,
+                ),
+                onPressed: () =>
+                    (snapshot.data ?? false) ? _bloc.addEmployee() : null,
+                child: Text(
+                    AppLocalizations.of(context).admin_addMember_button_submit,
+                    style: AppTextStyle.subtitleText)));
+      },
     );
   }
 }

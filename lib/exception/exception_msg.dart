@@ -31,6 +31,10 @@ extension ExceptionMessage on String {
         break;
       case wrongNumInputError:
         msg = appLocale.please_enter_valid_number;
+        break;
+      case userAlreadyExists:
+        msg = appLocale.add_member_employee_exists_error;
+        break;
     }
     return msg;
   }
