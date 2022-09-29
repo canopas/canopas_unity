@@ -17,7 +17,7 @@ class AuthService {
     }
   }
 
-  Future<Employee> getUserData(String email) async {
+  Future<Employee?> getUserData(String email) async {
     final _employeeDbCollection = _db
         .where('email', isEqualTo: email)
         .limit(1)
@@ -29,9 +29,9 @@ class AuthService {
     final data = await _employeeDbCollection.get();
     if (data.docs.isEmpty) {
       employee = null;
+    } else {
+      employee = data.docs[0].data();
     }
-    employee = data.docs[0].data();
-
     return employee;
   }
 }

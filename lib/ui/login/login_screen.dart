@@ -62,12 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     completed: (bool hasAccount) {
                       if (hasAccount) {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
-                          setState(() {
-                            _showProgress = false;
-                          });
                           _loginState.setUserLogin(hasAccount);
                         });
                       }
+                      _showProgress = false;
                     },
                     error: (String error) {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
