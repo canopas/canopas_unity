@@ -3,12 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/base_bloc.dart';
+import 'package:projectunity/core/utils/const/role.dart';
+import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
+import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
-@Singleton()
-class EmployeeValidationBloc {
+import '../../../navigation/navigation_stack_manager.dart';
+import '../../../rest/api_response.dart';
+
+@Injectable()
+class AddMemberBloc extends BaseBLoc {
+  EmployeeService _employeeService;
+  NavigationStackManager _stackManager;
+
+  AddMemberBloc(this._employeeService, this._stackManager);
+
   final BehaviorSubject<String> _email = BehaviorSubject<String>();
 
   Stream<String> get email => _email.stream;
@@ -25,6 +37,12 @@ class EmployeeValidationBloc {
 
   Stream<String> get designation => _designation.stream;
 
+  final _addEmployeeStream = BehaviorSubject<ApiResponse<bool>>();
+
+  Stream<ApiResponse<bool>> get addEmployeeStream => _addEmployeeStream.stream;
+
+  int roleType = kRoleTypeEmployee;
+
   void validateEmail(String email, BuildContext context) {
     if (email.isNotEmpty && email.length > 4) {
       if (email.contains('@')) {
@@ -37,7 +55,10 @@ class EmployeeValidationBloc {
   }
 
   void validateName(String name, BuildContext context) {
-    if (name.isNotEmpty && name.length >= 4) {
+    if (name.isEmpty) {
+      _name.sink.addError(
+          AppLocalizations.of(context).admin_add_member_error_complete_field);
+    } else if (name.length >= 4) {
       _name.sink.add(name);
     } else {
       _name.sink
@@ -55,8 +76,8 @@ class EmployeeValidationBloc {
   }
 
   void validateEmployeeId(String employeeId, BuildContext context) {
-    if (employeeId.length > 4) {
-      if (employeeId.contains(RegExp(r'[0-9]'))) {
+    if (employeeId.length >= 4) {
+      if (employeeId.contains(RegExp(r'[a-zA-Z0-9]'))) {
         _employeeId.sink.add(employeeId);
       }
     } else {
@@ -79,10 +100,36 @@ class EmployeeValidationBloc {
     return employee;
   }
 
-  dispose() {
+  Future<void> addEmployee() async {
+    _addEmployeeStream.sink.add(const ApiResponse.loading());
+
+    Employee employee = submit(roleType);
+
+    bool userExists = await _employeeService.hasUser(employee.email);
+    if (userExists) {
+      _addEmployeeStream.sink
+          .add(const ApiResponse.error(error: userAlreadyExists));
+      return;
+    }
+
+    await _employeeService.addEmployee(employee);
+    _stackManager.pop();
+    _addEmployeeStream.sink.add(const ApiResponse.completed(data: true));
+  }
+
+  void setSelectedRole(int role) {
+    roleType = role;
+  }
+
+  @override
+  void attach() {}
+
+  @override
+  void detach() {
     _email.close();
     _name.close();
     _designation.close();
     _employeeId.close();
+    _addEmployeeStream.close();
   }
 }

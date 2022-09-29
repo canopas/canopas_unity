@@ -23,7 +23,14 @@ class EmployeeService {
 
   Future<int> getEmployeesCount() async {
     final data = await _userDbCollection.get();
-     return data.docs.map((doc) => doc.data()).toList().length;
+    return data.docs.map((doc) => doc.data()).toList().length;
+  }
+
+  Future<bool> hasUser(String email) async {
+    final _employeeDbCollection =
+        _userDbCollection.where('email', isEqualTo: email).limit(1);
+    final data = await _employeeDbCollection.get();
+    return data.docs.isNotEmpty;
   }
 
   Future<void> addEmployee(Employee employee) async {

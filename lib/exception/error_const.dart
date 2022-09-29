@@ -19,5 +19,7 @@ const String undefinedError = 'error-Undefined';
 //Exception When trying to signout from google is not succeed
 const String signOutError = 'error-sign-out';
 
+const String userAlreadyExists = 'error-user-exists';
+
 //Format Exception Error
 const String wrongNumInputError = "wrong-num-input";
