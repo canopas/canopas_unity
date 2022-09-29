@@ -29,7 +29,7 @@ class LoginBloc {
     try {
       User? user = await _signInWithGoogle();
       if (user == null) {
-        _loginSubject.add(const ApiResponse.error(error: userNotFoundError));
+        _loginSubject.add(const ApiResponse.completed(data: false));
       } else {
         final data = await _authManager.getUser(user.email!);
         try {
@@ -37,7 +37,7 @@ class LoginBloc {
             await _authManager.updateUser(data);
             _loginSubject.add(const ApiResponse.completed(data: true));
           } else {
-            _loginSubject.add(const ApiResponse.completed(data: false));
+            _loginSubject.add(const ApiResponse.error(error: userNotFoundError));
           }
         } on Exception {
           _loginSubject
