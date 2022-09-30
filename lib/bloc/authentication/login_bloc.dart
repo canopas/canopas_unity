@@ -1,25 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/stateManager/auth/auth_manager.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../exception/custom_exception.dart';
 import '../../exception/error_const.dart';
 
-GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
-  'email',
-  'https://www.googleapis.com/auth/contacts.readonly',
-]);
+// GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
+//   'email',
+//   'https://www.googleapis.com/auth/contacts.readonly',
+// ]);
 
-@Singleton()
-class LoginBloc {
+@Injectable()
+class LoginBloc extends BaseBLoc{
+
   final AuthManager _authManager;
-
   LoginBloc(this._authManager);
 
-  var _loginSubject = BehaviorSubject<ApiResponse<bool>>();
+  final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
 
   BehaviorSubject<ApiResponse<bool>> get loginResponse => _loginSubject;
 
@@ -75,16 +75,16 @@ class LoginBloc {
     return user;
   }
 
-  void dispose() {
-    _loginSubject.close();
-  }
-
   void reset() {
     _loginSubject.sink.add(const ApiResponse.idle());
   }
 
-  void restart(){
-    _loginSubject = BehaviorSubject<ApiResponse<bool>>();
+  @override
+  void attach() {}
+
+  @override
+  void detach() {
+    _loginSubject.close();
   }
 
 }

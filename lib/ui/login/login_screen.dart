@@ -26,14 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showProgress = false;
 
   @override
-  void initState() {
-    _bloc.restart();
-    super.initState();
-  }
-
-  @override
   void dispose() {
-    _bloc.dispose();
+    _bloc.detach();
     super.dispose();
   }
 
