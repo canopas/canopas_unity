@@ -4,7 +4,6 @@ import 'package:projectunity/model/employee_leave_count/employee_leave_count.dar
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../services/leave/paid_leave_service.dart';
 
 @Injectable()
@@ -23,12 +22,9 @@ class EmployeeHomeBLoc extends BaseBLoc {
   _fetchLeaveSummary() async {
     if (leaveCounts.isClosed) return;
 
-    var usedLeaveCount =
-        await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);
-    var paidLeaves = await _paidLeaveService.getPaidLeaves();
-
-    var availableLeaveCount =
-        paidLeaves < usedLeaveCount ? 0 : paidLeaves - usedLeaveCount;
+    int usedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);
+    int paidLeaves = await _paidLeaveService.getPaidLeaves();
+    int availableLeaveCount = paidLeaves < usedLeaveCount ? 0 : paidLeaves - usedLeaveCount;
 
     _leaveCounts.sink.add(LeaveCounts(
         availableLeaveCount: availableLeaveCount,

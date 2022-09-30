@@ -9,21 +9,24 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i10;
 
+import '../bloc/admin/absence_screen_bloc/absence_bloc.dart' as _i13;
 import '../bloc/admin/admin_home_screen_bloc/admin_home_screen_bloc.dart'
     as _i14;
 import '../bloc/admin/employee/add_memeber_bloc.dart' as _i25;
 import '../bloc/admin/employee/employee_detail_bloc.dart' as _i17;
-import '../bloc/admin/employee/employee_list_bloc.dart' as _i18;
-import '../bloc/admin/leave/absence_bloc.dart' as _i13;
-import '../bloc/admin/leave_details_screen/admin_leave_details_bloc.dart'
+import '../bloc/admin/employee_list_screen_bloc/employee_list_bloc.dart'
+    as _i18;
+import '../bloc/admin/leave_details_screen_bloc/admin_leave_details_bloc.dart'
     as _i15;
-import '../bloc/admin/update_paid_leave_count/total_paid_leave_count_bloc.dart'
+import '../bloc/admin/update_paid_leave_count_bloc/total_paid_leave_count_bloc.dart'
     as _i26;
 import '../bloc/authentication/login_bloc.dart' as _i19;
 import '../bloc/authentication/logout_bloc.dart' as _i27;
-import '../bloc/employee/employee_leave_count/employee_home_bloc.dart' as _i21;
+import '../bloc/employee/employee_home_screen_bloc/employee_home_bloc.dart'
+    as _i21;
+import '../bloc/employee/employee_leaves_screen_bloc/employee_leave_bloc.dart'
+    as _i24;
 import '../bloc/network/network_service_bloc.dart' as _i8;
-import '../bloc/user/user_leave_bloc.dart' as _i24;
 import '../navigation/navigation_stack_manager.dart' as _i23;
 import '../pref/user_preference.dart' as _i12;
 import '../provider/user_data.dart' as _i20;
@@ -66,10 +69,10 @@ Future<_i1.GetIt> $initGetIt(
   gh.singleton<_i11.UserLeaveService>(_i11.UserLeaveService());
   gh.factory<_i12.UserPreference>(
       () => _i12.UserPreference(get<_i10.SharedPreferences>()));
-  gh.singleton<_i13.AbsenceBloc>(_i13.AbsenceBloc(
-    get<_i5.EmployeeService>(),
-    get<_i3.AdminLeaveService>(),
-  ));
+  gh.factory<_i13.AbsenceBloc>(() => _i13.AbsenceBloc(
+        get<_i5.EmployeeService>(),
+        get<_i3.AdminLeaveService>(),
+      ));
   gh.factory<_i14.AdminHomeScreenBloc>(() => _i14.AdminHomeScreenBloc(
         get<_i5.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
@@ -87,9 +90,9 @@ Future<_i1.GetIt> $initGetIt(
   ));
   gh.singleton<_i17.EmployeeDetailBloc>(
       _i17.EmployeeDetailBloc(get<_i5.EmployeeService>()));
-  gh.singleton<_i18.EmployeeListBloc>(
-      _i18.EmployeeListBloc(get<_i5.EmployeeService>()));
-  gh.singleton<_i19.LoginBloc>(_i19.LoginBloc(get<_i16.AuthManager>()));
+  gh.factory<_i18.EmployeeListBloc>(
+      () => _i18.EmployeeListBloc(get<_i5.EmployeeService>()));
+  gh.factory<_i19.LoginBloc>(() => _i19.LoginBloc(get<_i16.AuthManager>()));
   gh.singleton<_i20.UserManager>(_i20.UserManager(get<_i12.UserPreference>()));
   gh.factory<_i21.EmployeeHomeBLoc>(() => _i21.EmployeeHomeBLoc(
         get<_i20.UserManager>(),

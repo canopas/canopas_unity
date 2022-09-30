@@ -11,9 +11,8 @@ import '../../navigation/navigation_stack_manager.dart';
 import '../../stateManager/login_state_manager.dart';
 
 @Injectable()
-class LogOutBloc extends BaseBLoc{
+class LogOutBloc extends BaseBLoc {
   final LoginState _loginState;
-
   final UserPreference _userPreference;
 
   LogOutBloc(
@@ -21,9 +20,10 @@ class LogOutBloc extends BaseBLoc{
     this._userPreference,
   );
 
-  final BehaviorSubject<ApiResponse<bool>> _signOutSubject  = BehaviorSubject<ApiResponse<bool>>();
-  Stream<ApiResponse<bool>> get signOutResponse => _signOutSubject.stream;
+  final BehaviorSubject<ApiResponse<bool>> _signOutSubject =
+      BehaviorSubject<ApiResponse<bool>>();
 
+  Stream<ApiResponse<bool>> get signOutResponse => _signOutSubject.stream;
 
   Future<void> signOutFromApp() async {
     _signOutSubject.add(const ApiResponse.loading());
@@ -65,7 +65,5 @@ class LogOutBloc extends BaseBLoc{
   }
 
   @override
-  void attach() {
-    // TODO: implement attach
-  }
+  void attach() {}
 }

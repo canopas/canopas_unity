@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import '../../bloc/admin/leave_details_screen/admin_leave_details_bloc.dart';
+import '../../bloc/admin/leave_details_screen_bloc/admin_leave_details_bloc.dart';
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
 import '../../core/utils/date_string_utils.dart';

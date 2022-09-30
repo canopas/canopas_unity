@@ -20,9 +20,9 @@ class AdminHomeScreenBloc extends BaseBLoc {
   final EmployeeService _employeeService;
   final AdminLeaveService _adminLeaveService;
   final UserLeaveService _userLeaveService;
-  final PaidLeaveService _userPaidLeaveCount;
+  final PaidLeaveService _userPaidLeaveService;
 
-  AdminHomeScreenBloc(this._employeeService, this._adminLeaveService, this._userLeaveService, this._userPaidLeaveCount);
+  AdminHomeScreenBloc(this._employeeService, this._adminLeaveService, this._userLeaveService, this._userPaidLeaveService);
 
 
   final BehaviorSubject<ApiResponse<EmployeesSummary>> _employeeSummary = BehaviorSubject<ApiResponse<EmployeesSummary>>.seeded(const ApiResponse.idle());
@@ -101,7 +101,7 @@ class AdminHomeScreenBloc extends BaseBLoc {
   }
 
   Future<LeaveCounts> _fetchUserRemainingLeave({required String id}) async {
-    int _userAllDays = await _userPaidLeaveCount.getPaidLeaves();
+    int _userAllDays = await _userPaidLeaveService.getPaidLeaves();
     int _userUsedDays = await _userLeaveService.getUserUsedLeaveCount(id);
     int _remainingLeave= _userAllDays - _userUsedDays;
     if (_remainingLeave < 0) {

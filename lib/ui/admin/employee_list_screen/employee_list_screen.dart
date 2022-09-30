@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
-import '../../../bloc/admin/employee/employee_list_bloc.dart';
+import '../../../bloc/admin/employee_list_screen_bloc/employee_list_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
 import '../../../di/service_locator.dart';
@@ -20,12 +20,18 @@ class EmployeeListScreen extends StatefulWidget {
 
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
 
-  final _bloc = getIt<EmployeeListBloc>();
+  final _employeeListBloc = getIt<EmployeeListBloc>();
 
   @override
   void initState() {
-    _bloc.getEmployeeList();
+    _employeeListBloc.attach();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _employeeListBloc.detach();
+    super.dispose();
   }
 
   @override
@@ -40,7 +46,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       ),
       body: StreamBuilder<ApiResponse<List<Employee>>>(
           initialData: const ApiResponse.idle(),
-          stream: _bloc.allEmployee,
+          stream: _employeeListBloc.allEmployees,
           builder: (context, snapshot) {
             return snapshot.data!.when(
               idle: () => Container(),

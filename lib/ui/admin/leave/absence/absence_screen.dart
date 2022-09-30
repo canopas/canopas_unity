@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/admin/leave/absence/widget/employee_leave_card.dart';
-
-import '../../../../bloc/admin/leave/absence_bloc.dart';
+import '../../../../bloc/admin/absence_screen_bloc/absence_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/other_constant.dart';
@@ -26,13 +25,13 @@ class _AdminAbsenceScreenState extends State<AdminAbsenceScreen> {
 
   @override
   void initState() {
-    _absenceBloc.getAbsenceEmployees();
+    _absenceBloc.attach();
     super.initState();
   }
 
   @override
   void dispose() {
-    _absenceBloc.dispose();
+    _absenceBloc.detach();
     super.dispose();
   }
 
@@ -65,8 +64,7 @@ class _AdminAbsenceScreenState extends State<AdminAbsenceScreen> {
                       message: AppLocalizations.of(context)
                           .empty_absence_state_message,
                     ),
-              error: (String error) =>
-                  showSnackBar(context: context, error: error),
+              error: (String error) => showSnackBar(context: context, error: error),
             );
           }),
     );
