@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:intl/intl.dart';
 import 'package:projectunity/bloc/admin/employee/add_memeber_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
+import '../../../widget/date_time_picker.dart';
 import 'widget/role_toggle_button.dart';
 
 class AdminAddMemberScreen extends StatefulWidget {
@@ -69,7 +70,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                     idle: () => _buildButton(),
                     loading: () => const CircularProgressIndicator(
                         color: AppColors.primaryBlue),
-                    completed: (bool) => Container(),
+                    completed: (val) => Container(),
                     error: (error) => _buildButton(),
                   );
                 })));
@@ -78,10 +79,11 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   _buildForm() {
     var _localization = AppLocalizations.of(context);
     return ListView(
-      padding: const EdgeInsets.only(
+      padding:  EdgeInsets.only(
         left: primaryHorizontalSpacing,
         right: primaryHorizontalSpacing,
         top: 24,
+        bottom: MediaQuery.of(context).viewInsets.bottom != 0?0:80,
       ),
       children: [
         ToggleButton(
@@ -121,10 +123,40 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                 hintText: _localization.admin_addMember_hint_designation,
                 stream: _bloc.designation,
                 onChanged: (designation) =>
-                    _bloc.validateDesignation(designation, context))
+                    _bloc.validateDesignation(designation, context)),
+            _buildTextFieldTitle(title: _localization.employee_dateOfJoin_tag),
+            _buildDateOfJoiningButton(),
           ],
         )
       ],
+    );
+  }
+
+  _buildDateOfJoiningButton(){
+    return StreamBuilder<DateTime>(
+        initialData: _bloc.currentTime,
+        stream: _bloc.dateOfJoining,
+        builder: (context, snapshot) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: primaryHorizontalSpacing),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  alignment: Alignment.centerLeft,
+                  elevation: 0,
+                  backgroundColor: AppColors.whiteColor,
+                  fixedSize: Size(MediaQuery.of(context).size.width, 60),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(color: AppColors.secondaryText),
+                  ),
+                ),
+                onPressed: () async {
+                  DateTime _joiningDate  = await pickDate(context: context, initialDate: snapshot.data!);
+                  _bloc.validateDateOfJoining(_joiningDate);
+                },
+                child:  Text(AppLocalizations.of(context).date_format_yMMMd(snapshot.data!),style: AppTextStyle.secondarySubtitle500,)),
+          );
+        }
     );
   }
 
