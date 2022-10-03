@@ -1,23 +1,22 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/exception/error_const.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../navigation/navigation_stack_manager.dart';
 import '../../../rest/api_response.dart';
 
 @Injectable()
 class AddMemberBloc extends BaseBLoc {
-  EmployeeService _employeeService;
-  NavigationStackManager _stackManager;
+  final EmployeeService _employeeService;
+  final NavigationStackManager _stackManager;
 
   AddMemberBloc(this._employeeService, this._stackManager);
 
@@ -36,6 +35,12 @@ class AddMemberBloc extends BaseBLoc {
   final BehaviorSubject<String> _designation = BehaviorSubject<String>();
 
   Stream<String> get designation => _designation.stream;
+
+  final BehaviorSubject<DateTime> _dateOfJoining = BehaviorSubject<DateTime>.seeded(DateTime.now());
+
+  Stream<DateTime> get dateOfJoining => _dateOfJoining.stream;
+
+  DateTime currentTime = DateTime.now();
 
   final _addEmployeeStream = BehaviorSubject<ApiResponse<bool>>();
 
@@ -86,8 +91,12 @@ class AddMemberBloc extends BaseBLoc {
     }
   }
 
-  Stream<bool> get validateSubmit => Rx.combineLatest4(
-      employeeId, name, email, designation, (a, b, c, d) => true);
+  void validateDateOfJoining(DateTime joiningDate){
+      _dateOfJoining.sink.add(joiningDate);
+  }
+
+  Stream<bool> get validateSubmit => Rx.combineLatest5(
+      employeeId, name, email, designation, dateOfJoining, (a, b, c, d, e) => true);
 
   Employee submit(int selectedRoleType) {
     final employee = Employee(
@@ -96,7 +105,9 @@ class AddMemberBloc extends BaseBLoc {
         name: _name.stream.value,
         employeeId: _employeeId.value,
         email: _email.value,
-        designation: _designation.value);
+        designation: _designation.value,
+        dateOfJoining: _dateOfJoining.value.timeStampToInt
+    );
     return employee;
   }
 
@@ -130,6 +141,7 @@ class AddMemberBloc extends BaseBLoc {
     _name.close();
     _designation.close();
     _employeeId.close();
+    _dateOfJoining.close();
     _addEmployeeStream.close();
   }
 }

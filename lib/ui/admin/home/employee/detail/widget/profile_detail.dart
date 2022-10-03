@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import '../../../../../../configs/text_style.dart';
 import '../../../../../../model/employee/employee.dart';
@@ -24,7 +25,7 @@ class ProfileDetail extends StatelessWidget {
             subtitle: employee.email),
         TextColumn(
           title: _localization.employee_dateOfJoin_tag,
-          subtitle: employee.dateOfJoining.toString(),
+          subtitle: (employee.dateOfJoining != null)?_localization.date_format_yMMMd(employee.dateOfJoining!.toDate):" - ",
         ),
         TextColumn(
           title: _localization.employee_level_tag,
