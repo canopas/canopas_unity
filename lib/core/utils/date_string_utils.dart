@@ -64,11 +64,9 @@ String totalLeaves(double days) {
 
 String daysFinder(double days) {
   if (days < 1) {
-    int hours = (days*24).toInt();
-    return '$hours ${(hours <= 1)?"Hour":"Hours"}';
-  } else if(days - days.toInt() != 0.0){
-    int hours = ((days - days.toInt())*24).toInt();
-      return '${days.toInt()} ${(days.toInt() <= 1)?"Day":"Days"} $hours ${(hours <= 1)?"Hour":"Hours"}';
+    return "Half Day";
+  } else if (days == 1){
+    return "${days.toInt()} Day";
   }
   return '${days.toInt()} Days';
 }
