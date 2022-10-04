@@ -3,6 +3,7 @@ import 'package:projectunity/exception/exception_msg.dart';
 
 SnackBar showSnackBar(
     {required BuildContext context, String? msg, String? error}) {
+  ScaffoldMessenger.of(context).removeCurrentSnackBar();
   SnackBar snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
       content: error != null ? Text(error.errorMessage(context)) : Text(msg!));
