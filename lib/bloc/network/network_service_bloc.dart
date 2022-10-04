@@ -2,7 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
-@Singleton()
+@Injectable()
 class NetworkServiceBloc {
   Connectivity connectivity = Connectivity();
 
@@ -11,22 +11,28 @@ class NetworkServiceBloc {
   BehaviorSubject<bool> get connection => _connection;
 
   void getConnectivityStatus() async {
+    inItConnection();
     connectivity.onConnectivityChanged.listen((result) {
       _checkNetworkConnection(result);
     });
   }
 
-  void _checkNetworkConnection(ConnectivityResult result) async {
+  Future<void> inItConnection() async {
+    ConnectivityResult result = await connectivity.checkConnectivity();
+    _checkNetworkConnection(result);
+  }
+
+  Future<void> _checkNetworkConnection(ConnectivityResult result) async {
     bool hasConnection = false;
     try {
-      ConnectivityResult result = await connectivity.checkConnectivity();
       if (result == ConnectivityResult.mobile ||
           result == ConnectivityResult.wifi) {
         hasConnection = true;
       }
-    } on Exception catch (error) {
+    } on Exception {
       hasConnection = false;
     }
     _connection.add(hasConnection);
+
   }
 }

@@ -74,7 +74,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
-        initialData: false,
         stream: _networkServiceBloc.connection,
         builder: (context, snapshot) {
           String networkErrorMsg =

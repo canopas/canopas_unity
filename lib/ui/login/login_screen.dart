@@ -59,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           _loginState.setUserLogin(hasAccount);
                         });
                       }
-                      _showProgress = false;
+
+                    _showProgress = false;
                     },
                     error: (String error) {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
