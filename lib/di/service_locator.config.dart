@@ -60,7 +60,7 @@ Future<_i1.GetIt> $initGetIt(
   gh.singleton<_i6.LeaveRequestDataManager>(_i6.LeaveRequestDataManager());
   gh.singleton<_i7.LeaveStatusManager>(
       _i7.LeaveStatusManager(get<_i3.AdminLeaveService>()));
-  gh.singleton<_i8.NetworkServiceBloc>(_i8.NetworkServiceBloc());
+  gh.factory<_i8.NetworkServiceBloc>(() => _i8.NetworkServiceBloc());
   gh.singleton<_i9.PaidLeaveService>(_i9.PaidLeaveService());
   await gh.factoryAsync<_i10.SharedPreferences>(
     () => appModule.preferences,
