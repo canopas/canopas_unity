@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/model/leave/leave.dart';
+
 import '../../bloc/admin/leave_details_screen_bloc/admin_leave_details_bloc.dart';
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
-import '../../core/utils/date_string_utils.dart';
+import '../../core/utils/date_formatter.dart';
 import '../../di/service_locator.dart';
 import '../../model/admin_leave_details/admin_remaining_leave_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class RemainingLeaveContainer extends StatefulWidget {
   final Leave leave;
@@ -36,21 +37,31 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
   @override
   Widget build(BuildContext context) {
     var _localization = AppLocalizations.of(context);
-    String totalDays = daysFinder(widget.leave.totalLeaves);
-    String duration = dateInSingleLine(
-        startTimeStamp: widget.leave.startDate,
-        endTimeStamp: widget.leave.endDate,
-        locale: _localization.localeName);
+    String totalDays = DateFormatter(AppLocalizations.of(context))
+        .getLeaveDurationPresentation(widget.leave.totalLeaves);
+    String duration = DateFormatter(AppLocalizations.of(context))
+        .dateInSingleLine(
+            startTimeStamp: widget.leave.startDate,
+            endTimeStamp: widget.leave.endDate);
 
     return Container(
-      height: MediaQuery.of(context).size.height*0.2,
+      height: MediaQuery.of(context).size.height * 0.2,
       color: AppColors.primaryBlue.withOpacity(0.10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:   [
-          Text(totalDays,  style: AppTextStyle.titleBlack600.copyWith(color: AppColors.primaryBlue),),
-          SizedBox(height: MediaQuery.of(context).size.height*0.01,),
-          Text(duration, style: AppTextStyle.titleText,),
+        children: [
+          Text(
+            totalDays,
+            style: AppTextStyle.titleBlack600
+                .copyWith(color: AppColors.primaryBlue),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+          Text(
+            duration,
+            style: AppTextStyle.titleText,
+          ),
           SizedBox(height: MediaQuery.of(context).size.height*0.01,),
           StreamBuilder(
             stream: _adminDetailsScreenBloc.remainingLeaveStream,
@@ -70,7 +81,10 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeOut,
                       height: 10,
-                      width: (snapshot.data?.remainingLeavePercentage == null)?(MediaQuery.of(context).size.width * 0.8) * 0:(MediaQuery.of(context).size.width * 0.8) * snapshot.data!.remainingLeavePercentage,
+                      width: (snapshot.data?.remainingLeavePercentage == null)
+                          ? (MediaQuery.of(context).size.width * 0.8) * 0
+                          : (MediaQuery.of(context).size.width * 0.8) *
+                              snapshot.data!.remainingLeavePercentage,
                       decoration: BoxDecoration(
                         color: AppColors.primaryBlue,
                         borderRadius: BorderRadius.circular(50),
@@ -78,8 +92,13 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height*0.01,),
-                Text(_localization.admin_leave_detail_placeholder_remaining_days(snapshot.data?.remainingLeave?? 0),),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Text(
+                  _localization.leave_remaining_days_placeholder(
+                      snapshot.data?.remainingLeave ?? 0),
+                ),
               ],
             ),
           )

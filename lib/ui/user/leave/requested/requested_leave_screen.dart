@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
+
 import '../leaveScreen/leave_screen.dart';
 
 class RequestedLeaveScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _RequestedLeaveScreenState extends State<RequestedLeaveScreen> {
   @override
   Widget build(BuildContext context) {
     return const LeaveScreen(
-      leaveScreenType: LeaveScreenType.requestedLeave,
+      leaveScreenType: requestedLeave,
     );
   }
 }

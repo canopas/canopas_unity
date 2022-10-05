@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 import '../../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../model/employee_leave_count/employee_leave_count.dart';
@@ -68,8 +69,9 @@ class LeaveInfo extends StatelessWidget {
         const SizedBox(
           height: 7,
         ),
-        Text(AppLocalizations.of(context).user_home_placeholder_leave(counts),
-            style: AppTextStyle.subTitleTextStyle,
+        Text(
+          AppLocalizations.of(context).days_placeholder_leave(counts),
+          style: AppTextStyle.subTitleTextStyle,
         )
       ],
     );

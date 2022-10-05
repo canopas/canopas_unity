@@ -1,5 +1,17 @@
-class LeaveScreenType{
-   static const int allLeaves = 1;
-   static const int requestedLeave = 2;
-   static const int upcomingLeave = 3;
+import 'dart:ui';
+
+import '../../../configs/colors.dart';
+
+//Leave screen type: To navigate to individual screen
+const int allLeaves = 1;
+const int requestedLeave = 2;
+const int upcomingLeave = 3;
+
+Color getContainerColor(int status) {
+  if (status == 2) {
+    return AppColors.primaryDarkYellow;
+  } else if (status == 3) {
+    return AppColors.blackColor;
+  }
+  return AppColors.lightGreyColor;
 }
