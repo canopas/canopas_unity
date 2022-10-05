@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee_summary/employees_summary.dart';
 import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
@@ -17,7 +18,8 @@ class EmployeeSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20),
+      padding: const EdgeInsets.only(
+          left: primaryHorizontalSpacing, right: primaryHorizontalSpacing),
       child: Card(
           elevation: 6,
           shadowColor: AppColors.greyColor.withOpacity(0.25),

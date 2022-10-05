@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/rest/api_response.dart';
@@ -6,10 +7,10 @@ import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/empty_screen.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../core/utils/date_string_utils.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../exception/error_const.dart';
 import '../leaveRequestCard/leave_request_card.dart';
 
@@ -42,16 +43,30 @@ class _AdminLeaveRequestsListState extends State<AdminLeaveRequestsList> {
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
                                     color: AppColors.whiteColor,
-                                    boxShadow: [BoxShadow(
-                                        color: AppColors.whiteColor.withOpacity(0.50),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.whiteColor
+                                            .withOpacity(0.50),
                                         blurRadius: 3,
                                         spreadRadius: 1,
                                         offset: const Offset(0, 2),
-                                      )]),
-                                padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: primaryVerticalSpacing),
-                                child: Text(dateToDayMonth(date: mapEntry.key, locale: AppLocalizations.of(context).localeName), style: AppTextStyle.settingSubTitle)),
+                                      )
+                                    ]),
+                                padding: const EdgeInsets.all(
+                                        primaryHorizontalSpacing)
+                                    .copyWith(bottom: primaryVerticalSpacing),
+                                child: Text(
+                                    dateToDayMonth(
+                                        date: mapEntry.key,
+                                        locale: AppLocalizations.of(context)
+                                            .localeName),
+                                    style:
+                                        AppTextStyle.leaveRequestDateHeader)),
                             content: Column(
-                              children: mapEntry.value.map((leaveApplication) => LeaveRequestCard(leaveApplication: leaveApplication)).toList(),
+                              children: mapEntry.value
+                                  .map((leaveApplication) => LeaveRequestCard(
+                                      leaveApplication: leaveApplication))
+                                  .toList(),
                             )),
                   ).toList(),
                 ):EmptyScreen(message: AppLocalizations.of(context).admin_home_empty_leave_request_message));

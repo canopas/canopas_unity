@@ -7,6 +7,7 @@ import 'package:projectunity/model/employee_summary/employees_summary.dart';
 import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../../exception/error_const.dart';
 import '../../../model/employee/employee.dart';
 import '../../../model/leave/leave.dart';
@@ -63,15 +64,19 @@ class AdminHomeScreenBloc extends BaseBLoc {
 
   Future<void> _getLeaveApplication() async {
     try {
+      _leaveApplication.add(const ApiResponse.loading());
+
       Rx.combineLatest2(
-          _adminLeaveService.getAllRequests().stream,
+          _adminLeaveService.getAllRequests(),
           _employeeService.getEmployees().asStream(),
           (List<Leave> leavesList, List<Employee> employees) =>
               _getLeaveApplications(leavesList, employees)).listen(
         (event) async {
-          _leaveApplication.add(const ApiResponse.loading());
           List<LeaveApplication> leaveApp = await event;
-          Set<DateTime> _dates = leaveApp.map((leaveRequest) => DateUtils.dateOnly(leaveRequest.leave.appliedOn.toDate)).toSet();
+          Set<DateTime> _dates = leaveApp
+              .map((leaveRequest) =>
+                  DateUtils.dateOnly(leaveRequest.leave.appliedOn.toDate))
+              .toSet();
           Map<DateTime, List<LeaveApplication>> _leaveApplicationsByDates = {};
 
           for (var _date in _dates) {
@@ -120,7 +125,6 @@ class AdminHomeScreenBloc extends BaseBLoc {
   void detach() async {
     await _employeeSummary.drain();
     _employeeSummary.close();
-    _adminLeaveService.detachAllRequest();
     _leaveApplication.close();
     _totalEmployeesCount = 0;
     _absenceCount = 0;
