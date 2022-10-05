@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../model/leave/leave.dart';
 
 @Injectable()
@@ -16,28 +17,33 @@ class AdminLeaveService {
     await _leaveDbCollection.doc(id).update(map);
   }
 
-  final BehaviorSubject<List<Leave>> _leaves = BehaviorSubject<List<Leave>>();
-
-  BehaviorSubject<List<Leave>> getAllRequests() {
-     _leaveDbCollection.where('leave_status', isEqualTo: 1).snapshots().listen((event) {
-      _leaves.add(event.docs.map((doc) => doc.data()).toList());
+  ValueStream<List<Leave>> getAllRequests() {
+    final BehaviorSubject<List<Leave>> _leaves = BehaviorSubject<List<Leave>>();
+    _leaveDbCollection.where('leave_status', isEqualTo: 1).snapshots().listen(
+        (event) {
+      final request = event.docs
+          .map((doc) => doc.data())
+          .where((element) =>
+              element.startDate >= DateTime.now().millisecondsSinceEpoch)
+          .toList();
+      _leaves.add(request);
     }, onError: (error) {
       _leaves.addError(error);
     });
-    return _leaves;
-  }
-
-  detachAllRequest(){
-    _leaves.close();
+    return _leaves.stream;
   }
 
   Future<List<Leave>> getAllAbsence() async {
     int todayDate = DateTime.now().millisecondsSinceEpoch;
-    final _data = await _leaveDbCollection.where('end_date', isGreaterThan: todayDate).get();
+    final _data = await _leaveDbCollection
+        .where('end_date', isGreaterThan: todayDate)
+        .get();
     List<Leave> _leaves = <Leave>[];
     List _users = [];
     for (var e in _data.docs) {
-      if(e.data().startDate < todayDate && e.data().leaveStatus == approveLeaveStatus && !_users.contains(e.data().uid)){
+      if (e.data().startDate < todayDate &&
+          e.data().leaveStatus == approveLeaveStatus &&
+          !_users.contains(e.data().uid)) {
         _users.add(e.data().uid);
         _leaves.add(e.data());
       }
@@ -51,7 +57,8 @@ class AdminLeaveService {
   }
 
   Future<int> getRequestsCount() async {
-    final data = await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
+    final data =
+        await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
     return data.docs.map((doc) => doc.data()).toList().length;
   }
 }

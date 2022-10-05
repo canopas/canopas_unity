@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
+
 import 'colors.dart';
 import 'font_size.dart';
 
 class AppTextStyle{
-  static TextStyle subTitleTextStyle = const TextStyle(fontSize: subTitleTextSize, color: AppColors.darkText, fontWeight: FontWeight.w500);
-  static TextStyle leaveStatusCardTitle = const TextStyle(color: AppColors.blueGrey, fontSize: bodyTextSize);
-  static TextStyle headerTextNormal  = const TextStyle(color: AppColors.darkText, fontSize: headerTextSize);
+  static TextStyle subTitleTextStyle = const TextStyle(
+      fontSize: subTitleTextSize,
+      color: AppColors.darkText,
+      fontWeight: FontWeight.w500);
+  static TextStyle leaveStatusCardTitle =
+      const TextStyle(color: AppColors.blueGrey, fontSize: bodyTextSize);
+  static TextStyle headerTextNormal =
+      const TextStyle(color: AppColors.darkText, fontSize: headerTextSize);
+  static TextStyle leaveRequestDateHeader = const TextStyle(
+      fontSize: 18,
+      color: AppColors.secondaryText,
+      fontWeight: FontWeight.w700);
 
-  static TextStyle bodyTextDark = const TextStyle(color: AppColors.darkText, fontSize: bodyTextSize);
-  static TextStyle leaveRequestFormSubtitle =  const TextStyle(color: AppColors.secondaryText, fontSize: subTitleTextSize);
+  static TextStyle bodyTextDark =
+      const TextStyle(color: AppColors.darkText, fontSize: bodyTextSize);
+  static TextStyle leaveRequestFormSubtitle = const TextStyle(
+      color: AppColors.secondaryText, fontSize: subTitleTextSize);
   static TextStyle removeTextStyle = const TextStyle(height: 0, fontSize: 0);
-  static TextStyle leaveRequestBottomBarTextStyle = const TextStyle(color: AppColors.whiteColor, fontSize: titleTextSize, fontWeight: FontWeight.w500);
+  static TextStyle leaveRequestBottomBarTextStyle = const TextStyle(
+      color: AppColors.whiteColor,
+      fontSize: titleTextSize,
+      fontWeight: FontWeight.w500);
 
-  static TextStyle approvalStatusDark = const TextStyle(fontSize: titleTextSize, color: AppColors.darkText);
-  static TextStyle leaveDetailSubtitle = const TextStyle(fontSize: subTitleTextSize, color: AppColors.blueGrey);
+  static TextStyle approvalStatusDark =
+      const TextStyle(fontSize: titleTextSize, color: AppColors.darkText);
+  static TextStyle leaveDetailSubtitle =
+      const TextStyle(fontSize: subTitleTextSize, color: AppColors.blueGrey);
 
-  static TextStyle subtitleTextDark = const TextStyle(color: AppColors.darkText, fontSize: subTitleTextSize);
+  static TextStyle subtitleTextDark =
+      const TextStyle(color: AppColors.darkText, fontSize: subTitleTextSize);
 
   static TextStyle secondaryBodyText = const TextStyle(color: AppColors.secondaryText, fontSize: bodyTextSize);
   static TextStyle darkSubtitle700 = const TextStyle(color: AppColors.darkText, fontSize: subTitleTextSize, fontWeight: FontWeight.w700);
