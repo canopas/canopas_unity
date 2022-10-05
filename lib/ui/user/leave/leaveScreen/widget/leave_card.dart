@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
+
 import '../../../../../configs/colors.dart';
-import '../../../../../core/utils/const/leave_map.dart';
-import '../../../../../core/utils/date_string_utils.dart';
+import '../../../../../core/utils/const/leave_screen_type_map.dart';
 import '../../../../../model/leave/leave.dart';
 import 'leave_date_container.dart';
-
-Color getContainerColor(int status) {
-  if (status == 2) {
-    return AppColors.primaryDarkYellow;
-  } else if (status == 3) {
-    return AppColors.blackColor;
-  }
-  return AppColors.lightGreyColor;
-}
 
 class LeaveCard extends StatelessWidget {
   final Leave leave;
@@ -28,12 +20,12 @@ class LeaveCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _color = getContainerColor(leave.leaveStatus);
-    final String _leaveType = getLeaveStatus(leave.leaveType, leaveTypeMap);
-    final String _leaveStatus =
-        getLeaveStatus(leave.leaveStatus, leaveStatusMap);
+    final _localize = AppLocalizations.of(context);
     return InkWell(
-      borderRadius: const BorderRadius.only(topRight: Radius.circular(12),bottomRight: Radius.circular(12)),
-      onTap: () => _stateManager.push(EmployeeNavigationStackItem.leaveDetailState(leave)),
+      borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+      onTap: () => _stateManager
+          .push(EmployeeNavigationStackItem.leaveDetailState(leave)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -52,15 +44,19 @@ class LeaveCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _leaveType,
+                      _localize
+                          .leave_type_placeholder_leave_status(leave.leaveType),
                       style: AppTextStyle.darkSubtitle700,
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(height: 5),
                     _buildReason(),
                     const Spacer(),
-                    const SizedBox(height: 4,),
-                    _buildLeaveStatus(leaveStatusText: _leaveStatus),
-                    //  if (leave.rejectionReason != null) _buildRejectionCause(),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    _buildLeaveStatus(
+                        leaveStatusText: _localize
+                            .leave_status_placeholder_text(leave.leaveStatus)),
                   ],
                 ),
               ),

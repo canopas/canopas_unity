@@ -4,6 +4,7 @@ import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
+
 import '../../../../bloc/employee/employee_leaves_screen_bloc/employee_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
@@ -80,11 +81,11 @@ class _LeaveScreenState extends State<LeaveScreen> {
   }
 
   String _header(BuildContext context){
-    if(widget.leaveScreenType == LeaveScreenType.requestedLeave) {
+    if (widget.leaveScreenType == requestedLeave) {
       return AppLocalizations.of(context).user_home_requested_leaves_tag;
-    } else if(widget.leaveScreenType == LeaveScreenType.upcomingLeave){
+    } else if (widget.leaveScreenType == upcomingLeave) {
       return AppLocalizations.of(context).user_home_upcoming_leaves_tag;
-    } else{
+    } else {
       return AppLocalizations.of(context).user_home_all_leaves_tag;
     }
   }

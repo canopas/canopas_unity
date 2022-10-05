@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/utils/date_formatter.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
@@ -10,6 +10,7 @@ import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/leave_details_header_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/reason_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/remaining_leave_content.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../model/leave/leave.dart';
@@ -29,11 +30,14 @@ class _AdminLeaveRequestDetailScreenState
     extends State<AdminLeaveRequestDetailScreen> {
   final TextEditingController _approvalOrRejectionMassage =
       TextEditingController();
+
   final _leaveStatusManager = getIt<LeaveStatusManager>();
   final _stackManager = getIt<NavigationStackManager>();
 
   @override
   Widget build(BuildContext context) {
+    String appliedTime = DateFormatter(AppLocalizations.of(context))
+        .timeAgoPresentation(widget.employeeLeave.leave.appliedOn);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.whiteColor,
@@ -44,7 +48,7 @@ class _AdminLeaveRequestDetailScreenState
         padding: const EdgeInsets.only(bottom: 100),
         children: [
           LeaveTypeAgoTitle(
-              timeAgo: widget.employeeLeave.leave.appliedOn.toDate.timeAgo(),
+              timeAgo: appliedTime,
               leaveType: widget.employeeLeave.leave.leaveType),
           UserContent(employee: widget.employeeLeave.employee),
           RemainingLeaveContainer(
@@ -60,10 +64,10 @@ class _AdminLeaveRequestDetailScreenState
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
-          (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)
-              ? _buildButton(context, _approvalOrRejectionMassage.text,
-                  widget.employeeLeave.leave.leaveId)
-              : null,
+      (widget.employeeLeave.leave.leaveStatus != approveLeaveStatus)
+          ? _buildButton(context, _approvalOrRejectionMassage.text,
+          widget.employeeLeave.leave.leaveId)
+          : null,
     );
   }
 

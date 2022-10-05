@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
+
 import '../leaveScreen/leave_screen.dart';
 
 class AllLeaveScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _AllLeaveScreenState extends State<AllLeaveScreen> {
   @override
   Widget build(BuildContext context) {
     return const LeaveScreen(
-      leaveScreenType: LeaveScreenType.allLeaves,
+      leaveScreenType: allLeaves,
     );
   }
 }

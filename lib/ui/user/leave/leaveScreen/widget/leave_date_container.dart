@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../../../../../configs/colors.dart';
-import '../../../../../core/utils/date_string_utils.dart';
+import '../../../../../core/utils/date_formatter.dart';
 
 class BuildLeaveDateContainer extends StatelessWidget {
   const BuildLeaveDateContainer(
@@ -19,7 +19,8 @@ class BuildLeaveDateContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _localeName = AppLocalizations.of(context).localeName;
+    String duration = DateFormatter(AppLocalizations.of(context))
+        .dateDoubleLine(startDate: startDate, endDate: endDate);
 
     return Container(
       decoration: BoxDecoration(
@@ -27,13 +28,12 @@ class BuildLeaveDateContainer extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
       height: 150,
-      width: 50,
+      width: 60,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Center(
             child: Text(
-          dateDoubleLine(
-              startDate: startDate, endDate: endDate, locale: _localeName),
+          duration,
           style: TextStyle(
               color: color == AppColors.blackColor
                   ? AppColors.whiteColor

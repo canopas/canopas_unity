@@ -3,6 +3,7 @@ import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../../../../provider/user_data.dart';
 import '../../../../../services/leave/user_leave_service.dart';
 import '../../../exception/error_const.dart';
@@ -27,15 +28,15 @@ class UserLeavesBloc {
     _leaveList.add(const ApiResponse.loading());
     try {
       String employeeId = _userManager.employeeId;
-      if (leaveScreenType == LeaveScreenType.allLeaves) {
+      if (leaveScreenType == allLeaves) {
         _leaves = await _userLeaveService.getAllLeavesOfUser(employeeId);
-      } else if (leaveScreenType == LeaveScreenType.requestedLeave){
+      } else if (leaveScreenType == requestedLeave) {
         _leaves = await _userLeaveService.getRequestedLeave(employeeId);
       } else {
         _leaves = await _getUpcomingLeaves(employeeId);
       }
       _leaveList.add(ApiResponse.completed(data: _leaves));
-    } on Exception catch (error) {
+    } on Exception {
       leaveList.add(const ApiResponse.error(error: firestoreFetchDataError));
     }
   }

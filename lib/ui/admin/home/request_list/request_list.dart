@@ -10,7 +10,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/other_constant.dart';
-import '../../../../core/utils/date_string_utils.dart';
+import '../../../../core/utils/date_formatter.dart';
 import '../../../../exception/error_const.dart';
 import '../leaveRequestCard/leave_request_card.dart';
 
@@ -55,13 +55,12 @@ class _AdminLeaveRequestsListState extends State<AdminLeaveRequestsList> {
                                 padding: const EdgeInsets.all(
                                         primaryHorizontalSpacing)
                                     .copyWith(bottom: primaryVerticalSpacing),
+                                // child: Text(dateToDayMonth(date: mapEntry.key,
+                                //     locale: AppLocalizations.of(context).localeName), style: AppTextStyle.leaveRequestDateHeader)),
                                 child: Text(
-                                    dateToDayMonth(
-                                        date: mapEntry.key,
-                                        locale: AppLocalizations.of(context)
-                                            .localeName),
-                                    style:
-                                        AppTextStyle.leaveRequestDateHeader)),
+                                    DateFormatter(AppLocalizations.of(context))
+                                        .getDateRepresentation(mapEntry.key),
+                                    style: AppTextStyle.settingSubTitle)),
                             content: Column(
                               children: mapEntry.value
                                   .map((leaveApplication) => LeaveRequestCard(

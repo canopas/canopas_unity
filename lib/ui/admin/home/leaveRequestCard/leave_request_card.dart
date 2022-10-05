@@ -6,9 +6,10 @@ import 'package:projectunity/model/employee_leave_count/employee_leave_count.dar
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
+
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/other_constant.dart';
-import '../../../../../core/utils/date_string_utils.dart';
+import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../../core/utils/const/leave_map.dart';
 import 'employee_content.dart';
@@ -115,38 +116,40 @@ class LeaveRequestCard extends StatelessWidget {
     );
   }
 
-  Text buildLeaveDateContent(
-      {required double totalDays,
-        required int startTimeStamp,
-        required int endTimeStamp,
-        required BuildContext context}) {
-    String localeName = AppLocalizations.of(context).localeName;
-    String date = dateInSingleLine(
-        startTimeStamp: startTimeStamp,
-        endTimeStamp: endTimeStamp,
-        locale: localeName);
-    String days = daysFinder(totalDays);
-
-    return Text(
-      '$days, $date ',
-      style: AppTextStyle.secondaryBodyText,
-      overflow: TextOverflow.ellipsis,
-    );
-  }
-
-  Widget buildLeaveTypeContent({required int leaveType, required BuildContext context}) {
-    Color? color  = leaveRequestCardColor[leaveApplication.leave.leaveType];
+  Widget buildLeaveTypeContent(
+      {required int leaveType, required BuildContext context}) {
+    Color? color = leaveRequestCardColor[leaveType];
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: color!,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: primaryVerticalSpacing),
+      padding: const EdgeInsets.symmetric(
+          vertical: 5, horizontal: primaryVerticalSpacing),
       child: Text(
         AppLocalizations.of(context)
             .leave_type_placeholder_leave_status(leaveType),
-        style: AppTextStyle.subtitleText.copyWith(fontWeight: FontWeight.w500, color: AppColors.whiteColor),
+        style: AppTextStyle.subtitleText
+            .copyWith(fontWeight: FontWeight.w500, color: AppColors.whiteColor),
       ),
+    );
+  }
+
+  Text buildLeaveDateContent(
+      {required double totalDays,
+      required int startTimeStamp,
+      required int endTimeStamp,
+      required BuildContext context}) {
+    String duration = DateFormatter(AppLocalizations.of(context))
+        .dateInSingleLine(
+            startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
+    String days = DateFormatter(AppLocalizations.of(context))
+        .getLeaveDurationPresentation(totalDays);
+
+    return Text(
+      '$days, $duration ',
+      style: AppTextStyle.secondaryBodyText,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
