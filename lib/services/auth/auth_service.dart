@@ -11,7 +11,7 @@ class AuthService {
     DocumentReference ref = _db.doc(user.id);
 
     if (session != null) {
-      ref.collection('session').doc().set(session.sessionToJson());
+      ref.collection('session').doc('session').set(session.sessionToJson());
 
       ref.update(user.employeeToJson());
     }
