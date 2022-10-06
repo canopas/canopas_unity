@@ -60,7 +60,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.only(
-                      top: 60,
+                      top: 80,
                       left: primaryHorizontalSpacing,
                       right: primaryHorizontalSpacing),
                   child: Column(
@@ -72,7 +72,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           onPress: () => _stateManager.push(
                               const EmployeeNavigationStackItem
                                   .userAllLeaveState())),
-                      const SizedBox(height: 4),
                       LeaveNavigationCard(
                           color: AppColors.primaryBlue,
                           leaveText: AppLocalizations.of(context)
@@ -80,7 +79,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           onPress: () => _stateManager.push(
                               const EmployeeNavigationStackItem
                                   .requestedLeaves())),
-                      const SizedBox(height: 4),
                       LeaveNavigationCard(
                           color: AppColors.primaryGreen,
                           leaveText: AppLocalizations.of(context)
@@ -88,7 +86,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           onPress: () => _stateManager.push(
                               const EmployeeNavigationStackItem
                                   .userUpcomingLeaveState())),
-                      const SizedBox(height: 4),
                       LeaveNavigationCard(
                           color: AppColors.primaryDarkYellow,
                           leaveText: AppLocalizations.of(context)

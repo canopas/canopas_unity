@@ -17,37 +17,43 @@ class LeaveNavigationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius:  BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-      ),
-      child: InkWell(
-        borderRadius: const BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-        onTap: onPress,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              color: color,
-              width: 5,
-              height: MediaQuery.of(context).size.height*0.09,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Text(
-              leaveText,
-              style: AppTextStyle.subTitleTextStyle,
-            ),
-            const Spacer(flex: 1),
-            const Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: Icon(
-                Icons.chevron_right,
-                color: AppColors.blackColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Card(
+        elevation: 6,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+        ),
+        child: InkWell(
+          borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+          onTap: onPress,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                color: color,
+                width: 5,
+                height: MediaQuery.of(context).size.height * 0.09,
               ),
-            ),
-          ],
+              const SizedBox(
+                width: 20,
+              ),
+              Text(
+                leaveText,
+                style: AppTextStyle.subTitleTextStyle,
+              ),
+              const Spacer(flex: 1),
+              const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Icon(
+                  Icons.chevron_right,
+                  color: AppColors.blackColor,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
