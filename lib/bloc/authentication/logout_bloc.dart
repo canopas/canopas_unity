@@ -7,6 +7,7 @@ import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../di/service_locator.dart';
+import '../../exception/error_const.dart';
 import '../../navigation/navigation_stack_manager.dart';
 import '../../stateManager/login_state_manager.dart';
 
@@ -32,7 +33,7 @@ class LogOutBloc extends BaseBLoc {
       await getIt.resetLazySingleton<NavigationStackManager>();
       _signOutSubject.add(const ApiResponse.completed(data: true));
     } else {
-      _signOutSubject.add(const ApiResponse.error(error: ''));
+      _signOutSubject.add(const ApiResponse.error(error: signOutError));
     }
   }
 

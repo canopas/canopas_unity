@@ -24,6 +24,11 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
   @override
   void initState() {
     super.initState();
+    _logOutBloc.signOutResponse.listen((event) {
+      event.whenOrNull(error: (error) {
+        showSnackBar(context: context, error: error);
+      });
+    });
   }
 
   @override
@@ -53,41 +58,32 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
                 subtitle: _localizations.settings_account_text),
             UserIntroContent(),
             Expanded(child: Container()),
-            Center(child: StreamBuilder<ApiResponse<bool>>(
+            Center(
+                child: StreamBuilder<ApiResponse<bool>>(
               stream: _logOutBloc.signOutResponse,
               initialData: const ApiResponse.idle(),
-              builder: (context, snapshot) => snapshot.data!.when(
-                  idle: () => _signOutButton(),
+              builder: (context, snapshot) => snapshot.data!.maybeWhen(
                   loading: () => const CircularProgressIndicator(),
-                  completed: (data) => _signOutButton(),
-                  error: (error){
-                    showSnackBar(
-                        error: _localizations.sign_out_failed_message,
-                        context: context);
-                    return _signOutButton();
-                  }
-              ),
+                  orElse: () => _signOutButton()),
             )),
           ],
         ),
       ),
     );
   }
+
   Widget _signOutButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.redColor,
+        backgroundColor: AppColors.redColor,
       ),
       onPressed: () async {
         await _logOutBloc.signOutFromApp();
       },
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 45.0),
         child: Text(AppLocalizations.of(context).logout_button_text),
       ),
     );
   }
 }
-
-
-
