@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../core/utils/const/role.dart';
 import '../../model/employee/employee.dart';
 
 @Singleton()
@@ -12,7 +13,9 @@ class EmployeeService {
           toFirestore: (Employee emp, _) => emp.employeeToJson());
 
   Future<List<Employee>> getEmployees() async {
-    final data = await _userDbCollection.get();
+    final data = await _userDbCollection
+        .where('role_type', isNotEqualTo: kRoleTypeAdmin)
+        .get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
@@ -22,8 +25,8 @@ class EmployeeService {
   }
 
   Future<int> getEmployeesCount() async {
-    final data = await _userDbCollection.get();
-    return data.docs.map((doc) => doc.data()).toList().length;
+    final list = await getEmployees();
+    return list.length;
   }
 
   Future<bool> hasUser(String email) async {
