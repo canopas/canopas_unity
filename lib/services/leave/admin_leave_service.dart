@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../model/leave/leave.dart';
@@ -23,8 +24,8 @@ class AdminLeaveService {
         (event) {
       final request = event.docs
           .map((doc) => doc.data())
-          .where((element) =>
-              element.startDate >= DateTime.now().millisecondsSinceEpoch)
+          .where((element) => element.startDate.dateOnly
+              .areSameOrUpcoming(DateTime.now().dateOnly))
           .toList();
       _leaves.add(request);
     }, onError: (error) {
