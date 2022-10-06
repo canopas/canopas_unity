@@ -1,12 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 extension DateExtention on int {
   DateTime get toDate => DateTime.fromMillisecondsSinceEpoch(this);
-}
 
+  DateTime get dateOnly => DateUtils.dateOnly(toDate);
+}
 
 extension TimestampExtension on DateTime {
   int get timeStampToInt => millisecondsSinceEpoch;
+
+  DateTime get dateOnly => DateUtils.dateOnly(this);
+
+  bool areSameOrUpcoming(DateTime date) =>
+      DateUtils.isSameDay(date, this) || isAfter(date);
 }
 
 
