@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:intl/intl.dart';
 import 'package:projectunity/bloc/admin/employee/add_memeber_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../widget/date_time_picker.dart';
@@ -151,7 +151,12 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                   ),
                 ),
                 onPressed: () async {
-                  DateTime _joiningDate  = await pickDate(context: context, initialDate: snapshot.data!);
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  DateTime _joiningDate = await pickDate(
+                      context: context, initialDate: snapshot.data!);
                   _bloc.validateDateOfJoining(_joiningDate);
                 },
                 child:  Text(AppLocalizations.of(context).date_format_yMMMd(snapshot.data!),style: AppTextStyle.secondarySubtitle500,)),
