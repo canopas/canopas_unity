@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
-import '../../../../../bloc/employee/employee_leaves_screen_bloc/employee_leave_bloc.dart';
+import '../../../../../bloc/employee/leave/user_leave_bloc.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../di/service_locator.dart';

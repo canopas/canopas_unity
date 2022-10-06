@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
-import '../../../bloc/admin/employee_list_screen_bloc/employee_list_bloc.dart';
+import '../../../bloc/admin/employee_list/employee_list_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
 import '../../../di/service_locator.dart';

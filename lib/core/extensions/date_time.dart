@@ -6,7 +6,7 @@ extension DateExtention on int {
 
 
 extension TimestampExtension on DateTime {
-  int get timeStampToInt => Timestamp.fromDate(this).millisecondsSinceEpoch;
+  int get timeStampToInt => millisecondsSinceEpoch;
 }
 
 
