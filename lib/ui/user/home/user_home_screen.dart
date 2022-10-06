@@ -6,6 +6,7 @@ import 'package:projectunity/model/employee_leave_count/employee_leave_count.dar
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
+
 import '../../../bloc/employee/employee_home_screen_bloc/employee_home_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
@@ -43,25 +44,17 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           Column(
             children: [
               ExpandedAppBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.menu,
-                          color: AppColors.whiteColor,
-                        )),
-                    IconButton(
-                        onPressed: () {
-                          _stateManager.push(const EmployeeNavigationStackItem
-                              .employeeSettingsState());
-                        },
-                        icon: const Icon(
-                          Icons.settings,
-                          color: AppColors.whiteColor,
-                        )),
-                  ],
+                content: Container(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                      onPressed: () {
+                        _stateManager.push(const EmployeeNavigationStackItem
+                            .employeeSettingsState());
+                      },
+                      icon: const Icon(
+                        Icons.settings,
+                        color: AppColors.whiteColor,
+                      )),
                 ),
               ),
               Expanded(
