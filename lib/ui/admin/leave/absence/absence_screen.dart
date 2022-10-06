@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/admin/leave/absence/widget/employee_leave_card.dart';
-import '../../../../bloc/admin/absence_screen_bloc/absence_bloc.dart';
+import '../../../../bloc/admin/absence/absence_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/other_constant.dart';

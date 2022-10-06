@@ -7,7 +7,7 @@ import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 
-import '../../../bloc/admin/admin_home_screen_bloc/admin_home_screen_bloc.dart';
+import '../../../bloc/admin/home/admin_home_screen_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../exception/error_const.dart';
 import '../../../model/employee_summary/employees_summary.dart';

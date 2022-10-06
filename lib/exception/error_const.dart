@@ -23,3 +23,14 @@ const String userAlreadyExists = 'error-user-exists';
 
 //Format Exception Error
 const String wrongNumInputError = "wrong-num-input";
+
+//Exception:when the all fields of user input are not completed
+const String fillDetailsError = 'fill-all-details';
+
+//Exception:When leave request for less than 1 hr
+const String applyMinimumOneHourError = 'apply-minimum-one-hour';
+
+//Exception: When user selected wrong leave date like end leave date is before start leavedate
+const String invalidLeaveDateError = 'invalid-leave_date_error';
+
+const String enterValidReason = 'enter-valid-leave_error';
