@@ -51,12 +51,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             children: [
               ExpandedAppBar(
                   content: Row(children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.menu,
-                      color: AppColors.whiteColor,
-                    )),
                 const Spacer(),
                 IconButton(
                     icon: const Icon(
