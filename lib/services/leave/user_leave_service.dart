@@ -42,12 +42,12 @@ class UserLeaveService {
     await _leaveDbCollection.doc(leaveId).delete();
   }
 
-  Future<int> getUserUsedLeaveCount(String id) async {
+  Future<double> getUserUsedLeaveCount(String id) async {
    List<Leave> allLeaves = await getAllLeavesOfUser(id);
-   int _leaveCount = 0;
+   double _leaveCount = 0.0;
    for (var element in allLeaves){
      if(element.leaveStatus == approveLeaveStatus && element.startDate < DateTime.now().millisecondsSinceEpoch){
-       _leaveCount += element.totalLeaves.toInt();
+       _leaveCount += element.totalLeaves;
      }
   }
   return _leaveCount;

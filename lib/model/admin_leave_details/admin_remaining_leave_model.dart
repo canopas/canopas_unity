@@ -1,9 +1,9 @@
 class RemainingLeave{
-  int remainingLeave;
+  double remainingLeave;
   double remainingLeavePercentage;
 
   RemainingLeave({
-   required this.remainingLeave,
-   required this.remainingLeavePercentage
+    this.remainingLeave = 0.0,
+    this.remainingLeavePercentage = 0.0,
   });
 }

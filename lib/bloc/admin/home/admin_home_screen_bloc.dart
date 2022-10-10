@@ -107,12 +107,12 @@ class AdminHomeScreenBloc extends BaseBLoc {
 
   Future<LeaveCounts> _fetchUserRemainingLeave({required String id}) async {
     int _userAllDays = await _userPaidLeaveService.getPaidLeaves();
-    int _userUsedDays = await _userLeaveService.getUserUsedLeaveCount(id);
-    int _remainingLeave= _userAllDays - _userUsedDays;
+    double _userUsedDays = await _userLeaveService.getUserUsedLeaveCount(id);
+    double _remainingLeave = _userAllDays - _userUsedDays;
     if (_remainingLeave < 0) {
       _remainingLeave = 0;
     }
-    return LeaveCounts(allLeaveCount: _userAllDays, availableLeaveCount: _remainingLeave, usedLeaveCount: _userUsedDays);
+    return LeaveCounts(paidLeaveCount: _userAllDays, remainingLeaveCount: _remainingLeave, usedLeaveCount: _userUsedDays);
   }
 
   @override

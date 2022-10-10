@@ -57,9 +57,4 @@ class AdminLeaveService {
     return _leave.length;
   }
 
-  Future<int> getRequestsCount() async {
-    final data =
-        await _leaveDbCollection.where('leave_status', isEqualTo: 1).get();
-    return data.docs.map((doc) => doc.data()).toList().length;
-  }
 }

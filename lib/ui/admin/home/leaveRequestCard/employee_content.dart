@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 import '../../../../../model/employee/employee.dart';
@@ -53,7 +54,7 @@ class EmployeeContent extends StatelessWidget {
               height: 5,
             ),
             Text(
-              '${leaveCounts.availableLeaveCount}/${leaveCounts.allLeaveCount}',
+              '${leaveCounts.remainingLeaveCount.fixedAt(1)}/${leaveCounts.paidLeaveCount}',
               style: AppTextStyle.secondaryBodyText,
             ),
           ],
