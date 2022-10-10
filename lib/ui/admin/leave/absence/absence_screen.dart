@@ -62,7 +62,7 @@ class _AdminAbsenceScreenState extends State<AdminAbsenceScreen> {
                       })
                   : EmptyScreen(
                       message: AppLocalizations.of(context)
-                          .empty_absence_state_message,
+                          .empty_absence_state_message, title: AppLocalizations.of(context).absence_empty_screen_title,
                     ),
               error: (String error) => showSnackBar(context: context, error: error),
             );
