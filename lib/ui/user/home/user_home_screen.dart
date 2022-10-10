@@ -110,13 +110,8 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               left: 10,
               child: StreamBuilder(
                   stream: _leaveCount.leaveCounts.stream,
-                  builder: (context, AsyncSnapshot snapshot) => LeaveStatus(
-                      leaveCounts: (snapshot.hasData)
-                          ? snapshot.data
-                          : LeaveCounts(
-                              availableLeaveCount: 0,
-                              usedLeaveCount: 0,
-                              allLeaveCount: 0))))
+                  initialData: LeaveCounts(),
+                  builder: (context, AsyncSnapshot snapshot) => LeaveStatus(leaveCounts: snapshot.data)))
         ],
       ),
     );

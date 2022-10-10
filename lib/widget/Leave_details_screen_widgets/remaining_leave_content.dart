@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
 import '../../bloc/admin/leave_details_screen_bloc/admin_leave_details_bloc.dart';
@@ -65,6 +66,7 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
           SizedBox(height: MediaQuery.of(context).size.height*0.01,),
           StreamBuilder(
             stream: _adminDetailsScreenBloc.remainingLeaveStream,
+            initialData: RemainingLeave(),
             builder: (context,AsyncSnapshot<RemainingLeave> snapshot) => Column(
               children: [
                 Stack(
@@ -96,8 +98,7 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Text(
-                  _localization.leave_remaining_days_placeholder(
-                      snapshot.data?.remainingLeave ?? 0),
+                  _localization.leave_remaining_days_placeholder(snapshot.data?.remainingLeave.fixedAt(1)),
                 ),
               ],
             ),

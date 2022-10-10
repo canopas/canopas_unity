@@ -22,14 +22,14 @@ class EmployeeHomeBLoc extends BaseBLoc {
   _fetchLeaveSummary() async {
     if (leaveCounts.isClosed) return;
 
-    int usedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);
+    double usedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);
     int paidLeaves = await _paidLeaveService.getPaidLeaves();
-    int availableLeaveCount = paidLeaves < usedLeaveCount ? 0 : paidLeaves - usedLeaveCount;
+    double availableLeaveCount = paidLeaves < usedLeaveCount ? 0 : paidLeaves - usedLeaveCount;
 
     _leaveCounts.sink.add(LeaveCounts(
-        availableLeaveCount: availableLeaveCount,
+        remainingLeaveCount: availableLeaveCount,
         usedLeaveCount: usedLeaveCount,
-        allLeaveCount: paidLeaves));
+        paidLeaveCount: paidLeaves));
   }
 
   @override

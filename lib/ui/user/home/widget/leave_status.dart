@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/extensions/double_extension.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
@@ -30,13 +31,13 @@ class LeaveStatus extends StatelessWidget {
                 children: [
                   LeaveInfo(
                     title: AppLocalizations.of(context).user_home_available_tag,
-                    counts: leaveCounts.availableLeaveCount,
+                    counts: leaveCounts.remainingLeaveCount,
                   ),
                   Container(
                     width: 1,
                     color: Colors.grey,
                   ),
-                  LeaveInfo(title: AppLocalizations.of(context).user_home_all_tag, counts: leaveCounts.allLeaveCount),
+                  LeaveInfo(title: AppLocalizations.of(context).user_home_all_tag, counts: leaveCounts.paidLeaveCount.toDouble()),
                   Container(
                     width: 1,
                     color: AppColors.secondaryText,
@@ -52,7 +53,7 @@ class LeaveStatus extends StatelessWidget {
 
 class LeaveInfo extends StatelessWidget {
   final String title;
-  final int counts;
+  final double counts;
 
   const LeaveInfo({Key? key, required this.title, required this.counts})
       : super(key: key);
@@ -70,7 +71,7 @@ class LeaveInfo extends StatelessWidget {
           height: 7,
         ),
         Text(
-          AppLocalizations.of(context).days_placeholder_leave(counts),
+          AppLocalizations.of(context).days_placeholder_leave(counts.fixedAt(1)),
           style: AppTextStyle.subTitleTextStyle,
         )
       ],

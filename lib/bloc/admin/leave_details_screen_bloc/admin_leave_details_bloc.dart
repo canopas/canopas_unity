@@ -20,20 +20,17 @@ class AdminLeaveDetailsScreenBloc extends BaseBLoc {
 
   fetchUserRemainingLeaveDetails({required String id}) async {
     int _paidLeaves = 0;
-    int _userUsedDays = 0;
-    int _remainingLeaveRef = 0;
+    double _userUsedLeaveCount = 0.0;
+    double _remainingLeaveRef = 0.0;
 
     _paidLeaves = await _paidLeaveService.getPaidLeaves();
-    _userUsedDays = await _userLeaveService.getUserUsedLeaveCount(id);
-    _remainingLeaveRef = _paidLeaves - _userUsedDays;
-    if (_remainingLeaveRef < 0) {
-      _remainingLeaveRef = 0;
-    }
+    _userUsedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(id);
+    _remainingLeaveRef = (_paidLeaves - _userUsedLeaveCount) < 0? 0.0 : _paidLeaves - _userUsedLeaveCount;
     double _percentage = (100 - (100 / _paidLeaves) * _remainingLeaveRef) / 100;
     if (_percentage > 1) {
       _percentage = 1;
     } else if (_percentage < 0) {
-      _percentage = 0;
+      _percentage = 0.0;
     }
     _remainingLeave.add(RemainingLeave(
         remainingLeave: _remainingLeaveRef,

@@ -1,7 +1,7 @@
 class EmployeesSummary {
-  int totalEmployeesCount = 0;
-  int requestCount = 0;
-  int absenceCount = 0;
+  int totalEmployeesCount;
+  int requestCount;
+  int absenceCount;
 
   EmployeesSummary(
       {this.totalEmployeesCount = 0,

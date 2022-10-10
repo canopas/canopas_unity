@@ -1,10 +1,10 @@
 class LeaveCounts {
-  int availableLeaveCount = 0;
-  int usedLeaveCount = 0;
-  int allLeaveCount = 0;
+  double remainingLeaveCount;
+  double usedLeaveCount;
+  int paidLeaveCount;
 
   LeaveCounts(
-      {this.availableLeaveCount = 0,
-      this.usedLeaveCount = 0,
-      this.allLeaveCount = 0});
+      {this.remainingLeaveCount = 0.0,
+      this.usedLeaveCount = 0.0,
+      this.paidLeaveCount = 0});
 }
