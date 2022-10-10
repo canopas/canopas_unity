@@ -4,22 +4,15 @@ import 'package:rxdart/rxdart.dart';
 
 @Injectable()
 class NetworkServiceBloc {
-  Connectivity connectivity = Connectivity();
 
   final BehaviorSubject<bool> _connection = BehaviorSubject<bool>();
 
   BehaviorSubject<bool> get connection => _connection;
 
   void getConnectivityStatus() async {
-    inItConnection();
-    connectivity.onConnectivityChanged.listen((result) {
+    Connectivity().onConnectivityChanged.listen((result) {
       _checkNetworkConnection(result);
     });
-  }
-
-  Future<void> inItConnection() async {
-    ConnectivityResult result = await connectivity.checkConnectivity();
-    _checkNetworkConnection(result);
   }
 
   Future<void> _checkNetworkConnection(ConnectivityResult result) async {
@@ -33,6 +26,5 @@ class NetworkServiceBloc {
       hasConnection = false;
     }
     _connection.add(hasConnection);
-
   }
 }

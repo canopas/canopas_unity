@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../../di/service_locator.dart';
 import '../../../../../model/employee/employee.dart';
-import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../../core/utils/const/other_constant.dart';
 
 class EmployeeCard extends StatelessWidget {
@@ -19,8 +19,7 @@ class EmployeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        _stackManager.push(
-            AdminNavigationStackItem.employeeDetailState(id: employee.id));
+        _stackManager.push(NavStackItem.employeeDetailState(id: employee.id));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing, vertical: primaryVerticalSpacing),

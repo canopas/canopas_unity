@@ -10,8 +10,8 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../../core/utils/const/leave_map.dart';
+import '../../../../navigation/nav_stack_item.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
@@ -48,8 +48,7 @@ class LeaveRequestCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             _stackManager.push(
-                AdminNavigationStackItem.adminLeaveRequestDetailState(
-                    leaveApplication));
+                NavStackItem.adminLeaveRequestDetailState(leaveApplication));
           },
           child: Row(
             children: [

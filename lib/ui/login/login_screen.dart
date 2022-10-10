@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
@@ -10,8 +9,6 @@ import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../bloc/authentication/login_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
-import '../../rest/api_response.dart';
-import '../../stateManager/login_state_manager.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,8 +19,33 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _bloc = getIt<LoginBloc>();
-  final _loginState = getIt<LoginState>();
   bool _showProgress = false;
+
+  @override
+  void initState() {
+    _bloc.loginResponse.listen((value) {
+      value.when(
+          idle: () => {},
+          loading: () => {
+                setState(() {
+                  _showProgress = true;
+                })
+              },
+          completed: (b) => {
+                setState(() {
+                  _showProgress = false;
+                })
+              },
+          error: (e) => {
+                showSnackBar(context: context, error: e),
+                _bloc.reset(),
+                setState(() {
+                  _showProgress = false;
+                })
+              });
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -36,81 +58,46 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Container(
-        height: double.infinity,
+          height: double.infinity,
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(loginPageBackgroundImage), fit: BoxFit.cover)),
-          child: StreamBuilder<ApiResponse<bool>>(
-              stream: _bloc.loginResponse,
-              initialData: const ApiResponse.idle(),
-              builder: (context, snapshot) {
-                snapshot.data!.when(
-                    idle: () {},
-                    loading: () {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        setState(() {
-                          _showProgress = true;
-                        });
-                      });
-                    },
-                    completed: (bool hasAccount) {
-                      if (hasAccount) {
-                        SchedulerBinding.instance.addPostFrameCallback((_) {
-                          _loginState.setUserLogin(hasAccount);
-                        });
-                      }
-
-                    _showProgress = false;
-                    },
-                    error: (String error) {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        setState(() {
-                        _showProgress = false;
-                      });
-                      showSnackBar(context: context, error: error);
-                      _bloc.reset();
-                    });
-                  });
-
-              return SingleChildScrollView(
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                            child: Column(
-                              children: [
-                                buildTitle(),
-                                buildSubTitle(),
-                              ],
-                            ),
-                          ),
-                          buildImage(context),
-                          Column(children: [
-                            Center(
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .login_guide_description,
-                                style: AppTextStyle.secondaryBodyText
-                              ),
-                            ),
-                            const SizedBox(
-                              height: primaryHorizontalSpacing,
-                            ),
-                            _showProgress
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : SignInButton(onPressed: _bloc.signIn),
-                          ]),
-                        ]),
-                  ),
-                ),
-              );
-            }),
-      ),
+                  image: AssetImage(loginPageBackgroundImage),
+                  fit: BoxFit.cover)),
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                        child: Column(
+                          children: [
+                            buildTitle(),
+                            buildSubTitle(),
+                          ],
+                        ),
+                      ),
+                      buildImage(context),
+                      Column(children: [
+                        Center(
+                          child: Text(
+                              AppLocalizations.of(context)
+                                  .login_guide_description,
+                              style: AppTextStyle.secondaryBodyText),
+                        ),
+                        const SizedBox(
+                          height: primaryHorizontalSpacing,
+                        ),
+                        _showProgress
+                            ? const Center(child: CircularProgressIndicator())
+                            : SignInButton(onPressed: _bloc.signIn),
+                      ]),
+                    ]),
+              ),
+            ),
+          )),
     );
   }
 
@@ -137,7 +124,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Text buildTitle() {
     return Text(
       AppLocalizations.of(context).login_welcome_text,
-      style: AppTextStyle.appTitleText.copyWith(height: 2, fontStyle: FontStyle.italic),
+      style: AppTextStyle.appTitleText
+          .copyWith(height: 2, fontStyle: FontStyle.italic),
     );
   }
 }

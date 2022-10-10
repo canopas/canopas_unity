@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/request_list/request_list.dart';
 import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
@@ -11,6 +10,7 @@ import '../../../bloc/admin/home/admin_home_screen_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../exception/error_const.dart';
 import '../../../model/employee_summary/employees_summary.dart';
+import '../../../navigation/nav_stack_item.dart';
 import '../../../rest/api_response.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -58,8 +58,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       color: AppColors.whiteColor,
                     ),
                     onPressed: () {
-                      _stateManager.push(
-                          const AdminNavigationStackItem.addMemberState());
+                      _stateManager.push(const NavStackItem.addMemberState());
                     }),
                 IconButton(
                     icon: const Icon(
@@ -67,8 +66,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       color: AppColors.whiteColor,
                     ),
                     onPressed: () {
-                      _stateManager.push(
-                          const AdminNavigationStackItem.adminSettingsState());
+                      _stateManager
+                          .push(const NavStackItem.adminSettingsState());
                     }),
               ])),
               const SizedBox(

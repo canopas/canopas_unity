@@ -2,59 +2,44 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 
 import '../provider/user_data.dart';
-import 'navigationStackItem/admin/admin_navigation_stack_items.dart';
-import 'navigationStackItem/employee/employee_navigation_stack_item.dart';
-import 'navigationStackItem/navigationStack/navigation_stack_item.dart';
 
-@lazySingleton
+@Singleton()
 class NavigationStackManager extends ChangeNotifier {
   final UserManager _userManager;
-  List<NavigationStackItem> _screens = [];
-  bool _showBottomBar = true;
+  List<NavStackItem> _pages = [];
 
-  NavigationStackManager(this._userManager);
+  List<NavStackItem> get pages => _pages;
 
-  NavigationStack<NavigationStackItem> get navigation => _userManager.isAdmin
-      ? const NavigationStack.admin()
-      : const NavigationStack.employee();
+  NavigationStackManager(this._userManager) {
+    if (!_userManager.isOnBoardCompleted) {
+      _pages.add(const OnboardNavStackItem());
+    } else if (!_userManager.isUserLoggedIn) {
+      _pages.add(const LoginNavStackItem());
+    } else if (_userManager.isAdmin) {
+      _pages.add(const AdminHomeNavStackItem());
+    } else {
+      _pages.add(const EmployeeHomeNavStackItem());
+    }
+  }
 
-  List<AdminNavigationStackItem> adminStackList = [
-    const AdminNavigationStackItem.adminHomeState()
-  ];
-  List<EmployeeNavigationStackItem> employeeStackList = [
-    const EmployeeNavigationStackItem.employeeHomeState()
-  ];
+  NavStackItem get currentState => _pages.last;
 
-  bool get showBottomBar => _showBottomBar;
-
-  void setBottomBar(bool show) {
-    _showBottomBar = show;
+  void updateStack(List<NavStackItem> newItems) {
+    _pages = List.from(newItems);
     notifyListeners();
   }
 
-  bool get isAdmin => _userManager.isAdmin;
-
-  set setScreens(List<NavigationStackItem> newItems) {
-    _screens = List.from(newItems);
+  void push(NavStackItem item) {
+    _pages.add(item);
     notifyListeners();
   }
 
-  NavigationStackItem get currentState => _screens.last;
-
-  List<NavigationStackItem> get screens => navigation.when(
-      admin: () => _screens = adminStackList,
-      employee: () => _screens = employeeStackList);
-
-  void push(NavigationStackItem item) {
-    _screens.add(item);
-    notifyListeners();
-  }
-
-  void clearAndPush(NavigationStackItem item) {
-    _screens.clear();
-    _screens.add(item);
+  void clearAndPush(NavStackItem item) {
+    _pages.clear();
+    _pages.add(item);
     notifyListeners();
   }
 
@@ -64,9 +49,9 @@ class NavigationStackManager extends ChangeNotifier {
     super.dispose();
   }
 
-  NavigationStackItem? pop() {
+  NavStackItem? pop() {
     try {
-      final poppedItem = _screens.removeLast();
+      final poppedItem = _pages.removeLast();
       notifyListeners();
       return poppedItem;
     } catch (e) {

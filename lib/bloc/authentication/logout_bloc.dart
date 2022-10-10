@@ -2,24 +2,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../di/service_locator.dart';
 import '../../exception/error_const.dart';
 import '../../navigation/navigation_stack_manager.dart';
-import '../../stateManager/login_state_manager.dart';
 
 @Injectable()
 class LogOutBloc extends BaseBLoc {
-  final LoginState _loginState;
   final UserPreference _userPreference;
+  final NavigationStackManager _navigationStackManager;
 
-  LogOutBloc(
-    this._loginState,
-    this._userPreference,
-  );
+  LogOutBloc(this._userPreference, this._navigationStackManager);
 
   final BehaviorSubject<ApiResponse<bool>> _signOutSubject =
       BehaviorSubject<ApiResponse<bool>>();
@@ -30,8 +26,8 @@ class LogOutBloc extends BaseBLoc {
     _signOutSubject.add(const ApiResponse.loading());
     bool success = await _signOut();
     if (success) {
-      await getIt.resetLazySingleton<NavigationStackManager>();
       _signOutSubject.add(const ApiResponse.completed(data: true));
+      _navigationStackManager.clearAndPush(const LoginNavStackItem());
     } else {
       _signOutSubject.add(const ApiResponse.error(error: signOutError));
     }
@@ -41,7 +37,6 @@ class LogOutBloc extends BaseBLoc {
     bool isLogOut = await _signOutWithGoogle();
     if (isLogOut) {
       await _userPreference.removeCurrentUser();
-      _loginState.setUserLogin(false);
       return true;
     } else {
       return false;
