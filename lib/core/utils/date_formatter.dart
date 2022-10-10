@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
@@ -28,6 +29,14 @@ class DateFormatter {
       return _localization.dateFormatter_one_day;
     }
     return _localization.dateFormatter_placeholder_other_days(totalLeaves);
+  }
+
+  String halfDayTime(int startDateTime){
+    if(startDateTime.toTime.period == DayPeriod.am){
+      return _localization.morning_period_text;
+    } else {
+      return _localization.afternoon_period_text;
+    }
   }
 
   String dateInSingleLine(

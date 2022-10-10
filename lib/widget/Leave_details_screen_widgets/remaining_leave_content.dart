@@ -59,6 +59,13 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
+          (widget.leave.totalLeaves < 1)?Text(
+            DateFormatter(_localization).halfDayTime(widget.leave.startDate),
+            style: AppTextStyle.subtitleText.copyWith(fontWeight: FontWeight.w600),
+          ):Container(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
           Text(
             duration,
             style: AppTextStyle.titleText,

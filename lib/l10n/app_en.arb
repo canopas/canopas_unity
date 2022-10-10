@@ -212,17 +212,16 @@
      "invalid_date_selection_error":"Please select valid date",
      "apply_leave_minimum_one_hour_error":"Please apply leave for minimum one hour",
 
-
-
-     "undefined_error_message": "Something went wrong",
      "add_member_employee_exists_error": "Member already exists!",
 
+     "morning_period_text":"9:00 AM to 1:00 PM",
+     "afternoon_period_text":"1:00 PM to 6:00 PM",
 
      "dateFormatter_yesterday":"Yesterday",
       "dateFormatter_today":"Today",
        "dateFormatter_just_now":"Just now",
         "dateFormatter_half_day":"Half day",
-         "dateFormatter_one_day":"One day",
+         "dateFormatter_one_day":"1 day",
          "dateFormatter_placeholder_other_days":"{totalLeave} days",
          "@dateFormatter_placeholder_other_days":{
               "description":"define total leave count more than one day",
