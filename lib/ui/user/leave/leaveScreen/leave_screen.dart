@@ -3,11 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
-
 import '../../../../bloc/employee/leave/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
+import '../../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/empty_screen.dart';
@@ -27,6 +28,7 @@ class LeaveScreen extends StatefulWidget {
 class _LeaveScreenState extends State<LeaveScreen> {
 
   final _userLeavesBLoc = getIt<UserLeavesBloc>();
+  final _stateManager = getIt<NavigationStackManager>();
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _localization = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -58,7 +61,16 @@ class _LeaveScreenState extends State<LeaveScreen> {
                 loading: () => const kCircularProgressIndicator(),
                 completed: (List<Leave> leaves) {
                   if (leaves.isEmpty) {
-                    return EmptyScreen(message: AppLocalizations.of(context).empty_leave_state_message,);
+                    return EmptyScreen(
+                      message: _localization.empty_leave_screen_message(widget.leaveScreenType),
+                      title: _localization.empty_leave_screen_title(widget.leaveScreenType),
+                      actionButtonTitle: _localization.apply_for_leave_button_text,
+                      onActionButtonTap: (){
+                        _stateManager.pop();
+                        _stateManager.push(const EmployeeNavigationStackItem.leaveRequestState());
+                      },
+                      showActionButton: true,
+                     );
                   } else {
                     return ListView.separated(
                         itemCount: leaves.length,

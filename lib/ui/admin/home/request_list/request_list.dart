@@ -68,7 +68,7 @@ class _AdminLeaveRequestsListState extends State<AdminLeaveRequestsList> {
                                   .toList(),
                             )),
                   ).toList(),
-                ):EmptyScreen(message: AppLocalizations.of(context).admin_home_empty_leave_request_message));
+                ):EmptyScreen(message: AppLocalizations.of(context).admin_home_empty_leave_request_message, title: AppLocalizations.of(context).no_request_title,));
               },
               error: (String error) {
                 return showSnackBar(context: context, error: firestoreFetchDataError);

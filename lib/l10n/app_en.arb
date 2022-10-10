@@ -83,6 +83,28 @@
                          }
                       },
 
+  "empty_leave_screen_title":"{leaveScreenType,select, 1{No Leaves} 2{No Requested Leaves} 3{No Upcoming Leaves} }",
+  "@empty_leave_screen_title":{
+    "description":"empty leave screen title",
+    "placeholders":{
+      "leaveScreenType":{
+        "type":"int"
+      }
+    }
+  },
+
+  "empty_leave_screen_message":"{leaveScreenType, select,1{You haven't applied for any leaves yet!} 2{You don't have any requested leave at the moment!} 3{You don't have any upcoming leave at the moment!} }",
+  "@empty_leave_screen_message":{
+    "description":"empty leave screen message",
+    "placeholders":{
+      "leaveScreenType":{
+        "type":"int"
+      }
+    }
+  },
+
+  "apply_for_leave_button_text":"Apply for leave",
+
       "approved_tag":"Approved",
       "rejected_tag":"Rejected",
       "pending_tag":"Pending",
@@ -121,6 +143,7 @@
 
       "admin_home_employee_summary_tag":"Employee Summary",
       "admin_home_empty_leave_request_message": "There is no request today!",
+      "no_request_title":"No Request",
       "admin_home_your_employee_tag":"Your Employee",
       "admin_home_employee_tag": "Employees",
       "admin_home_request_tag":"Requests",
@@ -181,12 +204,11 @@
      "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
      "admin_update_total_leave_count_error":"Failed to update total leave count!",
      "empty_absence_state_message":"No one on leave today!",
+     "absence_empty_screen_title": "No absence",
 
      "admin_add_member_error_email":"Please enter valid email",
      "admin_add_member_error_name": "Name is too short!!",
      "admin_add_member_error_complete_field": "Please complete this mandatory field",
-
-     "empty_leave_state_message":"You haven't applied for any leaves yet!",
 
      "logout_button_text": "Sign Out",
      "sign_out_failed_message":"SignOut Failed!",
