@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
@@ -10,7 +11,6 @@ import 'package:projectunity/ui/user/home/widget/leave_status.dart';
 import '../../../bloc/employee/home/employee_home_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/other_constant.dart';
-import '../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
 import '../../../widget/expanded_app_bar.dart';
 
 class EmployeeHomeScreen extends StatefulWidget {
@@ -48,8 +48,8 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                   alignment: Alignment.topRight,
                   child: IconButton(
                       onPressed: () {
-                        _stateManager.push(const EmployeeNavigationStackItem
-                            .employeeSettingsState());
+                        _stateManager
+                            .push(const NavStackItem.employeeSettingsState());
                       },
                       icon: const Icon(
                         Icons.settings,
@@ -70,30 +70,26 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           leaveText: AppLocalizations.of(context)
                               .user_home_all_leaves_tag,
                           onPress: () => _stateManager.push(
-                              const EmployeeNavigationStackItem
-                                  .userAllLeaveState())),
+                              const NavStackItem.userAllLeaveState())),
                       LeaveNavigationCard(
                           color: AppColors.primaryBlue,
                           leaveText: AppLocalizations.of(context)
                               .user_home_requested_leaves_tag,
                           onPress: () => _stateManager.push(
-                              const EmployeeNavigationStackItem
-                                  .requestedLeaves())),
+                              const NavStackItem.requestedLeaves())),
                       LeaveNavigationCard(
                           color: AppColors.primaryGreen,
                           leaveText: AppLocalizations.of(context)
                               .user_home_upcoming_leaves_tag,
                           onPress: () => _stateManager.push(
-                              const EmployeeNavigationStackItem
-                                  .userUpcomingLeaveState())),
+                              const NavStackItem.userUpcomingLeaveState())),
                       LeaveNavigationCard(
                           color: AppColors.primaryDarkYellow,
                           leaveText: AppLocalizations.of(context)
                               .user_home_apply_leave_tag,
                           onPress: () {
-                            _stateManager.setBottomBar(false);
-                            _stateManager.push(const EmployeeNavigationStackItem
-                                .leaveRequestState());
+                            _stateManager
+                                .push(const NavStackItem.leaveRequestState());
                           }),
                     ],
                   ),

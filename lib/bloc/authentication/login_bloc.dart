@@ -2,22 +2,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/stateManager/auth/auth_manager.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../exception/custom_exception.dart';
 import '../../exception/error_const.dart';
 
-// GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
-//   'email',
-//   'https://www.googleapis.com/auth/contacts.readonly',
-// ]);
-
 @Injectable()
-class LoginBloc extends BaseBLoc{
-
+class LoginBloc extends BaseBLoc {
   final AuthManager _authManager;
-  LoginBloc(this._authManager);
+  final UserManager _userManager;
+
+  final NavigationStackManager _navigationStackManager;
+
+  LoginBloc(this._authManager, this._navigationStackManager, this._userManager);
 
   final _loginSubject = BehaviorSubject<ApiResponse<bool>>();
 
@@ -36,8 +38,16 @@ class LoginBloc extends BaseBLoc{
           if (data != null) {
             await _authManager.updateUser(data);
             _loginSubject.add(const ApiResponse.completed(data: true));
+            if (_userManager.isAdmin) {
+              _navigationStackManager
+                  .clearAndPush(const AdminHomeNavStackItem());
+            } else {
+              _navigationStackManager
+                  .clearAndPush(const EmployeeHomeNavStackItem());
+            }
           } else {
-            _loginSubject.add(const ApiResponse.error(error: userNotFoundError));
+            _loginSubject
+                .add(const ApiResponse.error(error: userNotFoundError));
           }
         } on Exception {
           _loginSubject
@@ -56,8 +66,8 @@ class LoginBloc extends BaseBLoc{
 
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
@@ -86,5 +96,4 @@ class LoginBloc extends BaseBLoc{
   void detach() {
     _loginSubject.close();
   }
-
 }

@@ -6,7 +6,7 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee_summary/employees_summary.dart';
-import 'package:projectunity/navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 class EmployeeSummaryCard extends StatelessWidget {
@@ -34,7 +34,8 @@ class EmployeeSummaryCard extends StatelessWidget {
               children: [
                 _buildSummaryContent(
                   onTap: (){
-                    _stackManager.push(const AdminNavigationStackItem.adminEmployeeListState());
+                    _stackManager
+                        .push(const NavStackItem.adminEmployeeListState());
                   },
                   icon: Icons.people,
                   color: AppColors.primaryGreen,
@@ -51,7 +52,7 @@ class EmployeeSummaryCard extends StatelessWidget {
                 _buildSummaryContent(
                   onTap: (){
                     _stackManager
-                        .push(const AdminNavigationStackItem.adminLeaveAbsenceState());
+                        .push(const NavStackItem.adminLeaveAbsenceState());
                   },
                   icon: Icons.calendar_month_rounded,
                   color: AppColors.primaryPink,

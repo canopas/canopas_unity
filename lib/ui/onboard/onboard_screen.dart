@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/ui/onboard/onboard_bloc.dart';
+
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
-import '../../pref/user_preference.dart';
-import '../../stateManager/login_state_manager.dart';
 import '../onboard/onBoarding_contents.dart';
 
 class OnBoardScreen extends StatefulWidget {
@@ -17,8 +17,7 @@ class OnBoardScreen extends StatefulWidget {
 class _OnBoardScreenState extends State<OnBoardScreen> {
   final PageController _controller = PageController();
   int currentPage = 0;
-  final LoginState _loginState = getIt<LoginState>();
-  final UserPreference _preference = getIt<UserPreference>();
+  final OnBoardBloc _bloc = getIt<OnBoardBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +41,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     alignment: Alignment.topRight,
                     child: TextButton(
                         onPressed: () {
-                          _loginState.setOnBoardComplete(true);
-                          _preference.setOnBoardCompleted(true);
+                          _bloc.setOnBoardCompleted();
                         },
                         child: Text(
                           AppLocalizations.of(context).onBoard_skip_button,
@@ -108,8 +106,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         borderRadius: BorderRadius.circular(25))),
                 onPressed: () {
                   if (_isLastPage) {
-                    _loginState.setOnBoardComplete(true);
-                    _preference.setOnBoardCompleted(true);
+                    _bloc.setOnBoardCompleted();
                   } else {
                     _controller.nextPage(
                         duration: const Duration(milliseconds: 500),

@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/colors.dart';
@@ -24,8 +24,7 @@ class LeaveCard extends StatelessWidget {
     return InkWell(
       borderRadius: const BorderRadius.only(
           topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-      onTap: () => _stateManager
-          .push(EmployeeNavigationStackItem.leaveDetailState(leave)),
+      onTap: () => _stateManager.push(NavStackItem.leaveDetailState(leave)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

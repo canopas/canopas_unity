@@ -3,11 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/navigation/nav_stack_item.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
+
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../di/service_locator.dart';
-import '../../../navigation/navigationStackItem/admin/admin_navigation_stack_items.dart';
 import '../../../navigation/navigation_stack_manager.dart';
 import '../../../widget/error_snackbar.dart';
 import '../../../widget/setting_screen_subtitle.dart';
@@ -49,9 +50,8 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                         icon: Icons.edit_note,
                         title: _localizations.admin_total_leave_count_text,
                         onTap: () {
-                          _stateManager.push(const AdminNavigationStackItem
-                              .updateLeaveCountsState());
-                        },
+                          _stateManager.push(const NavStackItem.paidLeaveSettingsState());
+              },
                       ),
                     StreamBuilder<ApiResponse<bool>>(
                         initialData: const ApiResponse.idle(),

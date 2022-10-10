@@ -32,7 +32,6 @@ dependencies:
   provider: ^6.0.3
   uuid: ^3.0.6
   connectivity_plus: ^2.3.7
-  fluttertoast: ^8.0.9
   sticky_headers: ^0.3.0
 
 
