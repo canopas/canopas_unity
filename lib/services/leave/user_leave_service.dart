@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
 @Singleton()
@@ -9,7 +10,6 @@ class UserLeaveService {
       .withConverter(
           fromFirestore: Leave.fromFireStore,
           toFirestore: (Leave leave, _) => leave.toFireStore(leave));
-
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveUid = leaveRequestData.leaveId;
@@ -43,14 +43,23 @@ class UserLeaveService {
   }
 
   Future<double> getUserUsedLeaveCount(String id) async {
-   List<Leave> allLeaves = await getAllLeavesOfUser(id);
-   double _leaveCount = 0.0;
-   for (var element in allLeaves){
-     if(element.leaveStatus == approveLeaveStatus && element.startDate < DateTime.now().millisecondsSinceEpoch){
-       _leaveCount += element.totalLeaves;
-     }
-  }
-  return _leaveCount;
-  }
+    DateTime currentTime = DateTime.now();
+    final data = await _leaveDbCollection
+        .where('uid', isEqualTo: id)
+        .where('leave_status', isEqualTo: approveLeaveStatus)
+        .get();
 
+    List<Leave> approvedLeaves = data.docs.map((doc) => doc.data()).toList();
+    double _leaveCount = 0.0;
+
+    approvedLeaves
+        .where((element) =>
+            element.startDate < currentTime.millisecondsSinceEpoch &&
+            element.startDate.toDate.year == currentTime.year)
+        .forEach((element) {
+      _leaveCount += element.totalLeaves;
+    });
+
+    return _leaveCount;
+  }
 }
