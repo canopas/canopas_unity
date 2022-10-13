@@ -5,10 +5,11 @@ import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
+
 import '../../../../bloc/employee/leave/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
-import '../../../../navigation/navigationStackItem/employee/employee_navigation_stack_item.dart';
+import '../../../../navigation/nav_stack_item.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/empty_screen.dart';
@@ -67,7 +68,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                       actionButtonTitle: _localization.apply_for_leave_button_text,
                       onActionButtonTap: (){
                         _stateManager.pop();
-                        _stateManager.push(const EmployeeNavigationStackItem.leaveRequestState());
+                        _stateManager
+                            .push(const NavStackItem.leaveRequestState());
                       },
                       showActionButton: true,
                      );
