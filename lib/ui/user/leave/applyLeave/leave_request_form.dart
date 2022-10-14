@@ -5,15 +5,14 @@ import 'package:projectunity/exception/exception_msg.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/bottom_button.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/leave_request_form_subtitle.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/picker_card.dart';
-import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/show_picker.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../../bloc/employee/leave/apply_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/font_size.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/other_constant.dart';
+import '../../../../widget/date_time_picker.dart';
 
 class LeaveRequestForm extends StatefulWidget {
   const LeaveRequestForm({Key? key}) : super(key: key);
@@ -86,7 +85,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
           onPress: () async {
             DateTime datetime = await _applyLeaveBloc.startDate.first;
             DateTime? date =
-                await pickDate(context: context, initialDate: datetime);
+                await pickDate(context: context, initialDate: datetime,onlyFutureDateSelection: true);
             _applyLeaveBloc.updateStartLeaveDate(date);
           },
         ),
@@ -111,7 +110,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
           onPress: () async {
             DateTime dateTime = await _applyLeaveBloc.endDate.first;
             DateTime? date =
-                await pickDate(context: context, initialDate: dateTime);
+                await pickDate(context: context, initialDate: dateTime, onlyFutureDateSelection: true);
             _applyLeaveBloc.updateEndLeaveDate(date);
           },
         ),

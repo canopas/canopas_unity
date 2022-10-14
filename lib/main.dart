@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -8,7 +7,6 @@ import 'package:projectunity/l10n/l10n.dart';
 import 'package:projectunity/navigation/back_button_delegate.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import 'bloc/network/network_service_bloc.dart';
 import 'configs/theme.dart';
 import 'di/service_locator.dart';

@@ -155,9 +155,9 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
-                  DateTime _joiningDate = await pickDate(
+                  DateTime? _joiningDate = await pickDate(
                       context: context, initialDate: snapshot.data!);
-                  _bloc.validateDateOfJoining(_joiningDate);
+                  _bloc.validateDateOfJoining(_joiningDate!);
                 },
                 child:  Text(AppLocalizations.of(context).date_format_yMMMd(snapshot.data!),style: AppTextStyle.secondarySubtitle500,)),
           );
