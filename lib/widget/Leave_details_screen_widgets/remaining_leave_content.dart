@@ -2,48 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/model/leave/leave.dart';
-
-import '../../bloc/admin/leave_details/admin_leave_details_bloc.dart';
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
 import '../../core/utils/date_formatter.dart';
-import '../../di/service_locator.dart';
 import '../../model/admin_leave_details/admin_remaining_leave_model.dart';
 
-class RemainingLeaveContainer extends StatefulWidget {
+class RemainingLeaveContainer extends StatelessWidget {
   final Leave leave;
-  final String employeeId;
-  const RemainingLeaveContainer({Key? key, required this.leave, required this.employeeId}) : super(key: key);
-
-  @override
-  State<RemainingLeaveContainer> createState() => _RemainingLeaveContainerState();
-}
-
-class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
-
-
-  final _adminDetailsScreenBloc = getIt<AdminLeaveDetailsScreenBloc>();
-  @override
-  void initState() {
-    _adminDetailsScreenBloc.fetchUserRemainingLeaveDetails(id: widget.employeeId);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _adminDetailsScreenBloc.detach();
-    super.dispose();
-  }
+  final Stream<RemainingLeave> remainingLeaveStream;
+  const RemainingLeaveContainer({Key? key, required this.leave, required this.remainingLeaveStream}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var _localization = AppLocalizations.of(context);
     String totalDays = DateFormatter(AppLocalizations.of(context))
-        .getLeaveDurationPresentation(widget.leave.totalLeaves);
+        .getLeaveDurationPresentation(leave.totalLeaves);
     String duration = DateFormatter(AppLocalizations.of(context))
         .dateInSingleLine(
-            startTimeStamp: widget.leave.startDate,
-            endTimeStamp: widget.leave.endDate);
+            startTimeStamp: leave.startDate,
+            endTimeStamp: leave.endDate);
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.2,
@@ -59,8 +36,8 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
-          (widget.leave.totalLeaves < 1)?Text(
-            DateFormatter(_localization).halfDayTime(widget.leave.startDate),
+          (leave.totalLeaves < 1)?Text(
+            DateFormatter(_localization).halfDayTime(leave.startDate),
             style: AppTextStyle.subtitleText.copyWith(fontWeight: FontWeight.w600),
           ):Container(),
           SizedBox(
@@ -71,10 +48,10 @@ class _RemainingLeaveContainerState extends State<RemainingLeaveContainer> {
             style: AppTextStyle.titleText,
           ),
           SizedBox(height: MediaQuery.of(context).size.height*0.01,),
-          StreamBuilder(
-            stream: _adminDetailsScreenBloc.remainingLeaveStream,
+          StreamBuilder<RemainingLeave>(
+            stream: remainingLeaveStream,
             initialData: RemainingLeave(),
-            builder: (context,AsyncSnapshot<RemainingLeave> snapshot) => Column(
+            builder: (context, snapshot) => Column(
               children: [
                 Stack(
                   children: [

@@ -21,6 +21,16 @@ class AppTheme{
         ),
         elevation: 0,
       )
-    )
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        side: const BorderSide(color: AppColors.primaryBlue,width: 1),
+        fixedSize: const Size.fromHeight(45),
+      )
+  )
   );
 }

@@ -121,7 +121,6 @@ mixin _$NavStackItem {
     required TResult Function(Leave leave) leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? onBoard,
@@ -144,7 +143,6 @@ mixin _$NavStackItem {
     TResult Function(Leave leave)? leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
@@ -168,7 +166,6 @@ mixin _$NavStackItem {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
@@ -196,7 +193,6 @@ mixin _$NavStackItem {
     required TResult Function(LeaveDetailState value) leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
@@ -219,7 +215,6 @@ mixin _$NavStackItem {
     TResult Function(LeaveDetailState value)? leaveDetailState,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
@@ -257,7 +252,6 @@ class _$NavStackItemCopyWithImpl<$Res> implements $NavStackItemCopyWith<$Res> {
   _$NavStackItemCopyWithImpl(this._value, this._then);
 
   final NavStackItem _value;
-
   // ignore: unused_field
   final $Res Function(NavStackItem) _then;
 }
@@ -1711,7 +1705,6 @@ abstract class $EmployeeDetailStateCopyWith<$Res> {
   factory $EmployeeDetailStateCopyWith(
           EmployeeDetailState value, $Res Function(EmployeeDetailState) then) =
       _$EmployeeDetailStateCopyWithImpl<$Res>;
-
   $Res call({String id});
 }
 
@@ -1938,7 +1931,6 @@ abstract class EmployeeDetailState implements NavStackItem {
       _$EmployeeDetailState;
 
   String get id;
-
   @JsonKey(ignore: true)
   $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2156,7 +2148,6 @@ abstract class $AdminLeaveRequestDetailStateCopyWith<$Res> {
           AdminLeaveRequestDetailState value,
           $Res Function(AdminLeaveRequestDetailState) then) =
       _$AdminLeaveRequestDetailStateCopyWithImpl<$Res>;
-
   $Res call({LeaveApplication employeeLeave});
 }
 
@@ -2387,7 +2378,6 @@ abstract class AdminLeaveRequestDetailState implements NavStackItem {
       _$AdminLeaveRequestDetailState;
 
   LeaveApplication get employeeLeave;
-
   @JsonKey(ignore: true)
   $AdminLeaveRequestDetailStateCopyWith<AdminLeaveRequestDetailState>
       get copyWith => throw _privateConstructorUsedError;
@@ -3635,7 +3625,6 @@ abstract class $LeaveDetailStateCopyWith<$Res> {
   factory $LeaveDetailStateCopyWith(
           LeaveDetailState value, $Res Function(LeaveDetailState) then) =
       _$LeaveDetailStateCopyWithImpl<$Res>;
-
   $Res call({Leave leave});
 }
 
@@ -3861,7 +3850,6 @@ abstract class LeaveDetailState implements NavStackItem {
   const factory LeaveDetailState(Leave leave) = _$LeaveDetailState;
 
   Leave get leave;
-
   @JsonKey(ignore: true)
   $LeaveDetailStateCopyWith<LeaveDetailState> get copyWith =>
       throw _privateConstructorUsedError;

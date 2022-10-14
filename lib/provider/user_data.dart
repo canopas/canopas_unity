@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
-
 import '../core/utils/const/role.dart';
 
 @Singleton()

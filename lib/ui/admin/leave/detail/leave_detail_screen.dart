@@ -4,13 +4,11 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/date_formatter.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/stateManager/admin/leave_status_manager.dart';
 import 'package:projectunity/ui/admin/leave/detail/widget/user_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/leave_details_header_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/reason_content.dart';
 import 'package:projectunity/widget/Leave_details_screen_widgets/remaining_leave_content.dart';
-
+import '../../../../bloc/admin/leave_details/admin_leave_details_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/other_constant.dart';
 import '../../../../model/leave/leave.dart';
@@ -31,8 +29,19 @@ class _AdminLeaveRequestDetailScreenState
   final TextEditingController _approvalOrRejectionMassage =
       TextEditingController();
 
-  final _leaveStatusManager = getIt<LeaveStatusManager>();
-  final _stackManager = getIt<NavigationStackManager>();
+  final _adminDetailsScreenBloc = getIt<AdminLeaveDetailsScreenBloc>();
+
+  @override
+  void initState() {
+    _adminDetailsScreenBloc.fetchUserRemainingLeaveDetails(id: widget.employeeLeave.employee.id);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _adminDetailsScreenBloc.detach();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +61,7 @@ class _AdminLeaveRequestDetailScreenState
               leaveType: widget.employeeLeave.leave.leaveType),
           UserContent(employee: widget.employeeLeave.employee),
           RemainingLeaveContainer(
-              employeeId: widget.employeeLeave.employee.id,
+             remainingLeaveStream: _adminDetailsScreenBloc.remainingLeaveStream,
               leave: widget.employeeLeave.leave),
           ReasonField(
             reason: widget.employeeLeave.leave.reason,
@@ -85,11 +94,7 @@ class _AdminLeaveRequestDetailScreenState
               backgroundColor: AppColors.redColor,
             ),
             onPressed: () {
-              _leaveStatusManager.updateStatus(rejectLeaveStatus);
-              _leaveStatusManager.setReason(reason);
-              if (_leaveStatusManager.leaveApprove(leaveId)) {
-                _stackManager.pop();
-              }
+              _adminDetailsScreenBloc.rejectOrApproveLeaveRequest(reason: reason, leaveId: leaveId,leaveStatus: rejectLeaveStatus);
             },
             child: Text(
               _localization.admin_leave_detail_button_reject,
@@ -102,11 +107,7 @@ class _AdminLeaveRequestDetailScreenState
               backgroundColor: AppColors.greenColor,
             ),
             onPressed: () {
-              _leaveStatusManager.updateStatus(approveLeaveStatus);
-              _leaveStatusManager.setReason(reason);
-              if (_leaveStatusManager.leaveApprove(leaveId)) {
-                _stackManager.pop();
-              }
+              _adminDetailsScreenBloc.rejectOrApproveLeaveRequest(reason: reason, leaveId: leaveId,leaveStatus: approveLeaveStatus);
             },
             child: Text(
               _localization.admin_leave_detail_button_approve,
