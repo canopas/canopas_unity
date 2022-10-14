@@ -1,3 +1,4 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -28,11 +29,12 @@ class AbsenceBloc extends BaseBLoc {
     List<Employee> _employees = await _employeeService.getEmployees();
     List<Leave> absenceLeaves = await _adminLeaveService.getAllAbsence();
     try {
-      List<LeaveApplication> _absenceEmployee = absenceLeaves.map((leave) {
-        final employee = _employees.firstWhere((emp) => emp.id == leave.uid);
-        return LeaveApplication(employee: employee, leave: leave);
+      List<LeaveApplication?> _absenceEmployee = absenceLeaves.map((leave) {
+        final employee = _employees.firstWhereOrNull((emp) => emp.id == leave.uid);
+        return (employee==null)?null:LeaveApplication(employee: employee, leave: leave);
       }).toList();
-      _absenceEmployees.add(ApiResponse.completed(data: _absenceEmployee));
+      _absenceEmployee.removeWhere((element) => element == null);
+      _absenceEmployees.add(ApiResponse.completed(data: _absenceEmployee.whereNotNull().toList()));
     } on Exception catch (_){
       _absenceEmployees.add(const ApiResponse.error(error: firestoreFetchDataError));
     }
