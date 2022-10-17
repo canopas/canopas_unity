@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
-import 'package:projectunity/model/employee_summary/employees_summary.dart';
 import 'package:projectunity/services/employee/employee_service.dart';
 import 'package:projectunity/services/leave/admin_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,120 +16,104 @@ import '../../../model/leave/leave.dart';
 import '../../../model/leave_application.dart';
 import '../../../rest/api_response.dart';
 import '../../../services/leave/paid_leave_service.dart';
-import '../../../services/leave/user_leave_service.dart';
 
 @Injectable()
 class AdminHomeScreenBloc extends BaseBLoc {
   final EmployeeService _employeeService;
   final AdminLeaveService _adminLeaveService;
-  final UserLeaveService _userLeaveService;
   final PaidLeaveService _userPaidLeaveService;
+  int _paidLeaveCount = 0;
 
-  AdminHomeScreenBloc(this._employeeService, this._adminLeaveService, this._userLeaveService, this._userPaidLeaveService);
+  AdminHomeScreenBloc(this._employeeService, this._adminLeaveService,
+      this._userPaidLeaveService);
 
+  final _totalEmployees = BehaviorSubject<int>.seeded(0);
 
-  final BehaviorSubject<ApiResponse<EmployeesSummary>> _employeeSummary = BehaviorSubject<ApiResponse<EmployeesSummary>>.seeded(const ApiResponse.idle());
-  BehaviorSubject<ApiResponse<EmployeesSummary>> get employeeSummary => _employeeSummary;
+  get totalEmployees => _totalEmployees;
 
+  final _totalRequest = BehaviorSubject<int>.seeded(0);
 
-  final BehaviorSubject<ApiResponse<Map<DateTime, List<LeaveApplication>>>> _leaveApplication = BehaviorSubject<ApiResponse<Map<DateTime, List<LeaveApplication>>>>();
-  Stream<ApiResponse<Map<DateTime, List<LeaveApplication>>>> get leaveApplication => _leaveApplication.stream;
+  get totalRequest => _totalRequest;
 
-  int _totalEmployeesCount = 0;
-  int _absenceCount = 0;
+  final _absenceCount = BehaviorSubject<int>.seeded(0);
 
-  _fetchEmployeeSummary() async {
-    _employeeSummary.add(const ApiResponse.loading());
-    if (_employeeSummary.isClosed) return;
+  get absenceCount => _absenceCount;
 
-    _totalEmployeesCount = await _employeeService.getEmployeesCount();
-    int _requestLeaveCount = _leaveApplicationsList.length;
-    _absenceCount = await _adminLeaveService.getAbsenceCount();
+  final _leaveApplication =
+      BehaviorSubject<ApiResponse<Map<DateTime, List<LeaveApplication>>>>();
 
-    _employeeSummary.add(ApiResponse.completed(data: EmployeesSummary(
-        totalEmployeesCount: _totalEmployeesCount,
-        requestCount: _requestLeaveCount,
-        absenceCount: _absenceCount)));
+  get leaveApplication => _leaveApplication;
+
+  void _getPaidLeaves() async {
+    _paidLeaveCount = await _userPaidLeaveService.getPaidLeaves();
   }
 
-  List<LeaveApplication> _leaveApplicationsList = <LeaveApplication>[];
-
-  Future<List<LeaveApplication>> _getLeaveApplications(
-      List<Leave> leaveList, List<Employee> employees) async {
-    _leaveApplicationsList = await Future.wait(leaveList.map((leave) async {
-      final employee = employees.firstWhere((emp) => emp.id == leave.uid);
-      LeaveCounts _leaveCounts = await _fetchUserRemainingLeave(id: employee.id);
-      return LeaveApplication(employee: employee, leave: leave, leaveCounts: _leaveCounts);
-    }).toList());
-    return _leaveApplicationsList;
+  void _getAbsentEmployees() async {
+    List<Leave> _absentEmployees = await _adminLeaveService.getAllAbsence();
+    _absenceCount.sink.add(_absentEmployees.length);
   }
 
-  Future<void> _getLeaveApplication() async {
+  void _listenStream() async {
+    _leaveApplication.add(const ApiResponse.loading());
+
     try {
-      _leaveApplication.add(const ApiResponse.loading());
+      _combineStream.listen((event) {
+        _totalRequest.add(event.length);
 
-      Rx.combineLatest2(
-          _adminLeaveService.getAllRequests(),
-          _employeeService.getEmployees().asStream(),
-          (List<Leave> leavesList, List<Employee> employees) =>
-              _getLeaveApplications(leavesList, employees)).listen(
-        (event) async {
-          List<LeaveApplication> leaveApp = await event;
-          Set<DateTime> _dates = leaveApp
-              .map((leaveRequest) =>
-                  DateUtils.dateOnly(leaveRequest.leave.appliedOn.toDate))
-              .toSet();
-          Map<DateTime, List<LeaveApplication>> _leaveApplicationsByDates = {};
-
-          for (var _date in _dates) {
-            List<LeaveApplication> _leaveApplications = <LeaveApplication>[];
-            for (var leaveApplication in leaveApp) {
-              if (_date == DateUtils.dateOnly(leaveApplication.leave.appliedOn.toDate)) {
-                _leaveApplications.add(leaveApplication);
-              }
-            }
-            _leaveApplications.sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
-            _leaveApplicationsByDates.addEntries([MapEntry(_date, _leaveApplications)]);
-          }
-          Map<DateTime, List<LeaveApplication>> _sortedMap = Map.fromEntries(_leaveApplicationsByDates.entries.toList()..sort((e1, e2) => e2.key.compareTo(e1.key)));
-          _leaveApplication.add(ApiResponse.completed(data: _sortedMap));
-
-
-          _employeeSummary.sink.add(ApiResponse.completed(data: EmployeesSummary(
-            absenceCount: _absenceCount,
-            requestCount: leaveApp.length,
-            totalEmployeesCount: _totalEmployeesCount,
-          )));
-        },
-      );
-    } on Exception catch (_) {
-      _leaveApplication.add(const ApiResponse.error(error: firestoreFetchDataError));
+        Map<DateTime, List<LeaveApplication>> map = event.groupBy(
+            (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
+        _leaveApplication.add(ApiResponse.completed(data: map));
+      });
+    } on Exception {
+      leaveApplication
+          .add(const ApiResponse.error(error: firestoreFetchDataError));
     }
   }
 
-  Future<LeaveCounts> _fetchUserRemainingLeave({required String id}) async {
-    int _userAllDays = await _userPaidLeaveService.getPaidLeaves();
-    double _userUsedDays = await _userLeaveService.getUserUsedLeaveCount(id);
-    double _remainingLeave = _userAllDays - _userUsedDays;
-    if (_remainingLeave < 0) {
-      _remainingLeave = 0;
-    }
-    return LeaveCounts(paidLeaveCount: _userAllDays, remainingLeaveCount: _remainingLeave, usedLeaveCount: _userUsedDays);
+  Stream<List<LeaveApplication>> get _combineStream => Rx.combineLatest2(
+          _adminLeaveService.getAllRequests(),
+          _employeeService.getEmployeesStream(),
+          (List<Leave> leaveList, List<Employee> employeeList) {
+        return leaveList
+            .map((leave) {
+              _totalEmployees.add(employeeList.length);
+
+              final employee = employeeList
+                  .firstWhereOrNull((element) => element.id == leave.uid);
+              if (employee == null) {
+                return null;
+              }
+              LeaveCounts _leaveCounts = _addLeaveCount(leave);
+
+              return LeaveApplication(
+                  leave: leave, employee: employee, leaveCounts: _leaveCounts);
+            })
+            .whereNotNull()
+            .toList();
+      });
+
+  LeaveCounts _addLeaveCount(Leave leave) {
+    double _usedLeave = leave.totalLeaves;
+    double _remainingLeaves = _paidLeaveCount - _usedLeave;
+    return LeaveCounts(
+        remainingLeaveCount: _remainingLeaves < 0 ? 0 : _remainingLeaves,
+        usedLeaveCount: _usedLeave,
+        paidLeaveCount: _paidLeaveCount);
   }
 
   @override
   void attach() async {
-    _fetchEmployeeSummary();
-    await _getLeaveApplication();
+    _getPaidLeaves();
+    _getAbsentEmployees();
+    _listenStream();
   }
 
   @override
   void detach() async {
-    await _employeeSummary.drain();
-    _employeeSummary.close();
+    await _absenceCount.drain();
+    _absenceCount.close();
+    _totalRequest.close();
+    _totalEmployees.close();
     _leaveApplication.close();
-    _totalEmployeesCount = 0;
-    _absenceCount = 0;
-    _leaveApplicationsList.clear();
   }
 }

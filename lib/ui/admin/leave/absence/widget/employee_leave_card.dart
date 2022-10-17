@@ -40,7 +40,8 @@ class EmployeeLeaveCard extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                EmployeeDesignation(designation: employeeLeave.employee.designation)
+                EmployeeDesignation(
+                    designation: employeeLeave.employee.designation)
               ],
             )
           ],

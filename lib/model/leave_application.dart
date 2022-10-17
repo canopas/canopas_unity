@@ -7,5 +7,6 @@ class LeaveApplication {
   Leave leave;
   LeaveCounts? leaveCounts;
 
-  LeaveApplication({required this.employee, required this.leave,  this.leaveCounts});
+  LeaveApplication(
+      {required this.employee, required this.leave,  this.leaveCounts});
 }

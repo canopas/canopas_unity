@@ -4,6 +4,7 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
+
 import '../../../../../model/employee/employee.dart';
 
 class EmployeeContent extends StatelessWidget {

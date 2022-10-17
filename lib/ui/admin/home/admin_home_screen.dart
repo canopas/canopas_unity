@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
-import 'package:projectunity/ui/admin/home/request_list/request_list.dart';
-import 'package:projectunity/ui/admin/home/widget/employee_summary_card.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/ui/admin/home/widget/request_list.dart';
+import 'package:projectunity/ui/admin/home/widget/summary_content.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 
 import '../../../bloc/admin/home/admin_home_screen_bloc.dart';
 import '../../../configs/colors.dart';
-import '../../../exception/error_const.dart';
-import '../../../model/employee_summary/employees_summary.dart';
+import '../../../core/utils/const/other_constant.dart';
 import '../../../navigation/nav_stack_item.dart';
-import '../../../rest/api_response.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -22,22 +20,17 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final _stateManager = getIt<NavigationStackManager>();
-  final _adminHomeScreenBloc = getIt<AdminHomeScreenBloc>();
+  final _bloc = getIt<AdminHomeScreenBloc>();
 
   @override
   void initState() {
-    _adminHomeScreenBloc.attach();
-    _adminHomeScreenBloc.employeeSummary.listen((event) {
-      event.whenOrNull(error: (error) {
-        showSnackBar(context: context, error: undefinedError);
-      });
-    });
+    _bloc.attach();
     super.initState();
   }
 
   @override
   void dispose() {
-    _adminHomeScreenBloc.detach();
+    _bloc.detach();
     super.dispose();
   }
 
@@ -74,25 +67,64 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 height: 66,
               ),
               AdminLeaveRequestsList(
-                leaveApplicationStream: _adminHomeScreenBloc.leaveApplication,
-              ),
+                  leaveApplicationStream: _bloc.leaveApplication),
             ],
           ),
           Positioned(
-              top: 100,
-              right: 10,
-              left: 10,
-              child: StreamBuilder(
-                  initialData: const ApiResponse<EmployeesSummary>.idle(),
-                  stream: _adminHomeScreenBloc.employeeSummary.stream,
-                  builder: (context,
-                          AsyncSnapshot<ApiResponse<EmployeesSummary>>
-                              snapshot) =>
-                      snapshot.data!.maybeWhen(
-                          completed: (data) =>
-                              EmployeeSummaryCard(employeesSummary: data),
-                          orElse: () => EmployeeSummaryCard(
-                              employeesSummary: EmployeesSummary())))),
+            top: 100,
+            right: 10,
+            left: 10,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: primaryHorizontalSpacing,
+                  right: primaryHorizontalSpacing),
+              child: Card(
+                  elevation: 6,
+                  shadowColor: AppColors.greyColor.withOpacity(0.25),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        EmployeeSummaryContent(
+                          onTap: () {
+                            _stateManager.push(
+                                const NavStackItem.adminEmployeeListState());
+                          },
+                          stream: _bloc.totalEmployees,
+                          icon: Icons.people,
+                          color: AppColors.primaryGreen,
+                          desc: AppLocalizations.of(context)
+                              .admin_home_employee_tag,
+                        ),
+                        EmployeeSummaryContent(
+                          onTap: null,
+                          stream: _bloc.totalRequest,
+                          icon: Icons.notifications_active_rounded,
+                          color: AppColors.primaryDarkYellow,
+                          desc: AppLocalizations.of(context)
+                              .admin_home_request_tag,
+                        ),
+                        EmployeeSummaryContent(
+                          stream: _bloc.absenceCount,
+                          onTap: () {
+                            _stateManager.push(
+                                const NavStackItem.adminLeaveAbsenceState());
+                          },
+                          icon: Icons.calendar_month_rounded,
+                          color: AppColors.primaryPink,
+                          desc: AppLocalizations.of(context)
+                              .admin_home_absence_tag,
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
+          ),
         ],
       ),
       backgroundColor: AppColors.whiteColor,

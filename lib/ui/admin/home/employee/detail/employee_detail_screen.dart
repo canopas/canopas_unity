@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/ui/admin/home/employee/detail/widget/delete_button.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
@@ -40,17 +41,19 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               idle: () => Container(),
               loading: () => const kCircularProgressIndicator(),
               completed: (Employee employee) {
-                return ListView(
-                    children: [
-                    ProfileCard(employee: employee),
-                    ProfileDetail(employee: employee),
+                return ListView(children: [
+                  ProfileCard(employee: employee),
+                  ProfileDetail(employee: employee),
                 ]);
               },
               error: (String error) {
                 return showSnackBar(context: context, error: error);
               });
-           },
-        ),
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:
+          DeleteButton(onTap: () => _bloc.deleteEmployee(widget.id)),
     );
   }
 }

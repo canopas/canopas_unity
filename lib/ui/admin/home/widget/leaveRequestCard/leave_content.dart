@@ -8,10 +8,10 @@ import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/text_style.dart';
+import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/other_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
-import '../../../../core/utils/const/leave_map.dart';
-import '../../../../navigation/nav_stack_item.dart';
+import '../../../../../navigation/nav_stack_item.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
@@ -100,7 +100,8 @@ class LeaveRequestCard extends StatelessWidget {
                           color: AppColors.greyColor),
                       EmployeeContent(
                         employee: leaveApplication.employee,
-                        leaveCounts: leaveApplication.leaveCounts ??  LeaveCounts(),
+                        leaveCounts:
+                            leaveApplication.leaveCounts ?? LeaveCounts(),
                       ),
 
                       // const ButtonContent()

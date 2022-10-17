@@ -4,6 +4,7 @@ import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../../exception/error_const.dart';
 import '../../../model/employee/employee.dart';
 import '../../../model/leave/leave.dart';
@@ -35,8 +36,9 @@ class AbsenceBloc extends BaseBLoc {
       }).toList();
       _absenceEmployee.removeWhere((element) => element == null);
       _absenceEmployees.add(ApiResponse.completed(data: _absenceEmployee.whereNotNull().toList()));
-    } on Exception catch (_){
-      _absenceEmployees.add(const ApiResponse.error(error: firestoreFetchDataError));
+    } on Exception catch (_) {
+      _absenceEmployees
+          .add(const ApiResponse.error(error: firestoreFetchDataError));
     }
   }
 

@@ -18,7 +18,8 @@ class AdminLeaveService {
     await _leaveDbCollection.doc(id).update(map);
   }
 
-  ValueStream<List<Leave>> getAllRequests() {
+
+  Stream<List<Leave>> getAllRequests() {
     final BehaviorSubject<List<Leave>> _leaves = BehaviorSubject<List<Leave>>();
     _leaveDbCollection.where('leave_status', isEqualTo: 1).snapshots().listen(
         (event) {
@@ -35,26 +36,20 @@ class AdminLeaveService {
   }
 
   Future<List<Leave>> getAllAbsence() async {
-    int todayDate = DateTime.now().millisecondsSinceEpoch;
+    int todayDate = DateTime.now().timeStampToInt;
     final _data = await _leaveDbCollection
         .where('end_date', isGreaterThan: todayDate)
         .get();
     List<Leave> _leaves = <Leave>[];
-    List _users = [];
+
     for (var e in _data.docs) {
       if (e.data().startDate < todayDate &&
-          e.data().leaveStatus == approveLeaveStatus &&
-          !_users.contains(e.data().uid)) {
-        _users.add(e.data().uid);
+          e.data().leaveStatus == approveLeaveStatus) {
         _leaves.add(e.data());
       }
     }
     return _leaves;
   }
 
-  Future<int> getAbsenceCount() async {
-    List<Leave> _leave = await getAllAbsence();
-    return _leave.length;
-  }
 
 }

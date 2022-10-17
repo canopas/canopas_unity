@@ -59,7 +59,7 @@ class _AdminLeaveRequestDetailScreenState
           LeaveTypeAgoTitle(
               timeAgo: appliedTime,
               leaveType: widget.employeeLeave.leave.leaveType),
-          UserContent(employee: widget.employeeLeave.employee),
+          UserContent(employee: widget.employeeLeave.employee!),
           RemainingLeaveContainer(
              remainingLeaveStream: _adminDetailsScreenBloc.remainingLeaveStream,
               leave: widget.employeeLeave.leave),

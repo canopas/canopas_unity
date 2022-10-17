@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../../services/employee/employee_service.dart';
 
 @Injectable()
@@ -15,13 +18,14 @@ class EmployeeListBloc extends BaseBLoc {
   final BehaviorSubject<ApiResponse<List<Employee>>> _employeeList =
       BehaviorSubject<ApiResponse<List<Employee>>>();
 
-  BehaviorSubject<ApiResponse<List<Employee>>> get allEmployees => _employeeList;
+  BehaviorSubject<ApiResponse<List<Employee>>> get allEmployees =>
+      _employeeList;
 
   Future<void> _getEmployeeList() async {
     _employeeList.sink.add(const ApiResponse.loading());
     try {
-      List<Employee> list = await _employeeService.getEmployees();
-      _employeeList.sink.add(ApiResponse.completed(data: list));
+      List<Employee> employees = await _employeeService.getEmployees();
+      _employeeList.sink.add(ApiResponse.completed(data: employees));
     } on Exception catch (_) {
       _employeeList.sink
           .add(const ApiResponse.error(error: firestoreFetchDataError));
