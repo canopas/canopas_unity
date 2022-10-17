@@ -37,12 +37,16 @@ class LeaveStatus extends StatelessWidget {
                     width: 1,
                     color: Colors.grey,
                   ),
-                  LeaveInfo(title: AppLocalizations.of(context).user_home_all_tag, counts: leaveCounts.paidLeaveCount.toDouble()),
+                  LeaveInfo(
+                      title: AppLocalizations.of(context).user_home_all_tag,
+                      counts: leaveCounts.paidLeaveCount.toDouble()),
                   Container(
                     width: 1,
                     color: AppColors.secondaryText,
                   ),
-                  LeaveInfo(title: AppLocalizations.of(context).user_home_used_tag, counts: leaveCounts.usedLeaveCount),
+                  LeaveInfo(
+                      title: AppLocalizations.of(context).user_home_used_tag,
+                      counts: leaveCounts.usedLeaveCount),
                 ],
               ),
             ),
