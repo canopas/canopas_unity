@@ -6,7 +6,6 @@ import 'package:projectunity/core/utils/const/other_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../widget/date_time_picker.dart';
@@ -22,6 +21,7 @@ class AdminAddMemberScreen extends StatefulWidget {
 class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   final AddMemberBloc _bloc = getIt<AddMemberBloc>();
   int selectedRole = kRoleTypeEmployee;
+  final TextEditingController  _dateController = TextEditingController();
 
   @override
   void initState() {
@@ -137,29 +137,25 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
         initialData: _bloc.currentTime,
         stream: _bloc.dateOfJoining,
         builder: (context, snapshot) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: primaryHorizontalSpacing),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  alignment: Alignment.centerLeft,
-                  elevation: 0,
-                  backgroundColor: AppColors.whiteColor,
-                  fixedSize: Size(MediaQuery.of(context).size.width, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: AppColors.secondaryText),
-                  ),
-                ),
-                onPressed: () async {
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus) {
-                    currentFocus.unfocus();
-                  }
-                  DateTime? _joiningDate = await pickDate(
-                      context: context, initialDate: snapshot.data!);
-                  _bloc.validateDateOfJoining(_joiningDate!);
-                },
-                child:  Text(AppLocalizations.of(context).date_format_yMMMd(snapshot.data!),style: AppTextStyle.secondarySubtitle500,)),
+          return TextField(
+            onTap: () async {
+              DateTime? _joiningDate = await pickDate(
+                   context: context, initialDate: snapshot.data!);
+                          _bloc.validateDateOfJoining(_joiningDate!);
+              _dateController.text = AppLocalizations.of(context).date_format_yMMMd(_joiningDate);
+            },
+            controller: _dateController,
+            keyboardType: TextInputType.none,
+            cursorColor: Colors.black,
+            autocorrect: false,
+            style: AppTextStyle.subtitleTextDark,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: InputDecoration(
+              errorText: snapshot.hasError ? snapshot.error.toString() : null,
+              hintStyle: AppTextStyle.secondarySubtitle500,
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              hintText: AppLocalizations.of(context).date_format_yMMMd(snapshot.data!),
+            ),
           );
         }
     );
