@@ -81,6 +81,8 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.UserManager>(),
         get<_i9.UserLeaveService>(),
         get<_i7.PaidLeaveService>(),
+        get<_i5.EmployeeService>(),
+        get<_i3.AdminLeaveService>(),
       ));
   gh.singleton<_i17.NavigationStackManager>(
     _i17.NavigationStackManager(get<_i15.UserManager>()),
