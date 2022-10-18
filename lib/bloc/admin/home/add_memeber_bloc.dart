@@ -85,12 +85,12 @@ class AddMemberBloc extends BaseBLoc {
     }
   }
 
-  void validateDateOfJoining(DateTime joiningDate){
-      _dateOfJoining.sink.add(joiningDate);
+  void validateDateOfJoining(DateTime joiningDate) {
+    _dateOfJoining.sink.add(joiningDate);
   }
 
-  Stream<bool> get validateSubmit => Rx.combineLatest5(
-      employeeId, name, email, designation, dateOfJoining, (a, b, c, d, e) => true);
+  Stream<bool> get validateSubmit => Rx.combineLatest5(employeeId, name, email,
+      designation, dateOfJoining, (a, b, c, d, e) => true);
 
   Employee submit(int selectedRoleType) {
     final employee = Employee(
@@ -100,8 +100,7 @@ class AddMemberBloc extends BaseBLoc {
         employeeId: _employeeId.value,
         email: _email.value,
         designation: _designation.value,
-        dateOfJoining: _dateOfJoining.value.timeStampToInt
-    );
+        dateOfJoining: _dateOfJoining.value.timeStampToInt);
     return employee;
   }
 

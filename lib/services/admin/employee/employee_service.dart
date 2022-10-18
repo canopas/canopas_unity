@@ -56,6 +56,13 @@ class EmployeeService {
   }
 
   Future<void> deleteEmployee(String id) async {
-    await _userDbCollection.doc(id).delete();
+    DocumentReference employeeDocRef = _userDbCollection.doc(id);
+    employeeDocRef
+        .collection(FirestoreConst.session)
+        .doc(FirestoreConst.session)
+        .delete()
+        .then((value) async {
+      await employeeDocRef.delete();
+    });
   }
 }
