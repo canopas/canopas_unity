@@ -44,7 +44,7 @@ class AdminHomeScreenBloc extends BaseBLoc {
 
   get leaveApplication => _leaveApplication;
 
-  void _getPaidLeaves() async {
+  Future _getPaidLeaves() async {
     _paidLeaveCount = await _userPaidLeaveService.getPaidLeaves();
   }
 
@@ -103,7 +103,7 @@ class AdminHomeScreenBloc extends BaseBLoc {
 
   @override
   void attach() async {
-    _getPaidLeaves();
+    await _getPaidLeaves();
     _getAbsentEmployees();
     _listenStream();
   }
