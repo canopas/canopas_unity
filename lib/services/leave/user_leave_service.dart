@@ -3,10 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
+import '../../core/utils/const/firestore.dart';
+
 @Singleton()
 class UserLeaveService {
   final _leaveDbCollection = FirebaseFirestore.instance
-      .collection('leaves')
+      .collection(FirestoreConst.leaves)
       .withConverter(
           fromFirestore: Leave.fromFireStore,
           toFirestore: (Leave leave, _) => leave.toFireStore(leave));
@@ -23,8 +25,8 @@ class UserLeaveService {
 
   Future<List<Leave>> getRequestedLeave(String id) async {
     final data = await _leaveDbCollection
-        .where('uid', isEqualTo: id)
-        .where('leave_status', isEqualTo: pendingLeaveStatus)
+        .where(FirestoreConst.uid, isEqualTo: id)
+        .where(FirestoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
         .get();
 
     return data.docs.map((doc) => doc.data()).toList();
@@ -32,8 +34,8 @@ class UserLeaveService {
 
   Future<List<Leave>> getUpcomingLeaves(String employeeId) async {
     final data = await _leaveDbCollection
-        .where('uid', isEqualTo: employeeId)
-        .where('leave_status', isEqualTo: approveLeaveStatus)
+        .where(FirestoreConst.uid, isEqualTo: employeeId)
+        .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
         .get();
     return data.docs.map((doc) => doc.data()).toList();
   }
@@ -45,21 +47,21 @@ class UserLeaveService {
   Future<double> getUserUsedLeaveCount(String id) async {
     DateTime currentTime = DateTime.now();
     final data = await _leaveDbCollection
-        .where('uid', isEqualTo: id)
-        .where('leave_status', isEqualTo: approveLeaveStatus)
+        .where(FirestoreConst.uid, isEqualTo: id)
+        .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
         .get();
 
     List<Leave> approvedLeaves = data.docs.map((doc) => doc.data()).toList();
-    double _leaveCount = 0.0;
+    double leaveCount = 0.0;
 
     approvedLeaves
         .where((element) =>
             element.startDate < currentTime.millisecondsSinceEpoch &&
             element.startDate.toDate.year == currentTime.year)
         .forEach((element) {
-      _leaveCount += element.totalLeaves;
+      leaveCount += element.totalLeaves;
     });
 
-    return _leaveCount;
+    return leaveCount;
   }
 }

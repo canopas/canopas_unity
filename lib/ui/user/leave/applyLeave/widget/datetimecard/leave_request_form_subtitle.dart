@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../../configs/text_style.dart';
-import '../../../../../../core/utils/const/other_constant.dart';
+import '../../../../../../core/utils/const/space_constant.dart';
 
 class LeaveRequestSubTitle extends StatelessWidget {
   const LeaveRequestSubTitle({Key? key, required this.subtitle}) : super(key: key);

@@ -9,6 +9,7 @@ const int rejectLeaveStatus = 3;
 
 @JsonSerializable()
 class Leave {
+  @JsonKey(name: 'leave_id')
   String leaveId;
   String uid;
   @JsonKey(name: 'leave_type')
@@ -22,6 +23,7 @@ class Leave {
   String reason;
   @JsonKey(name: 'leave_status')
   int leaveStatus;
+  @JsonKey(name: 'rejection_reason')
   String? rejectionReason;
   @JsonKey(name: 'applied_on')
   int appliedOn;

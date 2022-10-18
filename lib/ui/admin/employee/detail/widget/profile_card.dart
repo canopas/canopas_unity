@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
+
+import '../../../../../../configs/colors.dart';
+import '../../../../../../model/employee/employee.dart';
+import '../../../../../../widget/user_profile_image.dart';
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({Key? key, required this.employee}) : super(key: key);
+
+  final Employee employee;
+
+  @override
+  Widget build(BuildContext context) {
+    var _localization = AppLocalizations.of(context);
+    return Stack(
+      alignment: const Alignment(0,-1),
+      children: [
+        Container(
+          height: 150,
+          decoration: const BoxDecoration(
+              color: AppColors.primaryBlue,
+              borderRadius:
+              BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0,0),
+                color: AppColors.greyColor.withOpacity(0.15),
+                spreadRadius: 3,
+                blurRadius: 5,
+              )
+            ],
+          ),
+          margin: const EdgeInsets.only(top: 70.0,bottom: 5,left: primaryHorizontalSpacing, right: primaryHorizontalSpacing),
+          padding: const EdgeInsets.only(top: 70, bottom: 30,left: 10,right: 10),
+          child: Column(
+            children: [
+              Text(
+                  employee.name,
+                  style: AppTextStyle.headerDark600,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                employee.designation,
+                style: AppTextStyle.secondarySubtitle500
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height*0.03),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextColumn(
+                    title: _localization.employee_role_tag,
+                    subtitle:
+                        _localization.user_detail_role_type(employee.roleType),
+                  ),
+                  Container(height: MediaQuery.of(context).size.height*0.06,width: 1, color: AppColors.greyColor,),
+                  TextColumn(
+                    title:   _localization.employee_employeeID_tag,
+                    subtitle:  employee.employeeId,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        ProfilePic(imageUrl: employee.imageUrl),
+      ],
+    );
+  }
+}
+
+class TextColumn extends StatelessWidget {
+  const TextColumn({Key? key, required this.title, required this.subtitle}) : super(key: key);
+
+  final String title;
+  final String? subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(title, style: AppTextStyle.secondarySubtitle500),
+        const SizedBox(height: 6),
+        Text(subtitle ?? "-", style: AppTextStyle.titleText,),
+      ],
+    );
+  }
+}
+
+class ProfilePic extends StatelessWidget {
+  const ProfilePic({Key? key, required this.imageUrl}) : super(key: key);
+
+  final String? imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: primaryHorizontalSpacing),
+      child: CircleAvatar(
+        radius: 55,
+        backgroundColor: AppColors.whiteColor,
+        child: ImageProfile(imageUrl: imageUrl, radius: 50),
+      ),
+    );
+  }
+}

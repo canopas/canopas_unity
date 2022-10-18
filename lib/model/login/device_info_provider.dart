@@ -8,20 +8,20 @@ import 'package:projectunity/model/login/device_info.dart';
 
 class DeviceInfoProvider {
   static Future<Session?> getDeviceInfo() async {
-    final DeviceInfoPlugin _deviceInfoPlugin = DeviceInfoPlugin();
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     try {
       if (Platform.isAndroid) {
-        AndroidDeviceInfo androidInfo = await _deviceInfoPlugin.androidInfo;
+        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
         return Session(
           deviceType: androidDeviceType,
-          deviceId: androidInfo.androidId!,
+          deviceId: androidInfo.id,
           version: int.parse(packageInfo.buildNumber),
           deviceName: androidInfo.model!,
           osVersion: androidInfo.version.release,
         );
       } else if (Platform.isIOS) {
-        IosDeviceInfo iosInfo = await _deviceInfoPlugin.iosInfo;
+        IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
         return Session(
             deviceType: iosDeviceType,
             deviceId: iosInfo.identifierForVendor!,

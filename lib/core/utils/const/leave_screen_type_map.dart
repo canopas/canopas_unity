@@ -7,7 +7,7 @@ const int allLeaves = 1;
 const int requestedLeave = 2;
 const int upcomingLeave = 3;
 
-Color getContainerColor(int status) {
+Color getLeaveContainerColor(int status) {
   if (status == 2) {
     return AppColors.primaryDarkYellow;
   } else if (status == 3) {

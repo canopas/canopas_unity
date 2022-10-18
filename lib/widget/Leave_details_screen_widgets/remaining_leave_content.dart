@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/model/leave/leave.dart';
+
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
 import '../../core/utils/date_formatter.dart';
-import '../../model/admin_leave_details/admin_remaining_leave_model.dart';
+import '../../model/remaining_leave.dart';
 
 class RemainingLeaveContainer extends StatelessWidget {
   final Leave leave;
@@ -14,13 +15,12 @@ class RemainingLeaveContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     String totalDays = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentation(leave.totalLeaves);
     String duration = DateFormatter(AppLocalizations.of(context))
         .dateInSingleLine(
-            startTimeStamp: leave.startDate,
-            endTimeStamp: leave.endDate);
+            startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.2,
@@ -37,9 +37,10 @@ class RemainingLeaveContainer extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.01,
           ),
           (leave.totalLeaves < 1)?Text(
-            DateFormatter(_localization).halfDayTime(leave.startDate),
-            style: AppTextStyle.subtitleText.copyWith(fontWeight: FontWeight.w600),
-          ):Container(),
+            DateFormatter(localization).halfDayTime(leave.startDate),
+                  style: AppTextStyle.subtitleText
+                      .copyWith(fontWeight: FontWeight.w600),
+                ):Container(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
@@ -82,7 +83,8 @@ class RemainingLeaveContainer extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Text(
-                  _localization.leave_remaining_days_placeholder(snapshot.data?.remainingLeave.fixedAt(1)),
+                  localization.leave_remaining_days_placeholder(
+                      snapshot.data?.remainingLeave.fixedAt(1)),
                 ),
               ],
             ),

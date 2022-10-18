@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
-import 'package:projectunity/navigation/nav_stack_item.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
+import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
 

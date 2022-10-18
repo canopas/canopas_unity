@@ -4,7 +4,7 @@ import 'package:projectunity/core/extensions/double_extension.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
-import '../../../../model/employee_leave_count/employee_leave_count.dart';
+import '../../../../model/leave_count.dart';
 
 class LeaveStatus extends StatelessWidget {
    const LeaveStatus({Key? key, required this.leaveCounts}) : super(key: key);

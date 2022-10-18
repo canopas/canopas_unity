@@ -1,21 +1,21 @@
 import 'dart:async';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/list.dart';
-import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
-import 'package:projectunity/services/employee/employee_service.dart';
-import 'package:projectunity/services/leave/admin_leave_service.dart';
+import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../exception/error_const.dart';
 import '../../../model/employee/employee.dart';
 import '../../../model/leave/leave.dart';
 import '../../../model/leave_application.dart';
+import '../../../model/leave_count.dart';
 import '../../../rest/api_response.dart';
-import '../../../services/leave/paid_leave_service.dart';
+import '../../../services/admin/employee/employee_service.dart';
+import '../../../services/admin/paid_leave/paid_leave_service.dart';
 
 @Injectable()
 class AdminHomeScreenBloc extends BaseBLoc {
@@ -49,8 +49,8 @@ class AdminHomeScreenBloc extends BaseBLoc {
   }
 
   void _getAbsentEmployees() async {
-    List<Leave> _absentEmployees = await _adminLeaveService.getAllAbsence();
-    _absenceCount.sink.add(_absentEmployees.length);
+    List<Leave> absentEmployees = await _adminLeaveService.getAllAbsence();
+    _absenceCount.sink.add(absentEmployees.length);
   }
 
   void _listenStream() async {
@@ -76,28 +76,28 @@ class AdminHomeScreenBloc extends BaseBLoc {
           (List<Leave> leaveList, List<Employee> employeeList) {
         return leaveList
             .map((leave) {
-              _totalEmployees.add(employeeList.length);
+          _totalEmployees.add(employeeList.length);
 
               final employee = employeeList
                   .firstWhereOrNull((element) => element.id == leave.uid);
               if (employee == null) {
                 return null;
               }
-              LeaveCounts _leaveCounts = _addLeaveCount(leave);
+              LeaveCounts leaveCounts = _addLeaveCount(leave);
 
               return LeaveApplication(
-                  leave: leave, employee: employee, leaveCounts: _leaveCounts);
+                  leave: leave, employee: employee, leaveCounts: leaveCounts);
             })
             .whereNotNull()
             .toList();
       });
 
   LeaveCounts _addLeaveCount(Leave leave) {
-    double _usedLeave = leave.totalLeaves;
-    double _remainingLeaves = _paidLeaveCount - _usedLeave;
+    double usedLeave = leave.totalLeaves;
+    double remainingLeaves = _paidLeaveCount - usedLeave;
     return LeaveCounts(
-        remainingLeaveCount: _remainingLeaves < 0 ? 0 : _remainingLeaves,
-        usedLeaveCount: _usedLeave,
+        remainingLeaveCount: remainingLeaves < 0 ? 0 : remainingLeaves,
+        usedLeaveCount: usedLeave,
         paidLeaveCount: _paidLeaveCount);
   }
 

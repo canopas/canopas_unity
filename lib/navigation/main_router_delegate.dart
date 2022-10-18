@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/ui/admin/leave/absence/absence_screen.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
-import 'package:projectunity/ui/user/home/user_home_screen.dart';
+import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
 
 import '../provider/user_data.dart';
+import '../ui/admin/absence/absence/absence_list.dart';
+import '../ui/admin/absence/detail/leave_detail_screen.dart';
 import '../ui/admin/addmember/admin_add_member_screen.dart';
-import '../ui/admin/employee_list_screen/employee_list_screen.dart';
+import '../ui/admin/employee/detail/employee_detail_screen.dart';
+import '../ui/admin/employee/list/employee_list_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
-import '../ui/admin/home/employee/detail/employee_detail_screen.dart';
-import '../ui/admin/leave/detail/leave_detail_screen.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/user/leave/applyLeave/leave_request_form.dart';

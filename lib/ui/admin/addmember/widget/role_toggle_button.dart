@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/role.dart';
 
@@ -10,7 +11,7 @@ class ToggleButton extends StatefulWidget {
   const ToggleButton({Key? key, required this.onRoleChange}) : super(key: key);
 
   @override
-  _ToggleButtonState createState() => _ToggleButtonState();
+  State<ToggleButton> createState() => _ToggleButtonState();
 }
 
 const double height = 60.0;
@@ -29,7 +30,7 @@ class _ToggleButtonState extends State<ToggleButton> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
 
     return Center(
       child: Container(
@@ -70,9 +71,10 @@ class _ToggleButtonState extends State<ToggleButton> {
                   color: Colors.transparent,
                   alignment: Alignment.center,
                   child: Text(
-                    _localization.admin_home_employee_tag,
+                    localization.admin_home_employee_tag,
                     textAlign: TextAlign.start,
-                    style: AppTextStyle.bodyTextDark.copyWith(fontWeight: FontWeight.bold),
+                    style: AppTextStyle.bodyTextDark
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -91,9 +93,10 @@ class _ToggleButtonState extends State<ToggleButton> {
                   color: Colors.transparent,
                   alignment: Alignment.center,
                   child: Text(
-                    _localization.admin_addMember_hr_roleTag,
+                    localization.admin_addMember_hr_roleTag,
                     textAlign: TextAlign.start,
-                    style: AppTextStyle.bodyTextDark.copyWith(fontWeight: FontWeight.bold),
+                    style: AppTextStyle.bodyTextDark
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

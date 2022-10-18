@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/ui/login/widget/widget_sign_in_button.dart';
+import 'package:projectunity/ui/login/widget/sign_in_button.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
 import '../../bloc/authentication/login_bloc.dart';

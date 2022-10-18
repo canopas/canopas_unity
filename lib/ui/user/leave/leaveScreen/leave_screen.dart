@@ -3,14 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
+
 import '../../../../bloc/employee/leave/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/leave_map.dart';
 import '../../../../model/leave/leave.dart';
-import '../../../../navigation/nav_stack_item.dart';
 import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/date_time_picker.dart';
@@ -45,13 +45,13 @@ class _LeaveScreenState extends State<LeaveScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _localization = AppLocalizations.of(context);
+    final localization = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
-          _header(context),
-        ),
+            localization.leave_screen_header_placeholder_leave_screen_type(
+                widget.leaveScreenType)),
       ),
       body: StreamBuilder<ApiResponse<List<Leave>>>(
           stream: _userLeavesBLoc.leaveList,
@@ -63,12 +63,20 @@ class _LeaveScreenState extends State<LeaveScreen> {
                 completed: (List<Leave> leaves) {
                   if (leaves.isEmpty) {
                     return EmptyScreen(
-                      message: _userLeavesBLoc.filterApplied?_localization.empty_filter_screen_message:_localization.empty_leave_screen_message(widget.leaveScreenType),
-                      title: _userLeavesBLoc.filterApplied?_localization.empty_filter_screen_title:_localization.empty_leave_screen_title(widget.leaveScreenType),
-                      actionButtonTitle: _localization.apply_for_leave_button_text,
-                      onActionButtonTap: _userLeavesBLoc.onApplyForLeaveButtonTap,
+                      message: _userLeavesBLoc.filterApplied
+                          ? localization.empty_filter_screen_message
+                          : localization.empty_leave_screen_message(
+                              widget.leaveScreenType),
+                      title: _userLeavesBLoc.filterApplied
+                          ? localization.empty_filter_screen_title
+                          : localization
+                              .empty_leave_screen_title(widget.leaveScreenType),
+                      actionButtonTitle:
+                          localization.apply_for_leave_button_text,
+                      onActionButtonTap:
+                          _userLeavesBLoc.onApplyForLeaveButtonTap,
                       showActionButton: !_userLeavesBLoc.filterApplied,
-                     );
+                    );
                   } else {
                     return ListView.separated(
                       itemCount: leaves.length,
@@ -92,95 +100,104 @@ class _LeaveScreenState extends State<LeaveScreen> {
       floatingActionButton: (widget.leaveScreenType == allLeaves)
           ? FloatingActionButton.extended(
           onPressed: () {
-            showModalBottomSheet(
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              context: context,
-              builder: (context) => _filterBottomSheet(context),
-            );
-          },
-          label: Text(_localization.user_filters_tag),
-          icon: const Icon(Icons.filter_list_rounded))
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  context: context,
+                  builder: (context) => _filterBottomSheet(context),
+                );
+              },
+              label: Text(localization.user_filters_tag),
+              icon: const Icon(Icons.filter_list_rounded))
           : null,
     );
   }
 
-  String _header(BuildContext context) {
-    if (widget.leaveScreenType == requestedLeave) {
-      return AppLocalizations
-          .of(context)
-          .user_home_requested_leaves_tag;
-    } else if (widget.leaveScreenType == upcomingLeave) {
-      return AppLocalizations
-          .of(context)
-          .user_home_upcoming_leaves_tag;
-    } else {
-      return AppLocalizations
-          .of(context)
-          .user_home_all_leaves_tag;
-    }
-  }
 
   Widget _filterBottomSheet(BuildContext context,) {
-    final _localization = AppLocalizations.of(context);
-    return StatefulBuilder(
-      builder: (context, setModelsState){
-        return Container(
-              height: MediaQuery.of(context).size.height * 0.8,
-              padding: const EdgeInsets.all(primaryHorizontalSpacing),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   FilterTitle(text: _localization.leave_type_tag),
-                  StreamBuilder<List<int>>(
-                    initialData: const [],
-                    stream: _userLeavesBLoc.filterByLeaveType,
-                    builder: (context, snapshot) {
-                      return Wrap(
-                        children: leaveTypeMap.entries.map((e) =>
-                            Padding(
-                                padding: const EdgeInsets.only(right: 6),
-                                child: FilterButton(onPressed: () {
-                                    _userLeavesBLoc.changeLeaveTypeFilter(e.key);
-                                }, text: e.value,isSelected: snapshot.data?.contains(e.key) ?? false)
-                            )).toList(),
+    final localization = AppLocalizations.of(context);
+    return StatefulBuilder(builder: (context, setModelsState) {
+      return Container(
+        height: MediaQuery.of(context).size.height * 0.8,
+        padding: const EdgeInsets.all(primaryHorizontalSpacing),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FilterTitle(text: localization.leave_type_tag),
+            StreamBuilder<List<int>>(
+                initialData: const [],
+                stream: _userLeavesBLoc.filterByLeaveType,
+                builder: (context, snapshot) {
+                  return Wrap(
+                    children: leaveTypeMap.entries
+                        .map((e) => Padding(
+                            padding: const EdgeInsets.only(right: 6),
+                            child: FilterButton(
+                                onPressed: () {
+                                  _userLeavesBLoc.changeLeaveTypeFilter(
+                                          e.key);
+                                    },
+                                    text: localization
+                                        .leave_type_placeholder_leave_status(
+                                        e.key),
+                                    isSelected:
+                                    snapshot.data?.contains(e.key) ?? false)))
+                            .toList(),
                       );
                     }
-                  ),
-                  FilterTitle(text: _localization.leave_status_tag),
-                  StreamBuilder<List<int>>(
+                ),
+                FilterTitle(text: localization.leave_status_tag),
+                StreamBuilder<List<int>>(
                     initialData: const [],
                     stream: _userLeavesBLoc.filterByLeaveStatus,
                     builder: (context, snapshot) {
                       return Row(
-                            children: leaveStatusMap.entries.map((e) => Expanded(child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                                  child: FilterButton(onPressed: () {
-                                        _userLeavesBLoc.changeLeaveStatusFilter(e.key);
-                                      }, text: e.value, isSelected: snapshot.data?.contains(e.key) ?? false,)
-                                ))).toList(),
-                          );
-                    }
-                  ),
-                  FilterTitle(text: _localization.user_leave_filter_date_range_tag),
-                  StreamBuilder<DateTime?>(
-                    initialData: null,
-                    stream: _userLeavesBLoc.filterStartTime,
-                    builder: (context, snapshot) {
-                      return ListTile(
-                        onTap: () async {
-                          DateTime? startTime = await pickDate(context: context, initialDate:  snapshot.data ?? DateTime.now(),returnNullOnCancel: true);
-                          _userLeavesBLoc.changeStartTimeFilter(startTime);
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        title: Text(_localization.user_apply_leave_from_tag, style: AppTextStyle.subtitleTextDark,),
-                        trailing: Text((snapshot.data == null)?_localization.user_apply_leave_select_tag:_localization.date_format_yMMMd(snapshot.data!), style: AppTextStyle.subtitleTextDark,),
-                      );
+                        children: leaveStatusMap.entries.map((e) =>
+                            Expanded(child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6),
+                                child: FilterButton(
+                                  onPressed: () {
+                                    _userLeavesBLoc
+                                        .changeLeaveStatusFilter(e.key);
+                                  },
+                                  text: localization
+                                      .leave_status_placeholder_text(e.key),
+                                  isSelected:
+                                      snapshot.data?.contains(e.key) ?? false,
+                                ))))
+                        .toList(),
+                  );
+                }),
+            FilterTitle(text: localization.user_leave_filter_date_range_tag),
+            StreamBuilder<DateTime?>(
+                initialData: null,
+                stream: _userLeavesBLoc.filterStartTime,
+                builder: (context, snapshot) {
+                  return ListTile(
+                    onTap: () async {
+                      DateTime? startTime = await pickDate(
+                          context: context,
+                          initialDate: snapshot.data ?? DateTime.now());
+                      _userLeavesBLoc.changeStartTimeFilter(startTime);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    title: Text(
+                      localization.user_apply_leave_from_tag,
+                      style: AppTextStyle.subtitleTextDark,
+                    ),
+                    trailing: Text(
+                      (snapshot.data == null)
+                          ? localization.user_apply_leave_select_tag
+                          : localization.date_format_yMMMd(snapshot.data!),
+                      style: AppTextStyle.subtitleTextDark,
+                    ),
+                  );
                     }
                   ),
                   StreamBuilder<DateTime?>(
@@ -189,15 +206,25 @@ class _LeaveScreenState extends State<LeaveScreen> {
                     builder: (context, snapshot) {
                       return ListTile(
                         onTap: () async {
-                          DateTime? endTime = await pickDate(context: context, initialDate: snapshot.data?? DateTime.now(),returnNullOnCancel: true);
-                          _userLeavesBLoc.changeEndTimeFilter(endTime);
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        title: Text(_localization.user_apply_leave_to_tag, style: AppTextStyle.subtitleTextDark,),
-                        trailing: Text((snapshot.data == null)?_localization.user_apply_leave_select_tag:_localization.date_format_yMMMd(snapshot.data!), style: AppTextStyle.subtitleTextDark,),
-                      );
+                          DateTime? endTime = await pickDate(
+                          context: context,
+                          initialDate: snapshot.data ?? DateTime.now());
+                      _userLeavesBLoc.changeEndTimeFilter(endTime);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    title: Text(
+                      localization.user_apply_leave_to_tag,
+                      style: AppTextStyle.subtitleTextDark,
+                    ),
+                    trailing: Text(
+                      (snapshot.data == null)
+                          ? localization.user_apply_leave_select_tag
+                          : localization.date_format_yMMMd(snapshot.data!),
+                      style: AppTextStyle.subtitleTextDark,
+                    ),
+                  );
                     }
                   ),
                   const Spacer(),
@@ -205,19 +232,19 @@ class _LeaveScreenState extends State<LeaveScreen> {
                     children: [
                       Expanded(child: OutlinedButton(
                         onPressed: () {
-                          _userLeavesBLoc.removeFilters();
-                          Navigator.pop(context);
-                        },
-                        child:  Text(_localization.user_leave_filter_remove_filter_tag),
-                      )),
+                    _userLeavesBLoc.removeFilters();
+                    Navigator.pop(context);
+                  },
+                  child: Text(localization.user_leave_filter_remove_filter_tag),
+                )),
                       const SizedBox(width: primaryHorizontalSpacing,),
                       Expanded(child: ElevatedButton(
                         onPressed: () {
-                          _userLeavesBLoc.applyFilter();
-                          Navigator.pop(context);
-                        },
-                        child: Text(_localization.user_leave_filter_apply_filter_tag),
-                      ))
+                    _userLeavesBLoc.applyFilter();
+                    Navigator.pop(context);
+                  },
+                  child: Text(localization.user_leave_filter_apply_filter_tag),
+                ))
                     ],
                   )
                 ],

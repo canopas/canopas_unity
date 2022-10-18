@@ -2,10 +2,8 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
-
-import '../../../../../../configs/colors.dart';
 
 class DatePickerCard extends StatelessWidget {
   final Function() onPress;
@@ -16,7 +14,7 @@ class DatePickerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return StreamBuilder<DateTime>(
         stream: stream,
         builder: (context, snapshot) {
@@ -34,12 +32,12 @@ class DatePickerCard extends StatelessWidget {
                       Text(
                           snapshot.data == null
                               ? ''
-                              : _localization.date_format_yMMMd(snapshot.data!),
+                              : localization.date_format_yMMMd(snapshot.data!),
                           style: AppTextStyle.bodyTextDark),
-                      const FaIcon(
-                        FontAwesomeIcons.calendar,
+                      const Icon(
+                        Icons.calendar_today,
                         color: AppColors.secondaryText,
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -79,8 +77,8 @@ class TimePickerCard extends StatelessWidget {
                               ? ''
                               : snapshot.data!.format(context),
                           style: AppTextStyle.bodyTextDark),
-                      const FaIcon(
-                        FontAwesomeIcons.clock,
+                      const Icon(
+                        Icons.access_time,
                         color: AppColors.secondaryText,
                       ),
                     ],

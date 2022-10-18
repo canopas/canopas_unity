@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../configs/text_style.dart';
-import '../../core/utils/const/other_constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
+import '../../configs/text_style.dart';
+import '../../core/utils/const/space_constant.dart';
 
 class ReasonField extends StatelessWidget {
   const ReasonField({Key? key, required this.reason}) : super(key: key);
   final String reason;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.all(primaryHorizontalSpacing),
+      padding: const EdgeInsets.all(primaryHorizontalSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

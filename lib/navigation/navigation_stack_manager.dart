@@ -2,7 +2,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/navigation/nav_stack_item.dart';
+import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 
 import '../provider/user_data.dart';
 

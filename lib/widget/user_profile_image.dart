@@ -13,10 +13,12 @@ class ImageProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  CircleAvatar(
-      child: (imageUrl != null)?null:Icon(Icons.person,size: radius,color: Colors.black54),
       radius: radius,
       backgroundColor: AppColors.primaryGray,
-      backgroundImage: (imageUrl != null)?NetworkImage(imageUrl!):null,
+      backgroundImage: (imageUrl != null) ? NetworkImage(imageUrl!) : null,
+      child: (imageUrl != null)
+          ? null
+          : Icon(Icons.person, size: radius, color: Colors.black54),
     );
   }
 }

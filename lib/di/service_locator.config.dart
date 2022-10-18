@@ -10,12 +10,12 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i8;
 
 import '../bloc/admin/absence/absence_bloc.dart' as _i11;
-import '../bloc/admin/employee/add_memeber_bloc.dart' as _i20;
 import '../bloc/admin/employee/employee_detail_bloc.dart' as _i24;
-import '../bloc/admin/employee_list/employee_list_bloc.dart' as _i14;
+import '../bloc/admin/employee/employee_list_bloc.dart' as _i14;
+import '../bloc/admin/home/add_memeber_bloc.dart' as _i20;
 import '../bloc/admin/home/admin_home_screen_bloc.dart' as _i12;
-import '../bloc/admin/leave_details/admin_leave_details_bloc.dart' as _i21;
-import '../bloc/admin/setting/total_paid_leave_count_bloc.dart' as _i22;
+import '../bloc/admin/leave/admin_leave_details_bloc.dart' as _i21;
+import '../bloc/admin/setting/paid_leave_count_bloc.dart' as _i22;
 import '../bloc/authentication/login_bloc.dart' as _i27;
 import '../bloc/authentication/logout_bloc.dart' as _i26;
 import '../bloc/employee/home/employee_home_bloc.dart' as _i16;
@@ -24,16 +24,16 @@ import '../bloc/employee/leave/user_leave_bloc.dart' as _i19;
 import '../bloc/employee/leave_details/employee_leave_details_bloc.dart'
     as _i25;
 import '../bloc/network/network_service_bloc.dart' as _i6;
+import '../bloc/onboard/onboard_bloc.dart' as _i18;
 import '../navigation/navigation_stack_manager.dart' as _i17;
 import '../pref/user_preference.dart' as _i10;
 import '../provider/user_data.dart' as _i15;
+import '../services/admin/employee/employee_service.dart' as _i5;
+import '../services/admin/paid_leave/paid_leave_service.dart' as _i7;
+import '../services/admin/requests/admin_leave_service.dart' as _i3;
 import '../services/auth/auth_service.dart' as _i4;
-import '../services/employee/employee_service.dart' as _i5;
-import '../services/leave/admin_leave_service.dart' as _i3;
-import '../services/leave/paid_leave_service.dart' as _i7;
 import '../services/leave/user_leave_service.dart' as _i9;
 import '../stateManager/auth/auth_manager.dart' as _i13;
-import '../ui/onboard/onboard_bloc.dart' as _i18;
 import 'AppModule.dart' as _i28; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
@@ -51,9 +51,9 @@ Future<_i1.GetIt> $initGetIt(
   final appModule = _$AppModule();
   gh.factory<_i3.AdminLeaveService>(() => _i3.AdminLeaveService());
   gh.singleton<_i4.AuthService>(_i4.AuthService());
-  gh.singleton<_i5.EmployeeService>(_i5.EmployeeService());
+  gh.factory<_i5.EmployeeService>(() => _i5.EmployeeService());
   gh.factory<_i6.NetworkServiceBloc>(() => _i6.NetworkServiceBloc());
-  gh.singleton<_i7.PaidLeaveService>(_i7.PaidLeaveService());
+  gh.factory<_i7.PaidLeaveService>(() => _i7.PaidLeaveService());
   await gh.factoryAsync<_i8.SharedPreferences>(
     () => appModule.preferences,
     preResolve: true,

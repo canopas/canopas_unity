@@ -46,15 +46,6 @@ class Employee {
       this.level,
       this.bloodGroup});
 
-  String getRole() {
-    if (roleType == kRoleTypeAdmin) {
-      return "Admin";
-    } else if (roleType == kRoleTypeEmployee) {
-      return "Employee";
-    } else {
-      return "HR";
-    }
-  }
 
   factory Employee.fromJson(Map<String, dynamic>? map) =>
       _$EmployeeFromJson(map!);

@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../../configs/text_style.dart';
-import '../../core/utils/const/other_constant.dart';
+import '../../core/utils/const/space_constant.dart';
 
 class LeaveTypeAgoTitle extends StatelessWidget {
   const LeaveTypeAgoTitle(
-      {Key? key, required this.timeAgo, required this.leaveType})
+      {Key? key, required this.appliedOn, required this.leaveType})
       : super(key: key);
 
-  final String timeAgo;
+  final String appliedOn;
   final int leaveType;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: primaryHorizontalSpacing, left: primaryHorizontalSpacing, right: primaryHorizontalSpacing),
+      padding: const EdgeInsets.only(
+          top: primaryHorizontalSpacing,
+          left: primaryHorizontalSpacing,
+          right: primaryHorizontalSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +31,7 @@ class LeaveTypeAgoTitle extends StatelessWidget {
             height: 5,
           ),
           Text(
-            timeAgo,
+            appliedOn,
             style: AppTextStyle.secondarySubtitle500,
           ),
         ],

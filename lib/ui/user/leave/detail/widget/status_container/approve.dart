@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
+
 import '../../../../../../configs/colors.dart';
 import '../../../../../../configs/text_style.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class ApproveStatus extends StatelessWidget {
   const ApproveStatus({
