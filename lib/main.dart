@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -7,6 +8,7 @@ import 'package:projectunity/l10n/l10n.dart';
 import 'package:projectunity/navigation/back_button_delegate.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import 'bloc/network/network_service_bloc.dart';
 import 'configs/theme.dart';
 import 'di/service_locator.dart';
@@ -47,6 +49,14 @@ class _MyAppState extends State<MyApp> {
   final _networkServiceBloc = getIt<NetworkServiceBloc>();
   final _stateManager = getIt<NavigationStackManager>();
   final _userManager = getIt<UserManager>();
+  late MainRouterDelegate _routerDelegate;
+  late AppBackButtonDispatcher _backButtonDispatcher;
+
+  _MyAppState() {
+    _backButtonDispatcher = AppBackButtonDispatcher(_stateManager);
+    _routerDelegate =
+        MainRouterDelegate(stack: _stateManager, userManager: _userManager);
+  }
 
   @override
   void initState() {
@@ -77,9 +87,8 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       home: Router(
-          backButtonDispatcher: AppBackButtonDispatcher(_stateManager),
-          routerDelegate: MainRouterDelegate(
-              stack: _stateManager, userManager: _userManager)),
+          backButtonDispatcher: _backButtonDispatcher,
+          routerDelegate: _routerDelegate),
     );
   }
 }
