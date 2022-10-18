@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/navigation/nav_stack_item.dart';
+import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 
 import '../../../../../configs/colors.dart';
@@ -19,8 +19,8 @@ class LeaveCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _color = getContainerColor(leave.leaveStatus);
-    final _localize = AppLocalizations.of(context);
+    final color = getLeaveContainerColor(leave.leaveStatus);
+    final localize = AppLocalizations.of(context);
     return InkWell(
       borderRadius: const BorderRadius.only(
           topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
@@ -31,7 +31,7 @@ class LeaveCard extends StatelessWidget {
           BuildLeaveDateContainer(
             startDate: leave.startDate,
             endDate: leave.endDate,
-            color: _color,
+            color: color,
           ),
           Expanded(
             child: SizedBox(
@@ -43,7 +43,7 @@ class LeaveCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _localize
+                      localize
                           .leave_type_placeholder_leave_status(leave.leaveType),
                       style: AppTextStyle.darkSubtitle700,
                     ),
@@ -53,8 +53,8 @@ class LeaveCard extends StatelessWidget {
                     const SizedBox(
                       height: 4,
                     ),
-                    _buildLeaveStatus(
-                        leaveStatusText: _localize
+                    _leaveStatusIcon(
+                        leaveStatusText: localize
                             .leave_status_placeholder_text(leave.leaveStatus)),
                   ],
                 ),
@@ -66,19 +66,6 @@ class LeaveCard extends StatelessWidget {
     );
   }
 
-  RichText _buildRejectionCause() {
-    return RichText(
-        softWrap: true,
-        overflow: TextOverflow.visible,
-        text: TextSpan(
-            text: 'Reason: ',
-            style: AppTextStyle.secondarySubtitle500,
-            children: [
-              TextSpan(
-                  text: leave.rejectionReason,
-                  style: AppTextStyle.secondaryBodyText)
-            ]));
-  }
 
   Widget _buildReason() {
     return Text(
@@ -89,7 +76,7 @@ class LeaveCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLeaveStatus({required String leaveStatusText}) {
+  Widget _leaveStatusIcon({required String leaveStatusText}) {
     return Row(
       children: [
         if (leave.leaveStatus == pendingLeaveStatus)

@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
+
 import '../../../../../configs/colors.dart';
+import '../../../../../core/utils/const/leave_screen_type_map.dart';
 import '../../../../../model/leave/leave.dart';
 import 'leave_date_container.dart';
 
-Color getContainerColor(int status) {
-  if (status == 2) {
-    return AppColors.primaryDarkYellow;
-  } else if (status == 3) {
-    return AppColors.blackColor;
-  }
-  return AppColors.lightGreyColor;
-}
 
 class LeaveWidget extends StatelessWidget {
   final Leave leave;
@@ -21,9 +15,9 @@ class LeaveWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _leaveType = AppLocalizations.of(context)
+    String leaveType = AppLocalizations.of(context)
         .leave_type_placeholder_leave_status(leave.leaveStatus);
-    String _leaveStatus = AppLocalizations.of(context)
+    String leaveStatus = AppLocalizations.of(context)
         .leave_status_placeholder_text(leave.leaveStatus);
     return Column(
       children: [
@@ -33,7 +27,7 @@ class LeaveWidget extends StatelessWidget {
             BuildLeaveDateContainer(
               startDate: leave.startDate,
               endDate: leave.endDate,
-              color: getContainerColor(leave.leaveStatus),
+              color: getLeaveContainerColor(leave.leaveStatus),
             ),
             const SizedBox(
               width: 20,
@@ -46,18 +40,16 @@ class LeaveWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _leaveType,
+                      leaveType,
                       style: AppTextStyle.darkSubtitle700,
                     ),
-                    Text(
-                      leave.reason,
-                      overflow: TextOverflow.visible,
-                      style: AppTextStyle.secondaryBodyText
-                    ),
+                    Text(leave.reason,
+                        overflow: TextOverflow.visible,
+                        style: AppTextStyle.secondaryBodyText),
                     const SizedBox(
                       height: 5,
                     ),
-                    _buildLeaveStatus(leaveStatus: _leaveStatus),
+                    _buildLeaveStatus(leaveStatus: leaveStatus),
                     if (leave.rejectionReason != null)
                       _buildRejectionCause(
                           AppLocalizations.of(context).leave_reason_tag),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/bloc/admin/employee/add_memeber_bloc.dart';
+import 'package:projectunity/bloc/admin/home/add_memeber_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../widget/date_time_picker.dart';
@@ -77,13 +78,13 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   }
 
   _buildForm() {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return ListView(
-      padding:  EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: primaryHorizontalSpacing,
         right: primaryHorizontalSpacing,
         top: 24,
-        bottom: MediaQuery.of(context).viewInsets.bottom != 0?0:80,
+        bottom: MediaQuery.of(context).viewInsets.bottom != 0 ? 0 : 80,
       ),
       children: [
         ToggleButton(
@@ -102,29 +103,29 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildTextFieldTitle(title: _localization.employee_employeeID_tag),
+            _buildTextFieldTitle(title: localization.employee_employeeID_tag),
             _buildTextField(
-                hintText: _localization.admin_addMember_hint_employeeId,
+                hintText: localization.admin_addMember_hint_employeeId,
                 stream: _bloc.employeeId,
                 onChanged: (employeeId) =>
                     _bloc.validateEmployeeId(employeeId, context)),
-            _buildTextFieldTitle(title: _localization.employee_name_tag),
+            _buildTextFieldTitle(title: localization.employee_name_tag),
             _buildTextField(
-                hintText: _localization.admin_addMember_hint_name,
+                hintText: localization.admin_addMember_hint_name,
                 stream: _bloc.name,
                 onChanged: (name) => _bloc.validateName(name, context)),
-            _buildTextFieldTitle(title: _localization.employee_email_tag),
+            _buildTextFieldTitle(title: localization.employee_email_tag),
             _buildTextField(
-                hintText: _localization.admin_addMember_hint_email,
+                hintText: localization.admin_addMember_hint_email,
                 stream: _bloc.email,
                 onChanged: (email) => _bloc.validateEmail(email, context)),
-            _buildTextFieldTitle(title: _localization.employee_designation_tag),
+            _buildTextFieldTitle(title: localization.employee_designation_tag),
             _buildTextField(
-                hintText: _localization.admin_addMember_hint_designation,
+                hintText: localization.admin_addMember_hint_designation,
                 stream: _bloc.designation,
                 onChanged: (designation) =>
                     _bloc.validateDesignation(designation, context)),
-            _buildTextFieldTitle(title: _localization.employee_dateOfJoin_tag),
+            _buildTextFieldTitle(title: localization.employee_dateOfJoin_tag),
             _buildDateOfJoiningButton(),
           ],
         )
@@ -134,15 +135,16 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
 
   _buildDateOfJoiningButton(){
     return StreamBuilder<DateTime>(
-        initialData: _bloc.currentTime,
         stream: _bloc.dateOfJoining,
         builder: (context, snapshot) {
           return TextField(
             onTap: () async {
-              DateTime? _joiningDate = await pickDate(
-                   context: context, initialDate: snapshot.data!);
-                          _bloc.validateDateOfJoining(_joiningDate!);
-              _dateController.text = AppLocalizations.of(context).date_format_yMMMd(_joiningDate);
+              DateTime? joiningDate =
+                  await pickDate(context: context, initialDate: snapshot.data!);
+              _bloc.validateDateOfJoining(joiningDate!);
+
+              _dateController.text =
+                  AppLocalizations.of(context).date_format_yMMMd(joiningDate);
             },
             controller: _dateController,
             keyboardType: TextInputType.none,
@@ -207,12 +209,11 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 60),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: (snapshot.data ?? false)
+                  backgroundColor: (snapshot.data!)
                       ? AppColors.primaryBlue
                       : AppColors.greyColor,
                 ),
-                onPressed: () =>
-                    (snapshot.data ?? false) ? _bloc.addEmployee() : null,
+                onPressed: () => snapshot.data! ? _bloc.addEmployee() : null,
                 child: Text(
                     AppLocalizations.of(context).admin_addMember_button_submit,
                     style: AppTextStyle.subtitleText)));

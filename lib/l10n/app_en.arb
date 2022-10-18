@@ -39,6 +39,8 @@
                           }
                        },
 
+
+
    "user_home_all_leaves_tag": "All Leaves",
    "total_paid_leaves":"Total Leaves",
    "user_home_requested_leaves_tag": "Requested Leaves",
@@ -46,6 +48,26 @@
    "user_home_apply_leave_tag": "Apply for Leave",
    "user_home_who_onLeave_tag": "Who's on leave today?",
    "user_home_button_view_all": "View All",
+
+   "leave_screen_header_placeholder_leave_screen_type":"{leaveScreenType, select,  1{All Leaves} 2{Requested Leaves} 3{Upcoming Leaves} }",
+           "@leave_screen_header_placeholder_leave_screen_type":{
+              "description":"get leaves screen appbar title from leaves screen type ",
+                "placeholders":{
+                   "leaveScreenType":{
+                      "type":"int"
+                           }
+                        }
+                    },
+
+       "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}",
+            "@user_detail_role_type":{
+                 "description": "Pass the value of role to get role of user",
+                    "placeholders": {
+                         "role":{
+                           "type": "int"
+                                 }
+                             }
+                          },
 
 
    "user_home_placeholder_onleave_member": "{totalMember,plural, =0 {No member on leave, today.} =1{{name} is on leave today}} other{{name} & {totalMember} others...}}",

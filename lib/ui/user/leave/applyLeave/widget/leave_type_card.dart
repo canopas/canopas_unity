@@ -13,7 +13,7 @@ class LeaveTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,10 +22,8 @@ class LeaveTypeCard extends StatelessWidget {
             flex: 11,
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
-              child: Text(
-                _localization.leave_type_tag,
-                style: AppTextStyle.leaveRequestFormSubtitle
-              ),
+              child: Text(localization.leave_type_tag,
+                  style: AppTextStyle.leaveRequestFormSubtitle),
             ),
           ),
           Expanded(
@@ -47,7 +45,7 @@ class LeaveTypeCard extends StatelessWidget {
                               key,
                               DropdownMenuItem<int>(
                                 value: key,
-                                child: Text(_localization
+                                child: Text(localization
                                     .leave_type_placeholder_leave_status(key)),
                               ));
                         })

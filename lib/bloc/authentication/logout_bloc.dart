@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
-import 'package:projectunity/navigation/nav_stack_item.dart';
+import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';

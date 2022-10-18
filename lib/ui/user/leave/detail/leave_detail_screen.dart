@@ -3,12 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/bloc/employee/leave_details/employee_leave_details_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/core/utils/date_formatter.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/ui/user/leave/detail/widget/aprroval_status_tag.dart';
 import 'package:projectunity/ui/user/leave/detail/widget/leave_action_button.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../widget/Leave_details_screen_widgets/leave_details_header_content.dart';
 import '../../../../widget/Leave_details_screen_widgets/reason_content.dart';
@@ -40,25 +41,30 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
-    String appliedTime = DateFormatter(_localization).timeAgoPresentation(widget.leave.appliedOn);
-
+    var localization = AppLocalizations.of(context);
+    String appliedTime =
+        DateFormatter(localization).timeAgoPresentation(widget.leave.appliedOn);
 
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           title: Text(
-            _localization.leave_detail_title,
+            localization.leave_detail_title,
             style: AppTextStyle.appBarTitle,
           ),
         ),
         body: ListView(
           children: [
-            LeaveTypeAgoTitle(timeAgo: appliedTime, leaveType: widget.leave.leaveType),
+            LeaveTypeAgoTitle(
+                appliedOn: appliedTime, leaveType: widget.leave.leaveType),
             const SizedBox(
               height: primaryHorizontalSpacing,
             ),
-            RemainingLeaveContainer(leave: widget.leave, remainingLeaveStream: _employeeLeaveDetailsBloc.remainingLeaveStream,),
+            RemainingLeaveContainer(
+              leave: widget.leave,
+              remainingLeaveStream:
+                  _employeeLeaveDetailsBloc.remainingLeaveStream,
+            ),
             ReasonField(
               reason: widget.leave.reason,
             ),
@@ -71,13 +77,15 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
         floatingActionButton: (widget.leave.leaveStatus != approveLeaveStatus ||
                 widget.leave.startDate > DateTime.now().timeStampToInt)
             ? LeaveActionButton(leaveStatus: widget.leave.leaveStatus, onPressed: (){
-          _employeeLeaveDetailsBloc.removeLeaveRequest(leave: widget.leave);
-          showSnackBar(
-              context: context,
-              msg: (widget.leave.leaveStatus == pendingLeaveStatus)
-                  ? _localization.user_leave_detail_cancel_leave_message
-                  : _localization.user_leave_detail_delete_leave_message);
-        },)
+          _employeeLeaveDetailsBloc.removeLeaveRequest(
+                      leave: widget.leave);
+                  showSnackBar(
+                      context: context,
+                      msg: (widget.leave.leaveStatus == pendingLeaveStatus)
+                          ? localization.user_leave_detail_cancel_leave_message
+                          : localization
+                              .user_leave_detail_delete_leave_message);
+                },)
             : null);
   }
 }

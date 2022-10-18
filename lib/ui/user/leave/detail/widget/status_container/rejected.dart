@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
-import '../../../../../../configs/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
+
+import '../../../../../../configs/colors.dart';
 
 class RejectStatus extends StatelessWidget {
   const RejectStatus({

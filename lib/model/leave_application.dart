@@ -1,6 +1,7 @@
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/model/employee_leave_count/employee_leave_count.dart';
 import 'package:projectunity/model/leave/leave.dart';
+
+import 'leave_count.dart';
 
 class LeaveApplication {
   Employee employee;
@@ -8,5 +9,5 @@ class LeaveApplication {
   LeaveCounts? leaveCounts;
 
   LeaveApplication(
-      {required this.employee, required this.leave,  this.leaveCounts});
+      {required this.employee, required this.leave, this.leaveCounts});
 }

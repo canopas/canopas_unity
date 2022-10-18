@@ -23,7 +23,7 @@ class ApplyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return Expanded(
         flex: 2,
         child: StreamBuilder<ApiResponse<bool>>(
@@ -37,8 +37,7 @@ class ApplyButton extends StatelessWidget {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
                         showSnackBar(
                             context: context,
-                            msg:
-                                _localization.user_apply_leave_success_message);
+                            msg: localization.user_apply_leave_success_message);
                       });
                     }
                     return Container();
@@ -47,14 +46,13 @@ class ApplyButton extends StatelessWidget {
                     return Container();
                   });
               return ElevatedButton(
+                  onPressed: onPress,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                        _localization.user_apply_leave_button_apply_leave,
+                        localization.user_apply_leave_button_apply_leave,
                         style: AppTextStyle.leaveRequestBottomBarTextStyle),
-                  ),
-                  onPressed: onPress);
-              ;
+                  ));
             }));
   }
 }
@@ -69,18 +67,18 @@ class ResetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return Expanded(
       flex: 1,
       child: ElevatedButton(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Text(_localization.user_apply_leave_button_reset,
-              style: AppTextStyle.leaveRequestBottomBarTextStyle),
-        ),
         onPressed: onPress,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.secondaryText,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Text(localization.user_apply_leave_button_reset,
+              style: AppTextStyle.leaveRequestBottomBarTextStyle),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../model/leave/leave.dart';
@@ -11,7 +12,7 @@ class LeaveActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -22,8 +23,8 @@ class LeaveActionButton extends StatelessWidget {
       ),
       child: Text(
           (leaveStatus == pendingLeaveStatus)
-              ? _localization.user_leave_detail_button_cancel
-              : _localization.user_leave_detail_button_delete,
+              ? localization.user_leave_detail_button_cancel
+              : localization.user_leave_detail_button_delete,
           style: AppTextStyle.subtitleText),
     );
   }

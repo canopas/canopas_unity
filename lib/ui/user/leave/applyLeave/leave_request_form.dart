@@ -7,11 +7,12 @@ import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/leave_
 import 'package:projectunity/ui/user/leave/applyLeave/widget/datetimecard/picker_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
+
 import '../../../../bloc/employee/leave/apply_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/font_size.dart';
 import '../../../../configs/text_style.dart';
-import '../../../../core/utils/const/other_constant.dart';
+import '../../../../core/utils/const/space_constant.dart';
 import '../../../../widget/date_time_picker.dart';
 
 class LeaveRequestForm extends StatefulWidget {
@@ -45,12 +46,12 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _localization.leave_request_tag,
+          localization.leave_request_tag,
         ),
       ),
       body: ListView(
@@ -64,9 +65,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
             },
           ),
           LeaveRequestSubTitle(
-              subtitle: _localization.user_apply_leave_from_tag),
+              subtitle: localization.user_apply_leave_from_tag),
           _buildStartLeaveCard(),
-          LeaveRequestSubTitle(subtitle: _localization.user_apply_leave_to_tag),
+          LeaveRequestSubTitle(subtitle: localization.user_apply_leave_to_tag),
           _buildEndLeaveCard(),
           _buildReasonCard(),
           Container(height: 50)

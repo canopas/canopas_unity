@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/user/leave/detail/widget/status_container/approve.dart';
 import 'package:projectunity/ui/user/leave/detail/widget/status_container/pending.dart';
 import 'package:projectunity/ui/user/leave/detail/widget/status_container/rejected.dart';
+
 import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/other_constant.dart';
+import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../model/leave/leave.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class ApprovalStatusTag extends StatelessWidget {
   const ApprovalStatusTag({Key? key, required this.leaveStatus, required this.rejectionReason}) : super(key: key);

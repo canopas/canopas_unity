@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:projectunity/l10n/l10n.dart';
-import 'package:projectunity/navigation/back_button_delegate.dart';
+import 'package:projectunity/navigation/app_back_button_dispatcher.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
 
@@ -20,17 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await configureDependencies();
   runApp(
-    MaterialApp(
-      theme: AppTheme.lightTheme,
-      title: 'ProjectUnity Flutter',
-      supportedLocales: L10n.all,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      home: const MyApp(),
-    ),
+    const MyApp(),
   );
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
     String error = flutterErrorDetails.exceptionAsString();
@@ -42,7 +32,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {

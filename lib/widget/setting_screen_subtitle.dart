@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 
 import '../configs/text_style.dart';
 

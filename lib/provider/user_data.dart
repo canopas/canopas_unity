@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
+
 import '../core/utils/const/role.dart';
 
 @Singleton()
@@ -13,9 +14,6 @@ class UserManager {
 
   String? getUserName() {
     String? fullName = _employee?.name;
-    List<String>? words = fullName?.split(" ");
-    String name = words![0];
-
     return fullName;
   }
 

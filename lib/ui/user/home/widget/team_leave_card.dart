@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../model/leave_application.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/core/utils/const/other_constant.dart';
+
 class TeamLeaveCard extends StatelessWidget {
   final void Function()? onTap;
   final List<LeaveApplication> leaveApplication;
 
-  const TeamLeaveCard({Key? key, required this.onTap, required this.leaveApplication}) : super(key: key);
+  const TeamLeaveCard(
+      {Key? key, required this.onTap, required this.leaveApplication})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

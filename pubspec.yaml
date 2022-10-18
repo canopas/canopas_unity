@@ -13,33 +13,33 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl:
-  google_sign_in: ^5.2.1
-  json_annotation: ^4.6.0
-  device_info_plus: ^3.2.1
-  package_info_plus: ^1.2.1
-  get_it: ^7.2.0
-  shared_preferences: ^2.0.13
-  rxdart: ^0.27.3
-  injectable: ^1.5.3
-  freezed: ^1.1.1
-  freezed_annotation: ^1.1.0
-  font_awesome_flutter:
-  firebase_core: ^1.17.1
-  firebase_auth: ^3.3.19
   cloud_firestore: ^3.1.17
-  provider: ^6.0.3
-  uuid: ^3.0.6
   connectivity_plus: ^2.3.7
-  sticky_headers: ^0.3.0
+  device_info_plus: ^6.0.0
   event_bus: ^2.0.0
+  firebase_auth: ^3.3.19
+  firebase_core: ^1.17.1
+  freezed: ^2.2.0
+  freezed_annotation: ^2.2.0
+  get_it: ^7.2.0
+  google_sign_in: ^5.2.1
+  intl:
+  injectable: ^1.5.3
+  json_annotation: ^4.6.0
+  package_info_plus: ^2.0.0
+  provider: ^6.0.3
+  rxdart: ^0.27.5
+  shared_preferences: ^2.0.15
+  sticky_headers: ^0.3.0
+  uuid: ^3.0.6
+
 
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   json_serializable: ^6.1.4
   build_runner: ^2.1.7
   injectable_generator:

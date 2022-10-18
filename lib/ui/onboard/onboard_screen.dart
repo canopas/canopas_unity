@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/bloc/onboard/onboard_bloc.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/ui/onboard/onboard_bloc.dart';
 
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
