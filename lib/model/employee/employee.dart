@@ -3,15 +3,13 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../core/utils/const/role.dart';
-
 part 'employee.g.dart';
 
 @JsonSerializable()
 class Employee {
   String id;
   @JsonKey(name: 'role_type')
-  int roleType = kRoleTypeEmployee;
+  int roleType;
   String name;
   String email;
   @JsonKey(name: 'employee_id')
