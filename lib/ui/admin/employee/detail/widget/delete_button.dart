@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
@@ -26,14 +25,14 @@ class DeleteButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 4),
         child: ElevatedButton(
-            child: Text(
-              AppLocalizations.of(context).user_leave_detail_button_delete,
-              style: AppTextStyle.subtitleText,
-            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.redColor,
             ),
-            onPressed: onTap),
+            onPressed: onTap,
+            child: Text(
+              AppLocalizations.of(context).user_leave_detail_button_delete,
+              style: AppTextStyle.subtitleText,
+            )),
       ),
     );
   }

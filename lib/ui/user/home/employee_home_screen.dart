@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
@@ -120,38 +119,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                   stream: _leaveCount.leaveCounts,
                   initialData: LeaveCounts(),
                   builder: (context, AsyncSnapshot snapshot) => LeaveStatus(leaveCounts: snapshot.data)))
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTitle({required Function() onPress}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-        children: [
-          Text(
-            AppLocalizations.of(context).user_home_who_onLeave_tag,
-            style: const TextStyle(
-              fontSize: titleTextSize,
-              color: AppColors.secondaryText,
-            ),
-          ),
-          TextButton(
-              onPressed: onPress,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: Text(
-                  AppLocalizations.of(context).user_home_button_view_all,
-                  style: const TextStyle(
-                    color: AppColors.blueGrey,
-                    fontSize: smallTextSize,
-                  ),
-                ),
-              ))
         ],
       ),
     );

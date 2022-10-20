@@ -13,23 +13,23 @@ class ProfileDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextColumn(
-          title: _localization.employee_mobile_tag,
+          title: localization.employee_mobile_tag,
           subtitle: employee.phone,
         ),
         TextColumn(
-            title: _localization.employee_email_tag,
+            title: localization.employee_email_tag,
             subtitle: employee.email),
         TextColumn(
-          title: _localization.employee_dateOfJoin_tag,
-          subtitle: (employee.dateOfJoining != null)?_localization.date_format_yMMMd(employee.dateOfJoining!.toDate):" - ",
+          title: localization.employee_dateOfJoin_tag,
+          subtitle: (employee.dateOfJoining != null)?localization.date_format_yMMMd(employee.dateOfJoining!.toDate):" - ",
         ),
         TextColumn(
-          title: _localization.employee_level_tag,
+          title: localization.employee_level_tag,
           subtitle: employee.level,
         ),
       ],

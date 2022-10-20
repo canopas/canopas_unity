@@ -6,7 +6,6 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../../bloc/admin/setting/paid_leave_count_bloc.dart';
 import '../../../../configs/font_size.dart';
 import '../../../../di/service_locator.dart';
@@ -51,7 +50,7 @@ class _AdminUpdateLeaveCountsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final _localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
@@ -63,14 +62,14 @@ class _AdminUpdateLeaveCountsScreenState
         padding: const EdgeInsets.all(30),
         children: [
           Text(
-            _localizations.settings_setting_text,
+            localizations.settings_setting_text,
             style: AppTextStyle.largeHeaderBold,
           ),
           const SizedBox(
             height: primaryVerticalSpacing,
           ),
           Text(
-            _localizations.admin_total_yearly_paid_leave_text,
+            localizations.admin_total_yearly_paid_leave_text,
             style: AppTextStyle.settingSubTitle.copyWith(fontSize: subTitleTextSize),
           ),
           const SizedBox(
@@ -92,7 +91,7 @@ class _AdminUpdateLeaveCountsScreenState
               hintStyle: AppTextStyle.secondarySubtitle500,
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              hintText: _localizations.total_paid_leaves,
+              hintText: localizations.total_paid_leaves,
             ),
           ),
           const SizedBox(
@@ -121,8 +120,8 @@ class _AdminUpdateLeaveCountsScreenState
         return ElevatedButton(
             onPressed: (snapshot.data!)
                 ? () async {
-                    int _leaveCount = int.parse(_allLeaveCountController.text);
-                    await _adminLeaveCount.updateLeaveCount(leaveCount: _leaveCount);
+                    int leaveCount = int.parse(_allLeaveCountController.text);
+                    await _adminLeaveCount.updateLeaveCount(leaveCount: leaveCount);
                   }
                 : null,
             child: Text(

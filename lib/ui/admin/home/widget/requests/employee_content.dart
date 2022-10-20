@@ -15,7 +15,7 @@ class EmployeeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return Row(
       children: [
         ImageProfile(
@@ -49,7 +49,7 @@ class EmployeeContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              _localization.admin_leave_detail_daysLeft_tag,
+              localization.admin_leave_detail_daysLeft_tag,
               style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),),
             const SizedBox(
               height: 5,

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../configs/text_style.dart';
 
 class EmployeeSummaryContent extends StatelessWidget {

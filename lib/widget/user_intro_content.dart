@@ -21,7 +21,7 @@ class UserIntroContent extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         child: Row(
           children: [
-            ImageProfile(
+            const ImageProfile(
               radius: 38,
             ),
             const SizedBox(

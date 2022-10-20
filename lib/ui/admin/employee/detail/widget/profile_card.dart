@@ -14,7 +14,7 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = AppLocalizations.of(context);
+    var localization = AppLocalizations.of(context);
     return Stack(
       alignment: const Alignment(0,-1),
       children: [
@@ -56,13 +56,13 @@ class ProfileCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextColumn(
-                    title: _localization.employee_role_tag,
+                    title: localization.employee_role_tag,
                     subtitle:
-                        _localization.user_detail_role_type(employee.roleType),
+                        localization.user_detail_role_type(employee.roleType),
                   ),
                   Container(height: MediaQuery.of(context).size.height*0.06,width: 1, color: AppColors.greyColor,),
                   TextColumn(
-                    title:   _localization.employee_employeeID_tag,
+                    title:   localization.employee_employeeID_tag,
                     subtitle:  employee.employeeId,
                   ),
                 ],

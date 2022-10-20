@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
@@ -7,7 +6,6 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../exception/error_const.dart';
 import '../../../model/employee/employee.dart';
 import '../../../model/leave/leave.dart';

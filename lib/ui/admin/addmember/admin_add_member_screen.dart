@@ -134,6 +134,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   }
 
   _buildDateOfJoiningButton(){
+    final localization = AppLocalizations.of(context);
     return StreamBuilder<DateTime>(
         stream: _bloc.dateOfJoining,
         builder: (context, snapshot) {
@@ -142,9 +143,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
               DateTime? joiningDate =
                   await pickDate(context: context, initialDate: snapshot.data!);
               _bloc.validateDateOfJoining(joiningDate!);
-
-              _dateController.text =
-                  AppLocalizations.of(context).date_format_yMMMd(joiningDate);
+              _dateController.text = localization.date_format_yMMMd(joiningDate);
             },
             controller: _dateController,
             keyboardType: TextInputType.none,
