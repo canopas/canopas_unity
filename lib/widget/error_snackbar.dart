@@ -12,9 +12,9 @@ SnackBar showSnackBar(
 }
 
 class ErrorScreen extends StatelessWidget {
-  String error;
+  final String error;
 
-  ErrorScreen({Key? key, required this.error}) : super(key: key);
+  const ErrorScreen({Key? key, required this.error}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

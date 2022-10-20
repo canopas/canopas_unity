@@ -26,7 +26,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     List<OnBoardingContents> onBoardContents =
         OnBoardingContents.contents(context);
 
-    bool _isLastPage = currentPage + 1 == onBoardContents.length;
+    bool isLastPage = currentPage + 1 == onBoardContents.length;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,7 +36,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             Expanded(
               flex: 1,
               child: Visibility(
-                  visible: !_isLastPage,
+                  visible: !isLastPage,
                   child: Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
@@ -101,11 +101,11 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: AppColors.peachColor,
+                    backgroundColor: AppColors.peachColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25))),
                 onPressed: () {
-                  if (_isLastPage) {
+                  if (isLastPage) {
                     _bloc.setOnBoardCompleted();
                   } else {
                     _controller.nextPage(
@@ -117,7 +117,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: Text(
-                    _isLastPage
+                    isLastPage
                         ? AppLocalizations.of(context).onBoard_start_button
                         : AppLocalizations.of(context).onBoard_next_button,
                     style: AppTextStyle.onBoardButton,

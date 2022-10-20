@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../configs/colors.dart';
 
 class ImageProfile extends StatelessWidget {
-  String? imageUrl;
-  double radius;
+  final String? imageUrl;
+  final double radius;
 
-  ImageProfile({Key? key, this.imageUrl, required this.radius})
+  const ImageProfile({Key? key, this.imageUrl, required this.radius})
       : super(key: key);
 
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../model/leave_application.dart';
@@ -52,7 +51,6 @@ class TeamLeaveCard extends StatelessWidget {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             ...leaveApplication.map((e) => Container(
-                              child: (e.employee.imageUrl != null)?null:const Icon(Icons.person,size: 30,color: Colors.black54),
                               margin: const EdgeInsets.only(right: primaryVerticalSpacing,bottom: primaryVerticalSpacing),
                               height: MediaQuery.of(context).size.width * 0.12,
                               width: MediaQuery.of(context).size.width * 0.12,
@@ -63,6 +61,7 @@ class TeamLeaveCard extends StatelessWidget {
                                 color: AppColors.primaryGray,
                                 borderRadius: BorderRadius.circular(12),
                               ),
+                              child: (e.employee.imageUrl != null)?null:const Icon(Icons.person,size: 30,color: Colors.black54),
                             )).take(5),
                         Text(AppLocalizations.of(context).who_is_out_card_message(leaveApplication.length<2?leaveApplication.length:leaveApplication.length-1, (leaveApplication.isEmpty)?"":leaveApplication!.first.employee.name), style: AppTextStyle.secondarySubtitle500,),
                       ]),

@@ -6,7 +6,6 @@ import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
-
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../di/service_locator.dart';
 import '../../../navigation/navigation_stack_manager.dart';
@@ -27,7 +26,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
@@ -39,16 +38,16 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
           padding: const EdgeInsets.all(primaryHorizontalSpacing),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(_localizations.settings_setting_text,
+            Text(localizations.settings_setting_text,
                 style: AppTextStyle.largeHeaderBold),
             buildSettingSubTitle(
-                subtitle: _localizations.settings_account_text),
+                subtitle: localizations.settings_account_text),
             UserIntroContent(),
             buildSettingSubTitle(
-                subtitle: _localizations.settings_setting_text),
+                subtitle: localizations.settings_setting_text),
                       SettingOption(
                         icon: Icons.edit_note,
-                        title: _localizations.admin_total_leave_count_text,
+                        title: localizations.admin_total_leave_count_text,
                         onTap: () {
                           _stateManager.push(const NavStackItem.paidLeaveSettingsState());
               },
@@ -64,7 +63,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                               error: (error){
                                 showSnackBar(
                           context: context,
-                          error: _localizations.sign_out_failed_message);
+                          error: localizations.sign_out_failed_message);
                       return _signOutButton();
                     }
                           );
