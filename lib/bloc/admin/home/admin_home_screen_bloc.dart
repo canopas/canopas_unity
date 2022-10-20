@@ -25,6 +25,8 @@ class AdminHomeScreenBloc extends BaseBLoc {
   AdminHomeScreenBloc(this._employeeService, this._adminLeaveService,
       this._userPaidLeaveService);
 
+  final BehaviorSubject<List<Employee>> _employees =
+      BehaviorSubject<List<Employee>>();
   final _totalEmployees = BehaviorSubject<int>.seeded(0);
 
   get totalEmployees => _totalEmployees;
@@ -51,13 +53,19 @@ class AdminHomeScreenBloc extends BaseBLoc {
     _absenceCount.sink.add(absentEmployees.length);
   }
 
+  void _getEmployees() {
+    _employeeService.getEmployeesStream().listen((employees) {
+      _employees.add(employees);
+      _totalEmployees.add(employees.length);
+    });
+  }
+
   void _listenStream() async {
     _leaveApplication.add(const ApiResponse.loading());
 
     try {
       _combineStream.listen((event) {
         _totalRequest.add(event.length);
-
         Map<DateTime, List<LeaveApplication>> map = event.groupBy(
             (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
         _leaveApplication.add(ApiResponse.completed(data: map));
@@ -69,20 +77,16 @@ class AdminHomeScreenBloc extends BaseBLoc {
   }
 
   Stream<List<LeaveApplication>> get _combineStream => Rx.combineLatest2(
-          _adminLeaveService.getAllRequests(),
-          _employeeService.getEmployeesStream(),
+      _adminLeaveService.getAllRequests(), _employees,
           (List<Leave> leaveList, List<Employee> employeeList) {
         return leaveList
             .map((leave) {
-          _totalEmployees.add(employeeList.length);
-
               final employee = employeeList
                   .firstWhereOrNull((element) => element.id == leave.uid);
               if (employee == null) {
                 return null;
               }
               LeaveCounts leaveCounts = _addLeaveCount(leave);
-
               return LeaveApplication(
                   leave: leave, employee: employee, leaveCounts: leaveCounts);
             })
@@ -103,12 +107,14 @@ class AdminHomeScreenBloc extends BaseBLoc {
   void attach() async {
     await _getPaidLeaves();
     _getAbsentEmployees();
+    _getEmployees();
     _listenStream();
   }
 
   @override
   void detach() async {
     await _absenceCount.drain();
+    _employees.close();
     _absenceCount.close();
     _totalRequest.close();
     _totalEmployees.close();
