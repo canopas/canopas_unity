@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/leave/leave.dart';
-
 import '../../core/utils/const/firestore.dart';
 
 @Singleton()
@@ -59,7 +58,9 @@ class UserLeaveService {
             element.startDate < currentTime.millisecondsSinceEpoch &&
             element.startDate.toDate.year == currentTime.year)
         .forEach((element) {
-      leaveCount += element.totalLeaves;
+         int weekendDays = List.generate(element.endDate.toDate.difference(element.startDate.toDate).inDays,
+                 (differenceByDays) => element.startDate.toDate.add(Duration(days: differenceByDays))).where((date) => date.weekday == DateTime.saturday || date.weekday == DateTime.sunday).length;
+      leaveCount += element.totalLeaves - weekendDays;
     });
 
     return leaveCount;

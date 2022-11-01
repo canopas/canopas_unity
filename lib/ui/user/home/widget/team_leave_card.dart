@@ -63,7 +63,7 @@ class TeamLeaveCard extends StatelessWidget {
                               ),
                               child: (e.employee.imageUrl != null)?null:const Icon(Icons.person,size: 30,color: Colors.black54),
                             )).take(5),
-                        Text(AppLocalizations.of(context).who_is_out_card_message(leaveApplication.length<2?leaveApplication.length:leaveApplication.length-1, (leaveApplication.isEmpty)?"":leaveApplication!.first.employee.name), style: AppTextStyle.secondarySubtitle500,),
+                        Text(AppLocalizations.of(context).who_is_out_card_message(leaveApplication.length,leaveApplication.length-1,(leaveApplication.isEmpty)?"":leaveApplication!.first.employee.name), style: AppTextStyle.secondarySubtitle500,),
                       ]),
                     ),
                   ],
