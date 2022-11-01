@@ -143,11 +143,14 @@
 
       "who_is_out_card_title":"Who's on leave, Today?",
 
-  "who_is_out_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {count} others on leave, Today!}}",
+  "who_is_out_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {otherCount} others on leave, Today!}}",
   "@who_is_out_card_message":{
               "placeholders":{
               "count":{
               "type":"int"
+              },
+              "otherCount":{
+                "type":"int"
               },
               "name":{
                 "type":"String"
