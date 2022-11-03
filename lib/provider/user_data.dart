@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
-
 import '../core/utils/const/role.dart';
 
 @Singleton()
@@ -20,6 +19,8 @@ class UserManager {
   String? get userImage => _employee?.imageUrl;
 
   String get employeeId => _employee!.id;
+
+  Employee get employee => _employee!;
 
   String get employeeDesignation => _employee!.designation;
 

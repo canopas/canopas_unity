@@ -13,6 +13,8 @@ extension TimestampExtension on DateTime {
 
   bool areSameOrUpcoming(DateTime date) =>
       DateUtils.isSameDay(date, this) || isAfter(date);
+
+  bool areSame(DateTime date) => DateUtils.isSameDay(date, this);
 }
 
 

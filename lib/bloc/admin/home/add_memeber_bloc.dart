@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:injectable/injectable.dart';
@@ -10,7 +9,6 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../navigation/navigation_stack_manager.dart';
 import '../../../rest/api_response.dart';
 import '../../../services/admin/employee/employee_service.dart';

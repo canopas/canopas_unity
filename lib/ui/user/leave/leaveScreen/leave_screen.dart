@@ -5,13 +5,14 @@ import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
-
 import '../../../../bloc/employee/leave/user_leave_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/leave_map.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../rest/api_response.dart';
+import '../../../../widget/bottom_sheet_top_divider.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/empty_screen.dart';
@@ -86,7 +87,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
                         leaves.sortedByDate();
                         Leave leave = leaves[index];
                         return LeaveCard(
-                          leave: leave,
+                          leaveApplication: LeaveApplication(leave: leave, employee: _userLeavesBLoc.currentEmployee),
                         );
                       },
                       separatorBuilder: (BuildContext context,
@@ -121,11 +122,12 @@ class _LeaveScreenState extends State<LeaveScreen> {
     return StatefulBuilder(builder: (context, setModelsState) {
       return Container(
         height: MediaQuery.of(context).size.height * 0.8,
-        padding: const EdgeInsets.all(primaryHorizontalSpacing),
+        padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const BottomSheetTopSlider(),
             FilterTitle(text: localization.leave_type_tag),
             StreamBuilder<List<int>>(
                 initialData: const [],

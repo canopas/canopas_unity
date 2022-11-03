@@ -5,7 +5,6 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/ui/admin/home/widget/requests/request_list.dart';
 import 'package:projectunity/ui/admin/home/widget/summary_content.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
-
 import '../../../bloc/admin/home/admin_home_screen_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
@@ -113,7 +112,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           stream: _bloc.absenceCount,
                           onTap: () {
                             _stateManager.push(
-                                const NavStackItem.adminLeaveAbsenceState());
+                                const NavStackItem.whoIsOutCalendarState());
                           },
                           icon: Icons.calendar_month_rounded,
                           color: AppColors.primaryPink,

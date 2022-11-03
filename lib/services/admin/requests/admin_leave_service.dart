@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../core/utils/const/firestore.dart';
 import '../../../model/leave/leave.dart';
 
@@ -19,6 +18,10 @@ class AdminLeaveService {
     await _leaveDbCollection.doc(id).update(map);
   }
 
+  Future<List<Leave>> getAllLeaves() async {
+    final allLeaves = await _leaveDbCollection.where('leave_status',isEqualTo: approveLeaveStatus).get();
+    return allLeaves.docs.map((e) => e.data()).toList();
+  }
 
   Stream<List<Leave>> getAllRequests() {
     final BehaviorSubject<List<Leave>> leaves = BehaviorSubject<List<Leave>>();

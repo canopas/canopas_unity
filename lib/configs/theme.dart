@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:table_calendar/table_calendar.dart' show HeaderStyle, CalendarStyle;
 
 class AppTheme{
   static ThemeData lightTheme = ThemeData(
@@ -33,4 +34,27 @@ class AppTheme{
       )
   )
   );
+
+  static CalendarStyle calendarStyle =  CalendarStyle(
+    outsideDaysVisible: false,
+  weekendTextStyle: AppTextStyle.secondarySubtitle500.copyWith(fontSize: 14),
+  selectedDecoration: const BoxDecoration(
+  color: AppColors.primaryBlue,
+  shape: BoxShape.circle),
+  markerDecoration: const BoxDecoration(
+  color: AppColors.orangeColor,
+  shape: BoxShape.circle,
+  ),
+  todayDecoration: BoxDecoration(
+  border: Border.all(color: AppColors.primaryBlue),
+  shape: BoxShape.circle),
+    todayTextStyle: AppTextStyle.subtitleText.copyWith(fontSize: 14),
+  );
+
+  static HeaderStyle calendarHeaderStyle = HeaderStyle(
+      formatButtonVisible: false,
+      titleCentered: true,
+      titleTextStyle: AppTextStyle.subTitleTextStyle
+          .copyWith(fontWeight: FontWeight.w600));
+
 }

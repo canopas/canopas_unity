@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
-import '../../configs/text_style.dart';
-import '../../core/utils/const/space_constant.dart';
+import '../../../../configs/text_style.dart';
+import '../../../../core/utils/const/space_constant.dart';
 
 class LeaveTypeAgoTitle extends StatelessWidget {
   const LeaveTypeAgoTitle(
@@ -15,10 +14,7 @@ class LeaveTypeAgoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-          top: primaryHorizontalSpacing,
-          left: primaryHorizontalSpacing,
-          right: primaryHorizontalSpacing),
+      padding: const EdgeInsets.all(primaryHorizontalSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -29,6 +29,8 @@ class EmployeeHomeBLoc extends BaseBLoc {
 
   Stream<LeaveCounts> get leaveCounts => _leaveCounts.stream;
 
+  String get userID => _userManager.employeeId;
+
   _fetchLeaveSummary() async {
     double usedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);
     int paidLeaves = await _paidLeaveService.getPaidLeaves();
@@ -46,6 +48,7 @@ class EmployeeHomeBLoc extends BaseBLoc {
 
   Stream<ApiResponse<List<LeaveApplication>>> get absenceEmployee =>
       _absenceEmployees;
+
 
   _getAbsenceEmployees() async {
     _absenceEmployees.add(const ApiResponse.loading());
