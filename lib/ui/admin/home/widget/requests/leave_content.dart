@@ -48,7 +48,7 @@ class LeaveRequestCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             _stackManager.push(
-                NavStackItem.adminLeaveRequestDetailState(leaveApplication));
+                NavStackItem.leaveDetailState(leaveApplication));
           },
           child: Row(
             children: [

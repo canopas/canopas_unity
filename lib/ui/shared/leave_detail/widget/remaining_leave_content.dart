@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/model/leave/leave.dart';
-
-import '../../configs/colors.dart';
-import '../../configs/text_style.dart';
-import '../../core/utils/date_formatter.dart';
-import '../../model/remaining_leave.dart';
+import '../../../../configs/colors.dart';
+import '../../../../configs/text_style.dart';
+import '../../../../core/utils/date_formatter.dart';
+import '../../../../model/remaining_leave.dart';
 
 class RemainingLeaveContainer extends StatelessWidget {
   final Leave leave;

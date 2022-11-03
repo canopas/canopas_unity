@@ -8,7 +8,7 @@ import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/ui/user/home/widget/leave_navigation_card.dart';
 import 'package:projectunity/ui/user/home/widget/leave_status.dart';
 import 'package:projectunity/ui/user/home/widget/team_leave_card.dart';
-
+import 'package:projectunity/widget/circular_progress_indicator.dart';
 import '../../../bloc/employee/home/employee_home_bloc.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
@@ -46,17 +46,27 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           Column(
             children: [
               ExpandedAppBar(
-                content: Container(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                      onPressed: () {
-                        _stateManager
-                            .push(const NavStackItem.employeeSettingsState());
-                      },
-                      icon: const Icon(
-                        Icons.settings,
-                        color: AppColors.whiteColor,
-                      )),
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          _stateManager.push(NavStackItem.userLeaveCalendarState(userId: _leaveCount.userID));
+                        },
+                        icon: const Icon(
+                          Icons.calendar_month_rounded,
+                          color: AppColors.whiteColor,
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          _stateManager
+                              .push(const NavStackItem.employeeSettingsState());
+                        },
+                        icon: const Icon(
+                          Icons.settings,
+                          color: AppColors.whiteColor,
+                        )),
+                  ],
                 ),
               ),
               Expanded(
@@ -98,9 +108,12 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           stream: _leaveCount.absenceEmployee,
                           builder: (context, snapshot) => snapshot.data!.when(
                               idle: () => const SizedBox(),
-                              loading: () => const SizedBox(),
+                              loading: () => SizedBox(
+                                height: MediaQuery.of(context).size.height*0.15,
+                                child: const kCircularProgressIndicator(),
+                              ),
                               completed: (data) => TeamLeaveCard(onTap: (){
-                                /// TODO: Navigate to calender page.
+                                _stateManager.push(const NavStackItem.whoIsOutCalendarState());
                               }, leaveApplication: data,),
                               error: (error) => const SizedBox(),
                           ),

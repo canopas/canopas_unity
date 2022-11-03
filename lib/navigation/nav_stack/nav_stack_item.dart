@@ -1,14 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:projectunity/model/leave_application.dart';
-
-import '../../model/leave/leave.dart';
-
 part 'nav_stack_item.freezed.dart';
 
 @freezed
 class NavStackItem with _$NavStackItem {
   /* -- Common screens --*/
   const factory NavStackItem.onBoard() = OnboardNavStackItem;
+
+  const factory NavStackItem.leaveDetailState(LeaveApplication leaveApplication) = LeaveDetailState;
+
+  const factory NavStackItem.whoIsOutCalendarState() = WhoIsOutCalendarState;
 
   const factory NavStackItem.login() = LoginNavStackItem;
 
@@ -28,12 +29,6 @@ class NavStackItem with _$NavStackItem {
   const factory NavStackItem.employeeDetailState({required String id}) =
       EmployeeDetailState;
 
-  // Admin leave screens
-  const factory NavStackItem.adminLeaveAbsenceState() = AdminLeaveAbsenceState;
-
-  const factory NavStackItem.adminLeaveRequestDetailState(
-      LeaveApplication employeeLeave) = AdminLeaveRequestDetailState;
-
   /* -- Employee screens --*/
   const factory NavStackItem.employeeHome() = EmployeeHomeNavStackItem;
 
@@ -47,5 +42,5 @@ class NavStackItem with _$NavStackItem {
 
   const factory NavStackItem.requestedLeaves() = RequestedLeavesState;
 
-  const factory NavStackItem.leaveDetailState(Leave leave) = LeaveDetailState;
+  const factory NavStackItem.userLeaveCalendarState({required String userId}) = UserLeaveCalendarState;
 }

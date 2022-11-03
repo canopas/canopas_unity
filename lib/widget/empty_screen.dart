@@ -9,7 +9,7 @@ class EmptyScreen extends StatelessWidget {
   final bool showActionButton;
   final void Function()? onActionButtonTap;
   final String actionButtonTitle;
-  const EmptyScreen({Key? key, required this.message, this.showActionButton = false, this.onActionButtonTap, this.actionButtonTitle = "", required this.title}) : super(key: key);
+  const EmptyScreen({Key? key, required this.message, this.showActionButton = false, this.onActionButtonTap, this.actionButtonTitle = "", required this.title,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,13 @@ class EmptyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Image(
+             const Image(
               image: AssetImage(emptyLeaveStateImage),
               height: 100,
               width: 100,
-            ),
+             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height*0.02,
+              height:MediaQuery.of(context).size.height*0.02,
             ),
             Text(title, style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold),),
             SizedBox(

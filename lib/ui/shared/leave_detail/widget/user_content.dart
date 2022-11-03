@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
-
-import '../../../../../core/utils/const/space_constant.dart';
-import '../../../../../model/employee/employee.dart';
+import '../../../../core/utils/const/space_constant.dart';
+import '../../../../model/employee/employee.dart';
 
 class UserContent extends StatelessWidget {
   final Employee employee;
@@ -14,7 +13,7 @@ class UserContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.all(primaryHorizontalSpacing),
+      padding:  const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 0),
       child: Row(
         children: [
           ImageProfile(radius: 30, imageUrl: employee.imageUrl),

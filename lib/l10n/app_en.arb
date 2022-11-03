@@ -164,14 +164,42 @@
       "leave_request_tag":"Leave Request",
       "leave_totalDays_tag":"Total Days",
       "leave_duration_text":"Duration",
-      "user_leave_filter_date_range_tag":"date range",
+      "user_leave_filter_date_range_tag":"Date Range",
       "user_leave_filter_apply_filter_tag": "Apply Filter",
       "user_leave_filter_remove_filter_tag": "Remove Filter",
       "user_filters_tag": "Filters",
       "empty_filter_screen_message": "There weren't any leaves matching your Filter!",
       "empty_filter_screen_title": "No Matching Leaves",
 
-      "user_apply_leave_select_tag": "Select",
+      "leave_calendar_title": "Leave Calendar",
+      "range_leave_calendar_title": "User Leave Calendar",
+      "calendar_no_leave_tag": "No Leave's",
+      "calendar_no_leave_msg": "There is no leave on {date}",
+      "@calendar_no_leave_msg":{
+        "placeholders":{
+          "date":{
+            "type":"DateTime",
+            "format": "yMMMd"
+          }
+        }
+      },
+
+  "range_calendar_no_leave_msg": "There is no leave on\n{startDate} to {endDate}",
+  "@range_calendar_no_leave_msg":{
+    "placeholders":{
+      "startDate":{
+        "type":"DateTime",
+        "format": "yMMMd"
+      },
+      "endDate":{
+        "type":"DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+
+
+  "user_apply_leave_select_tag": "Select",
       "user_apply_leave_from_tag": "From",
       "user_apply_leave_to_tag": "To",
       "user_apply_leave_button_reset": "Reset",

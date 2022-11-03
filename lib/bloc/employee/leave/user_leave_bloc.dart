@@ -1,13 +1,12 @@
 import 'dart:async';
-
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 import 'package:projectunity/event_bus/events.dart';
+import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../../../provider/user_data.dart';
 import '../../../../../services/leave/user_leave_service.dart';
 import '../../../exception/error_const.dart';
@@ -68,6 +67,8 @@ class UserLeavesBloc extends BaseBLoc{
       }
     });
   }
+
+  Employee get currentEmployee => _userManager.employee;
 
   void onApplyForLeaveButtonTap(){
     _stateManager.pop();

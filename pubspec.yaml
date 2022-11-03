@@ -32,6 +32,7 @@ dependencies:
   shared_preferences: ^2.0.15
   sticky_headers: ^0.3.0
   uuid: ^3.0.6
+  table_calendar: ^3.0.7
 
 
 

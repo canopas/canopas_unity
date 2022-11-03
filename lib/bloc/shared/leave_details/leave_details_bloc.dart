@@ -1,28 +1,34 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-
+import '../../../event_bus/events.dart';
+import '../../../model/leave/leave.dart';
 import '../../../model/remaining_leave.dart';
 import '../../../navigation/navigation_stack_manager.dart';
+import '../../../provider/user_data.dart';
 import '../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../services/admin/requests/admin_leave_service.dart';
 import '../../../services/leave/user_leave_service.dart';
 
 @Injectable()
-class AdminLeaveDetailsScreenBloc extends BaseBLoc {
+class LeaveDetailBloc extends BaseBLoc {
   final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
   final NavigationStackManager _stackManager;
   final AdminLeaveService _adminLeaveService;
+  final UserManager _userManager;
 
-  AdminLeaveDetailsScreenBloc(this._userLeaveService, this._paidLeaveService,
-      this._stackManager, this._adminLeaveService);
+  LeaveDetailBloc(this._userLeaveService, this._paidLeaveService,
+      this._stackManager, this._adminLeaveService, this._userManager);
 
   final BehaviorSubject<RemainingLeave> _remainingLeave =
-      BehaviorSubject<RemainingLeave>.seeded(
-          RemainingLeave(remainingLeave: 0, remainingLeavePercentage: 0.0));
+  BehaviorSubject<RemainingLeave>.seeded(
+      RemainingLeave(remainingLeave: 0, remainingLeavePercentage: 0.0));
 
   Stream<RemainingLeave> get remainingLeaveStream => _remainingLeave.stream;
+
+  String get currentUserId => _userManager.employeeId;
+  bool get currentUserIsAdmin => _userManager.isAdmin;
 
   fetchUserRemainingLeaveDetails({required String id}) async {
     int paidLeaves = 0;
@@ -52,6 +58,12 @@ class AdminLeaveDetailsScreenBloc extends BaseBLoc {
     _stackManager.pop();
   }
 
+  void removeLeaveRequest({required Leave leave}){
+    _userLeaveService.deleteLeaveRequest(leave.leaveId);
+    eventBus.fire(LeaveUpdateEventListener(leave));
+    _stackManager.pop();
+  }
+
   Map<String, dynamic> _setLeaveApproval(int leaveStatus, String reason) {
     Map<String, dynamic> map = <String, dynamic>{
       'leave_status': leaveStatus,
@@ -66,5 +78,6 @@ class AdminLeaveDetailsScreenBloc extends BaseBLoc {
   }
 
   @override
-  void attach() {}
+  void attach() {
+  }
 }
