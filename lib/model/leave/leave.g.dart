@@ -19,8 +19,7 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       rejectionReason: json['rejection_reason'] as String?,
     );
 
-Map<String, dynamic> _$LeaveToJson(Leave instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$LeaveToJson(Leave instance) => <String, dynamic>{
       'leave_id': instance.leaveId,
       'uid': instance.uid,
       'leave_type': instance.leaveType,

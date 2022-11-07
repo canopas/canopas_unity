@@ -5,6 +5,7 @@ import 'package:projectunity/base_bloc.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
+import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../exception/error_const.dart';
 import '../../../model/employee/employee.dart';
@@ -20,13 +21,14 @@ class AdminHomeScreenBloc extends BaseBLoc {
   final EmployeeService _employeeService;
   final AdminLeaveService _adminLeaveService;
   final PaidLeaveService _userPaidLeaveService;
+  final UserLeaveService _userLeaveService;
   int _paidLeaveCount = 0;
 
   AdminHomeScreenBloc(this._employeeService, this._adminLeaveService,
-      this._userPaidLeaveService);
+      this._userPaidLeaveService, this._userLeaveService);
 
   final BehaviorSubject<List<Employee>> _employees =
-      BehaviorSubject<List<Employee>>();
+  BehaviorSubject<List<Employee>>();
   final _totalEmployees = BehaviorSubject<int>.seeded(0);
 
   get totalEmployees => _totalEmployees;
@@ -40,7 +42,7 @@ class AdminHomeScreenBloc extends BaseBLoc {
   get absenceCount => _absenceCount;
 
   final _leaveApplication =
-      BehaviorSubject<ApiResponse<Map<DateTime, List<LeaveApplication>>>>();
+  BehaviorSubject<ApiResponse<Map<DateTime, List<LeaveApplication>>>>();
 
   get leaveApplication => _leaveApplication;
 
@@ -64,10 +66,11 @@ class AdminHomeScreenBloc extends BaseBLoc {
     _leaveApplication.add(const ApiResponse.loading());
 
     try {
-      _combineStream.listen((event) {
-        _totalRequest.add(event.length);
-        Map<DateTime, List<LeaveApplication>> map = event.groupBy(
-            (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
+      _combineStream.listen((event) async {
+        List<LeaveApplication?> d = await event;
+        _totalRequest.add(d.whereNotNull().length);
+        Map<DateTime, List<LeaveApplication>> map = d.whereNotNull().groupBy(
+                (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
         _leaveApplication.add(ApiResponse.completed(data: map));
       });
     } on Exception {
@@ -76,26 +79,25 @@ class AdminHomeScreenBloc extends BaseBLoc {
     }
   }
 
-  Stream<List<LeaveApplication>> get _combineStream => Rx.combineLatest2(
+  Stream<Future<List<LeaveApplication?>>> get _combineStream => Rx.combineLatest2(
       _adminLeaveService.getAllRequests(), _employees,
-          (List<Leave> leaveList, List<Employee> employeeList) {
-        return leaveList
-            .map((leave) {
-              final employee = employeeList
-                  .firstWhereOrNull((element) => element.id == leave.uid);
-              if (employee == null) {
-                return null;
-              }
-              LeaveCounts leaveCounts = _addLeaveCount(leave);
-              return LeaveApplication(
-                  leave: leave, employee: employee, leaveCounts: leaveCounts);
-            })
+          (List<Leave> leaveList, List<Employee> employeeList) async {
+        return await Future.wait(leaveList.map((leave) async {
+          final employee = employeeList
+              .firstWhereOrNull((element) => element.id == leave.uid);
+          if (employee == null) {
+            return null;
+          }
+          LeaveCounts leaveCounts = await _addLeaveCount(employee!.id);
+          return LeaveApplication(
+              leave: leave, employee: employee, leaveCounts: leaveCounts);
+        })
             .whereNotNull()
-            .toList();
+            .toList());
       });
 
-  LeaveCounts _addLeaveCount(Leave leave) {
-    double usedLeave = leave.totalLeaves;
+  Future<LeaveCounts> _addLeaveCount(String id) async {
+    double usedLeave = await _userLeaveService.getUserUsedLeaveCount(id);
     double remainingLeaves = _paidLeaveCount - usedLeave;
     return LeaveCounts(
         remainingLeaveCount: remainingLeaves < 0 ? 0 : remainingLeaves,

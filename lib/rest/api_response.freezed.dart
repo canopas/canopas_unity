@@ -82,7 +82,6 @@ class _$ApiResponseCopyWithImpl<T, $Res, $Val extends ApiResponse<T>>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
@@ -318,7 +317,6 @@ abstract class _$$SuccessCopyWith<T, $Res> {
   factory _$$SuccessCopyWith(
           _$Success<T> value, $Res Function(_$Success<T>) then) =
       __$$SuccessCopyWithImpl<T, $Res>;
-
   @useResult
   $Res call({T data});
 }
@@ -455,7 +453,6 @@ abstract class Success<T> implements ApiResponse<T> {
   const factory Success({required final T data}) = _$Success<T>;
 
   T get data;
-
   @JsonKey(ignore: true)
   _$$SuccessCopyWith<T, _$Success<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -466,7 +463,6 @@ abstract class _$$FailureCopyWith<T, $Res> {
   factory _$$FailureCopyWith(
           _$Failure<T> value, $Res Function(_$Failure<T>) then) =
       __$$FailureCopyWithImpl<T, $Res>;
-
   @useResult
   $Res call({String error});
 }
@@ -602,7 +598,6 @@ abstract class Failure<T> implements ApiResponse<T> {
   const factory Failure({required final String error}) = _$Failure<T>;
 
   String get error;
-
   @JsonKey(ignore: true)
   _$$FailureCopyWith<T, _$Failure<T>> get copyWith =>
       throw _privateConstructorUsedError;
