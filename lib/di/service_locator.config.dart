@@ -66,6 +66,7 @@ Future<_i1.GetIt> $initGetIt(
         get<_i5.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
         get<_i7.PaidLeaveService>(),
+        get<_i9.UserLeaveService>(),
       ));
   gh.singleton<_i12.AuthManager>(_i12.AuthManager(
     get<_i10.UserPreference>(),
