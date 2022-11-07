@@ -79,16 +79,19 @@ class AdminHomeScreenBloc extends BaseBLoc {
     }
   }
 
+
   Stream<Future<List<LeaveApplication?>>> get _combineStream => Rx.combineLatest2(
       _adminLeaveService.getAllRequests(), _employees,
           (List<Leave> leaveList, List<Employee> employeeList) async {
         return await Future.wait(leaveList.map((leave) async {
-          final employee = employeeList
-              .firstWhereOrNull((element) => element.id == leave.uid);
-          if (employee == null) {
-            return null;
-          }
-          LeaveCounts leaveCounts = await _addLeaveCount(employee!.id);
+          _totalEmployees.add(employeeList.length);
+
+              final employee = employeeList
+                  .firstWhereOrNull((element) => element.id == leave.uid);
+              if (employee == null) {
+                return null;
+              }
+              LeaveCounts leaveCounts = await _addLeaveCount(employee!.id);
           return LeaveApplication(
               leave: leave, employee: employee, leaveCounts: leaveCounts);
         })

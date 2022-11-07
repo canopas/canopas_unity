@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    super.initState();
     _networkServiceBloc.getConnectivityStatus();
     _networkServiceBloc.connection.listen((value) {
       String networkErrorMsg =
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
           ? showSnackBar(context: context, msg: networkErrorMsg)
           : null;
     });
-    super.initState();
+
   }
 
   @override
@@ -76,9 +77,8 @@ class _MyAppState extends State<MyApp> {
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: Router(
-          backButtonDispatcher: _backButtonDispatcher,
-          routerDelegate: _routerDelegate),
+      home:Router(backButtonDispatcher: _backButtonDispatcher,
+                routerDelegate: _routerDelegate)
     );
   }
 }
