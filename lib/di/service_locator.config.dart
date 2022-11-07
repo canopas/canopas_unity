@@ -121,6 +121,7 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i24.EmployeeDetailBloc>(() => _i24.EmployeeDetailBloc(
         get<_i5.EmployeeService>(),
         get<_i16.NavigationStackManager>(),
+        get<_i9.UserLeaveService>(),
       ));
   gh.factory<_i25.LeaveDetailBloc>(() => _i25.LeaveDetailBloc(
         get<_i9.UserLeaveService>(),

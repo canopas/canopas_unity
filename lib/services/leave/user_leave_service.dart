@@ -65,4 +65,12 @@ class UserLeaveService {
 
     return leaveCount;
   }
+
+  Future<void> deleteAllLeaves(String id) async {
+    _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id).get().then((snapshot) async{
+      for (var deleteLeaveDoc in snapshot.docs)  {
+        await deleteLeaveRequest(deleteLeaveDoc.id);
+      }
+    });
+  }
 }
