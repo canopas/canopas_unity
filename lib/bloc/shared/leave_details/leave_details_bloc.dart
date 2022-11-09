@@ -34,13 +34,16 @@ class LeaveDetailBloc extends BaseBLoc {
     int paidLeaves = 0;
     double userUsedLeaveCount = 0.0;
     double remainingLeaveRef = 0.0;
+    double percentage = 1;
 
     paidLeaves = await _paidLeaveService.getPaidLeaves();
     userUsedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(id);
     remainingLeaveRef = (paidLeaves - userUsedLeaveCount) < 0
         ? 0.0
         : paidLeaves - userUsedLeaveCount;
-    double percentage = (100 - (100 / paidLeaves) * remainingLeaveRef) / 100;
+    if(paidLeaves != 0){
+       percentage = (100 - (100 / paidLeaves) * remainingLeaveRef) / 100;
+    }
     if (percentage > 1) {
       percentage = 1;
     } else if (percentage < 0) {

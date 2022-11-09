@@ -98,21 +98,33 @@ class _LeaveScreenState extends State<LeaveScreen> {
                   return showSnackBar(context: context, error: error);
                 });
           }),
-      floatingActionButton: (widget.leaveScreenType == allLeaves)
-          ? FloatingActionButton.extended(
-          onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  context: context,
-                  builder: (context) => _filterBottomSheet(context),
-                );
-              },
-              label: Text(localization.user_filters_tag),
-              icon: const Icon(Icons.filter_list_rounded))
-          : null,
+      floatingActionButton:
+           StreamBuilder<ApiResponse<List<Leave>>>(
+               stream: _userLeavesBLoc.leaveList,
+               initialData: const ApiResponse.idle(),
+               builder: (context, snapshot) {
+                 return snapshot.data!.when(
+                     idle: () => const SizedBox(),
+                     loading: () => const SizedBox(),
+                     completed: (leaves){
+                       return (widget.leaveScreenType == allLeaves && (leaves.isNotEmpty || _userLeavesBLoc.filterApplied))
+                           ?FloatingActionButton.extended(
+                           onPressed: () {
+                             showModalBottomSheet(
+                               isScrollControlled: true,
+                               shape: RoundedRectangleBorder(
+                                 borderRadius: BorderRadius.circular(12),
+                               ),
+                               context: context,
+                               builder: (context) => _filterBottomSheet(context),
+                             );
+                             },
+                           label: Text(localization.user_filters_tag),
+                           icon: const Icon(Icons.filter_list_rounded)):const SizedBox();
+                       },
+                     error: (error)=>const SizedBox());
+            }
+          )
     );
   }
 
