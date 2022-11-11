@@ -38,7 +38,7 @@ extension ExceptionMessage on String {
       case fillDetailsError:
         msg = appLocale.fill_all_details_error;
         break;
-      case applyMinimumOneHourError:
+      case applyMinimumHalfDay:
         msg = appLocale.apply_leave_minimum_one_hour_error;
         break;
       case enterValidReason:

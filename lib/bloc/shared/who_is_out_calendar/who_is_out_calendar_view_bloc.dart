@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -55,10 +55,7 @@ class WhoIsOutCalendarBloc extends BaseBLoc{
   }
 
   List<LeaveApplication> _getSelectedDatesLeaves(DateTime day){
-    List<LeaveApplication> selectedLeaves = _allLeaveRef.where((la)=>(la.leave.startDate.toDate.isBefore(day) || la.leave.startDate.dateOnly.isAtSameMomentAs(day.dateOnly)) &&
-         (la.leave.endDate.toDate.isAfter(day.dateOnly) || la.leave.endDate.dateOnly.isAtSameMomentAs(day.dateOnly))
-       ).toList();
-    return selectedLeaves;
+    return _allLeaveRef.where((la)=> la.leave.findUserOnLeaveByDate(day: day)).toList();
   }
 
   void selectDate(DateTime date, DateTime _){

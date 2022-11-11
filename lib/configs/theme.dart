@@ -13,6 +13,10 @@ class AppTheme{
       foregroundColor: AppColors.whiteColor,
       elevation: 0,
     ),
+    scrollbarTheme: const ScrollbarThemeData(
+      radius: Radius.circular(12),
+      thumbColor: MaterialStatePropertyAll( Color(0xffa0bef1)),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         fixedSize: const Size.fromHeight(45),
@@ -56,5 +60,17 @@ class AppTheme{
       titleCentered: true,
       titleTextStyle: AppTextStyle.subTitleTextStyle
           .copyWith(fontWeight: FontWeight.w600));
+
+
+  static List<BoxShadow> commonBoxShadow = [
+  BoxShadow(
+    color: AppColors.primaryGray.withOpacity(0.60),
+    blurRadius: 3,
+    offset: const Offset(0,0),
+    spreadRadius: 1,
+    )
+  ];
+
+  static BorderRadius commonBorderRadius = BorderRadius.circular(12);
 
 }

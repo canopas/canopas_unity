@@ -16,6 +16,9 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       reason: json['reason'] as String,
       leaveStatus: json['leave_status'] as int,
       appliedOn: json['applied_on'] as int,
+      perDayDuration: (json['per_day_duration'] as List<dynamic>)
+          .map((e) => e as int)
+          .toList(),
       rejectionReason: json['rejection_reason'] as String?,
     );
 
@@ -30,4 +33,5 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) => <String, dynamic>{
       'leave_status': instance.leaveStatus,
       'rejection_reason': instance.rejectionReason,
       'applied_on': instance.appliedOn,
+      'per_day_duration': instance.perDayDuration,
     };

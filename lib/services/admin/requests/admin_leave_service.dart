@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../core/utils/const/firestore.dart';
+import '../../../core/utils/const/leave_time_constants.dart';
 import '../../../model/leave/leave.dart';
 
 @Injectable()
@@ -49,9 +51,13 @@ class AdminLeaveService {
     List<Leave> leaves = <Leave>[];
 
     for (var e in data.docs) {
-      if (e.data().startDate < todayDate &&
-          e.data().leaveStatus == approveLeaveStatus) {
-        leaves.add(e.data());
+      if (e.data().startDate < todayDate && !todayDate.dateOnly.isWeekend && e.data().leaveStatus == approveLeaveStatus) {
+        int duration = e.data().getDateAndDuration()[todayDate.dateOnly]!;
+        if(duration == fullLeave){
+          leaves.add(e.data());
+        } else if((duration == firstHalfLeave &&  todayDate.isFirstHalf) || (duration == secondHalfLeave && todayDate.isSecondHalf)){
+          leaves.add(e.data());
+        }
       }
     }
     return leaves;

@@ -14,7 +14,7 @@ import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/shared/user_leave_calendar/user_leave_calendar.dart';
 import '../ui/shared/who_is_out_calendar/who_is_out_calendar_view.dart';
-import '../ui/user/leave/applyLeave/leave_request_form.dart';
+import '../ui/user/leave/applyLeave/leave_request_view.dart';
 import '../ui/user/leave/requested/requested_leave_screen.dart';
 import '../ui/user/leave/upcoming/upcoming_leave_screen.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
@@ -92,7 +92,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
           userUpcomingLeaveState: () => const MaterialPage(
               key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
           leaveRequestState: () => const MaterialPage(
-              key: ValueKey("apply-leave"), child: LeaveRequestForm()),
+              key: ValueKey("apply-leave"), child: RequestLeaveView()),
           requestedLeaves: () => const MaterialPage(
               key: ValueKey("user-requested-leave"),
               child: RequestedLeaveScreen()),

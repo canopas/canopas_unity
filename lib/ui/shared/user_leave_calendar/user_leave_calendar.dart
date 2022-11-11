@@ -69,9 +69,9 @@ class _UserLeaveCalendarViewState extends State<UserLeaveCalendarView> {
                   calender,
                   Expanded(
                     child: (leaveApplications.isNotEmpty)?ListView.separated(
-                      padding: const EdgeInsets.all( primaryHorizontalSpacing).copyWith(left: 0),
-                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: leaveApplications[index]),
-                      separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryVerticalSpacing,),
+                      padding: const EdgeInsets.all( primaryHorizontalSpacing),
+                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: leaveApplications[index], onTap: () {_userLeaveCalendarBloc.onLeaveCardTap(leaveApplications[index]);},),
+                      separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryHorizontalSpacing,),
                       itemCount: leaveApplications.length,
                     ):emptyScreen,
                   ),

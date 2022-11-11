@@ -13,7 +13,7 @@ class UserContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 0),
+      padding:  const EdgeInsets.symmetric(vertical: primaryVerticalSpacing,horizontal: primaryHorizontalSpacing),
       child: Row(
         children: [
           ImageProfile(radius: 30, imageUrl: employee.imageUrl),

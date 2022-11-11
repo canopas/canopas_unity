@@ -141,7 +141,7 @@ class LeaveRequestCard extends StatelessWidget {
       required int endTimeStamp,
       required BuildContext context}) {
     String duration = DateFormatter(AppLocalizations.of(context))
-        .dateInSingleLine(
+        .dateInLine(
             startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
     String days = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentation(totalDays);

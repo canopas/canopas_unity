@@ -27,6 +27,8 @@ class Leave {
   String? rejectionReason;
   @JsonKey(name: 'applied_on')
   int appliedOn;
+  @JsonKey(name: 'per_day_duration')
+  List<int> perDayDuration;
 
   Leave(
       {required this.leaveId,
@@ -38,6 +40,7 @@ class Leave {
       required this.reason,
       required this.leaveStatus,
       required this.appliedOn,
+      required this.perDayDuration,
       this.rejectionReason});
 
   factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,

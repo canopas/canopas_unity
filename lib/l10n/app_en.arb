@@ -158,8 +158,19 @@
           }
        },
 
+  "leave_request_total_days_text":"Leave request is for {day} days",
+  "@leave_request_total_days_text":{
+    "placeholders":{
+      "day":{
+        "type":"double",
+        "format":"decimalPattern"
+      }
+    }
+  },
+
       "leave_reason_tag":"Reason",
-      "leave_type_tag":"Leave Type",
+      "leave_reason_text_field_tag":"Enter reason",
+      "leave_type_tag":"Type",
       "leave_status_tag":"Leave Status",
       "leave_request_tag":"Leave Request",
       "leave_totalDays_tag":"Total Days",
@@ -200,8 +211,8 @@
 
 
   "user_apply_leave_select_tag": "Select",
-      "user_apply_leave_from_tag": "From",
-      "user_apply_leave_to_tag": "To",
+      "user_apply_leave_from_tag": "Start",
+      "user_apply_leave_to_tag": "End",
       "user_apply_leave_button_reset": "Reset",
       "user_leave_detail_button_cancel":"Cancel",
       "user_leave_detail_button_delete":"Delete",
@@ -209,8 +220,7 @@
       "user_leave_detail_delete_leave_message":"Leave application is deleted!!",
       "user_apply_leave_button_apply_leave": "Apply Leave",
       "user_apply_leave_error_message_fill_details": "Please fill all details",
-      "user_apply_leave_error_message_min_time":"Please Apply for minimum 1 Hour",
-      "user_apply_leave_error_valid_reason": "Please enter valid reason",
+      "user_apply_leave_error_valid_reason": " • Please enter valid reason",
       "user_apply_leave_success_message":"You've successfully applied!",
       "user_leave_detail_approval_Status_tag":"Approval Status",
 
@@ -306,7 +316,7 @@
      "undefined_error_message": "Something went wrong",
      "fill_all_details_error":"Please fill all details",
      "invalid_date_selection_error":"Please select valid date",
-     "apply_leave_minimum_one_hour_error":"Please apply leave for minimum one hour",
+     "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
 
      "add_member_employee_exists_error": "Member already exists!",
 
