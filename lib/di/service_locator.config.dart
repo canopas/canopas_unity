@@ -11,21 +11,21 @@ import 'package:shared_preferences/shared_preferences.dart' as _i8;
 
 import '../bloc/admin/employee/employee_detail_bloc.dart' as _i24;
 import '../bloc/admin/employee/employee_list_bloc.dart' as _i13;
-import '../bloc/admin/home/add_memeber_bloc.dart' as _i21;
+import '../bloc/admin/home/add_memeber_bloc.dart' as _i22;
 import '../bloc/admin/home/admin_home_screen_bloc.dart' as _i11;
-import '../bloc/admin/setting/paid_leave_count_bloc.dart' as _i22;
+import '../bloc/admin/setting/paid_leave_count_bloc.dart' as _i23;
 import '../bloc/authentication/login_bloc.dart' as _i27;
 import '../bloc/authentication/logout_bloc.dart' as _i26;
 import '../bloc/employee/home/employee_home_bloc.dart' as _i15;
-import '../bloc/employee/leave/apply_leave_bloc.dart' as _i23;
-import '../bloc/employee/leave/user_leave_bloc.dart' as _i19;
+import '../bloc/employee/leave/request_leave_bloc.dart' as _i18;
+import '../bloc/employee/leave/user_leave_bloc.dart' as _i20;
 import '../bloc/network/network_service_bloc.dart' as _i6;
 import '../bloc/onboard/onboard_bloc.dart' as _i17;
 import '../bloc/shared/leave_details/leave_details_bloc.dart' as _i25;
 import '../bloc/shared/user_leave_calendar/user_leave_calendar_bloc.dart'
-    as _i18;
+    as _i19;
 import '../bloc/shared/who_is_out_calendar/who_is_out_calendar_view_bloc.dart'
-    as _i20;
+    as _i21;
 import '../navigation/navigation_stack_manager.dart' as _i16;
 import '../pref/user_preference.dart' as _i10;
 import '../provider/user_data.dart' as _i14;
@@ -90,32 +90,33 @@ Future<_i1.GetIt> $initGetIt(
         get<_i10.UserPreference>(),
         get<_i16.NavigationStackManager>(),
       ));
-  gh.factory<_i18.UserLeaveCalendarBloc>(() => _i18.UserLeaveCalendarBloc(
+  gh.factory<_i18.RequestLeaveBloc>(() => _i18.RequestLeaveBloc(
+        get<_i14.UserManager>(),
+        get<_i9.UserLeaveService>(),
+        get<_i16.NavigationStackManager>(),
+        get<_i7.PaidLeaveService>(),
+      ));
+  gh.factory<_i19.UserLeaveCalendarBloc>(() => _i19.UserLeaveCalendarBloc(
         get<_i16.NavigationStackManager>(),
         get<_i9.UserLeaveService>(),
         get<_i5.EmployeeService>(),
       ));
-  gh.factory<_i19.UserLeavesBloc>(() => _i19.UserLeavesBloc(
+  gh.factory<_i20.UserLeavesBloc>(() => _i20.UserLeavesBloc(
         get<_i9.UserLeaveService>(),
         get<_i14.UserManager>(),
         get<_i16.NavigationStackManager>(),
       ));
-  gh.factory<_i20.WhoIsOutCalendarBloc>(() => _i20.WhoIsOutCalendarBloc(
+  gh.factory<_i21.WhoIsOutCalendarBloc>(() => _i21.WhoIsOutCalendarBloc(
         get<_i5.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
         get<_i16.NavigationStackManager>(),
       ));
-  gh.factory<_i21.AddMemberBloc>(() => _i21.AddMemberBloc(
+  gh.factory<_i22.AddMemberBloc>(() => _i22.AddMemberBloc(
         get<_i5.EmployeeService>(),
         get<_i16.NavigationStackManager>(),
       ));
-  gh.factory<_i22.AdminPaidLeaveCountBloc>(() => _i22.AdminPaidLeaveCountBloc(
+  gh.factory<_i23.AdminPaidLeaveCountBloc>(() => _i23.AdminPaidLeaveCountBloc(
         get<_i7.PaidLeaveService>(),
-        get<_i16.NavigationStackManager>(),
-      ));
-  gh.factory<_i23.ApplyLeaveBloc>(() => _i23.ApplyLeaveBloc(
-        get<_i14.UserManager>(),
-        get<_i9.UserLeaveService>(),
         get<_i16.NavigationStackManager>(),
       ));
   gh.factory<_i24.EmployeeDetailBloc>(() => _i24.EmployeeDetailBloc(

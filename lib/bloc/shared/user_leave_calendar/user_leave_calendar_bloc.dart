@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/base_bloc.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../exception/error_const.dart';
@@ -57,15 +57,11 @@ class UserLeaveCalendarBloc extends BaseBLoc {
       List rangeDates = List.generate(endDate.difference(startDate).inDays, (index) => startDate.add(Duration(days: index)))..add(endDate);
       Set<LeaveApplication> leaveSet = {};
       for (DateTime date in rangeDates) {
-        leaveSet.addAll(_userLeaves.where((la) =>
-        (la.leave.startDate.dateOnly.isBefore(date.dateOnly) || la.leave.startDate.dateOnly.areSame(date.dateOnly))
-            && (la.leave.endDate.dateOnly.isAfter(date.dateOnly) || la.leave.endDate.dateOnly.areSame(date.dateOnly))));
+        leaveSet.addAll(_userLeaves.where((la) => la.leave.findUserOnLeaveByDate(day: date)));
       }
       _allLeaves.add(ApiResponse.completed(data: leaveSet.toList()));
     } else {
-      leaves = _userLeaves.where((la) =>
-     (la.leave.startDate.dateOnly.isBefore(selectedDate.dateOnly) || la.leave.startDate.dateOnly.areSame(selectedDate.dateOnly))
-         && (la.leave.endDate.dateOnly.isAfter(selectedDate.dateOnly) || la.leave.endDate.dateOnly.areSame(selectedDate.dateOnly))).toList();
+      leaves = _userLeaves.where((la) => la.leave.findUserOnLeaveByDate(day: selectedDate)).toList();
      _allLeaves.add(ApiResponse.completed(data: leaves));
     }
   }
@@ -90,10 +86,8 @@ class UserLeaveCalendarBloc extends BaseBLoc {
     _stackManager.push(NavStackItem.leaveDetailState(leaveApplication));
   }
 
-  List<LeaveApplication> getEventsOfDay(DateTime day){
-    return _userLeaves.where((la) => (la.leave.startDate.dateOnly.isBefore(day.dateOnly) || la.leave.startDate.dateOnly.areSame(day.dateOnly))
-        && (la.leave.endDate.dateOnly.isAfter(day.dateOnly) || la.leave.endDate.dateOnly.areSame(day.dateOnly)) ).toList();
-  }
+  List<LeaveApplication> getEventsOfDay(DateTime day) => _userLeaves.where((la) => la.leave.findUserOnLeaveByDate(day: day)).toList();
+
 
   @override
   void attach() {
@@ -106,7 +100,6 @@ class UserLeaveCalendarBloc extends BaseBLoc {
     _allLeaves.close();
     _selectedDateRange.close();
   }
-
 
 
 

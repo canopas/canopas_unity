@@ -81,17 +81,17 @@ class _LeaveScreenState extends State<LeaveScreen> {
                   } else {
                     return ListView.separated(
                       itemCount: leaves.length,
-                      padding: const EdgeInsets.only(
-                          top: 20, bottom: 20, right: 16),
+                      padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 80),
                       itemBuilder: (BuildContext context, int index) {
                         leaves.sortedByDate();
                         Leave leave = leaves[index];
                         return LeaveCard(
+                          onTap: (){_userLeavesBLoc.onLeaveCardTap(LeaveApplication(leave: leave, employee: _userLeavesBLoc.currentEmployee));},
                           leaveApplication: LeaveApplication(leave: leave, employee: _userLeavesBLoc.currentEmployee),
                         );
                       },
                       separatorBuilder: (BuildContext context,
-                          int index) => const SizedBox(height: 10),);
+                          int index) => const SizedBox(height: primaryHorizontalSpacing),);
                   }
                 },
                 error: (String error) {

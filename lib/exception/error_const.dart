@@ -28,7 +28,7 @@ const String wrongNumInputError = "wrong-num-input";
 const String fillDetailsError = 'fill-all-details';
 
 //Exception:When leave request for less than 1 hr
-const String applyMinimumOneHourError = 'apply-minimum-one-hour';
+const String applyMinimumHalfDay = 'apply-minimum-half-day';
 
 //Exception: When user selected wrong leave date like end leave date is before start leavedate
 const String invalidLeaveDateError = 'invalid-leave_date_error';

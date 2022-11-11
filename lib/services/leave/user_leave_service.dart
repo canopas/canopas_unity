@@ -54,13 +54,13 @@ class UserLeaveService {
     double leaveCount = 0.0;
 
     approvedLeaves
-        .where((element) =>
-            element.startDate < currentTime.millisecondsSinceEpoch &&
-            element.startDate.toDate.year == currentTime.year)
-        .forEach((element) {
-         int weekendDays = List.generate(element.endDate.toDate.difference(element.startDate.toDate).inDays,
-                 (differenceByDays) => element.startDate.toDate.add(Duration(days: differenceByDays))).where((date) => date.weekday == DateTime.saturday || date.weekday == DateTime.sunday).length;
-      leaveCount += element.totalLeaves - weekendDays;
+        .where((leave) =>
+    leave.startDate < currentTime.millisecondsSinceEpoch &&
+        leave.startDate.toDate.year == currentTime.year)
+        .forEach((leave) {
+         int weekendDays = List.generate(leave.endDate.toDate.difference(leave.startDate.toDate).inDays,
+                 (differenceByDays) => leave.startDate.toDate.add(Duration(days: differenceByDays))).where((date) => date.isWeekend).length;
+      leaveCount += leave.totalLeaves - weekendDays;
     });
 
     return leaveCount;

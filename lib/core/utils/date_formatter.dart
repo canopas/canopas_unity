@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/utils/const/leave_time_constants.dart';
 
 class DateFormatter {
   final AppLocalizations _localization;
@@ -31,16 +32,16 @@ class DateFormatter {
     return _localization.dateFormatter_placeholder_other_days(totalLeaves);
   }
 
-  String halfDayTime(int startDateTime){
-    if(startDateTime.toTime.period == DayPeriod.am){
+  String halfDayTime(int halfDay){
+    if(halfDay == firstHalfLeave){
       return _localization.morning_period_text;
     } else {
       return _localization.afternoon_period_text;
     }
   }
 
-  String dateInSingleLine(
-      {required int startTimeStamp, required int endTimeStamp}) {
+  String dateInLine(
+      {required int startTimeStamp, required int endTimeStamp, bool lastTwoLine = false}) {
     DateTime startDate = startTimeStamp.toDate;
     DateTime endDate = endTimeStamp.toDate;
     String localeName = _localization.localeName;
@@ -53,31 +54,14 @@ class DateFormatter {
         if (startDate.day == endDate.day) {
           return '$startLeaveDay $month';
         }
-        return '$startLeaveDay-$endLeaveDay  $month';
+        return '$startLeaveDay - $endLeaveDay  $month';
       }
-      return '${startDate.day} ${DateFormat.MMM(localeName).format(startDate)}-${endDate.day} ${DateFormat.MMM(localeName).format(endDate)}';
+      return '${startDate.day} ${DateFormat.MMM(localeName).format(startDate)} - ${endDate.day} ${DateFormat.MMM(localeName).format(endDate)}';
     }
-    return '${_localization.date_format_yMMMd(startDate)}-${_localization.date_format_yMMMd(endDate)}';
-  }
-
-  String dateDoubleLine({required int startDate, required int endDate}) {
-    DateTime startLeaveDate = startDate.toDate;
-    DateTime endLeaveDate = endDate.toDate;
-    String localeName = _localization.localeName;
-
-    String startLeaveDay = DateFormat.d(localeName).format(startLeaveDate);
-    String endLeaveDay = DateFormat.d(localeName).format(endLeaveDate);
-
-    if (startLeaveDate.month == endLeaveDate.month) {
-      String month = DateFormat.MMM(localeName).format(endLeaveDate);
-      if (startLeaveDate.day == endLeaveDate.day) {
-        return '$startLeaveDay\n$month';
-      }
-      return '$startLeaveDay-$endLeaveDay\n$month';
+    if(lastTwoLine){
+      return '${_localization.date_format_yMMMd(startDate)} -\n ${_localization.date_format_yMMMd(endDate)}';
     }
-    String startMonth = DateFormat.MMM(localeName).format(startLeaveDate);
-    String endMonth = DateFormat.MMM(localeName).format(endLeaveDate);
-    return '$startLeaveDay  $startMonth\n ${_localization.user_apply_leave_to_tag} \n$endLeaveDay $endMonth ';
+    return '${_localization.date_format_yMMMd(startDate)} - ${_localization.date_format_yMMMd(endDate)}';
   }
 
   String timeAgoPresentation(int timeStamp) {

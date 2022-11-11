@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
-import '../../../../../configs/colors.dart';
-
-
-
 
 class ApplyButton extends StatelessWidget {
   const ApplyButton({
@@ -24,63 +20,37 @@ class ApplyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
-    return Expanded(
-        flex: 2,
-        child: StreamBuilder<ApiResponse<bool>>(
-            initialData: const ApiResponse.idle(),
-            stream: stream,
-            builder: (context, snapshot) {
-              snapshot.data!.maybeWhen(
-                  loading: () => const kCircularProgressIndicator(),
-                  completed: (bool success) {
-                    if (success) {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        showSnackBar(
-                            context: context,
-                            msg: localization.user_apply_leave_success_message);
-                      });
-                    }
-                    return Container();
-                  },
-                  orElse: () {
-                    return Container();
-                  });
-              return ElevatedButton(
-                  onPressed: onPress,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                        localization.user_apply_leave_button_apply_leave,
-                        style: AppTextStyle.leaveRequestBottomBarTextStyle),
-                  ));
-            }));
-  }
-}
-
-class ResetButton extends StatelessWidget {
-  final VoidCallback onPress;
-
-  const ResetButton({
-    Key? key,
-    required this.onPress,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
-    return Expanded(
-      flex: 1,
-      child: ElevatedButton(
-        onPressed: onPress,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.secondaryText,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Text(localization.user_apply_leave_button_reset,
-              style: AppTextStyle.leaveRequestBottomBarTextStyle),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
+      child: StreamBuilder<ApiResponse<bool>>(
+          initialData: const ApiResponse.idle(),
+          stream: stream,
+          builder: (context, snapshot) {
+            snapshot.data!.maybeWhen(
+                loading: () => const kCircularProgressIndicator(),
+                completed: (bool success) {
+                  if (success) {
+                    SchedulerBinding.instance.addPostFrameCallback((_) {
+                      showSnackBar(
+                          context: context,
+                          msg: localization.user_apply_leave_success_message);
+                    });
+                  }
+                  return Container();
+                },
+                orElse: () {
+                  return Container();
+                });
+            return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize:  Size(MediaQuery.of(context).size.width, 50),
+                    elevation: 2
+                ),
+                onPressed: onPress,
+                child: Text(
+                    localization.user_apply_leave_button_apply_leave,
+                    style: AppTextStyle.subtitleTextWhite));
+          }),
     );
   }
 }

@@ -22,9 +22,9 @@ class AppTextStyle{
   static TextStyle leaveRequestFormSubtitle = const TextStyle(
       color: AppColors.secondaryText, fontSize: subTitleTextSize);
   static TextStyle removeTextStyle = const TextStyle(height: 0, fontSize: 0);
-  static TextStyle leaveRequestBottomBarTextStyle = const TextStyle(
+  static TextStyle subtitleTextWhite = const TextStyle(
       color: AppColors.whiteColor,
-      fontSize: titleTextSize,
+      fontSize: subTitleTextSize,
       fontWeight: FontWeight.w500);
 
   static TextStyle approvalStatusDark =
@@ -58,4 +58,5 @@ class AppTextStyle{
   static TextStyle bodyTextGrey = const TextStyle(fontSize: bodyTextSize, color: Colors.grey);
   static TextStyle titleBlack600 = const TextStyle(color: AppColors.blackColor, fontSize: titleTextSize, fontWeight: FontWeight.w600);
 
+  static TextStyle subtitleGreyBold =  const TextStyle(fontSize: subTitleTextSize, fontWeight: FontWeight.bold, color: AppColors.darkGrey );
 }

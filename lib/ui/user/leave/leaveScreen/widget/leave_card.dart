@@ -1,80 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/configs/theme.dart';
+import 'package:projectunity/core/utils/date_formatter.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/const/leave_screen_type_map.dart';
 import '../../../../../model/leave/leave.dart';
-import 'leave_date_container.dart';
 
 class LeaveCard extends StatelessWidget {
+  final void Function()? onTap;
   final LeaveApplication leaveApplication;
-  final _stateManager = getIt<NavigationStackManager>();
 
-  LeaveCard({Key? key, required this.leaveApplication}) : super(key: key);
+  const LeaveCard({Key? key, required this.leaveApplication, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final color = getLeaveContainerColor(leaveApplication.leave.leaveStatus);
     final localize = AppLocalizations.of(context);
-    return InkWell(
-      borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-      onTap: () => _stateManager.push(NavStackItem.leaveDetailState(leaveApplication)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          BuildLeaveDateContainer(
-            startDate: leaveApplication.leave.startDate,
-            endDate: leaveApplication.leave.endDate,
-            color: color,
-          ),
-          Expanded(
-            child: SizedBox(
-              height: 140,
-              child: Padding(
-                padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      localize
-                          .leave_type_placeholder_leave_status(leaveApplication.leave.leaveType),
-                      style: AppTextStyle.darkSubtitle700,
-                    ),
-                    const SizedBox(height: 5),
-                    _buildReason(),
-                    const Spacer(),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    _leaveStatusIcon(
-                        leaveStatusText: localize
-                            .leave_status_placeholder_text(leaveApplication.leave.leaveStatus)),
-                  ],
-                ),
+    var duration = DateFormatter(localize).dateInLine(lastTwoLine: true,startTimeStamp: leaveApplication.leave.startDate, endTimeStamp: leaveApplication.leave.endDate);
+    final color = getLeaveContainerColor(leaveApplication.leave.leaveStatus);
+    return Container(
+      decoration: BoxDecoration(
+          color: AppColors.whiteColor,
+          boxShadow: AppTheme.commonBoxShadow,
+          borderRadius: AppTheme.commonBorderRadius
+      ),
+      child: ClipRRect(
+        borderRadius: AppTheme.commonBorderRadius,
+        child: Material(
+          color: AppColors.whiteColor,
+          borderRadius: AppTheme.commonBorderRadius,
+          child: InkWell(
+            borderRadius: AppTheme.commonBorderRadius,
+            onTap: onTap,
+            child: Container(
+              decoration:   BoxDecoration(
+                  border: Border(left: BorderSide(color: color, width: 5,))
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(0.50),
+                          borderRadius: BorderRadius.circular(8)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          localize.leave_type_placeholder_leave_status(leaveApplication.leave.leaveType),
+                          style: AppTextStyle.bodyTextDark.copyWith(fontWeight: FontWeight.bold,),
+                        ),
+                      ),
+                      Flexible(child: Text(duration,textAlign: TextAlign.right, overflow: TextOverflow.visible, maxLines: 2,)),
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+              Text(
+                leaveApplication.leave.reason,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: AppTextStyle.secondaryBodyText,
+              ),
+                  const SizedBox(height: 10,),
+                  _leaveStatusIcon(leaveStatusText: localize.leave_status_placeholder_text(leaveApplication.leave.leaveStatus)),
+                ],
               ),
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
 
 
-  Widget _buildReason() {
-    return Text(
-      leaveApplication.leave.reason,
-      overflow: TextOverflow.ellipsis,
-      maxLines: 3,
-      style: AppTextStyle.secondaryBodyText,
-    );
-  }
+
 
   Widget _leaveStatusIcon({required String leaveStatusText}) {
     return Row(

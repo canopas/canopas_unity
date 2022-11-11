@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
@@ -18,31 +20,31 @@ class RemainingLeaveContainer extends StatelessWidget {
     String totalDays = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentation(leave.totalLeaves);
     String duration = DateFormatter(AppLocalizations.of(context))
-        .dateInSingleLine(
+        .dateInLine(
             startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.2,
-      color: AppColors.primaryBlue.withOpacity(0.10),
+      margin: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing,horizontal: primaryHorizontalSpacing),
+      decoration: BoxDecoration(
+        color: AppColors.primaryBlueLight,
+       borderRadius: AppTheme.commonBorderRadius,),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             totalDays,
-            style: AppTextStyle.titleBlack600
+            style: AppTextStyle.titleBlack600.copyWith(fontWeight: FontWeight.bold)
                 .copyWith(color: AppColors.primaryBlue),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.01,
-          ),
-          (leave.totalLeaves < 1)?Text(
-            DateFormatter(localization).halfDayTime(leave.startDate),
-                  style: AppTextStyle.subtitleText
-                      .copyWith(fontWeight: FontWeight.w600),
-                ):Container(),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.01,
-          ),
+          (leave.totalLeaves < 1)?Padding(
+            padding:  EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+            child: Text(
+              DateFormatter(localization).halfDayTime(leave.perDayDuration.first),
+                    style: AppTextStyle.subtitleText
+                        .copyWith(fontWeight: FontWeight.w600),
+                  ),
+          ):SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
           Text(
             duration,
             style: AppTextStyle.titleText,

@@ -10,6 +10,7 @@ import 'package:rxdart/rxdart.dart';
 import '../../../../../provider/user_data.dart';
 import '../../../../../services/leave/user_leave_service.dart';
 import '../../../exception/error_const.dart';
+import '../../../model/leave_application.dart';
 import '../../../navigation/nav_stack/nav_stack_item.dart';
 import '../../../navigation/navigation_stack_manager.dart';
 
@@ -73,6 +74,10 @@ class UserLeavesBloc extends BaseBLoc{
   void onApplyForLeaveButtonTap(){
     _stateManager.pop();
     _stateManager.push(const NavStackItem.leaveRequestState());
+  }
+
+  void onLeaveCardTap(LeaveApplication leaveApplication){
+    _stateManager.push(NavStackItem.leaveDetailState(leaveApplication));
   }
 
 
