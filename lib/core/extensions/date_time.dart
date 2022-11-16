@@ -4,8 +4,8 @@ extension DateExtention on int {
   DateTime get toDate => DateTime.fromMillisecondsSinceEpoch(this);
   TimeOfDay get toTime => TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch(this));
   DateTime get dateOnly => DateUtils.dateOnly(toDate);
-  bool get isFirstHalf => (toTime.period == DayPeriod.am && toTime.hour > 8) ||  (toTime.period == DayPeriod.pm && toTime.hour == 12);
-  bool get isSecondHalf => toTime.period == DayPeriod.pm && toTime.hour >= 1 && toTime.hour < 8;
+  bool get isFirstHalf =>  toTime.hour >= 8 && toTime.hour < 13;
+  bool get isSecondHalf => toTime.hour >= 13 && toTime.hour <= 18;
 }
 
 extension TimestampExtension on DateTime {
