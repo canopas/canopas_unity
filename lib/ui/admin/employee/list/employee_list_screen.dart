@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
+import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
+import 'package:projectunity/widget/error_snackbar.dart';
 
-import '../../../../bloc/admin/employee/employee_list_bloc.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
-import '../../../../rest/api_response.dart';
 import '../../../../widget/circular_progress_indicator.dart';
-import '../../../../widget/error_snackbar.dart';
+import 'bloc/employee_list_bloc.dart';
+import 'bloc/employee_list_state.dart';
 import 'employee_card.dart';
+
+class EmployeeListPage extends StatelessWidget {
+  const EmployeeListPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<EmployeeListBloc>(
+        create: (_) =>
+            getIt<EmployeeListBloc>()..add(EmployeeListInitialLoadEvent()),
+        child: const EmployeeListScreen());
+  }
+}
 
 class EmployeeListScreen extends StatefulWidget {
   const EmployeeListScreen({Key? key}) : super(key: key);
@@ -20,17 +34,13 @@ class EmployeeListScreen extends StatefulWidget {
 }
 
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
-  final _employeeListBloc = getIt<EmployeeListBloc>();
-
   @override
   void initState() {
-    _employeeListBloc.attach();
     super.initState();
   }
 
   @override
   void dispose() {
-    _employeeListBloc.detach();
     super.dispose();
   }
 
@@ -44,23 +54,31 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           style: AppTextStyle.appBarTitle,
         ),
       ),
-      body: StreamBuilder<ApiResponse<List<Employee>>>(
-          initialData: const ApiResponse.idle(),
-          stream: _employeeListBloc.allEmployees,
-          builder: (context, snapshot) {
-            return snapshot.data!.when(
-              idle: () => Container(),
-              loading: () => const kCircularProgressIndicator(),
-              completed: (List<Employee> list) => ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),itemCount: list.length,
+      body: BlocBuilder<EmployeeListBloc, EmployeeListState>(
+        builder: (BuildContext context, EmployeeListState state) {
+          if (state is EmployeeListInitialState) {
+            return Container();
+          } else if (state is EmployeeListLoadingState) {
+            return const kCircularProgressIndicator();
+          } else if (state is EmployeeListLoadedState) {
+            List<Employee> employees = state.employees;
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
+              child: ListView.builder(
+                  itemCount: employees.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Employee employee = list[index];
+                    Employee employee = employees[index];
                     return EmployeeCard(employee: employee);
                   }),
-              error: (String error) =>
-                  showSnackBar(context: context, error: error),
             );
-          }),
+          }if(state is EmployeeListFailureState){
+            showSnackBar(context: context,error: state.error);
+          }
+          return Container();
+        },
+      ),
+
     );
   }
 }
