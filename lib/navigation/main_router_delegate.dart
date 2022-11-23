@@ -71,7 +71,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               key: ValueKey("add-member"), child: AdminAddMemberScreen()),
           adminEmployeeListState: () => const MaterialPage(
               key: ValueKey("employee-list-admin"),
-              child: EmployeeListScreen()),
+              child: EmployeeListPage()),
           employeeDetailState: (String selectedEmployee) => MaterialPage(
               key: const ValueKey('employee-detail'),
               child: EmployeeDetailScreen(

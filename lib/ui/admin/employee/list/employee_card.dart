@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
+import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart';
+import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
-
 import '../../../../core/utils/const/space_constant.dart';
-import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 
 class EmployeeCard extends StatelessWidget {
-  EmployeeCard({Key? key, required this.employee}) : super(key: key);
-
-  final NavigationStackManager _stackManager = getIt<NavigationStackManager>();
+  const EmployeeCard({Key? key, required this.employee}) : super(key: key);
   final Employee employee;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        _stackManager.push(NavStackItem.employeeDetailState(id: employee.id));
-      },
+      onTap: () =>context.read<EmployeeListBloc>().add(EmployeeListNavigationToEmployeeDetailEvent(employee.id)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing, vertical: primaryVerticalSpacing),
         child: Row(
