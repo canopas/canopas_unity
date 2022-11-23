@@ -51,15 +51,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _networkServiceBloc.getConnectivityStatus();
-    _networkServiceBloc.connection.listen((value) {
-      String networkErrorMsg =
-          AppLocalizations.of(context).check_your_connection_error;
-      value == false
-          ? showSnackBar(context: context, msg: networkErrorMsg)
-          : null;
-    });
-
+    // _networkServiceBloc.getConnectivityStatus();
+    // _networkServiceBloc.connection.listen((value) {
+    //   String networkErrorMsg =
+    //       AppLocalizations.of(context).check_your_connection_error;
+    //   value == false
+    //       ? showSnackBar(context: context, msg: networkErrorMsg)
+    //       : null;
+    // });
   }
 
   @override

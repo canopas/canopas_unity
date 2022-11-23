@@ -1,12 +1,13 @@
 import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'employee.g.dart';
 
 @JsonSerializable()
-class Employee {
+class Employee extends Equatable {
   String id;
   @JsonKey(name: 'role_type')
   int roleType;
@@ -44,7 +45,6 @@ class Employee {
       this.level,
       this.bloodGroup});
 
-
   factory Employee.fromJson(Map<String, dynamic>? map) =>
       _$EmployeeFromJson(map!);
 
@@ -72,6 +72,24 @@ class Employee {
       bloodGroup: data?['blood_group'] as String?,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        roleType,
+        name,
+        employeeId,
+        email,
+        designation,
+        phone,
+        imageUrl,
+        address,
+        gender,
+        dateOfBirth,
+        dateOfJoining,
+        level,
+        bloodGroup
+      ];
 }
 
 @JsonSerializable()
@@ -90,13 +108,14 @@ class Session {
   @JsonKey(name: 'last_accessed-on')
   int? lastAccessedOn;
 
-  Session({this.deviceId,
-    this.deviceToken,
-    this.deviceType,
-    this.version,
-    this.deviceName,
-    this.osVersion,
-    this.lastAccessedOn});
+  Session(
+      {this.deviceId,
+      this.deviceToken,
+      this.deviceType,
+      this.version,
+      this.deviceName,
+      this.osVersion,
+      this.lastAccessedOn});
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 
