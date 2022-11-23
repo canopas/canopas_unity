@@ -25,9 +25,9 @@
    "appDashBoard_setting_tab": "Settings",
 
 
-    "user_home_available_tag": "Available",
+    "user_home_remaining_tag": "Remaining",
+    "user_home_paid_leave_tag": "Paid Leave",
     "user_home_all_tag": "All",
-    "user_home_used_tag": "Used",
 
     "days_placeholder_leave": "{leave,plural,=0{{leave} Day} =1{{leave} day} other{{leave} days}}",
          "@days_placeholder_leave":{
