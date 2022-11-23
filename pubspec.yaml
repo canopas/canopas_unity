@@ -33,7 +33,9 @@ dependencies:
   sticky_headers: ^0.3.0
   uuid: ^3.0.6
   table_calendar: ^3.0.7
-
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+  mockito: ^5.3.2
 
 
 

@@ -5,6 +5,7 @@ import 'package:projectunity/ui/onboard/onboard_screen.dart';
 import 'package:projectunity/ui/shared/leave_detail/leave_details.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
+
 import '../provider/user_data.dart';
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
@@ -76,24 +77,30 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               child: EmployeeDetailScreen(
                 id: selectedEmployee,
               )),
-          leaveDetailState: (LeaveApplication leaveApplication) =>
-              MaterialPage(
-                  key: const ValueKey('leave-details'),
-                  child: LeaveDetailsView(
-                    leaveApplication: leaveApplication,
-                  )),
-          employeeHome: () => const MaterialPage(
-              key: ValueKey("employee-home"), child: EmployeeHomeScreen()),
-          employeeSettingsState: () => const MaterialPage(
-              key: ValueKey("employee-setting"),
-              child: EmployeeSettingScreen()),
-          userAllLeaveState: () => const MaterialPage(
-              key: ValueKey("user-all-leave"), child: AllLeaveScreen()),
-          userUpcomingLeaveState: () => const MaterialPage(
-              key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
-          leaveRequestState: () => const MaterialPage(
-              key: ValueKey("apply-leave"), child: RequestLeaveView()),
-          requestedLeaves: () => const MaterialPage(
+    leaveDetailState: (LeaveApplication leaveApplication) =>
+        MaterialPage(
+            key: const ValueKey('leave-details'),
+            child: LeaveDetailsView(
+              leaveApplication: leaveApplication,
+            )),
+    employeeHome: () =>
+    const MaterialPage(
+        key: ValueKey("employee-home"), child: EmployeeHomePage()),
+    employeeSettingsState: () =>
+    const MaterialPage(
+        key: ValueKey("employee-setting"),
+        child: EmployeeSettingScreen()),
+    userAllLeaveState: () =>
+    const MaterialPage(
+        key: ValueKey("user-all-leave"), child: AllLeaveScreen()),
+    userUpcomingLeaveState: () =>
+    const MaterialPage(
+        key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
+    leaveRequestState: () =>
+    const MaterialPage(
+        key: ValueKey("apply-leave"), child: RequestLeaveView()),
+    requestedLeaves: () =>
+    const MaterialPage(
               key: ValueKey("user-requested-leave"),
               child: RequestedLeaveScreen()),
           whoIsOutCalendarState: () => const MaterialPage(

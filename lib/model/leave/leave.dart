@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'leave.g.dart';
@@ -8,7 +9,7 @@ const int approveLeaveStatus = 2;
 const int rejectLeaveStatus = 3;
 
 @JsonSerializable()
-class Leave {
+class Leave extends Equatable {
   @JsonKey(name: 'leave_id')
   String leaveId;
   String uid;
@@ -50,5 +51,18 @@ class Leave {
   }
 
   Map<String, dynamic> toFireStore(Leave instance) => _$LeaveToJson(instance);
-}
 
+  @override
+  List<Object?> get props => [
+        leaveId,
+        uid,
+        leaveType,
+        startDate,
+        endDate,
+        totalLeaves,
+        reason,
+        leaveStatus,
+        appliedOn,
+        rejectionReason
+      ];
+}
