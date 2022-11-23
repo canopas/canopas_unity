@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
@@ -30,23 +31,25 @@ class LeaveStatus extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   LeaveInfo(
-                    title: AppLocalizations.of(context).user_home_available_tag,
+                    title: AppLocalizations.of(context).user_home_remaining_tag,
                     counts: leaveCounts.remainingLeaveCount,
                   ),
                   Container(
-                    width: 1,
-                    color: Colors.grey,
-                  ),
-                  LeaveInfo(
-                      title: AppLocalizations.of(context).user_home_all_tag,
-                      counts: leaveCounts.paidLeaveCount.toDouble()),
-                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
                     width: 1,
                     color: AppColors.secondaryText,
                   ),
                   LeaveInfo(
-                      title: AppLocalizations.of(context).user_home_used_tag,
+                      title: AppLocalizations.of(context).user_home_all_tag,
                       counts: leaveCounts.usedLeaveCount),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
+                    width: 1,
+                    color: AppColors.secondaryText,
+                  ),
+                  LeaveInfo(
+                      title: AppLocalizations.of(context).user_home_paid_leave_tag,
+                      counts: leaveCounts.paidLeaveCount.toDouble()),
                 ],
               ),
             ),
@@ -64,21 +67,24 @@ class LeaveInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          title,
-          style: AppTextStyle.leaveStatusCardTitle,
-        ),
-        const SizedBox(
-          height: 7,
-        ),
-        Text(
-          AppLocalizations.of(context).days_placeholder_leave(counts.fixedAt(1)),
-          style: AppTextStyle.subTitleTextStyle,
-        )
-      ],
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: AppTextStyle.leaveStatusCardTitle,
+          ),
+          const SizedBox(
+            height: 7,
+          ),
+          Text(
+            AppLocalizations.of(context).days_placeholder_leave(counts.fixedAt(1)),
+            style: AppTextStyle.subTitleTextStyle,
+          )
+        ],
+      ),
     );
   }
 }
