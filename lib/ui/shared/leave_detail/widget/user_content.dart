@@ -7,30 +7,38 @@ import '../../../../model/employee/employee.dart';
 
 class UserContent extends StatelessWidget {
   final Employee employee;
-
-  const UserContent({Key? key, required this.employee}) : super(key: key);
+  final void Function()?  onTap;
+  const UserContent({Key? key, required this.employee,required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
-      padding:  const EdgeInsets.symmetric(vertical: primaryVerticalSpacing,horizontal: primaryHorizontalSpacing),
-      child: Row(
-        children: [
-          ImageProfile(radius: 30, imageUrl: employee.imageUrl),
-          const SizedBox(
-            width: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Padding(
+          padding:  const EdgeInsets.symmetric(vertical: primaryHalfSpacing ,horizontal: primaryVerticalSpacing),
+          child: Row(
             children: [
-              _buildUserName(name: employee.name),
+              ImageProfile(radius: 30, imageUrl: employee.imageUrl),
               const SizedBox(
-                height: 3,
+                width: 10,
               ),
-              _buildDesignation(designation: employee.designation)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildUserName(name: employee.name),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  _buildDesignation(designation: employee.designation)
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

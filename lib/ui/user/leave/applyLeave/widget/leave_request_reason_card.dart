@@ -27,8 +27,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
           stream: reason,
           builder: (context, snapshot) {
             return TextField(
-              style: const TextStyle(
-                  color: AppColors.darkText, fontSize: bodyTextSize),
+              style: AppTextStyle.bodyTextDark,
               cursorColor: AppColors.secondaryText,
               maxLines: 5,
               decoration: InputDecoration(
