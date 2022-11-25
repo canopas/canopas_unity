@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/ui/admin/home/bloc/admin_home_bloc.dart';
+import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
+import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
@@ -20,6 +23,7 @@ import '../ui/user/leave/requested/requested_leave_screen.dart';
 import '../ui/user/leave/upcoming/upcoming_leave_screen.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import 'navigation_stack_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
@@ -60,8 +64,10 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               key: ValueKey("onboard"), child: OnBoardScreen()),
           login: () =>
               const MaterialPage(key: ValueKey("login"), child: LoginScreen()),
-          adminHome: () => const MaterialPage(
-              key: ValueKey("admin-home"), child: AdminHomeScreen()),
+          adminHome: () =>  const MaterialPage(
+              key: ValueKey("admin-home"),
+                child: AdminHomePage()
+              ),
           adminSettingsState: () => const MaterialPage(
               key: ValueKey("admin-setting"), child: AdminSettingScreen()),
           paidLeaveSettingsState: () => const MaterialPage(
