@@ -62,7 +62,6 @@ class UserLeaveService {
                  (differenceByDays) => leave.startDate.toDate.add(Duration(days: differenceByDays))).where((date) => date.isWeekend).length;
       leaveCount += leave.totalLeaves - weekendDays;
     });
-
     return leaveCount;
   }
 

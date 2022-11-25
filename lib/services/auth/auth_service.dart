@@ -18,7 +18,7 @@ class AuthService {
           .doc(FirestoreConst.session)
           .set(session.sessionToJson());
 
-      ref.update(user.employeeToJson());
+      ref.update(user.toJson());
     }
   }
 
@@ -28,7 +28,7 @@ class AuthService {
         .limit(1)
         .withConverter(
             fromFirestore: Employee.fromFirestore,
-            toFirestore: (Employee emp, _) => emp.employeeToJson());
+            toFirestore: (Employee emp, _) => emp.toJson());
     Employee? employee;
 
     final data = await employeeDbCollection.get();

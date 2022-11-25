@@ -216,9 +216,9 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
   }
 
   @override
-  _i5.Stream<List<_i2.Employee>> getEmployeesStream() => (super.noSuchMethod(
+  _i5.Stream<List<_i2.Employee>> getEmployeeStream() => (super.noSuchMethod(
         Invocation.method(
-          #getEmployeesStream,
+          #getEmployeeStream,
           [],
         ),
         returnValue: _i5.Stream<List<_i2.Employee>>.empty(),
@@ -300,9 +300,9 @@ class MockAdminLeaveService extends _i1.Mock implements _i10.AdminLeaveService {
         returnValue: _i5.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
       ) as _i5.Future<List<_i6.Leave>>);
   @override
-  _i5.Stream<List<_i6.Leave>> getAllRequests() => (super.noSuchMethod(
+  _i5.Stream<List<_i6.Leave>> getLeaveStream() => (super.noSuchMethod(
         Invocation.method(
-          #getAllRequests,
+          #getLeaveStream,
           [],
         ),
         returnValue: _i5.Stream<List<_i6.Leave>>.empty(),

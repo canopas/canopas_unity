@@ -48,29 +48,14 @@ class Employee extends Equatable {
   factory Employee.fromJson(Map<String, dynamic>? map) =>
       _$EmployeeFromJson(map!);
 
-  Map<String, dynamic> employeeToJson() => _$EmployeeToJson(this);
+  Map<String, dynamic> toJson() => _$EmployeeToJson(this);
 
   factory Employee.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
     Map<String, dynamic>? data = snapshot.data();
-    return Employee(
-      id: data?['id'] as String,
-      roleType: data?['role_type'] as int,
-      name: data?['name'] as String,
-      employeeId: data?['employee_id'] as String,
-      email: data?['email'] as String,
-      designation: data?['designation'] as String,
-      phone: data?['phone'] as String?,
-      imageUrl: data?['image_url'] as String?,
-      address: data?['address'] as String?,
-      gender: data?['gender'] as int?,
-      dateOfBirth: data?['date_of_birth'] as int?,
-      dateOfJoining: data?['date_of_joining'] as int?,
-      level: data?['level'] as String?,
-      bloodGroup: data?['blood_group'] as String?,
-    );
+    return Employee.fromJson(data!);
   }
 
   @override

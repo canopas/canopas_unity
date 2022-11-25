@@ -14,21 +14,14 @@ class EmployeeService {
       .collection(FirestoreConst.userCollection)
       .withConverter(
           fromFirestore: Employee.fromFirestore,
-          toFirestore: (Employee emp, _) => emp.employeeToJson());
+          toFirestore: (Employee emp, _) => emp.toJson());
 
-  Stream<List<Employee>> getEmployeesStream() {
-    BehaviorSubject<List<Employee>> employees =
-        BehaviorSubject<List<Employee>>();
-    _userDbCollection
-        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
-        .snapshots()
-        .listen((event) {
-      List<Employee> employeeList =
-          event.docs.map((employee) => employee.data()).toList();
-      employees.sink.add(employeeList);
-    });
-    return employees;
+
+  Stream<List<Employee>> getEmployeeStream(){
+return _userDbCollection.where(FirestoreConst.roleType,isNotEqualTo: kRoleTypeAdmin).snapshots().
+ map((event) { return event.docs.map((employee) => employee.data()).toList();});
   }
+
 
   Future<List<Employee>> getEmployees() async {
     final data = await _userDbCollection

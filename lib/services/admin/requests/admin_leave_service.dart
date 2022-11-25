@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 import '../../../core/utils/const/firestore.dart';
 import '../../../core/utils/const/leave_time_constants.dart';
 import '../../../model/leave/leave.dart';
+import '../../../model/leave_application.dart';
 
 @Injectable()
 class AdminLeaveService {
@@ -25,23 +26,18 @@ class AdminLeaveService {
     return allLeaves.docs.map((e) => e.data()).toList();
   }
 
-  Stream<List<Leave>> getAllRequests() {
-    final BehaviorSubject<List<Leave>> leaves = BehaviorSubject<List<Leave>>();
-    _leaveDbCollection
-        .where(FirestoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
-        .snapshots()
-        .listen((event) {
-      final request = event.docs
+
+  Stream<List<Leave>> getLeaveStream(){
+    return _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots()
+        .map((event) {
+      return event.docs
           .map((doc) => doc.data())
-          .where((element) => element.startDate.dateOnly
-              .areSameOrUpcoming(DateTime.now().dateOnly))
+          .where((leave) =>
+          leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly))
           .toList();
-      leaves.add(request);
-    }, onError: (error) {
-      leaves.addError(error);
     });
-    return leaves.stream;
   }
+
 
   Future<List<Leave>> getAllAbsence() async {
     int todayDate = DateTime.now().timeStampToInt;

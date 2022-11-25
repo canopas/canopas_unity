@@ -47,8 +47,10 @@ class Leave extends Equatable {
   factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     Map<String, dynamic>? data = snapshot.data();
-    return _$LeaveFromJson(data!);
+    return Leave.fromJson(data!);
   }
+
+  factory Leave.fromJson(Map<String,dynamic> map)=>_$LeaveFromJson(map);
 
   Map<String, dynamic> toFireStore(Leave instance) => _$LeaveToJson(instance);
 
