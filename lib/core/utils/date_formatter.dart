@@ -32,6 +32,15 @@ class DateFormatter {
     return _localization.dateFormatter_placeholder_other_days(totalLeaves);
   }
 
+  String getLeaveDurationPresentationLong(double totalLeaves) {
+    if (totalLeaves < 1) {
+      return _localization.leave_request_total_half_day_text;
+    } else if (totalLeaves == 1) {
+      return _localization.leave_request_total_one_day_text;
+    }
+    return _localization.leave_request_total_days_text(totalLeaves);
+  }
+
   String halfDayTime(int halfDay){
     if(halfDay == firstHalfLeave){
       return _localization.morning_period_text;

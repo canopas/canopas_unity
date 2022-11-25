@@ -157,7 +157,8 @@
               }
           }
        },
-
+  "leave_request_total_half_day_text":"Leave request is for half day",
+  "leave_request_total_one_day_text":"Leave request is for 1 day",
   "leave_request_total_days_text":"Leave request is for {day} days",
   "@leave_request_total_days_text":{
     "placeholders":{
@@ -266,14 +267,19 @@
       "admin_addMember_hint_designation":"Android developer",
 
 
-      "leave_remaining_days_placeholder":"{day,plural,=0 {{day} leave remaining} =1{{day} leave remaining} other {{day} leaves remaining}}}",
-        "@leave_remaining_days_placeholder":{
-           "placeholders":{
-             "day":{
-              "type":"int"
-                }
-          }
+  "leave_request_remaining_paid_count_placeholder":"{day,plural,=0{{day}/{paid} day left},=1{{day}/{paid} day left}, other{{day}/{paid} days left}}}",
+  "@leave_request_remaining_paid_count_placeholder":{
+    "placeholders":{
+      "day":{
+        "type":"double",
+        "format":"decimalPattern"
       },
+      "paid":{
+        "type":"int",
+        "format":"decimalPattern"
+      }
+    }
+  },
 
 
 

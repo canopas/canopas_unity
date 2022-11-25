@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:projectunity/bloc/shared/leave_details/leave_details_bloc.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
+import 'package:projectunity/model/leave_count.dart';
 import 'package:projectunity/ui/shared/leave_detail/widget/leave_action_button.dart';
 import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
@@ -35,18 +36,6 @@ class _LeaveDetailsViewState extends State<LeaveDetailsView> {
   final _leaveDetailBloc = getIt<LeaveDetailBloc>();
 
   @override
-  void initState() {
-    _leaveDetailBloc.fetchUserRemainingLeaveDetails(id: widget.leaveApplication.employee.id);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _leaveDetailBloc.detach();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
     final rejectionReason = widget.leaveApplication.leave.rejectionReason ?? "";
@@ -58,7 +47,7 @@ class _LeaveDetailsViewState extends State<LeaveDetailsView> {
         title: Text(AppLocalizations.of(context).leave_detail_title),
       ),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: 100,top: primaryVerticalSpacing),
+        padding: const EdgeInsets.only(bottom: 100,top: primaryHalfSpacing),
         children: [
           LeaveTypeAgoTitleWithStatus(
               hideLeaveStatus: widget.leaveApplication.leave.leaveStatus == pendingLeaveStatus && _leaveDetailBloc.currentUserIsAdmin,
@@ -66,10 +55,15 @@ class _LeaveDetailsViewState extends State<LeaveDetailsView> {
               appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
               leaveType: widget.leaveApplication.leave.leaveType),
           (_leaveDetailBloc.currentUserId != widget.leaveApplication.employee.id)
-              ?UserContent(employee: widget.leaveApplication.employee)
+              ?UserContent(
+              employee: widget.leaveApplication.employee,
+              onTap: _leaveDetailBloc.currentUserIsAdmin?(){
+                _leaveDetailBloc.onUserContentTap(id: widget.leaveApplication.employee.id);
+              }:null
+          )
               :const SizedBox(),
           RemainingLeaveContainer(
-              remainingLeaveStream: _leaveDetailBloc.remainingLeaveStream,
+             leaveCounts: widget.leaveApplication.leaveCounts ?? LeaveCounts(),
               leave: widget.leaveApplication.leave),
           PerDayDurationDateRange(perDayDurationWithDate: widget.leaveApplication.leave.getDateAndDuration()),
           ReasonField(
@@ -93,7 +87,7 @@ class _LeaveDetailsViewState extends State<LeaveDetailsView> {
 
   Widget _approvalRejectionMessage({required BuildContext context}) {
     return (widget.leaveApplication.leave.leaveStatus == pendingLeaveStatus && _leaveDetailBloc.currentUserIsAdmin)?Padding(
-      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryVerticalSpacing),
+      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryHalfSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -104,19 +98,23 @@ class _LeaveDetailsViewState extends State<LeaveDetailsView> {
           const SizedBox(
             height: 10,
           ),
-          TextField(
-            controller: _approvalOrRejectionMassage,
-            maxLines: 5,
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing).copyWith(bottom: 4),
+            decoration: BoxDecoration(
+              boxShadow: AppTheme.commonBoxShadow,
+              borderRadius: AppTheme.commonBorderRadius,
+              color: AppColors.whiteColor,
+            ),
+            child: TextField(
+              style: AppTextStyle.bodyTextDark,
+              controller: _approvalOrRejectionMassage,
+              maxLines: 5,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText:
+                AppLocalizations.of(context).admin_leave_detail_error_reason,
               ),
-              hintText:
-              AppLocalizations.of(context).admin_leave_detail_error_reason,
-              filled: true,
-              fillColor: AppColors.primaryBlue.withOpacity(0.10),
             ),
           ),
         ],
@@ -169,7 +167,8 @@ class PerDayDurationDateRange extends StatelessWidget {
           padding: const EdgeInsets.all(primaryHalfSpacing),
           margin: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
           decoration: BoxDecoration(
-            color: AppColors.primaryBlueLight,
+            color: AppColors.whiteColor,
+            boxShadow: AppTheme.commonBoxShadow,
             borderRadius: AppTheme.commonBorderRadius,
           ),
           child: Column(
@@ -184,7 +183,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                 width: MediaQuery.of(context).size.width*0.26,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: date.key.isWeekend?AppColors.primaryGray:AppColors.darkGrey),
+                  border: Border.all(color: AppColors.primaryGray),
                 ),
                 child: Text(dayLeaveTime[date.value].toString()),
               ),
@@ -196,9 +195,10 @@ class PerDayDurationDateRange extends StatelessWidget {
         children: perDayDurationWithDate.entries.map((date) => Container(
             width: double.infinity,
             padding: const EdgeInsets.all(primaryHalfSpacing),
-            margin: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing,horizontal: primaryHorizontalSpacing),
+            margin: const EdgeInsets.symmetric(vertical: primaryHalfSpacing,horizontal: primarySpacing),
             decoration: BoxDecoration(
-              color: AppColors.primaryBlueLight,
+              color: AppColors.whiteColor,
+              boxShadow: AppTheme.commonBoxShadow,
               borderRadius: AppTheme.commonBorderRadius,
             ),
             child: Row(
@@ -213,7 +213,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                   width: MediaQuery.of(context).size.width*0.26,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: date.key.isWeekend?AppColors.primaryGray:AppColors.darkGrey),
+                    border: Border.all(color: AppColors.primaryGray),
                   ),
                   child: Text(dayLeaveTime[date.value].toString()),
                 )

@@ -3,6 +3,7 @@ import 'package:projectunity/configs/text_style.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import '../../../../../core/utils/date_formatter.dart';
 
 class TotalDaysMsgBox extends StatelessWidget {
   final Stream<double> totalLeaves;
@@ -23,7 +24,8 @@ class TotalDaysMsgBox extends StatelessWidget {
               color: AppColors.primaryBlue.withOpacity(0.10),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(AppLocalizations.of(context).leave_request_total_days_text(snapshot.data!),style: AppTextStyle.subtitleText.copyWith(color: AppColors.primaryBlue),),
+            child: Text(DateFormatter(AppLocalizations.of(context))
+                .getLeaveDurationPresentationLong(snapshot.data!),style: AppTextStyle.subtitleText.copyWith(color: AppColors.primaryBlue),),
           );
         }
     );

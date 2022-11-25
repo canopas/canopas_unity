@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/theme.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
@@ -40,7 +41,12 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
     final localization = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(horizontal: 50),
+      width: MediaQuery.of(context).size.width*0.75,
+      decoration: BoxDecoration(
+        color: AppColors.whiteColor,
+        borderRadius: BorderRadius.circular(50),
+        boxShadow: AppTheme.commonBoxShadow,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

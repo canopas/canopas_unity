@@ -130,7 +130,6 @@ Future<_i1.GetIt> $initGetIt(
       ));
   gh.factory<_i25.LeaveDetailBloc>(() => _i25.LeaveDetailBloc(
         get<_i9.UserLeaveService>(),
-        get<_i7.PaidLeaveService>(),
         get<_i13.NavigationStackManager>(),
         get<_i3.AdminLeaveService>(),
         get<_i12.UserManager>(),

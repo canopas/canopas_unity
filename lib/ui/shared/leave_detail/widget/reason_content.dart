@@ -11,7 +11,7 @@ class ReasonField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (!hide)?Padding(
-      padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing,horizontal: primaryHorizontalSpacing),
+      padding: const EdgeInsets.symmetric(vertical: primaryHalfSpacing,horizontal: primaryHorizontalSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

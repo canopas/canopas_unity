@@ -19,7 +19,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     String appliedOn = DateFormatter(AppLocalizations.of(context)).timeAgoPresentation(appliedOnInTimeStamp);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryVerticalSpacing),
+      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryHalfSpacing),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -50,7 +50,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
               children: [
                 Text(
                   AppLocalizations.of(context).leave_status_placeholder_text(status),
-                  style: AppTextStyle.bodyTextDark.copyWith(fontWeight: FontWeight.bold,),
+                  style: AppTextStyle.bodyTextDark.copyWith(fontWeight: FontWeight.w600),
                 ),
               ],
             ),
