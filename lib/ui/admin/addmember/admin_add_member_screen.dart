@@ -4,9 +4,9 @@ import 'package:projectunity/bloc/admin/home/add_memeber_bloc.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../widget/date_time_picker.dart';
@@ -21,6 +21,7 @@ class AdminAddMemberScreen extends StatefulWidget {
 
 class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   final AddMemberBloc _bloc = getIt<AddMemberBloc>();
+  final NavigationStackManager nav = getIt<NavigationStackManager>();
   int selectedRole = kRoleTypeEmployee;
   final TextEditingController  _dateController = TextEditingController();
 
@@ -52,9 +53,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: _buildFooter(keyboardIsOpen),
-      body: Stack(children: [
-        _buildForm(),
-      ]),
+      body: _buildForm(),
     );
   }
 
@@ -84,7 +83,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
         left: primaryHorizontalSpacing,
         right: primaryHorizontalSpacing,
         top: 24,
-        bottom: MediaQuery.of(context).viewInsets.bottom != 0 ? 0 : 80,
+        bottom: MediaQuery.of(context).viewInsets.bottom != 0 ? primaryHorizontalSpacing : 100,
       ),
       children: [
         ToggleButton(
@@ -136,14 +135,17 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   _buildDateOfJoiningButton(){
     final localization = AppLocalizations.of(context);
     return StreamBuilder<DateTime>(
+        initialData: DateTime.now(),
         stream: _bloc.dateOfJoining,
         builder: (context, snapshot) {
           return TextField(
+            readOnly: true,
             onTap: () async {
-              DateTime? joiningDate =
-                  await pickDate(context: context, initialDate: snapshot.data!);
-              _bloc.validateDateOfJoining(joiningDate!);
-              _dateController.text = localization.date_format_yMMMd(joiningDate);
+              DateTime? joiningDate = await pickDate(context: context, initialDate: snapshot.data!);
+              if(joiningDate != null){
+                _bloc.validateDateOfJoining(joiningDate);
+                _dateController.text = localization.date_format_yMMMd(joiningDate);
+              }
             },
             controller: _dateController,
             keyboardType: TextInputType.none,
