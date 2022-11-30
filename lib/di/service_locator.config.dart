@@ -17,7 +17,6 @@ import '../bloc/authentication/logout_bloc.dart' as _i26;
 import '../bloc/employee/leave/request_leave_bloc.dart' as _i15;
 import '../bloc/employee/leave/user_leave_bloc.dart' as _i17;
 import '../bloc/network/network_service_bloc.dart' as _i6;
-import '../bloc/onboard/onboard_bloc.dart' as _i14;
 import '../bloc/shared/leave_details/leave_details_bloc.dart' as _i25;
 import '../bloc/shared/user_leave_calendar/user_leave_calendar_bloc.dart'
     as _i16;
@@ -34,6 +33,7 @@ import '../services/leave/user_leave_service.dart' as _i9;
 import '../stateManager/auth/auth_manager.dart' as _i11;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i24;
 import '../ui/admin/home/bloc/admin_home_bloc.dart' as _i20;
+import '../ui/onboard/bloc/onboard_bloc.dart' as _i14;
 import '../ui/user/home/bloc/employee_home_bloc.dart' as _i23;
 import 'AppModule.dart' as _i28; // ignore_for_file: unnecessary_lambdas
 

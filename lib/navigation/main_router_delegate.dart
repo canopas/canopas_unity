@@ -61,7 +61,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
   List<Page> _buildStack() => stack.pages
       .map((state) => state.when(
           onBoard: () => const MaterialPage(
-              key: ValueKey("onboard"), child: OnBoardScreen()),
+              key: ValueKey("onboard"), child: OnBoardScreenBlocProvider()),
           login: () =>
               const MaterialPage(key: ValueKey("login"), child: LoginScreen()),
           adminHome: () =>  const MaterialPage(

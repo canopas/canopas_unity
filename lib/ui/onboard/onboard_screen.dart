@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/bloc/onboard/onboard_bloc.dart';
 import 'package:projectunity/di/service_locator.dart';
-
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
 import '../onboard/onBoarding_contents.dart';
+import 'bloc/onboard_bloc.dart';
+import 'bloc/onboard_event.dart';
+
+class OnBoardScreenBlocProvider extends StatelessWidget {
+  const OnBoardScreenBlocProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<OnBoardBloc>(),
+      child: const OnBoardScreen(),
+    );
+  }
+}
+
 
 class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
@@ -15,9 +29,8 @@ class OnBoardScreen extends StatefulWidget {
 }
 
 class _OnBoardScreenState extends State<OnBoardScreen> {
+
   final PageController _controller = PageController();
-  int currentPage = 0;
-  final OnBoardBloc _bloc = getIt<OnBoardBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +39,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     List<OnBoardingContents> onBoardContents =
         OnBoardingContents.contents(context);
 
-    bool isLastPage = currentPage + 1 == onBoardContents.length;
+    bool isLastPage = context.watch<OnBoardBloc>().state + 1 == onBoardContents.length;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -41,7 +54,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     alignment: Alignment.topRight,
                     child: TextButton(
                         onPressed: () {
-                          _bloc.setOnBoardCompleted();
+                          context.read<OnBoardBloc>().add(SetOnBoardCompletedEvent());
                         },
                         child: Text(
                           AppLocalizations.of(context).onBoard_skip_button,
@@ -56,9 +69,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 controller: _controller,
                 onPageChanged: (index) {
-                  setState(() {
-                    currentPage = index;
-                  });
+                  context.read<OnBoardBloc>().add(CurrentPageChangeEvent(page: index));
                 },
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
@@ -96,7 +107,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                    onBoardContents.length, (index) => _buildDots(index))),
+                    onBoardContents.length, (index) => OnBoardPageDotsIndicator(pageIndex: index,))),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: ElevatedButton(
@@ -106,7 +117,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         borderRadius: BorderRadius.circular(25))),
                 onPressed: () {
                   if (isLastPage) {
-                    _bloc.setOnBoardCompleted();
+                    context.read<OnBoardBloc>().add(SetOnBoardCompletedEvent());
                   } else {
                     _controller.nextPage(
                         duration: const Duration(milliseconds: 500),
@@ -130,18 +141,28 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
       ),
     );
   }
+}
 
-  AnimatedContainer _buildDots(int index) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(50)),
-        color: currentPage == index ? AppColors.peachColor : Colors.grey,
+class OnBoardPageDotsIndicator extends StatelessWidget {
+  final int pageIndex;
+  const OnBoardPageDotsIndicator({Key? key, required this.pageIndex}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OnBoardBloc,int>(
+      buildWhen: (previous, current) => previous != current,
+      builder: (context, state) => AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
+          color: state == pageIndex ? AppColors.peachColor : Colors.grey,
+        ),
+        margin: const EdgeInsets.only(right: 5),
+        height: 10,
+        curve: Curves.easeIn,
+        width: state == pageIndex ? 20 : 10,
       ),
-      margin: const EdgeInsets.only(right: 5),
-      height: 10,
-      curve: Curves.easeIn,
-      width: currentPage == index ? 20 : 10,
     );
   }
 }
+
