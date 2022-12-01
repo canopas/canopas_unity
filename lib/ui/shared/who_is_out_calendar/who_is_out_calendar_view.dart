@@ -1,16 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/rest/api_response.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_event.dart';
+import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_state.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/user_profile_image.dart';
-import '../../../bloc/shared/who_is_out_calendar/who_is_out_calendar_view_bloc.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
+import '../../../configs/theme.dart';
 import '../../../core/utils/const/leave_map.dart';
 import '../../../core/utils/const/space_constant.dart';
+import '../../../di/service_locator.dart';
 import '../../../model/leave_application.dart';
 import '../../../widget/calendar.dart';
+import '../../../widget/user_profile_image.dart';
+import 'bloc/who_is_out_calendar_bloc/who_is_out_calendar_bloc.dart';
+import 'bloc/who_is_out_calendar_bloc/who_is_out_calendar_event.dart';
+import 'bloc/who_is_out_view_bloc/who_is_out_view_bloc.dart';
+
+
+
+class WhoIsOutCalendarViewProvider extends StatelessWidget {
+
+  const WhoIsOutCalendarViewProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers:  [
+          BlocProvider(
+            create: (_) => getIt<WhoIsOutCalendarBloc>(),
+          ),
+          BlocProvider(
+            create: (_) => getIt<WhoIsOutViewBloc>()..add(WhoIsOutViewInitialLoadEvent()),
+          ),
+        ],
+        child: const WhoIsOutCalendarView());
+  }
+}
 
 class WhoIsOutCalendarView extends StatefulWidget {
   const WhoIsOutCalendarView({Key? key}) : super(key: key);
@@ -20,74 +47,68 @@ class WhoIsOutCalendarView extends StatefulWidget {
 }
 
 class _WhoIsOutCalendarViewState extends State<WhoIsOutCalendarView> {
-  final _whoIsOutCalendarBloc = getIt<WhoIsOutCalendarBloc>();
-
-  @override
-  void initState() {
-    _whoIsOutCalendarBloc.attach();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _whoIsOutCalendarBloc.detach();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+
     final localization = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(localization.leave_calendar_title),
-      ),
-      body: StreamBuilder<ApiResponse<List<LeaveApplication>>>(
-          stream: _whoIsOutCalendarBloc.allLeave,
-          initialData: const ApiResponse.idle(),
-          builder: (context, snapshot) {
-            final Widget calender = Calendar(
-                calendarFormatStream: _whoIsOutCalendarBloc.calendarFormat,
-                selectedDateStream: _whoIsOutCalendarBloc.focusedDate.stream,
-                onDaySelected: _whoIsOutCalendarBloc.selectDate,
-                onVerticalSwipe: _whoIsOutCalendarBloc.changeCalendarFormatBySwipe,
-                onFormatChanged: _whoIsOutCalendarBloc.changeCalendarFormat,
-                eventLoader: _whoIsOutCalendarBloc.getEventsOfDay);
-            final Widget emptyScreen = Center(child: Text( localization.calendar_no_leave_msg(_whoIsOutCalendarBloc.focusedDate.value,),style: AppTextStyle.secondarySubtitle500,textAlign: TextAlign.center,));
-            return snapshot.data!.when(
-                  idle: () => Column(
-                    children: [
-                      calender,
-                      emptyScreen,
-                    ],
-                  ),
-                  loading: () => const kCircularProgressIndicator(),
-                  completed: (leaveApplications) => Column(
-                    children: [
-                      calender,
-                      Expanded(
-                        child: (leaveApplications.isNotEmpty)?ListView.separated(
-                          padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                          itemBuilder: (BuildContext context, int index) => CalendarEmployeeLeaveCard(
-                            leaveApplication: leaveApplications[index],
-                            onTap: (){
-                              _whoIsOutCalendarBloc.onLeaveCardTap(leaveApplications[index]);
-                            },
-                          ),
-                          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryVerticalSpacing,),
-                          itemCount: leaveApplications.length,
-                        ):emptyScreen,
-                      ),
-                    ],
-                  ),
-                  error: (error) => Column(
-                    children: [
-                      calender,
-                      emptyScreen,
-                    ],
-                  ),
-              );
-          }),
-      backgroundColor: AppColors.whiteColor,
+        appBar: AppBar(
+          title: Text(localization.leave_calendar_title),
+        ),
+        body: Column(
+          children: [
+            CalendarCard(
+              calendar: TableCalendar(
+                rangeSelectionMode: RangeSelectionMode.disabled,
+                onDaySelected: (selectedDay, focusedDay){
+                  context.read<WhoIsOutCalendarBloc>().add(WhoIsOutCalendarSelectDateEvent(selectedDay));
+                  context.read<WhoIsOutViewBloc>().add(GetSelectedDateLeavesEvent(selectedDay));
+                },
+                onFormatChanged: (format) {
+                  context.read<WhoIsOutCalendarBloc>().add(WhoIsOutCalendarFormatChangeEvent(format));
+                },
+                calendarFormat: context.watch<WhoIsOutCalendarBloc>().state.calendarFormat,
+                selectedDayPredicate: (day) {
+                  return isSameDay(context.watch<WhoIsOutCalendarBloc>().state.selectedDate, day);
+                },
+                focusedDay: context.watch<WhoIsOutCalendarBloc>().state.selectedDate,
+                firstDay: DateTime(2020),
+                lastDay: DateTime(2025),
+                startingDayOfWeek: StartingDayOfWeek.sunday,
+                calendarStyle: AppTheme.calendarStyle,
+                headerStyle: AppTheme.calendarHeaderStyle,
+                eventLoader: context.watch<WhoIsOutViewBloc>().getEvents,
+              ),
+              onVerticalSwipe: (swipe){
+                context.read<WhoIsOutCalendarBloc>().add(WhoIsOutCalendarFormatChangeBySwipeEvent(swipe.index));
+              },
+            ),
+            Expanded(
+              child: BlocBuilder<WhoIsOutViewBloc,WhoIsOutViewState>(
+                  builder: (context, state) {
+                    if(state is WhoISOutViewLoadingState){
+                      return const kCircularProgressIndicator();
+                    } else if(state is WhoIsOutViewSuccessState && state.leaveApplications.isNotEmpty){
+                      return ListView.separated(
+                        padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                        itemBuilder: (BuildContext context, int index) => CalendarEmployeeLeaveCard(
+                          leaveApplication: state.leaveApplications[index],
+                          onTap: (){
+                            context.read<WhoIsOutViewBloc>().add(WhoIsOutLeaveCardTapEvent(state.leaveApplications[index]));
+                          },
+                        ),
+                        separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryVerticalSpacing,),
+                        itemCount: state.leaveApplications.length,
+                      );}
+                    return Center(child: Text( localization.calendar_no_leave_msg(
+                      context.watch<WhoIsOutCalendarBloc>().state.selectedDate
+                    ),style: AppTextStyle.secondarySubtitle500,textAlign: TextAlign.center,));
+                  }
+              ),
+            )
+          ],
+        )
     );
   }
 }
