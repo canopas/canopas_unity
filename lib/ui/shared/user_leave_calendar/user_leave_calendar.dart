@@ -1,39 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/bloc/shared/user_leave_calendar/user_leave_calendar_bloc.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/ui/user/leave/leaveScreen/widget/leave_card.dart';
-import 'package:projectunity/widget/calendar.dart';
-import '../../../configs/colors.dart';
-import '../../../core/utils/const/space_constant.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projectunity/core/extensions/leave_extension.dart';
+import 'package:projectunity/ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart';
+import 'package:projectunity/ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_event.dart';
+import 'package:projectunity/ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_state.dart';
+import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../model/leave_application.dart';
-import '../../../rest/api_response.dart';
-import '../../../widget/circular_progress_indicator.dart';
+import '../../../configs/text_style.dart';
+import '../../../configs/theme.dart';
+import '../../../core/utils/const/space_constant.dart';
+import '../../../di/service_locator.dart';
+import '../../../widget/calendar.dart';
+import '../../user/leave/leaveScreen/widget/leave_card.dart';
+import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart';
+import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_events.dart';
+import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
 
+
+class UserLeaveCalendarViewProvider extends StatelessWidget {
+  final String userId;
+  const UserLeaveCalendarViewProvider({Key? key, required this.userId}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers:  [
+      BlocProvider(
+        create: (_) => getIt<LeaveCalendarBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => getIt<UserLeaveCalendarViewBloc>()..add(UserLeaveCalendarInitialLoadEvent(userId)),
+      ),
+    ],
+        child: const UserLeaveCalendarView());
+  }
+}
 
 class UserLeaveCalendarView extends StatefulWidget {
-  final String userId;
-  const UserLeaveCalendarView({Key? key, required this.userId}) : super(key: key);
+  const UserLeaveCalendarView({Key? key}) : super(key: key);
 
   @override
   State<UserLeaveCalendarView> createState() => _UserLeaveCalendarViewState();
 }
 
 class _UserLeaveCalendarViewState extends State<UserLeaveCalendarView> {
-
-  final UserLeaveCalendarBloc _userLeaveCalendarBloc = getIt<UserLeaveCalendarBloc>();
-  @override
-  void initState() {
-    _userLeaveCalendarBloc.getUserAllLeave(userID: widget.userId);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _userLeaveCalendarBloc.detach();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,50 +53,83 @@ class _UserLeaveCalendarViewState extends State<UserLeaveCalendarView> {
       appBar: AppBar(
         title: Text(localization.leave_calendar_title),
       ),
-      body: StreamBuilder<ApiResponse<List<LeaveApplication>>>(
-          initialData: const ApiResponse.idle(),
-          stream: _userLeaveCalendarBloc.allLeave,
-          builder: (context, snapshot) {
-            final Widget calender = DateRangeCalendar(
-                calendarFormatStream: _userLeaveCalendarBloc.calendarFormat,
-                selectedDateRangeStream: _userLeaveCalendarBloc.selectedDateRange,
-                onRangeSelected: _userLeaveCalendarBloc.getDateRangeLeaves,
-                onVerticalSwipe: _userLeaveCalendarBloc.changeCalendarFormatBySwipe,
-                onFormatChanged: _userLeaveCalendarBloc.changeCalendarFormat,
-                eventLoader: _userLeaveCalendarBloc.getEventsOfDay,
-            );
-            final Widget emptyScreen = Center(child: Text(
-              (_userLeaveCalendarBloc.selectedDateRange.value.endDate!=null)?localization.range_calendar_no_leave_msg(_userLeaveCalendarBloc.selectedDateRange.value.startDate!, _userLeaveCalendarBloc.selectedDateRange.value.endDate!):localization.calendar_no_leave_msg(_userLeaveCalendarBloc.selectedDateRange.value.selectedDate,),style: AppTextStyle.secondarySubtitle500,textAlign: TextAlign.center,));
-            return snapshot.data!.when(
-              idle: () => Column(
-                children: [
-                  calender,
-                  emptyScreen,
-                ],
-              ),
-              loading: () => const kCircularProgressIndicator(),
-              completed: (leaveApplications) => Column(
-                children: [
-                  calender,
-                  Expanded(
-                    child: (leaveApplications.isNotEmpty)?ListView.separated(
+      body: Column(
+        children: [
+          CalendarCard(
+            calendar: TableCalendar(
+              rangeSelectionMode: RangeSelectionMode.toggledOn,
+              onRangeSelected: (startDate, endDate, selectedDate) {
+                context.read<UserLeaveCalendarViewBloc>().add(DateRangeSelectedEvent(startDate, endDate, selectedDate));
+                context.read<LeaveCalendarBloc>().add(DateRangeSelectedCalendarEvent(startDate, endDate, selectedDate));
+              },
+              onFormatChanged: (format) {
+                context.read<LeaveCalendarBloc>().add(ChangeCalendarFormatEvent(format));
+              },
+              calendarFormat: context.watch<LeaveCalendarBloc>().state.calendarFormat,
+              focusedDay: context.watch<LeaveCalendarBloc>().state.selectedDate ?? DateTime.now(),
+              rangeStartDay: context.watch<LeaveCalendarBloc>().state.startDate,
+              rangeEndDay: context.watch<LeaveCalendarBloc>().state.endDate,
+              firstDay: DateTime(2020),
+              lastDay: DateTime(2025),
+              startingDayOfWeek: StartingDayOfWeek.sunday,
+              calendarStyle: AppTheme.calendarStyle,
+              headerStyle: AppTheme.calendarHeaderStyle,
+              eventLoader: (day){
+                UserLeaveCalendarViewState state =  context.watch<UserLeaveCalendarViewBloc>().state;
+                if(state is UserLeaveCalendarViewSuccessState){
+                 return state.allLeaves.where((la) => la.leave.findUserOnLeaveByDate(day: day)).toList();
+                }
+                return [];
+              }
+            ),
+            onVerticalSwipe: (swipe){
+              context.read<LeaveCalendarBloc>().add(ChangeCalendarFormatBySwipeEvent(swipe.index));
+            },
+          ),
+          Expanded(
+            child: BlocBuilder<UserLeaveCalendarViewBloc,UserLeaveCalendarViewState>(
+                builder: (context, state) {
+                  if(state is UserLeaveCalendarViewLoadingState){
+                    return const kCircularProgressIndicator();
+                  } else if(state is UserLeaveCalendarViewSuccessState && state.leaveApplication.isNotEmpty){
+                    return ListView.separated(
                       padding: const EdgeInsets.all( primaryHorizontalSpacing),
-                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: leaveApplications[index], onTap: () {_userLeaveCalendarBloc.onLeaveCardTap(leaveApplications[index]);},),
+                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: state.leaveApplication[index],
+                        onTap: () {
+                          context.read<UserLeaveCalendarViewBloc>().add(LeaveTypeCardTapEvent(state.leaveApplication[index]));
+                       },),
                       separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryHorizontalSpacing,),
-                      itemCount: leaveApplications.length,
-                    ):emptyScreen,
-                  ),
-                ],
-              ),
-              error: (error) => Column(
-                children: [
-                  calender,
-                  emptyScreen,
-                ],
-              ),
-            );
-          }),
-      backgroundColor: AppColors.whiteColor,
+                      itemCount: state.leaveApplication.length,
+                    );}
+                  return BlocBuilder<LeaveCalendarBloc,LeaveCalendarState>(
+                    buildWhen: (previous, current) => previous.selectedDate != current.selectedDate || previous.endDate != current.endDate || previous.startDate != current.startDate,
+                    builder: (context, state) =>  EmptyCalendarScreen(
+                        endDate: state.endDate,
+                        selectedDate: state.selectedDate,
+                        startDate: state.startDate,
+                      ),
+                  );
+                  }
+            ),
+          )
+        ],
+      )
     );
+  }
+}
+
+class EmptyCalendarScreen extends StatelessWidget {
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final DateTime? selectedDate;
+  const EmptyCalendarScreen({Key? key, this.startDate, this.endDate, this.selectedDate}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text(
+      (endDate!=null)
+          ? AppLocalizations.of(context).range_calendar_no_leave_msg(startDate!,endDate!)
+          :AppLocalizations.of(context).calendar_no_leave_msg(selectedDate?? DateTime.now()),
+      style: AppTextStyle.secondarySubtitle500,textAlign: TextAlign.center,));
   }
 }

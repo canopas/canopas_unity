@@ -111,10 +111,10 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               child: RequestedLeaveScreen()),
           whoIsOutCalendarState: () => const MaterialPage(
               key: ValueKey('who-is-out-calendar'),
-              child: WhoIsOutCalendarView()),
+              child: WhoIsOutCalendarViewProvider()),
           userLeaveCalendarState: (String userId) => MaterialPage(
               key: const ValueKey('user-view-calendar'),
-              child: UserLeaveCalendarView(userId: userId,)),
+              child: UserLeaveCalendarViewProvider(userId: userId,)),
   ))
       .toList();
 
