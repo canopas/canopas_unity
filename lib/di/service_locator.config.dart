@@ -9,7 +9,6 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i9;
 
-import '../bloc/admin/employee/employee_detail_bloc.dart' as _i24;
 import '../bloc/admin/home/add_memeber_bloc.dart' as _i21;
 import '../bloc/admin/setting/paid_leave_count_bloc.dart' as _i23;
 import '../bloc/authentication/login_bloc.dart' as _i29;
@@ -27,6 +26,7 @@ import '../services/admin/requests/admin_leave_service.dart' as _i3;
 import '../services/auth/auth_service.dart' as _i4;
 import '../services/leave/user_leave_service.dart' as _i10;
 import '../stateManager/auth/auth_manager.dart' as _i13;
+import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i24;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i26;
 import '../ui/admin/home/bloc/admin_home_bloc.dart' as _i22;
 import '../ui/onboard/bloc/onboard_bloc.dart' as _i16;
@@ -120,9 +120,8 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.NavigationStackManager>(),
       ));
   gh.factory<_i24.EmployeeDetailBloc>(() => _i24.EmployeeDetailBloc(
-        get<_i5.EmployeeService>(),
         get<_i15.NavigationStackManager>(),
-        get<_i10.UserLeaveService>(),
+        get<_i5.EmployeeService>(),
       ));
   gh.factory<_i25.EmployeeHomeBloc>(() => _i25.EmployeeHomeBloc(
         get<_i14.UserManager>(),
@@ -133,8 +132,8 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.NavigationStackManager>(),
       ));
   gh.factory<_i26.EmployeeListBloc>(() => _i26.EmployeeListBloc(
-        get<_i5.EmployeeService>(),
         get<_i15.NavigationStackManager>(),
+        get<_i5.EmployeeService>(),
       ));
   gh.factory<_i27.LeaveDetailBloc>(() => _i27.LeaveDetailBloc(
         get<_i10.UserLeaveService>(),

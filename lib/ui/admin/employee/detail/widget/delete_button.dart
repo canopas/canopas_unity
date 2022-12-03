@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
+import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 
 import '../../../../../../configs/colors.dart';
 
 class DeleteButton extends StatelessWidget {
-  VoidCallback onTap;
+  final String id;
 
-  DeleteButton({Key? key, required this.onTap}) : super(key: key);
+  const DeleteButton({Key? key,required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,9 @@ class DeleteButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.redColor,
             ),
-            onPressed: onTap,
+            onPressed: (){
+              context.read<EmployeeDetailBloc>().add(DeleteEmployeeEvent(employeeId: id));
+            },
             child: Text(
               AppLocalizations.of(context).user_leave_detail_button_delete,
               style: AppTextStyle.subtitleText,

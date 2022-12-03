@@ -10,7 +10,8 @@ import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_state.dart';
 
-import 'employee_list_bloc_test.mocks.dart';
+import '../../../../user/home/employee_home_bloc_test.mocks.dart';
+
 
 
 @GenerateMocks([EmployeeService,NavigationStackManager])
@@ -23,9 +24,7 @@ Employee employee= Employee(id: 'id', roleType: 1, name: 'Andrew jhone', employe
 setUpAll(() {
 navigationStackManager= MockNavigationStackManager();
 employeeService= MockEmployeeService();
-employeeListBloc= EmployeeListBloc(employeeService, navigationStackManager);
-
-
+employeeListBloc= EmployeeListBloc( navigationStackManager,employeeService);
 });
 
 group('Employee List Bloc', () {
@@ -35,7 +34,7 @@ group('Employee List Bloc', () {
   });
   test('Emits failure state when Exception is thrown from any cause', ()  {
     when(employeeService.getEmployees()).thenThrow(Exception(firestoreFetchDataError));
-    EmployeeListState failureState= EmployeeListFailureState(error: firestoreFetchDataError);
+    EmployeeListState failureState= const EmployeeListFailureState(error: firestoreFetchDataError);
     employeeListBloc.add(EmployeeListInitialLoadEvent());
     expectLater(employeeListBloc.stream,emitsInOrder([EmployeeListLoadingState(),failureState]));
   });
