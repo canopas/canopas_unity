@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
+import 'package:projectunity/event_bus/events.dart';
+import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../core/utils/const/role.dart';
@@ -56,7 +58,7 @@ return _userDbCollection.where(FirestoreConst.roleType,isNotEqualTo: kRoleTypeAd
         .delete()
         .then((value) async {
       await employeeDocRef.delete();
-    });
+    }).then((value) => eventBus.fire(EmployeeListUpdateEvent()));
   }
 
 }

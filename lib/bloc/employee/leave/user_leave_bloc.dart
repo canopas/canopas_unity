@@ -49,15 +49,15 @@ class UserLeavesBloc extends BaseBLoc{
   }
 
   Future<List<Leave>> _getUpcomingLeaves(String employeeId) async {
-    List<Leave> _allApprovedLeaves = await _userLeaveService.getUpcomingLeaves(employeeId);
-    List<Leave> _upcomingLeave = <Leave>[];
+    List<Leave> allApprovedLeaves = await _userLeaveService.getUpcomingLeaves(employeeId);
+    List<Leave> upcomingLeave = <Leave>[];
     int currentTime = DateTime.now().millisecondsSinceEpoch;
-    for (var leave in _allApprovedLeaves) {
+    for (var leave in allApprovedLeaves) {
       if(leave.startDate >= currentTime){
-        _upcomingLeave.add(leave);
+        upcomingLeave.add(leave);
       }
     }
-    return _upcomingLeave;
+    return upcomingLeave;
   }
   late StreamSubscription leaveUpdateEventListener;
    _listenEmployeeRemoveEvent() {

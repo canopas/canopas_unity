@@ -54,7 +54,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           style: AppTextStyle.appBarTitle,
         ),
       ),
-      body: BlocBuilder<EmployeeListBloc, EmployeeListState>(
+      body: BlocConsumer<EmployeeListBloc, EmployeeListState>(
         builder: (BuildContext context, EmployeeListState state) {
           if (state is EmployeeListInitialState) {
             return Container();
@@ -72,10 +72,13 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                     return EmployeeCard(employee: employee);
                   }),
             );
-          }if(state is EmployeeListFailureState){
-            showSnackBar(context: context,error: state.error);
           }
           return Container();
+        },
+        listener: (BuildContext context, EmployeeListState state){
+          if(state is EmployeeListFailureState){
+            showSnackBar(context: context,error: state.error);
+          }
         },
       ),
 

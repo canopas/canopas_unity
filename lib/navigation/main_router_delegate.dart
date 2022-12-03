@@ -80,7 +80,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               child: EmployeeListPage()),
           employeeDetailState: (String selectedEmployee) => MaterialPage(
               key: const ValueKey('employee-detail'),
-              child: EmployeeDetailScreen(
+              child: EmployeeDetailPage(
                 id: selectedEmployee,
               )),
     leaveDetailState: (LeaveApplication leaveApplication) =>
