@@ -189,14 +189,6 @@ class MockPaidLeaveService extends _i1.Mock implements _i8.PaidLeaveService {
         returnValue: _i5.Future<int>.value(0),
       ) as _i5.Future<int>);
   @override
-  _i5.Stream<int> getPadLeavesAsStream() => (super.noSuchMethod(
-        Invocation.method(
-          #getPadLeavesAsStream,
-          [],
-        ),
-        returnValue: _i5.Stream<int>.empty(),
-      ) as _i5.Stream<int>);
-  @override
   _i5.Future<void> updateLeaveCount(int? leaveCount) => (super.noSuchMethod(
         Invocation.method(
           #updateLeaveCount,
