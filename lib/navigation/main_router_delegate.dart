@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/admin/home/bloc/admin_home_bloc.dart';
-import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
-import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
 import 'package:projectunity/ui/shared/leave_detail/leave_details.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
-
 import '../provider/user_data.dart';
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
@@ -23,7 +19,6 @@ import '../ui/user/leave/requested/requested_leave_screen.dart';
 import '../ui/user/leave/upcoming/upcoming_leave_screen.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import 'navigation_stack_manager.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
@@ -72,7 +67,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               key: ValueKey("admin-setting"), child: AdminSettingScreen()),
           paidLeaveSettingsState: () => const MaterialPage(
               key: ValueKey("admin-paid-leave-count"),
-              child: AdminUpdateLeaveCountsScreen()),
+              child: AdminUpdateLeaveCountsPage()),
           addMemberState: () => const MaterialPage(
               key: ValueKey("add-member"), child: AdminAddMemberScreen()),
           adminEmployeeListState: () => const MaterialPage(

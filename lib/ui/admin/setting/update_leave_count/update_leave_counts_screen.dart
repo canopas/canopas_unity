@@ -1,15 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/rest/api_response.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-import '../../../../bloc/admin/setting/paid_leave_count_bloc.dart';
 import '../../../../configs/font_size.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../widget/circular_progress_indicator.dart';
+import 'bloc/admin_setting_update_leave_count_screen_bloc.dart';
+import 'bloc/admin_setting_update_leave_count_screen_event.dart';
+import 'bloc/admin_setting_update_leave_count_screen_state.dart';
+import 'bloc/admin_setting_update_paid_leave_button_state_bloc.dart';
+import 'bloc/admin_setting_update_paid_leave_button_state_event.dart';
+
+
+class AdminUpdateLeaveCountsPage extends StatelessWidget {
+  const AdminUpdateLeaveCountsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => getIt<AdminSettingUpdatePaidLeaveCountBloc>()..add(AdminSettingPaidLeaveCountInitialLoadEvent()),
+          ),
+          BlocProvider(
+            create: (_) => getIt<AdminPaidLeaveUpdateSettingTextFieldBloc>(),
+          ),
+        ],
+
+        child: const AdminUpdateLeaveCountsScreen(),
+    );
+  }
+}
+
 
 class AdminUpdateLeaveCountsScreen extends StatefulWidget {
   const AdminUpdateLeaveCountsScreen({Key? key}) : super(key: key);
@@ -22,31 +48,7 @@ class AdminUpdateLeaveCountsScreen extends StatefulWidget {
 class _AdminUpdateLeaveCountsScreenState
     extends State<AdminUpdateLeaveCountsScreen> {
 
-  final _adminLeaveCount = getIt<AdminPaidLeaveCountBloc>();
   final TextEditingController _allLeaveCountController = TextEditingController();
-
-  @override
-  void initState() {
-    _adminLeaveCount.attach();
-    _adminLeaveCount.totalLeaveCount.listen((response) {
-      response.when(
-          idle: () {},
-          loading: () {},
-          completed: (data) {
-            _allLeaveCountController.text = data.toString();
-          },
-          error: (error) {
-              showSnackBar(context: context, error: error);
-          });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _adminLeaveCount.detach();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,78 +59,77 @@ class _AdminUpdateLeaveCountsScreenState
         elevation: 0,
         foregroundColor: AppColors.blackColor,
       ),
-      body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(30),
-        children: [
-          Text(
-            localizations.settings_setting_text,
-            style: AppTextStyle.largeHeaderBold,
-          ),
-          const SizedBox(
-            height: primaryVerticalSpacing,
-          ),
-          Text(
-            localizations.admin_total_yearly_paid_leave_text,
-            style: AppTextStyle.settingSubTitle.copyWith(fontSize: subTitleTextSize),
-          ),
-          const SizedBox(
-            height: primaryHorizontalSpacing,
-          ),
-          TextField(
-            onChanged: (val){
-              _adminLeaveCount.changeButtonState(val);
-            },
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
-            controller: _allLeaveCountController,
-            cursorColor: Colors.black,
-            style: AppTextStyle.subtitleTextDark,
-            textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              hintStyle: AppTextStyle.secondarySubtitle500,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              hintText: localizations.total_paid_leaves,
+      body: BlocListener<AdminSettingUpdatePaidLeaveCountBloc,AdminSettingUpdateLeaveCountState>(
+        listenWhen: (previous, current) => current is AdminSettingUpdateLeaveCountSuccessState || current is AdminSettingUpdateLeaveCountFailureState,
+        listener: (context, state) => {
+          if(state is AdminSettingUpdateLeaveCountSuccessState){
+            _allLeaveCountController.text = state.paidLeaveCount.toString()
+          } else if(state is AdminSettingUpdateLeaveCountFailureState){
+            showSnackBar(context: context,error: state.error)
+          }
+        },
+        child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(30),
+          children: [
+            Text(
+              localizations.settings_setting_text,
+              style: AppTextStyle.largeHeaderBold,
             ),
-          ),
-          const SizedBox(
-            height: primaryHorizontalSpacing,
-          ),
-          StreamBuilder<ApiResponse<int>>(
-              stream: _adminLeaveCount.totalLeaveCount,
-              initialData: const ApiResponse.idle(),
-              builder: (context, snapshot) => snapshot.data!.when(
-                    idle: () => _updateButton(),
-                    loading: () => const kCircularProgressIndicator(),
-                    completed: (data) => _updateButton(),
-                    error: (error) => _updateButton(),
-                  )),
-        ],
+            const SizedBox(
+              height: primaryVerticalSpacing,
+            ),
+            Text(
+              localizations.admin_total_yearly_paid_leave_text,
+              style: AppTextStyle.settingSubTitle.copyWith(fontSize: subTitleTextSize),
+            ),
+            const SizedBox(
+              height: primaryHorizontalSpacing,
+            ),
+            TextField(
+              onChanged: (val){
+                context.read<AdminPaidLeaveUpdateSettingTextFieldBloc>().add(PaidLeaveTextFieldChangeValueEvent(value: val));
+              },
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ],
+              controller: _allLeaveCountController,
+              cursorColor: Colors.black,
+              style: AppTextStyle.subtitleTextDark,
+              textAlignVertical: TextAlignVertical.center,
+              decoration: InputDecoration(
+                hintStyle: AppTextStyle.secondarySubtitle500,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                hintText: localizations.total_paid_leaves,
+              ),
+            ),
+            const SizedBox(
+              height: primaryHorizontalSpacing,
+            ),
+            BlocBuilder<AdminSettingUpdatePaidLeaveCountBloc,AdminSettingUpdateLeaveCountState>(
+                builder: (context, state) {
+                  if(state is AdminSettingUpdateLeaveCountLoadingState){
+                    return const kCircularProgressIndicator();
+                  }
+                  return BlocBuilder<AdminPaidLeaveUpdateSettingTextFieldBloc,String>(
+                    builder: (context, state) => ElevatedButton(
+                        onPressed: state.isNotEmpty? ()  {
+                          context.read<AdminSettingUpdatePaidLeaveCountBloc>().add(UpdatePaidLeaveCountEvent(leaveCount: _allLeaveCountController.text));
+                        } : null,
+                        child: Text(
+                          AppLocalizations.of(context).update_button_text,
+                          style: AppTextStyle.subtitleText,
+                        )),
+                  );
+                },
+            ),
+          ],
+        ),
       ),
       backgroundColor: AppColors.whiteColor,
     );
   }
 
-  Widget _updateButton() {
-    return StreamBuilder<bool>(
-      initialData: false,
-      stream: _adminLeaveCount.isEnable,
-      builder: (context, snapshot) {
-        return ElevatedButton(
-            onPressed: (snapshot.data!)
-                ? () async {
-                    int leaveCount = int.parse(_allLeaveCountController.text);
-                    await _adminLeaveCount.updateLeaveCount(leaveCount: leaveCount);
-                  }
-                : null,
-            child: Text(
-              AppLocalizations.of(context).update_button_text,
-              style: AppTextStyle.subtitleText,
-            ));
-      }
-    );
-  }
 }
