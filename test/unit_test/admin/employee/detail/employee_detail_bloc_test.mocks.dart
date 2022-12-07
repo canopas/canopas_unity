@@ -128,11 +128,8 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
   }
 
   @override
-  _i6.Stream<List<_i7.Employee>> getEmployeeStream() => (super.noSuchMethod(
-        Invocation.method(
-          #getEmployeeStream,
-          [],
-        ),
+  _i6.Stream<List<_i7.Employee>> get getEmployeeStream => (super.noSuchMethod(
+        Invocation.getter(#getEmployeeStream),
         returnValue: _i6.Stream<List<_i7.Employee>>.empty(),
       ) as _i6.Stream<List<_i7.Employee>>);
   @override
@@ -177,4 +174,12 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

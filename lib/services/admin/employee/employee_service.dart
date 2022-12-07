@@ -1,29 +1,33 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
-import 'package:rxdart/rxdart.dart';
-
 import '../../../core/utils/const/role.dart';
 import '../../../model/employee/employee.dart';
 
-@Injectable()
+@Singleton()
 class EmployeeService {
+  final StreamController<List<Employee>> _employeeStreamController = StreamController();
+  late StreamSubscription<List<Employee>> _employeeStreamSubscription;
+
+  EmployeeService() {
+    _employeeStreamSubscription = _userDbCollection
+        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin).snapshots().map((event) {
+      return event.docs.map((employee) => employee.data()).toList();}).listen((event) {
+      _employeeStreamController.add(event);
+    });
+  }
+
   final _userDbCollection = FirebaseFirestore.instance
       .collection(FirestoreConst.userCollection)
       .withConverter(
           fromFirestore: Employee.fromFirestore,
           toFirestore: (Employee emp, _) => emp.toJson());
 
-
-  Stream<List<Employee>> getEmployeeStream(){
-return _userDbCollection.where(FirestoreConst.roleType,isNotEqualTo: kRoleTypeAdmin).snapshots().
- map((event) { return event.docs.map((employee) => employee.data()).toList();});
-  }
-
+  Stream<List<Employee>> get getEmployeeStream =>
+      _employeeStreamController.stream;
 
   Future<List<Employee>> getEmployees() async {
     final data = await _userDbCollection
@@ -61,4 +65,9 @@ return _userDbCollection.where(FirestoreConst.roleType,isNotEqualTo: kRoleTypeAd
     }).then((value) => eventBus.fire(EmployeeListUpdateEvent()));
   }
 
+  @disposeMethod
+  void dispose() {
+    _employeeStreamController.close();
+    _employeeStreamSubscription.cancel();
+  }
 }

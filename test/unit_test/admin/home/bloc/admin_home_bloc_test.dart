@@ -86,7 +86,7 @@ void main() {
       when(adminLeaveService.getAllAbsence()).thenAnswer((_) async {
         return [leave, leave];
       });
-      when(employeeService.getEmployeeStream())
+      when(employeeService.getEmployeeStream)
           .thenThrow(Exception(firestoreFetchDataError));
 
       AdminHomeState loadingStateWithAbsenceCount = const AdminHomeState(
@@ -115,9 +115,9 @@ void main() {
           .thenAnswer((_) => Future(() => 12));
       when(adminLeaveService.getAllAbsence())
           .thenAnswer((_) async => [leave, leave]);
-      when(employeeService.getEmployeeStream())
+      when(employeeService.getEmployeeStream)
           .thenAnswer((_) => Stream.fromIterable([employeeList]));
-      when(adminLeaveService.getLeaveStream())
+      when(adminLeaveService.getLeaveStream)
           .thenAnswer((_) => Stream.fromIterable([leaveList]));
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
@@ -168,9 +168,9 @@ void main() {
           when(paidLeaveService.getPaidLeaves()).thenAnswer((_) => Future(() => 12));
           when(adminLeaveService.getAllAbsence())
               .thenAnswer((_) async => [leave, leave]);
-          when(employeeService.getEmployeeStream())
+          when(employeeService.getEmployeeStream)
               .thenAnswer((_) => Stream.fromIterable([employees]));
-          when(adminLeaveService.getLeaveStream())
+          when(adminLeaveService.getLeaveStream)
               .thenAnswer((_) => Stream.fromIterable([leaves]));
 
           adminHomeBloc.add(AdminHomeInitialLoadEvent());
