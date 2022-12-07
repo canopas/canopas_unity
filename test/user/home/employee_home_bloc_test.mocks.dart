@@ -189,14 +189,6 @@ class MockPaidLeaveService extends _i1.Mock implements _i8.PaidLeaveService {
         returnValue: _i5.Future<int>.value(0),
       ) as _i5.Future<int>);
   @override
-  _i5.Stream<int> getPadLeavesAsStream() => (super.noSuchMethod(
-        Invocation.method(
-          #getPadLeavesAsStream,
-          [],
-        ),
-        returnValue: _i5.Stream<int>.empty(),
-      ) as _i5.Stream<int>);
-  @override
   _i5.Future<void> updateLeaveCount(int? leaveCount) => (super.noSuchMethod(
         Invocation.method(
           #updateLeaveCount,
@@ -216,11 +208,8 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
   }
 
   @override
-  _i5.Stream<List<_i2.Employee>> getEmployeeStream() => (super.noSuchMethod(
-        Invocation.method(
-          #getEmployeeStream,
-          [],
-        ),
+  _i5.Stream<List<_i2.Employee>> get getEmployeeStream => (super.noSuchMethod(
+        Invocation.getter(#getEmployeeStream),
         returnValue: _i5.Stream<List<_i2.Employee>>.empty(),
       ) as _i5.Stream<List<_i2.Employee>>);
   @override
@@ -265,6 +254,14 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [AdminLeaveService].
@@ -275,6 +272,11 @@ class MockAdminLeaveService extends _i1.Mock implements _i10.AdminLeaveService {
     _i1.throwOnMissingStub(this);
   }
 
+  @override
+  _i5.Stream<List<_i6.Leave>> get getLeaveStream => (super.noSuchMethod(
+        Invocation.getter(#getLeaveStream),
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
   @override
   _i5.Future<void> updateLeaveStatus(
     String? id,
@@ -300,14 +302,6 @@ class MockAdminLeaveService extends _i1.Mock implements _i10.AdminLeaveService {
         returnValue: _i5.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
       ) as _i5.Future<List<_i6.Leave>>);
   @override
-  _i5.Stream<List<_i6.Leave>> getLeaveStream() => (super.noSuchMethod(
-        Invocation.method(
-          #getLeaveStream,
-          [],
-        ),
-        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
-      ) as _i5.Stream<List<_i6.Leave>>);
-  @override
   _i5.Future<List<_i6.Leave>> getAllAbsence() => (super.noSuchMethod(
         Invocation.method(
           #getAllAbsence,
@@ -315,6 +309,14 @@ class MockAdminLeaveService extends _i1.Mock implements _i10.AdminLeaveService {
         ),
         returnValue: _i5.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
       ) as _i5.Future<List<_i6.Leave>>);
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [NavigationStackManager].

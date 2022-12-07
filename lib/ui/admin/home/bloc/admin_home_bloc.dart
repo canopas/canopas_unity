@@ -86,8 +86,8 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   Stream<List<LeaveApplication>> get combineStream => Rx.combineLatest2(
-          _adminLeaveService.getLeaveStream(),
-          _employeeService.getEmployeeStream(), (
+          _adminLeaveService.getLeaveStream,
+          _employeeService.getEmployeeStream, (
         List<Leave> leaveList,
         List<Employee> employeeList,
       ) {

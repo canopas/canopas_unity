@@ -1,21 +1,37 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
-import 'package:rxdart/rxdart.dart';
 import '../../../core/utils/const/firestore.dart';
 import '../../../core/utils/const/leave_time_constants.dart';
 import '../../../model/leave/leave.dart';
-import '../../../model/leave_application.dart';
 
-@Injectable()
+@Singleton()
 class AdminLeaveService {
-  final _leaveDbCollection = FirebaseFirestore.instance
-      .collection(FirestoreConst.leaves)
-      .withConverter(
-          fromFirestore: Leave.fromFireStore,
-          toFirestore: (Leave leaveRequestData, _) =>
-              leaveRequestData.toFireStore(leaveRequestData));
+
+  final _leaveDbCollection = FirebaseFirestore.instance.collection(FirestoreConst.leaves).withConverter(
+      fromFirestore: Leave.fromFireStore,
+      toFirestore: (Leave leaveRequestData, _) =>
+          leaveRequestData.toFireStore(leaveRequestData));
+
+  final StreamController<List<Leave>> _leaveStreamController = StreamController();
+  late StreamSubscription<List<Leave>> _leaveStreamSubscription;
+
+  AdminLeaveService(){
+    _leaveStreamSubscription = _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots()
+        .map((event) {
+      return event.docs
+          .map((doc) => doc.data())
+          .where((leave) =>
+          leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly))
+          .toList();
+    }).listen((event) {
+      _leaveStreamController.add(event);
+    });
+  }
+
+
 
   Future<void> updateLeaveStatus(String id, Map<String, dynamic> map) async {
     await _leaveDbCollection.doc(id).update(map);
@@ -27,16 +43,7 @@ class AdminLeaveService {
   }
 
 
-  Stream<List<Leave>> getLeaveStream(){
-    return _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots()
-        .map((event) {
-      return event.docs
-          .map((doc) => doc.data())
-          .where((leave) =>
-          leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly))
-          .toList();
-    });
-  }
+  Stream<List<Leave>> get getLeaveStream => _leaveStreamController.stream;
 
 
   Future<List<Leave>> getAllAbsence() async {
@@ -59,5 +66,10 @@ class AdminLeaveService {
     return leaves;
   }
 
+  @disposeMethod
+  void dispose(){
+    _leaveStreamController.close();
+    _leaveStreamSubscription.cancel();
+  }
 
 }

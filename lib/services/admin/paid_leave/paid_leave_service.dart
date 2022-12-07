@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:rxdart/rxdart.dart';
 
-@Injectable()
+@Singleton()
 class PaidLeaveService {
   final _paidLeaves = FirebaseFirestore.instance
       .collection(FirestoreConst.paidLeavesCollection)
