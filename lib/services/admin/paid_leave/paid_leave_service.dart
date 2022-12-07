@@ -17,13 +17,6 @@ class PaidLeaveService {
       return 0;
     });
   }
-   Stream<int> getPadLeavesAsStream()  {
-    BehaviorSubject<int> paidLeaveCount = BehaviorSubject<int>.seeded(0);
-      _paidLeaves.snapshots().listen((event) {
-         paidLeaveCount.sink.add(event.data()!=null?event.data()![FirestoreConst.leaves]:0);
-     });
-      return paidLeaveCount.stream;
-  }
 
   Future<void> updateLeaveCount(int leaveCount) async {
     return _paidLeaves.update({FirestoreConst.leaves: leaveCount});
