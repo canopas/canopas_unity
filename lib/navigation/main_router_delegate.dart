@@ -58,13 +58,13 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
           onBoard: () => const MaterialPage(
               key: ValueKey("onboard"), child: OnBoardScreenBlocProvider()),
           login: () =>
-              const MaterialPage(key: ValueKey("login"), child: LoginScreen()),
+              const MaterialPage(key: ValueKey("login"), child: LoginPage()),
           adminHome: () =>  const MaterialPage(
               key: ValueKey("admin-home"),
                 child: AdminHomePage()
               ),
           adminSettingsState: () => const MaterialPage(
-              key: ValueKey("admin-setting"), child: AdminSettingScreen()),
+              key: ValueKey("admin-setting"), child: AdminSettingPage()),
           paidLeaveSettingsState: () => const MaterialPage(
               key: ValueKey("admin-paid-leave-count"),
               child: AdminUpdateLeaveCountsPage()),
@@ -90,7 +90,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
     employeeSettingsState: () =>
     const MaterialPage(
         key: ValueKey("employee-setting"),
-        child: EmployeeSettingScreen()),
+        child: EmployeeSettingPage()),
     userAllLeaveState: () =>
     const MaterialPage(
         key: ValueKey("user-all-leave"), child: AllLeaveScreen()),

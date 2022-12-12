@@ -1,65 +1,35 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/base_bloc.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/pref/user_preference.dart';
-import 'package:projectunity/rest/api_response.dart';
-import 'package:rxdart/rxdart.dart';
-
+import 'package:projectunity/services/auth/auth_service.dart';
+import '../../../navigation/navigation_stack_manager.dart';
 import '../../exception/error_const.dart';
-import '../../navigation/navigation_stack_manager.dart';
+import '../../navigation/nav_stack/nav_stack_item.dart';
+import '../../pref/user_preference.dart';
+import 'logout_event.dart';
+import 'logout_state.dart';
 
 @Injectable()
-class LogOutBloc extends BaseBLoc {
+class LogOutBloc extends Bloc<SignOutEvent, LogOutState> {
   final UserPreference _userPreference;
+  final AuthService _authService;
   final NavigationStackManager _navigationStackManager;
 
-  LogOutBloc(this._userPreference, this._navigationStackManager);
-
-  final BehaviorSubject<ApiResponse<bool>> _signOutSubject =
-      BehaviorSubject<ApiResponse<bool>>();
-
-  Stream<ApiResponse<bool>> get signOutResponse => _signOutSubject.stream;
-
-  Future<void> signOutFromApp() async {
-    _signOutSubject.add(const ApiResponse.loading());
-    bool success = await _signOut();
-    if (success) {
-      _signOutSubject.add(const ApiResponse.completed(data: true));
-      _navigationStackManager.clearAndPush(const LoginNavStackItem());
-    } else {
-      _signOutSubject.add(const ApiResponse.error(error: signOutError));
-    }
+  LogOutBloc(this._navigationStackManager, this._userPreference, this._authService)
+      : super(LogOutInitialState()) {
+    on<SignOutEvent>(_signOut);
   }
 
-  Future<bool> _signOut() async {
-    bool isLogOut = await _signOutWithGoogle();
+  Future<void> _signOut(SignOutEvent event, Emitter<LogOutState> emit) async {
+    emit(LogOutLoadingState());
+    bool isLogOut = await _authService.signOutWithGoogle();
     if (isLogOut) {
       await _userPreference.removeCurrentUser();
-      return true;
+      emit(LogOutSuccessState());
+      _navigationStackManager.clearAndPush(const LoginNavStackItem());
     } else {
-      return false;
+      emit(LogOutFailureState(error: signOutError));
     }
   }
 
-  Future<bool> _signOutWithGoogle() async {
-    try {
-      GoogleSignIn googleSignIn = GoogleSignIn();
-      final FirebaseAuth auth = FirebaseAuth.instance;
-      await googleSignIn.signOut();
-      await auth.signOut();
-      return true;
-    } on Exception catch (_) {
-      return false;
-    }
-  }
 
-  @override
-  void detach() {
-    _signOutSubject.close();
-  }
-
-  @override
-  void attach() {}
 }

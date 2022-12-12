@@ -1,103 +1,96 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/sign_in_button.dart';
+import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
-import '../../bloc/authentication/login_bloc.dart';
+import 'bloc/login_view_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
+import 'bloc/login_view_event.dart';
+import 'bloc/login_view_state.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (_) => getIt<LoginBloc>(),
+      child: const LoginView(),
+    );
+  }
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final _bloc = getIt<LoginBloc>();
-  bool _showProgress = false;
+
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  void initState() {
-    _bloc.loginResponse.listen((value) {
-      value.when(
-          idle: () => {},
-          loading: () => {
-                setState(() {
-                  _showProgress = true;
-                })
-              },
-          completed: (b) => {
-                setState(() {
-                  _showProgress = false;
-                })
-              },
-          error: (e) => {
-                showSnackBar(context: context, error: e),
-                _bloc.reset(),
-                setState(() {
-                  _showProgress = false;
-                })
-              });
-    });
-    super.initState();
-  }
+  _LoginViewState createState() => _LoginViewState();
+}
 
-  @override
-  void dispose() {
-    _bloc.detach();
-    super.dispose();
-  }
-
+class _LoginViewState extends State<LoginView> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(loginPageBackgroundImage),
-                  fit: BoxFit.cover)),
-          child: SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                        child: Column(
-                          children: [
-                            buildTitle(),
-                            buildSubTitle(),
-                          ],
+      body: BlocListener<LoginBloc,LoginState>(
+        listener: (context, state) {
+          if(state is LoginFailureState){
+            showSnackBar(context: context,error: state.error);
+          }
+        },
+        child: Container(
+            height: double.infinity,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(loginPageBackgroundImage),
+                    fit: BoxFit.cover)),
+            child: SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                          child: Column(
+                            children: [
+                              buildTitle(),
+                              buildSubTitle(),
+                            ],
+                          ),
                         ),
-                      ),
-                      buildImage(context),
-                      Column(children: [
-                        Center(
-                          child: Text(
-                              AppLocalizations.of(context)
-                                  .login_guide_description,
-                              style: AppTextStyle.secondaryBodyText),
-                        ),
-                        const SizedBox(
-                          height: primaryHorizontalSpacing,
-                        ),
-                        _showProgress
-                            ? const Center(child: CircularProgressIndicator())
-                            : SignInButton(onPressed: _bloc.signIn),
+                        buildImage(context),
+                        Column(children: [
+                          Center(
+                            child: Text(
+                                AppLocalizations.of(context)
+                                    .login_guide_description,
+                                style: AppTextStyle.secondaryBodyText),
+                          ),
+                          const SizedBox(
+                            height: primaryHorizontalSpacing,
+                          ),
+                          BlocBuilder<LoginBloc,LoginState>(
+                              builder: (context, state) =>
+                                state is LoginLoadingState?const kCircularProgressIndicator()
+                                :SignInButton(onPressed: (){
+                                  context.read<LoginBloc>().add(SignInEvent());
+                                }),
+                          ),
+                        ]),
                       ]),
-                    ]),
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 
