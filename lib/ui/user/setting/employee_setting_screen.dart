@@ -1,42 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/bloc/authentication/logout_bloc.dart';
+import 'package:projectunity/bloc/authentication/logout_event.dart';
+import 'package:projectunity/bloc/authentication/logout_state.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/rest/api_response.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/widget/user_intro_content.dart';
-
-import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../configs/colors.dart';
-import '../../../di/service_locator.dart';
+import '../../../widget/error_snackbar.dart';
 import '../../../widget/setting_screen_subtitle.dart';
 
-class EmployeeSettingScreen extends StatefulWidget {
-  const EmployeeSettingScreen({Key? key}) : super(key: key);
+class EmployeeSettingPage extends StatelessWidget {
+  const EmployeeSettingPage({Key? key}) : super(key: key);
 
   @override
-  State<EmployeeSettingScreen> createState() => _EmployeeSettingScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<LogOutBloc>(),
+      child: const EmployeeSettingView(),
+    );
+  }
 }
 
-class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
-  final _logOutBloc = getIt<LogOutBloc>();
+class EmployeeSettingView extends StatefulWidget {
+  const EmployeeSettingView({Key? key}) : super(key: key);
 
   @override
-  void initState() {
-    super.initState();
-    _logOutBloc.signOutResponse.listen((event) {
-      event.whenOrNull(error: (error) {
-        showSnackBar(context: context, error: error);
-      });
-    });
-  }
+  State<EmployeeSettingView> createState() => _EmployeeSettingViewState();
+}
 
-  @override
-  void dispose() {
-    _logOutBloc.detach();
-    super.dispose();
-  }
-
+class _EmployeeSettingViewState extends State<EmployeeSettingView> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
@@ -47,37 +42,47 @@ class _EmployeeSettingScreenState extends State<EmployeeSettingScreen> {
         foregroundColor: AppColors.blackColor,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(primaryHorizontalSpacing),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(localizations.settings_setting_text,
-                style: AppTextStyle.largeHeaderBold),
-            buildSettingSubTitle(subtitle: localizations.settings_account_text),
-            UserIntroContent(),
-            Expanded(child: Container()),
-            Center(
-                child: StreamBuilder<ApiResponse<bool>>(
-              stream: _logOutBloc.signOutResponse,
-              initialData: const ApiResponse.idle(),
-              builder: (context, snapshot) => snapshot.data!.maybeWhen(
-                  loading: () => const CircularProgressIndicator(),
-                  orElse: () => _signOutButton()),
-            )),
-          ],
+      body: BlocListener<LogOutBloc,LogOutState>(
+        listener: (context, state) {
+          if(state is LogOutFailureState){
+            showSnackBar(context: context,error: state.error);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(primaryHorizontalSpacing),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(localizations.settings_setting_text,
+                  style: AppTextStyle.largeHeaderBold),
+              buildSettingSubTitle(subtitle: localizations.settings_account_text),
+              UserIntroContent(),
+              Expanded(child: Container()),
+              Center(
+                child: BlocBuilder<LogOutBloc, LogOutState>(
+                    builder: (context, state) => state is LogOutLoadingState
+                        ? const CircularProgressIndicator()
+                        : const LogOutButton()),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
 
-  Widget _signOutButton() {
+class LogOutButton extends StatelessWidget {
+  const LogOutButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.redColor,
       ),
-      onPressed: () async {
-        await _logOutBloc.signOutFromApp();
+      onPressed: () {
+        context.read<LogOutBloc>().add(SignOutEvent());
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 45.0),

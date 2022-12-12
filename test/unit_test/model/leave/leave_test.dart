@@ -6,7 +6,7 @@ void main() {
     group('from json and from firestore', () {
       test('returns correct Leave object ', () {
         expect(
-            Leave.fromJson(<String, dynamic>{
+            Leave.fromJson(const <String, dynamic>{
               'leave_id': 'unique-leave-doc-id',
               'uid': 'unique-user-id',
               'leave_type': 1,
