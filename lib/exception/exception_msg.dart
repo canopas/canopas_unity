@@ -47,6 +47,16 @@ extension ExceptionMessage on String {
       case userAlreadyExists:
         msg = appLocale.add_member_employee_exists_error;
         break;
+      case inCompleteFieldError:
+        msg = appLocale.admin_add_member_error_complete_field;
+        break;
+      case nameFieldError:
+        msg = appLocale.admin_add_member_error_name;
+        break;
+
+      case emailFieldError:
+        msg = appLocale.admin_add_member_error_email;
+        break;
       default:
         msg = appLocale.something_went_wrong_text;
         break;
