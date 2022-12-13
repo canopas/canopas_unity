@@ -5,6 +5,7 @@ import 'package:projectunity/ui/onboard/onboard_screen.dart';
 import 'package:projectunity/ui/shared/leave_detail/leave_details.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
+
 import '../provider/user_data.dart';
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
@@ -69,10 +70,10 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               key: ValueKey("admin-paid-leave-count"),
               child: AdminUpdateLeaveCountsPage()),
           addMemberState: () => const MaterialPage(
-              key: ValueKey("add-member"), child: AdminAddMemberScreen()),
-          adminEmployeeListState: () => const MaterialPage(
-              key: ValueKey("employee-list-admin"),
-              child: EmployeeListPage()),
+              key: ValueKey("add-member"), child: AdminAddMemberPage()),
+    adminEmployeeListState: () => const MaterialPage(
+                key: ValueKey("employee-list-admin"),
+                child: EmployeeListPage()),
           employeeDetailState: (String selectedEmployee) => MaterialPage(
               key: const ValueKey('employee-detail'),
               child: EmployeeDetailPage(

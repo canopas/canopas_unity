@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i11;
 
-import '../bloc/admin/home/add_memeber_bloc.dart' as _i23;
 import '../bloc/authentication/logout_bloc.dart' as _i31;
 import '../bloc/employee/leave/request_leave_bloc.dart' as _i19;
 import '../bloc/employee/leave/user_leave_bloc.dart' as _i21;
@@ -25,6 +24,7 @@ import '../services/admin/requests/admin_leave_service.dart' as _i3;
 import '../services/auth/auth_service.dart' as _i5;
 import '../services/leave/user_leave_service.dart' as _i12;
 import '../stateManager/auth/auth_manager.dart' as _i15;
+import '../ui/admin/addmember/bloc/add_member_bloc.dart' as _i23;
 import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i27;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i29;
 import '../ui/admin/home/bloc/admin_home_bloc.dart' as _i24;

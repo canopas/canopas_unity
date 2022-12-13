@@ -299,6 +299,7 @@
      "admin_add_member_error_email":"Please enter valid email",
      "admin_add_member_error_name": "Name is too short!!",
      "admin_add_member_error_complete_field": "Please complete this mandatory field",
+     "admin_add_member_successfully_added" : "An employee has been added successfully!!",
 
      "logout_button_text": "Sign Out",
      "sign_out_failed_message":"SignOut Failed!",
