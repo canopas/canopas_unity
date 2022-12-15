@@ -148,7 +148,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
 
   void _navigateToApplicationDetail(LeaveApplication leaveApplication) {
     _navigationStackManager
-        .push(NavStackItem.leaveDetailState(leaveApplication));
+        .push(NavStackItem.adminLeaveDetailState(leaveApplication));
   }
 
   void _navigateToAbsence() {

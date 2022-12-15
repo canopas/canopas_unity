@@ -7,8 +7,6 @@ class NavStackItem with _$NavStackItem {
   /* -- Common screens --*/
   const factory NavStackItem.onBoard() = OnboardNavStackItem;
 
-  const factory NavStackItem.leaveDetailState(LeaveApplication leaveApplication) = LeaveDetailState;
-
   const factory NavStackItem.whoIsOutCalendarState() = WhoIsOutCalendarState;
 
   const factory NavStackItem.login() = LoginNavStackItem;
@@ -20,7 +18,10 @@ class NavStackItem with _$NavStackItem {
 
   const factory NavStackItem.paidLeaveSettingsState() = PaidLeaveSettingsState;
 
+  const factory NavStackItem.adminLeaveDetailState(LeaveApplication leaveApplication) = AdminLeaveDetailState;
+
   // Admin employee screens
+
   const factory NavStackItem.addMemberState() = AddMemberState;
 
   const factory NavStackItem.adminEmployeeListState() =
@@ -30,6 +31,8 @@ class NavStackItem with _$NavStackItem {
       EmployeeDetailState;
 
   /* -- Employee screens --*/
+  const factory NavStackItem.employeeLeaveDetailState(LeaveApplication leaveApplication) = EmployeeLeaveDetailState;
+
   const factory NavStackItem.employeeHome() = EmployeeHomeNavStackItem;
 
   const factory NavStackItem.employeeSettingsState() = EmployeeSettingsState;

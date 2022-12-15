@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
-import 'package:projectunity/ui/shared/leave_detail/leave_details.dart';
+import 'package:projectunity/ui/user/leave_details/employee_leave_details.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
 
@@ -11,6 +11,7 @@ import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
+import '../ui/admin/leave_details/admin_leave_details_view.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/shared/user_leave_calendar/user_leave_calendar.dart';
@@ -79,10 +80,16 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
               child: EmployeeDetailPage(
                 id: selectedEmployee,
               )),
-    leaveDetailState: (LeaveApplication leaveApplication) =>
+    adminLeaveDetailState: (LeaveApplication leaveApplication) =>
         MaterialPage(
             key: const ValueKey('leave-details'),
-            child: LeaveDetailsView(
+            child: AdminLeaveDetailsPage(
+              leaveApplication: leaveApplication,
+            )),
+    employeeLeaveDetailState: (LeaveApplication leaveApplication) =>
+        MaterialPage(
+            key: const ValueKey('leave-details'),
+            child: EmployeeLeaveDetailsPage(
               leaveApplication: leaveApplication,
             )),
     employeeHome: () =>

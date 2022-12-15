@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../core/utils/const/space_constant.dart';
-import '../../../../core/utils/date_formatter.dart';
+import '../../configs/text_style.dart';
+import '../../core/utils/const/space_constant.dart';
+import '../../core/utils/date_formatter.dart';
 
 class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   const LeaveTypeAgoTitleWithStatus(

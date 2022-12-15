@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
-
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave_count.dart';
-import '../../../../../navigation/nav_stack/nav_stack_item.dart';
+import '../../bloc/admin_home_bloc.dart';
+import '../../bloc/admin_home_event.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
   final LeaveApplication leaveApplication;
-  final _stackManager = getIt<NavigationStackManager>();
 
-  LeaveRequestCard({Key? key, required this.leaveApplication})
+  const LeaveRequestCard({Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
@@ -47,8 +45,7 @@ class LeaveRequestCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            _stackManager.push(
-                NavStackItem.leaveDetailState(leaveApplication));
+            context.read<AdminHomeBloc>().add(AdminHomeNavigateToApplicationDetail(leaveApplication));
           },
           child: Row(
             children: [
@@ -101,7 +98,7 @@ class LeaveRequestCard extends StatelessWidget {
                       EmployeeContent(
                         employee: leaveApplication.employee,
                         leaveCounts:
-                            leaveApplication.leaveCounts ?? LeaveCounts(),
+                            leaveApplication.leaveCounts ?? const LeaveCounts(),
                       ),
 
                       // const ButtonContent()

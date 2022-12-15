@@ -86,7 +86,7 @@ void main(){
 
   group("navigation test", () {
     test('Navigate to leave detail view test ', () async {
-      NavStackItem state = NavStackItem.leaveDetailState(leaveApplications.first);
+      NavStackItem state = NavStackItem.employeeLeaveDetailState(leaveApplications.first);
       userLeaveCalendarViewBloc.add(LeaveTypeCardTapEvent(leaveApplications.first));
       await untilCalled(stackManager.push(state));
       verify(stackManager.push(state)).called(1);

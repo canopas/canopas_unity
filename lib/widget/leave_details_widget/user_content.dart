@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
-import '../../../../core/utils/const/space_constant.dart';
-import '../../../../model/employee/employee.dart';
+import '../../core/utils/const/space_constant.dart';
+import '../../model/employee/employee.dart';
 
 class UserContent extends StatelessWidget {
   final Employee employee;
   final void Function()?  onTap;
-  const UserContent({Key? key, required this.employee,required this.onTap}) : super(key: key);
+  const UserContent({Key? key, required this.employee, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
