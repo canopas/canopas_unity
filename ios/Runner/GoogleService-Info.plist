@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>606541170752-f1hrsvl3n0eaib89dtne9a1migbhuef6.apps.googleusercontent.com</string>
+	<string>606541170752-1u2dcu9h35bn0v8949orj82ouhttb4jt.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.606541170752-f1hrsvl3n0eaib89dtne9a1migbhuef6</string>
+	<string>com.googleusercontent.apps.606541170752-1u2dcu9h35bn0v8949orj82ouhttb4jt</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>606541170752-diep72j5eq30ndopbrgm2hdvgq9bdjda.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.canopas.CanopasUnity</string>
+	<string>com.canopas.projectunity</string>
 	<key>PROJECT_ID</key>
 	<string>canopasunity-334006</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:606541170752:ios:3b23ae23e1d33d8de337a5</string>
+	<string>1:606541170752:ios:3e1dfbe10f69c545e337a5</string>
 </dict>
 </plist>
