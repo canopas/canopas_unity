@@ -92,8 +92,6 @@ void main() {
           .thenAnswer((_) async {
         return;
       });
-      when(navigationStackManager.pop())
-          .thenAnswer((_) => const NavStackItem.adminEmployeeListState());
       employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
       await untilCalled(navigationStackManager.pop());
       verify(navigationStackManager.pop()).called(1);

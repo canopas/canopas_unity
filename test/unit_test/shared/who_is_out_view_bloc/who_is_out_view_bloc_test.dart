@@ -7,6 +7,7 @@ import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
 import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_bloc.dart';
@@ -16,12 +17,13 @@ import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_
 import 'who_is_out_view_bloc_test.mocks.dart';
 
 
-@GenerateMocks([EmployeeService,AdminLeaveService,NavigationStackManager])
+@GenerateMocks([EmployeeService,AdminLeaveService,NavigationStackManager,UserManager])
 void main(){
 
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
   late NavigationStackManager stackManager;
+  late UserManager userManager;
   late WhoIsOutViewBloc whoIsOutViewBloc;
 
   final employee = Employee(
@@ -52,7 +54,8 @@ void main(){
        employeeService = MockEmployeeService();
        adminLeaveService = MockAdminLeaveService();
        stackManager = MockNavigationStackManager();
-       whoIsOutViewBloc = WhoIsOutViewBloc(employeeService, adminLeaveService, stackManager);
+       userManager = MockUserManager();
+       whoIsOutViewBloc = WhoIsOutViewBloc(employeeService, adminLeaveService, stackManager,userManager);
   });
 
   group("who is out view test", () {
@@ -77,8 +80,17 @@ void main(){
   });
 
   group("navigation test", () {
-    test('Navigate to leave detail view test ', () async {
-      NavStackItem state = NavStackItem.leaveDetailState(leaveApplications.first);
+    test('Navigate to employee leave detail view test ', () async {
+      when(userManager.isAdmin).thenReturn(false);
+      NavStackItem state = NavStackItem.employeeLeaveDetailState(leaveApplications.first);
+      whoIsOutViewBloc.add(WhoIsOutLeaveCardTapEvent(leaveApplications.first));
+      await untilCalled(stackManager.push(state));
+      verify(stackManager.push(state)).called(1);
+    });
+
+    test('Navigate to employee leave detail view test ', () async {
+      when(userManager.isAdmin).thenReturn(true);
+      NavStackItem state = NavStackItem.adminLeaveDetailState(leaveApplications.first);
       whoIsOutViewBloc.add(WhoIsOutLeaveCardTapEvent(leaveApplications.first));
       await untilCalled(stackManager.push(state));
       verify(stackManager.push(state)).called(1);

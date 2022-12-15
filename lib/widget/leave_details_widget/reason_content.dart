@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../core/utils/const/space_constant.dart';
+import '../../configs/text_style.dart';
+import '../../core/utils/const/space_constant.dart';
 
 class ReasonField extends StatelessWidget {
   const ReasonField({Key? key, required this.reason, this.hide = false, required this.title}) : super(key: key);

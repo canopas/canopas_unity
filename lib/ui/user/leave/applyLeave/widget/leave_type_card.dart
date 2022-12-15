@@ -40,7 +40,7 @@ class LeaveTypeCard extends StatelessWidget {
                 builder: (context, snapshot) {
                   return snapshot.data!.when(
                     idle: () => const SizedBox(),
-                    loading: () => Transform.scale(scale: 0.8,child: const kCircularProgressIndicator()),
+                    loading: () => const kCircularProgressIndicator(size: 28),
                     completed: (data) => Text("${data.remainingLeaveCount.fixedAt(2)}/${data.paidLeaveCount}",style: AppTextStyle.subtitleGreyBold,),
                     error: (error) =>const SizedBox(),
                   );

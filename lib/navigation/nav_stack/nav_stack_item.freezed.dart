@@ -19,16 +19,18 @@ mixin _$NavStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -41,15 +43,17 @@ mixin _$NavStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -62,15 +66,17 @@ mixin _$NavStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -84,7 +90,6 @@ mixin _$NavStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -92,10 +97,14 @@ mixin _$NavStackItem {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -111,15 +120,16 @@ mixin _$NavStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -132,15 +142,16 @@ mixin _$NavStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -210,16 +221,18 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -235,15 +248,17 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -259,15 +274,17 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -287,7 +304,6 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -295,10 +311,14 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -317,15 +337,16 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -341,15 +362,16 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -368,238 +390,6 @@ class _$OnboardNavStackItem implements OnboardNavStackItem {
 
 abstract class OnboardNavStackItem implements NavStackItem {
   const factory OnboardNavStackItem() = _$OnboardNavStackItem;
-}
-
-/// @nodoc
-abstract class _$$LeaveDetailStateCopyWith<$Res> {
-  factory _$$LeaveDetailStateCopyWith(
-          _$LeaveDetailState value, $Res Function(_$LeaveDetailState) then) =
-      __$$LeaveDetailStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({LeaveApplication leaveApplication});
-}
-
-/// @nodoc
-class __$$LeaveDetailStateCopyWithImpl<$Res>
-    extends _$NavStackItemCopyWithImpl<$Res, _$LeaveDetailState>
-    implements _$$LeaveDetailStateCopyWith<$Res> {
-  __$$LeaveDetailStateCopyWithImpl(
-      _$LeaveDetailState _value, $Res Function(_$LeaveDetailState) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? leaveApplication = null,
-  }) {
-    return _then(_$LeaveDetailState(
-      null == leaveApplication
-          ? _value.leaveApplication
-          : leaveApplication // ignore: cast_nullable_to_non_nullable
-              as LeaveApplication,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LeaveDetailState implements LeaveDetailState {
-  const _$LeaveDetailState(this.leaveApplication);
-
-  @override
-  final LeaveApplication leaveApplication;
-
-  @override
-  String toString() {
-    return 'NavStackItem.leaveDetailState(leaveApplication: $leaveApplication)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LeaveDetailState &&
-            (identical(other.leaveApplication, leaveApplication) ||
-                other.leaveApplication == leaveApplication));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, leaveApplication);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LeaveDetailStateCopyWith<_$LeaveDetailState> get copyWith =>
-      __$$LeaveDetailStateCopyWithImpl<_$LeaveDetailState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
-    required TResult Function() whoIsOutCalendarState,
-    required TResult Function() login,
-    required TResult Function() adminHome,
-    required TResult Function() adminSettingsState,
-    required TResult Function() paidLeaveSettingsState,
-    required TResult Function() addMemberState,
-    required TResult Function() adminEmployeeListState,
-    required TResult Function(String id) employeeDetailState,
-    required TResult Function() employeeHome,
-    required TResult Function() employeeSettingsState,
-    required TResult Function() userAllLeaveState,
-    required TResult Function() userUpcomingLeaveState,
-    required TResult Function() leaveRequestState,
-    required TResult Function() requestedLeaves,
-    required TResult Function(String userId) userLeaveCalendarState,
-  }) {
-    return leaveDetailState(leaveApplication);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
-    TResult? Function()? whoIsOutCalendarState,
-    TResult? Function()? login,
-    TResult? Function()? adminHome,
-    TResult? Function()? adminSettingsState,
-    TResult? Function()? paidLeaveSettingsState,
-    TResult? Function()? addMemberState,
-    TResult? Function()? adminEmployeeListState,
-    TResult? Function(String id)? employeeDetailState,
-    TResult? Function()? employeeHome,
-    TResult? Function()? employeeSettingsState,
-    TResult? Function()? userAllLeaveState,
-    TResult? Function()? userUpcomingLeaveState,
-    TResult? Function()? leaveRequestState,
-    TResult? Function()? requestedLeaves,
-    TResult? Function(String userId)? userLeaveCalendarState,
-  }) {
-    return leaveDetailState?.call(leaveApplication);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
-    TResult Function()? whoIsOutCalendarState,
-    TResult Function()? login,
-    TResult Function()? adminHome,
-    TResult Function()? adminSettingsState,
-    TResult Function()? paidLeaveSettingsState,
-    TResult Function()? addMemberState,
-    TResult Function()? adminEmployeeListState,
-    TResult Function(String id)? employeeDetailState,
-    TResult Function()? employeeHome,
-    TResult Function()? employeeSettingsState,
-    TResult Function()? userAllLeaveState,
-    TResult Function()? userUpcomingLeaveState,
-    TResult Function()? leaveRequestState,
-    TResult Function()? requestedLeaves,
-    TResult Function(String userId)? userLeaveCalendarState,
-    required TResult orElse(),
-  }) {
-    if (leaveDetailState != null) {
-      return leaveDetailState(leaveApplication);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
-    required TResult Function(WhoIsOutCalendarState value)
-        whoIsOutCalendarState,
-    required TResult Function(LoginNavStackItem value) login,
-    required TResult Function(AdminHomeNavStackItem value) adminHome,
-    required TResult Function(AdminSettingsState value) adminSettingsState,
-    required TResult Function(PaidLeaveSettingsState value)
-        paidLeaveSettingsState,
-    required TResult Function(AddMemberState value) addMemberState,
-    required TResult Function(AdminEmployeeListStackItem value)
-        adminEmployeeListState,
-    required TResult Function(EmployeeDetailState value) employeeDetailState,
-    required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
-    required TResult Function(EmployeeSettingsState value)
-        employeeSettingsState,
-    required TResult Function(UserAllLeaveState value) userAllLeaveState,
-    required TResult Function(UserUpcomingLeaveState value)
-        userUpcomingLeaveState,
-    required TResult Function(LeaveRequestState value) leaveRequestState,
-    required TResult Function(RequestedLeavesState value) requestedLeaves,
-    required TResult Function(UserLeaveCalendarState value)
-        userLeaveCalendarState,
-  }) {
-    return leaveDetailState(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
-    TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
-    TResult? Function(LoginNavStackItem value)? login,
-    TResult? Function(AdminHomeNavStackItem value)? adminHome,
-    TResult? Function(AdminSettingsState value)? adminSettingsState,
-    TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
-    TResult? Function(AddMemberState value)? addMemberState,
-    TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
-    TResult? Function(EmployeeDetailState value)? employeeDetailState,
-    TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
-    TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
-    TResult? Function(UserAllLeaveState value)? userAllLeaveState,
-    TResult? Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
-    TResult? Function(LeaveRequestState value)? leaveRequestState,
-    TResult? Function(RequestedLeavesState value)? requestedLeaves,
-    TResult? Function(UserLeaveCalendarState value)? userLeaveCalendarState,
-  }) {
-    return leaveDetailState?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
-    TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
-    TResult Function(LoginNavStackItem value)? login,
-    TResult Function(AdminHomeNavStackItem value)? adminHome,
-    TResult Function(AdminSettingsState value)? adminSettingsState,
-    TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
-    TResult Function(AddMemberState value)? addMemberState,
-    TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
-    TResult Function(EmployeeDetailState value)? employeeDetailState,
-    TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
-    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
-    TResult Function(UserAllLeaveState value)? userAllLeaveState,
-    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
-    TResult Function(LeaveRequestState value)? leaveRequestState,
-    TResult Function(RequestedLeavesState value)? requestedLeaves,
-    TResult Function(UserLeaveCalendarState value)? userLeaveCalendarState,
-    required TResult orElse(),
-  }) {
-    if (leaveDetailState != null) {
-      return leaveDetailState(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LeaveDetailState implements NavStackItem {
-  const factory LeaveDetailState(final LeaveApplication leaveApplication) =
-      _$LeaveDetailState;
-
-  LeaveApplication get leaveApplication;
-  @JsonKey(ignore: true)
-  _$$LeaveDetailStateCopyWith<_$LeaveDetailState> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -641,16 +431,18 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -666,15 +458,17 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -690,15 +484,17 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -718,7 +514,6 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -726,10 +521,14 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -748,15 +547,16 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -772,15 +572,16 @@ class _$WhoIsOutCalendarState implements WhoIsOutCalendarState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -840,16 +641,18 @@ class _$LoginNavStackItem implements LoginNavStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -865,15 +668,17 @@ class _$LoginNavStackItem implements LoginNavStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -889,15 +694,17 @@ class _$LoginNavStackItem implements LoginNavStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -917,7 +724,6 @@ class _$LoginNavStackItem implements LoginNavStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -925,10 +731,14 @@ class _$LoginNavStackItem implements LoginNavStackItem {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -947,15 +757,16 @@ class _$LoginNavStackItem implements LoginNavStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -971,15 +782,16 @@ class _$LoginNavStackItem implements LoginNavStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1039,16 +851,18 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -1064,15 +878,17 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -1088,15 +904,17 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -1116,7 +934,6 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -1124,10 +941,14 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -1146,15 +967,16 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1170,15 +992,16 @@ class _$AdminHomeNavStackItem implements AdminHomeNavStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1238,16 +1061,18 @@ class _$AdminSettingsState implements AdminSettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -1263,15 +1088,17 @@ class _$AdminSettingsState implements AdminSettingsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -1287,15 +1114,17 @@ class _$AdminSettingsState implements AdminSettingsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -1315,7 +1144,6 @@ class _$AdminSettingsState implements AdminSettingsState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -1323,10 +1151,14 @@ class _$AdminSettingsState implements AdminSettingsState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -1345,15 +1177,16 @@ class _$AdminSettingsState implements AdminSettingsState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1369,15 +1202,16 @@ class _$AdminSettingsState implements AdminSettingsState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1437,16 +1271,18 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -1462,15 +1298,17 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -1486,15 +1324,17 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -1514,7 +1354,6 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -1522,10 +1361,14 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -1544,15 +1387,16 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1568,15 +1412,16 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1595,6 +1440,250 @@ class _$PaidLeaveSettingsState implements PaidLeaveSettingsState {
 
 abstract class PaidLeaveSettingsState implements NavStackItem {
   const factory PaidLeaveSettingsState() = _$PaidLeaveSettingsState;
+}
+
+/// @nodoc
+abstract class _$$AdminLeaveDetailStateCopyWith<$Res> {
+  factory _$$AdminLeaveDetailStateCopyWith(_$AdminLeaveDetailState value,
+          $Res Function(_$AdminLeaveDetailState) then) =
+      __$$AdminLeaveDetailStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({LeaveApplication leaveApplication});
+}
+
+/// @nodoc
+class __$$AdminLeaveDetailStateCopyWithImpl<$Res>
+    extends _$NavStackItemCopyWithImpl<$Res, _$AdminLeaveDetailState>
+    implements _$$AdminLeaveDetailStateCopyWith<$Res> {
+  __$$AdminLeaveDetailStateCopyWithImpl(_$AdminLeaveDetailState _value,
+      $Res Function(_$AdminLeaveDetailState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? leaveApplication = null,
+  }) {
+    return _then(_$AdminLeaveDetailState(
+      null == leaveApplication
+          ? _value.leaveApplication
+          : leaveApplication // ignore: cast_nullable_to_non_nullable
+              as LeaveApplication,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AdminLeaveDetailState implements AdminLeaveDetailState {
+  const _$AdminLeaveDetailState(this.leaveApplication);
+
+  @override
+  final LeaveApplication leaveApplication;
+
+  @override
+  String toString() {
+    return 'NavStackItem.adminLeaveDetailState(leaveApplication: $leaveApplication)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AdminLeaveDetailState &&
+            (identical(other.leaveApplication, leaveApplication) ||
+                other.leaveApplication == leaveApplication));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, leaveApplication);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AdminLeaveDetailStateCopyWith<_$AdminLeaveDetailState> get copyWith =>
+      __$$AdminLeaveDetailStateCopyWithImpl<_$AdminLeaveDetailState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() onBoard,
+    required TResult Function() whoIsOutCalendarState,
+    required TResult Function() login,
+    required TResult Function() adminHome,
+    required TResult Function() adminSettingsState,
+    required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
+    required TResult Function() addMemberState,
+    required TResult Function() adminEmployeeListState,
+    required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
+    required TResult Function() employeeHome,
+    required TResult Function() employeeSettingsState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() requestedLeaves,
+    required TResult Function(String userId) userLeaveCalendarState,
+  }) {
+    return adminLeaveDetailState(leaveApplication);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoard,
+    TResult? Function()? whoIsOutCalendarState,
+    TResult? Function()? login,
+    TResult? Function()? adminHome,
+    TResult? Function()? adminSettingsState,
+    TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
+    TResult? Function()? addMemberState,
+    TResult? Function()? adminEmployeeListState,
+    TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
+    TResult? Function()? employeeHome,
+    TResult? Function()? employeeSettingsState,
+    TResult? Function()? userAllLeaveState,
+    TResult? Function()? userUpcomingLeaveState,
+    TResult? Function()? leaveRequestState,
+    TResult? Function()? requestedLeaves,
+    TResult? Function(String userId)? userLeaveCalendarState,
+  }) {
+    return adminLeaveDetailState?.call(leaveApplication);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoard,
+    TResult Function()? whoIsOutCalendarState,
+    TResult Function()? login,
+    TResult Function()? adminHome,
+    TResult Function()? adminSettingsState,
+    TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
+    TResult Function()? addMemberState,
+    TResult Function()? adminEmployeeListState,
+    TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
+    TResult Function()? employeeHome,
+    TResult Function()? employeeSettingsState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? requestedLeaves,
+    TResult Function(String userId)? userLeaveCalendarState,
+    required TResult orElse(),
+  }) {
+    if (adminLeaveDetailState != null) {
+      return adminLeaveDetailState(leaveApplication);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnboardNavStackItem value) onBoard,
+    required TResult Function(WhoIsOutCalendarState value)
+        whoIsOutCalendarState,
+    required TResult Function(LoginNavStackItem value) login,
+    required TResult Function(AdminHomeNavStackItem value) adminHome,
+    required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(PaidLeaveSettingsState value)
+        paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
+    required TResult Function(AddMemberState value) addMemberState,
+    required TResult Function(AdminEmployeeListStackItem value)
+        adminEmployeeListState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
+    required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(UserLeaveCalendarState value)
+        userLeaveCalendarState,
+  }) {
+    return adminLeaveDetailState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnboardNavStackItem value)? onBoard,
+    TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
+    TResult? Function(LoginNavStackItem value)? login,
+    TResult? Function(AdminHomeNavStackItem value)? adminHome,
+    TResult? Function(AdminSettingsState value)? adminSettingsState,
+    TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
+    TResult? Function(AddMemberState value)? addMemberState,
+    TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
+    TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
+    TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
+    TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
+    TResult? Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult? Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult? Function(LeaveRequestState value)? leaveRequestState,
+    TResult? Function(RequestedLeavesState value)? requestedLeaves,
+    TResult? Function(UserLeaveCalendarState value)? userLeaveCalendarState,
+  }) {
+    return adminLeaveDetailState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnboardNavStackItem value)? onBoard,
+    TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
+    TResult Function(LoginNavStackItem value)? login,
+    TResult Function(AdminHomeNavStackItem value)? adminHome,
+    TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
+    TResult Function(AddMemberState value)? addMemberState,
+    TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
+    TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(UserLeaveCalendarState value)? userLeaveCalendarState,
+    required TResult orElse(),
+  }) {
+    if (adminLeaveDetailState != null) {
+      return adminLeaveDetailState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AdminLeaveDetailState implements NavStackItem {
+  const factory AdminLeaveDetailState(final LeaveApplication leaveApplication) =
+      _$AdminLeaveDetailState;
+
+  LeaveApplication get leaveApplication;
+  @JsonKey(ignore: true)
+  _$$AdminLeaveDetailStateCopyWith<_$AdminLeaveDetailState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1636,16 +1725,18 @@ class _$AddMemberState implements AddMemberState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -1661,15 +1752,17 @@ class _$AddMemberState implements AddMemberState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -1685,15 +1778,17 @@ class _$AddMemberState implements AddMemberState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -1713,7 +1808,6 @@ class _$AddMemberState implements AddMemberState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -1721,10 +1815,14 @@ class _$AddMemberState implements AddMemberState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -1743,15 +1841,16 @@ class _$AddMemberState implements AddMemberState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1767,15 +1866,16 @@ class _$AddMemberState implements AddMemberState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1838,16 +1938,18 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -1863,15 +1965,17 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -1887,15 +1991,17 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -1915,7 +2021,6 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -1923,10 +2028,14 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -1945,15 +2054,16 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -1969,15 +2079,16 @@ class _$AdminEmployeeListStackItem implements AdminEmployeeListStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2064,16 +2175,18 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -2089,15 +2202,17 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -2113,15 +2228,17 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -2141,7 +2258,6 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -2149,10 +2265,14 @@ class _$EmployeeDetailState implements EmployeeDetailState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -2171,15 +2291,16 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2195,15 +2316,16 @@ class _$EmployeeDetailState implements EmployeeDetailState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2228,6 +2350,251 @@ abstract class EmployeeDetailState implements NavStackItem {
   @JsonKey(ignore: true)
   _$$EmployeeDetailStateCopyWith<_$EmployeeDetailState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EmployeeLeaveDetailStateCopyWith<$Res> {
+  factory _$$EmployeeLeaveDetailStateCopyWith(_$EmployeeLeaveDetailState value,
+          $Res Function(_$EmployeeLeaveDetailState) then) =
+      __$$EmployeeLeaveDetailStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({LeaveApplication leaveApplication});
+}
+
+/// @nodoc
+class __$$EmployeeLeaveDetailStateCopyWithImpl<$Res>
+    extends _$NavStackItemCopyWithImpl<$Res, _$EmployeeLeaveDetailState>
+    implements _$$EmployeeLeaveDetailStateCopyWith<$Res> {
+  __$$EmployeeLeaveDetailStateCopyWithImpl(_$EmployeeLeaveDetailState _value,
+      $Res Function(_$EmployeeLeaveDetailState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? leaveApplication = null,
+  }) {
+    return _then(_$EmployeeLeaveDetailState(
+      null == leaveApplication
+          ? _value.leaveApplication
+          : leaveApplication // ignore: cast_nullable_to_non_nullable
+              as LeaveApplication,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EmployeeLeaveDetailState implements EmployeeLeaveDetailState {
+  const _$EmployeeLeaveDetailState(this.leaveApplication);
+
+  @override
+  final LeaveApplication leaveApplication;
+
+  @override
+  String toString() {
+    return 'NavStackItem.employeeLeaveDetailState(leaveApplication: $leaveApplication)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EmployeeLeaveDetailState &&
+            (identical(other.leaveApplication, leaveApplication) ||
+                other.leaveApplication == leaveApplication));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, leaveApplication);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EmployeeLeaveDetailStateCopyWith<_$EmployeeLeaveDetailState>
+      get copyWith =>
+          __$$EmployeeLeaveDetailStateCopyWithImpl<_$EmployeeLeaveDetailState>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() onBoard,
+    required TResult Function() whoIsOutCalendarState,
+    required TResult Function() login,
+    required TResult Function() adminHome,
+    required TResult Function() adminSettingsState,
+    required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
+    required TResult Function() addMemberState,
+    required TResult Function() adminEmployeeListState,
+    required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
+    required TResult Function() employeeHome,
+    required TResult Function() employeeSettingsState,
+    required TResult Function() userAllLeaveState,
+    required TResult Function() userUpcomingLeaveState,
+    required TResult Function() leaveRequestState,
+    required TResult Function() requestedLeaves,
+    required TResult Function(String userId) userLeaveCalendarState,
+  }) {
+    return employeeLeaveDetailState(leaveApplication);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoard,
+    TResult? Function()? whoIsOutCalendarState,
+    TResult? Function()? login,
+    TResult? Function()? adminHome,
+    TResult? Function()? adminSettingsState,
+    TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
+    TResult? Function()? addMemberState,
+    TResult? Function()? adminEmployeeListState,
+    TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
+    TResult? Function()? employeeHome,
+    TResult? Function()? employeeSettingsState,
+    TResult? Function()? userAllLeaveState,
+    TResult? Function()? userUpcomingLeaveState,
+    TResult? Function()? leaveRequestState,
+    TResult? Function()? requestedLeaves,
+    TResult? Function(String userId)? userLeaveCalendarState,
+  }) {
+    return employeeLeaveDetailState?.call(leaveApplication);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoard,
+    TResult Function()? whoIsOutCalendarState,
+    TResult Function()? login,
+    TResult Function()? adminHome,
+    TResult Function()? adminSettingsState,
+    TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
+    TResult Function()? addMemberState,
+    TResult Function()? adminEmployeeListState,
+    TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
+    TResult Function()? employeeHome,
+    TResult Function()? employeeSettingsState,
+    TResult Function()? userAllLeaveState,
+    TResult Function()? userUpcomingLeaveState,
+    TResult Function()? leaveRequestState,
+    TResult Function()? requestedLeaves,
+    TResult Function(String userId)? userLeaveCalendarState,
+    required TResult orElse(),
+  }) {
+    if (employeeLeaveDetailState != null) {
+      return employeeLeaveDetailState(leaveApplication);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnboardNavStackItem value) onBoard,
+    required TResult Function(WhoIsOutCalendarState value)
+        whoIsOutCalendarState,
+    required TResult Function(LoginNavStackItem value) login,
+    required TResult Function(AdminHomeNavStackItem value) adminHome,
+    required TResult Function(AdminSettingsState value) adminSettingsState,
+    required TResult Function(PaidLeaveSettingsState value)
+        paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
+    required TResult Function(AddMemberState value) addMemberState,
+    required TResult Function(AdminEmployeeListStackItem value)
+        adminEmployeeListState,
+    required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
+    required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
+    required TResult Function(EmployeeSettingsState value)
+        employeeSettingsState,
+    required TResult Function(UserAllLeaveState value) userAllLeaveState,
+    required TResult Function(UserUpcomingLeaveState value)
+        userUpcomingLeaveState,
+    required TResult Function(LeaveRequestState value) leaveRequestState,
+    required TResult Function(RequestedLeavesState value) requestedLeaves,
+    required TResult Function(UserLeaveCalendarState value)
+        userLeaveCalendarState,
+  }) {
+    return employeeLeaveDetailState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnboardNavStackItem value)? onBoard,
+    TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
+    TResult? Function(LoginNavStackItem value)? login,
+    TResult? Function(AdminHomeNavStackItem value)? adminHome,
+    TResult? Function(AdminSettingsState value)? adminSettingsState,
+    TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
+    TResult? Function(AddMemberState value)? addMemberState,
+    TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
+    TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
+    TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
+    TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
+    TResult? Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult? Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult? Function(LeaveRequestState value)? leaveRequestState,
+    TResult? Function(RequestedLeavesState value)? requestedLeaves,
+    TResult? Function(UserLeaveCalendarState value)? userLeaveCalendarState,
+  }) {
+    return employeeLeaveDetailState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnboardNavStackItem value)? onBoard,
+    TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
+    TResult Function(LoginNavStackItem value)? login,
+    TResult Function(AdminHomeNavStackItem value)? adminHome,
+    TResult Function(AdminSettingsState value)? adminSettingsState,
+    TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
+    TResult Function(AddMemberState value)? addMemberState,
+    TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
+    TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
+    TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
+    TResult Function(EmployeeSettingsState value)? employeeSettingsState,
+    TResult Function(UserAllLeaveState value)? userAllLeaveState,
+    TResult Function(UserUpcomingLeaveState value)? userUpcomingLeaveState,
+    TResult Function(LeaveRequestState value)? leaveRequestState,
+    TResult Function(RequestedLeavesState value)? requestedLeaves,
+    TResult Function(UserLeaveCalendarState value)? userLeaveCalendarState,
+    required TResult orElse(),
+  }) {
+    if (employeeLeaveDetailState != null) {
+      return employeeLeaveDetailState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmployeeLeaveDetailState implements NavStackItem {
+  const factory EmployeeLeaveDetailState(
+      final LeaveApplication leaveApplication) = _$EmployeeLeaveDetailState;
+
+  LeaveApplication get leaveApplication;
+  @JsonKey(ignore: true)
+  _$$EmployeeLeaveDetailStateCopyWith<_$EmployeeLeaveDetailState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2270,16 +2637,18 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -2295,15 +2664,17 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -2319,15 +2690,17 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -2347,7 +2720,6 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -2355,10 +2727,14 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -2377,15 +2753,16 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2401,15 +2778,16 @@ class _$EmployeeHomeNavStackItem implements EmployeeHomeNavStackItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2469,16 +2847,18 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -2494,15 +2874,17 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -2518,15 +2900,17 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -2546,7 +2930,6 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -2554,10 +2937,14 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -2576,15 +2963,16 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2600,15 +2988,16 @@ class _$EmployeeSettingsState implements EmployeeSettingsState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2668,16 +3057,18 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -2693,15 +3084,17 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -2717,15 +3110,17 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -2745,7 +3140,6 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -2753,10 +3147,14 @@ class _$UserAllLeaveState implements UserAllLeaveState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -2775,15 +3173,16 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2799,15 +3198,16 @@ class _$UserAllLeaveState implements UserAllLeaveState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2867,16 +3267,18 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -2892,15 +3294,17 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -2916,15 +3320,17 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -2944,7 +3350,6 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -2952,10 +3357,14 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -2974,15 +3383,16 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -2998,15 +3408,16 @@ class _$UserUpcomingLeaveState implements UserUpcomingLeaveState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -3066,16 +3477,18 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -3091,15 +3504,17 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -3115,15 +3530,17 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -3143,7 +3560,6 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -3151,10 +3567,14 @@ class _$LeaveRequestState implements LeaveRequestState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -3173,15 +3593,16 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -3197,15 +3618,16 @@ class _$LeaveRequestState implements LeaveRequestState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -3265,16 +3687,18 @@ class _$RequestedLeavesState implements RequestedLeavesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -3290,15 +3714,17 @@ class _$RequestedLeavesState implements RequestedLeavesState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -3314,15 +3740,17 @@ class _$RequestedLeavesState implements RequestedLeavesState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -3342,7 +3770,6 @@ class _$RequestedLeavesState implements RequestedLeavesState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -3350,10 +3777,14 @@ class _$RequestedLeavesState implements RequestedLeavesState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -3372,15 +3803,16 @@ class _$RequestedLeavesState implements RequestedLeavesState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -3396,15 +3828,16 @@ class _$RequestedLeavesState implements RequestedLeavesState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,
@@ -3491,16 +3924,18 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onBoard,
-    required TResult Function(LeaveApplication leaveApplication)
-        leaveDetailState,
     required TResult Function() whoIsOutCalendarState,
     required TResult Function() login,
     required TResult Function() adminHome,
     required TResult Function() adminSettingsState,
     required TResult Function() paidLeaveSettingsState,
+    required TResult Function(LeaveApplication leaveApplication)
+        adminLeaveDetailState,
     required TResult Function() addMemberState,
     required TResult Function() adminEmployeeListState,
     required TResult Function(String id) employeeDetailState,
+    required TResult Function(LeaveApplication leaveApplication)
+        employeeLeaveDetailState,
     required TResult Function() employeeHome,
     required TResult Function() employeeSettingsState,
     required TResult Function() userAllLeaveState,
@@ -3516,15 +3951,17 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoard,
-    TResult? Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult? Function()? whoIsOutCalendarState,
     TResult? Function()? login,
     TResult? Function()? adminHome,
     TResult? Function()? adminSettingsState,
     TResult? Function()? paidLeaveSettingsState,
+    TResult? Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult? Function()? addMemberState,
     TResult? Function()? adminEmployeeListState,
     TResult? Function(String id)? employeeDetailState,
+    TResult? Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult? Function()? employeeHome,
     TResult? Function()? employeeSettingsState,
     TResult? Function()? userAllLeaveState,
@@ -3540,15 +3977,17 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoard,
-    TResult Function(LeaveApplication leaveApplication)? leaveDetailState,
     TResult Function()? whoIsOutCalendarState,
     TResult Function()? login,
     TResult Function()? adminHome,
     TResult Function()? adminSettingsState,
     TResult Function()? paidLeaveSettingsState,
+    TResult Function(LeaveApplication leaveApplication)? adminLeaveDetailState,
     TResult Function()? addMemberState,
     TResult Function()? adminEmployeeListState,
     TResult Function(String id)? employeeDetailState,
+    TResult Function(LeaveApplication leaveApplication)?
+        employeeLeaveDetailState,
     TResult Function()? employeeHome,
     TResult Function()? employeeSettingsState,
     TResult Function()? userAllLeaveState,
@@ -3568,7 +4007,6 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardNavStackItem value) onBoard,
-    required TResult Function(LeaveDetailState value) leaveDetailState,
     required TResult Function(WhoIsOutCalendarState value)
         whoIsOutCalendarState,
     required TResult Function(LoginNavStackItem value) login,
@@ -3576,10 +4014,14 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
     required TResult Function(AdminSettingsState value) adminSettingsState,
     required TResult Function(PaidLeaveSettingsState value)
         paidLeaveSettingsState,
+    required TResult Function(AdminLeaveDetailState value)
+        adminLeaveDetailState,
     required TResult Function(AddMemberState value) addMemberState,
     required TResult Function(AdminEmployeeListStackItem value)
         adminEmployeeListState,
     required TResult Function(EmployeeDetailState value) employeeDetailState,
+    required TResult Function(EmployeeLeaveDetailState value)
+        employeeLeaveDetailState,
     required TResult Function(EmployeeHomeNavStackItem value) employeeHome,
     required TResult Function(EmployeeSettingsState value)
         employeeSettingsState,
@@ -3598,15 +4040,16 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnboardNavStackItem value)? onBoard,
-    TResult? Function(LeaveDetailState value)? leaveDetailState,
     TResult? Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult? Function(LoginNavStackItem value)? login,
     TResult? Function(AdminHomeNavStackItem value)? adminHome,
     TResult? Function(AdminSettingsState value)? adminSettingsState,
     TResult? Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult? Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult? Function(AddMemberState value)? addMemberState,
     TResult? Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult? Function(EmployeeDetailState value)? employeeDetailState,
+    TResult? Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult? Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult? Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult? Function(UserAllLeaveState value)? userAllLeaveState,
@@ -3622,15 +4065,16 @@ class _$UserLeaveCalendarState implements UserLeaveCalendarState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardNavStackItem value)? onBoard,
-    TResult Function(LeaveDetailState value)? leaveDetailState,
     TResult Function(WhoIsOutCalendarState value)? whoIsOutCalendarState,
     TResult Function(LoginNavStackItem value)? login,
     TResult Function(AdminHomeNavStackItem value)? adminHome,
     TResult Function(AdminSettingsState value)? adminSettingsState,
     TResult Function(PaidLeaveSettingsState value)? paidLeaveSettingsState,
+    TResult Function(AdminLeaveDetailState value)? adminLeaveDetailState,
     TResult Function(AddMemberState value)? addMemberState,
     TResult Function(AdminEmployeeListStackItem value)? adminEmployeeListState,
     TResult Function(EmployeeDetailState value)? employeeDetailState,
+    TResult Function(EmployeeLeaveDetailState value)? employeeLeaveDetailState,
     TResult Function(EmployeeHomeNavStackItem value)? employeeHome,
     TResult Function(EmployeeSettingsState value)? employeeSettingsState,
     TResult Function(UserAllLeaveState value)? userAllLeaveState,

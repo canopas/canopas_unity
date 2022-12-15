@@ -294,6 +294,22 @@ class MockNavigationStackManager extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
+  bool canPop() => (super.noSuchMethod(
+        Invocation.method(
+          #canPop,
+          [],
+        ),
+        returnValue: false,
+      ) as bool);
+  @override
+  void pop() => super.noSuchMethod(
+        Invocation.method(
+          #pop,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,

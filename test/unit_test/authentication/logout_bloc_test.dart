@@ -10,7 +10,7 @@ import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/services/auth/auth_service.dart';
 
-import 'logout_bloc _test.mocks.dart';
+import 'logout_bloc_test.mocks.dart';
 
 @GenerateMocks([AuthService,UserPreference,NavigationStackManager])
 void main(){

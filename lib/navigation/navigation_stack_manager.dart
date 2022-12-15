@@ -49,13 +49,14 @@ class NavigationStackManager extends ChangeNotifier {
     super.dispose();
   }
 
-  NavStackItem? pop() {
-    try {
-      final poppedItem = _pages.removeLast();
+  bool canPop()=>_pages.length>1;
+
+  void pop() {
+    if(canPop()){
+      _pages.removeLast();
       notifyListeners();
-      return poppedItem;
-    } catch (e) {
-      return null;
+    }else{
+      return;
     }
   }
 }

@@ -222,7 +222,7 @@ void main() {
             () async {
           LeaveApplication leaveApplication =
           LeaveApplication(employee: employee, leave: leave);
-          final state = NavStackItem.leaveDetailState(leaveApplication);
+          final state = NavStackItem.adminLeaveDetailState(leaveApplication);
           adminHomeBloc.add(AdminHomeNavigateToApplicationDetail(leaveApplication));
           await untilCalled(navigationStackManager.push(state));
           verify(navigationStackManager.push(state)).called(1);

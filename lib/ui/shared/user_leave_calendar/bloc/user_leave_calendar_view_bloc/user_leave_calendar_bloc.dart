@@ -68,7 +68,7 @@ class UserLeaveCalendarViewBloc extends Bloc<UserLeaveCalendarEvent,UserLeaveCal
   }
 
   void _onLeaveTypeCardTap(LeaveTypeCardTapEvent event, Emitter<UserLeaveCalendarViewState> emit){
-      _stackManager.push(NavStackItem.leaveDetailState(event.leaveApplication));
+      _stackManager.push(NavStackItem.employeeLeaveDetailState(event.leaveApplication));
   }
 
 }

@@ -77,7 +77,7 @@ class UserLeavesBloc extends BaseBLoc{
   }
 
   void onLeaveCardTap(LeaveApplication leaveApplication){
-    _stateManager.push(NavStackItem.leaveDetailState(leaveApplication));
+    _stateManager.push(NavStackItem.employeeLeaveDetailState(leaveApplication));
   }
 
 
