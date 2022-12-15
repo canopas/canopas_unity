@@ -79,11 +79,13 @@ class _LoginViewState extends State<LoginView> {
                             height: primaryHorizontalSpacing,
                           ),
                           BlocBuilder<LoginBloc,LoginState>(
-                              builder: (context, state) =>
-                                state is LoginLoadingState?const kCircularProgressIndicator()
-                                :SignInButton(onPressed: (){
+                              builder: (context, state) {
+                                if(state is LoginLoadingState){
+                                  return const kCircularProgressIndicator();
+                                }return SignInButton(onPressed: (){
                                   context.read<LoginBloc>().add(SignInEvent());
-                                }),
+                                });
+                              }
                           ),
                         ]),
                       ]),
