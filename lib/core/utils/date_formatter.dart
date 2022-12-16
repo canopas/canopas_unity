@@ -33,7 +33,9 @@ class DateFormatter {
   }
 
   String getLeaveDurationPresentationLong(double totalLeaves) {
-    if (totalLeaves < 1) {
+    if(totalLeaves == 0){
+      return _localization.leave_request_total_zero_day_text;
+    } else if (totalLeaves < 1) {
       return _localization.leave_request_total_half_day_text;
     } else if (totalLeaves == 1) {
       return _localization.leave_request_total_one_day_text;

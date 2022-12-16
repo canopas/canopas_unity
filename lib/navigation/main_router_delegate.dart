@@ -107,7 +107,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
         key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
     leaveRequestState: () =>
     const MaterialPage(
-        key: ValueKey("apply-leave"), child: RequestLeaveView()),
+        key: ValueKey("apply-leave"), child: RequestLeavePage()),
     requestedLeaves: () =>
     const MaterialPage(
               key: ValueKey("user-requested-leave"),

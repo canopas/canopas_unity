@@ -5,10 +5,8 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_event.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snackbar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
-import '../../../model/leave_count.dart';
 import '../../../widget/expanded_app_bar.dart';
 import 'bloc/employee_home_bloc.dart';
 import 'bloc/employee_home_state.dart';

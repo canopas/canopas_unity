@@ -11,8 +11,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i11;
 
 import '../bloc/authentication/logout_bloc.dart' as _i32;
-import '../bloc/employee/leave/request_leave_bloc.dart' as _i19;
-import '../bloc/employee/leave/user_leave_bloc.dart' as _i21;
+import '../bloc/employee/leave/user_leave_bloc.dart' as _i20;
 import '../bloc/network/network_connection_bloc.dart' as _i8;
 import '../navigation/navigation_stack_manager.dart' as _i17;
 import '../pref/user_preference.dart' as _i13;
@@ -23,14 +22,14 @@ import '../services/admin/requests/admin_leave_service.dart' as _i3;
 import '../services/auth/auth_service.dart' as _i5;
 import '../services/leave/user_leave_service.dart' as _i12;
 import '../stateManager/auth/auth_manager.dart' as _i15;
-import '../ui/admin/addmember/bloc/add_member_bloc.dart' as _i23;
-import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i28;
-import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i31;
-import '../ui/admin/home/bloc/admin_home_bloc.dart' as _i24;
-import '../ui/admin/leave_details/bloc/admin_leave_details_bloc.dart' as _i25;
-import '../ui/admin/setting/bloc/admin_setting_screen_bloc.dart' as _i26;
+import '../ui/admin/addmember/bloc/add_member_bloc.dart' as _i22;
+import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i27;
+import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i30;
+import '../ui/admin/home/bloc/admin_home_bloc.dart' as _i23;
+import '../ui/admin/leave_details/bloc/admin_leave_details_bloc.dart' as _i24;
+import '../ui/admin/setting/bloc/admin_setting_screen_bloc.dart' as _i25;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart'
-    as _i27;
+    as _i26;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i4;
 import '../ui/login/bloc/login_view_bloc.dart' as _i33;
@@ -38,14 +37,16 @@ import '../ui/onboard/bloc/onboard_bloc.dart' as _i18;
 import '../ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i7;
 import '../ui/shared/user_leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
-    as _i20;
+    as _i19;
 import '../ui/shared/who_is_out_calendar/bloc/who_is_out_calendar_bloc/who_is_out_calendar_bloc.dart'
     as _i14;
 import '../ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_bloc.dart'
-    as _i22;
-import '../ui/user/home/bloc/employee_home_bloc.dart' as _i29;
+    as _i21;
+import '../ui/user/home/bloc/employee_home_bloc.dart' as _i28;
+import '../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_view_bloc.dart'
+    as _i31;
 import '../ui/user/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart'
-    as _i30;
+    as _i29;
 import 'AppModule.dart' as _i34; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
@@ -97,59 +98,53 @@ Future<_i1.GetIt> $initGetIt(
         get<_i13.UserPreference>(),
         get<_i17.NavigationStackManager>(),
       ));
-  gh.factory<_i19.RequestLeaveBloc>(() => _i19.RequestLeaveBloc(
-        get<_i16.UserManager>(),
-        get<_i12.UserLeaveService>(),
-        get<_i17.NavigationStackManager>(),
-        get<_i10.PaidLeaveService>(),
-      ));
-  gh.factory<_i20.UserLeaveCalendarViewBloc>(
-      () => _i20.UserLeaveCalendarViewBloc(
+  gh.factory<_i19.UserLeaveCalendarViewBloc>(
+      () => _i19.UserLeaveCalendarViewBloc(
             get<_i12.UserLeaveService>(),
             get<_i17.NavigationStackManager>(),
             get<_i6.EmployeeService>(),
             get<_i10.PaidLeaveService>(),
           ));
-  gh.factory<_i21.UserLeavesBloc>(() => _i21.UserLeavesBloc(
+  gh.factory<_i20.UserLeavesBloc>(() => _i20.UserLeavesBloc(
         get<_i12.UserLeaveService>(),
         get<_i16.UserManager>(),
         get<_i17.NavigationStackManager>(),
       ));
-  gh.factory<_i22.WhoIsOutViewBloc>(() => _i22.WhoIsOutViewBloc(
+  gh.factory<_i21.WhoIsOutViewBloc>(() => _i21.WhoIsOutViewBloc(
         get<_i6.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
         get<_i17.NavigationStackManager>(),
         get<_i16.UserManager>(),
       ));
-  gh.factory<_i23.AddMemberBloc>(() => _i23.AddMemberBloc(
+  gh.factory<_i22.AddMemberBloc>(() => _i22.AddMemberBloc(
         get<_i6.EmployeeService>(),
         get<_i17.NavigationStackManager>(),
       ));
-  gh.factory<_i24.AdminHomeBloc>(() => _i24.AdminHomeBloc(
+  gh.factory<_i23.AdminHomeBloc>(() => _i23.AdminHomeBloc(
         get<_i17.NavigationStackManager>(),
         get<_i3.AdminLeaveService>(),
         get<_i6.EmployeeService>(),
         get<_i12.UserLeaveService>(),
         get<_i10.PaidLeaveService>(),
       ));
-  gh.factory<_i25.AdminLeaveDetailsBloc>(() => _i25.AdminLeaveDetailsBloc(
+  gh.factory<_i24.AdminLeaveDetailsBloc>(() => _i24.AdminLeaveDetailsBloc(
         get<_i12.UserLeaveService>(),
         get<_i17.NavigationStackManager>(),
         get<_i3.AdminLeaveService>(),
         get<_i10.PaidLeaveService>(),
       ));
-  gh.factory<_i26.AdminSettingScreenBLoc>(
-      () => _i26.AdminSettingScreenBLoc(get<_i17.NavigationStackManager>()));
-  gh.factory<_i27.AdminSettingUpdatePaidLeaveCountBloc>(
-      () => _i27.AdminSettingUpdatePaidLeaveCountBloc(
+  gh.factory<_i25.AdminSettingScreenBLoc>(
+      () => _i25.AdminSettingScreenBLoc(get<_i17.NavigationStackManager>()));
+  gh.factory<_i26.AdminSettingUpdatePaidLeaveCountBloc>(
+      () => _i26.AdminSettingUpdatePaidLeaveCountBloc(
             get<_i10.PaidLeaveService>(),
             get<_i17.NavigationStackManager>(),
           ));
-  gh.factory<_i28.EmployeeDetailBloc>(() => _i28.EmployeeDetailBloc(
+  gh.factory<_i27.EmployeeDetailBloc>(() => _i27.EmployeeDetailBloc(
         get<_i17.NavigationStackManager>(),
         get<_i6.EmployeeService>(),
       ));
-  gh.factory<_i29.EmployeeHomeBloc>(() => _i29.EmployeeHomeBloc(
+  gh.factory<_i28.EmployeeHomeBloc>(() => _i28.EmployeeHomeBloc(
         get<_i16.UserManager>(),
         get<_i12.UserLeaveService>(),
         get<_i10.PaidLeaveService>(),
@@ -157,15 +152,21 @@ Future<_i1.GetIt> $initGetIt(
         get<_i3.AdminLeaveService>(),
         get<_i17.NavigationStackManager>(),
       ));
-  gh.factory<_i30.EmployeeLeaveDetailsBloc>(() => _i30.EmployeeLeaveDetailsBloc(
+  gh.factory<_i29.EmployeeLeaveDetailsBloc>(() => _i29.EmployeeLeaveDetailsBloc(
         get<_i12.UserLeaveService>(),
         get<_i17.NavigationStackManager>(),
         get<_i10.PaidLeaveService>(),
         get<_i16.UserManager>(),
       ));
-  gh.factory<_i31.EmployeeListBloc>(() => _i31.EmployeeListBloc(
+  gh.factory<_i30.EmployeeListBloc>(() => _i30.EmployeeListBloc(
         get<_i17.NavigationStackManager>(),
         get<_i6.EmployeeService>(),
+      ));
+  gh.factory<_i31.LeaveRequestBloc>(() => _i31.LeaveRequestBloc(
+        get<_i16.UserManager>(),
+        get<_i10.PaidLeaveService>(),
+        get<_i12.UserLeaveService>(),
+        get<_i17.NavigationStackManager>(),
       ));
   gh.factory<_i32.LogOutBloc>(() => _i32.LogOutBloc(
         get<_i17.NavigationStackManager>(),

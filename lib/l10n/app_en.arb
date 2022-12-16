@@ -158,6 +158,7 @@
           }
        },
   "leave_request_total_half_day_text":"Leave request is for half day",
+  "leave_request_total_zero_day_text":"Leave request is for 0 day",
   "leave_request_total_one_day_text":"Leave request is for 1 day",
   "leave_request_total_days_text":"Leave request is for {day} days",
   "@leave_request_total_days_text":{
