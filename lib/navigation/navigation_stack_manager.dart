@@ -51,12 +51,10 @@ class NavigationStackManager extends ChangeNotifier {
 
   bool canPop()=>_pages.length>1;
 
-  void pop() {
-    if(canPop()){
-      _pages.removeLast();
-      notifyListeners();
-    }else{
-      return;
-    }
+ void pop() {
+   if(canPop()){
+     _pages.removeLast();
+     notifyListeners();
+   }
   }
 }

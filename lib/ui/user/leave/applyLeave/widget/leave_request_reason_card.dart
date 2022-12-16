@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/exception/exception_msg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/font_size.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/space_constant.dart';
+import '../bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
+import '../bloc/leave_request_form_bloc/leave_request_view_events.dart';
+import '../bloc/leave_request_form_bloc/leave_request_view_states.dart';
 
 class LeaveRequestReasonCard extends StatelessWidget {
-  final Stream<String> reason;
-  final void Function(String)? onChanged;
 
-  const LeaveRequestReasonCard({Key? key, required this.reason, required this.onChanged}) : super(key: key);
+  const LeaveRequestReasonCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +23,26 @@ class LeaveRequestReasonCard extends StatelessWidget {
           boxShadow: AppTheme.commonBoxShadow
       ),
       padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top:0,bottom: primaryVerticalSpacing),
-      child: StreamBuilder<String>(
-          stream: reason,
-          builder: (context, snapshot) {
-            return TextField(
+      child: BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+        buildWhen: (previous, current) => current.reason != previous.reason || current.showTextFieldError != previous.showTextFieldError,
+          builder:(context, state) => TextField(
               style: AppTextStyle.bodyTextDark,
               cursorColor: AppColors.secondaryText,
               maxLines: 5,
               decoration: InputDecoration(
-                errorText: snapshot.hasError
-                    ? snapshot.error.toString().errorMessage(context)
+                errorText: state.showTextFieldError
+                    ? AppLocalizations.of(context).user_apply_leave_error_valid_reason
                     : null,
                 border: InputBorder.none,
                 hintText: AppLocalizations.of(context).leave_reason_text_field_tag,
                 hintStyle: AppTextStyle.leaveRequestFormSubtitle,
               ),
-              onChanged: onChanged,
+              onChanged: (reason) {
+                context.read<LeaveRequestBloc>().add(LeaveRequestReasonChangeEvent(reason: reason));
+              },
               keyboardType: TextInputType.text,
-            );
-          }),
+            )
+      ),
     );
   }
 }
