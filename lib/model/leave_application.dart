@@ -5,11 +5,11 @@ import 'package:projectunity/model/leave/leave.dart';
 import 'leave_count.dart';
 
 class LeaveApplication extends Equatable {
-  Employee employee;
-  Leave leave;
-  LeaveCounts? leaveCounts;
+  final Employee employee;
+  final Leave leave;
+  final LeaveCounts? leaveCounts;
 
-  LeaveApplication(
+  const LeaveApplication(
       {required this.employee, required this.leave, this.leaveCounts});
 
   @override

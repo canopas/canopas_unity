@@ -11,27 +11,27 @@ const int rejectLeaveStatus = 3;
 @JsonSerializable()
 class Leave extends Equatable {
   @JsonKey(name: 'leave_id')
-  String leaveId;
-  String uid;
+  final String leaveId;
+  final String uid;
   @JsonKey(name: 'leave_type')
-  int leaveType;
+  final int leaveType;
   @JsonKey(name: 'start_date')
-  int startDate;
+  final int startDate;
   @JsonKey(name: 'end_date')
-  int endDate;
+  final int endDate;
   @JsonKey(name: 'total_leaves')
-  double totalLeaves;
-  String reason;
+  final double totalLeaves;
+  final String reason;
   @JsonKey(name: 'leave_status')
-  int leaveStatus;
+  final int leaveStatus;
   @JsonKey(name: 'rejection_reason')
-  String? rejectionReason;
+  final String? rejectionReason;
   @JsonKey(name: 'applied_on')
-  int appliedOn;
+  final int appliedOn;
   @JsonKey(name: 'per_day_duration')
-  List<int> perDayDuration;
+  final List<int> perDayDuration;
 
-  Leave(
+  const Leave(
       {required this.leaveId,
       required this.uid,
       required this.leaveType,

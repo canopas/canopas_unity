@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/map_extension.dart';
+import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../../../core/utils/const/leave_time_constants.dart';
@@ -106,8 +107,13 @@ class LeaveRequestBloc extends Bloc<LeaveRequestEvents, LeaveRequestViewState> {
       try {
         await _userLeaveService.applyForLeave(_getLeaveData());
         emit(state.copyWith(leaveRequestStatus: LeaveRequestStatus.success));
-        _navigationStackManager.pop();
-        _navigationStackManager.push(const NavStackItem.userAllLeaveState());
+        if(_navigationStackManager.previousState == const NavStackItem.employeeAllLeavesScreenState()){
+          eventBus.fire(AllLeaveUpdateEventListener());
+          _navigationStackManager.pop();
+        } else {
+          _navigationStackManager.pop();
+          _navigationStackManager.push(const NavStackItem.employeeAllLeavesScreenState());
+        }
       } on Exception {
         emit(state.copyWith(error: firestoreFetchDataError,leaveRequestStatus: LeaveRequestStatus.failure));
       }

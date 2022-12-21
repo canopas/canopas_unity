@@ -10,7 +10,7 @@ import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../bloc/authentication/logout_state.dart';
 import '../../../di/service_locator.dart';
-import '../../../widget/error_snackbar.dart';
+import '../../../widget/error_snack_bar.dart';
 import '../../../widget/setting_screen_subtitle.dart';
 import '../../../widget/user_intro_content.dart';
 import 'bloc/admin_setting_screen_bloc.dart';

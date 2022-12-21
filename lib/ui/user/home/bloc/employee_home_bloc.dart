@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
-
 import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
@@ -110,7 +108,7 @@ class EmployeeHomeBloc extends Bloc<EmployeeHomeEvent, EmployeeHomeState> {
   }
 
   void _navigateToAllLeaves() {
-    _stackManager.push(const NavStackItem.userAllLeaveState());
+    _stackManager.push(const NavStackItem.employeeAllLeavesScreenState());
   }
 
   void _navigateToApplyLeave() {
@@ -118,11 +116,11 @@ class EmployeeHomeBloc extends Bloc<EmployeeHomeEvent, EmployeeHomeState> {
   }
 
   void _navigateToRequestedLeaves() {
-    _stackManager.push(const NavStackItem.requestedLeaves());
+    _stackManager.push(const NavStackItem.employeeRequestedLeavesScreenState());
   }
 
   void _navigateToUpcomingLeaves() {
-    _stackManager.push(const NavStackItem.userUpcomingLeaveState());
+    _stackManager.push(const NavStackItem.employeeUpcomingLeavesScreenState());
   }
 
   void _navigateToWhosOutCalendar() {

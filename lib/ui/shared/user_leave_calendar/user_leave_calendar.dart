@@ -12,7 +12,7 @@ import '../../../configs/theme.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
 import '../../../widget/calendar.dart';
-import '../../user/leave/leaveScreen/widget/leave_card.dart';
+import '../../../widget/leave_card.dart';
 import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart';
 import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_events.dart';
 import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
@@ -77,7 +77,7 @@ class _UserLeaveCalendarViewState extends State<UserLeaveCalendarView> {
               eventLoader: (day){
                 UserLeaveCalendarViewState state =  context.watch<UserLeaveCalendarViewBloc>().state;
                 if(state is UserLeaveCalendarViewSuccessState){
-                 return state.allLeaves.where((la) => la.leave.findUserOnLeaveByDate(day: day)).toList();
+                 return state.allLeaveApplications.where((la) => la.leave.findUserOnLeaveByDate(day: day)).toList();
                 }
                 return [];
               }
@@ -90,16 +90,16 @@ class _UserLeaveCalendarViewState extends State<UserLeaveCalendarView> {
             child: BlocBuilder<UserLeaveCalendarViewBloc,UserLeaveCalendarViewState>(
                 builder: (context, state) {
                   if(state is UserLeaveCalendarViewLoadingState){
-                    return const kCircularProgressIndicator();
-                  } else if(state is UserLeaveCalendarViewSuccessState && state.leaveApplication.isNotEmpty){
+                    return const AppCircularProgressIndicator();
+                  } else if(state is UserLeaveCalendarViewSuccessState && state.leaveApplications.isNotEmpty){
                     return ListView.separated(
                       padding: const EdgeInsets.all( primaryHorizontalSpacing),
-                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: state.leaveApplication[index],
+                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: state.leaveApplications[index],
                         onTap: () {
-                          context.read<UserLeaveCalendarViewBloc>().add(LeaveTypeCardTapEvent(state.leaveApplication[index]));
+                          context.read<UserLeaveCalendarViewBloc>().add(LeaveTypeCardTapEvent(state.leaveApplications[index]));
                        },),
                       separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryHorizontalSpacing,),
-                      itemCount: state.leaveApplication.length,
+                      itemCount: state.leaveApplications.length,
                     );}
                   return BlocBuilder<LeaveCalendarBloc,LeaveCalendarState>(
                     buildWhen: (previous, current) => previous.selectedDate != current.selectedDate || previous.endDate != current.endDate || previous.startDate != current.startDate,

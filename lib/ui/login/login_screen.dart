@@ -7,7 +7,7 @@ import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/sign_in_button.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 import 'bloc/login_view_bloc.dart';
 import '../../core/utils/const/image_constant.dart';
 import 'bloc/login_view_event.dart';
@@ -19,30 +19,28 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => getIt<LoginBloc>(),
+      create: (_) => getIt<LoginBloc>(),
       child: const LoginView(),
     );
   }
 }
 
-
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  LoginViewState createState() => LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  
+class LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: BlocListener<LoginBloc,LoginState>(
+      body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if(state is LoginFailureState){
-            showSnackBar(context: context,error: state.error);
+          if (state is LoginFailureState) {
+            showSnackBar(context: context, error: state.error);
           }
         },
         child: Container(
@@ -59,33 +57,32 @@ class _LoginViewState extends State<LoginView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                          padding:
+                              const EdgeInsets.all(primaryHorizontalSpacing),
                           child: Column(
                             children: [
-                              buildTitle(),
-                              buildSubTitle(),
+                              Text(
+                                AppLocalizations.of(context).login_welcome_text,
+                                style: AppTextStyle.appTitleText.copyWith(height: 2, fontStyle: FontStyle.italic),
+                              ),
+                              Text(
+                                AppLocalizations.of(context).login_toUnity_text,
+                                style: AppTextStyle.appTitleText.copyWith(height: 1, letterSpacing: 1),
+                              ),
                             ],
                           ),
                         ),
-                        buildImage(context),
+                        const _BuildImage(),
                         Column(children: [
                           Center(
-                            child: Text(
-                                AppLocalizations.of(context)
-                                    .login_guide_description,
+                            child: Text(AppLocalizations.of(context).login_guide_description,
                                 style: AppTextStyle.secondaryBodyText),
                           ),
-                          const SizedBox(
-                            height: primaryHorizontalSpacing,
-                          ),
-                          BlocBuilder<LoginBloc,LoginState>(
-                              builder: (context, state) {
-                                if(state is LoginLoadingState){
-                                  return const kCircularProgressIndicator();
-                                }return SignInButton(onPressed: (){
-                                  context.read<LoginBloc>().add(SignInEvent());
-                                });
-                              }
+                          const SizedBox(height: primaryHorizontalSpacing),
+                          BlocBuilder<LoginBloc, LoginState>(
+                            builder: (context, state) => state is LoginLoadingState
+                                    ? const AppCircularProgressIndicator()
+                                    : SignInButton(onPressed: () {context.read<LoginBloc>().add(SignInEvent());}),
                           ),
                         ]),
                       ]),
@@ -95,8 +92,13 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+}
 
-  Container buildImage(BuildContext context) {
+class _BuildImage extends StatelessWidget {
+  const _BuildImage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
         height: MediaQuery.of(context).size.height / 2,
         width: MediaQuery.of(context).size.width,
@@ -107,20 +109,5 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
         ));
-  }
-
-  Text buildSubTitle() {
-    return Text(
-      AppLocalizations.of(context).login_toUnity_text,
-      style: AppTextStyle.appTitleText.copyWith(height: 1, letterSpacing: 1),
-    );
-  }
-
-  Text buildTitle() {
-    return Text(
-      AppLocalizations.of(context).login_welcome_text,
-      style: AppTextStyle.appTitleText
-          .copyWith(height: 2, fontStyle: FontStyle.italic),
-    );
   }
 }

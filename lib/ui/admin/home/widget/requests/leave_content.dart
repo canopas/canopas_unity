@@ -71,16 +71,15 @@ class LeaveRequestCard extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                buildLeaveTypeContent(
-                                    leaveType: leave.leaveType, context: context),
+                                _LeaveTypeContent(leaveType: leave.leaveType),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                buildLeaveDateContent(
+                                _LeaveDateContent(
                                     totalDays: leave.totalLeaves,
                                     startTimeStamp: leave.startDate,
                                     endTimeStamp: leave.endDate,
-                                    context: context),
+                                ),
                               ],
                             ),
                           ),
@@ -112,14 +111,18 @@ class LeaveRequestCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget buildLeaveTypeContent(
-      {required int leaveType, required BuildContext context}) {
-    Color? color = leaveRequestCardColor[leaveType];
+class _LeaveTypeContent extends StatelessWidget {
+  final int leaveType;
+  const _LeaveTypeContent({Key? key,required this.leaveType}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: color!,
+        color: leaveRequestCardColor[leaveType],
       ),
       padding: const EdgeInsets.symmetric(
           vertical: 5, horizontal: primaryVerticalSpacing),
@@ -131,15 +134,18 @@ class LeaveRequestCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Text buildLeaveDateContent(
-      {required double totalDays,
-      required int startTimeStamp,
-      required int endTimeStamp,
-      required BuildContext context}) {
-    String duration = DateFormatter(AppLocalizations.of(context))
-        .dateInLine(
-            startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
+class _LeaveDateContent extends StatelessWidget {
+  final double totalDays;
+  final int startTimeStamp;
+  final int endTimeStamp;
+  const _LeaveDateContent({Key? key, required this.totalDays, required this.startTimeStamp, required this.endTimeStamp}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String duration = DateFormatter(AppLocalizations.of(context)).dateInLine(
+        startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
     String days = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentation(totalDays);
 

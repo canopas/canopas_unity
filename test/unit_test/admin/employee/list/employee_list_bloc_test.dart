@@ -10,7 +10,7 @@ import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_state.dart';
 
-import '../../../../user/home/employee_home_bloc_test.mocks.dart';
+import 'employee_list_bloc_test.mocks.dart';
 
 
 
@@ -19,7 +19,7 @@ void main(){
 late NavigationStackManager navigationStackManager;
 late EmployeeService employeeService;
 late EmployeeListBloc employeeListBloc;
-Employee employee= Employee(id: 'id', roleType: 1, name: 'Andrew jhone', employeeId: 'CA 1254', email: 'andrew.j@canopas.com', designation: 'Android developer');
+Employee employee= const Employee(id: 'id', roleType: 1, name: 'Andrew jhone', employeeId: 'CA 1254', email: 'andrew.j@canopas.com', designation: 'Android developer');
 
 setUpAll(() {
 navigationStackManager= MockNavigationStackManager();

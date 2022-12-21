@@ -6,7 +6,7 @@ import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
 import 'package:projectunity/ui/admin/home/widget/request_list.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 import 'package:projectunity/widget/expanded_app_bar.dart';
 
 import '../../../configs/colors.dart';
@@ -60,7 +60,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               return Container();
                             }
                             if (state.status == AdminHomeStatus.loading) {
-                              return const kCircularProgressIndicator();
+                              return const AppCircularProgressIndicator();
                             }
                             if (state.status == AdminHomeStatus.success) {
                               final map = state.leaveAppMap;
@@ -237,8 +237,3 @@ class EmployeeSummaryCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

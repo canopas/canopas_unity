@@ -4,14 +4,14 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import 'network_Connection_event.dart';
+import 'network_connection_event.dart';
 import 'network_connection_state.dart';
 
 @Injectable()
 class NetworkConnectionBloc
     extends Bloc<NetworkConnectionEvent, NetworkConnectionState> {
    StreamSubscription? _subscription;
-   Connectivity _connectivity;
+   final Connectivity _connectivity;
 
   NetworkConnectionBloc(this._connectivity) : super(NetworkConnectionInitialState()) {
     on<NetworkConnectionObserveEvent>(_observeConnection);

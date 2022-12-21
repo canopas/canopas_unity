@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/ui/admin/employee/detail/widget/delete_button.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../../di/service_locator.dart';
 import 'bloc/employee_detail_bloc.dart';
 import 'bloc/employee_detail_event.dart';
@@ -51,7 +51,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           if(state is EmployeeDetailInitialState){
             return Container();
           }else if(state is EmployeeDetailLoadingState){
-            return const kCircularProgressIndicator();
+            return const AppCircularProgressIndicator();
           }else if (state is EmployeeDetailLoadedState){
             final employee =  state.employee;
             return ListView(children: [

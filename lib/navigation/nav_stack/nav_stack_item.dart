@@ -37,13 +37,13 @@ class NavStackItem with _$NavStackItem {
 
   const factory NavStackItem.employeeSettingsState() = EmployeeSettingsState;
 
-  const factory NavStackItem.userAllLeaveState() = UserAllLeaveState;
+  const factory NavStackItem.employeeAllLeavesScreenState() = EmployeeAllLeavesScreenState;
 
-  const factory NavStackItem.userUpcomingLeaveState() = UserUpcomingLeaveState;
+  const factory NavStackItem.employeeRequestedLeavesScreenState() = EmployeeRequestedLeavesScreenState;
+
+  const factory NavStackItem.employeeUpcomingLeavesScreenState() = EmployeeUpcomingLeavesScreenState;
 
   const factory NavStackItem.leaveRequestState() = LeaveRequestState;
-
-  const factory NavStackItem.requestedLeaves() = RequestedLeavesState;
 
   const factory NavStackItem.userLeaveCalendarState({required String userId}) = UserLeaveCalendarState;
 }

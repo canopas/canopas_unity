@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
-
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../widget/date_time_picker.dart';
@@ -39,7 +38,7 @@ class AddMemberForm extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTextFieldTitle(
+                _TextFieldTitle(
                     title: localization.employee_employeeID_tag),
                 EmployeeField(
                     onChanged: (value) =>
@@ -48,7 +47,7 @@ class AddMemberForm extends StatelessWidget {
                         ? localization.admin_add_member_error_complete_field
                         : null,
                     hintText: localization.admin_addMember_hint_employeeId),
-                _buildTextFieldTitle(title: localization.employee_name_tag),
+                _TextFieldTitle(title: localization.employee_name_tag),
                 EmployeeField(
                   onChanged: (value) => context
                       .read<AddMemberBloc>()
@@ -58,7 +57,7 @@ class AddMemberForm extends StatelessWidget {
                       : null,
                   hintText: localization.admin_addMember_hint_name,
                 ),
-                _buildTextFieldTitle(title: localization.employee_email_tag),
+                _TextFieldTitle(title: localization.employee_email_tag),
                 EmployeeField(
                     onChanged: (value) =>
                         bloc.add(AddEmployeeEmailEvent(email: value)),
@@ -66,7 +65,7 @@ class AddMemberForm extends StatelessWidget {
                         ? localization.admin_add_member_error_email
                         : null,
                     hintText: localization.admin_addMember_hint_email),
-                _buildTextFieldTitle(
+                _TextFieldTitle(
                     title: localization.employee_designation_tag),
                 EmployeeField(
                     onChanged: (value) => bloc
@@ -75,7 +74,7 @@ class AddMemberForm extends StatelessWidget {
                         ? localization.admin_add_member_error_complete_field
                         : null,
                     hintText: localization.admin_addMember_hint_designation),
-                _buildTextFieldTitle(
+                _TextFieldTitle(
                     title: localization.employee_dateOfJoin_tag),
                 TextField(
                   readOnly: true,
@@ -110,9 +109,15 @@ class AddMemberForm extends StatelessWidget {
       ],
     );
   }
+}
 
-  _buildTextFieldTitle({required String title}) {
-    return Padding(
+class _TextFieldTitle extends StatelessWidget {
+  final String title;
+  const _TextFieldTitle({Key? key,required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+   return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Text(
         title,

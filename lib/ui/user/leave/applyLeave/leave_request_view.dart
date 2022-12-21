@@ -8,7 +8,7 @@ import 'package:projectunity/ui/user/leave/applyLeave/widget/date_selection_butt
 import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_request_reason_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/total_leave_card.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import 'bloc/leave_request_form_bloc/leave_request_view_events.dart';
 import 'bloc/leave_request_form_bloc/leave_request_view_bloc.dart';

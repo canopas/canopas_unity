@@ -29,7 +29,7 @@ void main() {
   late AdminHomeBloc adminHomeBloc;
   late NavigationStackManager navigationStackManager;
 
-  Employee employee = Employee(
+  Employee employee = const Employee(
       id: 'id',
       roleType: 1,
       name: 'Andrew jhone',
@@ -37,7 +37,7 @@ void main() {
       email: 'andrew.j@canopas.com',
       designation: 'Android developer');
 
-  Leave leave = Leave(
+  Leave leave = const Leave(
       leaveId: 'leave-id',
       uid: 'id',
       leaveType: 2,
@@ -128,7 +128,7 @@ void main() {
           totalOfEmployees: 0,
           totalOfRequests: 0,
           totalAbsence: 2);
-      LeaveApplication la= LeaveApplication(employee: employee, leave: leave,leaveCounts: LeaveCounts(remainingLeaveCount: 2,paidLeaveCount: 12,usedLeaveCount: 10));
+      LeaveApplication la= LeaveApplication(employee: employee, leave: leave,leaveCounts: const LeaveCounts(remainingLeaveCount: 2,paidLeaveCount: 12,usedLeaveCount: 10));
       Map<DateTime,List<LeaveApplication>> map={leave.startDate.toDate.dateOnly:[la]};
       AdminHomeState successState=  AdminHomeState(
           status: AdminHomeStatus.success,
@@ -153,7 +153,7 @@ void main() {
     test(
         'Emits state with status as success and list of leave application is empty when leave user id doesn\'t match with any user id',
             () {
-          Employee empl = Employee(
+          Employee empl = const Employee(
               id: 'user id',
               roleType: 2,
               name: 'Andrew jhone',

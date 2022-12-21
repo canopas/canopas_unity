@@ -29,7 +29,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
         children: [
           BlocBuilder<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
             buildWhen: (previous, current) => previous.leaveDetailsStatus != current.leaveDetailsStatus,
-            builder: (context, state) => state.leaveDetailsStatus == AdminLeaveDetailsStatus.rejectLoading?const kCircularProgressIndicator(size: 28,):ElevatedButton(
+            builder: (context, state) => state.leaveDetailsStatus == AdminLeaveDetailsStatus.rejectLoading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.3, 45),
                 backgroundColor: AppColors.redColor,
@@ -45,7 +45,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
           ),
           BlocBuilder<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
             buildWhen: (previous, current) => previous.leaveDetailsStatus != current.leaveDetailsStatus,
-            builder: (context, state) => state.leaveDetailsStatus == AdminLeaveDetailsStatus.approveLoading?const kCircularProgressIndicator(size: 28,):ElevatedButton(
+            builder: (context, state) => state.leaveDetailsStatus == AdminLeaveDetailsStatus.approveLoading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.3, 45),
                 backgroundColor: AppColors.greenColor,

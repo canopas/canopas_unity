@@ -49,15 +49,8 @@
    "user_home_who_onLeave_tag": "Who's on leave today?",
    "user_home_button_view_all": "View All",
 
-   "leave_screen_header_placeholder_leave_screen_type":"{leaveScreenType, select,  1{All Leaves} 2{Requested Leaves} 3{Upcoming Leaves} }",
-           "@leave_screen_header_placeholder_leave_screen_type":{
-              "description":"get leaves screen appbar title from leaves screen type ",
-                "placeholders":{
-                   "leaveScreenType":{
-                      "type":"int"
-                           }
-                        }
-                    },
+
+
 
        "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}",
             "@user_detail_role_type":{
@@ -105,25 +98,14 @@
                          }
                       },
 
-  "empty_leave_screen_title":"{leaveScreenType,select, 1{No Leaves} 2{No Requested Leaves} 3{No Upcoming Leaves} }",
-  "@empty_leave_screen_title":{
-    "description":"empty leave screen title",
-    "placeholders":{
-      "leaveScreenType":{
-        "type":"int"
-      }
-    }
-  },
 
-  "empty_leave_screen_message":"{leaveScreenType, select,1{You haven't applied for any leaves yet!} 2{You don't have any requested leave at the moment!} 3{You don't have any upcoming leave at the moment!} }",
-  "@empty_leave_screen_message":{
-    "description":"empty leave screen message",
-    "placeholders":{
-      "leaveScreenType":{
-        "type":"int"
-      }
-    }
-  },
+  "employee_empty_all_leaves_view_title": "No Leaves",
+  "employee_empty_requested_leaves_view_title": "No Requested Leaves",
+  "employee_empty_upcoming_leaves_view_title": "No Upcoming Leaves",
+
+  "employee_empty_all_leaves_view_message": "You haven't applied for any leaves yet!",
+  "employee_empty_requested_leaves_view_message": "You don't have any requested leave at the moment!",
+  "employee_empty_upcoming_leaves_view_message": "You don't have any upcoming leave at the moment!",
 
   "apply_for_leave_button_text":"Apply for leave",
 

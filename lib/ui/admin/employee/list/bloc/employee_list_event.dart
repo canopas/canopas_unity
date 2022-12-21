@@ -1,8 +1,4 @@
-
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-
-import '../../../../../model/employee/employee.dart';
 
 abstract class EmployeeListEvent extends Equatable{
   @override

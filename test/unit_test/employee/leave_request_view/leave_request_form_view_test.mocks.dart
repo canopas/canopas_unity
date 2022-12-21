@@ -218,6 +218,14 @@ class MockNavigationStackManager extends _i1.Mock
         ),
       ) as _i3.NavStackItem);
   @override
+  _i3.NavStackItem get previousState => (super.noSuchMethod(
+        Invocation.getter(#previousState),
+        returnValue: _FakeNavStackItem_1(
+          this,
+          Invocation.getter(#previousState),
+        ),
+      ) as _i3.NavStackItem);
+  @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
         returnValue: false,

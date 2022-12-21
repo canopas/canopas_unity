@@ -24,6 +24,10 @@ class LeaveTypeCardTapEvent extends UserLeaveCalendarEvent {
     LeaveTypeCardTapEvent(this.leaveApplication);
 }
 
+class RemoveOrCancelLeaveApplication extends UserLeaveCalendarEvent {
+  final LeaveApplication leaveApplication;
+  RemoveOrCancelLeaveApplication(this.leaveApplication);
+}
 
 
 

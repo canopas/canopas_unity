@@ -8,28 +8,28 @@ part 'employee.g.dart';
 
 @JsonSerializable()
 class Employee extends Equatable {
-  String id;
+  final String id;
   @JsonKey(name: 'role_type')
-  int roleType;
-  String name;
-  String email;
+  final int roleType;
+  final String name;
+  final String email;
   @JsonKey(name: 'employee_id')
-  String employeeId;
-  String designation;
-  String? phone;
+  final String employeeId;
+  final String designation;
+  final String? phone;
   @JsonKey(name: 'image_url')
-  String? imageUrl;
-  String? address;
-  int? gender;
+  final String? imageUrl;
+  final String? address;
+  final int? gender;
   @JsonKey(name: 'date_of_birth')
-  int? dateOfBirth;
+  final int? dateOfBirth;
   @JsonKey(name: 'date_of_joining')
-  int? dateOfJoining;
-  String? level;
+  final int? dateOfJoining;
+  final String? level;
   @JsonKey(name: 'blood_group')
-  String? bloodGroup;
+  final String? bloodGroup;
 
-  Employee(
+  const Employee(
       {required this.id,
       required this.roleType,
       required this.name,

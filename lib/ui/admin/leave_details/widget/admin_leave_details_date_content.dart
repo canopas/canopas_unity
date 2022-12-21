@@ -38,7 +38,7 @@ class AdminLeaveDetailsDateContent extends StatelessWidget {
           children: [
             BlocBuilder<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
               builder: (context, state) =>state.leaveDetailsLeaveCountStatus == AdminLeaveDetailsLeaveCountStatus.loading
-                  ?const kCircularProgressIndicator(size: 28,)
+                  ?const AppCircularProgressIndicator(size: 28,)
                   :Text("${state.remainingLeaveCount.fixedAt(2)}/${state.paidLeaveCount}",style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold,)),
 
             ),

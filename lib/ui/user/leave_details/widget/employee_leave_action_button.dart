@@ -18,7 +18,7 @@ class EmployeeLeaveDetailActionButton extends StatelessWidget {
     var localization = AppLocalizations.of(context);
     return BlocBuilder<EmployeeLeaveDetailsBloc,EmployeeLeaveDetailsState>(
       buildWhen: (previous, current) => previous.leaveDetailsStatus != current.leaveDetailsStatus,
-      builder: (context, state) => state.leaveDetailsStatus == EmployeeLeaveDetailsStatus.loading?const kCircularProgressIndicator(size: 28,):ElevatedButton(
+      builder: (context, state) => state.leaveDetailsStatus == EmployeeLeaveDetailsStatus.loading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: (leaveStatus == pendingLeaveStatus)
