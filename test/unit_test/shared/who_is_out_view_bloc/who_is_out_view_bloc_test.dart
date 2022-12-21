@@ -26,7 +26,7 @@ void main(){
   late UserManager userManager;
   late WhoIsOutViewBloc whoIsOutViewBloc;
 
-  final employee = Employee(
+  const employee = Employee(
     id: "123",
     roleType: 2,
     name: "test",

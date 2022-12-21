@@ -51,8 +51,8 @@ class EmployeeLeaveDetailsBloc extends Bloc<EmployeeLeaveDetailsEvents, Employee
       Emitter<EmployeeLeaveDetailsState> emit) {
     emit(state.copyWith(leaveDetailsStatus: EmployeeLeaveDetailsStatus.loading));
     try {
-      _userLeaveService.deleteLeaveRequest(event.leave.leaveId);
-      eventBus.fire(LeaveUpdateEventListener(event.leave));
+      _userLeaveService.deleteLeaveRequest(event.leaveApplication.leave.leaveId);
+      eventBus.fire(LeaveUpdateEventListener(event.leaveApplication));
       emit(state.copyWith(leaveDetailsStatus:EmployeeLeaveDetailsStatus.success));
       _stackManager.pop();
     } on Exception {

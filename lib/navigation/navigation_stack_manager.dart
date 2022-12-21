@@ -1,9 +1,7 @@
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-
 import '../provider/user_data.dart';
 
 @Singleton()
@@ -26,6 +24,7 @@ class NavigationStackManager extends ChangeNotifier {
   }
 
   NavStackItem get currentState => _pages.last;
+  NavStackItem get previousState => _pages.elementAt(_pages.indexOf(_pages.last)-1);
 
   void updateStack(List<NavStackItem> newItems) {
     _pages = List.from(newItems);
@@ -51,10 +50,10 @@ class NavigationStackManager extends ChangeNotifier {
 
   bool canPop()=>_pages.length>1;
 
- void pop() {
-   if(canPop()){
-     _pages.removeLast();
-     notifyListeners();
-   }
+  void pop() {
+    if(canPop()) {
+      _pages.removeLast();
+      notifyListeners();
+    }
   }
 }

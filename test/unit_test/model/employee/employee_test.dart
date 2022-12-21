@@ -5,7 +5,7 @@ void main() {
   group("Employee", () {
     group('from json and from firestore', () {
       test('returns correct Employee object ', () {
-        expect(Employee.fromJson(<String,dynamic>{
+        expect(Employee.fromJson(const <String,dynamic>{
           'id': 'unique-user-doc-id',
           'role_type':1,
           'name': 'Andrew jhone',
@@ -40,7 +40,7 @@ void main() {
     });
 
     test('apply correct employee to firestore', () {
-      Employee employee= Employee(
+      Employee employee= const Employee(
           id: 'Unique-user-id',
           roleType: 1,
           name: 'Andrew jhone',

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../model/leave_application.dart';
+import '../bloc/employee_home_bloc.dart';
+import '../bloc/employee_home_event.dart';
 
 class TeamLeaveCard extends StatelessWidget {
-  final void Function()? onTap;
   final List<LeaveApplication> leaveApplication;
 
   const TeamLeaveCard(
-      {Key? key, required this.onTap, required this.leaveApplication})
+      {Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
@@ -31,7 +32,9 @@ class TeamLeaveCard extends StatelessWidget {
         child: InkWell(
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-          onTap: onTap,
+          onTap:() {
+              context.read<EmployeeHomeBloc>().add(EmployeeHomeShowWhosOut());
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

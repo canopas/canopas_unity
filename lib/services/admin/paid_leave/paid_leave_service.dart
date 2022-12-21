@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
-import 'package:rxdart/rxdart.dart';
 
 @Singleton()
 class PaidLeaveService {

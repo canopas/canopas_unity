@@ -19,7 +19,7 @@ class ApplyButton extends StatelessWidget {
       child: BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
           builder: (context, state) => state.leaveRequestStatus ==
                   LeaveRequestStatus.loading
-              ? const kCircularProgressIndicator()
+              ? const AppCircularProgressIndicator()
               : ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(MediaQuery.of(context).size.width, 50),

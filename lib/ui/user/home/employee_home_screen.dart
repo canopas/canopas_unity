@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_event.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../widget/expanded_app_bar.dart';
@@ -42,7 +42,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
             children: [
               Column(
                 children: [
-                  _buildAppbar(),
+                  const _EmployeeHomeAppBar(),
                   Expanded(
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.only(
@@ -50,9 +50,9 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
                           left: primaryHorizontalSpacing,
                           right: primaryHorizontalSpacing),
                       child: Column(
-                        children: [
-                          _buildNavCard(),
-                          _buildAbsenceCard(),
+                        children: const [
+                          _EmployeeHomeNavigationCard(),
+                          _EmployeeHomeAbsenceCard(),
                         ],
                       ),
                     ),
@@ -68,8 +68,13 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           ),
     );
   }
+}
 
-  Widget _buildAppbar() {
+class _EmployeeHomeAppBar extends StatelessWidget {
+  const _EmployeeHomeAppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return ExpandedAppBar(
       content: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -96,8 +101,37 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
       ),
     );
   }
+}
 
-  Widget _buildNavCard() {
+class _EmployeeHomeAbsenceCard extends StatelessWidget {
+  const _EmployeeHomeAbsenceCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<EmployeeHomeBloc,EmployeeHomeState>(
+        builder: (BuildContext context, EmployeeHomeState state){
+          if (state.status == EmployeeHomeStatus.loading) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.15,
+              child: const AppCircularProgressIndicator(),
+            );
+          } else if (state.status == EmployeeHomeStatus.success) {
+            return TeamLeaveCard(
+              leaveApplication: state.absence ?? [],
+            );
+          } else if (state.status == EmployeeHomeStatus.failure) {
+            return showSnackBar(context: context, msg: state.error);
+          }
+          return Container();
+        });
+  }
+}
+
+class _EmployeeHomeNavigationCard extends StatelessWidget {
+  const _EmployeeHomeNavigationCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(children: [
       LeaveNavigationCard(
           color: AppColors.primaryPink,
@@ -108,7 +142,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
       LeaveNavigationCard(
           color: AppColors.primaryBlue,
           leaveText:
-              AppLocalizations.of(context).user_home_requested_leaves_tag,
+          AppLocalizations.of(context).user_home_requested_leaves_tag,
           onPress: () => context
               .read<EmployeeHomeBloc>()
               .add(EmployeeHomeShowRequestedLeaves())),
@@ -126,27 +160,4 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
               .add(EmployeeHomeShowApplyLeave()))
     ]);
   }
-
-  Widget _buildAbsenceCard() {
-    return BlocBuilder<EmployeeHomeBloc,EmployeeHomeState>(
-        builder: (BuildContext context, EmployeeHomeState state){
-          if (state.status == EmployeeHomeStatus.loading) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
-              child: const kCircularProgressIndicator(),
-            );
-          } else if (state.status == EmployeeHomeStatus.success) {
-            return TeamLeaveCard(
-              onTap: () {
-                context.read<EmployeeHomeBloc>().add(EmployeeHomeShowWhosOut());
-              },
-              leaveApplication: state.absence ?? [],
-            );
-          } else if (state.status == EmployeeHomeStatus.failure) {
-            return showSnackBar(context: context, msg: state.error);
-          }
-          return Container();
-        });
-  }
-
 }

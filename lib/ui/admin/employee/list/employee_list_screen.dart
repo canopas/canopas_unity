@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
@@ -59,7 +59,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           if (state is EmployeeListInitialState) {
             return Container();
           } else if (state is EmployeeListLoadingState) {
-            return const kCircularProgressIndicator();
+            return const AppCircularProgressIndicator();
           } else if (state is EmployeeListLoadedState) {
             List<Employee> employees = state.employees;
             return Padding(

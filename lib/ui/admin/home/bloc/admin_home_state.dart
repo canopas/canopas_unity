@@ -39,7 +39,7 @@ class AdminHomeState extends Equatable {
   AdminHomeState failureState(
       {AdminHomeStatus? status, required String failureMessage}) {
     return AdminHomeState(
-        status: AdminHomeStatus.failure, error: this.error);
+        status: AdminHomeStatus.failure, error: error);
   }
 
   @override

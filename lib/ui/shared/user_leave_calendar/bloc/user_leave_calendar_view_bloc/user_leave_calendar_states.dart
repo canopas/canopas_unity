@@ -11,13 +11,13 @@ class UserLeaveCalendarViewInitialState extends UserLeaveCalendarViewState {}
 class UserLeaveCalendarViewLoadingState extends UserLeaveCalendarViewState {}
 
 class UserLeaveCalendarViewSuccessState extends UserLeaveCalendarViewState {
-  final List<LeaveApplication> allLeaves;
-  final List<LeaveApplication> leaveApplication;
+  final List<LeaveApplication> allLeaveApplications;
+  final List<LeaveApplication> leaveApplications;
 
-  UserLeaveCalendarViewSuccessState({this.leaveApplication = const [],this.allLeaves = const []});
+  UserLeaveCalendarViewSuccessState({this.leaveApplications = const [],this.allLeaveApplications = const []});
 
   @override
-  List<Object?> get props => [leaveApplication,allLeaves];
+  List<Object?> get props => [leaveApplications,allLeaveApplications];
 }
 
 class UserLeaveCalendarViewFailureState extends UserLeaveCalendarViewState {

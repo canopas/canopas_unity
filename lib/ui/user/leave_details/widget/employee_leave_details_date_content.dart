@@ -38,7 +38,7 @@ class EmployeeLeaveDetailsDateContent extends StatelessWidget {
           children: [
             BlocBuilder<EmployeeLeaveDetailsBloc,EmployeeLeaveDetailsState>(
               builder: (context, state) => state.leaveDetailsLeaveCountStatus == EmployeeLeaveDetailsLeaveCountStatus.loading
-                ?const kCircularProgressIndicator(size: 28,)
+                ?const AppCircularProgressIndicator(size: 28,)
                 :Text("${state.remainingLeaveCount.fixedAt(2)}/${state.paidLeaveCount}",style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold,)),
             ),
             const VerticalDivider(

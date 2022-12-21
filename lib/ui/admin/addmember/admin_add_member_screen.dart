@@ -5,7 +5,8 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/addmember/widget/add_member_form.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snackbar.dart';import '../../../configs/colors.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
+import '../../../configs/colors.dart';
 import 'bloc/add_member_bloc.dart';
 import 'bloc/add_member_event.dart';
 import 'bloc/add_member_state.dart';
@@ -57,7 +58,7 @@ class AddMemberButton extends StatelessWidget {
             child: BlocConsumer<AddMemberBloc, AddMemberFormState>(
               builder: (context, state) {
                 if (state.status == SubmitFormStatus.loading) {
-                  return const kCircularProgressIndicator();
+                  return const AppCircularProgressIndicator();
                 }
                   return Container(
                       width: double.infinity,

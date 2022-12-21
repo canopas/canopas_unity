@@ -38,7 +38,7 @@ class LeaveTypeCard extends StatelessWidget {
               buildWhen: (previous, current) => previous.leaveCounts != current.leaveCounts || previous.leaveCountStatus != current.leaveCountStatus,
               builder: (context, state) {
                 if (state.leaveCountStatus == LeaveRequestLeaveCountStatus.loading) {
-                  return const kCircularProgressIndicator(size: 28,);
+                  return const AppCircularProgressIndicator(size: 28,);
                 } else if (state.leaveCountStatus == LeaveRequestLeaveCountStatus.success) {
                   return Text(
                     "${state.leaveCounts.remainingLeaveCount.fixedAt(2)}/${state.leaveCounts.paidLeaveCount}",

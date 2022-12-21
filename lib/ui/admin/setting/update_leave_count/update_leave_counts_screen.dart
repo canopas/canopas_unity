@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/widget/error_snackbar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../configs/font_size.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../widget/circular_progress_indicator.dart';
@@ -111,7 +111,7 @@ class _AdminUpdateLeaveCountsScreenState
             BlocBuilder<AdminSettingUpdatePaidLeaveCountBloc,AdminSettingUpdateLeaveCountState>(
                 builder: (context, state) {
                   if(state is AdminSettingUpdateLeaveCountLoadingState){
-                    return const kCircularProgressIndicator();
+                    return const AppCircularProgressIndicator();
                   }
                   return BlocBuilder<AdminPaidLeaveUpdateSettingTextFieldBloc,String>(
                     builder: (context, state) => ElevatedButton(

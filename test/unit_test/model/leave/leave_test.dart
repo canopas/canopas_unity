@@ -34,7 +34,7 @@ void main() {
       });
     });
     test('apply correct leave to firestore', () {
-    Leave leave= Leave(
+    Leave leave= const Leave(
         leaveId: 'unique-leave-doc-id',
         uid: 'unique-user-id',
         leaveType: 1,

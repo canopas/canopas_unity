@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_event.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 abstract class WhoIsOutCalendarEvent extends Equatable{}

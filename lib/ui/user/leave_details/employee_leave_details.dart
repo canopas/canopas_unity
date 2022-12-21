@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
 import '../../../widget/leave_details_widget/reason_content.dart';
 import '../../../widget/leave_details_widget/leave_details_header_content.dart';
-import '../../../widget/error_snackbar.dart';
+import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/user_content.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/leave_details_bloc/employee_leave_details_bloc.dart';
@@ -48,6 +48,8 @@ class _EmployeeLeaveDetailsViewState extends State<EmployeeLeaveDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    final showButton = (widget.leaveApplication.leave.leaveStatus != approveLeaveStatus || widget.leaveApplication.leave.startDate > DateTime.now().timeStampToInt)
+        && context.read<EmployeeLeaveDetailsBloc>().currentUserId == widget.leaveApplication.leave.uid;
     final localization = AppLocalizations.of(context);
     final rejectionReason = widget.leaveApplication.leave.rejectionReason ?? "";
 
@@ -96,9 +98,8 @@ class _EmployeeLeaveDetailsViewState extends State<EmployeeLeaveDetailsView> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: widget.leaveApplication.leave.leaveStatus != approveLeaveStatus || widget.leaveApplication.leave.startDate > DateTime.now().timeStampToInt
-          ?EmployeeLeaveDetailActionButton(leaveStatus: widget.leaveApplication.leave.leaveStatus, onPressed: (){
-        context.read<EmployeeLeaveDetailsBloc>().add(EmployeeLeaveDetailsRemoveLeaveRequestEvent(widget.leaveApplication.leave));
+      floatingActionButton: showButton?EmployeeLeaveDetailActionButton(leaveStatus: widget.leaveApplication.leave.leaveStatus, onPressed: (){
+        context.read<EmployeeLeaveDetailsBloc>().add(EmployeeLeaveDetailsRemoveLeaveRequestEvent(widget.leaveApplication));
       },):null,
     );
   }

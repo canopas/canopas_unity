@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_application.dart';
 
 abstract class EmployeeLeaveDetailsEvents extends Equatable {}
@@ -12,8 +11,8 @@ class EmployeeLeaveDetailsInitialLoadEvents extends EmployeeLeaveDetailsEvents{
 }
 
 class EmployeeLeaveDetailsRemoveLeaveRequestEvent extends EmployeeLeaveDetailsEvents {
-  final Leave leave;
-  EmployeeLeaveDetailsRemoveLeaveRequestEvent(this.leave);
+  final LeaveApplication leaveApplication;
+  EmployeeLeaveDetailsRemoveLeaveRequestEvent(this.leaveApplication);
   @override
-  List<Object?> get props => [leave];
+  List<Object?> get props => [leaveApplication];
 }

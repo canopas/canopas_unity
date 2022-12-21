@@ -4,8 +4,6 @@ import 'package:projectunity/ui/login/login_screen.dart';
 import 'package:projectunity/ui/onboard/onboard_screen.dart';
 import 'package:projectunity/ui/user/leave_details/employee_leave_details.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
-import 'package:projectunity/ui/user/leave/all/all_leaves_screen.dart';
-
 import '../provider/user_data.dart';
 import '../ui/admin/addmember/admin_add_member_screen.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
@@ -16,10 +14,11 @@ import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/shared/user_leave_calendar/user_leave_calendar.dart';
 import '../ui/shared/who_is_out_calendar/who_is_out_calendar_view.dart';
+import '../ui/user/all_leaves/all_leaves_view.dart';
 import '../ui/user/leave/applyLeave/leave_request_view.dart';
-import '../ui/user/leave/requested/requested_leave_screen.dart';
-import '../ui/user/leave/upcoming/upcoming_leave_screen.dart';
+import '../ui/user/requested_leaves/requested_leaves_view.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
+import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
 import 'navigation_stack_manager.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
@@ -99,19 +98,15 @@ class MainRouterDelegate extends RouterDelegate<NavigationStackManager>
     const MaterialPage(
         key: ValueKey("employee-setting"),
         child: EmployeeSettingPage()),
-    userAllLeaveState: () =>
-    const MaterialPage(
-        key: ValueKey("user-all-leave"), child: AllLeaveScreen()),
-    userUpcomingLeaveState: () =>
-    const MaterialPage(
-        key: ValueKey("user-upcoming"), child: UpComingLeaveScreen()),
+    employeeAllLeavesScreenState: () => const MaterialPage(
+        key: ValueKey("all-leaves"), child: AllLeavesPage()),
+    employeeRequestedLeavesScreenState: () => const MaterialPage(
+        key: ValueKey("requested-leaves"), child: RequestedLeavesPage()),
+    employeeUpcomingLeavesScreenState: () => const MaterialPage(
+        key: ValueKey("upcoming-leaves"), child: UpcomingLeavesPage()),
     leaveRequestState: () =>
     const MaterialPage(
         key: ValueKey("apply-leave"), child: RequestLeavePage()),
-    requestedLeaves: () =>
-    const MaterialPage(
-              key: ValueKey("user-requested-leave"),
-              child: RequestedLeaveScreen()),
           whoIsOutCalendarState: () => const MaterialPage(
               key: ValueKey('who-is-out-calendar'),
               child: WhoIsOutCalendarViewProvider()),

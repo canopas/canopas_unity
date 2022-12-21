@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/di/service_locator.dart';
 import '../../configs/colors.dart';
 import '../../configs/text_style.dart';
-import '../onboard/onBoarding_contents.dart';
+import '../onboard/onboarding_contents.dart';
 import 'bloc/onboard_bloc.dart';
 import 'bloc/onboard_event.dart';
 
@@ -25,10 +25,10 @@ class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
 
   @override
-  _OnBoardScreenState createState() => _OnBoardScreenState();
+  OnBoardScreenState createState() => OnBoardScreenState();
 }
 
-class _OnBoardScreenState extends State<OnBoardScreen> {
+class OnBoardScreenState extends State<OnBoardScreen> {
 
   final PageController _controller = PageController();
 

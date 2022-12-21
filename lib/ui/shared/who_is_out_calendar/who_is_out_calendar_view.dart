@@ -88,7 +88,7 @@ class _WhoIsOutCalendarViewState extends State<WhoIsOutCalendarView> {
               child: BlocBuilder<WhoIsOutViewBloc,WhoIsOutViewState>(
                   builder: (context, state) {
                     if(state is WhoISOutViewLoadingState){
-                      return const kCircularProgressIndicator();
+                      return const AppCircularProgressIndicator();
                     } else if(state is WhoIsOutViewSuccessState && state.leaveApplications.isNotEmpty){
                       return ListView.separated(
                         padding: const EdgeInsets.all(primaryHorizontalSpacing),

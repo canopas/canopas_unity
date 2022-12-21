@@ -9,7 +9,7 @@ import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/widget/user_intro_content.dart';
 import '../../../configs/colors.dart';
-import '../../../widget/error_snackbar.dart';
+import '../../../widget/error_snack_bar.dart';
 import '../../../widget/setting_screen_subtitle.dart';
 
 class EmployeeSettingPage extends StatelessWidget {

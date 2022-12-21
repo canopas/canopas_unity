@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -27,7 +28,7 @@ void main(){
 
   String userID = "123";
 
-  final employee = Employee(
+  const employee = Employee(
     id: "123",
     roleType: 2,
     name: "test",
@@ -36,12 +37,12 @@ void main(){
     designation: "tester",
   );
 
-  final leave = Leave(
+   Leave leave = Leave(
       leaveId: "234",
       uid: "123",
       leaveType: 1,
-      startDate: 300303,
-      endDate: 500000,
+      startDate: DateTime.now().dateOnly.timeStampToInt,
+      endDate: DateTime.now().dateOnly.timeStampToInt,
       totalLeaves: 1.0,
       reason: 'leave reason',
       leaveStatus: 1,
@@ -52,36 +53,53 @@ void main(){
 
   List<LeaveApplication> leaveApplications = [LeaveApplication(employee: employee, leave: leave,leaveCounts: leaveCounts)];
 
-  setUpAll((){
-    userLeaveService = MockUserLeaveService();
-    stackManager = MockNavigationStackManager();
-    employeeService = MockEmployeeService();
-    paidLeaveService = MockPaidLeaveService();
-    userLeaveCalendarViewBloc = UserLeaveCalendarViewBloc(userLeaveService, stackManager, employeeService,paidLeaveService);
-  });
-
 
   group("User Leave Calendar Test", () {
-    test("initial load data test", () {
 
+    setUp((){
+      userLeaveService = MockUserLeaveService();
+      stackManager = MockNavigationStackManager();
+      employeeService = MockEmployeeService();
+      paidLeaveService = MockPaidLeaveService();
+      userLeaveCalendarViewBloc = UserLeaveCalendarViewBloc(userLeaveService, stackManager, employeeService,paidLeaveService);
       when(employeeService.getEmployee(userID)).thenAnswer((_) => Future(() => employee));
       when(userLeaveService.getAllLeavesOfUser(userID)).thenAnswer((_) => Future(() => [leave]));
       when(userLeaveService.getUserUsedLeaveCount(userID)).thenAnswer((_) => Future(() => 6.0));
       when(paidLeaveService.getPaidLeaves()).thenAnswer((_) => Future(() => 12));
+    });
 
+    test("initial load data test", () {
       userLeaveCalendarViewBloc.add(UserLeaveCalendarInitialLoadEvent(userID));
       expect(userLeaveCalendarViewBloc.stream, emitsInOrder([
         UserLeaveCalendarViewLoadingState(),
-        UserLeaveCalendarViewSuccessState(leaveApplication: leaveApplications,allLeaves: leaveApplications)
+        UserLeaveCalendarViewSuccessState(leaveApplications: leaveApplications,allLeaveApplications: leaveApplications)
       ]));
     });
 
-    test("get leave by select date range test", () {
-      userLeaveCalendarViewBloc.add(DateRangeSelectedEvent(DateTime.now(), DateTime.now().add(const Duration(days: 1)), DateTime.now()));
+    test("get leave by select date range test when there leave of that date.", () {
+      userLeaveCalendarViewBloc.emit(UserLeaveCalendarViewSuccessState(leaveApplications: const [],allLeaveApplications: leaveApplications));
+      userLeaveCalendarViewBloc.add(DateRangeSelectedEvent(DateTime.now().dateOnly, DateTime.now().add(const Duration(days: 1)).dateOnly, DateTime.now().dateOnly));
       expect(userLeaveCalendarViewBloc.stream, emits(
-        UserLeaveCalendarViewSuccessState(leaveApplication: const [],allLeaves: leaveApplications)
+        UserLeaveCalendarViewSuccessState(leaveApplications: leaveApplications,allLeaveApplications: leaveApplications)
       ));
     });
+
+    test("get leave by select date range test when there no leave of that date.", () {
+      userLeaveCalendarViewBloc.emit(UserLeaveCalendarViewSuccessState(leaveApplications: leaveApplications,allLeaveApplications: leaveApplications));
+      userLeaveCalendarViewBloc.add(DateRangeSelectedEvent(DateTime(2000).dateOnly, DateTime(2000).dateOnly, DateTime(2000).dateOnly));
+      expect(userLeaveCalendarViewBloc.stream, emits(
+          UserLeaveCalendarViewSuccessState(leaveApplications: const [],allLeaveApplications: leaveApplications)
+      ));
+    });
+
+    test("remove leave application test", (){
+      userLeaveCalendarViewBloc.emit(UserLeaveCalendarViewSuccessState(leaveApplications: leaveApplications,allLeaveApplications: leaveApplications));
+      userLeaveCalendarViewBloc.add(RemoveOrCancelLeaveApplication(leaveApplications.first));
+      expect(userLeaveCalendarViewBloc.stream, emits(
+          UserLeaveCalendarViewSuccessState(leaveApplications: const [],allLeaveApplications: const []),
+      ));
+    });
+
   });
 
   group("navigation test", () {
@@ -92,6 +110,7 @@ void main(){
       verify(stackManager.push(state)).called(1);
     });
   });
+
 
 
 }

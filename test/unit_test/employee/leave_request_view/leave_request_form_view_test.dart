@@ -30,7 +30,7 @@ void main() {
   LeaveCounts leaveCount =  const LeaveCounts(
       remainingLeaveCount: 6.0, usedLeaveCount: 6.0, paidLeaveCount: 12);
   DateTime currentDate = DateTime.now().dateOnly;
-  DateTime futureDate = DateTime.now().add(const Duration(days: 5)).dateOnly;
+  DateTime futureDate = DateTime.now().add( Duration(days: currentDate.add(const Duration(days: 5)).isWeekend?7:5)).dateOnly;
 
 
 
@@ -155,6 +155,8 @@ void main() {
 
     test('on apply success test', () async {
 
+
+
       Map<DateTime, int> updatedSelectedLeaves = {currentDate:3}.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
@@ -177,7 +179,7 @@ void main() {
       );
 
       when(userLeaveService.applyForLeave(leave)).thenAnswer((_)async{});
-
+      when(navigationStackManager.previousState).thenReturn(const NavStackItem.employeeHome());
       leaveRequestBloc.add(LeaveRequestEndDateChangeEvent(endDate:futureDate));
       leaveRequestBloc.add(LeaveRequestReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(LeaveRequestApplyLeaveEvent());
@@ -190,7 +192,8 @@ void main() {
         LeaveRequestViewState(startDate: currentDate, endDate: futureDate, selectedDates: selectedDates,totalLeaveDays: totalDays,reason: "reason",leaveRequestStatus: LeaveRequestStatus.success),
       ]));
 
-      const navState = NavStackItem.userAllLeaveState();
+
+      const navState = NavStackItem.employeeAllLeavesScreenState();
 
       await untilCalled(navigationStackManager.pop());
       await untilCalled(navigationStackManager.push(navState));

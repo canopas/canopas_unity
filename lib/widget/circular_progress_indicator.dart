@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../configs/colors.dart';
 
-class kCircularProgressIndicator extends StatelessWidget {
+class AppCircularProgressIndicator extends StatelessWidget {
   final double size;
-  const kCircularProgressIndicator({Key? key, this.size = 38}) : super(key: key);
+  const AppCircularProgressIndicator({Key? key, this.size = 38}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

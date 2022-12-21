@@ -1,9 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/bloc/network/network_Connection_event.dart';
+import 'package:projectunity/bloc/network/network_connection_event.dart';
 import 'package:projectunity/bloc/network/network_connection_bloc.dart';
 import 'package:projectunity/bloc/network/network_connection_state.dart';
 

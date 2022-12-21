@@ -1,14 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:projectunity/core/utils/const/role.dart';
-import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/bloc/add_member_bloc.dart';
 import 'package:projectunity/ui/admin/addmember/bloc/add_member_event.dart';
 import 'package:projectunity/ui/admin/addmember/bloc/add_member_state.dart';
 
-import '../home/bloc/admin_home_bloc_test.mocks.dart';
+import 'add_member_bloc_test.mocks.dart';
 
 @GenerateMocks([EmployeeService, NavigationStackManager])
 void main() {
@@ -26,15 +25,7 @@ void main() {
       emailError: false,
       designationError: false,
       status: SubmitFormStatus.initial);
-  ;
-  Employee employee = Employee(
-      id: 'uuid',
-      roleType: 2,
-      name: 'Andrew jhone',
-      employeeId: 'Ca 1001',
-      email: 'andrew.j@canopas.com',
-      designation: 'Android developer');
-  ;
+
 
   setUp(() {
     employeeService = MockEmployeeService();

@@ -25,7 +25,7 @@ void main(){
   late AdminLeaveDetailsBloc adminLeaveDetailsBloc;
   late PaidLeaveService paidLeaveService;
   late AdminLeaveDetailsState loadingState;
-  Leave leave = Leave(
+  Leave leave = const Leave(
       leaveId: 'leave-id',
       uid: 'id',
       leaveType: 2,
@@ -35,11 +35,11 @@ void main(){
       reason: 'reason',
       leaveStatus: 2,
       appliedOn: 400,
-      perDayDuration: const [0, 1]);
+      perDayDuration: [0, 1]);
 
   LeaveCounts leaveCounts = const LeaveCounts(paidLeaveCount: 12,remainingLeaveCount: 7.0,usedLeaveCount: 5.0);
 
-  Employee employee = Employee(
+  Employee employee = const Employee(
       id: 'id',
       roleType: 1,
       name: 'Andrew jhone',
