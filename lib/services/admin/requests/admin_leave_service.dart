@@ -49,7 +49,7 @@ class AdminLeaveService {
   Future<List<Leave>> getAllAbsence() async {
     int todayDate = DateTime.now().timeStampToInt;
     final data = await _leaveDbCollection
-        .where(FirestoreConst.endLeaveDate, isGreaterThan: todayDate)
+        .where(FirestoreConst.endLeaveDate, isGreaterThanOrEqualTo: todayDate.dateOnly.timeStampToInt)
         .get();
     List<Leave> leaves = <Leave>[];
 
