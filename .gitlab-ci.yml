@@ -1,5 +1,6 @@
 stages:
   - test
+  - lints_test
   - build
   - deploy
 
@@ -11,6 +12,13 @@ test:
   stage: test
   script:
     - flutter test
+
+lints_test:
+  extends: .android_docker_image
+  stage: lints_test
+  script:
+    - flutter pub get
+    - dart analyze --fatal-infos
 
 android_build_apk:
   stage: build
