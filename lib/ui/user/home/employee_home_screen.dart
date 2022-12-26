@@ -120,9 +120,9 @@ class _EmployeeHomeAbsenceCard extends StatelessWidget {
               leaveApplication: state.absence ?? [],
             );
           } else if (state.status == EmployeeHomeStatus.failure) {
-            return showSnackBar(context: context, msg: state.error);
+             showSnackBar(context: context, msg: state.error);
           }
-          return Container();
+          return const SizedBox();
         });
   }
 }
