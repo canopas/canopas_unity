@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../model/leave_application.dart';
+import '../../../../router/app_router.dart';
 import '../bloc/employee_home_bloc.dart';
 import '../bloc/employee_home_event.dart';
 
@@ -32,9 +34,7 @@ class TeamLeaveCard extends StatelessWidget {
         child: InkWell(
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-          onTap:() {
-              context.read<EmployeeHomeBloc>().add(EmployeeHomeShowWhosOut());
-          },
+          onTap:() =>context.pushNamed(Routes.allUserCalender,extra: leaveApplication),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

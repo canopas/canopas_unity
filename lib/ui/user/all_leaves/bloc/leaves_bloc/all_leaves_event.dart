@@ -22,19 +22,6 @@ class RemoveLeaveApplicationOnAllLeaveViewEvent extends AllLeavesViewEvent {
 
 class RefreshAllLeaveViewEvent extends AllLeavesViewEvent{}
 
-class AllLeavesToLeaveDetailsNavigationEvent
-    extends AllLeavesViewEvent {
-  final LeaveApplication leaveApplication;
-
-  AllLeavesToLeaveDetailsNavigationEvent(this.leaveApplication);
-
-  @override
-  List<Object?> get props => [leaveApplication];
-}
-
-class AllLeavesToLeaveRequestNavigationEvent extends AllLeavesViewEvent {}
-
-
 class RemoveFilterAllLeavesViewEvent extends AllLeavesViewEvent {}
 
 class ApplyFilterAllLeavesViewEvent extends AllLeavesViewEvent {

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart';
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_event.dart';
@@ -10,18 +9,16 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
 
 import 'admin_setting_paid_leave_count_bloc_test.mocks.dart';
 
-@GenerateMocks([PaidLeaveService, NavigationStackManager])
+@GenerateMocks([PaidLeaveService])
 void main() {
   late PaidLeaveService paidLeaveService;
-  late NavigationStackManager stateManager;
   late AdminSettingUpdatePaidLeaveCountBloc
       adminSettingUpdatePaidLeaveCountBloc;
 
   setUpAll(() {
     paidLeaveService = MockPaidLeaveService();
-    stateManager = MockNavigationStackManager();
     adminSettingUpdatePaidLeaveCountBloc =
-        AdminSettingUpdatePaidLeaveCountBloc(paidLeaveService, stateManager);
+        AdminSettingUpdatePaidLeaveCountBloc(paidLeaveService);
   });
 
   group("admin setting paid leave count screen tests", () {

@@ -9,10 +9,6 @@ class EmployeeListInitialLoadEvent extends EmployeeListEvent{}
 
 class EmployeeListUpdateEvent extends EmployeeListEvent{}
 
-class EmployeeListNavigationToEmployeeDetailEvent extends EmployeeListEvent{
-  final String id;
-  EmployeeListNavigationToEmployeeDetailEvent(this.id);
-}
 
 
 

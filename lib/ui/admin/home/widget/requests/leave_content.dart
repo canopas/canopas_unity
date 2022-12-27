@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -9,8 +9,7 @@ import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave_count.dart';
-import '../../bloc/admin_home_bloc.dart';
-import '../../bloc/admin_home_event.dart';
+import '../../../../../router/app_router.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
@@ -44,9 +43,7 @@ class LeaveRequestCard extends StatelessWidget {
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            context.read<AdminHomeBloc>().add(AdminHomeNavigateToApplicationDetail(leaveApplication));
-          },
+          onTap: () =>context.goNamed(Routes.adminLeaveDetail,extra: leaveApplication),
           child: Row(
             children: [
               Container(

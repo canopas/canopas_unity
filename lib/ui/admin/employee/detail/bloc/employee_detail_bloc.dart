@@ -6,16 +6,14 @@ import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 
 import '../../../../../model/employee/employee.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
 
 
 @Injectable()
 class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
-  final NavigationStackManager _navigationStackManager;
   final EmployeeService _employeeService;
 
-  EmployeeDetailBloc(this._navigationStackManager, this._employeeService)
+  EmployeeDetailBloc( this._employeeService)
       : super(EmployeeDetailInitialState()) {
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
     on<DeleteEmployeeEvent>(_onDeleteEmployeeEvent);
@@ -39,13 +37,14 @@ class EmployeeDetailBloc
     }
   }
 
-  Future<void> _onDeleteEmployeeEvent(DeleteEmployeeEvent event,
+  Future<bool> _onDeleteEmployeeEvent(DeleteEmployeeEvent event,
       Emitter<AdminEmployeeDetailState> emit) async {
     try {
         await _employeeService.deleteEmployee(event.employeeId);
-        _navigationStackManager.pop();
+        return true;
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
+      return false;
     }
   }
 

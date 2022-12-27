@@ -5,7 +5,6 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
@@ -13,14 +12,11 @@ import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/user/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart';
 import 'package:projectunity/ui/user/leave_details/bloc/leave_details_bloc/leave_details_event.dart';
 import 'package:projectunity/ui/user/leave_details/bloc/leave_details_bloc/leave_details_state.dart';
-
 import 'employee_leave_details_bloc_test.mocks.dart';
 
-
-@GenerateMocks([UserLeaveService,NavigationStackManager,AdminLeaveService,UserManager,PaidLeaveService])
+@GenerateMocks([UserLeaveService,AdminLeaveService,UserManager,PaidLeaveService])
 void main(){
   late UserLeaveService userLeaveService;
-  late NavigationStackManager stackManager;
   late UserManager userManager;
   late EmployeeLeaveDetailsBloc employeeLeaveDetailsBloc;
   late PaidLeaveService paidLeaveService;
@@ -55,10 +51,9 @@ void main(){
 
     setUp((){
       userLeaveService = MockUserLeaveService();
-      stackManager = MockNavigationStackManager();
       userManager = MockUserManager();
       paidLeaveService = MockPaidLeaveService();
-      employeeLeaveDetailsBloc = EmployeeLeaveDetailsBloc(userLeaveService, stackManager, paidLeaveService, userManager);
+      employeeLeaveDetailsBloc = EmployeeLeaveDetailsBloc(userLeaveService, paidLeaveService, userManager);
       loadingState = const EmployeeLeaveDetailsState(leaveDetailsLeaveCountStatus: EmployeeLeaveDetailsLeaveCountStatus.loading);
       when(userManager.employeeId).thenReturn("id");
       when(userManager.isAdmin).thenReturn(false);

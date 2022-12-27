@@ -5,25 +5,24 @@ import 'package:projectunity/bloc/authentication/logout_bloc.dart';
 import 'package:projectunity/bloc/authentication/logout_event.dart';
 import 'package:projectunity/bloc/authentication/logout_state.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/pref/user_preference.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/auth/auth_service.dart';
-
 import 'logout_bloc_test.mocks.dart';
 
-@GenerateMocks([AuthService,UserPreference,NavigationStackManager])
+
+@GenerateMocks([AuthService,UserPreference,UserManager])
 void main(){
   late UserPreference userPreference;
-  late NavigationStackManager navigationStackManager;
   late AuthService auth;
   late LogOutBloc logOutBloc;
+  late UserManager userManager;
 
   setUpAll((){
     userPreference = MockUserPreference();
-    navigationStackManager =MockNavigationStackManager();
     auth = MockAuthService();
-    logOutBloc =LogOutBloc(navigationStackManager, userPreference, auth);
+    userManager= MockUserManager();
+    logOutBloc =LogOutBloc(userPreference, auth,userManager);
     when(userPreference.removeCurrentUser()).thenAnswer((realInvocation) => Future(() => true));
   });
 
@@ -35,9 +34,8 @@ void main(){
         LogOutLoadingState(),
         LogOutSuccessState(),
       ]));
-      const state = LoginNavStackItem();
-      await untilCalled(navigationStackManager.clearAndPush(state));
-      verify(navigationStackManager.clearAndPush(state)).called(1);
+      await untilCalled(userManager.hasLoggedIn());
+      verify(userManager.hasLoggedIn()).called(1);
     });
 
     test("signOut failure test", (){

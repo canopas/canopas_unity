@@ -7,8 +7,6 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
@@ -19,7 +17,7 @@ import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
 
 import 'admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService,AdminLeaveService,PaidLeaveService,UserLeaveService,NavigationStackManager])
+@GenerateMocks([EmployeeService,AdminLeaveService,PaidLeaveService,UserLeaveService])
 void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
@@ -27,7 +25,6 @@ void main() {
   late PaidLeaveService paidLeaveService;
   late UserLeaveService userLeaveService;
   late AdminHomeBloc adminHomeBloc;
-  late NavigationStackManager navigationStackManager;
 
   Employee employee = const Employee(
       id: 'id',
@@ -63,14 +60,12 @@ void main() {
       totalOfEmployees: 0);
 
   setUpAll(() {
-    navigationStackManager = MockNavigationStackManager();
     employeeService = MockEmployeeService();
     adminLeaveService = MockAdminLeaveService();
     userLeaveService = MockUserLeaveService();
     paidLeaveService = MockPaidLeaveService();
 
     adminHomeBloc = AdminHomeBloc(
-      navigationStackManager,
       adminLeaveService,
       employeeService,
       userLeaveService,
@@ -187,52 +182,9 @@ void main() {
         });
   });
 
-  group('Navigation event', () {
-    test('Navigate to Add Member screen on AdminHomeNavigateToAddMember event',
-            () async {
-          const state = NavStackItem.addMemberState();
-          adminHomeBloc.add(AdminHomeNavigateToAddMember());
-          await untilCalled(navigationStackManager.push(state));
-          verify(navigationStackManager.push(state)).called(1);
-        });
-    test('Navigate to Setting screen on AdminHomeNavigateToSetting event',
-            () async {
-          const state = NavStackItem.adminSettingsState();
-          adminHomeBloc.add(AdminHomeNavigateToSetting());
-          await untilCalled(navigationStackManager.push(state));
-          verify(navigationStackManager.push(state)).called(1);
-        });
-    test(
-        'Navigate to Employee list screen on AdminHomeNavigateToEmployeeList event',
-            () async {
-          const state = NavStackItem.adminEmployeeListState();
-          adminHomeBloc.add(AdminHomeNavigateToEmployeeList());
-          await untilCalled(navigationStackManager.push(state));
-          verify(navigationStackManager.push(state)).called(1);
-        });
-    test('Navigate to Absence screen on AdminHomeNavigateToAbsenceList event',
-            () async {
-          const state = NavStackItem.whoIsOutCalendarState();
-          adminHomeBloc.add(AdminHomeNavigateToAbsenceList());
-          await untilCalled(navigationStackManager.push(state));
-          verify(navigationStackManager.push(state)).called(1);
-        });
-    test(
-        'Navigate to Leave Application Detail screen on AdminHomeNavigateToApplicationDetail event',
-            () async {
-          LeaveApplication leaveApplication =
-          LeaveApplication(employee: employee, leave: leave);
-          final state = NavStackItem.adminLeaveDetailState(leaveApplication);
-          adminHomeBloc.add(AdminHomeNavigateToApplicationDetail(leaveApplication));
-          await untilCalled(navigationStackManager.push(state));
-          verify(navigationStackManager.push(state)).called(1);
-        });
-
-  });
 
 
   tearDownAll(() async {
-    navigationStackManager.dispose();
     await adminHomeBloc.close();
   });
 }

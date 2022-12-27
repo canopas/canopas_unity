@@ -7,8 +7,6 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
@@ -17,10 +15,8 @@ import 'package:projectunity/ui/user/all_leaves/bloc/leaves_bloc/all_leaves_even
 import 'package:projectunity/ui/user/all_leaves/bloc/leaves_bloc/all_leaves_state.dart';
 import 'all_leaves_view_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [NavigationStackManager, PaidLeaveService, UserLeaveService, UserManager])
+@GenerateMocks([PaidLeaveService, UserLeaveService, UserManager])
 void main() {
-  late NavigationStackManager navigationStackManager;
   late PaidLeaveService userPaidLeaveService;
   late UserLeaveService userLeaveService;
   late AllLeavesViewBloc allLeavesViewBloc;
@@ -66,12 +62,11 @@ void main() {
   group("All leaves screen fetch data and navigation test", () {
 
     setUp(() {
-      navigationStackManager = MockNavigationStackManager();
       userPaidLeaveService = MockPaidLeaveService();
       userManager = MockUserManager();
       userLeaveService = MockUserLeaveService();
 
-      allLeavesViewBloc = AllLeavesViewBloc(navigationStackManager, userManager,
+      allLeavesViewBloc = AllLeavesViewBloc(userManager,
           userLeaveService, userPaidLeaveService);
 
       when(userManager.employeeId).thenReturn("123");
@@ -111,31 +106,15 @@ void main() {
       expect(allLeavesViewBloc.stream, emits(emptyState));
     });
 
-    test('navigate to leave details view test ', () async {
-      NavStackItem state =
-          NavStackItem.employeeLeaveDetailState(leaveApplications.first);
-      allLeavesViewBloc
-          .add(AllLeavesToLeaveDetailsNavigationEvent(leaveApplications.first));
-      await untilCalled(navigationStackManager.push(state));
-      verify(navigationStackManager.push(state)).called(1);
-    });
 
-    test('Navigate to leave request view test ', () async {
-      NavStackItem state = const NavStackItem.leaveRequestState();
-      allLeavesViewBloc.add(AllLeavesToLeaveRequestNavigationEvent());
-      await untilCalled(navigationStackManager.push(state));
-      verify( navigationStackManager.push(state)).called(1);
-    });
-  });
 
   group("All leaves filter tests", () {
     setUp(() {
-      navigationStackManager = MockNavigationStackManager();
       userPaidLeaveService = MockPaidLeaveService();
       userManager = MockUserManager();
       userLeaveService = MockUserLeaveService();
 
-      allLeavesViewBloc = AllLeavesViewBloc(navigationStackManager, userManager,
+      allLeavesViewBloc = AllLeavesViewBloc(userManager,
           userLeaveService, userPaidLeaveService);
       when(userManager.employeeId).thenReturn("123");
       when(userManager.employee).thenReturn(employee);
@@ -241,4 +220,5 @@ void main() {
       expect(allLeavesViewBloc.stream, emits(successState));
     });
   });
+});
 }

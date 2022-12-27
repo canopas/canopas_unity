@@ -24,12 +24,6 @@ class AdminLeaveDetailsRejectRequestEvent extends AdminLeaveDetailsEvents {
   List<Object?> get props => [leaveId];
 }
 
-class AdminLeaveDetailsOnUserContentTapEvent extends AdminLeaveDetailsEvents {
-  final String id;
-  AdminLeaveDetailsOnUserContentTapEvent(this.id);
-  @override
-  List<Object?> get props => [id];
-}
 
 class AdminLeaveDetailsChangeAdminReplyValue extends AdminLeaveDetailsEvents {
    final String adminReply;

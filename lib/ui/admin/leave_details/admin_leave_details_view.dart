@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/admin/leave_details/widget/admin_leave_detail_approve_rejection_message.dart';
-import 'widget/admin_leave_details_date_content.dart';
-import '../../../di/service_locator.dart';
-import 'bloc/admin_leave_details_state.dart';
-import 'widget/admin_leave_details_action_button.dart';
+
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
+import '../../../di/service_locator.dart';
 import '../../../model/leave/leave.dart';
 import '../../../model/leave_application.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import '../../../router/app_router.dart';
+import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_header_content.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
 import '../../../widget/leave_details_widget/reason_content.dart';
 import '../../../widget/leave_details_widget/user_content.dart';
-import '../../../widget/error_snack_bar.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/admin_leave_details_bloc.dart';
 import 'bloc/admin_leave_details_event.dart';
+import 'bloc/admin_leave_details_state.dart';
+import 'widget/admin_leave_details_action_button.dart';
+import 'widget/admin_leave_details_date_content.dart';
 
 class AdminLeaveDetailsPage extends StatelessWidget {
   final LeaveApplication leaveApplication;
-  const AdminLeaveDetailsPage({Key? key, required this.leaveApplication}) : super(key: key);
+
+  const AdminLeaveDetailsPage({Key? key, required this.leaveApplication})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AdminLeaveDetailsBloc>()..add(AdminLeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication)),
+      create: (context) => getIt<AdminLeaveDetailsBloc>()
+        ..add(AdminLeaveDetailsInitialLoadEvents(
+            leaveApplication: leaveApplication)),
       child: AdminLeaveDetailsView(leaveApplication: leaveApplication),
     );
   }
@@ -60,9 +67,12 @@ class _AdminLeaveDetailsViewState extends State<AdminLeaveDetailsView> {
       body: BlocListener<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
         listenWhen: (previous, current) => current.isFailure,
         listener: (context, state) {
-          state.isFailure
-              ?showSnackBar(context: context,error: state.error)
-              :null;
+          if (state.isFailure) {
+            showSnackBar(context: context, error: state.error);
+          }
+          if (state.leaveDetailsStatus == AdminLeaveDetailsStatus.success) {
+            context.pop();
+          }
         },
         child: ListView(
           padding: const EdgeInsets.only(bottom: 100,top: primaryHalfSpacing),
@@ -75,9 +85,6 @@ class _AdminLeaveDetailsViewState extends State<AdminLeaveDetailsView> {
             ),
             UserContent(
                 employee: widget.leaveApplication.employee,
-                onTap: (){
-                  context.read<AdminLeaveDetailsBloc>().add(AdminLeaveDetailsOnUserContentTapEvent(widget.leaveApplication.employee.id));
-                }
             ),
             AdminLeaveDetailsDateContent(leave: widget.leaveApplication.leave),
             PerDayDurationDateRange(perDayDurationWithDate: widget.leaveApplication.leave.getDateAndDuration()),

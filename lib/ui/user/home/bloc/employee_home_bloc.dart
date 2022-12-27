@@ -9,8 +9,6 @@ import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../model/leave_count.dart';
-import '../../../../navigation/nav_stack/nav_stack_item.dart';
-import '../../../../navigation/navigation_stack_manager.dart';
 import '../../../../services/admin/employee/employee_service.dart';
 import '../../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../../services/admin/requests/admin_leave_service.dart';
@@ -24,28 +22,14 @@ class EmployeeHomeBloc extends Bloc<EmployeeHomeEvent, EmployeeHomeState> {
   final PaidLeaveService _paidLeaveService;
   final EmployeeService _employeeService;
   final AdminLeaveService _leaveService;
-  final NavigationStackManager _stackManager;
 
   EmployeeHomeBloc(this._userManager,
       this._userLeaveService,
       this._paidLeaveService,
       this._employeeService,
-      this._leaveService,
-      this._stackManager)
+      this._leaveService,)
       : super(const EmployeeHomeState()) {
     on<EmployeeHomeFetchEvent>(_load);
-    on<EmployeeHomeShowSetting>((event, emit) {
-      _navigateToSetting();
-    });
-    on<EmployeeHomeShowLeaveCalender>(
-        (event, emit) => _navigateToUserCalender());
-    on<EmployeeHomeShowAllLeaves>((event, emit) => _navigateToAllLeaves());
-    on<EmployeeHomeShowRequestedLeaves>(
-        (event, emit) => _navigateToRequestedLeaves());
-    on<EmployeeHomeShowUpcomingLeaves>(
-        (event, emit) => _navigateToUpcomingLeaves());
-    on<EmployeeHomeShowApplyLeave>((event, emit) => _navigateToApplyLeave());
-    on<EmployeeHomeShowWhosOut>((event, emit) => _navigateToWhosOutCalendar());
   }
 
   String get userID => _userManager.employeeId;
@@ -99,31 +83,5 @@ class EmployeeHomeBloc extends Bloc<EmployeeHomeEvent, EmployeeHomeState> {
     }
   }
 
-  void _navigateToUserCalender() {
-    _stackManager.push(NavStackItem.userLeaveCalendarState(userId: userID));
-  }
 
-  void _navigateToSetting() {
-    _stackManager.push(const NavStackItem.employeeSettingsState());
-  }
-
-  void _navigateToAllLeaves() {
-    _stackManager.push(const NavStackItem.employeeAllLeavesScreenState());
-  }
-
-  void _navigateToApplyLeave() {
-    _stackManager.push(const NavStackItem.leaveRequestState());
-  }
-
-  void _navigateToRequestedLeaves() {
-    _stackManager.push(const NavStackItem.employeeRequestedLeavesScreenState());
-  }
-
-  void _navigateToUpcomingLeaves() {
-    _stackManager.push(const NavStackItem.employeeUpcomingLeavesScreenState());
-  }
-
-  void _navigateToWhosOutCalendar() {
-    _stackManager.push(const NavStackItem.whoIsOutCalendarState());
-  }
 }

@@ -1,25 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/pref/user_preference.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/ui/onboard/bloc/onboard_bloc.dart';
 import 'package:projectunity/ui/onboard/bloc/onboard_event.dart';
 
+import '../admin/leave_details/admin_leave_details_bloc_test.mocks.dart';
 import 'on_board_cubit_test.mocks.dart';
-
-@GenerateMocks([UserPreference,NavigationStackManager])
+@GenerateMocks([UserPreference])
 void main(){
 
   late UserPreference preference;
-  late NavigationStackManager navigationStackManager;
   late OnBoardBloc onBoardBloc;
+  late UserManager userManager;
 
   setUpAll(() {
     preference = MockUserPreference();
-    navigationStackManager = MockNavigationStackManager();
-    onBoardBloc = OnBoardBloc(preference, navigationStackManager);
+    userManager= MockUserManager();
+
+    onBoardBloc = OnBoardBloc(preference,userManager);
   });
 
   group("On Board Test", () {
@@ -29,10 +29,9 @@ void main(){
     });
 
     test("navigate to login screen test", () async {
-      const state = LoginNavStackItem();
       onBoardBloc.add(SetOnBoardCompletedEvent());
-      await untilCalled(navigationStackManager.clearAndPush(state));
-      verify(navigationStackManager.clearAndPush(state)).called(1);
+      await untilCalled(userManager.hasOnBoarded());
+      verify(userManager.hasOnBoarded()).called(1);
     });
 
   });

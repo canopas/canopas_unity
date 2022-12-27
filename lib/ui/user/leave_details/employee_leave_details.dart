@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/user/leave_details/widget/employee_leave_action_button.dart';
@@ -67,6 +68,7 @@ class _EmployeeLeaveDetailsViewState extends State<EmployeeLeaveDetailsView> {
                 msg: (widget.leaveApplication.leave.leaveStatus == pendingLeaveStatus)
                     ? AppLocalizations.of(context).user_leave_detail_cancel_leave_message
                     : AppLocalizations.of(context).user_leave_detail_delete_leave_message);
+            context.pop();
           } else if(state.isFailure){
             showSnackBar(context: context,error: state.error);
           }

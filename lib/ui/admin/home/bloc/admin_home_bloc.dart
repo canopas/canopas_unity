@@ -7,7 +7,6 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/list.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -15,7 +14,6 @@ import 'package:rxdart/rxdart.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_count.dart';
-import '../../../../navigation/navigation_stack_manager.dart';
 import '../../../../services/admin/employee/employee_service.dart';
 import '../../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../../services/admin/requests/admin_leave_service.dart';
@@ -28,13 +26,11 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
   StreamSubscription? _subscription;
-  final NavigationStackManager _navigationStackManager;
   List<Employee> employees=[];
 
-  AdminHomeBloc(this._navigationStackManager,this._adminLeaveService,this._employeeService,this._userLeaveService,this._paidLeaveService)
+  AdminHomeBloc(this._adminLeaveService,this._employeeService,this._userLeaveService,this._paidLeaveService)
       : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_onPageLoad);
-    on(_onNavigationEvent);
   }
 
   void _onPageLoad(
@@ -120,40 +116,6 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
         leaveCounts: leaveCounts);
   }
 
-  Future<void> _onNavigationEvent(AdminHomeEvent event,Emitter<AdminHomeState> emit) async{
-    if (event is AdminHomeNavigateToAddMember) {
-      _navigateToAddMember();
-    } else if (event is AdminHomeNavigateToSetting) {
-      _navigateSettings();
-    } else if (event is AdminHomeNavigateToEmployeeList) {
-      _navigateToEmployeeList();
-    } else if (event is AdminHomeNavigateToApplicationDetail) {
-      _navigateToApplicationDetail(event.leaveApplication);
-    } else if (event is AdminHomeNavigateToAbsenceList) {
-      _navigateToAbsence();
-    }
-  }
-
-  void _navigateToAddMember() {
-    _navigationStackManager.push(const NavStackItem.addMemberState());
-  }
-
-  void _navigateSettings() {
-    _navigationStackManager.push(const NavStackItem.adminSettingsState());
-  }
-
-  void _navigateToEmployeeList() {
-    _navigationStackManager.push(const NavStackItem.adminEmployeeListState());
-  }
-
-  void _navigateToApplicationDetail(LeaveApplication leaveApplication) {
-    _navigationStackManager
-        .push(NavStackItem.adminLeaveDetailState(leaveApplication));
-  }
-
-  void _navigateToAbsence() {
-    _navigationStackManager.push(const NavStackItem.whoIsOutCalendarState());
-  }
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {

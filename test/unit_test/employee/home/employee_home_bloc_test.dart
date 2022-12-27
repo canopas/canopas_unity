@@ -5,8 +5,6 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
@@ -17,13 +15,13 @@ import 'package:projectunity/ui/user/home/bloc/employee_home_event.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_state.dart';
 import 'employee_home_bloc_test.mocks.dart';
 
+
 @GenerateMocks([
   UserLeaveService,
   UserManager,
   PaidLeaveService,
   EmployeeService,
   AdminLeaveService,
-  NavigationStackManager
 ])
 void main() {
   late EmployeeHomeBloc bLoc;
@@ -31,7 +29,6 @@ void main() {
   late AdminLeaveService adminLeaveService;
   late PaidLeaveService paidLeaveService;
   late UserLeaveService userLeaveService;
-  late NavigationStackManager stackManager;
   late UserManager userManager;
 
   EmployeeHomeState loadingState =
@@ -63,9 +60,8 @@ void main() {
     userManager = MockUserManager();
     paidLeaveService = MockPaidLeaveService();
     adminLeaveService = MockAdminLeaveService();
-    stackManager = MockNavigationStackManager();
     bLoc = EmployeeHomeBloc(userManager, userLeaveService, paidLeaveService,
-        employeeService, adminLeaveService, stackManager);
+        employeeService, adminLeaveService);
 
     when(userManager.employeeId).thenReturn("1");
   });
@@ -233,77 +229,6 @@ void main() {
     expectLater(bLoc.stream, emitsInAnyOrder(expected));
 
     bLoc.add(EmployeeHomeFetchEvent());
-  });
-
-  test("test navigate to user calender on EmployeeHomeShowLeaveCalender event",
-      () async {
-    bLoc.add(EmployeeHomeShowLeaveCalender());
-
-    const state = NavStackItem.userLeaveCalendarState(userId: "1");
-    await untilCalled(stackManager.push(state));
-
-    verify(stackManager.push(state));
-  });
-
-  test("test navigate to settings on EmployeeHomeShowSetting event", () async {
-    bLoc.add(EmployeeHomeShowSetting());
-
-    const state = NavStackItem.employeeSettingsState();
-
-    await untilCalled(stackManager.push(state));
-    verify(stackManager.push(state));
-  });
-
-  test("test navigate to all leaves on EmployeeHomeShowAllLeaves event",
-      () async {
-    bLoc.add(EmployeeHomeShowAllLeaves());
-
-    const state = NavStackItem.employeeAllLeavesScreenState();
-
-    await untilCalled(stackManager.push(state));
-    verify(stackManager.push(state));
-  });
-
-  test(
-      "test navigate to requested leaves on EmployeeHomeShowRequestedLeaves event",
-      () async {
-    bLoc.add(EmployeeHomeShowRequestedLeaves());
-
-     const state = NavStackItem.employeeRequestedLeavesScreenState();
-
-    await untilCalled(stackManager.push(state));
-    verify(stackManager.push(state));
-  });
-
-  test(
-      "test navigate to upcoming leaves on EmployeeHomeShowUpcomingLeaves event",
-      () async {
-    bLoc.add(EmployeeHomeShowUpcomingLeaves());
-
-     const state = NavStackItem.employeeUpcomingLeavesScreenState();
-
-    await untilCalled(stackManager.push(state));
-    verify(stackManager.push(state));
-  });
-
-  test("test navigate to apply for leaves on EmployeeHomeShowApplyLeave event",
-      () async {
-    bLoc.add(EmployeeHomeShowApplyLeave());
-
-    const state = NavStackItem.leaveRequestState();
-
-    await untilCalled(stackManager.push(state));
-    verify(stackManager.push(state));
-  });
-
-  test("test navigate to who's out calender on EmployeeHomeShowWhosOut event",
-      () async {
-    bLoc.add(EmployeeHomeShowWhosOut());
-
-    const state = NavStackItem.whoIsOutCalendarState();
-
-    await untilCalled(stackManager.push(state));
-    verify(stackManager.push(state));
   });
 
   tearDown(() {

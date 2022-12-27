@@ -15,15 +15,3 @@ class RemoveLeaveApplicationOnRequestedLeavesEvent extends RequestedLeavesViewEv
   List<Object?> get props => [leaveApplication];
 }
 
-class NavigateToLeaveDetailsViewRequestedLeavesEvent extends RequestedLeavesViewEvents{
-  final LeaveApplication leaveApplication;
-  NavigateToLeaveDetailsViewRequestedLeavesEvent({required this.leaveApplication});
-  @override
-  List<Object?> get props => [leaveApplication];
-}
-
-
-class NavigateToLeaveRequestViewRequestedLeavesEvent extends RequestedLeavesViewEvents{
-  @override
-  List<Object?> get props => [];
-}

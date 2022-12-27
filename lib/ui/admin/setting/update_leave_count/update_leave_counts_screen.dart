@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
@@ -60,12 +61,13 @@ class _AdminUpdateLeaveCountsScreenState
         foregroundColor: AppColors.blackColor,
       ),
       body: BlocListener<AdminSettingUpdatePaidLeaveCountBloc,AdminSettingUpdateLeaveCountState>(
-        listenWhen: (previous, current) => current is AdminSettingUpdateLeaveCountSuccessState || current is AdminSettingUpdateLeaveCountFailureState,
         listener: (context, state) => {
           if(state is AdminSettingUpdateLeaveCountSuccessState){
             _allLeaveCountController.text = state.paidLeaveCount.toString()
           } else if(state is AdminSettingUpdateLeaveCountFailureState){
             showSnackBar(context: context,error: state.error)
+          }else if (state is AdminSettingLeavesUpdatedState){
+            context.pop()
           }
         },
         child: ListView(

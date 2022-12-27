@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
+import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart';
 import 'package:projectunity/ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_event.dart';
 import 'package:projectunity/ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_state.dart';
@@ -94,10 +95,10 @@ class _UserLeaveCalendarViewState extends State<UserLeaveCalendarView> {
                   } else if(state is UserLeaveCalendarViewSuccessState && state.leaveApplications.isNotEmpty){
                     return ListView.separated(
                       padding: const EdgeInsets.all( primaryHorizontalSpacing),
-                      itemBuilder: (BuildContext context, int index) => LeaveCard(leaveApplication: state.leaveApplications[index],
-                        onTap: () {
-                          context.read<UserLeaveCalendarViewBloc>().add(LeaveTypeCardTapEvent(state.leaveApplications[index]));
-                       },),
+                      itemBuilder: (BuildContext context, int index) {
+                        LeaveApplication leaveApplication= state.leaveApplications[index];
+                     return   LeaveCard(leaveApplication:leaveApplication);
+                      },
                       separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryHorizontalSpacing,),
                       itemCount: state.leaveApplications.length,
                     );}

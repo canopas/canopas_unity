@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
@@ -33,6 +34,7 @@ class DeleteButton extends StatelessWidget {
             ),
             onPressed: (){
               context.read<EmployeeDetailBloc>().add(DeleteEmployeeEvent(employeeId: id));
+              context.pop();
             },
             child: Text(
               AppLocalizations.of(context).user_leave_detail_button_delete,

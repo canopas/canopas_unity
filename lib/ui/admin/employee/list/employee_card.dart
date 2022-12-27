@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dar
 import 'package:projectunity/widget/user_profile_image.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../model/employee/employee.dart';
+import '../../../../router/app_router.dart';
 
 class EmployeeCard extends StatelessWidget {
   const EmployeeCard({Key? key, required this.employee}) : super(key: key);
@@ -15,7 +17,7 @@ class EmployeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>context.read<EmployeeListBloc>().add(EmployeeListNavigationToEmployeeDetailEvent(employee.id)),
+      onTap: ()=>context.goNamed(Routes.employeeDetail,params: {'employeeId':employee.id}),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing, vertical: primaryVerticalSpacing),
         child: Row(

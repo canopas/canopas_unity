@@ -9,14 +9,6 @@ abstract class AdminHomeEvent extends Equatable{
 
 
 class AdminHomeInitialLoadEvent extends AdminHomeEvent{}
-class AdminHomeNavigateToAddMember extends AdminHomeEvent{}
-class AdminHomeNavigateToSetting extends AdminHomeEvent{}
-class AdminHomeNavigateToEmployeeList extends AdminHomeEvent{}
-class AdminHomeNavigateToAbsenceList extends AdminHomeEvent{}
-class AdminHomeNavigateToApplicationDetail extends AdminHomeEvent{
- final LeaveApplication leaveApplication;
-  AdminHomeNavigateToApplicationDetail(this.leaveApplication);
-}
 
 
 

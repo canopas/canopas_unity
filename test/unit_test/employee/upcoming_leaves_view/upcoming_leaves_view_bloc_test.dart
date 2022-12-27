@@ -6,22 +6,17 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart';
 import 'package:projectunity/ui/user/upcoming_leaves/bloc/upcoming_leaves_event.dart';
 import 'package:projectunity/ui/user/upcoming_leaves/bloc/upcoming_leaves_state.dart';
-
 import 'upcoming_leaves_view_bloc_test.mocks.dart';
 
-
 @GenerateMocks(
-    [NavigationStackManager, PaidLeaveService, UserLeaveService, UserManager])
+    [PaidLeaveService, UserLeaveService, UserManager])
 void main() {
-  late NavigationStackManager navigationStackManager;
   late PaidLeaveService userPaidLeaveService;
   late UserLeaveService userLeaveService;
   late UpcomingLeavesViewBloc upcomingLeavesViewBloc;
@@ -55,12 +50,11 @@ void main() {
   ];
 
   setUp(() {
-    navigationStackManager = MockNavigationStackManager();
     userPaidLeaveService = MockPaidLeaveService();
     userManager = MockUserManager();
     userLeaveService = MockUserLeaveService();
 
-    upcomingLeavesViewBloc = UpcomingLeavesViewBloc(navigationStackManager, userPaidLeaveService, userLeaveService, userManager);
+    upcomingLeavesViewBloc = UpcomingLeavesViewBloc( userPaidLeaveService, userLeaveService, userManager);
 
     when(userManager.employeeId).thenReturn("123");
     when(userManager.employee).thenReturn(employee);
@@ -101,20 +95,5 @@ void main() {
 
   });
 
-  group("Navigation Test", () {
-    test('navigate to leave details view test', () async {
-      NavStackItem state = NavStackItem.employeeLeaveDetailState(leaveApplications.first);
-      upcomingLeavesViewBloc.add(NavigateToLeaveDetailsViewUpcomingLeavesEvent(leaveApplication: leaveApplications.first));
-      await untilCalled(navigationStackManager.push(state));
-      verify(navigationStackManager.push(state)).called(1);
-    });
-
-    test('Navigate to leave request view test ', () async {
-      NavStackItem state = const NavStackItem.leaveRequestState();
-      upcomingLeavesViewBloc.add(NavigateToLeaveRequestViewUpcomingLeavesEvent());
-      await untilCalled(navigationStackManager.push(state));
-      verify(navigationStackManager.push(state)).called(1);
-    });
-  });
 
 }

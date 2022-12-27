@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../exception/error_const.dart';
 import '../../../../../event_bus/events.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../provider/user_data.dart';
 import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../../../services/leave/user_leave_service.dart';
@@ -13,10 +12,9 @@ import 'leave_details_state.dart';
 class EmployeeLeaveDetailsBloc extends Bloc<EmployeeLeaveDetailsEvents, EmployeeLeaveDetailsState> {
   final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
-  final NavigationStackManager _stackManager;
   final UserManager _userManager;
 
-  EmployeeLeaveDetailsBloc(this._userLeaveService, this._stackManager, this._paidLeaveService, this._userManager)
+  EmployeeLeaveDetailsBloc(this._userLeaveService, this._paidLeaveService, this._userManager)
       : super(const EmployeeLeaveDetailsState()) {
     on<EmployeeLeaveDetailsInitialLoadEvents>(_initLeaveCounts);
     on<EmployeeLeaveDetailsRemoveLeaveRequestEvent>(_removeLeaveRequest);
@@ -54,7 +52,6 @@ class EmployeeLeaveDetailsBloc extends Bloc<EmployeeLeaveDetailsEvents, Employee
       _userLeaveService.deleteLeaveRequest(event.leaveApplication.leave.leaveId);
       eventBus.fire(LeaveUpdateEventListener(event.leaveApplication));
       emit(state.copyWith(leaveDetailsStatus:EmployeeLeaveDetailsStatus.success));
-      _stackManager.pop();
     } on Exception {
       emit(state.copyWith(error: firestoreFetchDataError,leaveDetailsStatus:EmployeeLeaveDetailsStatus.failure));
     }

@@ -15,14 +15,3 @@ class RemoveLeaveApplicationOnUpcomingLeavesEvent extends UpcomingLeavesViewEven
   List<Object?> get props => [leaveApplication];
 }
 
-class NavigateToLeaveDetailsViewUpcomingLeavesEvent extends UpcomingLeavesViewEvents{
-  final LeaveApplication leaveApplication;
-  NavigateToLeaveDetailsViewUpcomingLeavesEvent({required this.leaveApplication});
-  @override
-  List<Object?> get props => [leaveApplication];
-}
-
-class NavigateToLeaveRequestViewUpcomingLeavesEvent extends UpcomingLeavesViewEvents{
-  @override
-  List<Object?> get props => [];
-}
