@@ -7,24 +7,19 @@ import 'package:projectunity/core/utils/const/leave_time_constants.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_view_events.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_view_states.dart';
-
 import 'leave_request_form_view_test.mocks.dart';
-
-@GenerateMocks([PaidLeaveService, UserLeaveService, UserManager, NavigationStackManager])
+@GenerateMocks([PaidLeaveService, UserLeaveService, UserManager])
 void main() {
   late PaidLeaveService paidLeaveService;
   late UserLeaveService userLeaveService;
   late UserManager userManager;
   late LeaveRequestBloc leaveRequestBloc;
-  late NavigationStackManager navigationStackManager;
 
 
   LeaveCounts leaveCount =  const LeaveCounts(
@@ -40,9 +35,8 @@ void main() {
       paidLeaveService = MockPaidLeaveService();
       userLeaveService = MockUserLeaveService();
       userManager = MockUserManager();
-      navigationStackManager = MockNavigationStackManager();
       leaveRequestBloc = LeaveRequestBloc(userManager, paidLeaveService,
-          userLeaveService, navigationStackManager);
+          userLeaveService);
 
       when(userManager.employeeId).thenReturn("id");
     });
@@ -179,7 +173,6 @@ void main() {
       );
 
       when(userLeaveService.applyForLeave(leave)).thenAnswer((_)async{});
-      when(navigationStackManager.previousState).thenReturn(const NavStackItem.employeeHome());
       leaveRequestBloc.add(LeaveRequestEndDateChangeEvent(endDate:futureDate));
       leaveRequestBloc.add(LeaveRequestReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(LeaveRequestApplyLeaveEvent());
@@ -193,12 +186,6 @@ void main() {
       ]));
 
 
-      const navState = NavStackItem.employeeAllLeavesScreenState();
-
-      await untilCalled(navigationStackManager.pop());
-      await untilCalled(navigationStackManager.push(navState));
-      verify(navigationStackManager.pop()).called(1);
-      verify(navigationStackManager.push(navState)).called(1);
 
     });
 

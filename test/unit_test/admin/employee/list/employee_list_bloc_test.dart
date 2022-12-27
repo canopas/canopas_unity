@@ -3,8 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
@@ -14,18 +12,16 @@ import 'employee_list_bloc_test.mocks.dart';
 
 
 
-@GenerateMocks([EmployeeService,NavigationStackManager])
+@GenerateMocks([EmployeeService])
 void main(){
-late NavigationStackManager navigationStackManager;
 late EmployeeService employeeService;
 late EmployeeListBloc employeeListBloc;
 Employee employee= const Employee(id: 'id', roleType: 1, name: 'Andrew jhone', employeeId: 'CA 1254', email: 'andrew.j@canopas.com', designation: 'Android developer');
 
 setUpAll(() {
-navigationStackManager= MockNavigationStackManager();
-employeeService= MockEmployeeService();
-employeeListBloc= EmployeeListBloc( navigationStackManager,employeeService);
-});
+  employeeService = MockEmployeeService();
+    employeeListBloc = EmployeeListBloc(employeeService);
+  });
 
 group('Employee List Bloc', () {
   test('Emits initial state after Employee list screen is open ', () {
@@ -47,12 +43,4 @@ group('Employee List Bloc', () {
   });
 });
 
-group('Navigation event tests', () {
-  test('Navigate to Employee detail screen on EmployeeListNavigateToDetail', ()async {
-    final state= NavStackItem.employeeDetailState(id:employee.id);
-    employeeListBloc.add(EmployeeListNavigationToEmployeeDetailEvent(employee.id));
-    await untilCalled(navigationStackManager.push(state));
-    verify(navigationStackManager.push(state)).called(1);
-  });
-});
 }

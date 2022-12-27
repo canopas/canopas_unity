@@ -16,10 +16,3 @@ class GetSelectedDateLeavesEvent extends WhoIsOutViewEvent {
   @override
   List<Object?> get props => [selectedDate];
 }
-
-class WhoIsOutLeaveCardTapEvent extends WhoIsOutViewEvent {
-  final LeaveApplication leaveApplication;
-  WhoIsOutLeaveCardTapEvent(this.leaveApplication);
-  @override
-  List<Object?> get props => [leaveApplication];
-}

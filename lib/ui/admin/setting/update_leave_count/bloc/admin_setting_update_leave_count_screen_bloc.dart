@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../exception/error_const.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
 import 'admin_setting_update_leave_count_screen_event.dart';
 import 'admin_setting_update_leave_count_screen_state.dart';
@@ -9,15 +8,14 @@ import 'admin_setting_update_leave_count_screen_state.dart';
 @Injectable()
 class AdminSettingUpdatePaidLeaveCountBloc extends Bloc<AdminSettingUpdatePaidLeaveCountEvent,AdminSettingUpdateLeaveCountState>{
   final PaidLeaveService _paidLeaveService;
-  final NavigationStackManager _stateManager;
-  AdminSettingUpdatePaidLeaveCountBloc(this._paidLeaveService, this._stateManager) : super(AdminSettingUpdateLeaveCountInitialState()){
+  AdminSettingUpdatePaidLeaveCountBloc(this._paidLeaveService) : super(AdminSettingUpdateLeaveCountInitialState()){
 
     on<AdminSettingPaidLeaveCountInitialLoadEvent>(_initialLoad);
     on<UpdatePaidLeaveCountEvent>(_updatePaidLeaveCount);
 
   }
 
-  _initialLoad(AdminSettingPaidLeaveCountInitialLoadEvent event, Emitter<AdminSettingUpdateLeaveCountState> emit) async {
+ Future<void> _initialLoad(AdminSettingPaidLeaveCountInitialLoadEvent event, Emitter<AdminSettingUpdateLeaveCountState> emit) async {
     emit(AdminSettingUpdateLeaveCountLoadingState());
     try {
       emit(AdminSettingUpdateLeaveCountSuccessState(
@@ -27,12 +25,12 @@ class AdminSettingUpdatePaidLeaveCountBloc extends Bloc<AdminSettingUpdatePaidLe
     }
   }
 
-  _updatePaidLeaveCount(UpdatePaidLeaveCountEvent event, Emitter<AdminSettingUpdateLeaveCountState> emit) async {
+  Future<void> _updatePaidLeaveCount(UpdatePaidLeaveCountEvent event, Emitter<AdminSettingUpdateLeaveCountState> emit) async {
+    emit(AdminSettingUpdateLeaveCountLoadingState());
     try{
-     emit(AdminSettingUpdateLeaveCountLoadingState());
      int leaveCount  = int.parse(event.leaveCount);
        await _paidLeaveService.updateLeaveCount(leaveCount);
-       _stateManager.pop();
+       emit(AdminSettingLeavesUpdatedState());
     } on Exception{
       emit(AdminSettingUpdateLeaveCountFailureState(error: firestoreFetchDataError));
     }

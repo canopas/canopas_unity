@@ -1,5 +1,6 @@
   import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/utils/date_formatter.dart';
@@ -7,11 +8,11 @@ import 'package:projectunity/model/leave_application.dart';
 import '../../configs/colors.dart';
 import '../../core/utils/const/leave_screen_type_map.dart';
 import '../../model/leave/leave.dart';
+import '../router/app_router.dart';
 
 class LeaveCard extends StatelessWidget {
-  final void Function()? onTap;
   final LeaveApplication leaveApplication;
-  const LeaveCard({Key? key, required this.leaveApplication, required this.onTap}) : super(key: key);
+  const LeaveCard({Key? key, required this.leaveApplication}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class LeaveCard extends StatelessWidget {
           borderRadius: AppTheme.commonBorderRadius,
           child: InkWell(
             borderRadius: AppTheme.commonBorderRadius,
-            onTap: onTap,
+            onTap: () => context.pushNamed(Routes.userLeaveDetail,extra: leaveApplication),
             child: Container(
               decoration:   BoxDecoration(
                   border: Border(left: BorderSide(color: color, width: 5,))

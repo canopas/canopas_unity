@@ -18,12 +18,6 @@ class DateRangeSelectedEvent extends UserLeaveCalendarEvent {
   DateRangeSelectedEvent(this.startDate,this.endDate,this.selectedDate);
 }
 
-
-class LeaveTypeCardTapEvent extends UserLeaveCalendarEvent {
-    final LeaveApplication leaveApplication;
-    LeaveTypeCardTapEvent(this.leaveApplication);
-}
-
 class RemoveOrCancelLeaveApplication extends UserLeaveCalendarEvent {
   final LeaveApplication leaveApplication;
   RemoveOrCancelLeaveApplication(this.leaveApplication);

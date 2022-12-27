@@ -3,8 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import '../../../../../navigation/nav_stack/nav_stack_item.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../../../services/admin/requests/admin_leave_service.dart';
 import '../../../../../services/leave/user_leave_service.dart';
@@ -15,16 +13,14 @@ import 'admin_leave_details_state.dart';
 class AdminLeaveDetailsBloc extends Bloc<AdminLeaveDetailsEvents,AdminLeaveDetailsState> {
   final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
-  final NavigationStackManager _stackManager;
   final AdminLeaveService _adminLeaveService;
 
-  AdminLeaveDetailsBloc(this._userLeaveService, this._stackManager,
+  AdminLeaveDetailsBloc(this._userLeaveService,
       this._adminLeaveService, this._paidLeaveService)
       : super(const AdminLeaveDetailsState()) {
     on<AdminLeaveDetailsInitialLoadEvents>(_initLeaveCounts);
     on<AdminLeaveDetailsApproveRequestEvent>(_approveLeave);
     on<AdminLeaveDetailsRejectRequestEvent>(_rejectLeave);
-    on<AdminLeaveDetailsOnUserContentTapEvent>(_onUserContentTap);
     on<AdminLeaveDetailsChangeAdminReplyValue>(_onReplyChange);
   }
   
@@ -59,7 +55,6 @@ class AdminLeaveDetailsBloc extends Bloc<AdminLeaveDetailsEvents,AdminLeaveDetai
     try {
       _adminLeaveService.updateLeaveStatus(event.leaveId, map);
       emit(state.copyWith(leaveDetailsStatus:AdminLeaveDetailsStatus.success));
-      _stackManager.pop();
     } on Exception {
       emit(state.copyWith(error: firestoreFetchDataError,leaveDetailsStatus:AdminLeaveDetailsStatus.failure));
     }
@@ -73,16 +68,12 @@ class AdminLeaveDetailsBloc extends Bloc<AdminLeaveDetailsEvents,AdminLeaveDetai
     try {
       _adminLeaveService.updateLeaveStatus(event.leaveId, map);
       emit(state.copyWith(leaveDetailsStatus:AdminLeaveDetailsStatus.success));
-      _stackManager.pop();
     } on Exception {
       emit(state.copyWith(error: firestoreFetchDataError,leaveDetailsStatus:AdminLeaveDetailsStatus.failure));
     }
   }
 
-  void _onUserContentTap(AdminLeaveDetailsOnUserContentTapEvent event,
-      Emitter<AdminLeaveDetailsState> emit) {
-    _stackManager.push(NavStackItem.employeeDetailState(id: event.id));
-  }
+
 
   void _onReplyChange(AdminLeaveDetailsChangeAdminReplyValue event,
       Emitter<AdminLeaveDetailsState> emit) {

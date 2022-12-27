@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:projectunity/core/utils/const/role.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/addmember/bloc/add_member_bloc.dart';
 import 'package:projectunity/ui/admin/addmember/bloc/add_member_event.dart';
@@ -9,11 +8,11 @@ import 'package:projectunity/ui/admin/addmember/bloc/add_member_state.dart';
 
 import 'add_member_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, NavigationStackManager])
+
+@GenerateMocks([EmployeeService])
 void main() {
   late AddMemberBloc addMemberBloc;
   late EmployeeService employeeService;
-  late NavigationStackManager stackManager;
   AddMemberFormState initialState = const AddMemberFormState(
       role: 2,
       employeeId: '',
@@ -29,8 +28,7 @@ void main() {
 
   setUp(() {
     employeeService = MockEmployeeService();
-    stackManager = MockNavigationStackManager();
-    addMemberBloc = AddMemberBloc(employeeService, stackManager);
+    addMemberBloc = AddMemberBloc(employeeService);
   });
   group('AddMemberBloc events', () {
     test('Emits all initial state after navigate to Add member screen', () {
@@ -135,8 +133,7 @@ void main() {
   group('Add member bloc stream', () {
     setUpAll(() {
       employeeService = MockEmployeeService();
-      stackManager = MockNavigationStackManager();
-      addMemberBloc = AddMemberBloc(employeeService, stackManager);
+      addMemberBloc = AddMemberBloc(employeeService);
     });
 
     test('Emits state with with selected role on SelectRoleTypeEvent', () {

@@ -24,6 +24,10 @@ class AdminSettingUpdateLeaveCountSuccessState extends AdminSettingUpdateLeaveCo
   @override
   List<Object?> get props => [paidLeaveCount];
 }
+class AdminSettingLeavesUpdatedState extends AdminSettingUpdateLeaveCountState{
+  @override
+  List<Object?> get props => [];
+}
 
 class AdminSettingUpdateLeaveCountFailureState extends AdminSettingUpdateLeaveCountState {
   final String error;

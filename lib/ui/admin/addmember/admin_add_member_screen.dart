@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/addmember/widget/add_member_form.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../../configs/colors.dart';
 import 'bloc/add_member_bloc.dart';
 import 'bloc/add_member_event.dart';
@@ -65,17 +67,24 @@ class AddMemberButton extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 60),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: context.watch<AddMemberBloc>().validForm
-                                ? AppColors.primaryBlue
-                                : AppColors.greyColor,
-                          ),
-                          onPressed: () => context
+                          backgroundColor:
+                              context.watch<AddMemberBloc>().validForm
+                                  ? AppColors.primaryBlue
+                                  : AppColors.greyColor,
+                        ),
+                        onPressed: () {
+                          context
                               .read<AddMemberBloc>()
-                              .add(const SubmitEmployeeFormEvent()),
-                          child: Text(
-                              AppLocalizations.of(context)
-                                  .admin_addMember_button_submit,
-                              style: AppTextStyle.subtitleText)));
+                              .add(const SubmitEmployeeFormEvent());
+                          final bool formSubmitted =
+                              context.watch<AddMemberBloc>().state.status ==
+                                  SubmitFormStatus.done;
+                          formSubmitted ? context.pop : null;
+                        },
+                        child: Text(
+                            AppLocalizations.of(context)
+                                .admin_addMember_button_submit,
+                            style: AppTextStyle.subtitleText)));
               },
               listener: (context, state) {
                 if (state.status == SubmitFormStatus.done) {
@@ -83,6 +92,7 @@ class AddMemberButton extends StatelessWidget {
                       context: context,
                       msg: AppLocalizations.of(context)
                           .admin_add_member_successfully_added);
+                  context.pop();
                 }
                 if (state.status == SubmitFormStatus.error) {
                   showSnackBar(context: context, error: state.msg);

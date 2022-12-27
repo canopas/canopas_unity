@@ -12,14 +12,11 @@ import '../../../../../model/leave_application.dart';
 import '../../../../../core/extensions/list.dart';
 import '../../../../../core/extensions/date_time.dart';
 import '../../../../../services/leave/user_leave_service.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
-import '../../../../../navigation/nav_stack/nav_stack_item.dart';
 import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
 
 @Injectable()
 class AllLeavesViewBloc extends Bloc<AllLeavesViewEvent, AllLeavesViewState> {
 
-  final NavigationStackManager _navigationStackManager;
   final PaidLeaveService _userPaidLeaveService;
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
@@ -27,11 +24,9 @@ class AllLeavesViewBloc extends Bloc<AllLeavesViewEvent, AllLeavesViewState> {
   late StreamSubscription _refreshStreamSubscription;
   List<LeaveApplication> _allLeaveApplications = [];
 
-  AllLeavesViewBloc(this._navigationStackManager, this._userManager, this._userLeaveService, this._userPaidLeaveService,)
+  AllLeavesViewBloc( this._userManager, this._userLeaveService, this._userPaidLeaveService,)
       : super(AllLeavesViewInitialState()) {
     on<AllLeavesInitialLoadEvent>(_onAllLeavesInit);
-    on<AllLeavesToLeaveDetailsNavigationEvent>(_onNavigateToLeaveDetailsEvent);
-    on<AllLeavesToLeaveRequestNavigationEvent>(_onNavigateToLeaveRequestEvent);
     on<ApplyFilterAllLeavesViewEvent>(_onApplyFilter);
     on<RemoveFilterAllLeavesViewEvent>(_onRemoveFilter);
     on<RemoveLeaveApplicationOnAllLeaveViewEvent>(_onRemoveLeaveApplication);
@@ -74,14 +69,6 @@ class AllLeavesViewBloc extends Bloc<AllLeavesViewEvent, AllLeavesViewState> {
 
   void _onRemoveFilter(RemoveFilterAllLeavesViewEvent event,Emitter<AllLeavesViewState> emit){
     emit(AllLeavesViewSuccessState(leaveApplications: _allLeaveApplications.toList()));
-  }
-
-  void _onNavigateToLeaveDetailsEvent(AllLeavesToLeaveDetailsNavigationEvent event,Emitter<AllLeavesViewState> emit) {
-    _navigationStackManager.push(NavStackItem.employeeLeaveDetailState(event.leaveApplication));
-  }
-
-  void _onNavigateToLeaveRequestEvent(AllLeavesToLeaveRequestNavigationEvent event,Emitter<AllLeavesViewState> emit) {
-    _navigationStackManager.push(const NavStackItem.leaveRequestState());
   }
 
   void _onRemoveLeaveApplication(RemoveLeaveApplicationOnAllLeaveViewEvent event,Emitter<AllLeavesViewState> emit) {

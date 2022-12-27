@@ -7,9 +7,9 @@ import 'package:table_calendar/table_calendar.dart';
 
 
 @Injectable()
-class WhoIsOutCalendarBloc extends Bloc<WhoIsOutCalendarEvent, WhoIsOutCalendarState> {
+class EmployeesCalenderBloc extends Bloc<WhoIsOutCalendarEvent, WhoIsOutCalendarState> {
 
-  WhoIsOutCalendarBloc() :
+  EmployeesCalenderBloc() :
         super(WhoIsOutCalendarState(selectedDate: DateTime.now())) {
     on<WhoIsOutCalendarSelectDateEvent>(_onSelectDate);
     on<WhoIsOutCalendarFormatChangeEvent>(_onFormatChange);

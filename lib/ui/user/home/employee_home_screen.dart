@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_event.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
+import '../../../router/app_router.dart';
 import '../../../widget/expanded_app_bar.dart';
 import 'bloc/employee_home_bloc.dart';
 import 'bloc/employee_home_state.dart';
@@ -80,19 +83,13 @@ class _EmployeeHomeAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           IconButton(
-              onPressed: () {
-                context
-                    .read<EmployeeHomeBloc>()
-                    .add(EmployeeHomeShowLeaveCalender());
-              },
+              onPressed: () => context.pushNamed(Routes.userLeaveCalender),
               icon: const Icon(
                 Icons.calendar_month_rounded,
                 color: AppColors.whiteColor,
               )),
           IconButton(
-              onPressed: () {
-                context.read<EmployeeHomeBloc>().add(EmployeeHomeShowSetting());
-              },
+              onPressed: () => context.pushNamed(Routes.userSettings),
               icon: const Icon(
                 Icons.settings,
                 color: AppColors.whiteColor,
@@ -136,28 +133,23 @@ class _EmployeeHomeNavigationCard extends StatelessWidget {
       LeaveNavigationCard(
           color: AppColors.primaryPink,
           leaveText: AppLocalizations.of(context).user_home_all_leaves_tag,
-          onPress: () => context
-              .read<EmployeeHomeBloc>()
-              .add(EmployeeHomeShowAllLeaves())),
+          onPress: () => context.pushNamed(Routes.allLeaves)),
       LeaveNavigationCard(
           color: AppColors.primaryBlue,
           leaveText:
           AppLocalizations.of(context).user_home_requested_leaves_tag,
-          onPress: () => context
-              .read<EmployeeHomeBloc>()
-              .add(EmployeeHomeShowRequestedLeaves())),
+          onPress: () => context.pushNamed(Routes.requested)),
+
       LeaveNavigationCard(
           color: AppColors.primaryGreen,
           leaveText: AppLocalizations.of(context).user_home_upcoming_leaves_tag,
-          onPress: () => context
-              .read<EmployeeHomeBloc>()
-              .add(EmployeeHomeShowUpcomingLeaves())),
+          onPress: () => context.pushNamed(Routes.upcoming)),
+
       LeaveNavigationCard(
           color: AppColors.primaryDarkYellow,
           leaveText: AppLocalizations.of(context).user_home_apply_leave_tag,
-          onPress: () => context
-              .read<EmployeeHomeBloc>()
-              .add(EmployeeHomeShowApplyLeave()))
+          onPress: () => context.pushNamed(Routes.applyLeave)),
+
     ]);
   }
 }

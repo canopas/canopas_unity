@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_event.dart';
 import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_state.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
@@ -12,6 +14,7 @@ import '../../../core/utils/const/leave_map.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
 import '../../../model/leave_application.dart';
+import '../../../router/app_router.dart';
 import '../../../widget/calendar.dart';
 import '../../../widget/user_profile_image.dart';
 import 'bloc/who_is_out_calendar_bloc/who_is_out_calendar_bloc.dart';
@@ -20,33 +23,35 @@ import 'bloc/who_is_out_view_bloc/who_is_out_view_bloc.dart';
 
 
 
-class WhoIsOutCalendarViewProvider extends StatelessWidget {
+class EmployeesLeaveCalenderPage extends StatelessWidget {
 
-  const WhoIsOutCalendarViewProvider({Key? key}) : super(key: key);
+  const EmployeesLeaveCalenderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers:  [
           BlocProvider(
-            create: (_) => getIt<WhoIsOutCalendarBloc>(),
+            create: (_) => getIt<EmployeesCalenderBloc>(),
           ),
           BlocProvider(
             create: (_) => getIt<WhoIsOutViewBloc>()..add(WhoIsOutViewInitialLoadEvent()),
           ),
         ],
-        child: const WhoIsOutCalendarView());
+        child:  WhoIsOutCalendarView());
   }
 }
 
 class WhoIsOutCalendarView extends StatefulWidget {
-  const WhoIsOutCalendarView({Key? key}) : super(key: key);
+   WhoIsOutCalendarView({Key? key}) : super(key: key);
 
   @override
   State<WhoIsOutCalendarView> createState() => _WhoIsOutCalendarViewState();
 }
 
 class _WhoIsOutCalendarViewState extends State<WhoIsOutCalendarView> {
+  UserManager userManager= getIt<UserManager>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +67,17 @@ class _WhoIsOutCalendarViewState extends State<WhoIsOutCalendarView> {
               calendar: TableCalendar(
                 rangeSelectionMode: RangeSelectionMode.disabled,
                 onDaySelected: (selectedDay, focusedDay){
-                  context.read<WhoIsOutCalendarBloc>().add(WhoIsOutCalendarSelectDateEvent(selectedDay));
+                  context.read<EmployeesCalenderBloc>().add(WhoIsOutCalendarSelectDateEvent(selectedDay));
                   context.read<WhoIsOutViewBloc>().add(GetSelectedDateLeavesEvent(selectedDay));
                 },
                 onFormatChanged: (format) {
-                  context.read<WhoIsOutCalendarBloc>().add(WhoIsOutCalendarFormatChangeEvent(format));
+                  context.read<EmployeesCalenderBloc>().add(WhoIsOutCalendarFormatChangeEvent(format));
                 },
-                calendarFormat: context.watch<WhoIsOutCalendarBloc>().state.calendarFormat,
+                calendarFormat: context.watch<EmployeesCalenderBloc>().state.calendarFormat,
                 selectedDayPredicate: (day) {
-                  return isSameDay(context.watch<WhoIsOutCalendarBloc>().state.selectedDate, day);
+                  return isSameDay(context.watch<EmployeesCalenderBloc>().state.selectedDate, day);
                 },
-                focusedDay: context.watch<WhoIsOutCalendarBloc>().state.selectedDate,
+                focusedDay: context.watch<EmployeesCalenderBloc>().state.selectedDate,
                 firstDay: DateTime(2020),
                 lastDay: DateTime(2025),
                 startingDayOfWeek: StartingDayOfWeek.sunday,
@@ -81,7 +86,7 @@ class _WhoIsOutCalendarViewState extends State<WhoIsOutCalendarView> {
                 eventLoader: context.watch<WhoIsOutViewBloc>().getEvents,
               ),
               onVerticalSwipe: (swipe){
-                context.read<WhoIsOutCalendarBloc>().add(WhoIsOutCalendarFormatChangeBySwipeEvent(swipe.index));
+                context.read<EmployeesCalenderBloc>().add(WhoIsOutCalendarFormatChangeBySwipeEvent(swipe.index));
               },
             ),
             Expanded(
@@ -92,17 +97,21 @@ class _WhoIsOutCalendarViewState extends State<WhoIsOutCalendarView> {
                     } else if(state is WhoIsOutViewSuccessState && state.leaveApplications.isNotEmpty){
                       return ListView.separated(
                         padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                        itemBuilder: (BuildContext context, int index) => CalendarEmployeeLeaveCard(
-                          leaveApplication: state.leaveApplications[index],
-                          onTap: (){
-                            context.read<WhoIsOutViewBloc>().add(WhoIsOutLeaveCardTapEvent(state.leaveApplications[index]));
-                          },
-                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          LeaveApplication leaveApplication= state.leaveApplications[index];
+                          return CalendarEmployeeLeaveCard(
+                            leaveApplication: leaveApplication,
+                            onTap: () {
+                              userManager.isAdmin ? context.pushNamed(
+                                  Routes.leaveApplicationDetail,extra: leaveApplication) : context
+                                  .pushNamed(Routes.employeeLeaveDetail,extra: leaveApplication);
+                            } );
+                        },
                         separatorBuilder: (BuildContext context, int index) => const SizedBox(height: primaryVerticalSpacing,),
                         itemCount: state.leaveApplications.length,
                       );}
                     return Center(child: Text( localization.calendar_no_leave_msg(
-                      context.watch<WhoIsOutCalendarBloc>().state.selectedDate
+                      context.watch<EmployeesCalenderBloc>().state.selectedDate
                     ),style: AppTextStyle.secondarySubtitle500,textAlign: TextAlign.center,));
                   }
               ),

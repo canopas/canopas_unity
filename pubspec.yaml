@@ -25,6 +25,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   get_it: ^7.2.0
   google_sign_in: ^5.2.1
+  go_router: ^6.0.0
   intl:
   injectable: ^1.5.3
   json_annotation: ^4.6.0

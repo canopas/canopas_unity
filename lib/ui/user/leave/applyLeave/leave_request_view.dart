@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/bottom_button.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/widget/date_range_selection_leave_request.dart';
@@ -10,6 +11,7 @@ import 'package:projectunity/ui/user/leave/applyLeave/widget/leave_type_card.dar
 import 'package:projectunity/ui/user/leave/applyLeave/widget/total_leave_card.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../core/utils/const/space_constant.dart';
+import '../../../../router/app_router.dart';
 import 'bloc/leave_request_form_bloc/leave_request_view_events.dart';
 import 'bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
 import 'bloc/leave_request_form_bloc/leave_request_view_states.dart';
@@ -49,6 +51,7 @@ class _RequestLeaveViewState extends State<RequestLeaveView> {
             showSnackBar(context: context, error: state.error);
           } else if (state.leaveRequestStatus == LeaveRequestStatus.success) {
             showSnackBar(context: context, msg: localization.user_apply_leave_success_message);
+            context.goNamed(Routes.allLeaves);
           }
         },
         child: ListView(

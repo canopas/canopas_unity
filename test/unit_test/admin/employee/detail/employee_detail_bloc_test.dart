@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
@@ -11,11 +10,9 @@ import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-
-@GenerateMocks([NavigationStackManager, EmployeeService])
+@GenerateMocks([EmployeeService])
 void main() {
   late EmployeeService employeeService;
-  late NavigationStackManager navigationStackManager;
   late EmployeeDetailBloc employeeDetailBloc;
   Employee employee = const Employee(
       id: 'id',
@@ -27,16 +24,13 @@ void main() {
 
   setUpAll(() {
     employeeService = MockEmployeeService();
-    navigationStackManager = MockNavigationStackManager();
-    employeeDetailBloc =
-        EmployeeDetailBloc(navigationStackManager, employeeService);
+    employeeDetailBloc = EmployeeDetailBloc(employeeService);
   });
 
   group('Employee detail bloc', () {
     test('Emits Initial State after employee detail screen is open', () {
       expect(employeeDetailBloc.state, EmployeeDetailInitialState());
     });
-
 
     test('Emits Failure state when employee is found null', () {
       when(employeeService.getEmployee(employee.id))
@@ -51,7 +45,6 @@ void main() {
           ]));
     });
 
-
     test('Emits Failure state when exception is thrown by any cause', () {
       when(employeeService.getEmployee(employee.id))
           .thenThrow(Exception('Employee not found'));
@@ -64,7 +57,6 @@ void main() {
             EmployeeDetailFailureState(error: firestoreFetchDataError)
           ]));
     });
-
 
     test(
         'Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
@@ -79,21 +71,6 @@ void main() {
             EmployeeDetailLoadingState(),
             EmployeeDetailLoadedState(employee: employee)
           ]));
-    });
-  });
-
-
-
-  group("Navigation test", () {
-    test('Navigate to Employee list screen after employee is deleted ',
-        () async {
-      when(employeeService.deleteEmployee(employee.id))
-          .thenAnswer((_) async {
-        return;
-      });
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
-      await untilCalled(navigationStackManager.pop());
-      verify(navigationStackManager.pop()).called(1);
     });
   });
 }

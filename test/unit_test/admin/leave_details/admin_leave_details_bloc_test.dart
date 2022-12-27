@@ -5,8 +5,6 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/navigation/nav_stack/nav_stack_item.dart';
-import 'package:projectunity/navigation/navigation_stack_manager.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
@@ -17,10 +15,9 @@ import 'package:projectunity/ui/admin/leave_details/bloc/admin_leave_details_sta
 
 import 'admin_leave_details_bloc_test.mocks.dart';
 
-@GenerateMocks([UserLeaveService,NavigationStackManager,AdminLeaveService,UserManager,PaidLeaveService])
+@GenerateMocks([UserLeaveService,AdminLeaveService,UserManager,PaidLeaveService])
 void main(){
   late UserLeaveService userLeaveService;
-  late NavigationStackManager stackManager;
   late AdminLeaveService adminLeaveService;
   late AdminLeaveDetailsBloc adminLeaveDetailsBloc;
   late PaidLeaveService paidLeaveService;
@@ -49,10 +46,9 @@ void main(){
 
   setUp((){
     userLeaveService = MockUserLeaveService();
-    stackManager = MockNavigationStackManager();
     adminLeaveService = MockAdminLeaveService();
     paidLeaveService = MockPaidLeaveService();
-    adminLeaveDetailsBloc = AdminLeaveDetailsBloc(userLeaveService, stackManager, adminLeaveService, paidLeaveService);
+    adminLeaveDetailsBloc = AdminLeaveDetailsBloc(userLeaveService, adminLeaveService, paidLeaveService);
     loadingState = const AdminLeaveDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveDetailsLeaveCountStatus.loading);
   });
 
@@ -101,13 +97,6 @@ void main(){
         const AdminLeaveDetailsState(leaveDetailsStatus: AdminLeaveDetailsStatus.rejectLoading),
         const AdminLeaveDetailsState(leaveDetailsStatus: AdminLeaveDetailsStatus.success),
       ]));
-    });
-
-    test("Navigation test to user details screen", () async {
-      const state = NavStackItem.employeeDetailState(id: "id");
-      adminLeaveDetailsBloc.add(AdminLeaveDetailsOnUserContentTapEvent("id"));
-      await untilCalled(stackManager.push(state));
-      verify(stackManager.push(state)).called(1);
     });
 
   });

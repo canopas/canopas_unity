@@ -8,8 +8,6 @@ import 'package:uuid/uuid.dart';
 import '../../../../../../core/utils/const/leave_time_constants.dart';
 import '../../../../../../model/leave/leave.dart';
 import '../../../../../../model/leave_count.dart';
-import '../../../../../../navigation/nav_stack/nav_stack_item.dart';
-import '../../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../../provider/user_data.dart';
 import '../../../../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../../../../services/leave/user_leave_service.dart';
@@ -22,9 +20,8 @@ class LeaveRequestBloc extends Bloc<LeaveRequestEvents, LeaveRequestViewState> {
   final PaidLeaveService _paidLeaveService;
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
-  final NavigationStackManager _navigationStackManager;
 
-  LeaveRequestBloc(this._userManager, this._paidLeaveService, this._userLeaveService, this._navigationStackManager)
+  LeaveRequestBloc(this._userManager, this._paidLeaveService, this._userLeaveService)
       : super(LeaveRequestViewState(
       startDate: DateTime.now().dateOnly,
       endDate: DateTime.now().dateOnly,
@@ -107,13 +104,6 @@ class LeaveRequestBloc extends Bloc<LeaveRequestEvents, LeaveRequestViewState> {
       try {
         await _userLeaveService.applyForLeave(_getLeaveData());
         emit(state.copyWith(leaveRequestStatus: LeaveRequestStatus.success));
-        if(_navigationStackManager.previousState == const NavStackItem.employeeAllLeavesScreenState()){
-          eventBus.fire(AllLeaveUpdateEventListener());
-          _navigationStackManager.pop();
-        } else {
-          _navigationStackManager.pop();
-          _navigationStackManager.push(const NavStackItem.employeeAllLeavesScreenState());
-        }
       } on Exception {
         emit(state.copyWith(error: firestoreFetchDataError,leaveRequestStatus: LeaveRequestStatus.failure));
       }

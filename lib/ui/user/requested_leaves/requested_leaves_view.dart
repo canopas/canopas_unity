@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/model/leave_application.dart';
 import '../../../../ui/user/requested_leaves/bloc/requested_leave_event.dart';
 import '../../../../ui/user/requested_leaves/bloc/requested_leave_state.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
+import '../../../router/app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/empty_screen.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -57,17 +60,18 @@ class _RequestedLeavesViewState extends State<RequestedLeavesView> {
                 message: localization.employee_empty_requested_leaves_view_message,
                 title: localization.employee_empty_requested_leaves_view_title,
                 actionButtonTitle: localization.apply_for_leave_button_text,
-                onActionButtonTap: () => context.read<RequestedLeavesViewBloc>().add(NavigateToLeaveRequestViewRequestedLeavesEvent()),
+                onActionButtonTap: () => context.goNamed(Routes.applyLeave),
                 showActionButton: true,
               );
             } else {
               return ListView.separated(
                 itemCount: state.leaveApplications.length,
                 padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                itemBuilder: (BuildContext context, int index) => LeaveCard(
-                    onTap: () => context.read<RequestedLeavesViewBloc>().add(
-                        NavigateToLeaveDetailsViewRequestedLeavesEvent(leaveApplication: state.leaveApplications[index])),
-                    leaveApplication: state.leaveApplications[index]),
+                itemBuilder: (BuildContext context, int index) {
+                  LeaveApplication leaveApplication= state.leaveApplications[index];
+                 return LeaveCard(
+                      leaveApplication: leaveApplication);
+                },
                 separatorBuilder: (BuildContext context, int index) =>
                 const SizedBox(height: primaryHorizontalSpacing),
               );

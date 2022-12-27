@@ -9,25 +9,20 @@ import '../../../../exception/error_const.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../model/leave_count.dart';
-import '../../../../navigation/nav_stack/nav_stack_item.dart';
-import '../../../../navigation/navigation_stack_manager.dart';
 import '../../../../provider/user_data.dart';
 import '../../../../services/admin/paid_leave/paid_leave_service.dart';
 import '../../../../services/leave/user_leave_service.dart';
 
 @Injectable()
 class RequestedLeavesViewBloc extends Bloc<RequestedLeavesViewEvents,RequestedLeavesViewStates>{
-  final NavigationStackManager _navigationStackManager;
   final PaidLeaveService _userPaidLeaveService;
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
   late StreamSubscription _streamSubscription;
-  RequestedLeavesViewBloc(this._navigationStackManager, this._userPaidLeaveService, this._userLeaveService, this._userManager)
+  RequestedLeavesViewBloc( this._userPaidLeaveService, this._userLeaveService, this._userManager)
       : super(RequestedLeaveViewInitialState()){
       on<RequestedLeavesViewInitialLoadEvent>(_initialLoad);
       on<RemoveLeaveApplicationOnRequestedLeavesEvent>(_removeLeaveApplication);
-      on<NavigateToLeaveDetailsViewRequestedLeavesEvent>(_navigateToLeaveDetails);
-      on<NavigateToLeaveRequestViewRequestedLeavesEvent>(_navigateToLeaveRequest);
 
     _streamSubscription = eventBus.on<LeaveUpdateEventListener>().listen((la) {
       add(RemoveLeaveApplicationOnRequestedLeavesEvent(la.leaveApplication));
@@ -57,13 +52,6 @@ class RequestedLeavesViewBloc extends Bloc<RequestedLeavesViewEvents,RequestedLe
     }
   }
 
-  void _navigateToLeaveDetails(NavigateToLeaveDetailsViewRequestedLeavesEvent event, Emitter<RequestedLeavesViewStates> emit){
-    _navigationStackManager.push(NavStackItem.employeeLeaveDetailState(event.leaveApplication));
-  }
-
-  void _navigateToLeaveRequest(NavigateToLeaveRequestViewRequestedLeavesEvent event, Emitter<RequestedLeavesViewStates> emit){
-    _navigationStackManager.push(const NavStackItem.leaveRequestState());
-  }
 
   Future<LeaveCounts> _currentUserLeaveCount() async {
     double usedLeaveCount = await _userLeaveService.getUserUsedLeaveCount(_userManager.employeeId);

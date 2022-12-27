@@ -6,7 +6,6 @@ import 'package:projectunity/ui/shared/user_leave_calendar/bloc/user_leave_calen
 import '../../../../../core/extensions/leave_extension.dart';
 import '../../../../../event_bus/events.dart';
 import '../../../../../model/leave_count.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../services/admin/employee/employee_service.dart';
 import '../../../../../services/leave/user_leave_service.dart';
 import 'user_leave_calendar_events.dart';
@@ -14,23 +13,20 @@ import '../../../../../exception/error_const.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_application.dart';
-import '../../../../../navigation/nav_stack/nav_stack_item.dart';
 import 'package:collection/collection.dart';
 
 @Injectable()
 class UserLeaveCalendarViewBloc extends Bloc<UserLeaveCalendarEvent,UserLeaveCalendarViewState>{
 
   final UserLeaveService _userLeaveService;
-  final NavigationStackManager _stackManager;
   final EmployeeService _employeeService;
   final PaidLeaveService _paidLeaveService;
   late StreamSubscription _streamSubscription;
 
-  UserLeaveCalendarViewBloc( this._userLeaveService, this._stackManager, this._employeeService, this._paidLeaveService) :
+  UserLeaveCalendarViewBloc( this._userLeaveService, this._employeeService, this._paidLeaveService) :
         super(UserLeaveCalendarViewInitialState()) {
     on<UserLeaveCalendarInitialLoadEvent>(_loadAllLeaves);
     on<DateRangeSelectedEvent>(_onDateRangeSelected);
-    on<LeaveTypeCardTapEvent>(_onLeaveTypeCardTap);
     on<RemoveOrCancelLeaveApplication>(_onRemoveOrCancelLeaveApplication);
     _streamSubscription = eventBus.on<LeaveUpdateEventListener>().listen((la) {
       add(RemoveOrCancelLeaveApplication(la.leaveApplication));
@@ -74,9 +70,6 @@ class UserLeaveCalendarViewBloc extends Bloc<UserLeaveCalendarEvent,UserLeaveCal
     }
   }
 
-  void _onLeaveTypeCardTap(LeaveTypeCardTapEvent event, Emitter<UserLeaveCalendarViewState> emit){
-      _stackManager.push(NavStackItem.employeeLeaveDetailState(event.leaveApplication));
-  }
 
   void _onRemoveOrCancelLeaveApplication(RemoveOrCancelLeaveApplication event,Emitter<UserLeaveCalendarViewState> emit){
     UserLeaveCalendarViewSuccessState successState = state as UserLeaveCalendarViewSuccessState;

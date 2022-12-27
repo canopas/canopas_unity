@@ -7,8 +7,6 @@ import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_application.dart';
-import '../../../../../navigation/nav_stack/nav_stack_item.dart';
-import '../../../../../navigation/navigation_stack_manager.dart';
 import '../../../../../provider/user_data.dart';
 import '../../../../../services/admin/employee/employee_service.dart';
 import '../../../../../services/admin/requests/admin_leave_service.dart';
@@ -18,16 +16,13 @@ import 'package:collection/collection.dart';
 class WhoIsOutViewBloc extends Bloc<WhoIsOutViewEvent, WhoIsOutViewState> {
   final EmployeeService _employeeService;
   final AdminLeaveService _adminLeaveService;
-  final NavigationStackManager _stackManager;
   final UserManager _userManager;
   List<LeaveApplication> _allLeaveRef = [];
 
-  WhoIsOutViewBloc(this._employeeService, this._adminLeaveService,
-      this._stackManager, this._userManager) :
+  WhoIsOutViewBloc(this._employeeService, this._adminLeaveService, this._userManager) :
         super(WhoIsOutViewInitialState()) {
     on<GetSelectedDateLeavesEvent>(_onSelectDate);
     on<WhoIsOutViewInitialLoadEvent>(_loadData);
-    on<WhoIsOutLeaveCardTapEvent>(_onLeaveCardTap);
   }
 
   _onSelectDate(GetSelectedDateLeavesEvent event,
@@ -56,14 +51,6 @@ class WhoIsOutViewBloc extends Bloc<WhoIsOutViewEvent, WhoIsOutViewState> {
     }
   }
 
-  _onLeaveCardTap(WhoIsOutLeaveCardTapEvent event,
-      Emitter<WhoIsOutViewState> emit) {
-    if(_userManager.isAdmin){
-      _stackManager.push(NavStackItem.adminLeaveDetailState(event.leaveApplication));
-    }else {
-      _stackManager.push(NavStackItem.employeeLeaveDetailState(event.leaveApplication));
-    }
-  }
 
   List<LeaveApplication>  getEvents(DateTime day) => _allLeaveRef.where((la) => la.leave.findUserOnLeaveByDate(day: day)).toList();
 }

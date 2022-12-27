@@ -1,10 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/services/auth/auth_service.dart';
-import '../../../navigation/navigation_stack_manager.dart';
 import '../../exception/error_const.dart';
-import '../../navigation/nav_stack/nav_stack_item.dart';
 import '../../pref/user_preference.dart';
+import '../../provider/user_data.dart';
 import 'logout_event.dart';
 import 'logout_state.dart';
 
@@ -12,9 +11,10 @@ import 'logout_state.dart';
 class LogOutBloc extends Bloc<SignOutEvent, LogOutState> {
   final UserPreference _userPreference;
   final AuthService _authService;
-  final NavigationStackManager _navigationStackManager;
+  final UserManager _userManager;
 
-  LogOutBloc(this._navigationStackManager, this._userPreference, this._authService)
+
+  LogOutBloc( this._userPreference, this._authService,this._userManager)
       : super(LogOutInitialState()) {
     on<SignOutEvent>(_signOut);
   }
@@ -24,8 +24,8 @@ class LogOutBloc extends Bloc<SignOutEvent, LogOutState> {
     bool isLogOut = await _authService.signOutWithGoogle();
     if (isLogOut) {
       await _userPreference.removeCurrentUser();
+      _userManager.hasLoggedIn();
       emit(LogOutSuccessState());
-      _navigationStackManager.clearAndPush(const LoginNavStackItem());
     } else {
       emit(LogOutFailureState(error: signOutError));
     }

@@ -5,10 +5,10 @@ import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_calen
 import 'package:table_calendar/table_calendar.dart';
 void main(){
 
-  late WhoIsOutCalendarBloc whoIsOutCalendarBloc;
+  late EmployeesCalenderBloc whoIsOutCalendarBloc;
 
   setUpAll((){
-    whoIsOutCalendarBloc = WhoIsOutCalendarBloc();
+    whoIsOutCalendarBloc = EmployeesCalenderBloc();
   });
 
   group("Who is Out calendar test", () {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_bloc.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
@@ -13,6 +14,7 @@ import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
+import '../../../router/app_router.dart';
 
 class AdminHomePage extends StatelessWidget {
   const AdminHomePage({Key? key}) : super(key: key);
@@ -101,15 +103,13 @@ class HomePageAppbar extends StatelessWidget {
                 Icons.add,
                 color: AppColors.whiteColor,
               ),
-              onPressed: () =>
-            context.read<AdminHomeBloc>().add(AdminHomeNavigateToAddMember())),
+              onPressed: () =>context.goNamed(Routes.addMember)),
           IconButton(
               icon: const Icon(
                 Icons.settings,
                 color: AppColors.whiteColor,
               ),
-              onPressed: () =>
-                  context.read<AdminHomeBloc>().add(AdminHomeNavigateToSetting())),
+              onPressed: () =>context.goNamed(Routes.adminSettings)),
         ]));
   }
 }
@@ -147,9 +147,7 @@ class EmployeeSummaryCard extends StatelessWidget {
                 children: [
               InkWell(
               borderRadius: BorderRadius.circular(10),
-              onTap: ()=>
-                  context.read<AdminHomeBloc>().add(AdminHomeNavigateToEmployeeList()),
-
+              onTap: ()=>context.pushNamed(Routes.employees),
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -202,9 +200,7 @@ class EmployeeSummaryCard extends StatelessWidget {
                   ),
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
-                    onTap: ()=>
-                        context.read<AdminHomeBloc>().add(AdminHomeNavigateToAbsenceList()),
-
+                    onTap: ()=>context.pushNamed(Routes.adminCalender),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
