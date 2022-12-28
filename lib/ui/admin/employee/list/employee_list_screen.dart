@@ -56,24 +56,19 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       ),
       body: BlocConsumer<EmployeeListBloc, EmployeeListState>(
         builder: (BuildContext context, EmployeeListState state) {
-          if (state is EmployeeListInitialState) {
-            return Container();
-          } else if (state is EmployeeListLoadingState) {
+          if (state is EmployeeListLoadingState) {
             return const AppCircularProgressIndicator();
           } else if (state is EmployeeListLoadedState) {
             List<Employee> employees = state.employees;
-            return Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
-              child: ListView.builder(
-                  itemCount: employees.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Employee employee = employees[index];
-                    return EmployeeCard(employee: employee);
-                  }),
-            );
+            return ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
+                itemCount: employees.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Employee employee = employees[index];
+                  return EmployeeCard(employee: employee);
+                });
           }
-          return Container();
+          return const SizedBox();
         },
         listener: (BuildContext context, EmployeeListState state){
           if(state is EmployeeListFailureState){

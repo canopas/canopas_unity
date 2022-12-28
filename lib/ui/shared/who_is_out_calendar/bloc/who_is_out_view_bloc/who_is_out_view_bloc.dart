@@ -7,7 +7,6 @@ import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_application.dart';
-import '../../../../../provider/user_data.dart';
 import '../../../../../services/admin/employee/employee_service.dart';
 import '../../../../../services/admin/requests/admin_leave_service.dart';
 import 'package:collection/collection.dart';
@@ -16,10 +15,9 @@ import 'package:collection/collection.dart';
 class WhoIsOutViewBloc extends Bloc<WhoIsOutViewEvent, WhoIsOutViewState> {
   final EmployeeService _employeeService;
   final AdminLeaveService _adminLeaveService;
-  final UserManager _userManager;
   List<LeaveApplication> _allLeaveRef = [];
 
-  WhoIsOutViewBloc(this._employeeService, this._adminLeaveService, this._userManager) :
+  WhoIsOutViewBloc(this._employeeService, this._adminLeaveService) :
         super(WhoIsOutViewInitialState()) {
     on<GetSelectedDateLeavesEvent>(_onSelectDate);
     on<WhoIsOutViewInitialLoadEvent>(_loadData);

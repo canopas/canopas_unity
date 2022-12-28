@@ -8,7 +8,7 @@ import 'onboard_event.dart';
 class OnBoardBloc extends Bloc<OnBoardEvent,int>{
 
   final UserPreference _preference;
-  UserManager _userManager;
+  final UserManager _userManager;
   OnBoardBloc(this._preference,this._userManager) : super(0){
     on<SetOnBoardCompletedEvent>(_setOnBoardCompleted);
     on<CurrentPageChangeEvent>(_onCurrentPageChange);

@@ -38,12 +38,12 @@ class EmployeesLeaveCalenderPage extends StatelessWidget {
             create: (_) => getIt<WhoIsOutViewBloc>()..add(WhoIsOutViewInitialLoadEvent()),
           ),
         ],
-        child:  WhoIsOutCalendarView());
+        child:  const WhoIsOutCalendarView());
   }
 }
 
 class WhoIsOutCalendarView extends StatefulWidget {
-   WhoIsOutCalendarView({Key? key}) : super(key: key);
+   const WhoIsOutCalendarView({Key? key}) : super(key: key);
 
   @override
   State<WhoIsOutCalendarView> createState() => _WhoIsOutCalendarViewState();
@@ -146,8 +146,8 @@ class CalendarEmployeeLeaveCard extends StatelessWidget {
           onTap: onTap,
           trailing: const Icon(Icons.arrow_forward_ios_rounded),
           leading: ImageProfile(radius: 30,imageUrl: leaveApplication.employee.imageUrl),
-          title: Text(leaveApplication.employee.name),
-          subtitle: Text(leaveApplication.employee.employeeId),
+          title: Text(leaveApplication.employee.name,overflow: TextOverflow.ellipsis,),
+          subtitle: Text(leaveApplication.employee.employeeId,overflow: TextOverflow.ellipsis,),
         ),
       ),
     );

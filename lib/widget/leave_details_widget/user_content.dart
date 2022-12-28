@@ -12,29 +12,38 @@ class UserContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: ()=>context.pushNamed(Routes.employeeDetail,params: {'employeeId':employee.id}),
         child: Padding(
-          padding:  const EdgeInsets.symmetric(vertical: primaryHalfSpacing ,horizontal: primaryVerticalSpacing),
+          padding: const EdgeInsets.symmetric(
+              vertical: primaryHalfSpacing, horizontal: primaryVerticalSpacing),
           child: Row(
             children: [
               ImageProfile(radius: 30, imageUrl: employee.imageUrl),
               const SizedBox(
                 width: 10,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildUserName(name: employee.name),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  _buildDesignation(designation: employee.designation)
-                ],
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      employee.name,
+                      style: AppTextStyle.subtitleTextDark.copyWith(fontWeight: FontWeight.w600),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    Text(employee.designation,
+                        style: AppTextStyle.secondaryBodyText,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -42,18 +51,4 @@ class UserContent extends StatelessWidget {
       ),
     );
   }
-
-  Text _buildDesignation({required String designation}) {
-    return Text(
-      designation,
-      style: AppTextStyle.secondaryBodyText
-    );
-  }
-}
-
-Text _buildUserName({required String name}) {
-  return Text(
-    name,
-    style: AppTextStyle.subtitleTextDark.copyWith(fontWeight: FontWeight.w600),
-  );
 }

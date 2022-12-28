@@ -98,6 +98,6 @@ class AddMemberButton extends StatelessWidget {
                   showSnackBar(context: context, error: state.msg);
                 }
               },
-            )):Container();
+            )):const SizedBox();
   }
 }

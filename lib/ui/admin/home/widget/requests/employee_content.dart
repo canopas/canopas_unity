@@ -33,6 +33,7 @@ class EmployeeContent extends StatelessWidget {
               Text(
                 employee.name,
                 style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
                 height: 5,
@@ -40,6 +41,7 @@ class EmployeeContent extends StatelessWidget {
               Text(
                 employee.employeeId,
                 style: AppTextStyle.secondaryBodyText,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

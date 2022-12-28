@@ -5,7 +5,6 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
 import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_view_bloc.dart';
@@ -14,12 +13,11 @@ import 'package:projectunity/ui/shared/who_is_out_calendar/bloc/who_is_out_view_
 
 import 'who_is_out_view_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService,AdminLeaveService,UserManager])
+@GenerateMocks([EmployeeService,AdminLeaveService])
 void main(){
 
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
-  late UserManager userManager;
   late WhoIsOutViewBloc whoIsOutViewBloc;
 
   const employee = Employee(
@@ -49,8 +47,7 @@ void main(){
   setUpAll((){
        employeeService = MockEmployeeService();
        adminLeaveService = MockAdminLeaveService();
-       userManager = MockUserManager();
-       whoIsOutViewBloc = WhoIsOutViewBloc(employeeService, adminLeaveService,userManager);
+       whoIsOutViewBloc = WhoIsOutViewBloc(employeeService, adminLeaveService);
   });
 
   group("who is out view test", () {
