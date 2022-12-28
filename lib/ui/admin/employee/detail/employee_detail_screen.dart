@@ -48,9 +48,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
       ),
       body: BlocConsumer<EmployeeDetailBloc,AdminEmployeeDetailState>(
         builder: (BuildContext context,AdminEmployeeDetailState state) {
-          if(state is EmployeeDetailInitialState){
-            return Container();
-          }else if(state is EmployeeDetailLoadingState){
+          if(state is EmployeeDetailLoadingState){
             return const AppCircularProgressIndicator();
           }else if (state is EmployeeDetailLoadedState){
             final employee =  state.employee;
@@ -58,7 +56,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               ProfileCard(employee: employee),
               ProfileDetail(employee: employee),
             ]);
-          }return Container();
+          }return const SizedBox();
         },
         listener: (BuildContext context,AdminEmployeeDetailState state){
           if(state is EmployeeDetailFailureState){

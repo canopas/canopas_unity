@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../model/leave_application.dart';
 
 abstract class WhoIsOutViewEvent extends Equatable{}
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart';
-import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../model/employee/employee.dart';
@@ -29,15 +27,17 @@ class EmployeeCard extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                EmployeeName(name: employee.name),
-                const SizedBox(
-                  height: 5,
-                ),
-                EmployeeDesignation(designation: employee.designation)
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  EmployeeName(name: employee.name),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  EmployeeDesignation(designation: employee.designation)
+                ],
+              ),
             )
           ],
         ),

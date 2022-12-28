@@ -45,11 +45,13 @@ class ProfileCard extends StatelessWidget {
               Text(
                   employee.name,
                   style: AppTextStyle.headerDark600,
+                  textAlign: TextAlign.center,
               ),
               const SizedBox(height: 6),
               Text(
                 employee.designation,
-                style: AppTextStyle.secondarySubtitle500
+                style: AppTextStyle.secondarySubtitle500,
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: MediaQuery.of(context).size.height*0.03),
               Row(

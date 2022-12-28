@@ -57,7 +57,7 @@ class _EmployeeSettingViewState extends State<EmployeeSettingView> {
                   style: AppTextStyle.largeHeaderBold),
               buildSettingSubTitle(subtitle: localizations.settings_account_text),
               UserIntroContent(),
-              Expanded(child: Container()),
+              const Spacer(),
               Center(
                 child: BlocBuilder<LogOutBloc, LogOutState>(
                     builder: (context, state) => state is LogOutLoadingState

@@ -27,18 +27,21 @@ class UserIntroContent extends StatelessWidget {
             const SizedBox(
               width: primaryHorizontalSpacing,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(_userManager.userName, style: AppTextStyle.headerTextBold),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  _userManager.employeeDesignation,
-                  style: AppTextStyle.bodyTextDark,
-                ),
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(_userManager.userName, style: AppTextStyle.headerTextBold,overflow: TextOverflow.ellipsis,),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    _userManager.employeeDesignation,
+                    style: AppTextStyle.bodyTextDark,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

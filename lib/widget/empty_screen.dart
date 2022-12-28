@@ -38,7 +38,7 @@ class EmptyScreen extends StatelessWidget {
             SizedBox(height: (showActionButton)?MediaQuery.of(context).size.height*0.035:0,),
             (showActionButton)?ElevatedButton(
 
-                onPressed: onActionButtonTap, child: Text(actionButtonTitle, style: AppTextStyle.subtitleText,)):Container(),
+                onPressed: onActionButtonTap, child: Text(actionButtonTitle, style: AppTextStyle.subtitleText,)):const SizedBox(),
           ],
         ),
       ),

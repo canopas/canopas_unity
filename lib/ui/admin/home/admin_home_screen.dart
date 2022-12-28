@@ -47,7 +47,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
       body:BlocListener<AdminHomeBloc,AdminHomeState>(
         listener: (context,state){
-          state.status==AdminHomeStatus.failure ?showSnackBar(context: context,error: state.error,msg: 'ghjgj'):null;
+          state.status==AdminHomeStatus.failure ?showSnackBar(context: context,error: state.error):null;
         },
         child: Stack(
               children: [
@@ -58,16 +58,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     Expanded(
                       child: BlocBuilder<AdminHomeBloc,AdminHomeState>(
                           builder: (context, state) {
-                            if (state.status == AdminHomeStatus.initial) {
-                              return Container();
-                            }
                             if (state.status == AdminHomeStatus.loading) {
                               return const AppCircularProgressIndicator();
-                            }
-                            if (state.status == AdminHomeStatus.success) {
+                            } else if (state.status == AdminHomeStatus.success) {
                               final map = state.leaveAppMap;
                               return LeaveRequestList(map: map);
-                            }return Container();
+                            }return const SizedBox();
                           }
                       ),
                     ),
@@ -145,62 +141,38 @@ class EmployeeSummaryCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-              InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: ()=>context.pushNamed(Routes.employees),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                   const Icon(
-                      Icons.people,
-                      size: 26,
-                       color: AppColors.primaryGreen,
-                    ),
-                    Text( AppLocalizations.of(context)
-                        .admin_home_employee_tag, style: AppTextStyle.secondaryBodyText),
+              Expanded(
+                child: InkWell(
+                borderRadius: BorderRadius.circular(10),
+                onTap: ()=>context.pushNamed(Routes.employees),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                     const Icon(
+                        Icons.people,
+                        size: 26,
+                         color: AppColors.primaryGreen,
+                      ),
+                      Text( AppLocalizations.of(context)
+                          .admin_home_employee_tag, style: AppTextStyle.secondaryBodyText),
 
-                    BlocBuilder<AdminHomeBloc,AdminHomeState>(
-                      builder: (context,state){
-                        final String employeesCount= state.totalOfEmployees.toString();
-                        return Text(employeesCount,style: AppTextStyle.headerTextBold
-                        );
-                      },
+                      BlocBuilder<AdminHomeBloc,AdminHomeState>(
+                        builder: (context,state){
+                          final String employeesCount= state.totalOfEmployees.toString();
+                          return Text(employeesCount,style: AppTextStyle.headerTextBold
+                          );
+                        },
 
-                    ),
-                  ],
-                ),
-              ),
-            ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.notifications_active_rounded,
-                          size: 26,
-                          color: AppColors.primaryDarkYellow,
-                        ),
-                        Text(AppLocalizations.of(context)
-                            .admin_home_request_tag, style: AppTextStyle.secondaryBodyText),
-
-                        BlocBuilder<AdminHomeBloc,AdminHomeState>(
-                          builder: (context,state) {
-                            String requestsCount= state.totalOfRequests.toString();
-                            return Text(requestsCount,style: AppTextStyle.headerTextBold
-                            );
-                          }
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: ()=>context.pushNamed(Routes.adminCalender),
+                ),
+            ),
+              ),
+                  Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
@@ -208,21 +180,51 @@ class EmployeeSummaryCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            Icons.calendar_month_rounded,
+                            Icons.notifications_active_rounded,
                             size: 26,
-                            color: AppColors.primaryPink,
+                            color: AppColors.primaryDarkYellow,
                           ),
-                          Text( AppLocalizations.of(context).admin_home_absence_tag, style: AppTextStyle.secondaryBodyText),
+                          Text(AppLocalizations.of(context)
+                              .admin_home_request_tag, style: AppTextStyle.secondaryBodyText),
 
                           BlocBuilder<AdminHomeBloc,AdminHomeState>(
-                            builder: (context,state){
-                             final String absenceCount= state.totalAbsence.toString();
-                              return Text(absenceCount,style: AppTextStyle.headerTextBold
+                            builder: (context,state) {
+                              String requestsCount= state.totalOfRequests.toString();
+                              return Text(requestsCount,style: AppTextStyle.headerTextBold
                               );
-                            },
-
+                            }
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: ()=>context.pushNamed(Routes.adminCalender),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.calendar_month_rounded,
+                              size: 26,
+                              color: AppColors.primaryPink,
+                            ),
+                            Text( AppLocalizations.of(context).admin_home_absence_tag, style: AppTextStyle.secondaryBodyText),
+
+                            BlocBuilder<AdminHomeBloc,AdminHomeState>(
+                              builder: (context,state){
+                               final String absenceCount= state.totalAbsence.toString();
+                                return Text(absenceCount,style: AppTextStyle.headerTextBold
+                                );
+                              },
+
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
