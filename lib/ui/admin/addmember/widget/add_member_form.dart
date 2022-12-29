@@ -19,13 +19,11 @@ class AddMemberForm extends StatelessWidget {
     final bloc = BlocProvider.of<AddMemberBloc>(context);
     var localization = AppLocalizations.of(context);
     return ListView(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: primaryHorizontalSpacing,
         right: primaryHorizontalSpacing,
         top: 24,
-        bottom: MediaQuery.of(context).viewInsets.bottom != 0
-            ? primaryHorizontalSpacing
-            : 100,
+        bottom: 100,
       ),
       children: [
         ToggleButton(

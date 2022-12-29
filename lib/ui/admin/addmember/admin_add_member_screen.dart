@@ -7,7 +7,6 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/addmember/widget/add_member_form.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../configs/colors.dart';
 import 'bloc/add_member_bloc.dart';
 import 'bloc/add_member_event.dart';
@@ -36,7 +35,6 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).admin_addMember_addMember_tag),
@@ -53,9 +51,7 @@ class AddMemberButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-    return  !keyboardIsOpen?
-     Container(
+    return MediaQuery.of(context).viewInsets.bottom == 0? Container(
             margin: const EdgeInsets.only(bottom: 30),
             child: BlocConsumer<AddMemberBloc, AddMemberFormState>(
               builder: (context, state) {
@@ -77,7 +73,7 @@ class AddMemberButton extends StatelessWidget {
                               .read<AddMemberBloc>()
                               .add(const SubmitEmployeeFormEvent());
                           final bool formSubmitted =
-                              context.watch<AddMemberBloc>().state.status ==
+                              context.read<AddMemberBloc>().state.status ==
                                   SubmitFormStatus.done;
                           formSubmitted ? context.pop : null;
                         },
