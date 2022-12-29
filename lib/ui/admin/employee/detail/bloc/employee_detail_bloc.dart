@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
+import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 
@@ -11,9 +12,10 @@ import '../../../../../model/employee/employee.dart';
 @Injectable()
 class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
+  final UserLeaveService _userLeaveService;
   final EmployeeService _employeeService;
 
-  EmployeeDetailBloc( this._employeeService)
+  EmployeeDetailBloc(this._employeeService, this._userLeaveService)
       : super(EmployeeDetailInitialState()) {
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
     on<DeleteEmployeeEvent>(_onDeleteEmployeeEvent);
@@ -41,6 +43,7 @@ class EmployeeDetailBloc
       Emitter<AdminEmployeeDetailState> emit) async {
     try {
         await _employeeService.deleteEmployee(event.employeeId);
+        await _userLeaveService.deleteAllLeaves(event.employeeId);
         return true;
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));

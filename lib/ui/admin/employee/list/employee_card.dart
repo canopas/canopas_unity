@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
