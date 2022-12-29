@@ -31,7 +31,6 @@ import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_c
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i4;
 import '../ui/login/bloc/login_view_bloc.dart' as _i32;
-import '../ui/onboard/bloc/onboard_bloc.dart' as _i33;
 import '../ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i9;
 import '../ui/shared/user_leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
@@ -48,9 +47,9 @@ import '../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_v
     as _i30;
 import '../ui/user/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart'
     as _i29;
-import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i34;
-import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i35;
-import 'app_module.dart' as _i36; // ignore_for_file: unnecessary_lambdas
+import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i33;
+import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i34;
+import 'app_module.dart' as _i35; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -156,16 +155,12 @@ Future<_i1.GetIt> $initGetIt(
         get<_i25.UserManager>(),
         get<_i6.AuthService>(),
       ));
-  gh.factory<_i33.OnBoardBloc>(() => _i33.OnBoardBloc(
-        get<_i15.UserPreference>(),
-        get<_i25.UserManager>(),
-      ));
-  gh.factory<_i34.RequestedLeavesViewBloc>(() => _i34.RequestedLeavesViewBloc(
+  gh.factory<_i33.RequestedLeavesViewBloc>(() => _i33.RequestedLeavesViewBloc(
         get<_i12.PaidLeaveService>(),
         get<_i14.UserLeaveService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i35.UpcomingLeavesViewBloc>(() => _i35.UpcomingLeavesViewBloc(
+  gh.factory<_i34.UpcomingLeavesViewBloc>(() => _i34.UpcomingLeavesViewBloc(
         get<_i12.PaidLeaveService>(),
         get<_i14.UserLeaveService>(),
         get<_i25.UserManager>(),
@@ -173,4 +168,4 @@ Future<_i1.GetIt> $initGetIt(
   return get;
 }
 
-class _$AppModule extends _i36.AppModule {}
+class _$AppModule extends _i35.AppModule {}
