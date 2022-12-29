@@ -17,7 +17,6 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(employee.roleType);
     var localization = AppLocalizations.of(context);
     return Stack(
       alignment: const Alignment(0, -1),

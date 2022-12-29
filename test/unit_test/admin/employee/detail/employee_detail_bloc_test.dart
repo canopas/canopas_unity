@@ -22,7 +22,15 @@ void main() {
       email: 'andrew.j@canopas.com',
       designation: 'Android developer');
 
-  setUpAll(() {
+  Employee admin = const Employee(
+      id: 'id',
+      roleType: 1,
+      name: 'Andrew jhone',
+      employeeId: 'CA 1254',
+      email: 'andrew.j@canopas.com',
+      designation: 'Android developer');
+
+  setUp(() {
     employeeService = MockEmployeeService();
     employeeDetailBloc = EmployeeDetailBloc(employeeService);
   });
@@ -63,14 +71,31 @@ void main() {
         () {
       when(employeeService.getEmployee(employee.id))
           .thenAnswer((_) async => employee);
-      employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
+      employeeDetailBloc.add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
       expectLater(
           employeeDetailBloc.stream,
           emitsInOrder([
             EmployeeDetailLoadingState(),
             EmployeeDetailLoadedState(employee: employee)
           ]));
+    });
+
+    test('test for make user as admin', (){
+      employeeDetailBloc.emit(EmployeeDetailLoadedState(employee: employee));
+      employeeDetailBloc.add(EmployeeDetailsChangeRoleTypeEvent());
+
+      expectLater(
+          employeeDetailBloc.stream,
+          emits(EmployeeDetailLoadedState(employee: admin)));
+    });
+
+    test('test for remove user as admin', (){
+      employeeDetailBloc.emit(EmployeeDetailLoadedState(employee: admin));
+      employeeDetailBloc.add(EmployeeDetailsChangeRoleTypeEvent());
+
+      expectLater(
+          employeeDetailBloc.stream,
+          emits(EmployeeDetailLoadedState(employee: employee)));
     });
   });
 }
