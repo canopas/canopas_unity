@@ -15,7 +15,6 @@ class ToggleButton extends StatefulWidget {
 
 Map<int, double> roleTypeSelectionAlignment = {
   kRoleTypeEmployee: -1,
-  kRoleTypeHR: 0,
   kRoleTypeAdmin: 1,
 };
 
@@ -24,7 +23,7 @@ class _ToggleButtonState extends State<ToggleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width * 0.3;
+    final double width = MediaQuery.of(context).size.width * (90/roleTypeSelectionAlignment.length/100);
     var localization = AppLocalizations.of(context);
 
     return Center(

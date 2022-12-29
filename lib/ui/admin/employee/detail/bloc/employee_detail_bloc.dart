@@ -8,6 +8,7 @@ import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 import '../../../../../model/employee/employee.dart';
+import '../../../../../provider/user_data.dart';
 
 
 @Injectable()
@@ -15,8 +16,9 @@ class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
   final UserLeaveService _userLeaveService;
   final EmployeeService _employeeService;
+  final UserManager _userManager;
 
-  EmployeeDetailBloc(this._employeeService, this._userLeaveService)
+  EmployeeDetailBloc(this._employeeService, this._userLeaveService, this._userManager)
       : super(EmployeeDetailInitialState()) {
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
     on<DeleteEmployeeEvent>(_onDeleteEmployeeEvent);
@@ -40,6 +42,8 @@ class EmployeeDetailBloc
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
   }
+
+  bool get currentUserIsAdmin => _userManager.isAdmin;
 
   Future<void> _makeAndRemoveAsAdmin(EmployeeDetailsChangeRoleTypeEvent event,
       Emitter<AdminEmployeeDetailState> emit) async {

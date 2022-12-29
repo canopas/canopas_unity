@@ -85,7 +85,7 @@ class ProfileCard extends StatelessWidget {
               const SizedBox(
                 height: primaryHorizontalSpacing,
               ),
-              OutlinedButton(
+              context.read<EmployeeDetailBloc>().currentUserIsAdmin?OutlinedButton(
                   onPressed: (){
                     context.read<EmployeeDetailBloc>().add(DeleteEmployeeEvent(employeeId: employee.id));
                     context.pop();
@@ -103,8 +103,8 @@ class ProfileCard extends StatelessWidget {
                     AppLocalizations.of(context).user_leave_detail_button_delete,
                     style: AppTextStyle.subtitleText,
                   ),
-              ),
-              OutlinedButton(
+              ):const SizedBox(),
+              context.read<EmployeeDetailBloc>().currentUserIsAdmin?OutlinedButton(
                   onPressed: () {
                     context.read<EmployeeDetailBloc>().add(EmployeeDetailsChangeRoleTypeEvent());
                   },
@@ -117,7 +117,8 @@ class ProfileCard extends StatelessWidget {
                     backgroundColor: employee.roleType!=kRoleTypeAdmin?AppColors.primaryBlue.withOpacity(0.20):AppColors.redColor.withOpacity(0.20),
                     foregroundColor: Colors.black,
                   ),
-                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_admin_tag:localization.employee_details_remove_admin_tag,style: AppTextStyle.subtitleText,))
+                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_admin_tag:localization.employee_details_remove_admin_tag,style: AppTextStyle.subtitleText,)
+              ):const SizedBox(),
             ],
           ),
         ),

@@ -45,8 +45,8 @@ void main() {
       });
 
       test('Emits state with with selected role on SelectRoleTypeEvent', () {
-        addMemberBloc.add(const SelectRoleTypeEvent(roleType: kRoleTypeHR));
-        const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeHR);
+        addMemberBloc.add(const SelectRoleTypeEvent(roleType: kRoleTypeAdmin));
+        const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeAdmin);
         expect(addMemberBloc.stream, emits(stateWithSelectedRole));
       });
     });
@@ -137,13 +137,13 @@ void main() {
     });
 
     test('Emits state with with selected role on SelectRoleTypeEvent', () {
-      addMemberBloc.add(const SelectRoleTypeEvent(roleType: kRoleTypeHR));
-      const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeHR);
+      addMemberBloc.add(const SelectRoleTypeEvent(roleType: kRoleTypeAdmin));
+      const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeAdmin);
       expect(addMemberBloc.stream, emitsInOrder([stateWithSelectedRole]));
 
       addMemberBloc.add(const AddEmployeeNameEvent(name: 'Andrew jhone'));
       AddMemberFormState stateWithEmployeeName = const AddMemberFormState(
-          name: 'Andrew jhone', nameError: false, role: kRoleTypeHR);
+          name: 'Andrew jhone', nameError: false, role: kRoleTypeAdmin);
       expectLater(addMemberBloc.stream,
           emitsInOrder([stateWithSelectedRole, stateWithEmployeeName]));
 
@@ -154,7 +154,7 @@ void main() {
           emailError: false,
           name: 'Andrew jhone',
           nameError: false,
-          role: kRoleTypeHR);
+          role: kRoleTypeAdmin);
       expectLater(
           addMemberBloc.stream,
           emitsInOrder([
@@ -173,7 +173,7 @@ void main() {
               emailError: false,
               name: 'Andrew jhone',
               nameError: false,
-              role: kRoleTypeHR);
+              role: kRoleTypeAdmin);
       expectLater(
           addMemberBloc.stream,
           emitsInOrder([

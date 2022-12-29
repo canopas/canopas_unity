@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
@@ -11,11 +12,12 @@ import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserLeaveService])
+@GenerateMocks([EmployeeService, UserLeaveService, UserManager])
 void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late UserLeaveService userLeaveService;
+  late UserManager userManager;
   Employee employee = const Employee(
       id: 'id',
       roleType: 2,
@@ -35,7 +37,8 @@ void main() {
   setUp(() {
     employeeService = MockEmployeeService();
     userLeaveService = MockUserLeaveService();
-    employeeDetailBloc = EmployeeDetailBloc(employeeService, userLeaveService);
+    userManager = MockUserManager();
+    employeeDetailBloc = EmployeeDetailBloc(employeeService, userLeaveService, userManager);
   });
 
   group('Employee detail bloc', () {
