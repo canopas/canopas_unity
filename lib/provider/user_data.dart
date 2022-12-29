@@ -7,20 +7,15 @@ import '../core/utils/const/role.dart';
 @Singleton()
 class UserManager with ChangeNotifier {
   final UserPreference _userPreference;
-   bool onBoarded= false;
    bool loggedIn= false;
 
   UserManager(this._userPreference){
-    onBoarded= _userPreference.getOnBoardCompleted()!=null;
     loggedIn= _userPreference.getCurrentUser()!=null;
   }
 
   Employee? get _employee => _userPreference.getCurrentUser();
 
-  String? getUserName() {
-    String? fullName = _employee?.name;
-    return fullName;
-  }
+  String get userName => _employee?.name ?? "";
 
   String? get userImage => _employee?.imageUrl;
 
@@ -30,14 +25,8 @@ class UserManager with ChangeNotifier {
 
   String get employeeDesignation => _employee!.designation;
 
-  String get userName => getUserName()!;
-
   bool get isUserLoggedIn => _employee != null;
 
-  void hasOnBoarded(){
-    onBoarded= _userPreference.getOnBoardCompleted()!=null;
-    notifyListeners();
-  }
   void hasLoggedIn(){
     loggedIn= _employee !=null;
     notifyListeners();

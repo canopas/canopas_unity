@@ -1,15 +1,11 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/addmember/admin_add_member_screen.dart';
-import 'package:projectunity/ui/onboard/onboard_screen.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_view.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/leave_request_view.dart';
 import 'package:projectunity/ui/user/requested_leaves/requested_leaves_view.dart';
-
 import '../model/leave_application.dart';
 import '../provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
@@ -50,11 +46,6 @@ class AppRouter {
               name: Routes.login,
               pageBuilder: (context, state) =>
                   const MaterialPage(child: LoginPage())),
-          GoRoute(
-              name: Routes.onBoard,
-              path: '/start',
-              pageBuilder: (context, state) =>
-                  const MaterialPage(child: OnBoardScreenBlocProvider())),
           GoRoute(
               name: Routes.adminHome,
               path: '/admin',
@@ -202,11 +193,7 @@ class AppRouter {
 
         ],
         redirect: (context, state) {
-          final onBoarding = state.subloc == Routes.onBoard;
           final loggingIn = state.subloc == Routes.login;
-          if (!userManager.onBoarded) {
-            return onBoarding ? null : Routes.onBoard;
-          }
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
@@ -220,7 +207,6 @@ class AppRouter {
 
 abstract class Routes {
   static const rootRoute = '/';
-  static const onBoard = '/start';
   static const login = '/login';
   static const adminHome = '/admin';
   static const employees = '/employees';
