@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
@@ -85,6 +86,25 @@ class ProfileCard extends StatelessWidget {
                 height: primaryHorizontalSpacing,
               ),
               OutlinedButton(
+                  onPressed: (){
+                    context.read<EmployeeDetailBloc>().add(DeleteEmployeeEvent(employeeId: employee.id));
+                    context.pop();
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    fixedSize: Size(MediaQuery.of(context).size.width, 40),
+                    side: BorderSide.none,
+                    backgroundColor: AppColors.redColor.withOpacity(0.20),
+                    foregroundColor: Colors.black,
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context).user_leave_detail_button_delete,
+                    style: AppTextStyle.subtitleText,
+                  ),
+              ),
+              OutlinedButton(
                   onPressed: () {
                     context.read<EmployeeDetailBloc>().add(EmployeeDetailsChangeRoleTypeEvent());
                   },
@@ -97,7 +117,7 @@ class ProfileCard extends StatelessWidget {
                     backgroundColor: employee.roleType!=kRoleTypeAdmin?AppColors.primaryBlue.withOpacity(0.20):AppColors.redColor.withOpacity(0.20),
                     foregroundColor: Colors.black,
                   ),
-                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_as_admin_tag:localization.employee_details_remove_as_admin_tag))
+                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_as_admin_tag:localization.employee_details_remove_as_admin_tag,style: AppTextStyle.subtitleText,))
             ],
           ),
         ),

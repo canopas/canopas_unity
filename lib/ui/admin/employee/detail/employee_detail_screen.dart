@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/ui/admin/employee/detail/widget/delete_button.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../../di/service_locator.dart';
@@ -57,7 +56,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: DeleteButton(id: widget.employeeId)
     );
   }
 }
