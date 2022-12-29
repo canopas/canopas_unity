@@ -4,19 +4,29 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../model/employee/employee.dart';
 
+
+
+
 @Singleton()
 class EmployeeService {
-  final StreamController<List<Employee>> _employeeStreamController = StreamController();
-  late StreamSubscription<List<Employee>> _employeeStreamSubscription;
+   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
+  final BehaviorSubject<List<Employee>> _employees= BehaviorSubject();
+  Stream<List<Employee>> get employees=>_employees.stream;
 
-  EmployeeService() {
-    _employeeStreamSubscription = _userDbCollection
+  EmployeeService(){
+    fetchEmployees();
+  }
+
+
+  void fetchEmployees(){
+   _employeeStreamSubscription= _userDbCollection
         .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin).snapshots().map((event) {
       return event.docs.map((employee) => employee.data()).toList();}).listen((event) {
-      _employeeStreamController.add(event);
+        _employees.add(event);
     });
   }
 
@@ -26,8 +36,6 @@ class EmployeeService {
           fromFirestore: Employee.fromFirestore,
           toFirestore: (Employee emp, _) => emp.toJson());
 
-  Stream<List<Employee>> get getEmployeeStream =>
-      _employeeStreamController.stream;
 
   Future<List<Employee>> getEmployees() async {
     final data = await _userDbCollection
@@ -66,8 +74,8 @@ class EmployeeService {
   }
 
   @disposeMethod
-  void dispose() {
-    _employeeStreamController.close();
-    _employeeStreamSubscription.cancel();
+  void dispose()async {
+    await _employees.close();
+   await _employeeStreamSubscription?.cancel();
   }
 }

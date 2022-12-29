@@ -27,6 +27,8 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final PaidLeaveService _paidLeaveService;
   StreamSubscription? _subscription;
   List<Employee> employees=[];
+  final StreamController<List<LeaveApplication>> applications =
+  BehaviorSubject();
 
   AdminHomeBloc(this._adminLeaveService,this._employeeService,this._userLeaveService,this._paidLeaveService)
       : super(const AdminHomeState()) {
@@ -36,6 +38,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   void _onPageLoad(
       AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
     emit(state.copyWith(status: AdminHomeStatus.loading));
+
    await   _addTotalOfAbsence(emit);
    await  _loadLeaveApplications(event, emit);
   }
@@ -65,8 +68,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   Stream<List<LeaveApplication>> _changeLeaveApplicationFormat() {
-    final StreamController<List<LeaveApplication>> applications =
-        StreamController<List<LeaveApplication>>();
+
     _subscription = combineStream.listen((event) async {
       List<LeaveApplication> list = [];
       event.isEmpty
@@ -82,13 +84,13 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   Stream<List<LeaveApplication>> get combineStream => Rx.combineLatest2(
-          _adminLeaveService.getLeaveStream,
-          _employeeService.getEmployeeStream, (
+          _adminLeaveService.leaves,
+          _employeeService.employees, (
         List<Leave> leaveList,
         List<Employee> employeeList,
       ) {
         employees = employeeList;
-        return leaveList
+        return  leaveList
             .map((leave) {
               final employee = employeeList
                   .firstWhereOrNull((element) => element.id == leave.uid);
@@ -125,7 +127,8 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
 
   @override
   Future<void> close() async {
-    _subscription?.cancel();
+   await _subscription?.cancel();
+    await applications.close();
     super.close();
   }
 }

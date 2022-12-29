@@ -30,10 +30,18 @@ class MockEmployeeService extends _i1.Mock implements _i2.EmployeeService {
   }
 
   @override
-  _i3.Stream<List<_i4.Employee>> get getEmployeeStream => (super.noSuchMethod(
-        Invocation.getter(#getEmployeeStream),
+  _i3.Stream<List<_i4.Employee>> get employees => (super.noSuchMethod(
+        Invocation.getter(#employees),
         returnValue: _i3.Stream<List<_i4.Employee>>.empty(),
       ) as _i3.Stream<List<_i4.Employee>>);
+  @override
+  void fetchEmployees() => super.noSuchMethod(
+        Invocation.method(
+          #fetchEmployees,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   _i3.Future<List<_i4.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(

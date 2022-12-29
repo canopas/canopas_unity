@@ -36,10 +36,18 @@ class MockEmployeeService extends _i1.Mock implements _i2.EmployeeService {
   }
 
   @override
-  _i3.Stream<List<_i4.Employee>> get getEmployeeStream => (super.noSuchMethod(
-        Invocation.getter(#getEmployeeStream),
+  _i3.Stream<List<_i4.Employee>> get employees => (super.noSuchMethod(
+        Invocation.getter(#employees),
         returnValue: _i3.Stream<List<_i4.Employee>>.empty(),
       ) as _i3.Stream<List<_i4.Employee>>);
+  @override
+  void fetchEmployees() => super.noSuchMethod(
+        Invocation.method(
+          #fetchEmployees,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   _i3.Future<List<_i4.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
@@ -101,10 +109,18 @@ class MockAdminLeaveService extends _i1.Mock implements _i5.AdminLeaveService {
   }
 
   @override
-  _i3.Stream<List<_i6.Leave>> get getLeaveStream => (super.noSuchMethod(
-        Invocation.getter(#getLeaveStream),
+  _i3.Stream<List<_i6.Leave>> get leaves => (super.noSuchMethod(
+        Invocation.getter(#leaves),
         returnValue: _i3.Stream<List<_i6.Leave>>.empty(),
       ) as _i3.Stream<List<_i6.Leave>>);
+  @override
+  void fetchLeaves() => super.noSuchMethod(
+        Invocation.method(
+          #fetchLeaves,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   _i3.Future<void> updateLeaveStatus(
     String? id,

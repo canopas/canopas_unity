@@ -61,7 +61,8 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           } else if (state is EmployeeListLoadedState) {
             List<Employee> employees = state.employees;
             return ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
+                padding: const EdgeInsets.symmetric(
+                    vertical: primaryVerticalSpacing),
                 itemCount: employees.length,
                 itemBuilder: (BuildContext context, int index) {
                   Employee employee = employees[index];

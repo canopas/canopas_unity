@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../core/utils/const/firestore.dart';
 import '../../../core/utils/const/leave_time_constants.dart';
 import '../../../model/leave/leave.dart';
@@ -15,21 +16,23 @@ class AdminLeaveService {
       toFirestore: (Leave leaveRequestData, _) =>
           leaveRequestData.toFireStore(leaveRequestData));
 
-  final StreamController<List<Leave>> _leaveStreamController = StreamController();
-  late StreamSubscription<List<Leave>> _leaveStreamSubscription;
-
+   StreamSubscription<List<Leave>>? _leaveStreamSubscription;
+  final BehaviorSubject<List<Leave>> _leaves= BehaviorSubject();
+  Stream<List<Leave>> get leaves=>_leaves.stream;
   AdminLeaveService(){
-    _leaveStreamSubscription = _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots()
-        .map((event) {
-      return event.docs
-          .map((doc) => doc.data())
-          .where((leave) =>
-          leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly))
-          .toList();
+    fetchLeaves();
+  }
+
+
+  void fetchLeaves(){
+    _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots().map((event) {
+    final filteredLeaves=  event.docs.map((doc) => doc.data()).where((leave) => leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly)).toList();
+    return filteredLeaves;
     }).listen((event) {
-      _leaveStreamController.add(event);
+      _leaves.add(event);
     });
   }
+
 
 
 
@@ -42,8 +45,6 @@ class AdminLeaveService {
     return allLeaves.docs.map((e) => e.data()).toList();
   }
 
-
-  Stream<List<Leave>> get getLeaveStream => _leaveStreamController.stream;
 
 
   Future<List<Leave>> getAllAbsence() async {
@@ -67,9 +68,9 @@ class AdminLeaveService {
   }
 
   @disposeMethod
-  void dispose(){
-    _leaveStreamController.close();
-    _leaveStreamSubscription.cancel();
+  void dispose()async{
+   await _leaves.close();
+   await _leaveStreamSubscription?.cancel();
   }
 
 }
