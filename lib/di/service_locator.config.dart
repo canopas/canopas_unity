@@ -112,8 +112,10 @@ Future<_i1.GetIt> $initGetIt(
     get<_i15.UserPreference>(),
     get<_i6.AuthService>(),
   ));
-  gh.factory<_i22.EmployeeDetailBloc>(
-      () => _i22.EmployeeDetailBloc(get<_i7.EmployeeService>()));
+  gh.factory<_i22.EmployeeDetailBloc>(() => _i22.EmployeeDetailBloc(
+        get<_i7.EmployeeService>(),
+        get<_i14.UserLeaveService>(),
+      ));
   gh.factory<_i23.EmployeeListBloc>(
       () => _i23.EmployeeListBloc(get<_i7.EmployeeService>()));
   gh.factory<_i24.UserLeaveCalendarViewBloc>(
