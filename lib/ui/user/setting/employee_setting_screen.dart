@@ -55,7 +55,8 @@ class _EmployeeSettingViewState extends State<EmployeeSettingView> {
             children: [
               Text(localizations.settings_setting_text,
                   style: AppTextStyle.largeHeaderBold),
-              buildSettingSubTitle(subtitle: localizations.settings_account_text),
+              buildSettingSubTitle(
+                  subtitle: localizations.settings_account_text),
               UserIntroContent(),
               const Spacer(),
               Center(

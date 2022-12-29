@@ -44,8 +44,8 @@ class ProfileCard extends StatelessWidget {
             children: [
               Text(
                   employee.name,
-                  style: AppTextStyle.headerDark600,
-                  textAlign: TextAlign.center,
+                style: AppTextStyle.headerDark600,
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 6),
               Text(

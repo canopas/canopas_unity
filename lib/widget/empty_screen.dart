@@ -28,17 +28,32 @@ class EmptyScreen extends StatelessWidget {
             SizedBox(
               height:MediaQuery.of(context).size.height*0.02,
             ),
-            Text(title, style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold),),
-            SizedBox(
-              height: MediaQuery.of(context).size.height*0.02,
+            Text(
+              title,
+              style:
+                  AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold),
             ),
-            Text(message,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Text(
+              message,
               textAlign: TextAlign.center,
-              style: AppTextStyle.secondarySubtitle500,),
-            SizedBox(height: (showActionButton)?MediaQuery.of(context).size.height*0.035:0,),
-            (showActionButton)?ElevatedButton(
-
-                onPressed: onActionButtonTap, child: Text(actionButtonTitle, style: AppTextStyle.subtitleText,)):const SizedBox(),
+              style: AppTextStyle.secondarySubtitle500,
+            ),
+            SizedBox(
+              height: (showActionButton)
+                  ? MediaQuery.of(context).size.height * 0.035
+                  : 0,
+            ),
+            (showActionButton)
+                ? ElevatedButton(
+                    onPressed: onActionButtonTap,
+                    child: Text(
+                      actionButtonTitle,
+                      style: AppTextStyle.subtitleText,
+                    ))
+                : const SizedBox(),
           ],
         ),
       ),
