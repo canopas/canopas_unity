@@ -62,8 +62,8 @@
                              }
                           },
 
-  "employee_details_make_as_admin_tag":"Make as Admin",
-  "employee_details_remove_as_admin_tag":"Remove as Admin",
+  "employee_details_make_admin_tag":"Make Admin",
+  "employee_details_remove_admin_tag":"Remove Admin",
 
 
    "user_home_placeholder_onleave_member": "{totalMember,plural, =0 {No member on leave, today.} =1{{name} is on leave today}} other{{name} & {totalMember} others...}}",

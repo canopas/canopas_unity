@@ -117,7 +117,7 @@ class ProfileCard extends StatelessWidget {
                     backgroundColor: employee.roleType!=kRoleTypeAdmin?AppColors.primaryBlue.withOpacity(0.20):AppColors.redColor.withOpacity(0.20),
                     foregroundColor: Colors.black,
                   ),
-                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_as_admin_tag:localization.employee_details_remove_as_admin_tag,style: AppTextStyle.subtitleText,))
+                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_admin_tag:localization.employee_details_remove_admin_tag,style: AppTextStyle.subtitleText,))
             ],
           ),
         ),
