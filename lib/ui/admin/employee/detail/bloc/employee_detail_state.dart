@@ -13,10 +13,7 @@ class EmployeeDetailLoadingState extends AdminEmployeeDetailState {}
 
 class EmployeeDetailLoadedState extends AdminEmployeeDetailState {
   final Employee employee;
-
-
   EmployeeDetailLoadedState({required this.employee});
-
   @override
   List<Object?> get props => [employee];
 }

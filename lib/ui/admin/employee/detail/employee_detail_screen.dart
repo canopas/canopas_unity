@@ -34,27 +34,19 @@ class EmployeeDetailScreen extends StatefulWidget {
 }
 
 class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
- late String employeeId ;
-  @override
-  void initState() {
-    employeeId= widget.employeeId;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: BlocConsumer<EmployeeDetailBloc,AdminEmployeeDetailState>(
         builder: (BuildContext context,AdminEmployeeDetailState state) {
           if(state is EmployeeDetailLoadingState){
             return const AppCircularProgressIndicator();
           }else if (state is EmployeeDetailLoadedState){
-            final employee =  state.employee;
             return ListView(children: [
-              ProfileCard(employee: employee),
-              ProfileDetail(employee: employee),
+              ProfileCard(employee: state.employee),
+              ProfileDetail(employee: state.employee),
             ]);
           }return const SizedBox();
         },
@@ -65,7 +57,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: DeleteButton(id: employeeId)
+      floatingActionButton: DeleteButton(id: widget.employeeId)
     );
   }
 }

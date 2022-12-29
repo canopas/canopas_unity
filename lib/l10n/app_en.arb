@@ -62,6 +62,9 @@
                              }
                           },
 
+  "employee_details_make_as_admin_tag":"Make as Admin",
+  "employee_details_remove_as_admin_tag":"Remove as Admin",
+
 
    "user_home_placeholder_onleave_member": "{totalMember,plural, =0 {No member on leave, today.} =1{{name} is on leave today}} other{{name} & {totalMember} others...}}",
         "@user_home_placeholder_onleave_member":{
@@ -242,10 +245,7 @@
       "admin_addMember_button_submit":"Submit",
       "admin_addMember_designation_tag":"Designation",
       "admin_addMember_memberName_tag":"MemberName",
-       "admin_addMember_addMember_tag":"Add Member",
-       "hr_role_tag":"HR",
-       "admin_role_tag":"Admin",
-       "employee_role_tag":"Employee",
+      "admin_addMember_addMember_tag":"Add Member",
       "admin_addMember_hint_name":"Andrew Jhone",
       "admin_addMember_hint_employeeId":"CA 1001",
       "admin_addMember_hint_email":"andrew@canopas.com",

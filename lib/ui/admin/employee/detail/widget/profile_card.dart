@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import '../../../../../../configs/colors.dart';
 import '../../../../../../model/employee/employee.dart';
@@ -94,10 +95,10 @@ class ProfileCard extends StatelessWidget {
                     ),
                     fixedSize: Size(MediaQuery.of(context).size.width, 40),
                     side: BorderSide.none,
-                    backgroundColor: AppColors.primaryBlue.withOpacity(0.20),
+                    backgroundColor: employee.roleType!=kRoleTypeAdmin?AppColors.primaryBlue.withOpacity(0.20):AppColors.redColor.withOpacity(0.20),
                     foregroundColor: Colors.black,
                   ),
-                  child: const Text("Make as Admin"))
+                  child: Text(employee.roleType!=kRoleTypeAdmin?localization.employee_details_make_as_admin_tag:localization.employee_details_remove_as_admin_tag))
             ],
           ),
         ),
@@ -116,15 +117,17 @@ class TextColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(title, style: AppTextStyle.secondarySubtitle500),
-        const SizedBox(height: 6),
-        Text(
-          subtitle ?? "-",
-          style: AppTextStyle.titleText,
-        ),
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          Text(title, style: AppTextStyle.secondarySubtitle500),
+          const SizedBox(height: 6),
+          Text(
+            subtitle ?? "-",
+            style: AppTextStyle.titleText,
+          ),
+        ],
+      ),
     );
   }
 }
