@@ -119,10 +119,18 @@ class MockAdminLeaveService extends _i1.Mock implements _i6.AdminLeaveService {
   }
 
   @override
-  _i4.Stream<List<_i5.Leave>> get getLeaveStream => (super.noSuchMethod(
-        Invocation.getter(#getLeaveStream),
+  _i4.Stream<List<_i5.Leave>> get leaves => (super.noSuchMethod(
+        Invocation.getter(#leaves),
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  void fetchLeaves() => super.noSuchMethod(
+        Invocation.method(
+          #fetchLeaves,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   _i4.Future<void> updateLeaveStatus(
     String? id,
@@ -174,19 +182,6 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
   }
 
   @override
-  bool get onBoarded => (super.noSuchMethod(
-        Invocation.getter(#onBoarded),
-        returnValue: false,
-      ) as bool);
-  @override
-  set onBoarded(bool? _onBoarded) => super.noSuchMethod(
-        Invocation.setter(
-          #onBoarded,
-          _onBoarded,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   bool get loggedIn => (super.noSuchMethod(
         Invocation.getter(#loggedIn),
         returnValue: false,
@@ -199,6 +194,11 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  String get userName => (super.noSuchMethod(
+        Invocation.getter(#userName),
+        returnValue: '',
+      ) as String);
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -218,11 +218,6 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: '',
       ) as String);
   @override
-  String get userName => (super.noSuchMethod(
-        Invocation.getter(#userName),
-        returnValue: '',
-      ) as String);
-  @override
   bool get isUserLoggedIn => (super.noSuchMethod(
         Invocation.getter(#isUserLoggedIn),
         returnValue: false,
@@ -237,14 +232,6 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
-  @override
-  void hasOnBoarded() => super.noSuchMethod(
-        Invocation.method(
-          #hasOnBoarded,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(

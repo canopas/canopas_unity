@@ -6,6 +6,7 @@ import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../router/app_router.dart';
+
 class TeamLeaveCard extends StatelessWidget {
   final List<LeaveApplication> leaveApplication;
 

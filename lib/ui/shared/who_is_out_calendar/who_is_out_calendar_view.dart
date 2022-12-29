@@ -141,13 +141,22 @@ class CalendarEmployeeLeaveCard extends StatelessWidget {
         ),
         child: ListTile(
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12), topRight: Radius.circular(12)),
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(12),
+                topRight: Radius.circular(12)),
           ),
           onTap: onTap,
           trailing: const Icon(Icons.arrow_forward_ios_rounded),
-          leading: ImageProfile(radius: 30,imageUrl: leaveApplication.employee.imageUrl),
-          title: Text(leaveApplication.employee.name,overflow: TextOverflow.ellipsis,),
-          subtitle: Text(leaveApplication.employee.employeeId,overflow: TextOverflow.ellipsis,),
+          leading: ImageProfile(
+              radius: 30, imageUrl: leaveApplication.employee.imageUrl),
+          title: Text(
+            leaveApplication.employee.name,
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+            leaveApplication.employee.employeeId,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
     );

@@ -21,15 +21,8 @@ class UserPreference {
     return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
-  bool? getOnBoardCompleted() {
-    return _preferences.getBool(onBoardCompleted);
-  }
-
   Future<bool> removeCurrentUser() async {
     return await _preferences.remove(userPrefKeyUser);
   }
 
-  void setOnBoardCompleted(bool isComplete) {
-    _preferences.setBool(onBoardCompleted, isComplete);
-  }
 }

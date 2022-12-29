@@ -4,16 +4,18 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
+import 'package:projectunity/services/leave/user_leave_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService])
+@GenerateMocks([EmployeeService, UserLeaveService])
 void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
+  late UserLeaveService userLeaveService;
   Employee employee = const Employee(
       id: 'id',
       roleType: 2,
@@ -32,7 +34,8 @@ void main() {
 
   setUp(() {
     employeeService = MockEmployeeService();
-    employeeDetailBloc = EmployeeDetailBloc(employeeService);
+    userLeaveService = MockUserLeaveService();
+    employeeDetailBloc = EmployeeDetailBloc(employeeService, userLeaveService);
   });
 
   group('Employee detail bloc', () {
@@ -97,5 +100,21 @@ void main() {
           employeeDetailBloc.stream,
           emits(EmployeeDetailLoadedState(employee: employee)));
     });
+
+    test('delete employee failed test', () {
+      when(employeeService.deleteEmployee(employee.id))
+          .thenThrow(Exception("error"));
+      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
+      expect(employeeDetailBloc.stream,
+          emits(EmployeeDetailFailureState(error: firestoreFetchDataError)));
+    });
+
+    test('delete employee success test', () async {
+      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
+          await untilCalled(userLeaveService.deleteAllLeaves(employee.id));
+          await untilCalled(userLeaveService.deleteAllLeaves(employee.id));
+          verify(employeeService.deleteEmployee(employee.id)).called(1);
+          verify(userLeaveService.deleteAllLeaves(employee.id)).called(1);
+        });
   });
 }

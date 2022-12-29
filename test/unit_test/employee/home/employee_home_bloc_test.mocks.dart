@@ -121,19 +121,6 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
   }
 
   @override
-  bool get onBoarded => (super.noSuchMethod(
-        Invocation.getter(#onBoarded),
-        returnValue: false,
-      ) as bool);
-  @override
-  set onBoarded(bool? _onBoarded) => super.noSuchMethod(
-        Invocation.setter(
-          #onBoarded,
-          _onBoarded,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   bool get loggedIn => (super.noSuchMethod(
         Invocation.getter(#loggedIn),
         returnValue: false,
@@ -146,6 +133,11 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  String get userName => (super.noSuchMethod(
+        Invocation.getter(#userName),
+        returnValue: '',
+      ) as String);
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -165,11 +157,6 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
         returnValue: '',
       ) as String);
   @override
-  String get userName => (super.noSuchMethod(
-        Invocation.getter(#userName),
-        returnValue: '',
-      ) as String);
-  @override
   bool get isUserLoggedIn => (super.noSuchMethod(
         Invocation.getter(#isUserLoggedIn),
         returnValue: false,
@@ -184,14 +171,6 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
-  @override
-  void hasOnBoarded() => super.noSuchMethod(
-        Invocation.method(
-          #hasOnBoarded,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -270,10 +249,18 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
   }
 
   @override
-  _i4.Stream<List<_i2.Employee>> get getEmployeeStream => (super.noSuchMethod(
-        Invocation.getter(#getEmployeeStream),
+  _i4.Stream<List<_i2.Employee>> get employees => (super.noSuchMethod(
+        Invocation.getter(#employees),
         returnValue: _i4.Stream<List<_i2.Employee>>.empty(),
       ) as _i4.Stream<List<_i2.Employee>>);
+  @override
+  void fetchEmployees() => super.noSuchMethod(
+        Invocation.method(
+          #fetchEmployees,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   _i4.Future<List<_i2.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
@@ -351,10 +338,18 @@ class MockAdminLeaveService extends _i1.Mock implements _i10.AdminLeaveService {
   }
 
   @override
-  _i4.Stream<List<_i5.Leave>> get getLeaveStream => (super.noSuchMethod(
-        Invocation.getter(#getLeaveStream),
+  _i4.Stream<List<_i5.Leave>> get leaves => (super.noSuchMethod(
+        Invocation.getter(#leaves),
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  void fetchLeaves() => super.noSuchMethod(
+        Invocation.method(
+          #fetchLeaves,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   _i4.Future<void> updateLeaveStatus(
     String? id,

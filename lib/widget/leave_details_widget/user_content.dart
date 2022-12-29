@@ -32,14 +32,16 @@ class UserContent extends StatelessWidget {
                   children: [
                     Text(
                       employee.name,
-                      style: AppTextStyle.subtitleTextDark.copyWith(fontWeight: FontWeight.w600),
+                      style: AppTextStyle.subtitleTextDark
+                          .copyWith(fontWeight: FontWeight.w600),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 3,
                     ),
-                    Text(employee.designation,
-                        style: AppTextStyle.secondaryBodyText,
+                    Text(
+                      employee.designation,
+                      style: AppTextStyle.secondaryBodyText,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
