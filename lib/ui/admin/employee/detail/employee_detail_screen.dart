@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../../di/service_locator.dart';
+import '../../../../core/utils/const/role.dart';
 import 'bloc/employee_detail_bloc.dart';
 import 'bloc/employee_detail_event.dart';
 import 'bloc/employee_detail_state.dart';
 import 'widget/profile_card.dart';
 import 'widget/profile_detail.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class EmployeeDetailPage extends StatelessWidget {
  final String id;
@@ -37,7 +39,35 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions:[
+          BlocBuilder<EmployeeDetailBloc,AdminEmployeeDetailState>(
+            builder: (context, state){
+               if (state is EmployeeDetailLoadedState && context.read<EmployeeDetailBloc>().currentUserIsAdmin){
+                 return PopupMenuButton(
+                   shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(12),
+                   ),
+                   elevation: 6,
+                   itemBuilder: (context) => [
+                     PopupMenuItem(child: Text(
+                       AppLocalizations.of(context).user_leave_detail_button_delete,
+                     ),
+                       onTap: (){
+                         context.read<EmployeeDetailBloc>().add(DeleteEmployeeEvent(employeeId: widget.employeeId));
+                         context.pop();
+                       },
+                     ),
+                     PopupMenuItem(child:Text(state.employee.roleType==kRoleTypeAdmin?AppLocalizations.of(context).employee_details_remove_admin_tag:AppLocalizations.of(context).employee_details_make_admin_tag),
+                       onTap: (){
+                         context.read<EmployeeDetailBloc>().add(EmployeeDetailsChangeRoleTypeEvent());
+                       },),
+                   ],);
+               }return const SizedBox();
+            }
+          ),
+        ]
+      ),
       body: BlocConsumer<EmployeeDetailBloc,AdminEmployeeDetailState>(
         builder: (BuildContext context,AdminEmployeeDetailState state) {
           if(state is EmployeeDetailLoadingState){
