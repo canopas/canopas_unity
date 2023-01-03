@@ -8,25 +8,25 @@ import 'package:rxdart/rxdart.dart';
 import '../../../core/utils/const/role.dart';
 import '../../../model/employee/employee.dart';
 
-
-
-
 @Singleton()
 class EmployeeService {
-   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
-  final BehaviorSubject<List<Employee>> _employees= BehaviorSubject();
-  Stream<List<Employee>> get employees=>_employees.stream;
+  StreamSubscription<List<Employee>>? _employeeStreamSubscription;
+  final BehaviorSubject<List<Employee>> _employees = BehaviorSubject();
 
-  EmployeeService(){
+  Stream<List<Employee>> get employees => _employees.stream;
+
+  EmployeeService() {
     fetchEmployees();
   }
 
-
-  void fetchEmployees(){
-   _employeeStreamSubscription= _userDbCollection
-        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin).snapshots().map((event) {
-      return event.docs.map((employee) => employee.data()).toList();}).listen((event) {
-        _employees.add(event);
+  void fetchEmployees() {
+    _employeeStreamSubscription = _userDbCollection
+        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
+        .snapshots()
+        .map((event) {
+      return event.docs.map((employee) => employee.data()).toList();
+    }).listen((event) {
+      _employees.add(event);
     });
   }
 
@@ -35,7 +35,6 @@ class EmployeeService {
       .withConverter(
           fromFirestore: Employee.fromFirestore,
           toFirestore: (Employee emp, _) => emp.toJson());
-
 
   Future<List<Employee>> getEmployees() async {
     final data = await _userDbCollection
@@ -62,9 +61,35 @@ class EmployeeService {
     await _userDbCollection.doc(docId).set(employee);
   }
 
-  Future<void> changeEmployeeRoleType(String id,int roleType) async {
-    Map<String,int> data = {FirestoreConst.roleType:roleType};
-    await _userDbCollection.doc(id).update(data).then((value) => eventBus.fire(EmployeeListUpdateEvent()));
+  Future<void> adminUpdateEmployeeDetails(
+      {required String id,
+      required String name,
+      required String employeeId,
+      required String email,
+      required String phone,
+      required String level,
+      required String designation,
+      required int roleType,
+      required int dateOfJoining}) async {
+    Map<String, dynamic> data = {
+      FirestoreConst.roleType: roleType,
+      FirestoreConst.name: name,
+      FirestoreConst.email: email,
+      FirestoreConst.employeeId: employeeId,
+      FirestoreConst.designation: designation,
+      FirestoreConst.phone: phone,
+      FirestoreConst.dateOfJoining: dateOfJoining,
+      FirestoreConst.level: level,
+    };
+    await _userDbCollection.doc(id).update(data);
+  }
+
+  Future<void> changeEmployeeRoleType(String id, int roleType) async {
+    Map<String, int> data = {FirestoreConst.roleType: roleType};
+    await _userDbCollection
+        .doc(id)
+        .update(data)
+        .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
   }
 
   Future<void> deleteEmployee(String id) async {
@@ -79,8 +104,8 @@ class EmployeeService {
   }
 
   @disposeMethod
-  void dispose()async {
+  void dispose() async {
     await _employees.close();
-   await _employeeStreamSubscription?.cancel();
+    await _employeeStreamSubscription?.cancel();
   }
 }
