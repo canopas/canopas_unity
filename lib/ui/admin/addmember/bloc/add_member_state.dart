@@ -63,6 +63,8 @@ class AddMemberFormState extends Equatable {
         employeeId,
         email,
         name,
+        role,
+        dateOfJoining,
         designation,
         idError,
         nameError,

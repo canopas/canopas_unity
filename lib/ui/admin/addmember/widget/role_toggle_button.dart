@@ -4,26 +4,15 @@ import 'package:projectunity/configs/text_style.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/role.dart';
 
-class ToggleButton extends StatefulWidget {
+class ToggleButton extends StatelessWidget {
+  final int role;
   final Function(int role) onRoleChange;
 
-  const ToggleButton({Key? key, required this.onRoleChange}) : super(key: key);
-
-  @override
-  State<ToggleButton> createState() => _ToggleButtonState();
-}
-
-Map<int, double> roleTypeSelectionAlignment = {
-  kRoleTypeEmployee: -1,
-  kRoleTypeAdmin: 1,
-};
-
-class _ToggleButtonState extends State<ToggleButton> {
-  double selectedAt = roleTypeSelectionAlignment[kRoleTypeEmployee]!;
+  const ToggleButton({Key? key, required this.onRoleChange, required this.role}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width * (90/roleTypeSelectionAlignment.length/100);
+    final double width = MediaQuery.of(context).size.width * (90/roleTypeSelectionToggleButtonAlignment.length/100);
     var localization = AppLocalizations.of(context);
 
     return Center(
@@ -39,7 +28,7 @@ class _ToggleButtonState extends State<ToggleButton> {
         child: Stack(
           children: [
             AnimatedAlign(
-              alignment: Alignment(selectedAt, 0),
+              alignment: Alignment(roleTypeSelectionToggleButtonAlignment[role]??-1, 0),
               curve: Curves.ease,
               duration: const Duration(milliseconds: 300),
               child: Container(
@@ -52,13 +41,10 @@ class _ToggleButtonState extends State<ToggleButton> {
                 ),
               ),
             ),
-            ...roleTypeSelectionAlignment.entries.map(
+            ...roleTypeSelectionToggleButtonAlignment.entries.map(
                   (roleTypeAlignment) => GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedAt = roleTypeAlignment.value;
-                        widget.onRoleChange(roleTypeAlignment.key);
-                      });
+                       onRoleChange(roleTypeAlignment.key);
                     },
                     child: Align(
                       alignment: Alignment(roleTypeAlignment.value, 0),
@@ -82,3 +68,8 @@ class _ToggleButtonState extends State<ToggleButton> {
     );
   }
 }
+
+Map<int, double> roleTypeSelectionToggleButtonAlignment = {
+  kRoleTypeEmployee: -1,
+  kRoleTypeAdmin: 1,
+};
