@@ -88,7 +88,7 @@ class AdminSettingSignOutButton extends StatelessWidget {
       icon: Icons.logout_rounded,
       title: AppLocalizations.of(context).logout_button_text,
       onTap: () {
-        context.read<LogOutBloc>().add(SignOutEvent());
+        context.read<LogOutBloc>().add(LogOutEvent());
       },
       iconColor: AppColors.redColor,
       titleColor: AppColors.redColor,

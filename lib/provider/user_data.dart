@@ -27,10 +27,9 @@ class UserManager with ChangeNotifier {
 
   bool get isUserLoggedIn => _employee != null;
 
-  void hasLoggedIn(){
+  void hasLoggedIn()async{
     loggedIn= _employee !=null;
     notifyListeners();
   }
-
   bool get isAdmin => _employee?.roleType == kRoleTypeAdmin;
 }

@@ -2,27 +2,11 @@
    "language": "English",
    "appTitle": "Unity",
 
-   "onBoard_skip_button": "SKIP",
-   "onBoard_next_button": "NEXT",
-   "onBoard_start_button": "START",
-
-   "onBoard_screen1_title": "Bring A Team Together",
-   "onBoard_screen1_description": "Unity is strength..when there is teamwork and collaboration, wonderful things can be achieved.",
-
-   "onBoard_screen2_title": "Stay organized with Team",
-   "onBoard_screen2_description": "Understanding the contributions our colleagues make to our companies and teams.",
-
-   "onBoard_screen3_title": "Leave management simplified",
-   "onBoard_screen3_description": "No more cluttered spreadsheets and manual data entry",
 
    "login_welcome_text": "Welcome",
    "login_toUnity_text": "to Unity!",
    "login_guide_description": "To continue with Unity",
    "login_button_text": "Sign in with Google",
-
-   "appDashBoard_home_tab": "Home",
-   "appDashBoard_staff_tab": "Staff",
-   "appDashBoard_setting_tab": "Settings",
 
 
     "user_home_remaining_tag": "Remaining",
@@ -47,12 +31,8 @@
    "user_home_upcoming_leaves_tag": "Upcoming Leaves",
    "user_home_apply_leave_tag": "Apply for Leave",
    "user_home_who_onLeave_tag": "Who's on leave today?",
-   "user_home_button_view_all": "View All",
 
-
-
-
-       "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}",
+  "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}",
             "@user_detail_role_type":{
                  "description": "Pass the value of role to get role of user",
                     "placeholders": {
@@ -63,20 +43,7 @@
                           },
 
 
-   "user_home_placeholder_onleave_member": "{totalMember,plural, =0 {No member on leave, today.} =1{{name} is on leave today}} other{{name} & {totalMember} others...}}",
-        "@user_home_placeholder_onleave_member":{
-            "description": "team members on leave",
-               "placeholders": {
-                  "totalMember":{
-                    "type":"int"
-                          },
-                  "name":{
-                    "type":"String"
-                         }
-                   }
-                 },
-
-   "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
+ "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
         "@leave_type_placeholder_leave_status":{
            "description":"get leave type from leave status",
              "placeholders":{
@@ -109,9 +76,6 @@
 
   "apply_for_leave_button_text":"Apply for leave",
 
-      "approved_tag":"Approved",
-      "rejected_tag":"Rejected",
-      "pending_tag":"Pending",
 
       "date_format_yMMMd": "{date}",
           "@date_format_yMMMd":{
@@ -168,7 +132,6 @@
 
       "leave_calendar_title": "Leave Calendar",
       "range_leave_calendar_title": "User Leave Calendar",
-      "calendar_no_leave_tag": "No Leave's",
       "calendar_no_leave_msg": "There is no leave on {date}",
       "@calendar_no_leave_msg":{
         "placeholders":{
@@ -206,13 +169,10 @@
       "user_apply_leave_error_message_fill_details": "Please fill all details",
       "user_apply_leave_error_valid_reason": " • Please enter valid reason",
       "user_apply_leave_success_message":"You've successfully applied!",
-      "user_leave_detail_approval_Status_tag":"Approval Status",
 
 
-      "admin_home_employee_summary_tag":"Employee Summary",
       "admin_home_empty_leave_request_message": "There is no request today!",
       "no_request_title":"No Request",
-      "admin_home_your_employee_tag":"Your Employee",
       "admin_home_employee_tag": "Employees",
       "admin_home_request_tag":"Requests",
       "admin_home_absence_tag":"Absence",
@@ -234,14 +194,12 @@
 
       "admin_leave_detail_button_reject":"Reject",
       "admin_leave_detail_button_approve":"Approve",
-      "admin_leave_detail_button_seeHistory":"See History",
       "admin_leave_detail_button_ok":"OK",
       "admin_leave_detail_daysLeft_tag":"Days left",
 
 
       "admin_addMember_button_submit":"Submit",
       "admin_addMember_designation_tag":"Designation",
-      "admin_addMember_memberName_tag":"MemberName",
        "admin_addMember_addMember_tag":"Add Member",
        "admin_addMember_hr_roleTag":"HR",
       "admin_addMember_hint_name":"Andrew Jhone",
@@ -250,19 +208,7 @@
       "admin_addMember_hint_designation":"Android developer",
 
 
-  "leave_request_remaining_paid_count_placeholder":"{day,plural,=0{{day}/{paid} day left},=1{{day}/{paid} day left}, other{{day}/{paid} days left}}}",
-  "@leave_request_remaining_paid_count_placeholder":{
-    "placeholders":{
-      "day":{
-        "type":"double",
-        "format":"decimalPattern"
-      },
-      "paid":{
-        "type":"int",
-        "format":"decimalPattern"
-      }
-    }
-  },
+
 
 
 
@@ -270,14 +216,9 @@
 
 
      "error_something_went_wrong": "Something went wrong",
-     "please_enter_valid_number": "Please enter valid number!",
 
      "admin_leave_detail_error_reason":"Enter Message",
      "admin_leave_detail_message_title_text": "Note",
-     "admin_leave_detail_error_reason_rejection":"Please provide reason for Rejection",
-     "admin_update_total_leave_count_error":"Failed to update total leave count!",
-     "empty_absence_state_message":"No one on leave today!",
-     "absence_empty_screen_title": "No absence",
 
      "admin_add_member_error_email":"Please enter valid email",
      "admin_add_member_error_name": "Name is too short!!",
@@ -285,33 +226,26 @@
      "admin_add_member_successfully_added" : "An employee has been added successfully!!",
 
      "logout_button_text": "Sign Out",
-     "sign_out_failed_message":"SignOut Failed!",
      "update_button_text": "Update",
      "settings_setting_text": "Settings",
      "settings_account_text": "Accounts",
      "admin_total_leave_count_text":"Total leave count",
      "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
-     "something_went_wrong_text":"Something went wrong!",
      "leave_detail_title":"Leave details",
 
-     "check_your_connection_error":"Please check you Internet connection",
 
+      "network_connection_error": "Please check your Internet connection",
 
-     "user_account_not_found_error_message": "Don't have google account? Please create it first",
      "user_not_found_error_message":"User with this email doesn't exist, Please ask your manager to add it",
      "user_data_not_update_error_message": "Error in Updating your account information, Please check that you have signed in correct account",
      "firestore_fetch_data_error_message": "Something went wrong",
      "firebase_auth_error_message": "Error occurred while Google sign in. Try again",
      "sign_out_error_message": "Your attempt to sign out failed,Please try again later",
-     "undefined_error_message": "Something went wrong",
      "fill_all_details_error":"Please fill all details",
      "invalid_date_selection_error":"Please select valid date",
      "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
 
      "add_member_employee_exists_error": "Member already exists!",
-
-     "morning_period_text":"9:00 AM to 1:00 PM",
-     "afternoon_period_text":"1:00 PM to 6:00 PM",
 
      "dateFormatter_yesterday":"Yesterday",
       "dateFormatter_today":"Today",

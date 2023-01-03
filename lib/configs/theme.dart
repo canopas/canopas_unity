@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
+import 'package:projectunity/configs/font_family.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:table_calendar/table_calendar.dart' show HeaderStyle, CalendarStyle;
 
 class AppTheme{
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primaryBlue,
-    fontFamily: 'inter',
+    fontFamily: FontFamily.fontName,
     appBarTheme:  AppBarTheme(
       titleTextStyle: AppTextStyle.appBarTitle,
       backgroundColor: AppColors.primaryBlue,

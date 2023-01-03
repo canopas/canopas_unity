@@ -8,9 +8,9 @@ extension ExceptionMessage on String {
     AppLocalizations appLocale = AppLocalizations.of(context);
     String msg = '';
     switch (this) {
-      case userAccountNotFoundError:
-        msg = appLocale.user_account_not_found_error_message;
-        break;
+      // case userAccountNotFoundError:
+      //   msg = appLocale.user_account_not_found_error_message;
+      //   break;
       case userNotFoundError:
         msg = appLocale.user_not_found_error_message;
         break;
@@ -26,12 +26,12 @@ extension ExceptionMessage on String {
       case signOutError:
         msg = appLocale.sign_out_error_message;
         break;
-      case undefinedError:
-        msg = appLocale.something_went_wrong_text;
-        break;
-      case wrongNumInputError:
-        msg = appLocale.please_enter_valid_number;
-        break;
+      // case undefinedError:
+      //   msg = appLocale.something_went_wrong_text;
+      //   break;
+      // case wrongNumInputError:
+      //   msg = appLocale.please_enter_valid_number;
+      //   break;
       case invalidLeaveDateError:
         msg = appLocale.invalid_date_selection_error;
         break;
@@ -41,24 +41,24 @@ extension ExceptionMessage on String {
       case applyMinimumHalfDay:
         msg = appLocale.apply_leave_minimum_one_hour_error;
         break;
-      case enterValidReason:
-        msg = appLocale.user_apply_leave_error_valid_reason;
-        break;
+      // case enterValidReason:
+      //   msg = appLocale.user_apply_leave_error_valid_reason;
+      //   break;
       case userAlreadyExists:
         msg = appLocale.add_member_employee_exists_error;
         break;
-      case inCompleteFieldError:
-        msg = appLocale.admin_add_member_error_complete_field;
-        break;
-      case nameFieldError:
-        msg = appLocale.admin_add_member_error_name;
-        break;
+      // case inCompleteFieldError:
+      //   msg = appLocale.admin_add_member_error_complete_field;
+      //   break;
+      // case nameFieldError:
+      //   msg = appLocale.admin_add_member_error_name;
+      //   break;
 
-      case emailFieldError:
-        msg = appLocale.admin_add_member_error_email;
-        break;
+      // case emailFieldError:
+      //   msg = appLocale.admin_add_member_error_email;
+      //   break;
       default:
-        msg = appLocale.something_went_wrong_text;
+        msg = appLocale.error_something_went_wrong;
         break;
     }
     return msg;

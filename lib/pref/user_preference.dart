@@ -21,8 +21,8 @@ class UserPreference {
     return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
-  Future<bool> removeCurrentUser() async {
-    return await _preferences.remove(userPrefKeyUser);
+  Future<void> removeCurrentUser() async {
+     await _preferences.remove(userPrefKeyUser);
   }
 
 }
