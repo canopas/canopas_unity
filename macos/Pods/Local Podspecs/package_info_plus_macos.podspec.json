@@ -1,0 +1,29 @@
+{
+  "name": "package_info_plus_macos",
+  "version": "0.0.1",
+  "summary": "Flutter Package Info",
+  "description": "A macOS implementation of the package_info_plus plugin.",
+  "homepage": "https://github.com/fluttercommunity/package_info_plus/tree/main/package_info_plus/package_info_plus_macos",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Flutter Community": "authors@fluttercommunity.dev"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "FlutterMacOS": [
+
+    ]
+  },
+  "platforms": {
+    "osx": "10.11"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES"
+  }
+}

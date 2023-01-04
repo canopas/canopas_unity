@@ -5,9 +5,9 @@ import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/space_constant.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_events.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_states.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_bloc.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_event.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_state.dart';
 
 class LeaveRequestReasonCard extends StatelessWidget {
 
@@ -23,7 +23,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
           boxShadow: AppTheme.commonBoxShadow
       ),
       padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top:0,bottom: primaryVerticalSpacing),
-      child: BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+      child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
         buildWhen: (previous, current) => current.reason != previous.reason || current.showTextFieldError != previous.showTextFieldError,
           builder:(context, state) => TextField(
               style: AppTextStyle.bodyTextDark,
@@ -38,7 +38,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
                 hintStyle: AppTextStyle.leaveRequestFormSubtitle,
               ),
               onChanged: (reason) {
-                context.read<LeaveRequestBloc>().add(LeaveRequestReasonChangeEvent(reason: reason));
+                context.read<ApplyLeaveBloc>().add(ApplyLeaveReasonChangeEvent(reason: reason));
               },
               keyboardType: TextInputType.text,
             )

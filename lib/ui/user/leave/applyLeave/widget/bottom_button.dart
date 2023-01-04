@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/space_constant.dart';
-import '../../../../../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_view_states.dart';
+import '../../../../../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/apply_leave_state.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_events.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_bloc.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_event.dart';
 
 class ApplyButton extends StatelessWidget {
   const ApplyButton({Key? key}) : super(key: key);
@@ -16,9 +16,9 @@ class ApplyButton extends StatelessWidget {
     var localization = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
-      child: BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+      child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
           builder: (context, state) => state.leaveRequestStatus ==
-                  LeaveRequestStatus.loading
+                  ApplyLeaveStatus.loading
               ? const AppCircularProgressIndicator()
               : ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -26,8 +26,8 @@ class ApplyButton extends StatelessWidget {
                       elevation: 2),
                   onPressed: () {
                     context
-                        .read<LeaveRequestBloc>()
-                        .add(LeaveRequestApplyLeaveEvent());
+                        .read<ApplyLeaveBloc>()
+                        .add(ApplyLeaveSubmitFormEvent());
                   },
                   child: Text(localization.user_apply_leave_button_apply_leave,
                       style: AppTextStyle.subtitleTextWhite))),

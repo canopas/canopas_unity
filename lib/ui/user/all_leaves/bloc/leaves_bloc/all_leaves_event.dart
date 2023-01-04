@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 import '../../../../../model/leave_application.dart';
 
-abstract class AllLeavesViewEvent extends Equatable {
+abstract class AllLeavesEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class AllLeavesInitialLoadEvent extends AllLeavesViewEvent {
+class AllLeavesInitialLoadEvent extends AllLeavesEvent {
   @override
   List<Object?> get props => [];
 }
 
-class RemoveLeaveApplicationOnAllLeaveViewEvent extends AllLeavesViewEvent {
+class RemoveLeaveApplicationOnAllLeaveViewEvent extends AllLeavesEvent {
   final LeaveApplication leaveApplication;
 
   RemoveLeaveApplicationOnAllLeaveViewEvent(this.leaveApplication);
@@ -20,17 +20,17 @@ class RemoveLeaveApplicationOnAllLeaveViewEvent extends AllLeavesViewEvent {
   List<Object?> get props => [leaveApplication];
 }
 
-class RefreshAllLeaveViewEvent extends AllLeavesViewEvent{}
+class RefreshAllLeaveEvent extends AllLeavesEvent{}
 
-class RemoveFilterAllLeavesViewEvent extends AllLeavesViewEvent {}
+class RemoveFilterFromLeavesEvent extends AllLeavesEvent {}
 
-class ApplyFilterAllLeavesViewEvent extends AllLeavesViewEvent {
+class ApplyFilterToAllLeavesEvent extends AllLeavesEvent {
   final List<int> leaveType;
   final List<int> leaveStatus;
   final DateTime? startDate;
   final DateTime? endDate;
 
-  ApplyFilterAllLeavesViewEvent(
+  ApplyFilterToAllLeavesEvent(
       {this.startDate,
       this.endDate,
       this.leaveType = const [],

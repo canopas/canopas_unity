@@ -41,13 +41,6 @@ class DateFormatter {
     return _localization.leave_request_total_days_text(totalLeaves);
   }
 
-  // String halfDayTime(int halfDay){
-  //   if(halfDay == firstHalfLeave){
-  //     return _localization.morning_period_text;
-  //   } else {
-  //     return _localization.afternoon_period_text;
-  //   }
-  // }
 
   String dateInLine(
       {required int startTimeStamp, required int endTimeStamp, bool lastTwoLine = false}) {

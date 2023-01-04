@@ -3,8 +3,8 @@ import 'package:injectable/injectable.dart';
 import '../../../../../exception/error_const.dart';
 import '../../../../../event_bus/events.dart';
 import '../../../../../provider/user_data.dart';
-import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
-import '../../../../../services/leave/user_leave_service.dart';
+import '../../../../../services/admin/paid_leave_service.dart';
+import '../../../../../services/user/user_leave_service.dart';
 import 'leave_details_event.dart';
 import 'leave_details_state.dart';
 

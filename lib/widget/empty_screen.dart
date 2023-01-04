@@ -21,7 +21,7 @@ class EmptyScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
              const Image(
-              image: AssetImage(emptyLeaveStateImage),
+              image: AssetImage(ImageConst.emptyLeaveStateImage),
               height: 100,
               width: 100,
              ),

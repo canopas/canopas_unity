@@ -17,18 +17,18 @@ class ProfileDetail extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextColumn(
+        EmployeeField(
           title: localization.employee_mobile_tag,
           subtitle: employee.phone,
         ),
-        TextColumn(
+        EmployeeField(
             title: localization.employee_email_tag,
             subtitle: employee.email),
-        TextColumn(
+        EmployeeField(
           title: localization.employee_dateOfJoin_tag,
           subtitle: (employee.dateOfJoining != null)?localization.date_format_yMMMd(employee.dateOfJoining!.toDate):" - ",
         ),
-        TextColumn(
+        EmployeeField(
           title: localization.employee_level_tag,
           subtitle: employee.level,
         ),
@@ -36,8 +36,8 @@ class ProfileDetail extends StatelessWidget {
     );
   }
 }
-class TextColumn extends StatelessWidget {
-  const TextColumn({Key? key, required this.title, required this.subtitle}) : super(key: key);
+class EmployeeField extends StatelessWidget {
+  const EmployeeField({Key? key, required this.title, required this.subtitle}) : super(key: key);
 
   final String title;
   final String? subtitle;
