@@ -87,10 +87,10 @@ class _AdminEditEmployeeDetailsViewState
             const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
         child: BlocBuilder<AdminEditEmployeeDetailsBloc,
           AdminEditEmployeeDetailsState>(
-          buildWhen: (previous, current) => previous.isValid != current.isValid,
+          buildWhen: (previous, current) => previous.isValid != current.isValid || previous.adminEditEmployeeDetailsStatus != current.adminEditEmployeeDetailsStatus,
           builder: (context, state) => ElevatedButton(
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(MediaQuery.of(context).size.width, 45),
+                fixedSize: Size(MediaQuery.of(context).size.width/2, 45),
                 disabledBackgroundColor: AppColors.greyColor,
               ),
               onPressed: (state.isValid)?() {
@@ -104,7 +104,7 @@ class _AdminEditEmployeeDetailsViewState
                 ));
               }:null,
               child: state.adminEditEmployeeDetailsStatus == AdminEditEmployeeDetailsStatus.loading
-              ?const AppCircularProgressIndicator(size: 20,):Text(AppLocalizations.of(context).update_button_text,style: AppTextStyle.subtitleTextWhite,)),
+              ?const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(color: AppColors.whiteColor,strokeWidth: 3,)):Text(AppLocalizations.of(context).update_button_text,style: AppTextStyle.subtitleTextWhite,)),
         ),
       ),
     );
