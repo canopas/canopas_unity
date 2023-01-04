@@ -11,7 +11,7 @@ import '../bloc/add_member_state.dart';
 
 class AddMemberForm extends StatefulWidget {
 
-  AddMemberForm({Key? key}) : super(key: key);
+  const AddMemberForm({Key? key}) : super(key: key);
 
   @override
   State<AddMemberForm> createState() => _AddMemberFormState();
