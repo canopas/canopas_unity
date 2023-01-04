@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/role.dart';
+import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/services/admin/employee/employee_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
@@ -20,6 +21,9 @@ class EmployeeDetailBloc
 
   EmployeeDetailBloc(this._employeeService, this._userLeaveService, this._userManager)
       : super(EmployeeDetailInitialState()) {
+    eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
+      add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
+    });
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
     on<DeleteEmployeeEvent>(_onDeleteEmployeeEvent);
     on<EmployeeDetailsChangeRoleTypeEvent>(_makeAndRemoveAsAdmin);

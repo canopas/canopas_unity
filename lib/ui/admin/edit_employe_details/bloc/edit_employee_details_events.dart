@@ -1,47 +1,39 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../model/employee/employee.dart';
-
 abstract class AdminEditEmployeeDetailsEvents extends Equatable {}
 
-class GetEmployeeDetailsAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
-  final Employee employee;
-  GetEmployeeDetailsAdminEditEmployeeDetailsEvents({required this.employee});
+class AdminEditEmployeeDetailsInitialEvent extends AdminEditEmployeeDetailsEvents{
+  final int roleType;
+  final int? joiningDate;
+  AdminEditEmployeeDetailsInitialEvent({required this.roleType,required this.joiningDate});
   @override
-  List<Object?> get props => [employee];
-}
+  List<Object?> get props => [roleType,joiningDate];
 
-class ChangeNameAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
+}
+class ValidNameAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
   final String name;
-  ChangeNameAdminEditEmployeeDetailsEvents({required this.name});
+  ValidNameAdminEditEmployeeDetailsEvents({required this.name});
   @override
   List<Object?> get props => [name];
 }
 
-class ChangeEmailAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
+class ValidEmailAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
   final String email;
-  ChangeEmailAdminEditEmployeeDetailsEvents({required this.email});
+  ValidEmailAdminEditEmployeeDetailsEvents({required this.email});
   @override
   List<Object?> get props => [email];
 }
 
-class ChangePhoneNumberAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
-  final String phoneNumber;
-  ChangePhoneNumberAdminEditEmployeeDetailsEvents({required this.phoneNumber});
-  @override
-  List<Object?> get props => [phoneNumber];
-}
-
-class ChangeEmployeeIdAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
+class ValidEmployeeIdAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
   final String employeeId;
-  ChangeEmployeeIdAdminEditEmployeeDetailsEvents({required this.employeeId});
+  ValidEmployeeIdAdminEditEmployeeDetailsEvents({required this.employeeId});
   @override
   List<Object?> get props => [employeeId];
 }
 
-class ChangeDesignationAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
+class ValidDesignationAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
   final String designation;
-  ChangeDesignationAdminEditEmployeeDetailsEvents({required this.designation});
+  ValidDesignationAdminEditEmployeeDetailsEvents({required this.designation});
   @override
   List<Object?> get props => [designation];
 }
@@ -60,16 +52,18 @@ class ChangeDateOfJoiningAdminEditEmployeeDetailsEvents extends AdminEditEmploye
   List<Object?> get props => [dateOfJoining];
 }
 
-class ChangeLevelAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
-  final String level;
-  ChangeLevelAdminEditEmployeeDetailsEvents({required this.level});
-  @override
-  List<Object?> get props => [level];
-}
 
 class UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents extends AdminEditEmployeeDetailsEvents{
+  final String name;
+  final String email;
+  final String designation;
+  final String level;
+  final String employeeId;
+  final String id;
+
+  UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents({required this.id,required this.name, required this.email, required this.designation, required this.level, required this.employeeId,});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [name, email, designation, level, employeeId, id,];
 }
 
 

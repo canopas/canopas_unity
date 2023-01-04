@@ -66,8 +66,7 @@ class EmployeeService {
       required String name,
       required String employeeId,
       required String email,
-      required String phone,
-      required String level,
+      required String? level,
       required String designation,
       required int roleType,
       required int dateOfJoining}) async {
@@ -77,7 +76,6 @@ class EmployeeService {
       FirestoreConst.email: email,
       FirestoreConst.employeeId: employeeId,
       FirestoreConst.designation: designation,
-      FirestoreConst.phone: phone,
       FirestoreConst.dateOfJoining: dateOfJoining,
       FirestoreConst.level: level,
     };

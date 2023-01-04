@@ -34,8 +34,7 @@ class AddMemberForm extends StatelessWidget {
               role: state.role??kRoleTypeEmployee,
               onRoleChange: (role) => bloc.add(SelectRoleTypeEvent(roleType: role)),
             ),
-            const SizedBox(height: 12),
-            _TextFieldTitle(
+            TextFieldTitle(
                 title: localization.employee_employeeID_tag),
             EmployeeField(
                 onChanged: (value) =>
@@ -44,7 +43,7 @@ class AddMemberForm extends StatelessWidget {
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_employeeId),
-            _TextFieldTitle(title: localization.employee_name_tag),
+            TextFieldTitle(title: localization.employee_name_tag),
             EmployeeField(
               onChanged: (value) => context
                   .read<AddMemberBloc>()
@@ -54,7 +53,7 @@ class AddMemberForm extends StatelessWidget {
                   : null,
               hintText: localization.admin_addMember_hint_name,
             ),
-            _TextFieldTitle(title: localization.employee_email_tag),
+            TextFieldTitle(title: localization.employee_email_tag),
             EmployeeField(
                 onChanged: (value) =>
                     bloc.add(AddEmployeeEmailEvent(email: value)),
@@ -62,7 +61,7 @@ class AddMemberForm extends StatelessWidget {
                     ? localization.admin_add_member_error_email
                     : null,
                 hintText: localization.admin_addMember_hint_email),
-            _TextFieldTitle(
+            TextFieldTitle(
                 title: localization.employee_designation_tag),
             EmployeeField(
                 onChanged: (value) => bloc
@@ -71,7 +70,7 @@ class AddMemberForm extends StatelessWidget {
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_designation),
-            _TextFieldTitle(
+            TextFieldTitle(
                 title: localization.employee_dateOfJoin_tag),
             TextField(
               readOnly: true,
@@ -106,9 +105,9 @@ class AddMemberForm extends StatelessWidget {
   }
 }
 
-class _TextFieldTitle extends StatelessWidget {
+class TextFieldTitle extends StatelessWidget {
   final String title;
-  const _TextFieldTitle({Key? key,required this.title}) : super(key: key);
+  const TextFieldTitle({Key? key,required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -124,15 +123,16 @@ class _TextFieldTitle extends StatelessWidget {
 }
 
 class EmployeeField extends StatelessWidget {
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final String? errorText;
   final String hintText;
+  final TextEditingController? controller;
 
   const EmployeeField(
       {Key? key,
-      required this.onChanged,
-      required this.errorText,
-      required this.hintText})
+      this.onChanged,
+      this.errorText,
+      required this.hintText,  this.controller})
       : super(key: key);
 
   @override
@@ -140,6 +140,7 @@ class EmployeeField extends StatelessWidget {
     return TextField(
       textInputAction: TextInputAction.next,
       onChanged: onChanged,
+      controller: controller,
       cursorColor: Colors.black,
       autocorrect: false,
       style: AppTextStyle.subtitleTextDark,

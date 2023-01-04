@@ -5,6 +5,7 @@ import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../../core/utils/const/role.dart';
+import '../../../../router/app_router.dart';
 import 'bloc/employee_detail_bloc.dart';
 import 'bloc/employee_detail_event.dart';
 import 'bloc/employee_detail_state.dart';
@@ -50,6 +51,10 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                    ),
                    elevation: 6,
                    itemBuilder: (context) => [
+                     PopupMenuItem(child: Text(AppLocalizations.of(context).edit_tag),
+                       onTap: (){
+                         context.goNamed(Routes.adminEditEmployeeDetails,extra: state.employee,params: {'employeeId':state.employee.id});
+                       },),
                      PopupMenuItem(child: Text(
                        AppLocalizations.of(context).user_leave_detail_button_delete,
                      ),

@@ -1,64 +1,64 @@
 import 'package:equatable/equatable.dart';
 
-enum AdminEditEmployeeDetailsStatus{initial,loading,success,failure}
+enum AdminEditEmployeeDetailsStatus { initial, loading, success, failure }
+
 class AdminEditEmployeeDetailsState extends Equatable {
   final AdminEditEmployeeDetailsStatus adminEditEmployeeDetailsStatus;
-  final String name;
-  final String? id;
   final int roleType;
-  final String email;
-  final String designation;
   final DateTime? dateOfJoining;
-  final String level;
-  final String employeeId;
-  final String phoneNumber;
   final String? error;
+  final bool nameError;
+  final bool designationError;
+  final bool employeeIdError;
+  final bool emailError;
 
   const AdminEditEmployeeDetailsState({
-    this.error,
-    this.id,
-    this.adminEditEmployeeDetailsStatus = AdminEditEmployeeDetailsStatus.initial,
-    this.name = "",
-    this.roleType = 2,
-    this.email = "",
-    this.designation = "",
-    this.employeeId = "",
-    this.phoneNumber = "",
-    this.level = "",
     this.dateOfJoining,
-});
+    this.nameError = false,
+    this.emailError = false,
+    this.employeeIdError = false,
+    this.designationError = false,
+    this.error,
+    this.adminEditEmployeeDetailsStatus =
+        AdminEditEmployeeDetailsStatus.initial,
+    this.roleType = 2,
+  });
+
+  bool get isValid => nameError == false && emailError == false && employeeIdError == false && designationError == false;
 
   copyWith({
-      String? id,
-      String? name,
-      String? error,
-      String? designation,
-      String? employeeId,
-      String? phoneNumber,
-      String? level,
-      String? email,
-      DateTime? dateOfJoining,
-      int? roleType,
-      AdminEditEmployeeDetailsStatus? adminEditEmployeeDetailsStatus,}){
+    String? error,
+    bool? nameError,
+    bool? designationError,
+    bool? employeeIdError,
+    bool? emailError,
+    DateTime? dateOfJoining,
+    int? roleType,
+    AdminEditEmployeeDetailsStatus? adminEditEmployeeDetailsStatus,
+  }) {
     return AdminEditEmployeeDetailsState(
-      error: error,
-      name: name ?? this.name,
-      level: level ?? this.level,
-      roleType: roleType ?? this.roleType,
-      email: email?? this.email,
-      designation: designation??this.designation,
-      employeeId: employeeId ?? this.employeeId,
-      adminEditEmployeeDetailsStatus: adminEditEmployeeDetailsStatus ?? this.adminEditEmployeeDetailsStatus,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
       dateOfJoining: dateOfJoining ?? this.dateOfJoining,
-      id: id ?? this.id,
+      designationError: designationError ?? this.designationError,
+      emailError: emailError ?? this.emailError,
+      employeeIdError: employeeIdError ?? this.employeeIdError,
+      nameError: nameError ?? this.nameError,
+      error: error,
+      roleType: roleType ?? this.roleType,
+      adminEditEmployeeDetailsStatus:
+          adminEditEmployeeDetailsStatus ?? this.adminEditEmployeeDetailsStatus,
     );
   }
 
 
-
   @override
-  List<Object?> get props => throw [id,name,designation,email,phoneNumber,designation,level,dateOfJoining,error];
-
+  List<Object?> get props => [
+        adminEditEmployeeDetailsStatus,
+        roleType,
+        error,
+        dateOfJoining,
+        nameError,
+        emailError,
+        designationError,
+        employeeIdError
+      ];
 }
-

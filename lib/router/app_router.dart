@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/addmember/admin_add_member_screen.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/edit_employee_details_view.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_view.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/leave_request_view.dart';
@@ -60,11 +62,22 @@ class AppRouter {
                     routes: <GoRoute>[
                       GoRoute(
                           name: Routes.employeeDetail,
-                          path: 'details/:employeeId',
+                          path: ':employeeId',
                           pageBuilder: (context, state) => MaterialPage(
                               child: EmployeeDetailPage(
-                                  id: state.params['employeeId']!))),
+                                  id: state.params['employeeId']!)),
+                      routes: [
+                        GoRoute(
+                          path: 'admin-edit-employee-details',
+                          name: Routes.adminEditEmployeeDetails,
+                          pageBuilder: (context, state) => MaterialPage(
+                              child: AdminEditEmployeeDetailsPage(
+                                employee: state.extra as Employee,
+                              )),
+                        ),
+                      ]),
                     ]),
+
                 GoRoute(
                     name: Routes.adminLeaveDetail,
                     path: 'leave-application',
@@ -206,6 +219,7 @@ class AppRouter {
 }
 
 abstract class Routes {
+  static const adminEditEmployeeDetails = 'admin-edit-employee-details';
   static const rootRoute = '/';
   static const login = '/login';
   static const adminHome = '/admin';
