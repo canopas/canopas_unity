@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/addmember/admin_add_member_screen.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/edit_employee_details_view.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_details_view.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_view.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/leave_request_view.dart';

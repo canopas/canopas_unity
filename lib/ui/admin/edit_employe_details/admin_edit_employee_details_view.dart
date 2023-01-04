@@ -4,12 +4,12 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/edit_employee_details_bloc.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/edit_employee_details_events.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/widgets/admin_edit_employee_details_form.dart';
 import '../../../configs/colors.dart';
-import 'bloc/edit_employee_details_state.dart';
+import 'bloc/admin_edit_employee_details_state.dart';
 
 class AdminEditEmployeeDetailsPage extends StatelessWidget {
   final Employee employee;

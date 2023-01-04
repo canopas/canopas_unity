@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/edit_employee_details_bloc.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/edit_employee_details_events.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/edit_employee_details_state.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
+import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 

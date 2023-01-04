@@ -22,7 +22,7 @@ import '../services/auth/auth_service.dart' as _i6;
 import '../services/leave/user_leave_service.dart' as _i14;
 import '../stateManager/auth/auth_manager.dart' as _i22;
 import '../ui/admin/addmember/bloc/add_member_bloc.dart' as _i17;
-import '../ui/admin/edit_employe_details/bloc/edit_employee_details_bloc.dart'
+import '../ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart'
     as _i18;
 import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i28;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i23;
