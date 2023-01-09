@@ -17,9 +17,9 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
-    return BlocListener<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
+    return BlocListener<AdminLeaveApplicationDetailsBloc,AdminLeaveApplicationDetailsState>(
       listener: (context,state) {
-        if(state.leaveDetailsStatus==AdminLeaveDetailsStatus.success){
+        if(state.leaveDetailsStatus==AdminLeaveApplicationDetailsStatus.success){
           context.pop();
         }
       },
@@ -34,15 +34,15 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BlocBuilder<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
+              BlocBuilder<AdminLeaveApplicationDetailsBloc,AdminLeaveApplicationDetailsState>(
                 buildWhen: (previous, current) => previous.leaveDetailsStatus != current.leaveDetailsStatus,
-                builder: (context, state) => state.leaveDetailsStatus == AdminLeaveDetailsStatus.rejectLoading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
+                builder: (context, state) => state.leaveDetailsStatus == AdminLeaveApplicationDetailsStatus.rejectLoading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.3, 45),
                     backgroundColor: AppColors.redColor,
                   ),
                   onPressed: (){
-                    context.read<AdminLeaveDetailsBloc>().add(AdminLeaveDetailsRejectRequestEvent( leaveId: leaveID));
+                    context.read<AdminLeaveApplicationDetailsBloc>().add(AdminLeaveApplicationDetailsRejectRequestEvent(leaveId: leaveID));
                   },
                   child: Text(
                     localization.admin_leave_detail_button_reject,
@@ -50,15 +50,15 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                   ),
                 ),
               ),
-              BlocBuilder<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
+              BlocBuilder<AdminLeaveApplicationDetailsBloc,AdminLeaveApplicationDetailsState>(
                 buildWhen: (previous, current) => previous.leaveDetailsStatus != current.leaveDetailsStatus,
-                builder: (context, state) => state.leaveDetailsStatus == AdminLeaveDetailsStatus.approveLoading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
+                builder: (context, state) => state.leaveDetailsStatus == AdminLeaveApplicationDetailsStatus.approveLoading?const AppCircularProgressIndicator(size: 28,):ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.3, 45),
                     backgroundColor: AppColors.greenColor,
                   ),
                   onPressed: (){
-                    context.read<AdminLeaveDetailsBloc>().add(AdminLeaveDetailsApproveRequestEvent( leaveId: leaveID));
+                    context.read<AdminLeaveApplicationDetailsBloc>().add(AdminLeaveApplicationDetailsApproveRequestEvent(leaveId: leaveID));
                   },
                   child: Text(
                     localization.admin_leave_detail_button_approve,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/addmember/admin_add_member_screen.dart';
+import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
+import 'package:projectunity/ui/shared/leave_details/leave_details.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_screen.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/apply_leave_screen.dart';
@@ -16,7 +18,6 @@ import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
-import '../ui/user/leave_details/employee_leave_details.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
@@ -72,7 +73,7 @@ class AppRouter {
                       LeaveApplication leaveApplication =
                           state.extra as LeaveApplication;
                       return MaterialPage(
-                          child: AdminLeaveDetailsPage(
+                          child: AdminLeaveRequestDetailsPage(
                               leaveApplication: leaveApplication));
                     }),
                 GoRoute(
@@ -89,7 +90,7 @@ class AppRouter {
                           LeaveApplication leaveApplication =
                           state.extra as LeaveApplication;
                           return MaterialPage(
-                              child: AdminLeaveDetailsPage(
+                              child: LeaveDetailsPage(
                                   leaveApplication: leaveApplication));
                         }),
                   ]
@@ -162,7 +163,7 @@ class AppRouter {
                             LeaveApplication leaveApplication =
                             state.extra as LeaveApplication;
                             return MaterialPage(
-                                child: EmployeeLeaveDetailsPage(
+                                child: LeaveDetailsPage(
                                     leaveApplication: leaveApplication));
                           }),
                     ]
@@ -183,7 +184,7 @@ class AppRouter {
                           LeaveApplication leaveApplication =
                           state.extra as LeaveApplication;
                           return MaterialPage(
-                              child: EmployeeLeaveDetailsPage(
+                              child: LeaveDetailsPage(
                                   leaveApplication: leaveApplication));
                         }),
                   ]
