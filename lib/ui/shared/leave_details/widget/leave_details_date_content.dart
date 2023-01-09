@@ -12,9 +12,9 @@ import '../../../../core/utils/date_formatter.dart';
 import '../bloc/leave_details_bloc/employee_leave_details_bloc.dart';
 import '../bloc/leave_details_bloc/leave_details_state.dart';
 
-class EmployeeLeaveDetailsDateContent extends StatelessWidget {
+class LeaveDetailsDateContent extends StatelessWidget {
   final Leave leave;
-  const EmployeeLeaveDetailsDateContent({Key? key, required this.leave}) : super(key: key);
+  const LeaveDetailsDateContent({Key? key, required this.leave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class EmployeeLeaveDetailsDateContent extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BlocBuilder<EmployeeLeaveDetailsBloc,EmployeeLeaveDetailsState>(
-              builder: (context, state) => state.leaveDetailsLeaveCountStatus == EmployeeLeaveDetailsLeaveCountStatus.loading
+            BlocBuilder<LeaveDetailsBloc,LeaveDetailsState>(
+              builder: (context, state) => state.leaveDetailsLeaveCountStatus == LeaveDetailsLeaveCountStatus.loading
                 ?const AppCircularProgressIndicator(size: 28,)
                 :Text("${state.remainingLeaveCount.fixedAt(2)}/${state.paidLeaveCount}",style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold,)),
             ),

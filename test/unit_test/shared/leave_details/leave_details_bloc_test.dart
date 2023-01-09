@@ -9,18 +9,18 @@ import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
-import 'package:projectunity/ui/user/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart';
-import 'package:projectunity/ui/user/leave_details/bloc/leave_details_bloc/leave_details_event.dart';
-import 'package:projectunity/ui/user/leave_details/bloc/leave_details_bloc/leave_details_state.dart';
-import 'employee_leave_details_bloc_test.mocks.dart';
+import 'package:projectunity/ui/shared/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart';
+import 'package:projectunity/ui/shared/leave_details/bloc/leave_details_bloc/leave_details_event.dart';
+import 'package:projectunity/ui/shared/leave_details/bloc/leave_details_bloc/leave_details_state.dart';
+import 'leave_details_bloc_test.mocks.dart';
 
 @GenerateMocks([UserLeaveService,AdminLeaveService,UserManager,PaidLeaveService])
 void main(){
   late UserLeaveService userLeaveService;
   late UserManager userManager;
-  late EmployeeLeaveDetailsBloc employeeLeaveDetailsBloc;
+  late LeaveDetailsBloc leaveDetailsBloc;
   late PaidLeaveService paidLeaveService;
-  late EmployeeLeaveDetailsState loadingState;
+  late LeaveDetailsState loadingState;
   Leave leave = const Leave(
       leaveId: 'leave-id',
       uid: 'id',
@@ -53,8 +53,8 @@ void main(){
       userLeaveService = MockUserLeaveService();
       userManager = MockUserManager();
       paidLeaveService = MockPaidLeaveService();
-      employeeLeaveDetailsBloc = EmployeeLeaveDetailsBloc(userLeaveService, paidLeaveService, userManager);
-      loadingState = const EmployeeLeaveDetailsState(leaveDetailsLeaveCountStatus: EmployeeLeaveDetailsLeaveCountStatus.loading);
+      leaveDetailsBloc = LeaveDetailsBloc(userLeaveService, paidLeaveService, userManager);
+      loadingState = const LeaveDetailsState(leaveDetailsLeaveCountStatus: LeaveDetailsLeaveCountStatus.loading);
       when(userManager.employeeId).thenReturn("id");
       when(userManager.isAdmin).thenReturn(false);
     });
@@ -63,35 +63,35 @@ void main(){
       when(paidLeaveService.getPaidLeaves()).thenAnswer((_) => Future(() => 12));
       when(userLeaveService.getUserUsedLeaveCount("id")).thenAnswer((_) => Future(() => 6.0));
       LeaveApplication leaveApplication = LeaveApplication(employee: employee, leave: leave);
-      employeeLeaveDetailsBloc.add(EmployeeLeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication));
-      expect(employeeLeaveDetailsBloc.stream, emitsInOrder([
+      leaveDetailsBloc.add(LeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication));
+      expect(leaveDetailsBloc.stream, emitsInOrder([
        loadingState,
-       const EmployeeLeaveDetailsState(leaveDetailsLeaveCountStatus: EmployeeLeaveDetailsLeaveCountStatus.success,paidLeaveCount: 12,remainingLeaveCount: 6.0),
+       const LeaveDetailsState(leaveDetailsLeaveCountStatus: LeaveDetailsLeaveCountStatus.success,paidLeaveCount: 12,remainingLeaveCount: 6.0),
       ]));
     });
 
     test("not fetch leave count when leave application hase leave count test", (){
       LeaveApplication leaveApplication = LeaveApplication(employee: employee, leave: leave,leaveCounts: leaveCounts );
-      employeeLeaveDetailsBloc.add(EmployeeLeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication));
-      expect(employeeLeaveDetailsBloc.stream, emitsInOrder([
+      leaveDetailsBloc.add(LeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication));
+      expect(leaveDetailsBloc.stream, emitsInOrder([
         loadingState,
-        const EmployeeLeaveDetailsState(leaveDetailsLeaveCountStatus: EmployeeLeaveDetailsLeaveCountStatus.success,paidLeaveCount: 12,remainingLeaveCount: 7.0),
+        const LeaveDetailsState(leaveDetailsLeaveCountStatus: LeaveDetailsLeaveCountStatus.success,paidLeaveCount: 12,remainingLeaveCount: 7.0),
       ]));
     });
 
 
     test("get data from user manager test", (){
-      expect(employeeLeaveDetailsBloc.currentUserId,"id");
+      expect(leaveDetailsBloc.currentUserId,"id");
     });
 
 
     test("remove leave application test", (){
       when(userLeaveService.deleteLeaveRequest(leave.leaveId)).thenAnswer((realInvocation) => Future(() => null));
       LeaveApplication leaveApplication = LeaveApplication(employee: employee, leave: leave,leaveCounts: leaveCounts );
-      employeeLeaveDetailsBloc.add(EmployeeLeaveDetailsRemoveLeaveRequestEvent(leaveApplication));
-      expect(employeeLeaveDetailsBloc.stream, emitsInOrder([
-        const EmployeeLeaveDetailsState(leaveDetailsStatus: EmployeeLeaveDetailsStatus.loading),
-        const EmployeeLeaveDetailsState(leaveDetailsStatus: EmployeeLeaveDetailsStatus.success),
+      leaveDetailsBloc.add(LeaveDetailsRemoveLeaveRequestEvent(leaveApplication));
+      expect(leaveDetailsBloc.stream, emitsInOrder([
+        const LeaveDetailsState(leaveDetailsStatus: LeaveDetailsStatus.loading),
+        const LeaveDetailsState(leaveDetailsStatus: LeaveDetailsStatus.success),
       ]));
     });
 
