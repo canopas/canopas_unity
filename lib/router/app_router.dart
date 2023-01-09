@@ -13,7 +13,6 @@ import '../provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
-import '../ui/admin/leave_details/admin_leave_details_view.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
