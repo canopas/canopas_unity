@@ -65,7 +65,7 @@ class AppRouter {
                           path: ':employeeId',
                           pageBuilder: (context, state) => MaterialPage(
                               child: EmployeeDetailPage(
-                                  id: state.params['employeeId']!)),
+                                  id: state.params[RoutesParamsConst.employeeId]!)),
                       routes: [
                         GoRoute(
                           path: 'admin-edit-employee-details',
@@ -216,6 +216,9 @@ class AppRouter {
 
     );
   }
+}
+abstract class RoutesParamsConst{
+  static const employeeId = "employeeId";
 }
 
 abstract class Routes {

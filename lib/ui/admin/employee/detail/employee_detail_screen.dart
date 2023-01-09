@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../../di/service_locator.dart';
@@ -53,7 +54,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                    itemBuilder: (context) => [
                      PopupMenuItem(child: Text(AppLocalizations.of(context).edit_tag),
                        onTap: (){
-                         context.goNamed(Routes.adminEditEmployeeDetails,extra: state.employee,params: {'employeeId':state.employee.id});
+                         context.goNamed(Routes.adminEditEmployeeDetails,extra: state.employee,params: {RoutesParamsConst.employeeId:state.employee.id});
                        },),
                      PopupMenuItem(child: Text(
                        AppLocalizations.of(context).user_leave_detail_button_delete,
