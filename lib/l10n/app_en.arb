@@ -251,7 +251,7 @@
       "admin_addMember_hint_employeeId":"CA 1001",
       "admin_addMember_hint_email":"andrew@canopas.com",
       "admin_addMember_hint_designation":"Android developer",
-      "admin_addMember_hint_level":"CA-0000",
+      "admin_addMember_hint_level":"SW-L1 Junior engineer",
 
 
   "leave_request_remaining_paid_count_placeholder":"{day,plural,=0{{day}/{paid} day left},=1{{day}/{paid} day left}, other{{day}/{paid} days left}}}",

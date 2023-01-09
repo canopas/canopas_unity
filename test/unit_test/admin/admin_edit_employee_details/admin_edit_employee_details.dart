@@ -30,20 +30,20 @@ void main(){
 
    test('change role type test', (){
      editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
-     editEmployeeDetailsBloc.add(ChangeRoleTypeAdminEditEmployeeDetailsEvents(roleType: 2));
+     editEmployeeDetailsBloc.add(ChangeRoleTypeAdminEditEmployeeDetailsEvent(roleType: 2));
      expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 2)));
    });
 
    test('change joining date test', (){
      editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
      DateTime otherDate  = DateTime.now().add(const Duration(days: 5)).dateOnly;
-     editEmployeeDetailsBloc.add(ChangeDateOfJoiningAdminEditEmployeeDetailsEvents(dateOfJoining: otherDate));
+     editEmployeeDetailsBloc.add(ChangeDateOfJoiningAdminEditEmployeeDetailsEvent(dateOfJoining: otherDate));
      expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: otherDate,roleType: 1)));
    });
 
    test('test validation validation', () {
-     editEmployeeDetailsBloc.add(ValidNameAdminEditEmployeeDetailsEvents(name: ""));
-     editEmployeeDetailsBloc.add(ValidNameAdminEditEmployeeDetailsEvents(name: "Tester Dummy"));
+     editEmployeeDetailsBloc.add(ValidNameAdminEditEmployeeDetailsEvent(name: ""));
+     editEmployeeDetailsBloc.add(ValidNameAdminEditEmployeeDetailsEvent(name: "Tester Dummy"));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
        const AdminEditEmployeeDetailsState(nameError: true),
        const AdminEditEmployeeDetailsState(nameError: false)
@@ -51,8 +51,8 @@ void main(){
    });
 
    test('test email validation', () {
-     editEmployeeDetailsBloc.add(ValidEmailAdminEditEmployeeDetailsEvents(email: ""));
-     editEmployeeDetailsBloc.add(ValidEmailAdminEditEmployeeDetailsEvents(email: "dummy123@gmail.com"));
+     editEmployeeDetailsBloc.add(ValidEmailAdminEditEmployeeDetailsEvent(email: ""));
+     editEmployeeDetailsBloc.add(ValidEmailAdminEditEmployeeDetailsEvent(email: "dummy123@gmail.com"));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
        const AdminEditEmployeeDetailsState(emailError: true),
        const AdminEditEmployeeDetailsState(emailError: false)
@@ -60,8 +60,8 @@ void main(){
    });
 
    test('test designation validation', () {
-     editEmployeeDetailsBloc.add(ValidDesignationAdminEditEmployeeDetailsEvents(designation: ""));
-     editEmployeeDetailsBloc.add(ValidDesignationAdminEditEmployeeDetailsEvents(designation: "Application Tester"));
+     editEmployeeDetailsBloc.add(ValidDesignationAdminEditEmployeeDetailsEvent(designation: ""));
+     editEmployeeDetailsBloc.add(ValidDesignationAdminEditEmployeeDetailsEvent(designation: "Application Tester"));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
        const AdminEditEmployeeDetailsState(designationError: true),
        const AdminEditEmployeeDetailsState(designationError: false)
@@ -69,8 +69,8 @@ void main(){
    });
 
    test('test employeeId validation', () {
-     editEmployeeDetailsBloc.add(ValidEmployeeIdAdminEditEmployeeDetailsEvents(employeeId: ""));
-     editEmployeeDetailsBloc.add(ValidEmployeeIdAdminEditEmployeeDetailsEvents(employeeId: "CA-1000"));
+     editEmployeeDetailsBloc.add(ValidEmployeeIdAdminEditEmployeeDetailsEvent(employeeId: ""));
+     editEmployeeDetailsBloc.add(ValidEmployeeIdAdminEditEmployeeDetailsEvent(employeeId: "CA-1000"));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
        const AdminEditEmployeeDetailsState(employeeIdError: true),
        const AdminEditEmployeeDetailsState(employeeIdError: false)
@@ -79,7 +79,7 @@ void main(){
 
    test('update Employee details test', () async {
      editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
-     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester",));
+     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester",));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
        AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading),
        AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.success),
@@ -91,7 +91,7 @@ void main(){
    test('update Employee details failed test', () async {
      editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
      when(employeeService.adminUpdateEmployeeDetails(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester", roleType: 1, dateOfJoining: joiningDate.timeStampToInt)).thenThrow(Exception("error"));
-     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester",));
+     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester",));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
        AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading),
        AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.failure,error: firestoreFetchDataError),

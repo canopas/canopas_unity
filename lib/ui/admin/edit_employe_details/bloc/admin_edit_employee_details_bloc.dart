@@ -14,44 +14,44 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
   AdminEditEmployeeDetailsBloc(this._employeeService)
       : super(const AdminEditEmployeeDetailsState()) {
     on<AdminEditEmployeeDetailsInitialEvent>(_initRoleTypeAndDate);
-    on<ChangeRoleTypeAdminEditEmployeeDetailsEvents>(_changeRoleType);
-    on<UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents>(_updateEmployee);
-    on<ChangeDateOfJoiningAdminEditEmployeeDetailsEvents>(_changeDateOfJoining);
-    on<ValidDesignationAdminEditEmployeeDetailsEvents>(_validDesignation);
-    on<ValidEmailAdminEditEmployeeDetailsEvents>(_validEmail);
-    on<ValidEmployeeIdAdminEditEmployeeDetailsEvents>(_validEmployeeId);
-    on<ValidNameAdminEditEmployeeDetailsEvents>(_validName);
+    on<ChangeRoleTypeAdminEditEmployeeDetailsEvent>(_changeRoleType);
+    on<UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent>(_updateEmployee);
+    on<ChangeDateOfJoiningAdminEditEmployeeDetailsEvent>(_changeDateOfJoining);
+    on<ValidDesignationAdminEditEmployeeDetailsEvent>(_validDesignation);
+    on<ValidEmailAdminEditEmployeeDetailsEvent>(_validEmail);
+    on<ValidEmployeeIdAdminEditEmployeeDetailsEvent>(_validEmployeeId);
+    on<ValidNameAdminEditEmployeeDetailsEvent>(_validName);
   }
 
-  _initRoleTypeAndDate(AdminEditEmployeeDetailsInitialEvent event, Emitter<AdminEditEmployeeDetailsState> emit){
+  void _initRoleTypeAndDate(AdminEditEmployeeDetailsInitialEvent event, Emitter<AdminEditEmployeeDetailsState> emit){
     emit(state.copyWith(roleType: event.roleType,dateOfJoining: event.joiningDate?.toDate ?? DateTime.now().dateOnly));
   }
 
-  _changeRoleType(ChangeRoleTypeAdminEditEmployeeDetailsEvents event,
+  void _changeRoleType(ChangeRoleTypeAdminEditEmployeeDetailsEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(roleType: event.roleType));
   }
 
-  _changeDateOfJoining(ChangeDateOfJoiningAdminEditEmployeeDetailsEvents event,
+  void _changeDateOfJoining(ChangeDateOfJoiningAdminEditEmployeeDetailsEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(dateOfJoining: event.dateOfJoining));
   }
 
-  _validName(ValidNameAdminEditEmployeeDetailsEvents event, Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validName(ValidNameAdminEditEmployeeDetailsEvent event, Emitter<AdminEditEmployeeDetailsState> emit) {
     if(event.name.length < 4){
       emit(state.copyWith(nameError: true));
     } else {
       emit(state.copyWith(nameError: false));
     }
   }
-  _validEmail(ValidEmailAdminEditEmployeeDetailsEvents event, Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validEmail(ValidEmailAdminEditEmployeeDetailsEvent event, Emitter<AdminEditEmployeeDetailsState> emit) {
     if(event.email.isEmpty || !event.email.contains('@')){
       emit(state.copyWith(emailError: true));
     } else {
       emit(state.copyWith(emailError: false));
     }
   }
-  _validDesignation(ValidDesignationAdminEditEmployeeDetailsEvents event, Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validDesignation(ValidDesignationAdminEditEmployeeDetailsEvent event, Emitter<AdminEditEmployeeDetailsState> emit) {
     if(event.designation.isEmpty){
       emit(state.copyWith(designationError: true));
     } else {
@@ -60,7 +60,7 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
   }
 
 
-  _validEmployeeId(ValidEmployeeIdAdminEditEmployeeDetailsEvents event, Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validEmployeeId(ValidEmployeeIdAdminEditEmployeeDetailsEvent event, Emitter<AdminEditEmployeeDetailsState> emit) {
     if(event.employeeId.isEmpty){
       emit(state.copyWith(employeeIdError: true));
     } else {
@@ -68,7 +68,7 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
     }
   }
 
-  _updateEmployee(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents event, Emitter<AdminEditEmployeeDetailsState> emit) async {
+  void _updateEmployee(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent event, Emitter<AdminEditEmployeeDetailsState> emit) async {
     emit(state.copyWith(adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading));
       if(event.name.length < 4 || event.email.isEmpty || !event.email.contains('@') || event.designation.isEmpty || event.employeeId.isEmpty){
         emit(state.copyWith(adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.failure,error: fillDetailsError));

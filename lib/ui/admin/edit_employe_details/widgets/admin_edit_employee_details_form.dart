@@ -60,7 +60,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             ToggleButton(
                 onRoleChange: (role) {
                   context.read<AdminEditEmployeeDetailsBloc>().add(
-                      ChangeRoleTypeAdminEditEmployeeDetailsEvents(
+                      ChangeRoleTypeAdminEditEmployeeDetailsEvent(
                           roleType: role));
                 },
                 role: state.roleType),
@@ -68,7 +68,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             EmployeeField(
                 controller: employeeIDFieldController,
                 onChanged: (value) => bloc.add(
-                    ValidEmployeeIdAdminEditEmployeeDetailsEvents(
+                    ValidEmployeeIdAdminEditEmployeeDetailsEvent(
                         employeeId: value)),
                 errorText: state.employeeIdError
                     ? localization.admin_add_member_error_complete_field
@@ -78,7 +78,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             EmployeeField(
               controller: nameFieldController,
               onChanged: (value) => bloc
-                  .add(ValidNameAdminEditEmployeeDetailsEvents(name: value)),
+                  .add(ValidNameAdminEditEmployeeDetailsEvent(name: value)),
               errorText: state.nameError
                   ? localization.admin_add_member_error_name
                   : null,
@@ -88,7 +88,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             EmployeeField(
                 controller: emailFieldController,
                 onChanged: (value) => bloc.add(
-                    ValidEmailAdminEditEmployeeDetailsEvents(email: value)),
+                    ValidEmailAdminEditEmployeeDetailsEvent(email: value)),
                 errorText: state.emailError
                     ? localization.admin_add_member_error_email
                     : null,
@@ -97,7 +97,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             EmployeeField(
                 controller: designationFieldController,
                 onChanged: (value) => bloc.add(
-                    ValidDesignationAdminEditEmployeeDetailsEvents(
+                    ValidDesignationAdminEditEmployeeDetailsEvent(
                         designation: value)),
                 errorText: state.designationError
                     ? localization.admin_add_member_error_complete_field
@@ -115,7 +115,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     context: context,
                     initialDate: state.dateOfJoining ?? DateTime.now());
                 if (joiningDate != null) {
-                  bloc.add(ChangeDateOfJoiningAdminEditEmployeeDetailsEvents(
+                  bloc.add(ChangeDateOfJoiningAdminEditEmployeeDetailsEvent(
                       dateOfJoining: joiningDate));
                   dateOfJoiningFieldController.text =
                       localization.date_format_yMMMd(joiningDate);

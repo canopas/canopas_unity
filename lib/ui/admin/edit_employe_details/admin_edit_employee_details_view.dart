@@ -64,6 +64,17 @@ class _AdminEditEmployeeDetailsViewState
   }
 
   @override
+  void dispose() {
+     nameFieldController.dispose();
+     emailFieldController.dispose();
+     designationFieldController.dispose();
+     levelFieldController.dispose();
+     employeeIDFieldController.dispose();
+     dateOfJoiningFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -91,7 +102,7 @@ class _AdminEditEmployeeDetailsViewState
                 disabledBackgroundColor: AppColors.greyColor,
               ),
               onPressed: (state.isValid)?() {
-                context.read<AdminEditEmployeeDetailsBloc>().add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvents(
+                context.read<AdminEditEmployeeDetailsBloc>().add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
                   id: widget.employee.id,
                   name: nameFieldController.text,
                   email: emailFieldController.text,
