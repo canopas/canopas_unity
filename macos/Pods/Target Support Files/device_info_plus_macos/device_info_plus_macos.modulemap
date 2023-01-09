@@ -1,6 +1,0 @@
-framework module device_info_plus_macos {
-  umbrella header "device_info_plus_macos-umbrella.h"
-
-  export *
-  module * { export * }
-}
