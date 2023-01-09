@@ -18,9 +18,9 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text('Something went wrong'),
+        child: Text(error.errorMessage(context)),
       ),
     );
   }
