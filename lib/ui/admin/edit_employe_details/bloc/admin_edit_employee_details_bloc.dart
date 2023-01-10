@@ -70,7 +70,7 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
 
   void _updateEmployee(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent event, Emitter<AdminEditEmployeeDetailsState> emit) async {
     emit(state.copyWith(adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading));
-      if(event.name.length < 4 || event.email.isEmpty || !event.email.contains('@') || event.designation.isEmpty || event.employeeId.isEmpty){
+      if(state.nameError || state.designationError || state.employeeIdError || state.emailError ){
         emit(state.copyWith(adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.failure,error: fillDetailsError));
       }else {
         try {
