@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/configs/api.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +24,14 @@ class UserPreference {
 
   Future<bool> removeCurrentUser() async {
     return await _preferences.remove(userPrefKeyUser);
+  }
+
+  Future<void> setToken(String token)async{
+    await _preferences.setString(token, token);
+  }
+
+  String? getToken(){
+    return _preferences.getString(token);
   }
 
 }

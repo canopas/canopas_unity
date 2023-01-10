@@ -107,6 +107,15 @@ class MockUserPreference extends _i1.Mock implements _i6.UserPreference {
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+  @override
+  _i4.Future<void> setToken(String? token) => (super.noSuchMethod(
+        Invocation.method(
+          #setToken,
+          [token],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [UserManager].
