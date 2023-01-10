@@ -9,19 +9,19 @@ import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
 import 'package:projectunity/services/admin/requests/admin_leave_service.dart';
 import 'package:projectunity/services/leave/user_leave_service.dart';
-import 'package:projectunity/ui/admin/leave_details/bloc/admin_leave_details_bloc.dart';
-import 'package:projectunity/ui/admin/leave_details/bloc/admin_leave_details_event.dart';
-import 'package:projectunity/ui/admin/leave_details/bloc/admin_leave_details_state.dart';
+import 'package:projectunity/ui/admin/leave_request_details/bloc/admin_leave_details_bloc.dart';
+import 'package:projectunity/ui/admin/leave_request_details/bloc/admin_leave_details_event.dart';
+import 'package:projectunity/ui/admin/leave_request_details/bloc/admin_leave_details_state.dart';
 
-import 'admin_leave_details_bloc_test.mocks.dart';
+import 'admin_leave_request_details_bloc_test.mocks.dart';
 
 @GenerateMocks([UserLeaveService,AdminLeaveService,UserManager,PaidLeaveService])
 void main(){
   late UserLeaveService userLeaveService;
   late AdminLeaveService adminLeaveService;
-  late AdminLeaveDetailsBloc adminLeaveDetailsBloc;
+  late AdminLeaveApplicationDetailsBloc adminLeaveRequestDetailsBloc;
   late PaidLeaveService paidLeaveService;
-  late AdminLeaveDetailsState loadingState;
+  late AdminLeaveApplicationDetailsState loadingState;
   Leave leave = const Leave(
       leaveId: 'leave-id',
       uid: 'id',
@@ -48,8 +48,8 @@ void main(){
     userLeaveService = MockUserLeaveService();
     adminLeaveService = MockAdminLeaveService();
     paidLeaveService = MockPaidLeaveService();
-    adminLeaveDetailsBloc = AdminLeaveDetailsBloc(userLeaveService, adminLeaveService, paidLeaveService);
-    loadingState = const AdminLeaveDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveDetailsLeaveCountStatus.loading);
+    adminLeaveRequestDetailsBloc = AdminLeaveApplicationDetailsBloc(userLeaveService, adminLeaveService, paidLeaveService);
+    loadingState = const AdminLeaveApplicationDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveApplicationDetailsLeaveCountStatus.loading);
   });
 
   group("Leave Details Screen Test", () {
@@ -58,19 +58,19 @@ void main(){
       when(paidLeaveService.getPaidLeaves()).thenAnswer((_) => Future(() => 12));
       when(userLeaveService.getUserUsedLeaveCount("id")).thenAnswer((_) => Future(() => 6.0));
       LeaveApplication leaveApplication = LeaveApplication(employee: employee, leave: leave);
-      adminLeaveDetailsBloc.add(AdminLeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication));
-      expect(adminLeaveDetailsBloc.stream, emitsInOrder([
+      adminLeaveRequestDetailsBloc.add(AdminLeaveRequestDetailsInitialLoadEvents(leaveApplication: leaveApplication));
+      expect(adminLeaveRequestDetailsBloc.stream, emitsInOrder([
         loadingState,
-        const AdminLeaveDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveDetailsLeaveCountStatus.success,remainingLeaveCount: 6.0,paidLeaveCount: 12),
+        const AdminLeaveApplicationDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveApplicationDetailsLeaveCountStatus.success,remainingLeaveCount: 6.0,paidLeaveCount: 12),
       ]));
     });
 
     test("not fetch leave count when leave application hase leave count test", (){
       LeaveApplication leaveApplication = LeaveApplication(employee: employee, leave: leave,leaveCounts: leaveCounts );
-      adminLeaveDetailsBloc.add(AdminLeaveDetailsInitialLoadEvents(leaveApplication: leaveApplication));
-      expect(adminLeaveDetailsBloc.stream, emitsInOrder([
+      adminLeaveRequestDetailsBloc.add(AdminLeaveRequestDetailsInitialLoadEvents(leaveApplication: leaveApplication));
+      expect(adminLeaveRequestDetailsBloc.stream, emitsInOrder([
         loadingState,
-        const AdminLeaveDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveDetailsLeaveCountStatus.success,remainingLeaveCount: 7.0,paidLeaveCount: 12),
+        const AdminLeaveApplicationDetailsState(leaveDetailsLeaveCountStatus: AdminLeaveApplicationDetailsLeaveCountStatus.success,remainingLeaveCount: 7.0,paidLeaveCount: 12),
       ]));
     });
 
@@ -79,10 +79,10 @@ void main(){
         'leave_status': approveLeaveStatus,
         'rejection_reason': "reason",
       })).thenAnswer((realInvocation) => Future(() => null));
-      adminLeaveDetailsBloc.add(AdminLeaveDetailsApproveRequestEvent(leaveId: "leave-id"));
-      expect(adminLeaveDetailsBloc.stream, emitsInOrder([
-        const AdminLeaveDetailsState(leaveDetailsStatus: AdminLeaveDetailsStatus.approveLoading),
-        const AdminLeaveDetailsState(leaveDetailsStatus: AdminLeaveDetailsStatus.success),
+      adminLeaveRequestDetailsBloc.add(AdminLeaveApplicationDetailsApproveRequestEvent(leaveId: "leave-id"));
+      expect(adminLeaveRequestDetailsBloc.stream, emitsInOrder([
+        const AdminLeaveApplicationDetailsState(leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.approveLoading),
+        const AdminLeaveApplicationDetailsState(leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.success),
       ]));
     });
 
@@ -92,10 +92,10 @@ void main(){
         'leave_status': rejectLeaveStatus,
         'rejection_reason': "reason",
       })).thenAnswer((realInvocation) => Future(() => null));
-      adminLeaveDetailsBloc.add(AdminLeaveDetailsRejectRequestEvent(leaveId: "leave-id"));
-      expect(adminLeaveDetailsBloc.stream, emitsInOrder([
-        const AdminLeaveDetailsState(leaveDetailsStatus: AdminLeaveDetailsStatus.rejectLoading),
-        const AdminLeaveDetailsState(leaveDetailsStatus: AdminLeaveDetailsStatus.success),
+      adminLeaveRequestDetailsBloc.add(AdminLeaveApplicationDetailsRejectRequestEvent(leaveId: "leave-id"));
+      expect(adminLeaveRequestDetailsBloc.stream, emitsInOrder([
+        const AdminLeaveApplicationDetailsState(leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.rejectLoading),
+        const AdminLeaveApplicationDetailsState(leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.success),
       ]));
     });
 

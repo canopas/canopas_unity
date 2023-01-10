@@ -12,9 +12,9 @@ import '../../../../widget/circular_progress_indicator.dart';
 import '../bloc/admin_leave_details_bloc.dart';
 import '../bloc/admin_leave_details_state.dart';
 
-class AdminLeaveDetailsDateContent extends StatelessWidget {
+class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
   final Leave leave;
-  const AdminLeaveDetailsDateContent({Key? key, required this.leave}) : super(key: key);
+  const AdminLeaveRequestDetailsDateContent({Key? key, required this.leave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class AdminLeaveDetailsDateContent extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BlocBuilder<AdminLeaveDetailsBloc,AdminLeaveDetailsState>(
-              builder: (context, state) =>state.leaveDetailsLeaveCountStatus == AdminLeaveDetailsLeaveCountStatus.loading
+            BlocBuilder<AdminLeaveApplicationDetailsBloc,AdminLeaveApplicationDetailsState>(
+              builder: (context, state) =>state.leaveDetailsLeaveCountStatus == AdminLeaveApplicationDetailsLeaveCountStatus.loading
                   ?const AppCircularProgressIndicator(size: 28,)
                   :Text("${state.remainingLeaveCount.fixedAt(2)}/${state.paidLeaveCount}",style: AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold,)),
 

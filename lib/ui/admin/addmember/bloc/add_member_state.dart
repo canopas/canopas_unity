@@ -49,7 +49,7 @@ class AddMemberFormState extends Equatable {
         name: name ?? this.name,
         email: email ?? this.email,
         designation: designation ?? this.designation,
-        dateOfJoining: dateOfJoining,
+        dateOfJoining: dateOfJoining ?? this.dateOfJoining,
         idError: idError??this.idError,
         designationError: designationError??this.designationError,
         emailError: emailError??this.emailError,
