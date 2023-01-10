@@ -20,11 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await configureDependencies();
-  runApp(
-    BlocProvider(
-      create:(_)=>NetworkConnectionBloc(Connectivity())..add(NetworkConnectionObserveEvent()),
-        child:  MyApp()),
-  );
+  runApp(MyApp());
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
     String error = flutterErrorDetails.exceptionAsString();
     return ErrorScreen(error: error);
@@ -38,24 +34,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NetworkConnectionBloc,NetworkConnectionState>(
-      listener: (context,state) {
-        if(state is NetworkConnectionFailureState){
-          String connectionFailedMessage= AppLocalizations.of(context).check_your_connection_error;
-          showSnackBar(context: context,msg: connectionFailedMessage);
-        }
-      }, child: MaterialApp.router(
-          supportedLocales: L10n.all,
-          theme: AppTheme.lightTheme,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          routeInformationParser: _router.routeInformationParser,
-          routerDelegate: _router.routerDelegate,
-          routeInformationProvider: _router.routeInformationProvider,
-    ));
+    return BlocProvider(
+      create: (_)=>NetworkConnectionBloc(Connectivity())..add(NetworkConnectionObserveEvent()),
+      child: BlocListener<NetworkConnectionBloc,NetworkConnectionState>(
+        listener: (context,state) {
+          if(state is NetworkConnectionFailureState){
+            String connectionFailedMessage= AppLocalizations.of(context).check_your_connection_error;
+            showSnackBar(context: context,msg: connectionFailedMessage);
+          }
+        }, child: MaterialApp.router(
+            supportedLocales: L10n.all,
+            theme: AppTheme.lightTheme,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
+            routeInformationProvider: _router.routeInformationProvider,
+      )),
+    );
   }
 }
 
