@@ -10,7 +10,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i13;
 
-import '../bloc/authentication/logout_bloc.dart' as _i31;
+import '../bloc/authentication/logout_bloc.dart' as _i32;
 import '../bloc/network/network_connection_bloc.dart' as _i10;
 import '../pref/user_preference.dart' as _i15;
 import '../provider/user_data.dart' as _i25;
@@ -18,9 +18,10 @@ import '../router/app_router.dart' as _i27;
 import '../services/admin/employee/employee_service.dart' as _i7;
 import '../services/admin/paid_leave/paid_leave_service.dart' as _i12;
 import '../services/admin/requests/admin_leave_service.dart' as _i3;
-import '../services/auth/auth_service.dart' as _i6;
+import '../services/auth/auth_service.dart' as _i21;
 import '../services/leave/user_leave_service.dart' as _i14;
-import '../stateManager/auth/auth_manager.dart' as _i21;
+import '../stateManager/auth/auth_manager.dart' as _i28;
+import '../stateManager/auth/desktop/desktop_auth_manager.dart' as _i6;
 import '../ui/admin/addmember/bloc/add_member_bloc.dart' as _i17;
 import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i22;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i23;
@@ -31,9 +32,9 @@ import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_c
     as _i20;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i4;
-import '../ui/login/bloc/login_view_bloc.dart' as _i32;
+import '../ui/login/bloc/login_view_bloc.dart' as _i33;
 import '../ui/shared/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart'
-    as _i29;
+    as _i30;
 import '../ui/shared/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i9;
 import '../ui/shared/user_leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
@@ -45,12 +46,12 @@ import '../ui/shared/who_is_out_calendar/bloc/who_is_out_view_bloc/who_is_out_vi
 import '../ui/user/all_leaves/bloc/filter_bloc/all_leaves_filter_bloc.dart'
     as _i5;
 import '../ui/user/all_leaves/bloc/leaves_bloc/all_leaves_bloc.dart' as _i26;
-import '../ui/user/home/bloc/employee_home_bloc.dart' as _i28;
+import '../ui/user/home/bloc/employee_home_bloc.dart' as _i29;
 import '../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/leave_request_view_bloc.dart'
-    as _i30;
-import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i33;
-import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i34;
-import 'app_module.dart' as _i35; // ignore_for_file: unnecessary_lambdas
+    as _i31;
+import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i34;
+import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i35;
+import 'app_module.dart' as _i36; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -72,7 +73,7 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i4.AdminPaidLeaveUpdateSettingTextFieldBloc>(
       () => _i4.AdminPaidLeaveUpdateSettingTextFieldBloc());
   gh.factory<_i5.AllLeavesFilterBloc>(() => _i5.AllLeavesFilterBloc());
-  gh.singleton<_i6.AuthService>(_i6.AuthService());
+  gh.factory<_i6.DesktopAuthManager>(() => _i6.DesktopAuthManager());
   gh.singleton<_i7.EmployeeService>(
     _i7.EmployeeService(),
     dispose: (i) => i.dispose(),
@@ -109,9 +110,9 @@ Future<_i1.GetIt> $initGetIt(
           ));
   gh.factory<_i20.AdminSettingUpdatePaidLeaveCountBloc>(() =>
       _i20.AdminSettingUpdatePaidLeaveCountBloc(get<_i12.PaidLeaveService>()));
-  gh.singleton<_i21.AuthManager>(_i21.AuthManager(
+  gh.singleton<_i21.AuthService>(_i21.AuthService(
+    get<_i6.DesktopAuthManager>(),
     get<_i15.UserPreference>(),
-    get<_i6.AuthService>(),
   ));
   gh.factory<_i22.EmployeeDetailBloc>(() => _i22.EmployeeDetailBloc(
         get<_i7.EmployeeService>(),
@@ -132,39 +133,43 @@ Future<_i1.GetIt> $initGetIt(
         get<_i12.PaidLeaveService>(),
       ));
   gh.factory<_i27.AppRouter>(() => _i27.AppRouter(get<_i25.UserManager>()));
-  gh.factory<_i28.EmployeeHomeBloc>(() => _i28.EmployeeHomeBloc(
+  gh.singleton<_i28.AuthManager>(_i28.AuthManager(
+    get<_i15.UserPreference>(),
+    get<_i21.AuthService>(),
+  ));
+  gh.factory<_i29.EmployeeHomeBloc>(() => _i29.EmployeeHomeBloc(
         get<_i25.UserManager>(),
         get<_i14.UserLeaveService>(),
         get<_i12.PaidLeaveService>(),
         get<_i7.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
       ));
-  gh.factory<_i29.LeaveDetailsBloc>(() => _i29.LeaveDetailsBloc(
+  gh.factory<_i30.LeaveDetailsBloc>(() => _i30.LeaveDetailsBloc(
         get<_i14.UserLeaveService>(),
         get<_i12.PaidLeaveService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i30.LeaveRequestBloc>(() => _i30.LeaveRequestBloc(
+  gh.factory<_i31.LeaveRequestBloc>(() => _i31.LeaveRequestBloc(
         get<_i25.UserManager>(),
         get<_i12.PaidLeaveService>(),
         get<_i14.UserLeaveService>(),
       ));
-  gh.factory<_i31.LogOutBloc>(() => _i31.LogOutBloc(
+  gh.factory<_i32.LogOutBloc>(() => _i32.LogOutBloc(
         get<_i15.UserPreference>(),
-        get<_i6.AuthService>(),
+        get<_i21.AuthService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i32.LoginBloc>(() => _i32.LoginBloc(
-        get<_i21.AuthManager>(),
+  gh.factory<_i33.LoginBloc>(() => _i33.LoginBloc(
+        get<_i28.AuthManager>(),
         get<_i25.UserManager>(),
-        get<_i6.AuthService>(),
+        get<_i21.AuthService>(),
       ));
-  gh.factory<_i33.RequestedLeavesViewBloc>(() => _i33.RequestedLeavesViewBloc(
+  gh.factory<_i34.RequestedLeavesViewBloc>(() => _i34.RequestedLeavesViewBloc(
         get<_i12.PaidLeaveService>(),
         get<_i14.UserLeaveService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i34.UpcomingLeavesViewBloc>(() => _i34.UpcomingLeavesViewBloc(
+  gh.factory<_i35.UpcomingLeavesViewBloc>(() => _i35.UpcomingLeavesViewBloc(
         get<_i12.PaidLeaveService>(),
         get<_i14.UserLeaveService>(),
         get<_i25.UserManager>(),
@@ -172,4 +177,4 @@ Future<_i1.GetIt> $initGetIt(
   return get;
 }
 
-class _$AppModule extends _i35.AppModule {}
+class _$AppModule extends _i36.AppModule {}

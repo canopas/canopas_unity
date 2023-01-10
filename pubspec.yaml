@@ -21,22 +21,28 @@ dependencies:
   firebase_auth: ^4.1.3
   firebase_core: ^2.3.0
   flutter_bloc: ^8.1.1
+  flutter_secure_storage: ^7.0.1
   freezed: ^2.2.0
   freezed_annotation: ^2.2.0
   get_it: ^7.2.0
   google_sign_in: ^5.2.1
   go_router: ^6.0.0
-  intl:
+  http: ^0.13.5
+  intl: ^0.17.0
   injectable: ^1.5.3
   json_annotation: ^4.6.0
+  oauth2: ^2.0.1
   package_info_plus: ^2.0.0
   collection:
   simple_gesture_detector:
   rxdart: ^0.27.5
   shared_preferences: ^2.0.15
   sticky_headers: ^0.3.0
+  url_launcher: ^6.1.7
   uuid: ^3.0.6
   table_calendar: ^3.0.7
+  window_to_front: ^0.0.3
+
 
 
 
