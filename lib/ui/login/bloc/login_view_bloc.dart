@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -15,7 +16,7 @@ class LoginBloc extends Bloc<SignInEvent, LoginState> {
   final UserManager _userManager;
   final AuthService _authService;
 
-  LoginBloc(this._authManager, this._userManager, this._authService)
+  LoginBloc(this._authManager, this._userManager, this._authService,)
       : super(LoginInitialState()) {
     on<SignInEvent>(_signIn);
   }
@@ -46,4 +47,7 @@ class LoginBloc extends Bloc<SignInEvent, LoginState> {
       }
     }
   }
+
+
+
 }

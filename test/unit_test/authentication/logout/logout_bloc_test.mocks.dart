@@ -100,10 +100,18 @@ class MockUserPreference extends _i1.Mock implements _i6.UserPreference {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Future<void> removeCurrentUser() => (super.noSuchMethod(
+  _i4.Future<bool> removeCurrentUser() => (super.noSuchMethod(
         Invocation.method(
           #removeCurrentUser,
           [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Future<void> setToken(String? token) => (super.noSuchMethod(
+        Invocation.method(
+          #setToken,
+          [token],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
@@ -154,6 +162,11 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#employeeDesignation),
         returnValue: '',
       ) as String);
+  @override
+  bool get isUserLoggedIn => (super.noSuchMethod(
+        Invocation.getter(#isUserLoggedIn),
+        returnValue: false,
+      ) as bool);
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
