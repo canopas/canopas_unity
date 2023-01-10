@@ -49,30 +49,10 @@ class EmployeeDetailBloc
       Emitter<AdminEmployeeDetailState> emit) async {
     if(state is EmployeeDetailLoadedState){
       final loadedState = state as EmployeeDetailLoadedState;
-      int roleType = kRoleTypeEmployee;
+      int roleType = kRoleTypeAdmin;
       try {
-        if (loadedState.employee.roleType != kRoleTypeAdmin) {
-          roleType = kRoleTypeAdmin;
-        }
         await _employeeService.changeEmployeeRoleType(loadedState.employee.id, roleType);
-        emit(EmployeeDetailLoadedState(
-            employee: Employee(
-              id: loadedState.employee.id,
-              employeeId: loadedState.employee.employeeId,
-              designation: loadedState.employee.designation,
-              email: loadedState.employee.email,
-              name: loadedState.employee.name,
-              roleType: roleType,
-              phone: loadedState.employee.phone,
-              imageUrl: loadedState.employee.imageUrl,
-              gender: loadedState.employee.gender,
-              level: loadedState.employee.level,
-              dateOfBirth: loadedState.employee.dateOfBirth,
-              bloodGroup: loadedState.employee.bloodGroup,
-              address: loadedState.employee.address,
-              dateOfJoining: loadedState.employee.dateOfJoining,
-            )
-        ));
+        emit(EmployeeDetailLoadedState(employee: loadedState.employee.copyWith(roleType: roleType)));
       }on Exception {
         emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
       }

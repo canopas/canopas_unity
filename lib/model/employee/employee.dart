@@ -45,6 +45,38 @@ class Employee extends Equatable {
       this.level,
       this.bloodGroup});
 
+  Employee copyWith(
+      {String? id,
+      int? roleType,
+      String? name,
+      String? employeeId,
+      String? email,
+      String? designation,
+      String? phone,
+      String? imageUrl,
+      String? address,
+      int? gender,
+      int? dateOfBirth,
+      int? dateOfJoining,
+      String? level,
+      String? bloodGroup}) {
+    return Employee(
+        id: id ?? this.id,
+        roleType: roleType ?? this.roleType,
+        name: name ?? this.name,
+        employeeId: employeeId ?? this.employeeId,
+        email: email ?? this.email,
+        designation: designation ?? this.designation,
+        phone: phone ?? this.phone,
+        imageUrl: imageUrl ?? this.imageUrl,
+        address: address ?? this.address,
+        gender: gender ?? this.gender,
+        dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+        dateOfJoining: dateOfJoining ?? this.dateOfJoining,
+        level: level ?? this.level,
+        bloodGroup: bloodGroup ?? this.bloodGroup);
+  }
+
   factory Employee.fromJson(Map<String, dynamic>? map) =>
       _$EmployeeFromJson(map!);
 
