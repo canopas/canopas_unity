@@ -5,15 +5,15 @@ import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../../core/utils/date_formatter.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_states.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_bloc.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_state.dart';
 
 class TotalDaysMsgBox extends StatelessWidget {
   const TotalDaysMsgBox({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+    return BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
       buildWhen: (previous, current) => previous.totalLeaveDays != current.totalLeaveDays,
       builder: (context, state) => Container(
         margin: const EdgeInsets.symmetric(vertical: primaryHalfSpacing, horizontal: primarySpacing),

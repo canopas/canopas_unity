@@ -20,7 +20,7 @@ class AdminLeaveApplicationDetailsState extends Equatable{
     this.leaveDetailsLeaveCountStatus = AdminLeaveApplicationDetailsLeaveCountStatus.initial,
   });
 
-  copyWith({int? paidLeaveCount,double? remainingLeaveCount, String? error, AdminLeaveApplicationDetailsStatus? leaveDetailsStatus, AdminLeaveApplicationDetailsLeaveCountStatus? leaveDetailsLeaveCountStatus, String? adminReply}){
+  AdminLeaveApplicationDetailsState copyWith({int? paidLeaveCount,double? remainingLeaveCount, String? error, AdminLeaveApplicationDetailsStatus? leaveDetailsStatus, AdminLeaveApplicationDetailsLeaveCountStatus? leaveDetailsLeaveCountStatus, String? adminReply}){
     return AdminLeaveApplicationDetailsState(
       adminReply: adminReply ?? this.adminReply,
       error: error,

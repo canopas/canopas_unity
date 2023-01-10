@@ -10,27 +10,17 @@ class AppTextStyle{
       fontWeight: FontWeight.w500);
   static TextStyle leaveStatusCardTitle =
       const TextStyle(color: AppColors.blueGrey, fontSize: bodyTextSize);
-  static TextStyle headerTextNormal =
-      const TextStyle(color: AppColors.darkText, fontSize: headerTextSize);
-  static TextStyle leaveRequestDateHeader = const TextStyle(
-      fontSize: 18,
-      color: AppColors.secondaryText,
-      fontWeight: FontWeight.w700);
+
 
   static TextStyle bodyTextDark =
       const TextStyle(color: AppColors.darkText, fontSize: bodyTextSize);
   static TextStyle leaveRequestFormSubtitle = const TextStyle(
       color: AppColors.secondaryText, fontSize: subTitleTextSize);
-  static TextStyle removeTextStyle = const TextStyle(height: 0, fontSize: 0);
   static TextStyle subtitleTextWhite = const TextStyle(
       color: AppColors.whiteColor,
       fontSize: subTitleTextSize,
       fontWeight: FontWeight.w500);
 
-  static TextStyle approvalStatusDark =
-      const TextStyle(fontSize: titleTextSize, color: AppColors.darkText);
-  static TextStyle leaveDetailSubtitle =
-      const TextStyle(fontSize: subTitleTextSize, color: AppColors.blueGrey);
 
   static TextStyle subtitleTextDark =
       const TextStyle(color: AppColors.darkText, fontSize: subTitleTextSize);
@@ -50,12 +40,7 @@ class AppTextStyle{
 
   static TextStyle appTitleText  = const TextStyle(fontSize: appTitleTextSize, color: AppColors.blackColor,);
 
-  static TextStyle onBoardButton =  const TextStyle(fontWeight: FontWeight.w800, color: Color(0xffffffff), fontSize: subTitleTextSize);
-  static TextStyle onBoardTitle =  const TextStyle(color: Colors.black, fontSize: onboardTitleTextSize, fontWeight: FontWeight.w700);
-
-  static TextStyle boldWhiteText = const TextStyle(color: Color(0xffffffff), fontWeight: FontWeight.bold);
   static TextStyle headerDark600 = const TextStyle(color: AppColors.darkText, fontSize: headerTextSize, fontWeight: FontWeight.w600);
-  static TextStyle bodyTextGrey = const TextStyle(fontSize: bodyTextSize, color: Colors.grey);
   static TextStyle titleBlack600 = const TextStyle(color: AppColors.blackColor, fontSize: titleTextSize, fontWeight: FontWeight.w600);
 
   static TextStyle subtitleGreyBold =  const TextStyle(fontSize: subTitleTextSize, fontWeight: FontWeight.bold, color: AppColors.darkGrey );

@@ -219,11 +219,6 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: '',
       ) as String);
   @override
-  bool get isUserLoggedIn => (super.noSuchMethod(
-        Invocation.getter(#isUserLoggedIn),
-        returnValue: false,
-      ) as bool);
-  @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
         returnValue: false,

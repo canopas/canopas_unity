@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/extensions/list.dart';
+import '../../../../services/user/user_leave_service.dart';
 import '../../../../ui/user/requested_leaves/bloc/requested_leave_event.dart';
 import '../../../../ui/user/requested_leaves/bloc/requested_leave_state.dart';
 import '../../../../event_bus/events.dart';
@@ -10,8 +11,7 @@ import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../model/leave_count.dart';
 import '../../../../provider/user_data.dart';
-import '../../../../services/admin/paid_leave/paid_leave_service.dart';
-import '../../../../services/leave/user_leave_service.dart';
+import '../../../../services/admin/paid_leave_service.dart';
 
 @Injectable()
 class RequestedLeavesViewBloc extends Bloc<RequestedLeavesViewEvents,RequestedLeavesViewStates>{

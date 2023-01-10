@@ -9,3 +9,5 @@ class LeaveUpdateEventListener {
 }
 
 class AllLeaveUpdateEventListener{}
+
+class EmployeeListUpdateEvent{}

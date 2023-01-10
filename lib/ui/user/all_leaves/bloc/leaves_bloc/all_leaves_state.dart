@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 import '../../../../../model/leave_application.dart';
 
-abstract class AllLeavesViewState extends Equatable {}
+abstract class AllLeavesState extends Equatable {}
 
-class AllLeavesViewInitialState extends AllLeavesViewState {
+class AllLeavesInitialState extends AllLeavesState {
   @override
   List<Object?> get props => [];
 }
 
-class AllLeavesViewLoadingState extends AllLeavesViewState {
+class AllLeavesLoadingState extends AllLeavesState {
   @override
   List<Object?> get props => [];
 }
 
-class AllLeavesViewSuccessState extends AllLeavesViewState {
+class AllLeavesSuccessState extends AllLeavesState {
   final List<LeaveApplication> leaveApplications;
 
-  AllLeavesViewSuccessState({required this.leaveApplications});
+  AllLeavesSuccessState({required this.leaveApplications});
 
   @override
   List<Object?> get props => [leaveApplications];
 }
 
-class AllLeavesViewFailureState extends AllLeavesViewState {
+class AllLeavesFailureState extends AllLeavesState {
   final String error;
 
-  AllLeavesViewFailureState({required this.error});
+  AllLeavesFailureState({required this.error});
 
   @override
   List<Object?> get props => [error];

@@ -23,19 +23,19 @@ class AdminSettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<LogOutBloc>(),
-      child: const AdminSettingView(),
+      child: const AdminSettingScreen(),
     );
   }
 }
 
-class AdminSettingView extends StatefulWidget {
-  const AdminSettingView({Key? key}) : super(key: key);
+class AdminSettingScreen extends StatefulWidget {
+  const AdminSettingScreen({Key? key}) : super(key: key);
 
   @override
-  State<AdminSettingView> createState() => _AdminSettingViewState();
+  State<AdminSettingScreen> createState() => _AdminSettingScreenState();
 }
 
-class _AdminSettingViewState extends State<AdminSettingView> {
+class _AdminSettingScreenState extends State<AdminSettingScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class AdminSettingSignOutButton extends StatelessWidget {
       icon: Icons.logout_rounded,
       title: AppLocalizations.of(context).logout_button_text,
       onTap: () {
-        context.read<LogOutBloc>().add(SignOutEvent());
+        context.read<LogOutBloc>().add(LogOutEvent());
       },
       iconColor: AppColors.redColor,
       titleColor: AppColors.redColor,

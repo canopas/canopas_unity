@@ -7,13 +7,6 @@ extension ListExtention on List<LeaveApplication> {
   }
 }
 
-extension SortedExtension on Map<DateTime, List<LeaveApplication>> {
-  Map<DateTime, List<LeaveApplication>> sortedLeaveApplicationMap() {
-    return Map.fromEntries(
-        entries.toList()..sort((e1, e2) => e2.key.compareTo(e1.key)));
-  }
-}
-
 extension Iterables<E> on Iterable<E> {
   Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
       <K, List<E>>{},
