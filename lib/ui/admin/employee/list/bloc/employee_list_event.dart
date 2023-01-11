@@ -7,7 +7,6 @@ abstract class EmployeeListEvent extends Equatable{
 
 class EmployeeListInitialLoadEvent extends EmployeeListEvent{}
 
-class EmployeeListUpdateEvent extends EmployeeListEvent{}
 
 
 

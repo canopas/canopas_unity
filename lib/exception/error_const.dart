@@ -1,6 +1,3 @@
-//Exception thrown when trying to login with google account which doesn't exist in google
-const String userAccountNotFoundError = 'error-user-account-not-found';
-
 //All types of firebaseAuthentication exception
 const String firesbaseAuthError = 'error-firestore-exception';
 
@@ -13,9 +10,6 @@ const String userDataNotUpdateError = 'error-update-user-data';
 //Exception can be thrown by firestore while fetch data from firestore
 const String firestoreFetchDataError = 'error-get-data-from-firestore';
 
-//Exception thrown by flutter exception And the exception which is not caught
-const String undefinedError = 'error-Undefined';
-
 //Exception When trying to signout from google is not succeed
 const String signOutError = 'error-sign-out';
 
@@ -27,21 +21,10 @@ const String wrongNumInputError = "wrong-num-input";
 //Exception:when the all fields of user input are not completed
 const String fillDetailsError = 'fill-all-details';
 
-//Error When field value is invalid or too short or null
-const String inCompleteFieldError= 'fill-mandatory-field';
-
-//Error when name is too short
-const String nameFieldError = 'fill-name-field';
-
-//Error when email field has not correct value
-const String emailFieldError= 'fill-email-field';
-
 //Exception:When leave request for less than 1 hr
 const String applyMinimumHalfDay = 'apply-minimum-half-day';
 
 //Exception: When user selected wrong leave date like end leave date is before start leavedate
 const String invalidLeaveDateError = 'invalid-leave_date_error';
-
-const String enterValidReason = 'enter-valid-leave_error';
 
 

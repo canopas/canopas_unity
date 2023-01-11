@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../../../../services/user/user_leave_service.dart';
 import 'all_leaves_state.dart';
 import 'all_leaves_event.dart';
 import 'package:injectable/injectable.dart';
@@ -11,46 +12,45 @@ import '../../../../../event_bus/events.dart';
 import '../../../../../model/leave_application.dart';
 import '../../../../../core/extensions/list.dart';
 import '../../../../../core/extensions/date_time.dart';
-import '../../../../../services/leave/user_leave_service.dart';
-import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
+import '../../../../../services/admin/paid_leave_service.dart';
 
 @Injectable()
-class AllLeavesViewBloc extends Bloc<AllLeavesViewEvent, AllLeavesViewState> {
+class AllLeavesBloc extends Bloc<AllLeavesEvent, AllLeavesState> {
 
   final PaidLeaveService _userPaidLeaveService;
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
-  late StreamSubscription _streamSubscription;
-  late StreamSubscription _refreshStreamSubscription;
+   StreamSubscription<LeaveUpdateEventListener>? _streamSubscription;
+   StreamSubscription? _refreshStreamSubscription;
   List<LeaveApplication> _allLeaveApplications = [];
 
-  AllLeavesViewBloc( this._userManager, this._userLeaveService, this._userPaidLeaveService,)
-      : super(AllLeavesViewInitialState()) {
+  AllLeavesBloc( this._userManager, this._userLeaveService, this._userPaidLeaveService,)
+      : super(AllLeavesInitialState()) {
     on<AllLeavesInitialLoadEvent>(_onAllLeavesInit);
-    on<ApplyFilterAllLeavesViewEvent>(_onApplyFilter);
-    on<RemoveFilterAllLeavesViewEvent>(_onRemoveFilter);
+    on<ApplyFilterToAllLeavesEvent>(_onApplyFilter);
+    on<RemoveFilterFromLeavesEvent>(_onRemoveFilter);
     on<RemoveLeaveApplicationOnAllLeaveViewEvent>(_onRemoveLeaveApplication);
-    on<RefreshAllLeaveViewEvent>(_onAllLeavesInit);
+    on<RefreshAllLeaveEvent>(_onAllLeavesInit);
     _streamSubscription = eventBus.on<LeaveUpdateEventListener>().listen((la) {
       add(RemoveLeaveApplicationOnAllLeaveViewEvent(la.leaveApplication));
     });
     _refreshStreamSubscription = eventBus.on<AllLeaveUpdateEventListener>().listen((e) {
-      add(RefreshAllLeaveViewEvent());
+      add(RefreshAllLeaveEvent());
     });
   }
 
-  void _onAllLeavesInit(event,Emitter<AllLeavesViewState> emit) async {
+  void _onAllLeavesInit(event,Emitter<AllLeavesState> emit) async {
     try {
-      emit(AllLeavesViewLoadingState());
+      emit(AllLeavesLoadingState());
       List<Leave> leaves = [];
       leaves = await _userLeaveService.getAllLeavesOfUser(_userManager.employeeId);
       LeaveCounts leaveCounts = await currentUserLeaveCount();
       List<LeaveApplication> leaveApplications = leaves.map((leave) => LeaveApplication(employee: _userManager.employee, leave: leave, leaveCounts: leaveCounts)).toList();
       leaveApplications.sortedByDate();
       _allLeaveApplications = leaveApplications.toList();
-      emit(AllLeavesViewSuccessState(leaveApplications: leaveApplications));
+      emit(AllLeavesSuccessState(leaveApplications: leaveApplications));
     }catch (_) {
-      emit(AllLeavesViewFailureState(error: firestoreFetchDataError));
+      emit(AllLeavesFailureState(error: firestoreFetchDataError));
     }
   }
 
@@ -61,21 +61,21 @@ class AllLeavesViewBloc extends Bloc<AllLeavesViewEvent, AllLeavesViewState> {
     return LeaveCounts(remainingLeaveCount: remainingLeaveCount<0?0:remainingLeaveCount,paidLeaveCount: paidLeaveCount,usedLeaveCount: usedLeaveCount);
   }
 
-  void _onApplyFilter(ApplyFilterAllLeavesViewEvent event,Emitter<AllLeavesViewState> emit){
-      emit(AllLeavesViewSuccessState(
+  void _onApplyFilter(ApplyFilterToAllLeavesEvent event,Emitter<AllLeavesState> emit){
+      emit(AllLeavesSuccessState(
         leaveApplications: _allLeaveApplications.toList().where((leaveApplication) => _applyFilterValidation(startDate: event.startDate,endDate: event.endDate,leaveApplication: leaveApplication,leaveStatus: event.leaveStatus,leaveType: event.leaveType)).toList(),
          ));
   }
 
-  void _onRemoveFilter(RemoveFilterAllLeavesViewEvent event,Emitter<AllLeavesViewState> emit){
-    emit(AllLeavesViewSuccessState(leaveApplications: _allLeaveApplications.toList()));
+  void _onRemoveFilter(RemoveFilterFromLeavesEvent event,Emitter<AllLeavesState> emit){
+    emit(AllLeavesSuccessState(leaveApplications: _allLeaveApplications.toList()));
   }
 
-  void _onRemoveLeaveApplication(RemoveLeaveApplicationOnAllLeaveViewEvent event,Emitter<AllLeavesViewState> emit) {
-    AllLeavesViewSuccessState successState = state as AllLeavesViewSuccessState;
+  void _onRemoveLeaveApplication(RemoveLeaveApplicationOnAllLeaveViewEvent event,Emitter<AllLeavesState> emit) {
+    AllLeavesSuccessState successState = state as AllLeavesSuccessState;
     List<LeaveApplication> leaveApp = successState.leaveApplications.toList()..remove(event.leaveApplication);
     _allLeaveApplications.remove(event.leaveApplication);
-    emit(AllLeavesViewSuccessState(leaveApplications: leaveApp));
+    emit(AllLeavesSuccessState(leaveApplications: leaveApp));
   }
 
   //validations
@@ -109,8 +109,8 @@ class AllLeavesViewBloc extends Bloc<AllLeavesViewEvent, AllLeavesViewState> {
 
   @override
   Future<void> close() async {
-    _refreshStreamSubscription.cancel();
-    _streamSubscription.cancel();
+    _refreshStreamSubscription?.cancel();
+    _streamSubscription?.cancel();
     _allLeaveApplications.clear();
     super.close();
   }

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../exception/error_const.dart';
-import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
+import '../../../../../services/admin/paid_leave_service.dart';
 import 'admin_setting_update_leave_count_screen_event.dart';
 import 'admin_setting_update_leave_count_screen_state.dart';
 

@@ -14,10 +14,10 @@ import 'package:rxdart/rxdart.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_count.dart';
-import '../../../../services/admin/employee/employee_service.dart';
-import '../../../../services/admin/paid_leave/paid_leave_service.dart';
-import '../../../../services/admin/requests/admin_leave_service.dart';
-import '../../../../services/leave/user_leave_service.dart';
+import '../../../../services/admin/employee_service.dart';
+import '../../../../services/admin/paid_leave_service.dart';
+import '../../../../services/admin/leave_service.dart';
+import '../../../../services/user/user_leave_service.dart';
 
 @Injectable()
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {

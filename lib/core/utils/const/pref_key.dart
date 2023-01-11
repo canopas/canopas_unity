@@ -1,1 +1,3 @@
-const userPrefKeyUser = "user";
+class PrefKeys{
+  static const String  userPrefKeyUser = "user";
+}

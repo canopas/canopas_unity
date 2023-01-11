@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/services/admin/employee/employee_service.dart';
-import 'package:projectunity/services/leave/user_leave_service.dart';
+import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../provider/user_data.dart';
+import '../../../../../services/user/user_leave_service.dart';
 
 
 @Injectable()
@@ -70,10 +70,5 @@ class EmployeeDetailBloc
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
-  }
-
-  @override
-  Future<void> close() {
-    return super.close();
   }
 }

@@ -17,20 +17,15 @@ class UserManager with ChangeNotifier {
 
   String get userName => _employee?.name ?? "";
 
-  String? get userImage => _employee?.imageUrl;
-
   String get employeeId => _employee!.id;
 
   Employee get employee => _employee!;
 
   String get employeeDesignation => _employee!.designation;
 
-  bool get isUserLoggedIn => _employee != null;
-
-  void hasLoggedIn(){
+  void hasLoggedIn()async{
     loggedIn= _employee !=null;
     notifyListeners();
   }
-
   bool get isAdmin => _employee?.roleType == kRoleTypeAdmin;
 }

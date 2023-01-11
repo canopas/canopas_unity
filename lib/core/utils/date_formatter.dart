@@ -1,7 +1,6 @@
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/utils/const/leave_time_constants.dart';
 
 class DateFormatter {
   final AppLocalizations _localization;
@@ -42,13 +41,6 @@ class DateFormatter {
     return _localization.leave_request_total_days_text(totalLeaves);
   }
 
-  String halfDayTime(int halfDay){
-    if(halfDay == firstHalfLeave){
-      return _localization.morning_period_text;
-    } else {
-      return _localization.afternoon_period_text;
-    }
-  }
 
   String dateInLine(
       {required int startTimeStamp, required int endTimeStamp, bool lastTwoLine = false}) {

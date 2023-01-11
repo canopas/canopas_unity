@@ -10,10 +10,30 @@ import '../bloc/add_member_bloc.dart';
 import '../bloc/add_member_event.dart';
 import '../bloc/add_member_state.dart';
 
-class AddMemberForm extends StatelessWidget {
-  final TextEditingController _dateController = TextEditingController();
+class AddMemberForm extends StatefulWidget {
 
-  AddMemberForm({Key? key}) : super(key: key);
+  const AddMemberForm({Key? key}) : super(key: key);
+
+  @override
+  State<AddMemberForm> createState() => _AddMemberFormState();
+}
+
+
+class _AddMemberFormState extends State<AddMemberForm> {
+  late final TextEditingController _dateController;
+
+  @override
+  void initState() {
+    _dateController= TextEditingController();
+    super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +126,9 @@ class AddMemberForm extends StatelessWidget {
   }
 }
 
-class _TextFieldTitle extends StatelessWidget {
+class _FieldTitle extends StatelessWidget {
   final String title;
-  const _TextFieldTitle({Key? key,required this.title}) : super(key: key);
+  const _FieldTitle({Key? key,required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,12 +143,12 @@ class _TextFieldTitle extends StatelessWidget {
   }
 }
 
-class EmployeeField extends StatelessWidget {
+class FieldEntry extends StatelessWidget {
   final Function(String) onChanged;
   final String? errorText;
   final String hintText;
 
-  const EmployeeField(
+  const FieldEntry(
       {Key? key,
       required this.onChanged,
       required this.errorText,

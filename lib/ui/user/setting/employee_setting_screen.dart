@@ -83,7 +83,7 @@ class LogOutButton extends StatelessWidget {
         backgroundColor: AppColors.redColor,
       ),
       onPressed: () {
-        context.read<LogOutBloc>().add(SignOutEvent());
+        context.read<LogOutBloc>().add(LogOutEvent());
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 45.0),

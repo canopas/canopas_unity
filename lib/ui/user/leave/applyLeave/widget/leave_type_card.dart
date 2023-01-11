@@ -8,9 +8,9 @@ import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_events.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_states.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_event.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_state.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_bloc.dart';
 
 class LeaveTypeCard extends StatelessWidget {
   const LeaveTypeCard({
@@ -34,12 +34,12 @@ class LeaveTypeCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+            BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
               buildWhen: (previous, current) => previous.leaveCounts != current.leaveCounts || previous.leaveCountStatus != current.leaveCountStatus,
               builder: (context, state) {
-                if (state.leaveCountStatus == LeaveRequestLeaveCountStatus.loading) {
+                if (state.leaveCountStatus == LeaveCountStatus.loading) {
                   return const AppCircularProgressIndicator(size: 28,);
-                } else if (state.leaveCountStatus == LeaveRequestLeaveCountStatus.success) {
+                } else if (state.leaveCountStatus == LeaveCountStatus.success) {
                   return Text(
                     "${state.leaveCounts.remainingLeaveCount.fixedAt(2)}/${state.leaveCounts.paidLeaveCount}",
                     style: AppTextStyle.subtitleGreyBold,
@@ -64,7 +64,7 @@ class LeaveTypeCard extends StatelessWidget {
             ),
             Expanded(
               flex: 12,
-              child: BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+              child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
                 buildWhen: (previous, current) =>
                     previous.leaveType != current.leaveType,
                 builder: (context, state) => DropdownButtonHideUnderline(
@@ -98,8 +98,8 @@ class LeaveTypeCard extends StatelessWidget {
                         .toList(),
                     value: state.leaveType,
                     onChanged: (int? value) {
-                      context.read<LeaveRequestBloc>().add(
-                          LeaveRequestLeaveTypeChangeEvent(leaveType: value));
+                      context.read<ApplyLeaveBloc>().add(
+                          ApplyLeaveChangeLeaveTypeEvent(leaveType: value));
                     },
                   ),
                 ),

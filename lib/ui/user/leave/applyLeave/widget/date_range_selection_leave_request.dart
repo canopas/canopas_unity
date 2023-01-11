@@ -8,9 +8,9 @@ import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/leave_time_constants.dart';
 import '../../../../../core/utils/const/space_constant.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_bloc.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_events.dart';
-import '../bloc/leave_request_form_bloc/leave_request_view_states.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_bloc.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_event.dart';
+import '../bloc/leave_request_form_bloc/apply_leave_state.dart';
 
 class LeaveRequestDateRange extends StatelessWidget {
   const LeaveRequestDateRange({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class LeaveRequestDateRange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context).localeName;
-    return BlocBuilder<LeaveRequestBloc, LeaveRequestViewState>(
+    return BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
       builder: (context, state) => state.selectedDates.length<3?Column(
           children: state.selectedDates.entries.map((date) => Container(
               width: double.infinity,
@@ -97,7 +97,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
             value: dayTimePeriod.value,
             items: dayLeaveTime.entries.where((e) => dayTimePeriod.key.weekday != DateTime.saturday || e.key == 0 || e.key == 3 ).map((e) => DropdownMenuItem(value:e.key,child: Center(child: Text(e.value)))).toList(),
             onChanged: !dayTimePeriod.key.isWeekend?(value) {
-              context.read<LeaveRequestBloc>().add(LeaveRequestUpdateLeaveOfTheDayEvent(date: dayTimePeriod.key, value: value ?? dayTimePeriod.value
+              context.read<ApplyLeaveBloc>().add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: dayTimePeriod.key, value: value ?? dayTimePeriod.value
               ));
             }:null,),
         ),
