@@ -20,19 +20,19 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<LoginBloc>(),
-      child: const LoginView(),
+      child: const LoginScreen(),
     );
   }
 }
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  LoginViewState createState() => LoginViewState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class LoginViewState extends State<LoginView> {
+class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +47,7 @@ class LoginViewState extends State<LoginView> {
             height: double.infinity,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(loginPageBackgroundImage),
+                    image: AssetImage(ImageConst.loginPageBackgroundImage),
                     fit: BoxFit.cover)),
             child: SingleChildScrollView(
               child: SafeArea(
@@ -105,7 +105,7 @@ class _BuildImage extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              loginPageVectorImage,
+             ImageConst.loginPageVectorImage,
             ),
           ),
         ));

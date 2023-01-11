@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class SignOutEvent extends Equatable {
+class LogOutEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }

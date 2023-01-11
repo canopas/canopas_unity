@@ -8,8 +8,8 @@ import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart';
-import 'package:projectunity/services/leave/user_leave_service.dart';
+import 'package:projectunity/services/admin/paid_leave_service.dart';
+import 'package:projectunity/services/user/user_leave_service.dart';
 import 'package:projectunity/ui/user/all_leaves/bloc/leaves_bloc/all_leaves_bloc.dart';
 import 'package:projectunity/ui/user/all_leaves/bloc/leaves_bloc/all_leaves_event.dart';
 import 'package:projectunity/ui/user/all_leaves/bloc/leaves_bloc/all_leaves_state.dart';
@@ -19,7 +19,7 @@ import 'all_leaves_view_bloc_test.mocks.dart';
 void main() {
   late PaidLeaveService userPaidLeaveService;
   late UserLeaveService userLeaveService;
-  late AllLeavesViewBloc allLeavesViewBloc;
+  late AllLeavesBloc allLeavesViewBloc;
   late UserManager userManager;
 
   final employee = Employee(
@@ -53,11 +53,11 @@ void main() {
         employee: employee, leave: leave, leaveCounts: leaveCounts),
   ];
 
-  AllLeavesViewSuccessState successState = AllLeavesViewSuccessState(
+  AllLeavesSuccessState successState = AllLeavesSuccessState(
       leaveApplications: leaveApplications);
-  AllLeavesViewSuccessState emptyState = AllLeavesViewSuccessState(
+  AllLeavesSuccessState emptyState = AllLeavesSuccessState(
       leaveApplications: const []);
-  AllLeavesViewLoadingState loadingState = AllLeavesViewLoadingState();
+  AllLeavesLoadingState loadingState = AllLeavesLoadingState();
 
   group("All leaves screen fetch data and navigation test", () {
 
@@ -66,7 +66,7 @@ void main() {
       userManager = MockUserManager();
       userLeaveService = MockUserLeaveService();
 
-      allLeavesViewBloc = AllLeavesViewBloc(userManager,
+      allLeavesViewBloc = AllLeavesBloc(userManager,
           userLeaveService, userPaidLeaveService);
 
       when(userManager.employeeId).thenReturn("123");
@@ -74,8 +74,8 @@ void main() {
     });
 
     test("fetch data failure test", () async {
-      AllLeavesViewFailureState failureState =
-          AllLeavesViewFailureState(error: firestoreFetchDataError);
+      AllLeavesFailureState failureState =
+          AllLeavesFailureState(error: firestoreFetchDataError);
 
       when(userLeaveService.getUserUsedLeaveCount("123"))
           .thenThrow(Exception("Error"));
@@ -114,7 +114,7 @@ void main() {
       userManager = MockUserManager();
       userLeaveService = MockUserLeaveService();
 
-      allLeavesViewBloc = AllLeavesViewBloc(userManager,
+      allLeavesViewBloc = AllLeavesBloc(userManager,
           userLeaveService, userPaidLeaveService);
       when(userManager.employeeId).thenReturn("123");
       when(userManager.employee).thenReturn(employee);
@@ -130,20 +130,20 @@ void main() {
 
     test("leave type test when there leave type leave not exist", () {
       allLeavesViewBloc
-          .add(ApplyFilterAllLeavesViewEvent(leaveType: const [4]));
+          .add(ApplyFilterToAllLeavesEvent(leaveType: const [4]));
       expect(allLeavesViewBloc.stream, emits(emptyState));
     });
 
     test("leave type test when there leave type leave exist", () {
       allLeavesViewBloc.emit(emptyState);
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
         leaveType: const [1],
       ));
       expect(allLeavesViewBloc.stream, emits(successState));
     });
 
     test("leave status test when there leave type status not exist", () {
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
         leaveStatus: const [2],
       ));
       expect(allLeavesViewBloc.stream, emits(emptyState));
@@ -151,14 +151,14 @@ void main() {
 
     test("leave status test when there leave type status exist", () {
       allLeavesViewBloc.emit(emptyState);
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
         leaveStatus: const [1],
       ));
       expect(allLeavesViewBloc.stream, emits(successState));
     });
 
     test("apply filter start-date is after end-date test ", () {
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
           startDate: currentDate.add(const Duration(days: 5)),
           endDate: currentDate));
       expect(allLeavesViewBloc.stream, emits(emptyState));
@@ -166,7 +166,7 @@ void main() {
 
     test("apply filter when startDate and endDate is not null ", () {
       allLeavesViewBloc.emit(emptyState);
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
           startDate: currentDate, endDate: currentDate));
       expect(allLeavesViewBloc.stream, emits(successState));
     });
@@ -174,7 +174,7 @@ void main() {
     test(
         "apply filter when startDate and endDate is not null but its different",
         () {
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
           startDate: currentDate.add(const Duration(days: 5)),
           endDate: currentDate.add(const Duration(days: 5))));
       expect(allLeavesViewBloc.stream, emits(emptyState));
@@ -185,14 +185,14 @@ void main() {
         () {
       allLeavesViewBloc.emit(emptyState);
       allLeavesViewBloc
-          .add(ApplyFilterAllLeavesViewEvent(endDate: currentDate));
+          .add(ApplyFilterToAllLeavesEvent(endDate: currentDate));
       expect(allLeavesViewBloc.stream, emits(successState));
     });
 
     test(
         "apply filter when endDate is not null but startDate null and there is not leave",
         () {
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
           endDate: currentDate.subtract(const Duration(days: 2))));
       expect(allLeavesViewBloc.stream, emits(emptyState));
     });
@@ -202,21 +202,21 @@ void main() {
         () {
       allLeavesViewBloc.emit(emptyState);
       allLeavesViewBloc
-          .add(ApplyFilterAllLeavesViewEvent(startDate: currentDate));
+          .add(ApplyFilterToAllLeavesEvent(startDate: currentDate));
       expect(allLeavesViewBloc.stream, emits(successState));
     });
 
     test(
         "apply filter when startDate is not null but endDate null and there is not leave",
         () {
-      allLeavesViewBloc.add(ApplyFilterAllLeavesViewEvent(
+      allLeavesViewBloc.add(ApplyFilterToAllLeavesEvent(
           startDate: currentDate.add(const Duration(days: 2))));
       expect(allLeavesViewBloc.stream, emits(emptyState));
     });
 
     test("remove filter test", () {
       allLeavesViewBloc.emit(emptyState);
-      allLeavesViewBloc.add(RemoveFilterAllLeavesViewEvent());
+      allLeavesViewBloc.add(RemoveFilterFromLeavesEvent());
       expect(allLeavesViewBloc.stream, emits(successState));
     });
   });

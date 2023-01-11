@@ -27,7 +27,7 @@ class SignInButton extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Image.asset(
-            googleLogoImage,
+            ImageConst.googleLogoImage,
             height: 40,
           ),
           Expanded(

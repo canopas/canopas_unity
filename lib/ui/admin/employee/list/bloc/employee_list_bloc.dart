@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/event_bus/events.dart';
-import 'package:projectunity/services/admin/employee/employee_service.dart';
+import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_state.dart';
 

@@ -16,6 +16,7 @@ class EmployeeDetailLoadedState extends AdminEmployeeDetailState {
   EmployeeDetailLoadedState({required this.employee});
   @override
   List<Object?> get props => [employee];
+
 }
 
 class EmployeeDetailFailureState extends AdminEmployeeDetailState {

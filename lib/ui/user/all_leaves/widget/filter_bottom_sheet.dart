@@ -138,8 +138,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     onPressed: () {
                       context.read<AllLeavesFilterBloc>()
                           .add(RemoveFilterEvent());
-                      context.read<AllLeavesViewBloc>()
-                          .add(RemoveFilterAllLeavesViewEvent());
+                      context.read<AllLeavesBloc>()
+                          .add(RemoveFilterFromLeavesEvent());
                       Navigator.pop(context);
                     },
                     child: Text(localization.user_leave_filter_remove_filter_tag),
@@ -152,8 +152,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     onPressed: () {
                       context.read<AllLeavesFilterBloc>().add(ApplyFilterEvent());
                       AllLeavesFilterState filterState = context.read<AllLeavesFilterBloc>().state;
-                      context.read<AllLeavesViewBloc>()
-                          .add(ApplyFilterAllLeavesViewEvent(
+                      context.read<AllLeavesBloc>()
+                          .add(ApplyFilterToAllLeavesEvent(
                         leaveType: filterState.filterByLeaveTypes,
                         leaveStatus: filterState.filterByLeaveStatus,
                         endDate: filterState.filterEndDate,

@@ -29,7 +29,7 @@ void main(){
   group("sign out test", () {
     test("login signOut successful test with navigation test", () async {
       when(auth.signOutWithGoogle()).thenAnswer((realInvocation) => Future(() => true));
-      logOutBloc.add(SignOutEvent());
+      logOutBloc.add(LogOutEvent());
       expect(logOutBloc.stream, emitsInOrder([
         LogOutLoadingState(),
         LogOutSuccessState(),
@@ -40,7 +40,7 @@ void main(){
 
     test("signOut failure test", (){
       when(auth.signOutWithGoogle()).thenAnswer((realInvocation) => Future(() => false));
-      logOutBloc.add(SignOutEvent());
+      logOutBloc.add(LogOutEvent());
       expect(logOutBloc.stream, emitsInOrder([
         LogOutLoadingState(),
         LogOutFailureState(error: signOutError),

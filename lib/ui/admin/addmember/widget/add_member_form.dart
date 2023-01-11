@@ -10,10 +10,30 @@ import '../bloc/add_member_bloc.dart';
 import '../bloc/add_member_event.dart';
 import '../bloc/add_member_state.dart';
 
-class AddMemberForm extends StatelessWidget {
-  final TextEditingController _dateController = TextEditingController();
+class AddMemberForm extends StatefulWidget {
 
-  AddMemberForm({Key? key}) : super(key: key);
+  const AddMemberForm({Key? key}) : super(key: key);
+
+  @override
+  State<AddMemberForm> createState() => _AddMemberFormState();
+}
+
+
+class _AddMemberFormState extends State<AddMemberForm> {
+  late final TextEditingController _dateController;
+
+  @override
+  void initState() {
+    _dateController= TextEditingController();
+    super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +54,18 @@ class AddMemberForm extends StatelessWidget {
               role: state.role??kRoleTypeEmployee,
               onRoleChange: (role) => bloc.add(SelectRoleTypeEvent(roleType: role)),
             ),
-            TextFieldTitle(
+            const SizedBox(height: 12),
+            _FieldTitle(
                 title: localization.employee_employeeID_tag),
-            EmployeeField(
+            FieldEntry(
                 onChanged: (value) =>
                     bloc.add(AddEmployeeIdEvent(employeeId: value)),
                 errorText: state.idError
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_employeeId),
-            TextFieldTitle(title: localization.employee_name_tag),
-            EmployeeField(
+            _FieldTitle(title: localization.employee_name_tag),
+            FieldEntry(
               onChanged: (value) => context
                   .read<AddMemberBloc>()
                   .add(AddEmployeeNameEvent(name: value)),
@@ -53,24 +74,24 @@ class AddMemberForm extends StatelessWidget {
                   : null,
               hintText: localization.admin_addMember_hint_name,
             ),
-            TextFieldTitle(title: localization.employee_email_tag),
-            EmployeeField(
+            _FieldTitle(title: localization.employee_email_tag),
+            FieldEntry(
                 onChanged: (value) =>
                     bloc.add(AddEmployeeEmailEvent(email: value)),
                 errorText: state.emailError
                     ? localization.admin_add_member_error_email
                     : null,
                 hintText: localization.admin_addMember_hint_email),
-            TextFieldTitle(
+            _FieldTitle(
                 title: localization.employee_designation_tag),
-            EmployeeField(
+            FieldEntry(
                 onChanged: (value) => bloc
                     .add(AddEmployeeDesignationEvent(designation: value)),
                 errorText: state.designationError
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_designation),
-            TextFieldTitle(
+            _FieldTitle(
                 title: localization.employee_dateOfJoin_tag),
             TextField(
               readOnly: true,
@@ -105,9 +126,9 @@ class AddMemberForm extends StatelessWidget {
   }
 }
 
-class TextFieldTitle extends StatelessWidget {
+class _FieldTitle extends StatelessWidget {
   final String title;
-  const TextFieldTitle({Key? key,required this.title}) : super(key: key);
+  const _FieldTitle({Key? key,required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -122,13 +143,13 @@ class TextFieldTitle extends StatelessWidget {
   }
 }
 
-class EmployeeField extends StatelessWidget {
-  final Function(String)? onChanged;
+class FieldEntry extends StatelessWidget {
+  final Function(String) onChanged;
   final String? errorText;
   final String hintText;
   final TextEditingController? controller;
 
-  const EmployeeField(
+  const FieldEntry(
       {Key? key,
       this.onChanged,
       this.errorText,

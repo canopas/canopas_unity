@@ -4,12 +4,12 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/services/admin/employee/employee_service.dart';
-import 'package:projectunity/services/leave/user_leave_service.dart';
+import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../provider/user_data.dart';
+import '../../../../../services/user/user_leave_service.dart';
 
 
 @Injectable()
@@ -59,24 +59,7 @@ class EmployeeDetailBloc
           roleType = kRoleTypeAdmin;
         }
         await _employeeService.changeEmployeeRoleType(loadedState.employee.id, roleType);
-        emit(EmployeeDetailLoadedState(
-            employee: Employee(
-              id: loadedState.employee.id,
-              employeeId: loadedState.employee.employeeId,
-              designation: loadedState.employee.designation,
-              email: loadedState.employee.email,
-              name: loadedState.employee.name,
-              roleType: roleType,
-              phone: loadedState.employee.phone,
-              imageUrl: loadedState.employee.imageUrl,
-              gender: loadedState.employee.gender,
-              level: loadedState.employee.level,
-              dateOfBirth: loadedState.employee.dateOfBirth,
-              bloodGroup: loadedState.employee.bloodGroup,
-              address: loadedState.employee.address,
-              dateOfJoining: loadedState.employee.dateOfJoining,
-            )
-        ));
+        emit(EmployeeDetailLoadedState(employee: loadedState.employee.copyWith(roleType: roleType)));
       }on Exception {
         emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
       }
@@ -91,10 +74,5 @@ class EmployeeDetailBloc
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
-  }
-
-  @override
-  Future<void> close() {
-    return super.close();
   }
 }
