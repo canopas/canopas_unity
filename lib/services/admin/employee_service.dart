@@ -61,6 +61,11 @@ class EmployeeService {
     await _userDbCollection.doc(docId).set(employee);
   }
 
+  Future<void> changeEmployeeRoleType(String id,int roleType) async {
+    Map<String,int> data = {FirestoreConst.roleType:roleType};
+    await _userDbCollection.doc(id).update(data).then((value) => eventBus.fire(EmployeeListUpdateEvent()));
+  }
+
   Future<void> deleteEmployee(String id) async {
     DocumentReference employeeDocRef = _userDbCollection.doc(id);
     employeeDocRef

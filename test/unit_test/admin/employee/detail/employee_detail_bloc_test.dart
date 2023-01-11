@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/services/user/user_leave_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
@@ -11,11 +12,12 @@ import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserLeaveService])
+@GenerateMocks([EmployeeService, UserLeaveService, UserManager])
 void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late UserLeaveService userLeaveService;
+  late UserManager userManager;
   Employee employee = const Employee(
       id: 'id',
       roleType: 2,
@@ -24,10 +26,19 @@ void main() {
       email: 'andrew.j@canopas.com',
       designation: 'Android developer');
 
+  Employee admin = const Employee(
+      id: 'id',
+      roleType: 1,
+      name: 'Andrew jhone',
+      employeeId: 'CA 1254',
+      email: 'andrew.j@canopas.com',
+      designation: 'Android developer');
+
   setUp(() {
     employeeService = MockEmployeeService();
     userLeaveService = MockUserLeaveService();
-    employeeDetailBloc = EmployeeDetailBloc(employeeService, userLeaveService);
+    userManager = MockUserManager();
+    employeeDetailBloc = EmployeeDetailBloc(employeeService, userLeaveService, userManager);
   });
 
   group('Employee detail bloc', () {
@@ -66,14 +77,31 @@ void main() {
         () {
       when(employeeService.getEmployee(employee.id))
           .thenAnswer((_) async => employee);
-      employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
+      employeeDetailBloc.add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
       expectLater(
           employeeDetailBloc.stream,
           emitsInOrder([
             EmployeeDetailLoadingState(),
             EmployeeDetailLoadedState(employee: employee)
           ]));
+    });
+
+    test('test for make user as admin', (){
+      employeeDetailBloc.emit(EmployeeDetailLoadedState(employee: employee));
+      employeeDetailBloc.add(EmployeeDetailsChangeRoleTypeEvent());
+
+      expectLater(
+          employeeDetailBloc.stream,
+          emits(EmployeeDetailLoadedState(employee: admin)));
+    });
+
+    test('test for remove user as admin', (){
+      employeeDetailBloc.emit(EmployeeDetailLoadedState(employee: admin));
+      employeeDetailBloc.add(EmployeeDetailsChangeRoleTypeEvent());
+
+      expectLater(
+          employeeDetailBloc.stream,
+          emits(EmployeeDetailLoadedState(employee: employee)));
     });
 
     test('delete employee failed test', () {
