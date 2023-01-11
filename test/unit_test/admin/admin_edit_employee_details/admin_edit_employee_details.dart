@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/services/admin/employee/employee_service.dart';
+import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';

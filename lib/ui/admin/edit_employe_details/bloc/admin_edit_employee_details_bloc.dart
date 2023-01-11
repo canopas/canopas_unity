@@ -4,7 +4,8 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
-import '../../../../services/admin/employee/employee_service.dart';
+
+import '../../../../services/admin/employee_service.dart';
 
 @Injectable()
 class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,

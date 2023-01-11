@@ -64,8 +64,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                           roleType: role));
                 },
                 role: state.roleType),
-            TextFieldTitle(title: localization.employee_employeeID_tag),
-            EmployeeField(
+            FieldTitle(title: localization.employee_employeeID_tag),
+            FieldEntry(
                 controller: employeeIDFieldController,
                 onChanged: (value) => bloc.add(
                     ValidEmployeeIdAdminEditEmployeeDetailsEvent(
@@ -74,8 +74,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_employeeId),
-            TextFieldTitle(title: localization.employee_name_tag),
-            EmployeeField(
+            FieldTitle(title: localization.employee_name_tag),
+            FieldEntry(
               controller: nameFieldController,
               onChanged: (value) => bloc
                   .add(ValidNameAdminEditEmployeeDetailsEvent(name: value)),
@@ -84,8 +84,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   : null,
               hintText: localization.admin_addMember_hint_name,
             ),
-            TextFieldTitle(title: localization.employee_email_tag),
-            EmployeeField(
+            FieldTitle(title: localization.employee_email_tag),
+            FieldEntry(
                 controller: emailFieldController,
                 onChanged: (value) => bloc.add(
                     ValidEmailAdminEditEmployeeDetailsEvent(email: value)),
@@ -93,8 +93,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ? localization.admin_add_member_error_email
                     : null,
                 hintText: localization.admin_addMember_hint_email),
-            TextFieldTitle(title: localization.employee_designation_tag),
-            EmployeeField(
+            FieldTitle(title: localization.employee_designation_tag),
+            FieldEntry(
                 controller: designationFieldController,
                 onChanged: (value) => bloc.add(
                     ValidDesignationAdminEditEmployeeDetailsEvent(
@@ -103,11 +103,11 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_designation),
-            TextFieldTitle(title: localization.employee_level_tag),
-            EmployeeField(
+            FieldTitle(title: localization.employee_level_tag),
+            FieldEntry(
                 controller: levelFieldController,
                 hintText: localization.admin_addMember_hint_level),
-            TextFieldTitle(title: localization.employee_dateOfJoin_tag),
+            FieldTitle(title: localization.employee_dateOfJoin_tag),
             TextField(
               readOnly: true,
               onTap: () async {
