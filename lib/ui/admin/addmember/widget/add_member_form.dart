@@ -55,17 +55,17 @@ class _AddMemberFormState extends State<AddMemberForm> {
               onRoleChange: (role) => bloc.add(SelectRoleTypeEvent(roleType: role)),
             ),
             const SizedBox(height: 12),
-            _TextFieldTitle(
+            _FieldTitle(
                 title: localization.employee_employeeID_tag),
-            EmployeeField(
+            FieldEntry(
                 onChanged: (value) =>
                     bloc.add(AddEmployeeIdEvent(employeeId: value)),
                 errorText: state.idError
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_employeeId),
-            _TextFieldTitle(title: localization.employee_name_tag),
-            EmployeeField(
+            _FieldTitle(title: localization.employee_name_tag),
+            FieldEntry(
               onChanged: (value) => context
                   .read<AddMemberBloc>()
                   .add(AddEmployeeNameEvent(name: value)),
@@ -74,24 +74,24 @@ class _AddMemberFormState extends State<AddMemberForm> {
                   : null,
               hintText: localization.admin_addMember_hint_name,
             ),
-            _TextFieldTitle(title: localization.employee_email_tag),
-            EmployeeField(
+            _FieldTitle(title: localization.employee_email_tag),
+            FieldEntry(
                 onChanged: (value) =>
                     bloc.add(AddEmployeeEmailEvent(email: value)),
                 errorText: state.emailError
                     ? localization.admin_add_member_error_email
                     : null,
                 hintText: localization.admin_addMember_hint_email),
-            _TextFieldTitle(
+            _FieldTitle(
                 title: localization.employee_designation_tag),
-            EmployeeField(
+            FieldEntry(
                 onChanged: (value) => bloc
                     .add(AddEmployeeDesignationEvent(designation: value)),
                 errorText: state.designationError
                     ? localization.admin_add_member_error_complete_field
                     : null,
                 hintText: localization.admin_addMember_hint_designation),
-            _TextFieldTitle(
+            _FieldTitle(
                 title: localization.employee_dateOfJoin_tag),
             TextField(
               readOnly: true,
