@@ -49,8 +49,11 @@ class EmployeeDetailBloc
       Emitter<AdminEmployeeDetailState> emit) async {
     if(state is EmployeeDetailLoadedState){
       final loadedState = state as EmployeeDetailLoadedState;
-      int roleType = kRoleTypeAdmin;
+      int roleType = kRoleTypeEmployee;
       try {
+        if (loadedState.employee.roleType != kRoleTypeAdmin) {
+          roleType = kRoleTypeAdmin;
+        }
         await _employeeService.changeEmployeeRoleType(loadedState.employee.id, roleType);
         emit(EmployeeDetailLoadedState(employee: loadedState.employee.copyWith(roleType: roleType)));
       }on Exception {
