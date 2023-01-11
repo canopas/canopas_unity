@@ -8,13 +8,10 @@ import 'dart:async' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/model/employee/employee.dart' as _i4;
 import 'package:projectunity/model/leave/leave.dart' as _i6;
-import 'package:projectunity/services/admin/employee/employee_service.dart'
-    as _i2;
-import 'package:projectunity/services/admin/paid_leave/paid_leave_service.dart'
-    as _i7;
-import 'package:projectunity/services/admin/requests/admin_leave_service.dart'
-    as _i5;
-import 'package:projectunity/services/leave/user_leave_service.dart' as _i8;
+import 'package:projectunity/services/admin/employee_service.dart' as _i2;
+import 'package:projectunity/services/admin/leave_service.dart' as _i5;
+import 'package:projectunity/services/admin/paid_leave_service.dart' as _i7;
+import 'package:projectunity/services/user/user_leave_service.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

@@ -4,9 +4,9 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/addmember/admin_add_member_screen.dart';
 import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
 import 'package:projectunity/ui/shared/leave_details/leave_details.dart';
-import 'package:projectunity/ui/user/all_leaves/all_leaves_view.dart';
+import 'package:projectunity/ui/user/all_leaves/all_leaves_screen.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
-import 'package:projectunity/ui/user/leave/applyLeave/leave_request_view.dart';
+import 'package:projectunity/ui/user/leave/applyLeave/apply_leave_screen.dart';
 import 'package:projectunity/ui/user/requested_leaves/requested_leaves_view.dart';
 import '../model/leave_application.dart';
 import '../provider/user_data.dart';
@@ -16,10 +16,10 @@ import '../ui/admin/home/admin_home_screen.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
-import '../ui/shared/user_leave_calendar/user_leave_calendar.dart';
-import '../ui/shared/who_is_out_calendar/who_is_out_calendar_view.dart';
+import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
+import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
 
 @Injectable()
 class AppRouter {
@@ -78,7 +78,7 @@ class AppRouter {
                 GoRoute(
                     name: Routes.adminCalender,
                     path: 'calender',
-                    pageBuilder: (context, state) => const MaterialPage(
+                    pageBuilder: (context, state) =>  const MaterialPage(
                           child: EmployeesLeaveCalenderPage(),
                         ),
                     routes: <GoRoute>[
@@ -140,7 +140,7 @@ class AppRouter {
                   name: Routes.applyLeave,
                   path: 'apply-leave',
                   pageBuilder: (context, state) => const MaterialPage(
-                    child: RequestLeavePage(),
+                    child: ApplyLeavePage(),
                   ),
                 ),
                 GoRoute(
@@ -173,7 +173,7 @@ class AppRouter {
                     name: Routes.userLeaveCalender,
                     path: 'user-calender',
                     pageBuilder: (context, state) => MaterialPage(
-                        child: UserLeaveCalendarViewProvider(
+                        child: UserLeaveCalendarPage(
                             userId: userManager.employeeId)),
                   routes: <GoRoute>[
                     GoRoute(

@@ -41,7 +41,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).admin_addMember_addMember_tag),
       ),
-      body: AddMemberForm(),
+      body: const AddMemberForm(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: const AddMemberButton(),
     );

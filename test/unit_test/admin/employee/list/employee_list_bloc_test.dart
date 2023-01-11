@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/services/admin/employee/employee_service.dart';
+import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_state.dart';

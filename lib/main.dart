@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       child: BlocListener<NetworkConnectionBloc,NetworkConnectionState>(
         listener: (context,state) {
           if(state is NetworkConnectionFailureState){
-            String connectionFailedMessage= AppLocalizations.of(context).check_your_connection_error;
-            showSnackBar(context: context,msg: connectionFailedMessage);
+            String connectionErrorMessage= AppLocalizations.of(context).network_connection_error;
+            showSnackBar(context: context,msg: connectionErrorMessage);
           }
         }, child: MaterialApp.router(
             supportedLocales: L10n.all,

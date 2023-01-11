@@ -37,14 +37,11 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       body:BlocListener<AdminHomeBloc,AdminHomeState>(
         listener: (context,state){
           state.status == AdminHomeStatus.failure
@@ -77,7 +74,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               ],
            ),
       ),
-      backgroundColor: AppColors.whiteColor,
     );
   }
 

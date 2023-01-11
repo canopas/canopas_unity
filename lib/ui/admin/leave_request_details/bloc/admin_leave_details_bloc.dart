@@ -3,9 +3,9 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import '../../../../../services/admin/paid_leave/paid_leave_service.dart';
-import '../../../../../services/admin/requests/admin_leave_service.dart';
-import '../../../../../services/leave/user_leave_service.dart';
+import '../../../../services/admin/paid_leave_service.dart';
+import '../../../../services/admin/leave_service.dart';
+import '../../../../services/user/user_leave_service.dart';
 import 'admin_leave_details_event.dart';
 import 'admin_leave_details_state.dart';
 
