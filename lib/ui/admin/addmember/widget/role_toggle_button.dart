@@ -1,40 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
-
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/role.dart';
 
-class ToggleButton extends StatefulWidget {
+class ToggleButton extends StatelessWidget {
+  final int role;
   final Function(int role) onRoleChange;
 
-  const ToggleButton({Key? key, required this.onRoleChange}) : super(key: key);
-
-  @override
-  State<ToggleButton> createState() => _ToggleButtonState();
-}
-
-const double height = 60.0;
-const double employee = -1;
-const double hr = 1;
-
-class _ToggleButtonState extends State<ToggleButton> {
-  double selectedAt = -1;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedAt = employee;
-  }
+  const ToggleButton({Key? key, required this.onRoleChange, required this.role}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
+    final double width = MediaQuery.of(context).size.width * (90/roleTypeSelectionToggleButtonAlignment.length/100);
     var localization = AppLocalizations.of(context);
 
     return Center(
       child: Container(
-        height: height,
+        padding: const EdgeInsets.all(5),
+        height: 60.0,
         decoration: const BoxDecoration(
           color: AppColors.textFieldBg,
           borderRadius: BorderRadius.all(
@@ -44,11 +28,11 @@ class _ToggleButtonState extends State<ToggleButton> {
         child: Stack(
           children: [
             AnimatedAlign(
-              alignment: Alignment(selectedAt, 0),
+              alignment: Alignment(roleTypeSelectionToggleButtonAlignment[role]??-1, 0),
+              curve: Curves.ease,
               duration: const Duration(milliseconds: 300),
               child: Container(
-                width: width * 0.46,
-                height: height,
+                width: width,
                 decoration: const BoxDecoration(
                   color: AppColors.primaryDarkYellow,
                   borderRadius: BorderRadius.all(
@@ -57,53 +41,35 @@ class _ToggleButtonState extends State<ToggleButton> {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedAt = employee;
-                  widget.onRoleChange(kRoleTypeEmployee);
-                });
-              },
-              child: Align(
-                alignment: const Alignment(-1, 0),
-                child: Container(
-                  width: width * 0.46,
-                  color: Colors.transparent,
-                  alignment: Alignment.center,
-                  child: Text(
-                    localization.admin_home_employee_tag,
-                    textAlign: TextAlign.start,
-                    style: AppTextStyle.bodyTextDark
-                        .copyWith(fontWeight: FontWeight.bold),
+            ...roleTypeSelectionToggleButtonAlignment.entries.map(
+                  (roleTypeAlignment) => GestureDetector(
+                    onTap: () {
+                       onRoleChange(roleTypeAlignment.key);
+                    },
+                    child: Align(
+                      alignment: Alignment(roleTypeAlignment.value, 0),
+                      child: Container(
+                        width: width,
+                        color: Colors.transparent,
+                        alignment: Alignment.center,
+                        child: Text(
+                          localization.user_detail_role_type(roleTypeAlignment.key),
+                          textAlign: TextAlign.start,
+                          style: AppTextStyle.bodyTextDark
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedAt = hr;
-                  widget.onRoleChange(kRoleTypeHR);
-                });
-              },
-              child: Align(
-                alignment: const Alignment(hr, 0),
-                child: Container(
-                  width: width * 0.46,
-                  color: Colors.transparent,
-                  alignment: Alignment.center,
-                  child: Text(
-                    localization.admin_addMember_hr_roleTag,
-                    textAlign: TextAlign.start,
-                    style: AppTextStyle.bodyTextDark
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
+                ).toList()
           ],
         ),
       ),
     );
   }
 }
+
+Map<int, double> roleTypeSelectionToggleButtonAlignment = {
+  kRoleTypeEmployee: -1,
+  kRoleTypeAdmin: 1,
+};

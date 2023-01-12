@@ -75,6 +75,22 @@ class MockEmployeeService extends _i1.Mock implements _i2.EmployeeService {
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
   @override
+  _i3.Future<void> changeEmployeeRoleType(
+    String? id,
+    int? roleType,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changeEmployeeRoleType,
+          [
+            id,
+            roleType,
+          ],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+  @override
   _i3.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteEmployee,

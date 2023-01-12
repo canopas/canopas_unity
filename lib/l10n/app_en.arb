@@ -42,6 +42,9 @@
                              }
                           },
 
+  "employee_details_make_admin_tag":"Make Admin",
+  "employee_details_remove_admin_tag":"Remove Admin",
+
 
  "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
         "@leave_type_placeholder_leave_status":{
@@ -201,7 +204,6 @@
       "admin_addMember_button_submit":"Submit",
       "admin_addMember_designation_tag":"Designation",
        "admin_addMember_addMember_tag":"Add Member",
-       "admin_addMember_hr_roleTag":"HR",
       "admin_addMember_hint_name":"Andrew Jhone",
       "admin_addMember_hint_employeeId":"CA 1001",
       "admin_addMember_hint_email":"andrew@canopas.com",

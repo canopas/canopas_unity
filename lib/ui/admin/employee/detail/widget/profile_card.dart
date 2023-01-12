@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-
 import '../../../../../../configs/colors.dart';
 import '../../../../../../model/employee/employee.dart';
 import '../../../../../../widget/user_profile_image.dart';
@@ -16,14 +15,14 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
     return Stack(
-      alignment: const Alignment(0,-1),
+      alignment: const Alignment(0, -1),
       children: [
         Container(
           height: 150,
           decoration: const BoxDecoration(
               color: AppColors.primaryBlue,
               borderRadius:
-              BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
+                  BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
         ),
         Container(
           decoration: BoxDecoration(
@@ -31,19 +30,28 @@ class ProfileCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                offset: const Offset(0,0),
+                offset: const Offset(0, 0),
                 color: AppColors.greyColor.withOpacity(0.15),
                 spreadRadius: 3,
                 blurRadius: 5,
               )
             ],
           ),
-          margin: const EdgeInsets.only(top: 70.0,bottom: 5,left: primaryHorizontalSpacing, right: primaryHorizontalSpacing),
-          padding: const EdgeInsets.only(top: 70, bottom: 30,left: 10,right: 10),
+          margin: const EdgeInsets.only(
+              top: 70.0,
+              bottom: 5,
+              left: primaryHorizontalSpacing,
+              right: primaryHorizontalSpacing),
+          padding:
+          const EdgeInsets.only(
+              top: 70.0,
+              bottom: 30.0,
+              left: primaryHorizontalSpacing,
+              right: primaryHorizontalSpacing),
           child: Column(
             children: [
               Text(
-                  employee.name,
+                employee.name,
                 style: AppTextStyle.headerDark600,
                 textAlign: TextAlign.center,
               ),
@@ -53,7 +61,7 @@ class ProfileCard extends StatelessWidget {
                 style: AppTextStyle.secondarySubtitle500,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*0.03),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -62,10 +70,14 @@ class ProfileCard extends StatelessWidget {
                     subtitle:
                         localization.user_detail_role_type(employee.roleType),
                   ),
-                  Container(height: MediaQuery.of(context).size.height*0.06,width: 1, color: AppColors.greyColor,),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: 1,
+                    color: AppColors.greyColor,
+                  ),
                   TextColumn(
-                    title:   localization.employee_employeeID_tag,
-                    subtitle:  employee.employeeId,
+                    title: localization.employee_employeeID_tag,
+                    subtitle: employee.employeeId,
                   ),
                 ],
               ),
@@ -79,19 +91,25 @@ class ProfileCard extends StatelessWidget {
 }
 
 class TextColumn extends StatelessWidget {
-  const TextColumn({Key? key, required this.title, required this.subtitle}) : super(key: key);
+  const TextColumn({Key? key, required this.title, required this.subtitle})
+      : super(key: key);
 
   final String title;
   final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(title, style: AppTextStyle.secondarySubtitle500),
-        const SizedBox(height: 6),
-        Text(subtitle ?? "-", style: AppTextStyle.titleText,),
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          Text(title, style: AppTextStyle.secondarySubtitle500),
+          const SizedBox(height: 6),
+          Text(
+            subtitle ?? "-",
+            style: AppTextStyle.titleText,
+          ),
+        ],
+      ),
     );
   }
 }
