@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
+import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
@@ -14,7 +15,8 @@ import 'admin_edit_employee_details.mocks.dart';
 void main(){
  late EmployeeService employeeService;
  late AdminEditEmployeeDetailsBloc editEmployeeDetailsBloc;
- DateTime joiningDate = DateTime.now().dateOnly;
+
+ Employee emp =  Employee(id: "123", roleType: 1, name: "dummy tester", employeeId: "CA-1000", email: "dummy.t@canopas.com", designation: "Application Tester",dateOfJoining: DateTime.now().dateOnly.timeStampToInt,level: "SW-L2",);
 
  group("admin-edit-employee-details-test", () {
 
@@ -24,18 +26,18 @@ void main(){
    });
 
    test('test initial test', (){
-     editEmployeeDetailsBloc.add(AdminEditEmployeeDetailsInitialEvent(joiningDate: joiningDate.timeStampToInt,roleType:1 ));
-     expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1)));
+     editEmployeeDetailsBloc.add(AdminEditEmployeeDetailsInitialEvent(employee: emp));
+     expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1)));
    });
 
    test('change role type test', (){
-     editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
+     editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1));
      editEmployeeDetailsBloc.add(ChangeRoleTypeAdminEditEmployeeDetailsEvent(roleType: 2));
-     expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 2)));
+     expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 2)));
    });
 
    test('change joining date test', (){
-     editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
+     editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1));
      DateTime otherDate  = DateTime.now().add(const Duration(days: 5)).dateOnly;
      editEmployeeDetailsBloc.add(ChangeDateOfJoiningAdminEditEmployeeDetailsEvent(dateOfJoining: otherDate));
      expect(editEmployeeDetailsBloc.stream, emits(AdminEditEmployeeDetailsState(dateOfJoining: otherDate,roleType: 1)));
@@ -78,26 +80,28 @@ void main(){
    });
 
    test('update Employee details test', () async {
-     editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
-     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester",));
+     editEmployeeDetailsBloc.add(AdminEditEmployeeDetailsInitialEvent(employee: emp));
+     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(id: emp.id));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
-       AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading),
-       AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.success),
+       AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1),
+       AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading),
+       AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.success),
      ]));
-     await untilCalled(employeeService.adminUpdateEmployeeDetails(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester", roleType: 1, dateOfJoining: joiningDate.timeStampToInt));
-     verify(employeeService.adminUpdateEmployeeDetails(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester", roleType: 1, dateOfJoining: joiningDate.timeStampToInt)).called(1);
+     await untilCalled(employeeService.adminUpdateEmployeeDetails(id: emp.id, name: emp.name, employeeId: emp.employeeId, email: emp.email, level: emp.level, designation: emp.designation, roleType: emp.roleType, dateOfJoining: emp.dateOfJoining!));
+     verify(employeeService.adminUpdateEmployeeDetails(id: emp.id, name: emp.name, employeeId: emp.employeeId, email: emp.email, level: emp.level, designation: emp.designation, roleType: emp.roleType, dateOfJoining: emp.dateOfJoining!)).called(1);
    });
 
    test('update Employee details failed test', () async {
-     editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1));
-     when(employeeService.adminUpdateEmployeeDetails(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester", roleType: 1, dateOfJoining: joiningDate.timeStampToInt)).thenThrow(Exception("error"));
-     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester",));
+     editEmployeeDetailsBloc.add(AdminEditEmployeeDetailsInitialEvent(employee: emp));
+     when(employeeService.adminUpdateEmployeeDetails(id: emp.id, name: emp.name, employeeId: emp.employeeId, email: emp.email, level: emp.level, designation: emp.designation, roleType: emp.roleType, dateOfJoining: emp.dateOfJoining!)).thenThrow(Exception("error"));
+     editEmployeeDetailsBloc.add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(id: emp.id));
      expect(editEmployeeDetailsBloc.stream, emitsInOrder([
-       AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading),
-       AdminEditEmployeeDetailsState(dateOfJoining: joiningDate,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.failure,error: firestoreFetchDataError),
+       AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1),
+       AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.loading),
+       AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining!.dateOnly,roleType: 1,adminEditEmployeeDetailsStatus: AdminEditEmployeeDetailsStatus.failure,error: firestoreFetchDataError),
      ]));
-     await untilCalled(employeeService.adminUpdateEmployeeDetails(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester", roleType: 1, dateOfJoining: joiningDate.timeStampToInt));
-     verify(employeeService.adminUpdateEmployeeDetails(id: "12", name: "Dummy tester", employeeId: "CA-1002", email:"dummy123@gmail.com", level: "SW-L2", designation: "Application tester", roleType: 1, dateOfJoining: joiningDate.timeStampToInt)).called(1);
+     await untilCalled(employeeService.adminUpdateEmployeeDetails(id: emp.id, name: emp.name, employeeId: emp.employeeId, email: emp.email, level: emp.level, designation: emp.designation, roleType: emp.roleType, dateOfJoining: emp.dateOfJoining!));
+     verify(employeeService.adminUpdateEmployeeDetails(id: emp.id, name: emp.name, employeeId: emp.employeeId, email: emp.email, level: emp.level, designation: emp.designation, roleType: emp.roleType, dateOfJoining: emp.dateOfJoining!)).called(1);
    });
 
  });

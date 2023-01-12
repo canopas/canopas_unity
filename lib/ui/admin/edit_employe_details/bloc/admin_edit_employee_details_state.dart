@@ -24,7 +24,11 @@ class AdminEditEmployeeDetailsState extends Equatable {
     this.roleType = 2,
   });
 
-  bool get isValid => nameError == false && emailError == false && employeeIdError == false && designationError == false;
+  bool get isValid =>
+      nameError == false &&
+      emailError == false &&
+      employeeIdError == false &&
+      designationError == false;
 
   copyWith({
     String? error,
@@ -48,7 +52,6 @@ class AdminEditEmployeeDetailsState extends Equatable {
           adminEditEmployeeDetailsStatus ?? this.adminEditEmployeeDetailsStatus,
     );
   }
-
 
   @override
   List<Object?> get props => [

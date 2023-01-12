@@ -21,8 +21,7 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminEditEmployeeDetailsBloc>()
-        ..add(AdminEditEmployeeDetailsInitialEvent(
-            roleType: employee.roleType, joiningDate: employee.dateOfJoining)),
+        ..add(AdminEditEmployeeDetailsInitialEvent(employee: employee)),
       child: AdminEditEmployeeDetailsView(
         employee: employee,
       ),
@@ -43,37 +42,6 @@ class AdminEditEmployeeDetailsView extends StatefulWidget {
 
 class _AdminEditEmployeeDetailsViewState
     extends State<AdminEditEmployeeDetailsView> {
-  final TextEditingController nameFieldController = TextEditingController();
-  final TextEditingController emailFieldController = TextEditingController();
-  final TextEditingController designationFieldController =
-      TextEditingController();
-  final TextEditingController levelFieldController = TextEditingController();
-  final TextEditingController employeeIDFieldController =
-      TextEditingController();
-  final TextEditingController dateOfJoiningFieldController =
-      TextEditingController();
-
-  @override
-  void initState() {
-    nameFieldController.text = widget.employee.name;
-    emailFieldController.text = widget.employee.email;
-    designationFieldController.text = widget.employee.designation;
-    levelFieldController.text = widget.employee.level ?? "";
-    employeeIDFieldController.text = widget.employee.employeeId;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-     nameFieldController.dispose();
-     emailFieldController.dispose();
-     designationFieldController.dispose();
-     levelFieldController.dispose();
-     employeeIDFieldController.dispose();
-     dateOfJoiningFieldController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,38 +49,43 @@ class _AdminEditEmployeeDetailsViewState
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).edit_tag),
       ),
-      body: AdminEditEmployeeDetailsForm(
-          employeeId: widget.employee.id,
-          nameFieldController: nameFieldController,
-          dateOfJoiningFieldController: dateOfJoiningFieldController,
-          designationFieldController: designationFieldController,
-          emailFieldController: emailFieldController,
-          employeeIDFieldController: employeeIDFieldController,
-          levelFieldController: levelFieldController),
+      body: AdminEditEmployeeDetailsForm(employeeId: widget.employee.id),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding:
             const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
         child: BlocBuilder<AdminEditEmployeeDetailsBloc,
-          AdminEditEmployeeDetailsState>(
-          buildWhen: (previous, current) => previous.isValid != current.isValid || previous.adminEditEmployeeDetailsStatus != current.adminEditEmployeeDetailsStatus,
+            AdminEditEmployeeDetailsState>(
+          buildWhen: (previous, current) =>
+              previous.isValid != current.isValid ||
+              previous.adminEditEmployeeDetailsStatus !=
+                  current.adminEditEmployeeDetailsStatus,
           builder: (context, state) => ElevatedButton(
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(MediaQuery.of(context).size.width/2, 45),
+                fixedSize: Size(MediaQuery.of(context).size.width / 2, 45),
                 disabledBackgroundColor: AppColors.greyColor,
               ),
-              onPressed: (state.isValid)?() {
-                context.read<AdminEditEmployeeDetailsBloc>().add(UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
-                  id: widget.employee.id,
-                  name: nameFieldController.text,
-                  email: emailFieldController.text,
-                  designation: designationFieldController.text,
-                  level: levelFieldController.text,
-                  employeeId: employeeIDFieldController.text,
-                ));
-              }:null,
-              child: state.adminEditEmployeeDetailsStatus == AdminEditEmployeeDetailsStatus.loading
-              ?const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(color: AppColors.whiteColor,strokeWidth: 3,)):Text(AppLocalizations.of(context).update_button_text,style: AppTextStyle.subtitleTextWhite,)),
+              onPressed: (state.isValid)
+                  ? () {
+                      context.read<AdminEditEmployeeDetailsBloc>().add(
+                              UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
+                            id: widget.employee.id,
+                          ));
+                    }
+                  : null,
+              child: state.adminEditEmployeeDetailsStatus ==
+                      AdminEditEmployeeDetailsStatus.loading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: AppColors.whiteColor,
+                        strokeWidth: 3,
+                      ))
+                  : Text(
+                      AppLocalizations.of(context).update_button_text,
+                      style: AppTextStyle.subtitleTextWhite,
+                    )),
         ),
       ),
     );
