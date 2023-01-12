@@ -9,7 +9,7 @@ import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_emplo
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
 
-import 'admin_edit_employee_details.mocks.dart';
+import 'admin_edit_employee_details_test.mocks.dart';
 
 @GenerateMocks([EmployeeService])
 void main(){
