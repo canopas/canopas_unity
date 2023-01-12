@@ -25,27 +25,11 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
     on<ValidNameAdminEditEmployeeDetailsEvent>(_validName);
   }
 
-  final TextEditingController nameFieldController = TextEditingController();
-  final TextEditingController emailFieldController = TextEditingController();
-  final TextEditingController designationFieldController =
-      TextEditingController();
-  final TextEditingController levelFieldController = TextEditingController();
-  final TextEditingController employeeIDFieldController =
-      TextEditingController();
-  final TextEditingController dateOfJoiningFieldController =
-      TextEditingController();
-
   void _initRoleTypeAndDate(AdminEditEmployeeDetailsInitialEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
-    nameFieldController.text = event.employee.name;
-    emailFieldController.text = event.employee.email;
-    designationFieldController.text = event.employee.designation;
-    levelFieldController.text = event.employee.level ?? "";
-    employeeIDFieldController.text = event.employee.employeeId;
     emit(state.copyWith(
-        roleType: event.employee.roleType,
-        dateOfJoining:
-            event.employee.dateOfJoining?.toDate ?? DateTime.now().dateOnly));
+        roleType: event.roleType,
+        dateOfJoining: event.dateOfJoining?.toDate ?? DateTime.now().dateOnly));
   }
 
   void _changeRoleType(ChangeRoleTypeAdminEditEmployeeDetailsEvent event,
@@ -112,13 +96,11 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
       try {
         await _employeeService.adminUpdateEmployeeDetails(
           id: event.id,
-          name: nameFieldController.text,
-          employeeId: employeeIDFieldController.text,
-          email: emailFieldController.text,
-          level: levelFieldController.text.isEmpty
-              ? null
-              : levelFieldController.text,
-          designation: designationFieldController.text,
+          name: event.name,
+          employeeId: event.employeeId,
+          email: event.email,
+          level: event.level.isEmpty ? null : event.level,
+          designation: event.designation,
           roleType: state.roleType,
           dateOfJoining: state.dateOfJoining!.timeStampToInt,
         );
@@ -132,16 +114,5 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
             error: firestoreFetchDataError));
       }
     }
-  }
-
-  @override
-  Future<void> close() {
-    nameFieldController.dispose();
-    emailFieldController.dispose();
-    designationFieldController.dispose();
-    levelFieldController.dispose();
-    employeeIDFieldController.dispose();
-    dateOfJoiningFieldController.dispose();
-    return super.close();
   }
 }

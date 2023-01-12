@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../model/employee/employee.dart';
-
 abstract class AdminEditEmployeeDetailsEvents extends Equatable {}
 
 class AdminEditEmployeeDetailsInitialEvent
     extends AdminEditEmployeeDetailsEvents {
-  final Employee employee;
+  final int? roleType;
+  final int? dateOfJoining;
 
-  AdminEditEmployeeDetailsInitialEvent({required this.employee});
+  AdminEditEmployeeDetailsInitialEvent(
+      {required this.roleType, required this.dateOfJoining});
 
   @override
-  List<Object?> get props => [employee];
+  List<Object?> get props => [roleType, dateOfJoining];
 }
 
 class ValidNameAdminEditEmployeeDetailsEvent
@@ -78,11 +78,21 @@ class ChangeDateOfJoiningAdminEditEmployeeDetailsEvent
 class UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent
     extends AdminEditEmployeeDetailsEvents {
   final String id;
+  final String name;
+  final String designation;
+  final String email;
+  final String employeeId;
+  final String level;
 
   UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent({
+    required this.name,
+    required this.designation,
+    required this.email,
+    required this.employeeId,
+    required this.level,
     required this.id,
   });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, name, designation, email, employeeId, level];
 }

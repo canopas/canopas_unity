@@ -21,7 +21,9 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminEditEmployeeDetailsBloc>()
-        ..add(AdminEditEmployeeDetailsInitialEvent(employee: employee)),
+        ..add(AdminEditEmployeeDetailsInitialEvent(
+            roleType: employee.roleType,
+            dateOfJoining: employee.dateOfJoining)),
       child: AdminEditEmployeeDetailsView(
         employee: employee,
       ),
@@ -42,6 +44,24 @@ class AdminEditEmployeeDetailsView extends StatefulWidget {
 
 class _AdminEditEmployeeDetailsViewState
     extends State<AdminEditEmployeeDetailsView> {
+  final TextEditingController nameFieldController = TextEditingController();
+  final TextEditingController emailFieldController = TextEditingController();
+  final TextEditingController designationFieldController =
+      TextEditingController();
+  final TextEditingController levelFieldController = TextEditingController();
+  final TextEditingController employeeIDFieldController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    nameFieldController.text = widget.employee.name;
+    emailFieldController.text = widget.employee.email;
+    designationFieldController.text = widget.employee.designation;
+    levelFieldController.text = widget.employee.level ?? "";
+    employeeIDFieldController.text = widget.employee.employeeId;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +69,14 @@ class _AdminEditEmployeeDetailsViewState
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).edit_tag),
       ),
-      body: AdminEditEmployeeDetailsForm(employeeId: widget.employee.id),
+      body: AdminEditEmployeeDetailsForm(
+        employeeId: widget.employee.id,
+        designationFieldController: designationFieldController,
+        emailFieldController: emailFieldController,
+        employeeIDFieldController: employeeIDFieldController,
+        levelFieldController: levelFieldController,
+        nameFieldController: nameFieldController,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding:
@@ -70,6 +97,11 @@ class _AdminEditEmployeeDetailsViewState
                       context.read<AdminEditEmployeeDetailsBloc>().add(
                               UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
                             id: widget.employee.id,
+                            name: nameFieldController.text,
+                            level: levelFieldController.text,
+                            employeeId: employeeIDFieldController.text,
+                            email: emailFieldController.text,
+                            designation: designationFieldController.text,
                           ));
                     }
                   : null,
@@ -89,5 +121,15 @@ class _AdminEditEmployeeDetailsViewState
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    nameFieldController.dispose();
+    emailFieldController.dispose();
+    designationFieldController.dispose();
+    levelFieldController.dispose();
+    employeeIDFieldController.dispose();
+    super.dispose();
   }
 }

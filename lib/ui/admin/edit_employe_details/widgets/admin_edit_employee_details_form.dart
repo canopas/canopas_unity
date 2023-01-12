@@ -17,8 +17,20 @@ import '../../employee/detail/bloc/employee_detail_event.dart';
 
 class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final String employeeId;
+  final TextEditingController nameFieldController;
+  final TextEditingController emailFieldController;
+  final TextEditingController designationFieldController;
+  final TextEditingController levelFieldController;
+  final TextEditingController employeeIDFieldController;
 
-  const AdminEditEmployeeDetailsForm({Key? key, required this.employeeId})
+  const AdminEditEmployeeDetailsForm(
+      {Key? key,
+      required this.employeeId,
+      required this.nameFieldController,
+      required this.emailFieldController,
+      required this.designationFieldController,
+      required this.levelFieldController,
+      required this.employeeIDFieldController})
       : super(key: key);
 
   @override
@@ -59,7 +71,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.employeeIdError != current.employeeIdError,
             builder: (context, state) => FieldEntry(
-                controller: bloc.employeeIDFieldController,
+                controller: employeeIDFieldController,
                 onChanged: (value) => bloc.add(
                     ValidEmployeeIdAdminEditEmployeeDetailsEvent(
                         employeeId: value)),
@@ -74,7 +86,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.nameError != current.nameError,
             builder: (context, state) => FieldEntry(
-              controller: bloc.nameFieldController,
+              controller: nameFieldController,
               onChanged: (value) =>
                   bloc.add(ValidNameAdminEditEmployeeDetailsEvent(name: value)),
               errorText: state.nameError
@@ -89,7 +101,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.emailError != current.emailError,
             builder: (context, state) => FieldEntry(
-                controller: bloc.emailFieldController,
+                controller: emailFieldController,
                 onChanged: (value) => bloc
                     .add(ValidEmailAdminEditEmployeeDetailsEvent(email: value)),
                 errorText: state.emailError
@@ -103,7 +115,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.designationError != current.designationError,
             builder: (context, state) => FieldEntry(
-                controller: bloc.designationFieldController,
+                controller: designationFieldController,
                 onChanged: (value) => bloc.add(
                     ValidDesignationAdminEditEmployeeDetailsEvent(
                         designation: value)),
@@ -114,7 +126,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
           ),
           FieldTitle(title: localization.employee_level_tag),
           FieldEntry(
-              controller: bloc.levelFieldController,
+              controller: levelFieldController,
               hintText: localization.admin_addMember_hint_level),
           FieldTitle(title: localization.employee_dateOfJoin_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
