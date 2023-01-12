@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,11 +29,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   final GoRouter _router= getIt<AppRouter>().router;
+  final _networkConnectionBloc= getIt<NetworkConnectionBloc>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_)=>NetworkConnectionBloc(Connectivity())..add(NetworkConnectionObserveEvent()),
+      create: (_)=>_networkConnectionBloc..add(NetworkConnectionObserveEvent()),
       child: BlocListener<NetworkConnectionBloc,NetworkConnectionState>(
         listener: (context,state) {
           if(state is NetworkConnectionFailureState){
