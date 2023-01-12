@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/model/employee/employee.dart';
 
 abstract class AdminEditEmployeeDetailsEvents extends Equatable {}
 
@@ -77,7 +78,7 @@ class ChangeDateOfJoiningAdminEditEmployeeDetailsEvent
 
 class UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent
     extends AdminEditEmployeeDetailsEvents {
-  final String id;
+  final Employee previousEmployeeData;
   final String name;
   final String designation;
   final String email;
@@ -85,14 +86,15 @@ class UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent
   final String level;
 
   UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent({
+    required this.previousEmployeeData,
     required this.name,
     required this.designation,
     required this.email,
     required this.employeeId,
     required this.level,
-    required this.id,
   });
 
   @override
-  List<Object?> get props => [id, name, designation, email, employeeId, level];
+  List<Object?> get props =>
+      [previousEmployeeData, name, designation, email, employeeId, level];
 }

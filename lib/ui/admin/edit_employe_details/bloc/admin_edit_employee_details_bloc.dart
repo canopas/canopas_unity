@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
+import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
 
@@ -93,15 +94,23 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
           error: fillDetailsError));
     } else {
       try {
-        await _employeeService.adminUpdateEmployeeDetails(
-          id: event.id,
-          name: event.name,
-          employeeId: event.employeeId,
-          email: event.email,
-          level: event.level.isEmpty ? null : event.level,
-          designation: event.designation,
-          roleType: state.roleType,
-          dateOfJoining: state.dateOfJoining!.timeStampToInt,
+        await _employeeService.updateEmployeeDetails(
+          employee: Employee(
+            id: event.previousEmployeeData.id,
+            roleType: state.roleType,
+            name: event.name,
+            employeeId: event.employeeId,
+            email: event.email,
+            designation: event.designation,
+            level: event.level.isEmpty ? null : event.level,
+            dateOfJoining: state.dateOfJoining!.timeStampToInt,
+            phone: event.previousEmployeeData.phone,
+            bloodGroup: event.previousEmployeeData.bloodGroup,
+            address: event.previousEmployeeData.address,
+            dateOfBirth: event.previousEmployeeData.dateOfBirth,
+            gender: event.previousEmployeeData.gender,
+            imageUrl: event.previousEmployeeData.imageUrl,
+          ),
         );
         emit(state.copyWith(
             adminEditEmployeeDetailsStatus:

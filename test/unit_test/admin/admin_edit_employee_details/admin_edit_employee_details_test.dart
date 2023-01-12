@@ -123,7 +123,7 @@ void main() {
           roleType: emp.roleType, dateOfJoining: emp.dateOfJoining));
       editEmployeeDetailsBloc.add(
           UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
-              id: emp.id,
+              previousEmployeeData: emp,
               designation: emp.designation,
               email: emp.email,
               employeeId: emp.employeeId,
@@ -145,48 +145,25 @@ void main() {
                 adminEditEmployeeDetailsStatus:
                     AdminEditEmployeeDetailsStatus.success),
           ]));
-      await untilCalled(employeeService.adminUpdateEmployeeDetails(
-          id: emp.id,
-          name: emp.name,
-          employeeId: emp.employeeId,
-          email: emp.email,
-          level: emp.level,
-          designation: emp.designation,
-          roleType: emp.roleType,
-          dateOfJoining: emp.dateOfJoining!));
-      verify(employeeService.adminUpdateEmployeeDetails(
-              id: emp.id,
-              name: emp.name,
-              employeeId: emp.employeeId,
-              email: emp.email,
-              level: emp.level,
-              designation: emp.designation,
-              roleType: emp.roleType,
-              dateOfJoining: emp.dateOfJoining!))
+      await untilCalled(
+          employeeService.updateEmployeeDetails(employee: emp));
+      verify(employeeService.updateEmployeeDetails(employee: emp))
           .called(1);
     });
 
     test('update Employee details failed test', () async {
       editEmployeeDetailsBloc.add(AdminEditEmployeeDetailsInitialEvent(
           dateOfJoining: emp.dateOfJoining, roleType: emp.roleType));
-      when(employeeService.adminUpdateEmployeeDetails(
-              id: emp.id,
-              name: emp.name,
-              employeeId: emp.employeeId,
-              email: emp.email,
-              level: emp.level,
-              designation: emp.designation,
-              roleType: emp.roleType,
-              dateOfJoining: emp.dateOfJoining!))
+      when(employeeService.updateEmployeeDetails(employee: emp))
           .thenThrow(Exception("error"));
       editEmployeeDetailsBloc.add(
           UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
-              id: emp.id,
               designation: emp.designation,
               email: emp.email,
               employeeId: emp.employeeId,
               level: emp.level!,
-              name: emp.name));
+              name: emp.name,
+              previousEmployeeData: emp));
       expect(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
@@ -204,24 +181,9 @@ void main() {
                     AdminEditEmployeeDetailsStatus.failure,
                 error: firestoreFetchDataError),
           ]));
-      await untilCalled(employeeService.adminUpdateEmployeeDetails(
-          id: emp.id,
-          name: emp.name,
-          employeeId: emp.employeeId,
-          email: emp.email,
-          level: emp.level,
-          designation: emp.designation,
-          roleType: emp.roleType,
-          dateOfJoining: emp.dateOfJoining!));
-      verify(employeeService.adminUpdateEmployeeDetails(
-              id: emp.id,
-              name: emp.name,
-              employeeId: emp.employeeId,
-              email: emp.email,
-              level: emp.level,
-              designation: emp.designation,
-              roleType: emp.roleType,
-              dateOfJoining: emp.dateOfJoining!))
+      await untilCalled(
+          employeeService.updateEmployeeDetails(employee: emp));
+      verify(employeeService.updateEmployeeDetails(employee: emp))
           .called(1);
     });
   });

@@ -60,25 +60,8 @@ class EmployeeService {
     await _userDbCollection.doc(docId).set(employee);
   }
 
-  Future<void> adminUpdateEmployeeDetails(
-      {required String id,
-      required String name,
-      required String employeeId,
-      required String email,
-      required String? level,
-      required String designation,
-      required int roleType,
-      required int dateOfJoining}) async {
-    Map<String, dynamic> data = {
-      FirestoreConst.roleType: roleType,
-      FirestoreConst.name: name,
-      FirestoreConst.email: email,
-      FirestoreConst.employeeId: employeeId,
-      FirestoreConst.designation: designation,
-      FirestoreConst.dateOfJoining: dateOfJoining,
-      FirestoreConst.level: level,
-    };
-    await _userDbCollection.doc(id).update(data);
+  Future<void> updateEmployeeDetails({required Employee employee}) async {
+    await _userDbCollection.doc(employee.id).update(employee.toJson());
   }
 
   Future<void> changeEmployeeRoleType(String id, int roleType) async {

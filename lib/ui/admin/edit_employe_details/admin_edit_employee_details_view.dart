@@ -96,7 +96,7 @@ class _AdminEditEmployeeDetailsViewState
                   ? () {
                       context.read<AdminEditEmployeeDetailsBloc>().add(
                               UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
-                            id: widget.employee.id,
+                            previousEmployeeData: widget.employee,
                             name: nameFieldController.text,
                             level: levelFieldController.text,
                             employeeId: employeeIDFieldController.text,
