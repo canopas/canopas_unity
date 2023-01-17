@@ -13,8 +13,8 @@ class UserPreference {
 
   UserPreference(this._preferences);
 
-  void setCurrentUser(String employee) {
-    _preferences.setString(PrefKeys.userPrefKeyUser, employee);
+  void setCurrentUser(Employee user) {
+    _preferences.setString(PrefKeys.userPrefKeyUser, jsonEncode(user.toJson()));
   }
 
   Employee? getCurrentUser() {
@@ -23,15 +23,14 @@ class UserPreference {
   }
 
   Future<void> removeCurrentUser() async {
-     await _preferences.remove(PrefKeys.userPrefKeyUser);
+    await _preferences.remove(PrefKeys.userPrefKeyUser);
   }
 
-  Future<void> setToken(String token)async{
+  Future<void> setToken(String token) async {
     await _preferences.setString(token, token);
   }
 
-  String? getToken(){
+  String? getToken() {
     return _preferences.getString(token);
   }
-
 }

@@ -9,6 +9,9 @@ extension DateExtention on int {
 }
 
 extension TimestampExtension on DateTime {
+
+  int get futureDateSelectionYear => year+2;
+
   int get timeStampToInt => millisecondsSinceEpoch;
 
   DateTime get dateOnly => DateUtils.dateOnly(this);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../widget/date_time_picker.dart';
+import '../../../../widget/employee_details_textfield.dart';
 import '../bloc/add_member_bloc.dart';
 import '../bloc/add_member_event.dart';
 import '../bloc/add_member_state.dart';
@@ -61,9 +63,9 @@ class _AddMemberFormState extends State<AddMemberForm> {
                 onChanged: (value) =>
                     bloc.add(AddEmployeeIdEvent(employeeId: value)),
                 errorText: state.idError
-                    ? localization.admin_add_member_error_complete_field
+                    ? localization.complete_mandatory_field_error
                     : null,
-                hintText: localization.admin_addMember_hint_employeeId),
+                hintText: localization.employee_id_hint_text),
             FieldTitle(title: localization.employee_name_tag),
             FieldEntry(
               onChanged: (value) => context
@@ -72,7 +74,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
               errorText: state.nameError
                   ? localization.admin_add_member_error_name
                   : null,
-              hintText: localization.admin_addMember_hint_name,
+              hintText: localization.name_hint_text,
             ),
             FieldTitle(title: localization.employee_email_tag),
             FieldEntry(
@@ -81,16 +83,16 @@ class _AddMemberFormState extends State<AddMemberForm> {
                 errorText: state.emailError
                     ? localization.admin_add_member_error_email
                     : null,
-                hintText: localization.admin_addMember_hint_email),
+                hintText: localization.email_hint_text),
             FieldTitle(
                 title: localization.employee_designation_tag),
             FieldEntry(
                 onChanged: (value) => bloc
                     .add(AddEmployeeDesignationEvent(designation: value)),
                 errorText: state.designationError
-                    ? localization.admin_add_member_error_complete_field
+                    ? localization.complete_mandatory_field_error
                     : null,
-                hintText: localization.admin_addMember_hint_designation),
+                hintText: localization.designation_hint_text),
             FieldTitle(
                 title: localization.employee_dateOfJoin_tag),
             TextField(
@@ -112,9 +114,15 @@ class _AddMemberFormState extends State<AddMemberForm> {
               style: AppTextStyle.subtitleTextDark,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.all(primaryHorizontalSpacing),
+                fillColor: AppColors.textFieldBg,
+                filled: true,
                 hintStyle: AppTextStyle.secondarySubtitle500,
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none
+                ),
                 hintText: AppLocalizations.of(context).date_format_yMMMd(
                     state.dateOfJoining ?? DateTime.now()),
               ),
@@ -126,52 +134,4 @@ class _AddMemberFormState extends State<AddMemberForm> {
   }
 }
 
-class FieldTitle extends StatelessWidget {
-  final String title;
-  const FieldTitle({Key? key,required this.title}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-   return Padding(
-      padding: const EdgeInsets.only(top: 24, bottom: 8),
-      child: Text(
-        title,
-        textAlign: TextAlign.start,
-        style: AppTextStyle.secondarySubtitle500,
-      ),
-    );
-  }
-}
-
-class FieldEntry extends StatelessWidget {
-  final Function(String)? onChanged;
-  final String? errorText;
-  final String hintText;
-  final TextEditingController? controller;
-
-  const FieldEntry(
-      {Key? key,
-      this.onChanged,
-      this.errorText,
-      required this.hintText,  this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      textInputAction: TextInputAction.next,
-      onChanged: onChanged,
-      controller: controller,
-      cursorColor: Colors.black,
-      autocorrect: false,
-      style: AppTextStyle.subtitleTextDark,
-      textAlignVertical: TextAlignVertical.center,
-      decoration: InputDecoration(
-        errorText: errorText,
-        hintStyle: AppTextStyle.secondarySubtitle500,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-        hintText: hintText,
-      ),
-    );
-  }
-}

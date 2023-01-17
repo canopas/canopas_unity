@@ -19,6 +19,7 @@ import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
+import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
@@ -160,7 +161,18 @@ class AppRouter {
                     name: Routes.userSettings,
                     path: 'setting',
                     pageBuilder: (context, state) =>
-                        const MaterialPage(child: EmployeeSettingPage())),
+                        const MaterialPage(child: EmployeeSettingPage()),
+                  routes: [
+                    GoRoute(
+                      path: 'employee-edit-employee-details',
+                      name: Routes.employeeEditEmployeeDetails,
+                      pageBuilder: (context, state) => MaterialPage(
+                          child: EmployeeEditEmployeeDetailsPage(
+                            employee: state.extra as Employee,
+                          )),
+                    ),
+                  ]
+                ),
                 GoRoute(
                     name: Routes.allUserCalender,
                     path: 'calender',
@@ -223,6 +235,7 @@ abstract class RoutesParamsConst{
 
 abstract class Routes {
   static const adminEditEmployeeDetails = 'admin-edit-employee-details';
+  static const employeeEditEmployeeDetails = 'employee-edit-employee-details';
   static const rootRoute = '/';
   static const login = '/login';
   static const adminHome = '/admin';

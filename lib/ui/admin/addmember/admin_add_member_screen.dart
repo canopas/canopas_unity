@@ -37,7 +37,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).admin_addMember_addMember_tag),
+        title: Text(AppLocalizations.of(context).addMember_tag),
       ),
       body: const AddMemberForm(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -79,7 +79,7 @@ class AddMemberButton extends StatelessWidget {
                         },
                         child: Text(
                             AppLocalizations.of(context)
-                                .admin_addMember_button_submit,
+                                .submit_button_tag,
                             style: AppTextStyle.subtitleText)));
               },
               listener: (context, state) {
@@ -87,7 +87,7 @@ class AddMemberButton extends StatelessWidget {
                   showSnackBar(
                       context: context,
                       msg: AppLocalizations.of(context)
-                          .admin_add_member_successfully_added);
+                          .admin_employee_successfully_added_message);
                   context.pop();
                 }
                 if (state.status == SubmitFormStatus.error) {

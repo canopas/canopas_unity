@@ -6,8 +6,8 @@ import 'package:projectunity/bloc/authentication/logout_event.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
+import 'package:projectunity/ui/admin/setting/bloc/admin_setting_bloc.dart';
 import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
-
 import '../../../bloc/authentication/logout_bloc.dart';
 import '../../../bloc/authentication/logout_state.dart';
 import '../../../di/service_locator.dart';
@@ -15,16 +15,18 @@ import '../../../router/app_router.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/setting_screen_subtitle.dart';
 import '../../../widget/user_intro_content.dart';
+import 'bloc/admin_setting_state.dart';
 
 class AdminSettingPage extends StatelessWidget {
   const AdminSettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<LogOutBloc>(),
-      child: const AdminSettingScreen(),
-    );
+    return MultiBlocProvider(providers: [
+      BlocProvider(create: (_) => getIt<LogOutBloc>()),
+      BlocProvider(create: (_) => getIt<AdminSettingBloc>()),
+    ],
+      child: const AdminSettingScreen(),);
   }
 }
 
@@ -61,7 +63,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                   style: AppTextStyle.largeHeaderBold),
               buildSettingSubTitle(
                   subtitle: localizations.settings_account_text),
-              UserIntroContent(),
+              BlocBuilder<AdminSettingBloc,AdminSettingState>(builder: (context, state) => UserIntroContent(employee: state.employee,)),
               buildSettingSubTitle(
                   subtitle: localizations.settings_setting_text),
               SettingOption(

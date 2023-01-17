@@ -48,6 +48,7 @@ class EmployeeDetailBloc
   }
 
   bool get currentUserIsAdmin => _userManager.isAdmin;
+  String get userEmployeeID => _userManager.employeeId;
 
   Future<void> _makeAndRemoveAsAdmin(EmployeeDetailsChangeRoleTypeEvent event,
       Emitter<AdminEmployeeDetailState> emit) async {

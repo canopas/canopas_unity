@@ -5,19 +5,32 @@ import '../configs/colors.dart';
 class ImageProfile extends StatelessWidget {
   final String? imageUrl;
   final double radius;
+  final double borderSize;
+  final Color borderColor;
+  final Color backgroundColor;
 
-  const ImageProfile({Key? key, this.imageUrl, required this.radius})
+  const ImageProfile(
+      {Key? key,
+      this.imageUrl,
+      required this.radius,
+      this.borderSize = 2,
+      this.borderColor = AppColors.textFieldBg,
+      this.backgroundColor = AppColors.primaryGray})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  CircleAvatar(
-      radius: radius,
-      backgroundColor: AppColors.primaryGray,
-      backgroundImage: (imageUrl != null) ? NetworkImage(imageUrl!) : null,
-      child: (imageUrl != null)
-          ? null
-          : Icon(Icons.person, size: radius, color: Colors.black54),
+    return CircleAvatar(
+      backgroundColor: borderColor,
+      radius: radius + borderSize,
+      child: CircleAvatar(
+        radius: radius,
+        backgroundColor: backgroundColor,
+        backgroundImage: (imageUrl != null) ? NetworkImage(imageUrl!) : null,
+        child: (imageUrl != null)
+            ? null
+            : Icon(Icons.person, size: radius, color: Colors.black54),
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
+
 import '../../provider/device_info.dart';
 import '../../pref/user_preference.dart';
 import '../../services/auth/auth_service.dart';
@@ -16,7 +15,7 @@ class AuthManager {
   Future<void> updateUser(Employee user) async {
     final session = await DeviceInfoProvider.getDeviceInfo();
     _authService.updateUserData(user, session);
-    _userPreference.setCurrentUser(jsonEncode(user.toJson()));
+    _userPreference.setCurrentUser(user);
   }
 
   Future<Employee?> getUser(String email) async {
