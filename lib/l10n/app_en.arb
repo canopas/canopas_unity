@@ -160,7 +160,7 @@
   },
 
 
-  "user_apply_leave_select_tag": "Select",
+      "select_tag": "Select",
       "user_apply_leave_from_tag": "Start",
       "user_apply_leave_to_tag": "End",
       "user_apply_leave_button_reset": "Reset",
@@ -181,18 +181,23 @@
       "admin_home_absence_tag":"Absence",
 
       "edit_tag": "Edit",
+      "save_tag": "Save",
        "admin_employee_detail_profile_tag":"Profile",
 
       "employee_designation_tag":"Designation",
+      "employee_blood_group_tag":"Blood Group",
       "employee_role_tag":"Role",
       "employee_mobile_tag":"Mobile",
       "employee_email_tag":"Email",
       "employee_address_tag":"Address",
+      "employee_gender_tag":"Gender",
       "employee_dateOfBirth_tag":"Date Of Birth",
       "employee_dateOfJoin_tag":"Date of Joining",
       "employee_level_tag":"Level",
       "employee_employeeID_tag":"Employee Id",
       "employee_name_tag":"Name",
+
+
 
 
 
@@ -202,22 +207,20 @@
       "admin_leave_detail_daysLeft_tag":"Days left",
 
 
-      "admin_addMember_button_submit":"Submit",
-      "admin_addMember_designation_tag":"Designation",
-       "admin_addMember_addMember_tag":"Add Member",
-      "admin_addMember_hint_name":"Andrew Jhone",
-      "admin_addMember_hint_employeeId":"CA 1001",
-      "admin_addMember_hint_email":"andrew@canopas.com",
-      "admin_addMember_hint_designation":"Android developer",
-      "admin_addMember_hint_level":"SW-L1 Junior engineer",
+      "submit_button_tag":"Submit",
+      "designation_tag":"Designation",
+       "addMember_tag":"Add Member",
+      "name_hint_text":"Andrew Jhone",
+      "employee_id_hint_text":"CA 1001",
+      "email_hint_text":"andrew@canopas.com",
+      "designation_hint_text":"Android developer",
+      "level_hint_text":"SW-L1 Junior engineer",
+      "mobile_number_hint_text":"+91 123456-7890",
+      "blood_group_hint_text":"B+",
+      "address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
-
-
-
-
-
-
-
+      "gender_male_tag":"Male",
+      "gender_female_tag":"Female",
 
      "error_something_went_wrong": "Something went wrong",
 
@@ -226,8 +229,8 @@
 
      "admin_add_member_error_email":"Please enter valid email",
      "admin_add_member_error_name": "Name is too short!!",
-     "admin_add_member_error_complete_field": "Please complete this mandatory field",
-     "admin_add_member_successfully_added" : "An employee has been added successfully!!",
+     "complete_mandatory_field_error": "Please complete this mandatory field",
+     "admin_employee_successfully_added_message" : "An employee has been added successfully!!",
 
      "logout_button_text": "Sign Out",
      "update_button_text": "Update",

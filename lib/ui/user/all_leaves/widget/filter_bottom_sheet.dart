@@ -98,7 +98,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
               trailing: Text(
                 (state.filterStartDate == null)
-                    ? localization.user_apply_leave_select_tag
+                    ? localization.select_tag
                     : localization.date_format_yMMMd(state.filterStartDate!),
                 style: AppTextStyle.subtitleTextDark,
               ),
@@ -124,7 +124,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
               trailing: Text(
                 (state.filterEndDate == null)
-                    ? localization.user_apply_leave_select_tag
+                    ? localization.select_tag
                     : localization.date_format_yMMMd(state.filterEndDate!),
                 style: AppTextStyle.subtitleTextDark,
               ),

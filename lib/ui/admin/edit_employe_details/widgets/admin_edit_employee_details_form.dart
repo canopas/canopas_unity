@@ -10,10 +10,8 @@ import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_emplo
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../configs/colors.dart';
-import '../../../../event_bus/events.dart';
 import '../../../../widget/date_time_picker.dart';
-import '../../addmember/widget/add_member_form.dart';
-import '../../employee/detail/bloc/employee_detail_event.dart';
+import '../../../../widget/employee_details_textfield.dart';
 
 class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final String employeeId;
@@ -45,7 +43,6 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
           showSnackBar(context: context, error: state.error);
         } else if (state.adminEditEmployeeDetailsStatus ==
             AdminEditEmployeeDetailsStatus.success) {
-          eventBus.fire(EmployeeDetailInitialLoadEvent(employeeId: employeeId));
           context.pop();
         }
       },
@@ -76,9 +73,9 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ValidEmployeeIdAdminEditEmployeeDetailsEvent(
                         employeeId: value)),
                 errorText: state.employeeIdError
-                    ? localization.admin_add_member_error_complete_field
+                    ? localization.complete_mandatory_field_error
                     : null,
-                hintText: localization.admin_addMember_hint_employeeId),
+                hintText: localization.employee_id_hint_text),
           ),
           FieldTitle(title: localization.employee_name_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
@@ -92,7 +89,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
               errorText: state.nameError
                   ? localization.admin_add_member_error_name
                   : null,
-              hintText: localization.admin_addMember_hint_name,
+              hintText: localization.name_hint_text,
             ),
           ),
           FieldTitle(title: localization.employee_email_tag),
@@ -107,7 +104,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 errorText: state.emailError
                     ? localization.admin_add_member_error_email
                     : null,
-                hintText: localization.admin_addMember_hint_email),
+                hintText: localization.email_hint_text),
           ),
           FieldTitle(title: localization.employee_designation_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
@@ -120,14 +117,14 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ValidDesignationAdminEditEmployeeDetailsEvent(
                         designation: value)),
                 errorText: state.designationError
-                    ? localization.admin_add_member_error_complete_field
+                    ? localization.complete_mandatory_field_error
                     : null,
-                hintText: localization.admin_addMember_hint_designation),
+                hintText: localization.designation_hint_text),
           ),
           FieldTitle(title: localization.employee_level_tag),
           FieldEntry(
               controller: levelFieldController,
-              hintText: localization.admin_addMember_hint_level),
+              hintText: localization.level_hint_text),
           FieldTitle(title: localization.employee_dateOfJoin_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
                   AdminEditEmployeeDetailsState>(
@@ -136,12 +133,11 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
               builder: (context, state) => ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     alignment: Alignment.centerLeft,
-                    backgroundColor: AppColors.whiteColor,
-                    fixedSize: Size(MediaQuery.of(context).size.height, 60),
+                    backgroundColor: AppColors.textFieldBg,
+                    fixedSize: Size(MediaQuery.of(context).size.height, 53),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(
-                            color: AppColors.greyColor, width: 1)),
+                    ),
                   ),
                   onPressed: () async {
                     DateTime? joiningDate = await pickDate(

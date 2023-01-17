@@ -5,7 +5,8 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
-
+import '../../../../event_bus/events.dart';
+import '../../employee/detail/bloc/employee_detail_event.dart';
 import '../../../../services/admin/employee_service.dart';
 
 @Injectable()
@@ -112,6 +113,7 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
             imageUrl: event.previousEmployeeData.imageUrl,
           ),
         );
+        eventBus.fire(EmployeeDetailInitialLoadEvent(employeeId: event.previousEmployeeData.id));
         emit(state.copyWith(
             adminEditEmployeeDetailsStatus:
                 AdminEditEmployeeDetailsStatus.success));

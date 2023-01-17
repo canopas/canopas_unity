@@ -154,3 +154,9 @@ class Session {
 
   Map<String, dynamic> sessionToJson() => _$SessionToJson(this);
 }
+
+class EmployeeGender{
+  static const int male = 1;
+  static const int female = 2;
+  static const List<int> values = [male,female];
+}

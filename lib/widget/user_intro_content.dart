@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/provider/user_data.dart';
-
 import '../../../../configs/text_style.dart';
 import '../../../../widget/user_profile_image.dart';
+import '../model/employee/employee.dart';
 
 class UserIntroContent extends StatelessWidget {
-  UserIntroContent({
-    Key? key,
+  final Employee employee;
+  final void Function()? onTap;
+  const UserIntroContent({
+    Key? key, required this.employee, this.onTap
   }) : super(key: key);
-  final UserManager _userManager = getIt<UserManager>();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(12),
-      onTap: () {},
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Row(
           children: [
-            const ImageProfile(
+             ImageProfile(
+              imageUrl: employee.imageUrl,
               radius: 38,
             ),
             const SizedBox(
               width: primaryHorizontalSpacing,
             ),
-            Flexible(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _userManager.userName,
+                    employee.name,
                     style: AppTextStyle.headerTextBold,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -40,13 +41,15 @@ class UserIntroContent extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    _userManager.employeeDesignation,
+                    employee.designation,
                     style: AppTextStyle.bodyTextDark,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
+            const Icon(Icons.arrow_forward_ios_rounded,size: 20,color: AppColors.secondaryText,),
+            const SizedBox(width: primaryVerticalSpacing,),
           ],
         ),
       ),
