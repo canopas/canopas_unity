@@ -125,7 +125,7 @@ class WhoIsOutCard extends StatelessWidget {
                                                   width: 60,
                                                   decoration: BoxDecoration(
                                                     image: (e.employee.imageUrl != null)
-                                                            ? DecorationImage(image: NetworkImage(e.employee.imageUrl!),)
+                                                            ? DecorationImage(image: NetworkImage(e.employee.imageUrl!),fit: BoxFit.cover)
                                                             : null,
                                                     color: AppColors.primaryGray,
                                                     borderRadius: AppTheme.commonBorderRadius,
