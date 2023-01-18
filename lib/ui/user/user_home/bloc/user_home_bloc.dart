@@ -3,7 +3,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/provider/user_data.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
@@ -14,11 +13,10 @@ import 'user_home_state.dart';
 
 @Injectable()
 class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
-  final UserManager _userManager;
   final EmployeeService _employeeService;
   final AdminLeaveService _leaveService;
 
-  UserHomeBloc(this._userManager,
+  UserHomeBloc(
       this._employeeService,
       this._leaveService,)
       : super(UserHomeState(dateOfAbsenceEmployee: DateTime.now())) {
@@ -27,7 +25,6 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
     on<ChangeToAfterDateEvent>(_changeToAfterDate);
   }
 
-  String get userID => _userManager.employeeId;
 
   FutureOr<void> _load(UserHomeFetchEvent event,Emitter<UserHomeState> emit) async {
     await _getAbsenceEmployees(emit);
