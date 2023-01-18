@@ -5,6 +5,8 @@
 
    "login_welcome_text": "Welcome",
    "login_toUnity_text": "to Unity!",
+   "company_name":"Canopas Software",
+   "company_subtitle":"www.canopas.com",
    "login_guide_description": "To continue with Unity",
    "login_button_text": "Sign in with Google",
 
@@ -90,10 +92,10 @@
                              }
                          },
 
-      "who_is_out_card_title":"Who's on leave, Today?",
+      "team_leave_card_title":"Who's on leave, Today?",
 
-  "who_is_out_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {otherCount} others on leave, Today!}}",
-  "@who_is_out_card_message":{
+  "team_leave_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {otherCount} others on leave, Today!}}",
+  "@team_leave_card_message":{
               "placeholders":{
               "count":{
               "type":"int"
@@ -106,6 +108,29 @@
               }
           }
        },
+
+  "who_is_out_card_message":"{count,plural,=0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
+  "@who_is_out_card_message":{
+    "placeholders":{
+      "date":{
+        "type": "String"
+      },
+      "count":{
+        "type":"int"
+      },
+      "otherCount":{
+        "type":"int"
+      },
+      "name":{
+        "type":"String"
+      }
+    }
+  },
+
+  "see_all_button_tag":"See All",
+  "dateFormatter_tomorrow":"Tomorrow",
+  "who_is_out_card_title": "Who is out of Office?",
+
   "leave_request_total_half_day_text":"Leave request is for half day",
   "leave_request_total_zero_day_text":"Leave request is for 0 day",
   "leave_request_total_one_day_text":"Leave request is for 1 day",

@@ -44,4 +44,9 @@ class AppTextStyle{
   static TextStyle titleBlack600 = const TextStyle(color: AppColors.blackColor, fontSize: titleTextSize, fontWeight: FontWeight.w600);
 
   static TextStyle subtitleGreyBold =  const TextStyle(fontSize: subTitleTextSize, fontWeight: FontWeight.bold, color: AppColors.darkGrey );
+
+  //new UI textStyle
+  static const TextStyle titleDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.title,fontWeight: FontWeight.w600);
+  static const TextStyle mediumDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.medium,fontWeight: FontWeight.w500);
+  static const TextStyle bodyDark = TextStyle(color: AppColors.textDark,fontSize: AppFontSize.body,fontWeight: FontWeight.w500);
 }
