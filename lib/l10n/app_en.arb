@@ -280,7 +280,12 @@
         "hour_ago_tag":"hour ago",
         "hours_ago_tag":"hours ago",
          "minute_ago_tag":"minute ago",
-         "minutes_ago_tag":"minutes ago"
+         "minutes_ago_tag":"minutes ago",
+
+         "user_leave_tag":"Leaves",
+         "user_apply_tag":"Apply",
+         "user_used_leaves_tag":"Used Leaves"
+
 
 
 

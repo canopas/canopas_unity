@@ -50,6 +50,7 @@ import '../ui/user/edit_employee_details/bloc/edit_employee_details_employee_blo
 import '../ui/user/home/bloc/employee_home_bloc.dart' as _i33;
 import '../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/apply_leave_bloc.dart'
     as _i29;
+import '../ui/user/leaves/bloc/leave_count/user_leave_count_bloc.dart' as _i40;
 import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i38;
 import '../ui/user/setting/bloc/employee_setting_bloc.dart' as _i34;
 import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i39;
@@ -57,7 +58,7 @@ import '../ui/user/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.da
     as _i11;
 import '../ui/user/user_leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
     as _i24;
-import 'app_module.dart' as _i40; // ignore_for_file: unnecessary_lambdas
+import 'app_module.dart' as _i41; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -194,7 +195,12 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.UserLeaveService>(),
         get<_i25.UserManager>(),
       ));
+  gh.factory<_i40.UserLeaveCountBloc>(() => _i40.UserLeaveCountBloc(
+        get<_i15.UserLeaveService>(),
+        get<_i25.UserManager>(),
+        get<_i13.PaidLeaveService>(),
+      ));
   return get;
 }
 
-class _$AppModule extends _i40.AppModule {}
+class _$AppModule extends _i41.AppModule {}
