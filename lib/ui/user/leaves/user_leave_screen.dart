@@ -21,8 +21,8 @@ class UserLeavePage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
           create: (_) =>
-              getIt<UserLeaveCountBloc>()..add(UserLeaveCountEvent()))
-      BlocProvider(create: (_)=>getIt<UserLeaveBloc>().add(UserLeaveEvent()))
+              getIt<UserLeaveCountBloc>()..add(UserLeaveCountEvent())),
+      BlocProvider(create: (_)=>getIt<UserLeaveBloc>()..add(UserLeaveEvent()))
     ], child: const UserLeaveScreen());
   }
 }
