@@ -48,62 +48,69 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
         ),
       ),
       backgroundColor: AppColors.whiteColor,
-      body: BlocBuilder<UserEmployeesBloc, UserEmployeesState>(
-          builder: (context, state) {
-        if (state is UserEmployeesLoadingState) {
-          return const AppCircularProgressIndicator();
-        } else if (state is UserEmployeesSuccessState) {
-          return ListView.separated(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: primaryVerticalSpacing),
-              itemBuilder: (BuildContext context, int employee) => InkWell(
-                    borderRadius: AppTheme.commonBorderRadius,
-                    onTap: () {
-                      ///TODO implement navigation to employee details screen
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: primaryVerticalSpacing,
-                          vertical: primaryHalfSpacing),
-                      child: Row(
-                        children: [
-                          ImageProfile(
-                              imageUrl: state.employees[employee].imageUrl,
-                              radius: 25,
-                              borderColor: AppColors.textDark,
-                              borderSize: 1,
-                              backgroundColor: AppColors.dividerColor,
-                              iconColor: AppColors.greyColor),
-                          const SizedBox(
-                            width: primaryHorizontalSpacing,
-                          ),
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(state.employees[employee].name,
-                                    style: AppTextStyle.titleDark),
-                                const SizedBox(height: 2),
-                                Text(state.employees[employee].designation,
-                                    style: AppTextStyle.bodyDark),
-                              ],
+      body: RefreshIndicator(
+        color: AppColors.textDark,
+        onRefresh: () async {
+          context.read<UserEmployeesBloc>().add(FetchEmployeesEvent());
+        },
+        child: BlocBuilder<UserEmployeesBloc, UserEmployeesState>(
+            builder: (context, state) {
+          if (state is UserEmployeesLoadingState) {
+            return const AppCircularProgressIndicator();
+          } else if (state is UserEmployeesSuccessState) {
+            return ListView.separated(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: primaryVerticalSpacing),
+                itemBuilder: (BuildContext context, int employee) => InkWell(
+                      borderRadius: AppTheme.commonBorderRadius,
+                      onTap: () {
+                        ///TODO implement navigation to employee details screen
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: primaryVerticalSpacing,
+                            vertical: primaryHalfSpacing),
+                        child: Row(
+                          children: [
+                            ImageProfile(
+                                imageUrl: state.employees[employee].imageUrl,
+                                radius: 25,
+                                borderColor: AppColors.textDark,
+                                borderSize: 1,
+                                backgroundColor: AppColors.dividerColor,
+                                iconColor: AppColors.greyColor),
+                            const SizedBox(
+                              width: primaryHorizontalSpacing,
                             ),
-                          )
-                        ],
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(state.employees[employee].name,
+                                      style: AppTextStyle.titleDark),
+                                  const SizedBox(height: 2),
+                                  Text(state.employees[employee].designation,
+                                      style: AppTextStyle.bodyDark),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-              separatorBuilder: (context, index) => const Divider(
-                  color: AppColors.dividerColor,
-                  indent: primaryHorizontalSpacing,
-                  endIndent: primaryHorizontalSpacing,
-                  thickness: 1,
-                  height: 1),
-              itemCount: state.employees.length);
-        }
-        ///TODO implement empty employees screen.
-        return const SizedBox();
-      }),
+                separatorBuilder: (context, index) => const Divider(
+                    color: AppColors.dividerColor,
+                    indent: primaryHorizontalSpacing,
+                    endIndent: primaryHorizontalSpacing,
+                    thickness: 1,
+                    height: 1),
+                itemCount: state.employees.length);
+          }
+
+          ///TODO implement empty employees screen.
+          return const SizedBox();
+        }),
+      ),
     );
   }
 }
