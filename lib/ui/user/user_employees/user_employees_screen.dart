@@ -115,7 +115,7 @@ class EmployeeCard extends StatelessWidget {
                 children: [
                   Text(employee.name, style: AppTextStyle.titleDark),
                   const SizedBox(height: 2),
-                  Text(employee.designation, style: AppTextStyle.bodyDark),
+                  Text(employee.designation, style: AppTextStyle.bodyDarkGrey),
                 ],
               ),
             )
