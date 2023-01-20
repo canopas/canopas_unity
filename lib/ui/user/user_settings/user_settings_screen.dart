@@ -59,7 +59,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: primaryHorizontalSpacing,bottom: primaryVerticalSpacing),
-              child: Text(AppLocalizations.of(context).settings_account_text, style: AppTextStyle.titleDark),
+              child: Text(AppLocalizations.of(context).settings_account_text, style: AppTextStyle.subTitleDark),
             ),
             const Divider(color: AppColors.dividerColor, height: 1, thickness: 1),
             const SizedBox(height: primaryVerticalSpacing),
@@ -103,7 +103,7 @@ class SettingOption extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, size: 32, color: iconColor,),
+            Icon(icon, size: 30, color: iconColor,),
             const SizedBox(width: primaryHorizontalSpacing,),
             Text(title, style: AppTextStyle.subTitleDark,),
           ],
