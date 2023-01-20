@@ -36,7 +36,7 @@ class UserProfile extends StatelessWidget {
                 children: [
                   Text(employee.name, style: AppTextStyle.titleDark, overflow: TextOverflow.fade,),
                   const SizedBox(height: 2),
-                  Text(employee.designation, style: AppTextStyle.bodyDark),
+                  Text(employee.designation, style: AppTextStyle.bodyDarkGrey),
                 ],
               ),
             ),
