@@ -32,4 +32,9 @@ class AppColors {
 
   static const Color greyColor = Colors.grey;
   static const Color lightRed =  Color(0xffFF857B);
+
+
+  //new UI colors
+  static const Color textDark = Color(0xff181724);
+  static const Color dividerColor = Color(0xffF3F3F3);
 }
