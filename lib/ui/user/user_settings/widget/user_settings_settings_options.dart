@@ -24,12 +24,8 @@ class SettingOption extends StatelessWidget {
     return InkWell(
       borderRadius: AppTheme.commonBorderRadius,
       onTap: onTap,
-      child: Ink(
+      child: Padding(
         padding: const EdgeInsets.all(primaryVerticalSpacing),
-        decoration: BoxDecoration(
-          borderRadius: AppTheme.commonBorderRadius,
-          color: const Color(0xffFAFAFA),
-        ),
         child: Row(
           children: [
             Icon(icon, size: 30, color: iconColor,),
