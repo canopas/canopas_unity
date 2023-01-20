@@ -59,15 +59,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:  [
                     Text(AppLocalizations.of(context).company_name,style: AppTextStyle.titleDark,overflow: TextOverflow.ellipsis),
-                    Text(AppLocalizations.of(context).company_subtitle,style: AppTextStyle.bodyDark,)
+                    Text(AppLocalizations.of(context).company_subtitle,style: AppTextStyle.bodyDarkGrey,)
                   ],
                 ),
                 const Spacer(),
-                const CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Color(0xffF5F5F5),
-                  child: Icon(Icons.notifications_none_rounded,color: AppColors.textDark,),
-                ),
               ],
             ),
             const SizedBox(height: primaryHorizontalSpacing,),
