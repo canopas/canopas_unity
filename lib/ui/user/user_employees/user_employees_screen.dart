@@ -6,6 +6,7 @@ import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/ui/user/user_employees/bloc/user_employee_state.dart';
 import 'package:projectunity/ui/user/user_employees/bloc/user_employees_bloc.dart';
 import 'package:projectunity/ui/user/user_employees/bloc/user_employees_event.dart';
+import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/app_divider.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
@@ -38,17 +39,8 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shape: const Border(
-            bottom: BorderSide(
-          color: AppColors.dividerColor,
-          width: 1,
-        )),
-        backgroundColor: AppColors.whiteColor,
-        title: Text(
-          AppLocalizations.of(context).employee_tag,
-          style: AppTextStyle.headerDark,
-        ),
+      appBar: AppAppBar(
+        title: AppLocalizations.of(context).employee_tag,
       ),
       backgroundColor: AppColors.whiteColor,
       body: RefreshIndicator(
