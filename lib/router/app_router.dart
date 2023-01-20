@@ -22,7 +22,6 @@ import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
-import '../ui/user/user_employees/user_employees_screen.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
 
 @Injectable()
@@ -134,7 +133,7 @@ class AppRouter {
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-              const MaterialPage(child: UserEmployeesPage()),
+              const MaterialPage(child: EmployeeHomePage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,
