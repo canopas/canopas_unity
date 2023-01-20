@@ -9,7 +9,7 @@ import '../../model/employee/employee.dart';
 
 @Singleton()
 class EmployeeService {
-  StreamSubscription<List<Employee>>? _employeeStreamSubscription;
+  StreamSubscription? _employeeStreamSubscription;
   final BehaviorSubject<List<Employee>> _employees = BehaviorSubject();
 
   Stream<List<Employee>> get employees => _employees.stream;
@@ -18,14 +18,11 @@ class EmployeeService {
     fetchEmployees();
   }
 
-  void fetchEmployees() {
-    _employeeStreamSubscription = _userDbCollection
-        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
-        .snapshots()
-        .map((event) {
-      return event.docs.map((employee) => employee.data()).toList();
-    }).listen((event) {
-      _employees.add(event);
+  void fetchEmployees(){
+   _employeeStreamSubscription= _userDbCollection
+        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin).snapshots().map((event) {
+      return event.docs.map((employee) => employee.data()).toList();}).listen((event) {
+        _employees.add(event);
     });
   }
 

@@ -1,4 +1,18 @@
-abstract class EmployeeHomeEvent {}
+import 'package:equatable/equatable.dart';
 
-class EmployeeHomeFetchEvent extends EmployeeHomeEvent {}
+abstract class EmployeeHomeEvent extends Equatable {}
+
+class EmployeeHomeFetchEvent extends EmployeeHomeEvent {
+  @override
+
+  List<Object?> get props => [];
+}
+
+class UserDisabled extends EmployeeHomeEvent{
+  final String employeeId;
+  UserDisabled(this.employeeId);
+
+  @override
+  List<Object?> get props => [employeeId];
+}
 

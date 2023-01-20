@@ -166,6 +166,8 @@ Future<_i1.GetIt> $initGetIt(
         get<_i13.PaidLeaveService>(),
         get<_i8.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
+        get<_i16.UserPreference>(),
+        get<_i22.AuthService>(),
       ));
   gh.factory<_i34.EmployeeSettingBloc>(
       () => _i34.EmployeeSettingBloc(get<_i25.UserManager>()));

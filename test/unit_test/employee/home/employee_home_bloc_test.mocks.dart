@@ -6,13 +6,16 @@
 import 'dart:async' as _i4;
 import 'dart:ui' as _i7;
 
+import 'package:firebase_auth/firebase_auth.dart' as _i12;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/model/employee/employee.dart' as _i2;
 import 'package:projectunity/model/leave/leave.dart' as _i5;
+import 'package:projectunity/pref/user_preference.dart' as _i13;
 import 'package:projectunity/provider/user_data.dart' as _i6;
 import 'package:projectunity/services/admin/employee_service.dart' as _i9;
 import 'package:projectunity/services/admin/leave_service.dart' as _i10;
 import 'package:projectunity/services/admin/paid_leave_service.dart' as _i8;
+import 'package:projectunity/services/auth/auth_service.dart' as _i11;
 import 'package:projectunity/services/user/user_leave_service.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -133,6 +136,11 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
   @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
+        returnValue: '',
+      ) as String);
+  @override
+  String get email => (super.noSuchMethod(
+        Invocation.getter(#email),
         returnValue: '',
       ) as String);
   @override
@@ -393,4 +401,89 @@ class MockAdminLeaveService extends _i1.Mock implements _i10.AdminLeaveService {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [AuthService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthService extends _i1.Mock implements _i11.AuthService {
+  MockAuthService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  void updateUserData(
+    _i2.Employee? user,
+    _i2.Session? session,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #updateUserData,
+          [
+            user,
+            session,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i4.Future<_i2.Employee?> getUserData(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #getUserData,
+          [email],
+        ),
+        returnValue: _i4.Future<_i2.Employee?>.value(),
+      ) as _i4.Future<_i2.Employee?>);
+  @override
+  _i4.Future<_i12.User?> signInWithGoogle() => (super.noSuchMethod(
+        Invocation.method(
+          #signInWithGoogle,
+          [],
+        ),
+        returnValue: _i4.Future<_i12.User?>.value(),
+      ) as _i4.Future<_i12.User?>);
+  @override
+  _i4.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
+        Invocation.method(
+          #signOutWithGoogle,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+}
+
+/// A class which mocks [UserPreference].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserPreference extends _i1.Mock implements _i13.UserPreference {
+  MockUserPreference() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  void setCurrentUser(_i2.Employee? user) => super.noSuchMethod(
+        Invocation.method(
+          #setCurrentUser,
+          [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i4.Future<void> removeCurrentUser() => (super.noSuchMethod(
+        Invocation.method(
+          #removeCurrentUser,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> setToken(String? token) => (super.noSuchMethod(
+        Invocation.method(
+          #setToken,
+          [token],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

@@ -18,8 +18,8 @@ class EmployeeDetailBloc
   final UserLeaveService _userLeaveService;
   final EmployeeService _employeeService;
   final UserManager _userManager;
-
-  EmployeeDetailBloc(this._employeeService, this._userLeaveService, this._userManager)
+StreamSubscription? streamSubscription;
+  EmployeeDetailBloc(this._employeeService, this._userLeaveService,this._userManager)
       : super(EmployeeDetailInitialState()) {
     eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
       add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
@@ -72,8 +72,15 @@ class EmployeeDetailBloc
     try {
         await _employeeService.deleteEmployee(event.employeeId);
         await _userLeaveService.deleteAllLeaves(event.employeeId);
+        eventBus.fire(DeleteEmployeeByAdmin(event.employeeId));
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }
