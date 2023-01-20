@@ -5,10 +5,12 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
+import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/services/admin/paid_leave_service.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
+import 'package:projectunity/services/auth/auth_service.dart';
 import 'package:projectunity/services/user/user_leave_service.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_bloc.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_event.dart';
@@ -22,6 +24,8 @@ import 'employee_home_bloc_test.mocks.dart';
   PaidLeaveService,
   EmployeeService,
   AdminLeaveService,
+  AuthService,
+  UserPreference,
 ])
 void main() {
   late EmployeeHomeBloc bLoc;
@@ -30,6 +34,8 @@ void main() {
   late PaidLeaveService paidLeaveService;
   late UserLeaveService userLeaveService;
   late UserManager userManager;
+  late AuthService authService;
+  late UserPreference userPreference;
 
   EmployeeHomeState loadingState =
       const EmployeeHomeState(status: EmployeeHomeStatus.loading);
@@ -60,11 +66,19 @@ void main() {
     userManager = MockUserManager();
     paidLeaveService = MockPaidLeaveService();
     adminLeaveService = MockAdminLeaveService();
+    authService = MockAuthService();
+    userPreference = MockUserPreference();
     bLoc = EmployeeHomeBloc(userManager, userLeaveService, paidLeaveService,
-        employeeService, adminLeaveService);
+        employeeService, adminLeaveService,userPreference,authService);
 
-    when(userManager.employeeId).thenReturn("1");
+    when(employeeService.hasUser(employee.email)).thenAnswer((_) => Future(() => true));
+    when(authService.signOutWithGoogle()).thenAnswer((_) => Future(() => true));
+    when(userPreference.removeCurrentUser()).thenAnswer((_) => Future(() => true));
+    when(userManager.email).thenReturn(employee.email);
+
+    when(userManager.employeeId).thenReturn(employee.id);
   });
+
 
   test("emit state with loading status on FetchEvent", () {
     when(userLeaveService.getUserUsedLeaveCount("1"))
@@ -100,6 +114,8 @@ void main() {
 
     bLoc.add(EmployeeHomeFetchEvent());
   });
+
+
 
   test("emit state with failure status while fetching summary on FetchEvent",
       () async {
@@ -229,6 +245,20 @@ void main() {
     expectLater(bLoc.stream, emitsInAnyOrder(expected));
 
     bLoc.add(EmployeeHomeFetchEvent());
+  });
+
+  group('Navigation for user', () {
+    test(' on UserDisable event User should be navigate to login screen if has been deleted successfully by admin', ()async  {
+      when(userManager.employeeId).thenReturn(employee.id);
+      bLoc.add(UserDisabled(employee.id));
+      await untilCalled(authService.signOutWithGoogle());
+      await untilCalled(userPreference.removeCurrentUser());
+      await untilCalled(userManager.hasLoggedIn());
+      verify(authService.signOutWithGoogle()).called(1);
+
+      verify(userPreference.removeCurrentUser()).called(1);
+      verify(userManager.hasLoggedIn()).called(1);
+    });
   });
 
   tearDown(() {
