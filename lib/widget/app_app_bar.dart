@@ -5,6 +5,7 @@ import '../core/utils/const/space_constant.dart';
 
 class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final void Function()? onBack;
   @override
   final Size preferredSize;
   final double bottomTitlePadding;
@@ -16,6 +17,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions = const [],
     this.preferredSize = const Size(double.infinity, 120),
     this.bottomTitlePadding = primaryVerticalSpacing,
+    this.onBack,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,13 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              onBack!=null?Padding(
+                padding: const EdgeInsets.only(right: primaryHorizontalSpacing),
+                child: InkWell(
+                  onTap: onBack,
+                  child: const Icon(Icons.arrow_back,size: 28),
+                ),
+              ):const SizedBox(),
               Text(
                 title,
                 style: AppTextStyle.headerDark,
