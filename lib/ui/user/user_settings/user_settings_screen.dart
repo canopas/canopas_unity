@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../router/app_router.dart';
 import 'widget/user_settings_user_profile.dart';
 import 'package:projectunity/ui/user/home/bloc/employee_home_state.dart';
 import 'package:projectunity/ui/user/user_settings/bloc/user_settings_bloc.dart';
@@ -38,6 +40,9 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppAppBar(
+        onBack: (){
+          context.pop();
+        },
         title: AppLocalizations.of(context).settings_setting_text,
       ),
       body: BlocConsumer<UserSettingsBloc, UserSettingsState>(
@@ -53,7 +58,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
             UserProfile(
               employee: state.currentEmployee,
               onTap: () {
-                ///TODO need to implement navigation to employee details screen or employee edit screen.
+                context.goNamed(Routes.employeeEditEmployeeDetails,extra: state.currentEmployee);
               },
             ),
             Padding(

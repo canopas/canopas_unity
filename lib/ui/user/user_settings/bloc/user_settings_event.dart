@@ -5,6 +5,6 @@ abstract class UserSettingsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetCurrentEmployeeEvent extends UserSettingsEvent {}
+class GetCurrentEmployeeUserSettingsEvent extends UserSettingsEvent {}
 
 class UserSettingsLogOutEvent extends UserSettingsEvent {}
