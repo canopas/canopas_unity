@@ -10,7 +10,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i14;
 
-import '../bloc/authentication/logout_bloc.dart' as _i37;
+import '../bloc/authentication/logout_bloc.dart' as _i36;
 import '../bloc/network/network_connection_bloc.dart' as _i12;
 import '../pref/user_preference.dart' as _i16;
 import '../provider/user_data.dart' as _i25;
@@ -35,13 +35,13 @@ import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_c
     as _i21;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i4;
-import '../ui/login/bloc/login_view_bloc.dart' as _i38;
+import '../ui/login/bloc/login_view_bloc.dart' as _i37;
 import '../ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i10;
 import '../ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
     as _i9;
 import '../ui/shared/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart'
-    as _i36;
+    as _i35;
 import '../ui/user/all_leaves/bloc/filter_bloc/all_leaves_filter_bloc.dart'
     as _i5;
 import '../ui/user/all_leaves/bloc/leaves_bloc/all_leaves_bloc.dart' as _i28;
@@ -50,15 +50,14 @@ import '../ui/user/edit_employee_details/bloc/edit_employee_details_employee_blo
 import '../ui/user/home/bloc/employee_home_bloc.dart' as _i34;
 import '../ui/user/leave/applyLeave/bloc/leave_request_form_bloc/apply_leave_bloc.dart'
     as _i30;
-import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i39;
-import '../ui/user/setting/bloc/employee_setting_bloc.dart' as _i35;
-import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i40;
+import '../ui/user/requested_leaves/bloc/requested_leaves_bloc.dart' as _i38;
+import '../ui/user/upcoming_leaves/bloc/upcoming_leaves_bloc.dart' as _i39;
 import '../ui/user/user_leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i11;
 import '../ui/user/user_leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
     as _i24;
 import '../ui/user/user_settings/bloc/user_settings_bloc.dart' as _i26;
-import 'app_module.dart' as _i41; // ignore_for_file: unnecessary_lambdas
+import 'app_module.dart' as _i40; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -173,29 +172,27 @@ Future<_i1.GetIt> $initGetIt(
         get<_i8.EmployeeService>(),
         get<_i3.AdminLeaveService>(),
       ));
-  gh.factory<_i35.EmployeeSettingBloc>(
-      () => _i35.EmployeeSettingBloc(get<_i25.UserManager>()));
-  gh.factory<_i36.LeaveDetailsBloc>(() => _i36.LeaveDetailsBloc(
+  gh.factory<_i35.LeaveDetailsBloc>(() => _i35.LeaveDetailsBloc(
         get<_i15.UserLeaveService>(),
         get<_i13.PaidLeaveService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i37.LogOutBloc>(() => _i37.LogOutBloc(
+  gh.factory<_i36.LogOutBloc>(() => _i36.LogOutBloc(
         get<_i16.UserPreference>(),
         get<_i22.AuthService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i38.LoginBloc>(() => _i38.LoginBloc(
+  gh.factory<_i37.LoginBloc>(() => _i37.LoginBloc(
         get<_i31.AuthManager>(),
         get<_i25.UserManager>(),
         get<_i22.AuthService>(),
       ));
-  gh.factory<_i39.RequestedLeavesViewBloc>(() => _i39.RequestedLeavesViewBloc(
+  gh.factory<_i38.RequestedLeavesViewBloc>(() => _i38.RequestedLeavesViewBloc(
         get<_i13.PaidLeaveService>(),
         get<_i15.UserLeaveService>(),
         get<_i25.UserManager>(),
       ));
-  gh.factory<_i40.UpcomingLeavesViewBloc>(() => _i40.UpcomingLeavesViewBloc(
+  gh.factory<_i39.UpcomingLeavesViewBloc>(() => _i39.UpcomingLeavesViewBloc(
         get<_i13.PaidLeaveService>(),
         get<_i15.UserLeaveService>(),
         get<_i25.UserManager>(),
@@ -203,4 +200,4 @@ Future<_i1.GetIt> $initGetIt(
   return get;
 }
 
-class _$AppModule extends _i41.AppModule {}
+class _$AppModule extends _i40.AppModule {}
