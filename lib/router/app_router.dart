@@ -133,7 +133,7 @@ class AppRouter {
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-              const MaterialPage(child: UserHomeScreen()),
+              const MaterialPage(child: UserHomeScreenPage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,

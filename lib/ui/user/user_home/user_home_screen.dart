@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/utils/const/image_constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/ui/user/user_home/bloc/user_home_bloc.dart';
 import 'package:projectunity/ui/user/user_home/widget/leave_navigation_card.dart';
+import '../../../di/service_locator.dart';
 import '../../../router/app_router.dart';
 import '../../../widget/WhoIsOutCard/who_is_out_card.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
+
+
+class UserHomeScreenPage extends StatelessWidget {
+  const UserHomeScreenPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<UserHomeBloc>(),
+      child: const UserHomeScreen(),
+    );
+  }
+}
+
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
