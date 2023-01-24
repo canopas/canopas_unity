@@ -8,40 +8,40 @@ import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../services/admin/employee_service.dart';
 import '../../../../services/admin/leave_service.dart';
-import 'user_home_event.dart';
-import 'user_home_state.dart';
+import 'who_is_out_card_event.dart';
+import 'who_is_out_card_state.dart';
 
 @Injectable()
-class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
+class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   final EmployeeService _employeeService;
   final AdminLeaveService _leaveService;
 
-  UserHomeBloc(
+  WhoIsOutCardBloc(
       this._employeeService,
       this._leaveService,)
-      : super(UserHomeState(dateOfAbsenceEmployee: DateTime.now())) {
-    on<UserHomeFetchEvent>(_load);
+      : super(WhoIsOutCardState(dateOfAbsenceEmployee: DateTime.now())) {
+    on<WhoIsOutInitialLoadEvent>(_load);
     on<ChangeToBeforeDateEvent>(_changeToBeforeDate);
     on<ChangeToAfterDateEvent>(_changeToAfterDate);
   }
 
 
-  FutureOr<void> _load(UserHomeFetchEvent event,Emitter<UserHomeState> emit) async {
+  FutureOr<void> _load(WhoIsOutInitialLoadEvent event,Emitter<WhoIsOutCardState> emit) async {
     await _getAbsenceEmployees(emit);
   }
 
-  Future<void> _changeToBeforeDate(ChangeToBeforeDateEvent event,Emitter<UserHomeState> emit) async {
+  Future<void> _changeToBeforeDate(ChangeToBeforeDateEvent event,Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(dateOfAbsenceEmployee: state.dateOfAbsenceEmployee.subtract(const Duration(days: 1))));
     await _getAbsenceEmployees(emit);
   }
 
-  Future<void> _changeToAfterDate(ChangeToAfterDateEvent event,Emitter<UserHomeState> emit) async {
+  Future<void> _changeToAfterDate(ChangeToAfterDateEvent event,Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(dateOfAbsenceEmployee: state.dateOfAbsenceEmployee.add(const Duration(days: 1))));
    await  _getAbsenceEmployees(emit);
   }
 
- Future<void> _getAbsenceEmployees(Emitter<UserHomeState> emit) async {
-   emit(state.copyWith(status: UserHomeStatus.loading));
+ Future<void> _getAbsenceEmployees(Emitter<WhoIsOutCardState> emit) async {
+   emit(state.copyWith(status: WhoOIsOutCardStatus.loading));
     try {
       List<Employee> employees = await _employeeService.getEmployees();
       List<Leave> absenceLeaves = await _leaveService.getAllAbsence(date: state.dateOfAbsenceEmployee);
@@ -58,7 +58,7 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
           .toList();
 
       emit(state.copyWith(
-          status: UserHomeStatus.success, absence: absenceEmployee));
+          status: WhoOIsOutCardStatus.success, absence: absenceEmployee));
     } on Exception catch (_) {
       emit(state.failure(error: firestoreFetchDataError));
     }

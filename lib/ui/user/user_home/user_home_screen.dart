@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/utils/const/image_constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'widget/who_is_out_card.dart';
+import 'package:projectunity/ui/user/user_home/widget/leave_navigation_card.dart';
+import '../../../router/app_router.dart';
+import '../../../widget/WhoIsOutCard/who_is_out_card.dart';
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
-import '../../../di/service_locator.dart';
-import 'bloc/user_home_event.dart';
-import 'bloc/user_home_bloc.dart';
-
-class UserHomePage extends StatelessWidget {
-  const UserHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-      getIt<UserHomeBloc>()..add(UserHomeFetchEvent()),
-      child: const UserHomeScreen(),
-    );
-  }
-}
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -63,10 +49,25 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   ],
                 ),
                 const Spacer(),
+                ///TODO remove this navigation on bottom bar navigation implementation.".
+                IconButton(
+                    onPressed: () => context.pushNamed(Routes.userLeaveCalender),
+                    icon: const Icon(
+                      Icons.calendar_month_rounded,
+                      color: AppColors.blackColor,
+                    )),
+                IconButton(
+                    onPressed: () => context.pushNamed(Routes.userSettings),
+                    icon: const Icon(
+                      Icons.settings,
+                      color: AppColors.blackColor,
+                    )),
               ],
             ),
             const SizedBox(height: primaryHorizontalSpacing,),
             const WhoIsOutCard(),
+            ///TODO remove this navigation on bottom bar navigation implementation.".
+            const _EmployeeHomeNavigationCard(),
           ],
         ),
       ),
@@ -76,3 +77,31 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 }
 
 
+class _EmployeeHomeNavigationCard extends StatelessWidget {
+  const _EmployeeHomeNavigationCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      const SizedBox(height: primaryHorizontalSpacing,),
+      LeaveNavigationCard(
+          color: AppColors.primaryPink,
+          leaveText: AppLocalizations.of(context).user_home_all_leaves_tag,
+          onPress: () => context.pushNamed(Routes.allLeaves)),
+      LeaveNavigationCard(
+          color: AppColors.primaryBlue,
+          leaveText:
+          AppLocalizations.of(context).user_home_requested_leaves_tag,
+          onPress: () => context.pushNamed(Routes.requested)),
+      LeaveNavigationCard(
+          color: AppColors.primaryGreen,
+          leaveText: AppLocalizations.of(context).user_home_upcoming_leaves_tag,
+          onPress: () => context.pushNamed(Routes.upcoming)),
+      LeaveNavigationCard(
+          color: AppColors.primaryDarkYellow,
+          leaveText: AppLocalizations.of(context).user_home_apply_leave_tag,
+          onPress: () => context.pushNamed(Routes.applyLeave)),
+
+    ]);
+  }
+}

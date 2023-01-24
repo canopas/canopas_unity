@@ -3,26 +3,26 @@ import 'package:equatable/equatable.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../model/leave_count.dart';
 
-enum UserHomeStatus { initial, loading, success, failure }
+enum WhoOIsOutCardStatus { initial, loading, success, failure }
 
-class UserHomeState extends Equatable {
-  final UserHomeStatus status;
+class WhoIsOutCardState extends Equatable {
+  final WhoOIsOutCardStatus status;
   final DateTime dateOfAbsenceEmployee;
   final List<LeaveApplication> absence;
   final String? error;
 
-  const UserHomeState(
+  const WhoIsOutCardState(
       { required this.dateOfAbsenceEmployee,
-        this.status = UserHomeStatus.initial,
+        this.status = WhoOIsOutCardStatus.initial,
       this.absence = const [],
       this.error});
 
-  UserHomeState copyWith({
+  WhoIsOutCardState copyWith({
     DateTime? dateOfAbsenceEmployee,
-    UserHomeStatus? status,
+    WhoOIsOutCardStatus? status,
       LeaveCounts? leaveCounts,
       List<LeaveApplication>? absence}) {
-    return UserHomeState(
+    return WhoIsOutCardState(
         dateOfAbsenceEmployee: dateOfAbsenceEmployee ?? this.dateOfAbsenceEmployee,
         status: status ?? this.status,
         absence: absence ?? this.absence);
@@ -30,8 +30,8 @@ class UserHomeState extends Equatable {
 
 
 
-  UserHomeState failure({required String error}){
-    return UserHomeState(status: UserHomeStatus.failure,error:this.error, dateOfAbsenceEmployee: dateOfAbsenceEmployee);
+  WhoIsOutCardState failure({required String error}){
+    return WhoIsOutCardState(status: WhoOIsOutCardStatus.failure,error: error, dateOfAbsenceEmployee: dateOfAbsenceEmployee);
   }
 
   @override

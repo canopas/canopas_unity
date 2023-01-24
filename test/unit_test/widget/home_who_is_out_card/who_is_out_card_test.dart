@@ -6,18 +6,18 @@ import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
-import 'package:projectunity/ui/user/user_home/bloc/user_home_bloc.dart';
-import 'package:projectunity/ui/user/user_home/bloc/user_home_event.dart';
-import 'package:projectunity/ui/user/user_home/bloc/user_home_state.dart';
+import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_bloc.dart';
+import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_event.dart';
+import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_state.dart';
 
-import 'user_home_test.mocks.dart';
+import 'who_is_out_card_test.mocks.dart';
 
 @GenerateMocks([
   AdminLeaveService,
   EmployeeService,
 ])
 void main() {
-  late UserHomeBloc bLoc;
+  late WhoIsOutCardBloc bLoc;
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
 
@@ -46,7 +46,7 @@ void main() {
     setUp(() {
       employeeService = MockEmployeeService();
       adminLeaveService = MockAdminLeaveService();
-      bLoc = UserHomeBloc(employeeService, adminLeaveService);
+      bLoc = WhoIsOutCardBloc(employeeService, adminLeaveService);
       date = bLoc.state.dateOfAbsenceEmployee;
     });
 
@@ -55,15 +55,15 @@ void main() {
               date: bLoc.state.dateOfAbsenceEmployee))
           .thenAnswer((_) async => [leave]);
       when(employeeService.getEmployees()).thenAnswer((_) async => [employee]);
-      bLoc.add(UserHomeFetchEvent());
+      bLoc.add(WhoIsOutInitialLoadEvent());
       expectLater(
           bLoc.stream,
           emitsInOrder([
-            UserHomeState(
-                dateOfAbsenceEmployee: date, status: UserHomeStatus.loading),
-            UserHomeState(
+            WhoIsOutCardState(
+                dateOfAbsenceEmployee: date, status: WhoOIsOutCardStatus.loading),
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date,
-                status: UserHomeStatus.success,
+                status: WhoOIsOutCardStatus.success,
                 absence: [LeaveApplication(employee: employee, leave: leave)]),
           ]));
     });
@@ -79,15 +79,15 @@ void main() {
       expectLater(
           bLoc.stream,
           emitsInOrder([
-            UserHomeState(
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.subtract(const Duration(days: 1)),
-                status: UserHomeStatus.initial),
-            UserHomeState(
+                status: WhoOIsOutCardStatus.initial),
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.subtract(const Duration(days: 1)),
-                status: UserHomeStatus.loading),
-            UserHomeState(
+                status: WhoOIsOutCardStatus.loading),
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.subtract(const Duration(days: 1)),
-                status: UserHomeStatus.success,
+                status: WhoOIsOutCardStatus.success,
                 absence: const []),
           ]));
     });
@@ -103,15 +103,15 @@ void main() {
       expectLater(
           bLoc.stream,
           emitsInOrder([
-            UserHomeState(
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.add(const Duration(days: 1)),
-                status: UserHomeStatus.initial),
-            UserHomeState(
+                status: WhoOIsOutCardStatus.initial),
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.add(const Duration(days: 1)),
-                status: UserHomeStatus.loading),
-            UserHomeState(
+                status: WhoOIsOutCardStatus.loading),
+            WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.add(const Duration(days: 1)),
-                status: UserHomeStatus.success,
+                status: WhoOIsOutCardStatus.success,
                 absence: const []),
           ]));
     });
