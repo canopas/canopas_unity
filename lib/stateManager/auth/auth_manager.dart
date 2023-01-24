@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/model/employee/employee.dart';
-
 import '../../provider/device_info.dart';
 import '../../pref/user_preference.dart';
 import '../../services/auth/auth_service.dart';

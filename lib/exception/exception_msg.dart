@@ -35,6 +35,9 @@ extension ExceptionMessage on String {
       case userAlreadyExists:
         msg = appLocale.add_member_employee_exists_error;
         break;
+      case somethingWentWrongError:
+        msg= appLocale.error_something_went_wrong;
+        break;
       default:
         msg = appLocale.error_something_went_wrong;
         break;

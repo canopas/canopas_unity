@@ -15,8 +15,7 @@ import '../../stateManager/auth/desktop/desktop_auth_manager.dart';
 
 @Singleton()
 class AuthService {
-  final _db =
-      FirebaseFirestore.instance.collection(FirestoreConst.userCollection);
+  final _db = FirebaseFirestore.instance.collection(FirestoreConst.userCollection);
   final DesktopAuthManager _desktopAuthManager;
   final UserPreference _userPreference;
 
@@ -110,4 +109,5 @@ class AuthService {
       return false;
     }
   }
+
 }
