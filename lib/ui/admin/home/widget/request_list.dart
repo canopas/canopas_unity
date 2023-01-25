@@ -20,47 +20,43 @@ class LeaveRequestList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return map.isNotEmpty? ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(
-          bottom: primaryVerticalSpacing),
+    return map.isNotEmpty? Column(
       children: map.entries
           .map(
             (mapEntry) =>
             StickyHeader(
-                header: Container(
-                    width:
-                    MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    decoration: BoxDecoration(
+                header: Container(width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing).copyWith(top: primaryHalfSpacing),
+                    decoration: const BoxDecoration(
                         color: AppColors.whiteColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.whiteColor
-                                .withOpacity(0.50),
-                            blurRadius: 3,
-                            spreadRadius: 1,
-                            offset: const Offset(0, 2),
-                          )
-                        ]),
-                    padding: const EdgeInsets.all(
-                        primaryHorizontalSpacing)
-                        .copyWith(
-                        bottom: primaryVerticalSpacing),
-                    child: Text(
-                        DateFormatter(
-                            AppLocalizations.of(context))
-                            .getDateRepresentation(
-                            mapEntry.key),
-                        style: AppTextStyle.settingSubTitle)),
-                content: Column(
-                  children: mapEntry.value
-                      .map((leaveApplication) =>
-                      LeaveRequestCard(
-                          leaveApplication: leaveApplication))
-                      .toList(),
+                        ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(DateFormatter(AppLocalizations.of(context)).getDateRepresentation(mapEntry.key), style: AppTextStyle.titleDark),
+                            Text(mapEntry.value.length.toString(),style: AppTextStyle.titleDark,)
+                          ],
+                        ),
+                        const SizedBox(height: primaryHalfSpacing,),
+                        const Divider(
+                          height: 1,
+                          thickness: 1,
+                            color: AppColors.dividerColor,
+                        )
+                      ],
+                    )),
+                content: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing),
+                  child: Column(
+                    children: mapEntry.value
+                        .map((leaveApplication) =>
+                        LeaveRequestCard(
+                            leaveApplication: leaveApplication))
+                        .toList(),
+                  ),
                 )),
       ).toList(),
     ):EmptyScreen(message: AppLocalizations

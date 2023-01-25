@@ -1,14 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-abstract class AdminHomeEvent extends Equatable{
+abstract class AdminHomeEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-
-class AdminHomeInitialLoadEvent extends AdminHomeEvent{}
-
-
-
-
-
+class AdminHomeInitialLoadEvent extends AdminHomeEvent {}
