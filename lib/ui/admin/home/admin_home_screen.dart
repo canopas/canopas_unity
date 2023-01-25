@@ -17,19 +17,18 @@ import '../../../di/service_locator.dart';
 import '../../../router/app_router.dart';
 import '../../../widget/WhoIsOutCard/who_is_out_card.dart';
 
-
 class AdminHomeScreenPage extends StatelessWidget {
   const AdminHomeScreenPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
+      create: (context) =>
+          getIt<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
       child: const AdminHomeScreen(),
     );
   }
 }
-
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -43,19 +42,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(MediaQuery.of(context).size.width,80),
+        preferredSize: Size(MediaQuery.of(context).size.width, 80),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
+          padding:
+              const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
           alignment: Alignment.bottomCenter,
-          decoration: const BoxDecoration(
-            color: AppColors.whiteColor
-          ),
+          decoration: const BoxDecoration(color: AppColors.whiteColor),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children:  [
+                children: [
                   Container(
                     height: 50,
                     width: 50,
@@ -63,20 +61,27 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       shape: BoxShape.circle,
                       color: AppColors.whiteColor,
                       boxShadow: AppTheme.commonBoxShadow,
-                      image:   const DecorationImage(
-                          image: NetworkImage(ImageConst.companyLogo)
-                      ),
+                      image: const DecorationImage(
+                          image: NetworkImage(ImageConst.companyLogo)),
                     ),
                   ),
-                  const SizedBox(width: primaryHorizontalSpacing,),
+                  const SizedBox(
+                    width: primaryHorizontalSpacing,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:  [
-                      Text(AppLocalizations.of(context).company_name,style: AppTextStyle.titleDark,overflow: TextOverflow.ellipsis),
-                      Text(AppLocalizations.of(context).company_subtitle,style: AppTextStyle.bodyDarkGrey,)
+                    children: [
+                      Text(AppLocalizations.of(context).company_name,
+                          style: AppTextStyle.titleDark,
+                          overflow: TextOverflow.ellipsis),
+                      Text(
+                        AppLocalizations.of(context).company_subtitle,
+                        style: AppTextStyle.bodyDarkGrey,
+                      )
                     ],
                   ),
                   const Spacer(),
+
                   ///TODO remove this navigation on bottom bar navigation implementation.".
                   CircleAvatar(
                     backgroundColor: const Color(0xfff5f5f5),
@@ -85,9 +90,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           Icons.add,
                           color: AppColors.darkGrey,
                         ),
-                        onPressed: () =>context.goNamed(Routes.addMember)),
+                        onPressed: () => context.goNamed(Routes.addMember)),
                   ),
-                  const SizedBox(width: primaryVerticalSpacing,),
+                  const SizedBox(
+                    width: primaryVerticalSpacing,
+                  ),
                   CircleAvatar(
                     backgroundColor: const Color(0xfff5f5f5),
                     child: IconButton(
@@ -95,15 +102,17 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           Icons.settings,
                           color: AppColors.darkGrey,
                         ),
-                        onPressed: () =>context.goNamed(Routes.adminSettings)),
+                        onPressed: () => context.goNamed(Routes.adminSettings)),
                   ),
                 ],
               ),
-              const SizedBox(height: primaryHalfSpacing,),
+              const SizedBox(
+                height: primaryHalfSpacing,
+              ),
               const Divider(
                 color: AppColors.dividerColor,
                 height: 1,
-                  thickness: 1,
+                thickness: 1,
               )
             ],
           ),
@@ -111,29 +120,29 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children:  [
-             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryHalfSpacing),
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: primaryHorizontalSpacing,
+                  vertical: primaryHalfSpacing),
               child: WhoIsOutCard(
-                onSeeAllButtonTap: (){},
+                onSeeAllButtonTap: () => context.goNamed(Routes.allUserCalender),
               ),
             ),
-            BlocConsumer<AdminHomeBloc,AdminHomeState>(
-              listener: (context, state) {
-                if(state.status == AdminHomeStatus.failure){
-                  showSnackBar(context: context,error: state.error);
-                }
-              },
-                builder: (context, state) {
-                  if (state.status == AdminHomeStatus.loading) {
-                    return const AppCircularProgressIndicator();
-                  } else if (state.status == AdminHomeStatus.success) {
-                    final map = state.leaveAppMap;
-                    return LeaveRequestList(map: map);
-                  }
-                  return const SizedBox();
-                }
-            ),
+            BlocConsumer<AdminHomeBloc, AdminHomeState>(
+                listener: (context, state) {
+              if (state.status == AdminHomeStatus.failure) {
+                showSnackBar(context: context, error: state.error);
+              }
+            }, builder: (context, state) {
+              if (state.status == AdminHomeStatus.loading) {
+                return const AppCircularProgressIndicator();
+              } else if (state.status == AdminHomeStatus.success) {
+                final map = state.leaveAppMap;
+                return LeaveRequestList(map: map);
+              }
+              return const SizedBox();
+            }),
           ],
         ),
       ),
