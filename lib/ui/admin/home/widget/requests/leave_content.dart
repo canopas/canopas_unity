@@ -21,20 +21,18 @@ class LeaveRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Leave leave = leaveApplication.leave;
-    Color? color = leaveRequestCardColor[leaveApplication.leave.leaveType];
-
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryHalfSpacing),
+      padding: const EdgeInsets.symmetric(
+          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
       child: Ink(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-          color: AppColors.whiteColor,
-          boxShadow: AppTheme.commonBoxShadow
-        ),
+            color: AppColors.whiteColor,
+            boxShadow: AppTheme.commonBoxShadow),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () =>context.goNamed(Routes.adminLeaveDetail,extra: leaveApplication),
+          onTap: () =>
+              context.goNamed(Routes.adminLeaveDetail, extra: leaveApplication),
           child: Padding(
             padding: const EdgeInsets.all(primaryHorizontalSpacing),
             child: Column(
@@ -48,19 +46,20 @@ class LeaveRequestCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _LeaveTypeContent(leaveType: leave.leaveType),
+                          _LeaveTypeContent(
+                              leaveType: leaveApplication.leave.leaveType),
                           const SizedBox(
                             height: 10,
                           ),
                           _LeaveDateContent(
-                              totalDays: leave.totalLeaves,
-                              startTimeStamp: leave.startDate,
-                              endTimeStamp: leave.endDate,
+                            totalDays: leaveApplication.leave.totalLeaves,
+                            startTimeStamp: leaveApplication.leave.startDate,
+                            endTimeStamp: leaveApplication.leave.endDate,
                           ),
                         ],
                       ),
                     ),
-                     const Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       size: 15,
                       color: AppColors.greyColor,
@@ -68,9 +67,7 @@ class LeaveRequestCard extends StatelessWidget {
                   ],
                 ),
                 const Divider(
-                    thickness: 1,
-                    height:30,
-                    color: AppColors.dividerColor),
+                    thickness: 1, height: 30, color: AppColors.dividerColor),
                 EmployeeContent(
                   employee: leaveApplication.employee,
                   leaveCounts:
@@ -89,7 +86,9 @@ class LeaveRequestCard extends StatelessWidget {
 
 class _LeaveTypeContent extends StatelessWidget {
   final int leaveType;
-  const _LeaveTypeContent({Key? key,required this.leaveType}) : super(key: key);
+
+  const _LeaveTypeContent({Key? key, required this.leaveType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,12 +113,18 @@ class _LeaveDateContent extends StatelessWidget {
   final double totalDays;
   final int startTimeStamp;
   final int endTimeStamp;
-  const _LeaveDateContent({Key? key, required this.totalDays, required this.startTimeStamp, required this.endTimeStamp}) : super(key: key);
+
+  const _LeaveDateContent(
+      {Key? key,
+      required this.totalDays,
+      required this.startTimeStamp,
+      required this.endTimeStamp})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String duration = DateFormatter(AppLocalizations.of(context)).dateInLine(
-        startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
+    String duration = DateFormatter(AppLocalizations.of(context))
+        .dateInLine(startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
     String days = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentation(totalDays);
 
