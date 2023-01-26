@@ -40,7 +40,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppAppBar(
-        onBack: (){
+        onBack: () {
           context.pop();
         },
         title: AppLocalizations.of(context).settings_setting_text,
@@ -58,19 +58,28 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
             UserProfile(
               employee: state.currentEmployee,
               onTap: () {
-                context.goNamed(Routes.employeeEditEmployeeDetails,extra: state.currentEmployee);
+                context.goNamed(Routes.employeeEditEmployeeDetails,
+                    extra: state.currentEmployee);
               },
             ),
             Padding(
-              padding: const EdgeInsets.only(top: primaryHorizontalSpacing,bottom: primaryVerticalSpacing),
-              child: Text(AppLocalizations.of(context).settings_account_text, style: AppTextStyle.titleDark),
+              padding: const EdgeInsets.only(
+                  top: primaryHorizontalSpacing,
+                  bottom: primaryVerticalSpacing),
+              child: Text(AppLocalizations.of(context).settings_account_text,
+                  style: AppTextStyle.titleDark),
             ),
-            const Divider(color: AppColors.dividerColor, height: 1, thickness: 1),
+            const Divider(
+                color: AppColors.dividerColor, height: 1, thickness: 1),
             const SizedBox(height: primaryVerticalSpacing),
             SettingOption(
                 icon: Icons.logout_rounded,
                 title: AppLocalizations.of(context).logout_button_text,
-                onTap: () {context.read<UserSettingsBloc>().add(UserSettingsLogOutEvent());})
+                onTap: () {
+                  context
+                      .read<UserSettingsBloc>()
+                      .add(UserSettingsLogOutEvent());
+                })
           ],
         ),
       ),
