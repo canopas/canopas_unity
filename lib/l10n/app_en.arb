@@ -34,7 +34,7 @@
    "user_home_apply_leave_tag": "Apply for Leave",
    "user_home_who_onLeave_tag": "Who's on leave today?",
 
-  "user_detail_role_type": "{role,plural,=1{Admin}, =2{Employee}, other{HR}}",
+  "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}}",
             "@user_detail_role_type":{
                  "description": "Pass the value of role to get role of user",
                     "placeholders": {
@@ -48,7 +48,7 @@
   "employee_details_remove_admin_tag":"Remove Admin",
 
 
- "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave}, 1{Sick Leave}, 2{Annual Leave}, 3{Paternity Leave}, 4{Maternity Leave}, 5{Marriage Leave}, 6{Bereavement Leave}}",
+ "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
         "@leave_type_placeholder_leave_status":{
            "description":"get leave type from leave status",
              "placeholders":{
@@ -60,7 +60,7 @@
 
 
 
-   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending}, 2{Approved}, 3{Rejected}}",
+   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected}}",
         "@leave_status_placeholder_text":{
             "description":"get leave type from leave status",
                 "placeholders":{
@@ -92,22 +92,6 @@
                              }
                          },
 
-      "team_leave_card_title":"Who's on leave, Today?",
-
-  "team_leave_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!}, =1{{name} is out, Today!}, other{{name} & {otherCount} others on leave, Today!}}",
-  "@team_leave_card_message":{
-              "placeholders":{
-              "count":{
-              "type":"int"
-              },
-              "otherCount":{
-                "type":"int"
-              },
-              "name":{
-                "type":"String"
-              }
-          }
-       },
 
   "who_is_out_card_message":"{count,plural,=0{No one is out of office on {date}!}, =1{{name} is out of office on {date}!}, other{{name} & {otherCount} others is out of office on {date}!}}",
   "@who_is_out_card_message":{
