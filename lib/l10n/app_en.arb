@@ -93,7 +93,7 @@
                          },
 
 
-  "who_is_out_card_message":"{count,plural,=0{No one is out of office on {date}!}, =1{{name} is out of office on {date}!}, other{{name} & {otherCount} others is out of office on {date}!}}",
+  "who_is_out_card_message":"{count,plural,=0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
   "@who_is_out_card_message":{
     "placeholders":{
       "date":{
