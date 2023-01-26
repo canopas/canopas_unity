@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/widget/empty_screen.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/space_constant.dart';
@@ -20,7 +19,7 @@ class LeaveRequestList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return map.isNotEmpty? Column(
+    return Column(
       children: map.entries
           .map(
             (mapEntry) =>
@@ -59,12 +58,7 @@ class LeaveRequestList extends StatelessWidget {
                   ),
                 )),
       ).toList(),
-    ):EmptyScreen(message: AppLocalizations
-        .of(context)
-        .admin_home_empty_leave_request_message,
-      title: AppLocalizations
-          .of(context)
-          .no_request_title,);
+    );
   }
 }
 

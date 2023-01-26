@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -10,7 +9,6 @@ import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_count.dart';
@@ -35,8 +33,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplications);
   }
 
-  Future<void> _loadLeaveApplications(
-      AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
+  Future<void> _loadLeaveApplications(AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
     emit(state.copyWith(status: AdminHomeStatus.loading));
     try {
       await emit
