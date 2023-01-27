@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../router/app_router.dart';
 import 'widget/user_settings_user_profile.dart';
-import 'package:projectunity/ui/user/home/bloc/employee_home_state.dart';
 import 'package:projectunity/ui/user/user_settings/bloc/user_settings_bloc.dart';
 import 'package:projectunity/ui/user/user_settings/bloc/user_settings_event.dart';
 import 'package:projectunity/ui/user/user_settings/bloc/user_settings_state.dart';
@@ -48,7 +47,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
       body: BlocConsumer<UserSettingsBloc, UserSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == EmployeeHomeStatus.failure) {
+          if (state.status == UserSettingsStatus.failure) {
             showSnackBar(context: context, error: state.error);
           }
         },
