@@ -34,15 +34,7 @@
    "user_home_apply_leave_tag": "Apply for Leave",
    "user_home_who_onLeave_tag": "Who's on leave today?",
 
-  "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}}",
-            "@user_detail_role_type":{
-                 "description": "Pass the value of role to get role of user",
-                    "placeholders": {
-                         "role":{
-                           "type": "num"
-                               }
-                             }
-                          },
+
 
   "employee_details_make_admin_tag":"Make Admin",
   "employee_details_remove_admin_tag":"Remove Admin",
@@ -57,6 +49,16 @@
                         }
                      }
                  },
+     "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}}",
+          "@user_detail_role_type":{
+             "description": "Pass the value of role to get role of user",
+                "placeholders": {
+                     "role":{
+                        "type": "num",
+                         "format":"compact"
+                            }
+                        }
+                     },
 
 
 
@@ -66,7 +68,7 @@
                 "placeholders":{
                     "leaveStatus":{
                        "type":"int"
-                            }
+                       }
                          }
                       },
 
@@ -102,7 +104,8 @@
               "format": "compact"
               },
               "otherCount":{
-                "type":"int"
+                "type":"int",
+                "format":"compact"
               },
               "name":{
                 "type":"String"
@@ -121,7 +124,8 @@
         "format": "compact"
       },
       "otherCount":{
-        "type":"int"
+        "type":"int",
+        "format": "compact"
       },
       "name":{
         "type":"String"
