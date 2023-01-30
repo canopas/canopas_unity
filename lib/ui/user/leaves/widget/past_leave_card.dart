@@ -29,55 +29,42 @@ class PastLeaveCard extends StatelessWidget {
             }
           },
           builder: (context,state) {
-            print(state);
             if(state is UserLeaveLoadingState){
               return const AppCircularProgressIndicator();
             }else
               if(state is UserLeaveSuccessState){
               List<Leave> pastLeaves= state.pastLeaves;
-              Leave leave= pastLeaves[0];
-              print("============= $pastLeaves");
-              return ExpansionTile(
-                tilePadding: EdgeInsets.symmetric(horizontal: 0),
-                  title: Column(
-                    children: [
-                      Text('Upcoming Leaves'),
-                      LeaveCard(totalDays: 3, type: 5, startDate: 4457, endDate: 41, status: 4)
-                    ],
+             return ExpandablePanel(
+               theme: const ExpandableThemeData(
+                  headerAlignment: ExpandablePanelHeaderAlignment.center,
+                  tapBodyToCollapse: true,
+                ),
+                header: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "Past Leaves",
+                      style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.greyColor,fontSize: 18),
+                    )),
+                collapsed: pastLeaves.isEmpty?Container():
+                    LeaveCard(totalDays:pastLeaves[0].totalLeaves,
+                        type: pastLeaves[0].leaveType,
+                        startDate: pastLeaves[0].startDate,
+                        endDate: pastLeaves[0].endDate,
+                        status: pastLeaves[0].leaveStatus),
 
-                  )
-              ,children: [
-                ListView.builder(
-                  itemCount: 5,
-                    itemBuilder: (context,index){
-                  return LeaveCard(totalDays: 8, type: 1, startDate: 1, endDate: 1, status: 5);
-                })
-              ],);
-             // return ExpandablePanel(
-             //    theme: const ExpandableThemeData(
-             //      headerAlignment: ExpandablePanelHeaderAlignment.center,
-             //      tapBodyToCollapse: true,
-             //    ),
-             //    header: const Padding(
-             //        padding: EdgeInsets.all(10),
-             //        child: Text(
-             //          "Past leaves",
-             //          style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.greyColor,fontSize: 18),
-             //        )),
-             //    collapsed: pastLeaves.isEmpty?Container():CustomScrollView(
-             //      slivers:  [
-             //        LeaveCard(totalDays:pastLeaves[0].totalLeaves, type: pastLeaves[0].leaveType,
-             //            startDate: pastLeaves[0].startDate,endDate: pastLeaves[0].endDate,
-             //            status: pastLeaves[0].leaveStatus)
-             //      ],
-             //    ),
-             //
-             //    expanded: pastLeaves.isEmpty?Container():ListView.builder(itemBuilder: (context,index){
-             //      Leave leave= pastLeaves[index];
-             //      print("gdfgfgdsgjfg      $leave");
-             //      return   LeaveCard(totalDays: leave.totalLeaves,type: leave.leaveType,startDate: leave.startDate,endDate: leave.endDate,status: leave.leaveStatus,);
-             //    }),
-             //  );
+                expanded: pastLeaves.isEmpty?Container():Container(
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: pastLeaves.length,
+                      itemBuilder: (context,index){
+                    Leave leave= pastLeaves[index];
+                    return   LeaveCard(totalDays: leave.totalLeaves,type: leave.leaveType,startDate: leave.startDate,endDate: leave.endDate,status: leave.leaveStatus,);
+                  }),
+                ),
+               builder: (context,expanded,collapsed){
+                  return Expandable(collapsed: collapsed, expanded: expanded);
+               },
+              );
             }
             return Container();
           }
@@ -105,14 +92,14 @@ class LeaveCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization= AppLocalizations.of(context);
-    final String totalLeaveDays= DateFormatter(localization).getLeaveDurationPresentation(totalDays);
-    final String leaveType= localization.leave_type_placeholder_leave_status(type);
-    final String leaveTime= DateFormatter(localization).dateInLine(startTimeStamp: startDate, endTimeStamp: endDate);
+    final String leaveDuration= DateFormatter(localization).getLeaveDurationPresentation(totalDays);
+    final String leaveStatus= localization.leave_type_placeholder_leave_status(type);
+    final String leavePeriod= DateFormatter(localization).dateInLine(startTimeStamp: startDate, endTimeStamp: endDate);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Container(
-          height: 70,
+        child: SizedBox(
+          height: 80,
           child: Row(
             mainAxisAlignment:
             MainAxisAlignment.spaceBetween,
@@ -123,11 +110,11 @@ class LeaveCard extends StatelessWidget {
                 mainAxisAlignment:
                 MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('3 days Application',
+                  Text(leaveDuration,
                       style: TextStyle(
                           color: AppColors.greyColor,
                           fontWeight: FontWeight.w500)),
-                  Text('Wed, 10 Dec',
+                  Text(leavePeriod,
                       style: TextStyle(
                           color: AppColors.blackColor,
                           fontSize: 15,
@@ -140,19 +127,27 @@ class LeaveCard extends StatelessWidget {
                   )
                 ],
               ),
-              Row(
+              Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Icon(
-                    Icons.error,
-                    color: AppColors.secondaryText,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.error,
+                        color: AppColors.secondaryText,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                       leaveStatus,
+                        style: AppTextStyle.bodyTextDark,
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Rejected',
-                    style: AppTextStyle.bodyTextDark,
-                  )
+                  IconButton(
+                      onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined))
+
                 ],
               )
             ],

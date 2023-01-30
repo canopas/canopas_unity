@@ -34,7 +34,6 @@ dependencies:
   json_annotation: ^4.6.0
   oauth2: ^2.0.1
   package_info_plus: ^2.0.0
-  percent_indicator: ^4.2.2
   collection:
   simple_gesture_detector:
   rxdart: ^0.27.5

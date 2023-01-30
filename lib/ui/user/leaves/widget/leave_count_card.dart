@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_count_bloc.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_count_state.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
@@ -26,13 +25,13 @@ class LeaveCountCard extends StatelessWidget {
             final double remainingLeaves = state.remaining!;
             final int totalLeaves = state.totalLeaves!;
             final double percentage = state.leavePercentage!;
-            if (state.status == UserLeaveCountStatus.loading) {
-              return const AppCircularProgressIndicator();
-            }
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PercentIndicator(percentage: percentage),
+                CircularProgressIndicator(
+                  strokeWidth: 12,
+                  backgroundColor: AppColors.lightGreyColor,
+                  value: percentage,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -79,25 +78,3 @@ class LeaveContainer extends StatelessWidget {
   }
 }
 
-class PercentIndicator extends StatelessWidget {
-  const PercentIndicator({
-    Key? key,
-    required this.percentage,
-  }) : super(key: key);
-
-  final double percentage;
-
-  @override
-  Widget build(BuildContext context) {
-    return CircularPercentIndicator(
-      radius: MediaQuery.of(context).size.width * 0.085,
-      animation: true,
-      animationDuration: 1200,
-      lineWidth: 15.0,
-      percent: percentage,
-      circularStrokeCap: CircularStrokeCap.butt,
-      backgroundColor: AppColors.lightGreyColor,
-      progressColor: AppColors.redColor,
-    );
-  }
-}
