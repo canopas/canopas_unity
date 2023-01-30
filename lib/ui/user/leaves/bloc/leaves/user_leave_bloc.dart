@@ -25,6 +25,7 @@ class UserLeaveBloc extends Bloc<UserLeaveEvent,UserLeaveState>{
       List<Leave> allLeaves= await _userLeaveService.getAllLeavesOfUser(_userManager.employeeId);
       List<Leave> pastLeaves= allLeaves.where((leave) => leave.startDate<=DateTime.now().timeStampToInt).toList();
       List<Leave> upcomingLeaves= allLeaves.where((leave) => leave.startDate>=DateTime.now().timeStampToInt).toList();
+    print(allLeaves.length);
       emit(UserLeaveSuccessState(pastLeaves:pastLeaves, upcomingLeaves:upcomingLeaves));
     }on Exception {
       emit(UserLeaveErrorState(error: firestoreFetchDataError));

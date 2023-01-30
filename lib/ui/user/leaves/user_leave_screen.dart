@@ -61,7 +61,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
               LeaveCountCard(),
               Divider(),
               UpcomingLeaveCard(),
-              PastLeaveCard()
+             PastLeaveCard()
             ],
           ),
         ));

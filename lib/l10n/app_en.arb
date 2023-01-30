@@ -13,7 +13,7 @@
     "user_home_paid_leave_tag": "Paid Leave",
     "user_home_all_tag": "All",
 
-    "days_placeholder_leave": "{leave,plural,=0{{leave} Day} =1{{leave} day} other{{leave} days}}",
+    "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
          "@days_placeholder_leave":{
               "description": "Pass the value of leaves for leave days",
                  "placeholders": {
@@ -257,9 +257,9 @@
      "dateFormatter_yesterday":"Yesterday",
       "dateFormatter_today":"Today",
        "dateFormatter_just_now":"Just now",
-        "dateFormatter_half_day":"Half day",
-         "dateFormatter_one_day":"1 day",
-         "dateFormatter_placeholder_other_days":"{totalLeave} days",
+        "dateFormatter_half_day":"Half Day Application",
+         "dateFormatter_one_day":"Full Day Application",
+         "dateFormatter_placeholder_other_days":"{totalLeave} Days Application",
          "@dateFormatter_placeholder_other_days":{
               "description":"define total leave count more than one day",
                     "placeholders":{
