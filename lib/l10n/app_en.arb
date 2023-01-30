@@ -40,8 +40,7 @@
                     "placeholders": {
                          "role":{
                            "type": "num"
-                           "format": "compact"
-                                 }
+                               }
                              }
                           },
 
