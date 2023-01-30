@@ -34,12 +34,12 @@
    "user_home_apply_leave_tag": "Apply for Leave",
    "user_home_who_onLeave_tag": "Who's on leave today?",
 
-  "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}",
+  "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}",
             "@user_detail_role_type":{
                  "description": "Pass the value of role to get role of user",
                     "placeholders": {
                          "role":{
-                           "type": "int"
+                           "type": "num"
                                  }
                              }
                           },
@@ -53,7 +53,7 @@
            "description":"get leave type from leave status",
              "placeholders":{
                 "leaveStatus":{
-                   "type":"int"
+                   "type":"num"
                         }
                      }
                  },
@@ -65,7 +65,7 @@
             "description":"get leave type from leave status",
                 "placeholders":{
                     "leaveStatus":{
-                       "type":"int"
+                       "type":"num"
                             }
                          }
                       },
@@ -94,14 +94,14 @@
 
       "team_leave_card_title":"Who's on leave, Today?",
 
-  "team_leave_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {otherCount} others on leave, Today!}}",
+  "team_leave_card_message":"{count, plural, =0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {otherCount} others on leave, Today!}}",
   "@team_leave_card_message":{
               "placeholders":{
               "count":{
-              "type":"int"
+              "type":"num"
               },
               "otherCount":{
-                "type":"int"
+                "type":"num"
               },
               "name":{
                 "type":"String"
@@ -116,10 +116,10 @@
         "type": "String"
       },
       "count":{
-        "type":"int"
+        "type":"num"
       },
       "otherCount":{
-        "type":"int"
+        "type":"num"
       },
       "name":{
         "type":"String"
