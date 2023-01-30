@@ -41,7 +41,7 @@
 
 
 
- "leave_type_placeholder_leave_status":"{leaveStatus, select, casual{Casual Leave} sick{Sick Leave} annual{Annual Leave} paternity{Paternity Leave} maternity{Maternity Leave} marriage{Marriage Leave} bereavement{Bereavement Leave}}",
+ "leave_type_placeholder_leave_status":"{leaveStatus, select, casual{Casual Leave} sick{Sick Leave} annual{Annual Leave} paternity{Paternity Leave} maternity{Maternity Leave} marriage{Marriage Leave} other{Bereavement Leave}}",
         "@leave_type_placeholder_leave_status":{
            "description":"get leave type from leave status",
              "placeholders":{
