@@ -98,7 +98,8 @@
   "@team_leave_card_message":{
               "placeholders":{
               "count":{
-              "type":"num"
+              "type":"num",
+              "format": "compact"
               },
               "otherCount":{
                 "type":"int"
@@ -116,7 +117,8 @@
         "type": "String"
       },
       "count":{
-        "type":"num"
+        "type":"num",
+        "format": "compact"
       },
       "otherCount":{
         "type":"int"
