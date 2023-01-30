@@ -53,14 +53,14 @@
            "description":"get leave type from leave status",
              "placeholders":{
                 "leaveStatus":{
-                   "type":"int"
+                   "type":"num"
                         }
                      }
                  },
 
 
 
-   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected} }",
+   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected}}",
         "@leave_status_placeholder_text":{
             "description":"get leave type from leave status",
                 "placeholders":{
@@ -101,7 +101,7 @@
               "type":"num"
               },
               "otherCount":{
-                "type":"num"
+                "type":"int"
               },
               "name":{
                 "type":"String"
@@ -119,7 +119,7 @@
         "type":"num"
       },
       "otherCount":{
-        "type":"num"
+        "type":"int"
       },
       "name":{
         "type":"String"
