@@ -45,7 +45,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           title: Text(
-            localization.user_leave_tag,
+            localization.user_leave_appbar_tag,
             style: AppFontStyle.appbarHeaderStyle,
           ),
           backgroundColor: AppColors.whiteColor,
@@ -53,18 +53,20 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
           actions: [
             TextButton(
                 onPressed: () {},
-                child: Text(localization.user_apply_tag,
+                child: Text(localization.user_leave_apply_tag,
                     style: AppFontStyle.buttonTextStyle))
           ],
         ),
         body: Padding(
             padding: const EdgeInsets.all(10.0),
             child: BlocConsumer<UserLeaveBloc, UserLeaveState>(
+              listenWhen: (previous , current) => current is UserLeaveErrorState,
               listener: (context, state) {
                 if (state is UserLeaveErrorState) {
                   showSnackBar(context: context, error: state.error);
                 }
               },
+              buildWhen: (previous, current)=>current is UserLeaveSuccessState,
               builder: (context, state) {
                 if (state is UserLeaveLoadingState) {
                   return const AppCircularProgressIndicator();
@@ -76,8 +78,8 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
                     children: [
                       const LeaveCountCard(),
                       const Divider(),
-                      LeaveList(leaves: upcoming, title: 'Upcoming Leaves'),
-                      LeaveList(leaves: past, title: 'Past Leaves')
+                      LeaveList(leaves: upcoming, title: localization.user_leave_upcoming_leaves_tag),
+                      LeaveList(leaves: past, title: localization.user_leave_past_leaves_tag)
 
                     ],
                   );

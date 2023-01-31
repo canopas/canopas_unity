@@ -30,7 +30,7 @@ class LeaveCountCard extends StatelessWidget {
               children: [
                 CircularProgressIndicator(
                   strokeWidth: 12,
-                  backgroundColor: AppColors.lightGreyColor,
+                  backgroundColor: AppColors.primaryDarkYellow,
                   value: percentage,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +40,7 @@ class LeaveCountCard extends StatelessWidget {
                       style: AppFontStyle.titleTextStyle,
                     ),
                     Text(
-                      AppLocalizations.of(context).user_used_leaves_tag,
+                      AppLocalizations.of(context).user_leave_used_leaves_tag,
                       style: AppFontStyle.subTitleTextStyle,
                     )
                   ],

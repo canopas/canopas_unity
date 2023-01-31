@@ -1,7 +1,6 @@
 import 'package:expandable/expandable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../user/leaves/widget/leave_card.dart';
@@ -13,6 +12,7 @@ class LeaveList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization= AppLocalizations.of(context);
     return  ExpandableNotifier(
       initialExpanded: true,
       child: Padding(
@@ -56,7 +56,7 @@ class LeaveList extends StatelessWidget {
                   }),
               builder: (context, expanded, collapsed) {
                 return leaves.isEmpty
-                    ? const Center(child: Text('No any Leaves Yet!', style: TextStyle(fontSize: 15),))
+                    ?  Center(child: Text(localization.user_leave_no_leaves_msg, style: const TextStyle(fontSize: 15),))
                     : Column(
                         children: [
                           Expandable(collapsed: collapsed, expanded: expanded),
@@ -68,8 +68,8 @@ class LeaveList extends StatelessWidget {
                                   controller.toggle();
                                 },
                                 child: Text(controller.expanded
-                                    ? "View more"
-                                    : "show less"));
+                                    ? localization.user_leave_view_more_tag
+                                    : localization.user_leave_show_less_tag));
                           })
                         ],
                       );
