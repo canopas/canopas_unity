@@ -59,34 +59,33 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         ),
         body: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                const LeaveCountCard(),
-                const Divider(),
-                BlocConsumer<UserLeaveBloc, UserLeaveState>(
-                  listener: (context, state) {
-                    if (state is UserLeaveErrorState) {
-                      showSnackBar(context: context, error: state.error);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is UserLeaveLoadingState) {
-                      return const AppCircularProgressIndicator();
-                    } else if (state is UserLeaveSuccessState) {
-                      List<Leave> upcoming = state.upcomingLeaves;
-                      List<Leave> past = state.pastLeaves;
-                      return Column(
-                        children: [
-                          LeaveList(leaves: upcoming, title: 'Upcoming Leaves'),
-                          LeaveList(leaves: past, title: 'Past Leaves')
-                        ],
-                      );
-                    }
-                    return Container();
-                  },
-                ),
-              ],
-            )));
+            child: BlocConsumer<UserLeaveBloc, UserLeaveState>(
+              listener: (context, state) {
+                if (state is UserLeaveErrorState) {
+                  showSnackBar(context: context, error: state.error);
+                }
+              },
+              builder: (context, state) {
+                if (state is UserLeaveLoadingState) {
+                  return const AppCircularProgressIndicator();
+                } else if (state is UserLeaveSuccessState) {
+                  List<Leave> upcoming = state.upcomingLeaves;
+                  List<Leave> past = state.pastLeaves;
+                  return ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      const LeaveCountCard(),
+                      const Divider(),
+                      LeaveList(leaves: upcoming, title: 'Upcoming Leaves'),
+                      LeaveList(leaves: past, title: 'Past Leaves')
+
+                    ],
+                  );
+                }
+                return Container();
+              },
+            ),));
   }
 }
+
+
