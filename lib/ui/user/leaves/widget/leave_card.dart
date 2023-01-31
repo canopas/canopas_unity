@@ -5,6 +5,7 @@ import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/date_formatter.dart';
 
+
 class LeaveCard extends StatelessWidget {
   final double totalDays;
   final int startDate;
@@ -24,43 +25,45 @@ class LeaveCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization= AppLocalizations.of(context);
+    VoidCallback? ontap;
     final String leaveDuration= DateFormatter(localization).getLeaveDurationPresentation(totalDays);
-    final String leaveType= localization.leave_type_placeholder_leave_status(type);
-    final String leaveTime= DateFormatter(localization).dateInLine(startTimeStamp: startDate, endTimeStamp: endDate);
+    final String leaveStatus= localization.leave_type_placeholder_leave_status(type);
+    final String leavePeriod= DateFormatter(localization).dateInLine(startTimeStamp: startDate, endTimeStamp: endDate);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Container(
-              height: 70,
-              child: Row(
+        child: SizedBox(
+          height: 80,
+          child: Row(
+            mainAxisAlignment:
+            MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
                 mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(leaveDuration,
-                          style: const TextStyle(
-                              color: AppColors.greyColor,
-                              fontWeight: FontWeight.w500)),
-                      Text(leaveTime,
-                          style: TextStyle(
-                              color: AppColors.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold)),
-                      Text(
-                        leaveType,
-                        style: TextStyle(
-                            color:
-                            AppColors.primaryDarkYellow),
-                      )
-                    ],
-                  ),
+                  Text(leaveDuration,
+                      style: const TextStyle(
+                          color: AppColors.greyColor,
+                          fontWeight: FontWeight.w500)),
+                  Text(leavePeriod,
+                      style: TextStyle(
+                          color: AppColors.blackColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'Casual',
+                    style: TextStyle(
+                        color:
+                        AppColors.primaryDarkYellow),
+                  )
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
                   Row(
                     children: [
                       const Icon(
@@ -71,16 +74,18 @@ class LeaveCard extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        'Rejected',
+                        leaveStatus,
                         style: AppTextStyle.bodyTextDark,
-                      ),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined))
+                      )
                     ],
-                  )
+                  ),
+                  IconButton(
+                      onPressed: ontap, icon: const Icon(Icons.arrow_forward_ios_outlined))
+
                 ],
-              ),
-            ),
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

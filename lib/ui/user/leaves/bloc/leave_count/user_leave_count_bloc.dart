@@ -11,24 +11,22 @@ import '../../../../../services/user/user_leave_service.dart';
 
 
 @Injectable()
-class UserLeaveCountBloc extends Bloc<UserLeaveCountEvent,UserLeaveCountState>{
+class UserLeaveCountBloc extends Bloc<FetchLeaveCountEvent,UserLeaveCountState>{
   final UserLeaveService _userLeaveService;
   final UserManager _userManger;
   final PaidLeaveService _paidLeaveService;
   UserLeaveCountBloc(this._userLeaveService, this._userManger,this._paidLeaveService) : super(const UserLeaveCountState()){
-    on<UserLeaveCountEvent>( _fetchLeaveCount);
+    on<FetchLeaveCountEvent>( _fetchLeaveCount);
   }
 
-  Future<void> _fetchLeaveCount(UserLeaveCountEvent event, Emitter<UserLeaveCountState> emit)async {
+  Future<void> _fetchLeaveCount(FetchLeaveCountEvent event, Emitter<UserLeaveCountState> emit)async {
     print('dfjk');
     emit(state.copyWith(status: UserLeaveCountStatus.loading));
     try{
       final double usedLeaves= await _userLeaveService.getUserUsedLeaveCount(_userManger.employeeId);
       final int totalLeaves= await _paidLeaveService.getPaidLeaves();
-      final double remainingLeaves= totalLeaves-usedLeaves;
-     // final percentage= remainingLeaves/totalLeaves;
-      final percentage= 4.5/12;
-      emit(state.copyWith(status: UserLeaveCountStatus.success,remaining: 4.5,totalLeaves: 12, leavePercentage: percentage));
+      final percentage= usedLeaves/totalLeaves;
+      emit(state.copyWith(status: UserLeaveCountStatus.success,used: usedLeaves,totalLeaves: totalLeaves, leavePercentage: percentage));
     }on Exception {
       emit(state.copyWith(status: UserLeaveCountStatus.failure,error: firestoreFetchDataError));
     }

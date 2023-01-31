@@ -22,7 +22,7 @@ class LeaveCountCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: BlocBuilder<UserLeaveCountBloc, UserLeaveCountState>(
               builder: (context, state) {
-            final double remainingLeaves = state.remaining!;
+            final double usedLeaves = state.used!;
             final int totalLeaves = state.totalLeaves!;
             final double percentage = state.leavePercentage!;
             return Row(
@@ -36,7 +36,7 @@ class LeaveCountCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '$remainingLeaves/$totalLeaves',
+                      '$usedLeaves/$totalLeaves',
                       style: AppFontStyle.titleTextStyle,
                     ),
                     Text(

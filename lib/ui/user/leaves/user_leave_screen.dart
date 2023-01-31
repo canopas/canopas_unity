@@ -7,10 +7,13 @@ import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_count_bloc.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_cout_event.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leaves/user_leave_bloc.dart';
-import 'package:projectunity/ui/user/leaves/bloc/leaves/user_leave_state.dart';
-import 'package:projectunity/ui/user/leaves/widget/past_leave_card.dart';
-import 'package:projectunity/ui/user/leaves/widget/upcoming_leave_Card.dart';
+import 'package:projectunity/ui/user/leaves/widget/leave_list.dart';
+import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 
+import '../../../model/leave/leave.dart';
+import 'bloc/leaves/user_leave_event.dart';
+import 'bloc/leaves/user_leave_state.dart';
 import 'widget/leave_count_card.dart';
 
 class UserLeavePage extends StatelessWidget {
@@ -21,8 +24,8 @@ class UserLeavePage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
           create: (_) =>
-              getIt<UserLeaveCountBloc>()..add(UserLeaveCountEvent())),
-      BlocProvider(create: (_)=>getIt<UserLeaveBloc>()..add(UserLeaveEvent()))
+              getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
+      BlocProvider(create: (_)=>getIt<UserLeaveBloc>()..add(FetchLeaveEvent()))
     ], child: const UserLeaveScreen());
   }
 }
@@ -55,15 +58,35 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView(
-            children: const [
-              LeaveCountCard(),
-              Divider(),
-              UpcomingLeaveCard(),
-             PastLeaveCard()
-            ],
-          ),
-        ));
+            padding: const EdgeInsets.all(10.0),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                const LeaveCountCard(),
+                const Divider(),
+                BlocConsumer<UserLeaveBloc, UserLeaveState>(
+                  listener: (context, state) {
+                    if (state is UserLeaveErrorState) {
+                      showSnackBar(context: context, error: state.error);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is UserLeaveLoadingState) {
+                      return const AppCircularProgressIndicator();
+                    } else if (state is UserLeaveSuccessState) {
+                      List<Leave> upcoming = state.upcomingLeaves;
+                      List<Leave> past = state.pastLeaves;
+                      return Column(
+                        children: [
+                          LeaveList(leaves: upcoming, title: 'Upcoming Leaves'),
+                          LeaveList(leaves: past, title: 'Past Leaves')
+                        ],
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ],
+            )));
   }
 }

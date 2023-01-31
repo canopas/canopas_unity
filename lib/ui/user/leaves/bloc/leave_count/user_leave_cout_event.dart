@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class UserLeaveCountEvent extends Equatable{
+class FetchLeaveCountEvent extends Equatable{
   @override
   List<Object?> get props => [];
 
