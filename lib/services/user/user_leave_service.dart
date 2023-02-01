@@ -31,12 +31,6 @@ class UserLeaveService {
     List<Leave> leaves = data.docs.map((doc) => doc.data()).toList();
     return leaves.where((element) => element.startDate.dateOnly.isAfter(DateTime.now().dateOnly) || element.startDate.dateOnly.isAtSameMomentAs(DateTime.now().dateOnly)).toList();
   }
-  Future<List<Leave>> getPastLeaves(String employeeId) async {
-    final data = await _leaveDbCollection
-        .where(FirestoreConst.uid, isEqualTo: employeeId)
-        .get();
-    return data.docs.map((doc) => doc.data()).where((leave) => leave.startDate <= DateTime.now().timeStampToInt).toList();
-  }
 
   Future<List<Leave>> getUpcomingLeaves(String employeeId) async {
     final data = await _leaveDbCollection
