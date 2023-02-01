@@ -24,7 +24,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-      const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
+          const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
       height: preferredSize.height,
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -35,12 +35,12 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               onBack!=null?Padding(
-                padding: const EdgeInsets.only(right: primaryHorizontalSpacing),
-                child: InkWell(
+                 padding: const EdgeInsets.only(right: primaryHorizontalSpacing),
+                 child: InkWell(
                   onTap: onBack,
                   child: const Icon(Icons.arrow_back,size: 28),
-                ),
-              ):const SizedBox(),
+              ),
+               ):const SizedBox(),
               Text(
                 title,
                 style: AppTextStyle.headerDark,

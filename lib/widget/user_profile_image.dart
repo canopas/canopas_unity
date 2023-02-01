@@ -12,12 +12,12 @@ class ImageProfile extends StatelessWidget {
 
   const ImageProfile(
       {Key? key,
-        this.iconColor = Colors.black54,
       this.imageUrl,
       required this.radius,
       this.borderSize = 2,
       this.borderColor = AppColors.textFieldBg,
-      this.backgroundColor = AppColors.primaryGray})
+      this.backgroundColor = AppColors.primaryGray,
+      this.iconColor = Colors.black54})
       : super(key: key);
 
   @override

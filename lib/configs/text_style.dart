@@ -50,5 +50,6 @@ class AppTextStyle{
   static const TextStyle mediumDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.medium,fontWeight: FontWeight.w500);
   static const TextStyle bodyDarkGrey = TextStyle(color: AppColors.textDarkGrey,fontSize: AppFontSize.body,fontWeight: FontWeight.w500);
   static const TextStyle bodyDark = TextStyle(color: AppColors.darkText,fontSize: AppFontSize.body,fontWeight: FontWeight.w500);
+  static const TextStyle subTitleDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.subTitle,fontWeight: FontWeight.w500);
   static const TextStyle headerDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.header,fontWeight: FontWeight.w600);
 }

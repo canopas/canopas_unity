@@ -19,18 +19,18 @@ import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
-import '../ui/user/setting/employee_setting_screen.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
 import '../ui/user/user_home/user_home_screen.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
+import '../ui/user/user_settings/user_settings_screen.dart';
 
 @Injectable()
 class AppRouter {
   final UserManager _userManager;
 
   AppRouter(this._userManager);
-  GoRouter get router => _goRouter(_userManager);
 
+  GoRouter get router => _goRouter(_userManager);
 
   static GoRouter _goRouter(UserManager userManager) {
     return GoRouter(
@@ -66,19 +66,19 @@ class AppRouter {
                           path: ':employeeId',
                           pageBuilder: (context, state) => MaterialPage(
                               child: EmployeeDetailPage(
-                                  id: state.params[RoutesParamsConst.employeeId]!)),
-                      routes: [
-                        GoRoute(
-                          path: 'admin-edit-employee-details',
-                          name: Routes.adminEditEmployeeDetails,
-                          pageBuilder: (context, state) => MaterialPage(
-                              child: AdminEditEmployeeDetailsPage(
+                                  id: state
+                                      .params[RoutesParamsConst.employeeId]!)),
+                          routes: [
+                            GoRoute(
+                              path: 'admin-edit-employee-details',
+                              name: Routes.adminEditEmployeeDetails,
+                              pageBuilder: (context, state) => MaterialPage(
+                                  child: AdminEditEmployeeDetailsPage(
                                 employee: state.extra as Employee,
                               )),
-                        ),
-                      ]),
+                            ),
+                          ]),
                     ]),
-
                 GoRoute(
                     name: Routes.adminLeaveDetail,
                     path: 'leave-application',
@@ -92,7 +92,7 @@ class AppRouter {
                 GoRoute(
                     name: Routes.adminCalender,
                     path: 'calender',
-                    pageBuilder: (context, state) =>  const MaterialPage(
+                    pageBuilder: (context, state) => const MaterialPage(
                           child: EmployeesLeaveCalenderPage(),
                         ),
                     routes: <GoRoute>[
@@ -100,26 +100,23 @@ class AppRouter {
                           name: Routes.leaveApplicationDetail,
                           path: 'leave-application',
                           pageBuilder: (context, state) {
-                          LeaveApplication leaveApplication =
-                          state.extra as LeaveApplication;
-                          return MaterialPage(
-                              child: LeaveDetailsPage(
-                                  leaveApplication: leaveApplication));
-                        }),
-                  ]
-              ),
-
-
+                            LeaveApplication leaveApplication =
+                                state.extra as LeaveApplication;
+                            return MaterialPage(
+                                child: LeaveDetailsPage(
+                                    leaveApplication: leaveApplication));
+                          }),
+                    ]),
                 GoRoute(
                     name: Routes.addMember,
                     path: 'new',
                     pageBuilder: (context, state) =>
-                    const MaterialPage(child: AdminAddMemberPage())),
+                        const MaterialPage(child: AdminAddMemberPage())),
                 GoRoute(
                     name: Routes.adminSettings,
                     path: 'settings',
                     pageBuilder: (context, state) =>
-                    const MaterialPage(child: AdminSettingPage()),
+                        const MaterialPage(child: AdminSettingPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           name: Routes.updateLeaveCount,
@@ -128,28 +125,27 @@ class AppRouter {
                               child: AdminUpdateLeaveCountsPage())),
                     ]),
               ]),
-
           GoRoute(
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-              const MaterialPage(child: UserHomeScreenPage()),
+                  const MaterialPage(child: UserHomeScreenPage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,
                     path: 'all',
                     pageBuilder: (context, state) =>
-                    const MaterialPage(child: AllLeavesPage())),
+                        const MaterialPage(child: AllLeavesPage())),
                 GoRoute(
                     name: Routes.requested,
                     path: 'requested',
                     pageBuilder: (context, state) =>
-                    const MaterialPage(child: RequestedLeavesPage())),
+                        const MaterialPage(child: RequestedLeavesPage())),
                 GoRoute(
                     name: Routes.upcoming,
                     path: 'upcoming',
                     pageBuilder: (context, state) =>
-                    const MaterialPage(child: UpcomingLeavesPage())),
+                        const MaterialPage(child: UpcomingLeavesPage())),
                 GoRoute(
                   name: Routes.applyLeave,
                   path: 'apply-leave',
@@ -161,18 +157,17 @@ class AppRouter {
                     name: Routes.userSettings,
                     path: 'setting',
                     pageBuilder: (context, state) =>
-                        const MaterialPage(child: EmployeeSettingPage()),
-                  routes: [
-                    GoRoute(
-                      path: 'employee-edit-employee-details',
-                      name: Routes.employeeEditEmployeeDetails,
-                      pageBuilder: (context, state) => MaterialPage(
-                          child: EmployeeEditEmployeeDetailsPage(
-                            employee: state.extra as Employee,
-                          )),
-                    ),
-                  ]
-                ),
+                        const MaterialPage(child: UserSettingsPage()),
+                    routes: [
+                      GoRoute(
+                        path: 'employee-edit-employee-details',
+                        name: Routes.employeeEditEmployeeDetails,
+                        pageBuilder: (context, state) => MaterialPage(
+                            child: EmployeeEditEmployeeDetailsPage(
+                          employee: state.extra as Employee,
+                        )),
+                      ),
+                    ]),
                 GoRoute(
                     name: Routes.allUserCalender,
                     path: 'calender',
@@ -185,51 +180,44 @@ class AppRouter {
                           path: 'leave-detail',
                           pageBuilder: (context, state) {
                             LeaveApplication leaveApplication =
-                            state.extra as LeaveApplication;
+                                state.extra as LeaveApplication;
                             return MaterialPage(
                                 child: LeaveDetailsPage(
                                     leaveApplication: leaveApplication));
                           }),
-                    ]
-                ),
-
-
+                    ]),
                 GoRoute(
                     name: Routes.userLeaveCalender,
                     path: 'user-calender',
                     pageBuilder: (context, state) => MaterialPage(
                         child: UserLeaveCalendarPage(
                             userId: userManager.employeeId)),
-                  routes: <GoRoute>[
-                    GoRoute(
-                        name: Routes.userLeaveDetail,
-                        path: 'details',
-                        pageBuilder: (context, state) {
-                          LeaveApplication leaveApplication =
-                          state.extra as LeaveApplication;
-                          return MaterialPage(
-                              child: LeaveDetailsPage(
-                                  leaveApplication: leaveApplication));
-                        }),
-                  ]
-                   ),
+                    routes: <GoRoute>[
+                      GoRoute(
+                          name: Routes.userLeaveDetail,
+                          path: 'details',
+                          pageBuilder: (context, state) {
+                            LeaveApplication leaveApplication =
+                                state.extra as LeaveApplication;
+                            return MaterialPage(
+                                child: LeaveDetailsPage(
+                                    leaveApplication: leaveApplication));
+                          }),
+                    ]),
               ]),
-
-
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
-           if(userManager.loggedIn&&loggingIn)return Routes.rootRoute;
-           return null;
-        }
-
-    );
+          if (userManager.loggedIn && loggingIn) return Routes.rootRoute;
+          return null;
+        });
   }
 }
-abstract class RoutesParamsConst{
+
+abstract class RoutesParamsConst {
   static const employeeId = "employeeId";
 }
 

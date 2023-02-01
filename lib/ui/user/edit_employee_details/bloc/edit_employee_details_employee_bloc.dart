@@ -8,7 +8,7 @@ import 'package:projectunity/ui/user/edit_employee_details/bloc/edit_employee_de
 import '../../../../exception/error_const.dart';
 import '../../../../pref/user_preference.dart';
 import '../../../../services/admin/employee_service.dart';
-import '../../setting/bloc/employee_setting_event.dart';
+import '../../user_settings/bloc/user_settings_event.dart';
 import 'edit_employee_details_employee_event.dart';
 
 @Injectable()
@@ -90,7 +90,7 @@ class EmployeeEditEmployeeDetailsBloc extends Bloc<
         );
         await _employeeService.updateEmployeeDetails(employee: employee);
         _preference.setCurrentUser(employee);
-        eventBus.fire(UpdateUserDetailsOnEmployeeSettingEvent());
+        eventBus.fire(GetCurrentEmployeeUserSettingsEvent());
         emit(state.copyWith(status: EmployeeEditEmployeeDetailsStatus.success));
       } on Exception {
         emit(state.copyWith(
