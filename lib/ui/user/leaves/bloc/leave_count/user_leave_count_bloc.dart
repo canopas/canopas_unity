@@ -20,7 +20,6 @@ class UserLeaveCountBloc extends Bloc<FetchLeaveCountEvent,UserLeaveCountState>{
   }
 
   Future<void> _fetchLeaveCount(FetchLeaveCountEvent event, Emitter<UserLeaveCountState> emit)async {
-    print('dfjk');
     emit(state.copyWith(status: UserLeaveCountStatus.loading));
     try{
       final double usedLeaves= await _userLeaveService.getUserUsedLeaveCount(_userManger.employeeId);

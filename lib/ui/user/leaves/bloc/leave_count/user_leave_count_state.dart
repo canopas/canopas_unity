@@ -11,10 +11,10 @@ class UserLeaveCountState extends Equatable {
 
   const UserLeaveCountState({
     this.status = UserLeaveCountStatus.initial,
-    this.used = 12,
+    this.used = 0,
     this.totalLeaves=12,
     this.leavePercentage = 1,
-    this.error=''
+    this.error
   });
 
   UserLeaveCountState copyWith({ UserLeaveCountStatus? status,

@@ -11,14 +11,14 @@ import '../../../../../services/user/user_leave_service.dart';
 
 
 @Injectable()
-class UserLeaveBloc extends Bloc<FetchLeaveEvent,UserLeaveState>{
+class UserLeaveBloc extends Bloc<FetchUserLeaveEvent,UserLeaveState>{
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
   UserLeaveBloc(this._userManager,this._userLeaveService) : super(UserLeaveInitialState()){
-    on<FetchLeaveEvent>(_fetchLeaves);
+    on<FetchUserLeaveEvent>(_fetchLeaves);
   }
 
-  Future<void> _fetchLeaves(FetchLeaveEvent event,Emitter<UserLeaveState> emit)async{
+  Future<void> _fetchLeaves(FetchUserLeaveEvent event,Emitter<UserLeaveState> emit)async{
     emit(UserLeaveLoadingState());
     try{
       List<Leave> allLeaves= await _userLeaveService.getAllLeavesOfUser(_userManager.employeeId);
