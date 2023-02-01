@@ -5,6 +5,7 @@ extension ListExtention on List<LeaveApplication> {
   void sortedByDate() {
     return sort((a, b) => b.leave.appliedOn.toDate.compareTo(a.leave.appliedOn.toDate));
   }
+  bool isLast(LeaveApplication e) => length == indexOf(e)-1;
 }
 
 extension Iterables<E> on Iterable<E> {
