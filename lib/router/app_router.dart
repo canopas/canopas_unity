@@ -7,7 +7,6 @@ import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_d
 import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
 import 'package:projectunity/ui/shared/leave_details/leave_details.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_screen.dart';
-import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/apply_leave_screen.dart';
 import 'package:projectunity/ui/user/requested_leaves/requested_leaves_view.dart';
 import '../model/leave_application.dart';
@@ -22,6 +21,7 @@ import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
 import '../ui/user/setting/employee_setting_screen.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
+import '../ui/user/user_home/user_home_screen.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
 
 @Injectable()
@@ -133,7 +133,7 @@ class AppRouter {
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-              const MaterialPage(child: EmployeeHomePage()),
+              const MaterialPage(child: UserHomeScreenPage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,

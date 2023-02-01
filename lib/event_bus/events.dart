@@ -10,4 +10,10 @@ class LeaveUpdateEventListener {
 
 class AllLeaveUpdateEventListener{}
 
+class DeleteEmployeeByAdmin{
+  final String userId;
+  DeleteEmployeeByAdmin(this.userId);
+
+}
+
 class EmployeeListUpdateEvent{}

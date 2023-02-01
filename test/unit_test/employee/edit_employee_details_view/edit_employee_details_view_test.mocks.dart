@@ -160,6 +160,11 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValue: '',
       ) as String);
   @override
+  String get email => (super.noSuchMethod(
+        Invocation.getter(#email),
+        returnValue: '',
+      ) as String);
+  @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
         returnValue: '',

@@ -8,10 +8,11 @@ class AppDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Divider(
-        color: AppColors.dividerColor,
-        indent: primaryHorizontalSpacing,
-        endIndent: primaryHorizontalSpacing,
-        thickness: 1,
-        height: 1);
+      color: AppColors.dividerColor,
+      indent: primaryHorizontalSpacing,
+      endIndent: primaryHorizontalSpacing,
+      thickness: 1,
+      height: 1,
+    );
   }
 }
