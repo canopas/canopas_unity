@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "606541170752-f1hrsvl3n0eaib89dtne9a1migbhuef6.apps.googleusercontent.com",
+              "client_id": "606541170752-1u2dcu9h35bn0v8949orj82ouhttb4jt.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.canopas.CanopasUnity"
+                "bundle_id": "com.canopas.projectunity"
               }
             }
           ]

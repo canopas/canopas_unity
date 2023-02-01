@@ -8,6 +8,7 @@ class ImageProfile extends StatelessWidget {
   final double borderSize;
   final Color borderColor;
   final Color backgroundColor;
+  final Color iconColor;
 
   const ImageProfile(
       {Key? key,
@@ -15,7 +16,8 @@ class ImageProfile extends StatelessWidget {
       required this.radius,
       this.borderSize = 2,
       this.borderColor = AppColors.textFieldBg,
-      this.backgroundColor = AppColors.primaryGray})
+      this.backgroundColor = AppColors.primaryGray,
+      this.iconColor = Colors.black54})
       : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class ImageProfile extends StatelessWidget {
         backgroundImage: (imageUrl != null) ? NetworkImage(imageUrl!) : null,
         child: (imageUrl != null)
             ? null
-            : Icon(Icons.person, size: radius, color: Colors.black54),
+            : Icon(Icons.person, size: radius, color: iconColor),
       ),
     );
   }

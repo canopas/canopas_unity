@@ -22,3 +22,8 @@ class DeleteEmployeeEvent extends EmployeeDetailEvent{
   List<Object?> get props => [employeeId];
 
 }
+class EmployeeDisabled extends EmployeeDetailEvent{
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}

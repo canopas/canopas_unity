@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
-
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave_count.dart';
 
@@ -19,6 +19,8 @@ class EmployeeContent extends StatelessWidget {
     return Row(
       children: [
         ImageProfile(
+          borderColor: AppColors.blackColor,
+          borderSize: 1,
           radius: 25,
           imageUrl: employee.imageUrl,
         ),
@@ -32,7 +34,7 @@ class EmployeeContent extends StatelessWidget {
             children: [
               Text(
                 employee.name,
-                style: AppTextStyle.darkSubtitle700
+                style: AppTextStyle.mediumDark
                     .copyWith(fontWeight: FontWeight.w500),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -41,7 +43,7 @@ class EmployeeContent extends StatelessWidget {
               ),
               Text(
                 employee.employeeId,
-                style: AppTextStyle.secondaryBodyText,
+                style: AppTextStyle.bodyDarkGrey,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -53,13 +55,13 @@ class EmployeeContent extends StatelessWidget {
           children: [
             Text(
               localization.admin_leave_detail_daysLeft_tag,
-              style: AppTextStyle.darkSubtitle700.copyWith(fontWeight: FontWeight.w500),),
+              style: AppTextStyle.mediumDark.copyWith(fontWeight: FontWeight.w500),),
             const SizedBox(
               height: 5,
             ),
             Text(
               '${leaveCounts.remainingLeaveCount.fixedAt(1)}/${leaveCounts.paidLeaveCount}',
-              style: AppTextStyle.secondaryBodyText,
+              style: AppTextStyle.bodyDarkGrey,
             ),
           ],
         ),

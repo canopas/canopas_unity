@@ -47,19 +47,18 @@ class AdminLeaveService {
 
 
 
-  Future<List<Leave>> getAllAbsence() async {
-    int todayDate = DateTime.now().timeStampToInt;
+  Future<List<Leave>> getAllAbsence({DateTime? date}) async {
+    date = date ?? DateTime.now();
     final data = await _leaveDbCollection
-        .where(FirestoreConst.endLeaveDate, isGreaterThanOrEqualTo: todayDate.dateOnly.timeStampToInt)
+        .where(FirestoreConst.endLeaveDate, isGreaterThanOrEqualTo: date.dateOnly.timeStampToInt)
         .get();
     List<Leave> leaves = <Leave>[];
-
     for (var e in data.docs) {
-      if (e.data().startDate < todayDate && !todayDate.dateOnly.isWeekend && e.data().leaveStatus == approveLeaveStatus) {
-        int duration = e.data().getDateAndDuration()[todayDate.dateOnly]!;
-        if(duration == fullLeave){
+      if (e.data().startDate < date.timeStampToInt && !date.dateOnly.isWeekend && e.data().leaveStatus == approveLeaveStatus) {
+        int duration = e.data().getDateAndDuration()[date.dateOnly]!;
+        if(duration == fullLeave || !date.dateOnly.isAtSameMomentAs(DateTime.now().dateOnly)){
           leaves.add(e.data());
-        } else if((duration == firstHalfLeave &&  todayDate.isFirstHalf) || (duration == secondHalfLeave && todayDate.isSecondHalf)){
+        } else if((duration == firstHalfLeave &&  date.timeStampToInt.isFirstHalf) || (duration == secondHalfLeave && date.timeStampToInt.isSecondHalf)){
           leaves.add(e.data());
         }
       }

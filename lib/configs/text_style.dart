@@ -44,13 +44,23 @@ class AppTextStyle{
   static TextStyle titleBlack600 = const TextStyle(color: AppColors.blackColor, fontSize: titleTextSize, fontWeight: FontWeight.w600);
 
   static TextStyle subtitleGreyBold =  const TextStyle(fontSize: subTitleTextSize, fontWeight: FontWeight.bold, color: AppColors.darkGrey );
-
+  //new UI textStyle
+  static const TextStyle titleDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.title,fontWeight: FontWeight.w500);
+  static const TextStyle mediumDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.medium,fontWeight: FontWeight.w500);
+  static const TextStyle bodyDarkGrey = TextStyle(color: AppColors.textDarkGrey,fontSize: AppFontSize.body,fontWeight: FontWeight.w500);
+  static const TextStyle bodyDark = TextStyle(color: AppColors.darkText,fontSize: AppFontSize.body,fontWeight: FontWeight.w500);
+  static const TextStyle subTitleDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.subTitle,fontWeight: FontWeight.w500);
+  static const TextStyle headerDark =  TextStyle(color: AppColors.textDark,fontSize: AppFontSize.header,fontWeight: FontWeight.w600);
 
 }
+
+
 
 class AppFontStyle{
   static const buttonTextStyle= TextStyle(color: AppColors.primaryBlue, fontSize: subTitleTextSize);
   static const appbarHeaderStyle= TextStyle(color: AppColors.blackColor,fontSize: headerTextSize,fontWeight: FontWeight.bold);
   static const subTitleTextStyle= TextStyle(color: AppColors.blackColor,fontSize: subTitleTextSize);
   static const titleTextStyle= appbarHeaderStyle;
+
+
 }

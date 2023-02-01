@@ -163,10 +163,12 @@ class MockAdminLeaveService extends _i1.Mock implements _i6.AdminLeaveService {
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
   @override
-  _i4.Future<List<_i5.Leave>> getAllAbsence() => (super.noSuchMethod(
+  _i4.Future<List<_i5.Leave>> getAllAbsence({DateTime? date}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getAllAbsence,
           [],
+          {#date: date},
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
@@ -204,6 +206,11 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
   @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
+        returnValue: '',
+      ) as String);
+  @override
+  String get email => (super.noSuchMethod(
+        Invocation.getter(#email),
         returnValue: '',
       ) as String);
   @override

@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/bloc/authentication/logout_event.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/ui/admin/setting/bloc/admin_setting_bloc.dart';
-import 'package:projectunity/ui/admin/setting/widget/setting_option.dart';
-import '../../../bloc/authentication/logout_bloc.dart';
-import '../../../bloc/authentication/logout_state.dart';
-import '../../../di/service_locator.dart';
 import '../../../router/app_router.dart';
-import '../../../widget/error_snack_bar.dart';
-import '../../../widget/setting_screen_subtitle.dart';
-import '../../../widget/user_intro_content.dart';
-import 'bloc/admin_setting_state.dart';
+import '../../user/user_settings/widget/user_settings_settings_options.dart';
+import '../../user/user_settings/widget/user_settings_user_profile.dart';
+import 'package:projectunity/widget/app_app_bar.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
+import '../../../configs/colors.dart';
+import '../../../configs/text_style.dart';
+import '../../../core/utils/const/space_constant.dart';
+import '../../../di/service_locator.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'bloc/admin_settings_bloc.dart';
+import 'bloc/admin_settings_event.dart';
+import 'bloc/admin_settings_state.dart';
 
 class AdminSettingPage extends StatelessWidget {
   const AdminSettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (_) => getIt<LogOutBloc>()),
-      BlocProvider(create: (_) => getIt<AdminSettingBloc>()),
-    ],
-      child: const AdminSettingScreen(),);
+    return BlocProvider(
+      create: (_) => getIt<AdminSettingsBloc>(),
+      child: const AdminSettingScreen(),
+    );
   }
 }
 
@@ -38,62 +35,59 @@ class AdminSettingScreen extends StatefulWidget {
 }
 
 class _AdminSettingScreenState extends State<AdminSettingScreen> {
-
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.whiteColor,
-          elevation: 0,
-          foregroundColor: AppColors.blackColor,
+      appBar: AppAppBar(
+        onBack: () {
+          context.pop();
+        },
+        title: AppLocalizations.of(context).settings_setting_text,
+      ),
+      body: BlocConsumer<AdminSettingsBloc, AdminSettingsState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          if (state.status == AdminSettingsStatus.failure) {
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        builder: (context, state) => ListView(
+          padding: const EdgeInsets.all(primaryHorizontalSpacing),
+          children: [
+            UserProfile(
+              employee: state.currentEmployee,
+              onTap: () {
+                context.goNamed(Routes.employeeEditEmployeeDetails,
+                    extra: state.currentEmployee);
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: primaryHorizontalSpacing,
+                  bottom: primaryVerticalSpacing),
+              child: Text(AppLocalizations.of(context).settings_account_text,
+                  style: AppTextStyle.titleDark),
+            ),
+            const Divider(
+                color: AppColors.dividerColor, height: 1, thickness: 1),
+            const SizedBox(height: primaryVerticalSpacing),
+            SettingOption(
+              icon: Icons.edit_note,
+              title: AppLocalizations.of(context).admin_total_leave_count_text,
+              onTap: () => context.pushNamed(Routes.updateLeaveCount),
+            ),
+            SettingOption(
+                icon: Icons.logout_rounded,
+                title: AppLocalizations.of(context).logout_button_text,
+                onTap: () {
+                  context
+                      .read<AdminSettingsBloc>()
+                      .add(AdminSettingsLogOutEvent());
+                })
+          ],
         ),
-        backgroundColor: AppColors.whiteColor,
-        body: BlocListener<LogOutBloc,LogOutState>(
-          listener: (context, state) {
-            if (state is LogOutFailureState) {
-              showSnackBar(context: context, error: state.error);
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(primaryHorizontalSpacing),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(localizations.settings_setting_text,
-                  style: AppTextStyle.largeHeaderBold),
-              buildSettingSubTitle(
-                  subtitle: localizations.settings_account_text),
-              BlocBuilder<AdminSettingBloc,AdminSettingState>(builder: (context, state) => UserIntroContent(employee: state.employee,)),
-              buildSettingSubTitle(
-                  subtitle: localizations.settings_setting_text),
-              SettingOption(
-                icon: Icons.edit_note,
-                title: localizations.admin_total_leave_count_text,
-                onTap: ()=>context.pushNamed(Routes.updateLeaveCount),
-              ),
-              BlocBuilder<LogOutBloc, LogOutState>(
-                  builder: (context, state) => state is LogOutLoadingState
-                      ? const CircularProgressIndicator()
-                      : const AdminSettingSignOutButton()),
-            ]),
-          ),
-        ));
-  }
-}
-
-class AdminSettingSignOutButton extends StatelessWidget {
-  const AdminSettingSignOutButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SettingOption(
-      icon: Icons.logout_rounded,
-      title: AppLocalizations.of(context).logout_button_text,
-      onTap: () {
-        context.read<LogOutBloc>().add(LogOutEvent());
-      },
-      iconColor: AppColors.redColor,
-      titleColor: AppColors.redColor,
+      ),
+      backgroundColor: AppColors.whiteColor,
     );
   }
 }

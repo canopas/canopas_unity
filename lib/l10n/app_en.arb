@@ -1,72 +1,76 @@
 {
-   "language": "English",
-   "appTitle": "Unity",
+  "language": "English",
+  "appTitle": "Unity",
 
 
-   "login_welcome_text": "Welcome",
-   "login_toUnity_text": "to Unity!",
-   "login_guide_description": "To continue with Unity",
-   "login_button_text": "Sign in with Google",
+  "login_welcome_text": "Welcome",
+  "login_toUnity_text": "to Unity!",
+  "company_name":"Canopas Software",
+  "company_subtitle":"www.canopas.com",
+  "login_guide_description": "To continue with Unity",
+  "login_button_text": "Sign in with Google",
 
 
-    "user_home_remaining_tag": "Remaining",
-    "user_home_paid_leave_tag": "Paid Leave",
-    "user_home_all_tag": "All",
+  "user_home_remaining_tag": "Remaining",
+  "user_home_paid_leave_tag": "Paid Leave",
+  "user_home_all_tag": "All",
 
-    "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
-         "@days_placeholder_leave":{
-              "description": "Pass the value of leaves for leave days",
-                 "placeholders": {
-                      "leave":{
-                        "type": "int"
-                              }
-                          }
-                       },
+  "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
+  "@days_placeholder_leave":{
+    "description": "Pass the value of leaves for leave days",
+    "placeholders": {
+      "leave":{
+        "type": "int"
+      }
+    }
+  },
 
 
 
-   "user_home_all_leaves_tag": "All Leaves",
-   "total_paid_leaves":"Total Leaves",
-   "user_home_requested_leaves_tag": "Requested Leaves",
-   "user_home_upcoming_leaves_tag": "Upcoming Leaves",
-   "user_home_apply_leave_tag": "Apply for Leave",
-   "user_home_who_onLeave_tag": "Who's on leave today?",
+  "user_home_all_leaves_tag": "All Leaves",
+  "total_paid_leaves":"Total Leaves",
+  "user_home_requested_leaves_tag": "Requested Leaves",
+  "user_home_upcoming_leaves_tag": "Upcoming Leaves",
+  "user_home_apply_leave_tag": "Apply for Leave",
+  "user_home_who_onLeave_tag": "Who's on leave today?",
 
-  "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}",
-            "@user_detail_role_type":{
-                 "description": "Pass the value of role to get role of user",
-                    "placeholders": {
-                         "role":{
-                           "type": "int"
-                                 }
-                             }
-                          },
+
 
   "employee_details_make_admin_tag":"Make Admin",
   "employee_details_remove_admin_tag":"Remove Admin",
 
 
- "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
-        "@leave_type_placeholder_leave_status":{
-           "description":"get leave type from leave status",
-             "placeholders":{
-                "leaveStatus":{
-                   "type":"int"
-                        }
-                     }
-                 },
+  "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
+  "@leave_type_placeholder_leave_status":{
+    "description":"get leave type from leave status",
+    "placeholders":{
+      "leaveStatus":{
+        "type":"int"
+      }
+    }
+  },
+  "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}}",
+  "@user_detail_role_type":{
+    "description": "Pass the value of role to get role of user",
+    "placeholders": {
+      "role":{
+        "type": "num",
+        "format":"compact"
+      }
+    }
+  },
 
 
 
-   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected} }",
-        "@leave_status_placeholder_text":{
-            "description":"get leave type from leave status",
-                "placeholders":{
-                    "leaveStatus":{
-                       "type":"int"
-                            }
-                         }
-                      },
+  "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected}}",
+  "@leave_status_placeholder_text":{
+    "description":"get leave type from leave status",
+    "placeholders":{
+      "leaveStatus":{
+        "type":"int"
+      }
+    }
+  },
 
 
   "employee_empty_all_leaves_view_title": "No Leaves",
@@ -80,32 +84,42 @@
   "apply_for_leave_button_text":"Apply for leave",
 
 
-      "date_format_yMMMd": "{date}",
-          "@date_format_yMMMd":{
-              "placeholders":{
-                       "date":{
-                          "type":"DateTime",
-                          "format": "yMMMd"
-                               }
-                             }
-                         },
+  "date_format_yMMMd": "{date}",
+  "@date_format_yMMMd":{
+    "placeholders":{
+      "date":{
+        "type":"DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
 
       "who_is_out_card_title":"Who's on leave, Today?",
 
-  "who_is_out_card_message":"{count,plural,=0{No one on leave today\nSee who's out on previous days!} =1{{name} is out, Today!} other{{name} & {otherCount} others on leave, Today!}}",
+  "who_is_out_card_message":"{count, plural, =0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
   "@who_is_out_card_message":{
-              "placeholders":{
-              "count":{
-              "type":"int"
-              },
-              "otherCount":{
-                "type":"int"
-              },
-              "name":{
-                "type":"String"
-              }
-          }
-       },
+    "placeholders":{
+      "date":{
+        "type": "String"
+      },
+      "count":{
+        "type":"num",
+        "format": "compact"
+      },
+      "otherCount":{
+        "type":"int",
+        "format": "compact"
+      },
+      "name":{
+        "type":"String"
+      }
+    }
+  },
+
+  "see_all_button_tag":"See All",
+  "dateFormatter_tomorrow":"Tomorrow",
+  "who_is_out_card_title": "Who is out of office?",
+
   "leave_request_total_half_day_text":"Leave request is for half day",
   "leave_request_total_zero_day_text":"Leave request is for 0 day",
   "leave_request_total_one_day_text":"Leave request is for 1 day",
@@ -119,31 +133,31 @@
     }
   },
 
-      "leave_reason_tag":"Reason",
-      "leave_reason_text_field_tag":"Enter reason",
-      "leave_type_tag":"Type",
-      "leave_status_tag":"Leave Status",
-      "leave_request_tag":"Leave Request",
-      "leave_totalDays_tag":"Total Days",
-      "leave_duration_text":"Duration",
-      "user_leave_filter_date_range_tag":"Date Range",
-      "user_leave_filter_apply_filter_tag": "Apply Filter",
-      "user_leave_filter_remove_filter_tag": "Remove Filter",
-      "user_filters_tag": "Filters",
-      "empty_filter_screen_message": "There weren't any leaves matching your Filter!",
-      "empty_filter_screen_title": "No Matching Leaves",
+  "leave_reason_tag":"Reason",
+  "leave_reason_text_field_tag":"Enter reason",
+  "leave_type_tag":"Type",
+  "leave_status_tag":"Leave Status",
+  "leave_request_tag":"Leave Request",
+  "leave_totalDays_tag":"Total Days",
+  "leave_duration_text":"Duration",
+  "user_leave_filter_date_range_tag":"Date Range",
+  "user_leave_filter_apply_filter_tag": "Apply Filter",
+  "user_leave_filter_remove_filter_tag": "Remove Filter",
+  "user_filters_tag": "Filters",
+  "empty_filter_screen_message": "There weren't any leaves matching your Filter!",
+  "empty_filter_screen_title": "No Matching Leaves",
 
-      "leave_calendar_title": "Leave Calendar",
-      "range_leave_calendar_title": "User Leave Calendar",
-      "calendar_no_leave_msg": "There is no leave on {date}",
-      "@calendar_no_leave_msg":{
-        "placeholders":{
-          "date":{
-            "type":"DateTime",
-            "format": "yMMMd"
-          }
-        }
-      },
+  "leave_calendar_title": "Leave Calendar",
+  "range_leave_calendar_title": "User Leave Calendar",
+  "calendar_no_leave_msg": "There is no leave on {date}",
+  "@calendar_no_leave_msg":{
+    "placeholders":{
+      "date":{
+        "type":"DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
 
   "range_calendar_no_leave_msg": "There is no leave on\n{startDate} to {endDate}",
   "@range_calendar_no_leave_msg":{
@@ -160,127 +174,127 @@
   },
 
 
-      "select_tag": "Select",
-      "user_apply_leave_from_tag": "Start",
-      "user_apply_leave_to_tag": "End",
-      "user_apply_leave_button_reset": "Reset",
-      "user_leave_detail_button_cancel":"Cancel",
-      "user_leave_detail_button_delete":"Delete",
-      "user_leave_detail_cancel_leave_message":"Leave application is cancelled!",
-      "user_leave_detail_delete_leave_message":"Leave application is deleted!!",
-      "user_apply_leave_button_apply_leave": "Apply Leave",
-      "user_apply_leave_error_message_fill_details": "Please fill all details",
-      "user_apply_leave_error_valid_reason": " • Please enter valid reason",
-      "user_apply_leave_success_message":"You've successfully applied!",
+  "select_tag": "Select",
+  "user_apply_leave_from_tag": "Start",
+  "user_apply_leave_to_tag": "End",
+  "user_apply_leave_button_reset": "Reset",
+  "user_leave_detail_button_cancel":"Cancel",
+  "user_leave_detail_button_delete":"Delete",
+  "user_leave_detail_cancel_leave_message":"Leave application is cancelled!",
+  "user_leave_detail_delete_leave_message":"Leave application is deleted!!",
+  "user_apply_leave_button_apply_leave": "Apply Leave",
+  "user_apply_leave_error_message_fill_details": "Please fill all details",
+  "user_apply_leave_error_valid_reason": " • Please enter valid reason",
+  "user_apply_leave_success_message":"You've successfully applied!",
 
 
       "admin_home_empty_leave_request_message": "There is no request today!",
       "no_request_title":"No Request",
-      "admin_home_employee_tag": "Employees",
+      "employee_tag": "Employees",
       "admin_home_request_tag":"Requests",
       "admin_home_absence_tag":"Absence",
 
-      "edit_tag": "Edit",
-      "save_tag": "Save",
-       "admin_employee_detail_profile_tag":"Profile",
+  "edit_tag": "Edit",
+  "save_tag": "Save",
+  "admin_employee_detail_profile_tag":"Profile",
 
-      "employee_designation_tag":"Designation",
-      "employee_blood_group_tag":"Blood Group",
-      "employee_role_tag":"Role",
-      "employee_mobile_tag":"Mobile",
-      "employee_email_tag":"Email",
-      "employee_address_tag":"Address",
-      "employee_gender_tag":"Gender",
-      "employee_dateOfBirth_tag":"Date Of Birth",
-      "employee_dateOfJoin_tag":"Date of Joining",
-      "employee_level_tag":"Level",
-      "employee_employeeID_tag":"Employee Id",
-      "employee_name_tag":"Name",
-
-
+  "employee_designation_tag":"Designation",
+  "employee_blood_group_tag":"Blood Group",
+  "employee_role_tag":"Role",
+  "employee_mobile_tag":"Mobile",
+  "employee_email_tag":"Email",
+  "employee_address_tag":"Address",
+  "employee_gender_tag":"Gender",
+  "employee_dateOfBirth_tag":"Date Of Birth",
+  "employee_dateOfJoin_tag":"Date of Joining",
+  "employee_level_tag":"Level",
+  "employee_employeeID_tag":"Employee Id",
+  "employee_name_tag":"Name",
 
 
 
-      "admin_leave_detail_button_reject":"Reject",
-      "admin_leave_detail_button_approve":"Approve",
-      "admin_leave_detail_button_ok":"OK",
-      "admin_leave_detail_daysLeft_tag":"Days left",
 
 
-      "submit_button_tag":"Submit",
-      "designation_tag":"Designation",
-       "addMember_tag":"Add Member",
-      "name_hint_text":"Andrew Jhone",
-      "employee_id_hint_text":"CA 1001",
-      "email_hint_text":"andrew@canopas.com",
-      "designation_hint_text":"Android developer",
-      "level_hint_text":"SW-L1 Junior engineer",
-      "mobile_number_hint_text":"+91 123456-7890",
-      "blood_group_hint_text":"B+",
-      "address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
-
-      "gender_male_tag":"Male",
-      "gender_female_tag":"Female",
-
-     "error_something_went_wrong": "Something went wrong",
-
-     "admin_leave_detail_error_reason":"Enter Message",
-     "admin_leave_detail_message_title_text": "Note",
-
-     "admin_add_member_error_email":"Please enter valid email",
-     "admin_add_member_error_name": "Name is too short!!",
-     "complete_mandatory_field_error": "Please complete this mandatory field",
-     "admin_employee_successfully_added_message" : "An employee has been added successfully!!",
-
-     "logout_button_text": "Sign Out",
-     "update_button_text": "Update",
-     "settings_setting_text": "Settings",
-     "settings_account_text": "Accounts",
-     "admin_total_leave_count_text":"Total leave count",
-     "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
-     "leave_detail_title":"Leave details",
+  "admin_leave_detail_button_reject":"Reject",
+  "admin_leave_detail_button_approve":"Approve",
+  "admin_leave_detail_button_ok":"OK",
+  "admin_leave_detail_daysLeft_tag":"Days left",
 
 
-      "network_connection_error": "Please check your Internet connection",
+  "submit_button_tag":"Submit",
+  "designation_tag":"Designation",
+  "addMember_tag":"Add Member",
+  "name_hint_text":"Andrew Jhone",
+  "employee_id_hint_text":"CA 1001",
+  "email_hint_text":"andrew@canopas.com",
+  "designation_hint_text":"Android developer",
+  "level_hint_text":"SW-L1 Junior engineer",
+  "mobile_number_hint_text":"+91 123456-7890",
+  "blood_group_hint_text":"B+",
+  "address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
-     "user_not_found_error_message":"User with this email doesn't exist, Please ask your manager to add it",
-     "user_data_not_update_error_message": "Error in Updating your account information, Please check that you have signed in correct account",
-     "firestore_fetch_data_error_message": "Something went wrong",
-     "firebase_auth_error_message": "Error occurred while Google sign in. Try again",
-     "sign_out_error_message": "Your attempt to sign out failed,Please try again later",
-     "fill_all_details_error":"Please fill all details",
-     "invalid_date_selection_error":"Please select valid date",
-     "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
+  "gender_male_tag":"Male",
+  "gender_female_tag":"Female",
 
-     "add_member_employee_exists_error": "Member already exists!",
+  "error_something_went_wrong": "Something went wrong",
 
-     "dateFormatter_yesterday":"Yesterday",
-      "dateFormatter_today":"Today",
-       "dateFormatter_just_now":"Just now",
-        "dateFormatter_half_day":"Half Day Application",
-         "dateFormatter_one_day":"Full Day Application",
-         "dateFormatter_placeholder_other_days":"{totalLeave} Days Application",
-         "@dateFormatter_placeholder_other_days":{
-              "description":"define total leave count more than one day",
-                    "placeholders":{
-                    "totalLeave":{
-                    "type":"double",
-                    "format":"decimalPattern"
-                                 }
-                              }
-                     },
-        "year_ago_tag":"year ago",
-        "years_ago_tag":"years ago",
-        "month_ago_tag":"month ago",
-        "months_ago_tag":"months ago",
-        "week_ago_tag":"week ago",
-        "weeks_ago_tag":"weeks ago",
-        "day_ago_tag":"day ago",
-        "days_ago_tag":"days ago",
-        "hour_ago_tag":"hour ago",
-        "hours_ago_tag":"hours ago",
-         "minute_ago_tag":"minute ago",
-         "minutes_ago_tag":"minutes ago",
+  "admin_leave_detail_error_reason":"Enter Message",
+  "admin_leave_detail_message_title_text": "Note",
+
+  "admin_add_member_error_email":"Please enter valid email",
+  "admin_add_member_error_name": "Name is too short!!",
+  "complete_mandatory_field_error": "Please complete this mandatory field",
+  "admin_employee_successfully_added_message" : "An employee has been added successfully!!",
+
+  "logout_button_text": "Sign Out",
+  "update_button_text": "Update",
+  "settings_setting_text": "Settings",
+  "settings_account_text": "Accounts",
+  "admin_total_leave_count_text":"Total leave count",
+  "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
+  "leave_detail_title":"Leave details",
+
+
+  "network_connection_error": "Please check your Internet connection",
+
+  "user_not_found_error_message":"User with this email doesn't exist, Please ask your manager to add it",
+  "user_data_not_update_error_message": "Error in Updating your account information, Please check that you have signed in correct account",
+  "firestore_fetch_data_error_message": "Something went wrong",
+  "firebase_auth_error_message": "Error occurred while Google sign in. Try again",
+  "sign_out_error_message": "Your attempt to sign out failed,Please try again later",
+  "fill_all_details_error":"Please fill all details",
+  "invalid_date_selection_error":"Please select valid date",
+  "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
+
+  "add_member_employee_exists_error": "Member already exists!",
+
+  "dateFormatter_yesterday":"Yesterday",
+  "dateFormatter_today":"Today",
+  "dateFormatter_just_now":"Just now",
+  "dateFormatter_half_day":"Half Day Application",
+  "dateFormatter_one_day":"Full Day Application",
+  "dateFormatter_placeholder_other_days":"{totalLeave} Days Application",
+  "@dateFormatter_placeholder_other_days":{
+    "description":"define total leave count more than one day",
+    "placeholders":{
+      "totalLeave":{
+        "type":"double",
+        "format":"decimalPattern"
+      }
+    }
+  },
+  "year_ago_tag":"year ago",
+  "years_ago_tag":"years ago",
+  "month_ago_tag":"month ago",
+  "months_ago_tag":"months ago",
+  "week_ago_tag":"week ago",
+  "weeks_ago_tag":"weeks ago",
+  "day_ago_tag":"day ago",
+  "days_ago_tag":"days ago",
+  "hour_ago_tag":"hour ago",
+  "hours_ago_tag":"hours ago",
+  "minute_ago_tag":"minute ago",
+  "minutes_ago_tag":"minutes ago",
 
          "user_leave_appbar_tag":"Leaves",
          "user_leave_apply_tag":"Apply",
@@ -291,7 +305,6 @@
          "user_leave_no_leaves_msg":"No any Leaves, yet!",
          "user_leave_show_less_tag":"Show less",
          "user_leave_view_more_tag":"View more"
-
 
 
 
