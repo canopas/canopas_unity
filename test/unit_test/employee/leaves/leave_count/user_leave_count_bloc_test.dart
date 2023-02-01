@@ -11,9 +11,9 @@ import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_cout_eve
 import 'user_leave_count_bloc_test.mocks.dart';
 @GenerateMocks([UserLeaveService, UserManager, PaidLeaveService])
 void main(){
-  late UserLeaveService _userLeaveService;
-  late UserManager _userManager;
-  late PaidLeaveService _paidLeaveService;
+  late UserLeaveService userLeaveService;
+  late UserManager userManager;
+  late PaidLeaveService paidLeaveService;
   late UserLeaveCountBloc userLeaveCountBloc;
   UserLeaveCountState loadingState= const UserLeaveCountState(
       status: UserLeaveCountStatus.loading,
@@ -22,14 +22,14 @@ void main(){
       leavePercentage: 1,
       error: null);
 
-  final String employeeId= 'Employee Id';
+  const String employeeId= 'Employee Id';
 
 
   setUp(() {
-    _userLeaveService= MockUserLeaveService();
-    _userManager= MockUserManager();
-    _paidLeaveService= MockPaidLeaveService();
-    userLeaveCountBloc= UserLeaveCountBloc(_userLeaveService, _userManager, _paidLeaveService);
+    userLeaveService= MockUserLeaveService();
+    userManager= MockUserManager();
+    paidLeaveService= MockPaidLeaveService();
+    userLeaveCountBloc= UserLeaveCountBloc(userLeaveService, userManager, paidLeaveService);
 
   });
 
@@ -41,9 +41,9 @@ void main(){
     test('emits loading state and success state after add FetchUserLeaveCountEvent respectively', () {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
-      when(_userManager.employeeId).thenReturn(employeeId);
-      when(_userLeaveService.getUserUsedLeaveCount(employeeId)).thenAnswer((_) async=> 7);
-      when(_paidLeaveService.getPaidLeaves()).thenAnswer((_) async=> 12);
+      when(userManager.employeeId).thenReturn(employeeId);
+      when(userLeaveService.getUserUsedLeaveCount(employeeId)).thenAnswer((_) async=> 7);
+      when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async=> 12);
       var percentage= 7/12;
 
       UserLeaveCountState successState = UserLeaveCountState(status: UserLeaveCountStatus.success,used: 7,totalLeaves: 12,leavePercentage: percentage,error: null);
@@ -54,9 +54,9 @@ void main(){
     test('emits error state when Exception is thrown', () {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
-      when(_userManager.employeeId).thenReturn('Ca 1044');
-      when(_userLeaveService.getUserUsedLeaveCount('Ca 1044')).thenAnswer((_) async=> 7);
-      when(_paidLeaveService.getPaidLeaves()).thenThrow(Exception('Couldn\'t load'));
+      when(userManager.employeeId).thenReturn('Ca 1044');
+      when(userLeaveService.getUserUsedLeaveCount('Ca 1044')).thenAnswer((_) async=> 7);
+      when(paidLeaveService.getPaidLeaves()).thenThrow(Exception('Couldn\'t load'));
       UserLeaveCountState errorState= const UserLeaveCountState(status: UserLeaveCountStatus.failure,used: 0,totalLeaves: 12,leavePercentage: 1,error: 'Couldn\'t load');
       expectLater(userLeaveCountBloc.stream, emitsInOrder([loadingState,errorState]));
 

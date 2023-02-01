@@ -49,8 +49,8 @@ class AppTextStyle{
 }
 
 class AppFontStyle{
-  static const buttonTextStyle= const TextStyle(color: AppColors.primaryBlue, fontSize: subTitleTextSize);
-  static const appbarHeaderStyle= const TextStyle(color: AppColors.blackColor,fontSize: headerTextSize,fontWeight: FontWeight.bold);
-  static const subTitleTextStyle= const TextStyle(color: AppColors.blackColor,fontSize: subTitleTextSize);
+  static const buttonTextStyle= TextStyle(color: AppColors.primaryBlue, fontSize: subTitleTextSize);
+  static const appbarHeaderStyle= TextStyle(color: AppColors.blackColor,fontSize: headerTextSize,fontWeight: FontWeight.bold);
+  static const subTitleTextStyle= TextStyle(color: AppColors.blackColor,fontSize: subTitleTextSize);
   static const titleTextStyle= appbarHeaderStyle;
 }

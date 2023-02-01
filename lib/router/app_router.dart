@@ -9,7 +9,6 @@ import 'package:projectunity/ui/shared/leave_details/leave_details.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_screen.dart';
 import 'package:projectunity/ui/user/home/employee_home_screen.dart';
 import 'package:projectunity/ui/user/leave/applyLeave/apply_leave_screen.dart';
-import 'package:projectunity/ui/user/leaves/user_leave_screen.dart';
 import 'package:projectunity/ui/user/requested_leaves/requested_leaves_view.dart';
 import '../model/leave_application.dart';
 import '../provider/user_data.dart';
@@ -134,7 +133,7 @@ class AppRouter {
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-              const MaterialPage(child: UserLeavePage()),
+              const MaterialPage(child: EmployeeHomePage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,

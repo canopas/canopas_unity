@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/exception/custom_exception.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/bloc/leave_count/user_leave_cout_event.dart';
 
