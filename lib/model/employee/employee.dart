@@ -43,7 +43,8 @@ class Employee extends Equatable {
       this.dateOfBirth,
       this.dateOfJoining,
       this.level,
-      this.bloodGroup});
+      this.bloodGroup,
+      });
 
   Employee copyWith(
       {String? id,

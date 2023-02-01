@@ -12,11 +12,12 @@ class DateFormatter {
   Duration twoDay = const Duration(days: 2);
 
   String getDateRepresentation(DateTime dt) {
-    Duration difference = today.difference(dt);
-    if (difference.compareTo(oneDay) < 1) {
+    if (today.dateOnly.isAtSameMomentAs(dt.dateOnly)) {
       return _localization.dateFormatter_today;
-    } else if (difference.compareTo(twoDay) < 1) {
+    } else if (today.subtract(oneDay).dateOnly.isAtSameMomentAs(dt.dateOnly)) {
       return _localization.dateFormatter_yesterday;
+    } else if (today.add(oneDay).dateOnly.isAtSameMomentAs(dt.dateOnly)){
+      return _localization.dateFormatter_tomorrow;
     }
     return _localization.date_format_yMMMd(dt);
   }

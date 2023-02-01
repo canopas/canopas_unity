@@ -17,6 +17,10 @@ class UserManager with ChangeNotifier {
 
   String get userName => _employee?.name ?? "";
 
+  String get email => _employee?.email ?? "";
+
+  String? get userImage => _employee?.imageUrl;
+
   String get employeeId => _employee!.id;
 
   Employee get employee => _employee!;
@@ -27,5 +31,6 @@ class UserManager with ChangeNotifier {
     loggedIn= _employee !=null;
     notifyListeners();
   }
+
   bool get isAdmin => _employee?.roleType == kRoleTypeAdmin;
 }

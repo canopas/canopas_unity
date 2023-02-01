@@ -35,6 +35,7 @@ class AppColors {
 
 
   //new UI colors
+  static const Color lightPrimaryBlue = Color(0xffEDF6FF);
   static const Color textDark = Color(0xff181724);
   static const Color textDarkGrey = Color(0xff565656);
   static const Color dividerColor = Color(0xffF3F3F3);

@@ -170,10 +170,12 @@ class MockAdminLeaveService extends _i1.Mock implements _i5.AdminLeaveService {
         returnValue: _i3.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
       ) as _i3.Future<List<_i6.Leave>>);
   @override
-  _i3.Future<List<_i6.Leave>> getAllAbsence() => (super.noSuchMethod(
+  _i3.Future<List<_i6.Leave>> getAllAbsence({DateTime? date}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getAllAbsence,
           [],
+          {#date: date},
         ),
         returnValue: _i3.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
       ) as _i3.Future<List<_i6.Leave>>);
