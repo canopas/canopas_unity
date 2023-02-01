@@ -2,6 +2,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave_service.dart';
 import 'package:projectunity/services/user/user_leave_service.dart';
@@ -57,7 +58,7 @@ void main(){
       when(userManager.employeeId).thenReturn('Ca 1044');
       when(userLeaveService.getUserUsedLeaveCount('Ca 1044')).thenAnswer((_) async=> 7);
       when(paidLeaveService.getPaidLeaves()).thenThrow(Exception('Couldn\'t load'));
-      UserLeaveCountState errorState= const UserLeaveCountState(status: UserLeaveCountStatus.failure,used: 0,totalLeaves: 12,leavePercentage: 1,error: 'Couldn\'t load');
+      UserLeaveCountState errorState= const UserLeaveCountState(status: UserLeaveCountStatus.failure,used: 0,totalLeaves: 12,leavePercentage: 1,error: firestoreFetchDataError);
       expectLater(userLeaveCountBloc.stream, emitsInOrder([loadingState,errorState]));
 
     });
