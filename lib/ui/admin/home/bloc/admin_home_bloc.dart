@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -10,7 +9,6 @@ import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../../model/employee/employee.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_count.dart';
@@ -26,31 +24,17 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
   StreamSubscription? _subscription;
-  List<Employee> employees=[];
   final StreamController<List<LeaveApplication>> applications =
-  BehaviorSubject();
+      BehaviorSubject();
 
-  AdminHomeBloc(this._adminLeaveService,this._employeeService,this._userLeaveService,this._paidLeaveService)
+  AdminHomeBloc(this._adminLeaveService, this._employeeService,
+      this._userLeaveService, this._paidLeaveService)
       : super(const AdminHomeState()) {
-    on<AdminHomeInitialLoadEvent>(_onPageLoad);
+    on<AdminHomeInitialLoadEvent>(_loadLeaveApplications);
   }
 
-  void _onPageLoad(
-      AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
+  Future<void> _loadLeaveApplications(AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
     emit(state.copyWith(status: AdminHomeStatus.loading));
-
-   await   _addTotalOfAbsence(emit);
-   await  _loadLeaveApplications(event, emit);
-  }
-
-  Future<void> _addTotalOfAbsence(Emitter<AdminHomeState> emit) async {
-    List<Leave> absence = await _adminLeaveService.getAllAbsence();
-    emit(state.copyWith(totalAbsence: absence.length));
-  }
-
-  Future<void> _loadLeaveApplications(
-      AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
-    await _subscription?.cancel();
     try {
       await emit
           .forEach<List<LeaveApplication>>(_changeLeaveApplicationFormat(),
@@ -58,17 +42,14 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
         return state.copyWith(
           status: AdminHomeStatus.success,
           leaveAppMap: convertListToMap(leaveApplications),
-          totalOfEmployees: employees.length,
-          totalOfRequests: leaveApplications.length,
         );
       });
     } catch (_) {
-      emit( state.failureState(failureMessage: firestoreFetchDataError));
+      emit(state.failureState(failureMessage: firestoreFetchDataError));
     }
   }
 
   Stream<List<LeaveApplication>> _changeLeaveApplicationFormat() {
-
     _subscription = combineStream.listen((event) async {
       List<LeaveApplication> list = [];
       event.isEmpty
@@ -83,14 +64,12 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     return applications.stream;
   }
 
-  Stream<List<LeaveApplication>> get combineStream => Rx.combineLatest2(
-          _adminLeaveService.leaves,
-          _employeeService.employees, (
+  Stream<List<LeaveApplication>> get combineStream =>
+      Rx.combineLatest2(_adminLeaveService.leaves, _employeeService.employees, (
         List<Leave> leaveList,
         List<Employee> employeeList,
       ) {
-        employees = employeeList;
-        return  leaveList
+        return leaveList
             .map((leave) {
               final employee = employeeList
                   .firstWhereOrNull((element) => element.id == leave.uid);
@@ -118,16 +97,16 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
         leaveCounts: leaveCounts);
   }
 
-
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {
+    leaveApplications.sortedByDate();
     return leaveApplications.groupBy(
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }
 
   @override
   Future<void> close() async {
-   await _subscription?.cancel();
+    await _subscription?.cancel();
     await applications.close();
     super.close();
   }

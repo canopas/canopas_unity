@@ -53,7 +53,7 @@ class AppRouter {
               name: Routes.adminHome,
               path: '/admin',
               pageBuilder: (context, state) =>
-              const MaterialPage(child: AdminHomePage()),
+              const MaterialPage(child: AdminHomeScreenPage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.employees,

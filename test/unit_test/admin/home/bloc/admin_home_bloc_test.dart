@@ -17,9 +17,10 @@ import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
 
 import 'admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService,AdminLeaveService,PaidLeaveService,UserLeaveService])
+@GenerateMocks(
+    [EmployeeService, AdminLeaveService, PaidLeaveService, UserLeaveService])
 void main() {
-    TestWidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
   late PaidLeaveService paidLeaveService;
@@ -45,21 +46,14 @@ void main() {
       leaveStatus: 2,
       appliedOn: 400,
       perDayDuration: [0, 1]);
-  AdminHomeState initialState = const AdminHomeState(
-      status: AdminHomeStatus.initial,
-      leaveAppMap: {},
-      totalOfEmployees: 0,
-      totalAbsence: 0,
-      totalOfRequests: 0);
+  AdminHomeState initialState = const AdminHomeState();
 
   AdminHomeState loadingState = const AdminHomeState(
-      status: AdminHomeStatus.loading,
-      totalAbsence: 0,
-      leaveAppMap: {},
-      totalOfRequests: 0,
-      totalOfEmployees: 0);
-    AdminHomeState failureState = const AdminHomeState(
-        status: AdminHomeStatus.failure, error: firestoreFetchDataError);
+    status: AdminHomeStatus.loading,
+  );
+
+  AdminHomeState failureState = const AdminHomeState(
+      status: AdminHomeStatus.failure, error: firestoreFetchDataError);
 
   setUp(() {
     employeeService = MockEmployeeService();
@@ -87,27 +81,20 @@ void main() {
       when(employeeService.fetchEmployees())
           .thenThrow(Exception(firestoreFetchDataError));
 
-      AdminHomeState loadingStateWithAbsenceCount = const AdminHomeState(
-          status: AdminHomeStatus.loading,
-          leaveAppMap: {},
-          totalOfEmployees: 0,
-          totalOfRequests: 0,
-          totalAbsence: 2);
-
+      adminHomeBloc.add(AdminHomeInitialLoadEvent());
 
       expectLater(
-          adminHomeBloc.stream,
-          emitsInOrder(
-              [loadingState, loadingStateWithAbsenceCount, failureState]));
-
-      adminHomeBloc.add(AdminHomeInitialLoadEvent());
+          adminHomeBloc.stream, emitsInOrder([loadingState, failureState]));
     });
-    test('Emits loading state while fetching data from firestore and then emits Success state with  data with correct remaining leavews', () async {
-      List<Employee> employeeList=[employee];
-      List<Leave> leaveList=[leave];
+
+    test(
+        'Emits loading state while fetching data from firestore and then emits Success state with  data with correct remaining leavews',
+        () async {
+      List<Employee> employeeList = [employee];
+      List<Leave> leaveList = [leave];
 
       when(userLeaveService.getUserUsedLeaveCount(employee.id))
-          .thenAnswer((_) =>  Future(() => 10));
+          .thenAnswer((_) => Future(() => 10));
       when(paidLeaveService.getPaidLeaves())
           .thenAnswer((_) => Future(() => 12));
       when(adminLeaveService.getAllAbsence())
@@ -119,27 +106,20 @@ void main() {
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
 
-      AdminHomeState loadingStateWithAbsenceCount = const AdminHomeState(
-          status: AdminHomeStatus.loading,
-          leaveAppMap: {},
-          totalOfEmployees: 0,
-          totalOfRequests: 0,
-          totalAbsence: 2);
-      LeaveApplication la= LeaveApplication(employee: employee, leave: leave,leaveCounts: const LeaveCounts(remainingLeaveCount: 2,paidLeaveCount: 12,usedLeaveCount: 10));
-      Map<DateTime,List<LeaveApplication>> map={leave.startDate.toDate.dateOnly:[la]};
-      AdminHomeState successState=  AdminHomeState(
-          status: AdminHomeStatus.success,
-          leaveAppMap: map,
-          totalOfEmployees: 1,
-          totalOfRequests: 1,
-          totalAbsence: 2);
+      LeaveApplication la = LeaveApplication(
+          employee: employee,
+          leave: leave,
+          leaveCounts: const LeaveCounts(
+              remainingLeaveCount: 2, paidLeaveCount: 12, usedLeaveCount: 10));
+      Map<DateTime, List<LeaveApplication>> map = {
+        leave.startDate.toDate.dateOnly: [la]
+      };
+      AdminHomeState successState = AdminHomeState(
+        status: AdminHomeStatus.success,
+        leaveAppMap: map,
+      );
       expectLater(
-          adminHomeBloc.stream,
-          emitsInOrder([
-            loadingState,
-            loadingStateWithAbsenceCount,
-           successState
-          ]));
+          adminHomeBloc.stream, emitsInOrder([loadingState, successState]));
       LeaveApplication application =
           successState.leaveAppMap.values.first.first;
       double usedLeaves = application.leaveCounts!.remainingLeaveCount;
@@ -148,42 +128,38 @@ void main() {
 
     test(
         'Emits state with status as success and list of leave application is empty when leave user id doesn\'t match with any user id',
-            () {
-          Employee empl = const Employee(
-              id: 'user id',
-              roleType: 2,
-              name: 'Andrew jhone',
-              employeeId: 'Ca 1254',
-              email: 'andrew.j@canopas.com',
-              designation: 'Android developer');
+        () {
+      Employee empl = const Employee(
+          id: 'user id',
+          roleType: 2,
+          name: 'Andrew jhone',
+          employeeId: 'Ca 1254',
+          email: 'andrew.j@canopas.com',
+          designation: 'Android developer');
 
-          List<Employee> employees = [empl];
-          List<Leave> leaves = [leave];
-          when(userLeaveService.getUserUsedLeaveCount(employee.id))
-              .thenAnswer((_) => Future(() => 10));
-          when(paidLeaveService.getPaidLeaves()).thenAnswer((_) => Future(() => 12));
-          when(adminLeaveService.getAllAbsence())
-              .thenAnswer((_) async => [leave, leave]);
-          when(employeeService.employees)
-              .thenAnswer((_) => Stream.fromIterable([employees]));
-          when(adminLeaveService.leaves)
-              .thenAnswer((_) => Stream.fromIterable([leaves]));
+      List<Employee> employees = [empl];
+      List<Leave> leaves = [leave];
+      when(userLeaveService.getUserUsedLeaveCount(employee.id))
+          .thenAnswer((_) => Future(() => 10));
+      when(paidLeaveService.getPaidLeaves())
+          .thenAnswer((_) => Future(() => 12));
+      when(adminLeaveService.getAllAbsence())
+          .thenAnswer((_) async => [leave, leave]);
+      when(employeeService.employees)
+          .thenAnswer((_) => Stream.fromIterable([employees]));
+      when(adminLeaveService.leaves)
+          .thenAnswer((_) => Stream.fromIterable([leaves]));
 
-          adminHomeBloc.add(AdminHomeInitialLoadEvent());
+      adminHomeBloc.add(AdminHomeInitialLoadEvent());
 
-          AdminHomeState successState = const AdminHomeState(
-              status: AdminHomeStatus.success,
-              leaveAppMap: {},
-              totalOfEmployees: 1,
-              totalOfRequests: 0,
-              totalAbsence: 2);
+      AdminHomeState successState = const AdminHomeState(
+        status: AdminHomeStatus.success,
+        leaveAppMap: {},
+      );
 
-          expectLater(
-              adminHomeBloc.stream,emitsThrough(successState));
-        });
+      expectLater(adminHomeBloc.stream, emitsThrough(successState));
+    });
   });
-
-
 
   tearDownAll(() async {
     await adminHomeBloc.close();
