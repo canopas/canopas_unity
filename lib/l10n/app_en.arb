@@ -187,11 +187,11 @@
   "user_apply_leave_success_message":"You've successfully applied!",
 
 
-  "admin_home_empty_leave_request_message": "There is no request today!",
-  "no_request_title":"No Request",
-  "admin_home_employee_tag": "Employees",
-  "admin_home_request_tag":"Requests",
-  "admin_home_absence_tag":"Absence",
+      "admin_home_empty_leave_request_message": "There is no request today!",
+      "no_request_title":"No Request",
+      "employee_tag": "Employees",
+      "admin_home_request_tag":"Requests",
+      "admin_home_absence_tag":"Absence",
 
   "edit_tag": "Edit",
   "save_tag": "Save",
