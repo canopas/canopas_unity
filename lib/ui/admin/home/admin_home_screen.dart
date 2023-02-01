@@ -156,8 +156,7 @@ class EmployeeSummaryCard extends StatelessWidget {
                               color: AppColors.primaryGreen,
                             ),
                             Text(
-                                AppLocalizations.of(context)
-                                    .admin_home_employee_tag,
+                                AppLocalizations.of(context).employee_tag,
                                 style: AppTextStyle.secondaryBodyText),
                             BlocBuilder<AdminHomeBloc, AdminHomeState>(
                               builder: (context, state) {

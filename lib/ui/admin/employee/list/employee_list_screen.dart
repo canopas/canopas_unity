@@ -41,7 +41,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context).admin_home_employee_tag,
+          AppLocalizations.of(context).employee_tag,
           style: AppTextStyle.appBarTitle,
         ),
       ),
