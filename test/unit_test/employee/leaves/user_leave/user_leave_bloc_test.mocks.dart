@@ -70,15 +70,6 @@ class MockUserLeaveService extends _i1.Mock implements _i3.UserLeaveService {
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
   @override
-  _i4.Future<List<_i5.Leave>> getPastLeaves(String? employeeId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getPastLeaves,
-          [employeeId],
-        ),
-        returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
-      ) as _i4.Future<List<_i5.Leave>>);
-  @override
   _i4.Future<List<_i5.Leave>> getUpcomingLeaves(String? employeeId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -139,6 +130,11 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
   @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
+        returnValue: '',
+      ) as String);
+  @override
+  String get email => (super.noSuchMethod(
+        Invocation.getter(#email),
         returnValue: '',
       ) as String);
   @override
