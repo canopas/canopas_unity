@@ -39,10 +39,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       appBar: EmployeeHomeAppBar(preferredSize: Size(MediaQuery.of(context).size.width, 80),),
       body: ListView(
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
-        children: const [
-          WhoIsOutCard(),
+        children:  [
+          WhoIsOutCard(
+            onSeeAllButtonTap: () {
+              context.goNamed(Routes.allUserCalender);
+            },
+          ),
           ///TODO remove this navigation on bottom bar navigation implementation.".
-          _EmployeeHomeNavigationCard(),
+          const _EmployeeHomeNavigationCard(),
         ],
       ),
       backgroundColor: AppColors.whiteColor,

@@ -34,15 +34,7 @@
    "user_home_apply_leave_tag": "Apply for Leave",
    "user_home_who_onLeave_tag": "Who's on leave today?",
 
-  "user_detail_role_type": "{role,plural,=1{Admin} =2{Employee} other{HR}}",
-            "@user_detail_role_type":{
-                 "description": "Pass the value of role to get role of user",
-                    "placeholders": {
-                         "role":{
-                           "type": "int"
-                                 }
-                             }
-                          },
+
 
   "employee_details_make_admin_tag":"Make Admin",
   "employee_details_remove_admin_tag":"Remove Admin",
@@ -57,16 +49,26 @@
                         }
                      }
                  },
+     "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}}",
+          "@user_detail_role_type":{
+             "description": "Pass the value of role to get role of user",
+                "placeholders": {
+                     "role":{
+                        "type": "num",
+                         "format":"compact"
+                            }
+                        }
+                     },
 
 
 
-   "leave_status_placeholder_text":"{leaveStatus, select,  1{Pending} 2{Approved} 3{Rejected}}",
+   "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected}}",
         "@leave_status_placeholder_text":{
             "description":"get leave type from leave status",
                 "placeholders":{
                     "leaveStatus":{
                        "type":"int"
-                            }
+                       }
                          }
                       },
 
@@ -93,17 +95,19 @@
                          },
 
 
-  "who_is_out_card_message":"{count,plural,=0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
+  "who_is_out_card_message":"{count, plural, =0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
   "@who_is_out_card_message":{
     "placeholders":{
       "date":{
         "type": "String"
       },
       "count":{
-        "type":"int"
+        "type":"num",
+        "format": "compact"
       },
       "otherCount":{
-        "type":"int"
+        "type":"int",
+        "format": "compact"
       },
       "name":{
         "type":"String"
