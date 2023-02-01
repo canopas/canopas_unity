@@ -12,6 +12,7 @@ class ImageProfile extends StatelessWidget {
 
   const ImageProfile(
       {Key? key,
+        this.iconColor = Colors.black54,
       this.imageUrl,
       required this.radius,
       this.borderSize = 2,
