@@ -30,7 +30,7 @@ import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i23;
 import '../ui/admin/home/bloc/admin_home_bloc.dart' as _i19;
 import '../ui/admin/leave_request_details/bloc/admin_leave_details_bloc.dart'
     as _i20;
-import '../ui/admin/setting/bloc/admin_setting_bloc.dart' as _i27;
+import '../ui/admin/setting/bloc/admin_settings_bloc.dart' as _i27;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart'
     as _i21;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
@@ -137,8 +137,11 @@ Future<_i1.GetIt> $initGetIt(
         get<_i22.AuthService>(),
         get<_i16.UserPreference>(),
       ));
-  gh.factory<_i27.AdminSettingBloc>(
-      () => _i27.AdminSettingBloc(get<_i25.UserManager>()));
+  gh.factory<_i27.AdminSettingsBloc>(() => _i27.AdminSettingsBloc(
+        get<_i25.UserManager>(),
+        get<_i22.AuthService>(),
+        get<_i16.UserPreference>(),
+      ));
   gh.factory<_i28.AllLeavesBloc>(() => _i28.AllLeavesBloc(
         get<_i25.UserManager>(),
         get<_i15.UserLeaveService>(),
