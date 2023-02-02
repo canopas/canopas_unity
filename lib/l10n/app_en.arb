@@ -15,7 +15,7 @@
   "user_home_paid_leave_tag": "Paid Leave",
   "user_home_all_tag": "All",
 
-  "days_placeholder_leave": "{leave,plural,=0{{leave} Day} =1{{leave} day} other{{leave} days}}",
+  "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
   "@days_placeholder_leave":{
     "description": "Pass the value of leaves for leave days",
     "placeholders": {
@@ -94,6 +94,7 @@
     }
   },
 
+      "who_is_out_card_title":"Who's on leave, Today?",
 
   "who_is_out_card_message":"{count, plural, =0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
   "@who_is_out_card_message":{
@@ -270,9 +271,9 @@
   "dateFormatter_yesterday":"Yesterday",
   "dateFormatter_today":"Today",
   "dateFormatter_just_now":"Just now",
-  "dateFormatter_half_day":"Half day",
-  "dateFormatter_one_day":"1 day",
-  "dateFormatter_placeholder_other_days":"{totalLeave} days",
+  "dateFormatter_half_day":"Half Day Application",
+  "dateFormatter_one_day":"Full Day Application",
+  "dateFormatter_placeholder_other_days":"{totalLeave} Days Application",
   "@dateFormatter_placeholder_other_days":{
     "description":"define total leave count more than one day",
     "placeholders":{
@@ -293,7 +294,19 @@
   "hour_ago_tag":"hour ago",
   "hours_ago_tag":"hours ago",
   "minute_ago_tag":"minute ago",
-  "minutes_ago_tag":"minutes ago"
+  "minutes_ago_tag":"minutes ago",
+
+         "user_leave_appbar_tag":"Leaves",
+         "user_leave_apply_tag":"Apply",
+
+         "user_leave_used_leaves_tag":"Used Leaves",
+         "user_leave_past_leaves_tag":"Past Leaves",
+         "user_leave_upcoming_leaves_tag":"Upcoming Leaves",
+         "user_leave_no_leaves_msg":"No any Leaves, yet!",
+         "user_leave_show_less_tag":"Show less",
+         "user_leave_view_more_tag":"View more"
+
+
 
 
 

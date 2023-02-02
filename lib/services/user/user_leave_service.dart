@@ -35,7 +35,6 @@ class UserLeaveService {
   Future<List<Leave>> getUpcomingLeaves(String employeeId) async {
     final data = await _leaveDbCollection
         .where(FirestoreConst.uid, isEqualTo: employeeId)
-        .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
         .get();
     return data.docs.map((doc) => doc.data()).where((leave) => leave.startDate >= DateTime.now().timeStampToInt).toList();
   }
