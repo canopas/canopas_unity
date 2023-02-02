@@ -93,15 +93,8 @@ class ExpandableList extends StatelessWidget {
                                   horizontal: primaryHorizontalSpacing),
                               child: TextButton(
                                   style: TextButton.styleFrom(
-                                      fixedSize: Size(
-                                          MediaQuery.of(context).size.width,
-                                          45),
                                       foregroundColor: AppColors.blackColor,
-                                      backgroundColor:
-                                          AppColors.lightPrimaryBlue,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                      )),
+                                  ),
                                   onPressed: () {
                                     controller.toggle();
                                   },
@@ -109,7 +102,6 @@ class ExpandableList extends StatelessWidget {
                                     controller.expanded
                                         ? localization.user_leave_view_more_tag
                                         : localization.user_leave_show_less_tag,
-                                    style: AppTextStyle.mediumDark,
                                   )),
                             );
                           })
