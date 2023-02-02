@@ -7,7 +7,6 @@ import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../model/leave_count.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
