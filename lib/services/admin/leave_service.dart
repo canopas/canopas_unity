@@ -23,7 +23,6 @@ class AdminLeaveService {
     fetchLeaves();
   }
 
-
   void fetchLeaves(){
     _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots().map((event) {
     final filteredLeaves=  event.docs.map((doc) => doc.data()).where((leave) => leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly)).toList();
@@ -33,8 +32,21 @@ class AdminLeaveService {
     });
   }
 
+  Future<List<Leave>> getRecentLeaves() async {
+    final allLeaves = await _leaveDbCollection
+        .where(FirestoreConst.startLeaveDate,
+            isGreaterThanOrEqualTo: DateTime(DateTime.now().year, DateTime.now().month).timeStampToInt)
+        .get();
+    return allLeaves.docs.map((e) => e.data()).where((leave) => leave.leaveStatus == approveLeaveStatus && leave.startDate <= DateTime.now().dateOnly.timeStampToInt).toList();
+  }
 
-
+  Future<List<Leave>> getUpcomingLeaves() async {
+    final data = await _leaveDbCollection
+        .where(FirestoreConst.startLeaveDate,
+            isGreaterThan: DateTime.now().dateOnly.timeStampToInt)
+        .get();
+    return data.docs.map((doc) => doc.data()).where((leave) => leave.leaveStatus == approveLeaveStatus).toList();
+  }
 
   Future<void> updateLeaveStatus(String id, Map<String, dynamic> map) async {
     await _leaveDbCollection.doc(id).update(map);
@@ -67,9 +79,8 @@ class AdminLeaveService {
   }
 
   @disposeMethod
-  void dispose()async{
-   await _leaves.close();
-   await _leaveStreamSubscription?.cancel();
+  void dispose() async {
+    await _leaves.close();
+    await _leaveStreamSubscription?.cancel();
   }
-
 }

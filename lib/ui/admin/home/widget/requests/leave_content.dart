@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -8,14 +7,13 @@ import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../model/leave_count.dart';
-import '../../../../../router/app_router.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
+  final void Function()? onTap;
   final LeaveApplication leaveApplication;
 
-  const LeaveRequestCard({Key? key, required this.leaveApplication})
+  const LeaveRequestCard({Key? key, required this.leaveApplication, this.onTap})
       : super(key: key);
 
   @override
@@ -23,58 +21,61 @@ class LeaveRequestCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
-      child: Ink(
+      child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: AppTheme.commonBorderRadius,
             color: AppColors.whiteColor,
             boxShadow: AppTheme.commonBoxShadow),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () =>
-              context.goNamed(Routes.adminLeaveDetail, extra: leaveApplication),
-          child: Padding(
-            padding: const EdgeInsets.all(primaryHorizontalSpacing),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _LeaveTypeContent(
-                              leaveType: leaveApplication.leave.leaveType),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          _LeaveDateContent(
-                            totalDays: leaveApplication.leave.totalLeaves,
-                            startTimeStamp: leaveApplication.leave.startDate,
-                            endTimeStamp: leaveApplication.leave.endDate,
-                          ),
-                        ],
+        child: Material(
+          borderRadius: AppTheme.commonBorderRadius,
+          color: AppColors.whiteColor,
+          child: InkWell(
+            borderRadius: AppTheme.commonBorderRadius,
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(primaryHorizontalSpacing),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _LeaveTypeContent(
+                                leaveType: leaveApplication.leave.leaveType),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _LeaveDateContent(
+                              totalDays: leaveApplication.leave.totalLeaves,
+                              startTimeStamp: leaveApplication.leave.startDate,
+                              endTimeStamp: leaveApplication.leave.endDate,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                      color: AppColors.greyColor,
-                    )
-                  ],
-                ),
-                const Divider(
-                    thickness: 1, height: 30, color: AppColors.dividerColor),
-                EmployeeContent(
-                  employee: leaveApplication.employee,
-                  leaveCounts:
-                      leaveApplication.leaveCounts ?? const LeaveCounts(),
-                ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 15,
+                        color: AppColors.greyColor,
+                      )
+                    ],
+                  ),
+                  const Divider(
+                      thickness: 1, height: 30, color: AppColors.dividerColor),
+                  EmployeeContent(
+                    employee: leaveApplication.employee,
+                    leaveCounts:
+                        leaveApplication.leaveCounts,
+                  ),
 
-                // const ButtonContent()
-              ],
+                  // const ButtonContent()
+                ],
+              ),
             ),
           ),
         ),

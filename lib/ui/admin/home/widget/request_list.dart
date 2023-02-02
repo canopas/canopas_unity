@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../core/utils/date_formatter.dart';
+import '../../../../router/app_router.dart';
 import 'requests/leave_content.dart';
 
 
@@ -53,6 +55,8 @@ class LeaveRequestList extends StatelessWidget {
                     children: mapEntry.value
                         .map((leaveApplication) =>
                         LeaveRequestCard(
+                          onTap: () =>
+                              context.goNamed(Routes.adminLeaveDetail, extra: leaveApplication),
                             leaveApplication: leaveApplication))
                         .toList(),
                   ),

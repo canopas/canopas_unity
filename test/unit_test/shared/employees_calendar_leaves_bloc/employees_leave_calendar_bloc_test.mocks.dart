@@ -144,6 +144,22 @@ class MockAdminLeaveService extends _i1.Mock implements _i5.AdminLeaveService {
         returnValueForMissingStub: null,
       );
   @override
+  _i3.Future<List<_i6.Leave>> getRecentLeaves() => (super.noSuchMethod(
+        Invocation.method(
+          #getRecentLeaves,
+          [],
+        ),
+        returnValue: _i3.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
+      ) as _i3.Future<List<_i6.Leave>>);
+  @override
+  _i3.Future<List<_i6.Leave>> getUpcomingLeaves() => (super.noSuchMethod(
+        Invocation.method(
+          #getUpcomingLeaves,
+          [],
+        ),
+        returnValue: _i3.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
+      ) as _i3.Future<List<_i6.Leave>>);
+  @override
   _i3.Future<void> updateLeaveStatus(
     String? id,
     Map<String, dynamic>? map,

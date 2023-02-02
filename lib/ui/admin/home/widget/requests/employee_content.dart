@@ -9,7 +9,7 @@ import '../../../../../model/leave_count.dart';
 
 class EmployeeContent extends StatelessWidget {
   final Employee employee;
-  final LeaveCounts leaveCounts;
+  final LeaveCounts? leaveCounts;
 
   const EmployeeContent({Key? key, required this.employee, required this.leaveCounts}) : super(key: key);
 
@@ -49,7 +49,7 @@ class EmployeeContent extends StatelessWidget {
             ],
           ),
         ),
-        Column(
+        leaveCounts!=null?Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -60,11 +60,11 @@ class EmployeeContent extends StatelessWidget {
               height: 5,
             ),
             Text(
-              '${leaveCounts.remainingLeaveCount.fixedAt(1)}/${leaveCounts.paidLeaveCount}',
+              '${leaveCounts!.remainingLeaveCount.fixedAt(1)}/${leaveCounts!.paidLeaveCount}',
               style: AppTextStyle.bodyDarkGrey,
             ),
           ],
-        ),
+        ):const SizedBox(),
       ],
     );
   }
