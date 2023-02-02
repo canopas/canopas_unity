@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/model/leave_application.dart';
@@ -9,13 +8,13 @@ import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave_count.dart';
-import '../../../../../router/app_router.dart';
 import 'employee_content.dart';
 
 class LeaveRequestCard extends StatelessWidget {
+  final void Function()? onTap;
   final LeaveApplication leaveApplication;
 
-  const LeaveRequestCard({Key? key, required this.leaveApplication})
+  const LeaveRequestCard({Key? key, required this.leaveApplication, this.onTap})
       : super(key: key);
 
   @override
@@ -30,8 +29,7 @@ class LeaveRequestCard extends StatelessWidget {
             boxShadow: AppTheme.commonBoxShadow),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () =>
-              context.goNamed(Routes.adminLeaveDetail, extra: leaveApplication),
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(primaryHorizontalSpacing),
             child: Column(
@@ -70,7 +68,7 @@ class LeaveRequestCard extends StatelessWidget {
                 EmployeeContent(
                   employee: leaveApplication.employee,
                   leaveCounts:
-                      leaveApplication.leaveCounts ?? const LeaveCounts(),
+                      leaveApplication.leaveCounts,
                 ),
 
                 // const ButtonContent()

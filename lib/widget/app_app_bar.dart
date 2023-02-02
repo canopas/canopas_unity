@@ -10,8 +10,10 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
   final double bottomTitlePadding;
   final List<Widget> actions;
+  final Color backgroundColor;
 
   const AppAppBar({
+    this.backgroundColor= AppColors.whiteColor,
     Key? key,
     this.title = "",
     this.actions = const [],
@@ -23,6 +25,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: backgroundColor,
       padding:
           const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
       height: preferredSize.height,

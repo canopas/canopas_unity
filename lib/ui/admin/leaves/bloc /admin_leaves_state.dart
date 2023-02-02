@@ -8,10 +8,8 @@ class AdminLeavesState extends Equatable {
   final String? error;
   final List<LeaveApplication> upcomingLeaves;
   final List<LeaveApplication> recentLeaves;
-  final bool fetchMoreRecentLeaves;
 
   const AdminLeavesState({
-    this.fetchMoreRecentLeaves = false,
     this.status = AdminLeavesStatus.initial,
     this.error,
     this.recentLeaves = const [],
@@ -19,14 +17,12 @@ class AdminLeavesState extends Equatable {
   });
 
   copyWith({
-    bool? fetchMoreRecentLeaves,
     AdminLeavesStatus? status,
     String? error,
     List<LeaveApplication>? upcomingLeaves,
     List<LeaveApplication>? recentLeaves,
   }) =>
       AdminLeavesState(
-        fetchMoreRecentLeaves: fetchMoreRecentLeaves ?? this.fetchMoreRecentLeaves,
         recentLeaves: recentLeaves ?? this.recentLeaves,
         upcomingLeaves: upcomingLeaves ?? this.upcomingLeaves,
         status: status ?? this.status,
@@ -34,5 +30,5 @@ class AdminLeavesState extends Equatable {
       );
 
   @override
-  List<Object?> get props => [status, error, upcomingLeaves, recentLeaves,fetchMoreRecentLeaves];
+  List<Object?> get props => [status, error, upcomingLeaves, recentLeaves];
 }
