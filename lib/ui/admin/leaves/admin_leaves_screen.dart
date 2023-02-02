@@ -9,8 +9,8 @@ import 'package:projectunity/ui/admin/leaves/bloc%20/admin_leave_event.dart';
 import 'package:projectunity/ui/admin/leaves/bloc%20/admin_leaves_bloc.dart';
 import 'package:projectunity/ui/admin/leaves/bloc%20/admin_leaves_state.dart';
 import 'package:projectunity/widget/app_app_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AdminLeavesPage extends StatelessWidget {
   const AdminLeavesPage({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppAppBar(
-        title: "Leaves",
+        title: AppLocalizations.of(context).admin_leave_appbar_text,
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
         listener: (context, state) {

@@ -296,15 +296,17 @@
   "minute_ago_tag":"minute ago",
   "minutes_ago_tag":"minutes ago",
 
-         "user_leave_appbar_tag":"Leaves",
-         "user_leave_apply_tag":"Apply",
+  "user_leave_appbar_tag":"Leaves",
+  "user_leave_apply_tag":"Apply",
 
-         "user_leave_used_leaves_tag":"Used Leaves",
-         "user_leave_past_leaves_tag":"Past Leaves",
-         "user_leave_upcoming_leaves_tag":"Upcoming Leaves",
-         "user_leave_no_leaves_msg":"No any Leaves, yet!",
-         "user_leave_show_less_tag":"Show less",
-         "user_leave_view_more_tag":"View more"
+  "user_leave_used_leaves_tag":"Used Leaves",
+  "user_leave_past_leaves_tag":"Past Leaves",
+  "user_leave_upcoming_leaves_tag":"Upcoming Leaves",
+  "user_leave_no_leaves_msg":"No any Leaves, yet!",
+  "user_leave_show_less_tag":"Show less",
+  "user_leave_view_more_tag":"View more",
+
+  "admin_leave_appbar_text":"Leaves"
 
 
 
