@@ -23,6 +23,23 @@ class AdminLeaveService {
     fetchLeaves();
   }
 
+  Future<List<Leave>> getRecentLeaves() async {
+    final recentLeaves = await _leaveDbCollection.orderBy(FirestoreConst.startLeaveDate).limit(10).get();
+    return recentLeaves.docs.map((e) => e.data()).toList();
+  }
+
+  Future<List<Leave>> getMoreRecentLeaves({required List<Leave> leaves,int limit = 10}) async {
+    print(leaves.length);
+    try {
+      final recentLeaves = await _leaveDbCollection.startAfter(leaves).orderBy(FirestoreConst.startLeaveDate).limit(limit).get();
+      List<Leave> moreLeaves = leaves.toList();
+      moreLeaves.addAll(recentLeaves.docs.map((e) => e.data()).toList());
+      return moreLeaves;
+    }catch (e){
+      print(e.toString());
+      return leaves;
+    }
+  }
 
   void fetchLeaves(){
     _leaveDbCollection.where(FirestoreConst.leaveStatus,isEqualTo: pendingLeaveStatus).snapshots().map((event) {

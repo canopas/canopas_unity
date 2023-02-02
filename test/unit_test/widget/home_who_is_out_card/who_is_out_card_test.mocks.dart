@@ -36,6 +36,30 @@ class MockAdminLeaveService extends _i1.Mock implements _i2.AdminLeaveService {
         returnValue: _i3.Stream<List<_i4.Leave>>.empty(),
       ) as _i3.Stream<List<_i4.Leave>>);
   @override
+  _i3.Future<List<_i4.Leave>> getRecentLeaves() => (super.noSuchMethod(
+        Invocation.method(
+          #getRecentLeaves,
+          [],
+        ),
+        returnValue: _i3.Future<List<_i4.Leave>>.value(<_i4.Leave>[]),
+      ) as _i3.Future<List<_i4.Leave>>);
+  @override
+  _i3.Future<List<_i4.Leave>> getMoreRecentLeaves({
+    required List<_i4.Leave>? leaves,
+    int? limit = 10,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMoreRecentLeaves,
+          [],
+          {
+            #leaves: leaves,
+            #limit: limit,
+          },
+        ),
+        returnValue: _i3.Future<List<_i4.Leave>>.value(<_i4.Leave>[]),
+      ) as _i3.Future<List<_i4.Leave>>);
+  @override
   void fetchLeaves() => super.noSuchMethod(
         Invocation.method(
           #fetchLeaves,
