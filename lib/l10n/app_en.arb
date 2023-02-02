@@ -299,6 +299,9 @@
   "user_leave_appbar_tag":"Leaves",
   "user_leave_apply_tag":"Apply",
 
+  "admin_leaves_upcoming_leaves_tag":"Upcoming Leaves",
+  "admin_leaves_recent_leaves_tag":"Recent Leaves",
+
   "user_leave_used_leaves_tag":"Used Leaves",
   "user_leave_past_leaves_tag":"Past Leaves",
   "user_leave_upcoming_leaves_tag":"Upcoming Leaves",
@@ -307,6 +310,8 @@
   "user_leave_view_more_tag":"View more",
 
   "admin_leave_appbar_text":"Leaves"
+
+
 
 
 

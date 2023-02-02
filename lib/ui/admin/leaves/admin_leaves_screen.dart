@@ -46,10 +46,10 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
         },
         builder: (context, state) => state.status ==  AdminLeavesStatus.loading?const AppCircularProgressIndicator():ListView(children: [
           ExpandableList(
-              title: "Upcoming Leaves",
+              title: AppLocalizations.of(context).admin_leaves_upcoming_leaves_tag,
               leaveApplications: state.upcomingLeaves),
           ExpandableList(
-              title: "Recent Leaves", leaveApplications: state.recentLeaves)
+              title: AppLocalizations.of(context).admin_leaves_recent_leaves_tag, leaveApplications: state.recentLeaves)
         ]),
       ),
       backgroundColor: AppColors.whiteColor,
