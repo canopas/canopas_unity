@@ -14,6 +14,7 @@ import '../provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
+import '../ui/admin/leaves/admin_leaves_screen.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
@@ -129,7 +130,7 @@ class AppRouter {
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-                  const MaterialPage(child: UserHomeScreenPage()),
+                  const MaterialPage(child: AdminLeavesPage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,

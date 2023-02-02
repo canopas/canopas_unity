@@ -95,7 +95,7 @@ class ExpandableList extends StatelessWidget {
                                   style: TextButton.styleFrom(
                                       fixedSize: Size(
                                           MediaQuery.of(context).size.width,
-                                          50),
+                                          45),
                                       foregroundColor: AppColors.blackColor,
                                       backgroundColor:
                                           AppColors.lightPrimaryBlue,
