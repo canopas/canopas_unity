@@ -21,7 +21,6 @@ import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
-import '../ui/user/user_home/user_home_screen.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
 import '../ui/user/user_settings/user_settings_screen.dart';
 
