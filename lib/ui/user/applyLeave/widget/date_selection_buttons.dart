@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../ui/user/leave/applyLeave/widget/picker_card.dart';
+import 'package:projectunity/ui/user/applyLeave/widget/picker_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../widget/date_time_picker.dart';

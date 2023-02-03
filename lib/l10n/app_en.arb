@@ -194,6 +194,8 @@
       "admin_home_request_tag":"Requests",
       "admin_home_absence_tag":"Absence",
 
+  "add_tag":"Add",
+
   "edit_tag": "Edit",
   "save_tag": "Save",
   "admin_employee_detail_profile_tag":"Profile",
