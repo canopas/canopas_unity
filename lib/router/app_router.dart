@@ -7,10 +7,11 @@ import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_d
 import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
 import 'package:projectunity/ui/shared/leave_details/leave_details.dart';
 import 'package:projectunity/ui/user/all_leaves/all_leaves_screen.dart';
-import 'package:projectunity/ui/user/leave/applyLeave/apply_leave_screen.dart';
+import 'package:projectunity/ui/user/applyLeave/apply_leave_screen.dart';
 import 'package:projectunity/ui/user/requested_leaves/requested_leaves_view.dart';
 import '../model/leave_application.dart';
 import '../provider/user_data.dart';
+import '../ui/admin/admin_employees/admin_employees_screen.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
 import '../ui/admin/home/admin_home_screen.dart';
@@ -20,7 +21,6 @@ import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
 import '../ui/user/upcoming_leaves/upcoming_leaves_view.dart';
-import '../ui/user/user_home/user_home_screen.dart';
 import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
 import '../ui/user/user_settings/user_settings_screen.dart';
 
@@ -129,7 +129,7 @@ class AppRouter {
               name: Routes.employeeHome,
               path: '/employee',
               pageBuilder: (context, state) =>
-                  const MaterialPage(child: UserHomeScreenPage()),
+                  const MaterialPage(child: AdminEmployeesPage()),
               routes: <GoRoute>[
                 GoRoute(
                     name: Routes.allLeaves,
