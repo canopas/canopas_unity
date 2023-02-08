@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../configs/theme.dart';
@@ -45,15 +46,11 @@ class EmployeeHomeAppBar extends StatelessWidget
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations
-                      .of(context)
-                      .company_name,
+                  Text(AppLocalizations.of(context).company_name,
                       style: AppTextStyle.titleDark,
                       overflow: TextOverflow.ellipsis),
                   Text(
-                    AppLocalizations
-                        .of(context)
-                        .company_subtitle,
+                    AppLocalizations.of(context).company_subtitle,
                     style: AppTextStyle.bodyDarkGrey,
                   )
                 ],
@@ -68,18 +65,6 @@ class EmployeeHomeAppBar extends StatelessWidget
                         context.pushNamed(Routes.userLeaveCalender),
                     icon: const Icon(
                       Icons.calendar_month_rounded,
-                      color: AppColors.darkGrey,
-                    )),
-              ),
-              const SizedBox(
-                width: primaryVerticalSpacing,
-              ),
-              CircleAvatar(
-                backgroundColor: const Color(0xfff5f5f5),
-                child: IconButton(
-                    onPressed: () => context.pushNamed(Routes.userSettings),
-                    icon: const Icon(
-                      Icons.settings,
                       color: AppColors.darkGrey,
                     )),
               ),

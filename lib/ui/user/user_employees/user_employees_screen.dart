@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/user/user_employees/bloc/user_employee_state.dart';
 import 'package:projectunity/ui/user/user_employees/bloc/user_employees_bloc.dart';
 import 'package:projectunity/ui/user/user_employees/bloc/user_employees_event.dart';
@@ -8,11 +9,13 @@ import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/app_divider.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
+import '../../../model/employee/employee.dart';
+import '../../../router/app_router.dart';
 import '../../../widget/employee_card.dart';
-
 
 class UserEmployeesPage extends StatelessWidget {
   const UserEmployeesPage({Key? key}) : super(key: key);
@@ -30,7 +33,7 @@ class UserEmployeesScreen extends StatefulWidget {
   const UserEmployeesScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserEmployeesScreen> createState() => _UserEmployeesScreenState() ;
+  State<UserEmployeesScreen> createState() => _UserEmployeesScreenState();
 }
 
 class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
@@ -61,13 +64,17 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
                 return ListView.separated(
                     padding: const EdgeInsets.symmetric(
                         horizontal: primaryVerticalSpacing),
-                    itemBuilder: (BuildContext context, int employee) =>
-                        EmployeeCard(
-                          employee: state.employees[employee],
-                          onTap: () {
-                            ///TODO implement navigation to employee details screen
-                          },
-                        ),
+                    itemBuilder: (BuildContext context, int index) {
+                      Employee employee = state.employees[index];
+                      return EmployeeCard(
+                        employee: employee,
+                        onTap: () {
+                          context.goNamed(Routes.userEmployeeDetail, params: {
+                            RoutesParamsConst.employeeId: employee.id
+                          });
+                        },
+                      );
+                    },
                     separatorBuilder: (context, index) => const AppDivider(),
                     itemCount: state.employees.length);
               }
@@ -77,5 +84,3 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
     );
   }
 }
-
-

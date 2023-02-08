@@ -10,10 +10,10 @@ import 'package:projectunity/ui/user/applyLeave/widget/leave_request_reason_card
 import 'package:projectunity/ui/user/applyLeave/widget/leave_type_card.dart';
 import 'package:projectunity/ui/user/applyLeave/widget/total_leave_card.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../../../core/utils/const/space_constant.dart';
-import '../../../../router/app_router.dart';
-import 'bloc/leave_request_form_bloc/apply_leave_event.dart';
 import 'bloc/leave_request_form_bloc/apply_leave_bloc.dart';
+import 'bloc/leave_request_form_bloc/apply_leave_event.dart';
 import 'bloc/leave_request_form_bloc/apply_leave_state.dart';
 
 class ApplyLeavePage extends StatelessWidget {
@@ -42,16 +42,22 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(localization.leave_request_tag,),
+        title: Text(
+          localization.leave_request_tag,
+        ),
       ),
       body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
-        listenWhen: (previous, current) => current.isFailure || current.leaveRequestStatus == ApplyLeaveStatus.success,
+        listenWhen: (previous, current) =>
+            current.isFailure ||
+            current.leaveRequestStatus == ApplyLeaveStatus.success,
         listener: (context, state) {
           if (state.isFailure) {
             showSnackBar(context: context, error: state.error);
           } else if (state.leaveRequestStatus == ApplyLeaveStatus.success) {
-            showSnackBar(context: context, msg: localization.user_apply_leave_success_message);
-            context.goNamed(Routes.allLeaves);
+            showSnackBar(
+                context: context,
+                msg: localization.user_apply_leave_success_message);
+            context.pop();
           }
         },
         child: ListView(

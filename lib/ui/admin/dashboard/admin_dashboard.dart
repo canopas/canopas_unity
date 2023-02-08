@@ -1,19 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/ui/admin/dashboard/navigation_item.dart';
 
 import '../../../configs/colors.dart';
+import 'navigation_item.dart';
 
-class UserDashBoardScreen extends StatefulWidget {
+class AdminDashBoardScreen extends StatefulWidget {
+  const AdminDashBoardScreen({Key? key, required this.child}) : super(key: key);
   final Widget child;
-  const UserDashBoardScreen({Key? key, required this.child}) : super(key: key);
 
   @override
-  State<UserDashBoardScreen> createState() => _UserDashBoardScreenState();
+  State<AdminDashBoardScreen> createState() => _AdminDashBoardScreenState();
 }
 
-class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
+class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
   int get _currentIndex => locationToTabIndex(GoRouter.of(context).location);
 
   @override
@@ -32,12 +31,12 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
 
   void onItemTapped(int index) {
     if (index != _currentIndex) {
-      context.goNamed(userTabs[index].initialLocation);
+      context.goNamed(adminTabs[index].initialLocation);
     }
   }
 
   int locationToTabIndex(String location) {
-    final index = userTabs.indexWhere((bottomNavigationItem) =>
+    final index = adminTabs.indexWhere((bottomNavigationItem) =>
         location.startsWith(bottomNavigationItem.initialLocation));
     print('Index: $index');
     return index < 0 ? 0 : index;

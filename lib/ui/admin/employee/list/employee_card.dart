@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
+
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../router/app_router.dart';
@@ -14,9 +15,12 @@ class EmployeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>context.goNamed(Routes.employeeDetail,params: {'employeeId':employee.id}),
+      onTap: () => context.goNamed(Routes.adminEmployeeDetail,
+          params: {'employeeId': employee.id}),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing, vertical: primaryVerticalSpacing),
+        padding: const EdgeInsets.symmetric(
+            horizontal: primaryHorizontalSpacing,
+            vertical: primaryVerticalSpacing),
         child: Row(
           children: [
             ImageProfile(
@@ -45,7 +49,6 @@ class EmployeeCard extends StatelessWidget {
   }
 }
 
-
 class EmployeeName extends StatelessWidget {
   const EmployeeName({Key? key, required this.name}) : super(key: key);
   final String? name;
@@ -53,14 +56,11 @@ class EmployeeName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Text(
-      name ?? '',
-      textAlign: TextAlign.start,
-      overflow: TextOverflow.ellipsis,
-      style: height >= 700
-          ? AppTextStyle.titleText
-          : AppTextStyle.subtitleText
-    );
+    return Text(name ?? '',
+        textAlign: TextAlign.start,
+        overflow: TextOverflow.ellipsis,
+        style:
+            height >= 700 ? AppTextStyle.titleText : AppTextStyle.subtitleText);
   }
 }
 
@@ -72,13 +72,12 @@ class EmployeeDesignation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Text(
-      designation ?? '',
-      textAlign: TextAlign.start,
-      overflow: TextOverflow.ellipsis,
-      style: height >= 700
-          ? AppTextStyle.secondaryBodyText.copyWith(fontSize: subTitleTextSize)
-          : AppTextStyle.secondaryBodyText
-    );
+    return Text(designation ?? '',
+        textAlign: TextAlign.start,
+        overflow: TextOverflow.ellipsis,
+        style: height >= 700
+            ? AppTextStyle.secondaryBodyText
+                .copyWith(fontSize: subTitleTextSize)
+            : AppTextStyle.secondaryBodyText);
   }
 }

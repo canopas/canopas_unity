@@ -13,7 +13,7 @@ class BottomNavigationItem extends BottomNavigationBarItem {
       : super(icon: icon);
 }
 
-List<BottomNavigationItem> tabs = [
+List<BottomNavigationItem> adminTabs = [
   BottomNavigationItem(
       label: 'Home',
       icon: const Icon(Icons.home_filled),
@@ -30,4 +30,23 @@ List<BottomNavigationItem> tabs = [
       label: 'Settings',
       icon: const Icon(Icons.settings),
       initialLocation: Routes.adminSettings)
+];
+
+List<BottomNavigationItem> userTabs = [
+  BottomNavigationItem(
+      label: 'Home',
+      icon: const Icon(Icons.home_filled),
+      initialLocation: Routes.userHome),
+  BottomNavigationItem(
+      label: 'Leaves',
+      icon: const Icon(Icons.calendar_month_sharp),
+      initialLocation: Routes.userLeaves),
+  BottomNavigationItem(
+      label: 'Employees',
+      icon: const Icon(Icons.person),
+      initialLocation: Routes.userEmployees),
+  BottomNavigationItem(
+      label: 'Settings',
+      icon: const Icon(Icons.settings),
+      initialLocation: Routes.userSettings)
 ];

@@ -1,36 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../core/utils/date_formatter.dart';
 import '../../../../model/leave/leave.dart';
+import '../../../../router/app_router.dart';
 
 class LeaveCard extends StatelessWidget {
-  final double totalDays;
-  final int startDate;
-  final int endDate;
-  final int type;
-  final int status;
+  final Leave leave;
 
   const LeaveCard({
-    required this.totalDays,
-    required this.type,
-    required this.startDate,
-    required this.endDate,
-    required this.status,
+    required this.leave,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
-    final String leaveDuration =
-        DateFormatter(localization).getLeaveDurationPresentation(totalDays);
+    final String leaveDuration = DateFormatter(localization)
+        .getLeaveDurationPresentation(leave.totalLeaves);
     final String leaveType =
-        localization.leave_type_placeholder_leave_status(type);
-    final String leavePeriod = DateFormatter(localization)
-        .dateInLine(startTimeStamp: startDate, endTimeStamp: endDate);
+        localization.leave_type_placeholder_leave_status(leave.leaveType);
+    final String leavePeriod = DateFormatter(localization).dateInLine(
+        startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -40,10 +34,8 @@ class LeaveCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
-                mainAxisAlignment:
-                MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(leaveDuration,
                       style: const TextStyle(
@@ -63,9 +55,12 @@ class LeaveCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  LeaveStatusIcon(leaveStatus: status),
+                  LeaveStatusIcon(leaveStatus: leave.leaveStatus),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.goNamed(Routes.userLeaveDetail, extra: leave);
+                        //TODO Implement navigation to show leave details for employee
+                      },
                       icon: const Icon(Icons.arrow_forward_ios_outlined))
                 ],
               )

@@ -64,7 +64,7 @@ class ExpandableList extends StatelessWidget {
                       leaveApplication: leaveApplications[0],
                       onTap: () {
                         //TODO :Implement navigation to leave details page for admin
-                        context.goNamed(Routes.leaveDetails,
+                        context.goNamed(Routes.adminLeaveDetails,
                             extra: leaveApplications[0]);
                       },
                     )
@@ -75,7 +75,7 @@ class ExpandableList extends StatelessWidget {
                 children: leaveApplications
                     .map((leaveApplication) => LeaveRequestCard(
                         onTap: () {
-                          context.goNamed(Routes.leaveDetails,
+                          context.goNamed(Routes.adminLeaveDetails,
                               extra: leaveApplication);
 
                           //TODO :Implement navigation to leave details page for admin

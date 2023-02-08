@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import '../../../router/app_router.dart';
-import '../../user/user_settings/widget/user_settings_settings_options.dart';
-import '../../user/user_settings/widget/user_settings_user_profile.dart';
 import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../../configs/colors.dart';
 import '../../../configs/text_style.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import '../../../router/app_router.dart';
+import '../../user/user_settings/widget/user_settings_settings_options.dart';
+import '../../user/user_settings/widget/user_settings_user_profile.dart';
 import 'bloc/admin_settings_bloc.dart';
 import 'bloc/admin_settings_event.dart';
 import 'bloc/admin_settings_state.dart';
@@ -57,7 +58,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
             UserProfile(
               employee: state.currentEmployee,
               onTap: () {
-                context.goNamed(Routes.employeeEditEmployeeDetails,
+                context.goNamed(Routes.userEditProfile,
                     extra: state.currentEmployee);
               },
             ),

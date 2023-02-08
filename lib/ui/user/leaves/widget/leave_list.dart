@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 import '../../../../configs/colors.dart';
 import '../../../../model/leave/leave.dart';
 import '../../../user/leaves/widget/leave_card.dart';
@@ -8,12 +9,13 @@ import '../../../user/leaves/widget/leave_card.dart';
 class LeaveList extends StatelessWidget {
   final List<Leave> leaves;
   final String title;
-  const LeaveList({Key? key,required this.leaves,required this.title}) : super(key: key);
+  const LeaveList({Key? key, required this.leaves, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var localization= AppLocalizations.of(context);
-    return  ExpandableNotifier(
+    var localization = AppLocalizations.of(context);
+    return ExpandableNotifier(
       initialExpanded: true,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -23,8 +25,7 @@ class LeaveList extends StatelessWidget {
           child: ExpandablePanel(
               theme: const ExpandableThemeData(
                   headerAlignment: ExpandablePanelHeaderAlignment.center,
-                  hasIcon: false
-              ),
+                  hasIcon: false),
               header: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(
@@ -34,12 +35,8 @@ class LeaveList extends StatelessWidget {
                         color: AppColors.greyColor,
                         fontSize: 18),
                   )),
-              collapsed:leaves.isNotEmpty? LeaveCard(
-                  totalDays: leaves[0].totalLeaves,
-                  type: leaves[0].leaveType,
-                  startDate: leaves[0].startDate,
-                  endDate: leaves[0].endDate,
-                  status: leaves[0].leaveStatus):Container(),
+              collapsed:
+                  leaves.isNotEmpty ? LeaveCard(leave: leaves[0]) : Container(),
               expanded: ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -47,16 +44,16 @@ class LeaveList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     Leave leave = leaves[index];
                     return LeaveCard(
-                      totalDays: leave.totalLeaves,
-                      type: leave.leaveType,
-                      startDate: leave.startDate,
-                      endDate: leave.endDate,
-                      status: leave.leaveStatus,
+                      leave: leave,
                     );
                   }),
               builder: (context, expanded, collapsed) {
                 return leaves.isEmpty
-                    ?  Center(child: Text(localization.user_leave_no_leaves_msg, style: const TextStyle(fontSize: 15),))
+                    ? Center(
+                        child: Text(
+                        localization.user_leave_no_leaves_msg,
+                        style: const TextStyle(fontSize: 15),
+                      ))
                     : Column(
                         children: [
                           Expandable(collapsed: collapsed, expanded: expanded),
