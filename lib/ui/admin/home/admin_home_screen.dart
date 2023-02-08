@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_bloc.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/bloc/admin_home_state.dart';
@@ -9,6 +9,7 @@ import 'package:projectunity/ui/admin/home/widget/admin_home_appbar.dart';
 import 'package:projectunity/ui/admin/home/widget/request_list.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../../configs/colors.dart';
 import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
@@ -51,8 +52,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   horizontal: primaryHorizontalSpacing,
                   vertical: primaryHalfSpacing),
               child: WhoIsOutCard(
-                onSeeAllButtonTap: () =>
-                    context.goNamed(Routes.allUserCalender),
+                onSeeAllButtonTap: () => context.goNamed(Routes.adminCalender),
               ),
             ),
             BlocConsumer<AdminHomeBloc, AdminHomeState>(
