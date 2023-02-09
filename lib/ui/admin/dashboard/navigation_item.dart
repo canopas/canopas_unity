@@ -4,13 +4,12 @@ import '../../../router/app_router.dart';
 
 class BottomNavigationItem extends BottomNavigationBarItem {
   final String initialLocation;
-  final String label;
 
   BottomNavigationItem(
       {required Widget icon,
       required this.initialLocation,
-      required this.label})
-      : super(icon: icon);
+      required String label})
+      : super(icon: icon, label: label);
 }
 
 List<BottomNavigationItem> adminTabs = [

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/admin/dashboard/navigation_item.dart';
@@ -39,7 +38,6 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   int locationToTabIndex(String location) {
     final index = userTabs.indexWhere((bottomNavigationItem) =>
         location.startsWith(bottomNavigationItem.initialLocation));
-    print('Index: $index');
     return index < 0 ? 0 : index;
   }
 }

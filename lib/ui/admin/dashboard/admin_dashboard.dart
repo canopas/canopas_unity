@@ -38,7 +38,6 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
   int locationToTabIndex(String location) {
     final index = adminTabs.indexWhere((bottomNavigationItem) =>
         location.startsWith(bottomNavigationItem.initialLocation));
-    print('Index: $index');
     return index < 0 ? 0 : index;
   }
 }

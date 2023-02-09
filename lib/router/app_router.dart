@@ -9,7 +9,6 @@ import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_
 import 'package:projectunity/ui/admin/leaves/admin_leaves_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 
-import '../model/leave/leave.dart';
 import '../model/leave_application.dart';
 import '../provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
@@ -200,7 +199,6 @@ class AppRouter {
                           name: Routes.userLeaveDetail,
                           path: 'leave-detail',
                           pageBuilder: (context, state) {
-                            Leave leave = state.extra as Leave;
                             return const MaterialPage(
                                 child: Center(
                               child: Text(
@@ -254,7 +252,6 @@ class AppRouter {
           if (userManager.loggedIn && loggingIn && !userManager.isAdmin) {
             return Routes.userHome;
           }
-          print('state location: ${state.location}');
           return null;
         });
   }
