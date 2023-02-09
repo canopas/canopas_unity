@@ -8,7 +8,7 @@ import '../../../../configs/text_style.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../router/app_router.dart';
-import '../../home/widget/requests/leave_content.dart';
+import '../../home/home_screen/widget/requests/leave_content.dart';
 
 class ExpandableList extends StatelessWidget {
   final List<LeaveApplication> leaveApplications;

@@ -7,26 +7,26 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_details_view.dart';
 import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
 import 'package:projectunity/ui/admin/leaves/admin_leaves_screen.dart';
-import 'package:projectunity/ui/user/leaves/user_leave_screen.dart';
-import 'package:projectunity/ui/user/user_employees/user_employees_screen.dart';
-import 'package:projectunity/ui/user/user_home/user_home_screen.dart';
-import 'package:projectunity/ui/user/user_settings/user_settings_screen.dart';
+import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 
 import '../model/leave/leave.dart';
 import '../model/leave_application.dart';
 import '../provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
-import '../ui/admin/home/admin_home_screen.dart';
+import '../ui/admin/home/home_screen/admin_home_screen.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/shared/leave_details/leave_details.dart';
-import '../ui/user/applyLeave/apply_leave_screen.dart';
 import '../ui/user/dashboard/user_dashboard.dart';
-import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
-import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
+import '../ui/user/employees/user_employees_screen.dart';
+import '../ui/user/home/home_screen/user_home_screen.dart';
+import '../ui/user/home/leave_calendar/user_leave_calendar_screen.dart';
+import '../ui/user/leaves/applyLeave/apply_leave_screen.dart';
+import '../ui/user/settings/edit_profile/edit_employee_details_employee_view.dart';
+import '../ui/user/settings/settings_screen/user_settings_screen.dart';
 
 @Injectable()
 class AppRouter {
@@ -47,15 +47,6 @@ class AppRouter {
             userManager.isAdmin ? Routes.adminHome : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
         routes: [
-          // GoRoute(
-          //   parentNavigatorKey: _rootNavigatorKey,
-          //   path: '/',
-          //   name: Routes.rootRoute,
-          //   redirect: (context, state) {
-          //     print('============= ${state.location}');
-          //     return null;
-          //   },
-          // ),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: '/login',
@@ -251,87 +242,6 @@ class AppRouter {
                       ),
                     ]),
               ])
-
-          // GoRoute(
-          //     name: Routes.employeeHome,
-          //     path: '/employee',
-          //     pageBuilder: (context, state) =>
-          //         const MaterialPage(child: AdminEmployeesPage()),
-          //     routes: <GoRoute>[
-          //       GoRoute(
-          //           name: Routes.allLeaves,
-          //           path: 'all',
-          //           pageBuilder: (context, state) =>
-          //               const MaterialPage(child: AllLeavesPage())),
-          //       GoRoute(
-          //           name: Routes.requested,
-          //           path: 'requested',
-          //           pageBuilder: (context, state) =>
-          //               const MaterialPage(child: RequestedLeavesPage())),
-          //       GoRoute(
-          //           name: Routes.upcoming,
-          //           path: 'upcoming',
-          //           pageBuilder: (context, state) =>
-          //               const MaterialPage(child: UpcomingLeavesPage())),
-          //       GoRoute(
-          //         name: Routes.applyLeave,
-          //         path: 'apply-leave',
-          //         pageBuilder: (context, state) => const MaterialPage(
-          //           child: ApplyLeavePage(),
-          //         ),
-          //       ),
-          //       GoRoute(
-          //           name: Routes.userSettings,
-          //           path: 'setting',
-          //           pageBuilder: (context, state) =>
-          //               const MaterialPage(child: UserSettingsPage()),
-          //           routes: [
-          //             GoRoute(
-          //               path: 'employee-edit-employee-details',
-          //               name: Routes.employeeEditEmployeeDetails,
-          //               pageBuilder: (context, state) => MaterialPage(
-          //                   child: EmployeeEditEmployeeDetailsPage(
-          //                 employee: state.extra as Employee,
-          //               )),
-          //             ),
-          //           ]),
-          //       GoRoute(
-          //           name: Routes.allUserCalender,
-          //           path: 'calender',
-          //           pageBuilder: (context, state) => const MaterialPage(
-          //                 child: EmployeesLeaveCalenderPage(),
-          //               ),
-          //           routes: <GoRoute>[
-          //             GoRoute(
-          //                 name: Routes.employeeLeaveDetail,
-          //                 path: 'leave-detail',
-          //                 pageBuilder: (context, state) {
-          //                   LeaveApplication leaveApplication =
-          //                       state.extra as LeaveApplication;
-          //                   return MaterialPage(
-          //                       child: LeaveDetailsPage(
-          //                           leaveApplication: leaveApplication));
-          //                 }),
-          //           ]),
-          //       GoRoute(
-          //           name: Routes.userLeaveCalender,
-          //           path: 'user-calender',
-          //           pageBuilder: (context, state) => MaterialPage(
-          //               child: UserLeaveCalendarPage(
-          //                   userId: userManager.employeeId)),
-          //           routes: <GoRoute>[
-          //             GoRoute(
-          //                 name: Routes.userLeaveDetail,
-          //                 path: 'details',
-          //                 pageBuilder: (context, state) {
-          //                   LeaveApplication leaveApplication =
-          //                       state.extra as LeaveApplication;
-          //                   return MaterialPage(
-          //                       child: LeaveDetailsPage(
-          //                           leaveApplication: leaveApplication));
-          //                 }),
-          //           ]),
-          //     ]),
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
@@ -375,14 +285,8 @@ abstract class Routes {
   static const applyLeave = '/apply-leave';
   static const userCalender = 'calender';
 
-  static const home = '/home';
-
-  static const rootRoute = '/';
   static const login = '/login';
 
-  static const employees = '/employees';
-
-  //static const adminSettings = '/admin-settings';
   static const updateLeaveCount = '/paid-leave';
 
   static const leaveApplicationDetail = '/leave-application/:id';
