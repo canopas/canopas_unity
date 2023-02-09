@@ -43,7 +43,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         children: [
           WhoIsOutCard(
             onSeeAllButtonTap: () {
-              context.goNamed(Routes.adminCalender);
+              context.goNamed(Routes.userCalender);
             },
           ),
 

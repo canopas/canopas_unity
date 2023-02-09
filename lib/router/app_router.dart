@@ -26,6 +26,7 @@ import '../ui/shared/leave_details/leave_details.dart';
 import '../ui/user/applyLeave/apply_leave_screen.dart';
 import '../ui/user/dashboard/user_dashboard.dart';
 import '../ui/user/edit_employee_details/edit_employee_details_employee_view.dart';
+import '../ui/user/user_leave_calendar/user_leave_calendar_screen.dart';
 
 @Injectable()
 class AppRouter {
@@ -174,7 +175,22 @@ class AppRouter {
                     path: '/user-home',
                     name: Routes.userHome,
                     pageBuilder: (context, state) =>
-                        const MaterialPage(child: UserHomeScreenPage())),
+                        const MaterialPage(child: UserHomeScreenPage()),
+                    routes: <GoRoute>[
+                      GoRoute(
+                          parentNavigatorKey: _employeeShellNavigatorKey,
+                          path: Routes.userCalender,
+                          name: Routes.userCalender,
+                          pageBuilder: (context, state) => const MaterialPage(
+                              child: EmployeesLeaveCalenderPage())),
+                      GoRoute(
+                          parentNavigatorKey: _employeeShellNavigatorKey,
+                          name: Routes.userLeaveCalender,
+                          path: 'user-calender',
+                          pageBuilder: (context, state) => MaterialPage(
+                              child: UserLeaveCalendarPage(
+                                  userId: userManager.employeeId))),
+                    ]),
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
                     path: '/leaves',
@@ -357,6 +373,7 @@ abstract class Routes {
   static const userEmployeeDetail = '/user-employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
   static const applyLeave = '/apply-leave';
+  static const userCalender = 'calender';
 
   static const home = '/home';
 
