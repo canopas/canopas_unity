@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../configs/colors.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../configs/theme.dart';
-import '../../../../core/utils/const/space_constant.dart';
+
+import '../../../../../configs/colors.dart';
+import '../../../../../configs/text_style.dart';
+import '../../../../../configs/theme.dart';
+import '../../../../../core/utils/const/space_constant.dart';
 import '../bloc/admin_leave_details_bloc.dart';
 import '../bloc/admin_leave_details_event.dart';
-
 
 class ApproveRejectionMessage extends StatelessWidget {
   const ApproveRejectionMessage({Key? key}) : super(key: key);
@@ -15,7 +15,8 @@ class ApproveRejectionMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing,vertical: primaryHalfSpacing),
+      padding: const EdgeInsets.symmetric(
+          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,7 +28,9 @@ class ApproveRejectionMessage extends StatelessWidget {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing).copyWith(bottom: 4),
+            padding:
+                const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
+                    .copyWith(bottom: 4),
             decoration: BoxDecoration(
               boxShadow: AppTheme.commonBoxShadow,
               borderRadius: AppTheme.commonBorderRadius,
@@ -36,14 +39,16 @@ class ApproveRejectionMessage extends StatelessWidget {
             child: TextField(
               style: AppTextStyle.bodyTextDark,
               onChanged: (value) {
-                context.read<AdminLeaveApplicationDetailsBloc>().add(AdminLeaveApplicationReasonChangedEvent(value));
+                context
+                    .read<AdminLeaveApplicationDetailsBloc>()
+                    .add(AdminLeaveApplicationReasonChangedEvent(value));
               },
               maxLines: 5,
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText:
-                AppLocalizations.of(context).admin_leave_detail_error_reason,
+                hintText: AppLocalizations.of(context)
+                    .admin_leave_detail_error_reason,
               ),
             ),
           ),

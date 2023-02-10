@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../configs/colors.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../core/utils/const/space_constant.dart';
-import '../../../../model/leave_application.dart';
-import '../../../../router/app_router.dart';
-import '../../home/home_screen/widget/requests/leave_content.dart';
+import '../../../../../configs/colors.dart';
+import '../../../../../configs/text_style.dart';
+import '../../../../../core/utils/const/space_constant.dart';
+import '../../../../../model/leave_application.dart';
+import '../../../../../router/app_router.dart';
+import '../../../home/home_screen/widget/requests/leave_content.dart';
 
 class ExpandableList extends StatelessWidget {
   final List<LeaveApplication> leaveApplications;
@@ -63,8 +63,7 @@ class ExpandableList extends StatelessWidget {
                   ? LeaveRequestCard(
                       leaveApplication: leaveApplications[0],
                       onTap: () {
-                        //TODO :Implement navigation to leave details page for admin
-                        context.goNamed(Routes.adminLeaveDetails,
+                        context.pushNamed(Routes.adminLeaveDetails,
                             extra: leaveApplications[0]);
                       },
                     )
@@ -77,8 +76,6 @@ class ExpandableList extends StatelessWidget {
                         onTap: () {
                           context.goNamed(Routes.adminLeaveDetails,
                               extra: leaveApplication);
-
-                          //TODO :Implement navigation to leave details page for admin
                         },
                         leaveApplication: leaveApplication))
                     .toList(),
