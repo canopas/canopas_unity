@@ -303,4 +303,12 @@ class MockUserLeaveService extends _i1.Mock implements _i8.UserLeaveService {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+  @override
+  _i3.Future<_i6.Leave?> fetchLeave(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #fetchLeave,
+          [id],
+        ),
+        returnValue: _i3.Future<_i6.Leave?>.value(),
+      ) as _i3.Future<_i6.Leave?>);
 }

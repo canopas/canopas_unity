@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
@@ -13,9 +16,13 @@ import '../../../../../../services/user/user_leave_service.dart';
 class UserLeaveBloc extends Bloc<FetchUserLeaveEvent, UserLeaveState> {
   final UserLeaveService _userLeaveService;
   final UserManager _userManager;
+  late StreamSubscription? _streamSubscription;
   UserLeaveBloc(this._userManager, this._userLeaveService)
       : super(UserLeaveInitialState()) {
     on<FetchUserLeaveEvent>(_fetchLeaves);
+    _streamSubscription = eventBus.on<CancelLeaveByUser>().listen((event) {
+      add(FetchUserLeaveEvent());
+    });
   }
 
   Future<void> _fetchLeaves(
@@ -35,5 +42,11 @@ class UserLeaveBloc extends Bloc<FetchUserLeaveEvent, UserLeaveState> {
     } on Exception {
       emit(UserLeaveErrorState(error: firestoreFetchDataError));
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await _streamSubscription?.cancel();
+    return super.close();
   }
 }

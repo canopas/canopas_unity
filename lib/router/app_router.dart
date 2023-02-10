@@ -7,6 +7,7 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_details_view.dart';
 import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
 import 'package:projectunity/ui/admin/leaves/admin_leaves_screen.dart';
+import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 
 import '../model/leave_application.dart';
@@ -197,13 +198,12 @@ class AppRouter {
                       ),
                       GoRoute(
                           name: Routes.userLeaveDetail,
-                          path: 'leave-detail',
+                          path: ':leaveId',
                           pageBuilder: (context, state) {
-                            return const MaterialPage(
-                                child: Center(
-                              child: Text(
-                                  'Implement screen to show leave details of user'),
-                            ));
+                            return MaterialPage(
+                                child: UserLeaveDetailPage(
+                                    leaveId: state
+                                        .params[RoutesParamsConst.leaveId]!));
                           }),
                     ]),
                 GoRoute(
@@ -259,6 +259,7 @@ class AppRouter {
 
 abstract class RoutesParamsConst {
   static const employeeId = "employeeId";
+  static const leaveId = 'leaveId';
 }
 
 abstract class Routes {

@@ -8,12 +8,13 @@ class LeaveUpdateEventListener {
   LeaveUpdateEventListener(this.leaveApplication);
 }
 
-class AllLeaveUpdateEventListener{}
+class CancelLeaveByUser {}
 
-class DeleteEmployeeByAdmin{
+class AllLeaveUpdateEventListener {}
+
+class DeleteEmployeeByAdmin {
   final String userId;
   DeleteEmployeeByAdmin(this.userId);
-
 }
 
-class EmployeeListUpdateEvent{}
+class EmployeeListUpdateEvent {}

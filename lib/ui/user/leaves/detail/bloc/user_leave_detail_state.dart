@@ -27,3 +27,8 @@ class UserLeaveDetailErrorState extends UserLeaveDetailState {
   @override
   List<Object?> get props => [];
 }
+
+class UserCancelLeaveSuccessState extends UserLeaveDetailState {
+  @override
+  List<Object?> get props => [];
+}

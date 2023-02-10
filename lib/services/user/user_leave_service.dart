@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/event_bus/events.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
 import '../../core/utils/const/firestore.dart';
@@ -49,7 +50,10 @@ class UserLeaveService {
   }
 
   Future<void> deleteLeaveRequest(String leaveId) async {
-    await _leaveDbCollection.doc(leaveId).delete();
+    await _leaveDbCollection
+        .doc(leaveId)
+        .delete()
+        .then((value) => eventBus.fire(CancelLeaveByUser()));
   }
 
   Future<double> getUserUsedLeaveCount(String id) async {
