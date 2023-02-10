@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/widget/bottom_button.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/widget/date_range_selection_leave_request.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/widget/date_selection_buttons.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/widget/leave_request_reason_card.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/widget/leave_type_card.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/widget/total_leave_card.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/widget/bottom_button.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/widget/date_range_selection_leave_request.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/widget/date_selection_buttons.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_request_reason_card.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_type_card.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/widget/total_leave_card.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../core/utils/const/space_constant.dart';
-import 'bloc/leave_request_form_bloc/apply_leave_bloc.dart';
-import 'bloc/leave_request_form_bloc/apply_leave_event.dart';
-import 'bloc/leave_request_form_bloc/apply_leave_state.dart';
+import 'bloc/apply_leave_bloc.dart';
+import 'bloc/apply_leave_event.dart';
+import 'bloc/apply_leave_state.dart';
 
 class ApplyLeavePage extends StatelessWidget {
   const ApplyLeavePage({Key? key}) : super(key: key);

@@ -10,11 +10,11 @@ import 'package:projectunity/model/leave_count.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/paid_leave_service.dart';
 import 'package:projectunity/services/user/user_leave_service.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/bloc/leave_request_form_bloc/apply_leave_bloc.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/bloc/leave_request_form_bloc/apply_leave_event.dart';
-import 'package:projectunity/ui/user/leaves/applyLeave/bloc/leave_request_form_bloc/apply_leave_state.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_event.dart';
+import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.dart';
 
-import 'leave_request_form_view_test.mocks.dart';
+import 'apply_leave_bloc_test.mocks.dart';
 
 @GenerateMocks([PaidLeaveService, UserLeaveService, UserManager])
 void main() {

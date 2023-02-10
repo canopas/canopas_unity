@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 import '../../../../../configs/colors.dart';
-import '../../../../../core/extensions/double_extension.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
+import '../../../../../core/extensions/double_extension.dart';
 import '../../../../../core/utils/const/leave_map.dart';
+import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
-import '../bloc/leave_request_form_bloc/apply_leave_event.dart';
-import '../bloc/leave_request_form_bloc/apply_leave_state.dart';
-import '../bloc/leave_request_form_bloc/apply_leave_bloc.dart';
+import '../bloc/apply_leave_bloc.dart';
+import '../bloc/apply_leave_event.dart';
+import '../bloc/apply_leave_state.dart';
 
 class LeaveTypeCard extends StatelessWidget {
   const LeaveTypeCard({
@@ -35,17 +36,24 @@ class LeaveTypeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-              buildWhen: (previous, current) => previous.leaveCounts != current.leaveCounts || previous.leaveCountStatus != current.leaveCountStatus,
+              buildWhen: (previous, current) =>
+                  previous.leaveCounts != current.leaveCounts ||
+                  previous.leaveCountStatus != current.leaveCountStatus,
               builder: (context, state) {
                 if (state.leaveCountStatus == LeaveCountStatus.loading) {
-                  return const AppCircularProgressIndicator(size: 28,);
+                  return const AppCircularProgressIndicator(
+                    size: 28,
+                  );
                 } else if (state.leaveCountStatus == LeaveCountStatus.success) {
                   return Text(
                     "${state.leaveCounts.remainingLeaveCount.fixedAt(2)}/${state.leaveCounts.paidLeaveCount}",
                     style: AppTextStyle.subtitleGreyBold,
                   );
                 }
-                return Text("0/0", style: AppTextStyle.subtitleGreyBold,);
+                return Text(
+                  "0/0",
+                  style: AppTextStyle.subtitleGreyBold,
+                );
               },
             ),
             Padding(

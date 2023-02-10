@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -77,9 +76,7 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                 return const AppCircularProgressIndicator();
               } else if (state is UserLeaveDetailSuccessState) {
                 Leave leave = state.leave;
-                bool showCancelButton =
-                    BlocProvider.of<UserLeaveDetailBloc>(context)
-                        .showCancelButton(leave);
+                bool showCancelButton = state.showCancelButton;
                 return ListView(
                   children: [
                     LeaveTypeContent(

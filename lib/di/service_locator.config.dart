@@ -50,8 +50,7 @@ import '../ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.da
     as _i10;
 import '../ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
     as _i27;
-import '../ui/user/leaves/applyLeave/bloc/leave_request_form_bloc/apply_leave_bloc.dart'
-    as _i33;
+import '../ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart' as _i33;
 import '../ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart' as _i28;
 import '../ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
     as _i42;

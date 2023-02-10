@@ -16,9 +16,11 @@ class UserLeaveDetailLoadingState extends UserLeaveDetailState {
 
 class UserLeaveDetailSuccessState extends UserLeaveDetailState {
   final Leave leave;
-  UserLeaveDetailSuccessState({required this.leave});
+  final bool showCancelButton;
+  UserLeaveDetailSuccessState(
+      {required this.leave, required this.showCancelButton});
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [leave, showCancelButton];
 }
 
 class UserLeaveDetailErrorState extends UserLeaveDetailState {

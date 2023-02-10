@@ -24,7 +24,7 @@ import '../ui/user/dashboard/user_dashboard.dart';
 import '../ui/user/employees/user_employees_screen.dart';
 import '../ui/user/home/home_screen/user_home_screen.dart';
 import '../ui/user/home/leave_calendar/user_leave_calendar_screen.dart';
-import '../ui/user/leaves/applyLeave/apply_leave_screen.dart';
+import '../ui/user/leaves/apply_leave/apply_leave_screen.dart';
 import '../ui/user/settings/edit_profile/edit_employee_details_employee_view.dart';
 import '../ui/user/settings/settings_screen/user_settings_screen.dart';
 

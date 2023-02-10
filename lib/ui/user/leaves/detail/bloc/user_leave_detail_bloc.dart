@@ -26,19 +26,15 @@ class UserLeaveDetailBloc
       Leave? leave = await _userLeaveService.fetchLeave(event.leaveId);
       if (leave == null) {
         emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));
+      } else {
+        bool canCancel =
+            leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
+                leave.leaveStatus == pendingLeaveStatus;
+        emit(UserLeaveDetailSuccessState(
+            leave: leave, showCancelButton: canCancel));
       }
-      emit(UserLeaveDetailSuccessState(leave: leave!));
     } on Exception {
       emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));
-    }
-  }
-
-  bool showCancelButton(Leave leave) {
-    if (leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
-        leave.leaveStatus == pendingLeaveStatus) {
-      return true;
-    } else {
-      return false;
     }
   }
 
