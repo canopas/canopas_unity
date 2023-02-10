@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 
@@ -19,7 +20,8 @@ class CancelButton extends StatelessWidget {
             BlocProvider.of<UserLeaveDetailBloc>(context)
                 .add(CancelLeaveApplicationEvent(leaveId: leaveId));
           },
-          child: const Text('Cancel')),
+          child: Text(
+              AppLocalizations.of(context).user_leave_detail_button_cancel)),
     );
   }
 }
