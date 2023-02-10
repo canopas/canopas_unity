@@ -5,8 +5,8 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/addmember/admin_add_member_screen.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_details_view.dart';
-import 'package:projectunity/ui/admin/leave_request_details/admin_leave_request_details_view.dart';
-import 'package:projectunity/ui/admin/leaves/admin_leaves_screen.dart';
+import 'package:projectunity/ui/admin/home/application_detail/admin_leave_request_details_view.dart';
+import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 
@@ -15,11 +15,11 @@ import '../provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
 import '../ui/admin/home/home_screen/admin_home_screen.dart';
+import '../ui/admin/leaves/detail/leave_details.dart';
 import '../ui/admin/setting/admin_setting_screen.dart';
 import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
-import '../ui/shared/leave_details/leave_details.dart';
 import '../ui/user/dashboard/user_dashboard.dart';
 import '../ui/user/employees/user_employees_screen.dart';
 import '../ui/user/home/home_screen/user_home_screen.dart';
@@ -272,6 +272,7 @@ abstract class Routes {
   static const adminLeaveDetails = 'details';
   static const adminEditEmployee = 'edit-employee';
   static const adminEmployeeDetail = '/admin-employee-details/:employeeId';
+  static const leaveApplicationDetail = '/leave-application/:id';
 
   static const userHome = '/user-home';
   static const userLeaves = '/leaves';
@@ -287,17 +288,5 @@ abstract class Routes {
 
   static const updateLeaveCount = '/paid-leave';
 
-  static const leaveApplicationDetail = '/leave-application/:id';
-
-  static const allLeaves = '/all';
-  static const requested = '/requested';
-  static const upcoming = '/upcoming';
-  //static const userSettings = '/user-settings';
-
-  //static const adminCalender = '/admin-calender';
-
   static const userLeaveCalender = '/user-calender';
-
-  static const employeeLeaveDetail = '/employee-leave-detail';
-  static const adminLeaveDetail = 'leave-application-details';
 }

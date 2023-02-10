@@ -7,9 +7,9 @@ import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
-import 'package:projectunity/ui/admin/leaves/bloc%20/admin_leave_event.dart';
-import 'package:projectunity/ui/admin/leaves/bloc%20/admin_leaves_bloc.dart';
-import 'package:projectunity/ui/admin/leaves/bloc%20/admin_leaves_state.dart';
+import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leave_event.dart';
+import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart';
+import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_state.dart';
 
 import 'admin_leaves_test.mocks.dart';
 
@@ -46,33 +46,38 @@ void main() {
 
     test('successfully fetch initial data test', () {
       bloc.add(AdminLeavesInitialLoadEvent());
-      when(adminLeaveService.getRecentLeaves()).thenAnswer((_) async => [leave, leave]);
-      when(adminLeaveService.getUpcomingLeaves()).thenAnswer((_) async => [leave]);
+      when(adminLeaveService.getRecentLeaves())
+          .thenAnswer((_) async => [leave, leave]);
+      when(adminLeaveService.getUpcomingLeaves())
+          .thenAnswer((_) async => [leave]);
       when(employeeService.getEmployees()).thenAnswer((_) async => [employee]);
-      expect(bloc.stream, emitsInOrder([
-        const AdminLeavesState(status: AdminLeavesStatus.loading),
-        AdminLeavesState(status: AdminLeavesStatus.success,
-            recentLeaves: [
+      expect(
+          bloc.stream,
+          emitsInOrder([
+            const AdminLeavesState(status: AdminLeavesStatus.loading),
+            AdminLeavesState(status: AdminLeavesStatus.success, recentLeaves: [
               LeaveApplication(employee: employee, leave: leave),
               LeaveApplication(employee: employee, leave: leave)
-            ],
-            upcomingLeaves: [
+            ], upcomingLeaves: [
               LeaveApplication(employee: employee, leave: leave)
             ]),
-      ]));
+          ]));
     });
 
     test('fail initial data fetch test', () {
       bloc.add(AdminLeavesInitialLoadEvent());
       when(adminLeaveService.getRecentLeaves()).thenThrow(Exception("error"));
-      when(adminLeaveService.getUpcomingLeaves()).thenAnswer((_) async => [leave]);
+      when(adminLeaveService.getUpcomingLeaves())
+          .thenAnswer((_) async => [leave]);
       when(employeeService.getEmployees()).thenAnswer((_) async => [employee]);
-      expect(bloc.stream, emitsInOrder([
-        const AdminLeavesState(status: AdminLeavesStatus.loading),
-        const AdminLeavesState(status: AdminLeavesStatus.failure,
-           error: firestoreFetchDataError),
-      ]));
+      expect(
+          bloc.stream,
+          emitsInOrder([
+            const AdminLeavesState(status: AdminLeavesStatus.loading),
+            const AdminLeavesState(
+                status: AdminLeavesStatus.failure,
+                error: firestoreFetchDataError),
+          ]));
     });
   });
-
 }

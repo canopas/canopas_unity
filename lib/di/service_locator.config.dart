@@ -28,10 +28,12 @@ import '../ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.d
     as _i19;
 import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i35;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i26;
-import '../ui/admin/home/home_screen/bloc/admin_home_bloc.dart' as _i21;
-import '../ui/admin/leave_request_details/bloc/admin_leave_details_bloc.dart'
+import '../ui/admin/home/application_detail/bloc/admin_leave_details_bloc.dart'
     as _i22;
-import '../ui/admin/leaves/bloc%20/admin_leaves_bloc.dart' as _i23;
+import '../ui/admin/home/home_screen/bloc/admin_home_bloc.dart' as _i21;
+import '../ui/admin/leaves/detail/bloc/employee_leave_details_bloc.dart'
+    as _i37;
+import '../ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart' as _i23;
 import '../ui/admin/setting/bloc/admin_settings_bloc.dart' as _i31;
 import '../ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart'
     as _i24;
@@ -42,8 +44,6 @@ import '../ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bl
     as _i9;
 import '../ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
     as _i8;
-import '../ui/shared/leave_details/bloc/leave_details_bloc/employee_leave_details_bloc.dart'
-    as _i37;
 import '../ui/user/employees/bloc/user_employees_bloc.dart' as _i14;
 import '../ui/user/home/home_screen/bloc/user_home_bloc.dart' as _i40;
 import '../ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
