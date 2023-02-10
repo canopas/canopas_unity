@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../../model/leave_count.dart';
 
-enum ApplyLeaveStatus{initial,loading,failure,success}
-enum LeaveCountStatus{initial,loading,success,failure}
+import '../../../../../model/leave_count.dart';
+
+enum ApplyLeaveStatus { initial, loading, failure, success }
+
+enum LeaveCountStatus { initial, loading, success, failure }
 
 class ApplyLeaveState extends Equatable {
   final ApplyLeaveStatus leaveRequestStatus;
@@ -31,7 +33,7 @@ class ApplyLeaveState extends Equatable {
     this.reason = "",
   });
 
- ApplyLeaveState copyWith({
+  ApplyLeaveState copyWith({
     ApplyLeaveStatus? leaveRequestStatus,
     LeaveCountStatus? leaveCountStatus,
     LeaveCounts? leaveCounts,
@@ -58,7 +60,10 @@ class ApplyLeaveState extends Equatable {
         totalLeaveDays: totalLeaveDays ?? this.totalLeaveDays);
   }
 
-  bool get isFailure => error != null && (leaveCountStatus == LeaveCountStatus.failure || leaveRequestStatus == ApplyLeaveStatus.failure);
+  bool get isFailure =>
+      error != null &&
+      (leaveCountStatus == LeaveCountStatus.failure ||
+          leaveRequestStatus == ApplyLeaveStatus.failure);
 
   @override
   List<Object?> get props => [

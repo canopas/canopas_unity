@@ -104,6 +104,14 @@ class MockUserLeaveService extends _i1.Mock implements _i3.UserLeaveService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+  @override
+  _i4.Future<_i5.Leave?> fetchLeave(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #fetchLeave,
+          [id],
+        ),
+        returnValue: _i4.Future<_i5.Leave?>.value(),
+      ) as _i4.Future<_i5.Leave?>);
 }
 
 /// A class which mocks [UserManager].

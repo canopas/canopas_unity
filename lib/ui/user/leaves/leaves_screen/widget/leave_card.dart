@@ -58,8 +58,8 @@ class UserLeaveCard extends StatelessWidget {
                   LeaveStatusIcon(leaveStatus: leave.leaveStatus),
                   IconButton(
                       onPressed: () {
-                        context.goNamed(Routes.userLeaveDetail, extra: leave);
-                        //TODO Implement navigation to show leave details for employee
+                        context.goNamed(Routes.userLeaveDetail,
+                            params: {RoutesParamsConst.leaveId: leave.leaveId});
                       },
                       icon: const Icon(Icons.arrow_forward_ios_outlined))
                 ],
