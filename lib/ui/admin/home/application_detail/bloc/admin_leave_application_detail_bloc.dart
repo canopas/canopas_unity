@@ -7,8 +7,8 @@ import 'package:projectunity/services/admin/paid_leave_service.dart';
 
 import '../../../../../services/admin/leave_service.dart';
 import '../../../../../services/user/user_leave_service.dart';
-import 'admin_leave_details_event.dart';
-import 'admin_leave_details_state.dart';
+import 'admin_leave_application_detail_event.dart';
+import 'admin_leave_application_detail_state.dart';
 
 @Injectable()
 class AdminLeaveApplicationDetailsBloc extends Bloc<

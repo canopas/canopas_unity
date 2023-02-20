@@ -17,9 +17,9 @@ import '../../../../widget/error_snack_bar.dart';
 import '../../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
 import '../../../../widget/leave_details_widget/reason_content.dart';
 import '../../../../widget/leave_details_widget/user_content.dart';
-import 'bloc/admin_leave_details_bloc.dart';
-import 'bloc/admin_leave_details_event.dart';
-import 'bloc/admin_leave_details_state.dart';
+import 'bloc/admin_leave_application_detail_bloc.dart';
+import 'bloc/admin_leave_application_detail_event.dart';
+import 'bloc/admin_leave_application_detail_state.dart';
 
 class AdminLeaveRequestDetailsPage extends StatelessWidget {
   final LeaveApplication leaveApplication;

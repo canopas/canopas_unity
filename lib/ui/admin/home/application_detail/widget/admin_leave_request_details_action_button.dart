@@ -7,9 +7,9 @@ import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
-import '../bloc/admin_leave_details_bloc.dart';
-import '../bloc/admin_leave_details_event.dart';
-import '../bloc/admin_leave_details_state.dart';
+import '../bloc/admin_leave_application_detail_bloc.dart';
+import '../bloc/admin_leave_application_detail_event.dart';
+import '../bloc/admin_leave_application_detail_state.dart';
 
 class AdminLeaveDetailsActionButton extends StatelessWidget {
   final String leaveID;

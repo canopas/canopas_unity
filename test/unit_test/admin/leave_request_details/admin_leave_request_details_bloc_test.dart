@@ -9,9 +9,9 @@ import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
 import 'package:projectunity/services/admin/paid_leave_service.dart';
 import 'package:projectunity/services/user/user_leave_service.dart';
-import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_details_bloc.dart';
-import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_details_event.dart';
-import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_details_state.dart';
+import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart';
+import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_event.dart';
+import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_state.dart';
 
 import 'admin_leave_request_details_bloc_test.mocks.dart';
 

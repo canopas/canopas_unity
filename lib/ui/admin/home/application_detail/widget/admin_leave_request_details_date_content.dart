@@ -10,8 +10,8 @@ import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
-import '../bloc/admin_leave_details_bloc.dart';
-import '../bloc/admin_leave_details_state.dart';
+import '../bloc/admin_leave_application_detail_bloc.dart';
+import '../bloc/admin_leave_application_detail_state.dart';
 
 class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
   final Leave leave;

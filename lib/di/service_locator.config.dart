@@ -28,7 +28,7 @@ import '../ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.d
     as _i19;
 import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i36;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i27;
-import '../ui/admin/home/application_detail/bloc/admin_leave_details_bloc.dart'
+import '../ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart'
     as _i22;
 import '../ui/admin/home/home_screen/bloc/admin_home_bloc.dart' as _i21;
 import '../ui/admin/leaves/detail/bloc/admin_leave_detail_bloc.dart' as _i23;
