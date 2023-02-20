@@ -8,6 +8,7 @@ import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_action_button.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_date_content.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_request_details_header.dart';
+import 'package:projectunity/widget/circular_progress_indicator.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/space_constant.dart';
@@ -21,36 +22,39 @@ import 'bloc/admin_leave_application_detail_bloc.dart';
 import 'bloc/admin_leave_application_detail_event.dart';
 import 'bloc/admin_leave_application_detail_state.dart';
 
-class AdminLeaveRequestDetailsPage extends StatelessWidget {
+class AdminLeaveApplicationDetailsPage extends StatelessWidget {
   final LeaveApplication leaveApplication;
 
-  const AdminLeaveRequestDetailsPage({Key? key, required this.leaveApplication})
+  const AdminLeaveApplicationDetailsPage(
+      {Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminLeaveApplicationDetailsBloc>()
-        ..add(AdminLeaveRequestDetailsInitialLoadEvents(
-            leaveApplication: leaveApplication)),
-      child: AdminLeaveRequestDetailsView(leaveApplication: leaveApplication),
+        ..add(AdminLeaveApplicationFetchLeaveCountEvent(
+            employeeId: leaveApplication.employee.id)),
+      child:
+          AdminLeaveApplicationDetailScreen(leaveApplication: leaveApplication),
     );
   }
 }
 
-class AdminLeaveRequestDetailsView extends StatefulWidget {
+class AdminLeaveApplicationDetailScreen extends StatefulWidget {
   final LeaveApplication leaveApplication;
 
-  const AdminLeaveRequestDetailsView({Key? key, required this.leaveApplication})
+  const AdminLeaveApplicationDetailScreen(
+      {Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
-  State<AdminLeaveRequestDetailsView> createState() =>
-      _AdminLeaveRequestDetailsViewState();
+  State<AdminLeaveApplicationDetailScreen> createState() =>
+      _AdminLeaveApplicationDetailScreenState();
 }
 
-class _AdminLeaveRequestDetailsViewState
-    extends State<AdminLeaveRequestDetailsView> {
+class _AdminLeaveApplicationDetailScreenState
+    extends State<AdminLeaveApplicationDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
@@ -63,39 +67,47 @@ class _AdminLeaveRequestDetailsViewState
           style: AppFontStyle.appbarHeaderStyle,
         ),
       ),
-      body: BlocListener<AdminLeaveApplicationDetailsBloc,
+      body: BlocConsumer<AdminLeaveApplicationDetailsBloc,
           AdminLeaveApplicationDetailsState>(
-        listenWhen: (previous, current) => current.isFailure,
+        listenWhen: (previous, current) =>
+            current.adminLeaveCountStatus == AdminLeaveCountStatus.failure,
         listener: (context, state) {
-          if (state.isFailure) {
+          if (state.adminLeaveCountStatus == AdminLeaveCountStatus.failure) {
             showSnackBar(context: context, error: state.error);
           }
-          if (state.leaveDetailsStatus ==
-              AdminLeaveApplicationDetailsStatus.success) {
+          if (state.adminLeaveResponseStatus ==
+              AdminLeaveResponseStatus.success) {
             context.pop();
           }
         },
-        child: ListView(
-          padding: const EdgeInsets.only(bottom: 100, top: primaryHalfSpacing),
-          children: [
-            AdminLeaveRequestLeaveTypeHeader(
-                appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
-                leaveType: widget.leaveApplication.leave.leaveType),
-            UserContent(
-              employee: widget.leaveApplication.employee,
-            ),
-            AdminLeaveRequestDetailsDateContent(
-                leave: widget.leaveApplication.leave),
-            PerDayDurationDateRange(
-                perDayDurationWithDate:
-                    widget.leaveApplication.leave.getDateAndDuration()),
-            ReasonField(
-              title: localization.leave_reason_tag,
-              reason: widget.leaveApplication.leave.reason,
-            ),
-            const ApproveRejectionMessage(),
-          ],
-        ),
+        builder: (context, state) {
+          if (state.adminLeaveResponseStatus ==
+              AdminLeaveResponseStatus.loading) {
+            return const AppCircularProgressIndicator();
+          }
+          return ListView(
+            padding:
+                const EdgeInsets.only(bottom: 100, top: primaryHalfSpacing),
+            children: [
+              AdminLeaveRequestLeaveTypeHeader(
+                  appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
+                  leaveType: widget.leaveApplication.leave.leaveType),
+              UserContent(
+                employee: widget.leaveApplication.employee,
+              ),
+              AdminLeaveRequestDetailsDateContent(
+                  leave: widget.leaveApplication.leave),
+              PerDayDurationDateRange(
+                  perDayDurationWithDate:
+                      widget.leaveApplication.leave.getDateAndDuration()),
+              ReasonField(
+                title: localization.leave_reason_tag,
+                reason: widget.leaveApplication.leave.reason,
+              ),
+              const ApproveRejectionMessage(),
+            ],
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AdminLeaveDetailsActionButton(

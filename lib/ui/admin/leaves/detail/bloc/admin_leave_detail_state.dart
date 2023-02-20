@@ -30,6 +30,17 @@ class AdminLeaveDetailFailureState extends AdminLeaveDetailState {
   List<Object?> get props => [error];
 }
 
+class AdminLeaveApplicationResponseSuccessState extends AdminLeaveDetailState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AdminLeaveApplicationDetailResplonseLoadingState
+    extends AdminLeaveDetailState {
+  @override
+  List<Object?> get props => [];
+}
+
 class DeleteLeaveApplicationSuccessState extends AdminLeaveDetailState {
   @override
   List<Object?> get props => [];

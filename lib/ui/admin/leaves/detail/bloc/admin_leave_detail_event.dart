@@ -1,14 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../model/leave_application.dart';
-
 abstract class LeaveApplicationDetailEvent extends Equatable {}
 
 class FetchLeaveApplicationDetailEvent extends LeaveApplicationDetailEvent {
-  final LeaveApplication leaveApplication;
-  FetchLeaveApplicationDetailEvent({required this.leaveApplication});
+  final String employeeId;
+  FetchLeaveApplicationDetailEvent({required this.employeeId});
   @override
-  List<Object?> get props => [leaveApplication];
+  List<Object?> get props => [employeeId];
 }
 
 class DeleteLeaveApplicationEvent extends LeaveApplicationDetailEvent {

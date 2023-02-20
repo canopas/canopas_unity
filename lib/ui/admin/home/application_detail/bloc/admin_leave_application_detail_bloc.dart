@@ -20,75 +20,50 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
   AdminLeaveApplicationDetailsBloc(
       this._userLeaveService, this._adminLeaveService, this._paidLeaveService)
       : super(const AdminLeaveApplicationDetailsState()) {
-    on<AdminLeaveRequestDetailsInitialLoadEvents>(_initLeaveCounts);
-    on<AdminLeaveApplicationDetailsApproveRequestEvent>(_approveLeave);
-    on<AdminLeaveApplicationDetailsRejectRequestEvent>(_rejectLeave);
+    on<AdminLeaveApplicationFetchLeaveCountEvent>(_fetchLeaveCounts);
     on<AdminLeaveApplicationReasonChangedEvent>(_onReplyChange);
+    on<AdminLeaveResponseEvent>(_responseToLeaveApplication);
   }
 
-  Future<void> _initLeaveCounts(AdminLeaveRequestDetailsInitialLoadEvents event,
+  Future<void> _fetchLeaveCounts(
+      AdminLeaveApplicationFetchLeaveCountEvent event,
       Emitter<AdminLeaveApplicationDetailsState> emit) async {
-    emit(state.copyWith(
-        leaveDetailsLeaveCountStatus:
-            AdminLeaveApplicationDetailsLeaveCountStatus.loading));
-    if (event.leaveApplication.leaveCounts != null) {
+    emit(state.copyWith(adminLeaveCountStatus: AdminLeaveCountStatus.loading));
+    try {
+      int paidLeaves = await _paidLeaveService.getPaidLeaves();
+      double usedLeave =
+          await _userLeaveService.getUserUsedLeaveCount(event.employeeId);
       emit(state.copyWith(
-          leaveDetailsLeaveCountStatus:
-              AdminLeaveApplicationDetailsLeaveCountStatus.success,
-          paidLeaveCount: event.leaveApplication.leaveCounts!.paidLeaveCount,
-          remainingLeaveCount:
-              event.leaveApplication.leaveCounts!.remainingLeaveCount));
-    } else {
-      try {
-        int paidLeaves = await _paidLeaveService.getPaidLeaves();
-        double usedLeave = await _userLeaveService
-            .getUserUsedLeaveCount(event.leaveApplication.employee.id);
-        double remainingLeaves = paidLeaves - usedLeave;
-        emit(state.copyWith(
-            leaveDetailsLeaveCountStatus:
-                AdminLeaveApplicationDetailsLeaveCountStatus.success,
-            paidLeaveCount: paidLeaves,
-            remainingLeaveCount: remainingLeaves < 0 ? 0 : remainingLeaves));
-      } on Exception {
-        emit(state.copyWith(
-            error: firestoreFetchDataError,
-            leaveDetailsLeaveCountStatus:
-                AdminLeaveApplicationDetailsLeaveCountStatus.failure));
+          adminLeaveCountStatus: AdminLeaveCountStatus.success,
+          paidLeaveCount: paidLeaves,
+          usedLeaves: usedLeave));
+    } on Exception {
+      emit(state.copyWith(
+          error: firestoreFetchDataError,
+          adminLeaveCountStatus: AdminLeaveCountStatus.failure));
+    }
+  }
+
+  Future<void> _responseToLeaveApplication(AdminLeaveResponseEvent event,
+      Emitter<AdminLeaveApplicationDetailsState> emit) async {
+    emit(state.copyWith(leaveDetailsStatus: AdminLeaveResponseStatus.loading));
+
+    try {
+      if (event.response == AdminLeaveResponse.approve) {
+        Map<String, dynamic> map =
+            _setLeaveApproval(approveLeaveStatus, state.adminReply);
+        _adminLeaveService.updateLeaveStatus(event.leaveId, map);
+      } else if (event.response == AdminLeaveResponse.reject) {
+        Map<String, dynamic> map =
+            _setLeaveApproval(rejectLeaveStatus, state.adminReply);
+        _adminLeaveService.updateLeaveStatus(event.leaveId, map);
       }
-    }
-  }
-
-  void _approveLeave(AdminLeaveApplicationDetailsApproveRequestEvent event,
-      Emitter<AdminLeaveApplicationDetailsState> emit) {
-    emit(state.copyWith(
-        leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.approveLoading));
-    Map<String, dynamic> map =
-        _setLeaveApproval(approveLeaveStatus, state.adminReply);
-    try {
-      _adminLeaveService.updateLeaveStatus(event.leaveId, map);
-      emit(state.copyWith(
-          leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.success));
+      emit(
+          state.copyWith(leaveDetailsStatus: AdminLeaveResponseStatus.success));
     } on Exception {
       emit(state.copyWith(
           error: firestoreFetchDataError,
-          leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.failure));
-    }
-  }
-
-  void _rejectLeave(AdminLeaveApplicationDetailsRejectRequestEvent event,
-      Emitter<AdminLeaveApplicationDetailsState> emit) {
-    emit(state.copyWith(
-        leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.rejectLoading));
-    Map<String, dynamic> map =
-        _setLeaveApproval(rejectLeaveStatus, state.adminReply);
-    try {
-      _adminLeaveService.updateLeaveStatus(event.leaveId, map);
-      emit(state.copyWith(
-          leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.success));
-    } on Exception {
-      emit(state.copyWith(
-          error: firestoreFetchDataError,
-          leaveDetailsStatus: AdminLeaveApplicationDetailsStatus.failure));
+          adminLeaveCountStatus: AdminLeaveCountStatus.failure));
     }
   }
 

@@ -1,33 +1,31 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../model/leave_application.dart';
 
 abstract class AdminLeaveApplicationDetailsEvents extends Equatable {}
 
-class AdminLeaveRequestDetailsInitialLoadEvents extends AdminLeaveApplicationDetailsEvents{
-  final LeaveApplication leaveApplication;
-  AdminLeaveRequestDetailsInitialLoadEvents({required this.leaveApplication});
+class AdminLeaveApplicationFetchLeaveCountEvent
+    extends AdminLeaveApplicationDetailsEvents {
+  final String employeeId;
+  AdminLeaveApplicationFetchLeaveCountEvent({required this.employeeId});
   @override
-  List<Object?> get props => [leaveApplication];
+  List<Object?> get props => [employeeId];
 }
 
-class AdminLeaveApplicationDetailsApproveRequestEvent extends AdminLeaveApplicationDetailsEvents {
-  final String leaveId;
-  AdminLeaveApplicationDetailsApproveRequestEvent({ required this.leaveId,});
-  @override
-  List<Object?> get props => [leaveId];
-}
-
-class AdminLeaveApplicationDetailsRejectRequestEvent extends AdminLeaveApplicationDetailsEvents {
-  final String leaveId;
-  AdminLeaveApplicationDetailsRejectRequestEvent({ required this.leaveId,});
-  @override
-  List<Object?> get props => [leaveId];
-}
-
-
-class AdminLeaveApplicationReasonChangedEvent extends AdminLeaveApplicationDetailsEvents {
-   final String adminReply;
-   AdminLeaveApplicationReasonChangedEvent(this.adminReply);
+class AdminLeaveApplicationReasonChangedEvent
+    extends AdminLeaveApplicationDetailsEvents {
+  final String adminReply;
+  AdminLeaveApplicationReasonChangedEvent(this.adminReply);
   @override
   List<Object?> get props => [adminReply];
+}
+
+enum AdminLeaveResponse { reject, approve }
+
+class AdminLeaveResponseEvent extends AdminLeaveApplicationDetailsEvents {
+  final AdminLeaveResponse response;
+  final String leaveId;
+
+  AdminLeaveResponseEvent({required this.response, required this.leaveId});
+
+  @override
+  List<Object?> get props => [response, leaveId];
 }

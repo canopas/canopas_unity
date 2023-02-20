@@ -70,7 +70,6 @@ class LeaveRequestCard extends StatelessWidget {
                       thickness: 1, height: 30, color: AppColors.dividerColor),
                   EmployeeContent(
                     employee: leaveApplication.employee,
-                    leaveCounts: leaveApplication.leaveCounts,
                   ),
 
                   // const ButtonContent()

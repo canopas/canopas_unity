@@ -4,7 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
@@ -69,9 +68,7 @@ void main() {
             AdminLeaveDetailLoadingState(),
             AdminLeaveDetailSuccessState(usedLeaves: 10, paidLeaves: 12)
           ]));
-      bloc.add(FetchLeaveApplicationDetailEvent(
-          leaveApplication: LeaveApplication(
-              employee: employee, leave: leave, leaveCounts: leaveCounts)));
+      bloc.add(FetchLeaveApplicationDetailEvent(employeeId: 'id'));
     });
   });
 
@@ -87,9 +84,7 @@ void main() {
           AdminLeaveDetailLoadingState(),
           AdminLeaveDetailFailureState(error: firestoreFetchDataError)
         ]));
-    bloc.add(FetchLeaveApplicationDetailEvent(
-        leaveApplication: LeaveApplication(
-            employee: employee, leave: leave, leaveCounts: leaveCounts)));
+    bloc.add(FetchLeaveApplicationDetailEvent(employeeId: 'id'));
   });
 
   group("delete Leave Application", () {

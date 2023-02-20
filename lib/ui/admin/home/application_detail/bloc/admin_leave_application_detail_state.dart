@@ -1,38 +1,56 @@
 import 'package:equatable/equatable.dart';
 
-enum AdminLeaveApplicationDetailsStatus{initial,success,failure,approveLoading,rejectLoading,}
-enum AdminLeaveApplicationDetailsLeaveCountStatus{initial,success,failure,loading}
+enum AdminLeaveResponseStatus {
+  initial,
+  success,
+  loading,
+}
 
-class AdminLeaveApplicationDetailsState extends Equatable{
-  final AdminLeaveApplicationDetailsStatus leaveDetailsStatus;
-  final AdminLeaveApplicationDetailsLeaveCountStatus leaveDetailsLeaveCountStatus;
+enum AdminLeaveCountStatus { initial, success, failure, loading }
+
+class AdminLeaveApplicationDetailsState extends Equatable {
+  final AdminLeaveResponseStatus adminLeaveResponseStatus;
+  final AdminLeaveCountStatus adminLeaveCountStatus;
   final int paidLeaveCount;
-  final double remainingLeaveCount;
+  final double usedLeaves;
   final String? error;
   final String adminReply;
 
   const AdminLeaveApplicationDetailsState({
     this.adminReply = "",
     this.paidLeaveCount = 0,
-    this.remainingLeaveCount =0.0,
+    this.usedLeaves = 0.0,
     this.error,
-    this.leaveDetailsStatus = AdminLeaveApplicationDetailsStatus.initial,
-    this.leaveDetailsLeaveCountStatus = AdminLeaveApplicationDetailsLeaveCountStatus.initial,
+    this.adminLeaveResponseStatus = AdminLeaveResponseStatus.initial,
+    this.adminLeaveCountStatus = AdminLeaveCountStatus.initial,
   });
 
-  AdminLeaveApplicationDetailsState copyWith({int? paidLeaveCount,double? remainingLeaveCount, String? error, AdminLeaveApplicationDetailsStatus? leaveDetailsStatus, AdminLeaveApplicationDetailsLeaveCountStatus? leaveDetailsLeaveCountStatus, String? adminReply}){
+  AdminLeaveApplicationDetailsState copyWith(
+      {int? paidLeaveCount,
+      double? usedLeaves,
+      String? error,
+      AdminLeaveResponseStatus? leaveDetailsStatus,
+      AdminLeaveCountStatus? adminLeaveCountStatus,
+      String? adminReply}) {
     return AdminLeaveApplicationDetailsState(
       adminReply: adminReply ?? this.adminReply,
       error: error,
       paidLeaveCount: paidLeaveCount ?? this.paidLeaveCount,
-      remainingLeaveCount: remainingLeaveCount ?? this.remainingLeaveCount,
-      leaveDetailsStatus: leaveDetailsStatus ?? this.leaveDetailsStatus,
-      leaveDetailsLeaveCountStatus: leaveDetailsLeaveCountStatus ?? this.leaveDetailsLeaveCountStatus,
+      usedLeaves: usedLeaves ?? this.usedLeaves,
+      adminLeaveResponseStatus:
+          leaveDetailsStatus ?? this.adminLeaveResponseStatus,
+      adminLeaveCountStatus:
+          adminLeaveCountStatus ?? this.adminLeaveCountStatus,
     );
   }
 
-  bool get isFailure => error != null  && (leaveDetailsStatus == AdminLeaveApplicationDetailsStatus.failure || leaveDetailsLeaveCountStatus == AdminLeaveApplicationDetailsLeaveCountStatus.failure);
-
   @override
-  List<Object?> get props => [error,leaveDetailsLeaveCountStatus,leaveDetailsStatus,paidLeaveCount,remainingLeaveCount,adminReply];
+  List<Object?> get props => [
+        error,
+        adminLeaveCountStatus,
+        adminLeaveResponseStatus,
+        paidLeaveCount,
+        usedLeaves,
+        adminReply
+      ];
 }

@@ -12,7 +12,6 @@ import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../configs/colors.dart';
 import '../../../../core/utils/const/space_constant.dart';
 import '../../../../di/service_locator.dart';
-import '../../../../model/leave/leave.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../router/app_router.dart';
 import '../../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -22,10 +21,10 @@ import 'bloc/admin_leave_detail_bloc.dart';
 import 'bloc/admin_leave_detail_event.dart';
 import 'bloc/admin_leave_detail_state.dart';
 
-class LeaveDetailsPage extends StatelessWidget {
+class AdminLeaveDetailsPage extends StatelessWidget {
   final LeaveApplication leaveApplication;
 
-  const LeaveDetailsPage({Key? key, required this.leaveApplication})
+  const AdminLeaveDetailsPage({Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
@@ -33,23 +32,24 @@ class LeaveDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<AdminLeaveDetailBloc>()
         ..add(FetchLeaveApplicationDetailEvent(
-            leaveApplication: leaveApplication)),
-      child: LeaveDetailsView(leaveApplication: leaveApplication),
+            employeeId: leaveApplication.leave.uid)),
+      child: AdminLeaveDetailsScreen(leaveApplication: leaveApplication),
     );
   }
 }
 
-class LeaveDetailsView extends StatefulWidget {
+class AdminLeaveDetailsScreen extends StatefulWidget {
   final LeaveApplication leaveApplication;
 
-  const LeaveDetailsView({Key? key, required this.leaveApplication})
+  const AdminLeaveDetailsScreen({Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
-  State<LeaveDetailsView> createState() => _LeaveDetailsViewState();
+  State<AdminLeaveDetailsScreen> createState() =>
+      _AdminLeaveDetailsScreenState();
 }
 
-class _LeaveDetailsViewState extends State<LeaveDetailsView> {
+class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
@@ -98,9 +98,7 @@ class _LeaveDetailsViewState extends State<LeaveDetailsView> {
                 ReasonField(
                     reason: rejectionReason,
                     title: localization.admin_leave_detail_message_title_text,
-                    hide: rejectionReason.isEmpty ||
-                        widget.leaveApplication.leave.leaveStatus ==
-                            pendingLeaveStatus)
+                    hide: rejectionReason.isEmpty)
               ],
             );
           },

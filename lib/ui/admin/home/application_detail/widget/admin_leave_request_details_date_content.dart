@@ -34,53 +34,49 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
         boxShadow: AppTheme.commonBoxShadow,
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            BlocBuilder<AdminLeaveApplicationDetailsBloc,
-                AdminLeaveApplicationDetailsState>(
-              builder: (context, state) => state.leaveDetailsLeaveCountStatus ==
-                      AdminLeaveApplicationDetailsLeaveCountStatus.loading
-                  ? const AppCircularProgressIndicator(
-                      size: 28,
-                    )
-                  : Text(
-                      "${state.remainingLeaveCount.fixedAt(2)}/${state.paidLeaveCount}",
-                      style: AppTextStyle.titleText.copyWith(
-                        fontWeight: FontWeight.bold,
-                      )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          BlocBuilder<AdminLeaveApplicationDetailsBloc,
+              AdminLeaveApplicationDetailsState>(
+            builder: (context, state) => state.adminLeaveCountStatus ==
+                    AdminLeaveCountStatus.loading
+                ? const AppCircularProgressIndicator(
+                    size: 28,
+                  )
+                : Text("${state.usedLeaves.fixedAt(2)}/${state.paidLeaveCount}",
+                    style: AppTextStyle.titleText.copyWith(
+                      fontWeight: FontWeight.bold,
+                    )),
+          ),
+          const VerticalDivider(
+            color: AppColors.primaryBlue,
+            thickness: 0.5,
+            width: 32,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  duration,
+                  style: AppTextStyle.subtitleText.copyWith(
+                      fontWeight: FontWeight.w600, color: AppColors.blackColor),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Text(
+                  totalDays,
+                  style: AppTextStyle.bodyTextDark.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primaryBlue),
+                ),
+              ],
             ),
-            const VerticalDivider(
-              color: AppColors.primaryBlue,
-              thickness: 0.5,
-              width: 32,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    duration,
-                    style: AppTextStyle.subtitleText.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackColor),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  Text(
-                    totalDays,
-                    style: AppTextStyle.bodyTextDark.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.primaryBlue),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

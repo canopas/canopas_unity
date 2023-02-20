@@ -25,8 +25,8 @@ class AdminLeaveDetailBloc
     emit(AdminLeaveDetailLoadingState());
     try {
       int paidLeaves = await _paidLeaveService.getPaidLeaves();
-      double usedLeave = await _userLeaveService
-          .getUserUsedLeaveCount(event.leaveApplication.employee.id);
+      double usedLeave =
+          await _userLeaveService.getUserUsedLeaveCount(event.employeeId);
       emit(AdminLeaveDetailSuccessState(
           usedLeaves: usedLeave, paidLeaves: paidLeaves));
     } on Exception {
