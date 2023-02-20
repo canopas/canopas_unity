@@ -181,7 +181,7 @@
   "user_leave_detail_button_cancel":"Cancel",
   "user_leave_detail_button_delete":"Delete",
   "user_leave_detail_cancel_leave_message":"Leave application is cancelled!",
-  "user_leave_detail_delete_leave_message":"Leave application is deleted!!",
+  "user_leave_detail_delete_leave_message":"Leave application has been deleted!!",
   "user_apply_leave_button_apply_leave": "Apply Leave",
   "user_apply_leave_error_message_fill_details": "Please fill all details",
   "user_apply_leave_error_valid_reason": " • Please enter valid reason",

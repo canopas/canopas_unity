@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
@@ -10,11 +11,12 @@ import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
-import '../bloc/employee_leave_details_bloc.dart';
-import '../bloc/leave_details_state.dart';
+import '../bloc/admin_leave_detail_bloc.dart';
+import '../bloc/admin_leave_detail_state.dart';
 
 class LeaveDetailsDateContent extends StatelessWidget {
   final Leave leave;
+
   const LeaveDetailsDateContent({Key? key, required this.leave})
       : super(key: key);
 
@@ -34,52 +36,60 @@ class LeaveDetailsDateContent extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
         boxShadow: AppTheme.commonBoxShadow,
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            BlocBuilder<LeaveDetailsBloc, LeaveDetailsState>(
-              builder: (context, state) => state.leaveDetailsLeaveCountStatus ==
-                      LeaveDetailsLeaveCountStatus.loading
-                  ? const AppCircularProgressIndicator(
-                      size: 28,
-                    )
-                  : Text(
-                      "${state.remainingLeaveCount.fixedAt(2)}/${state.paidLeaveCount}",
-                      style: AppTextStyle.titleText.copyWith(
-                        fontWeight: FontWeight.bold,
-                      )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          BlocConsumer<AdminLeaveDetailBloc, AdminLeaveDetailState>(
+            listenWhen: (previous, current) =>
+                current is AdminLeaveDetailFailureState,
+            listener: (context, state) {
+              if (state is AdminLeaveDetailFailureState) {
+                showSnackBar(context: context, error: state.error);
+              }
+            },
+            builder: (context, state) {
+              if (state is AdminLeaveDetailLoadingState) {
+                return const AppCircularProgressIndicator(
+                  size: 28,
+                );
+              } else if (state is AdminLeaveDetailSuccessState) {
+                return Text(
+                    "${state.usedLeaves.fixedAt(2)}/${state.paidLeaves}",
+                    style: AppTextStyle.titleText.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ));
+              }
+              return Container();
+            },
+          ),
+          const VerticalDivider(
+            color: AppColors.primaryBlue,
+            thickness: 0.5,
+            width: 32,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  duration,
+                  style: AppTextStyle.subtitleText.copyWith(
+                      fontWeight: FontWeight.w600, color: AppColors.blackColor),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Text(
+                  totalDays,
+                  style: AppTextStyle.bodyTextDark.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primaryBlue),
+                ),
+              ],
             ),
-            const VerticalDivider(
-              color: AppColors.primaryBlue,
-              thickness: 0.5,
-              width: 32,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    duration,
-                    style: AppTextStyle.subtitleText.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackColor),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  Text(
-                    totalDays,
-                    style: AppTextStyle.bodyTextDark.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.primaryBlue),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
