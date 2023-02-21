@@ -119,8 +119,6 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i21.AdminHomeBloc>(() => _i21.AdminHomeBloc(
         get<_i3.AdminLeaveService>(),
         get<_i7.EmployeeService>(),
-        get<_i15.UserLeaveService>(),
-        get<_i12.PaidLeaveService>(),
       ));
   gh.factory<_i22.AdminLeaveApplicationDetailsBloc>(
       () => _i22.AdminLeaveApplicationDetailsBloc(

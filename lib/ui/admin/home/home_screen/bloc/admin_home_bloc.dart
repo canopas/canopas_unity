@@ -13,8 +13,6 @@ import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../services/admin/employee_service.dart';
 import '../../../../../services/admin/leave_service.dart';
-import '../../../../../services/admin/paid_leave_service.dart';
-import '../../../../../services/user/user_leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
@@ -22,14 +20,11 @@ import 'admin_home_state.dart';
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final AdminLeaveService _adminLeaveService;
   final EmployeeService _employeeService;
-  final UserLeaveService _userLeaveService;
-  final PaidLeaveService _paidLeaveService;
   StreamSubscription? _subscription;
   final StreamController<List<LeaveApplication>> applications =
       BehaviorSubject();
 
-  AdminHomeBloc(this._adminLeaveService, this._employeeService,
-      this._userLeaveService, this._paidLeaveService)
+  AdminHomeBloc(this._adminLeaveService, this._employeeService)
       : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplications);
   }

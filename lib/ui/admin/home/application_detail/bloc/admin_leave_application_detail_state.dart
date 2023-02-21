@@ -29,7 +29,7 @@ class AdminLeaveApplicationDetailsState extends Equatable {
       {int? paidLeaveCount,
       double? usedLeaves,
       String? error,
-      AdminLeaveResponseStatus? leaveDetailsStatus,
+      AdminLeaveResponseStatus? adminLeaveResponseStatus,
       AdminLeaveCountStatus? adminLeaveCountStatus,
       String? adminReply}) {
     return AdminLeaveApplicationDetailsState(
@@ -38,7 +38,7 @@ class AdminLeaveApplicationDetailsState extends Equatable {
       paidLeaveCount: paidLeaveCount ?? this.paidLeaveCount,
       usedLeaves: usedLeaves ?? this.usedLeaves,
       adminLeaveResponseStatus:
-          leaveDetailsStatus ?? this.adminLeaveResponseStatus,
+          adminLeaveResponseStatus ?? this.adminLeaveResponseStatus,
       adminLeaveCountStatus:
           adminLeaveCountStatus ?? this.adminLeaveCountStatus,
     );

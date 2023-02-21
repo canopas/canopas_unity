@@ -46,20 +46,20 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
 
   Future<void> _responseToLeaveApplication(AdminLeaveResponseEvent event,
       Emitter<AdminLeaveApplicationDetailsState> emit) async {
-    emit(state.copyWith(leaveDetailsStatus: AdminLeaveResponseStatus.loading));
-
+    emit(state.copyWith(
+        adminLeaveResponseStatus: AdminLeaveResponseStatus.loading));
     try {
       if (event.response == AdminLeaveResponse.approve) {
         Map<String, dynamic> map =
             _setLeaveApproval(approveLeaveStatus, state.adminReply);
-        _adminLeaveService.updateLeaveStatus(event.leaveId, map);
+        await _adminLeaveService.updateLeaveStatus(event.leaveId, map);
       } else if (event.response == AdminLeaveResponse.reject) {
         Map<String, dynamic> map =
             _setLeaveApproval(rejectLeaveStatus, state.adminReply);
-        _adminLeaveService.updateLeaveStatus(event.leaveId, map);
+        await _adminLeaveService.updateLeaveStatus(event.leaveId, map);
       }
-      emit(
-          state.copyWith(leaveDetailsStatus: AdminLeaveResponseStatus.success));
+      emit(state.copyWith(
+          adminLeaveResponseStatus: AdminLeaveResponseStatus.success));
     } on Exception {
       emit(state.copyWith(
           error: firestoreFetchDataError,

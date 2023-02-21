@@ -22,8 +22,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
-  late PaidLeaveService paidLeaveService;
-  late UserLeaveService userLeaveService;
+
   late AdminHomeBloc adminHomeBloc;
 
   Employee employee = const Employee(
@@ -57,14 +56,10 @@ void main() {
   setUp(() {
     employeeService = MockEmployeeService();
     adminLeaveService = MockAdminLeaveService();
-    userLeaveService = MockUserLeaveService();
-    paidLeaveService = MockPaidLeaveService();
 
     adminHomeBloc = AdminHomeBloc(
       adminLeaveService,
       employeeService,
-      userLeaveService,
-      paidLeaveService,
     );
   });
 
@@ -92,11 +87,6 @@ void main() {
       List<Employee> employeeList = [employee];
       List<Leave> leaveList = [leave];
 
-      when(userLeaveService.getUserUsedLeaveCount(employee.id))
-          .thenAnswer((_) async => 10);
-      when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
-      when(adminLeaveService.getAllAbsence())
-          .thenAnswer((_) async => [leave, leave]);
       when(employeeService.employees)
           .thenAnswer((_) => Stream.fromIterable([employeeList]));
       when(adminLeaveService.leaves)
@@ -117,7 +107,6 @@ void main() {
       );
       expectLater(
           adminHomeBloc.stream, emitsInOrder([loadingState, successState]));
-      ;
     });
 
     test(
@@ -133,9 +122,7 @@ void main() {
 
       List<Employee> employees = [empl];
       List<Leave> leaves = [leave];
-      when(userLeaveService.getUserUsedLeaveCount(employee.id))
-          .thenAnswer((_) async => 10);
-      when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
+
       when(adminLeaveService.getAllAbsence())
           .thenAnswer((_) async => [leave, leave]);
       when(employeeService.employees)
