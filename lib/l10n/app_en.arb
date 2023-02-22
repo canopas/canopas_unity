@@ -199,6 +199,7 @@
   "edit_tag": "Edit",
   "save_tag": "Save",
   "admin_employee_detail_profile_tag":"Profile",
+  "admin_employees_detail_time_off_tag":"Time Off",
 
   "employee_designation_tag":"Designation",
   "employee_blood_group_tag":"Blood Group",
@@ -212,6 +213,7 @@
   "employee_level_tag":"Level",
   "employee_employeeID_tag":"Employee Id",
   "employee_name_tag":"Name",
+
 
 
 

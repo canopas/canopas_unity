@@ -44,53 +44,56 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
     return Scaffold(
       appBar: AppBar(actions: [
         BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
+            buildWhen: (previous, current) =>
+                previous is! EmployeeDetailLoadedState &&
+                current is EmployeeDetailLoadedState,
             builder: (context, state) {
-          if (state is EmployeeDetailLoadedState &&
-              context.read<EmployeeDetailBloc>().currentUserIsAdmin) {
-            return PopupMenuButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 6,
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: Text(AppLocalizations.of(context).edit_tag),
-                  onTap: () {
-                    context.goNamed(Routes.adminEditEmployee,
-                        extra: state.employee,
-                        params: {
-                          RoutesParamsConst.employeeId: state.employee.id
-                        });
-                  },
-                ),
-                PopupMenuItem(
-                  child: Text(
-                    AppLocalizations.of(context)
-                        .user_leave_detail_button_delete,
+              if (state is EmployeeDetailLoadedState &&
+                  context.read<EmployeeDetailBloc>().currentUserIsAdmin) {
+                return PopupMenuButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  onTap: () {
-                    context.read<EmployeeDetailBloc>().add(
-                        DeleteEmployeeEvent(employeeId: widget.employeeId));
-                    context.pop();
-                  },
-                ),
-                PopupMenuItem(
-                  child: Text(state.employee.roleType == kRoleTypeAdmin
-                      ? AppLocalizations.of(context)
-                          .employee_details_remove_admin_tag
-                      : AppLocalizations.of(context)
-                          .employee_details_make_admin_tag),
-                  onTap: () {
-                    context
-                        .read<EmployeeDetailBloc>()
-                        .add(EmployeeDetailsChangeRoleTypeEvent());
-                  },
-                ),
-              ],
-            );
-          }
-          return const SizedBox();
-        }),
+                  elevation: 6,
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text(AppLocalizations.of(context).edit_tag),
+                      onTap: () {
+                        context.goNamed(Routes.adminEditEmployee,
+                            extra: state.employee,
+                            params: {
+                              RoutesParamsConst.employeeId: state.employee.id
+                            });
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .user_leave_detail_button_delete,
+                      ),
+                      onTap: () {
+                        context.read<EmployeeDetailBloc>().add(
+                            DeleteEmployeeEvent(employeeId: widget.employeeId));
+                        context.pop();
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: Text(state.employee.roleType == kRoleTypeAdmin
+                          ? AppLocalizations.of(context)
+                              .employee_details_remove_admin_tag
+                          : AppLocalizations.of(context)
+                              .employee_details_make_admin_tag),
+                      onTap: () {
+                        context
+                            .read<EmployeeDetailBloc>()
+                            .add(EmployeeDetailsChangeRoleTypeEvent());
+                      },
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox();
+            }),
       ]),
       body: BlocConsumer<EmployeeDetailBloc, AdminEmployeeDetailState>(
         builder: (BuildContext context, AdminEmployeeDetailState state) {
@@ -99,7 +102,12 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           } else if (state is EmployeeDetailLoadedState) {
             return ListView(children: [
               ProfileCard(employee: state.employee),
-              ProfileDetail(employee: state.employee),
+              ProfileDetail(
+                employee: state.employee,
+                usedLeaves: state.usedLeaves,
+                paidLeaves: state.paidLeaves,
+                percentage: state.timeOffRatio,
+              ),
             ]);
           }
           return const SizedBox();
