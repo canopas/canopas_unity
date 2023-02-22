@@ -11,11 +11,8 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../model/leave_count.dart';
 import '../../../../../services/admin/employee_service.dart';
 import '../../../../../services/admin/leave_service.dart';
-import '../../../../../services/admin/paid_leave_service.dart';
-import '../../../../../services/user/user_leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
@@ -23,14 +20,11 @@ import 'admin_home_state.dart';
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final AdminLeaveService _adminLeaveService;
   final EmployeeService _employeeService;
-  final UserLeaveService _userLeaveService;
-  final PaidLeaveService _paidLeaveService;
   StreamSubscription? _subscription;
   final StreamController<List<LeaveApplication>> applications =
       BehaviorSubject();
 
-  AdminHomeBloc(this._adminLeaveService, this._employeeService,
-      this._userLeaveService, this._paidLeaveService)
+  AdminHomeBloc(this._adminLeaveService, this._employeeService)
       : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplications);
   }
@@ -39,9 +33,8 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
       AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
     emit(state.copyWith(status: AdminHomeStatus.loading));
     try {
-      await emit
-          .forEach<List<LeaveApplication>>(_changeLeaveApplicationFormat(),
-              onData: (List<LeaveApplication> leaveApplications) {
+      await emit.forEach<List<LeaveApplication>>(combineStream,
+          onData: (List<LeaveApplication> leaveApplications) {
         return state.copyWith(
           status: AdminHomeStatus.success,
           leaveAppMap: convertListToMap(leaveApplications),
@@ -52,20 +45,20 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     }
   }
 
-  Stream<List<LeaveApplication>> _changeLeaveApplicationFormat() {
-    _subscription = combineStream.listen((event) async {
-      List<LeaveApplication> list = [];
-      event.isEmpty
-          ? applications.sink.add(list)
-          : Future.wait(event.map((leaveApplication) async {
-              LeaveApplication application =
-                  await _addLeavesTo(leaveApplication);
-              list.add(application);
-              applications.sink.add(list);
-            }));
-    });
-    return applications.stream;
-  }
+  // Stream<List<LeaveApplication>> _changeLeaveApplicationFormat() {
+  //   _subscription = combineStream.listen((event) async {
+  //     List<LeaveApplication> list = [];
+  //     event.isEmpty
+  //         ? applications.sink.add(list)
+  //         : Future.wait(event.map((leaveApplication) async {
+  //             LeaveApplication application =
+  //                 await _addLeavesTo(leaveApplication);
+  //             list.add(application);
+  //             applications.sink.add(list);
+  //           }));
+  //   });
+  //   return applications.stream;
+  // }
 
   Stream<List<LeaveApplication>> get combineStream =>
       Rx.combineLatest2(_adminLeaveService.leaves, _employeeService.employees, (
@@ -84,21 +77,21 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
             .whereNotNull()
             .toList();
       });
-
-  Future<LeaveApplication> _addLeavesTo(LeaveApplication application) async {
-    int paidLeaves = await _paidLeaveService.getPaidLeaves();
-    double usedLeave =
-        await _userLeaveService.getUserUsedLeaveCount(application.employee.id);
-    double remainingLeaves = paidLeaves - usedLeave;
-    LeaveCounts leaveCounts = LeaveCounts(
-        remainingLeaveCount: remainingLeaves < 0 ? 0 : remainingLeaves,
-        usedLeaveCount: usedLeave,
-        paidLeaveCount: paidLeaves);
-    return LeaveApplication(
-        employee: application.employee,
-        leave: application.leave,
-        leaveCounts: leaveCounts);
-  }
+  //
+  // Future<LeaveApplication> _addLeavesTo(LeaveApplication application) async {
+  //   int paidLeaves = await _paidLeaveService.getPaidLeaves();
+  //   double usedLeave =
+  //       await _userLeaveService.getUserUsedLeaveCount(application.employee.id);
+  //   double remainingLeaves = paidLeaves - usedLeave;
+  //   LeaveCounts leaveCounts = LeaveCounts(
+  //       remainingLeaveCount: remainingLeaves < 0 ? 0 : remainingLeaves,
+  //       usedLeaveCount: usedLeave,
+  //       paidLeaveCount: paidLeaves);
+  //   return LeaveApplication(
+  //       employee: application.employee,
+  //       leave: application.leave,
+  //       leaveCounts: leaveCounts);
+  // }
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {

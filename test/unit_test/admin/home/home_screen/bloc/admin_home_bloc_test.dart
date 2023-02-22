@@ -6,7 +6,6 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/model/leave_count.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
 import 'package:projectunity/services/admin/paid_leave_service.dart';
@@ -23,8 +22,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
-  late PaidLeaveService paidLeaveService;
-  late UserLeaveService userLeaveService;
+
   late AdminHomeBloc adminHomeBloc;
 
   Employee employee = const Employee(
@@ -58,14 +56,10 @@ void main() {
   setUp(() {
     employeeService = MockEmployeeService();
     adminLeaveService = MockAdminLeaveService();
-    userLeaveService = MockUserLeaveService();
-    paidLeaveService = MockPaidLeaveService();
 
     adminHomeBloc = AdminHomeBloc(
       adminLeaveService,
       employeeService,
-      userLeaveService,
-      paidLeaveService,
     );
   });
 
@@ -93,12 +87,6 @@ void main() {
       List<Employee> employeeList = [employee];
       List<Leave> leaveList = [leave];
 
-      when(userLeaveService.getUserUsedLeaveCount(employee.id))
-          .thenAnswer((_) => Future(() => 10));
-      when(paidLeaveService.getPaidLeaves())
-          .thenAnswer((_) => Future(() => 12));
-      when(adminLeaveService.getAllAbsence())
-          .thenAnswer((_) async => [leave, leave]);
       when(employeeService.employees)
           .thenAnswer((_) => Stream.fromIterable([employeeList]));
       when(adminLeaveService.leaves)
@@ -107,10 +95,9 @@ void main() {
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
 
       LeaveApplication la = LeaveApplication(
-          employee: employee,
-          leave: leave,
-          leaveCounts: const LeaveCounts(
-              remainingLeaveCount: 2, paidLeaveCount: 12, usedLeaveCount: 10));
+        employee: employee,
+        leave: leave,
+      );
       Map<DateTime, List<LeaveApplication>> map = {
         leave.startDate.toDate.dateOnly: [la]
       };
@@ -120,10 +107,6 @@ void main() {
       );
       expectLater(
           adminHomeBloc.stream, emitsInOrder([loadingState, successState]));
-      LeaveApplication application =
-          successState.leaveAppMap.values.first.first;
-      double usedLeaves = application.leaveCounts!.remainingLeaveCount;
-      expect(2, usedLeaves);
     });
 
     test(
@@ -139,10 +122,7 @@ void main() {
 
       List<Employee> employees = [empl];
       List<Leave> leaves = [leave];
-      when(userLeaveService.getUserUsedLeaveCount(employee.id))
-          .thenAnswer((_) => Future(() => 10));
-      when(paidLeaveService.getPaidLeaves())
-          .thenAnswer((_) => Future(() => 12));
+
       when(adminLeaveService.getAllAbsence())
           .thenAnswer((_) async => [leave, leave]);
       when(employeeService.employees)

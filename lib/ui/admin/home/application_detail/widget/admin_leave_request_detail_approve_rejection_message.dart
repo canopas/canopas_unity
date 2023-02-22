@@ -6,8 +6,8 @@ import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/space_constant.dart';
-import '../bloc/admin_leave_details_bloc.dart';
-import '../bloc/admin_leave_details_event.dart';
+import '../bloc/admin_leave_application_detail_bloc.dart';
+import '../bloc/admin_leave_application_detail_event.dart';
 
 class ApproveRejectionMessage extends StatelessWidget {
   const ApproveRejectionMessage({Key? key}) : super(key: key);
