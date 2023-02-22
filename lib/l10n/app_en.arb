@@ -200,6 +200,7 @@
   "save_tag": "Save",
   "admin_employee_detail_profile_tag":"Profile",
   "admin_employees_detail_time_off_tag":"Time Off",
+  "admin_employee_detail_appbar_title_detail_tag":"Details",
 
   "employee_designation_tag":"Designation",
   "employee_blood_group_tag":"Blood Group",
