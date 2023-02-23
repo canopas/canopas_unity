@@ -112,57 +112,53 @@ class GenderSelection extends StatelessWidget {
     return BlocBuilder<EmployeeEditEmployeeDetailsBloc,
             EmployeeEditEmployeeDetailsState>(
         buildWhen: (previous, current) => previous.gender != current.gender,
-        builder: (context, state) => Row(
-              children: [
-                Expanded(
-                    child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: state.gender == EmployeeGender.male
-                          ? AppColors.whiteColor
-                          : AppColors.textFieldBg,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(
-                              color: AppColors.textFieldBg, width: 3))),
-                  onPressed: () {
-                    bloc.add(ChangeGenderEvent(
-                        gender: state.gender == EmployeeGender.male
-                            ? null
-                            : EmployeeGender.male));
-                  },
-                  child: Text(
-                    localization.gender_male_tag,
-                    style: AppTextStyle.subtitleTextDark,
-                  ),
-                )),
-                const SizedBox(
-                  width: primaryHorizontalSpacing,
+        builder: (context, state) {
+          return Row(
+            children: [
+              Expanded(
+                  child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: state.gender == EmployeeGender.male
+                        ? AppColors.textFieldBg
+                        : AppColors.whiteColor,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: const BorderSide(
+                            color: AppColors.textFieldBg, width: 3))),
+                onPressed: () {
+                  bloc.add(ChangeGenderEvent(gender: EmployeeGender.male));
+                },
+                child: Text(
+                  localization.gender_male_tag,
+                  style: AppTextStyle.subtitleTextDark,
                 ),
-                Expanded(
-                    child: ElevatedButton(
-                  onPressed: () {
-                    bloc.add(ChangeGenderEvent(
-                        gender: state.gender == EmployeeGender.female
-                            ? null
-                            : EmployeeGender.female));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: state.gender == EmployeeGender.female
-                          ? AppColors.whiteColor
-                          : AppColors.textFieldBg,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(
-                              color: AppColors.textFieldBg, width: 3))),
-                  child: Text(
-                    localization.gender_female_tag,
-                    style: AppTextStyle.subtitleTextDark,
-                  ),
-                )),
-              ],
-            ));
+              )),
+              const SizedBox(
+                width: primaryHorizontalSpacing,
+              ),
+              Expanded(
+                  child: ElevatedButton(
+                onPressed: () {
+                  bloc.add(ChangeGenderEvent(gender: EmployeeGender.female));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: state.gender == EmployeeGender.female
+                        ? AppColors.textFieldBg
+                        : AppColors.whiteColor,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: const BorderSide(
+                            color: AppColors.textFieldBg, width: 3))),
+                child: Text(
+                  localization.gender_female_tag,
+                  style: AppTextStyle.subtitleTextDark,
+                ),
+              )),
+            ],
+          );
+        });
   }
 }
 
