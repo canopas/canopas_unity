@@ -43,7 +43,7 @@ import '../ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bl
     as _i9;
 import '../ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
     as _i8;
-import '../ui/user/employees/bloc/user_employees_bloc.dart' as _i14;
+import '../ui/user/employees/list/bloc/user_employees_bloc.dart' as _i14;
 import '../ui/user/home/home_screen/bloc/user_home_bloc.dart' as _i40;
 import '../ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i10;

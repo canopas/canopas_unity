@@ -7,12 +7,12 @@ import 'package:projectunity/widget/app_divider.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
-import '../../../configs/colors.dart';
-import '../../../core/utils/const/space_constant.dart';
-import '../../../di/service_locator.dart';
-import '../../../model/employee/employee.dart';
-import '../../../router/app_router.dart';
-import '../../../widget/employee_card.dart';
+import '../../../../configs/colors.dart';
+import '../../../../core/utils/const/space_constant.dart';
+import '../../../../di/service_locator.dart';
+import '../../../../model/employee/employee.dart';
+import '../../../../router/app_router.dart';
+import '../../../../widget/employee_card.dart';
 import 'bloc/user_employee_state.dart';
 import 'bloc/user_employees_bloc.dart';
 import 'bloc/user_employees_event.dart';

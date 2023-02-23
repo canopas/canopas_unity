@@ -21,7 +21,7 @@ import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/dashboard/user_dashboard.dart';
-import '../ui/user/employees/user_employees_screen.dart';
+import '../ui/user/employees/list/user_employees_screen.dart';
 import '../ui/user/home/home_screen/user_home_screen.dart';
 import '../ui/user/home/leave_calendar/user_leave_calendar_screen.dart';
 import '../ui/user/leaves/apply_leave/apply_leave_screen.dart';
