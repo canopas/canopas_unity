@@ -22,12 +22,12 @@ import '../services/auth/auth_service.dart' as _i26;
 import '../services/user/user_leave_service.dart' as _i15;
 import '../stateManager/auth/auth_manager.dart' as _i35;
 import '../stateManager/auth/desktop/desktop_auth_manager.dart' as _i6;
-import '../ui/admin/addmember/bloc/add_member_bloc.dart' as _i18;
 import '../ui/admin/admin_employees/bloc/admin_employees_bloc.dart' as _i20;
 import '../ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart'
     as _i19;
 import '../ui/admin/employee/detail/bloc/employee_detail_bloc.dart' as _i36;
 import '../ui/admin/employee/list/bloc/employee_list_bloc.dart' as _i27;
+import '../ui/admin/home/addmember/bloc/add_member_bloc.dart' as _i18;
 import '../ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart'
     as _i22;
 import '../ui/admin/home/home_screen/bloc/admin_home_bloc.dart' as _i21;

@@ -2,12 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/ui/admin/addmember/bloc/add_member_bloc.dart';
-import 'package:projectunity/ui/admin/addmember/bloc/add_member_event.dart';
-import 'package:projectunity/ui/admin/addmember/bloc/add_member_state.dart';
+import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_bloc.dart';
+import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_event.dart';
+import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_state.dart';
 
 import 'add_member_bloc_test.mocks.dart';
-
 
 @GenerateMocks([EmployeeService])
 void main() {
@@ -24,7 +23,6 @@ void main() {
       emailError: false,
       designationError: false,
       status: SubmitFormStatus.initial);
-
 
   setUp(() {
     employeeService = MockEmployeeService();

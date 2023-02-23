@@ -51,9 +51,9 @@ class EmployeeEditEmployeeDetailsForm extends StatelessWidget {
             onChanged: (value) => bloc
                 .add(ValidNameEmployeeEditEmployeeDetailsEvent(name: value)),
             errorText: state.nameError
-                ? localization.admin_add_member_error_name
+                ? localization.admin_home_add_member_error_name
                 : null,
-            hintText: localization.name_hint_text,
+            hintText: localization.admin_home_add_member_name_hint_text,
           ),
         ),
         FieldTitle(title: localization.employee_designation_tag),
@@ -67,15 +67,16 @@ class EmployeeEditEmployeeDetailsForm extends StatelessWidget {
                 ValidDesignationEmployeeEditEmployeeDetailsEvent(
                     designation: value)),
             errorText: state.designationError
-                ? localization.complete_mandatory_field_error
+                ? localization
+                    .admin_home_add_member_complete_mandatory_field_error
                 : null,
-            hintText: localization.designation_hint_text,
+            hintText: localization.admin_home_add_member_designation_hint_text,
           ),
         ),
         FieldTitle(title: localization.employee_level_tag),
         FieldEntry(
           controller: levelController,
-          hintText: localization.level_hint_text,
+          hintText: localization.admin_home_add_member_level_hint_text,
         ),
         FieldTitle(title: localization.employee_dateOfBirth_tag),
         const DateOfBirthButton(),
@@ -84,18 +85,18 @@ class EmployeeEditEmployeeDetailsForm extends StatelessWidget {
         FieldTitle(title: localization.employee_blood_group_tag),
         FieldEntry(
           controller: bloodGroupController,
-          hintText: localization.blood_group_hint_text,
+          hintText: localization.admin_home_add_member_blood_group_hint_text,
         ),
         FieldTitle(title: localization.employee_mobile_tag),
         FieldEntry(
           controller: phoneNumberController,
-          hintText: localization.mobile_number_hint_text,
+          hintText: localization.admin_home_add_member_mobile_number_hint_text,
         ),
         FieldTitle(title: localization.employee_address_tag),
         FieldEntry(
           maxLine: 3,
           controller: addressController,
-          hintText: localization.address_hint_text,
+          hintText: localization.admin_home_add_member_address_hint_text,
         ),
       ],
     );
