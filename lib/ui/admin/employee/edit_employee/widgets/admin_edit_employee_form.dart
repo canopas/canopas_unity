@@ -4,15 +4,15 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
-import '../../../../configs/colors.dart';
-import '../../../../widget/date_time_picker.dart';
-import '../../../../widget/employee_details_textfield.dart';
-import '../../home/addmember/widget/role_toggle_button.dart';
+import '../../../../../configs/colors.dart';
+import '../../../../../widget/date_time_picker.dart';
+import '../../../../../widget/employee_details_textfield.dart';
+import '../../../home/addmember/widget/role_toggle_button.dart';
+import '../bloc/admin_edit_employee_bloc.dart';
+import '../bloc/admin_edit_employee_events.dart';
+import '../bloc/admin_edit_employee_state.dart';
 
 class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final String employeeId;
