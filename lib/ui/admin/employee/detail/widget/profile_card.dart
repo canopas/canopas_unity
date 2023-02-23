@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
+
 import '../../../../../../configs/colors.dart';
 import '../../../../../../model/employee/employee.dart';
 import '../../../../../../widget/user_profile_image.dart';
@@ -20,7 +21,7 @@ class ProfileCard extends StatelessWidget {
         Container(
           height: 150,
           decoration: const BoxDecoration(
-              color: AppColors.primaryBlue,
+              color: AppColors.lightGreyColor,
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
         ),
@@ -42,8 +43,7 @@ class ProfileCard extends StatelessWidget {
               bottom: 5,
               left: primaryHorizontalSpacing,
               right: primaryHorizontalSpacing),
-          padding:
-          const EdgeInsets.only(
+          padding: const EdgeInsets.only(
               top: 70.0,
               bottom: 30.0,
               left: primaryHorizontalSpacing,
