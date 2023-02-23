@@ -55,7 +55,7 @@ import '../ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.d
     as _i42;
 import '../ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
     as _i41;
-import '../ui/user/settings/edit_profile/bloc/edit_employee_details_employee_bloc.dart'
+import '../ui/user/settings/edit_profile/bloc/emloyee_edit_profile_bloc.dart'
     as _i37;
 import '../ui/user/settings/settings_screen/bloc/user_settings_bloc.dart'
     as _i31;
@@ -176,12 +176,11 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.UserLeaveService>(),
         get<_i30.UserManager>(),
       ));
-  gh.factory<_i37.EmployeeEditEmployeeDetailsBloc>(
-      () => _i37.EmployeeEditEmployeeDetailsBloc(
-            get<_i7.EmployeeService>(),
-            get<_i16.UserPreference>(),
-            get<_i30.UserManager>(),
-          ));
+  gh.factory<_i37.EmployeeEditProfileBloc>(() => _i37.EmployeeEditProfileBloc(
+        get<_i7.EmployeeService>(),
+        get<_i16.UserPreference>(),
+        get<_i30.UserManager>(),
+      ));
   gh.factory<_i38.LogOutBloc>(() => _i38.LogOutBloc(
         get<_i16.UserPreference>(),
         get<_i26.AuthService>(),

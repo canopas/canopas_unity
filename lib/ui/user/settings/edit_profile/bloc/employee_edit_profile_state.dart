@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 
-enum EmployeeEditEmployeeDetailsStatus { initial, loading, success, failure }
+enum EmployeeProfileState { initial, loading, success, failure }
 
-class EmployeeEditEmployeeDetailsState extends Equatable {
-  final EmployeeEditEmployeeDetailsStatus status;
+class EmployeeEditProfileState extends Equatable {
+  final EmployeeProfileState status;
   final int? gender;
   final DateTime? dateOfBirth;
   final bool nameError;
   final bool designationError;
   final String? error;
 
-  const EmployeeEditEmployeeDetailsState({
+  const EmployeeEditProfileState({
     this.gender,
     this.dateOfBirth,
-    this.status = EmployeeEditEmployeeDetailsStatus.initial,
+    this.status = EmployeeProfileState.initial,
     this.error,
     this.nameError = false,
     this.designationError = false,
@@ -25,9 +25,9 @@ class EmployeeEditEmployeeDetailsState extends Equatable {
     bool? nameError,
     bool? designationError,
     String? error,
-    EmployeeEditEmployeeDetailsStatus? status,
+    EmployeeProfileState? status,
   }) {
-    return EmployeeEditEmployeeDetailsState(
+    return EmployeeEditProfileState(
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       error: error,
@@ -38,7 +38,7 @@ class EmployeeEditEmployeeDetailsState extends Equatable {
   }
 
   changeDateOfBirth({DateTime? dateOfBirth}) {
-    return EmployeeEditEmployeeDetailsState(
+    return EmployeeEditProfileState(
       status: status,
       dateOfBirth: dateOfBirth,
       designationError: designationError,
@@ -49,7 +49,7 @@ class EmployeeEditEmployeeDetailsState extends Equatable {
   }
 
   changeGender({int? gender}) {
-    return EmployeeEditEmployeeDetailsState(
+    return EmployeeEditProfileState(
       status: status,
       dateOfBirth: dateOfBirth,
       designationError: designationError,

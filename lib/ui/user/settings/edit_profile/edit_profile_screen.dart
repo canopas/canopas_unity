@@ -5,46 +5,45 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/ui/user/settings/edit_profile/widget/edit_employee_details_form_employee.dart';
+import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../widget/app_app_bar.dart';
 import '../../../../widget/error_snack_bar.dart';
-import 'bloc/edit_employee_details_employee_bloc.dart';
-import 'bloc/edit_employee_details_employee_event.dart';
-import 'bloc/edit_employee_details_employee_state.dart';
+import 'bloc/emloyee_edit_profile_bloc.dart';
+import 'bloc/employee_edit_profile_event.dart';
+import 'bloc/employee_edit_profile_state.dart';
 
-class EmployeeEditEmployeeDetailsPage extends StatelessWidget {
+class EmployeeEditProfilePage extends StatelessWidget {
   final Employee employee;
 
-  const EmployeeEditEmployeeDetailsPage({Key? key, required this.employee})
+  const EmployeeEditProfilePage({Key? key, required this.employee})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployeeEditEmployeeDetailsBloc>()
-        ..add(EmployeeEditEmployeeDetailsInitialLoadEvent(
+      create: (context) => getIt<EmployeeEditProfileBloc>()
+        ..add(EditProfileInitialLoadEvent(
             dateOfBirth: employee.dateOfBirth, gender: employee.gender)),
-      child: EmployeeEditEmployeeDetailsView(employee: employee),
+      child: EmployeeEditProfileScreen(employee: employee),
     );
   }
 }
 
-class EmployeeEditEmployeeDetailsView extends StatefulWidget {
+class EmployeeEditProfileScreen extends StatefulWidget {
   final Employee employee;
 
-  const EmployeeEditEmployeeDetailsView({Key? key, required this.employee})
+  const EmployeeEditProfileScreen({Key? key, required this.employee})
       : super(key: key);
 
   @override
-  State<EmployeeEditEmployeeDetailsView> createState() =>
-      _EmployeeEditEmployeeDetailsViewState();
+  State<EmployeeEditProfileScreen> createState() =>
+      _EmployeeEditProfileScreenState();
 }
 
-class _EmployeeEditEmployeeDetailsViewState
-    extends State<EmployeeEditEmployeeDetailsView> {
+class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController designationController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -80,8 +79,8 @@ class _EmployeeEditEmployeeDetailsViewState
               ),
               onPressed: () {
                 context
-                    .read<EmployeeEditEmployeeDetailsBloc>()
-                    .add(UpdateEmployeeDetailsEvent(
+                    .read<EmployeeEditProfileBloc>()
+                    .add(EditProfileUpdateProfileEvent(
                       address: addressController.text,
                       bloodGroup: bloodGroupController.text,
                       level: levelController.text,
@@ -96,18 +95,16 @@ class _EmployeeEditEmployeeDetailsViewState
               ))
         ],
       ),
-      body: BlocListener<EmployeeEditEmployeeDetailsBloc,
-          EmployeeEditEmployeeDetailsState>(
+      body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == EmployeeEditEmployeeDetailsStatus.failure) {
+          if (state.status == EmployeeProfileState.failure) {
             showSnackBar(context: context, error: state.error);
-          } else if (state.status ==
-              EmployeeEditEmployeeDetailsStatus.success) {
+          } else if (state.status == EmployeeProfileState.success) {
             context.pop();
           }
         },
-        child: EmployeeEditEmployeeDetailsForm(
+        child: ProfileForm(
           profileImageURL: widget.employee.imageUrl,
           nameController: nameController,
           levelController: levelController,
