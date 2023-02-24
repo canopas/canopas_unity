@@ -7,6 +7,7 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/edit_employe_details/admin_edit_employee_details_view.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
+import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 
@@ -226,8 +227,8 @@ class AppRouter {
                         name: Routes.userEmployeeDetail,
                         path: ':employeeId',
                         pageBuilder: (context, state) => MaterialPage(
-                            child: EmployeeDetailPage(
-                                id: state
+                            child: UserEmployeeDetailPage(
+                                employeeId: state
                                     .params[RoutesParamsConst.employeeId]!)),
                       ),
                     ]),

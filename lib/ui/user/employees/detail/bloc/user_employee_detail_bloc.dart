@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_state.dart';
@@ -6,6 +7,7 @@ import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_
 import '../../../../../services/admin/employee_service.dart';
 import '../../../../../services/user/user_leave_service.dart';
 
+@Injectable()
 class UserEmployeeDetailBloc
     extends Bloc<UserEmployeeDetailEvent, UserEmployeeDetailState> {
   final EmployeeService _employeeService;
