@@ -112,5 +112,7 @@ class AppFontStyle {
       fontWeight: FontWeight.bold);
   static const subTitleTextStyle =
       TextStyle(color: AppColors.blackColor, fontSize: subTitleTextSize);
-  static const titleTextStyle = appbarHeaderStyle;
+
+  static const titleTextStyle =
+      TextStyle(color: AppColors.greyColor, fontSize: headerTextSize);
 }

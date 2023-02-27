@@ -195,6 +195,7 @@ Future<_i1.GetIt> $initGetIt(
         get<_i16.UserPreference>(),
         get<_i26.AuthService>(),
         get<_i30.UserManager>(),
+        get<_i15.UserLeaveService>(),
       ));
   gh.factory<_i41.UserLeaveBloc>(() => _i41.UserLeaveBloc(
         get<_i30.UserManager>(),

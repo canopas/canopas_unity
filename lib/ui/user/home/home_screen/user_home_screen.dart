@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
+import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
+import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import 'package:projectunity/ui/user/home/home_screen/widget/employee_home_appbar.dart';
+import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_card.dart';
+import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../core/utils/const/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../router/app_router.dart';
 import '../../../../widget/WhoIsOutCard/who_is_out_card.dart';
@@ -16,7 +23,8 @@ class UserHomeScreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<UserHomeBloc>(),
+      create: (context) =>
+          getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
       child: const UserHomeScreen(),
     );
   }
@@ -36,15 +44,50 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       appBar: EmployeeHomeAppBar(
         preferredSize: Size(MediaQuery.of(context).size.width, 80),
       ),
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
-        children: [
-          WhoIsOutCard(
-            onSeeAllButtonTap: () {
-              context.pushNamed(Routes.userCalender);
-            },
-          ),
-        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            WhoIsOutCard(
+              onSeeAllButtonTap: () {
+                context.pushNamed(Routes.userCalender);
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: primaryHorizontalSpacing,
+              ),
+              child: Text(AppLocalizations.of(context).user_home_requests_tag,
+                  style: AppFontStyle.titleTextStyle),
+            ),
+            BlocConsumer<UserHomeBloc, UserHomeState>(
+                builder: (context, state) {
+                  if (state is UserHomeInitialState) {
+                    return Container();
+                  } else if (state is UserHomeLoadingState) {
+                    return const AppCircularProgressIndicator();
+                  } else if (state is UserHomeSuccessState) {
+                    final requests = state.requests;
+                    return Expanded(
+                      child: ListView.builder(
+                          itemCount: requests.length,
+                          itemBuilder: (context, index) {
+                            return UserLeaveCard(leave: requests[index]);
+                          }),
+                    );
+                  }
+                  return Container();
+                },
+                listenWhen: (previous, current) =>
+                    current is UserHomeErrorState,
+                listener: (context, state) {
+                  if (state is UserHomeErrorState) {
+                    showSnackBar(context: context, error: state.error);
+                  }
+                })
+          ],
+        ),
       ),
       backgroundColor: AppColors.whiteColor,
     );
