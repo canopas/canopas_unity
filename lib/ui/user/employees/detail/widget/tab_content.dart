@@ -14,48 +14,16 @@ class TabContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.greyColor),
-                  borderRadius: BorderRadius.circular(5)),
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: LeaveButton(
-                  leaves: leaves,
-                ),
-              ),
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColors.greyColor),
+            borderRadius: BorderRadius.circular(5)),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: LeaveButton(
+            leaves: leaves,
           ),
-          const SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.greyColor),
-                  borderRadius: BorderRadius.circular(5)),
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.chat,
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    Text('Message')
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -82,6 +50,9 @@ class LeaveButton extends StatelessWidget {
             children: [
               const Icon(
                 Icons.calendar_month_sharp,
+              ),
+              const SizedBox(
+                width: 5,
               ),
               Text(
                 localization.user_leave_upcoming_leaves_tag,
