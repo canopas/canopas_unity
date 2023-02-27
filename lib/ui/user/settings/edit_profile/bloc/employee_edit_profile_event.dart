@@ -1,52 +1,49 @@
 import 'package:equatable/equatable.dart';
 
-abstract class EmployeeEditEmployeeDetailsEvents extends Equatable {}
+abstract class EditProfileEvent extends Equatable {}
 
-class EmployeeEditEmployeeDetailsInitialLoadEvent
-    extends EmployeeEditEmployeeDetailsEvents {
+class EditProfileInitialLoadEvent extends EditProfileEvent {
   final int? gender;
   final int? dateOfBirth;
 
-  EmployeeEditEmployeeDetailsInitialLoadEvent(
+  EditProfileInitialLoadEvent(
       {required this.gender, required this.dateOfBirth});
 
   @override
   List<Object?> get props => [gender, dateOfBirth];
 }
 
-class ValidDesignationEmployeeEditEmployeeDetailsEvent
-    extends EmployeeEditEmployeeDetailsEvents {
+class EditProfileDesignationChangedEvent extends EditProfileEvent {
   final String designation;
 
-  ValidDesignationEmployeeEditEmployeeDetailsEvent({required this.designation});
+  EditProfileDesignationChangedEvent({required this.designation});
 
   @override
   List<Object?> get props => [designation];
 }
 
-class ValidNameEmployeeEditEmployeeDetailsEvent
-    extends EmployeeEditEmployeeDetailsEvents {
+class EditProfileNameChangedEvent extends EditProfileEvent {
   final String name;
 
-  ValidNameEmployeeEditEmployeeDetailsEvent({required this.name});
+  EditProfileNameChangedEvent({required this.name});
 
   @override
   List<Object?> get props => [name];
 }
 
-class ChangeDateOfBirthEvent extends EmployeeEditEmployeeDetailsEvents {
+class EditProfileChangeDateOfBirthEvent extends EditProfileEvent {
   final DateTime? dateOfBirth;
 
-  ChangeDateOfBirthEvent({required this.dateOfBirth});
+  EditProfileChangeDateOfBirthEvent({required this.dateOfBirth});
 
   @override
   List<Object?> get props => [dateOfBirth];
 }
 
-class ChangeGenderEvent extends EmployeeEditEmployeeDetailsEvents {
+class EditProfileChangeGenderEvent extends EditProfileEvent {
   final int? gender;
 
-  ChangeGenderEvent({
+  EditProfileChangeGenderEvent({
     required this.gender,
   });
 
@@ -54,7 +51,7 @@ class ChangeGenderEvent extends EmployeeEditEmployeeDetailsEvents {
   List<Object?> get props => [gender];
 }
 
-class UpdateEmployeeDetailsEvent extends EmployeeEditEmployeeDetailsEvents {
+class EditProfileUpdateProfileEvent extends EditProfileEvent {
   final String name;
   final String designation;
   final String level;
@@ -62,7 +59,7 @@ class UpdateEmployeeDetailsEvent extends EmployeeEditEmployeeDetailsEvents {
   final String bloodGroup;
   final String address;
 
-  UpdateEmployeeDetailsEvent(
+  EditProfileUpdateProfileEvent(
       {required this.name,
       required this.designation,
       required this.phoneNumber,

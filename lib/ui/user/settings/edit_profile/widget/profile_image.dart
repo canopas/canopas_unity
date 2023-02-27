@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../widget/user_profile_image.dart';
 
-class ProfileImageWithEditButton extends StatelessWidget {
+class ProfileImage extends StatelessWidget {
   final String? imageURl;
 
-  const ProfileImageWithEditButton({Key? key, required this.imageURl})
-      : super(key: key);
+  const ProfileImage({Key? key, required this.imageURl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
