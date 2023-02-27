@@ -9,35 +9,35 @@ import '../../../../../exception/error_const.dart';
 import '../../../../../pref/user_preference.dart';
 import '../../../../../services/admin/employee_service.dart';
 import '../../settings_screen/bloc/user_settings_event.dart';
-import 'edit_employee_details_employee_event.dart';
-import 'edit_employee_details_employee_state.dart';
+import 'employee_edit_profile_event.dart';
+import 'employee_edit_profile_state.dart';
 
 @Injectable()
-class EmployeeEditEmployeeDetailsBloc extends Bloc<
-    EmployeeEditEmployeeDetailsEvents, EmployeeEditEmployeeDetailsState> {
+class EmployeeEditProfileBloc
+    extends Bloc<EditProfileEvent, EmployeeEditProfileState> {
   final EmployeeService _employeeService;
   final UserManager _userManager;
   final UserPreference _preference;
 
-  EmployeeEditEmployeeDetailsBloc(
+  EmployeeEditProfileBloc(
       this._employeeService, this._preference, this._userManager)
-      : super(const EmployeeEditEmployeeDetailsState()) {
-    on<EmployeeEditEmployeeDetailsInitialLoadEvent>(_init);
-    on<ValidDesignationEmployeeEditEmployeeDetailsEvent>(_validDesignation);
-    on<ValidNameEmployeeEditEmployeeDetailsEvent>(_validName);
-    on<ChangeDateOfBirthEvent>(_changeDateOfBirth);
-    on<ChangeGenderEvent>(_changeGender);
-    on<UpdateEmployeeDetailsEvent>(_updateEmployeeDetails);
+      : super(const EmployeeEditProfileState()) {
+    on<EditProfileInitialLoadEvent>(_init);
+    on<EditProfileDesignationChangedEvent>(_validDesignation);
+    on<EditProfileNameChangedEvent>(_validName);
+    on<EditProfileChangeDateOfBirthEvent>(_changeDateOfBirth);
+    on<EditProfileChangeGenderEvent>(_changeGender);
+    on<EditProfileUpdateProfileEvent>(_updateEmployeeDetails);
   }
 
-  void _init(EmployeeEditEmployeeDetailsInitialLoadEvent event,
-      Emitter<EmployeeEditEmployeeDetailsState> emit) {
+  void _init(EditProfileInitialLoadEvent event,
+      Emitter<EmployeeEditProfileState> emit) {
     emit(state.copyWith(
         gender: event.gender, dateOfBirth: event.dateOfBirth?.toDate));
   }
 
-  void _validDesignation(ValidDesignationEmployeeEditEmployeeDetailsEvent event,
-      Emitter<EmployeeEditEmployeeDetailsState> emit) {
+  void _validDesignation(EditProfileDesignationChangedEvent event,
+      Emitter<EmployeeEditProfileState> emit) {
     if (event.designation.isEmpty) {
       emit(state.copyWith(designationError: true));
     } else {
@@ -45,8 +45,8 @@ class EmployeeEditEmployeeDetailsBloc extends Bloc<
     }
   }
 
-  void _validName(ValidNameEmployeeEditEmployeeDetailsEvent event,
-      Emitter<EmployeeEditEmployeeDetailsState> emit) {
+  void _validName(EditProfileNameChangedEvent event,
+      Emitter<EmployeeEditProfileState> emit) {
     if (event.name.length < 4) {
       emit(state.copyWith(nameError: true));
     } else {
@@ -54,23 +54,22 @@ class EmployeeEditEmployeeDetailsBloc extends Bloc<
     }
   }
 
-  void _changeDateOfBirth(ChangeDateOfBirthEvent event,
-      Emitter<EmployeeEditEmployeeDetailsState> emit) {
+  void _changeDateOfBirth(EditProfileChangeDateOfBirthEvent event,
+      Emitter<EmployeeEditProfileState> emit) {
     emit(state.changeDateOfBirth(dateOfBirth: event.dateOfBirth));
   }
 
-  void _changeGender(
-      ChangeGenderEvent event, Emitter<EmployeeEditEmployeeDetailsState> emit) {
+  void _changeGender(EditProfileChangeGenderEvent event,
+      Emitter<EmployeeEditProfileState> emit) {
     emit(state.changeGender(gender: event.gender));
   }
 
-  void _updateEmployeeDetails(UpdateEmployeeDetailsEvent event,
-      Emitter<EmployeeEditEmployeeDetailsState> emit) async {
-    emit(state.copyWith(status: EmployeeEditEmployeeDetailsStatus.loading));
+  void _updateEmployeeDetails(EditProfileUpdateProfileEvent event,
+      Emitter<EmployeeEditProfileState> emit) async {
+    emit(state.copyWith(status: EmployeeProfileState.loading));
     if (state.nameError || state.designationError) {
       emit(state.copyWith(
-          status: EmployeeEditEmployeeDetailsStatus.failure,
-          error: fillDetailsError));
+          status: EmployeeProfileState.failure, error: fillDetailsError));
     } else {
       try {
         Employee employee = Employee(
@@ -92,10 +91,10 @@ class EmployeeEditEmployeeDetailsBloc extends Bloc<
         await _employeeService.updateEmployeeDetails(employee: employee);
         _preference.setCurrentUser(employee);
         eventBus.fire(GetCurrentEmployeeUserSettingsEvent());
-        emit(state.copyWith(status: EmployeeEditEmployeeDetailsStatus.success));
+        emit(state.copyWith(status: EmployeeProfileState.success));
       } on Exception {
         emit(state.copyWith(
-            status: EmployeeEditEmployeeDetailsStatus.failure,
+            status: EmployeeProfileState.failure,
             error: firestoreFetchDataError));
       }
     }
