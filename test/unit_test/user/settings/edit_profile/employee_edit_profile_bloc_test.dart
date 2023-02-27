@@ -7,18 +7,18 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/ui/user/settings/edit_profile/bloc/edit_employee_details_employee_bloc.dart';
-import 'package:projectunity/ui/user/settings/edit_profile/bloc/edit_employee_details_employee_event.dart';
-import 'package:projectunity/ui/user/settings/edit_profile/bloc/edit_employee_details_employee_state.dart';
+import 'package:projectunity/ui/user/settings/edit_profile/bloc/emloyee_edit_profile_bloc.dart';
+import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_event.dart';
+import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_state.dart';
 
-import 'edit_employee_details_view_test.mocks.dart';
+import 'employee_edit_profile_bloc_test.mocks.dart';
 
 @GenerateMocks([EmployeeService, UserManager, UserPreference])
 void main() {
   late EmployeeService employeeService;
   late UserManager userManager;
   late UserPreference preference;
-  late EmployeeEditEmployeeDetailsBloc editEmployeeDetailsBloc;
+  late EmployeeEditProfileBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
       id: "123",
@@ -40,52 +40,50 @@ void main() {
       employeeService = MockEmployeeService();
       userManager = MockUserManager();
       preference = MockUserPreference();
-      editEmployeeDetailsBloc = EmployeeEditEmployeeDetailsBloc(
-          employeeService, preference, userManager);
+      editEmployeeDetailsBloc =
+          EmployeeEditProfileBloc(employeeService, preference, userManager);
       when(userManager.employeeId).thenReturn(emp.id);
       when(userManager.employee).thenReturn(emp);
     });
 
     test('test initial test', () {
-      editEmployeeDetailsBloc.add(EmployeeEditEmployeeDetailsInitialLoadEvent(
+      editEmployeeDetailsBloc.add(EditProfileInitialLoadEvent(
           gender: emp.gender, dateOfBirth: emp.dateOfBirth));
       expect(
           editEmployeeDetailsBloc.stream,
-          emits(EmployeeEditEmployeeDetailsState(
+          emits(EmployeeEditProfileState(
               dateOfBirth: emp.dateOfBirth!.toDate, gender: emp.gender)));
     });
 
     test('test name validation', () {
+      editEmployeeDetailsBloc.add(EditProfileNameChangedEvent(name: ""));
       editEmployeeDetailsBloc
-          .add(ValidNameEmployeeEditEmployeeDetailsEvent(name: ""));
-      editEmployeeDetailsBloc
-          .add(ValidNameEmployeeEditEmployeeDetailsEvent(name: "Tester Dummy"));
+          .add(EditProfileNameChangedEvent(name: "Tester Dummy"));
       expect(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
-            const EmployeeEditEmployeeDetailsState(nameError: true),
-            const EmployeeEditEmployeeDetailsState(nameError: false)
+            const EmployeeEditProfileState(nameError: true),
+            const EmployeeEditProfileState(nameError: false)
           ]));
     });
 
     test('test designation validation', () {
-      editEmployeeDetailsBloc.add(
-          ValidDesignationEmployeeEditEmployeeDetailsEvent(designation: ""));
-      editEmployeeDetailsBloc.add(
-          ValidDesignationEmployeeEditEmployeeDetailsEvent(
-              designation: "Application Tester"));
+      editEmployeeDetailsBloc
+          .add(EditProfileDesignationChangedEvent(designation: ""));
+      editEmployeeDetailsBloc.add(EditProfileDesignationChangedEvent(
+          designation: "Application Tester"));
       expect(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
-            const EmployeeEditEmployeeDetailsState(designationError: true),
-            const EmployeeEditEmployeeDetailsState(designationError: false)
+            const EmployeeEditProfileState(designationError: true),
+            const EmployeeEditProfileState(designationError: false)
           ]));
     });
 
     test('update Employee details success test', () async {
-      editEmployeeDetailsBloc.add(EmployeeEditEmployeeDetailsInitialLoadEvent(
+      editEmployeeDetailsBloc.add(EditProfileInitialLoadEvent(
           gender: emp.gender, dateOfBirth: emp.dateOfBirth));
-      editEmployeeDetailsBloc.add(UpdateEmployeeDetailsEvent(
+      editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
           name: emp.name,
           designation: emp.designation,
           phoneNumber: emp.phone!,
@@ -95,16 +93,16 @@ void main() {
       expectLater(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
-            EmployeeEditEmployeeDetailsState(
+            EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate, gender: emp.gender),
-            EmployeeEditEmployeeDetailsState(
+            EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: emp.gender,
-                status: EmployeeEditEmployeeDetailsStatus.loading),
-            EmployeeEditEmployeeDetailsState(
+                status: EmployeeProfileState.loading),
+            EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: emp.gender,
-                status: EmployeeEditEmployeeDetailsStatus.success),
+                status: EmployeeProfileState.success),
           ]));
 
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
@@ -114,12 +112,12 @@ void main() {
       verify(preference.setCurrentUser(emp)).called(1);
     });
 
-    test('update Employee details success test', () async {
-      editEmployeeDetailsBloc.add(EmployeeEditEmployeeDetailsInitialLoadEvent(
+    test('Emits error state while updating data on firestore', () async {
+      editEmployeeDetailsBloc.add(EditProfileInitialLoadEvent(
           gender: emp.gender, dateOfBirth: emp.dateOfBirth));
       when(employeeService.updateEmployeeDetails(employee: emp))
           .thenThrow(Exception("error"));
-      editEmployeeDetailsBloc.add(UpdateEmployeeDetailsEvent(
+      editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
           name: emp.name,
           designation: emp.designation,
           phoneNumber: emp.phone!,
@@ -129,16 +127,16 @@ void main() {
       expectLater(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
-            EmployeeEditEmployeeDetailsState(
+            EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate, gender: emp.gender),
-            EmployeeEditEmployeeDetailsState(
+            EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: 1,
-                status: EmployeeEditEmployeeDetailsStatus.loading),
-            EmployeeEditEmployeeDetailsState(
+                status: EmployeeProfileState.loading),
+            EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: 1,
-                status: EmployeeEditEmployeeDetailsStatus.failure,
+                status: EmployeeProfileState.failure,
                 error: firestoreFetchDataError),
           ]));
 
