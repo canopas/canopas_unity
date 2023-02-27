@@ -26,9 +26,10 @@ class UserEmployeeDetailBloc
           await _userLeaveService.getUpcomingLeaves(event.employeeId);
       if (employee == null) {
         emit(UserEmployeeDetailErrorState(error: firestoreFetchDataError));
+      } else {
+        emit(UserEmployeeDetailSuccessState(
+            employee: employee, upcomingLeaves: leaves));
       }
-      emit(UserEmployeeDetailSuccessState(
-          employee: employee!, upcomingLeaves: leaves));
     } on Exception {
       emit(UserEmployeeDetailErrorState(error: firestoreFetchDataError));
     }
