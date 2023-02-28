@@ -130,7 +130,7 @@ class EmployeeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (subtitle == 'null')
+    return (subtitle == null)
         ? Container()
         : Padding(
             padding: const EdgeInsets.all(primaryHorizontalSpacing)

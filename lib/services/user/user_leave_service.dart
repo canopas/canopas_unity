@@ -46,6 +46,7 @@ class UserLeaveService {
     return data.docs
         .map((doc) => doc.data())
         .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
+        .where((leave) => leave.leaveStatus == approveLeaveStatus)
         .toList();
   }
 
