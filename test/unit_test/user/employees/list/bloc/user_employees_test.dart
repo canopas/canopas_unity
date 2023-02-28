@@ -9,7 +9,6 @@ import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dar
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_event.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_state.dart';
 
-import '../../../../admin/leaves/detail/bloc/admin_leave_detail_bloc_test.mocks.dart';
 import 'user_employees_test.mocks.dart';
 
 @GenerateMocks([EmployeeService, UserManager])
