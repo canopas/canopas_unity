@@ -177,6 +177,15 @@ class AppRouter {
                         const MaterialPage(child: UserHomeScreenPage()),
                     routes: <GoRoute>[
                       GoRoute(
+                          name: Routes.userRequestDetail,
+                          path: ':leaveId',
+                          pageBuilder: (context, state) {
+                            return MaterialPage(
+                                child: UserLeaveDetailPage(
+                                    leaveId: state
+                                        .params[RoutesParamsConst.leaveId]!));
+                          }),
+                      GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           path: Routes.userCalender,
                           name: Routes.userCalender,
@@ -287,6 +296,7 @@ abstract class Routes {
   static const userEmployees = '/employees';
   static const userSettings = '/settings';
   static const userLeaveDetail = '/leave-detail';
+  static const userRequestDetail = '/request-detail';
   static const userEmployeeDetail = '/user-employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
   static const applyLeave = '/apply-leave';

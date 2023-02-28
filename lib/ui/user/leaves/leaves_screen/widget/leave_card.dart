@@ -37,10 +37,7 @@ class UserLeaveCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(leaveDuration,
-                      style: const TextStyle(
-                          color: AppColors.greyColor,
-                          fontWeight: FontWeight.w500)),
+                  Text(leaveDuration, style: AppTextStyle.bodyTextDark),
                   Text(leavePeriod,
                       style: const TextStyle(
                           color: AppColors.blackColor,
@@ -48,20 +45,32 @@ class UserLeaveCard extends StatelessWidget {
                           fontWeight: FontWeight.bold)),
                   Text(
                     leaveType,
-                    style: const TextStyle(color: AppColors.primaryDarkYellow),
+                    style: const TextStyle(
+                        color: AppColors.primaryPink, fontSize: 15),
                   )
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  LeaveStatusIcon(leaveStatus: leave.leaveStatus),
+                  GoRouter.of(context).location == Routes.userHome
+                      ? Container()
+                      : LeaveStatusIcon(leaveStatus: leave.leaveStatus),
                   IconButton(
                       onPressed: () {
-                        context.goNamed(Routes.userLeaveDetail,
-                            params: {RoutesParamsConst.leaveId: leave.leaveId});
+                        GoRouter.of(context).location == Routes.userHome
+                            ? context.goNamed(Routes.userRequestDetail,
+                                params: {
+                                    RoutesParamsConst.leaveId: leave.leaveId
+                                  })
+                            : context.goNamed(Routes.userLeaveDetail, params: {
+                                RoutesParamsConst.leaveId: leave.leaveId
+                              });
                       },
-                      icon: const Icon(Icons.arrow_forward_ios_outlined))
+                      icon: const Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        size: 12,
+                      ))
                 ],
               )
             ],

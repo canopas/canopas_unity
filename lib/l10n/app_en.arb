@@ -220,6 +220,10 @@
 
 
 
+  "admin_leave_detail_button_reject":"Reject",
+  "admin_leave_detail_button_approve":"Approve",
+  "admin_leave_detail_button_ok":"OK",
+  "admin_leave_detail_daysLeft_tag":"Days left",
 
 
 
@@ -229,6 +233,8 @@
 
   "error_something_went_wrong": "Something went wrong",
 
+  "admin_leave_detail_error_reason":"Enter Message",
+  "admin_leave_detail_message_title_text": "Note",
 
 
 
@@ -252,7 +258,7 @@
   "invalid_date_selection_error":"Please select valid date",
   "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
 
-
+  "add_member_employee_exists_error": "Member already exists!",
 
   "dateFormatter_yesterday":"Yesterday",
   "dateFormatter_today":"Today",
@@ -290,6 +296,8 @@
   "user_leave_no_leaves_msg":"No any Leaves, yet!",
   "user_leave_show_less_tag":"Show less",
   "user_leave_view_more_tag":"View more",
+
+  "user_home_requests_tag": "Requests",
 
 
   "admin_home_add_member_error_email":"Please enter valid email",
