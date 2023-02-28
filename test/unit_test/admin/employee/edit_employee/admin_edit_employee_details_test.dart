@@ -5,9 +5,9 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
+import 'package:projectunity/ui/admin/employee/edit_employee/bloc/admin_edit_employee_bloc.dart';
+import 'package:projectunity/ui/admin/employee/edit_employee/bloc/admin_edit_employee_events.dart';
+import 'package:projectunity/ui/admin/employee/edit_employee/bloc/admin_edit_employee_state.dart';
 
 import 'admin_edit_employee_details_test.mocks.dart';
 
@@ -145,10 +145,8 @@ void main() {
                 adminEditEmployeeDetailsStatus:
                     AdminEditEmployeeDetailsStatus.success),
           ]));
-      await untilCalled(
-          employeeService.updateEmployeeDetails(employee: emp));
-      verify(employeeService.updateEmployeeDetails(employee: emp))
-          .called(1);
+      await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
+      verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
     });
 
     test('update Employee details failed test', () async {
@@ -181,10 +179,8 @@ void main() {
                     AdminEditEmployeeDetailsStatus.failure,
                 error: firestoreFetchDataError),
           ]));
-      await untilCalled(
-          employeeService.updateEmployeeDetails(employee: emp));
-      verify(employeeService.updateEmployeeDetails(employee: emp))
-          .called(1);
+      await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
+      verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
     });
   });
 }

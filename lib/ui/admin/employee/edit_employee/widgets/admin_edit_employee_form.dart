@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/space_constant.dart';
-import 'package:projectunity/ui/admin/addmember/widget/role_toggle_button.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_bloc.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
-import '../../../../configs/colors.dart';
-import '../../../../widget/date_time_picker.dart';
-import '../../../../widget/employee_details_textfield.dart';
+
+import '../../../../../configs/colors.dart';
+import '../../../../../widget/date_time_picker.dart';
+import '../../../../../widget/employee_details_textfield.dart';
+import '../../../home/addmember/widget/role_toggle_button.dart';
+import '../bloc/admin_edit_employee_bloc.dart';
+import '../bloc/admin_edit_employee_events.dart';
+import '../bloc/admin_edit_employee_state.dart';
 
 class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final String employeeId;
@@ -73,9 +74,11 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ValidEmployeeIdAdminEditEmployeeDetailsEvent(
                         employeeId: value)),
                 errorText: state.employeeIdError
-                    ? localization.complete_mandatory_field_error
+                    ? localization
+                        .admin_home_add_member_complete_mandatory_field_error
                     : null,
-                hintText: localization.employee_id_hint_text),
+                hintText:
+                    localization.admin_home_add_member_employee_id_hint_text),
           ),
           FieldTitle(title: localization.employee_name_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
@@ -87,9 +90,9 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
               onChanged: (value) =>
                   bloc.add(ValidNameAdminEditEmployeeDetailsEvent(name: value)),
               errorText: state.nameError
-                  ? localization.admin_add_member_error_name
+                  ? localization.admin_home_add_member_name_hint_text
                   : null,
-              hintText: localization.name_hint_text,
+              hintText: localization.admin_home_add_member_name_hint_text,
             ),
           ),
           FieldTitle(title: localization.employee_email_tag),
@@ -102,9 +105,9 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 onChanged: (value) => bloc
                     .add(ValidEmailAdminEditEmployeeDetailsEvent(email: value)),
                 errorText: state.emailError
-                    ? localization.admin_add_member_error_email
+                    ? localization.admin_home_add_member_error_email
                     : null,
-                hintText: localization.email_hint_text),
+                hintText: localization.admin_home_add_member_email_hint_text),
           ),
           FieldTitle(title: localization.employee_designation_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
@@ -117,14 +120,16 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     ValidDesignationAdminEditEmployeeDetailsEvent(
                         designation: value)),
                 errorText: state.designationError
-                    ? localization.complete_mandatory_field_error
+                    ? localization
+                        .admin_home_add_member_complete_mandatory_field_error
                     : null,
-                hintText: localization.designation_hint_text),
+                hintText:
+                    localization.admin_home_add_member_designation_hint_text),
           ),
           FieldTitle(title: localization.employee_level_tag),
           FieldEntry(
               controller: levelFieldController,
-              hintText: localization.level_hint_text),
+              hintText: localization.admin_home_add_member_level_hint_text),
           FieldTitle(title: localization.employee_dateOfJoin_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
                   AdminEditEmployeeDetailsState>(
@@ -136,7 +141,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     backgroundColor: AppColors.textFieldBg,
                     fixedSize: Size(MediaQuery.of(context).size.height, 53),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   onPressed: () async {

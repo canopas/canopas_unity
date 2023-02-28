@@ -4,10 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
-import 'package:projectunity/ui/admin/addmember/widget/add_member_form.dart';
+import 'package:projectunity/ui/admin/home/addmember/widget/add_member_form.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
-import '../../../configs/colors.dart';
+
+import '../../../../configs/colors.dart';
 import 'bloc/add_member_bloc.dart';
 import 'bloc/add_member_event.dart';
 import 'bloc/add_member_state.dart';
@@ -31,13 +32,13 @@ class AdminAddMemberScreen extends StatefulWidget {
 }
 
 class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).addMember_tag),
+        title: Text(
+            AppLocalizations.of(context).admin_home_add_member_addMember_tag),
       ),
       body: const AddMemberForm(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -51,18 +52,19 @@ class AddMemberButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery.of(context).viewInsets.bottom == 0? Container(
+    return MediaQuery.of(context).viewInsets.bottom == 0
+        ? Container(
             margin: const EdgeInsets.only(bottom: 30),
             child: BlocConsumer<AddMemberBloc, AddMemberFormState>(
               builder: (context, state) {
                 if (state.status == SubmitFormStatus.loading) {
                   return const AppCircularProgressIndicator();
                 }
-                  return Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 60),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                return Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 60),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
                           backgroundColor:
                               context.watch<AddMemberBloc>().validForm
                                   ? AppColors.primaryBlue
@@ -79,15 +81,18 @@ class AddMemberButton extends StatelessWidget {
                         },
                         child: Text(
                             AppLocalizations.of(context)
-                                .submit_button_tag,
+                                .admin_home_add_member_submit_button_tag,
                             style: AppTextStyle.subtitleText)));
               },
+              listenWhen: (previous, current) =>
+                  current.status == SubmitFormStatus.done ||
+                  current.status == SubmitFormStatus.error,
               listener: (context, state) {
                 if (state.status == SubmitFormStatus.done) {
                   showSnackBar(
                       context: context,
                       msg: AppLocalizations.of(context)
-                          .admin_employee_successfully_added_message);
+                          .admin_home_add_member_employee_added_message);
                   context.pop();
                 }
                 if (state.status == SubmitFormStatus.error) {

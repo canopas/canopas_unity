@@ -3,11 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_events.dart';
-import 'package:projectunity/ui/admin/edit_employe_details/bloc/admin_edit_employee_details_state.dart';
-import '../../../../event_bus/events.dart';
-import '../../employee/detail/bloc/employee_detail_event.dart';
-import '../../../../services/admin/employee_service.dart';
+
+import '../../../../../event_bus/events.dart';
+import '../../../../../services/admin/employee_service.dart';
+import '../../detail/bloc/employee_detail_event.dart';
+import 'admin_edit_employee_events.dart';
+import 'admin_edit_employee_state.dart';
 
 @Injectable()
 class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
@@ -113,7 +114,8 @@ class AdminEditEmployeeDetailsBloc extends Bloc<AdminEditEmployeeDetailsEvents,
             imageUrl: event.previousEmployeeData.imageUrl,
           ),
         );
-        eventBus.fire(EmployeeDetailInitialLoadEvent(employeeId: event.previousEmployeeData.id));
+        eventBus.fire(EmployeeDetailInitialLoadEvent(
+            employeeId: event.previousEmployeeData.id));
         emit(state.copyWith(
             adminEditEmployeeDetailsStatus:
                 AdminEditEmployeeDetailsStatus.success));
