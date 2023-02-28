@@ -21,7 +21,7 @@ class ProfileCard extends StatelessWidget {
         Container(
           height: 150,
           decoration: const BoxDecoration(
-              color: AppColors.lightGreyColor,
+              color: AppColors.primaryBlue,
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.elliptical(200, 10))),
         ),

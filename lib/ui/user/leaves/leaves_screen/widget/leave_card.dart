@@ -53,9 +53,8 @@ class UserLeaveCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  GoRouter.of(context).location == Routes.userHome
-                      ? Container()
-                      : LeaveStatusIcon(leaveStatus: leave.leaveStatus),
+                  if (GoRouter.of(context).location == Routes.userLeaves)
+                    LeaveStatusIcon(leaveStatus: leave.leaveStatus),
                   IconButton(
                       onPressed: () {
                         GoRouter.of(context).location == Routes.userHome

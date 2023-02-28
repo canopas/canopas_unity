@@ -5,6 +5,7 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
+import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 
@@ -21,7 +22,7 @@ import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../ui/login/login_screen.dart';
 import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
 import '../ui/user/dashboard/user_dashboard.dart';
-import '../ui/user/employees/user_employees_screen.dart';
+import '../ui/user/employees/list/user_employees_screen.dart';
 import '../ui/user/home/home_screen/user_home_screen.dart';
 import '../ui/user/home/leave_calendar/user_leave_calendar_screen.dart';
 import '../ui/user/leaves/apply_leave/apply_leave_screen.dart';
@@ -235,8 +236,8 @@ class AppRouter {
                         name: Routes.userEmployeeDetail,
                         path: ':employeeId',
                         pageBuilder: (context, state) => MaterialPage(
-                            child: EmployeeDetailPage(
-                                id: state
+                            child: UserEmployeeDetailPage(
+                                employeeId: state
                                     .params[RoutesParamsConst.employeeId]!)),
                       ),
                     ]),

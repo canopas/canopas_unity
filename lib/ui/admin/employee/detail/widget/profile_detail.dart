@@ -130,20 +130,22 @@ class EmployeeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: AppTextStyle.secondarySubtitle500),
-          const SizedBox(height: 6),
-          Text(
-            (subtitle == 'null') ? '-' : subtitle ?? "-",
-            style: AppTextStyle.titleText,
-          ),
-        ],
-      ),
-    );
+    return (subtitle == null)
+        ? Container()
+        : Padding(
+            padding: const EdgeInsets.all(primaryHorizontalSpacing)
+                .copyWith(bottom: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: AppTextStyle.secondarySubtitle500),
+                const SizedBox(height: 6),
+                Text(
+                  subtitle!,
+                  style: AppTextStyle.titleText,
+                ),
+              ],
+            ),
+          );
   }
 }
