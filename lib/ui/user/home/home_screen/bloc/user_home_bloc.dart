@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/provider/user_data.dart';
+import 'package:projectunity/services/user/user_leave_service.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 
@@ -16,11 +17,14 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
   final UserManager _userManager;
   final UserPreference _userPreference;
   final AuthService _authService;
+  final UserLeaveService _userLeaveService;
   StreamSubscription? _streamSubscription;
 
-  UserHomeBloc(this._userPreference, this._authService, this._userManager)
-      : super(UserHomeState()) {
+  UserHomeBloc(this._userPreference, this._authService, this._userManager,
+      this._userLeaveService)
+      : super(UserHomeInitialState()) {
     on<UserDisabled>(_removeUser);
+    on<UserHomeFetchLeaveRequest>(_fetchLeaveRequest);
     _streamSubscription = eventBus.on<DeleteEmployeeByAdmin>().listen((event) {
       add(UserDisabled(event.userId));
     });
@@ -36,6 +40,18 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
       } on Exception {
         throw Exception(somethingWentWrongError);
       }
+    }
+  }
+
+  Future<void> _fetchLeaveRequest(
+      UserHomeFetchLeaveRequest event, Emitter<UserHomeState> emit) async {
+    emit(UserHomeLoadingState());
+    try {
+      final requests =
+          await _userLeaveService.getRequestedLeave(_userManager.employeeId);
+      emit(UserHomeSuccessState(requests: requests));
+    } on Exception {
+      emit(UserHomeErrorState(error: firestoreFetchDataError));
     }
   }
 

@@ -10,3 +10,10 @@ class UserDisabled extends UserHomeEvent {
   @override
   List<Object?> get props => [employeeId];
 }
+
+class UserHomeFetchLeaveRequest extends UserHomeEvent {
+  UserHomeFetchLeaveRequest();
+
+  @override
+  List<Object?> get props => [];
+}
