@@ -55,9 +55,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: primaryHorizontalSpacing,
-              ),
+              padding: const EdgeInsets.only(top: 25, bottom: 10),
               child: Text(AppLocalizations.of(context).user_home_requests_tag,
                   style: AppFontStyle.titleTextStyle),
             ),

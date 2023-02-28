@@ -37,10 +37,7 @@ class UserLeaveCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(leaveDuration,
-                      style: const TextStyle(
-                          color: AppColors.greyColor,
-                          fontWeight: FontWeight.w500)),
+                  Text(leaveDuration, style: AppTextStyle.bodyTextDark),
                   Text(leavePeriod,
                       style: const TextStyle(
                           color: AppColors.blackColor,
@@ -70,7 +67,8 @@ class UserLeaveCard extends StatelessWidget {
                               });
                       },
                       icon: const Icon(
-                        Icons.arrow_right,
+                        Icons.arrow_forward_ios_outlined,
+                        size: 12,
                       ))
                 ],
               )
