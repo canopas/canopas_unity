@@ -45,7 +45,8 @@ class UserLeaveCard extends StatelessWidget {
                           fontWeight: FontWeight.bold)),
                   Text(
                     leaveType,
-                    style: const TextStyle(color: AppColors.primaryDarkYellow),
+                    style: const TextStyle(
+                        color: AppColors.primaryPink, fontSize: 15),
                   )
                 ],
               ),
