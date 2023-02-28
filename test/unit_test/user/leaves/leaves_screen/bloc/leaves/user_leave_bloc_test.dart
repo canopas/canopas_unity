@@ -37,7 +37,7 @@ void main() {
       uid: "user id",
       leaveType: 1,
       startDate: today.subtract(const Duration(days: 2)).timeStampToInt,
-      endDate: today.add(const Duration(days: 1)).timeStampToInt,
+      endDate: today.subtract(const Duration(days: 1)).timeStampToInt,
       totalLeaves: 1,
       reason: 'Suffering from viral fever',
       leaveStatus: approveLeaveStatus,

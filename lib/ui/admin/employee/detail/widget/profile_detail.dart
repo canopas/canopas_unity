@@ -141,7 +141,7 @@ class EmployeeField extends StatelessWidget {
                 Text(title, style: AppTextStyle.secondarySubtitle500),
                 const SizedBox(height: 6),
                 Text(
-                  subtitle ?? "-",
+                  subtitle!,
                   style: AppTextStyle.titleText,
                 ),
               ],

@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 
 import '../../../../../model/leave/leave.dart';
 import '../../../leaves/leaves_screen/widget/leave_card.dart';
@@ -12,7 +14,7 @@ class TabContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(primaryHorizontalSpacing),
       child: LeaveButton(
         leaves: leaves,
       ),
@@ -32,23 +34,10 @@ class LeaveButton extends StatelessWidget {
         scrollOnCollapse: false,
         scrollOnExpand: true,
         child: ExpandablePanel(
-          theme: const ExpandableThemeData(
-            iconPadding: EdgeInsets.all(0),
-            headerAlignment: ExpandablePanelHeaderAlignment.center,
-          ),
-          header: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.calendar_month_sharp,
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                localization.user_leave_upcoming_leaves_tag,
-              ),
-            ],
+          theme: const ExpandableThemeData(hasIcon: false),
+          header: Text(
+            localization.user_leave_upcoming_leaves_tag,
+            style: AppFontStyle.buttonTextStyle,
           ),
           expanded: ListView.builder(
               shrinkWrap: true,

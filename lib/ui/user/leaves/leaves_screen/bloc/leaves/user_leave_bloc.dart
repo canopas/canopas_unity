@@ -32,10 +32,11 @@ class UserLeaveBloc extends Bloc<FetchUserLeaveEvent, UserLeaveState> {
       List<Leave> allLeaves =
           await _userLeaveService.getAllLeavesOfUser(_userManager.employeeId);
       List<Leave> pastLeaves = allLeaves
-          .where((leave) => leave.startDate <= DateTime.now().timeStampToInt)
+          .where((leave) => leave.endDate <= DateTime.now().timeStampToInt)
           .toList();
       List<Leave> upcomingLeaves = allLeaves
           .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
+          .where((leave) => leave.leaveStatus == approveLeaveStatus)
           .toList();
       emit(UserLeaveSuccessState(
           pastLeaves: pastLeaves, upcomingLeaves: upcomingLeaves));

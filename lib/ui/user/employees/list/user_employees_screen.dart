@@ -13,9 +13,9 @@ import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../router/app_router.dart';
 import '../../../../widget/employee_card.dart';
-import 'bloc/user_employee_state.dart';
 import 'bloc/user_employees_bloc.dart';
 import 'bloc/user_employees_event.dart';
+import 'bloc/user_employees_state.dart';
 
 class UserEmployeesPage extends StatelessWidget {
   const UserEmployeesPage({Key? key}) : super(key: key);

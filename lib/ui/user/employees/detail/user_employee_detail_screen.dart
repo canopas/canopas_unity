@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/employee/detail/widget/profile_card.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart';
@@ -63,14 +64,19 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
               return ListView(
                 children: [
                   ProfileCard(employee: state.employee),
-                  if (state.upcomingLeaves.isNotEmpty)
-                    TabContent(leaves: state.upcomingLeaves),
                   const Divider(
                     color: AppColors.lightGreyColor,
-                    indent: 15,
-                    endIndent: 15,
+                    indent: primaryHorizontalSpacing,
+                    endIndent: primaryHorizontalSpacing,
                   ),
                   EmployeeInfo(employee: state.employee),
+                  const Divider(
+                    indent: primaryHorizontalSpacing,
+                    endIndent: primaryHorizontalSpacing,
+                    color: AppColors.lightGreyColor,
+                  ),
+                  if (state.upcomingLeaves.isNotEmpty)
+                    TabContent(leaves: state.upcomingLeaves),
                 ],
               );
             }
