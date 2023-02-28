@@ -63,7 +63,8 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
               return ListView(
                 children: [
                   ProfileCard(employee: state.employee),
-                  TabContent(leaves: state.upcomingLeaves),
+                  if (state.upcomingLeaves.isNotEmpty)
+                    TabContent(leaves: state.upcomingLeaves),
                   const Divider(
                     color: AppColors.lightGreyColor,
                     indent: 15,
