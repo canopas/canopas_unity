@@ -295,7 +295,9 @@
   "user_leave_upcoming_leaves_tag":"Upcoming Leaves",
   "user_leave_no_leaves_msg":"No any Leaves, yet!",
   "user_leave_show_less_tag":"Show less",
-  "user_leave_view_more_tag":"View more"
+  "user_leave_view_more_tag":"View more",
+
+  "user_home_requests_tag": "Requests",
 
 
   "admin_home_add_member_error_email":"Please enter valid email",
