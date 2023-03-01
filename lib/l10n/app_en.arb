@@ -2,14 +2,12 @@
   "language": "English",
   "appTitle": "Unity",
 
-
   "login_welcome_text": "Welcome",
   "login_toUnity_text": "to Unity!",
   "company_name":"Canopas Software",
   "company_subtitle":"www.canopas.com",
   "login_guide_description": "To continue with Unity",
   "login_button_text": "Sign in with Google",
-
 
   "user_home_remaining_tag": "Remaining",
   "user_home_paid_leave_tag": "Paid Leave",
@@ -25,8 +23,6 @@
     }
   },
 
-
-
   "user_home_all_leaves_tag": "All Leaves",
   "total_paid_leaves":"Total Leaves",
   "user_home_requested_leaves_tag": "Requested Leaves",
@@ -34,18 +30,15 @@
   "user_home_apply_leave_tag": "Apply for Leave",
   "user_home_who_onLeave_tag": "Who's on leave today?",
 
-
-
   "employee_details_make_admin_tag":"Make Admin",
   "employee_details_remove_admin_tag":"Remove Admin",
 
-
-  "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave}}",
+  "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave} other{other}}",
   "@leave_type_placeholder_leave_status":{
     "description":"get leave type from leave status",
     "placeholders":{
       "leaveStatus":{
-        "type":"int"
+        "type":"String"
       }
     }
   },
@@ -60,18 +53,15 @@
     }
   },
 
-
-
-  "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected}}",
+  "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} other{other}}",
   "@leave_status_placeholder_text":{
     "description":"get leave type from leave status",
     "placeholders":{
       "leaveStatus":{
-        "type":"int"
+        "type":"String"
       }
     }
   },
-
 
   "employee_empty_all_leaves_view_title": "No Leaves",
   "employee_empty_requested_leaves_view_title": "No Requested Leaves",
@@ -83,7 +73,6 @@
 
   "apply_for_leave_button_text":"Apply for leave",
 
-
   "date_format_yMMMd": "{date}",
   "@date_format_yMMMd":{
     "placeholders":{
@@ -94,7 +83,7 @@
     }
   },
 
-      "who_is_out_card_title":"Who's on leave, Today?",
+  "who_is_out_card_title":"Who's on leave, Today?",
 
   "who_is_out_card_message":"{count, plural, =0{No one is out of office on {date}!} =1{{name} is out of office on {date}!} other{{name} & {otherCount} others is out of office on {date}!}}",
   "@who_is_out_card_message":{
@@ -173,7 +162,6 @@
     }
   },
 
-
   "select_tag": "Select",
   "user_apply_leave_from_tag": "Start",
   "user_apply_leave_to_tag": "End",
@@ -186,7 +174,6 @@
   "user_apply_leave_error_message_fill_details": "Please fill all details",
   "user_apply_leave_error_valid_reason": " • Please enter valid reason",
   "user_apply_leave_success_message":"You've successfully applied!",
-
 
       "admin_home_empty_leave_request_message": "There is no request today!",
       "no_request_title":"No Request",
@@ -215,18 +202,10 @@
   "employee_employeeID_tag":"Employee Id",
   "employee_name_tag":"Name",
 
-
-
-
-
-
   "admin_leave_detail_button_reject":"Reject",
   "admin_leave_detail_button_approve":"Approve",
   "admin_leave_detail_button_ok":"OK",
   "admin_leave_detail_daysLeft_tag":"Days left",
-
-
-
 
   "gender_male_tag":"Male",
   "gender_female_tag":"Female",
@@ -236,8 +215,6 @@
   "admin_leave_detail_error_reason":"Enter Message",
   "admin_leave_detail_message_title_text": "Note",
 
-
-
   "logout_button_text": "Sign Out",
   "update_button_text": "Update",
   "settings_setting_text": "Settings",
@@ -245,7 +222,6 @@
   "admin_total_leave_count_text":"Total leave count",
   "admin_total_yearly_paid_leave_text": "Total yearly paid leave",
   "leave_detail_title":"Leave details",
-
 
   "network_connection_error": "Please check your Internet connection",
 
@@ -299,7 +275,6 @@
 
   "user_home_requests_tag": "Requests",
 
-
   "admin_home_add_member_error_email":"Please enter valid email",
   "admin_home_add_member_error_name": "Name is too short!!",
   "admin_home_add_member_complete_mandatory_field_error": "Please complete this mandatory field",
@@ -323,24 +298,9 @@
 
   "admin_leave_detail_error_reason":"Enter Message",
   "admin_leave_detail_message_title_text": "Note",
-   "admin_leave_detail_button_reject":"Reject",
-    "admin_leave_detail_button_approve":"Approve",
-    "admin_leave_detail_button_ok":"OK",
-    "admin_leave_detail_daysLeft_tag":"Days left"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "admin_leave_detail_button_reject":"Reject",
+  "admin_leave_detail_button_approve":"Approve",
+  "admin_leave_detail_button_ok":"OK",
+  "admin_leave_detail_daysLeft_tag":"Days left"
 
 }

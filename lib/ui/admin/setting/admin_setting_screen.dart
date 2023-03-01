@@ -40,9 +40,6 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppAppBar(
-        onBack: () {
-          context.pop();
-        },
         title: AppLocalizations.of(context).settings_setting_text,
       ),
       body: BlocConsumer<AdminSettingsBloc, AdminSettingsState>(
