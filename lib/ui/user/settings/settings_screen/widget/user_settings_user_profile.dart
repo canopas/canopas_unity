@@ -43,7 +43,7 @@ class UserProfile extends StatelessWidget {
                     overflow: TextOverflow.fade,
                   ),
                   const SizedBox(height: 2),
-                  Text(employee.designation, style: AppFontStyle.subTitleGrey),
+                  Text(employee.designation, style: AppFontStyle.labelGrey),
                 ],
               ),
             ),

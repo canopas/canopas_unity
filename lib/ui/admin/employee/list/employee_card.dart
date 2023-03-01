@@ -71,10 +71,9 @@ class EmployeeDesignation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Text(designation ?? '',
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,
-        style: AppFontStyle.labelRegular);
+        style: AppFontStyle.labelGrey);
   }
 }

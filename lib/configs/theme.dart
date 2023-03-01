@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/font_family.dart';
 import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:table_calendar/table_calendar.dart'
@@ -58,32 +57,6 @@ class AppTheme {
             bodyLarge: AppFontStyle.bodyLarge,
             bodyMedium: AppFontStyle.bodySmallHeavy));
   }
-
-  static ThemeData lightTheme = ThemeData(
-      primaryColor: AppColors.primaryBlue,
-      fontFamily: FontFamily.fontName,
-      scrollbarTheme: const ScrollbarThemeData(
-        radius: Radius.circular(12),
-        thumbColor: MaterialStatePropertyAll(Color(0xffa0bef1)),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-        fixedSize: const Size.fromHeight(45),
-        backgroundColor: AppColors.primaryBlue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        elevation: 0,
-      )),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        side: const BorderSide(color: AppColors.primaryBlue, width: 1),
-        fixedSize: const Size.fromHeight(45),
-      )));
 
   static CalendarStyle calendarStyle = CalendarStyle(
     outsideDaysVisible: false,
