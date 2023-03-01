@@ -30,7 +30,7 @@ dependencies:
   go_router: ^6.0.0
   http: ^0.13.5
   intl: ^0.17.0
-  injectable: ^1.5.3
+  injectable: ^2.1.0
   json_annotation: ^4.6.0
   oauth2: ^2.0.1
   package_info_plus: ^2.0.0

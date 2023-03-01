@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/core/extensions/double_extension.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/const/space_constant.dart';
+import '../../../../../widget/circular_progress_indicator.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
