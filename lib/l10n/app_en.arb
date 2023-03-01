@@ -326,7 +326,10 @@
    "admin_leave_detail_button_reject":"Reject",
     "admin_leave_detail_button_approve":"Approve",
     "admin_leave_detail_button_ok":"OK",
-    "admin_leave_detail_daysLeft_tag":"Days left"
+    "admin_leave_detail_daysLeft_tag":"Days left",
+
+
+    "admin_setting_edit_appbar_tag":"Edit"
 
 
 

@@ -82,7 +82,7 @@ class AddMemberButton extends StatelessWidget {
                         child: Text(
                             AppLocalizations.of(context)
                                 .admin_home_add_member_submit_button_tag,
-                            style: AppTextStyle.subtitleText)));
+                            style: AppFontStyle.labelRegular)));
               },
               listenWhen: (previous, current) =>
                   current.status == SubmitFormStatus.done ||

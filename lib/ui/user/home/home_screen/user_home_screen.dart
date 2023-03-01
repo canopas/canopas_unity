@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import 'package:projectunity/ui/user/home/home_screen/widget/employee_home_appbar.dart';
@@ -57,7 +56,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 25, bottom: 10),
               child: Text(AppLocalizations.of(context).user_home_requests_tag,
-                  style: AppFontStyle.titleTextStyle),
+                  style: Theme.of(context).textTheme.headlineLarge),
             ),
             BlocConsumer<UserHomeBloc, UserHomeState>(
                 builder: (context, state) {

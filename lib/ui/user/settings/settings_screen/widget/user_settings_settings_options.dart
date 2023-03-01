@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../configs/colors.dart';
-import '../../../../../configs/text_style.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 
 class SettingOption extends StatelessWidget {
   const SettingOption(
@@ -39,7 +38,7 @@ class SettingOption extends StatelessWidget {
             ),
             Text(
               title,
-              style: AppTextStyle.subTitleDark,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
         ),

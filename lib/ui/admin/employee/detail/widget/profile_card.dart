@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
 
 import '../../../../../../configs/colors.dart';
 import '../../../../../../model/employee/employee.dart';
@@ -52,13 +52,13 @@ class ProfileCard extends StatelessWidget {
             children: [
               Text(
                 employee.name,
-                style: AppTextStyle.headerDark600,
+                style: AppFontStyle.titleDark,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 6),
               Text(
                 employee.designation,
-                style: AppTextStyle.secondarySubtitle500,
+                style: AppFontStyle.labelGrey,
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -102,11 +102,14 @@ class TextColumn extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Text(title, style: AppTextStyle.secondarySubtitle500),
+          Text(
+            title,
+            style: AppFontStyle.labelGrey,
+          ),
           const SizedBox(height: 6),
           Text(
             subtitle ?? "-",
-            style: AppTextStyle.titleText,
+            style: AppFontStyle.titleRegular,
           ),
         ],
       ),

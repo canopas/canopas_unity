@@ -37,11 +37,11 @@ class LeaveCountCard extends StatelessWidget {
                   children: [
                     Text(
                       '$usedLeaves/$totalLeaves',
-                      style: AppFontStyle.titleTextStyle,
+                      style: AppFontStyle.headerGrey,
                     ),
                     Text(
                       AppLocalizations.of(context).user_leave_used_leaves_tag,
-                      style: AppFontStyle.subTitleTextStyle,
+                      style: AppFontStyle.labelRegular,
                     )
                   ],
                 )

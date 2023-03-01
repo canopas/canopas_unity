@@ -10,7 +10,7 @@ import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../core/utils/const/space_constant.dart';
+import '../../../../configs/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../router/app_router.dart';

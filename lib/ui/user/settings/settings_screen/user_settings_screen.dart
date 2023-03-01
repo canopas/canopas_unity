@@ -4,12 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settings_user_profile.dart';
-import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
+import '../../../../configs/space_constant.dart';
 import '../../../../configs/text_style.dart';
-import '../../../../core/utils/const/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../router/app_router.dart';
 import 'bloc/user_settings_bloc.dart';
@@ -39,11 +38,8 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(
-        onBack: () {
-          context.pop();
-        },
-        title: AppLocalizations.of(context).settings_setting_text,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).settings_setting_text),
       ),
       body: BlocConsumer<UserSettingsBloc, UserSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
@@ -67,7 +63,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                   top: primaryHorizontalSpacing,
                   bottom: primaryVerticalSpacing),
               child: Text(AppLocalizations.of(context).settings_account_text,
-                  style: AppTextStyle.titleDark),
+                  style: AppFontStyle.titleDark),
             ),
             const Divider(
                 color: AppColors.dividerColor, height: 1, thickness: 1),

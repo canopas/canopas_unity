@@ -5,8 +5,8 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/ui/admin/home/addmember/widget/role_toggle_button.dart';
 
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../widget/date_time_picker.dart';
 import '../../../../../widget/employee_details_textfield.dart';
 import '../bloc/add_member_bloc.dart';
@@ -111,14 +111,14 @@ class _AddMemberFormState extends State<AddMemberForm> {
               keyboardType: TextInputType.none,
               cursorColor: Colors.black,
               autocorrect: false,
-              style: AppTextStyle.subtitleTextDark,
+              style: AppFontStyle.labelRegular,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 isCollapsed: true,
                 contentPadding: const EdgeInsets.all(primaryHorizontalSpacing),
                 fillColor: AppColors.textFieldBg,
                 filled: true,
-                hintStyle: AppTextStyle.secondarySubtitle500,
+                hintStyle: AppFontStyle.labelGrey,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/core/utils/const/image_constant.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
 
 class EmptyScreen extends StatelessWidget {
   final String title;
@@ -9,7 +9,14 @@ class EmptyScreen extends StatelessWidget {
   final bool showActionButton;
   final void Function()? onActionButtonTap;
   final String actionButtonTitle;
-  const EmptyScreen({Key? key, required this.message, this.showActionButton = false, this.onActionButtonTap, this.actionButtonTitle = "", required this.title,}) : super(key: key);
+  const EmptyScreen({
+    Key? key,
+    required this.message,
+    this.showActionButton = false,
+    this.onActionButtonTap,
+    this.actionButtonTitle = "",
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +27,20 @@ class EmptyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-             const Image(
+            const Image(
               image: AssetImage(ImageConst.emptyLeaveStateImage),
               height: 100,
               width: 100,
-             ),
-            SizedBox(
-              height:MediaQuery.of(context).size.height*0.02,
-            ),
-            Text(
-              title,
-              style:
-                  AppTextStyle.titleText.copyWith(fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: AppTextStyle.secondarySubtitle500,
+            Text(title, style: AppFontStyle.titleDark),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
+            Text(message,
+                textAlign: TextAlign.center, style: AppFontStyle.labelGrey),
             SizedBox(
               height: (showActionButton)
                   ? MediaQuery.of(context).size.height * 0.035
@@ -51,7 +51,7 @@ class EmptyScreen extends StatelessWidget {
                     onPressed: onActionButtonTap,
                     child: Text(
                       actionButtonTitle,
-                      style: AppTextStyle.subtitleText,
+                      style: AppFontStyle.labelRegular,
                     ))
                 : const SizedBox(),
           ],

@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 
 import '../../../../../configs/colors.dart';
-import '../../../../../core/utils/const/space_constant.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_state.dart';
@@ -31,7 +31,7 @@ class TotalDaysMsgBox extends StatelessWidget {
           DateFormatter(AppLocalizations.of(context))
               .getLeaveDurationPresentationLong(state.totalLeaveDays),
           style:
-              AppTextStyle.subtitleText.copyWith(color: AppColors.primaryBlue),
+              AppFontStyle.labelRegular.copyWith(color: AppColors.primaryBlue),
         ),
       ),
     );

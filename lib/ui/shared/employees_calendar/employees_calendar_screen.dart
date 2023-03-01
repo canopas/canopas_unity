@@ -7,10 +7,10 @@ import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../configs/colors.dart';
+import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
 import '../../../configs/theme.dart';
 import '../../../core/utils/const/leave_map.dart';
-import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
 import '../../../model/leave_application.dart';
 import '../../../router/app_router.dart';
@@ -134,7 +134,7 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                       .watch<EmployeesCalenderBloc>()
                       .state
                       .selectedDate),
-                  style: AppTextStyle.secondarySubtitle500,
+                  style: AppFontStyle.labelGrey,
                   textAlign: TextAlign.center,
                 ));
               }),

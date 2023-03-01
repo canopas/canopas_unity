@@ -21,7 +21,7 @@ class LeaveDetailActionButton extends StatelessWidget {
         fixedSize: Size(MediaQuery.of(context).size.width * 0.918518, 45),
       ),
       child: Text(localization.user_leave_detail_button_delete,
-          style: AppTextStyle.subtitleText),
+          style: AppFontStyle.labelRegular),
     );
   }
 }

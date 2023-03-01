@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../configs/colors.dart';
-import '../core/utils/const/space_constant.dart';
+import '../configs/space_constant.dart';
 
 class AppDivider extends StatelessWidget {
   const AppDivider({Key? key}) : super(key: key);

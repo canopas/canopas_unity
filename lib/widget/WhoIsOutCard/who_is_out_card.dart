@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/widget/app_divider.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
+
 import '../../configs/colors.dart';
+import '../../configs/space_constant.dart';
 import '../../configs/text_style.dart';
 import '../../configs/theme.dart';
-import '../../core/utils/const/space_constant.dart';
 import '../../core/utils/date_formatter.dart';
 import '../../di/service_locator.dart';
 import '../../model/leave_application.dart';
@@ -22,11 +23,13 @@ class WhoIsOutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
+      create: (context) =>
+          getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
       child: BlocListener<WhoIsOutCardBloc, WhoIsOutCardState>(
-        listenWhen: (previous, current) => current.status == WhoOIsOutCardStatus.failure,
-        listener: (context, state){
-          if(state.status == WhoOIsOutCardStatus.failure){
+        listenWhen: (previous, current) =>
+            current.status == WhoOIsOutCardStatus.failure,
+        listener: (context, state) {
+          if (state.status == WhoOIsOutCardStatus.failure) {
             showSnackBar(context: context, error: state.error);
           }
         },
@@ -44,7 +47,7 @@ class WhoIsOutCard extends StatelessWidget {
                 padding: const EdgeInsets.all(primaryHorizontalSpacing),
                 child: Text(
                   AppLocalizations.of(context).who_is_out_card_title,
-                  style: AppTextStyle.titleDark,
+                  style: AppFontStyle.titleDark,
                 ),
               ),
               const AppDivider(),
@@ -54,15 +57,16 @@ class WhoIsOutCard extends StatelessWidget {
                 height: primaryVerticalSpacing,
               ),
               BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
-                builder: (context, state) => state.status == WhoOIsOutCardStatus.loading
-                    ? const Padding(
-                        padding: EdgeInsets.all(primaryHorizontalSpacing),
-                        child: AppCircularProgressIndicator(),
-                      )
-                    : _AbsenceEmployeesListWhoIsOutCardView(
-                        absence: state.absence,
-                        dateOfEmployeeAbsence: state.dateOfAbsenceEmployee,
-                      ),
+                builder: (context, state) =>
+                    state.status == WhoOIsOutCardStatus.loading
+                        ? const Padding(
+                            padding: EdgeInsets.all(primaryHorizontalSpacing),
+                            child: AppCircularProgressIndicator(),
+                          )
+                        : _AbsenceEmployeesListWhoIsOutCardView(
+                            absence: state.absence,
+                            dateOfEmployeeAbsence: state.dateOfAbsenceEmployee,
+                          ),
               ),
             ],
           ),
@@ -74,7 +78,8 @@ class WhoIsOutCard extends StatelessWidget {
 
 class _WhoIsOutCardControlButtons extends StatelessWidget {
   final void Function()? onSeeAllButtonTap;
-  const _WhoIsOutCardControlButtons({Key? key, this.onSeeAllButtonTap}) : super(key: key);
+  const _WhoIsOutCardControlButtons({Key? key, this.onSeeAllButtonTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +104,7 @@ class _WhoIsOutCardControlButtons extends StatelessWidget {
                       child: Text(
                         DateFormatter(AppLocalizations.of(context))
                             .getDateRepresentation(state.dateOfAbsenceEmployee),
-                        style: AppTextStyle.mediumDark,
+                        style: AppFontStyle.bodyMedium,
                       ),
                     ),
                   )),
@@ -123,7 +128,7 @@ class _WhoIsOutCardControlButtons extends StatelessWidget {
               onPressed: onSeeAllButtonTap,
               child: Text(
                 AppLocalizations.of(context).see_all_button_tag,
-                style: AppTextStyle.bodyDark,
+                style: Theme.of(context).textTheme.bodyMedium,
               )),
         ],
       ),
@@ -190,7 +195,7 @@ class _AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
                         absence.length,
                         absence.length - 1,
                         (absence.isEmpty) ? "" : absence.first.employee.name),
-                    style: AppTextStyle.mediumDark,
+                    style: AppFontStyle.bodyMedium,
                   ),
                 ),
               ]),

@@ -3,9 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/model/leave/leave.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 
 class LeaveTypeContent extends StatelessWidget {
@@ -37,14 +37,14 @@ class LeaveTypeContent extends StatelessWidget {
               Text(
                 AppLocalizations.of(context)
                     .leave_type_placeholder_leave_status(leaveType),
-                style: AppTextStyle.titleBlack600,
+                style: AppFontStyle.titleDark,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
                 appliedOn,
-                style: AppTextStyle.secondarySubtitle500,
+                style: AppFontStyle.labelGrey,
               ),
             ],
           ),
@@ -63,7 +63,7 @@ class LeaveTypeContent extends StatelessWidget {
                   ),
                   Text(
                     localization.leave_status_placeholder_text(leaveStatus),
-                    style: AppTextStyle.subtitleTextDark,
+                    style: AppFontStyle.labelRegular,
                   )
                 ],
               )),

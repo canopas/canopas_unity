@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../bloc/admin_leave_application_detail_bloc.dart';
 import '../bloc/admin_leave_application_detail_event.dart';
 
@@ -22,7 +22,7 @@ class ApproveRejectionMessage extends StatelessWidget {
         children: [
           Text(
             AppLocalizations.of(context).admin_leave_detail_message_title_text,
-            style: AppTextStyle.secondarySubtitle500,
+            style: AppFontStyle.labelGrey,
           ),
           const SizedBox(
             height: 10,
@@ -37,7 +37,7 @@ class ApproveRejectionMessage extends StatelessWidget {
               color: AppColors.whiteColor,
             ),
             child: TextField(
-              style: AppTextStyle.bodyTextDark,
+              style: AppFontStyle.bodySmallRegular,
               onChanged: (value) {
                 context
                     .read<AdminLeaveApplicationDetailsBloc>()

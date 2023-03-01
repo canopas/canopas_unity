@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+
 import '../configs/colors.dart';
+import '../configs/space_constant.dart';
 import '../configs/text_style.dart';
-import '../core/utils/const/space_constant.dart';
 
 class FieldTitle extends StatelessWidget {
   final String title;
-  const FieldTitle({Key? key,required this.title}) : super(key: key);
+  const FieldTitle({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
-      child: Text(
-        title,
-        textAlign: TextAlign.start,
-        style: AppTextStyle.secondarySubtitle500,
-      ),
+      child: Text(title,
+          textAlign: TextAlign.start, style: AppFontStyle.labelGrey),
     );
   }
 }
@@ -29,10 +27,11 @@ class FieldEntry extends StatelessWidget {
 
   const FieldEntry(
       {Key? key,
-        this.maxLine,
-        this.onChanged,
-        this.errorText,
-        required this.hintText,  this.controller})
+      this.maxLine,
+      this.onChanged,
+      this.errorText,
+      required this.hintText,
+      this.controller})
       : super(key: key);
 
   @override
@@ -44,7 +43,7 @@ class FieldEntry extends StatelessWidget {
       controller: controller,
       cursorColor: Colors.black,
       autocorrect: false,
-      style: AppTextStyle.subtitleTextDark,
+      style: AppFontStyle.labelRegular,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         isCollapsed: true,
@@ -52,11 +51,10 @@ class FieldEntry extends StatelessWidget {
         fillColor: AppColors.textFieldBg,
         filled: true,
         errorText: errorText,
-        hintStyle: AppTextStyle.secondarySubtitle500,
+        hintStyle: AppFontStyle.labelGrey,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none
-        ),
+            borderSide: BorderSide.none),
         hintText: hintText,
       ),
     );

@@ -37,7 +37,7 @@ class UserLeaveCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(leaveDuration, style: AppTextStyle.bodyTextDark),
+                  Text(leaveDuration, style: AppFontStyle.bodySmallRegular),
                   Text(leavePeriod,
                       style: const TextStyle(
                           color: AppColors.blackColor,
@@ -111,7 +111,7 @@ class LeaveStatusIcon extends StatelessWidget {
         Text(
           AppLocalizations.of(context)
               .leave_status_placeholder_text(leaveStatus),
-          style: AppTextStyle.bodyTextDark,
+          style: AppFontStyle.bodySmallRegular,
         )
       ],
     );

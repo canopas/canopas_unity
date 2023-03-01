@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../../configs/colors.dart';
@@ -156,7 +156,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   child: Text(
                     localization.date_format_yMMMd(
                         state.dateOfJoining ?? DateTime.now()),
-                    style: AppTextStyle.subtitleTextDark,
+                    style: AppFontStyle.labelRegular,
                   ))),
         ],
       ),

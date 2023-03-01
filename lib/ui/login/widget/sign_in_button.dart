@@ -34,7 +34,7 @@ class SignInButton extends StatelessWidget {
             child: Text(
               AppLocalizations.of(context).login_button_text,
               textAlign: TextAlign.center,
-              style: AppTextStyle.titleText.copyWith(color: AppColors.darkText),
+              style: AppFontStyle.titleDark,
             ),
           )
         ]));

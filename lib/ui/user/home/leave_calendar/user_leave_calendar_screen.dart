@@ -6,9 +6,9 @@ import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../../configs/space_constant.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../configs/theme.dart';
-import '../../../../core/utils/const/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../widget/calendar.dart';
 import '../../../../widget/leave_card.dart';
@@ -158,7 +158,7 @@ class EmptyCalendarScreen extends StatelessWidget {
               .range_calendar_no_leave_msg(startDate!, endDate!)
           : AppLocalizations.of(context)
               .calendar_no_leave_msg(selectedDate ?? DateTime.now()),
-      style: AppTextStyle.secondarySubtitle500,
+      style: AppFontStyle.labelGrey,
       textAlign: TextAlign.center,
     ));
   }

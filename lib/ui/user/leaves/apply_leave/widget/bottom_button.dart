@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
+import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
@@ -31,7 +32,8 @@ class ApplyButton extends StatelessWidget {
                         .add(ApplyLeaveSubmitFormEvent());
                   },
                   child: Text(localization.user_apply_leave_button_apply_leave,
-                      style: AppTextStyle.subtitleTextWhite))),
+                      style: AppFontStyle.buttonTextStyle
+                          .copyWith(color: AppColors.whiteColor)))),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
-import '../../core/utils/const/space_constant.dart';
+import '../../configs/space_constant.dart';
 import '../../model/employee/employee.dart';
 import '../../router/app_router.dart';
 
@@ -34,8 +34,7 @@ class UserContent extends StatelessWidget {
                   children: [
                     Text(
                       employee.name,
-                      style: AppTextStyle.subtitleTextDark
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: AppFontStyle.labelRegular,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
@@ -43,7 +42,7 @@ class UserContent extends StatelessWidget {
                     ),
                     Text(
                       employee.designation,
-                      style: AppTextStyle.secondaryBodyText,
+                      style: AppFontStyle.bodySmallRegular,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

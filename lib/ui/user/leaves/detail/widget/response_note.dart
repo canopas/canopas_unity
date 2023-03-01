@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 
 class ResponseNote extends StatelessWidget {
   final String leaveResponse;
@@ -20,7 +20,7 @@ class ResponseNote extends StatelessWidget {
         children: [
           Text(
             AppLocalizations.of(context).admin_leave_detail_message_title_text,
-            style: AppTextStyle.secondarySubtitle500,
+            style: AppFontStyle.labelGrey,
           ),
           const SizedBox(
             height: 10,
@@ -34,7 +34,7 @@ class ResponseNote extends StatelessWidget {
             ),
             child: Text(
               leaveResponse,
-              style: AppTextStyle.subtitleTextDark,
+              style: AppFontStyle.labelRegular,
             ),
           ),
         ],

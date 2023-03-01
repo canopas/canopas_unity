@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/utils/const/leave_screen_type_map.dart';
 
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 
 class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
@@ -34,14 +34,14 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
               Text(
                 AppLocalizations.of(context)
                     .leave_type_placeholder_leave_status(leaveType),
-                style: AppTextStyle.titleBlack600,
+                style: AppFontStyle.titleDark,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
                 appliedOn,
-                style: AppTextStyle.secondarySubtitle500,
+                style: AppFontStyle.labelGrey,
               ),
             ],
           ),
@@ -53,11 +53,9 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  AppLocalizations.of(context)
-                      .leave_status_placeholder_text(status),
-                  style: AppTextStyle.bodyTextDark
-                      .copyWith(fontWeight: FontWeight.w600),
-                ),
+                    AppLocalizations.of(context)
+                        .leave_status_placeholder_text(status),
+                    style: AppFontStyle.bodySmallHeavy),
               ],
             ),
           ),

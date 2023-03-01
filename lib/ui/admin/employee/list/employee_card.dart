@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/font_size.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
 
-import '../../../../core/utils/const/space_constant.dart';
+import '../../../../configs/space_constant.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../router/app_router.dart';
 
@@ -59,8 +58,9 @@ class EmployeeName extends StatelessWidget {
     return Text(name ?? '',
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,
-        style:
-            height >= 700 ? AppTextStyle.titleText : AppTextStyle.subtitleText);
+        style: height >= 700
+            ? AppFontStyle.titleRegular
+            : AppFontStyle.labelRegular);
   }
 }
 
@@ -75,9 +75,6 @@ class EmployeeDesignation extends StatelessWidget {
     return Text(designation ?? '',
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,
-        style: height >= 700
-            ? AppTextStyle.secondaryBodyText
-                .copyWith(fontSize: subTitleTextSize)
-            : AppTextStyle.secondaryBodyText);
+        style: AppFontStyle.labelRegular);
   }
 }

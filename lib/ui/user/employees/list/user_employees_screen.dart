@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/app_divider.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../core/utils/const/space_constant.dart';
+import '../../../../configs/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../router/app_router.dart';
@@ -40,8 +39,8 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(
-        title: AppLocalizations.of(context).employee_tag,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).employee_tag),
       ),
       backgroundColor: AppColors.whiteColor,
       body: RefreshIndicator(

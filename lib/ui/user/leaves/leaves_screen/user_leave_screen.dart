@@ -49,7 +49,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         appBar: AppBar(
           title: Text(
             localization.user_leave_appbar_tag,
-            style: AppFontStyle.appbarHeaderStyle,
+            style: AppFontStyle.appbarHeaderDark,
           ),
           backgroundColor: AppColors.whiteColor,
           elevation: 0,

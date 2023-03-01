@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../configs/colors.dart';
 import 'navigation_item.dart';
 
 class AdminDashBoardScreen extends StatefulWidget {
@@ -20,8 +19,6 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
     return Scaffold(
       body: SafeArea(child: widget.child),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.darkBlue,
-        unselectedItemColor: AppColors.primaryBlue,
         onTap: (int index) => onItemTapped(index),
         items: adminTabs,
         currentIndex: _currentIndex,
