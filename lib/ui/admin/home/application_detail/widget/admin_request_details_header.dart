@@ -28,7 +28,7 @@ class AdminLeaveRequestLeaveTypeHeader extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)
-                    .leave_type_placeholder_leave_status(leaveType),
+                    .leave_type_placeholder_leave_status(leaveType.toString()),
                 style: AppTextStyle.titleBlack600,
               ),
               const SizedBox(

@@ -17,7 +17,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     this.title = "",
     this.actions = const [],
-    this.preferredSize = const Size(double.infinity, 120),
+    this.preferredSize = const Size(double.infinity, 70),
     this.bottomTitlePadding = primaryVerticalSpacing,
     this.onBack,
   }) : super(key: key);
