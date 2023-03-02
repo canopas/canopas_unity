@@ -23,7 +23,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
         selectedItemColor: AppColors.darkBlue,
         unselectedItemColor: AppColors.primaryBlue,
         onTap: (int index) => onItemTapped(index),
-        items: adminTabs,
+        items: userTabs,
         currentIndex: _currentIndex,
       ),
     );

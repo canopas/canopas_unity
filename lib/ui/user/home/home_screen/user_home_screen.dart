@@ -53,11 +53,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 context.pushNamed(Routes.userCalender);
               },
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25, bottom: 10),
-              child: Text(AppLocalizations.of(context).user_home_requests_tag,
-                  style: Theme.of(context).textTheme.headlineLarge),
-            ),
             BlocConsumer<UserHomeBloc, UserHomeState>(
                 builder: (context, state) {
                   if (state is UserHomeInitialState) {
@@ -66,13 +61,32 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     return const AppCircularProgressIndicator();
                   } else if (state is UserHomeSuccessState) {
                     final requests = state.requests;
-                    return Expanded(
-                      child: ListView.builder(
-                          itemCount: requests.length,
-                          itemBuilder: (context, index) {
-                            return UserLeaveCard(leave: requests[index]);
-                          }),
-                    );
+                    return requests.isNotEmpty
+                        ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 25, bottom: 10),
+                                child: Text(
+                                    AppLocalizations.of(context)
+                                        .user_home_requests_tag,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge),
+                              ),
+                              Flexible(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: requests.length,
+                                    itemBuilder: (context, index) {
+                                      return UserLeaveCard(
+                                          leave: requests[index]);
+                                    }),
+                              ),
+                            ],
+                          )
+                        : Container();
                   }
                   return Container();
                 },
