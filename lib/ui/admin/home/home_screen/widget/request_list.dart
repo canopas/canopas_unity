@@ -5,8 +5,8 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../router/app_router.dart';
 import 'requests/leave_content.dart';
@@ -42,10 +42,10 @@ class LeaveRequestList extends StatelessWidget {
                             Text(
                                 DateFormatter(AppLocalizations.of(context))
                                     .getDateRepresentation(mapEntry.key),
-                                style: AppTextStyle.titleDark),
+                                style: AppFontStyle.headerGrey),
                             Text(
                               mapEntry.value.length.toString(),
-                              style: AppTextStyle.titleDark,
+                              style: AppFontStyle.headerGrey,
                             )
                           ],
                         ),

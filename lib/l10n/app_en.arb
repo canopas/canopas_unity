@@ -23,12 +23,16 @@
     }
   },
 
+
+
   "user_home_all_leaves_tag": "All Leaves",
   "total_paid_leaves":"Total Leaves",
   "user_home_requested_leaves_tag": "Requested Leaves",
   "user_home_upcoming_leaves_tag": "Upcoming Leaves",
   "user_home_apply_leave_tag": "Apply for Leave",
   "user_home_who_onLeave_tag": "Who's on leave today?",
+
+
 
   "employee_details_make_admin_tag":"Make Admin",
   "employee_details_remove_admin_tag":"Remove Admin",
@@ -301,6 +305,9 @@
   "admin_leave_detail_button_reject":"Reject",
   "admin_leave_detail_button_approve":"Approve",
   "admin_leave_detail_button_ok":"OK",
-  "admin_leave_detail_daysLeft_tag":"Days left"
+  "admin_leave_detail_daysLeft_tag":"Days left",
+
+
+    "admin_setting_edit_appbar_tag":"Edit"
 
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/widget/user_profile_image.dart';
+
 import '../configs/colors.dart';
+import '../configs/space_constant.dart';
 import '../configs/text_style.dart';
 import '../configs/theme.dart';
-import '../core/utils/const/space_constant.dart';
 import '../model/employee/employee.dart';
 
 class EmployeeCard extends StatelessWidget {
@@ -37,9 +38,9 @@ class EmployeeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(employee.name, style: AppTextStyle.titleDark),
+                  Text(employee.name, style: AppFontStyle.bodyMedium),
                   const SizedBox(height: 2),
-                  Text(employee.designation, style: AppTextStyle.bodyDarkGrey),
+                  Text(employee.designation, style: AppFontStyle.subTitleGrey),
                 ],
               ),
             )

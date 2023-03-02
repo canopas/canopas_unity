@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../configs/text_style.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../widget/circular_progress_indicator.dart';
@@ -34,7 +33,6 @@ class EmployeeListScreen extends StatefulWidget {
 }
 
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +40,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context).employee_tag,
-          style: AppTextStyle.appBarTitle,
         ),
       ),
       body: BlocConsumer<EmployeeListBloc, EmployeeListState>(
@@ -62,13 +59,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           }
           return const SizedBox();
         },
-        listener: (BuildContext context, EmployeeListState state){
-          if(state is EmployeeListFailureState){
-            showSnackBar(context: context,error: state.error);
+        listener: (BuildContext context, EmployeeListState state) {
+          if (state is EmployeeListFailureState) {
+            showSnackBar(context: context, error: state.error);
           }
         },
       ),
-
     );
   }
 }

@@ -59,12 +59,9 @@ class LeaveCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8)),
                         padding: const EdgeInsets.all(10),
                         child: Text(
-                          localize.leave_type_placeholder_leave_status(
-                              leaveApplication.leave.leaveType.toString()),
-                          style: AppTextStyle.bodyTextDark.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                            localize.leave_type_placeholder_leave_status(
+                                leaveApplication.leave.leaveType.toString()),
+                            style: AppFontStyle.bodySmallHeavy),
                       ),
                       Flexible(
                           child: Text(
@@ -82,7 +79,7 @@ class LeaveCard extends StatelessWidget {
                     leaveApplication.leave.reason,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                    style: AppTextStyle.secondaryBodyText,
+                    style: AppFontStyle.bodySmallRegular,
                   ),
                   const SizedBox(
                     height: 10,
@@ -130,7 +127,7 @@ class LeaveStatusIcon extends StatelessWidget {
         Text(
           AppLocalizations.of(context)
               .leave_status_placeholder_text(leaveStatus.toString()),
-          style: AppTextStyle.bodyTextDark,
+          style: AppFontStyle.bodySmallRegular,
         )
       ],
     );

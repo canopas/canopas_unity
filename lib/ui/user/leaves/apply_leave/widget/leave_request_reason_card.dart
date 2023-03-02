@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -29,7 +29,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
               current.reason != previous.reason ||
               current.showTextFieldError != previous.showTextFieldError,
           builder: (context, state) => TextField(
-                style: AppTextStyle.bodyTextDark,
+                style: AppFontStyle.bodySmallRegular,
                 cursorColor: AppColors.secondaryText,
                 maxLines: 5,
                 decoration: InputDecoration(
@@ -40,7 +40,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
                   border: InputBorder.none,
                   hintText:
                       AppLocalizations.of(context).leave_reason_text_field_tag,
-                  hintStyle: AppTextStyle.leaveRequestFormSubtitle,
+                  hintStyle: AppFontStyle.labelGrey,
                 ),
                 onChanged: (reason) {
                   context

@@ -11,7 +11,7 @@ import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_type_card.d
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/total_leave_card.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
-import '../../../../core/utils/const/space_constant.dart';
+import '../../../../configs/space_constant.dart';
 import 'bloc/apply_leave_bloc.dart';
 import 'bloc/apply_leave_event.dart';
 import 'bloc/apply_leave_state.dart';

@@ -5,9 +5,9 @@ import 'package:projectunity/core/extensions/double_extension.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
@@ -55,9 +55,7 @@ class LeaveDetailsDateContent extends StatelessWidget {
               } else if (state is AdminLeaveDetailSuccessState) {
                 return Text(
                     "${state.usedLeaves.fixedAt(2)}/${state.paidLeaves}",
-                    style: AppTextStyle.titleText.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ));
+                    style: AppFontStyle.titleDark);
               }
               return Container();
             },
@@ -72,19 +70,14 @@ class LeaveDetailsDateContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  duration,
-                  style: AppTextStyle.subtitleText.copyWith(
-                      fontWeight: FontWeight.w600, color: AppColors.blackColor),
-                ),
+                Text(duration, style: AppFontStyle.labelRegular),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Text(
                   totalDays,
-                  style: AppTextStyle.bodyTextDark.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.primaryBlue),
+                  style: AppFontStyle.bodySmallHeavy
+                      .copyWith(color: AppColors.primaryBlue),
                 ),
               ],
             ),

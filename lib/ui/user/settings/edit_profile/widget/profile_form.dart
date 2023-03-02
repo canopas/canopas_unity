@@ -6,7 +6,7 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_image.dart';
 import 'package:projectunity/widget/date_time_picker.dart';
 
-import '../../../../../core/utils/const/space_constant.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../widget/employee_details_textfield.dart';
 import '../bloc/emloyee_edit_profile_bloc.dart';
@@ -129,7 +129,7 @@ class GenderSelection extends StatelessWidget {
                 },
                 child: Text(
                   localization.gender_male_tag,
-                  style: AppTextStyle.subtitleTextDark,
+                  style: AppFontStyle.labelRegular,
                 ),
               )),
               const SizedBox(
@@ -152,7 +152,7 @@ class GenderSelection extends StatelessWidget {
                             color: AppColors.textFieldBg, width: 3))),
                 child: Text(
                   localization.gender_female_tag,
-                  style: AppTextStyle.subtitleTextDark,
+                  style: AppFontStyle.labelRegular,
                 ),
               )),
             ],
@@ -189,11 +189,11 @@ class DateOfBirthButton extends StatelessWidget {
           child: state.dateOfBirth != null
               ? Text(
                   localization.date_format_yMMMd(state.dateOfBirth!),
-                  style: AppTextStyle.subtitleTextDark,
+                  style: AppFontStyle.labelRegular,
                 )
               : Text(
                   localization.select_tag,
-                  style: AppTextStyle.secondarySubtitle500,
+                  style: AppFontStyle.labelGrey,
                 )),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
@@ -47,7 +46,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           title: Text(
             AppLocalizations.of(context)
                 .admin_employee_detail_appbar_title_detail_tag,
-            style: AppTextStyle.appBarTitle,
           ),
           actions: [
             BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(

@@ -1,8 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
 
 import '../../../../../model/leave/leave.dart';
 import '../../../leaves/leaves_screen/widget/leave_card.dart';

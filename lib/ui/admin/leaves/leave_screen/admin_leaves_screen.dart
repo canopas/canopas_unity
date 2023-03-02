@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/expandable_list.dart';
-import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
@@ -36,8 +35,8 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(
-        title: AppLocalizations.of(context).admin_leave_appbar_text,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).admin_leave_appbar_text),
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
         listener: (context, state) {

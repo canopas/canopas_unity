@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/utils/const/space_constant.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../model/employee/employee.dart';
-import '../../../../widget/app_app_bar.dart';
 import '../../../../widget/error_snack_bar.dart';
 import 'bloc/emloyee_edit_profile_bloc.dart';
 import 'bloc/employee_edit_profile_event.dart';
@@ -66,12 +65,8 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      appBar: AppAppBar(
-        onBack: () {
-          context.pop();
-        },
-        bottomTitlePadding: 0,
-        title: AppLocalizations.of(context).edit_tag,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).edit_tag),
         actions: [
           TextButton(
               style: TextButton.styleFrom(
@@ -89,10 +84,8 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
                       phoneNumber: phoneNumberController.text,
                     ));
               },
-              child: Text(
-                AppLocalizations.of(context).save_tag,
-                style: AppTextStyle.subtitleTextDark,
-              ))
+              child: Text(AppLocalizations.of(context).save_tag,
+                  style: AppFontStyle.buttonTextStyle))
         ],
       ),
       body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(

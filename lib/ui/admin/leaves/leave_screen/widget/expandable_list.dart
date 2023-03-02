@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../model/leave_application.dart';
 import '../../../../../router/app_router.dart';
 import '../../../home/home_screen/widget/requests/leave_content.dart';
@@ -42,10 +42,10 @@ class ExpandableList extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(title, style: AppTextStyle.titleDark),
+                          Text(title, style: AppFontStyle.headerGrey),
                           Text(
                             leaveApplications.length.toString(),
-                            style: AppTextStyle.titleDark,
+                            style: AppFontStyle.headerGrey,
                           )
                         ],
                       ),
@@ -107,6 +107,7 @@ class ExpandableList extends StatelessWidget {
                                     controller.expanded
                                         ? localization.user_leave_view_more_tag
                                         : localization.user_leave_show_less_tag,
+                                    style: AppFontStyle.buttonTextStyle,
                                   )),
                             );
                           })

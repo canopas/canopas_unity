@@ -11,7 +11,7 @@ import 'package:projectunity/ui/admin/home/application_detail/widget/admin_reque
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 
 import '../../../../configs/colors.dart';
-import '../../../../core/utils/const/space_constant.dart';
+import '../../../../configs/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/leave_application.dart';
 import '../../../../widget/error_snack_bar.dart';
@@ -64,7 +64,7 @@ class _AdminLeaveApplicationDetailScreenState
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context).leave_detail_title,
-          style: AppFontStyle.appbarHeaderStyle,
+          style: AppFontStyle.appbarHeaderDark,
         ),
       ),
       body: BlocConsumer<AdminLeaveApplicationDetailsBloc,

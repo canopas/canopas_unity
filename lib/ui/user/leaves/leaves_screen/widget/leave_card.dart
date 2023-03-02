@@ -21,8 +21,8 @@ class UserLeaveCard extends StatelessWidget {
     var localization = AppLocalizations.of(context);
     final String leaveDuration = DateFormatter(localization)
         .getLeaveDurationPresentation(leave.totalLeaves);
-    final String leaveType =
-        localization.leave_type_placeholder_leave_status(leave.leaveType.toString());
+    final String leaveType = localization
+        .leave_type_placeholder_leave_status(leave.leaveType.toString());
     final String leavePeriod = DateFormatter(localization).dateInLine(
         startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
     return Card(
@@ -37,7 +37,7 @@ class UserLeaveCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(leaveDuration, style: AppTextStyle.bodyTextDark),
+                  Text(leaveDuration, style: AppFontStyle.bodySmallRegular),
                   Text(leavePeriod,
                       style: const TextStyle(
                           color: AppColors.blackColor,
@@ -111,7 +111,7 @@ class LeaveStatusIcon extends StatelessWidget {
         Text(
           AppLocalizations.of(context)
               .leave_status_placeholder_text(leaveStatus.toString()),
-          style: AppTextStyle.bodyTextDark,
+          style: AppFontStyle.bodySmallRegular,
         )
       ],
     );

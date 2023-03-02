@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../configs/colors.dart';
-import '../configs/text_style.dart';
-import '../core/utils/const/space_constant.dart';
+import '../configs/space_constant.dart';
 
 class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -13,7 +13,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
 
   const AppAppBar({
-    this.backgroundColor= AppColors.whiteColor,
+    this.backgroundColor = AppColors.whiteColor,
     Key? key,
     this.title = "",
     this.actions = const [],
@@ -37,17 +37,17 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              onBack!=null?Padding(
-                 padding: const EdgeInsets.only(right: primaryHorizontalSpacing),
-                 child: InkWell(
-                  onTap: onBack,
-                  child: const Icon(Icons.arrow_back,size: 28),
-              ),
-               ):const SizedBox(),
-              Text(
-                title,
-                style: AppTextStyle.headerDark,
-              ),
+              onBack != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          right: primaryHorizontalSpacing),
+                      child: InkWell(
+                        onTap: onBack,
+                        child: const Icon(Icons.arrow_back, size: 28),
+                      ),
+                    )
+                  : const SizedBox(),
+              Text(title, style: Theme.of(context).appBarTheme.titleTextStyle),
               const Spacer(),
               ...actions
             ],

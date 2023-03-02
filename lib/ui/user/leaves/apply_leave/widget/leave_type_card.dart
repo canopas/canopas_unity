@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/leave_map.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
@@ -46,12 +46,12 @@ class LeaveTypeCard extends StatelessWidget {
                 } else if (state.leaveCountStatus == LeaveCountStatus.success) {
                   return Text(
                     "${state.leaveCounts.remainingLeaveCount.fixedAt(2)}/${state.leaveCounts.paidLeaveCount}",
-                    style: AppTextStyle.subtitleGreyBold,
+                    style: AppFontStyle.bodyMedium,
                   );
                 }
-                return Text(
+                return const Text(
                   "0/0",
-                  style: AppTextStyle.subtitleGreyBold,
+                  style: AppFontStyle.bodyMedium,
                 );
               },
             ),
@@ -66,8 +66,10 @@ class LeaveTypeCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 2),
-              child: Text(localization.leave_type_tag,
-                  style: AppTextStyle.leaveRequestFormSubtitle),
+              child: Text(
+                localization.leave_type_tag,
+                style: AppFontStyle.labelGrey,
+              ),
             ),
             Expanded(
               flex: 12,

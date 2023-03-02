@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/widget/app_app_bar.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../configs/colors.dart';
+import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
-import '../../../core/utils/const/space_constant.dart';
 import '../../../di/service_locator.dart';
 import '../../../router/app_router.dart';
 import '../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
@@ -39,8 +38,8 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(
-        title: AppLocalizations.of(context).settings_setting_text,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).settings_setting_text),
       ),
       body: BlocConsumer<AdminSettingsBloc, AdminSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
@@ -64,7 +63,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                   top: primaryHorizontalSpacing,
                   bottom: primaryVerticalSpacing),
               child: Text(AppLocalizations.of(context).settings_account_text,
-                  style: AppTextStyle.titleDark),
+                  style: AppFontStyle.titleDark),
             ),
             const Divider(
                 color: AppColors.dividerColor, height: 1, thickness: 1),

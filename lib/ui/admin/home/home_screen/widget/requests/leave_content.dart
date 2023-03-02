@@ -4,9 +4,9 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/model/leave_application.dart';
 
+import '../../../../../../configs/space_constant.dart';
 import '../../../../../../configs/text_style.dart';
 import '../../../../../../core/utils/const/leave_map.dart';
-import '../../../../../../core/utils/const/space_constant.dart';
 import '../../../../../../core/utils/date_formatter.dart';
 import 'employee_content.dart';
 
@@ -101,8 +101,7 @@ class _LeaveTypeContent extends StatelessWidget {
       child: Text(
         AppLocalizations.of(context)
             .leave_type_placeholder_leave_status(leaveType.toString()),
-        style: AppTextStyle.subtitleText
-            .copyWith(fontWeight: FontWeight.w500, color: AppColors.whiteColor),
+        style: AppFontStyle.labelRegular.copyWith(color: AppColors.whiteColor),
       ),
     );
   }
@@ -129,7 +128,7 @@ class _LeaveDateContent extends StatelessWidget {
 
     return Text(
       '$days, $duration ',
-      style: AppTextStyle.bodyDarkGrey,
+      style: AppFontStyle.subTitleGrey,
       overflow: TextOverflow.ellipsis,
     );
   }

@@ -58,12 +58,10 @@ class ToggleButton extends StatelessWidget {
                         color: Colors.transparent,
                         alignment: Alignment.center,
                         child: Text(
-                          localization
-                              .user_detail_role_type(roleTypeAlignment.key),
-                          textAlign: TextAlign.start,
-                          style: AppTextStyle.bodyTextDark
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
+                            localization
+                                .user_detail_role_type(roleTypeAlignment.key),
+                            textAlign: TextAlign.start,
+                            style: AppFontStyle.bodySmallHeavy),
                       ),
                     ),
                   ),

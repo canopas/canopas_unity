@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../configs/colors.dart';
+import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/space_constant.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../widget/user_profile_image.dart';
 
@@ -39,11 +39,11 @@ class UserProfile extends StatelessWidget {
                 children: [
                   Text(
                     employee.name,
-                    style: AppTextStyle.titleDark,
+                    style: AppFontStyle.titleDark,
                     overflow: TextOverflow.fade,
                   ),
                   const SizedBox(height: 2),
-                  Text(employee.designation, style: AppTextStyle.bodyDarkGrey),
+                  Text(employee.designation, style: AppFontStyle.labelGrey),
                 ],
               ),
             ),
