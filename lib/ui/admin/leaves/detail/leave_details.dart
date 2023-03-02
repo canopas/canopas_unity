@@ -105,11 +105,11 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: widget.leaveApplication.leave.startDate.toDate.isAfter(DateTime.now())?LeaveDetailActionButton(
+        floatingActionButton: widget.leaveApplication.leave.startDate.toDate.isBefore(DateTime.now())?null:LeaveDetailActionButton(
           leaveStatus: widget.leaveApplication.leave.leaveStatus,
           onTap: () => context.read<AdminLeaveDetailBloc>().add(
               DeleteLeaveApplicationEvent(
                   widget.leaveApplication.leave.leaveId)),
-        ):null);
+        ));
   }
 }
