@@ -9,10 +9,9 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_car
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
-import '../../../../core/utils/const/space_constant.dart';
+
 import '../../../../model/leave/leave.dart';
 import '../../../../router/app_router.dart';
-import '../../../../widget/app_app_bar.dart';
 import 'bloc/leave_count/user_leave_count_bloc.dart';
 import 'bloc/leave_count/user_leave_cout_event.dart';
 import 'bloc/leaves/user_leave_bloc.dart';
@@ -27,7 +26,7 @@ class UserLeavePage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
           create: (_) =>
-              getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
+          getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
       BlocProvider(
           create: (_) => getIt<UserLeaveBloc>()..add(FetchUserLeaveEvent()))
     ], child: const UserLeaveScreen());
@@ -47,17 +46,18 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
     var localization = AppLocalizations.of(context);
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
-        appBar: AppAppBar(
-          bottomTitlePadding: 0,
-          title: localization.user_leave_appbar_tag,
+        appBar: AppBar(
+          title: Text(
+            localization.user_leave_appbar_tag,
+            style: AppFontStyle.appbarHeaderStyle,
+          ),
+          backgroundColor: AppColors.whiteColor,
+          elevation: 0,
           actions: [
             TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(primaryVerticalSpacing),
-                ),
                 onPressed: () => context.goNamed(Routes.applyLeave),
                 child: Text(localization.user_leave_apply_tag,
-                    style: AppTextStyle.subtitleTextDark))
+                    style: AppFontStyle.buttonTextStyle))
           ],
         ),
         body: Padding(
