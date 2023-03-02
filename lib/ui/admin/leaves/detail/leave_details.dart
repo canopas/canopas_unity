@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_details_date_content.dart';
@@ -104,11 +105,11 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: LeaveDetailActionButton(
+        floatingActionButton: widget.leaveApplication.leave.startDate.toDate.isAfter(DateTime.now())?LeaveDetailActionButton(
           leaveStatus: widget.leaveApplication.leave.leaveStatus,
           onTap: () => context.read<AdminLeaveDetailBloc>().add(
               DeleteLeaveApplicationEvent(
                   widget.leaveApplication.leave.leaveId)),
-        ));
+        ):null);
   }
 }
