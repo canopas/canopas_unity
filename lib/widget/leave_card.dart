@@ -60,7 +60,7 @@ class LeaveCard extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         child: Text(
                             localize.leave_type_placeholder_leave_status(
-                                leaveApplication.leave.leaveType),
+                                leaveApplication.leave.leaveType.toString()),
                             style: AppFontStyle.bodySmallHeavy),
                       ),
                       Flexible(
@@ -126,7 +126,7 @@ class LeaveStatusIcon extends StatelessWidget {
         ),
         Text(
           AppLocalizations.of(context)
-              .leave_status_placeholder_text(leaveStatus),
+              .leave_status_placeholder_text(leaveStatus.toString()),
           style: AppFontStyle.bodySmallRegular,
         )
       ],

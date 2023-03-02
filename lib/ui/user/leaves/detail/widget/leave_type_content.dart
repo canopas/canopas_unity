@@ -36,7 +36,7 @@ class LeaveTypeContent extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)
-                    .leave_type_placeholder_leave_status(leaveType),
+                    .leave_type_placeholder_leave_status(leaveType.toString()),
                 style: AppFontStyle.titleDark,
               ),
               const SizedBox(
@@ -62,7 +62,7 @@ class LeaveTypeContent extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    localization.leave_status_placeholder_text(leaveStatus),
+                    localization.leave_status_placeholder_text(leaveStatus.toString()),
                     style: AppFontStyle.labelRegular,
                   )
                 ],
