@@ -21,8 +21,8 @@ class UserLeaveCard extends StatelessWidget {
     var localization = AppLocalizations.of(context);
     final String leaveDuration = DateFormatter(localization)
         .getLeaveDurationPresentation(leave.totalLeaves);
-    final String leaveType =
-        localization.leave_type_placeholder_leave_status(leave.leaveType.toString());
+    final String leaveType = localization
+        .leave_type_placeholder_leave_status(leave.leaveType.toString());
     final String leavePeriod = DateFormatter(localization).dateInLine(
         startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
     return Card(

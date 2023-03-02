@@ -62,7 +62,8 @@ class LeaveTypeContent extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    localization.leave_status_placeholder_text(leaveStatus.toString()),
+                    localization
+                        .leave_status_placeholder_text(leaveStatus.toString()),
                     style: AppFontStyle.labelRegular,
                   )
                 ],
