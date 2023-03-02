@@ -33,7 +33,7 @@ extension ExceptionMessage on String {
         msg = appLocale.apply_leave_minimum_one_hour_error;
         break;
       case userAlreadyExists:
-        msg = appLocale.admin_home_add_member_employee_exists_error;
+        msg = appLocale.add_member_employee_exists_error;
         break;
       case somethingWentWrongError:
         msg = appLocale.error_something_went_wrong;

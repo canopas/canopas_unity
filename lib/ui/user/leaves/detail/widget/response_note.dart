@@ -19,7 +19,7 @@ class ResponseNote extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context).admin_leave_detail_message_title_text,
+            AppLocalizations.of(context).admin_leave_detail_note_tag,
             style: AppFontStyle.labelGrey,
           ),
           const SizedBox(

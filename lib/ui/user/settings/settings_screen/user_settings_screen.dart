@@ -39,7 +39,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).settings_setting_text),
+        title: Text(AppLocalizations.of(context).settings_tag),
       ),
       body: BlocConsumer<UserSettingsBloc, UserSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
@@ -62,7 +62,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
               padding: const EdgeInsets.only(
                   top: primaryHorizontalSpacing,
                   bottom: primaryVerticalSpacing),
-              child: Text(AppLocalizations.of(context).settings_account_text,
+              child: Text(AppLocalizations.of(context).settings_tag,
                   style: AppFontStyle.titleDark),
             ),
             const Divider(
@@ -70,7 +70,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
             const SizedBox(height: primaryVerticalSpacing),
             SettingOption(
                 icon: Icons.logout_rounded,
-                title: AppLocalizations.of(context).logout_button_text,
+                title: AppLocalizations.of(context).sign_out_tag,
                 onTap: () {
                   context
                       .read<UserSettingsBloc>()

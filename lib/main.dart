@@ -39,6 +39,8 @@ class MyApp extends StatelessWidget {
       create: (_) =>
           _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
       child: BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
+          listenWhen: (previous, current) =>
+              current is NetworkConnectionFailureState,
           listener: (context, state) {
             if (state is NetworkConnectionFailureState) {
               String connectionErrorMessage =

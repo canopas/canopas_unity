@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../core/utils/const/firestore.dart';
-import '../../core/utils/const/leave_time_constants.dart';
 import '../../model/leave/leave.dart';
 
 @Singleton()
@@ -87,18 +85,19 @@ class AdminLeaveService {
         .get();
     List<Leave> leaves = <Leave>[];
     for (var e in data.docs) {
-      if (e.data().startDate < date.timeStampToInt &&
+      if (e.data().startDate <= date.timeStampToInt &&
           !date.dateOnly.isWeekend &&
           e.data().leaveStatus == approveLeaveStatus) {
-        int duration = e.data().getDateAndDuration()[date.dateOnly]!;
-        if (duration == fullLeave ||
-            !date.dateOnly.isAtSameMomentAs(DateTime.now().dateOnly)) {
-          leaves.add(e.data());
-        } else if ((duration == firstHalfLeave &&
-                date.timeStampToInt.isFirstHalf) ||
-            (duration == secondHalfLeave && date.timeStampToInt.isSecondHalf)) {
-          leaves.add(e.data());
-        }
+        leaves.add(e.data());
+        // int duration = e.data().getDateAndDuration()[date.dateOnly]!;
+        // if (duration == fullLeave ||
+        //     !date.dateOnly.isAtSameMomentAs(DateTime.now().dateOnly)) {
+        //   leaves.add(e.data());
+        // } else if ((duration == firstHalfLeave &&
+        //         date.timeStampToInt.isFirstHalf) ||
+        //     (duration == secondHalfLeave && date.timeStampToInt.isSecondHalf)) {
+        //   leaves.add(e.data());
+        // }
       }
     }
     return leaves;

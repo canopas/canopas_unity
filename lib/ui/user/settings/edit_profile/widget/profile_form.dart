@@ -192,7 +192,7 @@ class DateOfBirthButton extends StatelessWidget {
                   style: AppFontStyle.labelRegular,
                 )
               : Text(
-                  localization.select_tag,
+                  localization.user_settings_edit_select_tag,
                   style: AppFontStyle.labelGrey,
                 )),
     );

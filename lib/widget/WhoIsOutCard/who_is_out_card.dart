@@ -127,7 +127,7 @@ class _WhoIsOutCardControlButtons extends StatelessWidget {
               color: AppColors.lightPrimaryBlue,
               onPressed: onSeeAllButtonTap,
               child: Text(
-                AppLocalizations.of(context).see_all_button_tag,
+                AppLocalizations.of(context).who_is_out_card_see_all_button_tag,
                 style: Theme.of(context).textTheme.bodyMedium,
               )),
         ],

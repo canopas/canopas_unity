@@ -73,7 +73,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   child: EmptyScreen(
                     message: AppLocalizations.of(context)
                         .admin_home_empty_leave_request_message,
-                    title: AppLocalizations.of(context).no_request_title,
+                    title: AppLocalizations.of(context)
+                        .admin_home_no_request_title,
                   ),
                 );
               }

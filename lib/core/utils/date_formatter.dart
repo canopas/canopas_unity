@@ -16,7 +16,7 @@ class DateFormatter {
       return _localization.dateFormatter_today;
     } else if (today.subtract(oneDay).dateOnly.isAtSameMomentAs(dt.dateOnly)) {
       return _localization.dateFormatter_yesterday;
-    } else if (today.add(oneDay).dateOnly.isAtSameMomentAs(dt.dateOnly)){
+    } else if (today.add(oneDay).dateOnly.isAtSameMomentAs(dt.dateOnly)) {
       return _localization.dateFormatter_tomorrow;
     }
     return _localization.date_format_yMMMd(dt);
@@ -32,19 +32,21 @@ class DateFormatter {
   }
 
   String getLeaveDurationPresentationLong(double totalLeaves) {
-    if(totalLeaves == 0){
-      return _localization.leave_request_total_zero_day_text;
+    if (totalLeaves == 0) {
+      return _localization.date_formatter_leave_request_total_zero_day_text;
     } else if (totalLeaves < 1) {
-      return _localization.leave_request_total_half_day_text;
+      return _localization.date_formatter_leave_request_total_half_day_text;
     } else if (totalLeaves == 1) {
-      return _localization.leave_request_total_one_day_text;
+      return _localization.date_formatter_leave_request_total_one_day_text;
     }
-    return _localization.leave_request_total_days_text(totalLeaves);
+    return _localization
+        .date_formatter_leave_request_total_days_text(totalLeaves);
   }
 
-
   String dateInLine(
-      {required int startTimeStamp, required int endTimeStamp, bool lastTwoLine = false}) {
+      {required int startTimeStamp,
+      required int endTimeStamp,
+      bool lastTwoLine = false}) {
     DateTime startDate = startTimeStamp.toDate;
     DateTime endDate = endTimeStamp.toDate;
     String localeName = _localization.localeName;
@@ -61,7 +63,7 @@ class DateFormatter {
       }
       return '${startDate.day} ${DateFormat.MMM(localeName).format(startDate)} - ${endDate.day} ${DateFormat.MMM(localeName).format(endDate)}';
     }
-    if(lastTwoLine){
+    if (lastTwoLine) {
       return '${_localization.date_format_yMMMd(startDate)} -\n ${_localization.date_format_yMMMd(endDate)}';
     }
     return '${_localization.date_format_yMMMd(startDate)} - ${_localization.date_format_yMMMd(endDate)}';

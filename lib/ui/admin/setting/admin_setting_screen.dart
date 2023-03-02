@@ -39,7 +39,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).settings_setting_text),
+        title: Text(AppLocalizations.of(context).settings_tag),
       ),
       body: BlocConsumer<AdminSettingsBloc, AdminSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
@@ -62,7 +62,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
               padding: const EdgeInsets.only(
                   top: primaryHorizontalSpacing,
                   bottom: primaryVerticalSpacing),
-              child: Text(AppLocalizations.of(context).settings_account_text,
+              child: Text(AppLocalizations.of(context).settings_tag,
                   style: AppFontStyle.titleDark),
             ),
             const Divider(
@@ -70,12 +70,13 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
             const SizedBox(height: primaryVerticalSpacing),
             SettingOption(
               icon: Icons.edit_note,
-              title: AppLocalizations.of(context).admin_total_leave_count_text,
+              title: AppLocalizations.of(context)
+                  .admin_settings_update_total_leave_count_tag,
               onTap: () => context.pushNamed(Routes.updateLeaveCount),
             ),
             SettingOption(
                 icon: Icons.logout_rounded,
-                title: AppLocalizations.of(context).logout_button_text,
+                title: AppLocalizations.of(context).sign_out_tag,
                 onTap: () {
                   context
                       .read<AdminSettingsBloc>()

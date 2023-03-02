@@ -27,6 +27,4 @@ const String applyMinimumHalfDay = 'apply-minimum-half-day';
 //Exception: When user selected wrong leave date like end leave date is before start leavedate
 const String invalidLeaveDateError = 'invalid-leave_date_error';
 
-const String somethingWentWrongError= 'something-went-wrong';
-
-
+const String somethingWentWrongError = 'something-went-wrong';

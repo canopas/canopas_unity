@@ -116,7 +116,7 @@ class _AdminEditEmployeeDetailsViewState
                         strokeWidth: 3,
                       ))
                   : Text(
-                      AppLocalizations.of(context).update_button_text,
+                      AppLocalizations.of(context).update_tag,
                       style: AppFontStyle.labelRegular,
                     )),
         ),

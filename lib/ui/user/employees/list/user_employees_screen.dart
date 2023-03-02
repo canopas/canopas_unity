@@ -40,7 +40,7 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).employee_tag),
+        title: Text(AppLocalizations.of(context).employees_tag),
       ),
       backgroundColor: AppColors.whiteColor,
       body: RefreshIndicator(

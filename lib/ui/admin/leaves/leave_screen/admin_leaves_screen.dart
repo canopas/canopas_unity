@@ -36,7 +36,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).admin_leave_appbar_text),
+        title: Text(AppLocalizations.of(context).leaves_tag),
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
         listener: (context, state) {
