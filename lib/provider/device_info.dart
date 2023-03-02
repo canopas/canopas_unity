@@ -18,7 +18,7 @@ class DeviceInfoProvider {
           deviceType: DeviceTypeConst.android,
           deviceId: androidInfo.id,
           version: int.parse(packageInfo.buildNumber),
-          deviceName: androidInfo.model!,
+          deviceName: androidInfo.model,
           osVersion: androidInfo.version.release,
         );
       } else if (Platform.isIOS) {

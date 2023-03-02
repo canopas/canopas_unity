@@ -62,7 +62,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
         },
         child: ListView(
           padding: const EdgeInsets.only(top: primaryHalfSpacing, bottom: 80),
-          children: const [
+          children:  const [
             LeaveTypeCard(),
             LeaveRequestDateSelection(),
             LeaveRequestDateRange(),

@@ -100,7 +100,7 @@ class _LeaveTypeContent extends StatelessWidget {
           vertical: 5, horizontal: primaryVerticalSpacing),
       child: Text(
         AppLocalizations.of(context)
-            .leave_type_placeholder_leave_status(leaveType),
+            .leave_type_placeholder_leave_status(leaveType.toString()),
         style: AppTextStyle.subtitleText
             .copyWith(fontWeight: FontWeight.w500, color: AppColors.whiteColor),
       ),

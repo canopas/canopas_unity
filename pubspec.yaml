@@ -13,9 +13,9 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cloud_firestore: ^4.1.0
-  connectivity_plus: ^2.3.7
-  device_info_plus: ^6.0.0
+  cloud_firestore: ^4.4.3
+  connectivity_plus: ^3.0.3
+  device_info_plus: ^8.1.0
   equatable: ^2.0.5
   event_bus: ^2.0.0
   expandable: ^5.0.1
@@ -30,7 +30,7 @@ dependencies:
   go_router: ^6.0.0
   http: ^0.13.5
   intl: ^0.17.0
-  injectable: ^1.5.3
+  injectable: ^2.1.0
   json_annotation: ^4.6.0
   oauth2: ^2.0.1
   package_info_plus: ^2.0.0
