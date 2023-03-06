@@ -5,18 +5,19 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_state.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calender_leaves_event.dart';
-
 import 'employees_leave_calendar_bloc_test.mocks.dart';
 
 @GenerateMocks([EmployeeService, LeaveService])
 void main() {
   late EmployeeService employeeService;
   late LeaveService leaveService;
+  late UserManager userManager;
   late EmployeesCalendarLeavesBloc whoIsOutViewBloc;
 
   const employee = Employee(
