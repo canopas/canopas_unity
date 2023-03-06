@@ -52,8 +52,7 @@ class AppRouter {
               parentNavigatorKey: _rootNavigatorKey,
               path: '/login',
               name: Routes.login,
-              pageBuilder: (context, state) =>
-                  const MaterialPage(child: LoginPage())),
+              pageBuilder: (context, state) => const MaterialPage(child: LoginPage())),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) {
@@ -88,7 +87,7 @@ class AppRouter {
                       GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.adminCalender,
-                        path: 'calender',
+                        path: Routes.adminCalender,
                         pageBuilder: (context, state) => const MaterialPage(
                           child: EmployeesLeaveCalenderPage(),
                         ),
@@ -178,7 +177,7 @@ class AppRouter {
                     routes: <GoRoute>[
                       GoRoute(
                           name: Routes.userRequestDetail,
-                          path: ':leaveId',
+                          path: 'request-detail:leaveId',
                           pageBuilder: (context, state) {
                             return MaterialPage(
                                 child: UserLeaveDetailPage(
@@ -286,12 +285,11 @@ abstract class Routes {
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
   static const addMember = '/new';
-  static const adminCalender = '/calender';
+  static const adminCalender = 'admin-calender';
   static const adminLeaveDetails = 'details';
   static const adminEditEmployee = 'edit-employee';
   static const adminEmployeeDetail = '/admin-employee-details/:employeeId';
   static const leaveApplicationDetail = '/leave-application/:id';
-
   static const userHome = '/user-home';
   static const userLeaves = '/leaves';
   static const userEmployees = '/employees';
@@ -301,12 +299,9 @@ abstract class Routes {
   static const userEmployeeDetail = '/user-employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
   static const applyLeave = '/apply-leave';
-  static const userCalender = 'calender';
-
+  static const userCalender = 'user-calender';
   static const login = '/login';
-
   static const updateLeaveCount = '/paid-leave';
-
   static const userLeaveCalender = '/user-calender';
   static const adminEmployeeDetailsLeaves = 'time-off';
 }

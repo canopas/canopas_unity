@@ -27,11 +27,11 @@ import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
     as _i19;
 import 'package:projectunity/ui/admin/employee/edit_employee/bloc/admin_edit_employee_bloc.dart'
-    as _i18;
+    as _i17;
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart'
     as _i26;
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_bloc.dart'
-    as _i17;
+    as _i16;
 import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart'
     as _i21;
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart'
@@ -48,9 +48,9 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
     as _i4;
 import 'package:projectunity/ui/login/bloc/login_view_bloc.dart' as _i39;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
-    as _i9;
-import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
     as _i8;
+import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
+    as _i36;
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
     as _i27;
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dart'
@@ -58,7 +58,7 @@ import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dar
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
     as _i41;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
-    as _i10;
+    as _i9;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
     as _i28;
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart'
@@ -74,9 +74,9 @@ import 'package:projectunity/ui/user/settings/edit_profile/bloc/emloyee_edit_pro
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart'
     as _i31;
 import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
-    as _i16;
+    as _i15;
 import 'package:shared_preferences/shared_preferences.dart'
-    as _i13; // ignore_for_file: unnecessary_lambdas
+    as _i12; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
@@ -103,24 +103,19 @@ extension GetItInjectableX on _i1.GetIt {
       _i7.EmployeeService(),
       dispose: (i) => i.dispose(),
     );
-    gh.factory<_i8.EmployeesCalendarLeavesBloc>(
-        () => _i8.EmployeesCalendarLeavesBloc(
-              gh<_i7.EmployeeService>(),
-              gh<_i3.AdminLeaveService>(),
-            ));
-    gh.factory<_i9.EmployeesCalenderBloc>(() => _i9.EmployeesCalenderBloc());
-    gh.factory<_i10.LeaveCalendarBloc>(() => _i10.LeaveCalendarBloc());
-    gh.factory<_i11.NetworkConnectionBloc>(
-        () => _i11.NetworkConnectionBloc(gh<_i5.Connectivity>()));
-    gh.singleton<_i12.PaidLeaveService>(_i12.PaidLeaveService());
-    await gh.factoryAsync<_i13.SharedPreferences>(
+    gh.factory<_i8.EmployeesCalenderBloc>(() => _i8.EmployeesCalenderBloc());
+    gh.factory<_i9.LeaveCalendarBloc>(() => _i9.LeaveCalendarBloc());
+    gh.factory<_i10.NetworkConnectionBloc>(
+        () => _i10.NetworkConnectionBloc(gh<_i5.Connectivity>()));
+    gh.singleton<_i11.PaidLeaveService>(_i11.PaidLeaveService());
+    await gh.factoryAsync<_i12.SharedPreferences>(
       () => appModule.preferences,
       preResolve: true,
     );
-    gh.singleton<_i14.UserLeaveService>(_i14.UserLeaveService());
-    gh.singleton<_i15.UserPreference>(
-        _i15.UserPreference(gh<_i13.SharedPreferences>()));
-    gh.factory<_i16.WhoIsOutCardBloc>(() => _i16.WhoIsOutCardBloc(
+    gh.singleton<_i13.UserLeaveService>(_i13.UserLeaveService());
+    gh.singleton<_i14.UserPreference>(
+        _i14.UserPreference(gh<_i12.SharedPreferences>()));
+    gh.factory<_i15.WhoIsOutCardBloc>(() => _i15.WhoIsOutCardBloc(
           gh<_i7.EmployeeService>(),
           gh<_i3.AdminLeaveService>(),
         ));
@@ -138,7 +133,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i21.AdminLeaveApplicationDetailsBloc(
               gh<_i14.UserLeaveService>(),
               gh<_i3.AdminLeaveService>(),
-              gh<_i12.PaidLeaveService>(),
+              gh<_i11.PaidLeaveService>(),
             ));
     gh.factory<_i22.AdminLeaveDetailBloc>(() => _i22.AdminLeaveDetailBloc(
           gh<_i14.UserLeaveService>(),
@@ -152,13 +147,13 @@ extension GetItInjectableX on _i1.GetIt {
         _i24.AdminSettingUpdatePaidLeaveCountBloc(gh<_i12.PaidLeaveService>()));
     gh.singleton<_i25.AuthService>(_i25.AuthService(
       gh<_i6.DesktopAuthManager>(),
-      gh<_i15.UserPreference>(),
+      gh<_i14.UserPreference>(),
     ));
     gh.factory<_i26.EmployeeListBloc>(
         () => _i26.EmployeeListBloc(gh<_i7.EmployeeService>()));
     gh.factory<_i27.UserEmployeeDetailBloc>(() => _i27.UserEmployeeDetailBloc(
           gh<_i7.EmployeeService>(),
-          gh<_i14.UserLeaveService>(),
+          gh<_i13.UserLeaveService>(),
         ));
     gh.factory<_i28.UserLeaveCalendarBloc>(() => _i28.UserLeaveCalendarBloc(
           gh<_i14.UserLeaveService>(),
