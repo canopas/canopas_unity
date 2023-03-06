@@ -1,3 +1,4 @@
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -5,19 +6,20 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/admin/employee_service.dart';
 import 'package:projectunity/services/admin/leave_service.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_state.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calender_leaves_event.dart';
-
 import 'employees_leave_calendar_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService,AdminLeaveService])
+@GenerateMocks([EmployeeService,AdminLeaveService,UserManager])
 void main(){
 
   late EmployeeService employeeService;
   late AdminLeaveService adminLeaveService;
+  late UserManager userManager;
   late EmployeesCalendarLeavesBloc whoIsOutViewBloc;
 
   const employee = Employee(
@@ -47,7 +49,9 @@ void main(){
   setUpAll((){
        employeeService = MockEmployeeService();
        adminLeaveService = MockAdminLeaveService();
-       whoIsOutViewBloc = EmployeesCalendarLeavesBloc(employeeService, adminLeaveService);
+       userManager = MockUserManager();
+       whoIsOutViewBloc = EmployeesCalendarLeavesBloc(employeeService, adminLeaveService,userManager);
+       when(userManager.isAdmin).thenReturn(false);
   });
 
   group("who is out view test", () {

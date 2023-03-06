@@ -5,20 +5,21 @@ import 'package:projectunity/exception/error_const.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_application.dart';
+import '../../../../../provider/user_data.dart';
 import '../../../../../services/admin/employee_service.dart';
 import '../../../../../services/admin/leave_service.dart';
 import 'package:collection/collection.dart';
-
 import 'employees_calendar_leaves_state.dart';
 import 'employees_calender_leaves_event.dart';
 
 @Injectable()
 class EmployeesCalendarLeavesBloc extends Bloc<EmployeesCalendarLeavesEvent, EmployeesCalendarLeavesState> {
   final EmployeeService _employeeService;
+  final UserManager _userManager;
   final AdminLeaveService _adminLeaveService;
   List<LeaveApplication> _allLeaveRef = [];
 
-  EmployeesCalendarLeavesBloc(this._employeeService, this._adminLeaveService) :
+  EmployeesCalendarLeavesBloc(this._employeeService, this._adminLeaveService, this._userManager) :
         super(EmployeesCalendarLeavesInitialState()) {
     on<GetSelectedDateLeavesEvent>(_onSelectDate);
     on<EmployeeCalenadarLeavesInitialLoadEvent>(_loadData);
@@ -34,6 +35,8 @@ class EmployeesCalendarLeavesBloc extends Bloc<EmployeesCalendarLeavesEvent, Emp
     return _allLeaveRef.where((la)=> la.leave.findUserOnLeaveByDate(day: day)).toList();
   }
 
+  bool get isAdmin => _userManager.isAdmin;
+
   _loadData(EmployeeCalenadarLeavesInitialLoadEvent event,
       Emitter<EmployeesCalendarLeavesState> emit) async {
     emit(EmployeesCalendarLeavesLoadingState());
@@ -45,7 +48,7 @@ class EmployeesCalendarLeavesBloc extends Bloc<EmployeesCalendarLeavesEvent, Emp
         return (employee==null)?null:LeaveApplication(employee: employee, leave: leave);
       }).whereNotNull().toList();
       emit(EmployeesCalendarLeavesSuccessState(leaveApplications: _getSelectedDatesLeaves(DateTime.now())));
-    } on Exception catch (_){
+    } catch (_){
       emit(EmployeesCalendarLeavesFailureState(firestoreFetchDataError));
     }
   }
