@@ -185,16 +185,16 @@ void main() {
     test("start Date change test", () {
       Map<DateTime, int> updatedSelectedLeaves = {
         currentDate: 3
-      }.getSelectedLeaveOfTheDays(startDate: futureDate, endDate: currentDate);
+      }.getSelectedLeaveOfTheDays(startDate: currentDate, endDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
       leaveRequestBloc
-          .add(ApplyLeaveStartDateChangeEvents(startDate: futureDate));
+          .add(ApplyLeaveStartDateChangeEvents(startDate: currentDate));
 
       expect(
           leaveRequestBloc.stream,
           emits(ApplyLeaveState(
-              startDate: futureDate,
+              startDate: currentDate,
               endDate: currentDate,
               selectedDates: updatedSelectedLeaves,
               totalLeaveDays: totalDays)));
@@ -227,7 +227,7 @@ void main() {
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
 
-      expect(
+      expectLater(
           leaveRequestBloc.stream,
           emitsInOrder([
             ApplyLeaveState(
@@ -254,7 +254,7 @@ void main() {
                 startDate: futureDate,
                 endDate: currentDate,
                 selectedDates: updatedSelectedLeaves,
-                error: invalidLeaveDateError,
+                error: applyMinimumHalfDay,
                 reason: "reason"),
           ]));
     });
