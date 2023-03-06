@@ -11,9 +11,10 @@ import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_state.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calender_leaves_event.dart';
+
 import 'employees_leave_calendar_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService])
+@GenerateMocks([EmployeeService, LeaveService, UserManager])
 void main() {
   late EmployeeService employeeService;
   late LeaveService leaveService;
@@ -49,8 +50,9 @@ void main() {
   setUpAll(() {
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
+    userManager = MockUserManager();
     whoIsOutViewBloc =
-        EmployeesCalendarLeavesBloc(employeeService, leaveService);
+        EmployeesCalendarLeavesBloc(employeeService, leaveService, userManager);
   });
 
   group("who is out view test", () {

@@ -21,7 +21,8 @@ class EmployeesCalendarLeavesBloc
   final LeaveService _adminLeaveService;
   List<LeaveApplication> _allLeaveRef = [];
 
-  EmployeesCalendarLeavesBloc(this._employeeService, this._adminLeaveService, this._userManager)
+  EmployeesCalendarLeavesBloc(
+      this._employeeService, this._adminLeaveService, this._userManager)
       : super(EmployeesCalendarLeavesInitialState()) {
     on<GetSelectedDateLeavesEvent>(_onSelectDate);
     on<EmployeeCalenadarLeavesInitialLoadEvent>(_loadData);
@@ -32,7 +33,6 @@ class EmployeesCalendarLeavesBloc
     emit(EmployeesCalendarLeavesSuccessState(
         leaveApplications: _getSelectedDatesLeaves(event.selectedDate)));
   }
-
 
   List<LeaveApplication> _getSelectedDatesLeaves(DateTime day) {
     return _allLeaveRef
