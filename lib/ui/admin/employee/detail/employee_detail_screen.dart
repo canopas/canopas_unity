@@ -108,10 +108,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                 children: [
               ProfileCard(employee: state.employee),
               TimeOffCard(
+                  employee: state.employee,
                   percentage: state.timeOffRatio,
                   usedLeaves: state.usedLeaves,
                   paidLeaves: state.paidLeaves,
-                  employeeId: state.employee.id),
+                  ),
               ProfileDetail(employee: state.employee),
             ]);
           }

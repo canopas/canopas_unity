@@ -37,11 +37,11 @@
   "employee_details_make_admin_tag":"Make Admin",
   "employee_details_remove_admin_tag":"Remove Admin",
 
-  "leave_type_placeholder_leave_status":"{leaveStatus, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave} other{other}}",
+  "leave_type_placeholder_leave_status":"{leaveType, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave} other{other}}",
   "@leave_type_placeholder_leave_status":{
     "description":"get leave type from leave status",
     "placeholders":{
-      "leaveStatus":{
+      "leaveType":{
         "type":"String"
       }
     }
@@ -309,6 +309,49 @@
   "admin_leave_appbar_text":"Leaves",
   "admin_leaves_upcoming_leaves_tag":"Upcoming Leaves",
   "admin_leaves_recent_leaves_tag":"Recent Leaves",
+
+  "recent_tag":"Recent",
+  "past_tag":"Past",
+  "upcoming_tag":"Upcoming",
+
+  "empty_upcoming_leaves_title":"No Upcoming Leaves",
+  "empty_recent_leaves_title":"No Recent Leaves",
+  "empty_recent_leaves_message":"{name} don't have any recent leaves",
+  "@empty_recent_leaves_message":{
+    "placeholders":{
+      "name":{
+        "type":"String"
+      }
+    }
+  },
+  "empty_upcoming_leaves_message":"{name} don't have any upcoming leaves",
+  "@empty_upcoming_leaves_message":{
+    "placeholders":{
+      "name":{
+        "type":"String"
+      }
+    }
+  },
+  "empty_past_leaves_title":"No Past Leaves",
+  "empty_past_leaves_message":"{name} don't have any past leaves",
+  "@empty_past_leaves_message":{
+    "placeholders":{
+      "name":{
+        "type":"String"
+      }
+    }
+  },
+
+  "employee_details_leaves_title":"{name}'s Leaves",
+  "@employee_details_leaves_title":{
+    "placeholders":{
+      "name":{
+        "type":"String"
+      }
+    }
+  },
+
+
 
   "admin_leave_detail_error_reason":"Enter Message",
   "admin_leave_detail_message_title_text": "Note",
