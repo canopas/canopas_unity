@@ -14,7 +14,7 @@ import '../../../../configs/colors.dart';
 import '../../../../configs/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/leave_application.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
 import '../../../../widget/leave_details_widget/reason_content.dart';
 import '../../../../widget/leave_details_widget/user_content.dart';

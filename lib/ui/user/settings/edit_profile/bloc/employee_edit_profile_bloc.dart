@@ -7,7 +7,7 @@ import 'package:projectunity/provider/user_data.dart';
 
 import '../../../../../exception/error_const.dart';
 import '../../../../../pref/user_preference.dart';
-import '../../../../../services/admin/employee_service.dart';
+import '../../../../../services/employee_service.dart';
 import '../../settings_screen/bloc/user_settings_event.dart';
 import 'employee_edit_profile_event.dart';
 import 'employee_edit_profile_state.dart';

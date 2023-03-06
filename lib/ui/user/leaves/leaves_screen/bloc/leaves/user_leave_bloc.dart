@@ -10,14 +10,14 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave
 
 import '../../../../../../model/leave/leave.dart';
 import '../../../../../../provider/user_data.dart';
-import '../../../../../../services/user/user_leave_service.dart';
+import '../../../../../../services/leave_service.dart';
 
 @Injectable()
 class UserLeaveBloc extends Bloc<FetchUserLeaveEvent, UserLeaveState> {
-  final UserLeaveService _userLeaveService;
+  final LeaveService _leaveService;
   final UserManager _userManager;
   late StreamSubscription? _streamSubscription;
-  UserLeaveBloc(this._userManager, this._userLeaveService)
+  UserLeaveBloc(this._userManager, this._leaveService)
       : super(UserLeaveInitialState()) {
     on<FetchUserLeaveEvent>(_fetchLeaves);
     _streamSubscription = eventBus.on<CancelLeaveByUser>().listen((event) {
@@ -30,7 +30,7 @@ class UserLeaveBloc extends Bloc<FetchUserLeaveEvent, UserLeaveState> {
     emit(UserLeaveLoadingState());
     try {
       List<Leave> allLeaves =
-          await _userLeaveService.getAllLeavesOfUser(_userManager.employeeId);
+          await _leaveService.getAllLeavesOfUser(_userManager.employeeId);
       List<Leave> pastLeaves = allLeaves
           .where((leave) => leave.endDate <= DateTime.now().timeStampToInt)
           .toList();

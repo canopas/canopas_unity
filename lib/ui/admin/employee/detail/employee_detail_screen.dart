@@ -7,7 +7,7 @@ import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../../di/service_locator.dart';
 import '../../../../core/utils/const/role.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import 'bloc/employee_detail_bloc.dart';
 import 'bloc/employee_detail_event.dart';
 import 'bloc/employee_detail_state.dart';
@@ -91,7 +91,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                           onTap: () {
                             context
                                 .read<EmployeeDetailBloc>()
-                                .add(EmployeeDetailsChangeRoleTypeEvent());
+                                .add(EmployeeDetailsChangeRoleEvent());
                           },
                         ),
                       ],

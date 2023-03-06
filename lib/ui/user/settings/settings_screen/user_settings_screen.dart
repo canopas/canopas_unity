@@ -10,7 +10,7 @@ import '../../../../configs/colors.dart';
 import '../../../../configs/space_constant.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../di/service_locator.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import 'bloc/user_settings_bloc.dart';
 import 'bloc/user_settings_event.dart';
 import 'bloc/user_settings_state.dart';

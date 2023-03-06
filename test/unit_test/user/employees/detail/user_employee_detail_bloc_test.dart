@@ -5,18 +5,18 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_state.dart';
 
 import '../../../admin/home/home_screen/bloc/admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserLeaveService, UserEmployeeDetailBloc])
+@GenerateMocks([EmployeeService, LeaveService, UserEmployeeDetailBloc])
 void main() {
   late EmployeeService employeeService;
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late UserEmployeeDetailBloc bloc;
 
   Employee employee = const Employee(
@@ -41,8 +41,8 @@ void main() {
 
   setUp(() {
     employeeService = MockEmployeeService();
-    userLeaveService = MockUserLeaveService();
-    bloc = UserEmployeeDetailBloc(employeeService, userLeaveService);
+    leaveService = MockLeaveService();
+    bloc = UserEmployeeDetailBloc(employeeService, leaveService);
   });
 
   group('bloc state stream', () {
@@ -55,7 +55,7 @@ void main() {
         () {
       when(employeeService.getEmployee(employee.id))
           .thenAnswer((_) async => employee);
-      when(userLeaveService.getUpcomingLeaves(employee.id))
+      when(leaveService.getUpcomingLeavesOfUser(employee.id))
           .thenAnswer((_) async => [upcomingApproveLeave]);
       expectLater(
           bloc.stream,
@@ -71,7 +71,7 @@ void main() {
         () {
       when(employeeService.getEmployee(employee.id))
           .thenAnswer((_) async => null);
-      when(userLeaveService.getUpcomingLeaves(employee.id))
+      when(leaveService.getUpcomingLeavesOfUser(employee.id))
           .thenAnswer((_) async => [upcomingApproveLeave]);
       expectLater(
           bloc.stream,
@@ -86,7 +86,7 @@ void main() {
         () {
       when(employeeService.getEmployee(employee.id))
           .thenAnswer((_) async => null);
-      when(userLeaveService.getUpcomingLeaves(employee.id))
+      when(leaveService.getUpcomingLeavesOfUser(employee.id))
           .thenThrow(Exception(firestoreFetchDataError));
       expectLater(
           bloc.stream,

@@ -29,7 +29,7 @@ class LeaveCountCard extends StatelessWidget {
               children: [
                 CircularProgressIndicator(
                   strokeWidth: 12,
-                  backgroundColor: AppColors.primaryDarkYellow,
+                  backgroundColor: AppColors.lightPrimaryBlue,
                   value: percentage,
                 ),
                 Column(

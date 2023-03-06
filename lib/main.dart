@@ -11,11 +11,11 @@ import 'package:projectunity/bloc/network/network_connection_event.dart';
 import 'package:projectunity/bloc/network/network_connection_state.dart';
 import 'package:projectunity/firebase_options.dart';
 import 'package:projectunity/l10n/l10n.dart';
-import 'package:projectunity/router/app_router.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import 'configs/theme.dart';
 import 'di/service_locator.dart';
+import 'navigation/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

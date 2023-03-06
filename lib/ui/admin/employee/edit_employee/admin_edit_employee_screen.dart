@@ -64,6 +64,16 @@ class _AdminEditEmployeeDetailsViewState
   }
 
   @override
+  void dispose() {
+    nameFieldController.dispose();
+    emailFieldController.dispose();
+    designationFieldController.dispose();
+    levelFieldController.dispose();
+    employeeIDFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -122,15 +132,5 @@ class _AdminEditEmployeeDetailsViewState
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    nameFieldController.dispose();
-    emailFieldController.dispose();
-    designationFieldController.dispose();
-    levelFieldController.dispose();
-    employeeIDFieldController.dispose();
-    super.dispose();
   }
 }

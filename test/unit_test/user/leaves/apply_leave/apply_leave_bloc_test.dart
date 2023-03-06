@@ -8,18 +8,18 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_count.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.dart';
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([PaidLeaveService, UserLeaveService, UserManager])
+@GenerateMocks([PaidLeaveService, LeaveService, UserManager])
 void main() {
   late PaidLeaveService paidLeaveService;
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late UserManager userManager;
   late ApplyLeaveBloc leaveRequestBloc;
 
@@ -34,16 +34,16 @@ void main() {
   group("Leave Request Form view test", () {
     setUp(() {
       paidLeaveService = MockPaidLeaveService();
-      userLeaveService = MockUserLeaveService();
+      leaveService = MockLeaveService();
       userManager = MockUserManager();
       leaveRequestBloc =
-          ApplyLeaveBloc(userManager, paidLeaveService, userLeaveService);
+          ApplyLeaveBloc(userManager, paidLeaveService, leaveService);
 
       when(userManager.employeeId).thenReturn("id");
     });
 
     test("fetch user leave count test", () {
-      when(userLeaveService.getUserUsedLeaveCount('id'))
+      when(leaveService.getUserUsedLeaves('id'))
           .thenAnswer((_) => Future(() => leaveCount.usedLeaveCount));
       when(paidLeaveService.getPaidLeaves())
           .thenAnswer((_) => Future(() => leaveCount.paidLeaveCount));
@@ -66,8 +66,7 @@ void main() {
     });
 
     test("fetch user leave count failed test", () {
-      when(userLeaveService.getUserUsedLeaveCount('id'))
-          .thenThrow(Exception("Error"));
+      when(leaveService.getUserUsedLeaves('id')).thenThrow(Exception("Error"));
       when(paidLeaveService.getPaidLeaves()).thenThrow(Exception("Error"));
       leaveRequestBloc.add(ApplyLeaveInitialEvent());
       expect(
@@ -287,7 +286,7 @@ void main() {
         perDayDuration: selectedDates.values.toList(),
       );
 
-      when(userLeaveService.applyForLeave(leave)).thenAnswer((_) async {});
+      when(leaveService.applyForLeave(leave)).thenAnswer((_) async {});
       leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());

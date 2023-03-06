@@ -7,7 +7,7 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import '../../../../../../configs/text_style.dart';
 import '../../../../../../model/employee/employee.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 
 class ProfileDetail extends StatelessWidget {
   final Employee employee;

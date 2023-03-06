@@ -192,17 +192,15 @@
     "admin_home_add_member_blood_group_hint_text":"B+",
     "admin_home_add_member_address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
-
-
   "admin_leaves_upcoming_leaves_tag":"Upcoming Leaves",
   "admin_leaves_recent_leaves_tag":"Recent Leaves",
 
-    "admin_leave_detail_enter_reason_tag":"Enter Message",
-    "admin_leave_detail_note_tag": "Note",
-    "admin_leave_detail_reject_button_tag":"Reject",
-    "admin_leave_detail_approve_button_tag":"Approve",
-    "admin_leave_detail_ok_button_tag":"OK",
-    "admin_leave_detail_daysLeft_tag":"Days left",
+  "admin_leave_detail_enter_reason_tag":"Enter Message",
+  "admin_leave_detail_note_tag": "Note",
+  "admin_leave_detail_reject_button_tag":"Reject",
+  "admin_leave_detail_approve_button_tag":"Approve",
+  "admin_leave_detail_ok_button_tag":"OK",
+  "admin_leave_detail_daysLeft_tag":"Days left",
 
   "admin_employee_detail_profile_tag":"Profile",
   "admin_employees_detail_time_off_tag":"Time Off",
@@ -235,12 +233,10 @@
   "user_leaves_apply_leave_success_message":"You've successfully applied!",
 
    "user_leaves_detail_cancel_button_tag":"Cancel",
-    "user_leave_detail_cancel_leave_message":"Leave application is cancelled!",
-    "user_leave_detail_delete_leave_message":"Leave application has been deleted!!",
+   "user_leave_detail_cancel_leave_message":"Leave application is cancelled!",
+   "user_leave_detail_delete_leave_message":"Leave application has been deleted!!",
 
-
-
- "user_settings_edit_select_tag": "Select",
+  "user_settings_edit_select_tag": "Select",
 
   "employee_designation_tag":"Designation",
   "employee_blood_group_tag":"Blood Group",
@@ -255,17 +251,8 @@
   "employee_employeeID_tag":"Employee Id",
   "employee_name_tag":"Name",
 
-
-
   "gender_male_tag":"Male",
   "gender_female_tag":"Female",
-
-
-
-
-
-
-
 
   "network_connection_error": "Please check your Internet connection",
   "user_not_found_error_message":"User with this email doesn't exist, Please ask your manager to add it",

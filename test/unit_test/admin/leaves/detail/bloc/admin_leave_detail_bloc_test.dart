@@ -3,28 +3,26 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/leave_service.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_bloc.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_event.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_state.dart';
 
 import 'admin_leave_detail_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [UserLeaveService, AdminLeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([LeaveService, UserManager, PaidLeaveService])
 void main() {
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late UserManager userManager;
   late AdminLeaveDetailBloc bloc;
   late PaidLeaveService paidLeaveService;
 
   setUp(() {
-    userLeaveService = MockUserLeaveService();
+    leaveService = MockLeaveService();
     userManager = MockUserManager();
     paidLeaveService = MockPaidLeaveService();
-    bloc = AdminLeaveDetailBloc(userLeaveService, paidLeaveService);
+    bloc = AdminLeaveDetailBloc(leaveService, paidLeaveService);
     when(userManager.employeeId).thenReturn("id");
   });
 
@@ -35,8 +33,7 @@ void main() {
     test(
         'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
         () {
-      when(userLeaveService.getUserUsedLeaveCount('id'))
-          .thenAnswer((_) async => 10);
+      when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
       when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
       expectLater(
           bloc.stream,
@@ -51,7 +48,7 @@ void main() {
   test(
       'Emits loading state and failure state respectively if Exception is thrown from firestore',
       () {
-    when(userLeaveService.getUserUsedLeaveCount('id'))
+    when(leaveService.getUserUsedLeaves('id'))
         .thenThrow(Exception(firestoreFetchDataError));
     when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
     expectLater(
@@ -67,7 +64,7 @@ void main() {
     test(
         'Emits Loading state and success state when application is deleted successfully from firestore',
         () {
-      when(userLeaveService.deleteLeaveRequest('leaveId'))
+      when(leaveService.deleteLeaveRequest('leaveId'))
           .thenAnswer((_) async => {});
       expectLater(
           bloc.stream,
@@ -81,7 +78,7 @@ void main() {
     test(
         'Emits Loading state and error state when exception is thrown from firestore',
         () {
-      when(userLeaveService.deleteLeaveRequest('leaveId'))
+      when(leaveService.deleteLeaveRequest('leaveId'))
           .thenThrow(Exception(firestoreFetchDataError));
       expectLater(
           bloc.stream,

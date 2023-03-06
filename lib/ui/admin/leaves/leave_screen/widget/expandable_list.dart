@@ -7,7 +7,7 @@ import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../model/leave_application.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 import '../../../home/home_screen/widget/requests/leave_content.dart';
 
 class ExpandableList extends StatelessWidget {

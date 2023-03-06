@@ -92,8 +92,7 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                       reason: leave.reason,
                     ),
                     if (leave.rejectionReason != null)
-                      if (leave.rejectionReason != null)
-                        ResponseNote(leaveResponse: leave.rejectionReason!),
+                      ResponseNote(leaveResponse: leave.rejectionReason!),
                     if (showCancelButton) CancelButton(leaveId: leave.leaveId)
                   ],
                 );

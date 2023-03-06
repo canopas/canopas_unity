@@ -8,7 +8,7 @@ import '../../../configs/colors.dart';
 import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
 import '../../../di/service_locator.dart';
-import '../../../router/app_router.dart';
+import '../../../navigation/app_router.dart';
 import '../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import '../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
 import 'bloc/admin_settings_bloc.dart';

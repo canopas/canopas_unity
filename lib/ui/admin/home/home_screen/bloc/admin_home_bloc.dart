@@ -11,14 +11,14 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../services/admin/employee_service.dart';
-import '../../../../../services/admin/leave_service.dart';
+import '../../../../../services/employee_service.dart';
+import '../../../../../services/leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
 @Injectable()
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
-  final AdminLeaveService _adminLeaveService;
+  final LeaveService _adminLeaveService;
   final EmployeeService _employeeService;
   StreamSubscription? _subscription;
   final StreamController<List<LeaveApplication>> applications =
