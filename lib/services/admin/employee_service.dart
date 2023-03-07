@@ -33,9 +33,7 @@ class EmployeeService {
           toFirestore: (Employee emp, _) => emp.toJson());
 
   Future<List<Employee>> getEmployees() async {
-    final data = await _userDbCollection
-        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
-        .get();
+    final data = await _userDbCollection.get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 

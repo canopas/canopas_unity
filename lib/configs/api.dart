@@ -1,4 +1,4 @@
- const String googleClientId= '606541170752-9rr69q03lht0b7h888r06leonir5as0q.apps.googleusercontent.com';
+const String googleClientId= '606541170752-9rr69q03lht0b7h888r06leonir5as0q.apps.googleusercontent.com';
 const String googleAuthApi= "https://accounts.google.com/o/oauth2/v2/auth";
 const String googleTokenApi= "https://oauth2.googleapis.com/token";
 const String emailScope= 'email';
