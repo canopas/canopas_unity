@@ -24,29 +24,34 @@ class ProfileDetail extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...{
-          AppLocalizations.of(context).employee_email_tag: employee.email,
-          AppLocalizations.of(context).employee_mobile_tag: employee.phone,
-          AppLocalizations.of(context).employee_blood_group_tag: employee.bloodGroup,
-          AppLocalizations.of(context).employee_dateOfJoin_tag:
-              employee.dateOfJoining == null
-                  ? null
-                  : localization.date_format_yMMMd(employee.dateOfJoining!.toDate),
-          AppLocalizations.of(context).employee_dateOfBirth_tag:
-              employee.dateOfBirth == null
-                  ? null
-                  : localization.date_format_yMMMd(employee.dateOfBirth!.toDate),
-          AppLocalizations.of(context).employee_gender_tag:
-              employee.gender == null
-                  ? null
-                  : localization.user_details_gender(employee.gender!),
-          AppLocalizations.of(context).employee_address_tag: employee.address
-        }.entries.where((element) => element.value != null)
-            .map((detail) => EmployeeDetailsField(
-                title: detail.key,
-                subtitle: detail.value.toString(),
-              ),
-            ).toList(),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_email_tag,
+            subtitle: employee.email),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_mobile_tag,
+            subtitle: employee.phone),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_blood_group_tag,
+            subtitle: employee.bloodGroup),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_dateOfJoin_tag,
+            subtitle: employee.dateOfJoining == null
+                ? null
+                : localization
+                    .date_format_yMMMd(employee.dateOfJoining!.toDate)),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_dateOfBirth_tag,
+            subtitle: employee.dateOfBirth == null
+                ? null
+                : localization.date_format_yMMMd(employee.dateOfBirth!.toDate)),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_gender_tag,
+            subtitle: employee.gender == null
+                ? null
+                : localization.user_details_gender(employee.gender!)),
+        EmployeeDetailsField(
+            title: AppLocalizations.of(context).employee_address_tag,
+            subtitle: employee.address),
       ],
     );
   }
@@ -69,20 +74,20 @@ class TimeOffCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: primaryVerticalSpacing,horizontal: primaryHorizontalSpacing),
+      margin: const EdgeInsets.symmetric(
+          vertical: primaryVerticalSpacing,
+          horizontal: primaryHorizontalSpacing),
       height: 70,
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow
-      ),
+          color: AppColors.whiteColor,
+          borderRadius: AppTheme.commonBorderRadius,
+          boxShadow: AppTheme.commonBoxShadow),
       child: Material(
         color: AppColors.whiteColor,
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
-          onTap: () => context.goNamed(
-              Routes.userCalenderForAdmin,
+          onTap: () => context.goNamed(Routes.userCalenderForAdmin,
               params: {RoutesParamsConst.employeeId: employeeId}),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -115,8 +120,8 @@ class TimeOffCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 20),
                     const Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: AppColors.greyColor,
+                      Icons.arrow_forward_ios_outlined,
+                      color: AppColors.greyColor,
                       size: 20,
                     ),
                   ],
