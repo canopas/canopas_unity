@@ -5,10 +5,9 @@ import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/utils/date_formatter.dart';
 import 'package:projectunity/model/leave_application.dart';
-
 import '../../configs/colors.dart';
-import '../../core/utils/const/leave_screen_type_map.dart';
 import '../../model/leave/leave.dart';
+import '../core/utils/const/leave_map.dart';
 import '../router/app_router.dart';
 
 class LeaveCard extends StatelessWidget {
@@ -22,7 +21,7 @@ class LeaveCard extends StatelessWidget {
         lastTwoLine: true,
         startTimeStamp: leaveApplication.leave.startDate,
         endTimeStamp: leaveApplication.leave.endDate);
-    final color = getLeaveContainerColor(leaveApplication.leave.leaveStatus);
+    final color = leaveStatusColor(leaveApplication.leave.leaveStatus);
     return Container(
       decoration: BoxDecoration(
           color: AppColors.whiteColor,

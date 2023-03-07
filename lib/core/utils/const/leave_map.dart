@@ -8,6 +8,16 @@ Map<int, String> leaveStatusMap = Map.unmodifiable({
   rejectLeaveStatus: 'Rejected',
 });
 
+
+Color leaveStatusColor(int leaveStatus){
+   if(leaveStatus == approveLeaveStatus) {
+     return const Color(0xffB6F5D4);
+   }else if(leaveStatus == rejectLeaveStatus) {
+     return const Color(0xffFFE5E1);
+   }
+  return const Color(0xffF5F5F5);
+}
+
 Map<int, String> leaveTypeMap = Map.unmodifiable({
   0: 'Casual Leave',
   1: 'Sick Leave',
@@ -27,3 +37,4 @@ Map<int, Color> leaveRequestCardColor = Map.unmodifiable({
   5: AppColors.primaryBlue,
   6: AppColors.darkBlue,
 });
+
