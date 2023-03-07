@@ -11,9 +11,7 @@ class EmployeeDetailsField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (subtitle == null)
-        ? Container()
-        : Padding(
+    return (subtitle != null) ? Padding(
       padding: const EdgeInsets.all(primaryHorizontalSpacing)
           .copyWith(bottom: 0),
       child: Column(
@@ -30,6 +28,6 @@ class EmployeeDetailsField extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ):const SizedBox();
   }
 }
