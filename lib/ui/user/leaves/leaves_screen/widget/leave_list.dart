@@ -1,9 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../model/leave/leave.dart';
+import '../../../../../router/app_router.dart';
 import 'leave_card.dart';
 
 class LeaveList extends StatelessWidget {
@@ -36,7 +37,12 @@ class LeaveList extends StatelessWidget {
                         fontSize: 18),
                   )),
               collapsed: leaves.isNotEmpty
-                  ? UserLeaveCard(leave: leaves[0])
+                  ? UserLeaveCard(leave: leaves[0],
+                  onTap:   () {
+                  context.goNamed(Routes.userLeaveDetail, params: {
+                    RoutesParamsConst.leaveId: leaves[0].leaveId
+                  });
+                },)
                   : Container(),
               expanded: ListView.builder(
                   shrinkWrap: true,
@@ -45,6 +51,11 @@ class LeaveList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     Leave leave = leaves[index];
                     return UserLeaveCard(
+                      onTap: () {
+                         context.goNamed(Routes.userLeaveDetail, params: {
+                          RoutesParamsConst.leaveId: leave.leaveId
+                        });
+                      },
                       leave: leave,
                     );
                   }),

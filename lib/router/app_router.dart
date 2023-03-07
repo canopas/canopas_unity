@@ -133,6 +133,15 @@ class AppRouter {
                                 parentNavigatorKey: _adminShellNavigatorKey,
                                 name: Routes.adminEmployeeDetailsLeaves,
                                 path: 'time-off',
+                             routes: [
+                               GoRoute(
+                                   name: Routes.adminEmployeeDetailsLeavesDetails,
+                                   path: 'time-off-details:leaveId',
+                                   pageBuilder: (context, state) {
+                                     return MaterialPage(
+                                         child: UserLeaveDetailPage(leaveId: state.params[RoutesParamsConst.leaveId]!));
+                                   }),
+                             ],
                              pageBuilder: (context, state){
                                   return MaterialPage(child: AdminEmployeeDetailsLeavesPage(employee: state.extra as Employee,));
                           }),
@@ -304,4 +313,5 @@ abstract class Routes {
   static const updateLeaveCount = '/paid-leave';
   static const userLeaveCalender = '/user-calender';
   static const adminEmployeeDetailsLeaves = 'time-off';
+  static const adminEmployeeDetailsLeavesDetails = 'time-off-leave-detail';
 }

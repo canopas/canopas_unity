@@ -81,6 +81,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                     itemCount: requests.length,
                                     itemBuilder: (context, index) {
                                       return UserLeaveCard(
+                                        onTap: () {
+                                        context.goNamed(Routes.userRequestDetail, params: {RoutesParamsConst.leaveId: requests[index].leaveId});
+                                        },
                                           leave: requests[index]);
                                     }),
                               ),

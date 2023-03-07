@@ -10,10 +10,10 @@ import '../../../../../router/app_router.dart';
 
 class UserLeaveCard extends StatelessWidget {
   final Leave leave;
-
+  final void Function()? onTap;
   const UserLeaveCard({
     required this.leave,
-    Key? key,
+    Key? key, this.onTap,
   }) : super(key: key);
 
   @override
@@ -56,16 +56,7 @@ class UserLeaveCard extends StatelessWidget {
                   if (GoRouter.of(context).location == Routes.userLeaves)
                     LeaveStatusIcon(leaveStatus: leave.leaveStatus),
                   IconButton(
-                      onPressed: () {
-                        GoRouter.of(context).location == Routes.userHome
-                            ? context.goNamed(Routes.userRequestDetail,
-                                params: {
-                                    RoutesParamsConst.leaveId: leave.leaveId
-                                  })
-                            : context.goNamed(Routes.userLeaveDetail, params: {
-                                RoutesParamsConst.leaveId: leave.leaveId
-                              });
-                      },
+                      onPressed: onTap,
                       icon: const Icon(
                         Icons.arrow_forward_ios_outlined,
                         size: 12,
