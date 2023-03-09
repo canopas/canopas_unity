@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/core/extensions/double_extension.dart';
+
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
@@ -67,7 +68,7 @@ class LeaveTypeCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 2),
               child: Text(
-                localization.leave_type_tag,
+                localization.user_leaves_apply_leave_type_tag,
                 style: AppFontStyle.labelGrey,
               ),
             ),

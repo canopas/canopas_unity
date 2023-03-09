@@ -3,22 +3,19 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
 
-import '../../../../../services/admin/leave_service.dart';
-import '../../../../../services/user/user_leave_service.dart';
+import '../../../../../services/leave_service.dart';
+import '../../../../../services/paid_leave_service.dart';
 import 'admin_leave_application_detail_event.dart';
 import 'admin_leave_application_detail_state.dart';
 
 @Injectable()
 class AdminLeaveApplicationDetailsBloc extends Bloc<
     AdminLeaveApplicationDetailsEvents, AdminLeaveApplicationDetailsState> {
-  final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
-  final AdminLeaveService _adminLeaveService;
+  final LeaveService _leaveService;
 
-  AdminLeaveApplicationDetailsBloc(
-      this._userLeaveService, this._adminLeaveService, this._paidLeaveService)
+  AdminLeaveApplicationDetailsBloc(this._leaveService, this._paidLeaveService)
       : super(const AdminLeaveApplicationDetailsState()) {
     on<AdminLeaveApplicationFetchLeaveCountEvent>(_fetchLeaveCounts);
     on<AdminLeaveApplicationReasonChangedEvent>(_onReplyChange);
@@ -32,7 +29,7 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
     try {
       int paidLeaves = await _paidLeaveService.getPaidLeaves();
       double usedLeave =
-          await _userLeaveService.getUserUsedLeaveCount(event.employeeId);
+          await _leaveService.getUserUsedLeaves(event.employeeId);
       emit(state.copyWith(
           adminLeaveCountStatus: AdminLeaveCountStatus.success,
           paidLeaveCount: paidLeaves,
@@ -52,11 +49,11 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
       if (event.response == AdminLeaveResponse.approve) {
         Map<String, dynamic> map =
             _setLeaveApproval(approveLeaveStatus, state.adminReply);
-        await _adminLeaveService.updateLeaveStatus(event.leaveId, map);
+        await _leaveService.updateLeaveStatus(event.leaveId, map);
       } else if (event.response == AdminLeaveResponse.reject) {
         Map<String, dynamic> map =
             _setLeaveApproval(rejectLeaveStatus, state.adminReply);
-        await _adminLeaveService.updateLeaveStatus(event.leaveId, map);
+        await _leaveService.updateLeaveStatus(event.leaveId, map);
       }
       emit(state.copyWith(
           adminLeaveResponseStatus: AdminLeaveResponseStatus.success));

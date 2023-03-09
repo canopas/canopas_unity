@@ -5,7 +5,7 @@ import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../../../configs/space_constant.dart';
 import '../../../../model/employee/employee.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 
 class EmployeeCard extends StatelessWidget {
   const EmployeeCard({Key? key, required this.employee}) : super(key: key);
@@ -15,7 +15,7 @@ class EmployeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => context.goNamed(Routes.adminEmployeeDetail,
-          params: {'employeeId': employee.id}),
+          params: {RoutesParamsConst.employeeId: employee.id}),
       child: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: primaryHorizontalSpacing,
@@ -50,12 +50,12 @@ class EmployeeCard extends StatelessWidget {
 
 class EmployeeName extends StatelessWidget {
   const EmployeeName({Key? key, required this.name}) : super(key: key);
-  final String? name;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Text(name ?? '',
+    return Text(name,
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,
         style: height >= 700
@@ -67,11 +67,11 @@ class EmployeeName extends StatelessWidget {
 class EmployeeDesignation extends StatelessWidget {
   const EmployeeDesignation({Key? key, required this.designation})
       : super(key: key);
-  final String? designation;
+  final String designation;
 
   @override
   Widget build(BuildContext context) {
-    return Text(designation ?? '',
+    return Text(designation,
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,
         style: AppFontStyle.labelGrey);

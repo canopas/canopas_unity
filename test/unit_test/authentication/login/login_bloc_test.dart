@@ -6,7 +6,7 @@ import 'package:projectunity/exception/custom_exception.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/auth/auth_service.dart';
+import 'package:projectunity/services/auth_service.dart';
 import 'package:projectunity/stateManager/auth/auth_manager.dart';
 import 'package:projectunity/ui/login/bloc/login_view_bloc.dart';
 import 'package:projectunity/ui/login/bloc/login_view_event.dart';
@@ -14,15 +14,14 @@ import 'package:projectunity/ui/login/bloc/login_view_state.dart';
 
 import 'login_bloc_test.mocks.dart';
 
-@GenerateMocks([AuthService,AuthManager,UserManager,User])
-void main(){
-
+@GenerateMocks([AuthService, AuthManager, UserManager, User])
+void main() {
   late AuthManager authManager;
   late UserManager userManager;
   late AuthService auth;
   late LoginBloc loginBloc;
   late User user;
-  late String userEmail= "dummy123@testing.com";
+  late String userEmail = "dummy123@testing.com";
 
   Employee employee = const Employee(
       id: 'id',
@@ -43,46 +42,60 @@ void main(){
   });
 
   group("Login in test", () {
-    test("after login successfully, employee has been not null in user manager ", () async {
+    test(
+        "after login successfully, employee has been not null in user manager ",
+        () async {
       when(userManager.isAdmin).thenReturn(false);
-      when(authManager.getUser(userEmail)).thenAnswer((realInvocation) async => employee);
+      when(authManager.getUser(userEmail))
+          .thenAnswer((realInvocation) async => employee);
       loginBloc.add(SignInEvent());
-      expect(loginBloc.stream, emitsInOrder([
-        LoginLoadingState(),
-        LoginSuccessState(),
-      ]));
+      expect(
+          loginBloc.stream,
+          emitsInOrder([
+            LoginLoadingState(),
+            LoginSuccessState(),
+          ]));
       await untilCalled(userManager.hasLoggedIn());
       verify(userManager.hasLoggedIn()).called(1);
     });
 
-
-    test("user not found test", (){
-      when(authManager.getUser(userEmail)).thenAnswer((realInvocation) async => Future(() => null));
+    test("user not found test", () {
+      when(authManager.getUser(userEmail))
+          .thenAnswer((realInvocation) async => Future(() => null));
       loginBloc.add(SignInEvent());
-      expect(loginBloc.stream, emitsInOrder([
-        LoginLoadingState(),
-        LoginFailureState(error: userNotFoundError),
-      ]));
+      expect(
+          loginBloc.stream,
+          emitsInOrder([
+            LoginLoadingState(),
+            LoginFailureState(error: userNotFoundError),
+          ]));
     });
 
-    test("user data update to fail test", (){
-      when(authManager.updateUser(employee)).thenThrow(Exception("data not valid"));
-      when(authManager.getUser(userEmail)).thenAnswer((realInvocation) async => Future(() => employee));
+    test("user data update to fail test", () {
+      when(authManager.updateUser(employee))
+          .thenThrow(Exception("data not valid"));
+      when(authManager.getUser(userEmail))
+          .thenAnswer((realInvocation) async => Future(() => employee));
       loginBloc.add(SignInEvent());
-      expect(loginBloc.stream, emitsInOrder([
-        LoginLoadingState(),
-        LoginFailureState(error: userDataNotUpdateError),
-      ]));
+      expect(
+          loginBloc.stream,
+          emitsInOrder([
+            LoginLoadingState(),
+            LoginFailureState(error: userDataNotUpdateError),
+          ]));
     });
 
-    test("custom exception thrown", (){
-      when(auth.signInWithGoogle()).thenThrow(CustomException(firesbaseAuthError));
+    test("custom exception thrown", () {
+      when(auth.signInWithGoogle())
+          .thenThrow(CustomException(firesbaseAuthError));
       loginBloc.add(SignInEvent());
-      expect(loginBloc.stream, emitsInOrder([
-        LoginLoadingState(),
-        LoginFailureState(error: firesbaseAuthError),
-        LoginInitialState()
-      ]));
+      expect(
+          loginBloc.stream,
+          emitsInOrder([
+            LoginLoadingState(),
+            LoginFailureState(error: firesbaseAuthError),
+            LoginInitialState()
+          ]));
     });
   });
 }

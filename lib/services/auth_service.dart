@@ -6,16 +6,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
 
-import '../../core/utils/const/firestore.dart';
-import '../../exception/custom_exception.dart';
-import '../../exception/error_const.dart';
-import '../../model/employee/employee.dart';
-import '../../pref/user_preference.dart';
-import '../../stateManager/auth/desktop/desktop_auth_manager.dart';
+import '../core/utils/const/firestore.dart';
+import '../exception/custom_exception.dart';
+import '../exception/error_const.dart';
+import '../model/employee/employee.dart';
+import '../pref/user_preference.dart';
+import '../stateManager/auth/desktop/desktop_auth_manager.dart';
 
 @Singleton()
 class AuthService {
-  final _db = FirebaseFirestore.instance.collection(FirestoreConst.userCollection);
+  final _db =
+      FirebaseFirestore.instance.collection(FirestoreConst.userCollection);
   final DesktopAuthManager _desktopAuthManager;
   final UserPreference _userPreference;
 
@@ -54,7 +55,7 @@ class AuthService {
 
   Future<User?> signInWithGoogle() async {
     User? user;
-    if (Platform.isMacOS||Platform.isWindows||Platform.isLinux) {
+    if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
       Credentials credentials = await _desktopAuthManager.login();
       _userPreference.setToken(credentials.accessToken);
       AuthCredential authCredential = GoogleAuthProvider.credential(
@@ -109,5 +110,4 @@ class AuthService {
       return false;
     }
   }
-
 }

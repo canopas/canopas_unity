@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
+import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_event.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_state.dart';
 

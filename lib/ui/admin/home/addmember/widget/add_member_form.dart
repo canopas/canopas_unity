@@ -52,8 +52,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
           children: [
             ToggleButton(
               role: state.role ?? kRoleTypeEmployee,
-              onRoleChange: (role) =>
-                  bloc.add(SelectRoleTypeEvent(roleType: role)),
+              onRoleChange: (role) => bloc.add(SelectRoleEvent(role: role)),
             ),
             const SizedBox(height: 12),
             FieldTitle(title: localization.employee_employeeID_tag),

@@ -3,17 +3,17 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_cout_event.dart';
 
 import 'user_leave_count_bloc_test.mocks.dart';
 
-@GenerateMocks([UserLeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([LeaveService, UserManager, PaidLeaveService])
 void main() {
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late UserManager userManager;
   late PaidLeaveService paidLeaveService;
   late UserLeaveCountBloc userLeaveCountBloc;
@@ -27,11 +27,11 @@ void main() {
   const String employeeId = 'Employee Id';
 
   setUp(() {
-    userLeaveService = MockUserLeaveService();
+    leaveService = MockLeaveService();
     userManager = MockUserManager();
     paidLeaveService = MockPaidLeaveService();
     userLeaveCountBloc =
-        UserLeaveCountBloc(userLeaveService, userManager, paidLeaveService);
+        UserLeaveCountBloc(leaveService, userManager, paidLeaveService);
   });
 
   group('User Leave count State', () {
@@ -52,7 +52,7 @@ void main() {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
       when(userManager.employeeId).thenReturn(employeeId);
-      when(userLeaveService.getUserUsedLeaveCount(employeeId))
+      when(leaveService.getUserUsedLeaves(employeeId))
           .thenAnswer((_) async => 7);
       when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
       var percentage = 7 / 12;
@@ -71,7 +71,7 @@ void main() {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
       when(userManager.employeeId).thenReturn('Ca 1044');
-      when(userLeaveService.getUserUsedLeaveCount('Ca 1044'))
+      when(leaveService.getUserUsedLeaves('Ca 1044'))
           .thenAnswer((_) async => 7);
       when(paidLeaveService.getPaidLeaves())
           .thenThrow(Exception('Couldn\'t load'));

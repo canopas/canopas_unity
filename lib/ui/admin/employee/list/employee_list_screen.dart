@@ -39,7 +39,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context).employee_tag,
+          AppLocalizations.of(context).employees_tag,
         ),
       ),
       body: BlocConsumer<EmployeeListBloc, EmployeeListState>(

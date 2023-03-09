@@ -5,7 +5,7 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 
 import '../../../../../event_bus/events.dart';
-import '../../../../../services/admin/employee_service.dart';
+import '../../../../../services/employee_service.dart';
 import '../../detail/bloc/employee_detail_event.dart';
 import 'admin_edit_employee_events.dart';
 import 'admin_edit_employee_state.dart';

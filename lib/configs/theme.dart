@@ -10,10 +10,6 @@ class AppTheme {
     return ThemeData(
         //useMaterial3: true,
         scaffoldBackgroundColor: AppColors.whiteColor,
-        dividerTheme: const DividerThemeData(
-            color: AppColors.lightGreyColor,
-            indent: primaryHorizontalSpacing,
-            endIndent: primaryHorizontalSpacing),
         appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             foregroundColor: AppColors.blackColor,
@@ -24,14 +20,12 @@ class AppTheme {
             backgroundColor: AppColors.lightGreyColor,
             selectedItemColor: AppColors.darkBlue,
             unselectedItemColor: AppColors.primaryBlue),
-        scrollbarTheme: const ScrollbarThemeData(
-          radius: Radius.circular(12),
-          thumbColor: MaterialStatePropertyAll(Color(0xffa0bef1)),
+        dividerTheme: const DividerThemeData(
+          color: AppColors.dividerColor,
+          indent: primaryHorizontalSpacing,
+          endIndent: primaryHorizontalSpacing,
+          thickness: 1,
         ),
-        textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-                foregroundColor: AppColors.primaryBlue,
-                textStyle: AppFontStyle.buttonTextStyle)),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
           fixedSize: const Size.fromHeight(45),
@@ -51,6 +45,17 @@ class AppTheme {
           side: const BorderSide(color: AppColors.primaryBlue, width: 1),
           fixedSize: const Size.fromHeight(45),
         )),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+            color: AppColors.lightPrimaryBlue,
+            circularTrackColor: AppColors.primaryBlue),
+        scrollbarTheme: const ScrollbarThemeData(
+          radius: Radius.circular(12),
+          thumbColor: MaterialStatePropertyAll(Color(0xffa0bef1)),
+        ),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+                foregroundColor: AppColors.primaryBlue,
+                textStyle: AppFontStyle.buttonTextStyle)),
         textTheme: const TextTheme(
             headlineLarge: AppFontStyle.headerGrey,
             titleLarge: AppFontStyle.labelRegular,

@@ -4,21 +4,20 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [EmployeeService, UserLeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([EmployeeService, LeaveService, UserManager, PaidLeaveService])
 void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late UserManager userManager;
   late PaidLeaveService paidLeaveService;
   Employee employee = const Employee(
@@ -38,16 +37,16 @@ void main() {
 
   setUp(() {
     employeeService = MockEmployeeService();
-    userLeaveService = MockUserLeaveService();
+    leaveService = MockLeaveService();
     userManager = MockUserManager();
     paidLeaveService = MockPaidLeaveService();
     employeeDetailBloc = EmployeeDetailBloc(
       paidLeaveService,
       employeeService,
-      userLeaveService,
+      leaveService,
       userManager,
     );
-    when(userLeaveService.getUserUsedLeaveCount(employee.id))
+    when(leaveService.getUserUsedLeaves(employee.id))
         .thenAnswer((_) async => 10);
     when(userManager.employeeId).thenReturn(employee.id);
     when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
@@ -87,7 +86,7 @@ void main() {
         () {
       when(employeeService.getEmployee(employee.id))
           .thenAnswer((_) async => employee);
-      when(userLeaveService.getUserUsedLeaveCount(employee.id))
+      when(leaveService.getUserUsedLeaves(employee.id))
           .thenThrow(Exception(firestoreFetchDataError));
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
@@ -123,7 +122,7 @@ void main() {
               paidLeaves: 12,
               usedLeaves: 10);
       employeeDetailBloc.emit(loadedStateWithEmployee);
-      employeeDetailBloc.add(EmployeeDetailsChangeRoleTypeEvent());
+      employeeDetailBloc.add(EmployeeDetailsChangeRoleEvent());
       EmployeeDetailLoadedState loadedStateWithAdmin =
           EmployeeDetailLoadedState(
               employee: admin,
@@ -141,7 +140,7 @@ void main() {
               paidLeaves: 12,
               usedLeaves: 10);
       employeeDetailBloc.emit(loadedStateWithAdmin);
-      employeeDetailBloc.add(EmployeeDetailsChangeRoleTypeEvent());
+      employeeDetailBloc.add(EmployeeDetailsChangeRoleEvent());
       EmployeeDetailLoadedState loadedStateWithEmployee =
           EmployeeDetailLoadedState(
               employee: employee,
@@ -162,10 +161,10 @@ void main() {
 
     test('delete employee success test', () async {
       employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
-      await untilCalled(userLeaveService.deleteAllLeaves(employee.id));
-      await untilCalled(userLeaveService.deleteAllLeaves(employee.id));
+      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.id));
+      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.id));
       verify(employeeService.deleteEmployee(employee.id)).called(1);
-      verify(userLeaveService.deleteAllLeaves(employee.id)).called(1);
+      verify(leaveService.deleteAllLeavesOfUser(employee.id)).called(1);
     });
   });
 }
