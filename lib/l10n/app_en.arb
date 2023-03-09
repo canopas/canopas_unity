@@ -46,13 +46,15 @@
       }
     }
   },
-  "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}}",
+
+  "toggle_role_button_setting_hr" : "Change role",
+
+  "user_detail_role_type": "{role, select, 1{Admin} 2{Employee} 3{HR} other{other}}",
   "@user_detail_role_type":{
     "description": "Pass the value of role to get role of user",
     "placeholders": {
       "role":{
-        "type": "num",
-        "format":"compact"
+        "type": "String"
       }
     }
   },
@@ -300,6 +302,7 @@
   "admin_leaves_upcoming_leaves_tag":"Upcoming Leaves",
   "admin_leaves_recent_leaves_tag":"Recent Leaves",
 
+
   "admin_leave_detail_error_reason":"Enter Message",
   "admin_leave_detail_message_title_text": "Note",
   "admin_leave_detail_button_reject":"Reject",
@@ -309,5 +312,6 @@
 
 
     "admin_setting_edit_appbar_tag":"Edit"
+
 
 }

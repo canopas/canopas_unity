@@ -80,7 +80,13 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                   context
                       .read<AdminSettingsBloc>()
                       .add(AdminSettingsLogOutEvent());
-                })
+                }),
+            SettingOption(
+                icon: Icons.rotate_right_rounded,
+                title: AppLocalizations.of(context).toggle_role_button_setting_hr,
+                onTap: () {
+
+                }),
           ],
         ),
       ),
