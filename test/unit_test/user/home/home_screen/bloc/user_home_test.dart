@@ -7,21 +7,21 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/auth/auth_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/auth_service.dart';
+import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 
 import 'user_home_test.mocks.dart';
 
-@GenerateMocks([UserManager, AuthService, UserPreference, UserLeaveService])
+@GenerateMocks([UserManager, AuthService, UserPreference, LeaveService])
 void main() {
   late UserHomeBloc bLoc;
   late UserManager userManager;
   late AuthService authService;
   late UserPreference userPreference;
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
 
   const employee = Employee(
       id: "1",
@@ -46,9 +46,8 @@ void main() {
     userManager = MockUserManager();
     authService = MockAuthService();
     userPreference = MockUserPreference();
-    userLeaveService = MockUserLeaveService();
-    bLoc = UserHomeBloc(
-        userPreference, authService, userManager, userLeaveService);
+    leaveService = MockLeaveService();
+    bLoc = UserHomeBloc(userPreference, authService, userManager, leaveService);
 
     when(authService.signOutWithGoogle()).thenAnswer((_) async => true);
     when(userPreference.removeCurrentUser()).thenAnswer((_) async => true);
@@ -65,7 +64,7 @@ void main() {
     test(
         'Emits loading state and then success state with requests if user has applied for any request',
         () {
-      when(userLeaveService.getRequestedLeave(employee.id))
+      when(leaveService.getRequestedLeaveOfUser(employee.id))
           .thenAnswer((_) async => [leave]);
 
       expectLater(
@@ -78,7 +77,7 @@ void main() {
     });
 
     test('Emits loading state and then error state if exception is thrown', () {
-      when(userLeaveService.getRequestedLeave(employee.id))
+      when(leaveService.getRequestedLeaveOfUser(employee.id))
           .thenThrow(Exception(firestoreFetchDataError));
 
       expectLater(

@@ -9,7 +9,7 @@ import 'package:projectunity/widget/date_time_picker.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../widget/employee_details_textfield.dart';
-import '../bloc/emloyee_edit_profile_bloc.dart';
+import '../bloc/employee_edit_profile_bloc.dart';
 import '../bloc/employee_edit_profile_event.dart';
 import '../bloc/employee_edit_profile_state.dart';
 
@@ -192,7 +192,7 @@ class DateOfBirthButton extends StatelessWidget {
                   style: AppFontStyle.labelRegular,
                 )
               : Text(
-                  localization.select_tag,
+                  localization.user_settings_edit_select_tag,
                   style: AppFontStyle.labelGrey,
                 )),
     );

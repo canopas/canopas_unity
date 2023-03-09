@@ -6,18 +6,18 @@ import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/model/leave_count.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_events.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
 
 import 'user_leave_calendar_test.mocks.dart';
 
-@GenerateMocks([UserLeaveService, EmployeeService, PaidLeaveService])
+@GenerateMocks([LeaveService, EmployeeService, PaidLeaveService])
 void main() {
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late EmployeeService employeeService;
   late PaidLeaveService paidLeaveService;
   late UserLeaveCalendarBloc userLeaveCalendarViewBloc;
@@ -54,16 +54,16 @@ void main() {
 
   group("User Leave Calendar Test", () {
     setUp(() {
-      userLeaveService = MockUserLeaveService();
+      leaveService = MockLeaveService();
       employeeService = MockEmployeeService();
       paidLeaveService = MockPaidLeaveService();
       userLeaveCalendarViewBloc = UserLeaveCalendarBloc(
-          userLeaveService, employeeService, paidLeaveService);
+          leaveService, employeeService, paidLeaveService);
       when(employeeService.getEmployee(userID))
           .thenAnswer((_) => Future(() => employee));
-      when(userLeaveService.getAllLeavesOfUser(userID))
+      when(leaveService.getAllLeavesOfUser(userID))
           .thenAnswer((_) => Future(() => [leave]));
-      when(userLeaveService.getUserUsedLeaveCount(userID))
+      when(leaveService.getUserUsedLeaves(userID))
           .thenAnswer((_) => Future(() => 6.0));
       when(paidLeaveService.getPaidLeaves())
           .thenAnswer((_) => Future(() => 12));

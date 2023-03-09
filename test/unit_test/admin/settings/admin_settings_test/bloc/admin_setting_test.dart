@@ -5,7 +5,7 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/auth/auth_service.dart';
+import 'package:projectunity/services/auth_service.dart';
 import 'package:projectunity/ui/admin/setting/bloc/admin_settings_bloc.dart';
 import 'package:projectunity/ui/admin/setting/bloc/admin_settings_event.dart';
 import 'package:projectunity/ui/admin/setting/bloc/admin_settings_state.dart';
@@ -29,12 +29,12 @@ void main() {
 
   group("User settings test", () {
     setUp(() {
-
       userPreference = MockUserPreference();
       authService = MockAuthService();
       userManager = MockUserManager();
       when(userManager.employee).thenReturn(employee);
-      adminSettingsBloc = AdminSettingsBloc(userManager, authService, userPreference);
+      adminSettingsBloc =
+          AdminSettingsBloc(userManager, authService, userPreference);
     });
 
     test('get user data on screen is created test', () {

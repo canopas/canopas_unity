@@ -1,10 +1,10 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/custom_exception.dart';
-import 'package:projectunity/services/auth/auth_service.dart';
+import 'package:projectunity/services/auth_service.dart';
 import 'package:projectunity/ui/login/bloc/login_view_event.dart';
+
 import '../../../exception/error_const.dart';
 import '../../../provider/user_data.dart';
 import '../../../stateManager/auth/auth_manager.dart';
@@ -16,12 +16,15 @@ class LoginBloc extends Bloc<SignInEvent, LoginState> {
   final UserManager _userManager;
   final AuthService _authService;
 
-  LoginBloc(this._authManager, this._userManager, this._authService,)
-      : super(LoginInitialState()) {
+  LoginBloc(
+    this._authManager,
+    this._userManager,
+    this._authService,
+  ) : super(LoginInitialState()) {
     on<SignInEvent>(_signIn);
   }
 
- Future<void> _signIn(SignInEvent event, Emitter<LoginState> emit) async {
+  Future<void> _signIn(SignInEvent event, Emitter<LoginState> emit) async {
     User? user;
     emit(LoginLoadingState());
     try {
@@ -31,7 +34,6 @@ class LoginBloc extends Bloc<SignInEvent, LoginState> {
     }
     if (user == null) {
       emit(LoginInitialState());
-
     } else {
       final data = await _authManager.getUser(user.email!);
       try {
@@ -47,7 +49,4 @@ class LoginBloc extends Bloc<SignInEvent, LoginState> {
       }
     }
   }
-
-
-
 }

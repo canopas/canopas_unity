@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
@@ -13,7 +11,7 @@ import '../../../configs/theme.dart';
 import '../../../core/utils/const/leave_map.dart';
 import '../../../di/service_locator.dart';
 import '../../../model/leave_application.dart';
-import '../../../router/app_router.dart';
+import '../../../navigation/app_router.dart';
 import '../../../widget/calendar.dart';
 import '../../../widget/user_profile_image.dart';
 import 'bloc/calendar_bloc/employees_calendar_bloc.dart';
@@ -48,7 +46,6 @@ class EmployeesCalendarScreen extends StatefulWidget {
 }
 
 class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
-  UserManager userManager = getIt<UserManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +110,7 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                       return CalendarEmployeeLeaveCard(
                           leaveApplication: leaveApplication,
                           onTap: () {
-                            userManager.isAdmin
+                            context.read<EmployeesCalendarLeavesBloc>().isAdmin
                                 ? context.pushNamed(
                                     Routes.leaveApplicationDetail,
                                     extra: leaveApplication)

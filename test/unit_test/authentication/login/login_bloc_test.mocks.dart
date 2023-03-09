@@ -12,7 +12,7 @@ import 'package:firebase_auth_platform_interface/firebase_auth_platform_interfac
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/model/employee/employee.dart' as _i2;
 import 'package:projectunity/provider/user_data.dart' as _i7;
-import 'package:projectunity/services/auth/auth_service.dart' as _i4;
+import 'package:projectunity/services/auth_service.dart' as _i4;
 import 'package:projectunity/stateManager/auth/auth_manager.dart' as _i6;
 
 // ignore_for_file: type=lint

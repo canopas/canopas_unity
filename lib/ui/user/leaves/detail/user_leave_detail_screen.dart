@@ -50,7 +50,7 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).leave_detail_title),
+        title: Text(AppLocalizations.of(context).details_tag),
       ),
       body: BlocListener<UserLeaveDetailBloc, UserLeaveDetailState>(
         listenWhen: (previous, current) =>
@@ -88,12 +88,11 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                     PerDayDurationDateRange(
                         perDayDurationWithDate: leave.getDateAndDuration()),
                     ReasonField(
-                      title: localization.leave_reason_tag,
+                      title: localization.reason_tag,
                       reason: leave.reason,
                     ),
                     if (leave.rejectionReason != null)
-                      if (leave.rejectionReason != null)
-                        ResponseNote(leaveResponse: leave.rejectionReason!),
+                      ResponseNote(leaveResponse: leave.rejectionReason!),
                     if (showCancelButton) CancelButton(leaveId: leave.leaveId)
                   ],
                 );

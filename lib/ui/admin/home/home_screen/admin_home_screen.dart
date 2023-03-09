@@ -10,9 +10,9 @@ import 'package:projectunity/widget/error_snack_bar.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/space_constant.dart';
 import '../../../../di/service_locator.dart';
-import '../../../../router/app_router.dart';
-import '../../../../widget/WhoIsOutCard/who_is_out_card.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/empty_screen.dart';
+import '../../../shared/WhoIsOutCard/who_is_out_card.dart';
 import 'bloc/admin_home_bloc.dart';
 import 'bloc/admin_home_event.dart';
 import 'bloc/admin_home_state.dart';
@@ -73,7 +73,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   child: EmptyScreen(
                     message: AppLocalizations.of(context)
                         .admin_home_empty_leave_request_message,
-                    title: AppLocalizations.of(context).no_request_title,
+                    title: AppLocalizations.of(context)
+                        .admin_home_no_request_title,
                   ),
                 );
               }

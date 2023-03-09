@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
+import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_event.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_state.dart';

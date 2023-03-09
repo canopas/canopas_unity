@@ -7,7 +7,7 @@ import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/image_constant.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 
 class EmployeeHomeAppBar extends StatelessWidget
     implements PreferredSizeWidget {

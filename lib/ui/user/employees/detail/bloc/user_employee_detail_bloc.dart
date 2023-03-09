@@ -4,15 +4,15 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_state.dart';
 
-import '../../../../../services/admin/employee_service.dart';
-import '../../../../../services/user/user_leave_service.dart';
+import '../../../../../services/employee_service.dart';
+import '../../../../../services/leave_service.dart';
 
 @Injectable()
 class UserEmployeeDetailBloc
     extends Bloc<UserEmployeeDetailEvent, UserEmployeeDetailState> {
   final EmployeeService _employeeService;
-  final UserLeaveService _userLeaveService;
-  UserEmployeeDetailBloc(this._employeeService, this._userLeaveService)
+  final LeaveService _leaveService;
+  UserEmployeeDetailBloc(this._employeeService, this._leaveService)
       : super(UserEmployeeDetailInitialState()) {
     on<UserEmployeeDetailFetchEvent>(_fetchInitialData);
   }
@@ -23,7 +23,7 @@ class UserEmployeeDetailBloc
     try {
       final employee = await _employeeService.getEmployee(event.employeeId);
       final leaves =
-          await _userLeaveService.getUpcomingLeaves(event.employeeId);
+          await _leaveService.getUpcomingLeavesOfUser(event.employeeId);
       if (employee == null) {
         emit(UserEmployeeDetailErrorState(error: firestoreFetchDataError));
       } else {

@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart';
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_event.dart';
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_state.dart';
@@ -37,7 +37,8 @@ void main() {
 
     test("check error on update leave count test", () {
       when(paidLeaveService.updateLeaveCount(10)).thenThrow(Exception("error"));
-      adminSettingUpdatePaidLeaveCountBloc.add(UpdatePaidLeaveCountEvent(leaveCount: "10"));
+      adminSettingUpdatePaidLeaveCountBloc
+          .add(UpdatePaidLeaveCountEvent(leaveCount: "10"));
       expect(
           adminSettingUpdatePaidLeaveCountBloc.stream,
           emitsInOrder([

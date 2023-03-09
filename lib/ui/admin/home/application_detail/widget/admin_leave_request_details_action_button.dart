@@ -50,7 +50,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                           response: AdminLeaveResponse.reject,
                           leaveId: leaveID));
                 },
-                child: Text(localization.admin_leave_detail_button_reject,
+                child: Text(localization.admin_leave_detail_reject_button_tag,
                     style: AppFontStyle.labelRegular),
               ),
               ElevatedButton(
@@ -64,7 +64,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                           response: AdminLeaveResponse.approve,
                           leaveId: leaveID));
                 },
-                child: Text(localization.admin_leave_detail_button_approve,
+                child: Text(localization.admin_leave_detail_approve_button_tag,
                     style: AppFontStyle.labelRegular),
               ),
             ],

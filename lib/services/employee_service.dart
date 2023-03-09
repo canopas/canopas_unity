@@ -1,11 +1,13 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/event_bus/events.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../core/utils/const/role.dart';
-import '../../model/employee/employee.dart';
+
+import '../core/utils/const/role.dart';
+import '../model/employee/employee.dart';
 
 @Singleton()
 class EmployeeService {
@@ -18,11 +20,14 @@ class EmployeeService {
     fetchEmployees();
   }
 
-  void fetchEmployees(){
-   _employeeStreamSubscription= _userDbCollection
-        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin).snapshots().map((event) {
-      return event.docs.map((employee) => employee.data()).toList();}).listen((event) {
-        _employees.add(event);
+  void fetchEmployees() {
+    _employeeStreamSubscription = _userDbCollection
+        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
+        .snapshots()
+        .map((event) {
+      return event.docs.map((employee) => employee.data()).toList();
+    }).listen((event) {
+      _employees.add(event);
     });
   }
 

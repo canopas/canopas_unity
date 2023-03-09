@@ -7,6 +7,7 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import '../../../../../../configs/text_style.dart';
 import '../../../../../../model/employee/employee.dart';
 import '../../../../../configs/colors.dart';
+import '../../../../../navigation/app_router.dart';
 import '../../../../../router/app_router.dart';
 import '../../../../../widget/employee_details_field.dart';
 
@@ -73,53 +74,40 @@ class TimeOffCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryVerticalSpacing,
-          horizontal: primaryHorizontalSpacing),
-      height: 70,
-      decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
-      child: Material(
-        color: AppColors.whiteColor,
-        borderRadius: AppTheme.commonBorderRadius,
-        child: InkWell(
-          borderRadius: AppTheme.commonBorderRadius,
-          onTap: () => context.goNamed(Routes.userCalenderForAdmin,
-              params: {RoutesParamsConst.employeeId: employeeId}),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CircularProgressIndicator(
-                      strokeWidth: 8,
-                      backgroundColor: AppColors.lightPrimaryBlue,
-                      color: AppColors.primaryBlue,
-                      value: percentage,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)
-                          .admin_employees_detail_time_off_tag,
-                      style: AppFontStyle.labelGrey,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      '$usedLeaves/$paidLeaves',
-                      style: AppFontStyle.titleRegular,
-                    ),
-                    const SizedBox(width: 20),
-                    const Icon(
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  CircularProgressIndicator(
+                    strokeWidth: 12,
+                    backgroundColor: AppColors.primaryDarkYellow,
+                    value: percentage,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)
+                        .admin_employees_detail_time_off_tag,
+                    style: AppFontStyle.labelGrey,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    '$usedLeaves/$paidLeaves',
+                    style: AppFontStyle.titleRegular,
+                  ),
+                  IconButton(
+                    icon: const Icon(
                       Icons.arrow_forward_ios_outlined,
                       color: AppColors.greyColor,
                       size: 20,

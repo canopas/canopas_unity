@@ -63,7 +63,7 @@ class _AdminLeaveApplicationDetailScreenState
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context).leave_detail_title,
+          AppLocalizations.of(context).details_tag,
           style: AppFontStyle.appbarHeaderDark,
         ),
       ),
@@ -101,7 +101,7 @@ class _AdminLeaveApplicationDetailScreenState
                   perDayDurationWithDate:
                       widget.leaveApplication.leave.getDateAndDuration()),
               ReasonField(
-                title: localization.leave_reason_tag,
+                title: localization.reason_tag,
                 reason: widget.leaveApplication.leave.reason,
               ),
               const ApproveRejectionMessage(),
