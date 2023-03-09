@@ -8,7 +8,7 @@ part of 'employee.dart';
 
 Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       id: json['id'] as String,
-      roleType: json['role_type'] as int,
+      roleType:1,// json['role_type'] as int,
       name: json['name'] as String,
       employeeId: json['employee_id'] as String,
       email: json['email'] as String,
