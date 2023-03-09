@@ -7,13 +7,13 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart'
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import 'package:projectunity/ui/user/home/home_screen/widget/employee_home_appbar.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_card.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../configs/colors.dart';
 import '../../../../di/service_locator.dart';
-import '../../../../router/app_router.dart';
-import '../../../../widget/WhoIsOutCard/who_is_out_card.dart';
+import '../../../../navigation/app_router.dart';
+import '../../../../widget/circular_progress_indicator.dart';
+import '../../../shared/WhoIsOutCard/who_is_out_card.dart';
 import 'bloc/user_home_bloc.dart';
 
 class UserHomeScreenPage extends StatelessWidget {

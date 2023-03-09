@@ -6,8 +6,8 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/ui/user/settings/edit_profile/bloc/emloyee_edit_profile_bloc.dart';
+import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_bloc.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_event.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_state.dart';
 

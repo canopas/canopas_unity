@@ -6,14 +6,14 @@ import 'package:projectunity/model/leave_application.dart';
 
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../services/admin/employee_service.dart';
-import '../../../../../services/admin/leave_service.dart';
+import '../../../../../services/employee_service.dart';
+import '../../../../../services/leave_service.dart';
 import 'admin_leave_event.dart';
 import 'admin_leaves_state.dart';
 
 @Injectable()
 class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
-  final AdminLeaveService _adminLeaveService;
+  final LeaveService _adminLeaveService;
   final EmployeeService _employeeService;
 
   AdminLeavesBloc(this._adminLeaveService, this._employeeService)

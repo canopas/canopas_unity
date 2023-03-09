@@ -11,14 +11,12 @@ class AppColors {
   static const greenColor = Colors.green;
   static const orangeColor = Colors.orange;
 
-
   static const Color primaryGray = Color(0xFFd7dee9);
   static const Color primaryDarkYellow = Color(0xFFf2d97c);
   static const Color primaryPink = Color(0xFFda9090);
   static const Color primaryGreen = Color(0xFF74d8c1);
   static const Color primaryBlue = Color(0xFF75a2ed);
   static const Color darkBlue = Color(0xff0072bb);
-  static const Color blueGrey = Colors.blueGrey;
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
   static const Color darkGrey = Color(0xff7d7d7d);
@@ -31,8 +29,7 @@ class AppColors {
   static const Color textFieldBg = Color(0xFFf2f3f7);
 
   static const Color greyColor = Colors.grey;
-  static const Color lightRed =  Color(0xffFF857B);
-
+  static const Color lightRed = Color(0xffFF857B);
 
   //new UI colors
   static const Color lightPrimaryBlue = Color(0xffEDF6FF);

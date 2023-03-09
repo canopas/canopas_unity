@@ -11,7 +11,7 @@ import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../model/leave/leave.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import 'bloc/leave_count/user_leave_count_bloc.dart';
 import 'bloc/leave_count/user_leave_cout_event.dart';
 import 'bloc/leaves/user_leave_bloc.dart';
@@ -26,7 +26,7 @@ class UserLeavePage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
           create: (_) =>
-          getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
+              getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
       BlocProvider(
           create: (_) => getIt<UserLeaveBloc>()..add(FetchUserLeaveEvent()))
     ], child: const UserLeaveScreen());
@@ -48,7 +48,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           title: Text(
-            localization.user_leave_appbar_tag,
+            localization.leaves_tag,
             style: AppFontStyle.appbarHeaderDark,
           ),
           backgroundColor: AppColors.whiteColor,

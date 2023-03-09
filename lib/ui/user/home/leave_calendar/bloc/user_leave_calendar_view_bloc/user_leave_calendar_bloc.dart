@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
 
 import '../../../../../../event_bus/events.dart';
@@ -13,20 +12,21 @@ import '../../../../../../model/employee/employee.dart';
 import '../../../../../../model/leave/leave.dart';
 import '../../../../../../model/leave_application.dart';
 import '../../../../../../model/leave_count.dart';
-import '../../../../../../services/admin/employee_service.dart';
-import '../../../../../../services/user/user_leave_service.dart';
+import '../../../../../../services/employee_service.dart';
+import '../../../../../../services/leave_service.dart';
+import '../../../../../../services/paid_leave_service.dart';
 import 'user_leave_calendar_events.dart';
 
 @Injectable()
 class UserLeaveCalendarBloc
     extends Bloc<UserLeaveCalendarEvent, UserLeaveCalendarViewState> {
-  final UserLeaveService _userLeaveService;
+  final LeaveService _leaveService;
   final EmployeeService _employeeService;
   final PaidLeaveService _paidLeaveService;
   late StreamSubscription _streamSubscription;
 
   UserLeaveCalendarBloc(
-      this._userLeaveService, this._employeeService, this._paidLeaveService)
+      this._leaveService, this._employeeService, this._paidLeaveService)
       : super(UserLeaveCalendarViewInitialState()) {
     on<UserLeaveCalendarInitialLoadEvent>(_loadAllLeaves);
     on<DateRangeSelectedEvent>(_onDateRangeSelected);
@@ -42,10 +42,9 @@ class UserLeaveCalendarBloc
     try {
       Employee? currentEmployee =
           await _employeeService.getEmployee(event.userid);
-      List<Leave> leaves =
-          await _userLeaveService.getAllLeavesOfUser(event.userid);
+      List<Leave> leaves = await _leaveService.getAllLeavesOfUser(event.userid);
       double usedLeaveCount =
-          await _userLeaveService.getUserUsedLeaveCount(event.userid);
+          await _leaveService.getUserUsedLeaves(event.userid);
       int paidLeaveCount = await _paidLeaveService.getPaidLeaves();
       double remainingLeaveCount = paidLeaveCount - usedLeaveCount;
       LeaveCounts leaveCounts = LeaveCounts(

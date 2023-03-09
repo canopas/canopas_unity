@@ -2,18 +2,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../exception/error_const.dart';
-import '../../../../../services/admin/paid_leave_service.dart';
-import '../../../../../services/user/user_leave_service.dart';
+import '../../../../../services/leave_service.dart';
+import '../../../../../services/paid_leave_service.dart';
 import 'admin_leave_detail_event.dart';
 import 'admin_leave_detail_state.dart';
 
 @Injectable()
 class AdminLeaveDetailBloc
     extends Bloc<LeaveApplicationDetailEvent, AdminLeaveDetailState> {
-  final UserLeaveService _userLeaveService;
   final PaidLeaveService _paidLeaveService;
+  final LeaveService _leaveService;
 
-  AdminLeaveDetailBloc(this._userLeaveService, this._paidLeaveService)
+  AdminLeaveDetailBloc(this._leaveService, this._paidLeaveService)
       : super(AdminLeaveDetailInitialState()) {
     on<FetchLeaveApplicationDetailEvent>(_fetchLeaveApplicationDetail);
     on<DeleteLeaveApplicationEvent>(_deleteLeaveApplication);
@@ -26,7 +26,7 @@ class AdminLeaveDetailBloc
     try {
       int paidLeaves = await _paidLeaveService.getPaidLeaves();
       double usedLeave =
-          await _userLeaveService.getUserUsedLeaveCount(event.employeeId);
+          await _leaveService.getUserUsedLeaves(event.employeeId);
       emit(AdminLeaveDetailSuccessState(
           usedLeaves: usedLeave, paidLeaves: paidLeaves));
     } on Exception {
@@ -38,7 +38,7 @@ class AdminLeaveDetailBloc
       Emitter<AdminLeaveDetailState> emit) async {
     emit(DeleteLeaveApplicationLoadingState());
     try {
-      _userLeaveService.deleteLeaveRequest(event.leaveId);
+      _leaveService.deleteLeaveRequest(event.leaveId);
       emit(DeleteLeaveApplicationSuccessState());
     } on Exception {
       emit(AdminLeaveDetailFailureState(error: firestoreFetchDataError));

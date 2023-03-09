@@ -21,7 +21,7 @@ class ApproveRejectionMessage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context).admin_leave_detail_message_title_text,
+            AppLocalizations.of(context).admin_leave_detail_note_tag,
             style: AppFontStyle.labelGrey,
           ),
           const SizedBox(
@@ -48,7 +48,7 @@ class ApproveRejectionMessage extends StatelessWidget {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: AppLocalizations.of(context)
-                    .admin_leave_detail_error_reason,
+                    .admin_leave_detail_enter_reason_tag,
               ),
             ),
           ),

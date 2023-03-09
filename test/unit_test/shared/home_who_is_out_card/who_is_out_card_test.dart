@@ -4,22 +4,22 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/services/admin/leave_service.dart';
-import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_bloc.dart';
-import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_event.dart';
-import 'package:projectunity/widget/WhoIsOutCard/bloc/who_is_out_card_state.dart';
+import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart';
+import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_event.dart';
+import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_state.dart';
 
 import 'who_is_out_card_test.mocks.dart';
 
 @GenerateMocks([
-  AdminLeaveService,
+  LeaveService,
   EmployeeService,
 ])
 void main() {
   late WhoIsOutCardBloc bLoc;
   late EmployeeService employeeService;
-  late AdminLeaveService adminLeaveService;
+  late LeaveService leaveService;
 
   const employee = Employee(
       id: "1",
@@ -45,14 +45,13 @@ void main() {
   group('user home test', () {
     setUp(() {
       employeeService = MockEmployeeService();
-      adminLeaveService = MockAdminLeaveService();
-      bLoc = WhoIsOutCardBloc(employeeService, adminLeaveService);
+      leaveService = MockLeaveService();
+      bLoc = WhoIsOutCardBloc(employeeService, leaveService);
       date = bLoc.state.dateOfAbsenceEmployee;
     });
 
     test('User home initial load test', () {
-      when(adminLeaveService.getAllAbsence(
-              date: bLoc.state.dateOfAbsenceEmployee))
+      when(leaveService.getAllAbsence(date: bLoc.state.dateOfAbsenceEmployee))
           .thenAnswer((_) async => [leave]);
       when(employeeService.getEmployees()).thenAnswer((_) async => [employee]);
       bLoc.add(WhoIsOutInitialLoadEvent());
@@ -60,7 +59,8 @@ void main() {
           bLoc.stream,
           emitsInOrder([
             WhoIsOutCardState(
-                dateOfAbsenceEmployee: date, status: WhoOIsOutCardStatus.loading),
+                dateOfAbsenceEmployee: date,
+                status: WhoOIsOutCardStatus.loading),
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date,
                 status: WhoOIsOutCardStatus.success,
@@ -69,7 +69,7 @@ void main() {
     });
 
     test('test before date fetch absence', () {
-      when(adminLeaveService.getAllAbsence(
+      when(leaveService.getAllAbsence(
               date: bLoc.state.dateOfAbsenceEmployee
                   .subtract(const Duration(days: 1))))
           .thenAnswer((_) async => []);
@@ -93,7 +93,7 @@ void main() {
     });
 
     test('test after date fetch absence', () {
-      when(adminLeaveService.getAllAbsence(
+      when(leaveService.getAllAbsence(
               date: bLoc.state.dateOfAbsenceEmployee
                   .add(const Duration(days: 1))))
           .thenAnswer((_) async => []);

@@ -9,19 +9,18 @@ import '../../../../../core/utils/const/leave_time_constants.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_count.dart';
 import '../../../../../provider/user_data.dart';
-import '../../../../../services/admin/paid_leave_service.dart';
-import '../../../../../services/user/user_leave_service.dart';
+import '../../../../../services/leave_service.dart';
+import '../../../../../services/paid_leave_service.dart';
 import 'apply_leave_event.dart';
 import 'apply_leave_state.dart';
 
 @Injectable()
 class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
   final PaidLeaveService _paidLeaveService;
-  final UserLeaveService _userLeaveService;
+  final LeaveService _leaveService;
   final UserManager _userManager;
 
-  ApplyLeaveBloc(
-      this._userManager, this._paidLeaveService, this._userLeaveService)
+  ApplyLeaveBloc(this._userManager, this._paidLeaveService, this._leaveService)
       : super(ApplyLeaveState(
           startDate: DateTime.now().dateOnly,
           endDate: DateTime.now().dateOnly,
@@ -47,8 +46,8 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
       ApplyLeaveInitialEvent event, Emitter<ApplyLeaveState> emit) async {
     emit(state.copyWith(leaveCountStatus: LeaveCountStatus.loading));
     try {
-      double usedLeaveCount = await _userLeaveService
-          .getUserUsedLeaveCount(_userManager.employeeId);
+      double usedLeaveCount =
+          await _leaveService.getUserUsedLeaves(_userManager.employeeId);
       int paidLeaveCount = await _paidLeaveService.getPaidLeaves();
       double remainingLeaveCount = paidLeaveCount - usedLeaveCount;
       LeaveCounts leaveCounts = LeaveCounts(
@@ -132,7 +131,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
           leaveRequestStatus: ApplyLeaveStatus.failure));
     } else {
       try {
-        await _userLeaveService.applyForLeave(_getLeaveData());
+        await _leaveService.applyForLeave(_getLeaveData());
         emit(state.copyWith(leaveRequestStatus: ApplyLeaveStatus.success));
       } on Exception {
         emit(state.copyWith(

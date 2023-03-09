@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:projectunity/core/utils/const/role.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
+import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_bloc.dart';
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_event.dart';
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_state.dart';
@@ -37,13 +37,13 @@ void main() {
       test(
           'Emits state with with default employee role when no role is selected by user',
           () {
-        addMemberBloc.add(const SelectRoleTypeEvent());
+        addMemberBloc.add(const SelectRoleEvent());
         const stateWithoutRole = AddMemberFormState(role: kRoleTypeEmployee);
         expectLater(addMemberBloc.stream, emits(stateWithoutRole));
       });
 
       test('Emits state with with selected role on SelectRoleTypeEvent', () {
-        addMemberBloc.add(const SelectRoleTypeEvent(roleType: kRoleTypeAdmin));
+        addMemberBloc.add(const SelectRoleEvent(role: kRoleTypeAdmin));
         const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeAdmin);
         expect(addMemberBloc.stream, emits(stateWithSelectedRole));
       });
@@ -135,7 +135,7 @@ void main() {
     });
 
     test('Emits state with with selected role on SelectRoleTypeEvent', () {
-      addMemberBloc.add(const SelectRoleTypeEvent(roleType: kRoleTypeAdmin));
+      addMemberBloc.add(const SelectRoleEvent(role: kRoleTypeAdmin));
       const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeAdmin);
       expect(addMemberBloc.stream, emitsInOrder([stateWithSelectedRole]));
 

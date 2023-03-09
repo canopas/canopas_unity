@@ -4,30 +4,24 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/core/utils/const/firestore.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
-import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/admin/leave_service.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart';
 import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_event.dart';
 import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_state.dart';
 
 import 'admin_leave_request_details_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [UserLeaveService, AdminLeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([LeaveService, PaidLeaveService])
 void main() {
-  late UserLeaveService userLeaveService;
-  late AdminLeaveService adminLeaveService;
+  late LeaveService leaveService;
   late AdminLeaveApplicationDetailsBloc bloc;
   late PaidLeaveService paidLeaveService;
 
   setUp(() {
-    userLeaveService = MockUserLeaveService();
-    adminLeaveService = MockAdminLeaveService();
+    leaveService = MockLeaveService();
     paidLeaveService = MockPaidLeaveService();
-    bloc = AdminLeaveApplicationDetailsBloc(
-        userLeaveService, adminLeaveService, paidLeaveService);
+    bloc = AdminLeaveApplicationDetailsBloc(leaveService, paidLeaveService);
   });
 
   group('Leave Application Detail bloc', () {
@@ -44,8 +38,7 @@ void main() {
       test(
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
-        when(userLeaveService.getUserUsedLeaveCount('id'))
-            .thenAnswer((_) async => 10);
+        when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
         when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
 
         AdminLeaveApplicationDetailsState successState =
@@ -64,8 +57,7 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause',
           () {
-        when(userLeaveService.getUserUsedLeaveCount('id'))
-            .thenAnswer((_) async => 10);
+        when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
         when(paidLeaveService.getPaidLeaves())
             .thenThrow(Exception(firestoreFetchDataError));
         AdminLeaveApplicationDetailsState errorState =
@@ -103,7 +95,7 @@ void main() {
       test(
           "emits successState if leave application has been approved successfully",
           () {
-        when(adminLeaveService.updateLeaveStatus("leave-id", {
+        when(leaveService.updateLeaveStatus("leave-id", {
           'leave_status': approveLeaveStatus,
           'rejection_reason': "Your leave request has been approved",
         })).thenAnswer((_) async => {});
@@ -119,7 +111,7 @@ void main() {
       test(
           "emits successState if leave application has been rejected successfully",
           () {
-        when(adminLeaveService.updateLeaveStatus("leave-id", {
+        when(leaveService.updateLeaveStatus("leave-id", {
           'leave_status': rejectLeaveStatus,
           'rejection_reason': "Your leave request has not been approved",
         })).thenAnswer((_) async => {});
@@ -135,7 +127,7 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause while updating response',
           () {
-        when(adminLeaveService.updateLeaveStatus("leaveId", {
+        when(leaveService.updateLeaveStatus("leaveId", {
           FirestoreConst.leaveStatus: approveLeaveStatus,
           FirestoreConst.rejectionReason: '',
         })).thenThrow(Exception(firestoreFetchDataError));

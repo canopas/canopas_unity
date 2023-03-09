@@ -10,8 +10,6 @@ class LeaveUpdateEventListener {
 
 class CancelLeaveByUser {}
 
-class AllLeaveUpdateEventListener {}
-
 class DeleteEmployeeByAdmin {
   final String userId;
   DeleteEmployeeByAdmin(this.userId);

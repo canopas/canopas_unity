@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
 import '../../../../../../configs/text_style.dart';
 import '../../../../../../model/employee/employee.dart';
 import '../../../../../configs/colors.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../configs/space_constant.dart';
+import '../../../../../navigation/app_router.dart';
 import '../../../../../widget/employee_details_field.dart';
 
 class ProfileDetail extends StatelessWidget {
@@ -131,3 +131,4 @@ class TimeOffCard extends StatelessWidget {
     );
   }
 }
+

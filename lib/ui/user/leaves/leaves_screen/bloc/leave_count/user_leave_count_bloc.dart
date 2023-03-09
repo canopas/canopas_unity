@@ -5,17 +5,17 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 
 import '../../../../../../exception/error_const.dart';
 import '../../../../../../provider/user_data.dart';
-import '../../../../../../services/admin/paid_leave_service.dart';
-import '../../../../../../services/user/user_leave_service.dart';
+import '../../../../../../services/leave_service.dart';
+import '../../../../../../services/paid_leave_service.dart';
 
 @Injectable()
 class UserLeaveCountBloc
     extends Bloc<FetchLeaveCountEvent, UserLeaveCountState> {
-  final UserLeaveService _userLeaveService;
+  final LeaveService _leaveService;
   final UserManager _userManger;
   final PaidLeaveService _paidLeaveService;
   UserLeaveCountBloc(
-      this._userLeaveService, this._userManger, this._paidLeaveService)
+      this._leaveService, this._userManger, this._paidLeaveService)
       : super(const UserLeaveCountState()) {
     on<FetchLeaveCountEvent>(_fetchLeaveCount);
   }
@@ -25,7 +25,7 @@ class UserLeaveCountBloc
     emit(state.copyWith(status: UserLeaveCountStatus.loading));
     try {
       final double usedLeaves =
-          await _userLeaveService.getUserUsedLeaveCount(_userManger.employeeId);
+          await _leaveService.getUserUsedLeaves(_userManger.employeeId);
       final int totalLeaves = await _paidLeaveService.getPaidLeaves();
       final percentage = usedLeaves / totalLeaves;
       emit(state.copyWith(

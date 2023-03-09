@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/pref/user_preference.dart';
-import 'package:projectunity/services/auth/auth_service.dart';
+import 'package:projectunity/services/auth_service.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_event.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_state.dart';
 
@@ -29,12 +29,12 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     });
   }
 
-  _getCurrentEmployee(GetCurrentEmployeeUserSettingsEvent event,
+  void _getCurrentEmployee(GetCurrentEmployeeUserSettingsEvent event,
       Emitter<UserSettingsState> emit) {
     emit(state.copyWith(currentEmployee: _userManager.employee));
   }
 
-  _logOut(
+  Future<void> _logOut(
       UserSettingsLogOutEvent event, Emitter<UserSettingsState> emit) async {
     emit(state.copyWith(status: UserSettingsStatus.loading));
     bool isLogOut = await _authService.signOutWithGoogle();

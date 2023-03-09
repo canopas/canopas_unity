@@ -35,11 +35,11 @@ class LeaveRequestReasonCard extends StatelessWidget {
                 decoration: InputDecoration(
                   errorText: state.showTextFieldError
                       ? AppLocalizations.of(context)
-                          .user_apply_leave_error_valid_reason
+                          .user_leaves_apply_leave_error_valid_reason
                       : null,
                   border: InputBorder.none,
-                  hintText:
-                      AppLocalizations.of(context).leave_reason_text_field_tag,
+                  hintText: AppLocalizations.of(context)
+                      .user_leaves_apply_enter_reason_tag,
                   hintStyle: AppFontStyle.labelGrey,
                 ),
                 onChanged: (reason) {

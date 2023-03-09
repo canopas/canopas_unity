@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
-import '../../../model/leave/leave.dart';
-
-Map<int, String> leaveStatusMap = Map.unmodifiable({
-  pendingLeaveStatus: 'Pending',
-  approveLeaveStatus: 'Approved',
-  rejectLeaveStatus: 'Rejected',
-});
 
 
 Color leaveStatusColor(int leaveStatus){

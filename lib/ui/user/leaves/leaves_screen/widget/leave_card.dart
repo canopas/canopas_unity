@@ -6,7 +6,7 @@ import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 
 class UserLeaveCard extends StatelessWidget {
   final Leave leave;
