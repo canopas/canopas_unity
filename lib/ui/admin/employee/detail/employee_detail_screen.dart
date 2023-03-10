@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../../../di/service_locator.dart';
 import '../../../../core/utils/const/role.dart';
 import '../../../../navigation/app_router.dart';
@@ -51,10 +51,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                 buildWhen: (previous, current) =>
                     previous is! EmployeeDetailLoadedState &&
                     current is EmployeeDetailLoadedState,
-                builder: (context, state) {
-                  if (state is EmployeeDetailLoadedState &&
-                      context.read<EmployeeDetailBloc>().currentUserIsAdmin) {
-                    return PopupMenuButton(
+                builder: (context, state) => state is EmployeeDetailLoadedState? PopupMenuButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -95,24 +92,25 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                           },
                         ),
                       ],
-                    );
-                  }
-                  return const SizedBox();
-                }),
+                    ):const SizedBox(),
+                ),
           ]),
       body: BlocConsumer<EmployeeDetailBloc, AdminEmployeeDetailState>(
         builder: (BuildContext context, AdminEmployeeDetailState state) {
           if (state is EmployeeDetailLoadingState) {
             return const AppCircularProgressIndicator();
           } else if (state is EmployeeDetailLoadedState) {
-            return ListView(children: [
+            return ListView(
+              padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
+                physics: const ClampingScrollPhysics(),
+                children: [
               ProfileCard(employee: state.employee),
-              ProfileDetail(
-                employee: state.employee,
-                usedLeaves: state.usedLeaves,
-                paidLeaves: state.paidLeaves,
-                percentage: state.timeOffRatio,
-              ),
+              TimeOffCard(
+                  percentage: state.timeOffRatio,
+                  usedLeaves: state.usedLeaves,
+                  paidLeaves: state.paidLeaves,
+                  employeeId: state.employee.id),
+              ProfileDetail(employee: state.employee),
             ]);
           }
           return const SizedBox();
