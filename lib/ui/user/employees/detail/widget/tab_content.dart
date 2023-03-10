@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 import '../../../leaves/leaves_screen/widget/leave_card.dart';
 
 class TabContent extends StatelessWidget {

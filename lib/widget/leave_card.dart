@@ -58,7 +58,7 @@ class LeaveCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8)),
                         padding: const EdgeInsets.all(10),
                         child: Text(
-                            localize.leave_type_placeholder_leave_status(
+                            localize.leave_type_placeholder_text(
                                 leaveApplication.leave.leaveType.toString()),
                             style: AppFontStyle.bodySmallHeavy),
                       ),

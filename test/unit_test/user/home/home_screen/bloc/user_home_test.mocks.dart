@@ -313,10 +313,28 @@ class MockLeaveService extends _i1.Mock implements _i9.LeaveService {
         returnValue: _i6.Future<List<_i10.Leave>>.value(<_i10.Leave>[]),
       ) as _i6.Future<List<_i10.Leave>>);
   @override
-  _i6.Future<List<_i10.Leave>> getRequestedLeaveOfUser(String? id) =>
+  _i6.Future<List<_i10.Leave>> getRecentLeavesOfUser(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getRequestedLeaveOfUser,
+          #getRecentLeavesOfUser,
+          [id],
+        ),
+        returnValue: _i6.Future<List<_i10.Leave>>.value(<_i10.Leave>[]),
+      ) as _i6.Future<List<_i10.Leave>>);
+  @override
+  _i6.Future<List<_i10.Leave>> getPastLeavesOfUser(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPastLeavesOfUser,
+          [id],
+        ),
+        returnValue: _i6.Future<List<_i10.Leave>>.value(<_i10.Leave>[]),
+      ) as _i6.Future<List<_i10.Leave>>);
+  @override
+  _i6.Future<List<_i10.Leave>> getRequestedLeave(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRequestedLeave,
           [id],
         ),
         returnValue: _i6.Future<List<_i10.Leave>>.value(<_i10.Leave>[]),

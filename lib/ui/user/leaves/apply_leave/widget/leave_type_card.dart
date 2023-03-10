@@ -97,7 +97,7 @@ class LeaveTypeCard extends StatelessWidget {
                                     ),
                                     Flexible(
                                       child: Text(localization
-                                          .leave_type_placeholder_leave_status(
+                                          .leave_type_placeholder_text(
                                               key.toString())),
                                     ),
                                   ],

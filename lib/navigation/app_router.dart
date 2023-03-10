@@ -132,7 +132,7 @@ class AppRouter {
                             GoRoute(
                                 parentNavigatorKey: _adminShellNavigatorKey,
                                 name: Routes.adminEmployeeDetailsLeaves,
-                                path: 'time-off',
+                                path: 'time-off:employeeName',
                              routes: [
                                GoRoute(
                                    name: Routes.adminEmployeeDetailsLeavesDetails,
@@ -143,7 +143,7 @@ class AppRouter {
                                    }),
                              ],
                              pageBuilder: (context, state){
-                                  return MaterialPage(child: AdminEmployeeDetailsLeavesPage(employee: state.extra as Employee,));
+                                  return MaterialPage(child: AdminEmployeeDetailsLeavesPage(employeeName: state.params[RoutesParamsConst.employeeName] ?? "",employeeId: state.params[RoutesParamsConst.employeeId]!,));
                           }),
                             GoRoute(
                               parentNavigatorKey: _adminShellNavigatorKey,

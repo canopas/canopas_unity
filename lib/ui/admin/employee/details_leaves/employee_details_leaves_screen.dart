@@ -6,31 +6,31 @@ import 'widget/leave_list.dart';
 import '../../../../configs/colors.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../configs/theme.dart';
-import '../../../../model/employee/employee.dart';
 import 'bloc/admin_employee_details_leave_bloc.dart';
 import 'bloc/admin_employee_details_leave_events.dart';
 import 'bloc/admin_employee_details_leave_state.dart';
 
 class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
-  final Employee employee;
+  final String employeeName;
+  final String employeeId;
 
-  const AdminEmployeeDetailsLeavesPage({Key? key, required this.employee})
+  const AdminEmployeeDetailsLeavesPage({Key? key,   required this.employeeName, required this.employeeId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminEmployeeDetailsLeavesBLoc>()
-        ..add(AdminEmployeeDetailsLeavesInitEvent(employeeId: employee.id)),
-      child: AdminEmployeeDetailsLeavesScreen(employee: employee),
+        ..add(AdminEmployeeDetailsLeavesInitEvent(employeeId: employeeId)),
+      child: AdminEmployeeDetailsLeavesScreen(employeeName: employeeName),
     );
   }
 }
 
 class AdminEmployeeDetailsLeavesScreen extends StatefulWidget {
-  final Employee employee;
+  final String employeeName;
 
-  const AdminEmployeeDetailsLeavesScreen({Key? key, required this.employee})
+  const AdminEmployeeDetailsLeavesScreen({Key? key, required this.employeeName})
       : super(key: key);
 
   @override
@@ -41,6 +41,7 @@ class AdminEmployeeDetailsLeavesScreen extends StatefulWidget {
 class _AdminEmployeeDetailsLeavesScreenState
     extends State<AdminEmployeeDetailsLeavesScreen>
     with SingleTickerProviderStateMixin {
+
   late TabController tabController;
 
   @override
@@ -50,11 +51,17 @@ class _AdminEmployeeDetailsLeavesScreenState
   }
 
   @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).employee_details_leaves_title(
-            widget.employee.name.split(" ").first)),
+            widget.employeeName.split(" ").first)),
         bottom: TabBar(
           splashBorderRadius: AppTheme.commonBorderRadius,
           indicatorWeight: 2,
@@ -87,33 +94,33 @@ class _AdminEmployeeDetailsLeavesScreenState
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
             builder: (context, state) => LeaveList(
+                employeeName: widget.employeeName,
                 emptyStringTitle:
                     AppLocalizations.of(context).empty_recent_leaves_title,
                 emptyStringMessage: AppLocalizations.of(context)
-                    .empty_recent_leaves_message(widget.employee.name),
-                employee: widget.employee,
+                    .empty_recent_leaves_message(widget.employeeName),
                 isLoading: state.loading,
                 leaves: state.recentLeaves),
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
             builder: (context, state) => LeaveList(
+                employeeName: widget.employeeName,
                 emptyStringTitle:
                     AppLocalizations.of(context).empty_upcoming_leaves_title,
                 emptyStringMessage: AppLocalizations.of(context)
-                    .empty_upcoming_leaves_message(widget.employee.name),
-                employee: widget.employee,
+                    .empty_upcoming_leaves_message(widget.employeeName),
                 isLoading: state.loading,
                 leaves: state.upcomingLeaves,),
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
             builder: (context, state) => LeaveList(
+                employeeName: widget.employeeName,
                 emptyStringTitle:
                     AppLocalizations.of(context).empty_past_leaves_title,
                 emptyStringMessage: AppLocalizations.of(context)
-                    .empty_past_leaves_message(widget.employee.name),
-                employee: widget.employee,
+                    .empty_past_leaves_message(widget.employeeName),
                 isLoading: state.loading,
                 leaves: state.pastLeaves),
           ),

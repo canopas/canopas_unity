@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/configs/colors.dart';
 
+import '../../../model/leave/leave.dart';
+
 
 Color leaveStatusColor(int leaveStatus){
    if(leaveStatus == approveLeaveStatus) {

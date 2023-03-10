@@ -64,7 +64,7 @@ void main() {
     test(
         'Emits loading state and then success state with requests if user has applied for any request',
         () {
-      when(leaveService.getRequestedLeaveOfUser(employee.id))
+      when(leaveService.getRequestedLeave(employee.id))
           .thenAnswer((_) async => [leave]);
 
       expectLater(
@@ -77,7 +77,7 @@ void main() {
     });
 
     test('Emits loading state and then error state if exception is thrown', () {
-      when(leaveService.getRequestedLeaveOfUser(employee.id))
+      when(leaveService.getRequestedLeave(employee.id))
           .thenThrow(Exception(firestoreFetchDataError));
 
       expectLater(

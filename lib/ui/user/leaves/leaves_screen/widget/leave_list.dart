@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 import 'leave_card.dart';
 
 class LeaveList extends StatelessWidget {

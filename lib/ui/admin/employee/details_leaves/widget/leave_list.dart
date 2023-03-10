@@ -5,17 +5,16 @@ import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
 import '../../../../../core/utils/const/leave_map.dart';
 import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
-import '../../../../../router/app_router.dart';
+import '../../../../../navigation/app_router.dart';
 import '../../../../../widget/circular_progress_indicator.dart';
 import '../../../../../widget/empty_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class LeaveList extends StatelessWidget {
+  final String employeeName;
   final bool isLoading;
   final List<Leave> leaves;
-  final Employee employee;
   final String emptyStringTitle;
   final String emptyStringMessage;
 
@@ -23,9 +22,8 @@ class LeaveList extends StatelessWidget {
       {Key? key,
         required this.isLoading,
         required this.leaves,
-        required this.employee,
         required this.emptyStringTitle,
-        required this.emptyStringMessage})
+        required this.emptyStringMessage, required this.employeeName})
       : super(key: key);
 
   @override
@@ -40,10 +38,10 @@ class LeaveList extends StatelessWidget {
       itemBuilder: (context, leave) => LeaveCard(
             onTap: () {
               context.goNamed(Routes.adminEmployeeDetailsLeavesDetails,
-              extra: employee,
               params: {
                 RoutesParamsConst.employeeId : leaves[leave].uid,
                 RoutesParamsConst.leaveId : leaves[leave].leaveId,
+                RoutesParamsConst.employeeName : employeeName,
               });
         },
         leave: leaves[leave],
@@ -116,7 +114,7 @@ class LeaveCard extends StatelessWidget {
                     style: AppFontStyle.bodyMedium),
                 const SizedBox(height: 8),
                 Text(
-                    AppLocalizations.of(context).leave_type_placeholder_leave_status(
+                    AppLocalizations.of(context).leave_type_placeholder_text(
                         leave.leaveType.toString()),
                     style: AppFontStyle.bodyMedium),
               ],
