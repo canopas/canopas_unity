@@ -41,8 +41,7 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)
-            .admin_employee_detail_appbar_title_detail_tag),
+        title: Text(AppLocalizations.of(context).details_tag),
       ),
       body: BlocConsumer<UserEmployeeDetailBloc, UserEmployeeDetailState>(
           listenWhen: (previous, current) =>

@@ -5,16 +5,16 @@ import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
 
 import 'user_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([UserLeaveService, UserManager])
+@GenerateMocks([LeaveService, UserManager])
 void main() {
-  late UserLeaveService userLeaveService;
+  late LeaveService leaveService;
   late UserManager userManager;
   late UserLeaveBloc userLeaveBloc;
   const String employeeId = 'CA 1044';
@@ -44,9 +44,9 @@ void main() {
       appliedOn: today.timeStampToInt,
       perDayDuration: const [1]);
   setUp(() {
-    userLeaveService = MockUserLeaveService();
+    leaveService = MockLeaveService();
     userManager = MockUserManager();
-    userLeaveBloc = UserLeaveBloc(userManager, userLeaveService);
+    userLeaveBloc = UserLeaveBloc(userManager, leaveService);
   });
 
   group('UserLeaveBloc stream test', () {
@@ -59,7 +59,7 @@ void main() {
         () {
       userLeaveBloc.add(FetchUserLeaveEvent());
       when(userManager.employeeId).thenReturn(employeeId);
-      when(userLeaveService.getAllLeavesOfUser(employeeId))
+      when(leaveService.getAllLeavesOfUser(employeeId))
           .thenAnswer((_) async => [upcomingLeave, pastLeave]);
       expectLater(
           userLeaveBloc.stream,
@@ -73,7 +73,7 @@ void main() {
       userLeaveBloc.add(FetchUserLeaveEvent());
 
       when(userManager.employeeId).thenReturn(employeeId);
-      when(userLeaveService.getAllLeavesOfUser(employeeId))
+      when(leaveService.getAllLeavesOfUser(employeeId))
           .thenThrow(Exception('Couldn\'t load'));
       expectLater(
           userLeaveBloc.stream,

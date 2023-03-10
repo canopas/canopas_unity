@@ -54,7 +54,7 @@ class _AdminUpdateLeaveCountsScreenState
     final localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(localizations.admin_setting_edit_appbar_tag),
+        title: Text(localizations.edit_tag),
       ),
       body: BlocListener<AdminSettingUpdatePaidLeaveCountBloc,
           AdminSettingUpdateLeaveCountState>(
@@ -73,7 +73,8 @@ class _AdminUpdateLeaveCountsScreenState
             children: [
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(localizations.admin_total_yearly_paid_leave_text,
+                child: Text(
+                    localizations.admin_settings_total_yearly_paid_leave_tag,
                     style: AppFontStyle.labelRegular),
               ),
               const SizedBox(
@@ -94,11 +95,11 @@ class _AdminUpdateLeaveCountsScreenState
                 style: AppFontStyle.labelRegular,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
-                  hintStyle: AppFontStyle.labelGrey,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  hintText: localizations.total_paid_leaves,
-                ),
+                    hintStyle: AppFontStyle.labelGrey,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    hintText: localizations
+                        .admin_setting_update_leave_total_leaves_tag),
               ),
               const SizedBox(
                 height: primaryHorizontalSpacing,
@@ -123,7 +124,7 @@ class _AdminUpdateLeaveCountsScreenState
                               }
                             : null,
                         child: Text(
-                          AppLocalizations.of(context).update_button_text,
+                          AppLocalizations.of(context).sign_out_tag,
                           style: AppFontStyle.labelRegular,
                         )),
                   );

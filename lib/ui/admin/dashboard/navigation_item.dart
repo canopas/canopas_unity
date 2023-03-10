@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../router/app_router.dart';
+import '../../../navigation/app_router.dart';
 
 class BottomNavigationItem extends BottomNavigationBarItem {
   final String initialLocation;

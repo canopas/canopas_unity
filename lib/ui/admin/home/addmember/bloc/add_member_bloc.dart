@@ -5,7 +5,7 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../../services/admin/employee_service.dart';
+import '../../../../../services/employee_service.dart';
 import 'add_member_event.dart';
 import 'add_member_state.dart';
 
@@ -14,7 +14,7 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
   final EmployeeService _employeeService;
 
   AddMemberBloc(this._employeeService) : super(const AddMemberFormState()) {
-    on<SelectRoleTypeEvent>(_selectRoleType);
+    on<SelectRoleEvent>(_selectRole);
     on<AddEmployeeNameEvent>(_validateName);
     on<AddEmployeeIdEvent>(_validateEmployeeId);
     on<AddEmployeeDesignationEvent>(_validateEmployeeDesignation);
@@ -23,9 +23,8 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
     on<SubmitEmployeeFormEvent>(_submitForm);
   }
 
-  void _selectRoleType(
-      SelectRoleTypeEvent event, Emitter<AddMemberFormState> emit) {
-    emit(state.copyWith(role: event.roleType));
+  void _selectRole(SelectRoleEvent event, Emitter<AddMemberFormState> emit) {
+    emit(state.copyWith(role: event.role));
   }
 
   void _validateEmployeeId(

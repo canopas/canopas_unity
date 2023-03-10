@@ -31,7 +31,7 @@ class ApplyButton extends StatelessWidget {
                         .read<ApplyLeaveBloc>()
                         .add(ApplyLeaveSubmitFormEvent());
                   },
-                  child: Text(localization.user_apply_leave_button_apply_leave,
+                  child: Text(localization.user_leaves_apply_leave_button_tag,
                       style: AppFontStyle.buttonTextStyle
                           .copyWith(color: AppColors.whiteColor)))),
     );

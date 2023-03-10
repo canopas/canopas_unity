@@ -10,7 +10,7 @@ import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.d
 import '../../../../configs/colors.dart';
 import '../../../../model/employee/employee.dart';
 import '../../../../widget/error_snack_bar.dart';
-import 'bloc/emloyee_edit_profile_bloc.dart';
+import 'bloc/employee_edit_profile_bloc.dart';
 import 'bloc/employee_edit_profile_event.dart';
 import 'bloc/employee_edit_profile_state.dart';
 
@@ -62,6 +62,17 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    designationController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
+    bloodGroupController.dispose();
+    levelController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -108,16 +119,5 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    designationController.dispose();
-    phoneNumberController.dispose();
-    addressController.dispose();
-    bloodGroupController.dispose();
-    levelController.dispose();
-    super.dispose();
   }
 }

@@ -7,7 +7,7 @@ import 'package:projectunity/widget/error_snack_bar.dart';
 
 import '../../../../../di/service_locator.dart';
 import '../../../../core/utils/const/role.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import 'bloc/employee_detail_bloc.dart';
 import 'bloc/employee_detail_event.dart';
 import 'bloc/employee_detail_state.dart';
@@ -44,8 +44,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            AppLocalizations.of(context)
-                .admin_employee_detail_appbar_title_detail_tag,
+            AppLocalizations.of(context).details_tag,
           ),
           actions: [
             BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
@@ -74,8 +73,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         ),
                         PopupMenuItem(
                           child: Text(
-                            AppLocalizations.of(context)
-                                .user_leave_detail_button_delete,
+                            AppLocalizations.of(context).delete_button_tag,
                           ),
                           onTap: () {
                             context.read<EmployeeDetailBloc>().add(
@@ -87,13 +85,13 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         PopupMenuItem(
                           child: Text(state.employee.roleType == kRoleTypeAdmin
                               ? AppLocalizations.of(context)
-                                  .employee_details_remove_admin_tag
+                                  .admin_employee_details_remove_admin_tag
                               : AppLocalizations.of(context)
-                                  .employee_details_make_admin_tag),
+                                  .admin_employee_details_make_admin_tag),
                           onTap: () {
                             context
                                 .read<EmployeeDetailBloc>()
-                                .add(EmployeeDetailsChangeRoleTypeEvent());
+                                .add(EmployeeDetailsChangeRoleEvent());
                           },
                         ),
                       ],

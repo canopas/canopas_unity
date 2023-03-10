@@ -14,7 +14,7 @@ import '../../../../configs/colors.dart';
 import '../../../../configs/space_constant.dart';
 import '../../../../di/service_locator.dart';
 import '../../../../model/leave_application.dart';
-import '../../../../router/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
 import '../../../../widget/leave_details_widget/reason_content.dart';
 import '../../../../widget/leave_details_widget/user_content.dart';
@@ -59,7 +59,7 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
-          title: Text(localization.leave_detail_title),
+          title: Text(localization.details_tag),
         ),
         body: BlocConsumer<AdminLeaveDetailBloc, AdminLeaveDetailState>(
           listenWhen: (previous, current) =>
@@ -93,23 +93,26 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
                     perDayDurationWithDate:
                         widget.leaveApplication.leave.getDateAndDuration()),
                 ReasonField(
-                  title: localization.leave_reason_tag,
+                  title: localization.reason_tag,
                   reason: widget.leaveApplication.leave.reason,
                 ),
                 ReasonField(
                     reason: rejectionReason,
-                    title: localization.admin_leave_detail_message_title_text,
+                    title: localization.admin_leave_detail_note_tag,
                     hide: rejectionReason.isEmpty)
               ],
             );
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: widget.leaveApplication.leave.startDate.toDate.isBefore(DateTime.now())?null:LeaveDetailActionButton(
-          leaveStatus: widget.leaveApplication.leave.leaveStatus,
-          onTap: () => context.read<AdminLeaveDetailBloc>().add(
-              DeleteLeaveApplicationEvent(
-                  widget.leaveApplication.leave.leaveId)),
-        ));
+        floatingActionButton: widget.leaveApplication.leave.startDate.toDate
+                .isBefore(DateTime.now())
+            ? null
+            : LeaveDetailActionButton(
+                leaveStatus: widget.leaveApplication.leave.leaveStatus,
+                onTap: () => context.read<AdminLeaveDetailBloc>().add(
+                    DeleteLeaveApplicationEvent(
+                        widget.leaveApplication.leave.leaveId)),
+              ));
   }
 }

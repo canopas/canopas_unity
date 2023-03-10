@@ -1,28 +1,29 @@
 import 'package:equatable/equatable.dart';
 
-abstract class EmployeeDetailEvent extends Equatable{}
+abstract class EmployeeDetailEvent extends Equatable {}
 
-class EmployeeDetailInitialLoadEvent extends EmployeeDetailEvent{
+class EmployeeDetailInitialLoadEvent extends EmployeeDetailEvent {
   final String employeeId;
   EmployeeDetailInitialLoadEvent({required this.employeeId});
 
   @override
   List<Object?> get props => [employeeId];
 }
-class EmployeeDetailsChangeRoleTypeEvent extends EmployeeDetailEvent{
+
+class EmployeeDetailsChangeRoleEvent extends EmployeeDetailEvent {
   @override
   List<Object?> get props => [];
 }
 
-class DeleteEmployeeEvent extends EmployeeDetailEvent{
+class DeleteEmployeeEvent extends EmployeeDetailEvent {
   final String employeeId;
   DeleteEmployeeEvent({required this.employeeId});
 
   @override
   List<Object?> get props => [employeeId];
-
 }
-class EmployeeDisabled extends EmployeeDetailEvent{
+
+class EmployeeDisabled extends EmployeeDetailEvent {
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();

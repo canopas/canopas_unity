@@ -9,7 +9,7 @@ import 'package:projectunity/model/leave_application.dart';
 import '../../configs/colors.dart';
 import '../../core/utils/const/leave_screen_type_map.dart';
 import '../../model/leave/leave.dart';
-import '../router/app_router.dart';
+import '../navigation/app_router.dart';
 
 class LeaveCard extends StatelessWidget {
   final LeaveApplication leaveApplication;

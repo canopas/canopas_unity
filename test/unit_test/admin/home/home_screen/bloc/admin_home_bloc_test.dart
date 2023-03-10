@@ -6,22 +6,20 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/services/admin/employee_service.dart';
-import 'package:projectunity/services/admin/leave_service.dart';
-import 'package:projectunity/services/admin/paid_leave_service.dart';
-import 'package:projectunity/services/user/user_leave_service.dart';
+import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/services/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_state.dart';
 
 import 'admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [EmployeeService, AdminLeaveService, PaidLeaveService, UserLeaveService])
+@GenerateMocks([EmployeeService, LeaveService, PaidLeaveService])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
-  late AdminLeaveService adminLeaveService;
+  late LeaveService leaveService;
 
   late AdminHomeBloc adminHomeBloc;
 
@@ -55,10 +53,10 @@ void main() {
 
   setUp(() {
     employeeService = MockEmployeeService();
-    adminLeaveService = MockAdminLeaveService();
+    leaveService = MockLeaveService();
 
     adminHomeBloc = AdminHomeBloc(
-      adminLeaveService,
+      leaveService,
       employeeService,
     );
   });
@@ -68,7 +66,7 @@ void main() {
       expect(adminHomeBloc.state, initialState);
     });
     test('Emits failure state due to any exception', () {
-      when(adminLeaveService.getAllAbsence()).thenAnswer((_) async {
+      when(leaveService.getAllAbsence()).thenAnswer((_) async {
         return [leave, leave];
       });
 
@@ -89,7 +87,7 @@ void main() {
 
       when(employeeService.employees)
           .thenAnswer((_) => Stream.fromIterable([employeeList]));
-      when(adminLeaveService.leaves)
+      when(leaveService.leaves)
           .thenAnswer((_) => Stream.fromIterable([leaveList]));
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
@@ -123,11 +121,11 @@ void main() {
       List<Employee> employees = [empl];
       List<Leave> leaves = [leave];
 
-      when(adminLeaveService.getAllAbsence())
+      when(leaveService.getAllAbsence())
           .thenAnswer((_) async => [leave, leave]);
       when(employeeService.employees)
           .thenAnswer((_) => Stream.fromIterable([employees]));
-      when(adminLeaveService.leaves)
+      when(leaveService.leaves)
           .thenAnswer((_) => Stream.fromIterable([leaves]));
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());

@@ -2,15 +2,16 @@ import 'package:projectunity/core/extensions/date_time.dart';
 
 import '../utils/const/leave_time_constants.dart';
 
-extension MapExtensions on Map<DateTime,int> {
+extension MapExtensions on Map<DateTime, int> {
   Map<DateTime, int> getSelectedLeaveOfTheDays(
-      {required DateTime startDate,
-        required DateTime endDate}) {
+      {required DateTime startDate, required DateTime endDate}) {
     List<DateTime> dates = [];
-    if (startDate.isAfter(endDate) || startDate.isAtSameMomentAs(endDate)) {
+    if (startDate.isAtSameMomentAs(endDate)) {
       dates = [startDate];
-    } else {
-      dates = List.generate(endDate.difference(startDate).inDays, (days) => startDate.add(Duration(days: days)))..add(endDate);
+    } else if (startDate.timeStampToInt < endDate.timeStampToInt) {
+      dates = List.generate(endDate.difference(startDate).inDays,
+          (days) => startDate.add(Duration(days: days)))
+        ..add(endDate);
     }
     for (var date in dates) {
       putIfAbsent(date.dateOnly, () => date.isWeekend ? noLeave : fullLeave);

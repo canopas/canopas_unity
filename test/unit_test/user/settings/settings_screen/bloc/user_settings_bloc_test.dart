@@ -5,7 +5,7 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/pref/user_preference.dart';
 import 'package:projectunity/provider/user_data.dart';
-import 'package:projectunity/services/auth/auth_service.dart';
+import 'package:projectunity/services/auth_service.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_event.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_state.dart';

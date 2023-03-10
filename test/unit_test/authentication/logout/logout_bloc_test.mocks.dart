@@ -11,7 +11,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/model/employee/employee.dart' as _i2;
 import 'package:projectunity/pref/user_preference.dart' as _i6;
 import 'package:projectunity/provider/user_data.dart' as _i7;
-import 'package:projectunity/services/auth/auth_service.dart' as _i3;
+import 'package:projectunity/services/auth_service.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

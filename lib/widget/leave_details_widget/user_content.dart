@@ -5,7 +5,7 @@ import 'package:projectunity/widget/user_profile_image.dart';
 
 import '../../configs/space_constant.dart';
 import '../../model/employee/employee.dart';
-import '../../router/app_router.dart';
+import '../../navigation/app_router.dart';
 
 class UserContent extends StatelessWidget {
   final Employee employee;
@@ -18,7 +18,7 @@ class UserContent extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () => context.pushNamed(Routes.adminEmployeeDetail,
-            params: {'employeeId': employee.id}),
+            params: {RoutesParamsConst.employeeId: employee.id}),
         child: Padding(
           padding: const EdgeInsets.symmetric(
               vertical: primaryHalfSpacing, horizontal: primaryVerticalSpacing),

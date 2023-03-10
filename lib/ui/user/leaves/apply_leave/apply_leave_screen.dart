@@ -43,7 +43,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          localization.leave_request_tag,
+          localization.user_leaves_apply_appbar_tag,
         ),
       ),
       body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
@@ -56,13 +56,13 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
           } else if (state.leaveRequestStatus == ApplyLeaveStatus.success) {
             showSnackBar(
                 context: context,
-                msg: localization.user_apply_leave_success_message);
+                msg: localization.user_leaves_apply_leave_success_message);
             context.pop();
           }
         },
         child: ListView(
           padding: const EdgeInsets.only(top: primaryHalfSpacing, bottom: 80),
-          children:  const [
+          children: const [
             LeaveTypeCard(),
             LeaveRequestDateSelection(),
             LeaveRequestDateRange(),
