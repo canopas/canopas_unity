@@ -124,7 +124,7 @@ class _AdminUpdateLeaveCountsScreenState
                               }
                             : null,
                         child: Text(
-                          AppLocalizations.of(context).sign_out_tag,
+                          AppLocalizations.of(context).update_tag,
                           style: AppFontStyle.labelRegular,
                         )),
                   );
