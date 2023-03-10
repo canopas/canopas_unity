@@ -33,4 +33,5 @@ class UserManager with ChangeNotifier {
   }
 
   bool get isAdmin => _employee?.roleType == kRoleTypeAdmin;
+  bool get isHR => _employee?.roleType == kRoleTypeHR;
 }
