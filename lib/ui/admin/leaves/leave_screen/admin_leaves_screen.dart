@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/expandable_list.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
 
+import '../../../../navigation/app_router.dart';
 import 'bloc /admin_leave_event.dart';
 import 'bloc /admin_leaves_bloc.dart';
 import 'bloc /admin_leaves_state.dart';
@@ -37,6 +39,21 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).leaves_tag),
+        actions: context.read<AdminLeavesBloc>().isHR?[
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: CircleAvatar(
+              backgroundColor: const Color(0xfff5f5f5),
+              child: IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    color: AppColors.darkGrey,
+                  ),
+                  onPressed: () => context.goNamed(Routes.applyHRLeave),
+
+            )),
+          ),
+        ]:null,
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
         listener: (context, state) {

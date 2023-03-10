@@ -44,8 +44,6 @@
     }
   },
 
-  "toggle_role_button_setting_hr" : "Change role",
-
   "user_detail_role_type": "{role, select, 1{Admin} 2{Employee} 3{HR} other{other}}",
   "@user_detail_role_type":{
     "description": "Pass the value of role to get role of user",
