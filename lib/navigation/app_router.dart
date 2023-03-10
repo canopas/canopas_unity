@@ -44,8 +44,7 @@ class AppRouter {
     return GoRouter(
         refreshListenable: userManager,
         debugLogDiagnostics: true,
-        initialLocation:
-            userManager.isAdmin ? Routes.adminHome : Routes.userHome,
+        initialLocation: userManager.isAdmin || userManager.isHR ? Routes.adminHome : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
         routes: [
           GoRoute(
@@ -101,6 +100,13 @@ class AppRouter {
                       return const MaterialPage(child: AdminLeavesPage());
                     },
                     routes: <GoRoute>[
+                      GoRoute(
+                        name: Routes.applyHRLeave,
+                        path: 'hr-apply-leave',
+                        pageBuilder: (context, state) => const MaterialPage(
+                          child: ApplyLeavePage(),
+                        ),
+                      ),
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.adminLeaveDetails,
@@ -263,10 +269,10 @@ class AppRouter {
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.loggedIn && loggingIn && userManager.isAdmin) {
+          if (userManager.loggedIn && loggingIn && (userManager.isAdmin || userManager.isHR)) {
             return Routes.adminHome;
           }
-          if (userManager.loggedIn && loggingIn && !userManager.isAdmin) {
+          if (userManager.loggedIn && loggingIn && !userManager.isAdmin && !userManager.isHR) {
             return Routes.userHome;
           }
           return null;
@@ -299,6 +305,7 @@ abstract class Routes {
   static const userEmployeeDetail = '/user-employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
   static const applyLeave = '/apply-leave';
+  static const applyHRLeave = '/hr-apply-leave';
   static const userCalender = 'user-calender';
   static const login = '/login';
   static const updateLeaveCount = '/paid-leave';

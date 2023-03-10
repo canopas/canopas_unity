@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/leave_application.dart';
-
+import 'package:projectunity/provider/user_data.dart';
 import '../../../../../model/employee/employee.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../services/employee_service.dart';
@@ -14,12 +14,16 @@ import 'admin_leaves_state.dart';
 @Injectable()
 class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
   final LeaveService _adminLeaveService;
+  final UserManager _userManager;
   final EmployeeService _employeeService;
 
-  AdminLeavesBloc(this._adminLeaveService, this._employeeService)
+  AdminLeavesBloc(
+      this._adminLeaveService, this._employeeService, this._userManager)
       : super(const AdminLeavesState()) {
     on<AdminLeavesInitialLoadEvent>(_initialLoad);
   }
+
+  bool get isHR => _userManager.isHR;
 
   void _initialLoad(
       AdminLeavesInitialLoadEvent event, Emitter<AdminLeavesState> emit) async {

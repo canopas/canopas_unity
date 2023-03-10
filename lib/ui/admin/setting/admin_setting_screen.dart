@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
@@ -81,7 +80,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                   context
                       .read<AdminSettingsBloc>()
                       .add(AdminSettingsLogOutEvent());
-                })
+                }),
           ],
         ),
       ),
