@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
-
 import '../../../../../configs/colors.dart';
 import '../../../../../core/utils/const/role.dart';
 
@@ -59,7 +58,7 @@ class ToggleButton extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                             localization
-                                .user_detail_role_type(roleTypeAlignment.key),
+                                .user_detail_role_type(roleTypeAlignment.key.toString()),
                             textAlign: TextAlign.start,
                             style: AppFontStyle.bodySmallHeavy),
                       ),
@@ -76,5 +75,6 @@ class ToggleButton extends StatelessWidget {
 
 Map<int, double> roleTypeSelectionToggleButtonAlignment = {
   kRoleTypeEmployee: -1,
+  kRoleTypeHR: 0,
   kRoleTypeAdmin: 1,
 };

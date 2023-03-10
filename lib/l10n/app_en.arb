@@ -18,19 +18,6 @@
   "update_tag": "Update",
 
 
-
-  "user_detail_role_type": "{role, plural, =1{Admin} =2{Employee} other{HR}}",
-  "@user_detail_role_type":{
-    "description": "Pass the value of role to get role of user",
-    "placeholders": {
-      "role":{
-        "type": "num",
-        "format":"compact"
-      }
-    }
-  },
-
-
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
   "@days_placeholder_leave":{
     "description": "Pass the value of leaves for leave days",
@@ -48,6 +35,16 @@
     "placeholders":{
       "leaveType":{
         "type":"String"
+      }
+    }
+  },
+
+  "user_detail_role_type": "{role, select, 1{Admin} 2{Employee} 3{HR} other{other}}",
+  "@user_detail_role_type":{
+    "description": "Pass the value of role to get role of user",
+    "placeholders": {
+      "role":{
+        "type": "String"
       }
     }
   },

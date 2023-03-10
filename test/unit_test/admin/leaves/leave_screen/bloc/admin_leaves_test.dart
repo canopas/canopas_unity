@@ -5,6 +5,7 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/model/leave/leave.dart';
 import 'package:projectunity/model/leave_application.dart';
+import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leave_event.dart';
@@ -13,16 +14,19 @@ import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_s
 
 import 'admin_leaves_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService])
+@GenerateMocks([EmployeeService, LeaveService, UserManager])
 void main() {
   late LeaveService leaveService;
   late EmployeeService employeeService;
+  late UserManager userManager;
   late AdminLeavesBloc bloc;
   group('Admin Leaves Test', () {
     setUp(() {
       leaveService = MockLeaveService();
       employeeService = MockEmployeeService();
-      bloc = AdminLeavesBloc(leaveService, employeeService);
+      userManager = MockUserManager();
+      bloc = AdminLeavesBloc(leaveService, employeeService,userManager);
+      when(userManager.isHR).thenReturn(true);
     });
     Leave leave = const Leave(
         leaveId: 'leave-id',
