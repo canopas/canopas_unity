@@ -43,7 +43,7 @@
 
 
  "leave_type_placeholder_text":"{leaveType, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave} other{other}}",
-  "@leave_type_placeholder_leave_status":{
+  "@leave_type_placeholder_text":{
     "description":"get leave type from leave status",
     "placeholders":{
       "leaveType":{
