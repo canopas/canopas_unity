@@ -276,7 +276,11 @@
 
   "settings_tag": "Settings",
   "employees_tag": "Employees",
-  "leaves_tag": "Leaves"
+  "leaves_tag": "Leaves",
+  "leave_already_applied_error_message":"leave request has been already applied!"
+
+
+
 
 
 }
