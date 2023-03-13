@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_detail_approve_rejection_message.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_action_button.dart';
@@ -110,9 +111,12 @@ class _AdminLeaveApplicationDetailScreenState
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AdminLeaveDetailsActionButton(
-        leaveID: widget.leaveApplication.leave.leaveId,
-      ),
+      floatingActionButton: widget.leaveApplication.leave.startDate.toDate
+              .isBefore(DateTime.now().dateOnly)
+          ? null
+          : AdminLeaveDetailsActionButton(
+              leaveID: widget.leaveApplication.leave.leaveId,
+            ),
     );
   }
 }

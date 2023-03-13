@@ -106,7 +106,7 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: widget.leaveApplication.leave.startDate.toDate
-                .isBefore(DateTime.now())
+                .isBefore(DateTime.now().dateOnly)
             ? null
             : LeaveDetailActionButton(
                 leaveStatus: widget.leaveApplication.leave.leaveStatus,
