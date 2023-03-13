@@ -41,16 +41,24 @@ class LeaveService {
     });
   }
 
-  Future<bool> checkLeaveAlreadyApplied({required String userId, required Map<DateTime,int> dateDuration}) async {
+  Future<bool> checkLeaveAlreadyApplied(
+      {required String userId,
+      required Map<DateTime, int> dateDuration}) async {
     final leaves = await _leaveDbCollection
         .where(FirestoreConst.uid, isEqualTo: userId)
         .get();
     return leaves.docs
         .map((doc) => doc.data())
         .where((leave) =>
-    leave.leaveStatus != rejectLeaveStatus && leave.getDateAndDuration().entries.map((e) =>
-          dateDuration.entries.contains(e)).toList().where((element) => element).isNotEmpty
-     )
+            leave.startDate >= dateDuration.keys.first.timeStampToInt &&
+            leave.endDate <= dateDuration.keys.last.timeStampToInt)
+        .where((leave) => leave
+            .getDateAndDuration()
+            .entries
+            .map((leaveDay) => dateDuration.entries
+                .map((selectedDay) => leaveDay == selectedDay)
+                .isNotEmpty)
+            .isNotEmpty)
         .isNotEmpty;
   }
 
