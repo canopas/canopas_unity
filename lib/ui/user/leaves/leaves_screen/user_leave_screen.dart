@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_card.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
@@ -45,54 +44,50 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
     return Scaffold(
-        backgroundColor: AppColors.whiteColor,
-        appBar: AppBar(
-          title: Text(
-            localization.leaves_tag,
-            style: AppFontStyle.appbarHeaderDark,
-          ),
-          backgroundColor: AppColors.whiteColor,
-          elevation: 0,
-          actions: [
-            TextButton(
-                onPressed: () => context.goNamed(Routes.applyLeave),
-                child: Text(localization.user_leave_apply_tag,
-                    style: AppFontStyle.buttonTextStyle))
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: BlocConsumer<UserLeaveBloc, UserLeaveState>(
-            listenWhen: (previous, current) => current is UserLeaveErrorState,
-            listener: (context, state) {
-              if (state is UserLeaveErrorState) {
-                showSnackBar(context: context, error: state.error);
-              }
-            },
-            buildWhen: (previous, current) => current is UserLeaveSuccessState,
-            builder: (context, state) {
-              if (state is UserLeaveLoadingState) {
-                return const AppCircularProgressIndicator();
-              } else if (state is UserLeaveSuccessState) {
-                List<Leave> upcoming = state.upcomingLeaves;
-                List<Leave> past = state.pastLeaves;
-                return ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    const LeaveCountCard(),
-                    const Divider(),
+      backgroundColor: AppColors.whiteColor,
+      appBar: AppBar(
+        title: Text(localization.leaves_tag),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: BlocConsumer<UserLeaveBloc, UserLeaveState>(
+          listenWhen: (previous, current) => current is UserLeaveErrorState,
+          listener: (context, state) {
+            if (state is UserLeaveErrorState) {
+              showSnackBar(context: context, error: state.error);
+            }
+          },
+          buildWhen: (previous, current) => current is UserLeaveSuccessState,
+          builder: (context, state) {
+            if (state is UserLeaveLoadingState) {
+              return const AppCircularProgressIndicator();
+            } else if (state is UserLeaveSuccessState) {
+              List<Leave> upcoming = state.upcomingLeaves;
+              List<Leave> past = state.pastLeaves;
+              return ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const LeaveCountCard(),
+                  const Divider(),
+                  if (state.upcomingLeaves.isNotEmpty)
                     LeaveList(
                         leaves: upcoming,
                         title: localization.user_leave_upcoming_leaves_tag),
+                  if (state.pastLeaves.isNotEmpty)
                     LeaveList(
                         leaves: past,
                         title: localization.user_leave_past_leaves_tag)
-                  ],
-                );
-              }
-              return Container();
-            },
-          ),
-        ));
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => context.goNamed(Routes.applyLeave),
+      ),
+    );
   }
 }
