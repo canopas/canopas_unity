@@ -25,54 +25,53 @@ class UserLeaveCard extends StatelessWidget {
         .leave_type_placeholder_leave_status(leave.leaveType.toString());
     final String leavePeriod = DateFormatter(localization).dateInLine(
         startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SizedBox(
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(leaveDuration, style: AppFontStyle.bodySmallRegular),
-                  Text(leavePeriod,
+
+    return GestureDetector(
+      onTap: () {
+        GoRouter.of(context).location == Routes.userHome
+            ? context.goNamed(Routes.userRequestDetail,
+                params: {RoutesParamsConst.leaveId: leave.leaveId})
+            : context.goNamed(Routes.userLeaveDetail,
+                params: {RoutesParamsConst.leaveId: leave.leaveId});
+      },
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            height: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(leaveDuration, style: AppFontStyle.bodySmallRegular),
+                    Text(leavePeriod,
+                        style: const TextStyle(
+                            color: AppColors.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                      leaveType,
                       style: const TextStyle(
-                          color: AppColors.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold)),
-                  Text(
-                    leaveType,
-                    style: const TextStyle(
-                        color: AppColors.primaryPink, fontSize: 15),
-                  )
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  if (GoRouter.of(context).location == Routes.userLeaves)
-                    LeaveStatusIcon(leaveStatus: leave.leaveStatus),
-                  IconButton(
-                      onPressed: () {
-                        GoRouter.of(context).location == Routes.userHome
-                            ? context.goNamed(Routes.userRequestDetail,
-                                params: {
-                                    RoutesParamsConst.leaveId: leave.leaveId
-                                  })
-                            : context.goNamed(Routes.userLeaveDetail, params: {
-                                RoutesParamsConst.leaveId: leave.leaveId
-                              });
-                      },
-                      icon: const Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        size: 12,
-                      ))
-                ],
-              )
-            ],
+                          color: AppColors.primaryPink, fontSize: 15),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    if (GoRouter.of(context).location == Routes.userLeaves)
+                      LeaveStatusIcon(leaveStatus: leave.leaveStatus),
+                    const Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      size: 12,
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

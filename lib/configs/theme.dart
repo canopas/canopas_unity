@@ -8,13 +8,13 @@ import 'package:table_calendar/table_calendar.dart'
 class AppTheme {
   static ThemeData get theme {
     return ThemeData(
-        //useMaterial3: true,
+        useMaterial3: true,
         scaffoldBackgroundColor: AppColors.whiteColor,
         appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             foregroundColor: AppColors.blackColor,
             elevation: 0,
-            toolbarHeight: appbarHeight,
+            centerTitle: true,
             titleTextStyle: AppFontStyle.appbarHeaderDark),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: AppColors.lightGreyColor,
@@ -46,8 +46,8 @@ class AppTheme {
           fixedSize: const Size.fromHeight(45),
         )),
         progressIndicatorTheme: const ProgressIndicatorThemeData(
-            color: AppColors.lightPrimaryBlue,
-            circularTrackColor: AppColors.primaryBlue),
+          color: AppColors.lightPrimaryBlue,
+        ),
         scrollbarTheme: const ScrollbarThemeData(
           radius: Radius.circular(12),
           thumbColor: MaterialStatePropertyAll(Color(0xffa0bef1)),
