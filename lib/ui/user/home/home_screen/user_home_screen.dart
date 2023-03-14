@@ -65,7 +65,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                         ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemBuilder: (context, leave) => LeaveCard(onTap: (){}, leave: state.requests[leave]),
+                            itemBuilder: (context, leave) => LeaveCard(onTap: (){
+                              context.goNamed(Routes.userRequestDetail, params: {RoutesParamsConst.leaveId: state.requests[leave].leaveId});
+                            }, leave: state.requests[leave]),
                             separatorBuilder:  (context, index) => const SizedBox(height: 16,),
                             itemCount: state.requests.length),
                       ]);
