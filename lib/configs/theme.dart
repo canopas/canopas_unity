@@ -17,9 +17,12 @@ class AppTheme {
             centerTitle: true,
             titleTextStyle: AppFontStyle.appbarHeaderDark),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: AppColors.lightGreyColor,
-            selectedItemColor: AppColors.darkBlue,
-            unselectedItemColor: AppColors.primaryBlue),
+            backgroundColor: AppColors.whiteColor,
+            landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: AppColors.blackColor,
+            unselectedItemColor: AppColors.secondaryText,
+            ),
         dividerTheme: const DividerThemeData(
           color: AppColors.dividerColor,
           indent: primaryHorizontalSpacing,
