@@ -9,7 +9,7 @@ import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../navigation/app_router.dart';
-import 'requests/leave_content.dart';
+import '../../../../../widget/leave_application_card.dart';
 
 class LeaveRequestList extends StatelessWidget {
   const LeaveRequestList({
@@ -64,7 +64,7 @@ class LeaveRequestList extends StatelessWidget {
                       vertical: primaryVerticalSpacing),
                   child: Column(
                     children: mapEntry.value
-                        .map((leaveApplication) => LeaveRequestCard(
+                        .map((leaveApplication) => LeaveApplicationCard(
                             onTap: () => context.goNamed(
                                 Routes.leaveApplicationDetail,
                                 extra: leaveApplication),

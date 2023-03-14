@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../navigation/app_router.dart';
-import 'leave_card.dart';
+import '../../../../../widget/leave_card.dart';
 
 class LeaveList extends StatelessWidget {
   final List<Leave> leaves;
@@ -37,7 +37,7 @@ class LeaveList extends StatelessWidget {
                         fontSize: 18),
                   )),
               collapsed: leaves.isNotEmpty
-                  ? UserLeaveCard(leave: leaves[0],
+                  ? LeaveCard(leave: leaves[0],
                   onTap:   () {
                   context.goNamed(Routes.userLeaveDetail, params: {
                     RoutesParamsConst.leaveId: leaves[0].leaveId
@@ -50,7 +50,7 @@ class LeaveList extends StatelessWidget {
                   itemCount: leaves.length,
                   itemBuilder: (context, index) {
                     Leave leave = leaves[index];
-                    return UserLeaveCard(
+                    return LeaveCard(
                       onTap: () {
                          context.goNamed(Routes.userLeaveDetail, params: {
                           RoutesParamsConst.leaveId: leave.leaveId

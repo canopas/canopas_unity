@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/model/leave_application.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
@@ -10,6 +11,7 @@ import '../../../../configs/space_constant.dart';
 import '../../../../configs/text_style.dart';
 import '../../../../configs/theme.dart';
 import '../../../../di/service_locator.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/calendar.dart';
 import '../../../../widget/leave_card.dart';
 import 'bloc/calendar_bloc/leave_calendar_bloc.dart';
@@ -114,7 +116,9 @@ class _UserLeaveCalendarScreenState extends State<UserLeaveCalendarScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication leaveApplication =
                           state.leaveApplications[index];
-                      return LeaveCard(leaveApplication: leaveApplication);
+                      return LeaveCard(leave: leaveApplication.leave, onTap: () => context.pushNamed(Routes.userLeaveDetail, params: {
+                        RoutesParamsConst.leaveId: leaveApplication.leave.leaveId
+                      }),);
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(
