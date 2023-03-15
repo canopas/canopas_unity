@@ -8,9 +8,7 @@ import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
-
 import '../../../../../model/employee/employee.dart';
-import '../../../../../provider/user_data.dart';
 import '../../../../../services/leave_service.dart';
 import '../../../../../services/paid_leave_service.dart';
 
@@ -19,10 +17,10 @@ class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  final UserManager _userManager;
   final PaidLeaveService _paidLeaveService;
-  EmployeeDetailBloc(this._paidLeaveService, this._employeeService,
-      this._leaveService, this._userManager)
+
+  EmployeeDetailBloc(
+      this._paidLeaveService, this._employeeService, this._leaveService)
       : super(EmployeeDetailInitialState()) {
     eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
       add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
@@ -39,7 +37,7 @@ class EmployeeDetailBloc
     try {
       Employee? employee = await _employeeService.getEmployee(event.employeeId);
       final double usedLeaves =
-          await _leaveService.getUserUsedLeaves(_userManager.employeeId);
+          await _leaveService.getUserUsedLeaves(event.employeeId);
       final int totalLeaves = await _paidLeaveService.getPaidLeaves();
       final percentage = usedLeaves / totalLeaves;
       if (employee != null) {
@@ -51,13 +49,10 @@ class EmployeeDetailBloc
       } else {
         emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
       }
-    } on Exception {
+    } on Exception catch (e){
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
   }
-
-  bool get currentUserIsAdmin => _userManager.isAdmin;
-  String get userEmployeeID => _userManager.employeeId;
 
   Future<void> _makeAndRemoveAsAdmin(EmployeeDetailsChangeRoleEvent event,
       Emitter<AdminEmployeeDetailState> emit) async {
