@@ -17,9 +17,12 @@ class AppTheme {
             centerTitle: true,
             titleTextStyle: AppFontStyle.appbarHeaderDark),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: AppColors.lightGreyColor,
-            selectedItemColor: AppColors.darkBlue,
-            unselectedItemColor: AppColors.primaryBlue),
+            backgroundColor: AppColors.whiteColor,
+            landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: AppColors.primaryBlue,
+            unselectedItemColor: AppColors.secondaryText,
+            ),
         dividerTheme: const DividerThemeData(
           color: AppColors.dividerColor,
           indent: primaryHorizontalSpacing,
@@ -36,6 +39,10 @@ class AppTheme {
           ),
           elevation: 0,
         )),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: AppColors.whiteColor,
+          backgroundColor: AppColors.primaryBlue,
+        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
           elevation: 0,

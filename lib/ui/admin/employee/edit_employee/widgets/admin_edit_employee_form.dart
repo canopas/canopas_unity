@@ -137,6 +137,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   previous.dateOfJoining != current.dateOfJoining,
               builder: (context, state) => ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: AppColors.darkText,
                     alignment: Alignment.centerLeft,
                     backgroundColor: AppColors.textFieldBg,
                     fixedSize: Size(MediaQuery.of(context).size.height, 53),

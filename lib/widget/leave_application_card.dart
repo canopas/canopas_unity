@@ -3,18 +3,19 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/model/leave_application.dart';
-
 import '../../../../../../configs/space_constant.dart';
 import '../../../../../../configs/text_style.dart';
 import '../../../../../../core/utils/const/leave_map.dart';
 import '../../../../../../core/utils/date_formatter.dart';
-import 'employee_content.dart';
+import '../model/employee/employee.dart';
+import 'package:projectunity/widget/user_profile_image.dart';
 
-class LeaveRequestCard extends StatelessWidget {
+
+class LeaveApplicationCard extends StatelessWidget {
   final void Function()? onTap;
   final LeaveApplication leaveApplication;
 
-  const LeaveRequestCard({Key? key, required this.leaveApplication, this.onTap})
+  const LeaveApplicationCard({Key? key, required this.leaveApplication, this.onTap})
       : super(key: key);
 
   @override
@@ -68,7 +69,7 @@ class LeaveRequestCard extends StatelessWidget {
                   ),
                   const Divider(
                       thickness: 1, height: 30, color: AppColors.dividerColor),
-                  EmployeeContent(
+                  _EmployeeContent(
                     employee: leaveApplication.employee,
                   ),
 
@@ -93,11 +94,11 @@ class _LeaveTypeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         color: leaveRequestCardColor[leaveType],
       ),
       padding: const EdgeInsets.symmetric(
-          vertical: 5, horizontal: primaryVerticalSpacing),
+          vertical: 4, horizontal: 10),
       child: Text(
         AppLocalizations.of(context)
             .leave_type_placeholder_text(leaveType.toString()),
@@ -114,9 +115,9 @@ class _LeaveDateContent extends StatelessWidget {
 
   const _LeaveDateContent(
       {Key? key,
-      required this.totalDays,
-      required this.startTimeStamp,
-      required this.endTimeStamp})
+        required this.totalDays,
+        required this.startTimeStamp,
+        required this.endTimeStamp})
       : super(key: key);
 
   @override
@@ -133,3 +134,46 @@ class _LeaveDateContent extends StatelessWidget {
     );
   }
 }
+
+class _EmployeeContent extends StatelessWidget {
+  final Employee employee;
+
+  const _EmployeeContent({Key? key, required this.employee}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ImageProfile(
+          borderColor: AppColors.blackColor,
+          borderSize: 1,
+          radius: 25,
+          imageUrl: employee.imageUrl,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              employee.name,
+              style: AppFontStyle.bodyMedium,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              employee.employeeId,
+              style: AppFontStyle.subTitleGrey,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+

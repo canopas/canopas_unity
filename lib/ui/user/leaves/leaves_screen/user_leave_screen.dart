@@ -48,41 +48,42 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
       appBar: AppBar(
         title: Text(localization.leaves_tag),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: BlocConsumer<UserLeaveBloc, UserLeaveState>(
-          listenWhen: (previous, current) => current is UserLeaveErrorState,
-          listener: (context, state) {
-            if (state is UserLeaveErrorState) {
-              showSnackBar(context: context, error: state.error);
-            }
-          },
-          buildWhen: (previous, current) => current is UserLeaveSuccessState,
-          builder: (context, state) {
-            if (state is UserLeaveLoadingState) {
-              return const AppCircularProgressIndicator();
-            } else if (state is UserLeaveSuccessState) {
-              List<Leave> upcoming = state.upcomingLeaves;
-              List<Leave> past = state.pastLeaves;
-              return ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const LeaveCountCard(),
-                  const Divider(),
-                  if (state.upcomingLeaves.isNotEmpty)
-                    LeaveList(
-                        leaves: upcoming,
-                        title: localization.user_leave_upcoming_leaves_tag),
-                  if (state.pastLeaves.isNotEmpty)
-                    LeaveList(
-                        leaves: past,
-                        title: localization.user_leave_past_leaves_tag)
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
+      body: BlocConsumer<UserLeaveBloc, UserLeaveState>(
+        listenWhen: (previous, current) => current is UserLeaveErrorState,
+        listener: (context, state) {
+          if (state is UserLeaveErrorState) {
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        buildWhen: (previous, current) => current is UserLeaveSuccessState,
+        builder: (context, state) {
+          if (state is UserLeaveLoadingState) {
+            return const AppCircularProgressIndicator();
+          } else if (state is UserLeaveSuccessState) {
+            List<Leave> upcoming = state.upcomingLeaves;
+            List<Leave> past = state.pastLeaves;
+            return ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: LeaveCountCard(),
+                ),
+                const Divider(),
+                if (state.upcomingLeaves.isNotEmpty)
+                  LeaveList(
+                      leaves: upcoming,
+                      title: localization.user_leave_upcoming_leaves_tag),
+
+                if (state.pastLeaves.isNotEmpty)
+                  LeaveList(
+                      leaves: past,
+                      title: localization.user_leave_past_leaves_tag)
+              ],
+            );
+          }
+          return Container();
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

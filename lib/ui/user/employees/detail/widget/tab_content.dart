@@ -6,7 +6,7 @@ import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../navigation/app_router.dart';
-import '../../../leaves/leaves_screen/widget/leave_card.dart';
+import '../../../../../widget/leave_card.dart';
 
 class TabContent extends StatelessWidget {
   final List<Leave> leaves;
@@ -46,7 +46,7 @@ class LeaveButton extends StatelessWidget {
               itemCount: leaves.length,
               itemBuilder: (context, index) {
                 Leave leave = leaves[index];
-                return UserLeaveCard(
+                return LeaveCard(
                      onTap:  () {
                      context.goNamed(Routes.userLeaveDetail, params: {
                       RoutesParamsConst.leaveId: leave.leaveId

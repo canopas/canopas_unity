@@ -53,14 +53,12 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
             }
           },
           builder: (context, state) {
-            if (state is UserEmployeeDetailInitialState) {
-              return Container();
-            }
             if (state is UserEmployeeDetailLoadingState) {
               return const AppCircularProgressIndicator();
             }
             if (state is UserEmployeeDetailSuccessState) {
               return ListView(
+                padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
                 children: [
                   ProfileCard(employee: state.employee),
                   const Divider(
@@ -69,6 +67,7 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
                     endIndent: primaryHorizontalSpacing,
                   ),
                   EmployeeInfo(employee: state.employee),
+                  if (state.upcomingLeaves.isNotEmpty)
                   const Divider(
                     indent: primaryHorizontalSpacing,
                     endIndent: primaryHorizontalSpacing,
@@ -79,7 +78,7 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
                 ],
               );
             }
-            return Container();
+            return const SizedBox();
           }),
     );
   }
