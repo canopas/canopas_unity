@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:projectunity/core/extensions/map_extension.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../../../core/utils/const/leave_time_constants.dart';
 import '../../../../../model/leave/leave.dart';
 import '../../../../../model/leave_count.dart';
@@ -131,8 +131,15 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
           leaveRequestStatus: ApplyLeaveStatus.failure));
     } else {
       try {
-        await _leaveService.applyForLeave(_getLeaveData());
-        emit(state.copyWith(leaveRequestStatus: ApplyLeaveStatus.success));
+        final leaveAlreadyExist = await _leaveService.checkLeaveAlreadyApplied(userId: _userManager.employeeId, dateDuration: _getLeaveData().getDateAndDuration());
+        if(leaveAlreadyExist){
+          emit(state.copyWith(
+              error: alreadyLeaveAppliedError,
+              leaveRequestStatus: ApplyLeaveStatus.failure));
+        } else {
+          await _leaveService.applyForLeave(_getLeaveData());
+          emit(state.copyWith(leaveRequestStatus: ApplyLeaveStatus.success));
+        }
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,
@@ -147,8 +154,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
     DateTime firstDate = entries.first.key;
     DateTime lastDate = entries.last.key;
     Map<DateTime, int> selectedDates = state.selectedDates
-      ..removeWhere(
-          (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
+      ..removeWhere((key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
     return Leave(
       leaveId: const Uuid().v4(),
       uid: _userManager.employeeId,

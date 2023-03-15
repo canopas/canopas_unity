@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/core/extensions/date_time.dart';
+import 'package:projectunity/core/extensions/leave_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../core/utils/const/firestore.dart';
@@ -38,6 +39,27 @@ class LeaveService {
     }).listen((event) {
       _leaves.add(event);
     });
+  }
+
+  Future<bool> checkLeaveAlreadyApplied(
+      {required String userId,
+      required Map<DateTime, int> dateDuration}) async {
+    final leaves = await _leaveDbCollection
+        .where(FirestoreConst.uid, isEqualTo: userId)
+        .get();
+    return leaves.docs
+        .map((doc) => doc.data())
+        .where((leave) =>
+            leave.startDate >= dateDuration.keys.first.timeStampToInt &&
+            leave.endDate <= dateDuration.keys.last.timeStampToInt)
+        .where((leave) => leave
+            .getDateAndDuration()
+            .entries
+            .map((leaveDay) => dateDuration.entries
+                .map((selectedDay) => leaveDay == selectedDay)
+                .isNotEmpty)
+            .isNotEmpty)
+        .isNotEmpty;
   }
 
   Future<List<Leave>> getRecentLeaves() async {
