@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/services/leave_service.dart';
 import 'package:projectunity/services/paid_leave_service.dart';
@@ -13,12 +12,11 @@ import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([EmployeeService, LeaveService, PaidLeaveService])
 void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late LeaveService leaveService;
-  late UserManager userManager;
   late PaidLeaveService paidLeaveService;
   Employee employee = const Employee(
       id: 'id',
@@ -38,17 +36,14 @@ void main() {
   setUp(() {
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
-    userManager = MockUserManager();
     paidLeaveService = MockPaidLeaveService();
     employeeDetailBloc = EmployeeDetailBloc(
       paidLeaveService,
       employeeService,
       leaveService,
-      userManager,
     );
     when(leaveService.getUserUsedLeaves(employee.id))
         .thenAnswer((_) async => 10);
-    when(userManager.employeeId).thenReturn(employee.id);
     when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
   });
 

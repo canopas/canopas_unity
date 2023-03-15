@@ -49,7 +49,7 @@ class EmployeeDetailBloc
       } else {
         emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
       }
-    } on Exception catch (e){
+    } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
   }
