@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/configs/theme.dart';
+import 'package:projectunity/core/extensions/date_time.dart';
 import 'package:projectunity/core/utils/date_formatter.dart';
 import '../../configs/colors.dart';
 import '../../model/leave/leave.dart';
 import '../core/utils/const/leave_map.dart';
 
-class _LeaveTypeContent extends StatelessWidget {
+class _LeaveTypeView extends StatelessWidget {
   final int leaveType;
 
-  const _LeaveTypeContent({Key? key, required this.leaveType})
-      : super(key: key);
+  const _LeaveTypeView({Key? key, required this.leaveType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,41 @@ class _LeaveTypeContent extends StatelessWidget {
   }
 }
 
+class _LeaveStatusView extends StatelessWidget {
+  final int status;
 
+  const _LeaveStatusView({Key? key, required this.status}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Icon getLeaveStatusIcon() {
+      if (status == approveLeaveStatus) {
+        return const Icon(Icons.done_all_rounded,
+            color: AppColors.greenColor, size: 20);
+      } else if (status == rejectLeaveStatus) {
+        return const Icon(Icons.clear_rounded,
+            color: AppColors.redColor, size: 20);
+      }
+      return const Icon(Icons.query_builder,
+          color: AppColors.secondaryText, size: 20);
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        children: [
+          getLeaveStatusIcon(),
+          const SizedBox(width: 5),
+          Text(
+            AppLocalizations.of(context)
+                .leave_status_placeholder_text(status.toString()),
+            style: AppFontStyle.labelRegular,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class LeaveCard extends StatelessWidget {
   final bool hideStatus;
@@ -67,7 +101,7 @@ class LeaveCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _LeaveTypeContent(leaveType: leave.leaveType),
+                    _LeaveTypeView(leaveType: leave.leaveType),
                     Text(
                       DateFormatter(AppLocalizations.of(context))
                           .getLeaveDurationPresentation(leave.totalLeaves)
@@ -94,15 +128,11 @@ class LeaveCard extends StatelessWidget {
                                     startTimeStamp: leave.startDate,
                                     endTimeStamp: leave.endDate),
                             style: AppFontStyle.bodyMedium),
-                       hideStatus?const SizedBox():
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            AppLocalizations.of(context)
-                                  .leave_status_placeholder_text(leave.leaveStatus.toString()),
-                              style: AppFontStyle.labelRegular,
-                            ),
-                        ),
+                        hideStatus
+                            ? const SizedBox()
+                            : _LeaveStatusView(
+                                status: leave.leaveStatus,
+                              ),
                       ],
                     ),
                     const Icon(

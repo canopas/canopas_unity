@@ -21,7 +21,7 @@ class UserHomeScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
+          getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
       child: const UserHomeScreen(),
     );
   }
@@ -52,25 +52,40 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           BlocConsumer<UserHomeBloc, UserHomeState>(
               builder: (context, state) {
                 if (state is UserHomeSuccessState) {
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 25, bottom: 10),
-                          child: Text(
-                              AppLocalizations.of(context)
-                                  .user_home_requests_tag,
-                              style: Theme.of(context).textTheme.headlineSmall),
-                        ),
-                        ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, leave) => LeaveCard(onTap: (){
-                              context.goNamed(Routes.userRequestDetail, params: {RoutesParamsConst.leaveId: state.requests[leave].leaveId});
-                            }, leave: state.requests[leave]),
-                            separatorBuilder:  (context, index) => const SizedBox(height: 16,),
-                            itemCount: state.requests.length),
-                      ]);
+                  return state.requests.isEmpty
+                      ? const SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 25, bottom: 10),
+                                child: Text(
+                                    AppLocalizations.of(context)
+                                        .user_home_requests_tag,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
+                              ),
+                              ListView.separated(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, leave) => LeaveCard(
+                                      onTap: () {
+                                        context.goNamed(
+                                            Routes.userRequestDetail,
+                                            params: {
+                                              RoutesParamsConst.leaveId:
+                                                  state.requests[leave].leaveId
+                                            });
+                                      },
+                                      leave: state.requests[leave]),
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                  itemCount: state.requests.length),
+                            ]);
                 }
                 return const SizedBox();
               },

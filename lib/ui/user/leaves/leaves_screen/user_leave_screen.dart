@@ -85,9 +85,12 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
           return Container();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        foregroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.primaryBlue,
+        icon: const Icon(Icons.add),
         onPressed: () => context.goNamed(Routes.applyLeave),
+        label:  Text(AppLocalizations.of(context).user_leave_apply_tag),
       ),
     );
   }
