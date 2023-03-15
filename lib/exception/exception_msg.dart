@@ -38,6 +38,9 @@ extension ExceptionMessage on String {
       case somethingWentWrongError:
         msg = appLocale.error_something_went_wrong;
         break;
+      case alreadyLeaveAppliedError:
+        msg = appLocale.leave_already_applied_error_message;
+        break;
       default:
         msg = appLocale.error_something_went_wrong;
         break;

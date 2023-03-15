@@ -40,6 +40,9 @@ void main() {
           ApplyLeaveBloc(userManager, paidLeaveService, leaveService);
 
       when(userManager.employeeId).thenReturn("id");
+      when(leaveService.checkLeaveAlreadyApplied(
+          userId: 'id',
+          dateDuration: {DateTime(2000): 1})).thenAnswer((_) async => true);
     });
 
     test("fetch user leave count test", () {
@@ -259,7 +262,77 @@ void main() {
           ]));
     });
 
+    test('on apply already leave applied error test', () async {
+      when(leaveService.checkLeaveAlreadyApplied(
+              userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
+          .thenAnswer((_) async => true);
+      Map<DateTime, int> updatedSelectedLeaves = {
+        currentDate: 3
+      }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
+      double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
+
+      final entries =
+          updatedSelectedLeaves.entries.where((day) => day.value != noLeave);
+      DateTime firstDate = entries.first.key;
+      DateTime lastDate = entries.last.key;
+      Map<DateTime, int> selectedDates = updatedSelectedLeaves
+        ..removeWhere(
+            (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
+
+      Leave leave = Leave(
+        leaveId: "1234",
+        uid: "id",
+        leaveType: 0,
+        startDate: firstDate.timeStampToInt,
+        endDate: lastDate.timeStampToInt,
+        totalLeaves: totalDays,
+        reason: "reason",
+        leaveStatus: pendingLeaveStatus,
+        appliedOn: currentDate.timeStampToInt,
+        perDayDuration: selectedDates.values.toList(),
+      );
+
+      when(leaveService.applyForLeave(leave)).thenAnswer((_) async {});
+      leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));
+      leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
+      leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
+
+      expect(
+          leaveRequestBloc.stream,
+          emitsInOrder([
+            ApplyLeaveState(
+                startDate: currentDate,
+                endDate: futureDate,
+                selectedDates: selectedDates,
+                totalLeaveDays: totalDays),
+            ApplyLeaveState(
+                startDate: currentDate,
+                endDate: futureDate,
+                selectedDates: selectedDates,
+                totalLeaveDays: totalDays,
+                reason: "reason"),
+            ApplyLeaveState(
+                startDate: currentDate,
+                endDate: futureDate,
+                selectedDates: selectedDates,
+                totalLeaveDays: totalDays,
+                reason: "reason",
+                leaveRequestStatus: ApplyLeaveStatus.loading),
+            ApplyLeaveState(
+                startDate: currentDate,
+                endDate: futureDate,
+                selectedDates: selectedDates,
+                totalLeaveDays: totalDays,
+                reason: "reason",
+                error: alreadyLeaveAppliedError,
+                leaveRequestStatus: ApplyLeaveStatus.failure),
+          ]));
+    });
+
     test('on apply success test', () async {
+      when(leaveService.checkLeaveAlreadyApplied(
+              userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
+          .thenAnswer((_) async => false);
       Map<DateTime, int> updatedSelectedLeaves = {
         currentDate: 3
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
