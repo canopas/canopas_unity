@@ -20,7 +20,9 @@ class LeaveService {
 
   StreamSubscription<List<Leave>>? _leaveStreamSubscription;
   final BehaviorSubject<List<Leave>> _leaves = BehaviorSubject();
+
   Stream<List<Leave>> get leaves => _leaves.stream;
+
   LeaveService() {
     fetchLeaves();
   }
@@ -161,6 +163,7 @@ class LeaveService {
 
   Future<double> getUserUsedLeaves(String id) async {
     DateTime currentTime = DateTime.now();
+
     final data = await _leaveDbCollection
         .where(FirestoreConst.uid, isEqualTo: id)
         .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
@@ -168,19 +171,12 @@ class LeaveService {
 
     List<Leave> approvedLeaves = data.docs.map((doc) => doc.data()).toList();
     double leaveCount = 0.0;
-
     approvedLeaves
         .where((leave) =>
             leave.startDate < currentTime.millisecondsSinceEpoch &&
             leave.startDate.toDate.year == currentTime.year)
         .forEach((leave) {
-      int weekendDays = List.generate(
-              leave.endDate.toDate.difference(leave.startDate.toDate).inDays,
-              (differenceByDays) =>
-                  leave.startDate.toDate.add(Duration(days: differenceByDays)))
-          .where((date) => date.isWeekend)
-          .length;
-      leaveCount += leave.totalLeaves - weekendDays;
+      leaveCount += leave.totalLeaves;
     });
     return leaveCount;
   }
