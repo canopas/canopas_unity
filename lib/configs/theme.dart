@@ -20,7 +20,7 @@ class AppTheme {
             backgroundColor: AppColors.whiteColor,
             landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColors.blackColor,
+            selectedItemColor: AppColors.primaryBlue,
             unselectedItemColor: AppColors.secondaryText,
             ),
         dividerTheme: const DividerThemeData(
@@ -39,6 +39,10 @@ class AppTheme {
           ),
           elevation: 0,
         )),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: AppColors.whiteColor,
+          backgroundColor: AppColors.primaryBlue,
+        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
           elevation: 0,
