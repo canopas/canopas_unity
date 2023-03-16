@@ -129,7 +129,7 @@ class AppRouter {
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.adminEmployeeDetail,
-                          path: ':employeeId',
+                          path: 'employeeDetails:employeeId',
                           pageBuilder: (context, state) => MaterialPage(
                               child: EmployeeDetailPage(
                                   id: state

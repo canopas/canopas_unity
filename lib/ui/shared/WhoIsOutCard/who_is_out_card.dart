@@ -60,7 +60,7 @@ class WhoIsOutCard extends StatelessWidget {
                     state.status == WhoOIsOutCardStatus.loading
                         ? const Padding(
                             padding: EdgeInsets.all(primaryHorizontalSpacing),
-                            child: AppCircularProgressIndicator(),
+                            child: ThreeBounceLoading(size: 15,color: AppColors.primaryBlue),
                           )
                         : _AbsenceEmployeesListWhoIsOutCardView(
                             absence: state.absence,

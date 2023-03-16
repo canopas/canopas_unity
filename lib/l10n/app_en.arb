@@ -271,7 +271,8 @@
   "fill_all_details_error":"Please fill all details",
   "invalid_date_selection_error":"Please select valid date",
   "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
-"add_member_employee_exists_error": "Member already exists!",
+  "add_member_employee_exists_error": "Member already exists!",
+  "leave_already_applied_error_message":"leave request has been already applied!",
 
 
   "settings_tag": "Settings",

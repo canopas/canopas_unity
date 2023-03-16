@@ -249,6 +249,22 @@ class MockLeaveService extends _i1.Mock implements _i9.LeaveService {
         returnValueForMissingStub: null,
       );
   @override
+  _i6.Future<bool> checkLeaveAlreadyApplied({
+    required String? userId,
+    required Map<DateTime, int>? dateDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkLeaveAlreadyApplied,
+          [],
+          {
+            #userId: userId,
+            #dateDuration: dateDuration,
+          },
+        ),
+        returnValue: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
+  @override
   _i6.Future<List<_i10.Leave>> getRecentLeaves() => (super.noSuchMethod(
         Invocation.method(
           #getRecentLeaves,
