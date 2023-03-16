@@ -93,6 +93,7 @@ class _AdminEmployeeDetailsLeavesScreenState
         children: <Widget>[
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
+            buildWhen: (previous, current) => previous.recentLeaves != current.recentLeaves,
             builder: (context, state) => LeaveList(
                 employeeName: widget.employeeName,
                 emptyStringTitle:
@@ -104,6 +105,7 @@ class _AdminEmployeeDetailsLeavesScreenState
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
+            buildWhen: (previous, current) => previous.upcomingLeaves != current.upcomingLeaves,
             builder: (context, state) => LeaveList(
                 employeeName: widget.employeeName,
                 emptyStringTitle:
@@ -115,6 +117,7 @@ class _AdminEmployeeDetailsLeavesScreenState
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
+            buildWhen: (previous, current) => previous.pastLeaves != current.pastLeaves,
             builder: (context, state) => LeaveList(
                 employeeName: widget.employeeName,
                 emptyStringTitle:
