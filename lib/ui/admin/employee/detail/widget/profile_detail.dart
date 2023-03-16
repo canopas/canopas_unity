@@ -62,14 +62,12 @@ class TimeOffCard extends StatelessWidget {
     Key? key,
     required this.percentage,
     required this.usedLeaves,
-    required this.paidLeaves,
-    required this.employeeId,
+    required this.paidLeaves, required this.employee,
   }) : super(key: key);
-
+  final Employee employee;
   final double percentage;
   final double usedLeaves;
   final int paidLeaves;
-  final String employeeId;
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +85,10 @@ class TimeOffCard extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
-          onTap: () => context.goNamed(Routes.userCalenderForAdmin,
-              params: {RoutesParamsConst.employeeId: employeeId}),
+          onTap: () => context.goNamed(Routes.adminEmployeeDetailsLeaves,params: {
+            RoutesParamsConst.employeeId:employee.id,
+            RoutesParamsConst.employeeName:employee.name,
+          }),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
+import 'package:projectunity/configs/theme.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 import '../bloc/leave_count/user_leave_count_bloc.dart';
@@ -14,66 +14,50 @@ class LeaveCountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: LeaveContainer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: BlocBuilder<UserLeaveCountBloc, UserLeaveCountState>(
-              builder: (context, state) {
-            final double usedLeaves = state.used!;
-            final int totalLeaves = state.totalLeaves!;
-            final double percentage = state.leavePercentage!;
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircularProgressIndicator(
-                  strokeWidth: 12,
-                  backgroundColor: AppColors.lightPrimaryBlue,
-                  value: percentage,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '$usedLeaves/$totalLeaves',
-                      style: AppFontStyle.headerGrey,
-                    ),
-                    Text(
-                      AppLocalizations.of(context).user_leave_used_leaves_tag,
-                      style: AppFontStyle.labelRegular,
-                    )
-                  ],
-                )
-              ],
-            );
-          }),
-        ),
-      ),
-    );
-  }
-}
-
-class LeaveContainer extends StatelessWidget {
-  final Widget child;
-
-  const LeaveContainer({Key? key, required this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: 110,
-        decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            boxShadow: const [
-              BoxShadow(
-                color: AppColors.lightGreyColor, //New
-                blurRadius: 5.0,
+      width: MediaQuery.of(context).size.width,
+      height: 100,
+      decoration: BoxDecoration(
+        color: AppColors.whiteColor,
+        boxShadow: AppTheme.commonBoxShadow,
+        borderRadius: AppTheme.commonBorderRadius,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: BlocBuilder<UserLeaveCountBloc, UserLeaveCountState>(
+            builder: (context, state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                  strokeWidth: 8,
+                  color: AppColors.primaryBlue,
+                  backgroundColor: AppColors.lightPrimaryBlue,
+                  value: state.leavePercentage!,
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${state.used ?? 0}/${state.totalLeaves ?? 0}',
+                    style: AppFontStyle.headerGrey
+                        .copyWith(color: AppColors.primaryBlue),
+                  ),
+                  Text(
+                    AppLocalizations.of(context).user_leave_used_leaves_tag,
+                    style: AppFontStyle.labelRegular,
+                  )
+                ],
               )
             ],
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.lightGreyColor, width: 3)),
-        child: child);
+          );
+        }),
+      ),
+    );
   }
 }

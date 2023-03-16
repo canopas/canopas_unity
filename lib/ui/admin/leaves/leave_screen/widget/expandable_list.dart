@@ -8,7 +8,7 @@ import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../model/leave_application.dart';
 import '../../../../../navigation/app_router.dart';
-import '../../../home/home_screen/widget/requests/leave_content.dart';
+import '../../../../../widget/leave_application_card.dart';
 
 class ExpandableList extends StatelessWidget {
   final List<LeaveApplication> leaveApplications;
@@ -60,7 +60,7 @@ class ExpandableList extends StatelessWidget {
                     ],
                   )),
               collapsed: leaveApplications.isNotEmpty
-                  ? LeaveRequestCard(
+                  ? LeaveApplicationCard(
                       leaveApplication: leaveApplications[0],
                       onTap: () {
                         context.pushNamed(Routes.adminLeaveDetails,
@@ -72,7 +72,7 @@ class ExpandableList extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: leaveApplications
-                    .map((leaveApplication) => LeaveRequestCard(
+                    .map((leaveApplication) => LeaveApplicationCard(
                         onTap: () {
                           context.goNamed(Routes.adminLeaveDetails,
                               extra: leaveApplication);

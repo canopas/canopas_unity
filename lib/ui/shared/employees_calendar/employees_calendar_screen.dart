@@ -3,17 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/widget/leave_application_card.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../configs/colors.dart';
-import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
 import '../../../configs/theme.dart';
-import '../../../core/utils/const/leave_map.dart';
 import '../../../di/service_locator.dart';
 import '../../../model/leave_application.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/calendar.dart';
-import '../../../widget/user_profile_image.dart';
 import 'bloc/calendar_bloc/employees_calendar_bloc.dart';
 import 'bloc/calendar_bloc/employees_calendar_event.dart';
 import 'bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart';
@@ -46,7 +43,6 @@ class EmployeesCalendarScreen extends StatefulWidget {
 }
 
 class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
-
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
@@ -102,12 +98,12 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                   return const AppCircularProgressIndicator();
                 } else if (state is EmployeesCalendarLeavesSuccessState &&
                     state.leaveApplications.isNotEmpty) {
-                  return ListView.separated(
-                    padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                  return ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication leaveApplication =
                           state.leaveApplications[index];
-                      return CalendarEmployeeLeaveCard(
+                      return LeaveApplicationCard(
                           leaveApplication: leaveApplication,
                           onTap: () {
                             context.read<EmployeesCalendarLeavesBloc>().isAdmin
@@ -118,10 +114,6 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                                     extra: leaveApplication);
                           });
                     },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      height: primaryVerticalSpacing,
-                    ),
                     itemCount: state.leaveApplications.length,
                   );
                 }
@@ -138,53 +130,5 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
             )
           ],
         ));
-  }
-}
-
-class CalendarEmployeeLeaveCard extends StatelessWidget {
-  final LeaveApplication leaveApplication;
-  final void Function()? onTap;
-  const CalendarEmployeeLeaveCard(
-      {Key? key, required this.leaveApplication, required this.onTap})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
-      shadowColor: AppColors.primaryGray.withOpacity(0.60),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(12), topRight: Radius.circular(12)),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-              left: BorderSide(
-                  color:
-                      leaveRequestCardColor[leaveApplication.leave.leaveType]!,
-                  width: 5)),
-        ),
-        child: ListTile(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(12),
-                topRight: Radius.circular(12)),
-          ),
-          onTap: onTap,
-          trailing: const Icon(Icons.arrow_forward_ios_rounded),
-          leading: ImageProfile(
-              radius: 30, imageUrl: leaveApplication.employee.imageUrl),
-          title: Text(
-            leaveApplication.employee.name,
-            overflow: TextOverflow.ellipsis,
-          ),
-          subtitle: Text(
-            leaveApplication.employee.employeeId,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ),
-    );
   }
 }

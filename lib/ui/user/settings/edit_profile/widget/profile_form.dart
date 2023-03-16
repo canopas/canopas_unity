@@ -115,6 +115,7 @@ class GenderSelection extends StatelessWidget {
               Expanded(
                   child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    foregroundColor: AppColors.darkText,
                     backgroundColor: state.gender == EmployeeGender.male
                         ? AppColors.textFieldBg
                         : AppColors.whiteColor,
@@ -142,6 +143,7 @@ class GenderSelection extends StatelessWidget {
                       gender: EmployeeGender.female));
                 },
                 style: ElevatedButton.styleFrom(
+                    foregroundColor: AppColors.darkText,
                     backgroundColor: state.gender == EmployeeGender.female
                         ? AppColors.textFieldBg
                         : AppColors.whiteColor,
@@ -173,6 +175,7 @@ class DateOfBirthButton extends StatelessWidget {
           previous.dateOfBirth != current.dateOfBirth,
       builder: (context, state) => ElevatedButton(
           style: ElevatedButton.styleFrom(
+              foregroundColor: AppColors.darkText,
               fixedSize: Size(MediaQuery.of(context).size.width, 50),
               alignment: Alignment.centerLeft,
               backgroundColor: AppColors.textFieldBg,

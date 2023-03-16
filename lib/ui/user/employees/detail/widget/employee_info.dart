@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../../../model/employee/employee.dart';
 import '../../../../../widget/employee_details_field.dart';
 

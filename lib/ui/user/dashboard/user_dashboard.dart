@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/admin/dashboard/navigation_item.dart';
 
-import '../../../configs/colors.dart';
 
 class UserDashBoardScreen extends StatefulWidget {
   final Widget child;
@@ -20,8 +19,6 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
     return Scaffold(
       body: SafeArea(child: widget.child),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.darkBlue,
-        unselectedItemColor: AppColors.primaryBlue,
         onTap: (int index) => onItemTapped(index),
         items: userTabs,
         currentIndex: _currentIndex,

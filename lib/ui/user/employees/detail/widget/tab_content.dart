@@ -1,11 +1,12 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-
 import '../../../../../model/leave/leave.dart';
-import '../../../leaves/leaves_screen/widget/leave_card.dart';
+import '../../../../../navigation/app_router.dart';
+import '../../../../../widget/leave_card.dart';
 
 class TabContent extends StatelessWidget {
   final List<Leave> leaves;
@@ -45,7 +46,12 @@ class LeaveButton extends StatelessWidget {
               itemCount: leaves.length,
               itemBuilder: (context, index) {
                 Leave leave = leaves[index];
-                return UserLeaveCard(
+                return LeaveCard(
+                     onTap:  () {
+                     context.goNamed(Routes.userLeaveDetail, params: {
+                      RoutesParamsConst.leaveId: leave.leaveId
+                    });
+                  },
                   leave: leave,
                 );
               }),

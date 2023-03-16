@@ -1,135 +1,150 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/configs/theme.dart';
 import 'package:projectunity/core/utils/date_formatter.dart';
-import 'package:projectunity/model/leave_application.dart';
-
 import '../../configs/colors.dart';
-import '../../core/utils/const/leave_screen_type_map.dart';
 import '../../model/leave/leave.dart';
-import '../navigation/app_router.dart';
+import '../core/utils/const/leave_map.dart';
 
-class LeaveCard extends StatelessWidget {
-  final LeaveApplication leaveApplication;
-  const LeaveCard({Key? key, required this.leaveApplication}) : super(key: key);
+class _LeaveTypeView extends StatelessWidget {
+  final int leaveType;
+
+  const _LeaveTypeView({Key? key, required this.leaveType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localize = AppLocalizations.of(context);
-    var duration = DateFormatter(localize).dateInLine(
-        lastTwoLine: true,
-        startTimeStamp: leaveApplication.leave.startDate,
-        endTimeStamp: leaveApplication.leave.endDate);
-    final color = getLeaveContainerColor(leaveApplication.leave.leaveStatus);
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          boxShadow: AppTheme.commonBoxShadow,
-          borderRadius: AppTheme.commonBorderRadius),
-      child: ClipRRect(
-        borderRadius: AppTheme.commonBorderRadius,
-        child: Material(
-          color: AppColors.whiteColor,
-          borderRadius: AppTheme.commonBorderRadius,
-          child: InkWell(
-            borderRadius: AppTheme.commonBorderRadius,
-            onTap: () => context.pushNamed(Routes.userLeaveDetail, params: {
-              RoutesParamsConst.leaveId: leaveApplication.leave.leaveId
-            }),
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      left: BorderSide(
-                color: color,
-                width: 5,
-              ))),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: color.withOpacity(0.50),
-                            borderRadius: BorderRadius.circular(8)),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                            localize.leave_type_placeholder_leave_status(
-                                leaveApplication.leave.leaveType.toString()),
-                            style: AppFontStyle.bodySmallHeavy),
-                      ),
-                      Flexible(
-                          child: Text(
-                        duration,
-                        textAlign: TextAlign.right,
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    leaveApplication.leave.reason,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: AppFontStyle.bodySmallRegular,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  LeaveStatusIcon(
-                    leaveStatus: leaveApplication.leave.leaveStatus,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        borderRadius: BorderRadius.circular(5),
+        color: leaveRequestCardColor[leaveType],
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      child: Text(
+        AppLocalizations.of(context)
+            .leave_type_placeholder_text(leaveType.toString()),
+        style: AppFontStyle.labelRegular.copyWith(color: AppColors.whiteColor),
       ),
     );
   }
 }
 
-class LeaveStatusIcon extends StatelessWidget {
-  final int leaveStatus;
-  const LeaveStatusIcon({Key? key, required this.leaveStatus})
+class _LeaveStatusView extends StatelessWidget {
+  final int status;
+
+  const _LeaveStatusView({Key? key, required this.status}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Icon getLeaveStatusIcon() {
+      if (status == approveLeaveStatus) {
+        return const Icon(Icons.done_all_rounded,
+            color: AppColors.greenColor, size: 20);
+      } else if (status == rejectLeaveStatus) {
+        return const Icon(Icons.clear_rounded,
+            color: AppColors.redColor, size: 20);
+      }
+      return const Icon(Icons.query_builder,
+          color: AppColors.secondaryText, size: 20);
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        children: [
+          getLeaveStatusIcon(),
+          const SizedBox(width: 5),
+          Text(
+            AppLocalizations.of(context)
+                .leave_status_placeholder_text(status.toString()),
+            style: AppFontStyle.labelRegular,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LeaveCard extends StatelessWidget {
+  final bool hideStatus;
+  final Leave leave;
+  final void Function()? onTap;
+
+  const LeaveCard(
+      {Key? key,
+      required this.onTap,
+      required this.leave,
+      this.hideStatus = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (leaveStatus == pendingLeaveStatus)
-          const Icon(
-            Icons.error,
-            color: AppColors.secondaryText,
-          )
-        else if (leaveStatus == rejectLeaveStatus)
-          const Icon(
-            Icons.dangerous,
-            color: AppColors.primaryPink,
-          )
-        else if (leaveStatus == approveLeaveStatus)
-          const Icon(
-            Icons.check_circle,
-            color: AppColors.primaryGreen,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: AppColors.whiteColor,
+        borderRadius: AppTheme.commonBorderRadius,
+        boxShadow: AppTheme.commonBoxShadow,
+      ),
+      child: Material(
+        borderRadius: AppTheme.commonBorderRadius,
+        color: AppColors.whiteColor,
+        child: InkWell(
+          borderRadius: AppTheme.commonBorderRadius,
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _LeaveTypeView(leaveType: leave.leaveType),
+                    Text(
+                      DateFormatter(AppLocalizations.of(context))
+                          .getLeaveDurationPresentation(leave.totalLeaves)
+                          .toString(),
+                      style: AppFontStyle.bodySmallRegular,
+                    ),
+                  ],
+                ),
+                const Divider(
+                    color: AppColors.dividerColor,
+                    height: 32,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            DateFormatter(AppLocalizations.of(context))
+                                .dateInLine(
+                                    startTimeStamp: leave.startDate,
+                                    endTimeStamp: leave.endDate),
+                            style: AppFontStyle.bodyMedium),
+                        hideStatus
+                            ? const SizedBox()
+                            : _LeaveStatusView(
+                                status: leave.leaveStatus,
+                              ),
+                      ],
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 16,
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
-        const SizedBox(
-          width: 5,
         ),
-        Text(
-          AppLocalizations.of(context)
-              .leave_status_placeholder_text(leaveStatus.toString()),
-          style: AppFontStyle.bodySmallRegular,
-        )
-      ],
+      ),
     );
   }
 }

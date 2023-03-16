@@ -48,7 +48,7 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
     emit(UserHomeLoadingState());
     try {
       final requests =
-          await _leaveService.getRequestedLeaveOfUser(_userManager.employeeId);
+          await _leaveService.getRequestedLeave(_userManager.employeeId);
       emit(UserHomeSuccessState(requests: requests));
     } on Exception {
       emit(UserHomeErrorState(error: firestoreFetchDataError));

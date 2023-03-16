@@ -124,11 +124,23 @@ class LeaveService {
   }
 
   Future<List<Leave>> getAllLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection.where('uid', isEqualTo: id).get();
+    final data = await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id).get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<List<Leave>> getRequestedLeaveOfUser(String id) async {
+  Future<List<Leave>> getRecentLeavesOfUser(String id) async {
+    final data = await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id)
+        .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus).get();
+    return data.docs.map((doc) => doc.data()).where((element) => element.endDate >= DateTime.now().timeStampToInt).toList();
+  }
+
+  Future<List<Leave>> getPastLeavesOfUser(String id) async {
+    final data = await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id)
+        .get();
+    return data.docs.where((e) => e.data().endDate <= DateTime.now().timeStampToInt).map((doc) => doc.data()).toList();
+  }
+
+  Future<List<Leave>> getRequestedLeave(String id) async {
     final data = await _leaveDbCollection
         .where(FirestoreConst.uid, isEqualTo: id)
         .where(FirestoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)

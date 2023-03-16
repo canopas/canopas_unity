@@ -27,8 +27,6 @@ class EmployeeCard extends StatelessWidget {
             ImageProfile(
                 imageUrl: employee.imageUrl,
                 radius: 25,
-                borderColor: AppColors.textDark,
-                borderSize: 1,
                 backgroundColor: AppColors.dividerColor,
                 iconColor: AppColors.greyColor),
             const SizedBox(
