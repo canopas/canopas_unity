@@ -8,9 +8,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:projectunity/bloc/authentication/logout_bloc.dart' as _i36;
 import 'package:projectunity/bloc/network/network_connection_bloc.dart' as _i10;
-import 'package:projectunity/di/app_module.dart' as _i42;
+import 'package:projectunity/di/app_module.dart' as _i41;
 import 'package:projectunity/navigation/app_router.dart' as _i31;
 import 'package:projectunity/pref/user_preference.dart' as _i16;
 import 'package:projectunity/provider/user_data.dart' as _i27;
@@ -43,7 +42,7 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
     as _i23;
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i3;
-import 'package:projectunity/ui/login/bloc/login_view_bloc.dart' as _i37;
+import 'package:projectunity/ui/login/bloc/login_view_bloc.dart' as _i36;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i7;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
@@ -53,9 +52,9 @@ import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.da
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
     as _i13;
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dart'
-    as _i38;
+    as _i37;
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
-    as _i39;
+    as _i38;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i8;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
@@ -65,9 +64,9 @@ import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.da
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart'
     as _i15;
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
-    as _i41;
-import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
     as _i40;
+import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
+    as _i39;
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_bloc.dart'
     as _i34;
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart'
@@ -193,31 +192,26 @@ extension GetItInjectableX on _i1.GetIt {
               gh<_i9.LeaveService>(),
               gh<_i27.UserManager>(),
             ));
-    gh.factory<_i36.LogOutBloc>(() => _i36.LogOutBloc(
-          gh<_i16.UserPreference>(),
-          gh<_i24.AuthService>(),
-          gh<_i27.UserManager>(),
-        ));
-    gh.factory<_i37.LoginBloc>(() => _i37.LoginBloc(
+    gh.factory<_i36.LoginBloc>(() => _i36.LoginBloc(
           gh<_i33.AuthManager>(),
           gh<_i27.UserManager>(),
           gh<_i24.AuthService>(),
         ));
-    gh.factory<_i38.UserEmployeesBloc>(() => _i38.UserEmployeesBloc(
+    gh.factory<_i37.UserEmployeesBloc>(() => _i37.UserEmployeesBloc(
           gh<_i6.EmployeeService>(),
           gh<_i27.UserManager>(),
         ));
-    gh.factory<_i39.UserHomeBloc>(() => _i39.UserHomeBloc(
+    gh.factory<_i38.UserHomeBloc>(() => _i38.UserHomeBloc(
           gh<_i16.UserPreference>(),
           gh<_i24.AuthService>(),
           gh<_i27.UserManager>(),
           gh<_i9.LeaveService>(),
         ));
-    gh.factory<_i40.UserLeaveBloc>(() => _i40.UserLeaveBloc(
+    gh.factory<_i39.UserLeaveBloc>(() => _i39.UserLeaveBloc(
           gh<_i27.UserManager>(),
           gh<_i9.LeaveService>(),
         ));
-    gh.factory<_i41.UserLeaveCountBloc>(() => _i41.UserLeaveCountBloc(
+    gh.factory<_i40.UserLeaveCountBloc>(() => _i40.UserLeaveCountBloc(
           gh<_i9.LeaveService>(),
           gh<_i27.UserManager>(),
           gh<_i11.PaidLeaveService>(),
@@ -226,4 +220,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$AppModule extends _i42.AppModule {}
+class _$AppModule extends _i41.AppModule {}
