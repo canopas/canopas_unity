@@ -62,7 +62,7 @@ class LeaveRequestList extends StatelessWidget {
                     children: mapEntry.value
                         .map((leaveApplication) => LeaveApplicationCard(
                             onTap: () => context.goNamed(
-                                Routes.leaveApplicationDetail,
+                                Routes.leaveRequestDetail,
                                 extra: leaveApplication),
                             leaveApplication: leaveApplication))
                         .toList(),
