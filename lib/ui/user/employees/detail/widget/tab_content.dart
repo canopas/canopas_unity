@@ -2,14 +2,15 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/configs/text_style.dart';
-import '../../../../../model/leave/leave.dart';
-import '../../../../../navigation/app_router.dart';
-import '../../../../../widget/leave_card.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../navigation/app_router.dart';
+import '../../../../widget/leave_card.dart';
 
 class TabContent extends StatelessWidget {
   final List<Leave> leaves;
+
   const TabContent({Key? key, required this.leaves}) : super(key: key);
 
   @override
@@ -25,6 +26,7 @@ class TabContent extends StatelessWidget {
 
 class LeaveButton extends StatelessWidget {
   final List<Leave> leaves;
+
   const LeaveButton({Key? key, required this.leaves}) : super(key: key);
 
   @override
@@ -47,10 +49,9 @@ class LeaveButton extends StatelessWidget {
               itemBuilder: (context, index) {
                 Leave leave = leaves[index];
                 return LeaveCard(
-                     onTap:  () {
-                     context.goNamed(Routes.userLeaveDetail, params: {
-                      RoutesParamsConst.leaveId: leave.leaveId
-                    });
+                  onTap: () {
+                    context.goNamed(Routes.userLeaveDetail,
+                        params: {RoutesParamsConst.leaveId: leave.leaveId});
                   },
                   leave: leave,
                 );
@@ -62,7 +63,7 @@ class LeaveButton extends StatelessWidget {
               theme: const ExpandableThemeData(crossFadePoint: 0),
             );
           },
-          collapsed: Container(),
+          collapsed: const SizedBox(),
         ),
       ),
     );

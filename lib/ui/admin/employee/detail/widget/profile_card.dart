@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/configs/theme.dart';
-
-import '../../../../../../configs/colors.dart';
-import '../../../../../../model/employee/employee.dart';
-import '../../../../../../widget/user_profile_image.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/configs/theme.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../widget/user_profile_image.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({Key? key, required this.employee}) : super(key: key);
@@ -18,16 +17,16 @@ class ProfileCard extends StatelessWidget {
     var localization = AppLocalizations.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow
-      ),
-      margin: const EdgeInsets.symmetric(
-        horizontal:primaryHorizontalSpacing).copyWith(bottom: primaryVerticalSpacing),
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: primaryHorizontalSpacing),
+          color: AppColors.whiteColor,
+          borderRadius: AppTheme.commonBorderRadius,
+          boxShadow: AppTheme.commonBoxShadow),
+      margin: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
+          .copyWith(bottom: primaryVerticalSpacing),
+      padding: const EdgeInsets.symmetric(
+          vertical: 30, horizontal: primaryHorizontalSpacing),
       child: Column(
         children: [
-          ImageProfile(imageUrl: employee.imageUrl,radius: 45),
+          ImageProfile(imageUrl: employee.imageUrl, radius: 45),
           const SizedBox(height: 10),
           Text(
             employee.name,
@@ -40,14 +39,14 @@ class ProfileCard extends StatelessWidget {
             style: AppFontStyle.labelGrey,
             textAlign: TextAlign.center,
           ),
-          const Divider( height: 32, thickness: 0.8, indent: 0,endIndent: 0),
+          const Divider(height: 32, thickness: 0.8, indent: 0, endIndent: 0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextColumn(
                 title: localization.employee_role_tag,
-                subtitle:
-                    localization.user_detail_role_type(employee.roleType.toString()),
+                subtitle: localization
+                    .user_detail_role_type(employee.roleType.toString()),
               ),
               Container(
                 height: 60,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/date_formatter.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/core/utils/date_formatter.dart';
 
 class AdminLeaveRequestLeaveTypeHeader extends StatelessWidget {
   const AdminLeaveRequestLeaveTypeHeader(
@@ -31,9 +30,7 @@ class AdminLeaveRequestLeaveTypeHeader extends StatelessWidget {
                     .leave_type_placeholder_text(leaveType.toString()),
                 style: AppFontStyle.titleDark,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               Text(
                 appliedOn,
                 style: AppFontStyle.labelGrey,

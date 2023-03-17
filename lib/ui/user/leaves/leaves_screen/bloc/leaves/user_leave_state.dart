@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../../../model/leave/leave.dart';
+import '../../../../../../data/model/leave/leave.dart';
 
 abstract class UserLeaveState extends Equatable {}
 

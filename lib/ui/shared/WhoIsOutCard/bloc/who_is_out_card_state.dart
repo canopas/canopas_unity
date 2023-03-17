@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../model/leave_application.dart';
-import '../../../../model/leave_count.dart';
+import '../../../../data/model/leave_application.dart';
+import '../../../../data/model/leave_count.dart';
 
 enum WhoOIsOutCardStatus { initial, loading, success, failure }
 

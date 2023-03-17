@@ -1,16 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/provider/user_data.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
-
-import '../../../../../event_bus/events.dart';
-import '../../../../../exception/error_const.dart';
-import '../../../../../pref/user_preference.dart';
-import '../../../../../services/auth_service.dart';
-import '../../../../../services/leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/event_bus/events.dart';
+import '../../../../../data/pref/user_preference.dart';
+import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/services/auth_service.dart';
+import '../../../../../data/services/leave_service.dart';
 
 @Injectable()
 class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {

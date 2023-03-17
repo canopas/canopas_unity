@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/space_constant.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
-
 import '../bloc/user_leave_detail_event.dart';
 
 class CancelButton extends StatelessWidget {

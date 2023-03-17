@@ -1,11 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/employee/employee.dart';
-
-import '../../../../../event_bus/events.dart';
-import '../../../../../services/employee_service.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/event_bus/events.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/services/employee_service.dart';
 import '../../detail/bloc/employee_detail_event.dart';
 import 'admin_edit_employee_events.dart';
 import 'admin_edit_employee_state.dart';

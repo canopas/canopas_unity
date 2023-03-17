@@ -1,9 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../../../exception/error_const.dart';
-import '../../../../../services/leave_service.dart';
-import '../../../../../services/paid_leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/services/leave_service.dart';
+import '../../../../../data/services/paid_leave_service.dart';
 import 'admin_leave_detail_event.dart';
 import 'admin_leave_detail_state.dart';
 

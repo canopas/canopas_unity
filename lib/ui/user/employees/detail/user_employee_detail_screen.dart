@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/employee/detail/widget/profile_card.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/widget/employee_info.dart';
 import 'package:projectunity/ui/user/employees/detail/widget/tab_content.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
-import '../../../../configs/colors.dart';
+import '../../../../data/configs/colors.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_employee_detail_state.dart';
 
 class UserEmployeeDetailPage extends StatelessWidget {
   final String employeeId;
+
   const UserEmployeeDetailPage({Key? key, required this.employeeId})
       : super(key: key);
 
@@ -58,7 +58,8 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
             }
             if (state is UserEmployeeDetailSuccessState) {
               return ListView(
-                padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
+                padding: const EdgeInsets.symmetric(
+                    vertical: primaryHorizontalSpacing),
                 children: [
                   ProfileCard(employee: state.employee),
                   const Divider(
@@ -68,11 +69,11 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
                   ),
                   EmployeeInfo(employee: state.employee),
                   if (state.upcomingLeaves.isNotEmpty)
-                  const Divider(
-                    indent: primaryHorizontalSpacing,
-                    endIndent: primaryHorizontalSpacing,
-                    color: AppColors.lightGreyColor,
-                  ),
+                    const Divider(
+                      indent: primaryHorizontalSpacing,
+                      endIndent: primaryHorizontalSpacing,
+                      color: AppColors.lightGreyColor,
+                    ),
                   if (state.upcomingLeaves.isNotEmpty)
                     TabContent(leaves: state.upcomingLeaves),
                 ],

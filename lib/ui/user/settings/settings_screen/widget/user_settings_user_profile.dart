@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../configs/theme.dart';
-import '../../../../../model/employee/employee.dart';
-import '../../../../../widget/user_profile_image.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../widget/user_profile_image.dart';
 
 class UserProfile extends StatelessWidget {
   final void Function()? onTap;
@@ -30,9 +29,7 @@ class UserProfile extends StatelessWidget {
                 borderSize: 1,
                 backgroundColor: AppColors.dividerColor,
                 iconColor: AppColors.greyColor),
-            const SizedBox(
-              width: primaryHorizontalSpacing,
-            ),
+            const SizedBox(width: primaryHorizontalSpacing),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,11 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/employee/employee.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../../../services/employee_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/services/employee_service.dart';
 import 'add_member_event.dart';
 import 'add_member_state.dart';
 

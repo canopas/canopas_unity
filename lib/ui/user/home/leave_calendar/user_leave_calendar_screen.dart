@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/core/extensions/leave_extension.dart';
-import 'package:projectunity/model/leave_application.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
+import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import '../../../../configs/space_constant.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../configs/theme.dart';
-import '../../../../di/service_locator.dart';
-import '../../../../navigation/app_router.dart';
-import '../../../../widget/calendar.dart';
-import '../../../../widget/leave_card.dart';
+import '../../../../data/configs/space_constant.dart';
+import '../../../../data/configs/text_style.dart';
+import '../../../../data/configs/theme.dart';
+import '../../../../data/model/leave_application.dart';
+import '../../../../data/di/service_locator.dart';
+import '../../../navigation/app_router.dart';
+import '../../../widget/calendar.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/leave_card.dart';
 import 'bloc/calendar_bloc/leave_calendar_bloc.dart';
 import 'bloc/calendar_bloc/leave_calendar_event.dart';
 import 'bloc/calendar_bloc/leave_calendar_state.dart';
@@ -23,6 +22,7 @@ import 'bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
 
 class UserLeaveCalendarPage extends StatelessWidget {
   final String userId;
+
   const UserLeaveCalendarPage({Key? key, required this.userId})
       : super(key: key);
 
@@ -116,14 +116,17 @@ class _UserLeaveCalendarScreenState extends State<UserLeaveCalendarScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication leaveApplication =
                           state.leaveApplications[index];
-                      return LeaveCard(leave: leaveApplication.leave, onTap: () => context.pushNamed(Routes.userLeaveDetail, params: {
-                        RoutesParamsConst.leaveId: leaveApplication.leave.leaveId
-                      }),);
+                      return LeaveCard(
+                        leave: leaveApplication.leave,
+                        onTap: () => context.pushNamed(Routes.userLeaveDetail,
+                            params: {
+                              RoutesParamsConst.leaveId:
+                                  leaveApplication.leave.leaveId
+                            }),
+                      );
                     },
                     separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      height: primaryHorizontalSpacing,
-                    ),
+                        const SizedBox(height: primaryHorizontalSpacing),
                     itemCount: state.leaveApplications.length,
                   );
                 }
@@ -149,6 +152,7 @@ class EmptyCalendarScreen extends StatelessWidget {
   final DateTime? startDate;
   final DateTime? endDate;
   final DateTime? selectedDate;
+
   const EmptyCalendarScreen(
       {Key? key, this.startDate, this.endDate, this.selectedDate})
       : super(key: key);

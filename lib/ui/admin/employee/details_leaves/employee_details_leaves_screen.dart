@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../di/service_locator.dart';
+import '../../../../data/configs/colors.dart';
+import '../../../../data/di/service_locator.dart';
 import 'widget/leave_list.dart';
-import '../../../../configs/colors.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../configs/theme.dart';
+import '../../../../data/configs/text_style.dart';
+import '../../../../data/configs/theme.dart';
 import 'bloc/admin_employee_details_leave_bloc.dart';
 import 'bloc/admin_employee_details_leave_events.dart';
 import 'bloc/admin_employee_details_leave_state.dart';
@@ -14,7 +14,8 @@ class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
   final String employeeName;
   final String employeeId;
 
-  const AdminEmployeeDetailsLeavesPage({Key? key,   required this.employeeName, required this.employeeId})
+  const AdminEmployeeDetailsLeavesPage(
+      {Key? key, required this.employeeName, required this.employeeId})
       : super(key: key);
 
   @override
@@ -41,7 +42,6 @@ class AdminEmployeeDetailsLeavesScreen extends StatefulWidget {
 class _AdminEmployeeDetailsLeavesScreenState
     extends State<AdminEmployeeDetailsLeavesScreen>
     with SingleTickerProviderStateMixin {
-
   late TabController tabController;
 
   @override
@@ -93,7 +93,8 @@ class _AdminEmployeeDetailsLeavesScreenState
         children: <Widget>[
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
-            buildWhen: (previous, current) => previous.recentLeaves != current.recentLeaves,
+            buildWhen: (previous, current) =>
+                previous.recentLeaves != current.recentLeaves,
             builder: (context, state) => LeaveList(
                 employeeName: widget.employeeName,
                 emptyStringTitle:
@@ -105,19 +106,22 @@ class _AdminEmployeeDetailsLeavesScreenState
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
-            buildWhen: (previous, current) => previous.upcomingLeaves != current.upcomingLeaves,
+            buildWhen: (previous, current) =>
+                previous.upcomingLeaves != current.upcomingLeaves,
             builder: (context, state) => LeaveList(
-                employeeName: widget.employeeName,
-                emptyStringTitle:
-                    AppLocalizations.of(context).empty_upcoming_leaves_title,
-                emptyStringMessage: AppLocalizations.of(context)
-                    .empty_upcoming_leaves_message(widget.employeeName),
-                isLoading: state.loading,
-                leaves: state.upcomingLeaves,),
+              employeeName: widget.employeeName,
+              emptyStringTitle:
+                  AppLocalizations.of(context).empty_upcoming_leaves_title,
+              emptyStringMessage: AppLocalizations.of(context)
+                  .empty_upcoming_leaves_message(widget.employeeName),
+              isLoading: state.loading,
+              leaves: state.upcomingLeaves,
+            ),
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
               AdminEmployeeDetailsLeavesState>(
-            buildWhen: (previous, current) => previous.pastLeaves != current.pastLeaves,
+            buildWhen: (previous, current) =>
+                previous.pastLeaves != current.pastLeaves,
             builder: (context, state) => LeaveList(
                 employeeName: widget.employeeName,
                 emptyStringTitle:

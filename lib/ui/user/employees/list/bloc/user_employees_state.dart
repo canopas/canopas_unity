@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/model/employee/employee.dart';
+import '../../../../../data/model/employee/employee.dart';
 
 abstract class UserEmployeesState extends Equatable {}
 

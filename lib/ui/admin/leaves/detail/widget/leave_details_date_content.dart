@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/core/extensions/double_extension.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../model/leave/leave.dart';
-import '../../../../../widget/circular_progress_indicator.dart';
+import 'package:projectunity/data/core/extensions/double_extension.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
+import '../../../../../data/core/utils/date_formatter.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../widget/circular_progress_indicator.dart';
+import '../../../../widget/error_snack_bar.dart';
 import '../bloc/admin_leave_detail_bloc.dart';
 import '../bloc/admin_leave_detail_state.dart';
 
@@ -49,15 +48,13 @@ class LeaveDetailsDateContent extends StatelessWidget {
             },
             builder: (context, state) {
               if (state is AdminLeaveDetailLoadingState) {
-                return const AppCircularProgressIndicator(
-                  size: 28,
-                );
+                return const AppCircularProgressIndicator(size: 28);
               } else if (state is AdminLeaveDetailSuccessState) {
                 return Text(
                     "${state.usedLeaves.fixedAt(2)}/${state.paidLeaves}",
                     style: AppFontStyle.titleDark);
               }
-              return Container();
+              return const SizedBox();
             },
           ),
           const VerticalDivider(

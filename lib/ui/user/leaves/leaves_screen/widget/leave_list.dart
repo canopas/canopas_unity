@@ -2,14 +2,15 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../configs/colors.dart';
-import '../../../../../model/leave/leave.dart';
-import '../../../../../navigation/app_router.dart';
-import '../../../../../widget/leave_card.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../navigation/app_router.dart';
+import '../../../../widget/leave_card.dart';
 
 class LeaveList extends StatelessWidget {
   final List<Leave> leaves;
   final String title;
+
   const LeaveList({Key? key, required this.leaves, required this.title})
       : super(key: key);
 
@@ -26,7 +27,8 @@ class LeaveList extends StatelessWidget {
                 headerAlignment: ExpandablePanelHeaderAlignment.center,
                 hasIcon: false),
             header: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Text(
                   title,
                   style: const TextStyle(
@@ -36,28 +38,32 @@ class LeaveList extends StatelessWidget {
                 )),
             collapsed: leaves.isNotEmpty
                 ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16.0),
-                  child: LeaveCard(leave: leaves[0],
-                  onTap:   () {
-                  context.goNamed(Routes.userLeaveDetail, params: {
-                    RoutesParamsConst.leaveId: leaves[0].leaveId
-                  });
-              },),
-                )
-                : Container(),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8, horizontal: 16.0),
+                    child: LeaveCard(
+                      leave: leaves[0],
+                      onTap: () {
+                        context.goNamed(Routes.userLeaveDetail, params: {
+                          RoutesParamsConst.leaveId: leaves[0].leaveId
+                        });
+                      },
+                    ),
+                  )
+                : const SizedBox(),
             expanded: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: leaves.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 16,),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
                 itemBuilder: (context, index) {
-                  Leave leave = leaves[index];
+                  final leave = leaves[index];
                   return LeaveCard(
                     onTap: () {
-                       context.goNamed(Routes.userLeaveDetail, params: {
-                        RoutesParamsConst.leaveId: leave.leaveId
-                      });
+                      context.goNamed(Routes.userLeaveDetail,
+                          params: {RoutesParamsConst.leaveId: leave.leaveId});
                     },
                     leave: leave,
                   );
@@ -73,8 +79,8 @@ class LeaveList extends StatelessWidget {
                       children: [
                         Expandable(collapsed: collapsed, expanded: expanded),
                         Builder(builder: (context) {
-                          var controller = ExpandableController.of(context,
-                              required: true)!;
+                          var controller =
+                              ExpandableController.of(context, required: true)!;
                           return TextButton(
                               onPressed: () {
                                 controller.toggle();

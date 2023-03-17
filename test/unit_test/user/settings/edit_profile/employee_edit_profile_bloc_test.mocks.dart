@@ -7,10 +7,10 @@ import 'dart:async' as _i4;
 import 'dart:ui' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/model/employee/employee.dart' as _i2;
-import 'package:projectunity/pref/user_preference.dart' as _i7;
-import 'package:projectunity/provider/user_data.dart' as _i5;
-import 'package:projectunity/services/employee_service.dart' as _i3;
+import 'package:projectunity/data/model/employee/employee.dart' as _i2;
+import 'package:projectunity/data/pref/user_preference.dart' as _i7;
+import 'package:projectunity/data/provider/user_data.dart' as _i5;
+import 'package:projectunity/data/services/employee_service.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

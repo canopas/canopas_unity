@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/login/widget/sign_in_button.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
-import '../../core/utils/const/image_constant.dart';
+import '../../data/configs/colors.dart';
+import '../../data/core/utils/const/image_constant.dart';
+import '../widget/circular_progress_indicator.dart';
+import '../widget/error_snack_bar.dart';
 import 'bloc/login_view_bloc.dart';
 import 'bloc/login_view_event.dart';
 import 'bloc/login_view_state.dart';

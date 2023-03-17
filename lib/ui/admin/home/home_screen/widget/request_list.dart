@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/model/leave_application.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../navigation/app_router.dart';
-import '../../../../../widget/leave_application_card.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/core/utils/date_formatter.dart';
+import '../../../../../data/model/leave_application.dart';
+import '../../../../navigation/app_router.dart';
+import '../../../../widget/leave_application_card.dart';
 
 class LeaveRequestList extends StatelessWidget {
   const LeaveRequestList({
@@ -30,9 +29,8 @@ class LeaveRequestList extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                             horizontal: primaryHorizontalSpacing)
                         .copyWith(top: primaryHalfSpacing),
-                    decoration: const BoxDecoration(
-                      color: AppColors.whiteColor,
-                    ),
+                    decoration:
+                        const BoxDecoration(color: AppColors.whiteColor),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -49,9 +47,7 @@ class LeaveRequestList extends StatelessWidget {
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: primaryHalfSpacing,
-                        ),
+                        const SizedBox(height: primaryHalfSpacing),
                         const Divider(
                           height: 1,
                           thickness: 1,

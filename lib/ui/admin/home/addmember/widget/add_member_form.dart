@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/core/utils/const/role.dart';
 import 'package:projectunity/ui/admin/home/addmember/widget/role_toggle_button.dart';
-
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../widget/date_time_picker.dart';
-import '../../../../../widget/employee_details_textfield.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/core/utils/const/role.dart';
+import '../../../../widget/date_time_picker.dart';
+import '../../../../widget/employee_details_textfield.dart';
 import '../bloc/add_member_bloc.dart';
 import '../bloc/add_member_event.dart';
 import '../bloc/add_member_state.dart';

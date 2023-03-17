@@ -13,7 +13,8 @@ void main() {
 
   group("admin setting leave count screen cubit value change test", () {
     test("initial load data test", () {
-      adminPaidLeaveUpdateSettingTextFieldBloc.add(PaidLeaveTextFieldChangeValueEvent(value: "12"));
+      adminPaidLeaveUpdateSettingTextFieldBloc
+          .add(PaidLeaveTextFieldChangeValueEvent(value: "12"));
       expect(adminPaidLeaveUpdateSettingTextFieldBloc.stream, emits("12"));
     });
   });

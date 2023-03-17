@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:projectunity/model/leave/leave.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 
 void main() {
   group("Leaves", () {

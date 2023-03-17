@@ -15,6 +15,7 @@ class AdminLeaveDetailLoadingState extends AdminLeaveDetailState {
 class AdminLeaveDetailSuccessState extends AdminLeaveDetailState {
   final int paidLeaves;
   final double usedLeaves;
+
   AdminLeaveDetailSuccessState(
       {required this.usedLeaves, required this.paidLeaves});
 
@@ -24,6 +25,7 @@ class AdminLeaveDetailSuccessState extends AdminLeaveDetailState {
 
 class AdminLeaveDetailFailureState extends AdminLeaveDetailState {
   final String error;
+
   AdminLeaveDetailFailureState({required this.error});
 
   @override
@@ -35,7 +37,7 @@ class AdminLeaveApplicationResponseSuccessState extends AdminLeaveDetailState {
   List<Object?> get props => [];
 }
 
-class AdminLeaveApplicationDetailResplonseLoadingState
+class AdminLeaveApplicationDetailResponseLoadingState
     extends AdminLeaveDetailState {
   @override
   List<Object?> get props => [];

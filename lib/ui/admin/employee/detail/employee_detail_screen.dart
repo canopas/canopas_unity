@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-import '../../../../../di/service_locator.dart';
-import '../../../../core/utils/const/role.dart';
-import '../../../../navigation/app_router.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import '../../../../data/di/service_locator.dart';
+import '../../../../data/core/utils/const/role.dart';
+import '../../../navigation/app_router.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/employee_detail_bloc.dart';
 import 'bloc/employee_detail_event.dart';
 import 'bloc/employee_detail_state.dart';
@@ -48,10 +48,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           ),
           actions: [
             BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
-                buildWhen: (previous, current) =>
-                    previous is! EmployeeDetailLoadedState &&
-                    current is EmployeeDetailLoadedState,
-                builder: (context, state) => state is EmployeeDetailLoadedState? PopupMenuButton(
+              buildWhen: (previous, current) =>
+                  previous is! EmployeeDetailLoadedState &&
+                  current is EmployeeDetailLoadedState,
+              builder: (context, state) => state is EmployeeDetailLoadedState
+                  ? PopupMenuButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -92,8 +93,9 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                           },
                         ),
                       ],
-                    ):const SizedBox(),
-                ),
+                    )
+                  : const SizedBox(),
+            ),
           ]),
       body: BlocConsumer<EmployeeDetailBloc, AdminEmployeeDetailState>(
         builder: (BuildContext context, AdminEmployeeDetailState state) {
@@ -101,18 +103,19 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
             return const AppCircularProgressIndicator();
           } else if (state is EmployeeDetailLoadedState) {
             return ListView(
-              padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
+                padding: const EdgeInsets.symmetric(
+                    vertical: primaryHorizontalSpacing),
                 physics: const ClampingScrollPhysics(),
                 children: [
-              ProfileCard(employee: state.employee),
-              TimeOffCard(
-                  employee: state.employee,
-                  percentage: state.timeOffRatio,
-                  usedLeaves: state.usedLeaves,
-                  paidLeaves: state.paidLeaves,
+                  ProfileCard(employee: state.employee),
+                  TimeOffCard(
+                    employee: state.employee,
+                    percentage: state.timeOffRatio,
+                    usedLeaves: state.usedLeaves,
+                    paidLeaves: state.paidLeaves,
                   ),
-              ProfileDetail(employee: state.employee),
-            ]);
+                  ProfileDetail(employee: state.employee),
+                ]);
           }
           return const SizedBox();
         },

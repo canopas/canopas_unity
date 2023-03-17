@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_image.dart';
-import 'package:projectunity/widget/date_time_picker.dart';
-
-import '../../../../../configs/space_constant.dart';
-import '../../../../../model/employee/employee.dart';
-import '../../../../../widget/employee_details_textfield.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../widget/date_time_picker.dart';
+import '../../../../widget/employee_details_textfield.dart';
 import '../bloc/employee_edit_profile_bloc.dart';
 import '../bloc/employee_edit_profile_event.dart';
 import '../bloc/employee_edit_profile_state.dart';

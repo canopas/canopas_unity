@@ -4,6 +4,7 @@ abstract class EmployeeDetailEvent extends Equatable {}
 
 class EmployeeDetailInitialLoadEvent extends EmployeeDetailEvent {
   final String employeeId;
+
   EmployeeDetailInitialLoadEvent({required this.employeeId});
 
   @override
@@ -17,6 +18,7 @@ class EmployeeDetailsChangeRoleEvent extends EmployeeDetailEvent {
 
 class DeleteEmployeeEvent extends EmployeeDetailEvent {
   final String employeeId;
+
   DeleteEmployeeEvent({required this.employeeId});
 
   @override

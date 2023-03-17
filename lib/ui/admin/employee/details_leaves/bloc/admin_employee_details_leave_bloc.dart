@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/exception/error_const.dart';
-import '../../../../../model/leave/leave.dart';
-import '../../../../../services/leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/services/leave_service.dart';
 import 'admin_employee_details_leave_state.dart';
 import 'admin_employee_details_leave_events.dart';
 
@@ -20,9 +20,12 @@ class AdminEmployeeDetailsLeavesBLoc extends Bloc<
       Emitter<AdminEmployeeDetailsLeavesState> emit) async {
     emit(state.copyWith(loading: true));
     try {
-      List<Leave> recentLeaves = await _leaveService.getRecentLeavesOfUser(event.employeeId);
-      List<Leave> upcomingLeaves = await _leaveService.getUpcomingLeavesOfUser(event.employeeId);
-      List<Leave> pastLeaves = await _leaveService.getPastLeavesOfUser(event.employeeId);
+      List<Leave> recentLeaves =
+          await _leaveService.getRecentLeavesOfUser(event.employeeId);
+      List<Leave> upcomingLeaves =
+          await _leaveService.getUpcomingLeavesOfUser(event.employeeId);
+      List<Leave> pastLeaves =
+          await _leaveService.getPastLeavesOfUser(event.employeeId);
       emit(state.copyWith(
           recentLeaves: recentLeaves,
           pastLeaves: pastLeaves,

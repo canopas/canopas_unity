@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/services/employee_service.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_state.dart';

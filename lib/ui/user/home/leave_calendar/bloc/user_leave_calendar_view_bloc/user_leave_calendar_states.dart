@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../../../model/leave_application.dart';
+import '../../../../../../data/model/leave_application.dart';
 
 abstract class UserLeaveCalendarViewState extends Equatable {
   @override

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/model/leave/leave.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/date_formatter.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
+import '../../../../../data/core/utils/date_formatter.dart';
+import '../../../../../data/model/leave/leave.dart';
 
 class LeaveTypeContent extends StatelessWidget {
   final int leaveType;
@@ -39,9 +38,7 @@ class LeaveTypeContent extends StatelessWidget {
                     .leave_type_placeholder_text(leaveType.toString()),
                 style: AppFontStyle.titleDark,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               Text(
                 appliedOn,
                 style: AppFontStyle.labelGrey,
@@ -58,9 +55,7 @@ class LeaveTypeContent extends StatelessWidget {
               child: Row(
                 children: [
                   statusIcon(leaveStatus),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  const SizedBox(width: 5),
                   Text(
                     localization
                         .leave_status_placeholder_text(leaveStatus.toString()),

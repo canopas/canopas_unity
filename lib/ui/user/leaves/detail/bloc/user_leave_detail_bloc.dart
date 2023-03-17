@@ -1,12 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/leave/leave.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
-
-import '../../../../../services/leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/services/leave_service.dart';
 
 @Injectable()
 class UserLeaveDetailBloc

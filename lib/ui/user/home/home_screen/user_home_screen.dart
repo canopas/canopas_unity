@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/space_constant.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import 'package:projectunity/ui/user/home/home_screen/widget/employee_home_appbar.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-import '../../../../configs/colors.dart';
-import '../../../../di/service_locator.dart';
-import '../../../../navigation/app_router.dart';
-import '../../../../widget/leave_card.dart';
+import '../../../../data/configs/colors.dart';
+import '../../../../data/di/service_locator.dart';
+import '../../../navigation/app_router.dart';
 import '../../../shared/WhoIsOutCard/who_is_out_card.dart';
+import '../../../widget/error_snack_bar.dart';
+import '../../../widget/leave_card.dart';
 import 'bloc/user_home_bloc.dart';
 
 class UserHomeScreenPage extends StatelessWidget {
@@ -71,7 +71,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, leave) => LeaveCard(
-                                    hideStatus: true,
+                                      hideStatus: true,
                                       onTap: () {
                                         context.goNamed(
                                             Routes.userRequestDetail,
@@ -82,9 +82,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                       },
                                       leave: state.requests[leave]),
                                   separatorBuilder: (context, index) =>
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
+                                      const SizedBox(height: 16),
                                   itemCount: state.requests.length),
                             ]);
                 }

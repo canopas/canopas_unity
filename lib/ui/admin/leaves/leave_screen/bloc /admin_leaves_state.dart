@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/model/leave_application.dart';
+import '../../../../../data/model/leave_application.dart';
 
 enum AdminLeavesStatus { initial, loading, failure, success }
 

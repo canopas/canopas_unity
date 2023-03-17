@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../model/leave/leave.dart';
+import '../../../../../data/model/leave/leave.dart';
 
 class AdminEmployeeDetailsLeavesState extends Equatable {
   final List<Leave> recentLeaves;

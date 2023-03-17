@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/theme.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/theme.dart';
 
 class SettingOption extends StatelessWidget {
   const SettingOption(

@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../../event_bus/events.dart';
-import '../../../../exception/error_const.dart';
-import '../../../../pref/user_preference.dart';
-import '../../../../provider/user_data.dart';
-import '../../../../services/auth_service.dart';
+import '../../../../data/core/exception/error_const.dart';
+import '../../../../data/event_bus/events.dart';
+import '../../../../data/pref/user_preference.dart';
+import '../../../../data/provider/user_data.dart';
+import '../../../../data/services/auth_service.dart';
 import 'admin_settings_event.dart';
 import 'admin_settings_state.dart';
 
