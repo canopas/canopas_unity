@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/admin/dashboard/navigation_item.dart';
 
-
 class UserDashBoardScreen extends StatefulWidget {
   final Widget child;
+
   const UserDashBoardScreen({Key? key, required this.child}) : super(key: key);
 
   @override

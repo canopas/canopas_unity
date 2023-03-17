@@ -1,16 +1,15 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/utils/const/role.dart';
-import 'package:projectunity/event_bus/events.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
-import '../../../../../model/employee/employee.dart';
-import '../../../../../services/leave_service.dart';
-import '../../../../../services/paid_leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/core/utils/const/role.dart';
+import '../../../../../data/event_bus/events.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/services/employee_service.dart';
+import '../../../../../data/services/leave_service.dart';
+import '../../../../../data/services/paid_leave_service.dart';
 
 @Injectable()
 class EmployeeDetailBloc

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../../model/leave_application.dart';
+import '../../../../../data/model/leave_application.dart';
 
 enum AdminHomeStatus { initial, loading, success, failure }
 

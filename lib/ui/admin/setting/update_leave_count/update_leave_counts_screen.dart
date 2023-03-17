@@ -6,10 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../../di/service_locator.dart';
-import '../../../../widget/circular_progress_indicator.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/admin_setting_update_leave_count_screen_bloc.dart';
 import 'bloc/admin_setting_update_leave_count_screen_event.dart';
 import 'bloc/admin_setting_update_leave_count_screen_state.dart';
@@ -69,7 +68,6 @@ class _AdminUpdateLeaveCountsScreenState
         child: Padding(
           padding: const EdgeInsets.all(primaryHorizontalSpacing),
           child: Column(
-            // padding: const EdgeInsets.all(30),
             children: [
               Align(
                 alignment: Alignment.topLeft,
@@ -77,9 +75,7 @@ class _AdminUpdateLeaveCountsScreenState
                     localizations.admin_settings_total_yearly_paid_leave_tag,
                     style: AppFontStyle.labelRegular),
               ),
-              const SizedBox(
-                height: primaryHorizontalSpacing,
-              ),
+              const SizedBox(height: primaryHorizontalSpacing),
               TextField(
                 onChanged: (val) {
                   context
@@ -101,9 +97,7 @@ class _AdminUpdateLeaveCountsScreenState
                     hintText: localizations
                         .admin_setting_update_leave_total_leaves_tag),
               ),
-              const SizedBox(
-                height: primaryHorizontalSpacing,
-              ),
+              const SizedBox(height: primaryHorizontalSpacing),
               BlocBuilder<AdminSettingUpdatePaidLeaveCountBloc,
                   AdminSettingUpdateLeaveCountState>(
                 builder: (context, state) {

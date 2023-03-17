@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/model/employee/employee.dart';
+import '../../../../../data/model/employee/employee.dart';
 
 enum UserSettingsStatus { initial, loading, success, failure }
 
@@ -14,14 +14,15 @@ class UserSettingsState extends Equatable {
     required this.currentEmployee,
   });
 
-  copyWith({
-    String? error,
-    UserSettingsStatus? status,
-    Employee? currentEmployee}) => UserSettingsState(
-    error: error,
-    status: status ?? this.status,
-    currentEmployee: currentEmployee ?? this.currentEmployee,
-  );
+  copyWith(
+          {String? error,
+          UserSettingsStatus? status,
+          Employee? currentEmployee}) =>
+      UserSettingsState(
+        error: error,
+        status: status ?? this.status,
+        currentEmployee: currentEmployee ?? this.currentEmployee,
+      );
 
   @override
   List<Object?> get props => [error, status, currentEmployee];

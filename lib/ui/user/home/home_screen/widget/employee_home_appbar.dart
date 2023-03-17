@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/image_constant.dart';
+import '../../../../../data/core/utils/const/image_constant.dart';
 import '../../../../../navigation/app_router.dart';
 
 class EmployeeHomeAppBar extends StatelessWidget
@@ -40,9 +39,7 @@ class EmployeeHomeAppBar extends StatelessWidget
                       image: NetworkImage(ImageConst.companyLogo)),
                 ),
               ),
-              const SizedBox(
-                width: primaryHorizontalSpacing,
-              ),
+              const SizedBox(width: primaryHorizontalSpacing),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -56,8 +53,6 @@ class EmployeeHomeAppBar extends StatelessWidget
                 ],
               ),
               const Spacer(),
-
-              ///TODO remove this navigation on bottom bar navigation implementation.".
               CircleAvatar(
                 backgroundColor: const Color(0xfff5f5f5),
                 child: IconButton(
@@ -70,9 +65,7 @@ class EmployeeHomeAppBar extends StatelessWidget
               ),
             ],
           ),
-          const SizedBox(
-            height: primaryHalfSpacing,
-          ),
+          const SizedBox(height: primaryHalfSpacing),
           const Divider(
             color: AppColors.dividerColor,
             height: 1,

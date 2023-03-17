@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:projectunity/model/employee/employee.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 
 void main() {
   group("Employee", () {

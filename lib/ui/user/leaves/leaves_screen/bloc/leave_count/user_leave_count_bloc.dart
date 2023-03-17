@@ -2,11 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_cout_event.dart';
-
-import '../../../../../../exception/error_const.dart';
-import '../../../../../../provider/user_data.dart';
-import '../../../../../../services/leave_service.dart';
-import '../../../../../../services/paid_leave_service.dart';
+import '../../../../../../data/core/exception/error_const.dart';
+import '../../../../../../data/provider/user_data.dart';
+import '../../../../../../data/services/leave_service.dart';
+import '../../../../../../data/services/paid_leave_service.dart';
 
 @Injectable()
 class UserLeaveCountBloc
@@ -14,6 +13,7 @@ class UserLeaveCountBloc
   final LeaveService _leaveService;
   final UserManager _userManger;
   final PaidLeaveService _paidLeaveService;
+
   UserLeaveCountBloc(
       this._leaveService, this._userManger, this._paidLeaveService)
       : super(const UserLeaveCountState()) {

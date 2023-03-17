@@ -8,18 +8,19 @@
 import 'package:connectivity_plus/connectivity_plus.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:projectunity/bloc/network/network_connection_bloc.dart' as _i10;
+import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
+    as _i10;
+import 'package:projectunity/data/pref/user_preference.dart' as _i16;
+import 'package:projectunity/data/provider/user_data.dart' as _i28;
+import 'package:projectunity/data/services/auth_service.dart' as _i25;
+import 'package:projectunity/data/services/employee_service.dart' as _i6;
+import 'package:projectunity/data/services/leave_service.dart' as _i9;
+import 'package:projectunity/data/services/paid_leave_service.dart' as _i11;
+import 'package:projectunity/data/stateManager/auth/auth_manager.dart' as _i34;
+import 'package:projectunity/data/stateManager/auth/desktop/desktop_auth_manager.dart'
+    as _i5;
 import 'package:projectunity/di/app_module.dart' as _i42;
 import 'package:projectunity/navigation/app_router.dart' as _i32;
-import 'package:projectunity/pref/user_preference.dart' as _i16;
-import 'package:projectunity/provider/user_data.dart' as _i28;
-import 'package:projectunity/services/auth_service.dart' as _i25;
-import 'package:projectunity/services/employee_service.dart' as _i6;
-import 'package:projectunity/services/leave_service.dart' as _i9;
-import 'package:projectunity/services/paid_leave_service.dart' as _i11;
-import 'package:projectunity/stateManager/auth/auth_manager.dart' as _i34;
-import 'package:projectunity/stateManager/auth/desktop/desktop_auth_manager.dart'
-    as _i5;
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart'
     as _i26;
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart'

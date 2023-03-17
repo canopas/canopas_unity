@@ -1,14 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/event_bus/events.dart';
-import 'package:projectunity/services/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_state.dart';
-
-import '../../../../../exception/error_const.dart';
-import '../../../../../model/employee/employee.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/event_bus/events.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/services/employee_service.dart';
 
 @Injectable()
 class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {

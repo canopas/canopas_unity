@@ -23,10 +23,10 @@ class AddMemberFormState extends Equatable {
       this.email = '',
       this.designation = '',
       this.dateOfJoining,
-      this.idError=false,
-      this.designationError=false,
-      this.emailError=false,
-      this.nameError=false,
+      this.idError = false,
+      this.designationError = false,
+      this.emailError = false,
+      this.nameError = false,
       this.msg,
       this.status = SubmitFormStatus.initial});
 
@@ -50,10 +50,10 @@ class AddMemberFormState extends Equatable {
         email: email ?? this.email,
         designation: designation ?? this.designation,
         dateOfJoining: dateOfJoining ?? this.dateOfJoining,
-        idError: idError??this.idError,
-        designationError: designationError??this.designationError,
-        emailError: emailError??this.emailError,
-        nameError: nameError??this.nameError,
+        idError: idError ?? this.idError,
+        designationError: designationError ?? this.designationError,
+        emailError: emailError ?? this.emailError,
+        nameError: nameError ?? this.nameError,
         msg: msg,
         status: status ?? this.status);
   }

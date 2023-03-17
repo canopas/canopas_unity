@@ -6,11 +6,10 @@ import 'package:projectunity/configs/colors.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_card.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
-import '../../../../model/leave/leave.dart';
+import '../../../../data/model/leave/leave.dart';
 import '../../../../navigation/app_router.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/leave_count/user_leave_count_bloc.dart';
 import 'bloc/leave_count/user_leave_cout_event.dart';
 import 'bloc/leaves/user_leave_bloc.dart';
@@ -74,7 +73,6 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
                   LeaveList(
                       leaves: upcoming,
                       title: localization.user_leave_upcoming_leaves_tag),
-
                 if (state.pastLeaves.isNotEmpty)
                   LeaveList(
                       leaves: past,
@@ -82,7 +80,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
               ],
             );
           }
-          return Container();
+          return const SizedBox();
         },
       ),
       floatingActionButton: FloatingActionButton(

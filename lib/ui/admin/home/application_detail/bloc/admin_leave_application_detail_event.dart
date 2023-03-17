@@ -5,7 +5,9 @@ abstract class AdminLeaveApplicationDetailsEvents extends Equatable {}
 class AdminLeaveApplicationFetchLeaveCountEvent
     extends AdminLeaveApplicationDetailsEvents {
   final String employeeId;
+
   AdminLeaveApplicationFetchLeaveCountEvent({required this.employeeId});
+
   @override
   List<Object?> get props => [employeeId];
 }
@@ -13,7 +15,9 @@ class AdminLeaveApplicationFetchLeaveCountEvent
 class AdminLeaveApplicationReasonChangedEvent
     extends AdminLeaveApplicationDetailsEvents {
   final String adminReply;
+
   AdminLeaveApplicationReasonChangedEvent(this.adminReply);
+
   @override
   List<Object?> get props => [adminReply];
 }

@@ -1,18 +1,16 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/extensions/list.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/leave_application.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../../../model/employee/employee.dart';
-import '../../../../../model/leave/leave.dart';
-import '../../../../../services/employee_service.dart';
-import '../../../../../services/leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/model/leave_application.dart';
+import '../../../../../data/services/employee_service.dart';
+import '../../../../../data/services/leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
@@ -45,21 +43,6 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     }
   }
 
-  // Stream<List<LeaveApplication>> _changeLeaveApplicationFormat() {
-  //   _subscription = combineStream.listen((event) async {
-  //     List<LeaveApplication> list = [];
-  //     event.isEmpty
-  //         ? applications.sink.add(list)
-  //         : Future.wait(event.map((leaveApplication) async {
-  //             LeaveApplication application =
-  //                 await _addLeavesTo(leaveApplication);
-  //             list.add(application);
-  //             applications.sink.add(list);
-  //           }));
-  //   });
-  //   return applications.stream;
-  // }
-
   Stream<List<LeaveApplication>> get combineStream =>
       Rx.combineLatest2(_adminLeaveService.leaves, _employeeService.employees, (
         List<Leave> leaveList,
@@ -77,21 +60,6 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
             .whereNotNull()
             .toList();
       });
-  //
-  // Future<LeaveApplication> _addLeavesTo(LeaveApplication application) async {
-  //   int paidLeaves = await _paidLeaveService.getPaidLeaves();
-  //   double usedLeave =
-  //       await _userLeaveService.getUserUsedLeaveCount(application.employee.id);
-  //   double remainingLeaves = paidLeaves - usedLeave;
-  //   LeaveCounts leaveCounts = LeaveCounts(
-  //       remainingLeaveCount: remainingLeaves < 0 ? 0 : remainingLeaves,
-  //       usedLeaveCount: usedLeave,
-  //       paidLeaveCount: paidLeaves);
-  //   return LeaveApplication(
-  //       employee: application.employee,
-  //       leave: application.leave,
-  //       leaveCounts: leaveCounts);
-  // }
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {

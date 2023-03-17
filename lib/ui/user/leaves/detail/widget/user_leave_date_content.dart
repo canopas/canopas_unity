@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/date_formatter.dart';
-import '../../../../../model/leave/leave.dart';
+import '../../../../../data/core/utils/date_formatter.dart';
+import '../../../../../data/model/leave/leave.dart';
 
 class UserLeaveRequestDateContent extends StatelessWidget {
   final Leave leave;
@@ -35,9 +34,7 @@ class UserLeaveRequestDateContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(duration, style: AppFontStyle.labelRegular),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.01,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
             totalDays,
             style: AppFontStyle.bodySmallHeavy

@@ -6,6 +6,7 @@ abstract class AddMemberEvent extends Equatable {
 
 class SelectRoleEvent extends AddMemberEvent {
   final int? role;
+
   const SelectRoleEvent({this.role});
 
   @override
@@ -14,6 +15,7 @@ class SelectRoleEvent extends AddMemberEvent {
 
 class AddEmployeeIdEvent extends AddMemberEvent {
   final String employeeId;
+
   const AddEmployeeIdEvent({required this.employeeId});
 
   @override
@@ -22,6 +24,7 @@ class AddEmployeeIdEvent extends AddMemberEvent {
 
 class AddEmployeeNameEvent extends AddMemberEvent {
   final String name;
+
   const AddEmployeeNameEvent({required this.name});
 
   @override
@@ -30,6 +33,7 @@ class AddEmployeeNameEvent extends AddMemberEvent {
 
 class AddEmployeeEmailEvent extends AddMemberEvent {
   final String email;
+
   const AddEmployeeEmailEvent({required this.email});
 
   @override
@@ -38,6 +42,7 @@ class AddEmployeeEmailEvent extends AddMemberEvent {
 
 class AddEmployeeDesignationEvent extends AddMemberEvent {
   final String designation;
+
   const AddEmployeeDesignationEvent({required this.designation});
 
   @override
@@ -46,6 +51,7 @@ class AddEmployeeDesignationEvent extends AddMemberEvent {
 
 class AddDateOfJoiningDateEvent extends AddMemberEvent {
   final DateTime? dateOfJoining;
+
   const AddDateOfJoiningDateEvent(this.dateOfJoining);
 
   @override

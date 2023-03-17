@@ -7,10 +7,10 @@ import 'dart:async' as _i4;
 
 import 'package:flutter_bloc/flutter_bloc.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/model/employee/employee.dart' as _i5;
-import 'package:projectunity/model/leave/leave.dart' as _i7;
-import 'package:projectunity/services/employee_service.dart' as _i3;
-import 'package:projectunity/services/leave_service.dart' as _i6;
+import 'package:projectunity/data/model/employee/employee.dart' as _i5;
+import 'package:projectunity/data/model/leave/leave.dart' as _i7;
+import 'package:projectunity/data/services/employee_service.dart' as _i3;
+import 'package:projectunity/data/services/leave_service.dart' as _i6;
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
     as _i8;
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart'

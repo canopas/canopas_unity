@@ -9,9 +9,8 @@ import 'package:projectunity/ui/user/leaves/apply_leave/widget/date_selection_bu
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_request_reason_card.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_type_card.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/total_leave_card.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../../configs/space_constant.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/apply_leave_bloc.dart';
 import 'bloc/apply_leave_event.dart';
 import 'bloc/apply_leave_state.dart';
@@ -42,9 +41,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          localization.user_leaves_apply_appbar_tag,
-        ),
+        title: Text(localization.user_leaves_apply_appbar_tag),
       ),
       body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
         listenWhen: (previous, current) =>

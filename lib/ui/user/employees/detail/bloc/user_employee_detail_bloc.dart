@@ -1,17 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/exception/error_const.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_state.dart';
-
-import '../../../../../services/employee_service.dart';
-import '../../../../../services/leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/services/employee_service.dart';
+import '../../../../../data/services/leave_service.dart';
 
 @Injectable()
 class UserEmployeeDetailBloc
     extends Bloc<UserEmployeeDetailEvent, UserEmployeeDetailState> {
   final EmployeeService _employeeService;
   final LeaveService _leaveService;
+
   UserEmployeeDetailBloc(this._employeeService, this._leaveService)
       : super(UserEmployeeDetailInitialState()) {
     on<UserEmployeeDetailFetchEvent>(_fetchInitialData);

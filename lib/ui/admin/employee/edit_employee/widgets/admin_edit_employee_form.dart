@@ -4,11 +4,10 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../../../configs/colors.dart';
-import '../../../../../widget/date_time_picker.dart';
-import '../../../../../widget/employee_details_textfield.dart';
+import '../../../../widget/date_time_picker.dart';
+import '../../../../widget/employee_details_textfield.dart';
+import '../../../../widget/error_snack_bar.dart';
 import '../../../home/addmember/widget/role_toggle_button.dart';
 import '../bloc/admin_edit_employee_bloc.dart';
 import '../bloc/admin_edit_employee_events.dart';

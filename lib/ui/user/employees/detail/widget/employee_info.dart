@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../../model/employee/employee.dart';
-import '../../../../../widget/employee_details_field.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../widget/employee_details_field.dart';
 
 class EmployeeInfo extends StatelessWidget {
   final Employee employee;
+
   const EmployeeInfo({Key? key, required this.employee}) : super(key: key);
 
   @override

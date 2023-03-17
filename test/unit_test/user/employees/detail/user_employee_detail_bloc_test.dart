@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/model/leave/leave.dart';
-import 'package:projectunity/services/employee_service.dart';
-import 'package:projectunity/services/leave_service.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/services/employee_service.dart';
+import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_state.dart';
 
-import '../../../admin/home/home_screen/bloc/admin_home_bloc_test.mocks.dart';
+import 'user_employee_detail_bloc_test.mocks.dart';
 
 @GenerateMocks([EmployeeService, LeaveService, UserEmployeeDetailBloc])
 void main() {

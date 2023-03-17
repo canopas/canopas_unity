@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/model/employee/employee.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/employee_details_leaves_screen.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
@@ -9,8 +8,9 @@ import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.da
 import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
-import '../model/leave_application.dart';
-import '../provider/user_data.dart';
+import '../data/model/employee/employee.dart';
+import '../data/model/leave_application.dart';
+import '../data/provider/user_data.dart';
 import '../ui/admin/employee/detail/employee_detail_screen.dart';
 import '../ui/admin/employee/edit_employee/admin_edit_employee_screen.dart';
 import '../ui/admin/employee/list/employee_list_screen.dart';
@@ -44,14 +44,17 @@ class AppRouter {
     return GoRouter(
         refreshListenable: userManager,
         debugLogDiagnostics: true,
-        initialLocation: userManager.isAdmin || userManager.isHR ? Routes.adminHome : Routes.userHome,
+        initialLocation: userManager.isAdmin || userManager.isHR
+            ? Routes.adminHome
+            : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
         routes: [
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: '/login',
               name: Routes.login,
-              pageBuilder: (context, state) => const MaterialPage(child: LoginPage())),
+              pageBuilder: (context, state) =>
+                  const MaterialPage(child: LoginPage())),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) {
@@ -139,18 +142,29 @@ class AppRouter {
                                 parentNavigatorKey: _adminShellNavigatorKey,
                                 name: Routes.adminEmployeeDetailsLeaves,
                                 path: 'time-off:employeeName',
-                             routes: [
-                               GoRoute(
-                                   name: Routes.adminEmployeeDetailsLeavesDetails,
-                                   path: 'time-off-details:leaveId',
-                                   pageBuilder: (context, state) {
-                                     return MaterialPage(
-                                         child: UserLeaveDetailPage(leaveId: state.params[RoutesParamsConst.leaveId]!));
-                                   }),
-                             ],
-                             pageBuilder: (context, state){
-                                  return MaterialPage(child: AdminEmployeeDetailsLeavesPage(employeeName: state.params[RoutesParamsConst.employeeName] ?? "",employeeId: state.params[RoutesParamsConst.employeeId]!,));
-                          }),
+                                routes: [
+                                  GoRoute(
+                                      name: Routes
+                                          .adminEmployeeDetailsLeavesDetails,
+                                      path: 'time-off-details:leaveId',
+                                      pageBuilder: (context, state) {
+                                        return MaterialPage(
+                                            child: UserLeaveDetailPage(
+                                                leaveId: state.params[
+                                                    RoutesParamsConst
+                                                        .leaveId]!));
+                                      }),
+                                ],
+                                pageBuilder: (context, state) {
+                                  return MaterialPage(
+                                      child: AdminEmployeeDetailsLeavesPage(
+                                    employeeName: state.params[
+                                            RoutesParamsConst.employeeName] ??
+                                        "",
+                                    employeeId: state
+                                        .params[RoutesParamsConst.employeeId]!,
+                                  ));
+                                }),
                             GoRoute(
                               parentNavigatorKey: _adminShellNavigatorKey,
                               path: 'edit-employee',
@@ -277,10 +291,15 @@ class AppRouter {
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.loggedIn && loggingIn && (userManager.isAdmin || userManager.isHR)) {
+          if (userManager.loggedIn &&
+              loggingIn &&
+              (userManager.isAdmin || userManager.isHR)) {
             return Routes.adminHome;
           }
-          if (userManager.loggedIn && loggingIn && !userManager.isAdmin && !userManager.isHR) {
+          if (userManager.loggedIn &&
+              loggingIn &&
+              !userManager.isAdmin &&
+              !userManager.isHR) {
             return Routes.userHome;
           }
           return null;

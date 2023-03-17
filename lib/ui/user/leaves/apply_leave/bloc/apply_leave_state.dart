@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../model/leave_count.dart';
+import '../../../../../data/model/leave_count.dart';
 
 enum ApplyLeaveStatus { initial, loading, failure, success }
 

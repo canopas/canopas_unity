@@ -3,22 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_detail_approve_rejection_message.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_action_button.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_date_content.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_request_details_header.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
-
 import '../../../../configs/colors.dart';
 import '../../../../configs/space_constant.dart';
+import '../../../../data/model/leave_application.dart';
 import '../../../../di/service_locator.dart';
-import '../../../../model/leave_application.dart';
-import '../../../../widget/error_snack_bar.dart';
-import '../../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
-import '../../../../widget/leave_details_widget/reason_content.dart';
-import '../../../../widget/leave_details_widget/user_content.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/error_snack_bar.dart';
+import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
+import '../../../widget/leave_details_widget/reason_content.dart';
+import '../../../widget/leave_details_widget/user_content.dart';
 import 'bloc/admin_leave_application_detail_bloc.dart';
 import 'bloc/admin_leave_application_detail_event.dart';
 import 'bloc/admin_leave_application_detail_state.dart';
@@ -93,9 +92,7 @@ class _AdminLeaveApplicationDetailScreenState
               AdminLeaveRequestLeaveTypeHeader(
                   appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
                   leaveType: widget.leaveApplication.leave.leaveType),
-              UserContent(
-                employee: widget.leaveApplication.employee,
-              ),
+              UserContent(employee: widget.leaveApplication.employee),
               AdminLeaveRequestDetailsDateContent(
                   leave: widget.leaveApplication.leave),
               PerDayDurationDateRange(
@@ -115,8 +112,7 @@ class _AdminLeaveApplicationDetailScreenState
               .isBefore(DateTime.now().dateOnly)
           ? null
           : AdminLeaveDetailsActionButton(
-              leaveID: widget.leaveApplication.leave.leaveId,
-            ),
+              leaveID: widget.leaveApplication.leave.leaveId),
     );
   }
 }

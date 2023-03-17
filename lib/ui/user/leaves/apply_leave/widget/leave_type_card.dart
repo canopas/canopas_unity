@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/core/extensions/double_extension.dart';
-
+import 'package:projectunity/data/core/extensions/double_extension.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
 import '../../../../../configs/theme.dart';
-import '../../../../../core/utils/const/leave_map.dart';
-import '../../../../../widget/circular_progress_indicator.dart';
+import '../../../../../data/core/utils/const/leave_map.dart';
+import '../../../../widget/circular_progress_indicator.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -41,9 +40,7 @@ class LeaveTypeCard extends StatelessWidget {
                   previous.leaveCountStatus != current.leaveCountStatus,
               builder: (context, state) {
                 if (state.leaveCountStatus == LeaveCountStatus.loading) {
-                  return const AppCircularProgressIndicator(
-                    size: 28,
-                  );
+                  return const AppCircularProgressIndicator(size: 28);
                 } else if (state.leaveCountStatus == LeaveCountStatus.success) {
                   return Text(
                     "${state.leaveCounts.remainingLeaveCount.fixedAt(2)}/${state.leaveCounts.paidLeaveCount}",
@@ -80,9 +77,7 @@ class LeaveTypeCard extends StatelessWidget {
                 builder: (context, state) => DropdownButtonHideUnderline(
                   child: DropdownButton<int>(
                     isExpanded: true,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                    ),
+                    icon: const Icon(Icons.arrow_drop_down),
                     borderRadius: BorderRadius.circular(12),
                     items: leaveTypeMap
                         .map((key, value) {

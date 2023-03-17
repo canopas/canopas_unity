@@ -8,6 +8,7 @@ import 'package:table_calendar/table_calendar.dart'
 class AppTheme {
   static ThemeData get theme {
     return ThemeData(
+        fontFamily: 'inter',
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.whiteColor,
         appBarTheme: const AppBarTheme(
@@ -17,12 +18,12 @@ class AppTheme {
             centerTitle: true,
             titleTextStyle: AppFontStyle.appbarHeaderDark),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: AppColors.whiteColor,
-            landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColors.primaryBlue,
-            unselectedItemColor: AppColors.secondaryText,
-            ),
+          backgroundColor: AppColors.whiteColor,
+          landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: AppColors.primaryBlue,
+          unselectedItemColor: AppColors.secondaryText,
+        ),
         dividerTheme: const DividerThemeData(
           color: AppColors.dividerColor,
           indent: primaryHorizontalSpacing,

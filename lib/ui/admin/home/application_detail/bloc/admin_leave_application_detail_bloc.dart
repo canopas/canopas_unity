@@ -1,11 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/utils/const/firestore.dart';
-import 'package:projectunity/exception/error_const.dart';
-import 'package:projectunity/model/leave/leave.dart';
-
-import '../../../../../services/leave_service.dart';
-import '../../../../../services/paid_leave_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/core/utils/const/firestore.dart';
+import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/services/leave_service.dart';
+import '../../../../../data/services/paid_leave_service.dart';
 import 'admin_leave_application_detail_event.dart';
 import 'admin_leave_application_detail_state.dart';
 

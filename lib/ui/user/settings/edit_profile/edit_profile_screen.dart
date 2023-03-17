@@ -6,10 +6,9 @@ import 'package:projectunity/configs/space_constant.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.dart';
-
 import '../../../../configs/colors.dart';
-import '../../../../model/employee/employee.dart';
-import '../../../../widget/error_snack_bar.dart';
+import '../../../../data/model/employee/employee.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/employee_edit_profile_bloc.dart';
 import 'bloc/employee_edit_profile_event.dart';
 import 'bloc/employee_edit_profile_state.dart';

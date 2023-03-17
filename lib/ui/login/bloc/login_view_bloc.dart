@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/exception/custom_exception.dart';
-import 'package:projectunity/services/auth_service.dart';
-import 'package:projectunity/ui/login/bloc/login_view_event.dart';
-
-import '../../../exception/error_const.dart';
-import '../../../provider/user_data.dart';
-import '../../../stateManager/auth/auth_manager.dart';
+import '../../../data/core/exception/custom_exception.dart';
+import '../../../data/core/exception/error_const.dart';
+import '../../../data/provider/user_data.dart';
+import '../../../data/services/auth_service.dart';
+import '../../../data/stateManager/auth/auth_manager.dart';
+import 'login_view_event.dart';
 import 'login_view_state.dart';
 
 @Injectable()

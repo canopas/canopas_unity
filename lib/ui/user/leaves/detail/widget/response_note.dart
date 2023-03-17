@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
 import '../../../../../configs/text_style.dart';
@@ -8,6 +7,7 @@ import '../../../../../configs/theme.dart';
 
 class ResponseNote extends StatelessWidget {
   final String leaveResponse;
+
   const ResponseNote({Key? key, required this.leaveResponse}) : super(key: key);
 
   @override
@@ -22,9 +22,7 @@ class ResponseNote extends StatelessWidget {
             AppLocalizations.of(context).admin_leave_detail_note_tag,
             style: AppFontStyle.labelGrey,
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(5).copyWith(bottom: 4),
             decoration: BoxDecoration(

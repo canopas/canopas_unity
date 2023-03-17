@@ -1,13 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import 'package:projectunity/event_bus/events.dart';
-import 'package:projectunity/model/employee/employee.dart';
-import 'package:projectunity/provider/user_data.dart';
-
-import '../../../../../exception/error_const.dart';
-import '../../../../../pref/user_preference.dart';
-import '../../../../../services/employee_service.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/event_bus/events.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/pref/user_preference.dart';
+import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/services/employee_service.dart';
 import '../../settings_screen/bloc/user_settings_event.dart';
 import 'employee_edit_profile_event.dart';
 import 'employee_edit_profile_state.dart';

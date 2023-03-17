@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/theme.dart';
-import 'package:projectunity/core/extensions/date_time.dart';
-import '../../../../../../configs/text_style.dart';
-import '../../../../../../model/employee/employee.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
+import '../../../../../configs/text_style.dart';
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/space_constant.dart';
+import '../../../../../data/model/employee/employee.dart';
 import '../../../../../navigation/app_router.dart';
-import '../../../../../widget/employee_details_field.dart';
+import '../../../../widget/employee_details_field.dart';
 
 class ProfileDetail extends StatelessWidget {
   final Employee employee;
@@ -62,7 +62,8 @@ class TimeOffCard extends StatelessWidget {
     Key? key,
     required this.percentage,
     required this.usedLeaves,
-    required this.paidLeaves, required this.employee,
+    required this.paidLeaves,
+    required this.employee,
   }) : super(key: key);
   final Employee employee;
   final double percentage;
@@ -85,9 +86,10 @@ class TimeOffCard extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
-          onTap: () => context.goNamed(Routes.adminEmployeeDetailsLeaves,params: {
-            RoutesParamsConst.employeeId:employee.id,
-            RoutesParamsConst.employeeName:employee.name,
+          onTap: () =>
+              context.goNamed(Routes.adminEmployeeDetailsLeaves, params: {
+            RoutesParamsConst.employeeId: employee.id,
+            RoutesParamsConst.employeeName: employee.name,
           }),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -134,4 +136,3 @@ class TimeOffCard extends StatelessWidget {
     );
   }
 }
-

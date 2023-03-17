@@ -10,10 +10,10 @@ import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart'
     as _i9;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/model/employee/employee.dart' as _i2;
-import 'package:projectunity/provider/user_data.dart' as _i7;
-import 'package:projectunity/services/auth_service.dart' as _i4;
-import 'package:projectunity/stateManager/auth/auth_manager.dart' as _i6;
+import 'package:projectunity/data/model/employee/employee.dart' as _i2;
+import 'package:projectunity/data/provider/user_data.dart' as _i7;
+import 'package:projectunity/data/services/auth_service.dart' as _i4;
+import 'package:projectunity/data/stateManager/auth/auth_manager.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

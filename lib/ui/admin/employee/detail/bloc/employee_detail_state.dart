@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../../model/employee/employee.dart';
+import '../../../../../data/model/employee/employee.dart';
 
 abstract class AdminEmployeeDetailState extends Equatable {
   @override
@@ -16,11 +15,13 @@ class EmployeeDetailLoadedState extends AdminEmployeeDetailState {
   final double timeOffRatio;
   final int paidLeaves;
   final double usedLeaves;
+
   EmployeeDetailLoadedState(
       {required this.employee,
       required this.timeOffRatio,
       required this.paidLeaves,
       required this.usedLeaves});
+
   @override
   List<Object?> get props => [employee, timeOffRatio, paidLeaves, usedLeaves];
 }

@@ -5,10 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/configs/text_style.dart';
 import 'package:projectunity/di/service_locator.dart';
 import 'package:projectunity/ui/admin/home/addmember/widget/add_member_form.dart';
-import 'package:projectunity/widget/circular_progress_indicator.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../../configs/colors.dart';
+import '../../../widget/circular_progress_indicator.dart';
+import '../../../widget/error_snack_bar.dart';
 import 'bloc/add_member_bloc.dart';
 import 'bloc/add_member_event.dart';
 import 'bloc/add_member_state.dart';

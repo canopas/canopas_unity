@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/model/employee/employee.dart';
+import '../../../../data/model/employee/employee.dart';
 
 enum AdminSettingsStatus { initial, loading, success, failure }
 

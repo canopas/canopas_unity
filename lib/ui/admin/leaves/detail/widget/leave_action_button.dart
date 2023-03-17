@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../../../configs/colors.dart';
 import '../../../../../configs/text_style.dart';
 

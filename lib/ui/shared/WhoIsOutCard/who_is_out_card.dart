@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/widget/error_snack_bar.dart';
-
 import '../../../configs/colors.dart';
 import '../../../configs/space_constant.dart';
 import '../../../configs/text_style.dart';
 import '../../../configs/theme.dart';
-import '../../../core/utils/date_formatter.dart';
+import '../../../data/core/utils/date_formatter.dart';
+import '../../../data/model/leave_application.dart';
 import '../../../di/service_locator.dart';
-import '../../../model/leave_application.dart';
-import '../../../widget/circular_progress_indicator.dart';
+import '../../widget/circular_progress_indicator.dart';
+import '../../widget/error_snack_bar.dart';
 import 'bloc/who_is_out_card_bloc.dart';
 import 'bloc/who_is_out_card_event.dart';
 import 'bloc/who_is_out_card_state.dart';
