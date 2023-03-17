@@ -49,7 +49,7 @@ class LeaveList extends StatelessWidget {
                       },
                     ),
                   )
-                : Container(),
+                : const SizedBox(),
             expanded: ListView.separated(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
