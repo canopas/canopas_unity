@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/core/utils/const/leave_map.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 

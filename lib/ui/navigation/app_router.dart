@@ -8,26 +8,26 @@ import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.da
 import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
-import '../data/model/employee/employee.dart';
-import '../data/model/leave_application.dart';
-import '../data/provider/user_data.dart';
-import '../ui/admin/employee/detail/employee_detail_screen.dart';
-import '../ui/admin/employee/edit_employee/admin_edit_employee_screen.dart';
-import '../ui/admin/employee/list/employee_list_screen.dart';
-import '../ui/admin/home/addmember/admin_add_member_screen.dart';
-import '../ui/admin/home/home_screen/admin_home_screen.dart';
-import '../ui/admin/leaves/detail/leave_details.dart';
-import '../ui/admin/setting/admin_setting_screen.dart';
-import '../ui/admin/setting/update_leave_count/update_leave_counts_screen.dart';
-import '../ui/login/login_screen.dart';
-import '../ui/shared/employees_calendar/employees_calendar_screen.dart';
-import '../ui/user/dashboard/user_dashboard.dart';
-import '../ui/user/employees/list/user_employees_screen.dart';
-import '../ui/user/home/home_screen/user_home_screen.dart';
-import '../ui/user/home/leave_calendar/user_leave_calendar_screen.dart';
-import '../ui/user/leaves/apply_leave/apply_leave_screen.dart';
-import '../ui/user/settings/edit_profile/edit_profile_screen.dart';
-import '../ui/user/settings/settings_screen/user_settings_screen.dart';
+import '../../data/model/employee/employee.dart';
+import '../../data/model/leave_application.dart';
+import '../../data/provider/user_data.dart';
+import '../admin/employee/detail/employee_detail_screen.dart';
+import '../admin/employee/edit_employee/admin_edit_employee_screen.dart';
+import '../admin/employee/list/employee_list_screen.dart';
+import '../admin/home/addmember/admin_add_member_screen.dart';
+import '../admin/home/home_screen/admin_home_screen.dart';
+import '../admin/leaves/detail/leave_details.dart';
+import '../admin/setting/admin_setting_screen.dart';
+import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
+import '../login/login_screen.dart';
+import '../shared/employees_calendar/employees_calendar_screen.dart';
+import '../user/dashboard/user_dashboard.dart';
+import '../user/employees/list/user_employees_screen.dart';
+import '../user/home/home_screen/user_home_screen.dart';
+import '../user/home/leave_calendar/user_leave_calendar_screen.dart';
+import '../user/leaves/apply_leave/apply_leave_screen.dart';
+import '../user/settings/edit_profile/edit_profile_screen.dart';
+import '../user/settings/settings_screen/user_settings_screen.dart';
 
 @Injectable()
 class AppRouter {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/theme.dart';
+import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/model/employee/employee.dart';
-import '../../../../../navigation/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/employee_details_field.dart';
 
 class ProfileDetail extends StatelessWidget {

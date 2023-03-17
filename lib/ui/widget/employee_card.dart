@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
-import '../../configs/colors.dart';
-import '../../configs/space_constant.dart';
-import '../../configs/text_style.dart';
-import '../../configs/theme.dart';
+import '../../data/configs/colors.dart';
+import '../../data/configs/space_constant.dart';
+import '../../data/configs/text_style.dart';
+import '../../data/configs/theme.dart';
 import '../../data/model/employee/employee.dart';
 
 class EmployeeCard extends StatelessWidget {

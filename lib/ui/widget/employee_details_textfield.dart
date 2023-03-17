@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../configs/colors.dart';
-import '../../configs/space_constant.dart';
-import '../../configs/text_style.dart';
+import '../../data/configs/colors.dart';
+import '../../data/configs/space_constant.dart';
+import '../../data/configs/text_style.dart';
 
 class FieldTitle extends StatelessWidget {
   final String title;

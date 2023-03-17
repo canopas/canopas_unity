@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/di/service_locator.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/employee/detail/widget/profile_card.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/widget/employee_info.dart';
 import 'package:projectunity/ui/user/employees/detail/widget/tab_content.dart';
-import '../../../../configs/colors.dart';
+import '../../../../data/configs/colors.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_employee_detail_state.dart';

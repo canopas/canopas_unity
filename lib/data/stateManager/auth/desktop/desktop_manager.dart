@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:oauth2/oauth2.dart'as oauth2;
-import 'package:projectunity/configs/api.dart';
+import 'package:projectunity/data/configs/api.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_to_front/window_to_front.dart';
 

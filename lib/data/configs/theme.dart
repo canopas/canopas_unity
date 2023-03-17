@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/configs/text_style.dart';
+import 'colors.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
 import 'package:table_calendar/table_calendar.dart'
     show HeaderStyle, CalendarStyle;
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../configs/colors.dart';
+import '../../../../../data/configs/colors.dart';
 import '../../../../widget/user_profile_image.dart';
 
 class ProfileImage extends StatelessWidget {

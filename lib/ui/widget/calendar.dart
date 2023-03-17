@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
-import '../../configs/colors.dart';
+import '../../data/configs/colors.dart';
 import 'bottom_sheet_top_divider.dart';
 
 class CalendarCard extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import '../../configs/space_constant.dart';
-import '../../configs/text_style.dart';
+import '../../data/configs/space_constant.dart';
+import '../../data/configs/text_style.dart';
 
 class EmployeeDetailsField extends StatelessWidget {
   const EmployeeDetailsField(

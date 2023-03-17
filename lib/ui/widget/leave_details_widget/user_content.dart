@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/configs/text_style.dart';
-import '../../../configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import '../../../data/configs/space_constant.dart';
 import '../../../data/model/employee/employee.dart';
-import '../../../navigation/app_router.dart';
+import '../../navigation/app_router.dart';
 import '../user_profile_image.dart';
 
 class UserContent extends StatelessWidget {

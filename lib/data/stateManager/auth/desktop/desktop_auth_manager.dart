@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
-import 'package:projectunity/configs/api.dart';
+import 'package:projectunity/data/configs/api.dart';
 
 import 'desktop_manager.dart';
 

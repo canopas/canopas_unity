@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/configs/text_style.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
 import '../../data/core/utils/const/image_constant.dart';
 
 class EmptyScreen extends StatelessWidget {

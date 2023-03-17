@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../configs/colors.dart';
-import '../../../configs/space_constant.dart';
-import '../../../configs/text_style.dart';
-import '../../../configs/theme.dart';
+import '../../../data/configs/colors.dart';
+import '../../../data/configs/space_constant.dart';
+import '../../../data/configs/text_style.dart';
+import '../../../data/configs/theme.dart';
 import '../../../data/core/utils/date_formatter.dart';
 import '../../../data/model/leave_application.dart';
-import '../../../di/service_locator.dart';
+import '../../../data/di/service_locator.dart';
 import '../../widget/circular_progress_indicator.dart';
 import '../../widget/error_snack_bar.dart';
 import 'bloc/who_is_out_card_bloc.dart';
@@ -16,6 +16,7 @@ import 'bloc/who_is_out_card_state.dart';
 
 class WhoIsOutCard extends StatelessWidget {
   final void Function()? onSeeAllButtonTap;
+
   const WhoIsOutCard({Key? key, this.onSeeAllButtonTap}) : super(key: key);
 
   @override
@@ -59,7 +60,8 @@ class WhoIsOutCard extends StatelessWidget {
                     state.status == WhoOIsOutCardStatus.loading
                         ? const Padding(
                             padding: EdgeInsets.all(primaryHorizontalSpacing),
-                            child: ThreeBounceLoading(size: 15,color: AppColors.primaryBlue),
+                            child: ThreeBounceLoading(
+                                size: 15, color: AppColors.primaryBlue),
                           )
                         : _AbsenceEmployeesListWhoIsOutCardView(
                             absence: state.absence,
@@ -76,6 +78,7 @@ class WhoIsOutCard extends StatelessWidget {
 
 class _WhoIsOutCardControlButtons extends StatelessWidget {
   final void Function()? onSeeAllButtonTap;
+
   const _WhoIsOutCardControlButtons({Key? key, this.onSeeAllButtonTap})
       : super(key: key);
 

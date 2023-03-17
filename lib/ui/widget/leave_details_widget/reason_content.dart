@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../configs/space_constant.dart';
-import '../../../configs/text_style.dart';
+import '../../../data/configs/space_constant.dart';
+import '../../../data/configs/text_style.dart';
 
 class ReasonField extends StatelessWidget {
   const ReasonField(

@@ -2,11 +2,11 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/model/leave_application.dart';
-import '../../../../../navigation/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/leave_application_card.dart';
 
 class ExpandableList extends StatelessWidget {

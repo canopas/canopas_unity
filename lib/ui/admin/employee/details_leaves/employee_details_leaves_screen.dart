@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../di/service_locator.dart';
+import '../../../../data/configs/colors.dart';
+import '../../../../data/di/service_locator.dart';
 import 'widget/leave_list.dart';
-import '../../../../configs/colors.dart';
-import '../../../../configs/text_style.dart';
-import '../../../../configs/theme.dart';
+import '../../../../data/configs/text_style.dart';
+import '../../../../data/configs/theme.dart';
 import 'bloc/admin_employee_details_leave_bloc.dart';
 import 'bloc/admin_employee_details_leave_events.dart';
 import 'bloc/admin_employee_details_leave_state.dart';

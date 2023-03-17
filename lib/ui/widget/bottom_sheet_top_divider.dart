@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import '../../configs/colors.dart';
-import '../../configs/space_constant.dart';
+import '../../data/configs/colors.dart';
+import '../../data/configs/space_constant.dart';
 
 class BottomSheetTopSlider extends StatelessWidget {
   const BottomSheetTopSlider({Key? key}) : super(key: key);

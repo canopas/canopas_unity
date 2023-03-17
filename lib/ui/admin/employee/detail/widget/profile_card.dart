@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/space_constant.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/configs/theme.dart';
-import '../../../../../configs/colors.dart';
+import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/configs/theme.dart';
+import '../../../../../data/configs/colors.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/user_profile_image.dart';
 

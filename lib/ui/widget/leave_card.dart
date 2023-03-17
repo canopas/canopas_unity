@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/text_style.dart';
-import 'package:projectunity/configs/theme.dart';
-import '../../configs/colors.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/configs/theme.dart';
+import '../../data/configs/colors.dart';
 import '../../data/core/utils/const/leave_map.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/leave/leave.dart';

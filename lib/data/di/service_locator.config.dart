@@ -19,8 +19,8 @@ import 'package:projectunity/data/services/paid_leave_service.dart' as _i11;
 import 'package:projectunity/data/stateManager/auth/auth_manager.dart' as _i34;
 import 'package:projectunity/data/stateManager/auth/desktop/desktop_auth_manager.dart'
     as _i5;
-import 'package:projectunity/di/app_module.dart' as _i42;
-import 'package:projectunity/navigation/app_router.dart' as _i32;
+import 'package:projectunity/data/di/app_module.dart' as _i42;
+import 'package:projectunity/ui/navigation/app_router.dart' as _i32;
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart'
     as _i26;
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart'

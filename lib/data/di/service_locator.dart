@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/di/service_locator.config.dart';
+import 'package:projectunity/data/di/service_locator.config.dart';
 
 GetIt getIt = GetIt.instance;
 

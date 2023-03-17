@@ -8,12 +8,12 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/firebase_options.dart';
 import 'package:projectunity/l10n/l10n.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'configs/theme.dart';
+import 'data/configs/theme.dart';
 import 'data/bloc/network/network_connection_bloc.dart';
 import 'data/bloc/network/network_connection_event.dart';
 import 'data/bloc/network/network_connection_state.dart';
-import 'di/service_locator.dart';
-import 'navigation/app_router.dart';
+import 'data/di/service_locator.dart';
+import 'ui/navigation/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math show sin, pi;
 
-import '../../configs/colors.dart';
+import '../../data/configs/colors.dart';
 
 class DelayTween extends Tween<double> {
   DelayTween({double? begin, double? end, required this.delay})

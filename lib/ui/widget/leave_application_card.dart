@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/colors.dart';
-import 'package:projectunity/configs/theme.dart';
+import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
-import '../../configs/space_constant.dart';
-import '../../configs/text_style.dart';
+import '../../data/configs/colors.dart';
+import '../../data/configs/space_constant.dart';
+import '../../data/configs/text_style.dart';
 import '../../data/core/utils/const/leave_map.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/employee/employee.dart';

@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../navigation/app_router.dart';
+import '../../../../navigation/app_router.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/empty_screen.dart';
 import '../../../../widget/leave_card.dart';

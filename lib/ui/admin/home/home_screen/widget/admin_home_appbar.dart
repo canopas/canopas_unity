@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
-import '../../../../../configs/text_style.dart';
-import '../../../../../configs/theme.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
 import '../../../../../data/core/utils/const/image_constant.dart';
-import '../../../../../navigation/app_router.dart';
+import '../../../../navigation/app_router.dart';
 
 class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AdminHomeAppBar({Key? key, required this.preferredSize})

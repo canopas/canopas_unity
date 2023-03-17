@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/configs/text_style.dart';
-import '../../../../../configs/colors.dart';
-import '../../../../../configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_state.dart';
