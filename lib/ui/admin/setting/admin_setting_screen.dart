@@ -9,6 +9,7 @@ import '../../../data/di/service_locator.dart';
 import '../../navigation/app_router.dart';
 import '../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import '../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
+import '../../widget/app_dialog.dart';
 import '../../widget/error_snack_bar.dart';
 import 'bloc/admin_settings_bloc.dart';
 import 'bloc/admin_settings_event.dart';
@@ -77,9 +78,18 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                 icon: Icons.logout_rounded,
                 title: AppLocalizations.of(context).sign_out_tag,
                 onTap: () {
-                  context
-                      .read<AdminSettingsBloc>()
-                      .add(AdminSettingsLogOutEvent());
+                  showAlertDialog(
+                    actionButtonTitle:
+                        AppLocalizations.of(context).sign_out_tag,
+                    onActionButtonPressed: () {
+                      context
+                          .read<AdminSettingsBloc>()
+                          .add(AdminSettingsLogOutEvent());
+                    },
+                    context: context,
+                    title: AppLocalizations.of(context).sign_out_tag,
+                    description: AppLocalizations.of(context).sign_out_alert,
+                  );
                 }),
           ],
         ),

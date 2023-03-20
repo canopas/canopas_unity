@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settings_user_profile.dart';
+import 'package:projectunity/ui/widget/app_dialog.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/configs/text_style.dart';
@@ -71,9 +72,18 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                 icon: Icons.logout_rounded,
                 title: AppLocalizations.of(context).sign_out_tag,
                 onTap: () {
-                  context
-                      .read<UserSettingsBloc>()
-                      .add(UserSettingsLogOutEvent());
+                  showAlertDialog(
+                    actionButtonTitle:
+                        AppLocalizations.of(context).sign_out_tag,
+                    onActionButtonPressed: () {
+                      context
+                          .read<UserSettingsBloc>()
+                          .add(UserSettingsLogOutEvent());
+                    },
+                    context: context,
+                    title: AppLocalizations.of(context).sign_out_tag,
+                    description: AppLocalizations.of(context).sign_out_alert,
+                  );
                 })
           ],
         ),
