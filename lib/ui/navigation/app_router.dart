@@ -315,12 +315,12 @@ abstract class Routes {
   static const adminLeaves = '/admin-leaves';
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
-  static const addMember = 'add-member';
+  static const addMember = 'new';
   static const adminCalender = 'admin-calender';
   static const adminLeaveDetails = 'admin-leave-details';
   static const adminEditEmployee = 'admin-edit-employee-details';
   static const adminEmployeeDetail = 'admin-employee-details/:employeeId';
-  static const leaveRequestDetail = 'admin-leave-request-details';
+  static const leaveRequestDetail = 'admin-leave-application-details';
   static const userHome = '/user-home';
   static const userLeaves = '/leaves';
   static const userEmployees = '/employees';
