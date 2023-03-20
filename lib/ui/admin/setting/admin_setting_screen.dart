@@ -79,25 +79,17 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                 title: AppLocalizations.of(context).sign_out_tag,
                 onTap: () {
                   showAlertDialog(
-                      context: context,
-                      title: AppLocalizations.of(context).sign_out_tag,
-                      description: AppLocalizations.of(context).sign_out_alert,
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              context.pop();
-                            },
-                            child: Text(AppLocalizations.of(context)
-                                .alert_cancel_action)),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<AdminSettingsBloc>()
-                                  .add(AdminSettingsLogOutEvent());
-                            },
-                            child: Text(
-                                AppLocalizations.of(context).sign_out_tag)),
-                      ]);
+                    actionButtonTitle:
+                        AppLocalizations.of(context).sign_out_tag,
+                    onActionButtonPressed: () {
+                      context
+                          .read<AdminSettingsBloc>()
+                          .add(AdminSettingsLogOutEvent());
+                    },
+                    context: context,
+                    title: AppLocalizations.of(context).sign_out_tag,
+                    description: AppLocalizations.of(context).sign_out_alert,
+                  );
                 }),
           ],
         ),

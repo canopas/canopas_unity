@@ -112,27 +112,19 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
                 leaveStatus: widget.leaveApplication.leave.leaveStatus,
                 onTap: () {
                   showAlertDialog(
-                      context: context,
-                      title: AppLocalizations.of(context).delete_button_tag,
-                      description:
-                          AppLocalizations.of(context).remove_user_leave_alert,
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              context.pop();
-                            },
-                            child: Text(AppLocalizations.of(context)
-                                .alert_cancel_action)),
-                        ElevatedButton(
-                            onPressed: () {
-                              context.read<AdminLeaveDetailBloc>().add(
-                                  DeleteLeaveApplicationEvent(
-                                      widget.leaveApplication.leave.leaveId));
-                              context.pop();
-                            },
-                            child: Text(AppLocalizations.of(context)
-                                .delete_button_tag)),
-                      ]);
+                    context: context,
+                    title: AppLocalizations.of(context).delete_button_tag,
+                    description:
+                        AppLocalizations.of(context).remove_user_leave_alert,
+                    actionButtonTitle:
+                        AppLocalizations.of(context).delete_button_tag,
+                    onActionButtonPressed: () {
+                      context.read<AdminLeaveDetailBloc>().add(
+                          DeleteLeaveApplicationEvent(
+                              widget.leaveApplication.leave.leaveId));
+                      context.pop();
+                    },
+                  );
                 }));
   }
 }

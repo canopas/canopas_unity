@@ -73,25 +73,17 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                 title: AppLocalizations.of(context).sign_out_tag,
                 onTap: () {
                   showAlertDialog(
-                      context: context,
-                      title: AppLocalizations.of(context).sign_out_tag,
-                      description: AppLocalizations.of(context).sign_out_alert,
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              context.pop();
-                            },
-                            child: Text(AppLocalizations.of(context)
-                                .alert_cancel_action)),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<UserSettingsBloc>()
-                                  .add(UserSettingsLogOutEvent());
-                            },
-                            child: Text(
-                                AppLocalizations.of(context).sign_out_tag)),
-                      ]);
+                    actionButtonTitle:
+                        AppLocalizations.of(context).sign_out_tag,
+                    onActionButtonPressed: () {
+                      context
+                          .read<UserSettingsBloc>()
+                          .add(UserSettingsLogOutEvent());
+                    },
+                    context: context,
+                    title: AppLocalizations.of(context).sign_out_tag,
+                    description: AppLocalizations.of(context).sign_out_alert,
+                  );
                 })
           ],
         ),

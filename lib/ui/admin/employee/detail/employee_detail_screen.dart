@@ -76,23 +76,22 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                           ),
                           onTap: () {
                             showAlertDialog(
-                                context: context,
-                                title: AppLocalizations.of(context).delete_button_tag,
-                                description: AppLocalizations.of(context).delete_user_account_alert(state.employee.name),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        context.pop();
-                                      },
-                                      child: Text(AppLocalizations.of(context).alert_cancel_action)),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        context.read<EmployeeDetailBloc>().add(DeleteEmployeeEvent(employeeId: widget.employeeId));
-                                        context.pop();
-                                        context.pop();
-                                      },
-                                      child: Text(AppLocalizations.of(context).delete_button_tag)),
-                                ]);
+                              context: context,
+                              title: AppLocalizations.of(context)
+                                  .delete_button_tag,
+                              description: AppLocalizations.of(context)
+                                  .delete_user_account_alert(
+                                      state.employee.name),
+                              onActionButtonPressed: () {
+                                context.read<EmployeeDetailBloc>().add(
+                                    DeleteEmployeeEvent(
+                                        employeeId: widget.employeeId));
+                                context.pop();
+                                context.pop();
+                              },
+                              actionButtonTitle: AppLocalizations.of(context)
+                                  .delete_button_tag,
+                            );
                           },
                         ),
                         PopupMenuItem(
