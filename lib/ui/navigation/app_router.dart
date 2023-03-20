@@ -5,6 +5,7 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/employee_details_leaves_screen.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
+import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
@@ -19,7 +20,6 @@ import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/leaves/detail/leave_details.dart';
 import '../admin/setting/admin_setting_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
-import '../login/login_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
@@ -54,7 +54,7 @@ class AppRouter {
               path: '/login',
               name: Routes.login,
               pageBuilder: (context, state) =>
-                  const MaterialPage(child: LoginPage())),
+                  const MaterialPage(child: SignInPage())),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) {
