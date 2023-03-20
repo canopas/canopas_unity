@@ -12,6 +12,7 @@ import '../../../../data/configs/space_constant.dart';
 import '../../../../data/model/leave_application.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
+import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -109,9 +110,29 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
             ? null
             : LeaveDetailActionButton(
                 leaveStatus: widget.leaveApplication.leave.leaveStatus,
-                onTap: () => context.read<AdminLeaveDetailBloc>().add(
-                    DeleteLeaveApplicationEvent(
-                        widget.leaveApplication.leave.leaveId)),
-              ));
+                onTap: () {
+                  showAlertDialog(
+                      context: context,
+                      title: AppLocalizations.of(context).delete_button_tag,
+                      description:
+                          AppLocalizations.of(context).remove_user_leave_alert,
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: Text(AppLocalizations.of(context)
+                                .alert_cancel_action)),
+                        ElevatedButton(
+                            onPressed: () {
+                              context.read<AdminLeaveDetailBloc>().add(
+                                  DeleteLeaveApplicationEvent(
+                                      widget.leaveApplication.leave.leaveId));
+                              context.pop();
+                            },
+                            child: Text(AppLocalizations.of(context)
+                                .delete_button_tag)),
+                      ]);
+                }));
   }
 }

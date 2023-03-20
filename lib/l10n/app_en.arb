@@ -283,6 +283,7 @@
       }
     }
   },
+  "remove_user_leave_alert":"Are you sure you want to remove this leave?",
   "alert_cancel_action":"Cancel",
 
   "settings_tag": "Settings",
