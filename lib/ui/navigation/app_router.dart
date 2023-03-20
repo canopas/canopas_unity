@@ -51,46 +51,44 @@ class AppRouter {
         routes: [
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: '/login',
+              path: Routes.login,
               name: Routes.login,
               pageBuilder: (context, state) =>
                   const MaterialPage(child: LoginPage())),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
-              builder: (context, state, child) {
-                return AdminDashBoardScreen(child: child);
-              },
+              builder: (context, state, child) =>
+                  AdminDashBoardScreen(child: child),
               routes: [
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
                     name: Routes.adminHome,
-                    path: '/admin-home',
+                    path: Routes.adminHome,
                     pageBuilder: (context, state) {
                       return const MaterialPage(child: AdminHomeScreenPage());
                     },
                     routes: <GoRoute>[
                       GoRoute(
-                          path: 'new',
+                          path: Routes.addMember,
                           name: Routes.addMember,
                           parentNavigatorKey: _adminShellNavigatorKey,
                           pageBuilder: (context, state) =>
-                              const MaterialPage(child: AdminAddMemberPage())),
+                              const NoTransitionPage(
+                                  child: AdminAddMemberPage())),
                       GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.leaveApplicationDetail,
-                          path: 'leave-application',
-                          pageBuilder: (context, state) {
-                            LeaveApplication leaveApplication =
-                                state.extra as LeaveApplication;
-                            return MaterialPage(
-                                child: AdminLeaveApplicationDetailsPage(
-                                    leaveApplication: leaveApplication));
-                          }),
+                        parentNavigatorKey: _adminShellNavigatorKey,
+                        name: Routes.leaveRequestDetail,
+                        path: Routes.leaveRequestDetail,
+                        pageBuilder: (context, state) => NoTransitionPage(
+                            child: AdminLeaveApplicationDetailsPage(
+                                leaveApplication:
+                                    state.extra as LeaveApplication)),
+                      ),
                       GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.adminCalender,
                         path: Routes.adminCalender,
-                        pageBuilder: (context, state) => const MaterialPage(
+                        pageBuilder: (context, state) => const NoTransitionPage(
                           child: EmployeesLeaveCalenderPage(),
                         ),
                       )
@@ -98,42 +96,40 @@ class AppRouter {
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
                     name: Routes.adminLeaves,
-                    path: '/admin-leaves',
+                    path: Routes.adminLeaves,
                     pageBuilder: (context, state) {
                       return const MaterialPage(child: AdminLeavesPage());
                     },
                     routes: <GoRoute>[
                       GoRoute(
                         name: Routes.applyHRLeave,
-                        path: 'hr-apply-leave',
-                        pageBuilder: (context, state) => const MaterialPage(
+                        path: Routes.applyHRLeave,
+                        pageBuilder: (context, state) => const NoTransitionPage(
                           child: ApplyLeavePage(),
                         ),
                       ),
                       GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.adminLeaveDetails,
-                          path: 'details',
-                          pageBuilder: (context, state) {
-                            LeaveApplication leaveApplication =
-                                state.extra as LeaveApplication;
-                            return MaterialPage(
-                                child: AdminLeaveDetailsPage(
-                                    leaveApplication: leaveApplication));
-                          }),
+                        parentNavigatorKey: _adminShellNavigatorKey,
+                        name: Routes.adminLeaveDetails,
+                        path: Routes.adminLeaveDetails,
+                        pageBuilder: (context, state) => NoTransitionPage(
+                            child: AdminLeaveDetailsPage(
+                                leaveApplication:
+                                    state.extra as LeaveApplication)),
+                      ),
                     ]),
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
                     name: Routes.adminEmployees,
-                    path: '/admin-employees',
+                    path: Routes.adminEmployees,
                     pageBuilder: (context, state) =>
                         const MaterialPage(child: EmployeeListPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.adminEmployeeDetail,
-                          path: 'employeeDetails:employeeId',
-                          pageBuilder: (context, state) => MaterialPage(
+                          path: Routes.adminEmployeeDetail,
+                          pageBuilder: (context, state) => NoTransitionPage(
                               child: EmployeeDetailPage(
                                   id: state
                                       .params[RoutesParamsConst.employeeId]!)),
@@ -141,35 +137,35 @@ class AppRouter {
                             GoRoute(
                                 parentNavigatorKey: _adminShellNavigatorKey,
                                 name: Routes.adminEmployeeDetailsLeaves,
-                                path: 'time-off:employeeName',
+                                path: Routes.adminEmployeeDetailsLeaves,
                                 routes: [
                                   GoRoute(
-                                      name: Routes
-                                          .adminEmployeeDetailsLeavesDetails,
-                                      path: 'time-off-details:leaveId',
-                                      pageBuilder: (context, state) {
-                                        return MaterialPage(
+                                    name: Routes
+                                        .adminEmployeeDetailsLeavesDetails,
+                                    path: Routes
+                                        .adminEmployeeDetailsLeavesDetails,
+                                    pageBuilder: (context, state) =>
+                                        NoTransitionPage(
                                             child: UserLeaveDetailPage(
                                                 leaveId: state.params[
                                                     RoutesParamsConst
-                                                        .leaveId]!));
-                                      }),
+                                                        .leaveId]!)),
+                                  ),
                                 ],
-                                pageBuilder: (context, state) {
-                                  return MaterialPage(
-                                      child: AdminEmployeeDetailsLeavesPage(
-                                    employeeName: state.params[
-                                            RoutesParamsConst.employeeName] ??
-                                        "",
-                                    employeeId: state
-                                        .params[RoutesParamsConst.employeeId]!,
-                                  ));
-                                }),
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage(
+                                        child: AdminEmployeeDetailsLeavesPage(
+                                      employeeName: state.params[
+                                              RoutesParamsConst.employeeName] ??
+                                          "",
+                                      employeeId: state.params[
+                                          RoutesParamsConst.employeeId]!,
+                                    ))),
                             GoRoute(
                               parentNavigatorKey: _adminShellNavigatorKey,
-                              path: 'edit-employee',
+                              path: Routes.adminEditEmployee,
                               name: Routes.adminEditEmployee,
-                              pageBuilder: (context, state) => MaterialPage(
+                              pageBuilder: (context, state) => NoTransitionPage(
                                   child: AdminEditEmployeeDetailsPage(
                                 employee: state.extra as Employee,
                               )),
@@ -179,16 +175,17 @@ class AppRouter {
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
                     name: Routes.adminSettings,
-                    path: '/admin-settings',
+                    path: Routes.adminSettings,
                     pageBuilder: (context, state) =>
                         const MaterialPage(child: AdminSettingPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.updateLeaveCount,
-                          path: 'paid-leave',
-                          pageBuilder: (context, state) => const MaterialPage(
-                              child: AdminUpdateLeaveCountsPage())),
+                          path: Routes.updateLeaveCount,
+                          pageBuilder: (context, state) =>
+                              const NoTransitionPage(
+                                  child: AdminUpdateLeaveCountsPage())),
                     ]),
               ]),
           ShellRoute(
@@ -199,16 +196,16 @@ class AppRouter {
               routes: <GoRoute>[
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
-                    path: '/user-home',
+                    path: Routes.userHome,
                     name: Routes.userHome,
                     pageBuilder: (context, state) =>
                         const MaterialPage(child: UserHomeScreenPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           name: Routes.userRequestDetail,
-                          path: 'request-detail:leaveId',
+                          path: Routes.userRequestDetail,
                           pageBuilder: (context, state) {
-                            return MaterialPage(
+                            return NoTransitionPage(
                                 child: UserLeaveDetailPage(
                                     leaveId: state
                                         .params[RoutesParamsConst.leaveId]!));
@@ -217,43 +214,43 @@ class AppRouter {
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           path: Routes.userCalender,
                           name: Routes.userCalender,
-                          pageBuilder: (context, state) => const MaterialPage(
-                              child: EmployeesLeaveCalenderPage())),
+                          pageBuilder: (context, state) =>
+                              const NoTransitionPage(
+                                  child: EmployeesLeaveCalenderPage())),
                       GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           name: Routes.userLeaveCalender,
-                          path: 'user-calender',
-                          pageBuilder: (context, state) => MaterialPage(
+                          path: Routes.userLeaveCalender,
+                          pageBuilder: (context, state) => NoTransitionPage(
                               child: UserLeaveCalendarPage(
                                   userId: userManager.employeeId))),
                     ]),
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
-                    path: '/leaves',
+                    path: Routes.userLeaves,
                     name: Routes.userLeaves,
                     pageBuilder: (context, state) =>
                         const MaterialPage(child: UserLeavePage()),
                     routes: <GoRoute>[
                       GoRoute(
                         name: Routes.applyLeave,
-                        path: 'apply-leave',
-                        pageBuilder: (context, state) => const MaterialPage(
+                        path: Routes.applyLeave,
+                        pageBuilder: (context, state) => const NoTransitionPage(
                           child: ApplyLeavePage(),
                         ),
                       ),
                       GoRoute(
-                          name: Routes.userLeaveDetail,
-                          path: ':leaveId',
-                          pageBuilder: (context, state) {
-                            return MaterialPage(
-                                child: UserLeaveDetailPage(
-                                    leaveId: state
-                                        .params[RoutesParamsConst.leaveId]!));
-                          }),
+                        name: Routes.userLeaveDetail,
+                        path: Routes.userLeaveDetail,
+                        pageBuilder: (context, state) => NoTransitionPage(
+                            child: UserLeaveDetailPage(
+                                leaveId:
+                                    state.params[RoutesParamsConst.leaveId]!)),
+                      ),
                     ]),
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
-                    path: '/employees',
+                    path: Routes.userEmployees,
                     name: Routes.userEmployees,
                     pageBuilder: (context, state) =>
                         const MaterialPage(child: UserEmployeesPage()),
@@ -261,8 +258,8 @@ class AppRouter {
                       GoRoute(
                         parentNavigatorKey: _employeeShellNavigatorKey,
                         name: Routes.userEmployeeDetail,
-                        path: ':employeeId',
-                        pageBuilder: (context, state) => MaterialPage(
+                        path: Routes.userEmployeeDetail,
+                        pageBuilder: (context, state) => NoTransitionPage(
                             child: UserEmployeeDetailPage(
                                 employeeId: state
                                     .params[RoutesParamsConst.employeeId]!)),
@@ -270,7 +267,7 @@ class AppRouter {
                     ]),
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
-                    path: '/settings',
+                    path: Routes.userSettings,
                     name: Routes.userSettings,
                     pageBuilder: (context, state) =>
                         const MaterialPage(child: UserSettingsPage()),
@@ -278,7 +275,7 @@ class AppRouter {
                       GoRoute(
                         path: Routes.userEditProfile,
                         name: Routes.userEditProfile,
-                        pageBuilder: (context, state) => MaterialPage(
+                        pageBuilder: (context, state) => NoTransitionPage(
                             child: EmployeeEditProfilePage(
                           employee: state.extra as Employee,
                         )),
@@ -318,26 +315,28 @@ abstract class Routes {
   static const adminLeaves = '/admin-leaves';
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
-  static const addMember = '/new';
+  static const addMember = 'new';
   static const adminCalender = 'admin-calender';
-  static const adminLeaveDetails = 'details';
-  static const adminEditEmployee = 'edit-employee';
-  static const adminEmployeeDetail = '/admin-employee-details/:employeeId';
-  static const leaveApplicationDetail = '/leave-application/:id';
+  static const adminLeaveDetails = 'admin-leave-details';
+  static const adminEditEmployee = 'admin-edit-employee-details';
+  static const adminEmployeeDetail = 'admin-employee-details/:employeeId';
+  static const leaveRequestDetail = 'admin-leave-application-details';
   static const userHome = '/user-home';
   static const userLeaves = '/leaves';
   static const userEmployees = '/employees';
   static const userSettings = '/settings';
-  static const userLeaveDetail = '/leave-detail';
-  static const userRequestDetail = '/request-detail';
-  static const userEmployeeDetail = '/user-employee-details/:employeeId';
+  static const userLeaveDetail = 'leave-detail/:leaveId';
+  static const userRequestDetail = 'leave-request-detail/:leaveId';
+  static const userEmployeeDetail = 'employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
-  static const applyLeave = '/apply-leave';
-  static const applyHRLeave = '/hr-apply-leave';
-  static const userCalender = 'user-calender';
+  static const applyLeave = 'apply-leave';
+  static const applyHRLeave = 'apply-hr-leave';
+  static const userCalender = 'calender';
   static const login = '/login';
-  static const updateLeaveCount = '/paid-leave';
-  static const userLeaveCalender = '/user-calender';
-  static const adminEmployeeDetailsLeaves = 'time-off';
-  static const adminEmployeeDetailsLeavesDetails = 'time-off-leave-detail';
+  static const updateLeaveCount = 'update-paid-leave';
+  static const userLeaveCalender = 'user-calender';
+  static const adminEmployeeDetailsLeaves =
+      'admin-employee-detail-leaves/:employeeName';
+  static const adminEmployeeDetailsLeavesDetails =
+      'admin-employee-detail-leaves-details/:leaveId';
 }
