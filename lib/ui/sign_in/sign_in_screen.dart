@@ -115,6 +115,7 @@ class SignInScreenState extends State<SignInScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 180,
                 child: BlocBuilder<SignInScreenBloc, SignInState>(
+                  buildWhen: (previous, current) => previous is SignInLoadingState || current is SignInLoadingState,
                   builder: (context, state) => state is SignInLoadingState
                       ? const ThreeBounceLoading(size: 25, color: AppColors.primaryBlue)
                       : Column(
