@@ -61,7 +61,7 @@ class AppRouter {
                   path: Routes.createOrgSpace,
                   name: Routes.createOrgSpace,
                   pageBuilder: (context, state) => MaterialPage(
-                      child: CreateOrgScreen(
+                      child: CreateSpacePage(
                     employee: state.extra as Employee,
                   )),
                 )
