@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/sign_in/widget/sign_in_button.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
@@ -42,7 +44,9 @@ class SignInScreenState extends State<SignInScreen> {
           if (state is SignInScreenFailureState) {
             showSnackBar(context: context, error: state.error);
           }
-          if (state is CreateSpaceSignInSuccessState) {}
+          if (state is CreateSpaceSignInSuccessState) {
+            context.goNamed(Routes.createOrgSpace, extra: state.employee);
+          }
         },
         child: Container(
             height: double.infinity,
@@ -102,7 +106,7 @@ class SignInScreenState extends State<SignInScreen> {
                                                 .read<SignInScreenBloc>()
                                                 .add(CreateSpaceSignInEvent());
                                           },
-                                          child: const Text("Create Space"))
+                                          child:  Text(AppLocalizations.of(context).create_space_button_text))
                                     ],
                                   ),
                           ),

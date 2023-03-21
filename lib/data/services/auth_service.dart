@@ -74,6 +74,7 @@ class AuthService {
         );
         user = await _signInWithCredentials(credential);
       }
+      await googleSignIn.signOut();
     }
     return user;
   }
