@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import '../../../data/configs/colors.dart';
 
 class SignInButton extends StatelessWidget {
