@@ -108,7 +108,7 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                           onTap: () {
                             context.read<EmployeesCalendarLeavesBloc>().isAdmin
                                 ? context.pushNamed(
-                                    Routes.leaveApplicationDetail,
+                                    Routes.leaveRequestDetail,
                                     extra: leaveApplication)
                                 : context.pushNamed(Routes.userLeaveDetail,
                                     extra: leaveApplication);

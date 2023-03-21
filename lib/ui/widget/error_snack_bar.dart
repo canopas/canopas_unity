@@ -10,18 +10,3 @@ SnackBar showSnackBar(
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
   return snackBar;
 }
-
-class ErrorScreen extends StatelessWidget {
-  final String error;
-
-  const ErrorScreen({Key? key, required this.error}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(error.errorMessage(context)),
-      ),
-    );
-  }
-}

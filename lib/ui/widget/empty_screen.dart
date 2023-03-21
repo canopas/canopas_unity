@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/exception/exception_msg.dart';
 import '../../data/core/utils/const/image_constant.dart';
 
+/// This screen will be appear we have some error.
+class ErrorScreen extends StatelessWidget {
+  final String error;
+
+  const ErrorScreen({Key? key, required this.error}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(error.errorMessage(context)),
+      ),
+    );
+  }
+}
+
+/// This screen will be appear on data is empty.
 class EmptyScreen extends StatelessWidget {
   final String title;
   final String message;

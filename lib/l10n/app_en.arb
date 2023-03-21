@@ -274,6 +274,17 @@
   "add_member_employee_exists_error": "Member already exists!",
   "leave_already_applied_error_message":"leave request has been already applied!",
 
+  "sign_out_alert":"Are you sure you want to sign out?",
+  "delete_user_account_alert":"Are you sure you want to permanently delete {username}'s account?",
+  "@delete_user_account_alert":{
+    "placeholders":{
+      "username":{
+        "type":"String"
+      }
+    }
+  },
+  "remove_user_leave_alert":"Are you sure you want to delete this leave?",
+  "alert_cancel_action":"Cancel",
 
   "settings_tag": "Settings",
   "employees_tag": "Employees",

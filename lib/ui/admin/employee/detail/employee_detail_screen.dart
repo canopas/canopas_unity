@@ -6,6 +6,7 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/core/utils/const/role.dart';
 import '../../../navigation/app_router.dart';
+import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/employee_detail_bloc.dart';
@@ -74,10 +75,23 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                             AppLocalizations.of(context).delete_button_tag,
                           ),
                           onTap: () {
-                            context.read<EmployeeDetailBloc>().add(
-                                DeleteEmployeeEvent(
-                                    employeeId: widget.employeeId));
-                            context.pop();
+                            showAlertDialog(
+                              context: context,
+                              title: AppLocalizations.of(context)
+                                  .delete_button_tag,
+                              description: AppLocalizations.of(context)
+                                  .delete_user_account_alert(
+                                      state.employee.name),
+                              onActionButtonPressed: () {
+                                context.read<EmployeeDetailBloc>().add(
+                                    DeleteEmployeeEvent(
+                                        employeeId: widget.employeeId));
+                                context.pop();
+                                context.pop();
+                              },
+                              actionButtonTitle: AppLocalizations.of(context)
+                                  .delete_button_tag,
+                            );
                           },
                         ),
                         PopupMenuItem(
