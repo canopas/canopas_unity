@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/utils/const/role.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:uuid/uuid.dart';
 import '../../../data/core/exception/custom_exception.dart';
@@ -65,7 +66,7 @@ class SignInScreenBloc extends Bloc<SignInEvents, SignInState> {
       } else {
         emit(CreateSpaceSignInSuccessState(Employee(
           id: _uuid.v4(),
-          roleType: 1,
+          roleType: kRoleTypeAdmin,
           name: user.displayName ?? "",
           employeeId: "",
           email: user.email!,
