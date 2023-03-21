@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/sign_in/widget/sign_in_button.dart';
 import '../../data/configs/colors.dart';
-import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
 import '../../data/core/utils/const/image_constant.dart';
 import '../../data/di/service_locator.dart';
@@ -48,92 +47,104 @@ class SignInScreenState extends State<SignInScreen> {
             context.goNamed(Routes.createOrgSpace, extra: state.employee);
           }
         },
-        child: Container(
-            height: double.infinity,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(ImageConst.loginPageBackgroundImage),
-                    fit: BoxFit.cover)),
-            child: SingleChildScrollView(
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                constraints: const BoxConstraints(
+                  minHeight: 300,
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - 180,
+                color: AppColors.primaryBlue,
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding:
-                              const EdgeInsets.all(primaryHorizontalSpacing),
-                          child: Column(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).login_welcome_text,
-                                style: AppFontStyle.appTitleText.copyWith(
-                                    height: 2, fontStyle: FontStyle.italic),
-                              ),
-                              Text(
-                                AppLocalizations.of(context).login_toUnity_text,
-                                style: AppFontStyle.appTitleText
-                                    .copyWith(height: 1, letterSpacing: 1),
-                              ),
-                            ],
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            AppLocalizations.of(context).unity_tag,
+                            style: AppFontStyle.titleDark.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.whiteColor),
                           ),
                         ),
-                        const _BuildImage(),
-                        Column(children: [
-                          Center(
-                            child: Text(
-                                AppLocalizations.of(context)
-                                    .login_guide_description,
-                                style: AppFontStyle.bodySmallRegular),
-                          ),
-                          const SizedBox(height: primaryHorizontalSpacing),
-                          BlocBuilder<SignInScreenBloc, SignInState>(
-                            builder: (context, state) => state
-                                    is SignInLoadingState
-                                ? const AppCircularProgressIndicator()
-                                : Column(
-                                    children: [
-                                      SignInButton(onPressed: () {
-                                        context
-                                            .read<SignInScreenBloc>()
-                                            .add(SignInEvent());
-                                      }),
-                                      const SizedBox(height: 10),
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            context
-                                                .read<SignInScreenBloc>()
-                                                .add(CreateSpaceSignInEvent());
-                                          },
-                                          child:  Text(AppLocalizations.of(context).create_space_button_text))
-                                    ],
-                                  ),
-                          ),
-                        ]),
-                      ]),
+                        Flexible(
+                          child: Image.asset(
+                            ImageConst.loginPageVectorImage,
+                            width: MediaQuery.of(context).size.width * 0.8),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                AppLocalizations.of(context).sign_in_title_text,
+                                style: AppFontStyle.titleDark.copyWith(
+                                    overflow: TextOverflow.fade,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.whiteColor),
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20, bottom: 40),
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .sign_in_description_text,
+                                  style: AppFontStyle.bodyMedium.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.whiteColor),
+                                  overflow: TextOverflow.fade,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            )),
+              Container(
+                color: AppColors.whiteColor,
+                width: MediaQuery.of(context).size.width,
+                height: 180,
+                child: BlocBuilder<SignInScreenBloc, SignInState>(
+                  builder: (context, state) => state is SignInLoadingState
+                      ? const ThreeBounceLoading(size: 25, color: AppColors.primaryBlue)
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SignInButton(
+                                onPressed: () {
+                                  context
+                                      .read<SignInScreenBloc>()
+                                      .add(SignInEvent());
+                                },
+                                title: AppLocalizations.of(context).login_button_text,
+                                image: ImageConst.googleLogoImage),
+                            const SizedBox(height: 16),
+                            SignInButton(
+                                onPressed: () {
+                                  context
+                                      .read<SignInScreenBloc>()
+                                      .add(CreateSpaceSignInEvent());
+                                },
+                                title: AppLocalizations.of(context).create_space_button_text,
+                                image: ImageConst.loginCreateSpaceButtonVector),
+                          ],
+                        ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
-  }
-}
-
-class _BuildImage extends StatelessWidget {
-  const _BuildImage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.height / 2.1,
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              ImageConst.loginPageVectorImage,
-            ),
-          ),
-        ));
   }
 }

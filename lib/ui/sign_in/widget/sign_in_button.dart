@@ -1,41 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import '../../../data/configs/colors.dart';
-import '../../../data/core/utils/const/image_constant.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({
     Key? key,
     required this.onPressed,
+    required this.title,
+    required this.image,
   }) : super(key: key);
 
   final Function() onPressed;
+  final String image;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        style: TextButton.styleFrom(
-            foregroundColor: AppColors.peachColor.withOpacity(0.2),
-            fixedSize: Size(MediaQuery.of(context).size.width * 0.70, 50),
-            side: const BorderSide(color: AppColors.peachColor, width: 2),
-            backgroundColor: AppColors.creamColor.withOpacity(0.2),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25))),
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(5),
+          elevation: 2,
+          fixedSize: Size(MediaQuery.of(context).size.width * 0.85, 50),
+        ),
         onPressed: onPressed,
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Image.asset(
-            ImageConst.googleLogoImage,
-            height: 40,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context).login_button_text,
-              textAlign: TextAlign.center,
-              style: AppFontStyle.titleDark,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: AssetImage(image)),
+                  shape: BoxShape.circle),
             ),
-          )
-        ]));
+            Text(title),
+            const SizedBox(
+                width: 40,
+                child: Center(child: Icon(Icons.arrow_forward_rounded)))
+          ],
+        ));
   }
 }
