@@ -55,7 +55,7 @@ class SignInScreenState extends State<SignInScreen> {
                   minHeight: 300,
                 ),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 180,
+                height: MediaQuery.of(context).size.height - 160,
                 color: AppColors.primaryBlue,
                 child: SafeArea(
                   child: Padding(
@@ -63,15 +63,7 @@ class SignInScreenState extends State<SignInScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            AppLocalizations.of(context).unity_tag,
-                            style: AppFontStyle.titleDark.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.whiteColor),
-                          ),
-                        ),
+                        const SizedBox(height: 20),
                         Flexible(
                           child: Image.asset(
                             ImageConst.loginPageVectorImage,
@@ -83,6 +75,7 @@ class SignInScreenState extends State<SignInScreen> {
                             Flexible(
                               child: Text(
                                 AppLocalizations.of(context).sign_in_title_text,
+                                textAlign: TextAlign.center,
                                 style: AppFontStyle.titleDark.copyWith(
                                     overflow: TextOverflow.fade,
                                     fontWeight: FontWeight.w700,
@@ -113,11 +106,11 @@ class SignInScreenState extends State<SignInScreen> {
               Container(
                 color: AppColors.whiteColor,
                 width: MediaQuery.of(context).size.width,
-                height: 180,
+                height: 160,
                 child: BlocBuilder<SignInScreenBloc, SignInState>(
                   buildWhen: (previous, current) => previous is SignInLoadingState || current is SignInLoadingState,
                   builder: (context, state) => state is SignInLoadingState
-                      ? const ThreeBounceLoading(size: 25, color: AppColors.primaryBlue)
+                      ? const AppCircularProgressIndicator()
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
