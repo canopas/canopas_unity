@@ -13,6 +13,7 @@ import 'bloc/login_view_bloc.dart';
 import 'bloc/login_view_event.dart';
 import 'bloc/login_view_state.dart';
 
+
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 

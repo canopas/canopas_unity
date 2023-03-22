@@ -6,7 +6,6 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/utils/const/leave_time_constants.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/model/leave_count.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/paid_leave_service.dart';
@@ -18,13 +17,10 @@ import 'apply_leave_bloc_test.mocks.dart';
 
 @GenerateMocks([PaidLeaveService, LeaveService, UserManager])
 void main() {
-  late PaidLeaveService paidLeaveService;
   late LeaveService leaveService;
   late UserManager userManager;
   late ApplyLeaveBloc leaveRequestBloc;
 
-  LeaveCounts leaveCount = const LeaveCounts(
-      remainingLeaveCount: 6.0, usedLeaveCount: 6.0, paidLeaveCount: 12);
   DateTime currentDate = DateTime.now().dateOnly;
   DateTime futureDate = DateTime.now()
       .add(Duration(
@@ -33,11 +29,10 @@ void main() {
 
   group("Leave Request Form view test", () {
     setUp(() {
-      paidLeaveService = MockPaidLeaveService();
       leaveService = MockLeaveService();
       userManager = MockUserManager();
       leaveRequestBloc =
-          ApplyLeaveBloc(userManager, paidLeaveService, leaveService);
+          ApplyLeaveBloc(userManager, leaveService);
 
       when(userManager.employeeId).thenReturn("id");
       when(leaveService.checkLeaveAlreadyApplied(
@@ -45,49 +40,7 @@ void main() {
           dateDuration: {DateTime(2000): 1})).thenAnswer((_) async => true);
     });
 
-    test("fetch user leave count test", () {
-      when(leaveService.getUserUsedLeaves('id'))
-          .thenAnswer((_) => Future(() => leaveCount.usedLeaveCount));
-      when(paidLeaveService.getPaidLeaves())
-          .thenAnswer((_) => Future(() => leaveCount.paidLeaveCount));
-      leaveRequestBloc.add(ApplyLeaveInitialEvent());
-      expect(
-          leaveRequestBloc.stream,
-          emitsInOrder([
-            ApplyLeaveState(
-                leaveCountStatus: LeaveCountStatus.loading,
-                startDate: currentDate,
-                endDate: currentDate,
-                selectedDates: {currentDate: 3}),
-            ApplyLeaveState(
-                leaveCountStatus: LeaveCountStatus.success,
-                startDate: currentDate,
-                endDate: currentDate,
-                selectedDates: {currentDate: 3},
-                leaveCounts: leaveCount),
-          ]));
-    });
 
-    test("fetch user leave count failed test", () {
-      when(leaveService.getUserUsedLeaves('id')).thenThrow(Exception("Error"));
-      when(paidLeaveService.getPaidLeaves()).thenThrow(Exception("Error"));
-      leaveRequestBloc.add(ApplyLeaveInitialEvent());
-      expect(
-          leaveRequestBloc.stream,
-          emitsInOrder([
-            ApplyLeaveState(
-                leaveCountStatus: LeaveCountStatus.loading,
-                startDate: currentDate,
-                endDate: currentDate,
-                selectedDates: {currentDate: 3}),
-            ApplyLeaveState(
-                leaveCountStatus: LeaveCountStatus.failure,
-                startDate: currentDate,
-                endDate: currentDate,
-                selectedDates: {currentDate: 3},
-                error: firestoreFetchDataError),
-          ]));
-    });
 
     test("leave Type change test", () {
       leaveRequestBloc.add(ApplyLeaveChangeLeaveTypeEvent(leaveType: 1));

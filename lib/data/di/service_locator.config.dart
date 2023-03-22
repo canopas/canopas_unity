@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
     as _i10;
+import 'package:projectunity/data/di/app_module.dart' as _i42;
 import 'package:projectunity/data/pref/user_preference.dart' as _i16;
 import 'package:projectunity/data/provider/user_data.dart' as _i28;
 import 'package:projectunity/data/services/auth_service.dart' as _i25;
@@ -19,8 +20,6 @@ import 'package:projectunity/data/services/paid_leave_service.dart' as _i11;
 import 'package:projectunity/data/stateManager/auth/auth_manager.dart' as _i34;
 import 'package:projectunity/data/stateManager/auth/desktop/desktop_auth_manager.dart'
     as _i5;
-import 'package:projectunity/data/di/app_module.dart' as _i42;
-import 'package:projectunity/ui/navigation/app_router.dart' as _i32;
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart'
     as _i26;
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
@@ -46,6 +45,7 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i3;
 import 'package:projectunity/ui/login/bloc/login_view_bloc.dart' as _i37;
+import 'package:projectunity/ui/navigation/app_router.dart' as _i32;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i7;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
@@ -179,7 +179,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i32.AppRouter>(() => _i32.AppRouter(gh<_i28.UserManager>()));
     gh.factory<_i33.ApplyLeaveBloc>(() => _i33.ApplyLeaveBloc(
           gh<_i28.UserManager>(),
-          gh<_i11.PaidLeaveService>(),
           gh<_i9.LeaveService>(),
         ));
     gh.singleton<_i34.AuthManager>(_i34.AuthManager(

@@ -7,20 +7,17 @@ import 'package:uuid/uuid.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/const/leave_time_constants.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../data/model/leave_count.dart';
 import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/leave_service.dart';
-import '../../../../../data/services/paid_leave_service.dart';
 import 'apply_leave_event.dart';
 import 'apply_leave_state.dart';
 
 @Injectable()
 class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
-  final PaidLeaveService _paidLeaveService;
   final LeaveService _leaveService;
   final UserManager _userManager;
 
-  ApplyLeaveBloc(this._userManager, this._paidLeaveService, this._leaveService)
+  ApplyLeaveBloc(this._userManager, this._leaveService)
       : super(ApplyLeaveState(
           startDate: DateTime.now().dateOnly,
           endDate: DateTime.now().dateOnly,
@@ -33,36 +30,12 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
                   endDate: DateTime.now().dateOnly)
               .getTotalLeaveCount(),
         )) {
-    on<ApplyLeaveInitialEvent>(_fetchLeaveCount);
     on<ApplyLeaveStartDateChangeEvents>(_updateStartLeaveDate);
     on<ApplyLeaveEndDateChangeEvent>(_updateEndLeaveDate);
     on<ApplyLeaveReasonChangeEvent>(_updateReason);
     on<ApplyLeaveUpdateLeaveOfTheDayEvent>(_updateLeaveOfTheDay);
     on<ApplyLeaveSubmitFormEvent>(_applyLeave);
     on<ApplyLeaveChangeLeaveTypeEvent>(_updateLeaveType);
-  }
-
-  Future<void> _fetchLeaveCount(
-      ApplyLeaveInitialEvent event, Emitter<ApplyLeaveState> emit) async {
-    emit(state.copyWith(leaveCountStatus: LeaveCountStatus.loading));
-    try {
-      double usedLeaveCount =
-          await _leaveService.getUserUsedLeaves(_userManager.employeeId);
-      int paidLeaveCount = await _paidLeaveService.getPaidLeaves();
-      double remainingLeaveCount = paidLeaveCount - usedLeaveCount;
-      LeaveCounts leaveCounts = LeaveCounts(
-          remainingLeaveCount:
-              remainingLeaveCount < 0 ? 0 : remainingLeaveCount,
-          paidLeaveCount: paidLeaveCount,
-          usedLeaveCount: usedLeaveCount);
-      emit(state.copyWith(
-          leaveCountStatus: LeaveCountStatus.success,
-          leaveCounts: leaveCounts));
-    } on Exception {
-      emit(state.copyWith(
-          leaveCountStatus: LeaveCountStatus.failure,
-          error: firestoreFetchDataError));
-    }
   }
 
   void _updateStartLeaveDate(
