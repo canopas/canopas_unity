@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/core/utils/const/role.dart';
-import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:uuid/uuid.dart';
 import '../../../data/core/exception/custom_exception.dart';
 import '../../../data/core/exception/error_const.dart';
 import '../../../data/provider/user_data.dart';
@@ -17,15 +14,13 @@ class SignInScreenBloc extends Bloc<SignInEvents, SignInState> {
   final AuthManager _authManager;
   final UserManager _userManager;
   final AuthService _authService;
-  final Uuid _uuid;
 
   SignInScreenBloc(
     this._authManager,
     this._userManager,
-    this._authService, this._uuid,
+    this._authService,
   ) : super(SignInInitialState()) {
     on<SignInEvent>(_signIn);
-    on<CreateSpaceSignInEvent>(_createSpaceSignIn);
   }
 
   Future<void> _signIn(
@@ -35,7 +30,7 @@ class SignInScreenBloc extends Bloc<SignInEvents, SignInState> {
     try {
       user = await _authService.signInWithGoogle();
     } on CustomException catch (error) {
-      emit(SignInScreenFailureState(error: error.errorMessage.toString()));
+      emit(SignInFailureState(error: error.errorMessage.toString()));
     }
     if (user == null) {
       emit(SignInInitialState());
@@ -47,34 +42,11 @@ class SignInScreenBloc extends Bloc<SignInEvents, SignInState> {
           emit(SignInSuccessState());
           _userManager.hasLoggedIn();
         } else {
-          emit(SignInScreenFailureState(error: userNotFoundError));
+          emit(SignInFailureState(error: userNotFoundError));
         }
       } on Exception {
-        emit(SignInScreenFailureState(error: userDataNotUpdateError));
+        emit(SignInFailureState(error: userDataNotUpdateError));
       }
-    }
-  }
-
-  Future<void> _createSpaceSignIn(
-      CreateSpaceSignInEvent event, Emitter<SignInState> emit) async {
-    User? user;
-    emit(SignInLoadingState());
-    try {
-      user = await _authService.signInWithGoogle();
-      if (user == null) {
-        emit(SignInInitialState());
-      } else {
-        emit(CreateSpaceSignInSuccessState(Employee(
-          id: _uuid.v4(),
-          roleType: kRoleTypeAdmin,
-          name: user.displayName ?? "",
-          employeeId: "",
-          email: user.email!,
-          designation: "",
-        )));
-      }
-    } on CustomException catch (error) {
-      emit(SignInScreenFailureState(error: error.errorMessage.toString()));
     }
   }
 }

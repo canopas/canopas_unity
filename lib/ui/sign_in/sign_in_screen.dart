@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
-import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/sign_in/widget/sign_in_button.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
@@ -40,11 +38,8 @@ class SignInScreenState extends State<SignInScreen> {
       backgroundColor: AppColors.whiteColor,
       body: BlocListener<SignInScreenBloc, SignInState>(
         listener: (context, state) {
-          if (state is SignInScreenFailureState) {
+          if (state is SignInFailureState) {
             showSnackBar(context: context, error: state.error);
-          }
-          if (state is CreateSpaceSignInSuccessState) {
-            context.goNamed(Routes.createOrgSpace, extra: state.employee);
           }
         },
         child: SingleChildScrollView(
@@ -55,7 +50,7 @@ class SignInScreenState extends State<SignInScreen> {
                   minHeight: 300,
                 ),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 160,
+                height: MediaQuery.of(context).size.height - 100,
                 color: AppColors.primaryBlue,
                 child: SafeArea(
                   child: Padding(
@@ -65,9 +60,8 @@ class SignInScreenState extends State<SignInScreen> {
                       children: [
                         const SizedBox(height: 20),
                         Flexible(
-                          child: Image.asset(
-                            ImageConst.loginPageVectorImage,
-                            width: MediaQuery.of(context).size.width * 0.8),
+                          child: Image.asset(ImageConst.loginPageVectorImage,
+                              width: MediaQuery.of(context).size.width * 0.8),
                         ),
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -84,7 +78,8 @@ class SignInScreenState extends State<SignInScreen> {
                             ),
                             Flexible(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20, bottom: 40),
+                                padding: const EdgeInsets.only(
+                                    left: 20.0, right: 20, top: 20, bottom: 40),
                                 child: Text(
                                   AppLocalizations.of(context)
                                       .sign_in_description_text,
@@ -106,32 +101,23 @@ class SignInScreenState extends State<SignInScreen> {
               Container(
                 color: AppColors.whiteColor,
                 width: MediaQuery.of(context).size.width,
-                height: 160,
+                height: 100,
                 child: BlocBuilder<SignInScreenBloc, SignInState>(
-                  buildWhen: (previous, current) => previous is SignInLoadingState || current is SignInLoadingState,
+                  buildWhen: (previous, current) =>
+                      previous is SignInLoadingState ||
+                      current is SignInLoadingState,
                   builder: (context, state) => state is SignInLoadingState
                       ? const AppCircularProgressIndicator()
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SignInButton(
-                                onPressed: () {
-                                  context
-                                      .read<SignInScreenBloc>()
-                                      .add(SignInEvent());
-                                },
-                                title: AppLocalizations.of(context).login_button_text,
-                                image: ImageConst.googleLogoImage),
-                            const SizedBox(height: 16),
-                            SignInButton(
-                                onPressed: () {
-                                  context
-                                      .read<SignInScreenBloc>()
-                                      .add(CreateSpaceSignInEvent());
-                                },
-                                title: AppLocalizations.of(context).create_space_button_text,
-                                image: ImageConst.loginCreateSpaceButtonVector),
-                          ],
+                      : Center(
+                          child: SignInButton(
+                              onPressed: () {
+                                context
+                                    .read<SignInScreenBloc>()
+                                    .add(SignInEvent());
+                              },
+                              title: AppLocalizations.of(context)
+                                  .login_button_text,
+                              image: ImageConst.googleLogoImage),
                         ),
                 ),
               ),

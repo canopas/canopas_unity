@@ -201,7 +201,6 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i35.AuthManager>(),
           gh<_i29.UserManager>(),
           gh<_i26.AuthService>(),
-          gh<_i17.Uuid>(),
         ));
     gh.factory<_i39.UserEmployeesBloc>(() => _i39.UserEmployeesBloc(
           gh<_i6.EmployeeService>(),
