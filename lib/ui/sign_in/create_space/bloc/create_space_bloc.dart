@@ -10,6 +10,8 @@ class CreateSpaceBloc extends Bloc<CreateSpaceEvent, CreateSpaceStates> {
   }
 
   _createSpace(CreateSpaceEvent events, Emitter<CreateSpaceStates> emit) async {
-    ///TODO: add implementation for create space
+    if (state is! CreateSpaceLoadingState) {
+      ///TODO: add implementation for create space
+    }
   }
 }

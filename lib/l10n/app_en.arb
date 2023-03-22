@@ -6,9 +6,6 @@
   "login_toUnity_text": "to Unity!",
   "login_guide_description": "To continue with Unity",
   "login_button_text": "Sign in with Google",
-  "create_space_button_text": "Create New Space",
-  "create_space_screen_description": "Simply set up your workspace and start managing your team more efficiently than ever before.",
-  "company_name_tag": "Company Name",
   "company_name":"Canopas Software",
   "company_subtitle":"www.canopas.com",
 
@@ -19,6 +16,14 @@
   "details_tag":"Details",
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
+
+  "create_space_button_text": "Create New Space",
+  "create_space_screen_description": "Simply set up your workspace and start managing your team more efficiently than ever before.",
+  "company_name_tag": "Company Name",
+  "create_space_short_description_label": "Slogan / Short Description (Optional)",
+  "create_space_Website_url_label": "Website URL (Optional)",
+  "add_org_logo_button_title": "Add Company Logo\n(Optional)",
+  "change_org_logo_button_title": "Change Company Logo",
 
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
