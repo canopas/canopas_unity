@@ -180,6 +180,15 @@ class AppRouter {
                         const MaterialPage(child: AdminSettingPage()),
                     routes: <GoRoute>[
                       GoRoute(
+                        parentNavigatorKey: _adminShellNavigatorKey,
+                        path: Routes.adminEditProfile,
+                        name: Routes.adminEditProfile,
+                        pageBuilder: (context, state) => NoTransitionPage(
+                            child: EmployeeEditProfilePage(
+                              employee: state.extra as Employee,
+                            )),
+                      ),
+                      GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.updateLeaveCount,
                           path: Routes.updateLeaveCount,
@@ -315,6 +324,7 @@ abstract class Routes {
   static const adminLeaves = '/admin-leaves';
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
+  static const adminEditProfile="admin-edit-profile";
   static const addMember = 'new';
   static const adminCalender = 'admin-calender';
   static const adminLeaveDetails = 'admin-leave-details';
