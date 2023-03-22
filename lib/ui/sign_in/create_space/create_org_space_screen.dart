@@ -61,7 +61,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
             }
           },
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0).copyWith(bottom: 85, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,6 +90,23 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                       .create_space_Website_url_label,
                 ),
                 const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .create_space_add_member_title,
+                        style: AppFontStyle.bodyLarge,
+                      ),
+                    ),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(AppLocalizations.of(context)
+                            .add_member_button_tag)),
+                  ],
+                ),
+                const SizedBox(height: 20),
                 Text(
                   AppLocalizations.of(context).create_space_screen_description,
                   style: AppFontStyle.bodyMedium,
@@ -115,7 +132,8 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                       color: AppColors.whiteColor,
                       size: 25,
                     )
-                  : Text(AppLocalizations.of(context).create_space_button_text)),
+                  : Text(
+                      AppLocalizations.of(context).create_space_button_text)),
         ));
   }
 }
