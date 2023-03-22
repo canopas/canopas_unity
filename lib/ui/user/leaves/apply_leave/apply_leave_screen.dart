@@ -12,7 +12,6 @@ import 'package:projectunity/ui/user/leaves/apply_leave/widget/total_leave_card.
 import '../../../../data/configs/space_constant.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/apply_leave_bloc.dart';
-import 'bloc/apply_leave_event.dart';
 import 'bloc/apply_leave_state.dart';
 
 class ApplyLeavePage extends StatelessWidget {
@@ -21,7 +20,7 @@ class ApplyLeavePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<ApplyLeaveBloc>()..add(ApplyLeaveInitialEvent()),
+      create: (_) => getIt<ApplyLeaveBloc>(),
       child: const ApplyLeaveScreen(),
     );
   }

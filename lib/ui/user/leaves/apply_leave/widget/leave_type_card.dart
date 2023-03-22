@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/core/extensions/double_extension.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/core/utils/const/leave_map.dart';
-import '../../../../widget/circular_progress_indicator.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -34,34 +32,6 @@ class LeaveTypeCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-              buildWhen: (previous, current) =>
-                  previous.leaveCounts != current.leaveCounts ||
-                  previous.leaveCountStatus != current.leaveCountStatus,
-              builder: (context, state) {
-                if (state.leaveCountStatus == LeaveCountStatus.loading) {
-                  return const AppCircularProgressIndicator(size: 28);
-                } else if (state.leaveCountStatus == LeaveCountStatus.success) {
-                  return Text(
-                    "${state.leaveCounts.remainingLeaveCount.fixedAt(2)}/${state.leaveCounts.paidLeaveCount}",
-                    style: AppFontStyle.bodyMedium,
-                  );
-                }
-                return const Text(
-                  "0/0",
-                  style: AppFontStyle.bodyMedium,
-                );
-              },
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: primaryHalfSpacing),
-              child: Container(
-                height: 50,
-                width: 1,
-                color: AppColors.secondaryText,
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(right: 2),
               child: Text(

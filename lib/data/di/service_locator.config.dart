@@ -180,7 +180,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i33.AppRouter>(() => _i33.AppRouter(gh<_i29.UserManager>()));
     gh.factory<_i34.ApplyLeaveBloc>(() => _i34.ApplyLeaveBloc(
           gh<_i29.UserManager>(),
-          gh<_i11.PaidLeaveService>(),
           gh<_i9.LeaveService>(),
         ));
     gh.singleton<_i35.AuthManager>(_i35.AuthManager(
