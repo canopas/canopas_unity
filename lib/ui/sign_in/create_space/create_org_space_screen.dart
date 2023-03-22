@@ -43,78 +43,80 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   final TextEditingController _orgDomainController = TextEditingController();
 
   @override
+  void dispose() {
+    _orgNameController.dispose();
+    _orgDescriptionController.dispose();
+    _orgDomainController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: BlocListener<CreateSpaceBloc, CreateSpaceStates>(
-        listener: (context, state) {
-          if (state is CreateSpaceFailureState) {
-            showSnackBar(context: context, error: state.error);
-          }
-        },
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context).create_space_button_text,
-                style: AppFontStyle.titleDark,
-              ),
-              const SizedBox(height: 20),
-              _OrgLogoView(imageURl: null, onButtonTap: () {}),
-              const SizedBox(height: 20),
-              FieldEntry(
-                controller: _orgNameController,
-                hintText: AppLocalizations.of(context).company_name_tag,
-              ),
-              const SizedBox(height: 20),
-              FieldEntry(
-                maxLine: 2,
-                controller: _orgDescriptionController,
-                hintText: AppLocalizations.of(context)
-                    .create_space_short_description_label,
-              ),
-              const SizedBox(height: 20),
-              FieldEntry(
-                controller: _orgDomainController,
-                hintText: AppLocalizations.of(context).create_space_Website_url_label,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                AppLocalizations.of(context).create_space_screen_description,
-                style: AppFontStyle.bodyMedium,
-              ),
-            ],
+        appBar: AppBar(),
+        body: BlocListener<CreateSpaceBloc, CreateSpaceStates>(
+          listener: (context, state) {
+            if (state is CreateSpaceFailureState) {
+              showSnackBar(context: context, error: state.error);
+            }
+          },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context).create_space_button_text,
+                  style: AppFontStyle.titleDark,
+                ),
+                const SizedBox(height: 20),
+                _OrgLogoView(imageURl: null, onButtonTap: () {}),
+                const SizedBox(height: 20),
+                FieldEntry(
+                  controller: _orgNameController,
+                  hintText: AppLocalizations.of(context).company_name_tag,
+                ),
+                const SizedBox(height: 20),
+                FieldEntry(
+                  maxLine: 2,
+                  controller: _orgDescriptionController,
+                  hintText: AppLocalizations.of(context)
+                      .create_space_short_description_label,
+                ),
+                const SizedBox(height: 20),
+                FieldEntry(
+                  controller: _orgDomainController,
+                  hintText: AppLocalizations.of(context)
+                      .create_space_Website_url_label,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  AppLocalizations.of(context).create_space_screen_description,
+                  style: AppFontStyle.bodyMedium,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: BlocBuilder<CreateSpaceBloc, CreateSpaceStates>(
-        builder: (context, state) => ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                elevation: 2,
-                fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 50),
-                padding: const EdgeInsets.only(left: 20, right: 10)),
-            onPressed: () {
-              context.read<CreateSpaceBloc>().add(CreateSpaceEvent(
-                  organizationName: _orgNameController.text,
-                  employee: widget.employee));
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(AppLocalizations.of(context).create_space_button_text),
-                state is CreateSpaceLoadingState
-                    ? const AppCircularProgressIndicator(
-                        color: AppColors.whiteColor,
-                        size: 25,
-                      )
-                    : const Icon(Icons.arrow_forward_rounded),
-              ],
-            )),
-      ),
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              elevation: 2,
+              fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 50),
+              padding: const EdgeInsets.only(left: 20, right: 10)),
+          onPressed: () {
+            context.read<CreateSpaceBloc>().add(CreateSpaceEvent(
+                organizationName: _orgNameController.text,
+                employee: widget.employee));
+          },
+          child: BlocBuilder<CreateSpaceBloc, CreateSpaceStates>(
+              builder: (context, state) => state is CreateSpaceLoadingState
+                  ? const AppCircularProgressIndicator(
+                      color: AppColors.whiteColor,
+                      size: 25,
+                    )
+                  : Text(AppLocalizations.of(context).create_space_button_text)),
+        ));
   }
 }
 
