@@ -11,18 +11,16 @@ import 'package:projectunity/data/stateManager/auth/auth_manager.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_event.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_state.dart';
-import 'package:uuid/uuid.dart';
 
 import 'login_bloc_test.mocks.dart';
 
-@GenerateMocks([AuthService, AuthManager, UserManager, User, Uuid])
+@GenerateMocks([AuthService, AuthManager, UserManager, User,])
 void main() {
   late AuthManager authManager;
   late UserManager userManager;
   late AuthService auth;
   late SignInScreenBloc signInBloc;
   late User user;
-  late Uuid uuid;
   late String userEmail = "dummy123@testing.com";
 
   Employee employee = const Employee(
@@ -38,8 +36,7 @@ void main() {
     userManager = MockUserManager();
     user = MockUser();
     auth = MockAuthService();
-    uuid = MockUuid();
-    signInBloc = SignInScreenBloc(authManager, userManager, auth, uuid);
+    signInBloc = SignInScreenBloc(authManager, userManager, auth);
     when(auth.signInWithGoogle()).thenAnswer((_) async => Future(() => user));
     when(user.email).thenReturn(userEmail);
   });
@@ -70,7 +67,7 @@ void main() {
           signInBloc.stream,
           emitsInOrder([
             SignInLoadingState(),
-            SignInScreenFailureState(error: userNotFoundError),
+            SignInFailureState(error: userNotFoundError),
           ]));
     });
 
@@ -84,7 +81,7 @@ void main() {
           signInBloc.stream,
           emitsInOrder([
             SignInLoadingState(),
-            SignInScreenFailureState(error: userDataNotUpdateError),
+            SignInFailureState(error: userDataNotUpdateError),
           ]));
     });
 
@@ -96,37 +93,7 @@ void main() {
           signInBloc.stream,
           emitsInOrder([
             SignInLoadingState(),
-            SignInScreenFailureState(error: firesbaseAuthError),
-            SignInInitialState()
-          ]));
-    });
-
-    test("Create space success test", () {
-      when(uuid.v4()).thenReturn("uid");
-      when(user.displayName).thenReturn(employee.name);
-      signInBloc.add(CreateSpaceSignInEvent());
-      expect(
-          signInBloc.stream,
-          emitsInOrder([
-            SignInLoadingState(),
-            CreateSpaceSignInSuccessState(Employee(
-                id: "uid",
-                roleType: 1,
-                name: employee.name,
-                employeeId: "",
-                email: userEmail,
-                designation: ""))
-          ]));
-    });
-    test("Create space failure test", () {
-      when(auth.signInWithGoogle()).thenAnswer((_) async => Future(() => null));
-      when(uuid.v4()).thenReturn("uid");
-      when(user.displayName).thenReturn(employee.name);
-      signInBloc.add(CreateSpaceSignInEvent());
-      expect(
-          signInBloc.stream,
-          emitsInOrder([
-            SignInLoadingState(),
+            SignInFailureState(error: firesbaseAuthError),
             SignInInitialState()
           ]));
     });
