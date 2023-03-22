@@ -2,10 +2,6 @@ import 'package:equatable/equatable.dart';
 
 abstract class ApplyLeaveEvent extends Equatable {}
 
-class ApplyLeaveInitialEvent extends ApplyLeaveEvent{
-  @override
-  List<Object?> get props => [];
-}
 
 class ApplyLeaveStartDateChangeEvents extends ApplyLeaveEvent{
   final DateTime? startDate;
