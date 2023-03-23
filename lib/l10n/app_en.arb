@@ -2,10 +2,6 @@
   "language": "English",
   "appTitle": "Unity",
 
-  "login_welcome_text": "Welcome",
-  "login_toUnity_text": "to Unity!",
-  "login_guide_description": "To continue with Unity",
-  "unity_tag": "Unity",
   "sign_in_description_text":"Help you to manage your office leaves and employees easily with unity.",
   "sign_in_title_text":"Effortless Leave\nManagement with Unity",
   "login_button_text": "Sign in with Google",

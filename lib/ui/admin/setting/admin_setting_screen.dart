@@ -54,7 +54,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
             UserProfile(
               employee: state.currentEmployee,
               onTap: () {
-                context.goNamed(Routes.userEditProfile,
+                context.goNamed(Routes.adminEditProfile,
                     extra: state.currentEmployee);
               },
             ),

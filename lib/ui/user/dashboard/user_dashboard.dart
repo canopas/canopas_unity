@@ -27,9 +27,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   }
 
   void onItemTapped(int index) {
-    if (index != _currentIndex) {
-      context.goNamed(userTabs[index].initialLocation);
-    }
+    context.goNamed(userTabs[index].initialLocation);
   }
 
   int locationToTabIndex(String location) {

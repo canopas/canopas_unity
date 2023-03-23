@@ -18,7 +18,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<SignInScreenBloc>(),
+      create: (_) => getIt<SignInBloc>(),
       child: const SignInScreen(),
     );
   }
@@ -36,7 +36,7 @@ class SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: BlocListener<SignInScreenBloc, SignInState>(
+      body: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInFailureState) {
             showSnackBar(context: context, error: state.error);
@@ -102,7 +102,7 @@ class SignInScreenState extends State<SignInScreen> {
                 color: AppColors.whiteColor,
                 width: MediaQuery.of(context).size.width,
                 height: 100,
-                child: BlocBuilder<SignInScreenBloc, SignInState>(
+                child: BlocBuilder<SignInBloc, SignInState>(
                   buildWhen: (previous, current) =>
                       previous is SignInLoadingState ||
                       current is SignInLoadingState,
@@ -112,7 +112,7 @@ class SignInScreenState extends State<SignInScreen> {
                           child: SignInButton(
                               onPressed: () {
                                 context
-                                    .read<SignInScreenBloc>()
+                                    .read<SignInBloc>()
                                     .add(SignInEvent());
                               },
                               title: AppLocalizations.of(context)

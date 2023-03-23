@@ -27,9 +27,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
   }
 
   void onItemTapped(int index) {
-    if (index != _currentIndex) {
-      context.goNamed(adminTabs[index].initialLocation);
-    }
+    context.goNamed(adminTabs[index].initialLocation);
   }
 
   int locationToTabIndex(String location) {

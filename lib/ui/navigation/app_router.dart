@@ -21,7 +21,6 @@ import '../admin/leaves/detail/leave_details.dart';
 import '../admin/setting/admin_setting_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
-import '../sign_in/create_space/create_org_space_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
@@ -100,6 +99,17 @@ class AppRouter {
                         pageBuilder: (context, state) => const NoTransitionPage(
                           child: EmployeesLeaveCalenderPage(),
                         ),
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: _adminShellNavigatorKey,
+                            name: Routes.adminCalendarLeaveDetails,
+                            path: Routes.adminCalendarLeaveDetails,
+                            pageBuilder: (context, state) => NoTransitionPage(
+                                child: AdminLeaveDetailsPage(
+                                    leaveApplication:
+                                        state.extra as LeaveApplication)),
+                          ),
+                        ],
                       )
                     ]),
                 GoRoute(
@@ -189,6 +199,15 @@ class AppRouter {
                         const MaterialPage(child: AdminSettingPage()),
                     routes: <GoRoute>[
                       GoRoute(
+                        parentNavigatorKey: _adminShellNavigatorKey,
+                        path: Routes.adminEditProfile,
+                        name: Routes.adminEditProfile,
+                        pageBuilder: (context, state) => NoTransitionPage(
+                            child: EmployeeEditProfilePage(
+                          employee: state.extra as Employee,
+                        )),
+                      ),
+                      GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.updateLeaveCount,
                           path: Routes.updateLeaveCount,
@@ -223,6 +242,16 @@ class AppRouter {
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           path: Routes.userCalender,
                           name: Routes.userCalender,
+                          routes: [
+                            GoRoute(
+                              name: Routes.userCalendarLeaveDetail,
+                              path: Routes.userCalendarLeaveDetail,
+                              pageBuilder: (context, state) => NoTransitionPage(
+                                  child: UserLeaveDetailPage(
+                                      leaveId: state
+                                          .params[RoutesParamsConst.leaveId]!)),
+                            ),
+                          ],
                           pageBuilder: (context, state) =>
                               const NoTransitionPage(
                                   child: EmployeesLeaveCalenderPage())),
@@ -293,7 +322,7 @@ class AppRouter {
               ])
         ],
         redirect: (context, state) {
-          final loggingIn = state.subloc.contains(Routes.login);
+          final loggingIn = state.subloc == Routes.login;
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
@@ -324,17 +353,20 @@ abstract class Routes {
   static const adminLeaves = '/admin-leaves';
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
+  static const adminEditProfile = "admin-edit-profile";
   static const addMember = 'new';
   static const adminCalender = 'admin-calender';
   static const adminLeaveDetails = 'admin-leave-details';
   static const adminEditEmployee = 'admin-edit-employee-details';
   static const adminEmployeeDetail = 'admin-employee-details/:employeeId';
   static const leaveRequestDetail = 'admin-leave-application-details';
+  static const adminCalendarLeaveDetails = 'admin-calendar-leave-details';
   static const userHome = '/user-home';
   static const userLeaves = '/leaves';
   static const userEmployees = '/employees';
   static const userSettings = '/settings';
   static const userLeaveDetail = 'leave-detail/:leaveId';
+  static const userCalendarLeaveDetail = 'leave-calendar-detail/:leaveId';
   static const userRequestDetail = 'leave-request-detail/:leaveId';
   static const userEmployeeDetail = 'employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
