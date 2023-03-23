@@ -16,7 +16,7 @@
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
 
-  "create_space_button_text": "Create New Space",
+  "create_new_space_title": "Create New Space",
   "create_space_screen_description": "Simply set up your workspace and start managing your team more efficiently than ever before.",
   "company_name_tag": "Company Name",
   "create_space_short_description_label": "Short Description (Optional)",
