@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
-import 'package:projectunity/data/core/utils/const/image_constant.dart';
 import '../../../data/configs/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
@@ -43,8 +42,9 @@ class _SpaceScreenState extends State<SpaceScreen> {
 
 class SpaceCard extends StatelessWidget {
   final void Function()? onPressed;
+  final String? imageURL;
 
-  const SpaceCard({Key? key, this.onPressed}) : super(key: key);
+  const SpaceCard({Key? key, this.onPressed,  this.imageURL }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +69,18 @@ class SpaceCard extends StatelessWidget {
                   height: 80,
                   width: 80,
                   decoration: BoxDecoration(
-                    borderRadius: AppTheme.commonBorderRadius,
-                    color: Colors.white,
-                    image: const DecorationImage(
-                        image: NetworkImage(ImageConst.companyLogo),
-                        fit: BoxFit.cover),
-                  ),
+                      color: imageURL == null?AppColors.textFieldBg:AppColors.whiteColor,
+                      borderRadius: AppTheme.commonBorderRadius,
+                      image: imageURL == null
+                          ? null
+                          : DecorationImage(
+                        image: NetworkImage(imageURL!),
+                        fit: BoxFit.cover,
+                      )),
+                  child: imageURL != null
+                      ? null
+                      : const Icon(Icons.business,
+                      color: AppColors.secondaryText, size: 40),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
