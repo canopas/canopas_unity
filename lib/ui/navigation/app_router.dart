@@ -60,10 +60,8 @@ class AppRouter {
                 GoRoute(
                   path: Routes.createOrgSpace,
                   name: Routes.createOrgSpace,
-                  pageBuilder: (context, state) => MaterialPage(
-                      child: CreateSpacePage(
-                    employee: state.extra as Employee,
-                  )),
+                  pageBuilder: (context, state) => const MaterialPage(
+                      child: CreateSpacePage()),
                 )
               ]),
           ShellRoute(

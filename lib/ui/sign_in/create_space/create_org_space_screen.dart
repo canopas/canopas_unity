@@ -4,7 +4,6 @@ import 'package:projectunity/data/configs/colors.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/di/service_locator.dart';
-import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/ui/sign_in/create_space/bloc/create_space_event.dart';
 import 'package:projectunity/ui/sign_in/create_space/bloc/create_space_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
@@ -14,23 +13,21 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'bloc/create_space_bloc.dart';
 
 class CreateSpacePage extends StatelessWidget {
-  final Employee employee;
-
-  const CreateSpacePage({Key? key, required this.employee}) : super(key: key);
+  const CreateSpacePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<CreateSpaceBloc>(),
-      child: CreateOrgScreen(employee: employee),
+      child: const CreateOrgScreen(),
     );
   }
 }
 
 class CreateOrgScreen extends StatefulWidget {
-  final Employee employee;
-
-  const CreateOrgScreen({Key? key, required this.employee}) : super(key: key);
+  const CreateOrgScreen({Key? key}) : super(key: key);
 
   @override
   State<CreateOrgScreen> createState() => _CreateOrgScreenState();
@@ -122,9 +119,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
               fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 50),
               padding: const EdgeInsets.only(left: 20, right: 10)),
           onPressed: () {
-            context.read<CreateSpaceBloc>().add(CreateSpaceEvent(
-                organizationName: _orgNameController.text,
-                employee: widget.employee));
+            context.read<CreateSpaceBloc>().add(const CreateSpaceEvent());
           },
           child: BlocBuilder<CreateSpaceBloc, CreateSpaceStates>(
               builder: (context, state) => state is CreateSpaceLoadingState
