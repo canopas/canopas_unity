@@ -19,7 +19,7 @@ void main() {
   late AuthManager authManager;
   late UserManager userManager;
   late AuthService auth;
-  late SignInScreenBloc signInBloc;
+  late SignInBloc signInBloc;
   late User user;
   late String userEmail = "dummy123@testing.com";
 
@@ -36,7 +36,7 @@ void main() {
     userManager = MockUserManager();
     user = MockUser();
     auth = MockAuthService();
-    signInBloc = SignInScreenBloc(authManager, userManager, auth);
+    signInBloc = SignInBloc(authManager, userManager, auth);
     when(auth.signInWithGoogle()).thenAnswer((_) async => Future(() => user));
     when(user.email).thenReturn(userEmail);
   });
