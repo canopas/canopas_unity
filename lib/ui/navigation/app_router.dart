@@ -21,6 +21,7 @@ import '../admin/leaves/detail/leave_details.dart';
 import '../admin/setting/admin_setting_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
+import '../sign_in/create_space/create_org_space_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
@@ -50,12 +51,19 @@ class AppRouter {
         navigatorKey: _rootNavigatorKey,
         routes: [
           GoRoute(
-            parentNavigatorKey: _rootNavigatorKey,
-            path: Routes.login,
-            name: Routes.login,
-            pageBuilder: (context, state) =>
-                const MaterialPage(child: SignInPage()),
-          ),
+              parentNavigatorKey: _rootNavigatorKey,
+              path: Routes.login,
+              name: Routes.login,
+              pageBuilder: (context, state) =>
+                  const MaterialPage(child: SignInPage()),
+              routes: [
+                GoRoute(
+                  path: Routes.createOrgSpace,
+                  name: Routes.createOrgSpace,
+                  pageBuilder: (context, state) =>  const MaterialPage(
+                      child: CreateSpacePage()),
+                )
+              ]),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) =>
@@ -367,6 +375,7 @@ abstract class Routes {
   static const applyHRLeave = 'apply-hr-leave';
   static const userCalender = 'calender';
   static const login = '/login';
+  static const createOrgSpace = 'create-space';
   static const updateLeaveCount = 'update-paid-leave';
   static const userLeaveCalender = 'user-calender';
   static const adminEmployeeDetailsLeaves =
