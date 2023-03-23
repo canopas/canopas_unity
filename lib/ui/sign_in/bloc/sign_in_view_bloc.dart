@@ -10,7 +10,7 @@ import 'sign_in_view_event.dart';
 import 'sign_in_view_state.dart';
 
 @Injectable()
-class SignInScreenBloc extends Bloc<SignInEvents, SignInState> {
+class SignInScreenBloc extends Bloc<SignInEvent, SignInState> {
   final AuthManager _authManager;
   final UserManager _userManager;
   final AuthService _authService;
