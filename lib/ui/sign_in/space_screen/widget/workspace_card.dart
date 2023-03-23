@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../data/configs/colors.dart';
-import '../../../data/configs/text_style.dart';
-import '../../../data/configs/theme.dart';
+import '../../../../data/configs/colors.dart';
+import '../../../../data/configs/text_style.dart';
+import '../../../../data/configs/theme.dart';
 
-class SpaceCard extends StatelessWidget {
+class WorkSpaceCard extends StatelessWidget {
   final void Function()? onPressed;
   final String? imageURL;
 
-  const SpaceCard({Key? key, this.onPressed, this.imageURL}) : super(key: key);
+  const WorkSpaceCard({Key? key, this.onPressed, this.imageURL}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/utils/const/image_constant.dart';
-import 'package:projectunity/ui/sign_in/space_screen/workspace_card.dart';
+import 'package:projectunity/ui/sign_in/space_screen/widget/workspace_card.dart';
 import '../../../data/configs/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
@@ -65,7 +65,7 @@ class _SpaceScreenState extends State<SpaceScreen> {
             ///TODO: show List of WorkspaceCards
             ...List.generate(
                 3,
-                (index) => SpaceCard(
+                (index) => WorkSpaceCard(
                       imageURL: ImageConst.companyLogo,
                       onPressed: () {
                         ///TODO: implement workspace card tap event
