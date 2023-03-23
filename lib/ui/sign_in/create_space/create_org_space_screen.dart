@@ -63,7 +63,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context).create_new_space_title,
+                  AppLocalizations.of(context).create_new_space_tag,
                   style: AppFontStyle.titleDark,
                 ),
                 const SizedBox(height: 20),
@@ -128,7 +128,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                       size: 25,
                     )
                   : Text(
-                      AppLocalizations.of(context).create_new_space_title)),
+                      AppLocalizations.of(context).create_new_space_tag)),
         ));
   }
 }
