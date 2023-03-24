@@ -34,9 +34,9 @@ class EditWorkSpaceScreen extends StatefulWidget {
 
 class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
 
-  final TextEditingController _orgNameController = TextEditingController();
-  final TextEditingController _orgDescriptionController = TextEditingController();
-  final TextEditingController _orgDomainController = TextEditingController();
+  final TextEditingController _workspaceNameController = TextEditingController();
+  final TextEditingController _workspaceDescriptionController = TextEditingController();
+  final TextEditingController _workspaceDomainController = TextEditingController();
 
   @override
   void initState() {
@@ -46,9 +46,9 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
 
   @override
   void dispose() {
-    _orgNameController.dispose();
-    _orgDescriptionController.dispose();
-    _orgDomainController.dispose();
+    _workspaceNameController.dispose();
+    _workspaceDescriptionController.dispose();
+    _workspaceDomainController.dispose();
     super.dispose();
   }
 
@@ -72,21 +72,21 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
                 _OrgLogoView(imageURl: null, onButtonTap: () {}),
                 const SizedBox(height: 30),
                 FieldEntry(
-                  controller: _orgNameController,
+                  controller: _workspaceNameController,
                   hintText: AppLocalizations.of(context).company_name_tag,
                 ),
                 const SizedBox(height: 20),
                 FieldEntry(
                   maxLine: 2,
-                  controller: _orgDescriptionController,
+                  controller: _workspaceDescriptionController,
                   hintText: AppLocalizations.of(context)
-                      .create_space_short_description_label,
+                      .create_workspace_short_description_label,
                 ),
                 const SizedBox(height: 20),
                 FieldEntry(
-                  controller: _orgDomainController,
+                  controller: _workspaceDomainController,
                   hintText: AppLocalizations.of(context)
-                      .create_space_Website_url_label,
+                      .create_workspace_Website_url_label,
                 ),
               ],
             ),
