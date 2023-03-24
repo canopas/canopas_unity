@@ -12,10 +12,10 @@ class ResponseNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return leaveResponse.isNotEmpty?Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
-      child:leaveResponse.isNotEmpty? Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -36,7 +36,7 @@ class ResponseNote extends StatelessWidget {
             ),
           ),
         ],
-      ):null,
-    );
+      )
+    ):const SizedBox();
   }
 }
