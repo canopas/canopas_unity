@@ -125,12 +125,13 @@ class _OrgLogoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
-        alignment: const Alignment(1.6,1.6),
+        alignment: const Alignment(1.5, 1.5),
         children: [
           Container(
-            height: 100,
-            width: 100,
+            height: 110,
+            width: 110,
             decoration: BoxDecoration(
+                border: Border.all(color: AppColors.textFieldBg, width: 3),
                 color: AppColors.textFieldBg,
                 borderRadius: AppTheme.commonBorderRadius,
                 image: imageURl == null
@@ -146,14 +147,9 @@ class _OrgLogoView extends StatelessWidget {
           ),
           IconButton(
             style: IconButton.styleFrom(
-              fixedSize: const Size(45, 45),
-              side: const BorderSide(
-                color: AppColors.textFieldBg,
-                width: 3
-              ),
-
-              backgroundColor: AppColors.whiteColor
-            ),
+                fixedSize: const Size(45, 45),
+                side: const BorderSide(color: AppColors.textFieldBg, width: 3),
+                backgroundColor: AppColors.whiteColor),
             onPressed: onButtonTap,
             icon: const Icon(
               Icons.edit,
