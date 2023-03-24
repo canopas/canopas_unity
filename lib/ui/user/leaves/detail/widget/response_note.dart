@@ -15,7 +15,7 @@ class ResponseNote extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
-      child: Column(
+      child:leaveResponse.isNotEmpty? Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -36,7 +36,7 @@ class ResponseNote extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ):null,
     );
   }
 }
