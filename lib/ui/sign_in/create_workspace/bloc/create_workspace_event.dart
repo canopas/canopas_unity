@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class CreateSpaceEvent extends Equatable {
-  const CreateSpaceEvent();
-
+class CreateWorkSpaceEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }

@@ -52,7 +52,7 @@ import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_b
 import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
     as _i18;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i38;
-import 'package:projectunity/ui/sign_in/create_space/bloc/create_space_bloc.dart'
+import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart'
     as _i5;
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
     as _i14;
@@ -95,7 +95,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i3.AdminPaidLeaveUpdateSettingTextFieldBloc>(
         () => _i3.AdminPaidLeaveUpdateSettingTextFieldBloc());
     gh.factory<_i4.Connectivity>(() => appModule.connectivity);
-    gh.factory<_i5.CreateSpaceBloc>(() => _i5.CreateSpaceBloc());
+    gh.factory<_i5.CreateWorkSpaceBloc>(() => _i5.CreateWorkSpaceBloc());
     gh.factory<_i6.DesktopAuthManager>(() => _i6.DesktopAuthManager());
     gh.singleton<_i7.EmployeeService>(
       _i7.EmployeeService(),
