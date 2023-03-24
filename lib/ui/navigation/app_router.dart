@@ -22,7 +22,7 @@ import '../admin/setting/admin_setting_screen.dart';
 import '../admin/setting/edit_work_space/edit_workspace_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
-import '../sign_in/create_space/create_org_space_screen.dart';
+import '../sign_in/create_workspace/create_workspace_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
@@ -62,7 +62,7 @@ class AppRouter {
                   path: Routes.createOrgSpace,
                   name: Routes.createOrgSpace,
                   pageBuilder: (context, state) =>  const MaterialPage(
-                      child: CreateSpacePage()),
+                      child: CreateWorkSpacePage()),
                 )
               ]),
           ShellRoute(

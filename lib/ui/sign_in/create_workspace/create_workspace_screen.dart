@@ -4,39 +4,38 @@ import 'package:projectunity/data/configs/colors.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/di/service_locator.dart';
-import 'package:projectunity/ui/sign_in/create_space/bloc/create_space_event.dart';
-import 'package:projectunity/ui/sign_in/create_space/bloc/create_space_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/employee_details_textfield.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'bloc/create_space_bloc.dart';
+import 'bloc/create_workspace_state.dart';
+import 'bloc/create_workspace_bloc.dart';
+import 'bloc/create_workspace_event.dart';
 
-class CreateSpacePage extends StatelessWidget {
-  const CreateSpacePage({
+class CreateWorkSpacePage extends StatelessWidget {
+  const CreateWorkSpacePage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<CreateSpaceBloc>(),
-      child: const CreateOrgScreen(),
+      create: (_) => getIt<CreateWorkSpaceBloc>(),
+      child: const CreateWorkSpaceScreen(),
     );
   }
 }
 
-class CreateOrgScreen extends StatefulWidget {
-  const CreateOrgScreen({Key? key}) : super(key: key);
+class CreateWorkSpaceScreen extends StatefulWidget {
+  const CreateWorkSpaceScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateOrgScreen> createState() => _CreateOrgScreenState();
+  State<CreateWorkSpaceScreen> createState() => _CreateWorkSpaceScreenState();
 }
 
-class _CreateOrgScreenState extends State<CreateOrgScreen> {
+class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
   final TextEditingController _orgNameController = TextEditingController();
-  final TextEditingController _orgDescriptionController =
-      TextEditingController();
+  final TextEditingController _orgDescriptionController = TextEditingController();
   final TextEditingController _orgDomainController = TextEditingController();
 
   @override
@@ -51,9 +50,9 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
-        body: BlocListener<CreateSpaceBloc, CreateSpaceStates>(
+        body: BlocListener<CreateWorkSpaceBloc, CreateWorkSpaceStates>(
           listener: (context, state) {
-            if (state is CreateSpaceFailureState) {
+            if (state is CreateWorkSpaceFailureState) {
               showSnackBar(context: context, error: state.error);
             }
           },
@@ -63,7 +62,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context).create_new_space_title,
+                  AppLocalizations.of(context).create_new_workspace_title,
                   style: AppFontStyle.titleDark,
                 ),
                 const SizedBox(height: 20),
@@ -78,13 +77,13 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                   maxLine: 2,
                   controller: _orgDescriptionController,
                   hintText: AppLocalizations.of(context)
-                      .create_space_short_description_label,
+                      .create_workspace_short_description_label,
                 ),
                 const SizedBox(height: 20),
                 FieldEntry(
                   controller: _orgDomainController,
                   hintText: AppLocalizations.of(context)
-                      .create_space_Website_url_label,
+                      .create_workspace_Website_url_label,
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -92,20 +91,18 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                   children: [
                     Flexible(
                       child: Text(
-                        AppLocalizations.of(context)
-                            .create_space_add_member_title,
+                        AppLocalizations.of(context).create_workspace_add_member_title,
                         style: AppFontStyle.bodyLarge,
                       ),
                     ),
                     TextButton(
                         onPressed: () {},
-                        child: Text(AppLocalizations.of(context)
-                            .add_member_button_tag)),
+                        child: Text(AppLocalizations.of(context).add_member_button_tag)),
                   ],
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  AppLocalizations.of(context).create_space_screen_description,
+                  AppLocalizations.of(context).create_workspace_screen_description,
                   style: AppFontStyle.bodyMedium,
                 ),
               ],
@@ -119,15 +116,15 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
               fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 50),
               padding: const EdgeInsets.only(left: 20, right: 10)),
           onPressed: () {
-            context.read<CreateSpaceBloc>().add(const CreateSpaceEvent());
+            context.read<CreateWorkSpaceBloc>().add(CreateWorkSpaceEvent());
           },
-          child: BlocBuilder<CreateSpaceBloc, CreateSpaceStates>(
-              builder: (context, state) => state is CreateSpaceLoadingState
+          child: BlocBuilder<CreateWorkSpaceBloc, CreateWorkSpaceStates>(
+              builder: (context, state) => state is CreateWorkSpaceLoadingState
                   ? const AppCircularProgressIndicator(
                       color: AppColors.whiteColor,
                       size: 25,
                     )
-                  : Text(AppLocalizations.of(context).create_new_space_title)),
+                  : Text(AppLocalizations.of(context).create_new_workspace_title)),
         ));
   }
 }
@@ -161,8 +158,7 @@ class _OrgLogoView extends StatelessWidget {
                       )),
             child: imageURl != null
                 ? null
-                : const Icon(Icons.business,
-                    color: AppColors.secondaryText, size: 45),
+                : const Icon(Icons.business, color: AppColors.secondaryText, size: 45),
           ),
           IconButton(
             style: IconButton.styleFrom(

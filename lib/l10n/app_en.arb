@@ -17,14 +17,14 @@
   "update_tag": "Update",
   "workspace_tag":"Workspace",
 
-  "create_new_space_title": "Create New Space",
-  "create_space_screen_description": "Simply set up your workspace and start managing your team more efficiently than ever before.",
+  "create_new_workspace_title": "Create New Workspace",
+  "create_workspace_screen_description": "Simply set up your workspace and start managing your team more efficiently than ever before.",
   "company_name_tag": "Company Name",
-  "create_space_short_description_label": "Short Description (Optional)",
-  "create_space_Website_url_label": "Website URL (Optional)",
+  "create_workspace_short_description_label": "Short Description (Optional)",
+  "create_workspace_Website_url_label": "Website URL (Optional)",
   "add_org_logo_button_title": "Add Company Logo\n(Optional)",
   "change_org_logo_button_title": "Change Company Logo",
-  "create_space_add_member_title": "Do you want to add member now?",
+  "create_workspace_add_member_title": "Do you want to add member now?",
   "add_member_button_tag": "Add Member",
 
 
