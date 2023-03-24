@@ -58,20 +58,13 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                     extra: state.currentEmployee);
               },
             ),
-            SettingsTitle(title: AppLocalizations.of(context).workspace_tag),
-            SettingOption(
-              icon: Icons.edit_note,
-              title: AppLocalizations.of(context)
-                  .admin_settings_update_total_leave_count_tag,
-              onTap: () => context.pushNamed(Routes.updateLeaveCount),
-            ),
-            SettingOption(
-              icon: Icons.edit_note,
-              title: AppLocalizations.of(context).admin_settings_edit_workspace_tag,
-              onTap: () => context.pushNamed(Routes.editWorkspaceDetails),
-            ),
             SettingsTitle(
               title: AppLocalizations.of(context).settings_tag,
+            ),
+            SettingOption(
+              icon: Icons.business_rounded,
+              title: AppLocalizations.of(context).workspace_tag,
+              onTap: () => context.pushNamed(Routes.editWorkspaceDetails),
             ),
             SettingOption(
                 icon: Icons.logout_rounded,

@@ -219,9 +219,7 @@
   "admin_employees_detail_time_off_tag":"Time Off",
 
   "admin_setting_update_leave_total_leaves_tag":"Total Leaves",
-  "admin_settings_update_total_leave_count_tag":"Yearly paid leave count",
-  "admin_settings_edit_workspace_tag":"Edit Workspace",
-  "admin_settings_total_yearly_paid_leave_tag": "Total yearly paid leave",
+  "yearly_paid_time_off_tag":"Yearly Paid Time-Off",
 
 
   "user_home_requests_tag": "Requests",

@@ -19,7 +19,8 @@ class EditWorkspacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<EditWorkSpaceBloc>()..add(EditWorkSpaceInitialEvent()),
+      create: (_) =>
+          getIt<EditWorkSpaceBloc>()..add(EditWorkSpaceInitialEvent()),
       child: const EditWorkSpaceScreen(),
     );
   }
@@ -33,10 +34,10 @@ class EditWorkSpaceScreen extends StatefulWidget {
 }
 
 class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
-
-  final TextEditingController _workspaceNameController = TextEditingController();
-  final TextEditingController _workspaceDescriptionController = TextEditingController();
-  final TextEditingController _workspaceDomainController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _domainController = TextEditingController();
+  final TextEditingController _paidTimeOffLeaveController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -46,9 +47,9 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
 
   @override
   void dispose() {
-    _workspaceNameController.dispose();
-    _workspaceDescriptionController.dispose();
-    _workspaceDomainController.dispose();
+    _nameController.dispose();
+    _domainController.dispose();
+    _paidTimeOffLeaveController.dispose();
     super.dispose();
   }
 
@@ -56,7 +57,7 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).admin_settings_edit_workspace_tag),
+          title: Text(AppLocalizations.of(context).workspace_tag),
         ),
         body: BlocListener<EditWorkSpaceBloc, EditWorkspaceStates>(
           listener: (context, state) {
@@ -65,28 +66,29 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
             }
           },
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0).copyWith(bottom: 85, top: 10),
+            padding: const EdgeInsets.all(20.0).copyWith(
+              bottom: 85,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _OrgLogoView(imageURl: null, onButtonTap: () {}),
                 const SizedBox(height: 30),
                 FieldEntry(
-                  controller: _workspaceNameController,
+                  controller: _nameController,
                   hintText: AppLocalizations.of(context).company_name_tag,
                 ),
                 const SizedBox(height: 20),
                 FieldEntry(
-                  maxLine: 2,
-                  controller: _workspaceDescriptionController,
+                  controller: _domainController,
                   hintText: AppLocalizations.of(context)
-                      .create_workspace_short_description_label,
+                      .create_workspace_Website_url_label,
                 ),
                 const SizedBox(height: 20),
                 FieldEntry(
-                  controller: _workspaceDomainController,
-                  hintText: AppLocalizations.of(context)
-                      .create_workspace_Website_url_label,
+                  controller: _paidTimeOffLeaveController,
+                  hintText:
+                      AppLocalizations.of(context).yearly_paid_time_off_tag,
                 ),
               ],
             ),
@@ -96,19 +98,18 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
         floatingActionButton: ElevatedButton(
           style: ElevatedButton.styleFrom(
               elevation: 2,
-              fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 50),
+              fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
               padding: const EdgeInsets.only(left: 20, right: 10)),
           onPressed: () {
             ///:TODO: edit implementation
           },
           child: BlocBuilder<EditWorkSpaceBloc, EditWorkspaceStates>(
               builder: (context, state) => state is EditWorkspaceLoadingState
-                  ?  const AppCircularProgressIndicator(
-                color: AppColors.whiteColor,
-                size: 25,
-              )
-                  : Text(
-                  AppLocalizations.of(context).edit_tag)),
+                  ? const AppCircularProgressIndicator(
+                      color: AppColors.whiteColor,
+                      size: 25,
+                    )
+                  : Text(AppLocalizations.of(context).save_tag)),
         ));
   }
 }
@@ -137,13 +138,13 @@ class _OrgLogoView extends StatelessWidget {
                 image: imageURl == null
                     ? null
                     : DecorationImage(
-                  image: NetworkImage(imageURl!),
-                  fit: BoxFit.cover,
-                )),
+                        image: NetworkImage(imageURl!),
+                        fit: BoxFit.cover,
+                      )),
             child: imageURl != null
                 ? null
                 : const Icon(Icons.business,
-                color: AppColors.secondaryText, size: 45),
+                    color: AppColors.secondaryText, size: 45),
           ),
           IconButton(
             style: IconButton.styleFrom(
