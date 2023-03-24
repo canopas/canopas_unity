@@ -62,7 +62,8 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
               title: AppLocalizations.of(context).settings_tag,
             ),
             SettingOption(
-              icon: Icons.business_rounded,
+              iconColor: Colors.black87,
+              icon: Icons.home_work_outlined,
               title: AppLocalizations.of(context).workspace_tag,
               onTap: () => context.pushNamed(Routes.editWorkspaceDetails),
             ),
