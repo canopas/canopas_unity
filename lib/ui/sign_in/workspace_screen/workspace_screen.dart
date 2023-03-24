@@ -3,18 +3,19 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/utils/const/image_constant.dart';
-import 'package:projectunity/ui/sign_in/space_screen/widget/workspace_card.dart';
+import 'package:projectunity/ui/sign_in/workspace_screen/widget/workspace_card.dart';
+
 import '../../../data/configs/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-class SpaceScreen extends StatefulWidget {
-  const SpaceScreen({Key? key}) : super(key: key);
+class WorkSpaceScreen extends StatefulWidget {
+  const WorkSpaceScreen({Key? key}) : super(key: key);
 
   @override
-  State<SpaceScreen> createState() => _SpaceScreenState();
+  State<WorkSpaceScreen> createState() => _WorkSpaceScreenState();
 }
 
-class _SpaceScreenState extends State<SpaceScreen> {
+class _WorkSpaceScreenState extends State<WorkSpaceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
