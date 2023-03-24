@@ -68,7 +68,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                 ),
                 const SizedBox(height: 20),
                 _OrgLogoView(imageURl: null, onButtonTap: () {}),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 FieldEntry(
                   controller: _orgNameController,
                   hintText: AppLocalizations.of(context).company_name_tag,
@@ -143,30 +143,42 @@ class _OrgLogoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Container(
-        height: 100,
-        width: 100,
-        decoration: BoxDecoration(
-            color: AppColors.textFieldBg,
-            borderRadius: AppTheme.commonBorderRadius,
-            image: imageURl == null
+    return Center(
+      child: Stack(
+        alignment: const Alignment(1.5, 1.5),
+        children: [
+          Container(
+            height: 110,
+            width: 110,
+            decoration: BoxDecoration(
+                border: Border.all(color: AppColors.textFieldBg, width: 3),
+                color: AppColors.textFieldBg,
+                borderRadius: AppTheme.commonBorderRadius,
+                image: imageURl == null
+                    ? null
+                    : DecorationImage(
+                        image: NetworkImage(imageURl!),
+                        fit: BoxFit.cover,
+                      )),
+            child: imageURl != null
                 ? null
-                : DecorationImage(
-                    image: NetworkImage(imageURl!),
-                    fit: BoxFit.cover,
-                  )),
-        child: imageURl != null
-            ? null
-            : const Icon(Icons.business,
-                color: AppColors.secondaryText, size: 45),
+                : const Icon(Icons.business,
+                    color: AppColors.secondaryText, size: 45),
+          ),
+          IconButton(
+            style: IconButton.styleFrom(
+                fixedSize: const Size(45, 45),
+                side: const BorderSide(color: AppColors.textFieldBg, width: 3),
+                backgroundColor: AppColors.whiteColor),
+            onPressed: onButtonTap,
+            icon: const Icon(
+              Icons.edit,
+              size: 20,
+              color: AppColors.greyColor,
+            ),
+          )
+        ],
       ),
-      const SizedBox(width: 20),
-      TextButton(
-          onPressed: onButtonTap,
-          child: Text(imageURl == null
-              ? AppLocalizations.of(context).add_org_logo_button_title
-              : AppLocalizations.of(context).change_org_logo_button_title))
-    ]);
+    );
   }
 }
