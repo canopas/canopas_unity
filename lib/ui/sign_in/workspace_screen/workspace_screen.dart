@@ -41,7 +41,7 @@ class _WorkSpaceScreenState extends State<WorkSpaceScreen> {
               onPressed: () {
                 ///TODO: Add Implementation for Create New Space
               },
-              child: Text(AppLocalizations.of(context).create_new_space_tag),
+              child: Text(AppLocalizations.of(context).create_new_workspace_title),
             ),
             Stack(
               alignment: Alignment.center,
