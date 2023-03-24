@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace%20_state.dart';
 import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_bloc.dart';
 import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_event.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -10,6 +9,7 @@ import '../../../../data/di/service_locator.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
+import 'bloc/edit_workspace_state.dart';
 
 class EditWorkspacePage extends StatelessWidget {
   const EditWorkspacePage({
