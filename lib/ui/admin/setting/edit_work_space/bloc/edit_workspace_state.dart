@@ -1,27 +1,33 @@
 import 'package:equatable/equatable.dart';
 
-abstract class EditWorkspaceStates extends Equatable {}
+enum EditWorkspaceStatus { initial, loading, failure, success }
 
-class EditWorkspaceInitialState extends EditWorkspaceStates {
+class EditWorkspaceState extends Equatable {
+  final EditWorkspaceStatus status;
+  final String? error;
+  final bool nameIsValid;
+  final bool yearlyPaidTimeOffIsValid;
+
+  const EditWorkspaceState(
+      {this.status = EditWorkspaceStatus.initial,
+      this.error,
+      this.nameIsValid = true,
+      this.yearlyPaidTimeOffIsValid = true});
+
+  copyWith(
+          {String? error,
+          EditWorkspaceStatus? status,
+          bool? nameIsValid,
+          bool? yearlyPaidTimeOffIsValid}) =>
+      EditWorkspaceState(
+          error: error,
+          status: status ?? this.status,
+          nameIsValid: nameIsValid ?? this.nameIsValid,
+          yearlyPaidTimeOffIsValid:
+              yearlyPaidTimeOffIsValid ?? this.yearlyPaidTimeOffIsValid);
+
+  bool get isValid => nameIsValid && yearlyPaidTimeOffIsValid;
+
   @override
-  List<Object?> get props => [];
-}
-
-class EditWorkspaceLoadingState extends EditWorkspaceStates {
-  @override
-  List<Object?> get props => [];
-}
-
-class EditWorkspaceFailureState extends EditWorkspaceStates {
-  final String error;
-
-  EditWorkspaceFailureState(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-class EditWorkspaceSuccessState extends EditWorkspaceStates {
-  @override
-  List<Object?> get props => [];
+  List<Object?> get props => [status,error,nameIsValid,yearlyPaidTimeOffIsValid];
 }

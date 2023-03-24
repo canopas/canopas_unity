@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_bloc.dart';
 import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_event.dart';
@@ -55,48 +56,60 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context).workspace_tag),
-          actions: [
-            TextButton(onPressed: (){}, child:  Text(AppLocalizations.of(context).save_tag)),
-            const SizedBox(width: 10)
-          ],
-        ),
-        body: BlocListener<EditWorkSpaceBloc, EditWorkspaceStates>(
-          listener: (context, state) {
-            if (state is EditWorkspaceFailureState) {
-              showSnackBar(context: context, error: state.error);
-            }
-          },
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0).copyWith(
-              bottom: 85,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _OrgLogoView(imageURl: null, onButtonTap: () {}),
-                const SizedBox(height: 30),
-                FieldEntry(
-                  controller: _nameController,
-                  hintText: AppLocalizations.of(context).company_name_tag,
-                ),
-                const SizedBox(height: 20),
-                FieldEntry(
-                  controller: _domainController,
-                  hintText: AppLocalizations.of(context)
-                      .create_workspace_Website_url_label,
-                ),
-                const SizedBox(height: 20),
-                FieldEntry(
-                  controller: _paidTimeOffLeaveController,
-                  hintText:
-                      AppLocalizations.of(context).yearly_paid_time_off_tag,
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).workspace_tag),
+        actions: [
+          BlocBuilder<EditWorkSpaceBloc, EditWorkspaceState>(
+              builder: (context, state) => TextButton(
+                  onPressed: state.isValid ? () {} : null,
+                  child: Text(AppLocalizations.of(context).save_tag))),
+          const SizedBox(width: 10)
+        ],
+      ),
+      body: BlocListener<EditWorkSpaceBloc, EditWorkspaceState>(
+        listener: (context, state) {
+          if (state.status == EditWorkspaceStatus.failure) {
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0).copyWith(
+            bottom: 85,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _OrgLogoView(imageURl: null, onButtonTap: () {}),
+              const SizedBox(height: 30),
+              FieldEntry(
+                onChanged: (name) => context
+                    .read<EditWorkSpaceBloc>()
+                    .add(CompanyNameChangeEvent(companyName: name)),
+                controller: _nameController,
+                hintText: AppLocalizations.of(context).company_name_tag,
+              ),
+              const SizedBox(height: 20),
+              FieldEntry(
+                controller: _domainController,
+                hintText: AppLocalizations.of(context)
+                    .create_workspace_Website_url_label,
+              ),
+              const SizedBox(height: 20),
+              FieldEntry(
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                onChanged: (timeOff) => context
+                    .read<EditWorkSpaceBloc>()
+                    .add(YearlyPaidTimeOffChangeEvent(timeOff: timeOff)),
+                controller: _paidTimeOffLeaveController,
+                hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
