@@ -15,7 +15,19 @@
   "details_tag":"Details",
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
+  "or_tag": "Or",
   "workspace_tag":"Workspace",
+
+  "create_own_workspace_title": "Want to create your own workspace?",
+  "welcome_to_unity_text":"Welcome To Unity",
+  "workspaces_list_title": "Workspaces for {email}",
+  "@workspaces_list_title":{
+    "placeholders": {
+      "email":{
+        "type": "String"
+      }
+    }
+  },
 
   "create_new_workspace_title": "Create New Workspace",
   "create_workspace_screen_description": "Simply set up your workspace and start managing your team more efficiently than ever before.",
