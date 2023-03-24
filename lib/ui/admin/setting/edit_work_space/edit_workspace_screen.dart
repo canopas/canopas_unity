@@ -6,7 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/edit_workspace_state.dart';
@@ -58,6 +57,10 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context).workspace_tag),
+          actions: [
+            TextButton(onPressed: (){}, child:  Text(AppLocalizations.of(context).save_tag)),
+            const SizedBox(width: 10)
+          ],
         ),
         body: BlocListener<EditWorkSpaceBloc, EditWorkspaceStates>(
           listener: (context, state) {
@@ -94,23 +97,7 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
             ),
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              elevation: 2,
-              fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
-              padding: const EdgeInsets.only(left: 20, right: 10)),
-          onPressed: () {
-            ///:TODO: edit implementation
-          },
-          child: BlocBuilder<EditWorkSpaceBloc, EditWorkspaceStates>(
-              builder: (context, state) => state is EditWorkspaceLoadingState
-                  ? const AppCircularProgressIndicator(
-                      color: AppColors.whiteColor,
-                      size: 25,
-                    )
-                  : Text(AppLocalizations.of(context).save_tag)),
-        ));
+    );
   }
 }
 
