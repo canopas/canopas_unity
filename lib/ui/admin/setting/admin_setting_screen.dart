@@ -58,21 +58,20 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                     extra: state.currentEmployee);
               },
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: primaryHorizontalSpacing,
-                  bottom: primaryVerticalSpacing),
-              child: Text(AppLocalizations.of(context).settings_tag,
-                  style: AppFontStyle.titleDark),
-            ),
-            const Divider(
-                color: AppColors.dividerColor, height: 1, thickness: 1),
-            const SizedBox(height: primaryVerticalSpacing),
+            SettingsTitle(title: AppLocalizations.of(context).workspace_tag),
             SettingOption(
               icon: Icons.edit_note,
               title: AppLocalizations.of(context)
                   .admin_settings_update_total_leave_count_tag,
               onTap: () => context.pushNamed(Routes.updateLeaveCount),
+            ),
+            SettingOption(
+              icon: Icons.edit_note,
+              title: AppLocalizations.of(context).admin_settings_edit_workspace_tag,
+              onTap: () => context.pushNamed(Routes.editWorkspaceDetails),
+            ),
+            SettingsTitle(
+              title: AppLocalizations.of(context).settings_tag,
             ),
             SettingOption(
                 icon: Icons.logout_rounded,
@@ -95,6 +94,28 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
         ),
       ),
       backgroundColor: AppColors.whiteColor,
+    );
+  }
+}
+
+class SettingsTitle extends StatelessWidget {
+  final String title;
+
+  const SettingsTitle({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+              top: primaryHorizontalSpacing, bottom: primaryVerticalSpacing),
+          child: Text(title, style: AppFontStyle.titleDark),
+        ),
+        const Divider(color: AppColors.dividerColor, height: 1, thickness: 1),
+        const SizedBox(height: primaryVerticalSpacing),
+      ],
     );
   }
 }
