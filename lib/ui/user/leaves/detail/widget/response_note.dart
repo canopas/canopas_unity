@@ -12,7 +12,7 @@ class ResponseNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return leaveResponse.isEmpty || leaveResponse==""?const SizedBox():Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
         child: Column(
