@@ -90,7 +90,7 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                       title: localization.reason_tag,
                       reason: leave.reason,
                     ),
-                    if (leave.rejectionReason != null && leave.rejectionReason!="")
+                    if (leave.rejectionReason!.trim().isNotEmpty)
                       ResponseNote(leaveResponse: leave.rejectionReason!),
                     if (showCancelButton) CancelButton(leaveId: leave.leaveId)
                   ],
