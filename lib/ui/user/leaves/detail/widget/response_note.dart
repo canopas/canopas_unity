@@ -13,30 +13,30 @@ class ResponseNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            AppLocalizations.of(context).admin_leave_detail_note_tag,
-            style: AppFontStyle.labelGrey,
-          ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.all(5).copyWith(bottom: 4),
-            decoration: BoxDecoration(
-              boxShadow: AppTheme.commonBoxShadow,
-              borderRadius: AppTheme.commonBorderRadius,
-              color: AppColors.lightPrimaryBlue,
+        padding: const EdgeInsets.symmetric(
+            horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context).admin_leave_detail_note_tag,
+              style: AppFontStyle.labelGrey,
             ),
-            child: Text(
-              leaveResponse,
-              style: AppFontStyle.labelRegular,
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(5).copyWith(bottom: 4),
+              decoration: BoxDecoration(
+                boxShadow: AppTheme.commonBoxShadow,
+                borderRadius: AppTheme.commonBorderRadius,
+                color: AppColors.lightPrimaryBlue,
+              ),
+              child: Text(
+                leaveResponse,
+                style: AppFontStyle.labelRegular,
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        )
     );
   }
 }
