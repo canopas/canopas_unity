@@ -12,16 +12,16 @@ class EditWorkSpaceBloc extends Bloc<EditWorkSpaceEvent, EditWorkspaceState> {
     on<YearlyPaidTimeOffChangeEvent>(_timeOffChange);
   }
 
-  _init(EditWorkSpaceInitialEvent event,
+  void _init(EditWorkSpaceInitialEvent event,
       Emitter<EditWorkspaceState> emit) async {}
 
-  _onNameChange(
-      CompanyNameChangeEvent event, Emitter<EditWorkspaceState> emit) async {
+  void _onNameChange(
+      CompanyNameChangeEvent event, Emitter<EditWorkspaceState> emit) {
     emit(state.copyWith(nameIsValid: event.companyName.isNotEmpty));
   }
 
-  _timeOffChange(YearlyPaidTimeOffChangeEvent event,
-      Emitter<EditWorkspaceState> emit) async {
+  void _timeOffChange(
+      YearlyPaidTimeOffChangeEvent event, Emitter<EditWorkspaceState> emit) {
     try {
       int.parse(event.timeOff);
       emit(state.copyWith(yearlyPaidTimeOffIsValid: true));

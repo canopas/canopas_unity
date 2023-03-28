@@ -143,8 +143,7 @@ class _OrgLogoView extends StatelessWidget {
                       )),
             child: imageURl != null
                 ? null
-                : const Icon(Icons.business,
-                    color: AppColors.secondaryText, size: 45),
+                : const Icon(Icons.business, color: AppColors.secondaryText, size: 45),
           ),
           IconButton(
             style: IconButton.styleFrom(
