@@ -17,6 +17,8 @@
   "update_tag": "Update",
   "or_tag": "Or",
   "workspace_tag":"Workspace",
+  "delete_workspace_text":"Delete Workspace",
+
 
   "create_own_workspace_title": "Want to create your own workspace?",
   "welcome_to_unity_text":"Welcome To Unity",

@@ -73,9 +73,7 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
           }
         },
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0).copyWith(
-            bottom: 85,
-          ),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -106,6 +104,7 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
                 controller: _paidTimeOffLeaveController,
                 hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
               ),
+              const DeleteWorkspaceButton(),
             ],
           ),
         ),
@@ -113,6 +112,32 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
     );
   }
 }
+
+class DeleteWorkspaceButton extends StatelessWidget {
+  const DeleteWorkspaceButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      height: MediaQuery.of(context).size.height*0.3,
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.bottomCenter,
+      constraints: const BoxConstraints(
+        minHeight: 100,
+      ),
+      child: TextButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: AppColors.redColor,
+        ),
+        child: Text(AppLocalizations.of(context).delete_workspace_text),
+        onPressed: () {
+          ///TODO: delete workspace implementation
+        },
+      ),
+    );
+  }
+}
+
 
 class _OrgLogoView extends StatelessWidget {
   final void Function()? onButtonTap;
@@ -143,7 +168,8 @@ class _OrgLogoView extends StatelessWidget {
                       )),
             child: imageURl != null
                 ? null
-                : const Icon(Icons.business, color: AppColors.secondaryText, size: 45),
+                : const Icon(Icons.business,
+                    color: AppColors.secondaryText, size: 45),
           ),
           IconButton(
             style: IconButton.styleFrom(
