@@ -19,7 +19,9 @@
   "workspace_tag":"Workspace",
   "delete_workspace_text":"Delete Workspace",
 
-
+  "company_name_tag":"Company Name",
+  "create_workspace_Website_url_label":"Website URL (Optional)",
+  "create_new_workspace_title":"Create New Workspace",
   "create_own_workspace_title": "Want to create your own workspace?",
   "welcome_to_unity_text":"Welcome To Unity",
   "workspaces_list_title": "Workspaces for {email}",
