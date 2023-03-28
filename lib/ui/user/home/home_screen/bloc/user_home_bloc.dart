@@ -17,14 +17,21 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
   final AuthService _authService;
   final LeaveService _leaveService;
   StreamSubscription? _streamSubscription;
+  StreamSubscription? _leaveRequestStreamSubscription;
 
   UserHomeBloc(this._userPreference, this._authService, this._userManager,
       this._leaveService)
       : super(UserHomeInitialState()) {
     on<UserDisabled>(_removeUser);
     on<UserHomeFetchLeaveRequest>(_fetchLeaveRequest);
+
     _streamSubscription = eventBus.on<DeleteEmployeeByAdmin>().listen((event) {
       add(UserDisabled(event.userId));
+    });
+
+    _leaveRequestStreamSubscription =
+        eventBus.on<CancelLeaveByUser>().listen((event) {
+      add(UserHomeFetchLeaveRequest());
     });
   }
 
@@ -56,6 +63,7 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
   @override
   Future<void> close() async {
     await _streamSubscription?.cancel();
+    await _leaveRequestStreamSubscription?.cancel();
     return super.close();
   }
 }
