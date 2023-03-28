@@ -3,7 +3,8 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/utils/const/image_constant.dart';
-import 'package:projectunity/ui/sign_in/workspace_screen/widget/workspace_card.dart';
+import 'package:projectunity/ui/sign_in/join_workspace_screen/widget/workspace_card.dart';
+
 
 import '../../../data/configs/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
