@@ -16,6 +16,9 @@
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
   "or_tag": "Or",
+  "workspace_tag":"Workspace",
+  "delete_workspace_text":"Delete Workspace",
+
 
   "create_own_workspace_title": "Want to create your own workspace?",
   "welcome_to_unity_text":"Welcome To Unity",
@@ -207,8 +210,7 @@
   "admin_employees_detail_time_off_tag":"Time Off",
 
   "admin_setting_update_leave_total_leaves_tag":"Total Leaves",
-  "admin_settings_update_total_leave_count_tag":"Total leave count",
-  "admin_settings_total_yearly_paid_leave_tag": "Total yearly paid leave",
+  "yearly_paid_time_off_tag":"Yearly Paid Time-Off",
 
 
   "user_home_requests_tag": "Requests",

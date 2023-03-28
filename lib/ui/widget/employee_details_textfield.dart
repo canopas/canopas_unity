@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
@@ -20,9 +21,11 @@ class FieldTitle extends StatelessWidget {
 
 class FieldEntry extends StatelessWidget {
   final Function(String)? onChanged;
+  final TextInputType? keyboardType;
   final String? errorText;
-  final String hintText;
+  final String? hintText;
   final int? maxLine;
+  final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
 
   const FieldEntry(
@@ -30,13 +33,17 @@ class FieldEntry extends StatelessWidget {
       this.maxLine,
       this.onChanged,
       this.errorText,
-      required this.hintText,
-      this.controller})
+      this.hintText,
+      this.controller,
+      this.keyboardType,
+      this.inputFormatters})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       textInputAction: TextInputAction.next,
       onChanged: onChanged,
       maxLines: maxLine,
