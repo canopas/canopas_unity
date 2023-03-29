@@ -6,45 +6,46 @@ import '../../../data/core/exception/error_const.dart';
 import '../../../data/provider/user_data.dart';
 import '../../../data/services/auth_service.dart';
 import '../../../data/stateManager/auth/auth_manager.dart';
-import 'login_view_event.dart';
-import 'login_view_state.dart';
+import 'sign_in_view_event.dart';
+import 'sign_in_view_state.dart';
 
 @Injectable()
-class LoginBloc extends Bloc<SignInEvent, LoginState> {
+class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final AuthManager _authManager;
   final UserManager _userManager;
   final AuthService _authService;
 
-  LoginBloc(
+  SignInBloc(
     this._authManager,
     this._userManager,
     this._authService,
-  ) : super(LoginInitialState()) {
+  ) : super(SignInInitialState()) {
     on<SignInEvent>(_signIn);
   }
 
-  Future<void> _signIn(SignInEvent event, Emitter<LoginState> emit) async {
+  Future<void> _signIn(
+      SignInEvent event, Emitter<SignInState> emit) async {
     User? user;
-    emit(LoginLoadingState());
+    emit(SignInLoadingState());
     try {
       user = await _authService.signInWithGoogle();
     } on CustomException catch (error) {
-      emit(LoginFailureState(error: error.errorMessage.toString()));
+      emit(SignInFailureState(error: error.errorMessage.toString()));
     }
     if (user == null) {
-      emit(LoginInitialState());
+      emit(SignInInitialState());
     } else {
       final data = await _authManager.getUser(user.email!);
       try {
         if (data != null) {
           await _authManager.updateUser(data);
-          emit(LoginSuccessState());
+          emit(SignInSuccessState());
           _userManager.hasLoggedIn();
         } else {
-          emit(LoginFailureState(error: userNotFoundError));
+          emit(SignInFailureState(error: userNotFoundError));
         }
       } on Exception {
-        emit(LoginFailureState(error: userDataNotUpdateError));
+        emit(SignInFailureState(error: userDataNotUpdateError));
       }
     }
   }

@@ -8,18 +8,18 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/stateManager/auth/auth_manager.dart';
-import 'package:projectunity/ui/login/bloc/login_view_bloc.dart';
-import 'package:projectunity/ui/login/bloc/login_view_event.dart';
-import 'package:projectunity/ui/login/bloc/login_view_state.dart';
+import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
+import 'package:projectunity/ui/sign_in/bloc/sign_in_view_event.dart';
+import 'package:projectunity/ui/sign_in/bloc/sign_in_view_state.dart';
 
 import 'login_bloc_test.mocks.dart';
 
-@GenerateMocks([AuthService, AuthManager, UserManager, User])
+@GenerateMocks([AuthService, AuthManager, UserManager, User,])
 void main() {
   late AuthManager authManager;
   late UserManager userManager;
   late AuthService auth;
-  late LoginBloc loginBloc;
+  late SignInBloc signInBloc;
   late User user;
   late String userEmail = "dummy123@testing.com";
 
@@ -31,12 +31,12 @@ void main() {
       email: 'dummy123@testing.com',
       designation: 'Android developer');
 
-  setUpAll(() {
+  setUp(() {
     authManager = MockAuthManager();
     userManager = MockUserManager();
     user = MockUser();
     auth = MockAuthService();
-    loginBloc = LoginBloc(authManager, userManager, auth);
+    signInBloc = SignInBloc(authManager, userManager, auth);
     when(auth.signInWithGoogle()).thenAnswer((_) async => Future(() => user));
     when(user.email).thenReturn(userEmail);
   });
@@ -48,12 +48,12 @@ void main() {
       when(userManager.isAdmin).thenReturn(false);
       when(authManager.getUser(userEmail))
           .thenAnswer((realInvocation) async => employee);
-      loginBloc.add(SignInEvent());
+      signInBloc.add(SignInEvent());
       expect(
-          loginBloc.stream,
+          signInBloc.stream,
           emitsInOrder([
-            LoginLoadingState(),
-            LoginSuccessState(),
+            SignInLoadingState(),
+            SignInSuccessState(),
           ]));
       await untilCalled(userManager.hasLoggedIn());
       verify(userManager.hasLoggedIn()).called(1);
@@ -62,12 +62,12 @@ void main() {
     test("user not found test", () {
       when(authManager.getUser(userEmail))
           .thenAnswer((realInvocation) async => Future(() => null));
-      loginBloc.add(SignInEvent());
+      signInBloc.add(SignInEvent());
       expect(
-          loginBloc.stream,
+          signInBloc.stream,
           emitsInOrder([
-            LoginLoadingState(),
-            LoginFailureState(error: userNotFoundError),
+            SignInLoadingState(),
+            SignInFailureState(error: userNotFoundError),
           ]));
     });
 
@@ -76,25 +76,25 @@ void main() {
           .thenThrow(Exception("data not valid"));
       when(authManager.getUser(userEmail))
           .thenAnswer((realInvocation) async => Future(() => employee));
-      loginBloc.add(SignInEvent());
+      signInBloc.add(SignInEvent());
       expect(
-          loginBloc.stream,
+          signInBloc.stream,
           emitsInOrder([
-            LoginLoadingState(),
-            LoginFailureState(error: userDataNotUpdateError),
+            SignInLoadingState(),
+            SignInFailureState(error: userDataNotUpdateError),
           ]));
     });
 
     test("custom exception thrown", () {
       when(auth.signInWithGoogle())
           .thenThrow(CustomException(firesbaseAuthError));
-      loginBloc.add(SignInEvent());
+      signInBloc.add(SignInEvent());
       expect(
-          loginBloc.stream,
+          signInBloc.stream,
           emitsInOrder([
-            LoginLoadingState(),
-            LoginFailureState(error: firesbaseAuthError),
-            LoginInitialState()
+            SignInLoadingState(),
+            SignInFailureState(error: firesbaseAuthError),
+            SignInInitialState()
           ]));
     });
   });

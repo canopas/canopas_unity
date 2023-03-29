@@ -72,7 +72,7 @@ class _AdminUpdateLeaveCountsScreenState
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                    localizations.admin_settings_total_yearly_paid_leave_tag,
+                    localizations.yearly_paid_time_off_tag,
                     style: AppFontStyle.labelRegular),
               ),
               const SizedBox(height: primaryHorizontalSpacing),

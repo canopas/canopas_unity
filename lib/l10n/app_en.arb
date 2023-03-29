@@ -2,9 +2,8 @@
   "language": "English",
   "appTitle": "Unity",
 
-  "login_welcome_text": "Welcome",
-  "login_toUnity_text": "to Unity!",
-  "login_guide_description": "To continue with Unity",
+  "sign_in_description_text":"Help you to manage your office leaves and employees easily with unity.",
+  "sign_in_title_text":"Effortless Leave\nManagement with Unity",
   "login_button_text": "Sign in with Google",
   "company_name":"Canopas Software",
   "company_subtitle":"www.canopas.com",
@@ -16,7 +15,23 @@
   "details_tag":"Details",
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
+  "or_tag": "Or",
+  "workspace_tag":"Workspace",
+  "delete_workspace_text":"Delete Workspace",
 
+  "company_name_tag":"Company Name",
+  "create_workspace_Website_url_label":"Website URL (Optional)",
+  "create_new_workspace_title":"Create New Workspace",
+  "create_own_workspace_title": "Want to create your own workspace?",
+  "welcome_to_unity_text":"Welcome To Unity",
+  "workspaces_list_title": "Workspaces for {email}",
+  "@workspaces_list_title":{
+    "placeholders": {
+      "email":{
+        "type": "String"
+      }
+    }
+  },
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
   "@days_placeholder_leave":{
@@ -197,8 +212,7 @@
   "admin_employees_detail_time_off_tag":"Time Off",
 
   "admin_setting_update_leave_total_leaves_tag":"Total Leaves",
-  "admin_settings_update_total_leave_count_tag":"Total leave count",
-  "admin_settings_total_yearly_paid_leave_tag": "Total yearly paid leave",
+  "yearly_paid_time_off_tag":"Yearly Paid Time-Off",
 
 
   "user_home_requests_tag": "Requests",

@@ -5,6 +5,7 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/employee_details_leaves_screen.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
+import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
@@ -18,8 +19,8 @@ import '../admin/home/addmember/admin_add_member_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/leaves/detail/leave_details.dart';
 import '../admin/setting/admin_setting_screen.dart';
+import '../admin/setting/edit_work_space/edit_workspace_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
-import '../login/login_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
@@ -50,11 +51,12 @@ class AppRouter {
         navigatorKey: _rootNavigatorKey,
         routes: [
           GoRoute(
-              parentNavigatorKey: _rootNavigatorKey,
-              path: Routes.login,
-              name: Routes.login,
-              pageBuilder: (context, state) =>
-                  const MaterialPage(child: LoginPage())),
+            parentNavigatorKey: _rootNavigatorKey,
+            path: Routes.login,
+            name: Routes.login,
+            pageBuilder: (context, state) =>
+                const MaterialPage(child: SignInPage()),
+          ),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) =>
@@ -99,7 +101,7 @@ class AppRouter {
                             pageBuilder: (context, state) => NoTransitionPage(
                                 child: AdminLeaveDetailsPage(
                                     leaveApplication:
-                                    state.extra as LeaveApplication)),
+                                        state.extra as LeaveApplication)),
                           ),
                         ],
                       )
@@ -196,8 +198,8 @@ class AppRouter {
                         name: Routes.adminEditProfile,
                         pageBuilder: (context, state) => NoTransitionPage(
                             child: EmployeeEditProfilePage(
-                              employee: state.extra as Employee,
-                            )),
+                          employee: state.extra as Employee,
+                        )),
                       ),
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
@@ -206,6 +208,13 @@ class AppRouter {
                           pageBuilder: (context, state) =>
                               const NoTransitionPage(
                                   child: AdminUpdateLeaveCountsPage())),
+                      GoRoute(
+                          parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.editWorkspaceDetails,
+                          path: Routes.editWorkspaceDetails,
+                          pageBuilder: (context, state) =>
+                          const NoTransitionPage(
+                              child: EditWorkspacePage())),
                     ]),
               ]),
           ShellRoute(
@@ -240,7 +249,8 @@ class AppRouter {
                               path: Routes.userCalendarLeaveDetail,
                               pageBuilder: (context, state) => NoTransitionPage(
                                   child: UserLeaveDetailPage(
-                                      leaveId: state.params[RoutesParamsConst.leaveId]!)),
+                                      leaveId: state
+                                          .params[RoutesParamsConst.leaveId]!)),
                             ),
                           ],
                           pageBuilder: (context, state) =>
@@ -344,7 +354,7 @@ abstract class Routes {
   static const adminLeaves = '/admin-leaves';
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
-  static const adminEditProfile="admin-edit-profile";
+  static const adminEditProfile = "admin-edit-profile";
   static const addMember = 'new';
   static const adminCalender = 'admin-calender';
   static const adminLeaveDetails = 'admin-leave-details';
@@ -365,7 +375,9 @@ abstract class Routes {
   static const applyHRLeave = 'apply-hr-leave';
   static const userCalender = 'calender';
   static const login = '/login';
+  static const createOrgSpace = 'create-space';
   static const updateLeaveCount = 'update-paid-leave';
+  static const editWorkspaceDetails = 'edit-workspace-details';
   static const userLeaveCalender = 'user-calender';
   static const adminEmployeeDetailsLeaves =
       'admin-employee-detail-leaves/:employeeName';

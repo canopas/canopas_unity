@@ -7,5 +7,5 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class AppModule {
   @preResolve
   Future<SharedPreferences> get preferences => SharedPreferences.getInstance();
-  Connectivity get connectivity=>Connectivity();
+  Connectivity get connectivity => Connectivity();
 }

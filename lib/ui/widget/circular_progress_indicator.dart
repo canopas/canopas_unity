@@ -74,9 +74,10 @@ class _ThreeBounceLoadingState extends State<ThreeBounceLoading>
 }
 
 class AppCircularProgressIndicator extends StatelessWidget {
+  final Color color;
   final double size;
 
-  const AppCircularProgressIndicator({Key? key, this.size = 38})
+  const AppCircularProgressIndicator({Key? key, this.size = 38,  this.color = AppColors.primaryBlue})
       : super(key: key);
 
   @override
@@ -87,7 +88,7 @@ class AppCircularProgressIndicator extends StatelessWidget {
         width: size,
         child: CircularProgressIndicator(
           strokeWidth: size / 9,
-          color: AppColors.primaryBlue,
+          color: color,
         ),
       ),
     );
