@@ -37,7 +37,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
-            AppLocalizations.of(context).admin_home_add_member_addMember_tag),
+            AppLocalizations.of(context).add_member_tag),
       ),
       body: const AddMemberForm(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

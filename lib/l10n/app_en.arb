@@ -17,8 +17,9 @@
   "update_tag": "Update",
   "or_tag": "Or",
   "workspace_tag":"Workspace",
-  "delete_workspace_text":"Delete Workspace",
+  "next_tag":"Next",
 
+  "delete_workspace_text":"Delete Workspace",
   "company_name_tag":"Company Name",
   "create_workspace_Website_url_label":"Website URL (Optional)",
   "create_new_workspace_title":"Create New Workspace",
@@ -32,6 +33,20 @@
       }
     }
   },
+
+  "create_workspace_add_member_title":"Do you want to add member now?",
+  "create_workspace_skip_button_text":"Skip and create workspace",
+  "create_workspace_create_workspace_button_text":"Create workspace",
+  "create_workspace_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} =2{Do you want to add member now?} other{}}",
+  "@create_workspace_step_description":{
+    "description": "Pass the value of step for description",
+    "placeholders": {
+      "step":{
+        "type": "int"
+      }
+    }
+  },
+
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
   "@days_placeholder_leave":{
@@ -189,7 +204,7 @@
     "admin_home_add_member_employee_exists_error": "Member already exists!",
     "admin_home_add_member_submit_button_tag":"Submit",
     "admin_home_add_member_designation_tag":"Designation",
-    "admin_home_add_member_addMember_tag":"Add Member",
+    "add_member_tag":"Add Member",
     "admin_home_add_member_name_hint_text":"Andrew Jhone",
     "admin_home_add_member_employee_id_hint_text":"CA 1001",
     "admin_home_add_member_email_hint_text":"andrew@canopas.com",
