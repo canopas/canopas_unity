@@ -19,6 +19,8 @@
   "workspace_tag":"Workspace",
   "delete_workspace_text":"Delete Workspace",
 
+  "change_work_space_tag":"Change Workspace",
+
   "company_name_tag":"Company Name",
   "create_workspace_Website_url_label":"Website URL (Optional)",
   "create_new_workspace_title":"Create New Workspace",
