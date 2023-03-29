@@ -18,6 +18,7 @@
   "or_tag": "Or",
   "workspace_tag":"Workspace",
   "next_tag":"Next",
+  "back_tag":"Back",
 
   "delete_workspace_text":"Delete Workspace",
   "company_name_tag":"Company Name",
@@ -35,8 +36,7 @@
   },
 
   "create_workspace_add_member_title":"Do you want to add member now?",
-  "create_workspace_skip_button_text":"Skip and create workspace",
-  "create_workspace_create_workspace_button_text":"Create workspace",
+  "create_workspace_create_workspace_button_text":"Create Workspace",
   "create_workspace_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} =2{Do you want to add member now?} other{}}",
   "@create_workspace_step_description":{
     "description": "Pass the value of step for description",
@@ -46,7 +46,7 @@
       }
     }
   },
-  "create_workspace_step_text": "Step {step}/3",
+  "create_workspace_step_text": "Step {step}/2",
   "@create_workspace_step_text":{
     "placeholders": {
       "step":{

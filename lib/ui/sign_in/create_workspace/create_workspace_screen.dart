@@ -70,7 +70,9 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
                         icon: const Icon(Icons.arrow_back)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(AppLocalizations.of(context).create_workspace_step_text((state.page+1).toString()),
+                  child: Text(
+                      AppLocalizations.of(context).create_workspace_step_text(
+                          (state.page + 1).toString()),
                       style: AppFontStyle.titleDark),
                 ),
                 Padding(
@@ -94,46 +96,12 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
               children: [
                 WorkSpaceBasicDetails(onNextButtonPressed: _navigateToNextPage),
                 WorkspacePaidLeaves(onNextButtonPressed: _navigateToNextPage),
-                const AddMembersCreateWorkspace(),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-class AddMembersCreateWorkspace extends StatelessWidget {
-  const AddMembersCreateWorkspace({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextButton(
-                onPressed: () {
-                  ///TODO: Add Member implementation
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.lightPrimaryBlue,
-                  fixedSize: Size(MediaQuery.of(context).size.width, 45),
-                ),
-                child: Text(AppLocalizations.of(context).add_member_tag)),
-            const SizedBox(height: 16),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width, 45)),
-                onPressed: () {
-                  ///TODO: Create Workspace Implementation
-                },
-                child: Text(AppLocalizations.of(context)
-                    .create_workspace_skip_button_text)),
-          ],
-        ));
   }
 }
 
@@ -161,7 +129,8 @@ class WorkspacePaidLeaves extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width, 45)),
                 onPressed: onNextButtonPressed,
-                child: Text(AppLocalizations.of(context).next_tag)),
+                child: Text(AppLocalizations.of(context)
+                    .create_workspace_create_workspace_button_text)),
           ],
         ));
   }
