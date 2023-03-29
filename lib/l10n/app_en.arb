@@ -46,6 +46,14 @@
       }
     }
   },
+  "create_workspace_step_text": "Step {step}/3",
+  "@create_workspace_step_text":{
+    "placeholders": {
+      "step":{
+        "type": "String"
+      }
+    }
+  },
 
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",

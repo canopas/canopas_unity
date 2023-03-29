@@ -59,6 +59,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BlocBuilder<CreateWorkSpaceBLoc, CreateWorkSpaceState>(
+            buildWhen: (previous, current) => previous.page != current.page,
             builder: (context, state) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -69,7 +70,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
                         icon: const Icon(Icons.arrow_back)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text("Step ${state.page + 1}/3",
+                  child: Text(AppLocalizations.of(context).create_workspace_step_text((state.page+1).toString()),
                       style: AppFontStyle.titleDark),
                 ),
                 Padding(
