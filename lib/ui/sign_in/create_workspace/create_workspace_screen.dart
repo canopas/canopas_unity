@@ -6,8 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart';
 import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_event.dart';
 import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_state.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/theme.dart';
+import 'package:projectunity/ui/sign_in/create_workspace/widget/org_logo_view.dart';
 import '../../../data/di/service_locator.dart';
 import '../../widget/employee_details_textfield.dart';
 
@@ -80,7 +79,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
                   child: Text(
                       AppLocalizations.of(context)
                           .create_workspace_step_description(state.page),
-                      style: AppFontStyle.bodyLarge),
+                      style: AppFontStyle.labelGrey),
                 ),
                 //const SizedBox(height: 16),
               ],
@@ -151,7 +150,7 @@ class WorkSpaceBasicDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _OrgLogoView(imageURl: null, onButtonTap: () {}),
+            OrgLogoView(imageURl: null, onButtonTap: () {}),
             const SizedBox(height: 32),
             FieldEntry(
               hintText: AppLocalizations.of(context).company_name_tag,
@@ -169,55 +168,5 @@ class WorkSpaceBasicDetails extends StatelessWidget {
                 child: Text(AppLocalizations.of(context).next_tag)),
           ],
         ));
-  }
-}
-
-class _OrgLogoView extends StatelessWidget {
-  final void Function()? onButtonTap;
-
-  final String? imageURl;
-
-  const _OrgLogoView({Key? key, this.onButtonTap, this.imageURl})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        alignment: const Alignment(1.5, 1.5),
-        children: [
-          Container(
-            height: 110,
-            width: 110,
-            decoration: BoxDecoration(
-                border: Border.all(color: AppColors.textFieldBg, width: 3),
-                color: AppColors.textFieldBg,
-                borderRadius: AppTheme.commonBorderRadius,
-                image: imageURl == null
-                    ? null
-                    : DecorationImage(
-                        image: NetworkImage(imageURl!),
-                        fit: BoxFit.cover,
-                      )),
-            child: imageURl != null
-                ? null
-                : const Icon(Icons.business,
-                    color: AppColors.secondaryText, size: 45),
-          ),
-          IconButton(
-            style: IconButton.styleFrom(
-                fixedSize: const Size(45, 45),
-                side: const BorderSide(color: AppColors.textFieldBg, width: 3),
-                backgroundColor: AppColors.whiteColor),
-            onPressed: onButtonTap,
-            icon: const Icon(
-              Icons.edit,
-              size: 20,
-              color: AppColors.greyColor,
-            ),
-          )
-        ],
-      ),
-    );
   }
 }
