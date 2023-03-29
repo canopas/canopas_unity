@@ -35,9 +35,8 @@
     }
   },
 
-  "create_workspace_add_member_title":"Do you want to add member now?",
   "create_workspace_create_workspace_button_text":"Create Workspace",
-  "create_workspace_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} =2{Do you want to add member now?} other{}}",
+  "create_workspace_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} other{}}",
   "@create_workspace_step_description":{
     "description": "Pass the value of step for description",
     "placeholders": {
