@@ -17,10 +17,11 @@
   "update_tag": "Update",
   "or_tag": "Or",
   "workspace_tag":"Workspace",
+  "next_tag":"Next",
+  "back_tag":"Back",
+
   "delete_workspace_text":"Delete Workspace",
-
   "change_work_space_tag":"Change Workspace",
-
   "company_name_tag":"Company Name",
   "create_workspace_Website_url_label":"Website URL (Optional)",
   "create_new_workspace_title":"Create New Workspace",
@@ -34,6 +35,26 @@
       }
     }
   },
+
+  "create_workspace_create_workspace_button_text":"Create Workspace",
+  "create_workspace_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} other{}}",
+  "@create_workspace_step_description":{
+    "description": "Pass the value of step for description",
+    "placeholders": {
+      "step":{
+        "type": "int"
+      }
+    }
+  },
+  "create_workspace_step_text": "Step {step}/2",
+  "@create_workspace_step_text":{
+    "placeholders": {
+      "step":{
+        "type": "String"
+      }
+    }
+  },
+
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
   "@days_placeholder_leave":{
