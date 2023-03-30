@@ -7,9 +7,9 @@ import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settin
 import 'package:projectunity/ui/widget/app_dialog.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
+import '../../../widget/change_workspace_sheet.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_settings_bloc.dart';
 import 'bloc/user_settings_event.dart';
@@ -58,16 +58,16 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                     extra: state.currentEmployee);
               },
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: primaryHorizontalSpacing,
-                  bottom: primaryVerticalSpacing),
-              child: Text(AppLocalizations.of(context).settings_tag,
-                  style: AppFontStyle.titleDark),
-            ),
-            const Divider(
-                color: AppColors.dividerColor, height: 1, thickness: 1),
-            const SizedBox(height: primaryVerticalSpacing),
+            const Divider(indent: 0, endIndent: 0),
+            SettingOption(
+                icon: Icons.swap_vert_rounded,
+                title: AppLocalizations.of(context).change_work_space_tag,
+                onTap: () {
+                  showBottomSheet(
+                      context: context,
+                      builder: (context) => const ChangeWorkspaceBottomSheet());
+                }),
+            const Divider(indent: 0, endIndent: 0),
             SettingOption(
                 icon: Icons.logout_rounded,
                 title: AppLocalizations.of(context).sign_out_tag,

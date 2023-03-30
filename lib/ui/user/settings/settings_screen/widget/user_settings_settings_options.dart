@@ -29,11 +29,12 @@ class SettingOption extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 30,
+              size: 26,
               color: iconColor,
             ),
             const SizedBox(
               width: primaryHorizontalSpacing,
+              height: 30,
             ),
             Text(
               title,
