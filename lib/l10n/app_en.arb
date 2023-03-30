@@ -211,7 +211,7 @@
     "admin_home_add_member_employee_exists_error": "Member already exists!",
     "admin_home_add_member_submit_button_tag":"Submit",
     "admin_home_add_member_designation_tag":"Designation",
-    "add_member_tag":"Add Member",
+    "admin_home_add_member_addMember_tag":"Add Member",
     "admin_home_add_member_name_hint_text":"Andrew Jhone",
     "admin_home_add_member_employee_id_hint_text":"CA 1001",
     "admin_home_add_member_email_hint_text":"andrew@canopas.com",
