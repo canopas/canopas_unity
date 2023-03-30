@@ -58,12 +58,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                     extra: state.currentEmployee);
               },
             ),
-            const Divider(
-                color: AppColors.dividerColor,
-                height: 16,
-                thickness: 1,
-                indent: 0,
-                endIndent: 0),
+            const Divider(indent: 0, endIndent: 0),
             SettingOption(
               iconColor: Colors.black87,
               icon: Icons.home_work_outlined,
@@ -78,12 +73,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                       context: context,
                       builder: (context) => const ChangeWorkspaceBottomSheet());
                 }),
-            const Divider(
-                color: AppColors.dividerColor,
-                height: 16,
-                thickness: 1,
-                indent: 0,
-                endIndent: 0),
+            const Divider(indent: 0, endIndent: 0),
             SettingOption(
                 icon: Icons.logout_rounded,
                 title: AppLocalizations.of(context).sign_out_tag,
