@@ -4,11 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/cancel_button.dart';
-import 'package:projectunity/ui/user/leaves/detail/widget/leave_type_content.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/response_note.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_content.dart';
 import '../../../../data/configs/colors.dart';
@@ -51,55 +51,49 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).details_tag),
       ),
-      body: BlocListener<UserLeaveDetailBloc, UserLeaveDetailState>(
-        listenWhen: (previous, current) =>
-            current is UserLeaveDetailErrorState ||
-            current is UserCancelLeaveSuccessState,
-        listener: (context, state) {
-          if (state is UserLeaveDetailErrorState) {
-            showSnackBar(context: context, error: state.error);
-          }
-          if (state is UserCancelLeaveSuccessState) {
-            showSnackBar(
-                context: context,
-                msg: localization.user_leave_detail_cancel_leave_message);
-            context.pop();
-          }
-        },
-        child: BlocBuilder<UserLeaveDetailBloc, UserLeaveDetailState>(
-            buildWhen: (previous, current) =>
-                current is UserLeaveDetailLoadingState ||
-                current is UserLeaveDetailSuccessState,
-            builder: (context, state) {
-              if (state is UserLeaveDetailLoadingState) {
-                return const AppCircularProgressIndicator();
-              } else if (state is UserLeaveDetailSuccessState) {
-                Leave leave = state.leave;
-                final note=leave.rejectionReason??"";
-                bool showCancelButton = state.showCancelButton;
-                return ListView(
-                  children: [
-                    LeaveTypeContent(
+      body: BlocConsumer<UserLeaveDetailBloc, UserLeaveDetailState>(
+          listenWhen: (previous, current) =>
+              current is UserLeaveDetailErrorState ||
+              current is UserCancelLeaveSuccessState,
+          listener: (context, state) {
+            if (state is UserLeaveDetailErrorState) {
+              showSnackBar(context: context, error: state.error);
+            }
+            if (state is UserCancelLeaveSuccessState) {
+              showSnackBar(
+                  context: context,
+                  msg: localization.user_leave_detail_cancel_leave_message);
+              context.pop();
+            }
+          },
+          builder: (context, state) {
+            if (state is UserLeaveDetailLoadingState) {
+              return const AppCircularProgressIndicator();
+            } else if (state is UserLeaveDetailSuccessState) {
+              Leave leave = state.leave;
+              return ListView(
+                children: [
+                  LeaveTypeAgoTitleWithStatus(
+                      appliedOnInTimeStamp: leave.appliedOn,
                       leaveType: leave.leaveType,
-                      appliedTime: leave.appliedOn,
-                      leaveStatus: leave.leaveStatus,
-                    ),
-                    UserLeaveRequestDateContent(leave: leave),
-                    PerDayDurationDateRange(
-                        perDayDurationWithDate: leave.getDateAndDuration()),
-                    ReasonField(
-                      title: localization.reason_tag,
-                      reason: leave.reason,
-                    ),
-                    if (note.trim().isNotEmpty)
-                      ResponseNote(leaveResponse: leave.rejectionReason!),
-                    if (showCancelButton) CancelButton(leaveId: leave.leaveId)
-                  ],
-                );
-              }
-              return const SizedBox();
-            }),
-      ),
+                      status: leave.leaveStatus),
+                  UserLeaveRequestDateContent(leave: leave),
+                  PerDayDurationDateRange(
+                      perDayDurationWithDate: leave.getDateAndDuration()),
+                  ReasonField(
+                    title: localization.reason_tag,
+                    reason: leave.reason,
+                  ),
+                  if ((leave.rejectionReason ?? "").trim().isNotEmpty)
+                    ResponseNote(leaveResponse: leave.rejectionReason!),
+                  if (state.showCancelButton)
+                    CancelButton(leaveId: leave.leaveId)
+                ],
+              );
+            }
+            //error screen
+            return const SizedBox();
+          }),
     );
   }
 }

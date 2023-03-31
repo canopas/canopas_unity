@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_details_date_content.dart';
-import 'package:projectunity/ui/admin/leaves/detail/widget/leave_details_header_content.dart';
+import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/model/leave_application.dart';
