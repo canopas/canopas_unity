@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
@@ -27,6 +28,7 @@ class FieldEntry extends StatelessWidget {
   final int? maxLine;
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
+  final int? maxLength;
 
   const FieldEntry(
       {Key? key,
@@ -36,6 +38,7 @@ class FieldEntry extends StatelessWidget {
       this.hintText,
       this.controller,
       this.keyboardType,
+      this.maxLength,
       this.inputFormatters})
       : super(key: key);
 
@@ -47,6 +50,7 @@ class FieldEntry extends StatelessWidget {
       textInputAction: TextInputAction.next,
       onChanged: onChanged,
       maxLines: maxLine,
+      maxLength: maxLength,
       controller: controller,
       cursorColor: Colors.black,
       autocorrect: false,
