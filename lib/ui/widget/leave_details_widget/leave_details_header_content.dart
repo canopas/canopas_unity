@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
-import '../../../../../data/core/utils/const/leave_map.dart';
-import '../../../../../data/core/utils/date_formatter.dart';
+import '../../../data/configs/space_constant.dart';
+import '../../../data/configs/text_style.dart';
+import '../../../data/core/utils/const/leave_map.dart';
+import '../../../data/core/utils/date_formatter.dart';
 
 class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   const LeaveTypeAgoTitleWithStatus(
@@ -35,9 +35,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
                     .leave_type_placeholder_text(leaveType.toString()),
                 style: AppFontStyle.titleDark,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 2),
               Text(
                 appliedOn,
                 style: AppFontStyle.labelGrey,
