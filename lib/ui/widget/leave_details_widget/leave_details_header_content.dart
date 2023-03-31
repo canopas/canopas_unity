@@ -35,9 +35,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
                     .leave_type_placeholder_text(leaveType.toString()),
                 style: AppFontStyle.titleDark,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 2),
               Text(
                 appliedOn,
                 style: AppFontStyle.labelGrey,
