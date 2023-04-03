@@ -24,3 +24,12 @@ class CompanyNameChangeEvent extends EditWorkSpaceEvent {
   @override
   List<Object?> get props => [companyName];
 }
+
+class DeleteWorkspaceEvent extends EditWorkSpaceEvent {
+  final String workspaceId;
+
+  DeleteWorkspaceEvent({required this.workspaceId});
+
+  @override
+  List<Object?> get props => [workspaceId];
+}

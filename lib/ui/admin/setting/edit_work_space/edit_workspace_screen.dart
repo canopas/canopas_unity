@@ -118,8 +118,8 @@ class DeleteWorkspaceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      height: MediaQuery.of(context).size.height*0.3,
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.bottomCenter,
       constraints: const BoxConstraints(
@@ -130,14 +130,15 @@ class DeleteWorkspaceButton extends StatelessWidget {
           foregroundColor: AppColors.redColor,
         ),
         child: Text(AppLocalizations.of(context).delete_workspace_text),
-        onPressed: () {
-          ///TODO: delete workspace implementation
-        },
+        onPressed: () =>
+            context.read<EditWorkSpaceBloc>().add(DeleteWorkspaceEvent(
+
+                ///TODO Provide workspace id
+                workspaceId: "")),
       ),
     );
   }
 }
-
 
 class _OrgLogoView extends StatelessWidget {
   final void Function()? onButtonTap;
