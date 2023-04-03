@@ -16,11 +16,21 @@ Space _$SpaceFromJson(Map<String, dynamic> json) => Space(
       logo: json['logo'] as String?,
     );
 
-Map<String, dynamic> _$SpaceToJson(Space instance) => <String, dynamic>{
-      'name': instance.name,
-      'created_at': Space._toJson(instance.createdAt),
-      'logo': instance.logo,
-      'owner_ids': instance.ownerIds,
-      'paid_time_off': instance.paidTimeOff,
-      'domain': instance.domain,
-    };
+Map<String, dynamic> _$SpaceToJson(Space instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+    'created_at': Space._toJson(instance.createdAt),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('logo', instance.logo);
+  val['owner_ids'] = instance.ownerIds;
+  val['paid_time_off'] = instance.paidTimeOff;
+  writeNotNull('domain', instance.domain);
+  return val;
+}

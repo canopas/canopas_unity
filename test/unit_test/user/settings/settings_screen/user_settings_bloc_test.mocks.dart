@@ -100,6 +100,14 @@ class MockUserPreference extends _i1.Mock implements _i6.UserPreference {
         returnValueForMissingStub: null,
       );
   @override
+  void setAuthenticationStatus(_i5.User? user) => super.noSuchMethod(
+        Invocation.method(
+          #setAuthenticationStatus,
+          [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i4.Future<void> removeCurrentUser() => (super.noSuchMethod(
         Invocation.method(
           #removeCurrentUser,

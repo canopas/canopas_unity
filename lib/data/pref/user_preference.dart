@@ -1,7 +1,10 @@
 import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/configs/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../core/utils/const/pref_key.dart';
 import '../model/employee/employee.dart';
 
@@ -13,6 +16,24 @@ class UserPreference {
 
   void setCurrentUser(Employee user) {
     _preferences.setString(PrefKeys.userPrefKeyUser, jsonEncode(user.toJson()));
+  }
+
+  void setAuthenticationStatus(User? user) {
+    _preferences.setString(PrefKeys.firebaseAuthenticationId, user!.uid);
+  }
+
+  String? getCurrentUid() {
+    final data = _preferences.getString(PrefKeys.firebaseAuthenticationId);
+    return data;
+  }
+
+  void setUserSpaceStatus(int status) {
+    _preferences.setInt(PrefKeys.userSpaceStatus, status);
+  }
+
+  int? getUserSpaceStatus() {
+    final data = _preferences.getInt(PrefKeys.userSpaceStatus);
+    return data;
   }
 
   Employee? getCurrentUser() {

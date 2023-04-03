@@ -67,6 +67,7 @@ class WorkspacePaidLeaves extends StatelessWidget {
                               Size(MediaQuery.of(context).size.width, 45)),
                       onPressed: () {
                         bloc.add(CreateSpaceButtonTapEvent());
+                        print('button is tapped');
                       },
                       child: Text(AppLocalizations.of(context)
                           .create_workspace_create_workspace_button_text));

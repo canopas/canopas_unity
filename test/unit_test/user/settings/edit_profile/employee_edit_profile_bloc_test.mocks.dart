@@ -6,6 +6,7 @@
 import 'dart:async' as _i4;
 import 'dart:ui' as _i6;
 
+import 'package:firebase_auth/firebase_auth.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/pref/user_preference.dart' as _i7;
@@ -251,6 +252,14 @@ class MockUserPreference extends _i1.Mock implements _i7.UserPreference {
   void setCurrentUser(_i2.Employee? user) => super.noSuchMethod(
         Invocation.method(
           #setCurrentUser,
+          [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void setAuthenticationStatus(_i8.User? user) => super.noSuchMethod(
+        Invocation.method(
+          #setAuthenticationStatus,
           [user],
         ),
         returnValueForMissingStub: null,

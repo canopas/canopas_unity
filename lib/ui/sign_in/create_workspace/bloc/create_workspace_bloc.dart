@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/const/role.dart';
 import 'package:projectunity/data/model/space/space.dart';
 
 import '../../../../data/provider/user_data.dart';
@@ -70,10 +71,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
   }
 
   bool get validateSpaceData =>
-      validName(state.name) &&
-      validEmail(state.domain) &&
-      !state.nameError &&
-      !state.domainError;
+      validName(state.name) && !state.nameError && !state.domainError;
 
   Future<void> _createSpace(
       CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
@@ -87,10 +85,11 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
           name: state.name,
           createdAt: DateTime.now(),
           paidTimeOff: timeOff,
-          ownerIds: [_userManager.email],
+          ownerIds: [_userManager.firebaseAuthUId!],
         );
         await _spaceService.createSpace(spaceData);
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
+        _userManager.changeSpaceStatus(createSpace);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,

@@ -12,6 +12,8 @@ class SpaceService {
           toFirestore: (Space space, _) => space.toFirestore());
 
   Future<void> createSpace(Space spaceData) async {
-    await _spaceDb.add(spaceData);
+    await _spaceDb
+        .add(spaceData)
+        .then((value) => print('data added successfully'));
   }
 }

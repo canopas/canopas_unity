@@ -165,13 +165,23 @@ class MockAuthManager extends _i1.Mock implements _i6.AuthManager {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<_i2.Employee?> getUser(String? email) => (super.noSuchMethod(
+  _i5.Future<void> setUserAuthenticated(_i3.User? user) => (super.noSuchMethod(
+        Invocation.method(
+          #setUserAuthenticated,
+          [user],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> getUser(String? email) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [email],
         ),
-        returnValue: _i5.Future<_i2.Employee?>.value(),
-      ) as _i5.Future<_i2.Employee?>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserManager].

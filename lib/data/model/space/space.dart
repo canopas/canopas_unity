@@ -4,7 +4,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 
 part 'space.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Space {
   final String name;
   @JsonKey(name: 'created_at', fromJson: _fromJson, toJson: _toJson)

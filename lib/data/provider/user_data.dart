@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../core/utils/const/role.dart';
 import '../model/employee/employee.dart';
 import '../pref/user_preference.dart';
@@ -8,10 +9,19 @@ import '../pref/user_preference.dart';
 class UserManager with ChangeNotifier {
   final UserPreference _userPreference;
   bool loggedIn = false;
+  late final int spaceStatus;
 
   UserManager(this._userPreference) {
-    loggedIn = _userPreference.getCurrentUser() != null;
+    loggedIn = _userPreference.getCurrentUid() != null;
+    spaceStatus = _userPreference.getUserSpaceStatus() ?? 1;
+    // loggedIn = _userPreference.getCurrentUser() != null;
   }
+
+  void changeSpaceStatus(int status) {
+    _userPreference.setUserSpaceStatus(status);
+  }
+
+  String? get firebaseAuthUId => _userPreference.getCurrentUid();
 
   Employee? get _employee => _userPreference.getCurrentUser();
 
@@ -28,7 +38,7 @@ class UserManager with ChangeNotifier {
   String get employeeDesignation => _employee!.designation;
 
   void hasLoggedIn() async {
-    loggedIn = _employee != null;
+    loggedIn = _userPreference.getCurrentUid() != null;
     notifyListeners();
   }
 
