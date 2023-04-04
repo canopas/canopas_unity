@@ -132,7 +132,6 @@ class DeleteWorkspaceButton extends StatelessWidget {
         child: Text(AppLocalizations.of(context).delete_workspace_text),
         onPressed: () =>
             context.read<EditWorkSpaceBloc>().add(DeleteWorkspaceEvent(
-
                 ///TODO Provide workspace id
                 workspaceId: "")),
       ),

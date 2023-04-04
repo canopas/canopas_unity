@@ -7,6 +7,7 @@ part of 'space.dart';
 // **************************************************************************
 
 Space _$SpaceFromJson(Map<String, dynamic> json) => Space(
+      id: json['id'] as String,
       name: json['name'] as String,
       createdAt: Space._fromJson(json['created_at'] as int),
       paidTimeOff: json['paid_time_off'] as int,
@@ -18,6 +19,7 @@ Space _$SpaceFromJson(Map<String, dynamic> json) => Space(
 
 Map<String, dynamic> _$SpaceToJson(Space instance) {
   final val = <String, dynamic>{
+    'id': instance.id,
     'name': instance.name,
     'created_at': Space._toJson(instance.createdAt),
   };

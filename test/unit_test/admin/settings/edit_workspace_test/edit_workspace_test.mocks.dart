@@ -6,7 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/services/workspace_service.dart' as _i2;
+import 'package:projectunity/data/services/space_service.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -19,18 +19,39 @@ import 'package:projectunity/data/services/workspace_service.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [WorkspaceService].
+/// A class which mocks [SpaceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWorkspaceService extends _i1.Mock implements _i2.WorkspaceService {
-  MockWorkspaceService() {
+class MockSpaceService extends _i1.Mock implements _i2.SpaceService {
+  MockSpaceService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> deleteWorkspace(String? workspaceId) => (super.noSuchMethod(
+  _i3.Future<void> createSpace({
+    required String? name,
+    required String? domain,
+    required int? timeOff,
+    required String? ownerId,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #deleteWorkspace,
+          #createSpace,
+          [],
+          {
+            #name: name,
+            #domain: domain,
+            #timeOff: timeOff,
+            #ownerId: ownerId,
+          },
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+  @override
+  _i3.Future<void> deleteSpace(String? workspaceId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteSpace,
           [workspaceId],
         ),
         returnValue: _i3.Future<void>.value(),

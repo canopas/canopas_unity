@@ -64,12 +64,9 @@ class _WorkSpaceBasicDetailsState extends State<WorkSpaceBasicDetails> {
               builder: (context, state) {
                 return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            state.nextButtonStatus == ButtonStatus.disable
-                                ? AppColors.greyColor
-                                : AppColors.primaryBlue,
+                        backgroundColor: AppColors.primaryBlue,
                         fixedSize: Size(MediaQuery.of(context).size.width, 45)),
-                    onPressed: widget.onNextButtonPressed,
+                    onPressed: state.nextButtonStatus == ButtonStatus.disable?null:widget.onNextButtonPressed,
                     child: Text(AppLocalizations.of(context).next_tag));
               },
             ),

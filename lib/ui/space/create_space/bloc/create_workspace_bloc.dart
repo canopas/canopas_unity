@@ -2,8 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/const/role.dart';
-import 'package:projectunity/data/model/space/space.dart';
-
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
@@ -13,6 +11,7 @@ import 'create_workspace_state.dart';
 class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
   final SpaceService _spaceService;
   final UserManager _userManager;
+
   CreateSpaceBLoc(this._spaceService, this._userManager)
       : super(const CreateSpaceState()) {
     on<PageChangeEvent>(_onPageChange);
@@ -80,13 +79,11 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
       emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.loading));
       try {
         int timeOff = int.parse(state.paidTimeOff);
-        final spaceData = Space(
-          name: state.name,
-          createdAt: DateTime.now(),
-          paidTimeOff: timeOff,
-          ownerIds: [_userManager.firebaseAuthUId!],
-        );
-        await _spaceService.createSpace(spaceData);
+        await _spaceService.createSpace(
+            name: state.name,
+            domain: state.domain,
+            timeOff: timeOff,
+            ownerId: _userManager.firebaseAuthUId!);
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
         _userManager.changeSpacePath(createSpacePath);
       } on Exception {
