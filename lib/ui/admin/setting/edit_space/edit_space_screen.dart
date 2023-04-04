@@ -23,7 +23,7 @@ class EditSpacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<EditWorkSpaceBloc>()..add(EditSpaceInitialEvent()),
+      create: (_) => getIt<EditSpaceBloc>()..add(EditSpaceInitialEvent()),
       child: const EditSpaceScreen(),
     );
   }
@@ -62,14 +62,14 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).space_tag),
         actions: [
-          BlocBuilder<EditWorkSpaceBloc, EditWorkspaceState>(
+          BlocBuilder<EditSpaceBloc, EditSpaceState>(
               builder: (context, state) => TextButton(
                   onPressed: state.isValid ? () {} : null,
                   child: Text(AppLocalizations.of(context).save_tag))),
           const SizedBox(width: 10)
         ],
       ),
-      body: BlocListener<EditWorkSpaceBloc, EditWorkspaceState>(
+      body: BlocListener<EditSpaceBloc, EditSpaceState>(
         listener: (context, state) {
           if (state.fetchDataStatus == Status.failure ||
               state.deleteWorkSpaceStatus == Status.failure) {
@@ -88,7 +88,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
               const SizedBox(height: 30),
               FieldEntry(
                 onChanged: (name) => context
-                    .read<EditWorkSpaceBloc>()
+                    .read<EditSpaceBloc>()
                     .add(CompanyNameChangeEvent(companyName: name)),
                 controller: _nameController,
                 hintText: AppLocalizations.of(context).company_name_tag,
@@ -106,7 +106,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                   FilteringTextInputFormatter.digitsOnly
                 ],
                 onChanged: (timeOff) => context
-                    .read<EditWorkSpaceBloc>()
+                    .read<EditSpaceBloc>()
                     .add(YearlyPaidTimeOffChangeEvent(timeOff: timeOff)),
                 controller: _paidTimeOffLeaveController,
                 hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
@@ -132,7 +132,7 @@ class DeleteSpaceButton extends StatelessWidget {
       constraints: const BoxConstraints(
         minHeight: 100,
       ),
-      child: BlocBuilder<EditWorkSpaceBloc, EditWorkspaceState>(
+      child: BlocBuilder<EditSpaceBloc, EditSpaceState>(
         buildWhen: (previous, current) => previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
         builder: (context, state) => state.deleteWorkSpaceStatus ==
                 Status.loading
@@ -150,7 +150,7 @@ class DeleteSpaceButton extends StatelessWidget {
                   description: AppLocalizations.of(context)
                       .delete_dialog_description_text,
                   onActionButtonPressed: () =>
-                      context.read<EditWorkSpaceBloc>().add(DeleteSpaceEvent(
+                      context.read<EditSpaceBloc>().add(DeleteSpaceEvent(
                           ///TODO Provide workspace id
                           workspaceId: "")),
                 ),

@@ -6,10 +6,10 @@ import 'edit_space_state.dart';
 import 'edit_space_event.dart';
 
 @Injectable()
-class EditWorkSpaceBloc extends Bloc<EditSpaceEvent, EditWorkspaceState> {
+class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
   final SpaceService _spaceService;
 
-  EditWorkSpaceBloc(this._spaceService) : super(const EditWorkspaceState()) {
+  EditSpaceBloc(this._spaceService) : super(const EditSpaceState()) {
     on<EditSpaceInitialEvent>(_init);
 
     on<CompanyNameChangeEvent>(_onNameChange);
@@ -18,15 +18,15 @@ class EditWorkSpaceBloc extends Bloc<EditSpaceEvent, EditWorkspaceState> {
   }
 
   void _init(EditSpaceInitialEvent event,
-      Emitter<EditWorkspaceState> emit) async {}
+      Emitter<EditSpaceState> emit) async {}
 
   void _onNameChange(
-      CompanyNameChangeEvent event, Emitter<EditWorkspaceState> emit) {
+      CompanyNameChangeEvent event, Emitter<EditSpaceState> emit) {
     emit(state.copyWith(nameIsValid: event.companyName.isNotEmpty));
   }
 
   void _timeOffChange(
-      YearlyPaidTimeOffChangeEvent event, Emitter<EditWorkspaceState> emit) {
+      YearlyPaidTimeOffChangeEvent event, Emitter<EditSpaceState> emit) {
     try {
       int.parse(event.timeOff);
       emit(state.copyWith(yearlyPaidTimeOffIsValid: true));
@@ -36,7 +36,7 @@ class EditWorkSpaceBloc extends Bloc<EditSpaceEvent, EditWorkspaceState> {
   }
 
   void _deleteWorkspace(
-      DeleteSpaceEvent event, Emitter<EditWorkspaceState> emit) {
+      DeleteSpaceEvent event, Emitter<EditSpaceState> emit) {
     try {
       emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
       _spaceService.deleteSpace(event.workspaceId);

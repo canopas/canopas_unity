@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 
 enum Status { initial, loading, failure, success }
 
-class EditWorkspaceState extends Equatable {
+class EditSpaceState extends Equatable {
   final Status fetchDataStatus;
   final Status deleteWorkSpaceStatus;
   final String? error;
   final bool nameIsValid;
   final bool yearlyPaidTimeOffIsValid;
 
-  const EditWorkspaceState(
+  const EditSpaceState(
       {this.fetchDataStatus = Status.initial,
       this.deleteWorkSpaceStatus = Status.initial,
       this.error,
@@ -22,7 +22,7 @@ class EditWorkspaceState extends Equatable {
           Status? deleteWorkSpaceStatus,
           bool? nameIsValid,
           bool? yearlyPaidTimeOffIsValid}) =>
-      EditWorkspaceState(
+      EditSpaceState(
           error: error,
           fetchDataStatus: fetchDataStatus ?? this.fetchDataStatus,
           deleteWorkSpaceStatus:

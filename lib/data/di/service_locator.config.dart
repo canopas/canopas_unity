@@ -159,8 +159,8 @@ extension GetItInjectableX on _i1.GetIt {
       gh<_i5.DesktopAuthManager>(),
       gh<_i17.UserPreference>(),
     ));
-    gh.factory<_i27.EditWorkSpaceBloc>(
-        () => _i27.EditWorkSpaceBloc(gh<_i13.SpaceService>()));
+    gh.factory<_i27.EditSpaceBloc>(
+        () => _i27.EditSpaceBloc(gh<_i13.SpaceService>()));
     gh.factory<_i28.EmployeeDetailBloc>(() => _i28.EmployeeDetailBloc(
           gh<_i11.PaidLeaveService>(),
           gh<_i6.EmployeeService>(),

@@ -9,11 +9,11 @@ import 'edit_workspace_test.mocks.dart';
 @GenerateMocks([SpaceService])
 void main() {
   late SpaceService workspaceService;
-  late EditWorkSpaceBloc bloc;
+  late EditSpaceBloc bloc;
 
   setUpAll(() {
     workspaceService = MockSpaceService();
-    bloc = EditWorkSpaceBloc(workspaceService);
+    bloc = EditSpaceBloc(workspaceService);
   });
 
   group("delete workspace test", () {
