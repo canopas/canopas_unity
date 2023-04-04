@@ -342,6 +342,11 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
+  int get spacePath => (super.noSuchMethod(
+        Invocation.getter(#spacePath),
+        returnValue: 0,
+      ) as int);
+  @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
         returnValue: '',
@@ -384,6 +389,14 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
+  @override
+  void changeSpacePath(int? status) => super.noSuchMethod(
+        Invocation.method(
+          #changeSpacePath,
+          [status],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
