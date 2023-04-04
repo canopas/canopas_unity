@@ -335,6 +335,7 @@ class AppRouter {
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
+          final creatingSpace = state.subloc == Routes.createSpace;
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
@@ -342,7 +343,7 @@ class AppRouter {
             return Routes.createSpace;
           }
           if (userManager.loggedIn &&
-              loggingIn &&
+              creatingSpace &&
               (userManager.spacePath == createSpacePath)) {
             return Routes.adminHome;
           }

@@ -14,11 +14,14 @@ class UserManager with ChangeNotifier {
   UserManager(this._userPreference) {
     loggedIn = _userPreference.getCurrentUid() != null;
     _spacePath = _userPreference.getUserSpaceStatus() ?? 1;
+    print(spacePath);
     // loggedIn = _userPreference.getCurrentUser() != null;
   }
 
   void changeSpacePath(int status) {
     _userPreference.setUserSpaceStatus(status);
+    _spacePath = status;
+    notifyListeners();
   }
 
   int get spacePath => _spacePath;

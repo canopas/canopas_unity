@@ -26,11 +26,10 @@ class WorkspacePaidLeaves extends StatelessWidget {
     return SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: BlocListener<CreateSpaceBLoc, CreateSpaceState>(
-            // listenWhen: (previous, current) =>
-            //     current.createSpaceStatus == CreateSpaceStatus.error ||
-            //     current.createSpaceStatus == CreateSpaceStatus.success,
+            listenWhen: (previous, current) =>
+                current.createSpaceStatus == CreateSpaceStatus.error ||
+                current.createSpaceStatus == CreateSpaceStatus.success,
             listener: (context, state) {
-              print(state.createSpaceStatus);
               if (state.createSpaceStatus == CreateSpaceStatus.error) {
                 showSnackBar(context: context, error: state.error);
               }
@@ -74,7 +73,6 @@ class WorkspacePaidLeaves extends StatelessWidget {
                               Size(MediaQuery.of(context).size.width, 45)),
                       onPressed: () {
                         bloc.add(CreateSpaceButtonTapEvent());
-                        print('button is tapped');
                       },
                       child: Text(AppLocalizations.of(context)
                           .create_workspace_create_workspace_button_text));
