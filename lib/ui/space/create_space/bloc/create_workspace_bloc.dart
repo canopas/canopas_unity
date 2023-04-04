@@ -24,8 +24,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   bool validName(String? name) => name != null && name.length >= 4;
 
-  bool validEmail(String? email) =>
-      email != null && email.length >= 4 && email.contains('@');
+  bool validDomain(String? email) =>
+      email != null && email.length >= 4 && email.contains('.');
 
   void _onPageChange(PageChangeEvent event, Emitter<CreateSpaceState> emit) {
     emit(state.copyWith(page: event.page));
@@ -48,7 +48,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   void _onDomainChanged(
       CompanyDomainChangeEvent event, Emitter<CreateSpaceState> emit) {
-    if (validEmail(event.domain) || event.domain == '') {
+    if (validDomain(event.domain) || event.domain == '') {
       emit(state.copyWith(domain: event.domain, domainError: false));
     } else {
       emit(state.copyWith(domain: event.domain, domainError: true));

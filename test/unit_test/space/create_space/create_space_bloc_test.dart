@@ -93,7 +93,7 @@ void main() {
           error: '');
       expect(createSpaceBLoc.stream, emitsInOrder([stateWithDomainError]));
     });
-    test('Shows error  when domain input does not contains @ character ', () {
+    test('Shows error  when domain input does not contains . character ', () {
       createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'cano'));
       CreateSpaceState stateWithDomainError = const CreateSpaceState(
           page: 0,
@@ -109,11 +109,11 @@ void main() {
           error: '');
       expect(createSpaceBLoc.stream, emitsInOrder([stateWithDomainError]));
     });
-    test(' error gone when domain input contains @ character ', () {
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'cano@'));
+    test(' error gone when domain input contains . character ', () {
+      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'cano.'));
       CreateSpaceState stateWithDomainError = const CreateSpaceState(
           page: 0,
-          domain: 'cano@',
+          domain: 'cano.',
           name: '',
           nameError: false,
           domainError: false,
@@ -222,7 +222,7 @@ void main() {
     test('Emits loading state and then success state if all inputs are valid',
         () {
       createSpaceBLoc.add(CompanyNameChangeEvent(name: 'canopas'));
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'canopas@'));
+      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'canopas.'));
       createSpaceBLoc.add(PageChangeEvent(page: 1));
       createSpaceBLoc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
       createSpaceBLoc.add(CreateSpaceButtonTapEvent());
@@ -230,7 +230,7 @@ void main() {
       final stateWithNameInput = initialState.copyWith(
           name: 'canopas', nextButtonStatus: ButtonStatus.enable);
       final stateWithDomainInput =
-          stateWithNameInput.copyWith(domain: 'canopas@');
+          stateWithNameInput.copyWith(domain: 'canopas.');
       final stateWithStep2 = stateWithDomainInput.copyWith(page: 1);
       final stateWithPaidTimeOff = stateWithStep2.copyWith(
           paidTimeOff: '12', createSpaceButtonStatus: ButtonStatus.enable);
