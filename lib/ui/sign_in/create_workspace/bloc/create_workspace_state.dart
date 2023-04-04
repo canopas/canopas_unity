@@ -15,7 +15,6 @@ class CreateSpaceState extends Equatable {
   final ButtonStatus nextButtonStatus;
   final ButtonStatus createSpaceButtonStatus;
   final String? error;
-
   final CreateSpaceStatus createSpaceStatus;
 
   const CreateSpaceState(
@@ -69,6 +68,7 @@ class CreateSpaceState extends Equatable {
         paidTimeOffError,
         nextButtonStatus,
         createSpaceButtonStatus,
-        error
+        error,
+        createSpaceStatus
       ];
 }

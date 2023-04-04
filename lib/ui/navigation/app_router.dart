@@ -338,14 +338,12 @@ class AppRouter {
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.loggedIn &&
-              loggingIn &&
-              (userManager.isAdmin || userManager.isHR)) {
-            return Routes.adminHome;
+          if (userManager.loggedIn && loggingIn) {
+            return Routes.createSpace;
           }
           if (userManager.loggedIn &&
               loggingIn &&
-              (userManager.spaceStatus == UserSpaceStatus.create)) {
+              (userManager.spacePath == createSpacePath)) {
             return Routes.adminHome;
           }
           // if (userManager.loggedIn &&

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart';
 import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_event.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 
 import '../../../../data/configs/colors.dart';
+import '../../../navigation/app_router.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../bloc/create_workspace_state.dart';
 
@@ -24,11 +26,16 @@ class WorkspacePaidLeaves extends StatelessWidget {
     return SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: BlocListener<CreateSpaceBLoc, CreateSpaceState>(
-            listenWhen: (previous, current) =>
-                current.createSpaceStatus == CreateSpaceStatus.error,
+            // listenWhen: (previous, current) =>
+            //     current.createSpaceStatus == CreateSpaceStatus.error ||
+            //     current.createSpaceStatus == CreateSpaceStatus.success,
             listener: (context, state) {
+              print(state.createSpaceStatus);
               if (state.createSpaceStatus == CreateSpaceStatus.error) {
                 showSnackBar(context: context, error: state.error);
+              }
+              if (state.createSpaceStatus == CreateSpaceStatus.success) {
+                context.goNamed(Routes.adminHome);
               }
             },
             child: Column(

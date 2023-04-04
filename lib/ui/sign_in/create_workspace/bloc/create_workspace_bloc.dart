@@ -48,7 +48,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   void _onDomainChanged(
       CompanyDomainChangeEvent event, Emitter<CreateSpaceState> emit) {
-    if (validEmail(event.domain)) {
+    if (validEmail(event.domain) || event.domain == '') {
       emit(state.copyWith(domain: event.domain, domainError: false));
     } else {
       emit(state.copyWith(domain: event.domain, domainError: true));
@@ -75,9 +75,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   Future<void> _createSpace(
       CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
-    if (!validateSpaceData) {
-      emit(state.copyWith(error: provideRequiredInformation));
-    } else {
+    if (validateSpaceData) {
       emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.loading));
       try {
         int timeOff = int.parse(state.paidTimeOff);
@@ -89,12 +87,14 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
         );
         await _spaceService.createSpace(spaceData);
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
-        _userManager.changeSpaceStatus(createSpace);
+        _userManager.changeSpacePath(createSpacePath);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,
             createSpaceStatus: CreateSpaceStatus.error));
       }
+    } else {
+      emit(state.copyWith(error: provideRequiredInformation));
     }
   }
 }

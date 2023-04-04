@@ -9,17 +9,19 @@ import '../pref/user_preference.dart';
 class UserManager with ChangeNotifier {
   final UserPreference _userPreference;
   bool loggedIn = false;
-  late final int spaceStatus;
+  late final int _spacePath;
 
   UserManager(this._userPreference) {
     loggedIn = _userPreference.getCurrentUid() != null;
-    spaceStatus = _userPreference.getUserSpaceStatus() ?? 1;
+    _spacePath = _userPreference.getUserSpaceStatus() ?? 1;
     // loggedIn = _userPreference.getCurrentUser() != null;
   }
 
-  void changeSpaceStatus(int status) {
+  void changeSpacePath(int status) {
     _userPreference.setUserSpaceStatus(status);
   }
+
+  int get spacePath => _spacePath;
 
   String? get firebaseAuthUId => _userPreference.getCurrentUid();
 
