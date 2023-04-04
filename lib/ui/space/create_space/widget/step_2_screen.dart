@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_event.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 
 import '../../../../data/configs/colors.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/employee_details_textfield.dart';
+import '../bloc/create_workspace_bloc.dart';
+import '../bloc/create_workspace_event.dart';
 import '../bloc/create_workspace_state.dart';
 
 class WorkspacePaidLeaves extends StatelessWidget {

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_event.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_state.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/widget/step_1_screen.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/widget/step_2_screen.dart';
+import 'package:projectunity/ui/space/create_space/widget/step_1_screen.dart';
+import 'package:projectunity/ui/space/create_space/widget/step_2_screen.dart';
 
 import '../../../data/di/service_locator.dart';
+import 'bloc/create_workspace_bloc.dart';
+import 'bloc/create_workspace_event.dart';
+import 'bloc/create_workspace_state.dart';
 
 class CreateWorkSpacePage extends StatelessWidget {
   const CreateWorkSpacePage({Key? key}) : super(key: key);

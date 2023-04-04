@@ -55,7 +55,7 @@ import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_b
 import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
     as _i19;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i40;
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart'
+import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
     as _i37;
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
     as _i15;

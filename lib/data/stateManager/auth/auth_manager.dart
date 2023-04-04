@@ -23,7 +23,8 @@ class AuthManager {
     _userPreference.setAuthenticationStatus(user);
   }
 
-  Future<void> getUser(String email) async {
-    await _authService.getUserData(email);
+  Future<Employee?> getUser(String email) async {
+    Employee? employee = await _authService.getUserData(email);
+    return employee;
   }
 }

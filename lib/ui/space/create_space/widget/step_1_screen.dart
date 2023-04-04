@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_event.dart';
 
 import '../../../../data/configs/colors.dart';
 import '../../../widget/employee_details_textfield.dart';
+import '../bloc/create_workspace_bloc.dart';
+import '../bloc/create_workspace_event.dart';
 import '../bloc/create_workspace_state.dart';
 import 'org_logo_view.dart';
 
@@ -41,7 +41,7 @@ class _WorkSpaceBasicDetailsState extends State<WorkSpaceBasicDetails> {
                     ? locale.create_space_invalid_name_error
                     : null,
                 onChanged: (String? value) {
-                  bloc.add(CompanyNameChangeEvent(name: value ?? ''));
+                  bloc.add(CompanyNameChangeEvent(name: ''));
                 },
               );
             }),
