@@ -14,7 +14,6 @@ class UserManager with ChangeNotifier {
   UserManager(this._userPreference) {
     loggedIn = _userPreference.getCurrentUid() != null;
     _spacePath = _userPreference.getUserSpaceStatus() ?? 1;
-    print(spacePath);
     // loggedIn = _userPreference.getCurrentUser() != null;
   }
 
