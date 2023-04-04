@@ -32,4 +32,4 @@ const String alreadyLeaveAppliedError = 'already-applied';
 const String somethingWentWrongError = 'something-went-wrong';
 
 //Exception: when user don't provide all the required information in fields,
-const String provideRequiredInformation = '-provide-required-information';
+const String provideRequiredInformation = 'provide-required-information';
