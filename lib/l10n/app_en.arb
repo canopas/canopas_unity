@@ -16,19 +16,20 @@
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
   "or_tag": "Or",
-  "workspace_tag":"Workspace",
+  "space_tag":"Space",
   "next_tag":"Next",
   "back_tag":"Back",
 
-  "delete_workspace_text":"Delete Workspace",
-  "change_work_space_tag":"Change Workspace",
+  "delete_space_text":"Delete Space",
+  "delete_dialog_description_text":"Are you sure you want to permanently delete space?",
+  "change_space_tag":"Change Space",
   "company_name_tag":"Company Name",
-  "create_workspace_Website_url_label":"Website URL (Optional)",
-  "create_new_workspace_title":"Create New Workspace",
-  "create_own_workspace_title": "Want to create your own workspace?",
+  "create_space_Website_url_label":"Website URL (Optional)",
+  "create_new_space_title":"Create New Space",
+  "create_own_space_title": "Want to create your own space?",
   "welcome_to_unity_text":"Welcome To Unity",
-  "workspaces_list_title": "Workspaces for {email}",
-  "@workspaces_list_title":{
+  "spaces_list_title": "Spaces for {email}",
+  "@spaces_list_title":{
     "placeholders": {
       "email":{
         "type": "String"
@@ -36,9 +37,9 @@
     }
   },
 
-  "create_workspace_create_workspace_button_text":"Create Workspace",
-  "create_workspace_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} other{}}",
-  "@create_workspace_step_description":{
+  "create_space_create_space_button_text":"Create Space",
+  "create_space_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} other{}}",
+  "@create_space_step_description":{
     "description": "Pass the value of step for description",
     "placeholders": {
       "step":{
@@ -46,8 +47,8 @@
       }
     }
   },
-  "create_workspace_step_text": "Step {step}/2",
-  "@create_workspace_step_text":{
+  "create_space_step_text": "Step {step}/2",
+  "@create_space_step_text":{
     "placeholders": {
       "step":{
         "type": "String"

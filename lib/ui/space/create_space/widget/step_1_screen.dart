@@ -50,7 +50,7 @@ class _WorkSpaceBasicDetailsState extends State<WorkSpaceBasicDetails> {
                 builder: (context, state) {
               return FieldEntry(
                 hintText: AppLocalizations.of(context)
-                    .create_workspace_Website_url_label,
+                    .create_space_Website_url_label,
                 errorText: state.domainError
                     ? locale.create_space_invalid_website_url_error
                     : null,

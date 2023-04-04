@@ -1,22 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/services/space_service.dart';
-import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_event.dart';
-import 'edit_workspace_state.dart';
+import 'edit_space_state.dart';
+import 'edit_space_event.dart';
 
 @Injectable()
-class EditWorkSpaceBloc extends Bloc<EditWorkSpaceEvent, EditWorkspaceState> {
+class EditWorkSpaceBloc extends Bloc<EditSpaceEvent, EditWorkspaceState> {
   final SpaceService _spaceService;
 
   EditWorkSpaceBloc(this._spaceService) : super(const EditWorkspaceState()) {
-    on<EditWorkSpaceInitialEvent>(_init);
+    on<EditSpaceInitialEvent>(_init);
 
     on<CompanyNameChangeEvent>(_onNameChange);
     on<YearlyPaidTimeOffChangeEvent>(_timeOffChange);
-    on<DeleteWorkspaceEvent>(_deleteWorkspace);
+    on<DeleteSpaceEvent>(_deleteWorkspace);
   }
 
-  void _init(EditWorkSpaceInitialEvent event,
+  void _init(EditSpaceInitialEvent event,
       Emitter<EditWorkspaceState> emit) async {}
 
   void _onNameChange(
@@ -35,7 +36,15 @@ class EditWorkSpaceBloc extends Bloc<EditWorkSpaceEvent, EditWorkspaceState> {
   }
 
   void _deleteWorkspace(
-      DeleteWorkspaceEvent event, Emitter<EditWorkspaceState> emit) {
-    _spaceService.deleteSpace(event.workspaceId);
+      DeleteSpaceEvent event, Emitter<EditWorkspaceState> emit) {
+    try {
+      emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
+      _spaceService.deleteSpace(event.workspaceId);
+      emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
+    } on Exception {
+      emit(state.copyWith(
+          deleteWorkSpaceStatus: Status.failure,
+          error: somethingWentWrongError));
+    }
   }
 }

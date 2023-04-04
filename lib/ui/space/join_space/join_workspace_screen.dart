@@ -29,7 +29,7 @@ class _WorkSpaceScreenState extends State<WorkSpaceScreen> {
               style: AppFontStyle.titleDark,
             ),
             const SizedBox(height: 20),
-            Text(AppLocalizations.of(context).create_own_workspace_title,
+            Text(AppLocalizations.of(context).create_own_space_title,
                 style: AppFontStyle.bodyLarge),
             const SizedBox(height: 10),
             ElevatedButton(
@@ -42,7 +42,7 @@ class _WorkSpaceScreenState extends State<WorkSpaceScreen> {
                 ///TODO: Add Implementation for Create New Space
               },
               child:
-                  Text(AppLocalizations.of(context).create_new_workspace_title),
+                  Text(AppLocalizations.of(context).create_new_space_title),
             ),
             Stack(
               alignment: Alignment.center,
@@ -60,7 +60,7 @@ class _WorkSpaceScreenState extends State<WorkSpaceScreen> {
             ),
             Text(
                 AppLocalizations.of(context)
-                    .workspaces_list_title("pratik.k@canopas.com"),
+                    .spaces_list_title("pratik.k@canopas.com"),
                 style: AppFontStyle.bodyLarge),
             const SizedBox(height: 10),
 

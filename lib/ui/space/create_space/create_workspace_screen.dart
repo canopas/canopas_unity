@@ -52,7 +52,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).create_new_workspace_title),
+        title: Text(AppLocalizations.of(context).create_new_space_title),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                      AppLocalizations.of(context).create_workspace_step_text(
+                      AppLocalizations.of(context).create_space_step_text(
                           (state.page + 1).toString()),
                       style: AppFontStyle.titleDark),
                 ),
@@ -78,7 +78,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                       AppLocalizations.of(context)
-                          .create_workspace_step_description(state.page),
+                          .create_space_step_description(state.page),
                       style: AppFontStyle.labelGrey),
                 ),
                 //const SizedBox(height: 16),

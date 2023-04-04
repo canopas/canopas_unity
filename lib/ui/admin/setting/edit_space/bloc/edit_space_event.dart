@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-abstract class EditWorkSpaceEvent extends Equatable {}
+abstract class EditSpaceEvent extends Equatable {}
 
-class EditWorkSpaceInitialEvent extends EditWorkSpaceEvent {
+class EditSpaceInitialEvent extends EditSpaceEvent {
   @override
   List<Object?> get props => [];
 }
 
-class YearlyPaidTimeOffChangeEvent extends EditWorkSpaceEvent {
+class YearlyPaidTimeOffChangeEvent extends EditSpaceEvent {
   final String timeOff;
 
   YearlyPaidTimeOffChangeEvent({required this.timeOff});
@@ -16,7 +16,7 @@ class YearlyPaidTimeOffChangeEvent extends EditWorkSpaceEvent {
   List<Object?> get props => [timeOff];
 }
 
-class CompanyNameChangeEvent extends EditWorkSpaceEvent {
+class CompanyNameChangeEvent extends EditSpaceEvent {
   final String companyName;
 
   CompanyNameChangeEvent({required this.companyName});
@@ -25,10 +25,10 @@ class CompanyNameChangeEvent extends EditWorkSpaceEvent {
   List<Object?> get props => [companyName];
 }
 
-class DeleteWorkspaceEvent extends EditWorkSpaceEvent {
+class DeleteSpaceEvent extends EditSpaceEvent {
   final String workspaceId;
 
-  DeleteWorkspaceEvent({required this.workspaceId});
+  DeleteSpaceEvent({required this.workspaceId});
 
   @override
   List<Object?> get props => [workspaceId];

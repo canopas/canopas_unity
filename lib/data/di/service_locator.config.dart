@@ -41,7 +41,7 @@ import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_b
     as _i32;
 import 'package:projectunity/ui/admin/setting/bloc/admin_settings_bloc.dart'
     as _i33;
-import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_bloc.dart'
+import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_bloc.dart'
     as _i27;
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart'
     as _i25;

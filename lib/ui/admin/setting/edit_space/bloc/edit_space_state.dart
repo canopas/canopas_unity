@@ -1,27 +1,32 @@
 import 'package:equatable/equatable.dart';
 
-enum EditWorkspaceStatus { initial, loading, failure, success }
+enum Status { initial, loading, failure, success }
 
 class EditWorkspaceState extends Equatable {
-  final EditWorkspaceStatus status;
+  final Status fetchDataStatus;
+  final Status deleteWorkSpaceStatus;
   final String? error;
   final bool nameIsValid;
   final bool yearlyPaidTimeOffIsValid;
 
   const EditWorkspaceState(
-      {this.status = EditWorkspaceStatus.initial,
+      {this.fetchDataStatus = Status.initial,
+      this.deleteWorkSpaceStatus = Status.initial,
       this.error,
       this.nameIsValid = true,
       this.yearlyPaidTimeOffIsValid = true});
 
   copyWith(
           {String? error,
-          EditWorkspaceStatus? status,
+          Status? fetchDataStatus,
+          Status? deleteWorkSpaceStatus,
           bool? nameIsValid,
           bool? yearlyPaidTimeOffIsValid}) =>
       EditWorkspaceState(
           error: error,
-          status: status ?? this.status,
+          fetchDataStatus: fetchDataStatus ?? this.fetchDataStatus,
+          deleteWorkSpaceStatus:
+              deleteWorkSpaceStatus ?? this.deleteWorkSpaceStatus,
           nameIsValid: nameIsValid ?? this.nameIsValid,
           yearlyPaidTimeOffIsValid:
               yearlyPaidTimeOffIsValid ?? this.yearlyPaidTimeOffIsValid);
@@ -29,5 +34,11 @@ class EditWorkspaceState extends Equatable {
   bool get isValid => nameIsValid && yearlyPaidTimeOffIsValid;
 
   @override
-  List<Object?> get props => [status,error,nameIsValid,yearlyPaidTimeOffIsValid];
+  List<Object?> get props => [
+        deleteWorkSpaceStatus,
+        fetchDataStatus,
+        error,
+        nameIsValid,
+        yearlyPaidTimeOffIsValid
+      ];
 }
