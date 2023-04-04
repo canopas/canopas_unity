@@ -24,6 +24,7 @@ import '../admin/setting/edit_space/edit_space_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
+import '../space/join_space/join_workspace_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
@@ -222,6 +223,15 @@ class AppRouter {
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.editWorkspaceDetails,
                           path: Routes.editWorkspaceDetails,
+                          routes: [
+                            GoRoute(
+                                parentNavigatorKey: _adminShellNavigatorKey,
+                                name: Routes.spaces,
+                                path: Routes.spaces,
+                                pageBuilder: (context, state) =>
+                                const NoTransitionPage(
+                                    child: WorkSpaceScreen())),
+                          ],
                           pageBuilder: (context, state) =>
                                const NoTransitionPage(
                                   child: EditSpacePage())),
@@ -393,6 +403,7 @@ abstract class Routes {
   static const updateLeaveCount = 'update-paid-leave';
   static const editWorkspaceDetails = 'edit-workspace-details';
   static const userLeaveCalender = 'user-calender';
+  static const spaces = 'spaces';
   static const adminEmployeeDetailsLeaves =
       'admin-employee-detail-leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails =
