@@ -165,6 +165,15 @@ class MockAuthManager extends _i1.Mock implements _i6.AuthManager {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
+  _i5.Future<void> setUserAuthenticated(_i3.User? user) => (super.noSuchMethod(
+        Invocation.method(
+          #setUserAuthenticated,
+          [user],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
   _i5.Future<_i2.Employee?> getUser(String? email) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
@@ -195,6 +204,11 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  int get spacePath => (super.noSuchMethod(
+        Invocation.getter(#spacePath),
+        returnValue: 0,
+      ) as int);
   @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
@@ -238,6 +252,14 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
+  @override
+  void changeSpacePath(int? status) => super.noSuchMethod(
+        Invocation.method(
+          #changeSpacePath,
+          [status],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(

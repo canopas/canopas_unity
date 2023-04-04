@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../model/employee/employee.dart';
 import '../../pref/user_preference.dart';
 import '../../provider/device_info.dart';
@@ -17,8 +19,12 @@ class AuthManager {
     _userPreference.setCurrentUser(user);
   }
 
+  Future<void> setUserAuthenticated(User? user) async {
+    _userPreference.setAuthenticationStatus(user);
+  }
+
   Future<Employee?> getUser(String email) async {
-    var employee = await _authService.getUserData(email);
+    Employee? employee = await _authService.getUserData(email);
     return employee;
   }
 }

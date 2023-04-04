@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_bloc.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_event.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/bloc/create_workspace_state.dart';
-import 'package:projectunity/ui/sign_in/create_workspace/widget/org_logo_view.dart';
+import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/ui/space/create_space/widget/step_1_screen.dart';
+import 'package:projectunity/ui/space/create_space/widget/step_2_screen.dart';
+
 import '../../../data/di/service_locator.dart';
-import '../../widget/employee_details_textfield.dart';
+import 'bloc/create_workspace_bloc.dart';
+import 'bloc/create_workspace_event.dart';
+import 'bloc/create_workspace_state.dart';
 
 class CreateWorkSpacePage extends StatelessWidget {
   const CreateWorkSpacePage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class CreateWorkSpacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<CreateWorkSpaceBLoc>(),
+      create: (context) => getIt<CreateSpaceBLoc>(),
       child: const CreateWorkSpaceScreen(),
     );
   }
@@ -57,7 +57,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocBuilder<CreateWorkSpaceBLoc, CreateWorkSpaceState>(
+          BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
             buildWhen: (previous, current) => previous.page != current.page,
             builder: (context, state) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +88,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
           Expanded(
             child: PageView(
               onPageChanged: (page) => context
-                  .read<CreateWorkSpaceBLoc>()
+                  .read<CreateSpaceBLoc>()
                   .add(PageChangeEvent(page: page)),
               physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
@@ -101,72 +101,5 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
         ],
       ),
     );
-  }
-}
-
-class WorkspacePaidLeaves extends StatelessWidget {
-  final void Function()? onNextButtonPressed;
-
-  const WorkspacePaidLeaves({Key? key, this.onNextButtonPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            FieldEntry(
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width, 45)),
-                onPressed: onNextButtonPressed,
-                child: Text(AppLocalizations.of(context)
-                    .create_workspace_create_workspace_button_text)),
-          ],
-        ));
-  }
-}
-
-class WorkSpaceBasicDetails extends StatelessWidget {
-  final void Function()? onNextButtonPressed;
-
-  const WorkSpaceBasicDetails({
-    Key? key,
-    this.onNextButtonPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            OrgLogoView(imageURl: null, onButtonTap: () {}),
-            const SizedBox(height: 32),
-            FieldEntry(
-              hintText: AppLocalizations.of(context).company_name_tag,
-            ),
-            const SizedBox(height: 20),
-            FieldEntry(
-              hintText: AppLocalizations.of(context)
-                  .create_workspace_Website_url_label,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width, 45)),
-                onPressed: onNextButtonPressed,
-                child: Text(AppLocalizations.of(context).next_tag)),
-          ],
-        ));
   }
 }

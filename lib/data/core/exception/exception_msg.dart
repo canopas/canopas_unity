@@ -41,6 +41,9 @@ extension ExceptionMessage on String {
       case alreadyLeaveAppliedError:
         msg = appLocale.leave_already_applied_error_message;
         break;
+      case provideRequiredInformation:
+        msg = appLocale.provide_required_information;
+        break;
       default:
         msg = appLocale.error_something_went_wrong;
         break;

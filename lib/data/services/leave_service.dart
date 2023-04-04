@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/leave/leave.dart';
@@ -22,7 +24,7 @@ class LeaveService {
   Stream<List<Leave>> get leaves => _leaves.stream;
 
   LeaveService() {
-    fetchLeaves();
+    // fetchLeaves();
   }
 
   void fetchLeaves() {
@@ -122,20 +124,29 @@ class LeaveService {
   }
 
   Future<List<Leave>> getAllLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id).get();
+    final data =
+        await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id).get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
   Future<List<Leave>> getRecentLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id)
-        .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus).get();
-    return data.docs.map((doc) => doc.data()).where((element) => element.endDate >= DateTime.now().timeStampToInt).toList();
+    final data = await _leaveDbCollection
+        .where(FirestoreConst.uid, isEqualTo: id)
+        .where(FirestoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
+        .get();
+    return data.docs
+        .map((doc) => doc.data())
+        .where((element) => element.endDate >= DateTime.now().timeStampToInt)
+        .toList();
   }
 
   Future<List<Leave>> getPastLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id)
-        .get();
-    return data.docs.where((e) => e.data().endDate <= DateTime.now().timeStampToInt).map((doc) => doc.data()).toList();
+    final data =
+        await _leaveDbCollection.where(FirestoreConst.uid, isEqualTo: id).get();
+    return data.docs
+        .where((e) => e.data().endDate <= DateTime.now().timeStampToInt)
+        .map((doc) => doc.data())
+        .toList();
   }
 
   Future<List<Leave>> getRequestedLeave(String id) async {

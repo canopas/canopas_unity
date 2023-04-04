@@ -6,6 +6,7 @@
 import 'dart:async' as _i4;
 import 'dart:ui' as _i6;
 
+import 'package:firebase_auth/firebase_auth.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/pref/user_preference.dart' as _i7;
@@ -155,6 +156,11 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
+  int get spacePath => (super.noSuchMethod(
+        Invocation.getter(#spacePath),
+        returnValue: 0,
+      ) as int);
+  @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
         returnValue: '',
@@ -197,6 +203,14 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
+  @override
+  void changeSpacePath(int? status) => super.noSuchMethod(
+        Invocation.method(
+          #changeSpacePath,
+          [status],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -252,6 +266,22 @@ class MockUserPreference extends _i1.Mock implements _i7.UserPreference {
         Invocation.method(
           #setCurrentUser,
           [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void setAuthenticationStatus(_i8.User? user) => super.noSuchMethod(
+        Invocation.method(
+          #setAuthenticationStatus,
+          [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void setUserSpaceStatus(int? status) => super.noSuchMethod(
+        Invocation.method(
+          #setUserSpaceStatus,
+          [status],
         ),
         returnValueForMissingStub: null,
       );

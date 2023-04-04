@@ -54,6 +54,9 @@
       }
     }
   },
+  "create_space_invalid_time_off_error":"Please enter valid input",
+  "create_space_invalid_name_error":"Please enter valid name",
+  "create_space_invalid_website_url_error":"Please enter valid website url",
 
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
@@ -309,7 +312,9 @@
   "invalid_date_selection_error":"Please select valid date",
   "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
   "add_member_employee_exists_error": "Member already exists!",
-  "leave_already_applied_error_message":"leave request has been already applied!",
+  "leave_already_applied_error_message":"Leave request has been already applied!",
+  "provide_required_information":"Please provide the required information to continue",
+
 
   "sign_out_alert":"Are you sure you want to sign out?",
   "delete_user_account_alert":"Are you sure you want to permanently delete {username}'s account?",
