@@ -41,7 +41,7 @@ class _WorkSpaceBasicDetailsState extends State<WorkSpaceBasicDetails> {
                     ? locale.create_space_invalid_name_error
                     : null,
                 onChanged: (String? value) {
-                  bloc.add(CompanyNameChangeEvent(name: ''));
+                  bloc.add(CompanyNameChangeEvent(name: value ?? ''));
                 },
               );
             }),

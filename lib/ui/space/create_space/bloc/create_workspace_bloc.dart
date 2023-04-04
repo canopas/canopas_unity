@@ -48,7 +48,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   void _onDomainChanged(
       CompanyDomainChangeEvent event, Emitter<CreateSpaceState> emit) {
-    if (validDomain(event.domain) || event.domain == '') {
+    if (validDomain(event.domain) || event.domain!.isEmpty) {
       emit(state.copyWith(domain: event.domain, domainError: false));
     } else {
       emit(state.copyWith(domain: event.domain, domainError: true));
