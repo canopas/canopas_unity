@@ -19,7 +19,7 @@ class AuthService {
   AuthService(this._desktopAuthManager);
 
   final _usersDb = FirebaseFirestore.instance
-      .collection(FirestoreConst.accountCollection)
+      .collection(FireStoreConst.accountCollection)
       .withConverter(
           fromFirestore: User.fromFireStore,
           toFirestore: (User user, _) => user.toJson());
@@ -27,7 +27,7 @@ class AuthService {
   ///Return user data from database by auth user data. its create new user in database if user is not exist in database.
   Future<User> getUser(firebase_auth.User authData) async {
     final userData = await _usersDb
-        .where(FirestoreConst.uid, isEqualTo: authData.uid)
+        .where(FireStoreConst.uid, isEqualTo: authData.uid)
         .limit(1)
         .get();
     final User user;
@@ -36,7 +36,7 @@ class AuthService {
           .doc(authData.uid)
           .set(User(uid: authData.uid, email: authData.email!));
       final newUserData = await _usersDb
-          .where(FirestoreConst.uid, isEqualTo: authData.uid)
+          .where(FireStoreConst.uid, isEqualTo: authData.uid)
           .limit(1)
           .get();
       user = newUserData.docs[0].data();

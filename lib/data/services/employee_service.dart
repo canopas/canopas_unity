@@ -20,7 +20,7 @@ class EmployeeService {
 
   void fetchEmployees() {
     _employeeStreamSubscription = _userDbCollection
-        .where(FirestoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
+        .where(FireStoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
         .snapshots()
         .map((event) {
       return event.docs.map((employee) => employee.data()).toList();
@@ -30,7 +30,7 @@ class EmployeeService {
   }
 
   final _userDbCollection = FirebaseFirestore.instance
-      .collection(FirestoreConst.userCollection)
+      .collection(FireStoreConst.userCollection)
       .withConverter(
           fromFirestore: Employee.fromFirestore,
           toFirestore: (Employee emp, _) => emp.toJson());
@@ -47,7 +47,7 @@ class EmployeeService {
 
   Future<bool> hasUser(String email) async {
     final employeeDbCollection = _userDbCollection
-        .where(FirestoreConst.email, isEqualTo: email)
+        .where(FireStoreConst.email, isEqualTo: email)
         .limit(1);
     final data = await employeeDbCollection.get();
     return data.docs.isNotEmpty;
@@ -63,7 +63,7 @@ class EmployeeService {
   }
 
   Future<void> changeEmployeeRoleType(String id, int roleType) async {
-    Map<String, int> data = {FirestoreConst.roleType: roleType};
+    Map<String, int> data = {FireStoreConst.roleType: roleType};
     await _userDbCollection
         .doc(id)
         .update(data)
@@ -73,8 +73,8 @@ class EmployeeService {
   Future<void> deleteEmployee(String id) async {
     DocumentReference employeeDocRef = _userDbCollection.doc(id);
     employeeDocRef
-        .collection(FirestoreConst.session)
-        .doc(FirestoreConst.session)
+        .collection(FireStoreConst.session)
+        .doc(FireStoreConst.session)
         .delete()
         .then((value) async {
       await employeeDocRef.delete();

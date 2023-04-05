@@ -27,7 +27,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       if (authUser != null) {
 
         const User user = User(uid: "fkdslfjsflkljlfjsdfldkf",email: "pratik.k@canopas.com");// await _authService.getUser(authUser);
-        _userManager.setUser(user);
+        await _userManager.setUser(user);
         emit(SignInSuccessState());
       } else {
         emit(SignInInitialState());

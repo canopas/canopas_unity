@@ -3,18 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
-import 'dart:ui' as _i5;
+import 'dart:async' as _i5;
+import 'dart:ui' as _i7;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i8;
+import 'package:firebase_auth/firebase_auth.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
-import 'package:projectunity/data/model/leave/leave.dart' as _i11;
+import 'package:projectunity/data/model/leave/leave.dart' as _i12;
+import 'package:projectunity/data/model/space/space.dart' as _i6;
 import 'package:projectunity/data/model/user/user.dart' as _i3;
-import 'package:projectunity/data/pref/user_preference.dart' as _i9;
+import 'package:projectunity/data/pref/user_preference.dart' as _i10;
 import 'package:projectunity/data/provider/user_data.dart' as _i4;
-import 'package:projectunity/data/services/auth_service.dart' as _i6;
-import 'package:projectunity/data/services/leave_service.dart' as _i10;
+import 'package:projectunity/data/services/auth_service.dart' as _i8;
+import 'package:projectunity/data/services/leave_service.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -69,6 +70,19 @@ class MockUserManager extends _i1.Mock implements _i4.UserManager {
         returnValueForMissingStub: null,
       );
   @override
+  bool get spaceSelected => (super.noSuchMethod(
+        Invocation.getter(#spaceSelected),
+        returnValue: false,
+      ) as bool);
+  @override
+  set spaceSelected(bool? _spaceSelected) => super.noSuchMethod(
+        Invocation.setter(
+          #spaceSelected,
+          _spaceSelected,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
         returnValue: '',
@@ -112,13 +126,23 @@ class MockUserManager extends _i1.Mock implements _i4.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  void setUser(_i3.User? user) => super.noSuchMethod(
+  _i5.Future<void> setUser(_i3.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> setSpace(_i6.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #setSpace,
+          [space],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -128,7 +152,7 @@ class MockUserManager extends _i1.Mock implements _i4.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void addListener(_i5.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -136,7 +160,7 @@ class MockUserManager extends _i1.Mock implements _i4.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i5.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i7.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -164,59 +188,69 @@ class MockUserManager extends _i1.Mock implements _i4.UserManager {
 /// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i6.AuthService {
+class MockAuthService extends _i1.Mock implements _i8.AuthService {
   MockAuthService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Future<_i3.User> getUser(_i8.User? authData) => (super.noSuchMethod(
+  _i5.Future<_i3.User> getUser(_i9.User? authData) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [authData],
         ),
-        returnValue: _i7.Future<_i3.User>.value(_FakeUser_1(
+        returnValue: _i5.Future<_i3.User>.value(_FakeUser_1(
           this,
           Invocation.method(
             #getUser,
             [authData],
           ),
         )),
-      ) as _i7.Future<_i3.User>);
+      ) as _i5.Future<_i3.User>);
   @override
-  _i7.Future<_i8.User?> signInWithGoogle() => (super.noSuchMethod(
+  _i5.Future<_i9.User?> signInWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
           [],
         ),
-        returnValue: _i7.Future<_i8.User?>.value(),
-      ) as _i7.Future<_i8.User?>);
+        returnValue: _i5.Future<_i9.User?>.value(),
+      ) as _i5.Future<_i9.User?>);
   @override
-  _i7.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
+  _i5.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signOutWithGoogle,
           [],
         ),
-        returnValue: _i7.Future<bool>.value(false),
-      ) as _i7.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }
 
 /// A class which mocks [UserPreference].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserPreference extends _i1.Mock implements _i9.UserPreference {
+class MockUserPreference extends _i1.Mock implements _i10.UserPreference {
   MockUserPreference() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  void setUser(_i3.User? user) => super.noSuchMethod(
+  _i5.Future<void> setUser(_i3.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> setSpace(_i6.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #setSpace,
+          [space],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void setCurrentUser(_i2.Employee? user) => super.noSuchMethod(
         Invocation.method(
@@ -234,38 +268,38 @@ class MockUserPreference extends _i1.Mock implements _i9.UserPreference {
         returnValueForMissingStub: null,
       );
   @override
-  _i7.Future<void> removeCurrentUser() => (super.noSuchMethod(
+  _i5.Future<void> removeCurrentUser() => (super.noSuchMethod(
         Invocation.method(
           #removeCurrentUser,
           [],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i7.Future<void> setToken(String? token) => (super.noSuchMethod(
+  _i5.Future<void> setToken(String? token) => (super.noSuchMethod(
         Invocation.method(
           #setToken,
           [token],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [LeaveService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLeaveService extends _i1.Mock implements _i10.LeaveService {
+class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
   MockLeaveService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Stream<List<_i11.Leave>> get leaves => (super.noSuchMethod(
+  _i5.Stream<List<_i12.Leave>> get leaves => (super.noSuchMethod(
         Invocation.getter(#leaves),
-        returnValue: _i7.Stream<List<_i11.Leave>>.empty(),
-      ) as _i7.Stream<List<_i11.Leave>>);
+        returnValue: _i5.Stream<List<_i12.Leave>>.empty(),
+      ) as _i5.Stream<List<_i12.Leave>>);
   @override
   void fetchLeaves() => super.noSuchMethod(
         Invocation.method(
@@ -275,7 +309,7 @@ class MockLeaveService extends _i1.Mock implements _i10.LeaveService {
         returnValueForMissingStub: null,
       );
   @override
-  _i7.Future<bool> checkLeaveAlreadyApplied({
+  _i5.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
     required Map<DateTime, int>? dateDuration,
   }) =>
@@ -288,26 +322,26 @@ class MockLeaveService extends _i1.Mock implements _i10.LeaveService {
             #dateDuration: dateDuration,
           },
         ),
-        returnValue: _i7.Future<bool>.value(false),
-      ) as _i7.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
   @override
-  _i7.Future<List<_i11.Leave>> getRecentLeaves() => (super.noSuchMethod(
+  _i5.Future<List<_i12.Leave>> getRecentLeaves() => (super.noSuchMethod(
         Invocation.method(
           #getRecentLeaves,
           [],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<List<_i11.Leave>> getUpcomingLeaves() => (super.noSuchMethod(
+  _i5.Future<List<_i12.Leave>> getUpcomingLeaves() => (super.noSuchMethod(
         Invocation.method(
           #getUpcomingLeaves,
           [],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<void> updateLeaveStatus(
+  _i5.Future<void> updateLeaveStatus(
     String? id,
     Map<String, dynamic>? map,
   ) =>
@@ -319,116 +353,116 @@ class MockLeaveService extends _i1.Mock implements _i10.LeaveService {
             map,
           ],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i7.Future<List<_i11.Leave>> getAllLeaves() => (super.noSuchMethod(
+  _i5.Future<List<_i12.Leave>> getAllLeaves() => (super.noSuchMethod(
         Invocation.method(
           #getAllLeaves,
           [],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<List<_i11.Leave>> getAllAbsence({DateTime? date}) =>
+  _i5.Future<List<_i12.Leave>> getAllAbsence({DateTime? date}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllAbsence,
           [],
           {#date: date},
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<void> applyForLeave(_i11.Leave? leaveRequestData) =>
+  _i5.Future<void> applyForLeave(_i12.Leave? leaveRequestData) =>
       (super.noSuchMethod(
         Invocation.method(
           #applyForLeave,
           [leaveRequestData],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i7.Future<List<_i11.Leave>> getAllLeavesOfUser(String? id) =>
+  _i5.Future<List<_i12.Leave>> getAllLeavesOfUser(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllLeavesOfUser,
           [id],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<List<_i11.Leave>> getRecentLeavesOfUser(String? id) =>
+  _i5.Future<List<_i12.Leave>> getRecentLeavesOfUser(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getRecentLeavesOfUser,
           [id],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<List<_i11.Leave>> getPastLeavesOfUser(String? id) =>
+  _i5.Future<List<_i12.Leave>> getPastLeavesOfUser(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPastLeavesOfUser,
           [id],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<List<_i11.Leave>> getRequestedLeave(String? id) =>
+  _i5.Future<List<_i12.Leave>> getRequestedLeave(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getRequestedLeave,
           [id],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<List<_i11.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
+  _i5.Future<List<_i12.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUpcomingLeavesOfUser,
           [employeeId],
         ),
-        returnValue: _i7.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
-      ) as _i7.Future<List<_i11.Leave>>);
+        returnValue: _i5.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
+      ) as _i5.Future<List<_i12.Leave>>);
   @override
-  _i7.Future<void> deleteLeaveRequest(String? leaveId) => (super.noSuchMethod(
+  _i5.Future<void> deleteLeaveRequest(String? leaveId) => (super.noSuchMethod(
         Invocation.method(
           #deleteLeaveRequest,
           [leaveId],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i7.Future<double> getUserUsedLeaves(String? id) => (super.noSuchMethod(
+  _i5.Future<double> getUserUsedLeaves(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getUserUsedLeaves,
           [id],
         ),
-        returnValue: _i7.Future<double>.value(0.0),
-      ) as _i7.Future<double>);
+        returnValue: _i5.Future<double>.value(0.0),
+      ) as _i5.Future<double>);
   @override
-  _i7.Future<void> deleteAllLeavesOfUser(String? id) => (super.noSuchMethod(
+  _i5.Future<void> deleteAllLeavesOfUser(String? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteAllLeavesOfUser,
           [id],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i7.Future<_i11.Leave?> fetchLeave(String? id) => (super.noSuchMethod(
+  _i5.Future<_i12.Leave?> fetchLeave(String? id) => (super.noSuchMethod(
         Invocation.method(
           #fetchLeave,
           [id],
         ),
-        returnValue: _i7.Future<_i11.Leave?>.value(),
-      ) as _i7.Future<_i11.Leave?>);
+        returnValue: _i5.Future<_i12.Leave?>.value(),
+      ) as _i5.Future<_i12.Leave?>);
   @override
   void dispose() => super.noSuchMethod(
         Invocation.method(

@@ -5,19 +5,19 @@ import '../core/utils/const/firestore.dart';
 @Singleton()
 class PaidLeaveService {
   final _paidLeaves = FirebaseFirestore.instance
-      .collection(FirestoreConst.paidLeavesCollection)
-      .doc(FirestoreConst.totalLeavesDoc);
+      .collection(FireStoreConst.paidLeavesCollection)
+      .doc(FireStoreConst.totalLeavesDoc);
 
   Future<int> getPaidLeaves() async {
     return await _paidLeaves.get().then((val) {
       if (val.data() != null) {
-        return val.data()?[FirestoreConst.leaves];
+        return val.data()?[FireStoreConst.leaves];
       }
       return 0;
     });
   }
 
   Future<void> updateLeaveCount(int leaveCount) async {
-    return _paidLeaves.update({FirestoreConst.leaves: leaveCount});
+    return _paidLeaves.update({FireStoreConst.leaves: leaveCount});
   }
 }

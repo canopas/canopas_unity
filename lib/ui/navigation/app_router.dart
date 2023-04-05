@@ -61,8 +61,8 @@ class AppRouter {
           ),
           GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              name: Routes.spaces,
-              path: Routes.spaces,
+              name: Routes.joinSpace,
+              path: Routes.joinSpace,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: JoinSpacePage()),
               routes: [
@@ -343,11 +343,12 @@ class AppRouter {
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.loggedIn && loggingIn) {
-            return Routes.spaces;
+          if (userManager.loggedIn && !userManager.spaceSelected) {
+            return Routes.joinSpace;
           }
-
-
+          if (userManager.loggedIn && userManager.spaceSelected) {
+            return userManager.isAdmin ? Routes.addMember : Routes.userHome;
+          }
           return null;
         });
   }
@@ -389,7 +390,7 @@ abstract class Routes {
   static const updateLeaveCount = 'update-paid-leave';
   static const editWorkspaceDetails = 'edit-workspace-details';
   static const userLeaveCalender = 'user-calender';
-  static const spaces = '/spaces';
+  static const joinSpace = '/spaces';
   static const adminEmployeeDetailsLeaves =
       'admin-employee-detail-leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails =

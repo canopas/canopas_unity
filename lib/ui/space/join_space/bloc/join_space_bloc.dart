@@ -17,14 +17,13 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     on<SelectSpaceEvent>(_selectSpace);
   }
 
-
-  String get userEmail => _userManager.userEmail?? "unknown";
+  String get userEmail => _userManager.userEmail ?? "unknown";
 
   void _init(
       JoinSpaceInitialFetchEvent event, Emitter<JoinSpaceState> emit) async {
     emit(state.copy(getSpaceStatus: Status.loading));
     try {
-      final spaces = await _spaceService.getSpacesOfUser(_userManager.userId!);
+      final spaces = await _spaceService.getSpacesOfUser(_userManager.userUID!);
       emit(state.copy(getSpaceStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copy(
@@ -32,7 +31,8 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     }
   }
 
-  void _selectSpace(SelectSpaceEvent event, Emitter<JoinSpaceState> emit) {
-
+  Future<void> _selectSpace(
+      SelectSpaceEvent event, Emitter<JoinSpaceState> emit) async {
+    await _userManager.setSpace(event.space);
   }
 }

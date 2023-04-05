@@ -7,25 +7,26 @@ import '../model/space/space.dart';
 @LazySingleton()
 class SpaceService {
   final _spaceDb = FirebaseFirestore.instance
-      .collection(FirestoreConst.spacesCollection)
+      .collection(FireStoreConst.spacesCollection)
       .withConverter(
           fromFirestore: Space.fromFirestore,
           toFirestore: (Space space, _) => space.toFirestore());
 
   ///For create space in database. you will be admin on your created workspace.
-  Future<void> createSpace(
+  Future<Space> createSpace(
       {required String name,
       required String domain,
       required int timeOff,
       required String ownerId}) async {
     final id = _spaceDb.doc().id;
-
-    await _spaceDb.doc(id).set(Space(
+    final space = Space(
         id: id,
         name: name,
         createdAt: DateTime.now(),
         paidTimeOff: timeOff,
-        ownerIds: [ownerId]));
+        ownerIds: [ownerId]);
+    await _spaceDb.doc(id).set(space);
+    return space;
   }
 
   ///Delete space from database

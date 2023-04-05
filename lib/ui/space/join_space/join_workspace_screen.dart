@@ -39,7 +39,8 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<JoinSpaceBloc, JoinSpaceState>(
-        listenWhen: (previous, current) => current.getSpaceStatus == Status.failure,
+        listenWhen: (previous, current) =>
+            current.getSpaceStatus == Status.failure,
         listener: (context, state) {
           if (state.getSpaceStatus == Status.failure) {
             showSnackBar(context: context, error: state.error);
@@ -97,10 +98,9 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                             children: state.spaces
                                 .map((space) => WorkSpaceCard(
                                       title: space.name,
+                                      members: 24,
                                       imageURL: space.logo,
-                                      onPressed: () {
-                                        ///TODO: implement workspace card tap event
-                                      },
+                                      onPressed: () => context.read<JoinSpaceBloc>().add(SelectSpaceEvent(space: space)),
                                     ))
                                 .toList(),
                           ),

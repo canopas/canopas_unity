@@ -4,14 +4,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
-import 'dart:ui' as _i9;
+import 'dart:ui' as _i10;
 
 import 'package:firebase_auth/firebase_auth.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i3;
+import 'package:projectunity/data/model/space/space.dart' as _i8;
 import 'package:projectunity/data/model/user/user.dart' as _i2;
 import 'package:projectunity/data/pref/user_preference.dart' as _i7;
-import 'package:projectunity/data/provider/user_data.dart' as _i8;
+import 'package:projectunity/data/provider/user_data.dart' as _i9;
 import 'package:projectunity/data/services/auth_service.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -94,13 +95,23 @@ class MockUserPreference extends _i1.Mock implements _i7.UserPreference {
   }
 
   @override
-  void setUser(_i2.User? user) => super.noSuchMethod(
+  _i5.Future<void> setUser(_i2.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> setSpace(_i8.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #setSpace,
+          [space],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void setCurrentUser(_i3.Employee? user) => super.noSuchMethod(
         Invocation.method(
@@ -140,7 +151,7 @@ class MockUserPreference extends _i1.Mock implements _i7.UserPreference {
 /// A class which mocks [UserManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i8.UserManager {
+class MockUserManager extends _i1.Mock implements _i9.UserManager {
   MockUserManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -155,6 +166,19 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         Invocation.setter(
           #loggedIn,
           _loggedIn,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  bool get spaceSelected => (super.noSuchMethod(
+        Invocation.getter(#spaceSelected),
+        returnValue: false,
+      ) as bool);
+  @override
+  set spaceSelected(bool? _spaceSelected) => super.noSuchMethod(
+        Invocation.setter(
+          #spaceSelected,
+          _spaceSelected,
         ),
         returnValueForMissingStub: null,
       );
@@ -202,13 +226,23 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  void setUser(_i2.User? user) => super.noSuchMethod(
+  _i5.Future<void> setUser(_i2.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> setSpace(_i8.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #setSpace,
+          [space],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -218,7 +252,7 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -226,7 +260,7 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
