@@ -4,10 +4,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:ui' as _i6;
+import 'dart:ui' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
+import 'package:projectunity/data/model/user/user.dart' as _i6;
 import 'package:projectunity/data/provider/user_data.dart' as _i5;
 import 'package:projectunity/data/services/employee_service.dart' as _i3;
 
@@ -154,11 +155,6 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  int get spacePath => (super.noSuchMethod(
-        Invocation.getter(#spacePath),
-        returnValue: 0,
-      ) as int);
-  @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
         returnValue: '',
@@ -202,10 +198,10 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  void changeSpacePath(int? status) => super.noSuchMethod(
+  void setUser(_i6.User? user) => super.noSuchMethod(
         Invocation.method(
-          #changeSpacePath,
-          [status],
+          #setUser,
+          [user],
         ),
         returnValueForMissingStub: null,
       );
@@ -218,7 +214,7 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -226,7 +222,7 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i7.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],

@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/configs/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../core/utils/const/pref_key.dart';
 import '../model/employee/employee.dart';
+import '../model/user/user.dart';
 
 @Singleton()
 class UserPreference {
@@ -14,17 +12,18 @@ class UserPreference {
 
   UserPreference(this._preferences);
 
-  void setCurrentUser(Employee user) {
+  void setUser(User user) {
     _preferences.setString(PrefKeys.userPrefKeyUser, jsonEncode(user.toJson()));
   }
 
-  void setAuthenticationStatus(User? user) {
-    _preferences.setString(PrefKeys.firebaseAuthenticationId, user!.uid);
+  User? getUser() {
+    final data = _preferences.getString(PrefKeys.userPrefKeyUser);
+    return data == null ? null : User.fromJson(jsonDecode(data));
   }
 
-  String? getCurrentUid() {
-    final data = _preferences.getString(PrefKeys.firebaseAuthenticationId);
-    return data;
+  void setCurrentUser(Employee user) {
+    _preferences.setString(
+        PrefKeys.spaceUserPrefKeyUser, jsonEncode(user.toJson()));
   }
 
   void setUserSpaceStatus(int status) {
@@ -37,12 +36,12 @@ class UserPreference {
   }
 
   Employee? getCurrentUser() {
-    final data = _preferences.getString(PrefKeys.userPrefKeyUser);
+    final data = _preferences.getString(PrefKeys.spaceUserPrefKeyUser);
     return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
   Future<void> removeCurrentUser() async {
-    await _preferences.remove(PrefKeys.userPrefKeyUser);
+    await _preferences.remove(PrefKeys.spaceUserPrefKeyUser);
   }
 
   Future<void> setToken(String token) async {

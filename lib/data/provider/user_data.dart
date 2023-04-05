@@ -1,33 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../core/utils/const/role.dart';
 import '../model/employee/employee.dart';
+import '../model/user/user.dart';
 import '../pref/user_preference.dart';
 
 @Singleton()
 class UserManager with ChangeNotifier {
   final UserPreference _userPreference;
+
   bool loggedIn = false;
-  late final int _spacePath;
 
   UserManager(this._userPreference) {
-    loggedIn = _userPreference.getCurrentUid() != null;
-    _spacePath = _userPreference.getUserSpaceStatus() ?? 1;
-    // loggedIn = _userPreference.getCurrentUser() != null;
+    hasLoggedIn();
   }
 
-  void changeSpacePath(int status) {
-    _userPreference.setUserSpaceStatus(status);
-    _spacePath = status;
+  void setUser(User user) {
+    _userPreference.setUser(user);
     notifyListeners();
   }
 
-  int get spacePath => _spacePath;
-
-  String? get firebaseAuthUId => _userPreference.getCurrentUid();
-
   Employee? get _employee => _userPreference.getCurrentUser();
+
+  String? get userId => _userPreference.getUser()?.uid;
 
   String get userName => _employee?.name ?? "";
 
@@ -42,7 +37,7 @@ class UserManager with ChangeNotifier {
   String get employeeDesignation => _employee!.designation;
 
   void hasLoggedIn() async {
-    loggedIn = _userPreference.getCurrentUid() != null;
+    loggedIn = _userPreference.getUser() != null;
     notifyListeners();
   }
 

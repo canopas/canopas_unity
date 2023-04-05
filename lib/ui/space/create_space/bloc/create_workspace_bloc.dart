@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/core/utils/const/role.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
@@ -83,9 +82,9 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
             name: state.name,
             domain: state.domain,
             timeOff: timeOff,
-            ownerId: _userManager.firebaseAuthUId!);
+            ownerId: _userManager.userId!);
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
-        _userManager.changeSpacePath(createSpacePath);
+        ///TODO navigation
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,

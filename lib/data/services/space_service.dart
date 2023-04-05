@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import '../core/utils/const/firestore.dart';
 import '../model/space/space.dart';
 
+///Its provide space service like create space, delete space edit space details and get space form database.
 @LazySingleton()
 class SpaceService {
   final _spaceDb = FirebaseFirestore.instance
-      .collection('spaces')
+      .collection(FirestoreConst.spacesCollection)
       .withConverter(
           fromFirestore: Space.fromFirestore,
           toFirestore: (Space space, _) => space.toFirestore());
 
+  ///For create space in database. you will be admin on your created workspace.
   Future<void> createSpace(
       {required String name,
       required String domain,
@@ -25,7 +28,26 @@ class SpaceService {
         ownerIds: [ownerId]));
   }
 
+  ///Delete space from database
   Future<void> deleteSpace(String workspaceId) async {
     await _spaceDb.doc(workspaceId).delete();
+  }
+
+  ///It will return user space's own created spaces and joined spaces from database.
+  Future<List<Space>> getSpacesOfUser(String uid) async {
+    final spaceData = await _spaceDb.where("owners", arrayContains: uid).get();
+    return spaceData.docs.map((e) => e.data()).toList();
+  }
+
+  ///It will return user's space join requests from database.
+  Future<List<Space>> getSpaceJoinRequest(List<String> requestsId) async {
+    List<Space> spaces = [];
+    for (String id in requestsId) {
+      final spaceDoc = await _spaceDb.doc(id).get();
+      if (spaceDoc.data() != null) {
+        spaces.add(spaceDoc.data()!);
+      }
+    }
+    return spaces;
   }
 }

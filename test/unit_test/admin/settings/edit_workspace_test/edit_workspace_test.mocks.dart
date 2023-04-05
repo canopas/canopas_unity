@@ -6,6 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:projectunity/data/model/space/space.dart' as _i4;
 import 'package:projectunity/data/services/space_service.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -57,4 +58,22 @@ class MockSpaceService extends _i1.Mock implements _i2.SpaceService {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+  @override
+  _i3.Future<List<_i4.Space>> getSpacesOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpacesOfUser,
+          [uid],
+        ),
+        returnValue: _i3.Future<List<_i4.Space>>.value(<_i4.Space>[]),
+      ) as _i3.Future<List<_i4.Space>>);
+  @override
+  _i3.Future<List<_i4.Space>> getSpaceJoinRequest(List<String>? requestsId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpaceJoinRequest,
+          [requestsId],
+        ),
+        returnValue: _i3.Future<List<_i4.Space>>.value(<_i4.Space>[]),
+      ) as _i3.Future<List<_i4.Space>>);
 }

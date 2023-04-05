@@ -5,7 +5,6 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
-import 'package:projectunity/data/stateManager/auth/auth_manager.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_event.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_state.dart';

@@ -3,15 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
-import 'dart:ui' as _i8;
+import 'dart:async' as _i5;
+import 'dart:ui' as _i9;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i5;
+import 'package:firebase_auth/firebase_auth.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/model/employee/employee.dart' as _i2;
-import 'package:projectunity/data/pref/user_preference.dart' as _i6;
-import 'package:projectunity/data/provider/user_data.dart' as _i7;
-import 'package:projectunity/data/services/auth_service.dart' as _i3;
+import 'package:projectunity/data/model/employee/employee.dart' as _i3;
+import 'package:projectunity/data/model/user/user.dart' as _i2;
+import 'package:projectunity/data/pref/user_preference.dart' as _i7;
+import 'package:projectunity/data/provider/user_data.dart' as _i8;
+import 'package:projectunity/data/services/auth_service.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,8 +25,18 @@ import 'package:projectunity/data/services/auth_service.dart' as _i3;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEmployee_0 extends _i1.SmartFake implements _i2.Employee {
-  _FakeEmployee_0(
+class _FakeUser_0 extends _i1.SmartFake implements _i2.User {
+  _FakeUser_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEmployee_1 extends _i1.SmartFake implements _i3.Employee {
+  _FakeEmployee_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -37,72 +48,63 @@ class _FakeEmployee_0 extends _i1.SmartFake implements _i2.Employee {
 /// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i3.AuthService {
+class MockAuthService extends _i1.Mock implements _i4.AuthService {
   MockAuthService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  void updateUserData(
-    _i2.Employee? user,
-    _i2.Session? session,
-  ) =>
-      super.noSuchMethod(
+  _i5.Future<_i2.User> getUser(_i6.User? authData) => (super.noSuchMethod(
         Invocation.method(
-          #updateUserData,
-          [
-            user,
-            session,
-          ],
+          #getUser,
+          [authData],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<_i2.User>.value(_FakeUser_0(
+          this,
+          Invocation.method(
+            #getUser,
+            [authData],
+          ),
+        )),
+      ) as _i5.Future<_i2.User>);
   @override
-  _i4.Future<_i2.Employee?> getUserData(String? email) => (super.noSuchMethod(
-        Invocation.method(
-          #getUserData,
-          [email],
-        ),
-        returnValue: _i4.Future<_i2.Employee?>.value(),
-      ) as _i4.Future<_i2.Employee?>);
-  @override
-  _i4.Future<_i5.User?> signInWithGoogle() => (super.noSuchMethod(
+  _i5.Future<_i6.User?> signInWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
           [],
         ),
-        returnValue: _i4.Future<_i5.User?>.value(),
-      ) as _i4.Future<_i5.User?>);
+        returnValue: _i5.Future<_i6.User?>.value(),
+      ) as _i5.Future<_i6.User?>);
   @override
-  _i4.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
+  _i5.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signOutWithGoogle,
           [],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }
 
 /// A class which mocks [UserPreference].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserPreference extends _i1.Mock implements _i6.UserPreference {
+class MockUserPreference extends _i1.Mock implements _i7.UserPreference {
   MockUserPreference() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  void setCurrentUser(_i2.Employee? user) => super.noSuchMethod(
+  void setUser(_i2.User? user) => super.noSuchMethod(
         Invocation.method(
-          #setCurrentUser,
+          #setUser,
           [user],
         ),
         returnValueForMissingStub: null,
       );
   @override
-  void setAuthenticationStatus(_i5.User? user) => super.noSuchMethod(
+  void setCurrentUser(_i3.Employee? user) => super.noSuchMethod(
         Invocation.method(
-          #setAuthenticationStatus,
+          #setCurrentUser,
           [user],
         ),
         returnValueForMissingStub: null,
@@ -116,29 +118,29 @@ class MockUserPreference extends _i1.Mock implements _i6.UserPreference {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Future<void> removeCurrentUser() => (super.noSuchMethod(
+  _i5.Future<void> removeCurrentUser() => (super.noSuchMethod(
         Invocation.method(
           #removeCurrentUser,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> setToken(String? token) => (super.noSuchMethod(
+  _i5.Future<void> setToken(String? token) => (super.noSuchMethod(
         Invocation.method(
           #setToken,
           [token],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i7.UserManager {
+class MockUserManager extends _i1.Mock implements _i8.UserManager {
   MockUserManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -157,11 +159,6 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  int get spacePath => (super.noSuchMethod(
-        Invocation.getter(#spacePath),
-        returnValue: 0,
-      ) as int);
-  @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
         returnValue: '',
@@ -177,13 +174,13 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: '',
       ) as String);
   @override
-  _i2.Employee get employee => (super.noSuchMethod(
+  _i3.Employee get employee => (super.noSuchMethod(
         Invocation.getter(#employee),
-        returnValue: _FakeEmployee_0(
+        returnValue: _FakeEmployee_1(
           this,
           Invocation.getter(#employee),
         ),
-      ) as _i2.Employee);
+      ) as _i3.Employee);
   @override
   String get employeeDesignation => (super.noSuchMethod(
         Invocation.getter(#employeeDesignation),
@@ -205,10 +202,10 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  void changeSpacePath(int? status) => super.noSuchMethod(
+  void setUser(_i2.User? user) => super.noSuchMethod(
         Invocation.method(
-          #changeSpacePath,
-          [status],
+          #setUser,
+          [user],
         ),
         returnValueForMissingStub: null,
       );
@@ -221,7 +218,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void addListener(_i8.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -229,7 +226,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i8.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],

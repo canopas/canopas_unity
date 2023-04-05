@@ -4,11 +4,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:ui' as _i6;
+import 'dart:ui' as _i8;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
-import 'package:projectunity/data/provider/user_data.dart' as _i5;
+import 'package:projectunity/data/model/space/space.dart' as _i5;
+import 'package:projectunity/data/model/user/user.dart' as _i7;
+import 'package:projectunity/data/provider/user_data.dart' as _i6;
 import 'package:projectunity/data/services/space_service.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -70,12 +72,30 @@ class MockSpaceService extends _i1.Mock implements _i3.SpaceService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+  @override
+  _i4.Future<List<_i5.Space>> getSpacesOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpacesOfUser,
+          [uid],
+        ),
+        returnValue: _i4.Future<List<_i5.Space>>.value(<_i5.Space>[]),
+      ) as _i4.Future<List<_i5.Space>>);
+  @override
+  _i4.Future<List<_i5.Space>> getSpaceJoinRequest(List<String>? requestsId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpaceJoinRequest,
+          [requestsId],
+        ),
+        returnValue: _i4.Future<List<_i5.Space>>.value(<_i5.Space>[]),
+      ) as _i4.Future<List<_i5.Space>>);
 }
 
 /// A class which mocks [UserManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i5.UserManager {
+class MockUserManager extends _i1.Mock implements _i6.UserManager {
   MockUserManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -93,11 +113,6 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-  @override
-  int get spacePath => (super.noSuchMethod(
-        Invocation.getter(#spacePath),
-        returnValue: 0,
-      ) as int);
   @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
@@ -142,10 +157,10 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  void changeSpacePath(int? status) => super.noSuchMethod(
+  void setUser(_i7.User? user) => super.noSuchMethod(
         Invocation.method(
-          #changeSpacePath,
-          [status],
+          #setUser,
+          [user],
         ),
         returnValueForMissingStub: null,
       );
@@ -158,7 +173,7 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i8.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -166,7 +181,7 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i8.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
