@@ -1,79 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
-import 'package:projectunity/data/core/utils/const/image_constant.dart';
+import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart';
+import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
+import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
 import 'package:projectunity/ui/space/join_space/widget/workspace_card.dart';
-
+import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
+import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
+import '../../navigation/app_router.dart';
 
-class WorkSpaceScreen extends StatefulWidget {
-  const WorkSpaceScreen({Key? key}) : super(key: key);
+class JoinSpacePage extends StatelessWidget {
+  const JoinSpacePage({Key? key}) : super(key: key);
 
   @override
-  State<WorkSpaceScreen> createState() => _WorkSpaceScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        child: const JoinSpaceScreen(),
+        create: (context) =>
+            getIt<JoinSpaceBloc>()..add(JoinSpaceInitialFetchEvent()));
+  }
 }
 
-class _WorkSpaceScreenState extends State<WorkSpaceScreen> {
+class JoinSpaceScreen extends StatefulWidget {
+  const JoinSpaceScreen({Key? key}) : super(key: key);
+
+  @override
+  State<JoinSpaceScreen> createState() => _JoinSpaceScreenState();
+}
+
+class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding:
-              const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 32),
-          children: [
-            Text(
-              AppLocalizations.of(context).welcome_to_unity_text,
-              style: AppFontStyle.titleDark,
-            ),
-            const SizedBox(height: 20),
-            Text(AppLocalizations.of(context).create_own_space_title,
-                style: AppFontStyle.bodyLarge),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  surfaceTintColor: AppColors.lightPrimaryBlue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: AppTheme.commonBorderRadius),
-                  fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45)),
-              onPressed: () {
-                ///TODO: Add Implementation for Create New Space
-              },
-              child:
-                  Text(AppLocalizations.of(context).create_new_space_title),
-            ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                const Divider(),
-                Container(
-                    color: AppColors.whiteColor,
-                    padding: const EdgeInsets.all(primarySpacing),
-                    child: Text(
-                      AppLocalizations.of(context).or_tag,
-                      style: AppFontStyle.bodyLarge
-                          .copyWith(color: AppColors.secondaryText),
-                    ))
-              ],
-            ),
-            Text(
-                AppLocalizations.of(context)
-                    .spaces_list_title("pratik.k@canopas.com"),
-                style: AppFontStyle.bodyLarge),
-            const SizedBox(height: 10),
-
-            ///TODO: show List of WorkspaceCards
-            ...List.generate(
-                3,
-                (index) => WorkSpaceCard(
-                      imageURL: ImageConst.companyLogo,
-                      onPressed: () {
-                        ///TODO: implement workspace card tap event
-                      },
-                    )).toList(),
-          ],
+      body: BlocListener<JoinSpaceBloc, JoinSpaceState>(
+        listenWhen: (previous, current) => current.getSpaceStatus == Status.failure,
+        listener: (context, state) {
+          if (state.getSpaceStatus == Status.failure) {
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(primaryHorizontalSpacing)
+                .copyWith(top: 32),
+            children: [
+              Text(
+                AppLocalizations.of(context).welcome_to_unity_text,
+                style: AppFontStyle.titleDark,
+              ),
+              const SizedBox(height: 20),
+              Text(AppLocalizations.of(context).create_own_space_title,
+                  style: AppFontStyle.bodyLarge),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    surfaceTintColor: AppColors.lightPrimaryBlue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: AppTheme.commonBorderRadius),
+                    fixedSize:
+                        Size(MediaQuery.of(context).size.width * 0.9, 45)),
+                onPressed: () => context.goNamed(Routes.createSpace),
+                child:
+                    Text(AppLocalizations.of(context).create_new_space_title),
+              ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Divider(),
+                  Container(
+                      color: AppColors.whiteColor,
+                      padding: const EdgeInsets.all(primarySpacing),
+                      child: Text(
+                        AppLocalizations.of(context).or_tag,
+                        style: AppFontStyle.bodyLarge
+                            .copyWith(color: AppColors.secondaryText),
+                      ))
+                ],
+              ),
+              Text(
+                  AppLocalizations.of(context).spaces_list_title(
+                      context.read<JoinSpaceBloc>().userEmail),
+                  style: AppFontStyle.bodyLarge),
+              const SizedBox(height: 10),
+              BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
+                builder: (context, state) =>
+                    state.getSpaceStatus == Status.loading
+                        ? const AppCircularProgressIndicator()
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: state.spaces
+                                .map((space) => WorkSpaceCard(
+                                      title: space.name,
+                                      imageURL: space.logo,
+                                      onPressed: () {
+                                        ///TODO: implement workspace card tap event
+                                      },
+                                    ))
+                                .toList(),
+                          ),
+              )
+            ],
+          ),
         ),
       ),
     );

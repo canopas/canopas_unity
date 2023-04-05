@@ -4,10 +4,11 @@ import '../../../../data/configs/text_style.dart';
 import '../../../../data/configs/theme.dart';
 
 class WorkSpaceCard extends StatelessWidget {
+  final String title;
   final void Function()? onPressed;
   final String? imageURL;
 
-  const WorkSpaceCard({Key? key, this.onPressed, this.imageURL}) : super(key: key);
+  const WorkSpaceCard({Key? key, this.onPressed, this.imageURL, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class WorkSpaceCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Canopas software",
+                        title,
                         style: AppFontStyle.bodyLarge
                             .copyWith(fontWeight: FontWeight.w600),
                       ),

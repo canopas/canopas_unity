@@ -81,15 +81,6 @@ class MockSpaceService extends _i1.Mock implements _i3.SpaceService {
         ),
         returnValue: _i4.Future<List<_i5.Space>>.value(<_i5.Space>[]),
       ) as _i4.Future<List<_i5.Space>>);
-  @override
-  _i4.Future<List<_i5.Space>> getSpaceJoinRequest(List<String>? requestsId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getSpaceJoinRequest,
-          [requestsId],
-        ),
-        returnValue: _i4.Future<List<_i5.Space>>.value(<_i5.Space>[]),
-      ) as _i4.Future<List<_i5.Space>>);
 }
 
 /// A class which mocks [UserManager].

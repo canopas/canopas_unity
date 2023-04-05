@@ -64,7 +64,7 @@ class AppRouter {
               name: Routes.spaces,
               path: Routes.spaces,
               pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: WorkSpaceScreen()),
+                  const NoTransitionPage(child: JoinSpacePage()),
               routes: [
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,

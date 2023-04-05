@@ -17,12 +17,13 @@ class UserManager with ChangeNotifier {
 
   void setUser(User user) {
     _userPreference.setUser(user);
-    notifyListeners();
+    hasLoggedIn();
   }
 
   Employee? get _employee => _userPreference.getCurrentUser();
 
   String? get userId => _userPreference.getUser()?.uid;
+  String? get userEmail => _userPreference.getUser()?.email;
 
   String get userName => _employee?.name ?? "";
 

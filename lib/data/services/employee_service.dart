@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../core/utils/const/firestore.dart';
 import '../core/utils/const/role.dart';
 import '../event_bus/events.dart';

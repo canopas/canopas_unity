@@ -10,6 +10,7 @@ class JoinSpaceInitialFetchEvent extends JoinSpaceEvents {
 }
 
 class SelectSpaceEvent extends JoinSpaceEvents {
-
+    final String spaceId;
+    SelectSpaceEvent({required this.spaceId});
 }
 
