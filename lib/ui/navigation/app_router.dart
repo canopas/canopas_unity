@@ -10,7 +10,6 @@ import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
-
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
 import '../../data/provider/user_data.dart';
@@ -21,10 +20,11 @@ import '../admin/home/addmember/admin_add_member_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/leaves/detail/leave_details.dart';
 import '../admin/setting/admin_setting_screen.dart';
-import '../admin/setting/edit_work_space/edit_workspace_screen.dart';
+import '../admin/setting/edit_space/edit_space_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
+import '../space/join_space/join_workspace_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/employees/list/user_employees_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
@@ -223,9 +223,18 @@ class AppRouter {
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.editWorkspaceDetails,
                           path: Routes.editWorkspaceDetails,
+                          routes: [
+                            GoRoute(
+                                parentNavigatorKey: _adminShellNavigatorKey,
+                                name: Routes.spaces,
+                                path: Routes.spaces,
+                                pageBuilder: (context, state) =>
+                                const NoTransitionPage(
+                                    child: WorkSpaceScreen())),
+                          ],
                           pageBuilder: (context, state) =>
-                              const NoTransitionPage(
-                                  child: EditWorkspacePage())),
+                               const NoTransitionPage(
+                                  child: EditSpacePage())),
                     ]),
               ]),
           ShellRoute(
@@ -394,6 +403,7 @@ abstract class Routes {
   static const updateLeaveCount = 'update-paid-leave';
   static const editWorkspaceDetails = 'edit-workspace-details';
   static const userLeaveCalender = 'user-calender';
+  static const spaces = 'spaces';
   static const adminEmployeeDetailsLeaves =
       'admin-employee-detail-leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails =

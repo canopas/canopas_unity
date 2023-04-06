@@ -6,6 +6,7 @@ part 'space.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class Space {
+  final String id;
   final String name;
   @JsonKey(name: 'created_at', fromJson: _fromJson, toJson: _toJson)
   final DateTime createdAt;
@@ -17,6 +18,7 @@ class Space {
   final String? domain;
 
   Space({
+    required this.id,
     required this.name,
     required this.createdAt,
     required this.paidTimeOff,

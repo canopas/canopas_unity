@@ -61,7 +61,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
             const Divider(indent: 0, endIndent: 0),
             SettingOption(
                 icon: Icons.swap_vert_rounded,
-                title: AppLocalizations.of(context).change_work_space_tag,
+                title: AppLocalizations.of(context).change_space_tag,
                 onTap: () {
                   showBottomSheet(
                       context: context,

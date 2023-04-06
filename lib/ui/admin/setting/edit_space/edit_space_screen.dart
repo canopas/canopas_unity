@@ -1,39 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_bloc.dart';
-import 'package:projectunity/ui/admin/setting/edit_work_space/bloc/edit_workspace_event.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/ui/navigation/app_router.dart';
+import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../widget/app_dialog.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
-import 'bloc/edit_workspace_state.dart';
+import 'bloc/edit_space_bloc.dart';
+import 'bloc/edit_space_event.dart';
+import 'bloc/edit_space_state.dart';
 
-class EditWorkspacePage extends StatelessWidget {
-  const EditWorkspacePage({
+class EditSpacePage extends StatelessWidget {
+  const EditSpacePage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<EditWorkSpaceBloc>()..add(EditWorkSpaceInitialEvent()),
-      child: const EditWorkSpaceScreen(),
+      create: (_) => getIt<EditSpaceBloc>()..add(EditSpaceInitialEvent()),
+      child: const EditSpaceScreen(),
     );
   }
 }
 
-class EditWorkSpaceScreen extends StatefulWidget {
-  const EditWorkSpaceScreen({Key? key}) : super(key: key);
+class EditSpaceScreen extends StatefulWidget {
+  const EditSpaceScreen({Key? key}) : super(key: key);
 
   @override
-  State<EditWorkSpaceScreen> createState() => _EditWorkSpaceScreenState();
+  State<EditSpaceScreen> createState() => _EditSpaceScreenState();
 }
 
-class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
+class _EditSpaceScreenState extends State<EditSpaceScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _domainController = TextEditingController();
   final TextEditingController _paidTimeOffLeaveController =
@@ -57,19 +60,23 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).workspace_tag),
+        title: Text(AppLocalizations.of(context).space_tag),
         actions: [
-          BlocBuilder<EditWorkSpaceBloc, EditWorkspaceState>(
+          BlocBuilder<EditSpaceBloc, EditSpaceState>(
               builder: (context, state) => TextButton(
                   onPressed: state.isValid ? () {} : null,
                   child: Text(AppLocalizations.of(context).save_tag))),
           const SizedBox(width: 10)
         ],
       ),
-      body: BlocListener<EditWorkSpaceBloc, EditWorkspaceState>(
+      body: BlocListener<EditSpaceBloc, EditSpaceState>(
         listener: (context, state) {
-          if (state.status == EditWorkspaceStatus.failure) {
+          if (state.fetchDataStatus == Status.failure ||
+              state.deleteWorkSpaceStatus == Status.failure) {
             showSnackBar(context: context, error: state.error);
+          }
+          if (state.deleteWorkSpaceStatus == Status.success) {
+            context.goNamed(Routes.spaces);
           }
         },
         child: SingleChildScrollView(
@@ -81,7 +88,7 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
               const SizedBox(height: 30),
               FieldEntry(
                 onChanged: (name) => context
-                    .read<EditWorkSpaceBloc>()
+                    .read<EditSpaceBloc>()
                     .add(CompanyNameChangeEvent(companyName: name)),
                 controller: _nameController,
                 hintText: AppLocalizations.of(context).company_name_tag,
@@ -89,8 +96,8 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
               const SizedBox(height: 20),
               FieldEntry(
                 controller: _domainController,
-                hintText: AppLocalizations.of(context)
-                    .create_workspace_Website_url_label,
+                hintText:
+                    AppLocalizations.of(context).create_space_Website_url_label,
               ),
               const SizedBox(height: 20),
               FieldEntry(
@@ -99,12 +106,12 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
                   FilteringTextInputFormatter.digitsOnly
                 ],
                 onChanged: (timeOff) => context
-                    .read<EditWorkSpaceBloc>()
+                    .read<EditSpaceBloc>()
                     .add(YearlyPaidTimeOffChangeEvent(timeOff: timeOff)),
                 controller: _paidTimeOffLeaveController,
                 hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
               ),
-              const DeleteWorkspaceButton(),
+              const DeleteSpaceButton(),
             ],
           ),
         ),
@@ -113,31 +120,45 @@ class _EditWorkSpaceScreenState extends State<EditWorkSpaceScreen> {
   }
 }
 
-class DeleteWorkspaceButton extends StatelessWidget {
-  const DeleteWorkspaceButton({Key? key}) : super(key: key);
+class DeleteSpaceButton extends StatelessWidget {
+  const DeleteSpaceButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      height: MediaQuery.of(context).size.height*0.3,
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.bottomCenter,
       constraints: const BoxConstraints(
         minHeight: 100,
       ),
-      child: TextButton(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: AppColors.redColor,
-        ),
-        child: Text(AppLocalizations.of(context).delete_workspace_text),
-        onPressed: () {
-          ///TODO: delete workspace implementation
-        },
+      child: BlocBuilder<EditSpaceBloc, EditSpaceState>(
+        buildWhen: (previous, current) => previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
+        builder: (context, state) => state.deleteWorkSpaceStatus ==
+                Status.loading
+            ? const AppCircularProgressIndicator()
+            : TextButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: AppColors.redColor,
+                ),
+                child: Text(AppLocalizations.of(context).delete_space_text),
+                onPressed: () => showAlertDialog(
+                  title: AppLocalizations.of(context).delete_space_text,
+                  context: context,
+                  actionButtonTitle:
+                      AppLocalizations.of(context).delete_space_text,
+                  description: AppLocalizations.of(context)
+                      .delete_dialog_description_text,
+                  onActionButtonPressed: () =>
+                      context.read<EditSpaceBloc>().add(DeleteSpaceEvent(
+                          ///TODO Provide workspace id
+                          workspaceId: "")),
+                ),
+              ),
       ),
     );
   }
 }
-
 
 class _OrgLogoView extends StatelessWidget {
   final void Function()? onButtonTap;

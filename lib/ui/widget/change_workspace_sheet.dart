@@ -3,7 +3,7 @@ import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
 import '../../data/configs/theme.dart';
 import '../../data/core/utils/const/image_constant.dart';
-import '../sign_in/join_workspace_screen/widget/workspace_card.dart';
+import '../space/join_space/widget/workspace_card.dart';
 
 class ChangeWorkspaceBottomSheet extends StatelessWidget {
   const ChangeWorkspaceBottomSheet({Key? key}) : super(key: key);

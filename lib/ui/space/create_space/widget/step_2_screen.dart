@@ -75,7 +75,7 @@ class WorkspacePaidLeaves extends StatelessWidget {
                         bloc.add(CreateSpaceButtonTapEvent());
                       },
                       child: Text(AppLocalizations.of(context)
-                          .create_workspace_create_workspace_button_text));
+                          .create_space_create_space_button_text));
                 }),
               ],
             )));

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart';
@@ -239,13 +238,8 @@ void main() {
       final successState = stateWithPaidTimeOff.copyWith(
           createSpaceStatus: CreateSpaceStatus.success);
       when(userManager.firebaseAuthUId).thenReturn('uid');
-      Space spaceData = Space(
-          name: successState.name,
-          createdAt: DateTime.now(),
-          paidTimeOff: int.parse(successState.paidTimeOff),
-          ownerIds: ['uid']);
 
-      when(spaceService.createSpace(spaceData)).thenAnswer((_) async => {});
+      when(spaceService.createSpace(domain: '',timeOff: int.parse(successState.paidTimeOff),name: successState.name,ownerId: 'uid' )).thenAnswer((_) async => {});
 
       expectLater(
           createSpaceBLoc.stream,
