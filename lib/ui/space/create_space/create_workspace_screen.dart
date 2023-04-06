@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/ui/space/create_space/widget/step_1_screen.dart';
 import 'package:projectunity/ui/space/create_space/widget/step_2_screen.dart';
-
 import '../../../data/di/service_locator.dart';
 import 'bloc/create_workspace_bloc.dart';
 import 'bloc/create_workspace_event.dart';
@@ -81,7 +80,6 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen> {
                           .create_space_step_description(state.page),
                       style: AppFontStyle.labelGrey),
                 ),
-                //const SizedBox(height: 16),
               ],
             ),
           ),

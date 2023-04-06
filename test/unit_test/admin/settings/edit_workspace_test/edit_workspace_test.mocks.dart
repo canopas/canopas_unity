@@ -3,10 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/services/space_service.dart' as _i2;
+import 'package:projectunity/data/model/space/space.dart' as _i2;
+import 'package:projectunity/data/services/space_service.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -19,16 +20,26 @@ import 'package:projectunity/data/services/space_service.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeSpace_0 extends _i1.SmartFake implements _i2.Space {
+  _FakeSpace_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [SpaceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSpaceService extends _i1.Mock implements _i2.SpaceService {
+class MockSpaceService extends _i1.Mock implements _i3.SpaceService {
   MockSpaceService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> createSpace({
+  _i4.Future<_i2.Space> createSpace({
     required String? name,
     required String? domain,
     required int? timeOff,
@@ -45,16 +56,36 @@ class MockSpaceService extends _i1.Mock implements _i2.SpaceService {
             #ownerId: ownerId,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<_i2.Space>.value(_FakeSpace_0(
+          this,
+          Invocation.method(
+            #createSpace,
+            [],
+            {
+              #name: name,
+              #domain: domain,
+              #timeOff: timeOff,
+              #ownerId: ownerId,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Space>);
   @override
-  _i3.Future<void> deleteSpace(String? workspaceId) => (super.noSuchMethod(
+  _i4.Future<void> deleteSpace(String? workspaceId) => (super.noSuchMethod(
         Invocation.method(
           #deleteSpace,
           [workspaceId],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<List<_i2.Space>> getSpacesOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpacesOfUser,
+          [uid],
+        ),
+        returnValue: _i4.Future<List<_i2.Space>>.value(<_i2.Space>[]),
+      ) as _i4.Future<List<_i2.Space>>);
 }

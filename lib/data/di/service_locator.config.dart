@@ -18,7 +18,6 @@ import 'package:projectunity/data/services/employee_service.dart' as _i6;
 import 'package:projectunity/data/services/leave_service.dart' as _i9;
 import 'package:projectunity/data/services/paid_leave_service.dart' as _i11;
 import 'package:projectunity/data/services/space_service.dart' as _i13;
-import 'package:projectunity/data/stateManager/auth/auth_manager.dart' as _i36;
 import 'package:projectunity/data/stateManager/auth/desktop/desktop_auth_manager.dart'
     as _i5;
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart'
@@ -51,12 +50,14 @@ import 'package:projectunity/ui/navigation/app_router.dart' as _i34;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i7;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
-    as _i39;
+    as _i38;
 import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
     as _i18;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i40;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
-    as _i37;
+    as _i36;
+import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
+    as _i39;
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
     as _i14;
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dart'
@@ -76,7 +77,7 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
     as _i43;
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_bloc.dart'
-    as _i38;
+    as _i37;
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart'
     as _i31;
 import 'package:shared_preferences/shared_preferences.dart'
@@ -155,10 +156,8 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i25.AdminSettingUpdatePaidLeaveCountBloc>(() =>
         _i25.AdminSettingUpdatePaidLeaveCountBloc(gh<_i11.PaidLeaveService>()));
-    gh.singleton<_i26.AuthService>(_i26.AuthService(
-      gh<_i5.DesktopAuthManager>(),
-      gh<_i17.UserPreference>(),
-    ));
+    gh.singleton<_i26.AuthService>(
+        _i26.AuthService(gh<_i5.DesktopAuthManager>()));
     gh.factory<_i27.EditSpaceBloc>(
         () => _i27.EditSpaceBloc(gh<_i13.SpaceService>()));
     gh.factory<_i28.EmployeeDetailBloc>(() => _i28.EmployeeDetailBloc(
@@ -189,27 +188,26 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i30.UserManager>(),
           gh<_i9.LeaveService>(),
         ));
-    gh.singleton<_i36.AuthManager>(_i36.AuthManager(
-      gh<_i17.UserPreference>(),
-      gh<_i26.AuthService>(),
-    ));
-    gh.factory<_i37.CreateSpaceBLoc>(() => _i37.CreateSpaceBLoc(
+    gh.factory<_i36.CreateSpaceBLoc>(() => _i36.CreateSpaceBLoc(
           gh<_i13.SpaceService>(),
           gh<_i30.UserManager>(),
         ));
-    gh.factory<_i38.EmployeeEditProfileBloc>(() => _i38.EmployeeEditProfileBloc(
+    gh.factory<_i37.EmployeeEditProfileBloc>(() => _i37.EmployeeEditProfileBloc(
           gh<_i6.EmployeeService>(),
           gh<_i17.UserPreference>(),
           gh<_i30.UserManager>(),
         ));
-    gh.factory<_i39.EmployeesCalendarLeavesBloc>(
-        () => _i39.EmployeesCalendarLeavesBloc(
+    gh.factory<_i38.EmployeesCalendarLeavesBloc>(
+        () => _i38.EmployeesCalendarLeavesBloc(
               gh<_i6.EmployeeService>(),
               gh<_i9.LeaveService>(),
               gh<_i30.UserManager>(),
             ));
+    gh.factory<_i39.JoinSpaceBloc>(() => _i39.JoinSpaceBloc(
+          gh<_i13.SpaceService>(),
+          gh<_i30.UserManager>(),
+        ));
     gh.factory<_i40.SignInBloc>(() => _i40.SignInBloc(
-          gh<_i36.AuthManager>(),
           gh<_i30.UserManager>(),
           gh<_i26.AuthService>(),
         ));

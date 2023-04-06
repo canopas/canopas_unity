@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'leave.g.dart';
 
@@ -50,7 +50,7 @@ class Leave extends Equatable {
     return Leave.fromJson(data!);
   }
 
-  factory Leave.fromJson(Map<String,dynamic> map)=>_$LeaveFromJson(map);
+  factory Leave.fromJson(Map<String, dynamic> map) => _$LeaveFromJson(map);
 
   Map<String, dynamic> toFireStore(Leave instance) => _$LeaveToJson(instance);
 

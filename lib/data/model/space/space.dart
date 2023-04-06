@@ -33,6 +33,7 @@ class Space {
 
   static DateTime _fromJson(int int) =>
       DateTime.fromMillisecondsSinceEpoch(int).dateOnly;
+
   static int _toJson(DateTime date) => date.dateOnly.millisecondsSinceEpoch;
 
   factory Space.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,

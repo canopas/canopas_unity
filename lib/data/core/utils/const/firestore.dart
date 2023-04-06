@@ -1,4 +1,8 @@
-class FirestoreConst {
+class FireStoreConst {
+  
+  static const String accountCollection = 'accounts';
+  static const String spacesCollection = 'spaces';
+  
   static const String userCollection = 'users';
   static const String roleType = 'role_type';
   static const String email = 'email';

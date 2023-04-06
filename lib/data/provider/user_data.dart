@@ -1,31 +1,47 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../core/utils/const/role.dart';
 import '../model/employee/employee.dart';
+import '../model/space/space.dart';
+import '../model/user/user.dart';
 import '../pref/user_preference.dart';
 
+///This class manage all user data using preference services.
+///Its also notify user data changes to listener.
 @Singleton()
 class UserManager with ChangeNotifier {
   final UserPreference _userPreference;
+
   bool loggedIn = false;
-  late final int _spacePath;
+  bool spaceSelected = false;
 
   UserManager(this._userPreference) {
-    loggedIn = _userPreference.getCurrentUid() != null;
-    _spacePath = _userPreference.getUserSpaceStatus() ?? 1;
-    // loggedIn = _userPreference.getCurrentUser() != null;
+    hasLoggedIn();
   }
 
-  void changeSpacePath(int status) {
-    _userPreference.setUserSpaceStatus(status);
-    _spacePath = status;
+  Future<void> setUser(User user) async {
+    await _userPreference.setUser(user);
+    hasLoggedIn();
+  }
+
+  Future<void> setSpace(Space space) async {
+    await _userPreference.setSpace(space);
+    hasLoggedIn();
+  }
+
+  String? get userUID => _userPreference.getUser()?.uid;
+
+  String? get userEmail => _userPreference.getUser()?.email;
+
+  Space? get currentSpace => _userPreference.getCurrentSpace();
+
+  void hasLoggedIn() async {
+    loggedIn = _userPreference.getUser() != null;
+    spaceSelected = _userPreference.getCurrentSpace() != null;
     notifyListeners();
   }
 
-  int get spacePath => _spacePath;
-
-  String? get firebaseAuthUId => _userPreference.getCurrentUid();
+  //OLD APIs
 
   Employee? get _employee => _userPreference.getCurrentUser();
 
@@ -40,11 +56,6 @@ class UserManager with ChangeNotifier {
   Employee get employee => _employee!;
 
   String get employeeDesignation => _employee!.designation;
-
-  void hasLoggedIn() async {
-    loggedIn = _userPreference.getCurrentUid() != null;
-    notifyListeners();
-  }
 
   bool get isAdmin => _employee?.roleType == kRoleTypeAdmin;
 
