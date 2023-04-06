@@ -346,8 +346,10 @@ class AppRouter {
           if (userManager.loggedIn && !userManager.spaceSelected) {
             return Routes.joinSpace;
           }
-          if (userManager.loggedIn && userManager.spaceSelected) {
-            return userManager.isAdmin ? Routes.addMember : Routes.userHome;
+          if (userManager.loggedIn &&
+              userManager.spaceSelected &&
+              state.subloc.contains(Routes.joinSpace)) {
+            return userManager.isAdmin ? Routes.adminHome : Routes.userHome;
           }
           return null;
         });
