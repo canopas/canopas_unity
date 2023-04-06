@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/firebase_options.dart';
+import 'package:projectunity/l10n/l10n.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'data/configs/theme.dart';
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
+      create: (_) =>
+          _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
       child: BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
           listenWhen: (previous, current) =>
               current is NetworkConnectionFailureState,
@@ -46,10 +49,16 @@ class MyApp extends StatelessWidget {
           },
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
+            supportedLocales: L10n.all,
             theme: AppTheme.theme,
-            routerConfig: _router,
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
+            routeInformationProvider: _router.routeInformationProvider,
           )),
     );
   }

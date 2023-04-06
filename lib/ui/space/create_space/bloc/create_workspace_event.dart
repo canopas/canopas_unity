@@ -15,14 +15,12 @@ class CompanyNameChangeEvent extends CreateSpaceEvent {
   final String name;
 
   CompanyNameChangeEvent({required this.name});
-
   @override
   List<Object?> get props => [name];
 }
 
 class CompanyDomainChangeEvent extends CreateSpaceEvent {
   final String? domain;
-
   CompanyDomainChangeEvent({required this.domain});
 
   @override
@@ -41,7 +39,6 @@ class SubmitFormEvent extends CreateSpaceEvent {
 
 class PaidTimeOffChangeEvent extends CreateSpaceEvent {
   final String? paidTimeOff;
-
   PaidTimeOffChangeEvent({required this.paidTimeOff});
 
   @override
