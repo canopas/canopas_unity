@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/model/space/space.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';

@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart';
@@ -221,25 +222,27 @@ void main() {
     test('Emits loading state and then success state if all inputs are valid',
         () {
       createSpaceBLoc.add(CompanyNameChangeEvent(name: 'canopas'));
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'canopas.'));
+      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'canopas.com'));
       createSpaceBLoc.add(PageChangeEvent(page: 1));
       createSpaceBLoc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
       createSpaceBLoc.add(CreateSpaceButtonTapEvent());
 
-      final stateWithNameInput = initialState.copyWith(
-          name: 'canopas', nextButtonStatus: ButtonStatus.enable);
-      final stateWithDomainInput =
-          stateWithNameInput.copyWith(domain: 'canopas.');
+      final stateWithNameInput = initialState.copyWith(name: 'canopas', nextButtonStatus: ButtonStatus.enable);
+      final stateWithDomainInput = stateWithNameInput.copyWith(domain: 'canopas.com');
       final stateWithStep2 = stateWithDomainInput.copyWith(page: 1);
-      final stateWithPaidTimeOff = stateWithStep2.copyWith(
-          paidTimeOff: '12', createSpaceButtonStatus: ButtonStatus.enable);
+      final stateWithPaidTimeOff = stateWithStep2.copyWith(paidTimeOff: '12', createSpaceButtonStatus: ButtonStatus.enable);
       final loadingState = stateWithPaidTimeOff.copyWith(
           createSpaceStatus: CreateSpaceStatus.loading);
       final successState = stateWithPaidTimeOff.copyWith(
           createSpaceStatus: CreateSpaceStatus.success);
-      when(userManager.firebaseAuthUId).thenReturn('uid');
+      when(userManager.userUID).thenReturn('uid');
 
-      when(spaceService.createSpace(domain: '',timeOff: int.parse(successState.paidTimeOff),name: successState.name,ownerId: 'uid' )).thenAnswer((_) async => {});
+      when(spaceService.createSpace(
+              domain: 'canopas.com',
+              timeOff: 12,
+              name:  'canopas',
+              ownerId: 'uid'))
+          .thenAnswer((_) async => Space(id: 'space_id',name: successState.name,domain: "",paidTimeOff: int.parse(successState.paidTimeOff), createdAt: DateTime.now(), ownerIds: ["uid"]));
 
       expectLater(
           createSpaceBLoc.stream,

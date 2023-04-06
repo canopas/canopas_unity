@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:projectunity/data/model/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
@@ -13,91 +13,54 @@ import 'login_bloc_test.mocks.dart';
 
 @GenerateMocks([
   AuthService,
-  AuthManager,
   UserManager,
-  User,
+  firebase_auth.User,
 ])
 void main() {
-  late AuthManager authManager;
   late UserManager userManager;
-  late AuthService auth;
-  late SignInBloc signInBloc;
-  late User user;
-  late String userEmail = "dummy123@testing.com";
+  late AuthService authService;
 
-  Employee employee = const Employee(
-      id: 'id',
-      roleType: 1,
-      name: 'Andrew jhone',
-      employeeId: '100',
-      email: 'dummy123@testing.com',
-      designation: 'Android developer');
+  late SignInBloc bloc;
+  late firebase_auth.User authUser;
+
+  const User user = User(uid: 'uid', email: "dummy@canopas.com");
 
   setUp(() {
-    authManager = MockAuthManager();
     userManager = MockUserManager();
-    user = MockUser();
-    auth = MockAuthService();
-    signInBloc = SignInBloc(authManager, userManager, auth);
-    when(auth.signInWithGoogle()).thenAnswer((_) async => Future(() => user));
-    when(user.email).thenReturn(userEmail);
+    authUser = MockUser();
+    authService = MockAuthService();
+    bloc = SignInBloc(userManager, authService);
   });
 
-  group("Login in test", () {
-    test(
-        "after login successfully, employee has been not null in user manager ",
-        () async {
-      when(userManager.isAdmin).thenReturn(false);
-      when(authManager.getUser(userEmail))
-          .thenAnswer((realInvocation) async => employee);
-      signInBloc.add(SignInEvent());
+  group("Log in with google test", () {
+    test("Set initial state on cancel login test", () async {
+      when(authService.signInWithGoogle())
+          .thenAnswer((realInvocation) async => null);
+      bloc.add(SignInEvent());
       expect(
-          signInBloc.stream,
+          bloc.stream,
+          emitsInOrder([
+            SignInLoadingState(),
+            SignInInitialState(),
+          ]));
+    });
+
+    test("Login success test", () async {
+      when(authUser.uid).thenAnswer((realInvocation) => user.uid);
+      when(authUser.email).thenAnswer((realInvocation) => user.email);
+      when(authService.signInWithGoogle())
+          .thenAnswer((realInvocation) async => authUser);
+      when(authService.getUser(authUser))
+          .thenAnswer((realInvocation) async => user);
+      bloc.add(SignInEvent());
+      expect(
+          bloc.stream,
           emitsInOrder([
             SignInLoadingState(),
             SignInSuccessState(),
           ]));
-      await untilCalled(userManager.hasLoggedIn());
-      verify(userManager.hasLoggedIn()).called(1);
+      await untilCalled(userManager.setUser(user));
+      verify(userManager.setUser(user)).called(1);
     });
-
-    // test("user not found test", () {
-    //   when(authManager.getUser(userEmail))
-    //       .thenAnswer((realInvocation) async => Future(() => null));
-    //   signInBloc.add(SignInEvent());
-    //   expect(
-    //       signInBloc.stream,
-    //       emitsInOrder([
-    //         SignInLoadingState(),
-    //         SignInFailureState(error: userNotFoundError),
-    //       ]));
-    // });
-
-    // test("user data update to fail test", () {
-    //   when(authManager.updateUser(employee))
-    //       .thenThrow(Exception("data not valid"));
-    //   when(authManager.getUser(userEmail))
-    //       .thenAnswer((realInvocation) async => Future(() => employee));
-    //   signInBloc.add(SignInEvent());
-    //   expect(
-    //       signInBloc.stream,
-    //       emitsInOrder([
-    //         SignInLoadingState(),
-    //         SignInFailureState(error: userDataNotUpdateError),
-    //       ]));
-    // });
-
-    // test("custom exception thrown", () {
-    //   when(auth.signInWithGoogle())
-    //       .thenThrow(CustomException(firesbaseAuthError));
-    //   signInBloc.add(SignInEvent());
-    //   expect(
-    //       signInBloc.stream,
-    //       emitsInOrder([
-    //         SignInLoadingState(),
-    //         SignInFailureState(error: firesbaseAuthError),
-    //         SignInInitialState()
-    //       ]));
-    // });
   });
 }
