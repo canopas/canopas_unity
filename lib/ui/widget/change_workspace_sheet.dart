@@ -32,8 +32,6 @@ class ChangeWorkspaceBottomSheet extends StatelessWidget {
               children: List.generate(
                   3,
                   (index) => WorkSpaceCard(
-                        title: "Canopas Software",
-                        members: 24,
                         imageURL: ImageConst.companyLogo,
                         onPressed: () {
                           ///TODO: implement workspace card tap event

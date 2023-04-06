@@ -29,22 +29,22 @@ class Employee extends Equatable {
   @JsonKey(name: 'blood_group')
   final String? bloodGroup;
 
-  const Employee({
-    required this.id,
-    required this.roleType,
-    required this.name,
-    required this.employeeId,
-    required this.email,
-    required this.designation,
-    this.phone,
-    this.imageUrl,
-    this.address,
-    this.gender,
-    this.dateOfBirth,
-    this.dateOfJoining,
-    this.level,
-    this.bloodGroup,
-  });
+  const Employee(
+      {required this.id,
+      required this.roleType,
+      required this.name,
+      required this.employeeId,
+      required this.email,
+      required this.designation,
+      this.phone,
+      this.imageUrl,
+      this.address,
+      this.gender,
+      this.dateOfBirth,
+      this.dateOfJoining,
+      this.level,
+      this.bloodGroup,
+      });
 
   Employee copyWith(
       {String? id,
@@ -156,8 +156,8 @@ class Session {
   Map<String, dynamic> sessionToJson() => _$SessionToJson(this);
 }
 
-class EmployeeGender {
+class EmployeeGender{
   static const int male = 1;
   static const int female = 2;
-  static const List<int> values = [male, female];
+  static const List<int> values = [male,female];
 }
