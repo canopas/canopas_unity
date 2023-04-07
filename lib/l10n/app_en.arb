@@ -91,12 +91,12 @@
     }
   },
 
-    "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} other{other}}",
+    "leave_status_placeholder_text":"{leaveStatus, plural, =1{Pending} =2{Approved} =3{Rejected} other{other}}",
     "@leave_status_placeholder_text":{
       "description":"get leave type from leave status",
       "placeholders":{
         "leaveStatus":{
-          "type":"String"
+          "type":"num"
         }
       }
     },
