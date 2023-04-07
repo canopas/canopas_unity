@@ -80,6 +80,15 @@
       }
     }
   },
+      "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} other{other}}",
+      "@leave_status_placeholder_text":{
+        "description":"get leave type from leave status",
+        "placeholders":{
+          "leaveStatus":{
+            "type":"String"
+          }
+        }
+      },
 
   "user_detail_role_type": "{role, select, 1{Admin} 2{Employee} 3{HR} other{other}}",
   "@user_detail_role_type":{
@@ -91,15 +100,7 @@
     }
   },
 
-    "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} other{other}}",
-    "@leave_status_placeholder_text":{
-      "description":"get leave type from leave status",
-      "placeholders":{
-        "leaveStatus":{
-          "type":"String"
-        }
-      }
-    },
+
 
  "dateFormatter_yesterday":"Yesterday",
   "dateFormatter_today":"Today",
