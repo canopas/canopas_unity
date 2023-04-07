@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,10 +10,11 @@ import 'package:projectunity/firebase_options.dart';
 import 'package:projectunity/l10n/l10n.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'data/configs/theme.dart';
+
 import 'data/bloc/network/network_connection_bloc.dart';
 import 'data/bloc/network/network_connection_event.dart';
 import 'data/bloc/network/network_connection_state.dart';
+import 'data/configs/theme.dart';
 import 'data/di/service_locator.dart';
 import 'ui/navigation/app_router.dart';
 
@@ -37,29 +39,29 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (_) =>
           _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
-      child: BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
-          listenWhen: (previous, current) =>
-              current is NetworkConnectionFailureState,
-          listener: (context, state) {
-            if (state is NetworkConnectionFailureState) {
-              String connectionErrorMessage =
-                  AppLocalizations.of(context).network_connection_error;
-              showSnackBar(context: context, msg: connectionErrorMessage);
-            }
-          },
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            supportedLocales: L10n.all,
-            theme: AppTheme.theme,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            routeInformationParser: _router.routeInformationParser,
-            routerDelegate: _router.routerDelegate,
-            routeInformationProvider: _router.routeInformationProvider,
-          )),
+      child: MaterialApp.router(
+          routerConfig: _router,
+          debugShowCheckedModeBanner: false,
+          supportedLocales: L10n.all,
+          theme: AppTheme.theme,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          builder: (context, widget) =>
+              BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
+                listenWhen: (previous, current) =>
+                    current is NetworkConnectionFailureState,
+                listener: (context, state) {
+                  if (state is NetworkConnectionFailureState) {
+                    String connectionErrorMessage =
+                        AppLocalizations.of(context).network_connection_error;
+                    showSnackBar(context: context, msg: connectionErrorMessage);
+                  }
+                },
+                child: widget,
+              )),
     );
   }
 }
