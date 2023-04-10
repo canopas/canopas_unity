@@ -5,7 +5,7 @@ stages:
   - deploy
 
 .android_docker_image:
-  image: cirrusci/flutter:3.3.10
+  image: cirrusci/flutter:latest
 
 test:
   extends: .android_docker_image
