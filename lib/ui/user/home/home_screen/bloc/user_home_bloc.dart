@@ -5,7 +5,6 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart'
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
-import '../../../../../data/pref/user_preference.dart';
 import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/auth_service.dart';
 import '../../../../../data/services/leave_service.dart';
@@ -13,13 +12,12 @@ import '../../../../../data/services/leave_service.dart';
 @Injectable()
 class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
   final UserManager _userManager;
-  final UserPreference _userPreference;
   final AuthService _authService;
   final LeaveService _leaveService;
   StreamSubscription? _streamSubscription;
   StreamSubscription? _leaveRequestStreamSubscription;
 
-  UserHomeBloc(this._userPreference, this._authService, this._userManager,
+  UserHomeBloc(this._authService, this._userManager,
       this._leaveService)
       : super(UserHomeInitialState()) {
     on<UserDisabled>(_removeUser);
@@ -40,8 +38,7 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
     if (event.employeeId == _userManager.employeeId) {
       try {
         await _authService.signOutWithGoogle();
-        await _userPreference.removeCurrentUser();
-        _userManager.hasLoggedIn();
+        await _userManager.removeAll();
       } on Exception {
         throw Exception(somethingWentWrongError);
       }

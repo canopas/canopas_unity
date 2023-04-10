@@ -1,5 +1,5 @@
 class PrefKeys {
-  static const String userPrefKeyUser = "user";
-  static const String firebaseAuthenticationId = 'uid';
-  static const String userSpaceStatus = 'space-status';
+  static const String spaceUser = "space_user";
+  static const String user = "user";
+  static const String space = "space";
 }

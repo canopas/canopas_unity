@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/pref/user_preference.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/admin/setting/bloc/admin_settings_bloc.dart';
@@ -12,9 +11,8 @@ import 'package:projectunity/ui/admin/setting/bloc/admin_settings_state.dart';
 
 import 'admin_setting_test.mocks.dart';
 
-@GenerateMocks([AuthService, UserPreference, UserManager])
+@GenerateMocks([AuthService, UserManager])
 void main() {
-  late UserPreference userPreference;
   late AuthService authService;
   late AdminSettingsBloc adminSettingsBloc;
   late UserManager userManager;
@@ -29,12 +27,11 @@ void main() {
 
   group("User settings test", () {
     setUp(() {
-      userPreference = MockUserPreference();
       authService = MockAuthService();
       userManager = MockUserManager();
       when(userManager.employee).thenReturn(employee);
       adminSettingsBloc =
-          AdminSettingsBloc(userManager, authService, userPreference);
+          AdminSettingsBloc(userManager, authService);
     });
 
     test('get user data on screen is created test', () {
@@ -53,8 +50,8 @@ void main() {
             AdminSettingsState(
                 currentEmployee: employee, status: AdminSettingsStatus.success),
           ]));
-      await untilCalled(userManager.hasLoggedIn());
-      verify(userManager.hasLoggedIn()).called(1);
+      await untilCalled(userManager.removeAll());
+      verify(userManager.removeAll()).called(1);
     });
 
     test("log out failure test", () {

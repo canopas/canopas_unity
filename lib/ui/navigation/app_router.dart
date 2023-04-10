@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/core/utils/const/role.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/employee_details_leaves_screen.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
@@ -48,10 +47,9 @@ class AppRouter {
     return GoRouter(
         refreshListenable: userManager,
         debugLogDiagnostics: true,
-        initialLocation: Routes.login,
-        // initialLocation: userManager.isAdmin || userManager.isHR
-        //     ? Routes.adminHome
-        //     : Routes.userHome,
+        initialLocation: userManager.isAdmin || userManager.isHR
+            ? Routes.adminHome
+            : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
         routes: [
           GoRoute(
@@ -62,12 +60,20 @@ class AppRouter {
                 const MaterialPage(child: SignInPage()),
           ),
           GoRoute(
-            parentNavigatorKey: _rootNavigatorKey,
-            name: Routes.createSpace,
-            path: Routes.createSpace,
-            pageBuilder: (context, state) =>
-                const MaterialPage(child: CreateWorkSpacePage()),
-          ),
+              parentNavigatorKey: _rootNavigatorKey,
+              name: Routes.joinSpace,
+              path: Routes.joinSpace,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: JoinSpacePage()),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: Routes.createSpace,
+                  path: Routes.createSpace,
+                  pageBuilder: (context, state) =>
+                      const MaterialPage(child: CreateWorkSpacePage()),
+                ),
+              ]),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) =>
@@ -223,18 +229,8 @@ class AppRouter {
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.editWorkspaceDetails,
                           path: Routes.editWorkspaceDetails,
-                          routes: [
-                            GoRoute(
-                                parentNavigatorKey: _adminShellNavigatorKey,
-                                name: Routes.spaces,
-                                path: Routes.spaces,
-                                pageBuilder: (context, state) =>
-                                const NoTransitionPage(
-                                    child: WorkSpaceScreen())),
-                          ],
                           pageBuilder: (context, state) =>
-                               const NoTransitionPage(
-                                  child: EditSpacePage())),
+                              const NoTransitionPage(child: EditSpacePage())),
                     ]),
               ]),
           ShellRoute(
@@ -344,24 +340,17 @@ class AppRouter {
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
-          final creatingSpace = state.subloc == Routes.createSpace;
           if (!userManager.loggedIn) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.loggedIn && loggingIn) {
-            return Routes.createSpace;
+          if (userManager.loggedIn && !userManager.spaceSelected && !state.subloc.contains(Routes.joinSpace)) {
+            return Routes.joinSpace;
           }
           if (userManager.loggedIn &&
-              creatingSpace &&
-              (userManager.spacePath == createSpacePath)) {
-            return Routes.adminHome;
+              userManager.spaceSelected && _userManager.spaceUserExist &&
+              state.subloc.contains(Routes.joinSpace)) {
+            return userManager.isAdmin ? Routes.adminHome : Routes.userHome;
           }
-          // if (userManager.loggedIn &&
-          //     loggingIn &&
-          //     !userManager.isAdmin &&
-          //     !userManager.isHR) {
-          //   return Routes.userHome;
-          // }
           return null;
         });
   }
@@ -399,11 +388,11 @@ abstract class Routes {
   static const applyHRLeave = 'apply-hr-leave';
   static const userCalender = 'calender';
   static const login = '/login';
-  static const createSpace = '/create-space';
+  static const createSpace = 'create-space';
   static const updateLeaveCount = 'update-paid-leave';
   static const editWorkspaceDetails = 'edit-workspace-details';
   static const userLeaveCalender = 'user-calender';
-  static const spaces = 'spaces';
+  static const joinSpace = '/spaces';
   static const adminEmployeeDetailsLeaves =
       'admin-employee-detail-leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails =

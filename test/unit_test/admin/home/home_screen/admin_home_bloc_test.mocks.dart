@@ -45,6 +45,39 @@ class MockEmployeeService extends _i1.Mock implements _i2.EmployeeService {
         returnValueForMissingStub: null,
       );
   @override
+  _i3.Future<void> addEmployeeBySpaceId({
+    required _i4.Employee? employee,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addEmployeeBySpaceId,
+          [],
+          {
+            #employee: employee,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+  @override
+  _i3.Future<_i4.Employee?> getEmployeeBySpaceId({
+    required String? userId,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getEmployeeBySpaceId,
+          [],
+          {
+            #userId: userId,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i3.Future<_i4.Employee?>.value(),
+      ) as _i3.Future<_i4.Employee?>);
+  @override
   _i3.Future<List<_i4.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
           #getEmployees,

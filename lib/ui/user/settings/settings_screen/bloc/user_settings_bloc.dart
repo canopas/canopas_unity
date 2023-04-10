@@ -5,7 +5,6 @@ import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
-import '../../../../../data/pref/user_preference.dart';
 import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/auth_service.dart';
 
@@ -14,9 +13,8 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
   late StreamSubscription _subscription;
   final AuthService _authService;
   final UserManager _userManager;
-  final UserPreference _userPreference;
 
-  UserSettingsBloc(this._userManager, this._authService, this._userPreference)
+  UserSettingsBloc(this._userManager, this._authService)
       : super(UserSettingsState(currentEmployee: _userManager.employee)) {
     on<GetCurrentEmployeeUserSettingsEvent>(_getCurrentEmployee);
     on<UserSettingsLogOutEvent>(_logOut);
@@ -37,8 +35,7 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     emit(state.copyWith(status: UserSettingsStatus.loading));
     bool isLogOut = await _authService.signOutWithGoogle();
     if (isLogOut) {
-      await _userPreference.removeCurrentUser();
-      _userManager.hasLoggedIn();
+      await _userManager.removeAll();
       emit(state.copyWith(status: UserSettingsStatus.success));
     } else {
       emit(state.copyWith(

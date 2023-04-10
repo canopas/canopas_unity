@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/pref/user_preference.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
@@ -76,7 +77,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
             showSnackBar(context: context, error: state.error);
           }
           if (state.deleteWorkSpaceStatus == Status.success) {
-            context.goNamed(Routes.spaces);
+            context.goNamed(Routes.joinSpace);
           }
         },
         child: SingleChildScrollView(
@@ -133,28 +134,33 @@ class DeleteSpaceButton extends StatelessWidget {
         minHeight: 100,
       ),
       child: BlocBuilder<EditSpaceBloc, EditSpaceState>(
-        buildWhen: (previous, current) => previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
-        builder: (context, state) => state.deleteWorkSpaceStatus ==
-                Status.loading
-            ? const AppCircularProgressIndicator()
-            : TextButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: AppColors.redColor,
-                ),
-                child: Text(AppLocalizations.of(context).delete_space_text),
-                onPressed: () => showAlertDialog(
-                  title: AppLocalizations.of(context).delete_space_text,
-                  context: context,
-                  actionButtonTitle:
-                      AppLocalizations.of(context).delete_space_text,
-                  description: AppLocalizations.of(context)
-                      .delete_dialog_description_text,
-                  onActionButtonPressed: () =>
-                      context.read<EditSpaceBloc>().add(DeleteSpaceEvent(
-                          ///TODO Provide workspace id
-                          workspaceId: "")),
-                ),
-              ),
+        buildWhen: (previous, current) =>
+            previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
+        builder: (context, state) =>
+            state.deleteWorkSpaceStatus == Status.loading
+                ? const AppCircularProgressIndicator()
+                : TextButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: AppColors.redColor,
+                    ),
+                    child: Text(AppLocalizations.of(context).delete_space_text),
+                    onPressed: () => showAlertDialog(
+                      title: AppLocalizations.of(context).delete_space_text,
+                      context: context,
+                      actionButtonTitle:
+                          AppLocalizations.of(context).delete_space_text,
+                      description: AppLocalizations.of(context)
+                          .delete_dialog_description_text,
+                      onActionButtonPressed: () {
+                        ///TODO remove this and pass current space fetched for fireStore.
+                        final currentSpace =
+                            getIt<UserPreference>().getCurrentSpace()!;
+                        context.read<EditSpaceBloc>().add(DeleteSpaceEvent(
+                            workspaceId: currentSpace.id,
+                            ownersId: currentSpace.ownerIds));
+                      },
+                    ),
+                  ),
       ),
     );
   }

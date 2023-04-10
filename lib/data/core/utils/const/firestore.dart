@@ -1,5 +1,15 @@
-class FirestoreConst {
-  static const String userCollection = 'users';
+class FireStoreConst {
+  //database collections
+  static const String accountsCollection = 'accounts';
+  static const String spacesCollection = 'spaces';
+  static const String membersCollection = 'members';
+
+
+
+  static const String spaces = 'spaces';
+  static const String ownerIds = 'owner_ids';
+  static const String paidTimeOff = 'paid_time_off';
+
   static const String roleType = 'role_type';
   static const String email = 'email';
   static const String id = 'id';
@@ -14,7 +24,6 @@ class FirestoreConst {
   static const String dateOfJoining = 'date_of_joining';
   static const String level = 'level';
   static const String bloodGroup = 'blood_group';
-  static const String paidLeavesCollection = 'paidLeaves';
   static const String totalLeavesDoc = 'totalLeaves';
   static const String leaves = 'leaves';
   static const String leaveStatus = 'leave_status';

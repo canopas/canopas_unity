@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../data/core/exception/error_const.dart';
 import '../../../../data/event_bus/events.dart';
-import '../../../../data/pref/user_preference.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/auth_service.dart';
 import 'admin_settings_event.dart';
@@ -14,9 +13,8 @@ class AdminSettingsBloc extends Bloc<AdminSettingsEvent, AdminSettingsState> {
   late StreamSubscription _subscription;
   final AuthService _authService;
   final UserManager _userManager;
-  final UserPreference _userPreference;
 
-  AdminSettingsBloc(this._userManager, this._authService, this._userPreference)
+  AdminSettingsBloc(this._userManager, this._authService)
       : super(AdminSettingsState(currentEmployee: _userManager.employee)) {
     on<GetCurrentEmployeeAdminSettingsEvent>(_getCurrentEmployee);
     on<AdminSettingsLogOutEvent>(_logOut);
@@ -37,8 +35,7 @@ class AdminSettingsBloc extends Bloc<AdminSettingsEvent, AdminSettingsState> {
     emit(state.copyWith(status: AdminSettingsStatus.loading));
     bool isLogOut = await _authService.signOutWithGoogle();
     if (isLogOut) {
-      await _userPreference.removeCurrentUser();
-      _userManager.hasLoggedIn();
+     await _userManager.removeAll();
       emit(state.copyWith(status: AdminSettingsStatus.success));
     } else {
       emit(state.copyWith(

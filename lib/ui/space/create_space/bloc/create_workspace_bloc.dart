@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/const/role.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/services/employee_service.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
@@ -10,9 +12,10 @@ import 'create_workspace_state.dart';
 @Injectable()
 class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
   final SpaceService _spaceService;
+  final EmployeeService _employeeService;
   final UserManager _userManager;
 
-  CreateSpaceBLoc(this._spaceService, this._userManager)
+  CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService)
       : super(const CreateSpaceState()) {
     on<PageChangeEvent>(_onPageChange);
     on<CompanyNameChangeEvent>(_onNameChanged);
@@ -79,13 +82,27 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
       emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.loading));
       try {
         int timeOff = int.parse(state.paidTimeOff);
-        await _spaceService.createSpace(
+
+        final newSpace = await _spaceService.createSpace(
+            ownerEmail: _userManager.userEmail!,
             name: state.name,
             domain: state.domain,
             timeOff: timeOff,
-            ownerId: _userManager.firebaseAuthUId!);
+            ownerId: _userManager.userUID!);
+
+        final employee = Employee(
+            id: _userManager.userUID!,
+            roleType: kRoleTypeAdmin,
+            name: "unknown",
+            employeeId: '1',
+            email: _userManager.userEmail!,
+            designation: 'unknown');
+
+        await _employeeService.addEmployeeBySpaceId(
+            spaceId: newSpace.id, employee: employee);
+
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
-        _userManager.changeSpacePath(createSpacePath);
+        await _userManager.setSpace(space: newSpace, admin: employee);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,

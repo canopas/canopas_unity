@@ -128,8 +128,8 @@ void main() {
           'Emits loading state and error state if exception is thrown from any cause while updating response',
           () {
         when(leaveService.updateLeaveStatus("leaveId", {
-          FirestoreConst.leaveStatus: approveLeaveStatus,
-          FirestoreConst.rejectionReason: '',
+          FireStoreConst.leaveStatus: approveLeaveStatus,
+          FireStoreConst.rejectionReason: '',
         })).thenThrow(Exception(firestoreFetchDataError));
         AdminLeaveApplicationDetailsState errorState =
             const AdminLeaveApplicationDetailsState(
