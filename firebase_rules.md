@@ -27,9 +27,11 @@ match /databases/{database}/documents {
     
   function reviewFieldTypeForMember(docData){
   return    docData.uid is string &&
-            docData.role is int &&
             docData.name is string &&
             docData.email is string &&
+            docData.get('role','')is int &&
+            docData.get('employee_id','')is int &&
+            docData.get('designation','')is int &&
             docData.employee_id is string &&
             docData.designation is string &&
             docData.get('image_url','')is string &&
@@ -81,33 +83,33 @@ match /databases/{database}/documents {
     return request.resource.data.keys().hasAll(fields);
   }
     
-  function matchUid(){
+  function authenticated(){
     return request.auth != null ;
   }
     
   function isOwner(){
-    return  request.auth != null  && request.auth.uid in resource.data.owner_ids;
+    return  authenticated()  && request.auth.uid in resource.data.owner_ids;
   }
     
   function isOwnerOfSpace(spaceID){
       let ownerIds= get(/databases/$(database)/documents/spaces/$(spaceID)).data.owner_ids;
-    return request.auth != null && request.auth.uid in ownerIds;
+    return authenticated() && request.auth.uid in ownerIds;
   }
 
   function isMember(workspaceId) {
-    return request.auth != null && exists(/databases/$(database)/documents/spaces/$(workspaceId)/members/$(request.auth.uid));
+    return authenticated() && exists(/databases/$(database)/documents/spaces/$(workspaceId)/members/$(request.auth.uid));
   }
     
   function hasRoleOfAdmin(workspaceId){
-    return request.auth != null && get(/databases/$(database)/documents/spaces/$(workspaceId)/members/$(request.auth.uid)).data.role == 1;
+    return authenticated() && get(/databases/$(database)/documents/spaces/$(workspaceId)/members/$(request.auth.uid)).data.role == 1;
   }
     
   function hasRoleOfHR(workspaceId){
-    return request.auth != null && get(/databases/$(database)/documents/spaces/$(workspaceId)/members/$(request.auth.uid)).data.role == 2;
+    return authenticated() && get(/databases/$(database)/documents/spaces/$(workspaceId)/members/$(request.auth.uid)).data.role == 2;
   }
     
   function isUser(memberId){
-    return request.auth != null && request.auth.uid == memberId;
+    return authenticated() && request.auth.uid == memberId;
   }
     
   function createMemberByAdmin(spaceId){
@@ -126,8 +128,8 @@ match /databases/{database}/documents {
     return hasRoleOfHR(spaceId)&& verifyFieldsForUpdateEmployee() && reviewFieldTypeForMember(request.resource.data);
   }
      
-  function updateEmployeeByUser(){
-    return matchUid() && verifyFieldsForUpdateEmployee() && reviewFieldTypeForMember(request.resource.data);
+  function updateEmployeeByUser(memberId){
+    return isUser(memberId) && verifyFieldsForUpdateEmployee() && reviewFieldTypeForMember(request.resource.data);
   }
      
   function createLeaveByMember(memberId){
@@ -147,8 +149,8 @@ match /databases/{database}/documents {
 
     
  match /spaces/{spaceId} {
-        allow read: if isMember(spaceId)||isOwner();
-        allow create: if  request.auth != null  && onlyCreatesFields(['name','created_at','paid_time_off','owner_ids']) && reviewFieldTypeForSpace(request.resource.data);
+        allow read:   if isOwner() || isMember(spaceId);
+        allow create: if  authenticated()  && onlyCreatesFields(['name','created_at','paid_time_off','owner_ids']) && reviewFieldTypeForSpace(request.resource.data);
         allow update: if  isOwner() && onlyChangesFields(['name','domain','logo','paid_time_off','id']) && reviewFieldTypeForSpace(request.resource.data) ; 
         allow delete: if  isOwner();
       
@@ -156,7 +158,7 @@ match /databases/{database}/documents {
   match /members/{memberId} {
          allow read:   if  isMember(spaceId);
          allow create: if  createMemberByAdmin(spaceId)||createMemberByHR(spaceId)||isOwnerOfSpace(spaceId);
-         allow update: if  updateEmployeeByAdmin(spaceId) || updateEmployeeByHR(spaceId)|| updateEmployeeByUser();
+         allow update: if  updateEmployeeByAdmin(spaceId) || updateEmployeeByHR(spaceId)|| updateEmployeeByUser(memberId);
          allow delete: if  hasRoleOfAdmin(spaceId) || hasRoleOfHR(spaceId);
          
          
@@ -170,9 +172,9 @@ match /databases/{database}/documents {
       }
     
    match /accounts/{docId} {
-      	allow read:   if  matchUid();
-        allow update: if  matchUid() && onlyChangesFields(["spaces"]); 
-        allow create: if  request.auth != null && onlyCreatesFields(["email", "spaces","uid"]) ;
+      	allow read:   if  authenticated();
+        allow update: if  authenticated() && onlyChangesFields(["spaces"]); 
+        allow create: if  authenticated() && onlyCreatesFields(["email", "spaces","uid"]) ;
         allow delete: if  false;
         }
      }
