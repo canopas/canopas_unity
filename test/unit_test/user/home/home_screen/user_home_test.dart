@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/pref/user_preference.dart';
+
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -15,12 +15,11 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart'
 
 import 'user_home_test.mocks.dart';
 
-@GenerateMocks([UserManager, AuthService, UserPreference, LeaveService])
+@GenerateMocks([UserManager, AuthService,  LeaveService])
 void main() {
   late UserHomeBloc bLoc;
   late UserManager userManager;
   late AuthService authService;
-  late UserPreference userPreference;
   late LeaveService leaveService;
 
   const employee = Employee(
@@ -45,12 +44,10 @@ void main() {
   setUp(() {
     userManager = MockUserManager();
     authService = MockAuthService();
-    userPreference = MockUserPreference();
     leaveService = MockLeaveService();
-    bLoc = UserHomeBloc(userPreference, authService, userManager, leaveService);
+    bLoc = UserHomeBloc(authService, userManager, leaveService);
 
     when(authService.signOutWithGoogle()).thenAnswer((_) async => true);
-    when(userPreference.removeCurrentUser()).thenAnswer((_) async => true);
     when(userManager.email).thenReturn(employee.email);
 
     when(userManager.employeeId).thenReturn(employee.id);
@@ -97,12 +94,9 @@ void main() {
       when(userManager.employeeId).thenReturn(employee.id);
       bLoc.add(UserDisabled(employee.id));
       await untilCalled(authService.signOutWithGoogle());
-      await untilCalled(userPreference.removeCurrentUser());
-      await untilCalled(userManager.hasLoggedIn());
+      await untilCalled(userManager.removeAll());
       verify(authService.signOutWithGoogle()).called(1);
-
-      verify(userPreference.removeCurrentUser()).called(1);
-      verify(userManager.hasLoggedIn()).called(1);
+      verify(userManager.removeAll()).called(1);
     });
   });
 }

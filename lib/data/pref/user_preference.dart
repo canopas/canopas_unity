@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/configs/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../core/utils/const/pref_key.dart';
 import '../model/employee/employee.dart';
+import '../model/space/space.dart';
+import '../model/user/user.dart';
 
 @Singleton()
 class UserPreference {
@@ -14,42 +12,49 @@ class UserPreference {
 
   UserPreference(this._preferences);
 
-  void setCurrentUser(Employee user) {
-    _preferences.setString(PrefKeys.userPrefKeyUser, jsonEncode(user.toJson()));
+  Future<void> setUser(User user) async {
+    await _preferences.setString(
+        PrefKeys.user, jsonEncode(user.toJson()));
   }
 
-  void setAuthenticationStatus(User? user) {
-    _preferences.setString(PrefKeys.firebaseAuthenticationId, user!.uid);
+  User? getUser() {
+    final data = _preferences.getString(PrefKeys.user);
+    return data == null ? null : User.fromJson(jsonDecode(data));
   }
 
-  String? getCurrentUid() {
-    final data = _preferences.getString(PrefKeys.firebaseAuthenticationId);
-    return data;
+  Future<void> removeUser() async {
+    await _preferences.remove(PrefKeys.user);
   }
 
-  void setUserSpaceStatus(int status) {
-    _preferences.setInt(PrefKeys.userSpaceStatus, status);
+  Future<void> setSpace(Space space) async {
+    await _preferences.setString(
+        PrefKeys.space, jsonEncode(space.toFirestore()));
   }
 
-  int? getUserSpaceStatus() {
-    final data = _preferences.getInt(PrefKeys.userSpaceStatus);
-    return data;
+  Space? getCurrentSpace() {
+    final data = _preferences.getString(PrefKeys.space);
+    return data == null ? null : Space.fromJson(jsonDecode(data));
+  }
+
+  Future<void> removeCurrentSpace() async {
+    await _preferences.remove(PrefKeys.spaceUser);
+  }
+
+  Future<void> setCurrentUser(Employee user) async {
+    await _preferences.setString(
+        PrefKeys.spaceUser, jsonEncode(user.toJson()));
   }
 
   Employee? getCurrentUser() {
-    final data = _preferences.getString(PrefKeys.userPrefKeyUser);
+    final data = _preferences.getString(PrefKeys.spaceUser);
     return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
   Future<void> removeCurrentUser() async {
-    await _preferences.remove(PrefKeys.userPrefKeyUser);
+    await _preferences.remove(PrefKeys.spaceUser);
   }
 
-  Future<void> setToken(String token) async {
-    await _preferences.setString(token, token);
-  }
-
-  String? getToken() {
-    return _preferences.getString(token);
+  Future<void> clearAll() async {
+    await _preferences.clear();
   }
 }

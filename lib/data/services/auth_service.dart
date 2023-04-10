@@ -1,79 +1,68 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
-
 import '../core/exception/custom_exception.dart';
 import '../core/exception/error_const.dart';
 import '../core/utils/const/firestore.dart';
-import '../model/employee/employee.dart';
-import '../pref/user_preference.dart';
+import '../model/user/user.dart';
 import '../stateManager/auth/desktop/desktop_auth_manager.dart';
 
 @Singleton()
 class AuthService {
-  final _db =
-      FirebaseFirestore.instance.collection(FirestoreConst.userCollection);
   final DesktopAuthManager _desktopAuthManager;
-  final UserPreference _userPreference;
 
-  AuthService(this._desktopAuthManager, this._userPreference);
+  AuthService(this._desktopAuthManager);
 
-  void updateUserData(Employee user, Session? session) async {
-    DocumentReference ref = _db.doc(user.id);
+  final _usersDb = FirebaseFirestore.instance
+      .collection(FireStoreConst.accountsCollection)
+      .withConverter(
+          fromFirestore: User.fromFireStore,
+          toFirestore: (User user, _) => user.toJson());
 
-    if (session != null) {
-      ref
-          .collection(FirestoreConst.session)
-          .doc(FirestoreConst.session)
-          .set(session.sessionToJson());
-
-      ref.update(user.toJson());
-    }
-  }
-
-  Future<Employee?> getUserData(String email) async {
-    final employeeDbCollection = _db
-        .where(FirestoreConst.email, isEqualTo: email)
-        .limit(1)
-        .withConverter(
-            fromFirestore: Employee.fromFirestore,
-            toFirestore: (Employee emp, _) => emp.toJson());
-    Employee? employee;
-
-    final data = await employeeDbCollection.get();
-    if (data.docs.isEmpty) {
-      employee = null;
+  Future<User> getUser(firebase_auth.User authData) async {
+    final userData = await _usersDb
+        .where(FireStoreConst.uid, isEqualTo: authData.uid).limit(1).get();
+    final User user;
+    if (userData.docs.isEmpty) {
+      user = User(uid: authData.uid, email: authData.email!);
+      await _usersDb.doc(authData.uid).set(user);
     } else {
-      employee = data.docs[0].data();
+      user = userData.docs.first.data();
     }
-    return employee;
+    return user;
   }
 
-  Future<User?> signInWithGoogle() async {
-    User? user;
+  Future<firebase_auth.User?> signInWithGoogle() async {
+    firebase_auth.User? user;
     if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
       Credentials credentials = await _desktopAuthManager.login();
-      _userPreference.setToken(credentials.accessToken);
-      AuthCredential authCredential = GoogleAuthProvider.credential(
-          idToken: credentials.idToken, accessToken: credentials.accessToken);
+
+      firebase_auth.AuthCredential authCredential =
+          firebase_auth.GoogleAuthProvider.credential(
+              idToken: credentials.idToken,
+              accessToken: credentials.accessToken);
+
       user = await _signInWithCredentials(authCredential);
+
+      await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
     } else {
       final GoogleSignIn googleSignIn = GoogleSignIn();
-
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
+
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
 
-        final AuthCredential credential = GoogleAuthProvider.credential(
+        final firebase_auth.AuthCredential credential =
+            firebase_auth.GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
+
         user = await _signInWithCredentials(credential);
       }
       await googleSignIn.signOut();
@@ -81,31 +70,23 @@ class AuthService {
     return user;
   }
 
-  Future<User?> _signInWithCredentials(AuthCredential authCredential) async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
+  Future<firebase_auth.User?> _signInWithCredentials(
+      firebase_auth.AuthCredential authCredential) async {
+    final firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+    firebase_auth.User? user;
     try {
-      final UserCredential userCredential =
+      final firebase_auth.UserCredential userCredential =
           await auth.signInWithCredential(authCredential);
       user = userCredential.user;
-    } on FirebaseAuthException {
+    } on firebase_auth.FirebaseAuthException {
       throw CustomException(firesbaseAuthError);
     }
     return user;
   }
 
   Future<bool> signOutWithGoogle() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-
     try {
-      if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
-        String token = _userPreference.getToken()!;
-        await _desktopAuthManager.signOutFromGoogle(token);
-      } else {
-        GoogleSignIn googleSignIn = GoogleSignIn();
-        await googleSignIn.signOut();
-      }
-      await auth.signOut();
+      await firebase_auth.FirebaseAuth.instance.signOut();
       return true;
     } on Exception {
       return false;
