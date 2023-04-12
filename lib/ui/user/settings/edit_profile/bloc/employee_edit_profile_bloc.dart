@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -72,14 +73,13 @@ class EmployeeEditProfileBloc
     } else {
       try {
         Employee employee = Employee(
-          id: _userManager.employeeId,
-          roleType: _userManager.employee.roleType,
+          uid: _userManager.employeeId,
+          role: _userManager.employee.role,
           name: event.name,
           employeeId: _userManager.employee.employeeId,
           email: _userManager.employee.email,
           designation: event.designation,
           level: event.level.isEmpty ? null : event.level,
-          bloodGroup: event.bloodGroup.isEmpty ? null : event.bloodGroup,
           address: event.address.isEmpty ? null : event.address,
           imageUrl: _userManager.employee.imageUrl,
           gender: state.gender,

@@ -24,26 +24,26 @@ void main() {
     upcomingLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
-        leaveType: 5,
+        type: 5,
         startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
         endDate: DateTime.now().add(const Duration(days: 3)).timeStampToInt,
-        totalLeaves: 1,
+        total: 1,
         reason: 'Suffering from viral fever',
-        leaveStatus: 1,
+        status: 1,
         appliedOn: DateTime.now().timeStampToInt,
         perDayDuration: const [1]);
 
     pastLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
-        leaveType: 5,
+        type: 5,
         startDate:
             DateTime.now().subtract(const Duration(days: 3)).timeStampToInt,
         endDate:
             DateTime.now().subtract(const Duration(days: 2)).timeStampToInt,
-        totalLeaves: 1,
+        total: 1,
         reason: 'Suffering from viral fever',
-        leaveStatus: 1,
+        status: 1,
         appliedOn:
             DateTime.now().subtract(const Duration(days: 4)).timeStampToInt,
         perDayDuration: const [1]);

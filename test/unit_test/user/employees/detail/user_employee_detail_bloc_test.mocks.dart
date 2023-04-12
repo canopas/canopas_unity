@@ -49,19 +49,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
   }
 
   @override
-  _i4.Stream<List<_i5.Employee>> get employees => (super.noSuchMethod(
-        Invocation.getter(#employees),
-        returnValue: _i4.Stream<List<_i5.Employee>>.empty(),
-      ) as _i4.Stream<List<_i5.Employee>>);
-  @override
-  void fetchEmployees() => super.noSuchMethod(
-        Invocation.method(
-          #fetchEmployees,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i5.Employee? employee,
     required String? spaceId,
@@ -163,14 +150,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [LeaveService].
@@ -182,18 +161,13 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
   }
 
   @override
-  _i4.Stream<List<_i7.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i4.Stream<List<_i7.Leave>>.empty(),
-      ) as _i4.Stream<List<_i7.Leave>>);
-  @override
-  void fetchLeaves() => super.noSuchMethod(
+  _i4.Future<List<_i7.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
-          #fetchLeaves,
+          #getLeaveRequestOfUsers,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i4.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
+      ) as _i4.Future<List<_i7.Leave>>);
   @override
   _i4.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
@@ -349,14 +323,6 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
         ),
         returnValue: _i4.Future<_i7.Leave?>.value(),
       ) as _i4.Future<_i7.Leave?>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [UserEmployeeDetailBloc].

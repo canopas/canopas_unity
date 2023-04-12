@@ -31,16 +31,13 @@ void main() {
     setUp(() {
       leaveService = MockLeaveService();
       userManager = MockUserManager();
-      leaveRequestBloc =
-          ApplyLeaveBloc(userManager, leaveService);
+      leaveRequestBloc = ApplyLeaveBloc(userManager, leaveService);
 
       when(userManager.employeeId).thenReturn("id");
       when(leaveService.checkLeaveAlreadyApplied(
           userId: 'id',
           dateDuration: {DateTime(2000): 1})).thenAnswer((_) async => true);
     });
-
-
 
     test("leave Type change test", () {
       leaveRequestBloc.add(ApplyLeaveChangeLeaveTypeEvent(leaveType: 1));
@@ -219,6 +216,7 @@ void main() {
       when(leaveService.checkLeaveAlreadyApplied(
               userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
           .thenAnswer((_) async => true);
+      when(userManager.userUID).thenReturn('id');
       Map<DateTime, int> updatedSelectedLeaves = {
         currentDate: 3
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
@@ -235,12 +233,12 @@ void main() {
       Leave leave = Leave(
         leaveId: "1234",
         uid: "id",
-        leaveType: 0,
+        type: 0,
         startDate: firstDate.timeStampToInt,
         endDate: lastDate.timeStampToInt,
-        totalLeaves: totalDays,
+        total: totalDays,
         reason: "reason",
-        leaveStatus: pendingLeaveStatus,
+        status: pendingLeaveStatus,
         appliedOn: currentDate.timeStampToInt,
         perDayDuration: selectedDates.values.toList(),
       );
@@ -286,6 +284,8 @@ void main() {
       when(leaveService.checkLeaveAlreadyApplied(
               userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
           .thenAnswer((_) async => false);
+      when(userManager.userUID).thenReturn('id');
+
       Map<DateTime, int> updatedSelectedLeaves = {
         currentDate: 3
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
@@ -302,12 +302,12 @@ void main() {
       Leave leave = Leave(
         leaveId: "1234",
         uid: "id",
-        leaveType: 0,
+        type: 0,
         startDate: firstDate.timeStampToInt,
         endDate: lastDate.timeStampToInt,
-        totalLeaves: totalDays,
+        total: totalDays,
         reason: "reason",
-        leaveStatus: pendingLeaveStatus,
+        status: pendingLeaveStatus,
         appliedOn: currentDate.timeStampToInt,
         perDayDuration: selectedDates.values.toList(),
       );

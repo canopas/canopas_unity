@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
+
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/user_profile_image.dart';
@@ -35,7 +36,7 @@ class ProfileCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            employee.designation,
+            employee.designation ?? "",
             style: AppFontStyle.labelGrey,
             textAlign: TextAlign.center,
           ),
@@ -46,7 +47,7 @@ class ProfileCard extends StatelessWidget {
               TextColumn(
                 title: localization.employee_role_tag,
                 subtitle: localization
-                    .user_detail_role_type(employee.roleType.toString()),
+                    .user_detail_role_type(employee.role.toString()),
               ),
               Container(
                 height: 60,

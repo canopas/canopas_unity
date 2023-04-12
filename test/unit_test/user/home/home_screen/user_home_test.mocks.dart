@@ -272,18 +272,13 @@ class MockLeaveService extends _i1.Mock implements _i10.LeaveService {
   }
 
   @override
-  _i5.Stream<List<_i11.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i5.Stream<List<_i11.Leave>>.empty(),
-      ) as _i5.Stream<List<_i11.Leave>>);
-  @override
-  void fetchLeaves() => super.noSuchMethod(
+  _i5.Future<List<_i11.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
-          #fetchLeaves,
+          #getLeaveRequestOfUsers,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<List<_i11.Leave>>.value(<_i11.Leave>[]),
+      ) as _i5.Future<List<_i11.Leave>>);
   @override
   _i5.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
@@ -439,12 +434,4 @@ class MockLeaveService extends _i1.Mock implements _i10.LeaveService {
         ),
         returnValue: _i5.Future<_i11.Leave?>.value(),
       ) as _i5.Future<_i11.Leave?>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }

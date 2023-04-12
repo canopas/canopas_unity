@@ -4,6 +4,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:uuid/uuid.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/const/leave_time_constants.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -105,7 +106,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
     } else {
       try {
         final leaveAlreadyExist = await _leaveService.checkLeaveAlreadyApplied(
-            userId: _userManager.employeeId,
+            userId: _userManager.userUID!,
             dateDuration: _getLeaveData().getDateAndDuration());
         if (leaveAlreadyExist) {
           emit(state.copyWith(
@@ -134,12 +135,12 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
     return Leave(
       leaveId: const Uuid().v4(),
       uid: _userManager.employeeId,
-      leaveType: state.leaveType,
+      type: state.leaveType,
       startDate: firstDate.timeStampToInt,
       endDate: lastDate.timeStampToInt,
-      totalLeaves: state.totalLeaveDays,
+      total: state.totalLeaveDays,
       reason: state.reason,
-      leaveStatus: pendingLeaveStatus,
+      status: pendingLeaveStatus,
       appliedOn: DateTime.now().timeStampToInt,
       perDayDuration: selectedDates.values.toList(),
     );

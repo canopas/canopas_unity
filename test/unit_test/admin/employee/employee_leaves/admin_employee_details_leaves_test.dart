@@ -7,6 +7,7 @@ import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_events.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_state.dart';
+
 import 'admin_employee_details_leaves_test.mocks.dart';
 
 @GenerateMocks([LeaveService])
@@ -16,12 +17,12 @@ void main() {
   Leave leave = const Leave(
       leaveId: 'leave-id',
       uid: 'id',
-      leaveType: 2,
+      type: 2,
       startDate: 500,
       endDate: 600,
-      totalLeaves: 2,
+      total: 2,
       reason: 'reason',
-      leaveStatus: 2,
+      status: 2,
       appliedOn: 400,
       perDayDuration: [0, 1]);
 

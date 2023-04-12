@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
+
 import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/event_bus/events.dart';
 import '../../../../../../data/model/leave/leave.dart';
@@ -35,7 +37,7 @@ class UserLeaveBloc extends Bloc<FetchUserLeaveEvent, UserLeaveState> {
           .toList();
       List<Leave> upcomingLeaves = allLeaves
           .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
-          .where((leave) => leave.leaveStatus == approveLeaveStatus)
+          .where((leave) => leave.status == approveLeaveStatus)
           .toList();
       emit(UserLeaveSuccessState(
           pastLeaves: pastLeaves, upcomingLeaves: upcomingLeaves));

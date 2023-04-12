@@ -5,6 +5,7 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/employee/edit_employee/widgets/admin_edit_employee_form.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/model/employee/employee.dart';
 import 'bloc/admin_edit_employee_bloc.dart';
@@ -21,9 +22,8 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminEditEmployeeDetailsBloc>()
-        ..add(AdminEditEmployeeDetailsInitialEvent(
-            roleType: employee.roleType,
-            dateOfJoining: employee.dateOfJoining)),
+        ..add(EditEmployeeByAdminInitialEvent(
+            roleType: employee.role, dateOfJoining: employee.dateOfJoining)),
       child: AdminEditEmployeeDetailsView(
         employee: employee,
       ),
@@ -56,9 +56,9 @@ class _AdminEditEmployeeDetailsViewState
   void initState() {
     nameFieldController.text = widget.employee.name;
     emailFieldController.text = widget.employee.email;
-    designationFieldController.text = widget.employee.designation;
+    designationFieldController.text = widget.employee.designation ?? '';
     levelFieldController.text = widget.employee.level ?? "";
-    employeeIDFieldController.text = widget.employee.employeeId;
+    employeeIDFieldController.text = widget.employee.employeeId ?? '';
     super.initState();
   }
 
@@ -80,7 +80,7 @@ class _AdminEditEmployeeDetailsViewState
         title: Text(AppLocalizations.of(context).edit_tag),
       ),
       body: AdminEditEmployeeDetailsForm(
-        employeeId: widget.employee.id,
+        employeeId: widget.employee.uid,
         designationFieldController: designationFieldController,
         emailFieldController: emailFieldController,
         employeeIDFieldController: employeeIDFieldController,
@@ -104,8 +104,9 @@ class _AdminEditEmployeeDetailsViewState
               ),
               onPressed: (state.isValid)
                   ? () {
-                      context.read<AdminEditEmployeeDetailsBloc>().add(
-                              UpdateEmployeeDetailsAdminEditEmployeeDetailsEvent(
+                      context
+                          .read<AdminEditEmployeeDetailsBloc>()
+                          .add(UpdateEmployeeByAdminEvent(
                             previousEmployeeData: widget.employee,
                             name: nameFieldController.text,
                             level: levelFieldController.text,

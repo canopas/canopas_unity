@@ -5,7 +5,6 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -15,7 +14,7 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart'
 
 import 'user_home_test.mocks.dart';
 
-@GenerateMocks([UserManager, AuthService,  LeaveService])
+@GenerateMocks([UserManager, AuthService, LeaveService])
 void main() {
   late UserHomeBloc bLoc;
   late UserManager userManager;
@@ -23,21 +22,21 @@ void main() {
   late LeaveService leaveService;
 
   const employee = Employee(
-      id: "1",
-      roleType: 2,
+      uid: "1",
+      role: 2,
       name: "test",
       employeeId: "103",
       email: "abc@gmail.com",
       designation: "android dev");
   final leave = Leave(
       leaveId: 'leaveId',
-      uid: employee.id,
-      leaveType: 2,
+      uid: employee.uid,
+      type: 2,
       startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
       endDate: DateTime.now().add(const Duration(days: 4)).timeStampToInt,
-      totalLeaves: 2,
+      total: 2,
       reason: 'Suffering from fever',
-      leaveStatus: pendingLeaveStatus,
+      status: pendingLeaveStatus,
       appliedOn: 12,
       perDayDuration: const [1, 1]);
 
@@ -50,7 +49,7 @@ void main() {
     when(authService.signOutWithGoogle()).thenAnswer((_) async => true);
     when(userManager.email).thenReturn(employee.email);
 
-    when(userManager.employeeId).thenReturn(employee.id);
+    when(userManager.employeeId).thenReturn(employee.uid);
   });
 
   group('User home bloc state for requests', () {
@@ -61,7 +60,7 @@ void main() {
     test(
         'Emits loading state and then success state with requests if user has applied for any request',
         () {
-      when(leaveService.getRequestedLeave(employee.id))
+      when(leaveService.getRequestedLeave(employee.uid))
           .thenAnswer((_) async => [leave]);
 
       expectLater(
@@ -74,7 +73,7 @@ void main() {
     });
 
     test('Emits loading state and then error state if exception is thrown', () {
-      when(leaveService.getRequestedLeave(employee.id))
+      when(leaveService.getRequestedLeave(employee.uid))
           .thenThrow(Exception(firestoreFetchDataError));
 
       expectLater(
@@ -91,8 +90,8 @@ void main() {
     test(
         ' on UserDisable event User should be navigate to login screen if has been deleted successfully by admin',
         () async {
-      when(userManager.employeeId).thenReturn(employee.id);
-      bLoc.add(UserDisabled(employee.id));
+      when(userManager.employeeId).thenReturn(employee.uid);
+      bLoc.add(UserDisabled(employee.uid));
       await untilCalled(authService.signOutWithGoogle());
       await untilCalled(userManager.removeAll());
       verify(authService.signOutWithGoogle()).called(1);

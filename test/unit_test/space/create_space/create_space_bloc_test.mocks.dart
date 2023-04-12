@@ -300,19 +300,6 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
   }
 
   @override
-  _i5.Stream<List<_i3.Employee>> get employees => (super.noSuchMethod(
-        Invocation.getter(#employees),
-        returnValue: _i5.Stream<List<_i3.Employee>>.empty(),
-      ) as _i5.Stream<List<_i3.Employee>>);
-  @override
-  void fetchEmployees() => super.noSuchMethod(
-        Invocation.method(
-          #fetchEmployees,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   _i5.Future<void> addEmployeeBySpaceId({
     required _i3.Employee? employee,
     required String? spaceId,
@@ -414,12 +401,4 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }

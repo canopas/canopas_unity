@@ -21,8 +21,8 @@ void main() {
   late EmployeeEditProfileBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
-      id: "123",
-      roleType: 1,
+      uid: "123",
+      role: 1,
       name: "dummy tester",
       employeeId: "CA-1000",
       email: "dummy.t@canopas.com",
@@ -32,7 +32,6 @@ void main() {
       gender: EmployeeGender.male,
       dateOfBirth: DateTime.now().dateOnly.timeStampToInt,
       address: "california",
-      bloodGroup: "B+",
       phone: "+1 000000-0000");
 
   group("admin-edit-employee-details-test", () {
@@ -42,7 +41,7 @@ void main() {
       preference = MockUserPreference();
       editEmployeeDetailsBloc =
           EmployeeEditProfileBloc(employeeService, preference, userManager);
-      when(userManager.employeeId).thenReturn(emp.id);
+      when(userManager.employeeId).thenReturn(emp.uid);
       when(userManager.employee).thenReturn(emp);
     });
 
@@ -85,9 +84,8 @@ void main() {
           gender: emp.gender, dateOfBirth: emp.dateOfBirth));
       editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
           name: emp.name,
-          designation: emp.designation,
+          designation: emp.designation!,
           phoneNumber: emp.phone!,
-          bloodGroup: emp.bloodGroup!,
           address: emp.address!,
           level: emp.level!));
       expectLater(
@@ -119,9 +117,8 @@ void main() {
           .thenThrow(Exception("error"));
       editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
           name: emp.name,
-          designation: emp.designation,
+          designation: emp.designation!,
           phoneNumber: emp.phone!,
-          bloodGroup: emp.bloodGroup!,
           address: emp.address!,
           level: emp.level!));
       expectLater(

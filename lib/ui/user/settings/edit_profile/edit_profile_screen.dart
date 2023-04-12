@@ -6,6 +6,7 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -52,10 +53,9 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
   @override
   void initState() {
     nameController.text = widget.employee.name;
-    designationController.text = widget.employee.designation;
+    designationController.text = widget.employee.designation ?? '';
     phoneNumberController.text = widget.employee.phone ?? "";
     addressController.text = widget.employee.address ?? "";
-    bloodGroupController.text = widget.employee.bloodGroup ?? "";
     levelController.text = widget.employee.level ?? "";
     super.initState();
   }
@@ -66,7 +66,6 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
     designationController.dispose();
     phoneNumberController.dispose();
     addressController.dispose();
-    bloodGroupController.dispose();
     levelController.dispose();
     super.dispose();
   }
@@ -87,7 +86,6 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
                     .read<EmployeeEditProfileBloc>()
                     .add(EditProfileUpdateProfileEvent(
                       address: addressController.text,
-                      bloodGroup: bloodGroupController.text,
                       level: levelController.text,
                       name: nameController.text,
                       designation: designationController.text,
@@ -113,7 +111,6 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
           levelController: levelController,
           designationController: designationController,
           addressController: addressController,
-          bloodGroupController: bloodGroupController,
           phoneNumberController: phoneNumberController,
         ),
       ),

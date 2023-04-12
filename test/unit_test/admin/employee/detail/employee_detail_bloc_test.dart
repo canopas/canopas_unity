@@ -19,15 +19,15 @@ void main() {
   late LeaveService leaveService;
   late PaidLeaveService paidLeaveService;
   Employee employee = const Employee(
-      id: 'id',
-      roleType: 2,
+      uid: 'id',
+      role: 2,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
       designation: 'Android developer');
   Employee admin = const Employee(
-      id: 'id',
-      roleType: 1,
+      uid: 'id',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
@@ -42,7 +42,7 @@ void main() {
       employeeService,
       leaveService,
     );
-    when(leaveService.getUserUsedLeaves(employee.id))
+    when(leaveService.getUserUsedLeaves(employee.uid))
         .thenAnswer((_) async => 10);
     when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
   });
@@ -53,10 +53,10 @@ void main() {
     });
 
     test('Emits Failure state when employee is found null', () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenAnswer((_) async => await null);
       employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
+          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       expectLater(
           employeeDetailBloc.stream,
           emitsInOrder([
@@ -66,10 +66,10 @@ void main() {
     });
 
     test('Emits Failure state when exception is thrown by any cause', () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenThrow(Exception('Employee not found'));
       employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
+          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       expectLater(
           employeeDetailBloc.stream,
           emitsInOrder([
@@ -79,12 +79,12 @@ void main() {
     });
     test('Emits Failure state when exception is thrown while fetching leaves',
         () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenAnswer((_) async => employee);
-      when(leaveService.getUserUsedLeaves(employee.id))
+      when(leaveService.getUserUsedLeaves(employee.uid))
           .thenThrow(Exception(firestoreFetchDataError));
       employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
+          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       expectLater(
           employeeDetailBloc.stream,
           emitsInOrder([
@@ -96,11 +96,11 @@ void main() {
     test(
         'Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
         () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenAnswer((_) async => employee);
 
       employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.id));
+          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
           employee: employee,
           timeOffRatio: 10 / 12,
@@ -147,19 +147,19 @@ void main() {
     });
 
     test('delete employee failed test', () {
-      when(employeeService.deleteEmployee(employee.id))
+      when(employeeService.deleteEmployee(employee.uid))
           .thenThrow(Exception("error"));
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
+      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
       expect(employeeDetailBloc.stream,
           emits(EmployeeDetailFailureState(error: firestoreFetchDataError)));
     });
 
     test('delete employee success test', () async {
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.id));
-      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.id));
-      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.id));
-      verify(employeeService.deleteEmployee(employee.id)).called(1);
-      verify(leaveService.deleteAllLeavesOfUser(employee.id)).called(1);
+      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
+      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
+      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
+      verify(employeeService.deleteEmployee(employee.uid)).called(1);
+      verify(leaveService.deleteAllLeavesOfUser(employee.uid)).called(1);
     });
   });
 }

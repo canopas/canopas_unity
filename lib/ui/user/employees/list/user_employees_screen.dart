@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
-import '../../../../data/model/employee/employee.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/model/employee/employee.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/employee_card.dart';
@@ -67,7 +68,7 @@ class _UserEmployeesScreenState extends State<UserEmployeesScreen> {
                         employee: employee,
                         onTap: () {
                           context.goNamed(Routes.userEmployeeDetail, params: {
-                            RoutesParamsConst.employeeId: employee.id
+                            RoutesParamsConst.employeeId: employee.uid
                           });
                         },
                       );

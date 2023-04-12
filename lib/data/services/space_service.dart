@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+
 import '../core/utils/const/firestore.dart';
 import '../model/space/space.dart';
 
@@ -30,7 +31,6 @@ class SpaceService {
         ownerIds: [ownerId]);
 
     await _spaceDb.doc(id).set(space);
-
     await _usersDb.doc(ownerId).update({
       FireStoreConst.spaces: FieldValue.arrayUnion([id]),
     });

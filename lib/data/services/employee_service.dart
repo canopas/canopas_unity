@@ -1,25 +1,18 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
+
 import '../core/utils/const/firestore.dart';
-import '../core/utils/const/role.dart';
 import '../event_bus/events.dart';
 import '../model/employee/employee.dart';
 import '../provider/user_data.dart';
 
 @LazySingleton()
 class EmployeeService {
-  StreamSubscription? _employeeStreamSubscription;
   final UserManager _userManager;
 
-  final BehaviorSubject<List<Employee>> _employees = BehaviorSubject();
-
-  Stream<List<Employee>> get employees => _employees.stream;
-
-  EmployeeService(this._userManager){
-    fetchEmployees();
-  }
+  EmployeeService(this._userManager);
 
   CollectionReference<Employee> _membersDbCollection(
           {required String spaceId}) =>
@@ -31,21 +24,9 @@ class EmployeeService {
               fromFirestore: Employee.fromFirestore,
               toFirestore: (Employee emp, _) => emp.toJson());
 
-  void fetchEmployees() {
-    _employeeStreamSubscription =
-        _membersDbCollection(spaceId: _userManager.currentSpaceId!)
-            .where(FireStoreConst.roleType, isNotEqualTo: kRoleTypeAdmin)
-            .snapshots()
-            .map((event) {
-      return event.docs.map((employee) => employee.data()).toList();
-    }).listen((event) {
-      _employees.add(event);
-    });
-  }
-
   Future<void> addEmployeeBySpaceId(
       {required Employee employee, required String spaceId}) async {
-    final docId = employee.id;
+    final docId = employee.uid;
     await _membersDbCollection(spaceId: spaceId).doc(docId).set(employee);
   }
 
@@ -79,7 +60,7 @@ class EmployeeService {
   }
 
   Future<void> addEmployee(Employee employee) async {
-    final docId = employee.id;
+    final docId = employee.uid;
     await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(docId)
         .set(employee);
@@ -87,8 +68,9 @@ class EmployeeService {
 
   Future<void> updateEmployeeDetails({required Employee employee}) async {
     await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
-        .doc(employee.id)
-        .update(employee.toJson());
+        .doc(employee.uid)
+        .update(employee.toJson())
+        .onError((error, stackTrace) => throw Exception(error.toString()));
   }
 
   Future<void> changeEmployeeRoleType(String id, int roleType) async {
@@ -109,11 +91,5 @@ class EmployeeService {
         .then((value) async {
       await employeeDocRef.delete();
     }).then((value) => eventBus.fire(EmployeeListUpdateEvent()));
-  }
-
-  @disposeMethod
-  void dispose() async {
-    await _employees.close();
-    await _employeeStreamSubscription?.cancel();
   }
 }

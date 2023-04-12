@@ -25,8 +25,8 @@ void main() {
   String userID = "123";
 
   const employee = Employee(
-    id: "123",
-    roleType: 2,
+    uid: "123",
+    role: 2,
     name: "test",
     employeeId: "103",
     email: "abc@gmail.com",
@@ -36,12 +36,12 @@ void main() {
   Leave leave = Leave(
       leaveId: "234",
       uid: "123",
-      leaveType: 1,
+      type: 1,
       startDate: DateTime.now().dateOnly.timeStampToInt,
       endDate: DateTime.now().dateOnly.timeStampToInt,
-      totalLeaves: 1.0,
+      total: 1.0,
       reason: 'leave reason',
-      leaveStatus: 1,
+      status: 1,
       appliedOn: 1000,
       perDayDuration: const [1]);
 

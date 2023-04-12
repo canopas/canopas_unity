@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:uuid/uuid.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/services/employee_service.dart';
@@ -92,8 +93,8 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
 
   Employee submitEmployee() {
     return Employee(
-        id: const Uuid().v4(),
-        roleType: state.role!,
+        uid: const Uuid().v4(),
+        role: state.role!,
         name: state.name!,
         employeeId: state.employeeId!,
         email: state.email!,

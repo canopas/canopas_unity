@@ -6,16 +6,15 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'employee.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Employee extends Equatable {
-  final String id;
-  @JsonKey(name: 'role_type')
-  final int roleType;
+  final String uid;
+  final int? role;
   final String name;
   final String email;
   @JsonKey(name: 'employee_id')
-  final String employeeId;
-  final String designation;
+  final String? employeeId;
+  final String? designation;
   final String? phone;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
@@ -26,29 +25,27 @@ class Employee extends Equatable {
   @JsonKey(name: 'date_of_joining')
   final int? dateOfJoining;
   final String? level;
-  @JsonKey(name: 'blood_group')
-  final String? bloodGroup;
+  final int? status;
 
-  const Employee({
-    required this.id,
-    required this.roleType,
-    required this.name,
-    required this.employeeId,
-    required this.email,
-    required this.designation,
-    this.phone,
-    this.imageUrl,
-    this.address,
-    this.gender,
-    this.dateOfBirth,
-    this.dateOfJoining,
-    this.level,
-    this.bloodGroup,
-  });
+  const Employee(
+      {required this.uid,
+      required this.name,
+      required this.email,
+      this.role,
+      this.employeeId,
+      this.designation,
+      this.phone,
+      this.imageUrl,
+      this.address,
+      this.gender,
+      this.dateOfBirth,
+      this.dateOfJoining,
+      this.level,
+      this.status});
 
   Employee copyWith(
-      {String? id,
-      int? roleType,
+      {String? uid,
+      int? role,
       String? name,
       String? employeeId,
       String? email,
@@ -60,10 +57,10 @@ class Employee extends Equatable {
       int? dateOfBirth,
       int? dateOfJoining,
       String? level,
-      String? bloodGroup}) {
+      int? status}) {
     return Employee(
-        id: id ?? this.id,
-        roleType: roleType ?? this.roleType,
+        uid: uid ?? this.uid,
+        role: role ?? this.role,
         name: name ?? this.name,
         employeeId: employeeId ?? this.employeeId,
         email: email ?? this.email,
@@ -75,7 +72,7 @@ class Employee extends Equatable {
         dateOfBirth: dateOfBirth ?? this.dateOfBirth,
         dateOfJoining: dateOfJoining ?? this.dateOfJoining,
         level: level ?? this.level,
-        bloodGroup: bloodGroup ?? this.bloodGroup);
+        status: status ?? this.status);
   }
 
   factory Employee.fromJson(Map<String, dynamic>? map) =>
@@ -93,8 +90,8 @@ class Employee extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        roleType,
+        uid,
+        role,
         name,
         employeeId,
         email,
@@ -106,7 +103,6 @@ class Employee extends Equatable {
         dateOfBirth,
         dateOfJoining,
         level,
-        bloodGroup
       ];
 }
 

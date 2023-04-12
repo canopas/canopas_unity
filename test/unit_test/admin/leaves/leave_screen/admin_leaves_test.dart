@@ -31,18 +31,18 @@ void main() {
     Leave leave = const Leave(
         leaveId: 'leave-id',
         uid: 'id',
-        leaveType: 2,
+        type: 2,
         startDate: 500,
         endDate: 600,
-        totalLeaves: 2,
+        total: 2,
         reason: 'reason',
-        leaveStatus: 2,
+        status: 2,
         appliedOn: 400,
         perDayDuration: [0, 1]);
 
     Employee employee = const Employee(
-        id: 'id',
-        roleType: 1,
+        uid: 'id',
+        role: 1,
         name: 'Andrew jhone',
         employeeId: '100',
         email: 'andrew.j@canopas.com',

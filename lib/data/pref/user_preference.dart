@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../core/utils/const/pref_key.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';
@@ -13,8 +15,7 @@ class UserPreference {
   UserPreference(this._preferences);
 
   Future<void> setUser(User user) async {
-    await _preferences.setString(
-        PrefKeys.user, jsonEncode(user.toJson()));
+    await _preferences.setString(PrefKeys.user, jsonEncode(user.toJson()));
   }
 
   User? getUser() {
@@ -41,8 +42,7 @@ class UserPreference {
   }
 
   Future<void> setCurrentUser(Employee user) async {
-    await _preferences.setString(
-        PrefKeys.spaceUser, jsonEncode(user.toJson()));
+    await _preferences.setString(PrefKeys.spaceUser, jsonEncode(user.toJson()));
   }
 
   Employee? getCurrentUser() {

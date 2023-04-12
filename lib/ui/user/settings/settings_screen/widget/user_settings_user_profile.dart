@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -40,7 +41,8 @@ class UserProfile extends StatelessWidget {
                     overflow: TextOverflow.fade,
                   ),
                   const SizedBox(height: 2),
-                  Text(employee.designation, style: AppFontStyle.labelGrey),
+                  Text(employee.designation ?? '',
+                      style: AppFontStyle.labelGrey),
                 ],
               ),
             ),

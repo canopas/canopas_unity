@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
-import '../../../../data/di/service_locator.dart';
+
 import '../../../../data/core/utils/const/role.dart';
+import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -66,7 +67,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                 extra: state.employee,
                                 params: {
                                   RoutesParamsConst.employeeId:
-                                      state.employee.id
+                                      state.employee.uid
                                 });
                           },
                         ),
@@ -95,7 +96,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                           },
                         ),
                         PopupMenuItem(
-                          child: Text(state.employee.roleType == kRoleTypeAdmin
+                          child: Text(state.employee.role == kRoleTypeAdmin
                               ? AppLocalizations.of(context)
                                   .admin_employee_details_remove_admin_tag
                               : AppLocalizations.of(context)

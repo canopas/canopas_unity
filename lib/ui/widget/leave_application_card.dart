@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
+
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
@@ -48,12 +49,12 @@ class LeaveApplicationCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _LeaveTypeContent(
-                                leaveType: leaveApplication.leave.leaveType),
+                                leaveType: leaveApplication.leave.type),
                             const SizedBox(
                               height: 10,
                             ),
                             _LeaveDateContent(
-                              totalDays: leaveApplication.leave.totalLeaves,
+                              totalDays: leaveApplication.leave.total,
                               startTimeStamp: leaveApplication.leave.startDate,
                               endTimeStamp: leaveApplication.leave.endDate,
                             ),
@@ -165,7 +166,7 @@ class _EmployeeContent extends StatelessWidget {
               height: 5,
             ),
             Text(
-              employee.employeeId,
+              employee.employeeId ?? '',
               style: AppFontStyle.subTitleGrey,
               overflow: TextOverflow.ellipsis,
             ),

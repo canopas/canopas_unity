@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/const/role.dart';
 import '../../../../../data/event_bus/events.dart';
@@ -59,13 +61,13 @@ class EmployeeDetailBloc
       final loadedState = state as EmployeeDetailLoadedState;
       int roleType = kRoleTypeEmployee;
       try {
-        if (loadedState.employee.roleType != kRoleTypeAdmin) {
+        if (loadedState.employee.role != kRoleTypeAdmin) {
           roleType = kRoleTypeAdmin;
         }
         await _employeeService.changeEmployeeRoleType(
-            loadedState.employee.id, roleType);
+            loadedState.employee.uid, roleType);
         emit(EmployeeDetailLoadedState(
-            employee: loadedState.employee.copyWith(roleType: roleType),
+            employee: loadedState.employee.copyWith(role: roleType),
             timeOffRatio: loadedState.timeOffRatio,
             paidLeaves: loadedState.paidLeaves,
             usedLeaves: loadedState.usedLeaves));

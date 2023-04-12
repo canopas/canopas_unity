@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -50,7 +51,7 @@ class EmployeesCalendarLeavesBloc
       _allLeaveRef = leaves
           .map((leave) {
             final employee =
-                employees.firstWhereOrNull((emp) => emp.id == leave.uid);
+                employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
             return (employee == null)
                 ? null
                 : LeaveApplication(employee: employee, leave: leave);

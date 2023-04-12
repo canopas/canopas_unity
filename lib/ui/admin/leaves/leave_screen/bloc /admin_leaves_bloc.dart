@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -36,7 +37,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
       List<LeaveApplication> recentLeaveApplications = recentLeaves
           .map((e) {
             Employee? emp =
-                employees.where((element) => element.id == e.uid).firstOrNull;
+                employees.where((element) => element.uid == e.uid).firstOrNull;
             return emp == null
                 ? null
                 : LeaveApplication(employee: emp, leave: e);
@@ -47,7 +48,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
       List<LeaveApplication> upcomingLeaveApplications = upcomingLeaves
           .map((e) {
             Employee? emp =
-                employees.where((element) => element.id == e.uid).firstOrNull;
+                employees.where((element) => element.uid == e.uid).firstOrNull;
             return emp == null
                 ? null
                 : LeaveApplication(employee: emp, leave: e);

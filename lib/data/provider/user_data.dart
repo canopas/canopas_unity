@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../core/utils/const/role.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';
@@ -48,7 +49,6 @@ class UserManager with ChangeNotifier {
   }
 
   String? get userUID => _userPreference.getUser()?.uid;
-
   String? get userEmail => _userPreference.getUser()?.email;
 
   Space? get currentSpace => _userPreference.getCurrentSpace();
@@ -63,13 +63,13 @@ class UserManager with ChangeNotifier {
 
   String? get userImage => _employee?.imageUrl;
 
-  String get employeeId => _employee!.id;
+  String get employeeId => _employee!.uid;
 
   Employee get employee => _employee!;
 
-  String get employeeDesignation => _employee!.designation;
+  String get employeeDesignation => _employee!.designation ?? '';
 
-  bool get isAdmin => _employee?.roleType == kRoleTypeAdmin;
+  bool get isAdmin => _employee?.role == kRoleTypeAdmin;
 
-  bool get isHR => _employee?.roleType == kRoleTypeHR;
+  bool get isHR => _employee?.role == kRoleTypeHR;
 }

@@ -18,8 +18,8 @@ void main() {
   late UserManager userManager;
 
   Employee employee = const Employee(
-      id: 'id',
-      roleType: 1,
+      uid: 'id',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: '100',
       email: 'dummy123@testing.com',
@@ -30,8 +30,7 @@ void main() {
       authService = MockAuthService();
       userManager = MockUserManager();
       when(userManager.employee).thenReturn(employee);
-      adminSettingsBloc =
-          AdminSettingsBloc(userManager, authService);
+      adminSettingsBloc = AdminSettingsBloc(userManager, authService);
     });
 
     test('get user data on screen is created test', () {

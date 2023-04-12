@@ -17,8 +17,8 @@ void main() {
   late UserEmployeesBloc userEmployeesBloc;
   late UserManager userManager;
   Employee employee = const Employee(
-      id: 'id',
-      roleType: 1,
+      uid: 'id',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
@@ -38,7 +38,7 @@ void main() {
     test('Emits failure state when Exception is thrown from any cause', () {
       when(employeeService.getEmployees())
           .thenThrow(Exception(firestoreFetchDataError));
-      when(userManager.employeeId).thenReturn(employee.id);
+      when(userManager.employeeId).thenReturn(employee.uid);
       userEmployeesBloc.add(FetchEmployeesEvent());
       expectLater(
           userEmployeesBloc.stream,

@@ -9,12 +9,12 @@ part of 'leave.dart';
 Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       leaveId: json['leave_id'] as String,
       uid: json['uid'] as String,
-      leaveType: json['leave_type'] as int,
+      type: json['type'] as int,
       startDate: json['start_date'] as int,
       endDate: json['end_date'] as int,
-      totalLeaves: (json['total_leaves'] as num).toDouble(),
+      total: (json['total'] as num).toDouble(),
       reason: json['reason'] as String,
-      leaveStatus: json['leave_status'] as int,
+      status: json['status'] as int,
       appliedOn: json['applied_on'] as int,
       perDayDuration: (json['per_day_duration'] as List<dynamic>)
           .map((e) => e as int)
@@ -22,16 +22,26 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       rejectionReason: json['rejection_reason'] as String?,
     );
 
-Map<String, dynamic> _$LeaveToJson(Leave instance) => <String, dynamic>{
-      'leave_id': instance.leaveId,
-      'uid': instance.uid,
-      'leave_type': instance.leaveType,
-      'start_date': instance.startDate,
-      'end_date': instance.endDate,
-      'total_leaves': instance.totalLeaves,
-      'reason': instance.reason,
-      'leave_status': instance.leaveStatus,
-      'rejection_reason': instance.rejectionReason,
-      'applied_on': instance.appliedOn,
-      'per_day_duration': instance.perDayDuration,
-    };
+Map<String, dynamic> _$LeaveToJson(Leave instance) {
+  final val = <String, dynamic>{
+    'leave_id': instance.leaveId,
+    'uid': instance.uid,
+    'type': instance.type,
+    'start_date': instance.startDate,
+    'end_date': instance.endDate,
+    'total': instance.total,
+    'reason': instance.reason,
+    'status': instance.status,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('rejection_reason', instance.rejectionReason);
+  val['applied_on'] = instance.appliedOn;
+  val['per_day_duration'] = instance.perDayDuration;
+  return val;
+}

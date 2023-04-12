@@ -3,9 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+
 import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../navigation/app_router.dart';
 import '../../../../widget/employee_details_field.dart';
@@ -30,9 +31,6 @@ class ProfileDetail extends StatelessWidget {
         EmployeeDetailsField(
             title: AppLocalizations.of(context).employee_mobile_tag,
             subtitle: employee.phone),
-        EmployeeDetailsField(
-            title: AppLocalizations.of(context).employee_blood_group_tag,
-            subtitle: employee.bloodGroup),
         EmployeeDetailsField(
             title: AppLocalizations.of(context).employee_dateOfJoin_tag,
             subtitle: employee.dateOfJoining == null
@@ -88,7 +86,7 @@ class TimeOffCard extends StatelessWidget {
           borderRadius: AppTheme.commonBorderRadius,
           onTap: () =>
               context.goNamed(Routes.adminEmployeeDetailsLeaves, params: {
-            RoutesParamsConst.employeeId: employee.id,
+            RoutesParamsConst.employeeId: employee.uid,
             RoutesParamsConst.employeeName: employee.name,
           }),
           child: Padding(

@@ -31,18 +31,13 @@ class MockLeaveService extends _i1.Mock implements _i2.LeaveService {
   }
 
   @override
-  _i3.Stream<List<_i4.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i3.Stream<List<_i4.Leave>>.empty(),
-      ) as _i3.Stream<List<_i4.Leave>>);
-  @override
-  void fetchLeaves() => super.noSuchMethod(
+  _i3.Future<List<_i4.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
-          #fetchLeaves,
+          #getLeaveRequestOfUsers,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i3.Future<List<_i4.Leave>>.value(<_i4.Leave>[]),
+      ) as _i3.Future<List<_i4.Leave>>);
   @override
   _i3.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
@@ -198,14 +193,6 @@ class MockLeaveService extends _i1.Mock implements _i2.LeaveService {
         ),
         returnValue: _i3.Future<_i4.Leave?>.value(),
       ) as _i3.Future<_i4.Leave?>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [EmployeeService].
@@ -216,19 +203,6 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
     _i1.throwOnMissingStub(this);
   }
 
-  @override
-  _i3.Stream<List<_i6.Employee>> get employees => (super.noSuchMethod(
-        Invocation.getter(#employees),
-        returnValue: _i3.Stream<List<_i6.Employee>>.empty(),
-      ) as _i3.Stream<List<_i6.Employee>>);
-  @override
-  void fetchEmployees() => super.noSuchMethod(
-        Invocation.method(
-          #fetchEmployees,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   _i3.Future<void> addEmployeeBySpaceId({
     required _i6.Employee? employee,
@@ -331,12 +305,4 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
