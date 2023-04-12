@@ -76,9 +76,6 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
               state.deleteWorkSpaceStatus == Status.failure) {
             showSnackBar(context: context, error: state.error);
           }
-          if (state.deleteWorkSpaceStatus == Status.success) {
-            context.goNamed(Routes.joinSpace);
-          }
         },
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
