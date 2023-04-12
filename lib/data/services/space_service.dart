@@ -39,7 +39,33 @@ class SpaceService {
   }
 
   Future<void> deleteSpace(String workspaceId, List<String> owners) async {
-    await _spaceDb.doc(workspaceId).delete();
+    final batch = FirebaseFirestore.instance.batch();
+
+    await _spaceDb
+        .doc(workspaceId)
+        .collection(FireStoreConst.membersCollection)
+        .get()
+        .then((docs) {
+      for (DocumentSnapshot doc in docs.docs) {
+        batch.delete(doc.reference);
+      }
+    });
+
+    await _spaceDb
+        .doc(workspaceId)
+        .collection(FireStoreConst.leaves)
+        .get()
+        .then((docs) {
+      for (DocumentSnapshot doc in docs.docs) {
+        batch.delete(doc.reference);
+      }
+    });
+
+    DocumentSnapshot doc = await _spaceDb.doc(workspaceId).get();
+    batch.delete(doc.reference);
+
+    await batch.commit();
+
     for (String owner in owners) {
       await _usersDb.doc(owner).update({
         FireStoreConst.spaces: FieldValue.arrayRemove([workspaceId]),
