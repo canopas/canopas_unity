@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
+
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -22,7 +23,7 @@ class LeaveDetailsDateContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String totalDays = DateFormatter(AppLocalizations.of(context))
-        .getLeaveDurationPresentationLong(leave.totalLeaves);
+        .getLeaveDurationPresentationLong(leave.total);
     String duration = DateFormatter(AppLocalizations.of(context)).dateInLine(
         startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
 

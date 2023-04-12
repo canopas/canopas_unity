@@ -4,13 +4,14 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
-import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/cancel_button.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/response_note.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_content.dart';
+import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -75,8 +76,8 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                 children: [
                   LeaveTypeAgoTitleWithStatus(
                       appliedOnInTimeStamp: leave.appliedOn,
-                      leaveType: leave.leaveType,
-                      status: leave.leaveStatus),
+                      leaveType: leave.type,
+                      status: leave.status),
                   UserLeaveRequestDateContent(leave: leave),
                   PerDayDurationDateRange(
                       perDayDurationWithDate: leave.getDateAndDuration()),

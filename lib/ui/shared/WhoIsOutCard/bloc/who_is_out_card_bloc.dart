@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../data/core/exception/error_const.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../../data/model/leave/leave.dart';
@@ -56,7 +58,7 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
       List<LeaveApplication> absenceEmployee = absenceLeaves
           .map((leave) {
             final employee =
-                employees.firstWhereOrNull((emp) => emp.id == leave.uid);
+                employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
             return (employee == null)
                 ? null
                 : LeaveApplication(employee: employee, leave: leave);

@@ -32,8 +32,6 @@ match /databases/{database}/documents {
             docData.get('role','')is int &&
             docData.get('employee_id','')is int &&
             docData.get('designation','')is int &&
-            docData.employee_id is string &&
-            docData.designation is string &&
             docData.get('image_url','')is string &&
             docData.get('address','') is string &&
             docData.get('gender', '')is int &&

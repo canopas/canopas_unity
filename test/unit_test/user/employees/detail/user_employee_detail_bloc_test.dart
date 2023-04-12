@@ -20,8 +20,8 @@ void main() {
   late UserEmployeeDetailBloc bloc;
 
   Employee employee = const Employee(
-      id: 'uid',
-      roleType: 1,
+      uid: 'uid',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: 'employeeId',
       email: 'andrew.j@canopas.com',
@@ -30,12 +30,12 @@ void main() {
   Leave upcomingApproveLeave = Leave(
       leaveId: 'leaveId',
       uid: 'uid',
-      leaveType: 2,
+      type: 2,
       startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
       endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
-      totalLeaves: 2,
+      total: 2,
       reason: 'Suffering from viral fever',
-      leaveStatus: approveLeaveStatus,
+      status: approveLeaveStatus,
       appliedOn: 1,
       perDayDuration: const [1, 1]);
 
@@ -53,9 +53,9 @@ void main() {
     test(
         'Emits loading state and success state after data is fetched successfully from firestore',
         () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenAnswer((_) async => employee);
-      when(leaveService.getUpcomingLeavesOfUser(employee.id))
+      when(leaveService.getUpcomingLeavesOfUser(employee.uid))
           .thenAnswer((_) async => [upcomingApproveLeave]);
       expectLater(
           bloc.stream,
@@ -64,14 +64,14 @@ void main() {
             UserEmployeeDetailSuccessState(
                 employee: employee, upcomingLeaves: [upcomingApproveLeave])
           ]));
-      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.id));
+      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.uid));
     });
     test(
         'Emits loading state and error state if employee is found null from firestore',
         () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenAnswer((_) async => null);
-      when(leaveService.getUpcomingLeavesOfUser(employee.id))
+      when(leaveService.getUpcomingLeavesOfUser(employee.uid))
           .thenAnswer((_) async => [upcomingApproveLeave]);
       expectLater(
           bloc.stream,
@@ -79,14 +79,14 @@ void main() {
             UserEmployeeDetailLoadingState(),
             UserEmployeeDetailErrorState(error: firestoreFetchDataError)
           ]));
-      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.id));
+      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.uid));
     });
     test(
         'Emits loading state and error state if exception is thrown from firestore',
         () {
-      when(employeeService.getEmployee(employee.id))
+      when(employeeService.getEmployee(employee.uid))
           .thenAnswer((_) async => null);
-      when(leaveService.getUpcomingLeavesOfUser(employee.id))
+      when(leaveService.getUpcomingLeavesOfUser(employee.uid))
           .thenThrow(Exception(firestoreFetchDataError));
       expectLater(
           bloc.stream,
@@ -94,7 +94,7 @@ void main() {
             UserEmployeeDetailLoadingState(),
             UserEmployeeDetailErrorState(error: firestoreFetchDataError)
           ]));
-      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.id));
+      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.uid));
     });
   });
 }

@@ -44,18 +44,13 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
   }
 
   @override
-  _i4.Stream<List<_i5.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
-  @override
-  void fetchLeaves() => super.noSuchMethod(
+  _i4.Future<List<_i5.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
-          #fetchLeaves,
+          #getLeaveRequestOfUsers,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
+      ) as _i4.Future<List<_i5.Leave>>);
   @override
   _i4.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
@@ -211,14 +206,6 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<_i5.Leave?>.value(),
       ) as _i4.Future<_i5.Leave?>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [UserManager].

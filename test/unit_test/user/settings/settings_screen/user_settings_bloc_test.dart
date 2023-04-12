@@ -8,6 +8,7 @@ import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_event.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_state.dart';
+
 import 'user_settings_bloc_test.mocks.dart';
 
 @GenerateMocks([AuthService, UserManager])
@@ -17,8 +18,8 @@ void main() {
   late UserManager userManager;
 
   Employee employee = const Employee(
-      id: 'id',
-      roleType: 1,
+      uid: 'id',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: '100',
       email: 'dummy123@testing.com',

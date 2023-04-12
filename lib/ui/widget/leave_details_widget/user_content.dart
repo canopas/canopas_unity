@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+
 import '../../../data/configs/space_constant.dart';
 import '../../../data/model/employee/employee.dart';
 import '../../navigation/app_router.dart';
@@ -18,7 +19,7 @@ class UserContent extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () => context.pushNamed(Routes.adminEmployeeDetail,
-            params: {RoutesParamsConst.employeeId: employee.id}),
+            params: {RoutesParamsConst.employeeId: employee.uid}),
         child: Padding(
           padding: const EdgeInsets.symmetric(
               vertical: primaryHalfSpacing, horizontal: primaryVerticalSpacing),
@@ -41,7 +42,7 @@ class UserContent extends StatelessWidget {
                       height: 3,
                     ),
                     Text(
-                      employee.designation,
+                      employee.designation ?? '',
                       style: AppFontStyle.bodySmallRegular,
                       overflow: TextOverflow.ellipsis,
                     ),

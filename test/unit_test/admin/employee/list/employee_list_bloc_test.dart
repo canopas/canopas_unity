@@ -15,8 +15,8 @@ void main() {
   late EmployeeService employeeService;
   late EmployeeListBloc employeeListBloc;
   Employee employee = const Employee(
-      id: 'id',
-      roleType: 1,
+      uid: 'id',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',

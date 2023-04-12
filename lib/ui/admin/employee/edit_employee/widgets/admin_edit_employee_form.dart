@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+
 import '../../../../../data/configs/colors.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';
@@ -56,9 +57,9 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 previous.roleType != current.roleType,
             builder: (context, state) => ToggleButton(
                 onRoleChange: (role) {
-                  context.read<AdminEditEmployeeDetailsBloc>().add(
-                      ChangeRoleTypeAdminEditEmployeeDetailsEvent(
-                          roleType: role));
+                  context
+                      .read<AdminEditEmployeeDetailsBloc>()
+                      .add(ChangeEmployeeRoleEvent(roleType: role));
                 },
                 role: state.roleType),
           ),
@@ -69,9 +70,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 previous.employeeIdError != current.employeeIdError,
             builder: (context, state) => FieldEntry(
                 controller: employeeIDFieldController,
-                onChanged: (value) => bloc.add(
-                    ValidEmployeeIdAdminEditEmployeeDetailsEvent(
-                        employeeId: value)),
+                onChanged: (value) =>
+                    bloc.add(ChangeEmployeeIdEvent(employeeId: value)),
                 errorText: state.employeeIdError
                     ? localization
                         .admin_home_add_member_complete_mandatory_field_error
@@ -87,7 +87,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             builder: (context, state) => FieldEntry(
               controller: nameFieldController,
               onChanged: (value) =>
-                  bloc.add(ValidNameAdminEditEmployeeDetailsEvent(name: value)),
+                  bloc.add(ChangeEmployeeNameEvent(name: value)),
               errorText: state.nameError
                   ? localization.admin_home_add_member_name_hint_text
                   : null,
@@ -101,8 +101,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 previous.emailError != current.emailError,
             builder: (context, state) => FieldEntry(
                 controller: emailFieldController,
-                onChanged: (value) => bloc
-                    .add(ValidEmailAdminEditEmployeeDetailsEvent(email: value)),
+                onChanged: (value) =>
+                    bloc.add(ChangeEmployeeEmailEvent(email: value)),
                 errorText: state.emailError
                     ? localization.admin_home_add_member_error_email
                     : null,
@@ -115,9 +115,8 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 previous.designationError != current.designationError,
             builder: (context, state) => FieldEntry(
                 controller: designationFieldController,
-                onChanged: (value) => bloc.add(
-                    ValidDesignationAdminEditEmployeeDetailsEvent(
-                        designation: value)),
+                onChanged: (value) => bloc
+                    .add(ChangeEmployeeDesignationEvent(designation: value)),
                 errorText: state.designationError
                     ? localization
                         .admin_home_add_member_complete_mandatory_field_error
@@ -148,7 +147,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     DateTime? joiningDate = await pickDate(
                         context: context,
                         initialDate: state.dateOfJoining ?? DateTime.now());
-                    bloc.add(ChangeDateOfJoiningAdminEditEmployeeDetailsEvent(
+                    bloc.add(ChangeEmployeeDateOfJoiningEvent(
                         dateOfJoining: joiningDate ??
                             state.dateOfJoining ??
                             DateTime.now()));

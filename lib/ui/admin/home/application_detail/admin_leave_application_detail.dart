@@ -9,10 +9,11 @@ import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_action_button.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_date_content.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_request_details_header.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
-import '../../../../data/model/leave_application.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/model/leave_application.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -34,7 +35,7 @@ class AdminLeaveApplicationDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<AdminLeaveApplicationDetailsBloc>()
         ..add(AdminLeaveApplicationFetchLeaveCountEvent(
-            employeeId: leaveApplication.employee.id)),
+            employeeId: leaveApplication.employee.uid)),
       child:
           AdminLeaveApplicationDetailScreen(leaveApplication: leaveApplication),
     );
@@ -91,7 +92,7 @@ class _AdminLeaveApplicationDetailScreenState
             children: [
               AdminLeaveRequestLeaveTypeHeader(
                   appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
-                  leaveType: widget.leaveApplication.leave.leaveType),
+                  leaveType: widget.leaveApplication.leave.type),
               UserContent(employee: widget.leaveApplication.employee),
               AdminLeaveRequestDetailsDateContent(
                   leave: widget.leaveApplication.leave),

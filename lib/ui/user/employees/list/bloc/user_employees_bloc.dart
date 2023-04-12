@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_event.dart';
 import 'package:projectunity/ui/user/employees/list/bloc/user_employees_state.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/employee_service.dart';
@@ -22,7 +23,7 @@ class UserEmployeesBloc extends Bloc<UserEmployeesEvent, UserEmployeesState> {
     try {
       final allEmployees = await employeeService.getEmployees();
       final employees = allEmployees
-          .where((employee) => employee.id != _userManager.employeeId)
+          .where((employee) => employee.uid != _userManager.employeeId)
           .toList(growable: true);
       emit(UserEmployeesSuccessState(employees: employees));
     } on Exception {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_image.dart';
+
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -18,7 +19,6 @@ class ProfileForm extends StatelessWidget {
   final TextEditingController designationController;
   final TextEditingController phoneNumberController;
   final TextEditingController addressController;
-  final TextEditingController bloodGroupController;
   final TextEditingController levelController;
 
   const ProfileForm({
@@ -28,7 +28,6 @@ class ProfileForm extends StatelessWidget {
     required this.designationController,
     required this.phoneNumberController,
     required this.addressController,
-    required this.bloodGroupController,
     required this.levelController,
   }) : super(key: key);
 
@@ -78,11 +77,6 @@ class ProfileForm extends StatelessWidget {
         const DateOfBirthButton(),
         FieldTitle(title: localization.employee_gender_tag),
         const GenderSelection(),
-        FieldTitle(title: localization.employee_blood_group_tag),
-        FieldEntry(
-          controller: bloodGroupController,
-          hintText: localization.admin_home_add_member_blood_group_hint_text,
-        ),
         FieldTitle(title: localization.employee_mobile_tag),
         FieldEntry(
           controller: phoneNumberController,

@@ -4,6 +4,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/const/role.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
+
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
@@ -91,12 +92,11 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
             ownerId: _userManager.userUID!);
 
         final employee = Employee(
-            id: _userManager.userUID!,
-            roleType: kRoleTypeAdmin,
-            name: "unknown",
-            employeeId: '1',
-            email: _userManager.userEmail!,
-            designation: 'unknown');
+          uid: _userManager.userUID!,
+          role: kRoleTypeAdmin,
+          name: _userManager.userEmail!.split('@').first,
+          email: _userManager.userEmail!,
+        );
 
         await _employeeService.addEmployeeBySpaceId(
             spaceId: newSpace.id, employee: employee);

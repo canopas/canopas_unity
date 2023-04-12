@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
+
 import '../../data/configs/colors.dart';
 import '../../data/core/utils/const/leave_map.dart';
 import '../../data/core/utils/date_formatter.dart';
@@ -100,10 +101,10 @@ class LeaveCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _LeaveTypeView(leaveType: leave.leaveType),
+                    _LeaveTypeView(leaveType: leave.type),
                     Text(
                       DateFormatter(AppLocalizations.of(context))
-                          .getLeaveDurationPresentation(leave.totalLeaves)
+                          .getLeaveDurationPresentation(leave.total)
                           .toString(),
                       style: AppFontStyle.bodySmallRegular,
                     ),
@@ -130,7 +131,7 @@ class LeaveCard extends StatelessWidget {
                         hideStatus
                             ? const SizedBox()
                             : _LeaveStatusView(
-                                status: leave.leaveStatus,
+                                status: leave.status,
                               ),
                       ],
                     ),

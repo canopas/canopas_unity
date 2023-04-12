@@ -24,8 +24,8 @@ void main() {
   late AdminHomeBloc adminHomeBloc;
 
   Employee employee = const Employee(
-      id: 'id',
-      roleType: 1,
+      uid: 'id',
+      role: 1,
       name: 'Andrew jhone',
       employeeId: '100',
       email: 'andrew.j@canopas.com',
@@ -34,12 +34,12 @@ void main() {
   Leave leave = const Leave(
       leaveId: 'leave-id',
       uid: 'id',
-      leaveType: 2,
+      type: 2,
       startDate: 500,
       endDate: 600,
-      totalLeaves: 2,
+      total: 2,
       reason: 'reason',
-      leaveStatus: 2,
+      status: 2,
       appliedOn: 400,
       perDayDuration: [0, 1]);
   AdminHomeState initialState = const AdminHomeState();
@@ -70,7 +70,7 @@ void main() {
         return [leave, leave];
       });
 
-      when(employeeService.fetchEmployees())
+      when(employeeService.getEmployees())
           .thenThrow(Exception(firestoreFetchDataError));
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
@@ -85,10 +85,10 @@ void main() {
       List<Employee> employeeList = [employee];
       List<Leave> leaveList = [leave];
 
-      when(employeeService.employees)
-          .thenAnswer((_) => Stream.fromIterable([employeeList]));
-      when(leaveService.leaves)
-          .thenAnswer((_) => Stream.fromIterable([leaveList]));
+      when(employeeService.getEmployees())
+          .thenAnswer((_) async => employeeList);
+      when(leaveService.getLeaveRequestOfUsers())
+          .thenAnswer((_) async => leaveList);
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
 
@@ -111,8 +111,8 @@ void main() {
         'Emits state with status as success and list of leave application is empty when leave user id doesn\'t match with any user id',
         () {
       Employee empl = const Employee(
-          id: 'user id',
-          roleType: 2,
+          uid: 'user id',
+          role: 2,
           name: 'Andrew jhone',
           employeeId: 'Ca 1254',
           email: 'andrew.j@canopas.com',
@@ -121,12 +121,9 @@ void main() {
       List<Employee> employees = [empl];
       List<Leave> leaves = [leave];
 
-      when(leaveService.getAllAbsence())
-          .thenAnswer((_) async => [leave, leave]);
-      when(employeeService.employees)
-          .thenAnswer((_) => Stream.fromIterable([employees]));
-      when(leaveService.leaves)
-          .thenAnswer((_) => Stream.fromIterable([leaves]));
+      when(employeeService.getEmployees()).thenAnswer((_) async => employees);
+      when(leaveService.getLeaveRequestOfUsers())
+          .thenAnswer((_) async => leaves);
 
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
 

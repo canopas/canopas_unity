@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
+
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../../data/services/leave_service.dart';
@@ -28,7 +29,7 @@ class UserLeaveDetailBloc
       } else {
         bool canCancel =
             leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
-                leave.leaveStatus == pendingLeaveStatus;
+                leave.status == pendingLeaveStatus;
         emit(UserLeaveDetailSuccessState(
             leave: leave, showCancelButton: canCancel));
       }

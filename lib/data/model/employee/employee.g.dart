@@ -7,12 +7,12 @@ part of 'employee.dart';
 // **************************************************************************
 
 Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
-      id: json['id'] as String,
-      roleType: json['role_type'] as int,
+      uid: json['uid'] as String,
       name: json['name'] as String,
-      employeeId: json['employee_id'] as String,
       email: json['email'] as String,
-      designation: json['designation'] as String,
+      role: json['role'] as int?,
+      employeeId: json['employee_id'] as String?,
+      designation: json['designation'] as String?,
       phone: json['phone'] as String?,
       imageUrl: json['image_url'] as String?,
       address: json['address'] as String?,
@@ -20,25 +20,35 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       dateOfBirth: json['date_of_birth'] as int?,
       dateOfJoining: json['date_of_joining'] as int?,
       level: json['level'] as String?,
-      bloodGroup: json['blood_group'] as String?,
+      status: json['status'] as int?,
     );
 
-Map<String, dynamic> _$EmployeeToJson(Employee instance) => <String, dynamic>{
-      'id': instance.id,
-      'role_type': instance.roleType,
-      'name': instance.name,
-      'email': instance.email,
-      'employee_id': instance.employeeId,
-      'designation': instance.designation,
-      'phone': instance.phone,
-      'image_url': instance.imageUrl,
-      'address': instance.address,
-      'gender': instance.gender,
-      'date_of_birth': instance.dateOfBirth,
-      'date_of_joining': instance.dateOfJoining,
-      'level': instance.level,
-      'blood_group': instance.bloodGroup,
-    };
+Map<String, dynamic> _$EmployeeToJson(Employee instance) {
+  final val = <String, dynamic>{
+    'uid': instance.uid,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('role', instance.role);
+  val['name'] = instance.name;
+  val['email'] = instance.email;
+  writeNotNull('employee_id', instance.employeeId);
+  writeNotNull('designation', instance.designation);
+  writeNotNull('phone', instance.phone);
+  writeNotNull('image_url', instance.imageUrl);
+  writeNotNull('address', instance.address);
+  writeNotNull('gender', instance.gender);
+  writeNotNull('date_of_birth', instance.dateOfBirth);
+  writeNotNull('date_of_joining', instance.dateOfJoining);
+  writeNotNull('level', instance.level);
+  writeNotNull('status', instance.status);
+  return val;
+}
 
 Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       deviceId: json['device_id'] as String?,

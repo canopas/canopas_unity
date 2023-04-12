@@ -22,8 +22,8 @@ void main() {
   late LeaveService leaveService;
 
   const employee = Employee(
-      id: "1",
-      roleType: 2,
+      uid: "1",
+      role: 2,
       name: "test",
       employeeId: "103",
       email: "abc@gmail.com",
@@ -32,12 +32,12 @@ void main() {
   Leave leave = const Leave(
       leaveId: "101",
       uid: "1",
-      leaveType: 1,
+      type: 1,
       startDate: 111,
       endDate: 113,
-      totalLeaves: 1,
+      total: 1,
       reason: "test",
-      leaveStatus: 0,
+      status: 0,
       appliedOn: 111,
       perDayDuration: []);
   late DateTime date;

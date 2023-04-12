@@ -7,10 +7,11 @@ import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_details_date_content.dart';
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
-import '../../../../data/model/leave_application.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/model/leave_application.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -83,10 +84,10 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
                   const EdgeInsets.only(bottom: 100, top: primaryHalfSpacing),
               children: [
                 LeaveTypeAgoTitleWithStatus(
-                    status: widget.leaveApplication.leave.leaveStatus,
+                    status: widget.leaveApplication.leave.status,
                     appliedOnInTimeStamp:
                         widget.leaveApplication.leave.appliedOn,
-                    leaveType: widget.leaveApplication.leave.leaveType),
+                    leaveType: widget.leaveApplication.leave.type),
                 UserContent(employee: widget.leaveApplication.employee),
                 LeaveDetailsDateContent(leave: widget.leaveApplication.leave),
                 PerDayDurationDateRange(
@@ -109,7 +110,7 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
                 .isBefore(DateTime.now().dateOnly)
             ? null
             : LeaveDetailActionButton(
-                leaveStatus: widget.leaveApplication.leave.leaveStatus,
+                leaveStatus: widget.leaveApplication.leave.status,
                 onTap: () {
                   showAlertDialog(
                     context: context,

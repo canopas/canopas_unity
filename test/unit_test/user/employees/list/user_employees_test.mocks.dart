@@ -43,19 +43,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
   }
 
   @override
-  _i4.Stream<List<_i2.Employee>> get employees => (super.noSuchMethod(
-        Invocation.getter(#employees),
-        returnValue: _i4.Stream<List<_i2.Employee>>.empty(),
-      ) as _i4.Stream<List<_i2.Employee>>);
-  @override
-  void fetchEmployees() => super.noSuchMethod(
-        Invocation.method(
-          #fetchEmployees,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i2.Employee? employee,
     required String? spaceId,
@@ -157,14 +144,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [UserManager].

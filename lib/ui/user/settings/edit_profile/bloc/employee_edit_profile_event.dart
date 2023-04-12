@@ -56,18 +56,15 @@ class EditProfileUpdateProfileEvent extends EditProfileEvent {
   final String designation;
   final String level;
   final String phoneNumber;
-  final String bloodGroup;
   final String address;
 
   EditProfileUpdateProfileEvent(
       {required this.name,
       required this.designation,
       required this.phoneNumber,
-      required this.bloodGroup,
       required this.address,
       required this.level});
 
   @override
-  List<Object?> get props =>
-      [name, designation, level, phoneNumber, bloodGroup, address];
+  List<Object?> get props => [name, designation, level, phoneNumber, address];
 }

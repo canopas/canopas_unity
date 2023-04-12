@@ -8,22 +8,22 @@ const int pendingLeaveStatus = 1;
 const int approveLeaveStatus = 2;
 const int rejectLeaveStatus = 3;
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Leave extends Equatable {
   @JsonKey(name: 'leave_id')
   final String leaveId;
   final String uid;
-  @JsonKey(name: 'leave_type')
-  final int leaveType;
+  @JsonKey(name: 'type')
+  final int type;
   @JsonKey(name: 'start_date')
   final int startDate;
   @JsonKey(name: 'end_date')
   final int endDate;
-  @JsonKey(name: 'total_leaves')
-  final double totalLeaves;
+  @JsonKey(name: 'total')
+  final double total;
   final String reason;
-  @JsonKey(name: 'leave_status')
-  final int leaveStatus;
+  @JsonKey(name: 'status')
+  final int status;
   @JsonKey(name: 'rejection_reason')
   final String? rejectionReason;
   @JsonKey(name: 'applied_on')
@@ -34,12 +34,12 @@ class Leave extends Equatable {
   const Leave(
       {required this.leaveId,
       required this.uid,
-      required this.leaveType,
+      required this.type,
       required this.startDate,
       required this.endDate,
-      required this.totalLeaves,
+      required this.total,
       required this.reason,
-      required this.leaveStatus,
+      required this.status,
       required this.appliedOn,
       required this.perDayDuration,
       this.rejectionReason});
@@ -58,12 +58,12 @@ class Leave extends Equatable {
   List<Object?> get props => [
         leaveId,
         uid,
-        leaveType,
+        type,
         startDate,
         endDate,
-        totalLeaves,
+        total,
         reason,
-        leaveStatus,
+        status,
         appliedOn,
         rejectionReason
       ];
