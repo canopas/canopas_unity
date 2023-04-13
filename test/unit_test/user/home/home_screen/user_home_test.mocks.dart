@@ -164,6 +164,15 @@ class MockUserManager extends _i1.Mock implements _i4.UserManager {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
+  _i5.Future<void> updateSpaceDetails(_i6.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #updateSpaceDetails,
+          [space],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
   _i5.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
           #removeSpace,
