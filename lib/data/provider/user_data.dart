@@ -26,13 +26,13 @@ class UserManager with ChangeNotifier {
 
   Future<void> setSpace({required Space space, required Employee admin}) async {
     await _userPreference.setSpace(space);
-    await _userPreference.setCurrentUser(admin);
+    await _userPreference.setSpaceUser(admin);
     hasLoggedIn();
   }
 
   Future<void> removeSpace() async {
-    await _userPreference.removeCurrentSpace();
-    await _userPreference.removeCurrentUser();
+    await _userPreference.removeSpace();
+    await _userPreference.removeSpaceUser();
     hasLoggedIn();
   }
 
@@ -43,19 +43,19 @@ class UserManager with ChangeNotifier {
 
   void hasLoggedIn() async {
     loggedIn = _userPreference.getUser() != null;
-    spaceSelected = _userPreference.getCurrentSpace() != null;
-    spaceUserExist = _userPreference.getCurrentUser() != null;
+    spaceSelected = _userPreference.getSpace() != null;
+    spaceUserExist = _userPreference.getSpaceUser() != null;
     notifyListeners();
   }
 
   String? get userUID => _userPreference.getUser()?.uid;
   String? get userEmail => _userPreference.getUser()?.email;
 
-  Space? get currentSpace => _userPreference.getCurrentSpace();
+  Space? get currentSpace => _userPreference.getSpace();
 
-  String? get currentSpaceId => _userPreference.getCurrentSpace()?.id;
+  String? get currentSpaceId => _userPreference.getSpace()?.id;
 
-  Employee? get _employee => _userPreference.getCurrentUser();
+  Employee? get _employee => _userPreference.getSpaceUser();
 
   String get userName => _employee?.name ?? "";
 
