@@ -88,7 +88,7 @@ class EmployeeEditProfileBloc
           dateOfJoining: _userManager.employee.dateOfJoining,
         );
         await _employeeService.updateEmployeeDetails(employee: employee);
-        _preference.setCurrentUser(employee);
+        _preference.setSpaceUser(employee);
         eventBus.fire(GetCurrentEmployeeUserSettingsEvent());
         emit(state.copyWith(status: EmployeeProfileState.success));
       } on Exception {

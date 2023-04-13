@@ -32,25 +32,25 @@ class UserPreference {
         PrefKeys.space, jsonEncode(space.toFirestore()));
   }
 
-  Space? getCurrentSpace() {
+  Space? getSpace() {
     final data = _preferences.getString(PrefKeys.space);
     return data == null ? null : Space.fromJson(jsonDecode(data));
   }
 
-  Future<void> removeCurrentSpace() async {
-    await _preferences.remove(PrefKeys.spaceUser);
+  Future<void> removeSpace() async {
+    await _preferences.remove(PrefKeys.space);
   }
 
-  Future<void> setCurrentUser(Employee user) async {
+  Future<void> setSpaceUser(Employee user) async {
     await _preferences.setString(PrefKeys.spaceUser, jsonEncode(user.toJson()));
   }
 
-  Employee? getCurrentUser() {
+  Employee? getSpaceUser() {
     final data = _preferences.getString(PrefKeys.spaceUser);
     return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
-  Future<void> removeCurrentUser() async {
+  Future<void> removeSpaceUser() async {
     await _preferences.remove(PrefKeys.spaceUser);
   }
 
