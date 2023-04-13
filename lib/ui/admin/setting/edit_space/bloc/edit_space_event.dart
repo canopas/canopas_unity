@@ -26,11 +26,25 @@ class CompanyNameChangeEvent extends EditSpaceEvent {
 }
 
 class DeleteSpaceEvent extends EditSpaceEvent {
-  final String workspaceId;
-  final List<String> ownersId;
-
-  DeleteSpaceEvent({required this.workspaceId,required this.ownersId});
 
   @override
-  List<Object?> get props => [workspaceId];
+  List<Object?> get props => [];
+}
+
+class SaveSpaceDetails extends EditSpaceEvent {
+  final String paidTimeOff;
+  final String spaceName;
+  final String spaceDomain;
+
+  SaveSpaceDetails(
+      {required this.paidTimeOff,
+      required this.spaceName,
+      required this.spaceDomain});
+
+  @override
+  List<Object?> get props => [
+        paidTimeOff,
+        spaceName,
+        spaceDomain,
+      ];
 }

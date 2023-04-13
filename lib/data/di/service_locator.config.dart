@@ -18,7 +18,7 @@ import 'package:projectunity/data/services/employee_service.dart' as _i18;
 import 'package:projectunity/data/services/leave_service.dart' as _i20;
 import 'package:projectunity/data/services/paid_leave_service.dart' as _i21;
 import 'package:projectunity/data/services/space_service.dart' as _i10;
-import 'package:projectunity/data/stateManager/auth/desktop/desktop_auth_manager.dart'
+import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manager.dart'
     as _i5;
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart'
     as _i41;

@@ -15,6 +15,11 @@ class SpaceService {
   final _usersDb =
       FirebaseFirestore.instance.collection(FireStoreConst.accountsCollection);
 
+  Future<Space?> getSpace(String spaceId) async {
+    final spaceDoc = await _spaceDb.doc(spaceId).get();
+    return spaceDoc.data();
+  }
+
   Future<Space> createSpace(
       {required String name,
       required String domain,
@@ -36,6 +41,10 @@ class SpaceService {
     });
 
     return space;
+  }
+
+  Future<void> updateSpace(Space space) async {
+    await _spaceDb.doc(space.id).update(space.toFirestore());
   }
 
   Future<void> deleteSpace(String workspaceId, List<String> owners) async {
