@@ -72,8 +72,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       await _userManager.updateSpaceDetails(updatedSpace);
       emit(state.copyWith(updateSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(
-          updateSpaceStatus: Status.failure, error: firestoreFetchDataError));
+      emit(state.copyWith(updateSpaceStatus: Status.failure, error: somethingWentWrongError));
     }
   }
 }
