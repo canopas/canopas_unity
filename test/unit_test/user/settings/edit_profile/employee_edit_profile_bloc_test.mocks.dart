@@ -359,27 +359,27 @@ class MockUserPreference extends _i1.Mock implements _i9.UserPreference {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> removeCurrentSpace() => (super.noSuchMethod(
+  _i4.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
-          #removeCurrentSpace,
+          #removeSpace,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> setCurrentUser(_i2.Employee? user) => (super.noSuchMethod(
+  _i4.Future<void> setSpaceUser(_i2.Employee? user) => (super.noSuchMethod(
         Invocation.method(
-          #setCurrentUser,
+          #setSpaceUser,
           [user],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> removeCurrentUser() => (super.noSuchMethod(
+  _i4.Future<void> removeSpaceUser() => (super.noSuchMethod(
         Invocation.method(
-          #removeCurrentUser,
+          #removeSpaceUser,
           [],
         ),
         returnValue: _i4.Future<void>.value(),

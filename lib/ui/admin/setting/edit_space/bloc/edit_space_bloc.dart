@@ -41,13 +41,11 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
     try {
       emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
-      _spaceService.deleteSpace(event.workspaceId, event.ownersId);
+      await _spaceService.deleteSpace(event.workspaceId, event.ownersId);
       await _userManager.removeSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(
-          deleteWorkSpaceStatus: Status.failure,
-          error: somethingWentWrongError));
+      emit(state.copyWith(deleteWorkSpaceStatus: Status.failure, error: somethingWentWrongError));
     }
   }
 }

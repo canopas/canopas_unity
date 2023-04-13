@@ -106,8 +106,8 @@ void main() {
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
 
-      await untilCalled(preference.setCurrentUser(emp));
-      verify(preference.setCurrentUser(emp)).called(1);
+      await untilCalled(preference.setSpaceUser(emp));
+      verify(preference.setSpaceUser(emp)).called(1);
     });
 
     test('Emits error state while updating data on firestore', () async {
