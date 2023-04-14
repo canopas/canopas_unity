@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-
 import '../core/utils/const/firestore.dart';
 import '../model/space/space.dart';
 
@@ -48,32 +47,21 @@ class SpaceService {
   }
 
   Future<void> deleteSpace(String workspaceId, List<String> owners) async {
-    final batch = FirebaseFirestore.instance.batch();
 
-    await _spaceDb
+    final leavesDocs = await _spaceDb.doc(workspaceId).collection(FireStoreConst.leaves).get();
+    for (var doc in leavesDocs.docs) {
+      await doc.reference.delete();
+    }
+
+    final membersDocs = await _spaceDb
         .doc(workspaceId)
         .collection(FireStoreConst.membersCollection)
-        .get()
-        .then((docs) {
-      for (DocumentSnapshot doc in docs.docs) {
-        batch.delete(doc.reference);
-      }
-    });
+        .get();
+    for (var doc in membersDocs.docs) {
+      await doc.reference.delete();
+    }
 
-    await _spaceDb
-        .doc(workspaceId)
-        .collection(FireStoreConst.leaves)
-        .get()
-        .then((docs) {
-      for (DocumentSnapshot doc in docs.docs) {
-        batch.delete(doc.reference);
-      }
-    });
-
-    DocumentSnapshot doc = await _spaceDb.doc(workspaceId).get();
-    batch.delete(doc.reference);
-
-    await batch.commit();
+    await _spaceDb.doc(workspaceId).delete();
 
     for (String owner in owners) {
       await _usersDb.doc(owner).update({

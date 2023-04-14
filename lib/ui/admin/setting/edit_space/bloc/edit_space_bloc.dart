@@ -49,9 +49,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       await _userManager.removeSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(
-          deleteWorkSpaceStatus: Status.failure,
-          error: somethingWentWrongError));
+      emit(state.copyWith(deleteWorkSpaceStatus: Status.failure, error: somethingWentWrongError));
     }
   }
 
