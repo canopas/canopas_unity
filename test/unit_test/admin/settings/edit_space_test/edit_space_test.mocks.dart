@@ -129,6 +129,33 @@ class MockSpaceService extends _i1.Mock implements _i4.SpaceService {
         ),
         returnValue: _i5.Future<List<_i2.Space>>.value(<_i2.Space>[]),
       ) as _i5.Future<List<_i2.Space>>);
+  @override
+  _i5.Future<int> getPaidLeaves({required String? spaceId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPaidLeaves,
+          [],
+          {#spaceId: spaceId},
+        ),
+        returnValue: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
+  @override
+  _i5.Future<void> updateLeaveCount({
+    required String? spaceId,
+    required int? paidLeaveCount,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateLeaveCount,
+          [],
+          {
+            #spaceId: spaceId,
+            #paidLeaveCount: paidLeaveCount,
+          },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserManager].

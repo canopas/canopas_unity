@@ -47,8 +47,8 @@ class SpaceService {
   }
 
   Future<void> deleteSpace(String workspaceId, List<String> owners) async {
-
-    final leavesDocs = await _spaceDb.doc(workspaceId).collection(FireStoreConst.leaves).get();
+    final leavesDocs =
+        await _spaceDb.doc(workspaceId).collection(FireStoreConst.leaves).get();
     for (var doc in leavesDocs.docs) {
       await doc.reference.delete();
     }
@@ -74,5 +74,21 @@ class SpaceService {
     final spaceData =
         await _spaceDb.where(FireStoreConst.ownerIds, arrayContains: uid).get();
     return spaceData.docs.map((space) => space.data()).toList();
+  }
+
+  Future<int> getPaidLeaves({required String spaceId}) async {
+    return await _spaceDb.doc(spaceId).get().then((val) {
+      if (val.data()?.paidTimeOff != null) {
+        return val.data()!.paidTimeOff;
+      }
+      return 0;
+    });
+  }
+
+  Future<void> updateLeaveCount(
+      {required String spaceId, required int paidLeaveCount}) async {
+    return _spaceDb
+        .doc(spaceId)
+        .update({FireStoreConst.paidTimeOff: paidLeaveCount});
   }
 }

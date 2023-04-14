@@ -10,7 +10,6 @@ import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/leave/leave.dart' as _i6;
 import 'package:projectunity/data/services/employee_service.dart' as _i2;
 import 'package:projectunity/data/services/leave_service.dart' as _i5;
-import 'package:projectunity/data/services/paid_leave_service.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -306,31 +305,4 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         ),
         returnValue: _i3.Future<_i6.Leave?>.value(),
       ) as _i3.Future<_i6.Leave?>);
-}
-
-/// A class which mocks [PaidLeaveService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockPaidLeaveService extends _i1.Mock implements _i7.PaidLeaveService {
-  MockPaidLeaveService() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.Future<int> getPaidLeaves() => (super.noSuchMethod(
-        Invocation.method(
-          #getPaidLeaves,
-          [],
-        ),
-        returnValue: _i3.Future<int>.value(0),
-      ) as _i3.Future<int>);
-  @override
-  _i3.Future<void> updateLeaveCount(int? leaveCount) => (super.noSuchMethod(
-        Invocation.method(
-          #updateLeaveCount,
-          [leaveCount],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
 }

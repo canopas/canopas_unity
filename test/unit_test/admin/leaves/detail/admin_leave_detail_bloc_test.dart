@@ -4,26 +4,27 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/data/services/paid_leave_service.dart';
+import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_bloc.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_event.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_state.dart';
 
 import 'admin_leave_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([LeaveService, UserManager, SpaceService])
 void main() {
   late LeaveService leaveService;
   late UserManager userManager;
   late AdminLeaveDetailBloc bloc;
-  late PaidLeaveService paidLeaveService;
+  late SpaceService spaceService;
 
   setUp(() {
     leaveService = MockLeaveService();
     userManager = MockUserManager();
-    paidLeaveService = MockPaidLeaveService();
-    bloc = AdminLeaveDetailBloc(leaveService, paidLeaveService);
+    spaceService = MockSpaceService();
+    bloc = AdminLeaveDetailBloc(leaveService, userManager,spaceService);
     when(userManager.employeeId).thenReturn("id");
+    when(userManager.currentSpaceId).thenReturn("space-id");
   });
 
   group('Leave Application Detail bloc', () {
@@ -34,7 +35,7 @@ void main() {
         'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
         () {
       when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
-      when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
+      when(spaceService.getPaidLeaves(spaceId: 'space-id')).thenAnswer((_) async => 12);
       expectLater(
           bloc.stream,
           emitsInOrder([
@@ -50,7 +51,8 @@ void main() {
       () {
     when(leaveService.getUserUsedLeaves('id'))
         .thenThrow(Exception(firestoreFetchDataError));
-    when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
+    when(userManager.currentSpaceId).thenReturn('space-id');
+    when(spaceService.getPaidLeaves(spaceId: 'space-id')).thenAnswer((_) async => 12);
     expectLater(
         bloc.stream,
         emitsInOrder([

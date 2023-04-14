@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
 import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/event_bus/events.dart';
@@ -10,9 +11,9 @@ import '../../../../../../data/model/employee/employee.dart';
 import '../../../../../../data/model/leave/leave.dart';
 import '../../../../../../data/model/leave_application.dart';
 import '../../../../../../data/model/leave_count.dart';
+import '../../../../../../data/provider/user_data.dart';
 import '../../../../../../data/services/employee_service.dart';
 import '../../../../../../data/services/leave_service.dart';
-import '../../../../../../data/services/paid_leave_service.dart';
 import 'user_leave_calendar_events.dart';
 
 @Injectable()
@@ -20,11 +21,12 @@ class UserLeaveCalendarBloc
     extends Bloc<UserLeaveCalendarEvent, UserLeaveCalendarViewState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  final PaidLeaveService _paidLeaveService;
+  final UserManager _userManager;
+  final SpaceService _spaceService;
   late StreamSubscription _streamSubscription;
 
   UserLeaveCalendarBloc(
-      this._leaveService, this._employeeService, this._paidLeaveService)
+      this._leaveService, this._employeeService, this._userManager, this._spaceService)
       : super(UserLeaveCalendarViewInitialState()) {
     on<UserLeaveCalendarInitialLoadEvent>(_loadAllLeaves);
     on<DateRangeSelectedEvent>(_onDateRangeSelected);
@@ -43,7 +45,7 @@ class UserLeaveCalendarBloc
       List<Leave> leaves = await _leaveService.getAllLeavesOfUser(event.userid);
       double usedLeaveCount =
           await _leaveService.getUserUsedLeaves(event.userid);
-      int paidLeaveCount = await _paidLeaveService.getPaidLeaves();
+      int paidLeaveCount = await _spaceService.getPaidLeaves(spaceId: _userManager.currentSpaceId!);
       double remainingLeaveCount = paidLeaveCount - usedLeaveCount;
       LeaveCounts leaveCounts = LeaveCounts(
           remainingLeaveCount:

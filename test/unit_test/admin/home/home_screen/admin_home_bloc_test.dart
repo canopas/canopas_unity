@@ -8,14 +8,13 @@ import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/data/services/paid_leave_service.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_state.dart';
 
 import 'admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, PaidLeaveService])
+@GenerateMocks([EmployeeService, LeaveService, ])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
