@@ -8,11 +8,12 @@ import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_bloc.dart';
 import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_event.dart';
 import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_state.dart';
-import 'edit_workspace_test.mocks.dart';
+
+import 'edit_space_test.mocks.dart';
 
 @GenerateMocks([SpaceService, UserManager])
 void main() {
-  late SpaceService workspaceService;
+  late SpaceService spaceService;
   late UserManager userManager;
   late EditSpaceBloc bloc;
 
@@ -26,30 +27,33 @@ void main() {
 
   setUp(() {
     userManager = MockUserManager();
-    workspaceService = MockSpaceService();
-    bloc = EditSpaceBloc(workspaceService, userManager);
+    spaceService = MockSpaceService();
+    bloc = EditSpaceBloc(spaceService, userManager);
     when(userManager.currentSpace).thenReturn(space);
   });
 
-  group("Edit space test", () {
+  group("Edit space test", ()
+  {
     test("Delete space success test", () async {
       bloc.add(DeleteSpaceEvent());
       expect(bloc.stream, emitsInOrder([
         const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
         const EditSpaceState(deleteWorkSpaceStatus: Status.success),
       ]));
-      await untilCalled(workspaceService.deleteSpace("id", ["uid"]));
-      verify(workspaceService.deleteSpace("id", ['uid'])).called(1);
+      await untilCalled(spaceService.deleteSpace("id", ["uid"]));
+      verify(spaceService.deleteSpace("id", ['uid'])).called(1);
       await untilCalled(userManager.removeSpace());
       verify(userManager.removeSpace()).called(1);
     });
 
     test("Delete space failure test", () async {
       bloc.add(DeleteSpaceEvent());
-      when(workspaceService.deleteSpace('id', ['uid'])).thenThrow(Exception("error"));
+      when(spaceService.deleteSpace('id', ['uid'])).thenThrow(
+          Exception("error"));
       expect(bloc.stream, emitsInOrder([
         const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
-        const EditSpaceState(deleteWorkSpaceStatus: Status.failure,error: somethingWentWrongError),
+        const EditSpaceState(deleteWorkSpaceStatus: Status.failure,
+            error: firestoreFetchDataError),
       ]));
     });
 
