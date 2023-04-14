@@ -27,7 +27,7 @@ class AuthService {
         .where(FireStoreConst.uid, isEqualTo: authData.uid).limit(1).get();
     final User user;
     if (userData.docs.isEmpty) {
-      user = User(uid: authData.uid, email: authData.email!);
+      user = User(uid: authData.uid, email: authData.email!,name: authData.displayName);
       await _usersDb.doc(authData.uid).set(user);
     } else {
       user = userData.docs.first.data();
