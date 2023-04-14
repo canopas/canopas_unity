@@ -18,7 +18,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
 
     on<CompanyNameChangeEvent>(_onNameChange);
     on<YearlyPaidTimeOffChangeEvent>(_timeOffChange);
-    on<DeleteSpaceEvent>(_deleteWorkspace);
+    on<DeleteSpaceEvent>(_deleteSpace);
     on<SaveSpaceDetails>(_saveSpace);
   }
 
@@ -41,7 +41,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
     }
   }
 
-  Future<void> _deleteWorkspace(
+  Future<void> _deleteSpace(
       DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
     try {
       emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
@@ -49,7 +49,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       await _userManager.removeSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(deleteWorkSpaceStatus: Status.failure, error: somethingWentWrongError));
+      emit(state.copyWith(deleteWorkSpaceStatus: Status.failure, error: firestoreFetchDataError));
     }
   }
 
@@ -70,7 +70,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       await _userManager.updateSpaceDetails(updatedSpace);
       emit(state.copyWith(updateSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(updateSpaceStatus: Status.failure, error: somethingWentWrongError));
+      emit(state.copyWith(updateSpaceStatus: Status.failure, error: firestoreFetchDataError));
     }
   }
 }
