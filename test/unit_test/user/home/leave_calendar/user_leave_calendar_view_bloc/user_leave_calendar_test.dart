@@ -6,20 +6,22 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/model/leave_count.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/data/services/paid_leave_service.dart';
+import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_events.dart';
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_states.dart';
 
 import 'user_leave_calendar_test.mocks.dart';
 
-@GenerateMocks([LeaveService, EmployeeService, PaidLeaveService])
+@GenerateMocks([LeaveService, EmployeeService, UserManager,SpaceService])
 void main() {
   late LeaveService leaveService;
   late EmployeeService employeeService;
-  late PaidLeaveService paidLeaveService;
+  late UserManager userManager;
+  late SpaceService spaceService;
   late UserLeaveCalendarBloc userLeaveCalendarViewBloc;
 
   String userID = "123";
@@ -56,16 +58,18 @@ void main() {
     setUp(() {
       leaveService = MockLeaveService();
       employeeService = MockEmployeeService();
-      paidLeaveService = MockPaidLeaveService();
+      userManager = MockUserManager();
+      spaceService = MockSpaceService();
       userLeaveCalendarViewBloc = UserLeaveCalendarBloc(
-          leaveService, employeeService, paidLeaveService);
+          leaveService, employeeService, userManager,spaceService);
       when(employeeService.getEmployee(userID))
           .thenAnswer((_) => Future(() => employee));
       when(leaveService.getAllLeavesOfUser(userID))
           .thenAnswer((_) => Future(() => [leave]));
       when(leaveService.getUserUsedLeaves(userID))
           .thenAnswer((_) => Future(() => 6.0));
-      when(paidLeaveService.getPaidLeaves())
+      when(userManager.currentSpaceId).thenReturn('space-id');
+      when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenAnswer((_) => Future(() => 12));
     });
 

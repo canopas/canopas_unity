@@ -1,20 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/const/firestore.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../../data/services/leave_service.dart';
-import '../../../../../data/services/paid_leave_service.dart';
 import 'admin_leave_application_detail_event.dart';
 import 'admin_leave_application_detail_state.dart';
 
 @Injectable()
 class AdminLeaveApplicationDetailsBloc extends Bloc<
     AdminLeaveApplicationDetailsEvents, AdminLeaveApplicationDetailsState> {
-  final PaidLeaveService _paidLeaveService;
+  final UserManager _userManager;
+  final SpaceService _spaceService;
   final LeaveService _leaveService;
 
-  AdminLeaveApplicationDetailsBloc(this._leaveService, this._paidLeaveService)
+  AdminLeaveApplicationDetailsBloc(this._leaveService, this._userManager, this._spaceService,)
       : super(const AdminLeaveApplicationDetailsState()) {
     on<AdminLeaveApplicationFetchLeaveCountEvent>(_fetchLeaveCounts);
     on<AdminLeaveApplicationReasonChangedEvent>(_onReplyChange);
@@ -26,7 +28,7 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
       Emitter<AdminLeaveApplicationDetailsState> emit) async {
     emit(state.copyWith(adminLeaveCountStatus: AdminLeaveCountStatus.loading));
     try {
-      int paidLeaves = await _paidLeaveService.getPaidLeaves();
+      int paidLeaves = await _spaceService.getPaidLeaves(spaceId: _userManager.currentSpaceId!);
       double usedLeave =
           await _leaveService.getUserUsedLeaves(event.employeeId);
       emit(state.copyWith(

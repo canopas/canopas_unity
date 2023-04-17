@@ -8,14 +8,13 @@ import 'package:projectunity/data/core/utils/const/leave_time_constants.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/data/services/paid_leave_service.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.dart';
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([PaidLeaveService, LeaveService, UserManager])
+@GenerateMocks([ LeaveService, UserManager])
 void main() {
   late LeaveService leaveService;
   late UserManager userManager;
