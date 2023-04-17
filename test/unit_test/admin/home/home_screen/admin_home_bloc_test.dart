@@ -6,6 +6,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart';
@@ -14,12 +15,12 @@ import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_state.dar
 
 import 'admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, ])
+@GenerateMocks([EmployeeService, LeaveService, UserManager])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late EmployeeService employeeService;
   late LeaveService leaveService;
-
+  late UserManager userManager;
   late AdminHomeBloc adminHomeBloc;
 
   Employee employee = const Employee(
@@ -53,10 +54,11 @@ void main() {
   setUp(() {
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
-
+    userManager = MockUserManager();
     adminHomeBloc = AdminHomeBloc(
       leaveService,
       employeeService,
+      userManager
     );
   });
 
