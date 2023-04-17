@@ -84,9 +84,9 @@ class EmployeeHomeAppBar extends StatelessWidget
           ),
           const SizedBox(height: primaryHalfSpacing),
           const Divider(
-            color: AppColors.dividerColor,
             height: 1,
-            thickness: 1,
+            endIndent: 0,
+            indent: 0,
           )
         ],
       ),
