@@ -3,21 +3,23 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/data/services/paid_leave_service.dart';
+import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, PaidLeaveService])
+@GenerateMocks([EmployeeService, LeaveService, UserManager, SpaceService])
 void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late LeaveService leaveService;
-  late PaidLeaveService paidLeaveService;
+  late UserManager userManager;
+  late SpaceService spaceService ;
   Employee employee = const Employee(
       uid: 'id',
       role: 2,
@@ -36,15 +38,18 @@ void main() {
   setUp(() {
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
-    paidLeaveService = MockPaidLeaveService();
+    userManager = MockUserManager();
+    spaceService = MockSpaceService();
     employeeDetailBloc = EmployeeDetailBloc(
-      paidLeaveService,
+      spaceService,
+      userManager,
       employeeService,
       leaveService,
     );
     when(leaveService.getUserUsedLeaves(employee.uid))
         .thenAnswer((_) async => 10);
-    when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
+    when(userManager.currentSpaceId).thenReturn("space-id");
+    when(spaceService.getPaidLeaves(spaceId: "space-id")).thenAnswer((_) async => 12);
   });
 
   group('Employee detail bloc', () {

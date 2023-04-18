@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/pref/user_preference.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
@@ -43,7 +42,10 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
 
   @override
   void initState() {
-    ///TODO: add initial data for edit workspace
+    _nameController.text = context.read<EditSpaceBloc>().space.name;
+    _domainController.text = context.read<EditSpaceBloc>().space.domain ?? "";
+    _paidTimeOffLeaveController.text =
+        context.read<EditSpaceBloc>().space.paidTimeOff.toString();
     super.initState();
   }
 
@@ -63,15 +65,21 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
         actions: [
           BlocBuilder<EditSpaceBloc, EditSpaceState>(
               builder: (context, state) => TextButton(
-                  onPressed: state.isValid ? () {} : null,
+                  onPressed: state.isDataValid
+                      ? () {
+                          context.read<EditSpaceBloc>().add(SaveSpaceDetails(
+                              paidTimeOff: _paidTimeOffLeaveController.text,
+                              spaceName: _nameController.text,
+                              spaceDomain: _domainController.text));
+                        }
+                      : null,
                   child: Text(AppLocalizations.of(context).save_tag))),
           const SizedBox(width: 10)
         ],
       ),
       body: BlocListener<EditSpaceBloc, EditSpaceState>(
         listener: (context, state) {
-          if (state.fetchDataStatus == Status.failure ||
-              state.deleteWorkSpaceStatus == Status.failure) {
+          if (state.isFailure) {
             showSnackBar(context: context, error: state.error);
           }
         },
@@ -80,7 +88,11 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _OrgLogoView(imageURl: null, onButtonTap: () {}),
+              _OrgLogoView(
+                  imageURl: null,
+                  onButtonTap: () {
+                    ///TODO:set logo implementation
+                  }),
               const SizedBox(height: 30),
               FieldEntry(
                 onChanged: (name) => context
@@ -147,12 +159,7 @@ class DeleteSpaceButton extends StatelessWidget {
                       description: AppLocalizations.of(context)
                           .delete_dialog_description_text,
                       onActionButtonPressed: () {
-                        ///TODO remove this and pass current space fetched for fireStore.
-                        final currentSpace =
-                            getIt<UserPreference>().getSpace()!;
-                        context.read<EditSpaceBloc>().add(DeleteSpaceEvent(
-                            workspaceId: currentSpace.id,
-                            ownersId: currentSpace.ownerIds));
+                        context.read<EditSpaceBloc>().add(DeleteSpaceEvent());
                       },
                     ),
                   ),

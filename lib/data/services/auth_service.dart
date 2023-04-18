@@ -8,7 +8,7 @@ import '../core/exception/custom_exception.dart';
 import '../core/exception/error_const.dart';
 import '../core/utils/const/firestore.dart';
 import '../model/user/user.dart';
-import '../stateManager/auth/desktop/desktop_auth_manager.dart';
+import '../state_manager/auth/desktop/desktop_auth_manager.dart';
 
 @Singleton()
 class AuthService {

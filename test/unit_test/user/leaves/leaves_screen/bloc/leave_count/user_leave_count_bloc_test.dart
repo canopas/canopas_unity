@@ -4,18 +4,18 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/data/services/paid_leave_service.dart';
+import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_cout_event.dart';
 
 import 'user_leave_count_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager, PaidLeaveService])
+@GenerateMocks([LeaveService, UserManager, SpaceService])
 void main() {
   late LeaveService leaveService;
   late UserManager userManager;
-  late PaidLeaveService paidLeaveService;
+  late SpaceService spaceService;
   late UserLeaveCountBloc userLeaveCountBloc;
   UserLeaveCountState loadingState = const UserLeaveCountState(
       status: UserLeaveCountStatus.loading,
@@ -29,9 +29,10 @@ void main() {
   setUp(() {
     leaveService = MockLeaveService();
     userManager = MockUserManager();
-    paidLeaveService = MockPaidLeaveService();
+    spaceService = MockSpaceService();
+
     userLeaveCountBloc =
-        UserLeaveCountBloc(leaveService, userManager, paidLeaveService);
+        UserLeaveCountBloc(leaveService, userManager, spaceService);
   });
 
   group('User Leave count State', () {
@@ -52,9 +53,10 @@ void main() {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
       when(userManager.employeeId).thenReturn(employeeId);
+      when(userManager.currentSpaceId).thenReturn("space-id");
       when(leaveService.getUserUsedLeaves(employeeId))
           .thenAnswer((_) async => 7);
-      when(paidLeaveService.getPaidLeaves()).thenAnswer((_) async => 12);
+      when(spaceService.getPaidLeaves(spaceId: 'space-id')).thenAnswer((_) async => 12);
       var percentage = 7 / 12;
 
       UserLeaveCountState successState = UserLeaveCountState(
@@ -71,9 +73,10 @@ void main() {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
       when(userManager.employeeId).thenReturn('Ca 1044');
+      when(userManager.currentSpaceId).thenReturn('space-id');
       when(leaveService.getUserUsedLeaves('Ca 1044'))
           .thenAnswer((_) async => 7);
-      when(paidLeaveService.getPaidLeaves())
+      when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenThrow(Exception('Couldn\'t load'));
       UserLeaveCountState errorState = const UserLeaveCountState(
           status: UserLeaveCountStatus.failure,

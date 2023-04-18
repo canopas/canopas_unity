@@ -23,11 +23,14 @@ class UserManager with ChangeNotifier {
     await _userPreference.setUser(user);
     hasLoggedIn();
   }
-
   Future<void> setSpace({required Space space, required Employee admin}) async {
     await _userPreference.setSpace(space);
     await _userPreference.setSpaceUser(admin);
     hasLoggedIn();
+  }
+
+  Future<void> updateSpaceDetails(Space space) async {
+    await _userPreference.setSpace(space);
   }
 
   Future<void> removeSpace() async {
