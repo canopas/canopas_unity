@@ -9,7 +9,7 @@ import '../../navigation/app_router.dart';
 import '../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import '../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
 import '../../widget/app_dialog.dart';
-import '../../widget/change_workspace_sheet.dart';
+import '../../shared/change_workspace_sheet/change_space_sheet.dart';
 import '../../widget/error_snack_bar.dart';
 import 'bloc/admin_settings_bloc.dart';
 import 'bloc/admin_settings_event.dart';

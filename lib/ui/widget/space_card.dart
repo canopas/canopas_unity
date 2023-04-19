@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
-import '../../../../data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
+import '../../data/configs/colors.dart';
+import '../../data/configs/text_style.dart';
+import '../../data/configs/theme.dart';
 
-class WorkSpaceCard extends StatelessWidget {
+class SpaceCard extends StatelessWidget {
   final String title;
-  final int members;
+  final String? domain;
   final void Function()? onPressed;
   final String? imageURL;
 
-  const WorkSpaceCard({Key? key, this.onPressed, this.imageURL, required this.title, required this.members}) : super(key: key);
+  const SpaceCard(
+      {Key? key,
+      this.onPressed,
+      this.imageURL,
+      required this.title,
+      required this.domain})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +50,13 @@ class WorkSpaceCard extends StatelessWidget {
                       image: imageURL == null
                           ? null
                           : DecorationImage(
-                        image: NetworkImage(imageURL!),
-                        fit: BoxFit.cover,
-                      )),
+                              image: NetworkImage(imageURL!),
+                              fit: BoxFit.cover,
+                            )),
                   child: imageURL != null
                       ? null
                       : const Icon(Icons.business,
-                      color: AppColors.secondaryText, size: 40),
+                          color: AppColors.secondaryText, size: 40),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -60,7 +68,10 @@ class WorkSpaceCard extends StatelessWidget {
                         style: AppFontStyle.bodyLarge
                             .copyWith(fontWeight: FontWeight.w600),
                       ),
-                      Text(members.toString(), style: AppFontStyle.subTitleGrey)
+                      ValidateWidget(
+                          isValid: domain.isNotNullOrEmpty,
+                          child: Text(domain ?? "",
+                              style: AppFontStyle.subTitleGrey)),
                     ],
                   ),
                 ),

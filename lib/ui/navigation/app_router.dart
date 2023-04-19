@@ -9,7 +9,6 @@ import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/employees/detail/user_employee_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
-
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
 import '../../data/provider/user_data.dart';
@@ -352,7 +351,8 @@ class AppRouter {
           if (userManager.loggedIn &&
               userManager.spaceSelected &&
               _userManager.spaceUserExist &&
-              state.subloc.contains(Routes.joinSpace)) {
+              (state.subloc.contains(Routes.joinSpace) ||
+                  userManager.spaceChanged)) {
             return userManager.isAdmin ? Routes.adminHome : Routes.userHome;
           }
           return null;

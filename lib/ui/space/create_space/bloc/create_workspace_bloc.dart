@@ -4,7 +4,6 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/const/role.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
-
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
@@ -102,7 +101,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
             spaceId: newSpace.id, employee: employee);
 
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
-        await _userManager.setSpace(space: newSpace, admin: employee);
+        await _userManager.setSpace(space: newSpace, spaceUser: employee);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,

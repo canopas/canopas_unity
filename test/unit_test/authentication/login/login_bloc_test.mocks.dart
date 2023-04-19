@@ -251,7 +251,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
   @override
   _i6.Future<void> setSpace({
     required _i8.Space? space,
-    required _i3.Employee? admin,
+    required _i3.Employee? spaceUser,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -259,7 +259,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
           [],
           {
             #space: space,
-            #admin: admin,
+            #admin: spaceUser,
           },
         ),
         returnValue: _i6.Future<void>.value(),

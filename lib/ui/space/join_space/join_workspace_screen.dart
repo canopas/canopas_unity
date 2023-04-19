@@ -9,7 +9,7 @@ import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
-import 'package:projectunity/ui/space/join_space/widget/workspace_card.dart';
+import 'package:projectunity/ui/widget/space_card.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
@@ -96,9 +96,9 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                         : Column(
                             mainAxisSize: MainAxisSize.min,
                             children: state.spaces
-                                .map((space) => WorkSpaceCard(
+                                .map((space) => SpaceCard(
                                       title: space.name,
-                                      members: 24,
+                                      domain: space.domain,
                                       imageURL: space.logo,
                                       onPressed: () => context.read<JoinSpaceBloc>().add(SelectSpaceEvent(space: space)),
                                     ))
