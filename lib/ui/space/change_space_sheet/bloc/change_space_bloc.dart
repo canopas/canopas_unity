@@ -21,8 +21,8 @@ class ChangeSpaceBloc extends Bloc<ChangeSpaceEvents, ChangeSpaceState> {
 
   Future<void> _init(
       ChangeSpaceInitialLoadEvent event, Emitter<ChangeSpaceState> emit) async {
+    emit(state.copyWith(fetchSpaceStatus: Status.loading));
     try {
-      emit(state.copyWith(fetchSpaceStatus: Status.loading));
       final spaces = await _spaceService.getSpacesOfUser(_userManager.userUID!);
       emit(state.copyWith(fetchSpaceStatus: Status.success, spaces: spaces));
     } on Exception {

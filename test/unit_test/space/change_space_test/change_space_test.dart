@@ -7,9 +7,10 @@ import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
-import 'package:projectunity/ui/shared/change_workspace_sheet/bloc/change_space_bloc.dart';
-import 'package:projectunity/ui/shared/change_workspace_sheet/bloc/change_space_events.dart';
-import 'package:projectunity/ui/shared/change_workspace_sheet/bloc/change_space_state.dart';
+import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_bloc.dart';
+import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_events.dart';
+import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_state.dart';
+
 
 import 'change_space_test.mocks.dart';
 

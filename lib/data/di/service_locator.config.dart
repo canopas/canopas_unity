@@ -46,8 +46,6 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i3;
 import 'package:projectunity/ui/navigation/app_router.dart' as _i17;
-import 'package:projectunity/ui/shared/change_workspace_sheet/bloc/change_space_bloc.dart'
-    as _i39;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i6;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
@@ -55,6 +53,8 @@ import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_b
 import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
     as _i30;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i22;
+import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_bloc.dart'
+    as _i39;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
     as _i40;
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/ui/shared/change_workspace_sheet/bloc/change_space_events.dart';
-import 'package:projectunity/ui/shared/change_workspace_sheet/bloc/change_space_state.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
+import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/text_style.dart';
 import '../../../data/configs/theme.dart';
@@ -10,15 +10,17 @@ import '../../../data/di/service_locator.dart';
 import '../../widget/space_card.dart';
 import 'bloc/change_space_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'bloc/change_space_events.dart';
+import 'bloc/change_space_state.dart';
 
-class ChangeWorkspaceBottomSheet extends StatefulWidget {
-  const ChangeWorkspaceBottomSheet({Key? key}) : super(key: key);
+class ChangeSpaceBottomSheet extends StatefulWidget {
+  const ChangeSpaceBottomSheet({Key? key}) : super(key: key);
 
   @override
-  State<ChangeWorkspaceBottomSheet> createState() => _ChangeWorkspaceBottomSheetState();
+  State<ChangeSpaceBottomSheet> createState() => _ChangeSpaceBottomSheetState();
 }
 
-class _ChangeWorkspaceBottomSheetState extends State<ChangeWorkspaceBottomSheet> {
+class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -40,7 +42,13 @@ class _ChangeWorkspaceBottomSheetState extends State<ChangeWorkspaceBottomSheet>
               ),
             ),
             Expanded(
-              child: BlocBuilder<ChangeSpaceBloc, ChangeSpaceState>(
+              child: BlocConsumer<ChangeSpaceBloc, ChangeSpaceState>(
+                listener: (context, state){
+                  if(state.error != null){
+                    context.pop();
+                    showSnackBar(context: context,error: state.error);
+                  }
+                },
                 buildWhen: (previous, current) => previous.fetchSpaceStatus != current.fetchSpaceStatus,
                   builder: (context, state) {
                 if (state.fetchSpaceStatus == Status.loading) {
