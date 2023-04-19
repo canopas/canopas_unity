@@ -40,9 +40,9 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
     return Scaffold(
       body: BlocListener<JoinSpaceBloc, JoinSpaceState>(
         listenWhen: (previous, current) =>
-            current.getSpaceStatus == Status.failure,
+            current.fetchSpaceStatus == Status.failure || current.selectSpaceStatus == Status.failure,
         listener: (context, state) {
-          if (state.getSpaceStatus == Status.failure) {
+          if (state.error != null) {
             showSnackBar(context: context, error: state.error);
           }
         },
@@ -76,7 +76,8 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                   const Divider(),
                   Container(
                       color: AppColors.whiteColor,
-                      padding: const EdgeInsets.all(primarySpacing),
+                      margin: const EdgeInsets.symmetric(vertical: primarySpacing),
+                      padding: const EdgeInsets.symmetric(horizontal: primarySpacing),
                       child: Text(
                         AppLocalizations.of(context).or_tag,
                         style: AppFontStyle.bodyLarge
@@ -91,7 +92,7 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
               const SizedBox(height: 10),
               BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
                 builder: (context, state) =>
-                    state.getSpaceStatus == Status.loading
+                    state.fetchSpaceStatus == Status.loading
                         ? const AppCircularProgressIndicator()
                         : Column(
                             mainAxisSize: MainAxisSize.min,
