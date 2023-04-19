@@ -9,6 +9,7 @@ import '../../../data/configs/theme.dart';
 import '../../../data/di/service_locator.dart';
 import '../../widget/space_card.dart';
 import 'bloc/change_space_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class ChangeWorkspaceBottomSheet extends StatefulWidget {
   const ChangeWorkspaceBottomSheet({Key? key}) : super(key: key);
@@ -31,19 +32,20 @@ class _ChangeWorkspaceBottomSheetState extends State<ChangeWorkspaceBottomSheet>
         ),
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 16),
+             Padding(
+              padding: const EdgeInsets.only(top: 16),
               child: Text(
-                "Workspaces",
+                AppLocalizations.of(context).spaces_title,
                 style: AppFontStyle.titleDark,
               ),
             ),
             Expanded(
-              child: BlocBuilder<ChangeSpaceBloc, ChangeSpaceStates>(
+              child: BlocBuilder<ChangeSpaceBloc, ChangeSpaceState>(
+                buildWhen: (previous, current) => previous.fetchSpaceStatus != current.fetchSpaceStatus,
                   builder: (context, state) {
-                if (state is ChangeSpaceLoadingState) {
+                if (state.fetchSpaceStatus == Status.loading) {
                   return const AppCircularProgressIndicator();
-                } else if (state is ChangeSpaceSuccessState) {
+                } else if (state.fetchSpaceStatus == Status.success) {
                   return ListView.builder(
                     itemCount: state.spaces.length,
                     padding: const EdgeInsets.all(16),

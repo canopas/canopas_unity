@@ -1,32 +1,35 @@
 import 'package:equatable/equatable.dart';
 import '../../../../data/model/space/space.dart';
 
-abstract class ChangeSpaceStates extends Equatable {}
+enum Status { initial, loading, failure, success }
 
-class ChangeSpaceInitialState extends ChangeSpaceStates {
-  @override
-  List<Object?> get props => [];
-}
-
-class ChangeSpaceLoadingState extends ChangeSpaceStates {
-  @override
-  List<Object?> get props => [];
-}
-
-class ChangeSpaceSuccessState extends ChangeSpaceStates {
+class ChangeSpaceState extends Equatable {
+  final Status fetchSpaceStatus;
+  final Status changeSpaceStatus;
+  final String? error;
   final List<Space> spaces;
 
-  ChangeSpaceSuccessState(this.spaces);
+  const ChangeSpaceState({
+    this.error,
+    this.spaces = const [],
+    this.changeSpaceStatus = Status.initial,
+    this.fetchSpaceStatus = Status.failure,
+  });
+
+  copyWith({
+    Status? fetchSpaceStatus,
+    Status? changeSpaceStatus,
+    String? error,
+    List<Space>? spaces,
+  }) =>
+      ChangeSpaceState(
+        changeSpaceStatus: changeSpaceStatus ?? this.changeSpaceStatus,
+        fetchSpaceStatus: fetchSpaceStatus ?? this.fetchSpaceStatus,
+        error: error,
+        spaces: spaces ?? this.spaces,
+      );
 
   @override
-  List<Object?> get props => [spaces];
-}
-
-class ChangeSpaceFailureState extends ChangeSpaceStates {
-  final String error;
-
-  ChangeSpaceFailureState(this.error);
-
-  @override
-  List<Object?> get props => [error];
+  List<Object?> get props =>
+      [fetchSpaceStatus, changeSpaceStatus, error, spaces];
 }

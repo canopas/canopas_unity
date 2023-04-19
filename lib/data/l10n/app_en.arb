@@ -20,6 +20,7 @@
   "next_tag":"Next",
   "back_tag":"Back",
 
+  "spaces_title":"Spaces",
   "delete_space_text":"Delete Space",
   "delete_dialog_description_text":"Are you sure you want to permanently delete space?",
   "change_space_tag":"Change Space",
