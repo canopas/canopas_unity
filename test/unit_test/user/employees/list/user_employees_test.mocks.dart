@@ -194,6 +194,19 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
         returnValueForMissingStub: null,
       );
   @override
+  bool get spaceChanged => (super.noSuchMethod(
+        Invocation.getter(#spaceChanged),
+        returnValue: false,
+      ) as bool);
+  @override
+  set spaceChanged(bool? _spaceChanged) => super.noSuchMethod(
+        Invocation.setter(
+          #spaceChanged,
+          _spaceChanged,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   String get userName => (super.noSuchMethod(
         Invocation.getter(#userName),
         returnValue: '',
@@ -256,7 +269,7 @@ class MockUserManager extends _i1.Mock implements _i5.UserManager {
           [],
           {
             #space: space,
-            #admin: spaceUser,
+            #spaceUser: spaceUser,
           },
         ),
         returnValue: _i4.Future<void>.value(),
