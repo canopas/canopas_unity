@@ -1,16 +1,26 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
-import '../../../../../data/core/utils/const/image_constant.dart';
 import '../../../../navigation/app_router.dart';
 
 class EmployeeHomeAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  const EmployeeHomeAppBar({Key? key, required this.preferredSize})
+  final String spaceName;
+  final String? spaceDomain;
+  final String? spaceLogo;
+
+  const EmployeeHomeAppBar(
+      {Key? key,
+      required this.preferredSize,
+      required this.spaceName,
+      this.spaceDomain,
+      this.spaceLogo})
       : super(key: key);
 
   @override
@@ -28,27 +38,34 @@ class EmployeeHomeAppBar extends StatelessWidget
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.whiteColor,
-                  boxShadow: AppTheme.commonBoxShadow,
-                  image: const DecorationImage(
-                      image: NetworkImage(ImageConst.companyLogo)),
+              ValidateWidget(
+                isValid: spaceLogo.isNotNullOrEmpty,
+                child: CachedNetworkImage(
+                  imageUrl: spaceLogo ?? "",
+                  imageBuilder: (context, imageProvider) => Container(
+                    margin: const EdgeInsets.only(right: primaryHorizontalSpacing),
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.whiteColor,
+                      boxShadow: AppTheme.commonBoxShadow,
+                      image: DecorationImage(image: imageProvider),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(width: primaryHorizontalSpacing),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations.of(context).company_name,
+                  Text(spaceName,
                       style: AppFontStyle.titleDark,
                       overflow: TextOverflow.ellipsis),
-                  Text(
-                    AppLocalizations.of(context).company_subtitle,
-                    style: AppFontStyle.subTitleGrey,
+                  ValidateWidget(
+                    isValid: spaceDomain.isNotNullOrEmpty,
+                    child: Text(spaceDomain ?? "",
+                      style: AppFontStyle.subTitleGrey,
+                    ),
                   )
                 ],
               ),
@@ -67,9 +84,9 @@ class EmployeeHomeAppBar extends StatelessWidget
           ),
           const SizedBox(height: primaryHalfSpacing),
           const Divider(
-            color: AppColors.dividerColor,
             height: 1,
-            thickness: 1,
+            endIndent: 0,
+            indent: 0,
           )
         ],
       ),

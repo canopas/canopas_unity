@@ -42,6 +42,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
       appBar: AdminHomeAppBar(
         preferredSize: Size(MediaQuery.of(context).size.width, 80),
+        spaceName: context.read<AdminHomeBloc>().spaceName,
+        spaceDomain: context.read<AdminHomeBloc>().spaceDomain,
+        spaceLogo: context.read<AdminHomeBloc>().spaceLogo,
       ),
       body: SingleChildScrollView(
         child: Column(

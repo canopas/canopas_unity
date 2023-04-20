@@ -41,6 +41,7 @@ dependencies:
   uuid: ^3.0.6
   table_calendar: ^3.0.7
   window_to_front: ^0.0.3
+  cached_network_image: ^3.2.3
 
 
 
