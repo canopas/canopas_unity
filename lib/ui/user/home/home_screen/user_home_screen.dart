@@ -40,6 +40,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     return Scaffold(
       appBar: EmployeeHomeAppBar(
         preferredSize: Size(MediaQuery.of(context).size.width, 80),
+        spaceName: context.read<UserHomeBloc>().spaceName,
+        spaceDomain: context.read<UserHomeBloc>().spaceDomain,
+        spaceLogo: context.read<UserHomeBloc>().spaceLogo,
       ),
       body: ListView(
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
