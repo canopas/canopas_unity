@@ -54,6 +54,14 @@ class MockSpaceService extends _i1.Mock implements _i4.SpaceService {
   }
 
   @override
+  _i5.Future<_i2.Space?> getSpace(String? spaceId) => (super.noSuchMethod(
+        Invocation.method(
+          #getSpace,
+          [spaceId],
+        ),
+        returnValue: _i5.Future<_i2.Space?>.value(),
+      ) as _i5.Future<_i2.Space?>);
+  @override
   _i5.Future<_i2.Space> createSpace({
     required String? name,
     required String? domain,
@@ -89,6 +97,15 @@ class MockSpaceService extends _i1.Mock implements _i4.SpaceService {
         )),
       ) as _i5.Future<_i2.Space>);
   @override
+  _i5.Future<void> updateSpace(_i2.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #updateSpace,
+          [space],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
   _i5.Future<void> deleteSpace(
     String? workspaceId,
     List<String>? owners,
@@ -113,6 +130,33 @@ class MockSpaceService extends _i1.Mock implements _i4.SpaceService {
         ),
         returnValue: _i5.Future<List<_i2.Space>>.value(<_i2.Space>[]),
       ) as _i5.Future<List<_i2.Space>>);
+  @override
+  _i5.Future<int> getPaidLeaves({required String? spaceId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPaidLeaves,
+          [],
+          {#spaceId: spaceId},
+        ),
+        returnValue: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
+  @override
+  _i5.Future<void> updateLeaveCount({
+    required String? spaceId,
+    required int? paidLeaveCount,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateLeaveCount,
+          [],
+          {
+            #spaceId: spaceId,
+            #paidLeaveCount: paidLeaveCount,
+          },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserManager].
@@ -159,6 +203,19 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
         Invocation.setter(
           #spaceUserExist,
           _spaceUserExist,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  bool get spaceChanged => (super.noSuchMethod(
+        Invocation.getter(#spaceChanged),
+        returnValue: false,
+      ) as bool);
+  @override
+  set spaceChanged(bool? _spaceChanged) => super.noSuchMethod(
+        Invocation.setter(
+          #spaceChanged,
+          _spaceChanged,
         ),
         returnValueForMissingStub: null,
       );
@@ -217,7 +274,7 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
   @override
   _i5.Future<void> setSpace({
     required _i2.Space? space,
-    required _i3.Employee? admin,
+    required _i3.Employee? spaceUser,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -225,8 +282,17 @@ class MockUserManager extends _i1.Mock implements _i6.UserManager {
           [],
           {
             #space: space,
-            #admin: admin,
+            #spaceUser: spaceUser,
           },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> updateSpaceDetails(_i2.Space? space) => (super.noSuchMethod(
+        Invocation.method(
+          #updateSpaceDetails,
+          [space],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

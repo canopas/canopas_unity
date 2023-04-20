@@ -74,8 +74,8 @@ void main() {
             const JoinSpaceState(selectSpaceStatus: Status.loading),
             const JoinSpaceState(selectSpaceStatus: Status.success),
           ]));
-      await untilCalled(userManager.setSpace(space: space, admin: employee));
-      verify(userManager.setSpace(space: space, admin: employee)).called(1);
+      await untilCalled(userManager.setSpace(space: space, spaceUser: employee));
+      verify(userManager.setSpace(space: space, spaceUser: employee)).called(1);
     });
 
     test('Change space failure test', () {
