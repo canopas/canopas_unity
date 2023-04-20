@@ -8,7 +8,7 @@ Future<DateTime?> pickDate(
   DateTime? pickDate = await showDatePicker(
     context: context,
     initialDate: initialDate,
-    firstDate: DateTime(2000),
+    firstDate: DateTime(1990),
     lastDate: DateTime(DateTime.now().futureDateSelectionYear),
     selectableDayPredicate: (day) => onlyFutureDateSelection
         ? day.isAfter(DateTime.now().subtract(const Duration(days: 1)))

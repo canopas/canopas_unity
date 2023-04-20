@@ -4,13 +4,14 @@ import 'package:equatable/equatable.dart';
 
 part 'user.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class User extends Equatable {
   final String uid;
   final String email;
+  final String? name;
   final List<String> spaces;
 
-  const User({required this.uid, required this.email, this.spaces = const []});
+  const User({required this.uid, required this.email,this.name,this.spaces = const []});
 
   factory User.fromJson(Map<String, dynamic> map) => _$UserFromJson(map);
 
@@ -21,5 +22,5 @@ class User extends Equatable {
       User.fromJson(snapshot.data()!);
 
   @override
-  List<Object?> get props => [uid, email, spaces];
+  List<Object?> get props => [uid, email, spaces,name];
 }

@@ -23,20 +23,32 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
 
   void _init(
       JoinSpaceInitialFetchEvent event, Emitter<JoinSpaceState> emit) async {
-    emit(state.copy(getSpaceStatus: Status.loading));
+    emit(state.copy(fetchSpaceStatus: Status.loading));
     try {
       final spaces = await _spaceService.getSpacesOfUser(_userManager.userUID!);
-      emit(state.copy(getSpaceStatus: Status.success, spaces: spaces));
+      emit(state.copy(fetchSpaceStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copy(
-          getSpaceStatus: Status.failure, error: firestoreFetchDataError));
+          fetchSpaceStatus: Status.failure, error: firestoreFetchDataError));
     }
   }
 
   Future<void> _selectSpace(
       SelectSpaceEvent event, Emitter<JoinSpaceState> emit) async {
-    final employee = await _employeeService.getEmployeeBySpaceId(
-        spaceId: event.space.id, userId: _userManager.userUID!);
-    await _userManager.setSpace(space: event.space, spaceUser: employee!);
+    emit(state.copy(selectSpaceStatus: Status.loading));
+    try {
+      final employee = await _employeeService.getEmployeeBySpaceId(
+          spaceId: event.space.id, userId: _userManager.userUID!);
+      if(employee != null){
+        await _userManager.setSpace(space: event.space, spaceUser: employee);
+        emit(state.copy(selectSpaceStatus: Status.success));
+      } else{
+        emit(state.copy(
+            selectSpaceStatus: Status.failure, error: firestoreFetchDataError));
+      }
+    } on Exception {
+      emit(state.copy(
+          selectSpaceStatus: Status.failure, error: firestoreFetchDataError));
+    }
   }
 }
