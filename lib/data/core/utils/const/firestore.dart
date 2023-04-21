@@ -10,9 +10,8 @@ class FireStoreConst {
   static const String ownerIds = 'owner_ids';
   static const String paidTimeOff = 'paid_time_off';
 
-  static const String roleType = 'role_type';
+  static const String roleType = 'role';
   static const String email = 'email';
-  static const String id = 'id';
   static const String name = 'name';
   static const String employeeId = 'employee_id';
   static const String designation = 'designation';
@@ -23,10 +22,9 @@ class FireStoreConst {
   static const String dateOfBirth = 'date_of_birth';
   static const String dateOfJoining = 'date_of_joining';
   static const String level = 'level';
-  static const String bloodGroup = 'blood_group';
   static const String totalLeavesDoc = 'totalLeaves';
   static const String leaves = 'leaves';
-  static const String leaveStatus = 'leave_status';
+  static const String leaveStatus = 'status';
   static const String rejectionReason = 'rejection_reason';
   static const String startLeaveDate = 'start_date';
   static const String endLeaveDate = 'end_date';
