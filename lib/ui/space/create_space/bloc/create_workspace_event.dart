@@ -12,12 +12,12 @@ class PageChangeEvent extends CreateSpaceEvent {
 }
 
 class CompanyNameChangeEvent extends CreateSpaceEvent {
-  final String name;
+  final String companyName;
 
-  CompanyNameChangeEvent({required this.name});
+  CompanyNameChangeEvent({required this.companyName});
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [companyName];
 }
 
 class CompanyDomainChangeEvent extends CreateSpaceEvent {
@@ -52,3 +52,12 @@ class CreateSpaceButtonTapEvent extends CreateSpaceEvent {
   @override
   List<Object?> get props => [];
 }
+
+class UserNameChangeEvent extends CreateSpaceEvent {
+  final String? name;
+  UserNameChangeEvent({this.name});
+
+  @override
+  List<Object?> get props => [name];
+}
+

@@ -1,74 +1,79 @@
 import 'package:equatable/equatable.dart';
 
-enum ButtonStatus { enable, disable }
+enum ButtonState { enable, disable }
 
 enum CreateSpaceStatus { initial, loading, error, success }
 
 class CreateSpaceState extends Equatable {
+  final String companyName;
   final int page;
-  final String name;
   final String domain;
-  final bool nameError;
+  final bool companyNameError;
   final bool domainError;
   final String paidTimeOff;
   final bool paidTimeOffError;
-  final ButtonStatus nextButtonStatus;
-  final ButtonStatus createSpaceButtonStatus;
+  final ButtonState buttonState;
   final String? error;
   final CreateSpaceStatus createSpaceStatus;
+  final String? ownerName;
+  final bool ownerNameError;
 
   const CreateSpaceState(
-      {this.page = 0,
-      this.name = '',
-      this.domain = '',
-      this.nameError = false,
-      this.domainError = false,
-      this.paidTimeOff = '',
-      this.paidTimeOffError = false,
-      this.nextButtonStatus = ButtonStatus.disable,
-      this.createSpaceButtonStatus = ButtonStatus.disable,
-      this.createSpaceStatus = CreateSpaceStatus.initial,
-      this.error = ''});
+      {
+        this.page = 0,
+        this.companyName = '',
+        this.domain = '',
+        this.companyNameError = false,
+        this.domainError = false,
+        this.paidTimeOff = '',
+        this.paidTimeOffError = false,
+        this.buttonState = ButtonState.disable,
+        this.createSpaceStatus = CreateSpaceStatus.initial,
+        this.ownerName,
+        this.ownerNameError = false,
+        this.error = ''});
 
   CreateSpaceState copyWith({
     int? page,
-    String? name,
+    String? companyName,
     String? domain,
-    bool? nameError,
+    bool? companyNameError,
     bool? domainError,
     String? paidTimeOff,
     bool? paidTimeOffError,
-    ButtonStatus? nextButtonStatus,
-    ButtonStatus? createSpaceButtonStatus,
+    ButtonState? buttonState,
     String? error,
+    String? ownerName,
+    bool? ownerNameError,
     CreateSpaceStatus? createSpaceStatus,
   }) =>
       CreateSpaceState(
           page: page ?? this.page,
-          name: name ?? this.name,
+          companyName: companyName ?? this.companyName,
           domain: domain ?? this.domain,
-          nameError: nameError ?? this.nameError,
+          companyNameError: companyNameError ?? this.companyNameError,
           domainError: domainError ?? this.domainError,
           paidTimeOff: paidTimeOff ?? this.paidTimeOff,
           paidTimeOffError: paidTimeOffError ?? this.paidTimeOffError,
-          nextButtonStatus: nextButtonStatus ?? this.nextButtonStatus,
-          createSpaceButtonStatus:
-              createSpaceButtonStatus ?? this.createSpaceButtonStatus,
-          createSpaceStatus: createSpaceStatus ?? this.createSpaceStatus,
+          buttonState: buttonState ?? this.buttonState,
+          createSpaceStatus: createSpaceStatus ?? CreateSpaceStatus.initial,
+          ownerName: ownerName ?? this.ownerName,
+          ownerNameError: ownerNameError ?? this.ownerNameError,
           error: error ?? this.error);
 
   @override
   List<Object?> get props => [
-        page,
-        name,
-        domain,
-        nameError,
-        domainError,
-        paidTimeOff,
-        paidTimeOffError,
-        nextButtonStatus,
-        createSpaceButtonStatus,
-        error,
-        createSpaceStatus
-      ];
+    page,
+    companyName,
+    domain,
+    companyNameError,
+    domainError,
+    paidTimeOff,
+    paidTimeOffError,
+    buttonState,
+    ownerNameError,
+    error,
+    createSpaceStatus,
+    ownerName,
+  ];
 }

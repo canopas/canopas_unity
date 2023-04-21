@@ -16,36 +16,55 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
   final UserManager _userManager;
 
   CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService)
-      : super(const CreateSpaceState()) {
+      : super(CreateSpaceState(ownerName: _userManager.userFirebaseAuthName)) {
     on<PageChangeEvent>(_onPageChange);
     on<CompanyNameChangeEvent>(_onNameChanged);
     on<CompanyDomainChangeEvent>(_onDomainChanged);
     on<PaidTimeOffChangeEvent>(_onTimeOffChanged);
     on<CreateSpaceButtonTapEvent>(_createSpace);
+    on<UserNameChangeEvent>(_changeUserName);
   }
 
   bool validName(String? name) => name != null && name.length >= 4;
 
   bool validDomain(String? email) =>
       email != null && email.length >= 4 && email.contains('.') ||
-      email!.isEmpty;
+          email!.isEmpty;
 
   void _onPageChange(PageChangeEvent event, Emitter<CreateSpaceState> emit) {
-    emit(state.copyWith(page: event.page));
+    emit(state.copyWith(buttonState: ButtonState.disable,page: event.page));
+    switch (event.page) {
+      case 0:
+        if (validateFirstStep) {
+          emit(state.copyWith(buttonState: ButtonState.enable));
+        }
+        break;
+      case 1:
+        if (validateSecondStep) {
+          emit(state.copyWith(buttonState: ButtonState.enable));
+
+        }
+        break;
+      case 2:
+        if (validateFirstStep && validateSecondStep && validateThirdStep) {
+          emit(state.copyWith(buttonState: ButtonState.enable));
+        }
+    }
   }
+
 
   void _onNameChanged(
       CompanyNameChangeEvent event, Emitter<CreateSpaceState> emit) {
-    if (validName(event.name)) {
+    if (validName(event.companyName)) {
       emit(state.copyWith(
-          name: event.name,
-          nameError: false,
-          nextButtonStatus: ButtonStatus.enable));
+          companyName: event.companyName,
+          companyNameError: false,
+          buttonState: ButtonState.enable));
     } else {
       emit(state.copyWith(
-          name: event.name,
-          nameError: true,
-          nextButtonStatus: ButtonStatus.disable));
+          companyName: event.companyName,
+          companyNameError: true,
+          buttonState: ButtonState.disable));
     }
   }
 
@@ -64,28 +83,52 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
       emit(state.copyWith(
           paidTimeOff: event.paidTimeOff,
           paidTimeOffError: true,
-          createSpaceButtonStatus: ButtonStatus.disable));
+          buttonState: ButtonState.disable));
     } else {
       emit(state.copyWith(
           paidTimeOff: event.paidTimeOff,
           paidTimeOffError: false,
-          createSpaceButtonStatus: ButtonStatus.enable));
+          buttonState: ButtonState.enable));
     }
   }
 
-  bool get validateSpaceData =>
-      validName(state.name) && !state.nameError && !state.domainError;
+  void _changeUserName(UserNameChangeEvent event, Emitter<CreateSpaceState> emit) {
+    if (validName(event.name)) {
+      emit(state.copyWith(
+        buttonState: ButtonState.enable,
+        ownerName: event.name,
+        ownerNameError: false,
+      ));
+    } else {
+      emit(state.copyWith(
+        buttonState: ButtonState.disable,
+        ownerName: event.name,
+        ownerNameError: true,
+      ));
+    }
+  }
+
+  bool get validateFirstStep =>
+      state.companyName.isNotEmpty &&
+          validName(state.companyName) &&
+          !state.companyNameError &&
+          !state.domainError;
+
+  bool get validateSecondStep =>
+      (state.paidTimeOff.isNotEmpty) && !state.paidTimeOffError;
+
+  bool get validateThirdStep =>
+      validName(state.ownerName) && !state.companyNameError;
 
   Future<void> _createSpace(
       CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
-    if (validateSpaceData) {
+    if (validateFirstStep&&validateSecondStep&&validateThirdStep) {
       emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.loading));
       try {
         int timeOff = int.parse(state.paidTimeOff);
 
         final newSpace = await _spaceService.createSpace(
-            ownerEmail: _userManager.userEmail!,
-            name: state.name,
+            name: state.companyName,
             domain: state.domain,
             timeOff: timeOff,
             ownerId: _userManager.userUID!);
@@ -93,7 +136,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
         final employee = Employee(
           uid: _userManager.userUID!,
           role: kRoleTypeAdmin,
-          name: _userManager.userEmail!.split('@').first,
+          name: state.ownerName!,
           email: _userManager.userEmail!,
         );
 
@@ -108,7 +151,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
             createSpaceStatus: CreateSpaceStatus.error));
       }
     } else {
-      emit(state.copyWith(error: provideRequiredInformation));
+      emit(state.copyWith(error: provideRequiredInformation,createSpaceStatus: CreateSpaceStatus.error));
     }
   }
 }
+

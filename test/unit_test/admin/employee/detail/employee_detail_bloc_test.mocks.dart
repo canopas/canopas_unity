@@ -552,7 +552,6 @@ class MockSpaceService extends _i1.Mock implements _i11.SpaceService {
     required String? domain,
     required int? timeOff,
     required String? ownerId,
-    required String? ownerEmail,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -563,7 +562,6 @@ class MockSpaceService extends _i1.Mock implements _i11.SpaceService {
             #domain: domain,
             #timeOff: timeOff,
             #ownerId: ownerId,
-            #ownerEmail: ownerEmail,
           },
         ),
         returnValue: _i5.Future<_i3.Space>.value(_FakeSpace_1(
@@ -576,7 +574,6 @@ class MockSpaceService extends _i1.Mock implements _i11.SpaceService {
               #domain: domain,
               #timeOff: timeOff,
               #ownerId: ownerId,
-              #ownerEmail: ownerEmail,
             },
           ),
         )),

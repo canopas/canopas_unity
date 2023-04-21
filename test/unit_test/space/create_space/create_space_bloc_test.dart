@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
@@ -17,262 +18,314 @@ void main() {
   late SpaceService spaceService;
   late UserManager userManager;
   late EmployeeService employeeService;
-  late CreateSpaceBLoc createSpaceBLoc;
+  late CreateSpaceBLoc bloc;
+  late CreateSpaceState createSpaceState;
   setUp(() {
     spaceService = MockSpaceService();
     userManager = MockUserManager();
     employeeService = MockEmployeeService();
-    createSpaceBLoc =
-        CreateSpaceBLoc(spaceService, userManager, employeeService);
+    when(userManager.userFirebaseAuthName).thenReturn('user name');
+    bloc = CreateSpaceBLoc(spaceService, userManager, employeeService);
+    createSpaceState = const CreateSpaceState(ownerName: 'user name');
   });
 
-  group('Test the step 1 form for correct input for company details', () {
-    late CreateSpaceState initialState = const CreateSpaceState(
-        page: 0,
-        domain: '',
-        name: '',
-        nameError: false,
-        domainError: false,
-        paidTimeOff: '',
-        paidTimeOffError: false,
-        createSpaceStatus: CreateSpaceStatus.initial,
-        nextButtonStatus: ButtonStatus.disable,
-        createSpaceButtonStatus: ButtonStatus.disable,
-        error: '');
-
-    test('emits initial state with empty textfield for company name and domain',
-        () {
-      expect(createSpaceBLoc.state, initialState);
-    });
-    test('show error when name input does not contains minimum 4 character ',
-        () {
-      createSpaceBLoc.add(CompanyNameChangeEvent(name: 'can'));
-      CreateSpaceState stateWithNameError = const CreateSpaceState(
-          page: 0,
-          domain: '',
-          name: 'can',
-          nameError: true,
-          domainError: false,
-          paidTimeOff: '',
-          paidTimeOffError: false,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceButtonStatus: ButtonStatus.disable,
-          error: '');
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithNameError]));
-    });
+  group('Page Change Event', () {
     test(
-        'error gone when name input contains 4 character and next button would be enable',
-        () {
-      createSpaceBLoc.add(CompanyNameChangeEvent(name: 'cano'));
-      CreateSpaceState stateWithName = const CreateSpaceState(
-          page: 0,
-          domain: '',
-          name: 'cano',
-          nameError: false,
-          domainError: false,
-          paidTimeOff: '',
-          paidTimeOffError: false,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          nextButtonStatus: ButtonStatus.enable,
-          createSpaceButtonStatus: ButtonStatus.disable,
-          error: '');
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithName]));
-    });
-    test(
-        'show error when domain input does not contains minimum 4 character   ',
-        () {
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'can'));
-      CreateSpaceState stateWithDomainError = const CreateSpaceState(
-          page: 0,
-          domain: 'can',
-          name: '',
-          nameError: false,
-          domainError: true,
-          paidTimeOff: '',
-          paidTimeOffError: false,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceButtonStatus: ButtonStatus.disable,
-          error: '');
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithDomainError]));
-    });
-    test('Shows error  when domain input does not contains . character ', () {
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'cano'));
-      CreateSpaceState stateWithDomainError = const CreateSpaceState(
-          page: 0,
-          domain: 'cano',
-          name: '',
-          nameError: false,
-          domainError: true,
-          paidTimeOff: '',
-          paidTimeOffError: false,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceButtonStatus: ButtonStatus.disable,
-          error: '');
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithDomainError]));
-    });
-    test(' error gone when domain input contains . character ', () {
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'cano.'));
-      CreateSpaceState stateWithDomainError = const CreateSpaceState(
-          page: 0,
-          domain: 'cano.',
-          name: '',
-          nameError: false,
-          domainError: false,
-          paidTimeOff: '',
-          paidTimeOffError: false,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceButtonStatus: ButtonStatus.disable,
-          error: '');
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithDomainError]));
-    });
-    test('Navigate to second step on tap of Next  button', () {
-      createSpaceBLoc.add(PageChangeEvent(page: 1));
-      CreateSpaceState state = const CreateSpaceState(
-          page: 1,
-          name: '',
-          domain: '',
-          nameError: false,
-          domainError: false,
-          paidTimeOff: '',
-          paidTimeOffError: false,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceButtonStatus: ButtonStatus.disable,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          error: '');
-      expect(createSpaceBLoc.stream, emitsInOrder([state]));
-    });
+        'Button state is disable as index is equal to tab 1 when create space is open',
+            () {
+          expect(bloc.state.buttonState, ButtonState.disable);
+        });
+    test('Button state is disable of tab 2 when change tab from tab controller',
+            () {
+          bloc.add(PageChangeEvent(page: 1));
+          expect(createSpaceState.buttonState, ButtonState.disable);
+        });
+    test('Button state is disable of tab 3 when change tab from tab controller',
+            () {
+          bloc.add(PageChangeEvent(page: 1));
+          expect(createSpaceState.buttonState, ButtonState.disable);
+        });
   });
-  group('Test the step 2 form for correct input for company details', () {
+
+  group('Tab 1 Test', () {
+
     test(
-        'Shows error when Paid time off input field is empty end button status is disable',
-        () {
-      createSpaceBLoc.add(PaidTimeOffChangeEvent(paidTimeOff: ''));
-      CreateSpaceState stateWithPaidTimeOffError = const CreateSpaceState(
-          page: 0,
-          nameError: false,
-          name: '',
-          domain: '',
-          domainError: false,
-          paidTimeOff: '',
-          paidTimeOffError: true,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          createSpaceButtonStatus: ButtonStatus.disable);
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithPaidTimeOffError]));
+        'Error Shown when company name input is less than 4 character or empty',
+            () {
+          bloc.add(CompanyNameChangeEvent(companyName: 'can'));
+          CreateSpaceState stateWithCompanyNameError = const CreateSpaceState(
+              companyName: 'can',
+              ownerName: 'user name',
+              buttonState: ButtonState.disable,
+              companyNameError: true);
+          expectLater(bloc.stream, emitsInOrder([stateWithCompanyNameError]));
+        });
+    test(
+        ' Error is not shown when Company name input is more than or equal to  4 characters ',
+            () {
+          bloc.add(CompanyNameChangeEvent(companyName: 'cano'));
+          CreateSpaceState stateWithValidCompanyName = const CreateSpaceState(
+              companyName: 'cano',
+              ownerName: 'user name',
+              buttonState: ButtonState.enable,
+              companyNameError: false);
+          expectLater(bloc.stream, emitsInOrder([stateWithValidCompanyName]));
+        });
+    test(
+        ' Error shown when domain name input is less than  4 characters and does not contains "." ',
+            () {
+          bloc.add(CompanyDomainChangeEvent(domain: 'www'));
+          CreateSpaceState stateWithINValidDomain = const CreateSpaceState(
+              domain: 'www',
+              ownerName: 'user name',
+              buttonState: ButtonState.disable,
+              domainError: true);
+          expectLater(bloc.stream, emitsInOrder([stateWithINValidDomain]));
+        });
+    test(
+        ' Error is not shown when domain name input is more than or equal to  4 characters and contains "." ',
+            () {
+          bloc.add(CompanyDomainChangeEvent(domain: 'www.'));
+          CreateSpaceState stateWithValidDomain = const CreateSpaceState(
+              domain: 'www.',
+              ownerName: 'user name',
+              buttonState: ButtonState.disable,
+              domainError: false);
+          expectLater(bloc.stream, emitsInOrder([stateWithValidDomain]));
+        });
+
+    test(
+        ' Button State is enable if name input is valid and domain is empty as domain is optional;',
+            () {
+          bloc.add(CompanyNameChangeEvent(companyName: 'canopas'));
+          bloc.add(CompanyDomainChangeEvent(domain: ''));
+          CreateSpaceState stateWithEmptyDomain = const CreateSpaceState(
+              companyName: 'canopas',
+              companyNameError: false,
+              domain: '',
+              ownerName: 'user name',
+              buttonState: ButtonState.enable,
+              domainError: false);
+          expectLater(bloc.stream, emitsInOrder([stateWithEmptyDomain]));
+        });
+  });
+
+  group('Tab 2 Test', () {
+    test('Next button state is enable if user input for paid time off is valid',
+            () {
+          bloc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
+          CreateSpaceState stateWithValidTimeOff = const CreateSpaceState(
+              ownerName: 'user name',
+              paidTimeOff: '12',
+              paidTimeOffError: false,
+              buttonState: ButtonState.enable);
+          expectLater(bloc.stream, emitsInOrder([stateWithValidTimeOff]));
+        });
+    test(
+        'Next button state is disable and shows error when user enter input and the erase it',
+            () {
+          bloc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
+          bloc.add(PaidTimeOffChangeEvent(paidTimeOff: ''));
+          CreateSpaceState stateWithValidTimeOff = const CreateSpaceState(
+              ownerName: 'user name',
+              paidTimeOff: '12',
+              paidTimeOffError: false,
+              buttonState: ButtonState.enable);
+          CreateSpaceState stateWithINValidTimeOff = const CreateSpaceState(
+              ownerName: 'user name',
+              paidTimeOff: '',
+              paidTimeOffError: true,
+              buttonState: ButtonState.disable);
+          expectLater(bloc.stream,
+              emitsInOrder([stateWithValidTimeOff, stateWithINValidTimeOff]));
+        });
+  });
+
+  group('Tab 3 Test', () {
+    test('Emits state with username from userManager', () {
+      expect(bloc.state.ownerName, 'user name');
     });
+
     test(
-        'emits state with create space button enable when pai time off input is correct',
-        () {
-      createSpaceBLoc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
-      CreateSpaceState stateWithPaidTimeOffError = const CreateSpaceState(
-          page: 0,
-          nameError: false,
-          name: '',
-          domain: '',
-          domainError: false,
+        'Emits state without error if name input contains more than or equal to 4 characters',
+            () {
+          bloc.add(UserNameChangeEvent(name: 'Andrew'));
+          CreateSpaceState stateWithValidNameInput = const CreateSpaceState(
+              ownerName: 'Andrew',
+              buttonState: ButtonState.enable,
+              ownerNameError: false);
+          expect(bloc.stream, emitsInOrder([stateWithValidNameInput]));
+        });
+    test('Emits state with error if name input contains less than 4 characters',
+            () {
+          bloc.add(UserNameChangeEvent(name: 'And'));
+          CreateSpaceState stateWithINValidNameInput = const CreateSpaceState(
+              ownerName: 'And',
+              buttonState: ButtonState.disable,
+              ownerNameError: true);
+          expect(bloc.stream, emitsInOrder([stateWithINValidNameInput]));
+        });
+  });
+
+  group('Validate space data from 3 tab Input', ()
+  {
+    test(
+        'Emits state with loading and then success state if User input is valid with all required data',
+            () async {
+          bloc.add(CompanyNameChangeEvent(companyName: 'canopas'));
+          bloc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
+          bloc.add(CreateSpaceButtonTapEvent());
+          when(userManager.userUID).thenReturn('uid');
+          when(userManager.userEmail).thenReturn('andrew.j@canopas.com');
+          CreateSpaceState stateWithValidCompanyName = const CreateSpaceState(
+              companyName: 'canopas',
+              ownerName: 'user name',
+              buttonState: ButtonState.enable,
+              companyNameError: false);
+          CreateSpaceState stateWithValidTimeOff = const CreateSpaceState(
+              companyName: 'canopas',
+              ownerName: 'user name',
+              paidTimeOff: '12',
+              paidTimeOffError: false,
+              buttonState: ButtonState.enable);
+          CreateSpaceState stateWithValidNameInput = const CreateSpaceState(
+              companyName: 'canopas',
+              paidTimeOff: '12',
+              ownerName: 'user name',
+              buttonState: ButtonState.enable,
+              ownerNameError: false);
+          CreateSpaceState loadingState = const CreateSpaceState(
+              companyName: 'canopas',
+              paidTimeOff: '12',
+              ownerName: 'user name',
+              buttonState: ButtonState.enable,
+              createSpaceStatus: CreateSpaceStatus.loading
+          );
+          CreateSpaceState successState = const CreateSpaceState(
+              companyName: 'canopas',
+              paidTimeOff: '12',
+              ownerName: 'user name',
+              buttonState: ButtonState.enable,
+              createSpaceStatus: CreateSpaceStatus.success
+          );
+
+          Space space=  Space(id: 'space-id',
+              name: stateWithValidNameInput.companyName,
+              createdAt: DateTime.now(),
+              paidTimeOff: 12,
+              ownerIds: ['uid']);
+          Employee employee = const Employee(uid: 'uid', name: 'user name', email: 'andrew.j@canopas.com');
+
+
+          when(employeeService.addEmployeeBySpaceId(employee: employee, spaceId: 'space-id')).thenAnswer((_)async{} );
+          when(userManager.setSpace(space: space, admin: employee)).thenAnswer((_) async=> {});
+
+          when(spaceService.createSpace(
+            name: stateWithValidNameInput.companyName,
+            domain: '',
+            timeOff: int.parse(stateWithValidTimeOff.paidTimeOff),
+            ownerId: 'uid',
+          )).thenAnswer((_) async =>space);
+
+          expectLater(
+              bloc.stream,
+              emitsInOrder([
+                stateWithValidCompanyName,
+                stateWithValidTimeOff,
+                loadingState,
+                successState
+              ]));
+
+
+          await untilCalled(spaceService.createSpace( name: stateWithValidNameInput.companyName,
+            domain: '',
+            timeOff: int.parse(stateWithValidTimeOff.paidTimeOff),
+            ownerId: 'uid',
+          ));
+          verify(spaceService.createSpace( name: stateWithValidNameInput.companyName,
+            domain: '',
+            timeOff: int.parse(stateWithValidTimeOff.paidTimeOff),
+            ownerId: 'uid',)).called(1);
+
+        });
+    test('Emits error state while exception is thrown by firestore', ()async {
+
+      bloc.add(CompanyNameChangeEvent(companyName: 'canopas'));
+      bloc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
+      bloc.add(CreateSpaceButtonTapEvent());
+      when(userManager.userUID).thenReturn('uid');
+      when(userManager.userEmail).thenReturn('andrew.j@canopas.com');
+      CreateSpaceState stateWithValidCompanyName = const CreateSpaceState(
+          companyName: 'canopas',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          companyNameError: false);
+      CreateSpaceState stateWithValidTimeOff = const CreateSpaceState(
+          companyName: 'canopas',
+          ownerName: 'user name',
           paidTimeOff: '12',
           paidTimeOffError: false,
-          nextButtonStatus: ButtonStatus.disable,
-          createSpaceStatus: CreateSpaceStatus.initial,
-          createSpaceButtonStatus: ButtonStatus.enable);
-      expect(createSpaceBLoc.stream, emitsInOrder([stateWithPaidTimeOffError]));
-    });
-  });
-  group('Test the create space button tap event', () {
-    CreateSpaceState initialState = const CreateSpaceState(
-        page: 0,
-        nameError: false,
-        name: '',
-        domain: '',
-        domainError: false,
-        paidTimeOff: '',
-        paidTimeOffError: false,
-        nextButtonStatus: ButtonStatus.disable,
-        createSpaceStatus: CreateSpaceStatus.initial,
-        createSpaceButtonStatus: ButtonStatus.disable);
-    test('Shows error when one of the required field is invalid', () {
-      createSpaceBLoc.add(CompanyNameChangeEvent(name: 'canopas'));
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'canopas'));
-      createSpaceBLoc.add(PageChangeEvent(page: 1));
-      createSpaceBLoc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
-      createSpaceBLoc.add(CreateSpaceButtonTapEvent());
-
-      final stateWithNameInput = initialState.copyWith(
-          name: 'canopas', nextButtonStatus: ButtonStatus.enable);
-      final stateWithDomainInput =
-          stateWithNameInput.copyWith(domainError: true, domain: 'canopas');
-      final stateWithStep2 = stateWithDomainInput.copyWith(page: 1);
-      final stateWithPaidTimeOff = stateWithStep2.copyWith(
-          paidTimeOff: '12', createSpaceButtonStatus: ButtonStatus.enable);
-
-      CreateSpaceState errorState =
-          stateWithPaidTimeOff.copyWith(error: provideRequiredInformation);
-
-      createSpaceBLoc.add(CreateSpaceButtonTapEvent());
-      expect(
-          createSpaceBLoc.stream,
-          emitsInOrder([
-            stateWithNameInput,
-            stateWithDomainInput,
-            stateWithStep2,
-            stateWithPaidTimeOff,
-            errorState
-          ]));
-    });
-    test('Emits loading state and then success state if all inputs are valid',
-        () {
-      createSpaceBLoc.add(CompanyNameChangeEvent(name: 'canopas'));
-      createSpaceBLoc.add(CompanyDomainChangeEvent(domain: 'canopas.com'));
-      createSpaceBLoc.add(PageChangeEvent(page: 1));
-      createSpaceBLoc.add(PaidTimeOffChangeEvent(paidTimeOff: '12'));
-      createSpaceBLoc.add(CreateSpaceButtonTapEvent());
-
-      final stateWithNameInput = initialState.copyWith(
-          name: 'canopas', nextButtonStatus: ButtonStatus.enable);
-      final stateWithDomainInput =
-          stateWithNameInput.copyWith(domain: 'canopas.com');
-      final stateWithStep2 = stateWithDomainInput.copyWith(page: 1);
-      final stateWithPaidTimeOff = stateWithStep2.copyWith(
-          paidTimeOff: '12', createSpaceButtonStatus: ButtonStatus.enable);
-      final loadingState = stateWithPaidTimeOff.copyWith(
-          createSpaceStatus: CreateSpaceStatus.loading);
-      final successState = stateWithPaidTimeOff.copyWith(
-          createSpaceStatus: CreateSpaceStatus.success);
-      when(userManager.userUID).thenReturn('uid');
-      when(userManager.userEmail).thenReturn('email');
-
-      final Space space = Space(
-          id: 'space_id',
-          name: successState.name,
-          domain: "",
-          paidTimeOff: int.parse(successState.paidTimeOff),
-          createdAt: DateTime.now(),
-          ownerIds: ["uid"]);
-
-      when(spaceService.createSpace(
-              ownerEmail: "email",
-              domain: 'canopas.com',
-              timeOff: 12,
-              name: 'canopas',
-              ownerId: 'uid'))
-          .thenAnswer(
-        (_) async => space,
+          buttonState: ButtonState.enable);
+      CreateSpaceState stateWithValidNameInput = const CreateSpaceState(
+          companyName: 'canopas',
+          paidTimeOff: '12',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          ownerNameError: false);
+      CreateSpaceState loadingState = const CreateSpaceState(
+          companyName: 'canopas',
+          paidTimeOff: '12',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          createSpaceStatus: CreateSpaceStatus.loading
+      );
+      CreateSpaceState errorState = const CreateSpaceState(
+          companyName: 'canopas',
+          paidTimeOff: '12',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          createSpaceStatus: CreateSpaceStatus.error,
+          error: firestoreFetchDataError
       );
 
+      Space space=  Space(id: 'space-id',
+          name: stateWithValidNameInput.companyName,
+          createdAt: DateTime.now(),
+          paidTimeOff: 12,
+          ownerIds: ['uid']);
+      Employee employee = const Employee(uid: 'uid', name: 'user name', email: 'andrew.j@canopas.com');
+
+
+      when(employeeService.addEmployeeBySpaceId(employee: employee, spaceId: 'space-id')).thenAnswer((_)async{} );
+      when(userManager.setSpace(space: space, admin: employee)).thenThrow(Exception(firestoreFetchDataError));
+
+      when(spaceService.createSpace(
+        name: stateWithValidNameInput.companyName,
+        domain: '',
+        timeOff: int.parse(stateWithValidTimeOff.paidTimeOff),
+        ownerId: 'uid',
+      )).thenThrow(Exception(firestoreFetchDataError));
+
       expectLater(
-          createSpaceBLoc.stream,
+          bloc.stream,
           emitsInOrder([
-            stateWithNameInput,
-            stateWithDomainInput,
-            stateWithStep2,
-            stateWithPaidTimeOff,
+            stateWithValidCompanyName,
+            stateWithValidTimeOff,
             loadingState,
-            successState
+            errorState
           ]));
+
+      await untilCalled(spaceService.createSpace( name: stateWithValidNameInput.companyName,
+        domain: '',
+        timeOff: int.parse(stateWithValidTimeOff.paidTimeOff),
+        ownerId: 'uid',
+      ));
+      verify(spaceService.createSpace( name: stateWithValidNameInput.companyName,
+        domain: '',
+        timeOff: int.parse(stateWithValidTimeOff.paidTimeOff),
+        ownerId: 'uid',)).called(1);
     });
+
   });
 }
+

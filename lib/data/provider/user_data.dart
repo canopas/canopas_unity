@@ -32,6 +32,7 @@ class UserManager with ChangeNotifier {
     hasLoggedIn();
     spaceChanged = false;
   }
+  String? get userFirebaseAuthName => _userPreference.getUser()?.name;
 
   Future<void> updateSpaceDetails(Space space) async {
     await _userPreference.setSpace(space);

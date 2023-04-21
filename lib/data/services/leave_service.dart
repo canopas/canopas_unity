@@ -31,6 +31,7 @@ class LeaveService {
             .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
             .get();
     return requests.docs.map((leave) => leave.data()).toList();
+
   }
 
   Future<bool> checkLeaveAlreadyApplied(

@@ -38,24 +38,15 @@
     }
   },
 
-  "create_space_create_space_button_text":"Create Space",
-  "create_space_step_description": "{step,plural,=0{Add company details} =1{Add yearly paid time-off} other{}}",
-  "@create_space_step_description":{
-    "description": "Pass the value of step for description",
-    "placeholders": {
-      "step":{
-        "type": "int"
-      }
-    }
-  },
-  "create_space_step_text": "Step {step}/2",
-  "@create_space_step_text":{
-    "placeholders": {
-      "step":{
-        "type": "String"
-      }
-    }
-  },
+  "create_space_tag":"Create Space",
+  "create_space_tab_1_tag":"Space Details",
+  "create_space_tab_2_tag":"Space SetUp",
+  "create_space_tab_3_tag":"Personal Details",
+  "create_space_enter_space_details_text":"Enter Space Details",
+  "create_space_set_up_your_space_text":"Set up Your Space",
+  "create_space_enter_your_details_text":"Enter Your Details",
+  "create_space_enter_space_details_text":"Enter Space Details",
+  "create_space_enter_your_name_hint_text":"Your Name",
   "create_space_invalid_time_off_error":"Please enter valid input",
   "create_space_invalid_name_error":"Please enter valid name",
   "create_space_invalid_website_url_error":"Please enter valid website url",
