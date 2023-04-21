@@ -218,7 +218,7 @@ void main() {
 
 
           when(employeeService.addEmployeeBySpaceId(employee: employee, spaceId: 'space-id')).thenAnswer((_)async{} );
-          when(userManager.setSpace(space: space, admin: employee)).thenAnswer((_) async=> {});
+          when(userManager.setSpace(space: space, spaceUser: employee)).thenAnswer((_) async=> {});
 
           when(spaceService.createSpace(
             name: stateWithValidNameInput.companyName,
@@ -297,7 +297,7 @@ void main() {
 
 
       when(employeeService.addEmployeeBySpaceId(employee: employee, spaceId: 'space-id')).thenAnswer((_)async{} );
-      when(userManager.setSpace(space: space, admin: employee)).thenThrow(Exception(firestoreFetchDataError));
+      when(userManager.setSpace(space: space, spaceUser: employee)).thenThrow(Exception(firestoreFetchDataError));
 
       when(spaceService.createSpace(
         name: stateWithValidNameInput.companyName,
