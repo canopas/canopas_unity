@@ -144,7 +144,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
             spaceId: newSpace.id, employee: employee);
 
         emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
-        await _userManager.setSpace(space: newSpace, admin: employee);
+        await _userManager.setSpace(space: newSpace, spaceUser: employee);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError,

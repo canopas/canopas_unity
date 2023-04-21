@@ -40,7 +40,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       final employee = await _employeeService.getEmployeeBySpaceId(
           spaceId: event.space.id, userId: _userManager.userUID!);
       if(employee != null){
-        await _userManager.setSpace(space: event.space, admin: employee);
+        await _userManager.setSpace(space: event.space, spaceUser: employee);
         emit(state.copy(selectSpaceStatus: Status.success));
       } else{
         emit(state.copy(

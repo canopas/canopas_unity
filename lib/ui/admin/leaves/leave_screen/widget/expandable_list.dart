@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/configs/theme.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -79,7 +80,15 @@ class ExpandableList extends StatelessWidget {
               ),
               builder: (context, expanded, collapsed) {
                 return leaveApplications.isEmpty
-                    ? Center(
+                    ? Container(
+                        margin: const EdgeInsets.all(16),
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: AppColors.lightPrimaryBlue,
+                          borderRadius: AppTheme.commonBorderRadius
+                        ),
                         child: Text(
                         localization.user_leave_no_leaves_msg,
                         style: const TextStyle(fontSize: 15),

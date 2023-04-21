@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
-
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
@@ -37,9 +38,14 @@ class EmployeeCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(employee.name, style: AppFontStyle.bodyMedium),
-                  const SizedBox(height: 2),
-                  Text(employee.designation ?? "",
-                      style: AppFontStyle.subTitleGrey),
+                  ValidateWidget(
+                    isValid: employee.designation.isNotNullOrEmpty,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(employee.designation??"",
+                          style: AppFontStyle.subTitleGrey),
+                    ),
+                  ),
                 ],
               ),
             )

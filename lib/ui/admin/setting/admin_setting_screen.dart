@@ -6,10 +6,10 @@ import '../../../data/configs/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/di/service_locator.dart';
 import '../../navigation/app_router.dart';
+import '../../space/change_space_sheet/change_space_sheet.dart';
 import '../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import '../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
 import '../../widget/app_dialog.dart';
-import '../../widget/change_workspace_sheet.dart';
 import '../../widget/error_snack_bar.dart';
 import 'bloc/admin_settings_bloc.dart';
 import 'bloc/admin_settings_event.dart';
@@ -71,7 +71,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                 onTap: () {
                   showBottomSheet(
                       context: context,
-                      builder: (context) => const ChangeWorkspaceBottomSheet());
+                      builder: (context) => const ChangeSpaceBottomSheet());
                 }),
             const Divider(indent: 0, endIndent: 0),
             SettingOption(
