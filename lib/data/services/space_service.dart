@@ -23,8 +23,7 @@ class SpaceService {
       {required String name,
       required String domain,
       required int timeOff,
-      required String ownerId,
-      required String ownerEmail}) async {
+      required String ownerId,}) async {
     final id = _spaceDb.doc().id;
 
     final space = Space(
