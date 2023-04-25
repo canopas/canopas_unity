@@ -73,6 +73,7 @@ class EmployeeService {
         .onError((error, stackTrace) => throw Exception(error.toString()));
   }
 
+
   Future<void> changeEmployeeRoleType(String id, int roleType) async {
     Map<String, int> data = {FireStoreConst.roleType: roleType};
     await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
