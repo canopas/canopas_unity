@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -42,7 +43,7 @@ class ProfileForm extends StatelessWidget {
         FieldTitle(title: localization.employee_name_tag),
         BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
           buildWhen: (previous, current) =>
-              previous.nameError != current.nameError,
+          previous.nameError != current.nameError,
           builder: (context, state) => FieldEntry(
             controller: nameController,
             onChanged: (value) =>
@@ -56,14 +57,14 @@ class ProfileForm extends StatelessWidget {
         FieldTitle(title: localization.employee_designation_tag),
         BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
           buildWhen: (previous, current) =>
-              previous.designationError != current.designationError,
+          previous.designationError != current.designationError,
           builder: (context, state) => FieldEntry(
             controller: designationController,
             onChanged: (value) => bloc
                 .add(EditProfileDesignationChangedEvent(designation: value)),
             errorText: state.designationError
                 ? localization
-                    .admin_home_add_member_complete_mandatory_field_error
+                .admin_home_add_member_complete_mandatory_field_error
                 : null,
             hintText: localization.admin_home_add_member_designation_hint_text,
           ),
@@ -107,49 +108,49 @@ class GenderSelection extends StatelessWidget {
             children: [
               Expanded(
                   child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: AppColors.darkText,
-                    backgroundColor: state.gender == EmployeeGender.male
-                        ? AppColors.textFieldBg
-                        : AppColors.whiteColor,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(
-                            color: AppColors.textFieldBg, width: 3))),
-                onPressed: () {
-                  bloc.add(EditProfileChangeGenderEvent(
-                      gender: EmployeeGender.male));
-                },
-                child: Text(
-                  localization.gender_male_tag,
-                  style: AppFontStyle.labelRegular,
-                ),
-              )),
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.darkText,
+                        backgroundColor: state.gender == EmployeeGender.male
+                            ? AppColors.textFieldBg
+                            : AppColors.whiteColor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: const BorderSide(
+                                color: AppColors.textFieldBg, width: 3))),
+                    onPressed: () {
+                      bloc.add(EditProfileChangeGenderEvent(
+                          gender: EmployeeGender.male));
+                    },
+                    child: Text(
+                      localization.gender_male_tag,
+                      style: AppFontStyle.labelRegular,
+                    ),
+                  )),
               const SizedBox(
                 width: primaryHorizontalSpacing,
               ),
               Expanded(
                   child: ElevatedButton(
-                onPressed: () {
-                  bloc.add(EditProfileChangeGenderEvent(
-                      gender: EmployeeGender.female));
-                },
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: AppColors.darkText,
-                    backgroundColor: state.gender == EmployeeGender.female
-                        ? AppColors.textFieldBg
-                        : AppColors.whiteColor,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(
-                            color: AppColors.textFieldBg, width: 3))),
-                child: Text(
-                  localization.gender_female_tag,
-                  style: AppFontStyle.labelRegular,
-                ),
-              )),
+                    onPressed: () {
+                      bloc.add(EditProfileChangeGenderEvent(
+                          gender: EmployeeGender.female));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.darkText,
+                        backgroundColor: state.gender == EmployeeGender.female
+                            ? AppColors.textFieldBg
+                            : AppColors.whiteColor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: const BorderSide(
+                                color: AppColors.textFieldBg, width: 3))),
+                    child: Text(
+                      localization.gender_female_tag,
+                      style: AppFontStyle.labelRegular,
+                    ),
+                  )),
             ],
           );
         });
@@ -165,7 +166,7 @@ class DateOfBirthButton extends StatelessWidget {
     final bloc = context.read<EmployeeEditProfileBloc>();
     return BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
       buildWhen: (previous, current) =>
-          previous.dateOfBirth != current.dateOfBirth,
+      previous.dateOfBirth != current.dateOfBirth,
       builder: (context, state) => ElevatedButton(
           style: ElevatedButton.styleFrom(
               foregroundColor: AppColors.darkText,
@@ -184,13 +185,13 @@ class DateOfBirthButton extends StatelessWidget {
           },
           child: state.dateOfBirth != null
               ? Text(
-                  localization.date_format_yMMMd(state.dateOfBirth!),
-                  style: AppFontStyle.labelRegular,
-                )
+            localization.date_format_yMMMd(state.dateOfBirth!),
+            style: AppFontStyle.labelRegular,
+          )
               : Text(
-                  localization.user_settings_edit_select_tag,
-                  style: AppFontStyle.labelGrey,
-                )),
+            localization.user_settings_edit_select_tag,
+            style: AppFontStyle.labelGrey,
+          )),
     );
   }
 }

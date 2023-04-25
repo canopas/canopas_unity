@@ -1,3 +1,4 @@
+
 import 'package:equatable/equatable.dart';
 
 enum EmployeeProfileState { initial, loading, success, failure }
@@ -9,6 +10,7 @@ class EmployeeEditProfileState extends Equatable {
   final bool nameError;
   final bool designationError;
   final String? error;
+  final String? imageURL;
 
   const EmployeeEditProfileState({
     this.gender,
@@ -17,6 +19,7 @@ class EmployeeEditProfileState extends Equatable {
     this.error,
     this.nameError = false,
     this.designationError = false,
+    this.imageURL,
   });
 
   copyWith({
@@ -26,15 +29,16 @@ class EmployeeEditProfileState extends Equatable {
     bool? designationError,
     String? error,
     EmployeeProfileState? status,
+    String? imageURL,
   }) {
     return EmployeeEditProfileState(
-      gender: gender ?? this.gender,
-      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-      error: error,
-      nameError: nameError ?? this.nameError,
-      designationError: designationError ?? this.designationError,
-      status: status ?? this.status,
-    );
+        gender: gender ?? this.gender,
+        dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+        error: error,
+        nameError: nameError ?? this.nameError,
+        designationError: designationError ?? this.designationError,
+        status: status ?? this.status,
+        imageURL: imageURL ?? this.imageURL);
   }
 
   changeDateOfBirth({DateTime? dateOfBirth}) {
@@ -61,11 +65,12 @@ class EmployeeEditProfileState extends Equatable {
 
   @override
   List<Object?> get props => [
-        gender,
-        dateOfBirth,
-        status,
-        nameError,
-        designationError,
-        error,
+    gender,
+    dateOfBirth,
+    status,
+    nameError,
+    designationError,
+    error,
+    imageURL
       ];
 }

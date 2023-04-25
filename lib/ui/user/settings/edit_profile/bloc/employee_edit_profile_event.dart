@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class EditProfileEvent extends Equatable {}
 
@@ -49,6 +50,15 @@ class EditProfileChangeGenderEvent extends EditProfileEvent {
 
   @override
   List<Object?> get props => [gender];
+}
+
+class ChangeImageEvent extends EditProfileEvent {
+  final ImageSource imageSource;
+
+  ChangeImageEvent({required this.imageSource});
+
+  @override
+  List<Object?> get props => [imageSource];
 }
 
 class EditProfileUpdateProfileEvent extends EditProfileEvent {
