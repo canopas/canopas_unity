@@ -44,60 +44,65 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         spaceDomain: context.read<UserHomeBloc>().spaceDomain,
         spaceLogo: context.read<UserHomeBloc>().spaceLogo,
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(primaryHorizontalSpacing),
-        children: [
-          WhoIsOutCard(
-            onSeeAllButtonTap: () {
-              context.pushNamed(Routes.userCalender);
-            },
-          ),
-          BlocConsumer<UserHomeBloc, UserHomeState>(
-              builder: (context, state) {
-                if (state is UserHomeSuccessState) {
-                  return state.requests.isEmpty
-                      ? const SizedBox()
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 25, bottom: 10),
-                                child: Text(
-                                    AppLocalizations.of(context)
-                                        .user_home_requests_tag,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall),
-                              ),
-                              ListView.separated(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, leave) => LeaveCard(
-                                      hideStatus: true,
-                                      onTap: () {
-                                        context.goNamed(
-                                            Routes.userRequestDetail,
-                                            params: {
-                                              RoutesParamsConst.leaveId:
-                                                  state.requests[leave].leaveId
-                                            });
-                                      },
-                                      leave: state.requests[leave]),
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(height: 16),
-                                  itemCount: state.requests.length),
-                            ]);
-                }
-                return const SizedBox();
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<UserHomeBloc>().add(UserHomeFetchLeaveRequest());
+        },
+        child: ListView(
+          padding: const EdgeInsets.all(primaryHorizontalSpacing),
+          children: [
+            WhoIsOutCard(
+              onSeeAllButtonTap: () {
+                context.pushNamed(Routes.userCalender);
               },
-              listenWhen: (previous, current) => current is UserHomeErrorState,
-              listener: (context, state) {
-                if (state is UserHomeErrorState) {
-                  showSnackBar(context: context, error: state.error);
-                }
-              })
-        ],
+            ),
+            BlocConsumer<UserHomeBloc, UserHomeState>(
+                builder: (context, state) {
+                  if (state is UserHomeSuccessState) {
+                    return state.requests.isEmpty
+                        ? const SizedBox()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 25, bottom: 10),
+                                  child: Text(
+                                      AppLocalizations.of(context)
+                                          .user_home_requests_tag,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall),
+                                ),
+                                ListView.separated(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, leave) => LeaveCard(
+                                        hideStatus: true,
+                                        onTap: () {
+                                          context.goNamed(
+                                              Routes.userRequestDetail,
+                                              params: {
+                                                RoutesParamsConst.leaveId:
+                                                    state.requests[leave].leaveId
+                                              });
+                                        },
+                                        leave: state.requests[leave]),
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(height: 16),
+                                    itemCount: state.requests.length),
+                              ]);
+                  }
+                  return const SizedBox();
+                },
+                listenWhen: (previous, current) => current is UserHomeErrorState,
+                listener: (context, state) {
+                  if (state is UserHomeErrorState) {
+                    showSnackBar(context: context, error: state.error);
+                  }
+                })
+          ],
+        ),
       ),
       backgroundColor: AppColors.whiteColor,
     );

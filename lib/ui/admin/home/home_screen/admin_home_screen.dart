@@ -46,8 +46,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         spaceDomain: context.read<AdminHomeBloc>().spaceDomain,
         spaceLogo: context.read<AdminHomeBloc>().spaceLogo,
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: RefreshIndicator(
+          onRefresh: () async {
+            context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
+          },
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
