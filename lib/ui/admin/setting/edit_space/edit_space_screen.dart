@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
@@ -64,23 +65,40 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
         title: Text(AppLocalizations.of(context).space_tag),
         actions: [
           BlocBuilder<EditSpaceBloc, EditSpaceState>(
-              builder: (context, state) => TextButton(
-                  onPressed: state.isDataValid
-                      ? () {
-                          context.read<EditSpaceBloc>().add(SaveSpaceDetails(
-                              paidTimeOff: _paidTimeOffLeaveController.text,
-                              spaceName: _nameController.text,
-                              spaceDomain: _domainController.text));
-                        }
-                      : null,
-                  child: Text(AppLocalizations.of(context).save_tag))),
-          const SizedBox(width: 10)
+              buildWhen: (previous, current) => previous.updateSpaceStatus != current.updateSpaceStatus
+                  || previous.isDataValid != current.isDataValid,
+              builder: (context, state) => state.updateSpaceStatus ==
+                      Status.loading
+                  ? const Padding(
+                      padding: EdgeInsets.only(right: 30),
+                      child: AppCircularProgressIndicator(size: 20),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: TextButton(
+                          onPressed: state.isDataValid
+                              ? () {
+                                  context.read<EditSpaceBloc>().add(
+                                      SaveSpaceDetails(
+                                          paidTimeOff:
+                                              _paidTimeOffLeaveController.text,
+                                          spaceName: _nameController.text,
+                                          spaceDomain: _domainController.text));
+                                }
+                              : null,
+                          child: Text(AppLocalizations.of(context).save_tag)),
+                    )),
         ],
       ),
       body: BlocListener<EditSpaceBloc, EditSpaceState>(
+        listenWhen: (previous, current) =>
+            previous.updateSpaceStatus != current.updateSpaceStatus ||
+            current.isFailure,
         listener: (context, state) {
           if (state.isFailure) {
             showSnackBar(context: context, error: state.error);
+          } else if (state.updateSpaceStatus == Status.success) {
+            context.pop();
           }
         },
         child: SingleChildScrollView(
@@ -134,7 +152,7 @@ class DeleteSpaceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height-600,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.bottomCenter,
       constraints: const BoxConstraints(

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -17,8 +16,7 @@ import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_pr
 
 import 'employee_edit_profile_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [EmployeeService, UserManager, UserPreference, StorageService, ImagePicker])
+@GenerateMocks([EmployeeService, UserManager, UserPreference])
 void main() {
   late EmployeeService employeeService;
   late UserManager userManager;
@@ -77,19 +75,6 @@ void main() {
           ]));
     });
 
-    test('test designation validation', () {
-      editEmployeeDetailsBloc
-          .add(EditProfileDesignationChangedEvent(designation: ""));
-      editEmployeeDetailsBloc.add(EditProfileDesignationChangedEvent(
-          designation: "Application Tester"));
-      expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            const EmployeeEditProfileState(designationError: true),
-            const EmployeeEditProfileState(designationError: false)
-          ]));
-    });
-
     test('Emits state with image if user picked image from gallery', () {
       editEmployeeDetailsBloc
           .add(ChangeImageEvent(imageSource: ImageSource.gallery));
@@ -131,11 +116,11 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             const EmployeeEditProfileState(
-                status: EmployeeProfileState.loading, imageURL: null),
+                status: EmployeeEditProfileStatus.loading, imageURL: null),
             EmployeeEditProfileState(
-                status: EmployeeProfileState.loading, imageURL: file.path),
+                status: EmployeeEditProfileStatus.loading, imageURL: file.path),
             EmployeeEditProfileState(
-                status: EmployeeProfileState.success, imageURL: file.path)
+                status: EmployeeEditProfileStatus.success, imageURL: file.path)
           ]));
     });
 
@@ -156,11 +141,11 @@ void main() {
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: emp.gender,
-                status: EmployeeProfileState.loading),
+                status: EmployeeEditProfileStatus.loading),
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: emp.gender,
-                status: EmployeeProfileState.success),
+                status: EmployeeEditProfileStatus.success),
           ]));
 
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
@@ -189,11 +174,11 @@ void main() {
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: 1,
-                status: EmployeeProfileState.loading),
+                status: EmployeeEditProfileStatus.loading),
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: 1,
-                status: EmployeeProfileState.failure,
+                status: EmployeeEditProfileStatus.failure,
                 error: firestoreFetchDataError),
           ]));
 

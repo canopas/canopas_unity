@@ -58,7 +58,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                     extra: state.currentEmployee);
               },
             ),
-            const Divider(indent: 0, endIndent: 0),
+            const Divider(),
             SettingOption(
                 icon: Icons.swap_vert_rounded,
                 title: AppLocalizations.of(context).change_space_tag,
@@ -67,7 +67,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                       context: context,
                       builder: (context) => const ChangeSpaceBottomSheet());
                 }),
-            const Divider(indent: 0, endIndent: 0),
+            const Divider(),
             SettingOption(
                 icon: Icons.logout_rounded,
                 title: AppLocalizations.of(context).sign_out_tag,

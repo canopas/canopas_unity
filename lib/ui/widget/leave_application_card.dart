@@ -69,8 +69,7 @@ class LeaveApplicationCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  const Divider(
-                      thickness: 1, height: 30, color: AppColors.dividerColor),
+                  const Divider(height: 30),
                   _EmployeeContent(
                     employee: leaveApplication.employee,
                   ),

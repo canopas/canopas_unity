@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
-
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -16,7 +14,6 @@ import '../../../../../data/services/storage_service.dart';
 import '../../settings_screen/bloc/user_settings_event.dart';
 import 'employee_edit_profile_event.dart';
 import 'employee_edit_profile_state.dart';
-
 
 @Injectable()
 class EmployeeEditProfileBloc
@@ -31,7 +28,6 @@ class EmployeeEditProfileBloc
       this._userManager, this.storageService, this.imagePicker)
       : super(const EmployeeEditProfileState()) {
     on<EditProfileInitialLoadEvent>(_init);
-    on<EditProfileDesignationChangedEvent>(_validDesignation);
     on<EditProfileNameChangedEvent>(_validName);
     on<EditProfileChangeDateOfBirthEvent>(_changeDateOfBirth);
     on<EditProfileChangeGenderEvent>(_changeGender);
@@ -51,15 +47,6 @@ class EmployeeEditProfileBloc
     if (image != null) {
       final file = File(image.path);
       emit(state.copyWith(imageURL: file.path));
-    }
-  }
-
-  void _validDesignation(EditProfileDesignationChangedEvent event,
-      Emitter<EmployeeEditProfileState> emit) {
-    if (event.designation.isEmpty) {
-      emit(state.copyWith(designationError: true));
-    } else {
-      emit(state.copyWith(designationError: false));
     }
   }
 
@@ -84,10 +71,9 @@ class EmployeeEditProfileBloc
 
   void _updateEmployeeDetails(EditProfileUpdateProfileEvent event,
       Emitter<EmployeeEditProfileState> emit) async {
-    emit(state.copyWith(status: EmployeeProfileState.loading));
-    if (state.nameError || state.designationError) {
-      emit(state.copyWith(
-          status: EmployeeProfileState.failure, error: fillDetailsError));
+    emit(state.copyWith(status: EmployeeEditProfileStatus.loading));
+    if (state.nameError) {
+      emit(state.copyWith(status: EmployeeEditProfileStatus.failure, error: fillDetailsError));
     } else {
       final String? uri = await _saveImage();
       try {
@@ -109,10 +95,10 @@ class EmployeeEditProfileBloc
         await _employeeService.updateEmployeeDetails(employee: employee);
         _preference.setSpaceUser(employee);
         eventBus.fire(GetCurrentEmployeeUserSettingsEvent());
-        emit(state.copyWith(status: EmployeeProfileState.success));
+        emit(state.copyWith(status: EmployeeEditProfileStatus.success));
       } on Exception {
         emit(state.copyWith(
-            status: EmployeeProfileState.failure,
+            status: EmployeeEditProfileStatus.failure,
             error: firestoreFetchDataError));
       }
     }

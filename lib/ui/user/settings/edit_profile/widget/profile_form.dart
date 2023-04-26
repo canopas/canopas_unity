@@ -54,19 +54,9 @@ class ProfileForm extends StatelessWidget {
           ),
         ),
         FieldTitle(title: localization.employee_designation_tag),
-        BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
-          buildWhen: (previous, current) =>
-              previous.designationError != current.designationError,
-          builder: (context, state) => FieldEntry(
-            controller: designationController,
-            onChanged: (value) => bloc
-                .add(EditProfileDesignationChangedEvent(designation: value)),
-            errorText: state.designationError
-                ? localization
-                    .admin_home_add_member_complete_mandatory_field_error
-                : null,
-            hintText: localization.admin_home_add_member_designation_hint_text,
-          ),
+        FieldEntry(
+          controller: designationController,
+          hintText: localization.admin_home_add_member_designation_hint_text,
         ),
         FieldTitle(title: localization.employee_level_tag),
         FieldEntry(

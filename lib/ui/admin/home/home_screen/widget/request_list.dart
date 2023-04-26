@@ -50,8 +50,6 @@ class LeaveRequestList extends StatelessWidget {
                         const SizedBox(height: primaryHalfSpacing),
                         const Divider(
                           height: 1,
-                          thickness: 1,
-                          color: AppColors.dividerColor,
                         )
                       ],
                     )),

@@ -49,12 +49,10 @@ class WhoIsOutCard extends StatelessWidget {
                   style: AppFontStyle.titleDark,
                 ),
               ),
-              const Divider(),
+              const Divider(indent: primaryHorizontalSpacing,endIndent: primaryHorizontalSpacing),
               _WhoIsOutCardControlButtons(onSeeAllButtonTap: onSeeAllButtonTap),
-              const Divider(),
-              const SizedBox(
-                height: primaryVerticalSpacing,
-              ),
+              const Divider(indent: primaryHorizontalSpacing,endIndent: primaryHorizontalSpacing),
+              const SizedBox(height: primaryVerticalSpacing),
               BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
                 builder: (context, state) =>
                     state.status == WhoOIsOutCardStatus.loading

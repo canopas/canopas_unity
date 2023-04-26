@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.dart';
-
 import '../../../../data/configs/colors.dart';
 import '../../../../data/model/employee/employee.dart';
+import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/employee_edit_profile_bloc.dart';
 import 'bloc/employee_edit_profile_event.dart';
@@ -78,31 +75,39 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).edit_tag),
         actions: [
-          TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(primaryVerticalSpacing),
-              ),
-              onPressed: () {
-                context
-                    .read<EmployeeEditProfileBloc>()
-                    .add(EditProfileUpdateProfileEvent(
-                      address: addressController.text,
-                      level: levelController.text,
-                      name: nameController.text,
-                      designation: designationController.text,
-                      phoneNumber: phoneNumberController.text,
-                    ));
-              },
-              child: Text(AppLocalizations.of(context).save_tag,
-                  style: AppFontStyle.buttonTextStyle))
+          BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
+            buildWhen: (previous, current) => previous.status != current.status || previous.isDataValid != current.isDataValid,
+            builder: (context, state) => state.status ==
+                    EmployeeEditProfileStatus.loading
+                ? const Padding(
+                    padding: EdgeInsets.only(right: 30),
+                    child: AppCircularProgressIndicator(size: 20),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: TextButton(
+                        onPressed: state.isDataValid?() {
+                          context
+                              .read<EmployeeEditProfileBloc>()
+                              .add(EditProfileUpdateProfileEvent(
+                                address: addressController.text,
+                                level: levelController.text,
+                                name: nameController.text,
+                                designation: designationController.text,
+                                phoneNumber: phoneNumberController.text,
+                              ));
+                        }:null,
+                        child: Text(AppLocalizations.of(context).save_tag)),
+                  ),
+          )
         ],
       ),
       body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == EmployeeProfileState.failure) {
+          if (state.status == EmployeeEditProfileStatus.failure) {
             showSnackBar(context: context, error: state.error);
-          } else if (state.status == EmployeeProfileState.success) {
+          } else if (state.status == EmployeeEditProfileStatus.success) {
             context.pop();
           }
         },

@@ -50,11 +50,7 @@ class ExpandableList extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: primaryHalfSpacing),
-                      const Divider(
-                        height: 1,
-                        thickness: 1,
-                        color: AppColors.dividerColor,
-                      )
+                      const Divider(height: 1)
                     ],
                   )),
               collapsed: leaveApplications.isNotEmpty

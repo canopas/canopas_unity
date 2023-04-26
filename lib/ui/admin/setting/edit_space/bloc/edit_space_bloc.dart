@@ -28,7 +28,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
 
   void _onNameChange(
       CompanyNameChangeEvent event, Emitter<EditSpaceState> emit) {
-    emit(state.copyWith(nameIsValid: event.companyName.isNotEmpty));
+    emit(state.copyWith(nameIsValid: event.companyName.trim().length > 4));
   }
 
   void _timeOffChange(

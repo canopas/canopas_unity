@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_event.dart';
-
 import '../../../../data/configs/colors.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/employee/employee.dart';
@@ -52,8 +51,8 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             List<Employee> employees = state.employees;
             return ListView.separated(
                 separatorBuilder: (context, index) => const Divider(
-                      endIndent: 8,
-                      indent: 8,
+                      endIndent: primaryVerticalSpacing,
+                      indent: primaryVerticalSpacing,
                     ),
                 padding: const EdgeInsets.symmetric(
                     horizontal: primaryVerticalSpacing,

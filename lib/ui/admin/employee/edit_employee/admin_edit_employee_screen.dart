@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/employee/edit_employee/widgets/admin_edit_employee_form.dart';
-
+import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/model/employee/employee.dart';
 import 'bloc/admin_edit_employee_bloc.dart';
@@ -78,6 +76,42 @@ class _AdminEditEmployeeDetailsViewState
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).edit_tag),
+        actions: [
+          BlocBuilder<AdminEditEmployeeDetailsBloc,
+              AdminEditEmployeeDetailsState>(
+            buildWhen: (previous, current) =>
+                previous.isValid != current.isValid ||
+                previous.adminEditEmployeeDetailsStatus !=
+                    current.adminEditEmployeeDetailsStatus,
+            builder: (context, state) => state.adminEditEmployeeDetailsStatus ==
+                    AdminEditEmployeeDetailsStatus.loading
+                ? const Padding(
+                    padding: EdgeInsets.only(right: 30),
+                    child: AppCircularProgressIndicator(size: 20),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: TextButton(
+                        onPressed: state.isValid
+                            ? () {
+                                context
+                                    .read<AdminEditEmployeeDetailsBloc>()
+                                    .add(UpdateEmployeeByAdminEvent(
+                                      previousEmployeeData: widget.employee,
+                                      name: nameFieldController.text,
+                                      level: levelFieldController.text,
+                                      employeeId:
+                                          employeeIDFieldController.text,
+                                      email: emailFieldController.text,
+                                      designation:
+                                          designationFieldController.text,
+                                    ));
+                              }
+                            : null,
+                        child: Text(AppLocalizations.of(context).save_tag)),
+                  ),
+          )
+        ],
       ),
       body: AdminEditEmployeeDetailsForm(
         employeeId: widget.employee.uid,
@@ -86,50 +120,6 @@ class _AdminEditEmployeeDetailsViewState
         employeeIDFieldController: employeeIDFieldController,
         levelFieldController: levelFieldController,
         nameFieldController: nameFieldController,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
-        child: BlocBuilder<AdminEditEmployeeDetailsBloc,
-            AdminEditEmployeeDetailsState>(
-          buildWhen: (previous, current) =>
-              previous.isValid != current.isValid ||
-              previous.adminEditEmployeeDetailsStatus !=
-                  current.adminEditEmployeeDetailsStatus,
-          builder: (context, state) => ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(MediaQuery.of(context).size.width / 2, 45),
-                disabledBackgroundColor: AppColors.greyColor,
-              ),
-              onPressed: (state.isValid)
-                  ? () {
-                      context
-                          .read<AdminEditEmployeeDetailsBloc>()
-                          .add(UpdateEmployeeByAdminEvent(
-                            previousEmployeeData: widget.employee,
-                            name: nameFieldController.text,
-                            level: levelFieldController.text,
-                            employeeId: employeeIDFieldController.text,
-                            email: emailFieldController.text,
-                            designation: designationFieldController.text,
-                          ));
-                    }
-                  : null,
-              child: state.adminEditEmployeeDetailsStatus ==
-                      AdminEditEmployeeDetailsStatus.loading
-                  ? const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        color: AppColors.whiteColor,
-                        strokeWidth: 3,
-                      ))
-                  : Text(
-                      AppLocalizations.of(context).update_tag,
-                      style: AppFontStyle.labelRegular,
-                    )),
-        ),
       ),
     );
   }
