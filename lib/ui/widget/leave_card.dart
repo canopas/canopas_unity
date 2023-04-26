@@ -110,12 +110,7 @@ class LeaveCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Divider(
-                    color: AppColors.dividerColor,
-                    height: 32,
-                    thickness: 1,
-                    indent: 0,
-                    endIndent: 0),
+                const Divider(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

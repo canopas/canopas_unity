@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
-import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:table_calendar/table_calendar.dart'
     show HeaderStyle, CalendarStyle;
@@ -27,10 +26,16 @@ class AppTheme {
           selectedItemColor: AppColors.primaryBlue,
           unselectedItemColor: AppColors.secondaryText,
         ),
+        cardTheme: const CardTheme(
+          color: AppColors.whiteColor,
+          surfaceTintColor: AppColors.whiteColor,
+        ),
+        popupMenuTheme: const PopupMenuThemeData(
+          surfaceTintColor: AppColors.whiteColor,
+          color: AppColors.whiteColor,
+        ),
         dividerTheme: const DividerThemeData(
           color: AppColors.dividerColor,
-          indent: primaryHorizontalSpacing,
-          endIndent: primaryHorizontalSpacing,
           thickness: 1,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

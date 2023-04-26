@@ -77,9 +77,7 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           const SizedBox(height: primaryHalfSpacing),
           const Divider(
             height: 1,
-            endIndent: 0,
-            indent: 0,
-          )
+          ),
         ],
       ),
     );

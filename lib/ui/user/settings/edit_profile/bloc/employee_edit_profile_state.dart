@@ -1,34 +1,32 @@
-
 import 'package:equatable/equatable.dart';
 
-enum EmployeeProfileState { initial, loading, success, failure }
+enum EmployeeEditProfileStatus { initial, loading, success, failure }
 
 class EmployeeEditProfileState extends Equatable {
-  final EmployeeProfileState status;
+  final EmployeeEditProfileStatus status;
   final int? gender;
   final DateTime? dateOfBirth;
   final bool nameError;
-  final bool designationError;
   final String? error;
   final String? imageURL;
 
   const EmployeeEditProfileState({
     this.gender,
     this.dateOfBirth,
-    this.status = EmployeeProfileState.initial,
+    this.status = EmployeeEditProfileStatus.initial,
     this.error,
     this.nameError = false,
-    this.designationError = false,
     this.imageURL,
   });
+
+  bool get isDataValid => !nameError;
 
   copyWith({
     int? gender,
     DateTime? dateOfBirth,
     bool? nameError,
-    bool? designationError,
     String? error,
-    EmployeeProfileState? status,
+    EmployeeEditProfileStatus? status,
     String? imageURL,
   }) {
     return EmployeeEditProfileState(
@@ -36,7 +34,6 @@ class EmployeeEditProfileState extends Equatable {
         dateOfBirth: dateOfBirth ?? this.dateOfBirth,
         error: error,
         nameError: nameError ?? this.nameError,
-        designationError: designationError ?? this.designationError,
         status: status ?? this.status,
         imageURL: imageURL ?? this.imageURL);
   }
@@ -45,10 +42,10 @@ class EmployeeEditProfileState extends Equatable {
     return EmployeeEditProfileState(
       status: status,
       dateOfBirth: dateOfBirth,
-      designationError: designationError,
       nameError: nameError,
       error: error,
       gender: gender,
+      imageURL: imageURL,
     );
   }
 
@@ -56,21 +53,14 @@ class EmployeeEditProfileState extends Equatable {
     return EmployeeEditProfileState(
       status: status,
       dateOfBirth: dateOfBirth,
-      designationError: designationError,
       nameError: nameError,
       error: error,
       gender: gender,
+      imageURL: imageURL,
     );
   }
 
   @override
-  List<Object?> get props => [
-    gender,
-    dateOfBirth,
-    status,
-    nameError,
-    designationError,
-    error,
-    imageURL
-      ];
+  List<Object?> get props =>
+      [gender, dateOfBirth, status, nameError, error, imageURL];
 }

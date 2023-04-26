@@ -36,8 +36,7 @@ class _AdminAddMemberScreenState extends State<AdminAddMemberScreen> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        title: Text(
-            AppLocalizations.of(context).admin_home_add_member_addMember_tag),
+        title: Text(AppLocalizations.of(context).admin_home_add_member_addMember_tag),
       ),
       body: const AddMemberForm(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

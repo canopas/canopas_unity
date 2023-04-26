@@ -44,7 +44,7 @@ class ProfileCard extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          const Divider(height: 32, thickness: 0.8, indent: 0, endIndent: 0),
+          const Divider(height: 32),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

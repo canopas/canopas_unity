@@ -14,15 +14,6 @@ class EditProfileInitialLoadEvent extends EditProfileEvent {
   List<Object?> get props => [gender, dateOfBirth];
 }
 
-class EditProfileDesignationChangedEvent extends EditProfileEvent {
-  final String designation;
-
-  EditProfileDesignationChangedEvent({required this.designation});
-
-  @override
-  List<Object?> get props => [designation];
-}
-
 class EditProfileNameChangedEvent extends EditProfileEvent {
   final String name;
 

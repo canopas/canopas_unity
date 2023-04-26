@@ -8,7 +8,6 @@ import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_
 import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/employees/detail/widget/employee_info.dart';
 import 'package:projectunity/ui/user/employees/detail/widget/tab_content.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_employee_detail_state.dart';
@@ -63,7 +62,6 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
                 children: [
                   ProfileCard(employee: state.employee),
                   const Divider(
-                    color: AppColors.lightGreyColor,
                     indent: primaryHorizontalSpacing,
                     endIndent: primaryHorizontalSpacing,
                   ),
@@ -72,7 +70,6 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
                     const Divider(
                       indent: primaryHorizontalSpacing,
                       endIndent: primaryHorizontalSpacing,
-                      color: AppColors.lightGreyColor,
                     ),
                   if (state.upcomingLeaves.isNotEmpty)
                     TabContent(leaves: state.upcomingLeaves),
