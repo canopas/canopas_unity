@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../data/configs/colors.dart';
 
 class ImageProfile extends StatelessWidget {

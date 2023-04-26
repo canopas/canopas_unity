@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
-
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
@@ -145,8 +146,6 @@ class _EmployeeContent extends StatelessWidget {
     return Row(
       children: [
         ImageProfile(
-          borderColor: AppColors.blackColor,
-          borderSize: 1,
           radius: 25,
           imageUrl: employee.imageUrl,
         ),
@@ -165,10 +164,13 @@ class _EmployeeContent extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            Text(
-              employee.employeeId ?? '',
-              style: AppFontStyle.subTitleGrey,
-              overflow: TextOverflow.ellipsis,
+            ValidateWidget(
+              isValid: employee.employeeId.isNotNullOrEmpty,
+              child: Text(
+                employee.employeeId ?? '',
+                style: AppFontStyle.subTitleGrey,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),

@@ -36,7 +36,7 @@ class LeaveCountCard extends StatelessWidget {
                   strokeWidth: 8,
                   color: AppColors.primaryBlue,
                   backgroundColor: AppColors.lightPrimaryBlue,
-                  value: state.leavePercentage!,
+                  value: state.leavePercentage,
                 ),
               ),
               Column(

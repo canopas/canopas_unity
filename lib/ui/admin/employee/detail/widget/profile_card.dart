@@ -3,7 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
-
+import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/user_profile_image.dart';
@@ -35,10 +36,13 @@ class ProfileCard extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 6),
-          Text(
-            employee.designation ?? "",
-            style: AppFontStyle.labelGrey,
-            textAlign: TextAlign.center,
+          ValidateWidget(
+            isValid: employee.designation.isNotNullOrEmpty,
+            child: Text(
+              employee.designation ?? "",
+              style: AppFontStyle.labelGrey,
+              textAlign: TextAlign.center,
+            ),
           ),
           const Divider(height: 32, thickness: 0.8, indent: 0, endIndent: 0),
           Row(
