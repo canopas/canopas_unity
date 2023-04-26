@@ -21,7 +21,7 @@ void main() {
       status: UserLeaveCountStatus.loading,
       used: 0,
       totalLeaves: 12,
-      leavePercentage: 1,
+      leavePercentage: 0,
       error: null);
 
   const String employeeId = 'Employee Id';
@@ -43,7 +43,7 @@ void main() {
           status: UserLeaveCountStatus.initial,
           used: 0,
           totalLeaves: 12,
-          leavePercentage: 1,
+          leavePercentage: 0,
           error: null);
       expect(userLeaveCountBloc.state, initialState);
     });
@@ -82,7 +82,7 @@ void main() {
           status: UserLeaveCountStatus.failure,
           used: 0,
           totalLeaves: 12,
-          leavePercentage: 1,
+          leavePercentage: 0,
           error: firestoreFetchDataError);
       expectLater(
           userLeaveCountBloc.stream, emitsInOrder([loadingState, errorState]));

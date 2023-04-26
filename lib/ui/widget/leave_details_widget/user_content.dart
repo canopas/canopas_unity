@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
-
+import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/model/employee/employee.dart';
 import '../../navigation/app_router.dart';
@@ -41,10 +42,13 @@ class UserContent extends StatelessWidget {
                     const SizedBox(
                       height: 3,
                     ),
-                    Text(
-                      employee.designation ?? '',
-                      style: AppFontStyle.bodySmallRegular,
-                      overflow: TextOverflow.ellipsis,
+                    ValidateWidget(
+                      isValid: employee.designation.isNotNullOrEmpty,
+                      child: Text(
+                        employee.designation ?? '',
+                        style: AppFontStyle.bodySmallRegular,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),

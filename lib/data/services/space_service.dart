@@ -29,6 +29,7 @@ class SpaceService {
     final space = Space(
         id: id,
         name: name,
+        domain: domain,
         createdAt: DateTime.now(),
         paidTimeOff: timeOff,
         ownerIds: [ownerId]);
