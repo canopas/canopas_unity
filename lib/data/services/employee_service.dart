@@ -15,10 +15,11 @@ class EmployeeService {
 
   EmployeeService(this._userManager,this.fireStore);
 
-  CollectionReference<Employee> _membersDbCollection() =>
+  CollectionReference<Employee> _membersDbCollection(
+          {required String spaceId}) =>
       fireStore
           .collection(FireStoreConst.spacesCollection)
-          .doc(_userManager.currentSpaceId)
+          .doc(spaceId)
           .collection(FireStoreConst.membersCollection)
           .withConverter(
               fromFirestore: Employee.fromFirestore,
@@ -27,24 +28,24 @@ class EmployeeService {
   Future<void> addEmployeeBySpaceId(
       {required Employee employee, required String spaceId}) async {
     final docId = employee.uid;
-    await _membersDbCollection().doc(docId).set(employee);
+    await _membersDbCollection(spaceId: spaceId).doc(docId).set(employee);
   }
 
   Future<Employee?> getEmployeeBySpaceId(
       {required String userId, required String spaceId}) async {
-    final data = await _membersDbCollection().doc(userId).get();
+    final data = await _membersDbCollection(spaceId: spaceId).doc(userId).get();
     return data.data();
   }
 
   Future<List<Employee>> getEmployees() async {
     final data =
-        await _membersDbCollection().get();
+        await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 
   Future<Employee?> getEmployee(String id) async {
     final data =
-        await _membersDbCollection()
+    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
             .doc(id)
             .get();
     return data.data();
@@ -52,7 +53,7 @@ class EmployeeService {
 
   Future<bool> hasUser(String email) async {
     final employeeDbCollection =
-        _membersDbCollection()
+    _membersDbCollection(spaceId: _userManager.currentSpaceId!)
             .where(FireStoreConst.email, isEqualTo: email)
             .limit(1);
     final data = await employeeDbCollection.get();
@@ -61,13 +62,13 @@ class EmployeeService {
 
   Future<void> addEmployee(Employee employee) async {
     final docId = employee.uid;
-    await _membersDbCollection()
+    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(docId)
         .set(employee);
   }
 
   Future<void> updateEmployeeDetails({required Employee employee}) async {
-    await _membersDbCollection()
+    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(employee.uid)
         .update(employee.toJson())
         .onError((error, stackTrace) => throw Exception(error.toString()));
@@ -76,7 +77,7 @@ class EmployeeService {
 
   Future<void> changeEmployeeRoleType(String id, int roleType) async {
     Map<String, int> data = {FireStoreConst.roleType: roleType};
-    await _membersDbCollection()
+    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(id)
         .update(data)
         .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
@@ -84,7 +85,7 @@ class EmployeeService {
 
   Future<void> deleteEmployee(String id) async {
     DocumentReference employeeDocRef =
-        _membersDbCollection().doc(id);
+        _membersDbCollection(spaceId: _userManager.currentSpaceId!).doc(id);
     employeeDocRef
         .collection(FireStoreConst.session)
         .doc(FireStoreConst.session)
