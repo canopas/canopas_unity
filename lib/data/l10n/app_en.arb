@@ -15,7 +15,7 @@
   "details_tag":"Details",
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
-  "or_tag": "Or",
+  "or_tag": "OR",
   "space_tag":"Space",
   "next_tag":"Next",
   "back_tag":"Back",
@@ -37,6 +37,7 @@
       }
     }
   },
+  "empty_space_list_msg":"Looks like you haven't been added to any organizations yet. Please contact your administrator to get started.",
 
   "create_space_tag":"Create Space",
   "create_space_tab_1_tag":"Space Details",
