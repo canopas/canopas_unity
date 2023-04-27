@@ -5,25 +5,29 @@ import '../model/space/space.dart';
 
 @LazySingleton()
 class SpaceService {
-  final _spaceDb = FirebaseFirestore.instance
-      .collection(FireStoreConst.spacesCollection)
-      .withConverter(
-          fromFirestore: Space.fromFirestore,
-          toFirestore: (Space space, _) => space.toFirestore());
+  late final FirebaseFirestore fireStore;
+  late final CollectionReference<Space> _spaceDb;
+  late final CollectionReference<Map> _userDb;
 
-  final _usersDb =
-      FirebaseFirestore.instance.collection(FireStoreConst.accountsCollection);
+  SpaceService(this.fireStore)
+      : _spaceDb = fireStore
+            .collection(FireStoreConst.spacesCollection)
+            .withConverter(
+                fromFirestore: Space.fromFirestore,
+                toFirestore: (Space space, _) => space.toFirestore()),
+        _userDb = fireStore.collection(FireStoreConst.accountsCollection);
 
   Future<Space?> getSpace(String spaceId) async {
     final spaceDoc = await _spaceDb.doc(spaceId).get();
     return spaceDoc.data();
   }
 
-  Future<Space> createSpace(
-      {required String name,
-      required String domain,
-      required int timeOff,
-      required String ownerId,}) async {
+  Future<Space> createSpace({
+    required String name,
+    required String domain,
+    required int timeOff,
+    required String ownerId,
+  }) async {
     final id = _spaceDb.doc().id;
 
     final space = Space(
@@ -35,7 +39,7 @@ class SpaceService {
         ownerIds: [ownerId]);
 
     await _spaceDb.doc(id).set(space);
-    await _usersDb.doc(ownerId).update({
+    await _userDb.doc(ownerId).update({
       FireStoreConst.spaces: FieldValue.arrayUnion([id]),
     });
 
@@ -64,7 +68,7 @@ class SpaceService {
     await _spaceDb.doc(workspaceId).delete();
 
     for (String owner in owners) {
-      await _usersDb.doc(owner).update({
+      await _userDb.doc(owner).update({
         FireStoreConst.spaces: FieldValue.arrayRemove([workspaceId]),
       });
     }

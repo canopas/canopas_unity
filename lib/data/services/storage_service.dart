@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/di/service_locator.dart';
 
 @LazySingleton()
 class StorageService {
@@ -18,7 +17,7 @@ class StorageService {
   }
 
   Future<void> deleteProfileImage(String path) async {
-    final Reference storageRef = getIt.get<FirebaseStorage>().ref().child(path);
+    final Reference storageRef = firebaseStorage.ref().child(path);
     await storageRef.delete();
   }
 }

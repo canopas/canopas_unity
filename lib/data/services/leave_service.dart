@@ -10,25 +10,29 @@ import '../event_bus/events.dart';
 import '../model/leave/leave.dart';
 import '../provider/user_data.dart';
 
-@Singleton()
+@LazySingleton()
 class LeaveService {
   final UserManager _userManager;
-  LeaveService(this._userManager);
+  late final FirebaseFirestore fireStore;
 
-  CollectionReference<Leave> _leaveDbCollection({required String spaceId}) {
-    return FirebaseFirestore.instance
+  LeaveService(this._userManager,this.fireStore);
+
+
+  CollectionReference<Leave> _leaveDb() {
+    return fireStore
         .collection(FireStoreConst.spaces)
-        .doc(spaceId)
+        .doc(_userManager.currentSpaceId!)
         .collection(FireStoreConst.leaves)
         .withConverter(
-            fromFirestore: Leave.fromFireStore,
-            toFirestore: (Leave leave, _) => leave.toFireStore(leave));
+        fromFirestore: Leave.fromFireStore,
+        toFirestore: (Leave leave, _) => leave.toFireStore(leave));
   }
+
+
 
   Future<List<Leave>> getLeaveRequestOfUsers() async {
     final requests =
-        await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
-            .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
+        await _leaveDb().where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
             .get();
     return requests.docs.map((leave) => leave.data()).toList();
 
@@ -38,7 +42,7 @@ class LeaveService {
       {required String userId,
       required Map<DateTime, int> dateDuration}) async {
     final leaves =
-        await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+        await _leaveDb()
             .where(FireStoreConst.uid, isEqualTo: userId)
             .get();
     return leaves.docs
@@ -58,7 +62,7 @@ class LeaveService {
 
   Future<List<Leave>> getRecentLeaves() async {
     final allLeaves =
-        await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+        await _leaveDb()
             .where(FireStoreConst.startLeaveDate,
                 isGreaterThanOrEqualTo:
                     DateTime(DateTime.now().year, DateTime.now().month)
@@ -73,7 +77,7 @@ class LeaveService {
   }
 
   Future<List<Leave>> getUpcomingLeaves() async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.startLeaveDate,
             isGreaterThan: DateTime.now().dateOnly.timeStampToInt)
         .get();
@@ -84,14 +88,14 @@ class LeaveService {
   }
 
   Future<void> updateLeaveStatus(String id, Map<String, dynamic> map) async {
-    await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    await _leaveDb()
         .doc(id)
         .update(map);
   }
 
   Future<List<Leave>> getAllLeaves() async {
     final allLeaves =
-        await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+        await _leaveDb()
             .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
             .get();
     return allLeaves.docs.map((e) => e.data()).toList();
@@ -99,7 +103,7 @@ class LeaveService {
 
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.endLeaveDate,
             isGreaterThanOrEqualTo: date.dateOnly.timeStampToInt)
         .get();
@@ -116,20 +120,20 @@ class LeaveService {
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveId = leaveRequestData.leaveId;
-    _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    _leaveDb()
         .doc(leaveId)
         .set(leaveRequestData);
   }
 
   Future<List<Leave>> getAllLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
   Future<List<Leave>> getRecentLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
         .get();
@@ -140,7 +144,7 @@ class LeaveService {
   }
 
   Future<List<Leave>> getPastLeavesOfUser(String id) async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .get();
     return data.docs
@@ -150,7 +154,7 @@ class LeaveService {
   }
 
   Future<List<Leave>> getRequestedLeave(String id) async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
         .get();
@@ -165,7 +169,7 @@ class LeaveService {
   }
 
   Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: employeeId)
         .get();
     return data.docs
@@ -176,7 +180,7 @@ class LeaveService {
   }
 
   Future<void> deleteLeaveRequest(String leaveId) async {
-    await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    await _leaveDb()
         .doc(leaveId)
         .delete()
         .then((value) => eventBus.fire(CancelLeaveByUser()));
@@ -185,7 +189,7 @@ class LeaveService {
   Future<double> getUserUsedLeaves(String id) async {
     DateTime currentTime = DateTime.now();
 
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
         .get();
@@ -203,7 +207,7 @@ class LeaveService {
   }
 
   Future<void> deleteAllLeavesOfUser(String id) async {
-    _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .get()
         .then((snapshot) async {
@@ -214,7 +218,7 @@ class LeaveService {
   }
 
   Future<Leave?> fetchLeave(String id) async {
-    final data = await _leaveDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .doc(id)
         .get();
     return data.data();

@@ -11,14 +11,14 @@ import '../provider/user_data.dart';
 @LazySingleton()
 class EmployeeService {
   final UserManager _userManager;
+  final FirebaseFirestore fireStore;
 
-  EmployeeService(this._userManager);
+  EmployeeService(this._userManager,this.fireStore);
 
-  CollectionReference<Employee> _membersDbCollection(
-          {required String spaceId}) =>
-      FirebaseFirestore.instance
+  CollectionReference<Employee> _membersDbCollection() =>
+      fireStore
           .collection(FireStoreConst.spacesCollection)
-          .doc(spaceId)
+          .doc(_userManager.currentSpaceId)
           .collection(FireStoreConst.membersCollection)
           .withConverter(
               fromFirestore: Employee.fromFirestore,
@@ -27,24 +27,24 @@ class EmployeeService {
   Future<void> addEmployeeBySpaceId(
       {required Employee employee, required String spaceId}) async {
     final docId = employee.uid;
-    await _membersDbCollection(spaceId: spaceId).doc(docId).set(employee);
+    await _membersDbCollection().doc(docId).set(employee);
   }
 
   Future<Employee?> getEmployeeBySpaceId(
       {required String userId, required String spaceId}) async {
-    final data = await _membersDbCollection(spaceId: spaceId).doc(userId).get();
+    final data = await _membersDbCollection().doc(userId).get();
     return data.data();
   }
 
   Future<List<Employee>> getEmployees() async {
     final data =
-        await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
+        await _membersDbCollection().get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 
   Future<Employee?> getEmployee(String id) async {
     final data =
-        await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+        await _membersDbCollection()
             .doc(id)
             .get();
     return data.data();
@@ -52,7 +52,7 @@ class EmployeeService {
 
   Future<bool> hasUser(String email) async {
     final employeeDbCollection =
-        _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+        _membersDbCollection()
             .where(FireStoreConst.email, isEqualTo: email)
             .limit(1);
     final data = await employeeDbCollection.get();
@@ -61,13 +61,13 @@ class EmployeeService {
 
   Future<void> addEmployee(Employee employee) async {
     final docId = employee.uid;
-    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+    await _membersDbCollection()
         .doc(docId)
         .set(employee);
   }
 
   Future<void> updateEmployeeDetails({required Employee employee}) async {
-    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+    await _membersDbCollection()
         .doc(employee.uid)
         .update(employee.toJson())
         .onError((error, stackTrace) => throw Exception(error.toString()));
@@ -76,7 +76,7 @@ class EmployeeService {
 
   Future<void> changeEmployeeRoleType(String id, int roleType) async {
     Map<String, int> data = {FireStoreConst.roleType: roleType};
-    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+    await _membersDbCollection()
         .doc(id)
         .update(data)
         .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
@@ -84,7 +84,7 @@ class EmployeeService {
 
   Future<void> deleteEmployee(String id) async {
     DocumentReference employeeDocRef =
-        _membersDbCollection(spaceId: _userManager.currentSpaceId!).doc(id);
+        _membersDbCollection().doc(id);
     employeeDocRef
         .collection(FireStoreConst.session)
         .doc(FireStoreConst.session)
