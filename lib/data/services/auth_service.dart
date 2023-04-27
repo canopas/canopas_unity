@@ -55,7 +55,7 @@ class AuthService {
       user = await _signInWithCredentials(authCredential);
 
       await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
-    } else if(UniversalPlatform.isWeb||UniversalPlatform.isAndroid||UniversalPlatform.isAndroid){
+    } else if(UniversalPlatform.isWeb||UniversalPlatform.isAndroid||UniversalPlatform.isIOS){
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
