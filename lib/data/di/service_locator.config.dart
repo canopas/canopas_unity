@@ -226,7 +226,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i42.AdminLeavesBloc>(() => _i42.AdminLeavesBloc(
           gh<_i26.LeaveService>(),
           gh<_i24.EmployeeService>(),
-          gh<_i18.UserManager>(),
         ));
     gh.factory<_i43.ApplyLeaveBloc>(() => _i43.ApplyLeaveBloc(
           gh<_i18.UserManager>(),

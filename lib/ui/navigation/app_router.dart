@@ -132,13 +132,6 @@ class AppRouter {
                     },
                     routes: <GoRoute>[
                       GoRoute(
-                        name: Routes.applyHRLeave,
-                        path: Routes.applyHRLeave,
-                        pageBuilder: (context, state) => const CupertinoPage(
-                          child: ApplyLeavePage(),
-                        ),
-                      ),
-                      GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.adminLeaveDetails,
                         path: Routes.adminLeaveDetails,
@@ -231,6 +224,28 @@ class AppRouter {
                           path: Routes.editWorkspaceDetails,
                           pageBuilder: (context, state) =>
                               const CupertinoPage(child: EditSpacePage())),
+
+                      GoRoute(
+                          parentNavigatorKey: _adminShellNavigatorKey,
+                          path: Routes.hrLeaves,
+                          name: Routes.hrLeaves,
+                          pageBuilder: (context, state) =>
+                          const CupertinoPage(child: UserLeavePage()),
+                          routes: <GoRoute>[
+                            GoRoute(
+                              name: Routes.hrApplyLeave,
+                              path: Routes.hrApplyLeave,
+                              pageBuilder: (context, state) => const CupertinoPage(
+                                child: ApplyLeavePage(),
+                              ),
+                            ),
+                            GoRoute(
+                              name: Routes.hrLeaveDetails,
+                              path: Routes.hrLeaveDetails,
+                              pageBuilder: (context, state) => CupertinoPage(
+                                  child: UserLeaveDetailPage(leaveId: state.params[RoutesParamsConst.leaveId]!)),
+                            ),
+                          ]),
                     ]),
               ]),
           ShellRoute(
@@ -353,7 +368,7 @@ class AppRouter {
               _userManager.spaceUserExist &&
               (state.subloc.contains(Routes.joinSpace) ||
                   userManager.spaceChanged)) {
-            return userManager.isAdmin ? Routes.adminHome : Routes.userHome;
+            return userManager.isAdmin || userManager.isHR ? Routes.adminHome : Routes.userHome;
           }
           return null;
         });
@@ -389,7 +404,6 @@ abstract class Routes {
   static const userEmployeeDetail = 'employee-details/:employeeId';
   static const userEditProfile = 'user-edit-profile';
   static const applyLeave = 'apply-leave';
-  static const applyHRLeave = 'apply-hr-leave';
   static const userCalender = 'calender';
   static const login = '/login';
   static const createSpace = 'create-space';
@@ -401,4 +415,7 @@ abstract class Routes {
       'admin-employee-detail-leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails =
       'admin-employee-detail-leaves-details/:leaveId';
+  static const hrLeaves = 'hr-leaves';
+  static const hrApplyLeave = 'hr-apply-leave';
+  static const hrLeaveDetails = 'hr-leave-details';
 }

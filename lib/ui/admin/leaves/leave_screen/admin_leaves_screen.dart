@@ -38,22 +38,6 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).leaves_tag),
-        actions: context.read<AdminLeavesBloc>().isHR
-            ? [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: CircleAvatar(
-                      backgroundColor: const Color(0xfff5f5f5),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.add,
-                          color: AppColors.darkGrey,
-                        ),
-                        onPressed: () => context.goNamed(Routes.applyHRLeave),
-                      )),
-                ),
-              ]
-            : null,
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
         listener: (context, state) {

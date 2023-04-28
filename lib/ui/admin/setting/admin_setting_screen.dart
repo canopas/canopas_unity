@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/di/service_locator.dart';
@@ -35,6 +37,8 @@ class AdminSettingScreen extends StatefulWidget {
 }
 
 class _AdminSettingScreenState extends State<AdminSettingScreen> {
+
+  final userManager = getIt<UserManager>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +77,16 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                       context: context,
                       builder: (context) => const ChangeSpaceBottomSheet());
                 }),
+            ValidateWidget(isValid: userManager.isHR,child: const Divider()),
+            ValidateWidget(
+              isValid: userManager.isHR,
+              child: SettingOption(
+                iconColor: Colors.black87,
+                icon: Icons.add_chart_rounded,
+                title: AppLocalizations.of(context).hr_leave_record_tag,
+                onTap: () => context.pushNamed(Routes.hrLeaves),
+              ),
+            ),
             const Divider(),
             SettingOption(
                 icon: Icons.logout_rounded,

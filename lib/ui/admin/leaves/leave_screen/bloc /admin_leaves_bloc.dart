@@ -6,7 +6,6 @@ import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../../data/model/leave_application.dart';
-import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/leave_service.dart';
 import 'admin_leave_event.dart';
@@ -15,16 +14,13 @@ import 'admin_leaves_state.dart';
 @Injectable()
 class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
   final LeaveService _adminLeaveService;
-  final UserManager _userManager;
   final EmployeeService _employeeService;
 
   AdminLeavesBloc(
-      this._adminLeaveService, this._employeeService, this._userManager)
+      this._adminLeaveService, this._employeeService)
       : super(const AdminLeavesState()) {
     on<AdminLeavesInitialLoadEvent>(_initialLoad);
   }
-
-  bool get isHR => _userManager.isHR;
 
   void _initialLoad(
       AdminLeavesInitialLoadEvent event, Emitter<AdminLeavesState> emit) async {
