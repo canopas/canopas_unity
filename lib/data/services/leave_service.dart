@@ -118,6 +118,10 @@ class LeaveService {
     return leaves;
   }
 
+  String getNewLeaveId() {
+    return  _leaveDb().doc().id;
+  }
+
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveId = leaveRequestData.leaveId;
     _leaveDb()
