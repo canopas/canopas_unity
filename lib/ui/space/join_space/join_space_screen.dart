@@ -37,10 +37,12 @@ class JoinSpaceScreen extends StatefulWidget {
 class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
     return Scaffold(
       body: BlocListener<JoinSpaceBloc, JoinSpaceState>(
         listenWhen: (previous, current) =>
-            current.fetchSpaceStatus == Status.failure || current.selectSpaceStatus == Status.failure,
+            current.fetchSpaceStatus == Status.failure ||
+            current.selectSpaceStatus == Status.failure,
         listener: (context, state) {
           if (state.error != null) {
             showSnackBar(context: context, error: state.error);
@@ -52,11 +54,11 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                 .copyWith(top: 32),
             children: [
               Text(
-                AppLocalizations.of(context).welcome_to_unity_text,
+                locale.welcome_to_unity_text,
                 style: AppFontStyle.titleDark,
               ),
               const SizedBox(height: 20),
-              Text(AppLocalizations.of(context).create_own_space_title,
+              Text(locale.create_own_space_title,
                   style: AppFontStyle.bodyLarge),
               const SizedBox(height: 10),
               ElevatedButton(
@@ -67,45 +69,52 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                     fixedSize:
                         Size(MediaQuery.of(context).size.width * 0.9, 45)),
                 onPressed: () => context.goNamed(Routes.createSpace),
-                child:
-                    Text(AppLocalizations.of(context).create_new_space_title),
+                child: Text(locale.create_new_space_title),
               ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  const Divider(),
-                  Container(
-                      color: AppColors.whiteColor,
-                      margin: const EdgeInsets.symmetric(vertical: primarySpacing),
-                      padding: const EdgeInsets.symmetric(horizontal: primarySpacing),
-                      child: Text(
-                        AppLocalizations.of(context).or_tag,
-                        style: AppFontStyle.bodyLarge
-                            .copyWith(color: AppColors.secondaryText),
-                      ))
-                ],
-              ),
+              Row(children: <Widget>[
+                const Expanded(
+                    child: Divider(
+                  indent: 15,
+                  endIndent: 15,
+                )),
+                Text(locale.or_tag, style: AppFontStyle.subTitleGrey),
+                const Expanded(
+                    child: Divider(
+                  indent: 15,
+                  endIndent: 15,
+                )),
+              ]),
               Text(
-                  AppLocalizations.of(context).spaces_list_title(
+                  locale.spaces_list_title(
                       context.read<JoinSpaceBloc>().userEmail),
                   style: AppFontStyle.bodyLarge),
               const SizedBox(height: 10),
               BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
-                builder: (context, state) =>
-                    state.fetchSpaceStatus == Status.loading
-                        ? const AppCircularProgressIndicator()
-                        : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: state.spaces
-                                .map((space) => SpaceCard(
-                                      title: space.name,
-                                      domain: space.domain,
-                                      imageURL: space.logo,
-                                      onPressed: () => context.read<JoinSpaceBloc>().add(SelectSpaceEvent(space: space)),
-                                    ))
-                                .toList(),
-                          ),
-              )
+                  builder: (context, state) {
+                if (state.fetchSpaceStatus == Status.loading) {
+                  return const AppCircularProgressIndicator();
+                } else {
+                  if (state.spaces.isEmpty) {
+                    return Text(
+                      locale.empty_space_list_msg,
+                      style: AppFontStyle.subTitleGrey,
+                    );
+                  }
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: state.spaces
+                        .map((space) => SpaceCard(
+                              title: space.name,
+                              domain: space.domain,
+                              imageURL: space.logo,
+                              onPressed: () => context
+                                  .read<JoinSpaceBloc>()
+                                  .add(SelectSpaceEvent(space: space)),
+                            ))
+                        .toList(),
+                  );
+                }
+              })
             ],
           ),
         ),
