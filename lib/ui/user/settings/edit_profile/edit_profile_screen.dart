@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/widget/profile_form.dart';
 import '../../../../data/configs/colors.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -78,7 +79,7 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
           BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
             buildWhen: (previous, current) => previous.status != current.status || previous.isDataValid != current.isDataValid,
             builder: (context, state) => state.status ==
-                    EmployeeEditProfileStatus.loading
+                Status.loading
                 ? const Padding(
                     padding: EdgeInsets.only(right: 30),
                     child: AppCircularProgressIndicator(size: 20),
@@ -105,9 +106,9 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
       body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == EmployeeEditProfileStatus.failure) {
+          if (state.status == Status.error) {
             showSnackBar(context: context, error: state.error);
-          } else if (state.status == EmployeeEditProfileStatus.success) {
+          } else if (state.status == Status.success) {
             context.pop();
           }
         },

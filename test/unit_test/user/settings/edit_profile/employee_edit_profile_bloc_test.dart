@@ -5,6 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/pref/user_preference.dart';
 import 'package:projectunity/data/provider/user_data.dart';
@@ -16,7 +17,8 @@ import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_pr
 
 import 'employee_edit_profile_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserManager, UserPreference,StorageService,ImagePicker])
+@GenerateMocks(
+    [EmployeeService, UserManager, UserPreference, StorageService, ImagePicker])
 void main() {
   late EmployeeService employeeService;
   late UserManager userManager;
@@ -116,11 +118,11 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             const EmployeeEditProfileState(
-                status: EmployeeEditProfileStatus.loading, imageURL: null),
+                status: Status.loading, imageURL: null),
             EmployeeEditProfileState(
-                status: EmployeeEditProfileStatus.loading, imageURL: file.path),
+                status: Status.loading, imageURL: file.path),
             EmployeeEditProfileState(
-                status: EmployeeEditProfileStatus.success, imageURL: file.path)
+                status: Status.success, imageURL: file.path)
           ]));
     });
 
@@ -141,11 +143,11 @@ void main() {
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: emp.gender,
-                status: EmployeeEditProfileStatus.loading),
+                status: Status.loading),
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: emp.gender,
-                status: EmployeeEditProfileStatus.success),
+                status: Status.success),
           ]));
 
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
@@ -174,11 +176,11 @@ void main() {
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: 1,
-                status: EmployeeEditProfileStatus.loading),
+                status: Status.loading),
             EmployeeEditProfileState(
                 dateOfBirth: emp.dateOfBirth!.toDate,
                 gender: 1,
-                status: EmployeeEditProfileStatus.failure,
+                status: Status.error,
                 error: firestoreFetchDataError),
           ]));
 

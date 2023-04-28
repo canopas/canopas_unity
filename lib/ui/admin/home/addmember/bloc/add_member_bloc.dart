@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/mixin/input_validation.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../../data/core/exception/error_const.dart';
@@ -10,7 +12,7 @@ import 'add_member_event.dart';
 import 'add_member_state.dart';
 
 @Injectable()
-class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
+class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> with InputValidationMixin{
   final EmployeeService _employeeService;
 
   AddMemberBloc(this._employeeService) : super(const AddMemberFormState()) {
@@ -29,7 +31,7 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
 
   void _validateEmployeeId(
       AddEmployeeIdEvent event, Emitter<AddMemberFormState> emit) {
-    if (validEmployeeId(event.employeeId)) {
+    if (validInputLength(event.employeeId)) {
       emit(state.copyWith(employeeId: event.employeeId, idError: false));
     } else {
       emit(state.copyWith(employeeId: event.employeeId, idError: true));
@@ -38,7 +40,7 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
 
   void _validateName(
       AddEmployeeNameEvent event, Emitter<AddMemberFormState> emit) {
-    if (validName(event.name)) {
+    if (validInputLength(event.name)) {
       emit(state.copyWith(name: event.name, nameError: false));
     } else {
       emit(state.copyWith(nameError: true, name: event.name));
@@ -56,13 +58,8 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
 
   void _validateEmployeeDesignation(
       AddEmployeeDesignationEvent event, Emitter<AddMemberFormState> emit) {
-    if (validDesignation(event.designation)) {
       emit(state.copyWith(
           designation: event.designation, designationError: false));
-    } else {
-      emit(state.copyWith(
-          designationError: true, designation: event.designation));
-    }
   }
 
   void _validateDateOfJoining(
@@ -74,22 +71,11 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
     }
   }
 
-  bool validEmployeeId(String? employeeId) =>
-      employeeId != null && employeeId.length >= 4;
-
-  bool validName(String? name) => name != null && name.length >= 4;
-
-  bool validEmail(String? email) =>
-      email != null && email.length >= 4 && email.contains('@');
-
-  bool validDesignation(String? designation) =>
-      designation != null && designation.length >= 4;
 
   bool get validForm =>
-      validEmployeeId(state.employeeId) &&
-      validName(state.name) &&
-      validEmail(state.email) &&
-      validDesignation(state.designation);
+      validInputLength(state.employeeId) &&
+      validInputLength(state.name) &&
+      validEmail(state.email);
 
   Employee submitEmployee() {
     return Employee(
@@ -106,25 +92,23 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> {
 
   void _submitForm(
       SubmitEmployeeFormEvent event, Emitter<AddMemberFormState> emit) async {
-    emit(state.copyWith(status: SubmitFormStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     if (validForm) {
       try {
         Employee employee = submitEmployee();
         bool employeeExists = await _employeeService.hasUser(employee.email);
         if (employeeExists) {
-          emit(state.copyWith(
-              status: SubmitFormStatus.error, msg: userAlreadyExists));
+          emit(state.copyWith(status: Status.error, msg: userAlreadyExists));
         } else {
           await _employeeService.addEmployee(employee);
-          emit(state.copyWith(status: SubmitFormStatus.done));
+          emit(state.copyWith(status: Status.success));
         }
       } on Exception {
-        emit(state.copyWith(
-            status: SubmitFormStatus.error, msg: firestoreFetchDataError));
+        emit(
+            state.copyWith(status: Status.error, msg: firestoreFetchDataError));
       }
     } else {
-      emit(state.copyWith(
-          status: SubmitFormStatus.error, msg: fillDetailsError));
+      emit(state.copyWith(status: Status.error, msg: fillDetailsError));
     }
   }
 }

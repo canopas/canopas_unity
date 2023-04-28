@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/space/space.dart';
-
-enum Status { initial, failure, loading, success }
 
 class JoinSpaceState extends Equatable {
   final Status fetchSpaceStatus;
@@ -16,7 +15,11 @@ class JoinSpaceState extends Equatable {
     this.error,
   });
 
-  copy({Status? fetchSpaceStatus,Status? selectSpaceStatus, List<Space>? spaces, String? error}) =>
+  JoinSpaceState copyWith(
+          {Status? fetchSpaceStatus,
+          Status? selectSpaceStatus,
+          List<Space>? spaces,
+          String? error}) =>
       JoinSpaceState(
           error: error,
           selectSpaceStatus: selectSpaceStatus ?? this.selectSpaceStatus,
@@ -24,5 +27,6 @@ class JoinSpaceState extends Equatable {
           spaces: spaces ?? this.spaces);
 
   @override
-  List<Object?> get props => [fetchSpaceStatus, spaces, error,selectSpaceStatus];
+  List<Object?> get props =>
+      [fetchSpaceStatus, spaces, error, selectSpaceStatus];
 }

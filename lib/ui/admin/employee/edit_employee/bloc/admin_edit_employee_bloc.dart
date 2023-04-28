@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
@@ -30,13 +31,13 @@ class AdminEditEmployeeDetailsBloc
   void _initRoleTypeAndDate(EditEmployeeByAdminInitialEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(
-        roleType: event.roleType,
+        role: event.roleType,
         dateOfJoining: event.dateOfJoining?.toDate ?? DateTime.now().dateOnly));
   }
 
   void _changeRoleType(ChangeEmployeeRoleEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
-    emit(state.copyWith(roleType: event.roleType));
+    emit(state.copyWith(role: event.roleType));
   }
 
   void _changeDateOfJoining(ChangeEmployeeDateOfJoiningEvent event,
@@ -82,23 +83,18 @@ class AdminEditEmployeeDetailsBloc
 
   void _updateEmployee(UpdateEmployeeByAdminEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) async {
-    emit(state.copyWith(
-        adminEditEmployeeDetailsStatus:
-            AdminEditEmployeeDetailsStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     if (state.nameError ||
         state.designationError ||
         state.employeeIdError ||
         state.emailError) {
-      emit(state.copyWith(
-          adminEditEmployeeDetailsStatus:
-              AdminEditEmployeeDetailsStatus.failure,
-          error: fillDetailsError));
+      emit(state.copyWith(status: Status.error, error: fillDetailsError));
     } else {
       try {
         await _employeeService.updateEmployeeDetails(
           employee: Employee(
             uid: event.previousEmployeeData.uid,
-            role: state.roleType,
+            role: state.role,
             name: event.name,
             employeeId: event.employeeId,
             email: event.email,
@@ -114,14 +110,10 @@ class AdminEditEmployeeDetailsBloc
         );
         eventBus.fire(EmployeeDetailInitialLoadEvent(
             employeeId: event.previousEmployeeData.uid));
-        emit(state.copyWith(
-            adminEditEmployeeDetailsStatus:
-                AdminEditEmployeeDetailsStatus.success));
+        emit(state.copyWith(status: Status.success));
       } on Exception {
         emit(state.copyWith(
-            adminEditEmployeeDetailsStatus:
-                AdminEditEmployeeDetailsStatus.failure,
-            error: firestoreFetchDataError));
+            status: Status.error, error: firestoreFetchDataError));
       }
     }
   }

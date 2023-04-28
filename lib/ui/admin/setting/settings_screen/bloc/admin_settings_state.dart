@@ -1,23 +1,20 @@
 import 'package:equatable/equatable.dart';
-import '../../../../data/model/employee/employee.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 
-enum AdminSettingsStatus { initial, loading, success, failure }
+import '../../../../../data/model/employee/employee.dart';
 
 class AdminSettingsState extends Equatable {
   final String? error;
-  final AdminSettingsStatus status;
+  final Status status;
   final Employee currentEmployee;
 
   const AdminSettingsState({
     this.error,
-    this.status = AdminSettingsStatus.initial,
+    this.status = Status.initial,
     required this.currentEmployee,
   });
 
-  copyWith(
-          {String? error,
-          AdminSettingsStatus? status,
-          Employee? currentEmployee}) =>
+  copyWith({String? error, Status? status, Employee? currentEmployee}) =>
       AdminSettingsState(
         error: error,
         status: status ?? this.status,

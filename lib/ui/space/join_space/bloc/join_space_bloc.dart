@@ -4,6 +4,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/services/employee_service.dart';
 import '../../../../data/services/space_service.dart';
 
@@ -23,32 +24,32 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
 
   void _init(
       JoinSpaceInitialFetchEvent event, Emitter<JoinSpaceState> emit) async {
-    emit(state.copy(fetchSpaceStatus: Status.loading));
+    emit(state.copyWith(fetchSpaceStatus: Status.loading));
     try {
       final spaces = await _spaceService.getSpacesOfUser(_userManager.userUID!);
-      emit(state.copy(fetchSpaceStatus: Status.success, spaces: spaces));
+      emit(state.copyWith(fetchSpaceStatus: Status.success, spaces: spaces));
     } on Exception {
-      emit(state.copy(
-          fetchSpaceStatus: Status.failure, error: firestoreFetchDataError));
+      emit(state.copyWith(
+          fetchSpaceStatus: Status.error, error: firestoreFetchDataError));
     }
   }
 
   Future<void> _selectSpace(
       SelectSpaceEvent event, Emitter<JoinSpaceState> emit) async {
-    emit(state.copy(selectSpaceStatus: Status.loading));
+    emit(state.copyWith(selectSpaceStatus: Status.loading));
     try {
       final employee = await _employeeService.getEmployeeBySpaceId(
           spaceId: event.space.id, userId: _userManager.userUID!);
-      if(employee != null){
+      if (employee != null) {
         await _userManager.setSpace(space: event.space, spaceUser: employee);
-        emit(state.copy(selectSpaceStatus: Status.success));
-      } else{
-        emit(state.copy(
-            selectSpaceStatus: Status.failure, error: firestoreFetchDataError));
+        emit(state.copyWith(selectSpaceStatus: Status.success));
+      } else {
+        emit(state.copyWith(
+            selectSpaceStatus: Status.error, error: firestoreFetchDataError));
       }
     } on Exception {
-      emit(state.copy(
-          selectSpaceStatus: Status.failure, error: firestoreFetchDataError));
+      emit(state.copyWith(
+          selectSpaceStatus: Status.error, error: firestoreFetchDataError));
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -31,7 +32,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
 
   Future<void> _loadLeaveApplications(
       AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
-    emit(state.copyWith(status: AdminHomeStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     try {
       final List<Employee> employees = await _employeeService.getEmployees();
       final List<Leave> leaves = await _leaveService.getLeaveRequestOfUsers();
@@ -47,7 +48,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
           .whereNotNull()
           .toList();
       emit(state.copyWith(
-          status: AdminHomeStatus.success,
+          status: Status.success,
           leaveAppMap: convertListToMap(leaveApplications)));
     } catch (_) {
       emit(state.failureState(failureMessage: firestoreFetchDataError));

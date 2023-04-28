@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
@@ -19,7 +20,7 @@ class ApplyButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
       child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
           builder: (context, state) => state.leaveRequestStatus ==
-                  ApplyLeaveStatus.loading
+              Status.loading
               ? const AppCircularProgressIndicator()
               : ElevatedButton(
                   style: ElevatedButton.styleFrom(

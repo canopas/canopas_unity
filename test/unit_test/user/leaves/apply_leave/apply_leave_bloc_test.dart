@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/core/utils/const/leave_time_constants.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_data.dart';
@@ -32,7 +33,9 @@ void main() {
       userManager = MockUserManager();
       leaveRequestBloc = ApplyLeaveBloc(userManager, leaveService);
 
+      when(userManager.userUID).thenReturn("id");
       when(userManager.employeeId).thenReturn("id");
+
       when(leaveService.checkLeaveAlreadyApplied(
           userId: 'id',
           dateDuration: {DateTime(2000): 1})).thenAnswer((_) async => true);
@@ -49,22 +52,25 @@ void main() {
               leaveType: 1)));
     });
 
-    test('on apply leave fill data error test', () {
+    test('on apply leave fill data error test', () async {
+      when(userManager.userUID).thenReturn("id");
+      when(userManager.employeeId).thenReturn("id");
+
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
-      expect(
+      expectLater(
           leaveRequestBloc.stream,
           emitsInOrder([
             ApplyLeaveState(
-                leaveRequestStatus: ApplyLeaveStatus.loading,
+                leaveRequestStatus: Status.loading,
                 startDate: currentDate,
                 endDate: currentDate,
                 selectedDates: {currentDate: 3}),
             ApplyLeaveState(
-                leaveRequestStatus: ApplyLeaveStatus.failure,
+                leaveRequestStatus: Status.error,
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 3},
                 showTextFieldError: true,
+                selectedDates: {currentDate: 3},
                 error: fillDetailsError),
           ]));
     });
@@ -117,14 +123,14 @@ void main() {
                 totalLeaveDays: 0,
                 reason: "reason"),
             ApplyLeaveState(
-                leaveRequestStatus: ApplyLeaveStatus.loading,
+                leaveRequestStatus: Status.loading,
                 totalLeaveDays: 0,
                 startDate: currentDate,
                 endDate: currentDate,
                 selectedDates: {currentDate: 0},
                 reason: "reason"),
             ApplyLeaveState(
-                leaveRequestStatus: ApplyLeaveStatus.failure,
+                leaveRequestStatus: Status.error,
                 totalLeaveDays: 0,
                 startDate: currentDate,
                 endDate: currentDate,
@@ -194,14 +200,14 @@ void main() {
                 totalLeaveDays: totalDays,
                 reason: "reason"),
             ApplyLeaveState(
-                leaveRequestStatus: ApplyLeaveStatus.loading,
+                leaveRequestStatus: Status.loading,
                 totalLeaveDays: totalDays,
                 startDate: futureDate,
                 endDate: currentDate,
                 selectedDates: updatedSelectedLeaves,
                 reason: "reason"),
             ApplyLeaveState(
-                leaveRequestStatus: ApplyLeaveStatus.failure,
+                leaveRequestStatus: Status.error,
                 totalLeaveDays: totalDays,
                 startDate: futureDate,
                 endDate: currentDate,
@@ -267,7 +273,7 @@ void main() {
                 selectedDates: selectedDates,
                 totalLeaveDays: totalDays,
                 reason: "reason",
-                leaveRequestStatus: ApplyLeaveStatus.loading),
+                leaveRequestStatus: Status.loading),
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: futureDate,
@@ -275,7 +281,7 @@ void main() {
                 totalLeaveDays: totalDays,
                 reason: "reason",
                 error: alreadyLeaveAppliedError,
-                leaveRequestStatus: ApplyLeaveStatus.failure),
+                leaveRequestStatus: Status.error),
           ]));
     });
 
@@ -336,14 +342,14 @@ void main() {
                 selectedDates: selectedDates,
                 totalLeaveDays: totalDays,
                 reason: "reason",
-                leaveRequestStatus: ApplyLeaveStatus.loading),
+                leaveRequestStatus: Status.loading),
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: futureDate,
                 selectedDates: selectedDates,
                 totalLeaveDays: totalDays,
                 reason: "reason",
-                leaveRequestStatus: ApplyLeaveStatus.success),
+                leaveRequestStatus: Status.success),
           ]));
     });
 

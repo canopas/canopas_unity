@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
@@ -189,36 +190,37 @@ void main() {
               paidTimeOffError: false,
               buttonState: ButtonState.enable);
           CreateSpaceState stateWithValidNameInput = const CreateSpaceState(
-              companyName: 'canopas',
-              paidTimeOff: '12',
-              ownerName: 'user name',
-              buttonState: ButtonState.enable,
-              ownerNameError: false);
-          CreateSpaceState loadingState = const CreateSpaceState(
-              companyName: 'canopas',
-              paidTimeOff: '12',
-              ownerName: 'user name',
-              buttonState: ButtonState.enable,
-              createSpaceStatus: CreateSpaceStatus.loading
-          );
-          CreateSpaceState successState = const CreateSpaceState(
-              companyName: 'canopas',
-              paidTimeOff: '12',
-              ownerName: 'user name',
-              buttonState: ButtonState.enable,
-              createSpaceStatus: CreateSpaceStatus.success
-          );
+          companyName: 'canopas',
+          paidTimeOff: '12',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          ownerNameError: false);
+      CreateSpaceState loadingState = const CreateSpaceState(
+          companyName: 'canopas',
+          paidTimeOff: '12',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          createSpaceStatus: Status.loading);
+      CreateSpaceState successState = const CreateSpaceState(
+          companyName: 'canopas',
+          paidTimeOff: '12',
+          ownerName: 'user name',
+          buttonState: ButtonState.enable,
+          createSpaceStatus: Status.success);
 
-          Space space=  Space(id: 'space-id',
-              name: stateWithValidNameInput.companyName,
-              createdAt: DateTime.now(),
-              paidTimeOff: 12,
-              ownerIds: ['uid']);
-          Employee employee = const Employee(uid: 'uid', name: 'user name', email: 'andrew.j@canopas.com');
+      Space space = Space(
+          id: 'space-id',
+          name: stateWithValidNameInput.companyName,
+          createdAt: DateTime.now(),
+          paidTimeOff: 12,
+          ownerIds: ['uid']);
+      Employee employee = const Employee(
+          uid: 'uid', name: 'user name', email: 'andrew.j@canopas.com');
 
-
-          when(employeeService.addEmployeeBySpaceId(employee: employee, spaceId: 'space-id')).thenAnswer((_)async{} );
-          when(userManager.setSpace(space: space, spaceUser: employee)).thenAnswer((_) async=> {});
+      when(employeeService.addEmployeeBySpaceId(
+              employee: employee, spaceId: 'space-id'))
+          .thenAnswer((_) async {});
+      when(userManager.setSpace(space: space, spaceUser: employee)).thenAnswer((_) async=> {});
 
           when(spaceService.createSpace(
             name: stateWithValidNameInput.companyName,
@@ -277,18 +279,17 @@ void main() {
           paidTimeOff: '12',
           ownerName: 'user name',
           buttonState: ButtonState.enable,
-          createSpaceStatus: CreateSpaceStatus.loading
-      );
+          createSpaceStatus: Status.loading);
       CreateSpaceState errorState = const CreateSpaceState(
           companyName: 'canopas',
           paidTimeOff: '12',
           ownerName: 'user name',
           buttonState: ButtonState.enable,
-          createSpaceStatus: CreateSpaceStatus.error,
-          error: firestoreFetchDataError
-      );
+          createSpaceStatus: Status.error,
+          error: firestoreFetchDataError);
 
-      Space space=  Space(id: 'space-id',
+      Space space = Space(
+          id: 'space-id',
           name: stateWithValidNameInput.companyName,
           createdAt: DateTime.now(),
           paidTimeOff: 12,

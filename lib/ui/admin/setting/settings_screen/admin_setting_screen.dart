@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import '../../../data/configs/colors.dart';
-import '../../../data/configs/space_constant.dart';
-import '../../../data/di/service_locator.dart';
-import '../../navigation/app_router.dart';
-import '../../space/change_space_sheet/change_space_sheet.dart';
-import '../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
-import '../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
-import '../../widget/app_dialog.dart';
-import '../../widget/error_snack_bar.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
+import '../../../../data/configs/colors.dart';
+import '../../../../data/configs/space_constant.dart';
+import '../../../../data/di/service_locator.dart';
+import '../../../navigation/app_router.dart';
+import '../../../space/change_space_sheet/change_space_sheet.dart';
+import '../../../user/settings/settings_screen/widget/user_settings_settings_options.dart';
+import '../../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
+import '../../../widget/app_dialog.dart';
+import '../../../widget/error_snack_bar.dart';
+
 import 'bloc/admin_settings_bloc.dart';
 import 'bloc/admin_settings_event.dart';
 import 'bloc/admin_settings_state.dart';
@@ -35,7 +37,6 @@ class AdminSettingScreen extends StatefulWidget {
 }
 
 class _AdminSettingScreenState extends State<AdminSettingScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
       body: BlocConsumer<AdminSettingsBloc, AdminSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == AdminSettingsStatus.failure) {
+          if (state.status == Status.error) {
             showSnackBar(context: context, error: state.error);
           }
         },

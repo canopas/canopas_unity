@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-enum Status { initial, loading, failure, success }
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 
 class EditSpaceState extends Equatable {
   final Status deleteWorkSpaceStatus;
@@ -34,8 +33,8 @@ class EditSpaceState extends Equatable {
   bool get isDataValid => nameIsValid && yearlyPaidTimeOffIsValid;
 
   bool get isFailure =>
-      (updateSpaceStatus != Status.failure ||
-          deleteWorkSpaceStatus != Status.failure) &&
+      (updateSpaceStatus != Status.error ||
+          deleteWorkSpaceStatus != Status.error) &&
       error != null;
 
   @override

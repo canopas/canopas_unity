@@ -7,6 +7,7 @@ import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../widget/circular_progress_indicator.dart';
@@ -41,7 +42,7 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
           BlocBuilder<AdminLeaveApplicationDetailsBloc,
               AdminLeaveApplicationDetailsState>(
             builder: (context, state) => state.adminLeaveCountStatus ==
-                    AdminLeaveCountStatus.loading
+                Status.loading
                 ? const AppCircularProgressIndicator(size: 28)
                 : Text("${state.usedLeaves.fixedAt(2)}/${state.paidLeaveCount}",
                     style: AppFontStyle.titleRegular

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-enum EmployeeEditProfileStatus { initial, loading, success, failure }
+import '../../../../../data/core/utils/bloc_status.dart';
 
 class EmployeeEditProfileState extends Equatable {
-  final EmployeeEditProfileStatus status;
+  final Status status;
   final int? gender;
   final DateTime? dateOfBirth;
   final bool nameError;
@@ -13,7 +13,7 @@ class EmployeeEditProfileState extends Equatable {
   const EmployeeEditProfileState({
     this.gender,
     this.dateOfBirth,
-    this.status = EmployeeEditProfileStatus.initial,
+    this.status = Status.initial,
     this.error,
     this.nameError = false,
     this.imageURL,
@@ -26,7 +26,7 @@ class EmployeeEditProfileState extends Equatable {
     DateTime? dateOfBirth,
     bool? nameError,
     String? error,
-    EmployeeEditProfileStatus? status,
+    Status? status,
     String? imageURL,
   }) {
     return EmployeeEditProfileState(

@@ -236,6 +236,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#redirect),
         returnValue: false,
       ) as bool);
+
   @override
   set redirect(bool? _redirect) => super.noSuchMethod(
         Invocation.setter(

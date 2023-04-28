@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/employee_service.dart';
 import '../../../../data/services/space_service.dart';
@@ -27,7 +28,7 @@ class ChangeSpaceBloc extends Bloc<ChangeSpaceEvents, ChangeSpaceState> {
       emit(state.copyWith(fetchSpaceStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copyWith(
-          fetchSpaceStatus: Status.failure, error: firestoreFetchDataError));
+          fetchSpaceStatus: Status.error, error: firestoreFetchDataError));
     }
   }
 
@@ -42,11 +43,11 @@ class ChangeSpaceBloc extends Bloc<ChangeSpaceEvents, ChangeSpaceState> {
         emit(state.copyWith(changeSpaceStatus: Status.success));
       } else {
         emit(state.copyWith(
-            changeSpaceStatus: Status.failure, error: firestoreFetchDataError));
+            changeSpaceStatus: Status.error, error: firestoreFetchDataError));
       }
     } on Exception {
       emit(state.copyWith(
-          changeSpaceStatus: Status.failure, error: firestoreFetchDataError));
+          changeSpaceStatus: Status.error, error: firestoreFetchDataError));
     }
   }
 }

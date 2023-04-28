@@ -46,10 +46,10 @@ import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_bloc
     as _i41;
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
     as _i42;
-import 'package:projectunity/ui/admin/setting/bloc/admin_settings_bloc.dart'
-    as _i21;
 import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_bloc.dart'
     as _i23;
+import 'package:projectunity/ui/admin/setting/settings_screen/bloc/admin_settings_bloc.dart'
+    as _i21;
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_leave_count_screen_bloc.dart'
     as _i20;
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
