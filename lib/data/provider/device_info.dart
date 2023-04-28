@@ -3,7 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../model/device_info/device_info.dart';
-import '../model/employee/employee.dart';
+import '../model/session/session.dart';
 
 class DeviceInfoProvider {
   static Future<Session?> getDeviceInfo() async {

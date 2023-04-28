@@ -27,7 +27,7 @@ void main() {
 
   Employee emp = Employee(
       uid: "123",
-      role: 1,
+      role: Role.admin,
       name: "dummy tester",
       employeeId: "CA-1000",
       email: "dummy.t@canopas.com",

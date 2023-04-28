@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 
 enum AdminEditEmployeeDetailsStatus { initial, loading, success, failure }
 
 class AdminEditEmployeeDetailsState extends Equatable {
   final AdminEditEmployeeDetailsStatus adminEditEmployeeDetailsStatus;
-  final int roleType;
+  final Role roleType;
   final DateTime? dateOfJoining;
   final String? error;
   final bool nameError;
@@ -21,7 +22,7 @@ class AdminEditEmployeeDetailsState extends Equatable {
     this.error,
     this.adminEditEmployeeDetailsStatus =
         AdminEditEmployeeDetailsStatus.initial,
-    this.roleType = 2,
+    this.roleType = Role.employee,
   });
 
   bool get isValid =>
@@ -37,7 +38,7 @@ class AdminEditEmployeeDetailsState extends Equatable {
     bool? employeeIdError,
     bool? emailError,
     DateTime? dateOfJoining,
-    int? roleType,
+    Role? roleType,
     AdminEditEmployeeDetailsStatus? adminEditEmployeeDetailsStatus,
   }) {
     return AdminEditEmployeeDetailsState(

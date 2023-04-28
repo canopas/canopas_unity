@@ -21,7 +21,7 @@ void main() {
 
   Employee employee = const Employee(
       uid: 'uid',
-      role: 1,
+      role: Role.admin,
       name: 'Andrew jhone',
       employeeId: 'employeeId',
       email: 'andrew.j@canopas.com',

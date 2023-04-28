@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -16,8 +15,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
   final LeaveService _adminLeaveService;
   final EmployeeService _employeeService;
 
-  AdminLeavesBloc(
-      this._adminLeaveService, this._employeeService)
+  AdminLeavesBloc(this._adminLeaveService, this._employeeService)
       : super(const AdminLeavesState()) {
     on<AdminLeavesInitialLoadEvent>(_initialLoad);
   }

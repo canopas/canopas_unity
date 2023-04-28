@@ -47,7 +47,7 @@ class AppRouter {
     return GoRouter(
         refreshListenable: userManager,
         debugLogDiagnostics: true,
-        initialLocation: userManager.isAdmin || userManager.isHR
+        initialLocation: (userManager.isAdmin || userManager.isHR)
             ? Routes.adminHome
             : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
@@ -92,8 +92,7 @@ class AppRouter {
                           name: Routes.addMember,
                           parentNavigatorKey: _adminShellNavigatorKey,
                           pageBuilder: (context, state) =>
-                              const CupertinoPage(
-                                  child: AdminAddMemberPage())),
+                              const CupertinoPage(child: AdminAddMemberPage())),
                       GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.leaveRequestDetail,
@@ -175,8 +174,7 @@ class AppRouter {
                                                         .leaveId]!)),
                                   ),
                                 ],
-                                pageBuilder: (context, state) =>
-                                    CupertinoPage(
+                                pageBuilder: (context, state) => CupertinoPage(
                                         child: AdminEmployeeDetailsLeavesPage(
                                       employeeName: state.params[
                                               RoutesParamsConst.employeeName] ??
@@ -215,9 +213,8 @@ class AppRouter {
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.updateLeaveCount,
                           path: Routes.updateLeaveCount,
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(
-                                  child: AdminUpdateLeaveCountsPage())),
+                          pageBuilder: (context, state) => const CupertinoPage(
+                              child: AdminUpdateLeaveCountsPage())),
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.editWorkspaceDetails,
@@ -287,9 +284,8 @@ class AppRouter {
                                           .params[RoutesParamsConst.leaveId]!)),
                             ),
                           ],
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(
-                                  child: EmployeesLeaveCalenderPage())),
+                          pageBuilder: (context, state) => const CupertinoPage(
+                              child: EmployeesLeaveCalenderPage())),
                       GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           name: Routes.userLeaveCalender,
@@ -368,10 +364,12 @@ class AppRouter {
           }
           if (userManager.loggedIn &&
               userManager.spaceSelected &&
-              _userManager.spaceUserExist &&
+              userManager.spaceUserExist &&
               (state.subloc.contains(Routes.joinSpace) ||
-                  userManager.spaceChanged)) {
-            return userManager.isAdmin || userManager.isHR ? Routes.adminHome : Routes.userHome;
+                  userManager.redirect)) {
+            return userManager.isAdmin || userManager.isHR
+                ? Routes.adminHome
+                : Routes.userHome;
           }
           return null;
         });

@@ -38,7 +38,7 @@ void main() {
 
     Employee employee = const Employee(
         uid: 'id',
-        role: 1,
+        role: Role.admin,
         name: 'Andrew jhone',
         employeeId: '100',
         email: 'andrew.j@canopas.com',

@@ -18,7 +18,7 @@ void main() {
   late UserManager userManager;
   Employee employee = const Employee(
       uid: 'id',
-      role: 1,
+      role: Role.admin,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',

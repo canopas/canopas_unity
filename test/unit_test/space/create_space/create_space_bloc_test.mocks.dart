@@ -232,28 +232,18 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  bool get spaceChanged => (super.noSuchMethod(
-        Invocation.getter(#spaceChanged),
+  bool get redirect => (super.noSuchMethod(
+        Invocation.getter(#redirect),
         returnValue: false,
       ) as bool);
   @override
-  set spaceChanged(bool? _spaceChanged) => super.noSuchMethod(
+  set redirect(bool? _redirect) => super.noSuchMethod(
         Invocation.setter(
-          #spaceChanged,
-          _spaceChanged,
+          #redirect,
+          _redirect,
         ),
         returnValueForMissingStub: null,
       );
-  @override
-  String get userName => (super.noSuchMethod(
-        Invocation.getter(#userName),
-        returnValue: '',
-      ) as String);
-  @override
-  String get email => (super.noSuchMethod(
-        Invocation.getter(#email),
-        returnValue: '',
-      ) as String);
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -267,11 +257,6 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
           Invocation.getter(#employee),
         ),
       ) as _i4.Employee);
-  @override
-  String get employeeDesignation => (super.noSuchMethod(
-        Invocation.getter(#employeeDesignation),
-        returnValue: '',
-      ) as String);
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
@@ -478,14 +463,14 @@ class MockEmployeeService extends _i1.Mock implements _i10.EmployeeService {
   @override
   _i6.Future<void> changeEmployeeRoleType(
     String? id,
-    int? roleType,
+    _i4.Role? role,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #changeEmployeeRoleType,
           [
             id,
-            roleType,
+            role,
           ],
         ),
         returnValue: _i6.Future<void>.value(),
