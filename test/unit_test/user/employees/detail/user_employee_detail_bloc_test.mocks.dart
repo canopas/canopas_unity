@@ -148,14 +148,14 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
   @override
   _i5.Future<void> changeEmployeeRoleType(
     String? id,
-    int? roleType,
+    _i6.Role? role,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #changeEmployeeRoleType,
           [
             id,
-            roleType,
+            role,
           ],
         ),
         returnValue: _i5.Future<void>.value(),

@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/core/utils/const/role.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import '../../../../data/provider/user_data.dart';
@@ -135,7 +134,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
         final employee = Employee(
           uid: _userManager.userUID!,
-          role: kRoleTypeAdmin,
+          role: Role.admin,
           name: state.ownerName!,
           email: _userManager.userEmail!,
         );

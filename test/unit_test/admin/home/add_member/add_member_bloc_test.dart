@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:projectunity/data/core/utils/const/role.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_bloc.dart';
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_event.dart';
@@ -13,7 +13,7 @@ void main() {
   late AddMemberBloc addMemberBloc;
   late EmployeeService employeeService;
   AddMemberFormState initialState = const AddMemberFormState(
-      role: 2,
+      role: Role.employee,
       employeeId: '',
       name: '',
       email: '',
@@ -38,13 +38,13 @@ void main() {
           'Emits state with with default employee role when no role is selected by user',
           () {
         addMemberBloc.add(const SelectRoleEvent());
-        const stateWithoutRole = AddMemberFormState(role: kRoleTypeEmployee);
+        const stateWithoutRole = AddMemberFormState(role: Role.employee);
         expectLater(addMemberBloc.stream, emits(stateWithoutRole));
       });
 
       test('Emits state with with selected role on SelectRoleTypeEvent', () {
-        addMemberBloc.add(const SelectRoleEvent(role: kRoleTypeAdmin));
-        const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeAdmin);
+        addMemberBloc.add(const SelectRoleEvent(role: Role.admin));
+        const stateWithSelectedRole = AddMemberFormState(role: Role.admin);
         expect(addMemberBloc.stream, emits(stateWithSelectedRole));
       });
     });
@@ -135,13 +135,13 @@ void main() {
     });
 
     test('Emits state with with selected role on SelectRoleTypeEvent', () {
-      addMemberBloc.add(const SelectRoleEvent(role: kRoleTypeAdmin));
-      const stateWithSelectedRole = AddMemberFormState(role: kRoleTypeAdmin);
+      addMemberBloc.add(const SelectRoleEvent(role: Role.admin));
+      const stateWithSelectedRole = AddMemberFormState(role: Role.admin);
       expect(addMemberBloc.stream, emitsInOrder([stateWithSelectedRole]));
 
       addMemberBloc.add(const AddEmployeeNameEvent(name: 'Andrew jhone'));
       AddMemberFormState stateWithEmployeeName = const AddMemberFormState(
-          name: 'Andrew jhone', nameError: false, role: kRoleTypeAdmin);
+          name: 'Andrew jhone', nameError: false, role: Role.admin);
       expectLater(addMemberBloc.stream,
           emitsInOrder([stateWithSelectedRole, stateWithEmployeeName]));
 
@@ -152,7 +152,7 @@ void main() {
           emailError: false,
           name: 'Andrew jhone',
           nameError: false,
-          role: kRoleTypeAdmin);
+          role: Role.admin);
       expectLater(
           addMemberBloc.stream,
           emitsInOrder([
@@ -171,7 +171,7 @@ void main() {
               emailError: false,
               name: 'Andrew jhone',
               nameError: false,
-              role: kRoleTypeAdmin);
+              role: Role.admin);
       expectLater(
           addMemberBloc.stream,
           emitsInOrder([

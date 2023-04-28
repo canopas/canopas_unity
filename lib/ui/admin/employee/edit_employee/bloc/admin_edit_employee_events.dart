@@ -5,7 +5,7 @@ import '../../../../../data/model/employee/employee.dart';
 abstract class EditEmployeeByAdminEvent extends Equatable {}
 
 class EditEmployeeByAdminInitialEvent extends EditEmployeeByAdminEvent {
-  final int? roleType;
+  final Role? roleType;
   final int? dateOfJoining;
 
   EditEmployeeByAdminInitialEvent(
@@ -52,7 +52,7 @@ class ChangeEmployeeDesignationEvent extends EditEmployeeByAdminEvent {
 }
 
 class ChangeEmployeeRoleEvent extends EditEmployeeByAdminEvent {
-  final int roleType;
+  final Role roleType;
 
   ChangeEmployeeRoleEvent({required this.roleType});
 

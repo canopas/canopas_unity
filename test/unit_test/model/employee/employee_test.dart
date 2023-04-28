@@ -25,7 +25,7 @@ void main() {
                 .having((employee) => employee.uid, 'unique employee id',
                     'unique-user-doc-id')
                 .having((employee) => employee.role,
-                    'Employee role:1-Admin, 2-Employee', 1)
+                    'Employee role:1-Admin, 2-Employee', Role.admin)
                 .having((employee) => employee.name, 'Name of employee',
                     'Andrew jhone')
                 .having(
@@ -53,7 +53,7 @@ void main() {
     test('apply correct employee to firestore', () {
       Employee employee = const Employee(
           uid: 'Unique-user-id',
-          role: 1,
+          role: Role.admin,
           name: 'Andrew jhone',
           employeeId: 'CA 1255',
           email: 'andrew.j@canopas.com',
@@ -67,7 +67,7 @@ void main() {
           dateOfJoining: null);
       Map<String, dynamic> map = <String, dynamic>{
         'uid': employee.uid,
-        'role': employee.role,
+        'role': 1,
         'name': employee.name,
         'employee_id': employee.employeeId,
         'email': employee.email,

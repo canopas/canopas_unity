@@ -23,7 +23,7 @@ void main() {
 
   const employee = Employee(
       uid: "1",
-      role: 2,
+      role: Role.employee,
       name: "test",
       employeeId: "103",
       email: "abc@gmail.com",

@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 
 enum SubmitFormStatus { initial, loading, done, error }
 
 class AddMemberFormState extends Equatable {
-  final int? role;
+  final Role? role;
   final String? employeeId;
   final String? name;
   final String? email;
@@ -17,7 +18,7 @@ class AddMemberFormState extends Equatable {
   final String? msg;
 
   const AddMemberFormState(
-      {this.role = 2,
+      {this.role = Role.employee,
       this.employeeId = '',
       this.name = '',
       this.email = '',
@@ -31,7 +32,7 @@ class AddMemberFormState extends Equatable {
       this.status = SubmitFormStatus.initial});
 
   AddMemberFormState copyWith(
-      {int? role,
+      {Role? role,
       String? employeeId,
       String? name,
       String? email,

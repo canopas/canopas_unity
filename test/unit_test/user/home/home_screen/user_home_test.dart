@@ -23,7 +23,7 @@ void main() {
 
   const employee = Employee(
       uid: "1",
-      role: 2,
+      role: Role.employee,
       name: "test",
       employeeId: "103",
       email: "abc@gmail.com",
@@ -47,8 +47,6 @@ void main() {
     bLoc = UserHomeBloc(authService, userManager, leaveService);
 
     when(authService.signOutWithGoogle()).thenAnswer((_) async => true);
-    when(userManager.email).thenReturn(employee.email);
-
     when(userManager.employeeId).thenReturn(employee.uid);
   });
 

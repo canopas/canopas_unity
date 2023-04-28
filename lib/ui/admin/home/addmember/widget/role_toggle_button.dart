@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 import '../../../../../data/configs/colors.dart';
-import '../../../../../data/core/utils/const/role.dart';
 
 class ToggleButton extends StatelessWidget {
-  final int role;
-  final Function(int role) onRoleChange;
+  final Role role;
+  final Function(Role role) onRoleChange;
 
   const ToggleButton({Key? key, required this.onRoleChange, required this.role})
       : super(key: key);
@@ -47,9 +47,7 @@ class ToggleButton extends StatelessWidget {
             ...roleTypeSelectionToggleButtonAlignment.entries
                 .map(
                   (roleTypeAlignment) => GestureDetector(
-                    onTap: () {
-                      onRoleChange(roleTypeAlignment.key);
-                    },
+                    onTap: () => onRoleChange(roleTypeAlignment.key),
                     child: Align(
                       alignment: Alignment(roleTypeAlignment.value, 0),
                       child: Container(
@@ -58,7 +56,7 @@ class ToggleButton extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                             localization.user_detail_role_type(
-                                roleTypeAlignment.key.toString()),
+                                roleTypeAlignment.key.name),
                             textAlign: TextAlign.start,
                             style: AppFontStyle.bodySmallHeavy),
                       ),
@@ -73,8 +71,8 @@ class ToggleButton extends StatelessWidget {
   }
 }
 
-Map<int, double> roleTypeSelectionToggleButtonAlignment = {
-  kRoleTypeEmployee: -1,
-  kRoleTypeHR: 0,
-  kRoleTypeAdmin: 1,
+Map<Role, double> roleTypeSelectionToggleButtonAlignment = {
+  Role.employee: -1,
+  Role.hr: 0,
+  Role.admin: 1,
 };

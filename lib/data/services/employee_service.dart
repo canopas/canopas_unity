@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/employee/employee.dart';
@@ -75,8 +73,8 @@ class EmployeeService {
   }
 
 
-  Future<void> changeEmployeeRoleType(String id, int roleType) async {
-    Map<String, int> data = {FireStoreConst.roleType: roleType};
+  Future<void> changeEmployeeRoleType(String id, Role role) async {
+    Map<String, int> data = {FireStoreConst.roleType: role.value};
     await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(id)
         .update(data)

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/expandable_list.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../navigation/app_router.dart';
@@ -33,26 +34,28 @@ class AdminLeavesScreen extends StatefulWidget {
 }
 
 class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
+
+  final userManager = getIt<UserManager>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).leaves_tag),
-        actions: context.read<AdminLeavesBloc>().isHR
+        actions: userManager.isHR
             ? [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: CircleAvatar(
-                      backgroundColor: const Color(0xfff5f5f5),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.add,
-                          color: AppColors.darkGrey,
-                        ),
-                        onPressed: () => context.goNamed(Routes.applyHRLeave),
-                      )),
-                ),
-              ]
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: CircleAvatar(
+                backgroundColor: const Color(0xfff5f5f5),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    color: AppColors.darkGrey,
+                  ),
+                  onPressed: () => context.goNamed(Routes.applyHRLeave),
+                )),
+          ),
+        ]
             : null,
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(

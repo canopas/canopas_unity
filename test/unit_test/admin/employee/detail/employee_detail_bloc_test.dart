@@ -22,14 +22,14 @@ void main() {
   late SpaceService spaceService ;
   Employee employee = const Employee(
       uid: 'id',
-      role: 2,
+      role: Role.employee,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
       designation: 'Android developer');
   Employee admin = const Employee(
       uid: 'id',
-      role: 1,
+      role: Role.admin,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
