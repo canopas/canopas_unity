@@ -21,19 +21,19 @@ class Session {
 
   Session(
       {this.deviceId,
-        this.deviceToken,
-        this.deviceType,
-        this.version,
-        this.deviceName,
-        this.osVersion,
-        this.lastAccessedOn});
+      this.deviceToken,
+      this.deviceType,
+      this.version,
+      this.deviceName,
+      this.osVersion,
+      this.lastAccessedOn});
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 
   factory Session.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     Map<String, dynamic> data = snapshot.data()!;
     return _$SessionFromJson(data);
   }

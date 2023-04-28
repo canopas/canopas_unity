@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 
-enum UserLeaveCountStatus { initial, loading, success, failure }
+import '../../../../../../data/core/utils/bloc_status.dart';
 
 class UserLeaveCountState extends Equatable {
-  final UserLeaveCountStatus? status;
+  final Status? status;
   final int? totalLeaves;
   final double? used;
   final double? leavePercentage;
   final String? error;
 
   const UserLeaveCountState(
-      {this.status = UserLeaveCountStatus.initial,
+      {this.status = Status.initial,
       this.used = 0,
       this.totalLeaves = 12,
       this.leavePercentage = 0,
       this.error});
 
   UserLeaveCountState copyWith(
-      {UserLeaveCountStatus? status,
+      {Status? status,
       double? used,
       int? totalLeaves,
       String? error,

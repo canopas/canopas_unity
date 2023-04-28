@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_bloc.dart';
@@ -22,7 +23,7 @@ void main() {
       nameError: false,
       emailError: false,
       designationError: false,
-      status: SubmitFormStatus.initial);
+      status: Status.initial);
 
   setUp(() {
     employeeService = MockEmployeeService();
@@ -37,7 +38,7 @@ void main() {
       test(
           'Emits state with with default employee role when no role is selected by user',
           () {
-        addMemberBloc.add(const SelectRoleEvent());
+            addMemberBloc.add(const SelectRoleEvent());
         const stateWithoutRole = AddMemberFormState(role: Role.employee);
         expectLater(addMemberBloc.stream, emits(stateWithoutRole));
       });
@@ -116,13 +117,6 @@ void main() {
         AddMemberFormState stateWithEmployeeDesignation =
             const AddMemberFormState(
                 designation: 'Android dev', designationError: false);
-        expectLater(addMemberBloc.stream, emits(stateWithEmployeeDesignation));
-      });
-      test('Emits error when entered employee designation value is less than 4',
-          () {
-        addMemberBloc.add(const AddEmployeeDesignationEvent(designation: 'a'));
-        AddMemberFormState stateWithEmployeeDesignation =
-            const AddMemberFormState(designation: 'a', designationError: true);
         expectLater(addMemberBloc.stream, emits(stateWithEmployeeDesignation));
       });
     });

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_detail_approve_rejection_message.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_action_button.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_date_content.dart';
@@ -71,19 +72,17 @@ class _AdminLeaveApplicationDetailScreenState
       body: BlocConsumer<AdminLeaveApplicationDetailsBloc,
           AdminLeaveApplicationDetailsState>(
         listenWhen: (previous, current) =>
-            current.adminLeaveCountStatus == AdminLeaveCountStatus.failure,
+            current.adminLeaveCountStatus == Status.error,
         listener: (context, state) {
-          if (state.adminLeaveCountStatus == AdminLeaveCountStatus.failure) {
+          if (state.adminLeaveCountStatus == Status.error) {
             showSnackBar(context: context, error: state.error);
           }
-          if (state.adminLeaveResponseStatus ==
-              AdminLeaveResponseStatus.success) {
+          if (state.status == Status.success) {
             context.pop();
           }
         },
         builder: (context, state) {
-          if (state.adminLeaveResponseStatus ==
-              AdminLeaveResponseStatus.loading) {
+          if (state.status == Status.loading) {
             return const AppCircularProgressIndicator();
           }
           return ListView(

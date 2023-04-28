@@ -1,20 +1,17 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave_application.dart';
 
-enum AdminHomeStatus { initial, loading, success, failure }
-
 class AdminHomeState extends Equatable {
-  final AdminHomeStatus status;
+  final Status status;
   final Map<DateTime, List<LeaveApplication>> leaveAppMap;
   final String? error;
 
   const AdminHomeState(
-      {this.status = AdminHomeStatus.initial,
-      this.leaveAppMap = const {},
-      this.error});
+      {this.status = Status.initial, this.leaveAppMap = const {}, this.error});
 
   AdminHomeState copyWith({
-    AdminHomeStatus? status,
+    Status? status,
     Map<DateTime, List<LeaveApplication>>? leaveAppMap,
   }) {
     return AdminHomeState(
@@ -24,9 +21,8 @@ class AdminHomeState extends Equatable {
   }
 
   AdminHomeState failureState(
-      {AdminHomeStatus? status, required String failureMessage}) {
-    return AdminHomeState(
-        status: AdminHomeStatus.failure, error: failureMessage);
+      {Status? status, required String failureMessage}) {
+    return AdminHomeState(status: Status.error, error: failureMessage);
   }
 
   @override

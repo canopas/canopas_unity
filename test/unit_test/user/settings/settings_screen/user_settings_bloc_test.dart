@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
@@ -45,9 +46,9 @@ void main() {
           userSettingsBloc.stream,
           emitsInOrder([
             UserSettingsState(
-                currentEmployee: employee, status: UserSettingsStatus.loading),
+                currentEmployee: employee, status: Status.loading),
             UserSettingsState(
-                currentEmployee: employee, status: UserSettingsStatus.success),
+                currentEmployee: employee, status: Status.success),
           ]));
       await untilCalled(userManager.removeAll());
       verify(userManager.removeAll()).called(1);
@@ -61,10 +62,10 @@ void main() {
           userSettingsBloc.stream,
           emitsInOrder([
             UserSettingsState(
-                currentEmployee: employee, status: UserSettingsStatus.loading),
+                currentEmployee: employee, status: Status.loading),
             UserSettingsState(
                 currentEmployee: employee,
-                status: UserSettingsStatus.failure,
+                status: Status.error,
                 error: signOutError),
           ]));
     });

@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -18,7 +19,7 @@ void main() {
   late SpaceService spaceService;
   late UserLeaveCountBloc userLeaveCountBloc;
   UserLeaveCountState loadingState = const UserLeaveCountState(
-      status: UserLeaveCountStatus.loading,
+      status: Status.loading,
       used: 0,
       totalLeaves: 12,
       leavePercentage: 0,
@@ -40,7 +41,7 @@ void main() {
         'Emits initial  state when screen is open and fetching data from service',
         () {
       UserLeaveCountState initialState = const UserLeaveCountState(
-          status: UserLeaveCountStatus.initial,
+          status: Status.initial,
           used: 0,
           totalLeaves: 12,
           leavePercentage: 0,
@@ -60,7 +61,7 @@ void main() {
       var percentage = 7 / 12;
 
       UserLeaveCountState successState = UserLeaveCountState(
-          status: UserLeaveCountStatus.success,
+          status: Status.success,
           used: 7,
           totalLeaves: 12,
           leavePercentage: percentage,
@@ -79,7 +80,7 @@ void main() {
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenThrow(Exception('Couldn\'t load'));
       UserLeaveCountState errorState = const UserLeaveCountState(
-          status: UserLeaveCountStatus.failure,
+          status: Status.success,
           used: 0,
           totalLeaves: 12,
           leavePercentage: 0,

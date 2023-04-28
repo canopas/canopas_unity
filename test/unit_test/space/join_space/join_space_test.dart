@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
@@ -58,8 +59,7 @@ void main() {
           emitsInOrder([
             const JoinSpaceState(fetchSpaceStatus: Status.loading),
             const JoinSpaceState(
-                fetchSpaceStatus: Status.failure,
-                error: firestoreFetchDataError),
+                fetchSpaceStatus: Status.error, error: firestoreFetchDataError),
           ]));
     });
 
@@ -88,7 +88,7 @@ void main() {
           emitsInOrder([
             const JoinSpaceState(selectSpaceStatus: Status.loading),
             const JoinSpaceState(
-                selectSpaceStatus: Status.failure,
+                selectSpaceStatus: Status.error,
                 error: firestoreFetchDataError),
           ]));
     });

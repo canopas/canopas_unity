@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_event.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/auth_service.dart';
@@ -32,14 +33,13 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
 
   Future<void> _logOut(
       UserSettingsLogOutEvent event, Emitter<UserSettingsState> emit) async {
-    emit(state.copyWith(status: UserSettingsStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     bool isLogOut = await _authService.signOutWithGoogle();
     if (isLogOut) {
       await _userManager.removeAll();
-      emit(state.copyWith(status: UserSettingsStatus.success));
+      emit(state.copyWith(status: Status.success));
     } else {
-      emit(state.copyWith(
-          error: signOutError, status: UserSettingsStatus.failure));
+      emit(state.copyWith(error: signOutError, status: Status.error));
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/text_style.dart';
 import '../../../data/configs/theme.dart';
+import '../../../data/core/utils/bloc_status.dart';
 import '../../../data/di/service_locator.dart';
 import '../../widget/space_card.dart';
 import 'bloc/change_space_bloc.dart';
@@ -51,20 +52,22 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
                 },
                 buildWhen: (previous, current) => previous.fetchSpaceStatus != current.fetchSpaceStatus,
                   builder: (context, state) {
-                if (state.fetchSpaceStatus == Status.loading) {
-                  return const AppCircularProgressIndicator();
-                } else if (state.fetchSpaceStatus == Status.success) {
-                  return ListView.builder(
-                    itemCount: state.spaces.length,
-                    padding: const EdgeInsets.all(16),
-                    itemBuilder: (context, index) => SpaceCard(
-                      title: state.spaces[index].name,
-                      domain: state.spaces[index].domain,
-                      onPressed: () => context.read<ChangeSpaceBloc>().add(SelectSpaceEvent(state.spaces[index])),
-                    ),
-                  );
-                }
-                return const SizedBox();
+                    if (state.fetchSpaceStatus == Status.loading) {
+                      return const AppCircularProgressIndicator();
+                    } else if (state.fetchSpaceStatus == Status.success) {
+                      return ListView.builder(
+                        itemCount: state.spaces.length,
+                        padding: const EdgeInsets.all(16),
+                        itemBuilder: (context, index) => SpaceCard(
+                          title: state.spaces[index].name,
+                          domain: state.spaces[index].domain,
+                          onPressed: () => context
+                              .read<ChangeSpaceBloc>()
+                              .add(SelectSpaceEvent(state.spaces[index])),
+                        ),
+                      );
+                    }
+                    return const SizedBox();
               }),
             ),
           ],

@@ -101,7 +101,7 @@ class _AdminEmployeeDetailsLeavesScreenState
                     AppLocalizations.of(context).empty_recent_leaves_title,
                 emptyStringMessage: AppLocalizations.of(context)
                     .empty_recent_leaves_message(widget.employeeName),
-                isLoading: state.loading,
+                status: state.status,
                 leaves: state.recentLeaves),
           ),
           BlocBuilder<AdminEmployeeDetailsLeavesBLoc,
@@ -114,7 +114,7 @@ class _AdminEmployeeDetailsLeavesScreenState
                   AppLocalizations.of(context).empty_upcoming_leaves_title,
               emptyStringMessage: AppLocalizations.of(context)
                   .empty_upcoming_leaves_message(widget.employeeName),
-              isLoading: state.loading,
+              status: state.status,
               leaves: state.upcomingLeaves,
             ),
           ),
@@ -128,7 +128,7 @@ class _AdminEmployeeDetailsLeavesScreenState
                     AppLocalizations.of(context).empty_past_leaves_title,
                 emptyStringMessage: AppLocalizations.of(context)
                     .empty_past_leaves_message(widget.employeeName),
-                isLoading: state.loading,
+                status: state.status,
                 leaves: state.pastLeaves),
           ),
         ],

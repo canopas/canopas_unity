@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 
 import '../../../../../data/configs/colors.dart';
 import '../../../../widget/date_time_picker.dart';
@@ -39,11 +40,9 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
     return BlocListener<AdminEditEmployeeDetailsBloc,
         AdminEditEmployeeDetailsState>(
       listener: (context, state) {
-        if (state.adminEditEmployeeDetailsStatus ==
-            AdminEditEmployeeDetailsStatus.failure) {
+        if (state.status == Status.error) {
           showSnackBar(context: context, error: state.error);
-        } else if (state.adminEditEmployeeDetailsStatus ==
-            AdminEditEmployeeDetailsStatus.success) {
+        } else if (state.status == Status.success) {
           context.pop();
         }
       },
@@ -53,15 +52,14 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
         children: [
           BlocBuilder<AdminEditEmployeeDetailsBloc,
               AdminEditEmployeeDetailsState>(
-            buildWhen: (previous, current) =>
-                previous.roleType != current.roleType,
+            buildWhen: (previous, current) => previous.role != current.role,
             builder: (context, state) => ToggleButton(
                 onRoleChange: (role) {
                   context
                       .read<AdminEditEmployeeDetailsBloc>()
                       .add(ChangeEmployeeRoleEvent(roleType: role));
                 },
-                role: state.roleType),
+                role: state.role),
           ),
           FieldTitle(title: localization.employee_employeeID_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,

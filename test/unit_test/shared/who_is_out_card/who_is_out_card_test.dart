@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
@@ -59,11 +60,10 @@ void main() {
           bLoc.stream,
           emitsInOrder([
             WhoIsOutCardState(
-                dateOfAbsenceEmployee: date,
-                status: WhoOIsOutCardStatus.loading),
+                dateOfAbsenceEmployee: date, status: Status.loading),
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date,
-                status: WhoOIsOutCardStatus.success,
+                status: Status.success,
                 absence: [LeaveApplication(employee: employee, leave: leave)]),
           ]));
     });
@@ -81,13 +81,13 @@ void main() {
           emitsInOrder([
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.subtract(const Duration(days: 1)),
-                status: WhoOIsOutCardStatus.initial),
+                status: Status.initial),
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.subtract(const Duration(days: 1)),
-                status: WhoOIsOutCardStatus.loading),
+                status: Status.loading),
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.subtract(const Duration(days: 1)),
-                status: WhoOIsOutCardStatus.success,
+                status: Status.success,
                 absence: const []),
           ]));
     });
@@ -105,13 +105,13 @@ void main() {
           emitsInOrder([
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.add(const Duration(days: 1)),
-                status: WhoOIsOutCardStatus.initial),
+                status: Status.initial),
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.add(const Duration(days: 1)),
-                status: WhoOIsOutCardStatus.loading),
+                status: Status.loading),
             WhoIsOutCardState(
                 dateOfAbsenceEmployee: date.add(const Duration(days: 1)),
-                status: WhoOIsOutCardStatus.success,
+                status: Status.success,
                 absence: const []),
           ]));
     });

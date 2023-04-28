@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/expandable_list.dart';
 import '../../../../data/configs/colors.dart';
@@ -40,22 +42,22 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
       ),
       body: BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
         listener: (context, state) {
-          if (state.status == AdminLeavesStatus.failure) {
+          if (state.status == Status.error) {
             showSnackBar(context: context, error: state.error);
           }
         },
-        builder: (context, state) => state.status == AdminLeavesStatus.loading
+        builder: (context, state) => state.status == Status.loading
             ? const AppCircularProgressIndicator()
             : ListView(children: [
-                ExpandableList(
-                    title: AppLocalizations.of(context)
-                        .admin_leaves_upcoming_leaves_tag,
-                    leaveApplications: state.upcomingLeaves),
-                ExpandableList(
-                    title: AppLocalizations.of(context)
-                        .admin_leaves_recent_leaves_tag,
-                    leaveApplications: state.recentLeaves)
-              ]),
+          ExpandableList(
+              title: AppLocalizations.of(context)
+                  .admin_leaves_upcoming_leaves_tag,
+              leaveApplications: state.upcomingLeaves),
+          ExpandableList(
+              title: AppLocalizations.of(context)
+                  .admin_leaves_recent_leaves_tag,
+              leaveApplications: state.recentLeaves)
+        ]),
       ),
       backgroundColor: AppColors.whiteColor,
     );

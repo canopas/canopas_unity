@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 
-enum SubmitFormStatus { initial, loading, done, error }
+import '../../../../../data/core/utils/bloc_status.dart';
+
 
 class AddMemberFormState extends Equatable {
   final Role? role;
@@ -14,8 +15,8 @@ class AddMemberFormState extends Equatable {
   final bool emailError;
   final bool nameError;
   final bool designationError;
-  final SubmitFormStatus? status;
-  final String? msg;
+  final Status? status;
+  final String? error;
 
   const AddMemberFormState(
       {this.role = Role.employee,
@@ -28,8 +29,8 @@ class AddMemberFormState extends Equatable {
       this.designationError = false,
       this.emailError = false,
       this.nameError = false,
-      this.msg,
-      this.status = SubmitFormStatus.initial});
+      this.error,
+      this.status = Status.initial});
 
   AddMemberFormState copyWith(
       {Role? role,
@@ -43,7 +44,7 @@ class AddMemberFormState extends Equatable {
       bool? designationError,
       bool? emailError,
       bool? nameError,
-      SubmitFormStatus? status}) {
+      Status? status}) {
     return AddMemberFormState(
         role: role ?? this.role,
         employeeId: employeeId ?? this.employeeId,
@@ -55,7 +56,7 @@ class AddMemberFormState extends Equatable {
         designationError: designationError ?? this.designationError,
         emailError: emailError ?? this.emailError,
         nameError: nameError ?? this.nameError,
-        msg: msg,
+        error: msg,
         status: status ?? this.status);
   }
 
@@ -72,6 +73,6 @@ class AddMemberFormState extends Equatable {
         emailError,
         designationError,
         status,
-        msg
+    error
       ];
 }

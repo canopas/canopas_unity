@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../data/core/exception/error_const.dart';
-import '../../../../data/event_bus/events.dart';
-import '../../../../data/provider/user_data.dart';
-import '../../../../data/services/auth_service.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/event_bus/events.dart';
+import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/services/auth_service.dart';
 import 'admin_settings_event.dart';
 import 'admin_settings_state.dart';
 
@@ -32,14 +33,13 @@ class AdminSettingsBloc extends Bloc<AdminSettingsEvent, AdminSettingsState> {
 
   _logOut(
       AdminSettingsLogOutEvent event, Emitter<AdminSettingsState> emit) async {
-    emit(state.copyWith(status: AdminSettingsStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     bool isLogOut = await _authService.signOutWithGoogle();
     if (isLogOut) {
-     await _userManager.removeAll();
-      emit(state.copyWith(status: AdminSettingsStatus.success));
+      await _userManager.removeAll();
+      emit(state.copyWith(status: Status.success));
     } else {
-      emit(state.copyWith(
-          error: signOutError, status: AdminSettingsStatus.failure));
+      emit(state.copyWith(error: signOutError, status: Status.error));
     }
   }
 

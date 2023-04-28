@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/home/addmember/widget/add_member_form.dart';
 import '../../../../data/configs/colors.dart';
@@ -55,7 +56,7 @@ class AddMemberButton extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 30),
             child: BlocConsumer<AddMemberBloc, AddMemberFormState>(
               builder: (context, state) {
-                if (state.status == SubmitFormStatus.loading) {
+                if (state.status == Status.loading) {
                   return const AppCircularProgressIndicator();
                 }
                 return Container(
@@ -74,7 +75,7 @@ class AddMemberButton extends StatelessWidget {
                               .add(const SubmitEmployeeFormEvent());
                           final bool formSubmitted =
                               context.read<AddMemberBloc>().state.status ==
-                                  SubmitFormStatus.done;
+                                  Status.success;
                           formSubmitted ? context.pop : null;
                         },
                         child: Text(
@@ -83,18 +84,18 @@ class AddMemberButton extends StatelessWidget {
                             style: AppFontStyle.labelRegular)));
               },
               listenWhen: (previous, current) =>
-                  current.status == SubmitFormStatus.done ||
-                  current.status == SubmitFormStatus.error,
+                  current.status == Status.success ||
+                  current.status == Status.error,
               listener: (context, state) {
-                if (state.status == SubmitFormStatus.done) {
+                if (state.status == Status.success) {
                   showSnackBar(
                       context: context,
                       msg: AppLocalizations.of(context)
                           .admin_home_add_member_employee_added_message);
                   context.pop();
                 }
-                if (state.status == SubmitFormStatus.error) {
-                  showSnackBar(context: context, error: state.msg);
+                if (state.status == Status.error) {
+                  showSnackBar(context: context, error: state.error);
                 }
               },
             ))

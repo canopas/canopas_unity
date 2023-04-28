@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -22,7 +23,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
 
   void _initialLoad(
       AdminLeavesInitialLoadEvent event, Emitter<AdminLeavesState> emit) async {
-    emit(state.copyWith(status: AdminLeavesStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     try {
       List<Employee> employees = await _employeeService.getEmployees();
       List<Leave> recentLeaves = await _adminLeaveService.getRecentLeaves();
@@ -51,12 +52,12 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvent, AdminLeavesState> {
           .toList();
 
       emit(state.copyWith(
-          status: AdminLeavesStatus.success,
+          status: Status.success,
           upcomingLeaves: upcomingLeaveApplications,
           recentLeaves: recentLeaveApplications));
     } catch (_) {
-      emit(state.copyWith(
-          status: AdminLeavesStatus.failure, error: firestoreFetchDataError));
+      emit(
+          state.copyWith(status: Status.error, error: firestoreFetchDataError));
     }
   }
 }

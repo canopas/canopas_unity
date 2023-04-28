@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/admin/employee/edit_employee/bloc/admin_edit_employee_bloc.dart';
@@ -39,29 +40,31 @@ void main() {
       expect(
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining!.dateOnly, roleType: Role.admin)));
+              dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin)));
     });
 
     test('change role type test', () {
       editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(
-          dateOfJoining: emp.dateOfJoining!.dateOnly, roleType: Role.admin));
-      editEmployeeDetailsBloc.add(ChangeEmployeeRoleEvent(roleType: Role.employee));
+          dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin));
+      editEmployeeDetailsBloc
+          .add(ChangeEmployeeRoleEvent(roleType: Role.employee));
       expect(
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining!.dateOnly, roleType: Role.employee)));
+              dateOfJoining: emp.dateOfJoining!.dateOnly,
+              role: Role.employee)));
     });
 
     test('change joining date test', () {
       editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(
-          dateOfJoining: emp.dateOfJoining!.dateOnly, roleType: Role.admin));
+          dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin));
       DateTime otherDate = DateTime.now().add(const Duration(days: 5)).dateOnly;
       editEmployeeDetailsBloc
           .add(ChangeEmployeeDateOfJoiningEvent(dateOfJoining: otherDate));
       expect(
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: otherDate, roleType: Role.admin)));
+              dateOfJoining: otherDate, role: Role.admin)));
     });
 
     test('test validation validation', () {
@@ -126,17 +129,15 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly, roleType: Role.admin),
+                dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining!.dateOnly,
-                roleType: Role.admin,
-                adminEditEmployeeDetailsStatus:
-                    AdminEditEmployeeDetailsStatus.loading),
+                role: Role.admin,
+                status: Status.loading),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining!.dateOnly,
-                roleType: Role.admin,
-                adminEditEmployeeDetailsStatus:
-                    AdminEditEmployeeDetailsStatus.success),
+                role: Role.admin,
+                status: Status.success),
           ]));
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
@@ -158,17 +159,15 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly, roleType: Role.admin),
+                dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining!.dateOnly,
-                roleType: Role.admin,
-                adminEditEmployeeDetailsStatus:
-                    AdminEditEmployeeDetailsStatus.loading),
+                role: Role.admin,
+                status: Status.loading),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining!.dateOnly,
-                roleType: Role.admin,
-                adminEditEmployeeDetailsStatus:
-                    AdminEditEmployeeDetailsStatus.failure,
+                role: Role.admin,
+                status: Status.error,
                 error: firestoreFetchDataError),
           ]));
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));

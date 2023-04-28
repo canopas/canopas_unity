@@ -13,6 +13,7 @@ import 'package:projectunity/ui/widget/space_card.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
+import '../../../data/core/utils/bloc_status.dart';
 import '../../navigation/app_router.dart';
 
 class JoinSpacePage extends StatelessWidget {
@@ -41,8 +42,8 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
     return Scaffold(
       body: BlocListener<JoinSpaceBloc, JoinSpaceState>(
         listenWhen: (previous, current) =>
-            current.fetchSpaceStatus == Status.failure ||
-            current.selectSpaceStatus == Status.failure,
+            current.fetchSpaceStatus == Status.error ||
+            current.selectSpaceStatus == Status.error,
         listener: (context, state) {
           if (state.error != null) {
             showSnackBar(context: context, error: state.error);

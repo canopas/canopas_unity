@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-enum ApplyLeaveStatus { initial, loading, failure, success }
+import '../../../../../data/core/utils/bloc_status.dart';
 
 class ApplyLeaveState extends Equatable {
-  final ApplyLeaveStatus leaveRequestStatus;
+  final Status leaveRequestStatus;
   final int leaveType;
   final DateTime startDate;
   final DateTime endDate;
@@ -14,7 +14,7 @@ class ApplyLeaveState extends Equatable {
   final String? error;
 
   const ApplyLeaveState({
-    this.leaveRequestStatus = ApplyLeaveStatus.initial,
+    this.leaveRequestStatus = Status.initial,
     this.error,
     this.showTextFieldError = false,
     this.leaveType = 0,
@@ -26,7 +26,7 @@ class ApplyLeaveState extends Equatable {
   });
 
   ApplyLeaveState copyWith({
-    ApplyLeaveStatus? leaveRequestStatus,
+    Status? leaveRequestStatus,
     bool? showTextFieldError,
     int? leaveType,
     DateTime? startDate,
@@ -48,8 +48,7 @@ class ApplyLeaveState extends Equatable {
         totalLeaveDays: totalLeaveDays ?? this.totalLeaveDays);
   }
 
-  bool get isFailure =>
-      error != null && leaveRequestStatus == ApplyLeaveStatus.failure;
+  bool get isFailure => error != null && leaveRequestStatus == Status.error;
 
   @override
   List<Object?> get props => [

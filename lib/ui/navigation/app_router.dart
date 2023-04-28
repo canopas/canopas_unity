@@ -18,7 +18,7 @@ import '../admin/employee/list/employee_list_screen.dart';
 import '../admin/home/addmember/admin_add_member_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/leaves/detail/leave_details.dart';
-import '../admin/setting/admin_setting_screen.dart';
+import '../admin/setting/settings_screen/admin_setting_screen.dart';
 import '../admin/setting/edit_space/edit_space_screen.dart';
 import '../admin/setting/update_leave_count/update_leave_counts_screen.dart';
 import '../shared/employees_calendar/employees_calendar_screen.dart';

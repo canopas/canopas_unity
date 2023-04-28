@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-enum ButtonState { enable, disable }
+import '../../../../data/core/utils/bloc_status.dart';
 
-enum CreateSpaceStatus { initial, loading, error, success }
+enum ButtonState { enable, disable }
 
 class CreateSpaceState extends Equatable {
   final String companyName;
@@ -14,24 +14,23 @@ class CreateSpaceState extends Equatable {
   final bool paidTimeOffError;
   final ButtonState buttonState;
   final String? error;
-  final CreateSpaceStatus createSpaceStatus;
+  final Status createSpaceStatus;
   final String? ownerName;
   final bool ownerNameError;
 
   const CreateSpaceState(
-      {
-        this.page = 0,
-        this.companyName = '',
-        this.domain = '',
-        this.companyNameError = false,
-        this.domainError = false,
-        this.paidTimeOff = '',
-        this.paidTimeOffError = false,
-        this.buttonState = ButtonState.disable,
-        this.createSpaceStatus = CreateSpaceStatus.initial,
-        this.ownerName,
-        this.ownerNameError = false,
-        this.error = ''});
+      {this.page = 0,
+      this.companyName = '',
+      this.domain = '',
+      this.companyNameError = false,
+      this.domainError = false,
+      this.paidTimeOff = '',
+      this.paidTimeOffError = false,
+      this.buttonState = ButtonState.disable,
+      this.createSpaceStatus = Status.initial,
+      this.ownerName,
+      this.ownerNameError = false,
+      this.error = ''});
 
   CreateSpaceState copyWith({
     int? page,
@@ -45,7 +44,7 @@ class CreateSpaceState extends Equatable {
     String? error,
     String? ownerName,
     bool? ownerNameError,
-    CreateSpaceStatus? createSpaceStatus,
+    Status? createSpaceStatus,
   }) =>
       CreateSpaceState(
           page: page ?? this.page,
@@ -56,7 +55,7 @@ class CreateSpaceState extends Equatable {
           paidTimeOff: paidTimeOff ?? this.paidTimeOff,
           paidTimeOffError: paidTimeOffError ?? this.paidTimeOffError,
           buttonState: buttonState ?? this.buttonState,
-          createSpaceStatus: createSpaceStatus ?? CreateSpaceStatus.initial,
+          createSpaceStatus: createSpaceStatus ?? Status.initial,
           ownerName: ownerName ?? this.ownerName,
           ownerNameError: ownerNameError ?? this.ownerNameError,
           error: error ?? this.error);

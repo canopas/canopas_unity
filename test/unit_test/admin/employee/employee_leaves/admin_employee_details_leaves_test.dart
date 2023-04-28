@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart';
@@ -43,9 +44,9 @@ void main() {
       expect(
           bloc.stream,
           emitsInOrder([
-            const AdminEmployeeDetailsLeavesState(loading: true),
+            const AdminEmployeeDetailsLeavesState(status: Status.loading),
             AdminEmployeeDetailsLeavesState(
-                loading: false,
+                status: Status.success,
                 recentLeaves: [leave],
                 upcomingLeaves: [leave],
                 pastLeaves: [leave, leave]),
@@ -63,9 +64,9 @@ void main() {
       expect(
           bloc.stream,
           emitsInOrder(const [
-            AdminEmployeeDetailsLeavesState(loading: true),
+            AdminEmployeeDetailsLeavesState(status: Status.loading),
             AdminEmployeeDetailsLeavesState(
-                loading: false, error: firestoreFetchDataError)
+                status: Status.error, error: firestoreFetchDataError)
           ]));
     });
   });

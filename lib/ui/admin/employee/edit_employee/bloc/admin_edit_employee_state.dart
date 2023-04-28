@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 
-enum AdminEditEmployeeDetailsStatus { initial, loading, success, failure }
+import '../../../../../data/model/employee/employee.dart';
 
 class AdminEditEmployeeDetailsState extends Equatable {
-  final AdminEditEmployeeDetailsStatus adminEditEmployeeDetailsStatus;
-  final Role roleType;
+  final Status status;
+  final Role role;
   final DateTime? dateOfJoining;
   final String? error;
   final bool nameError;
@@ -20,9 +20,8 @@ class AdminEditEmployeeDetailsState extends Equatable {
     this.employeeIdError = false,
     this.designationError = false,
     this.error,
-    this.adminEditEmployeeDetailsStatus =
-        AdminEditEmployeeDetailsStatus.initial,
-    this.roleType = Role.employee,
+    this.status = Status.initial,
+    this.role = Role.employee,
   });
 
   bool get isValid =>
@@ -38,8 +37,8 @@ class AdminEditEmployeeDetailsState extends Equatable {
     bool? employeeIdError,
     bool? emailError,
     DateTime? dateOfJoining,
-    Role? roleType,
-    AdminEditEmployeeDetailsStatus? adminEditEmployeeDetailsStatus,
+    Role? role,
+    Status? status,
   }) {
     return AdminEditEmployeeDetailsState(
       dateOfJoining: dateOfJoining ?? this.dateOfJoining,
@@ -48,16 +47,16 @@ class AdminEditEmployeeDetailsState extends Equatable {
       employeeIdError: employeeIdError ?? this.employeeIdError,
       nameError: nameError ?? this.nameError,
       error: error,
-      roleType: roleType ?? this.roleType,
-      adminEditEmployeeDetailsStatus:
-          adminEditEmployeeDetailsStatus ?? this.adminEditEmployeeDetailsStatus,
+      role: role ?? this.role,
+      status: status ?? this.status,
     );
   }
 
   @override
-  List<Object?> get props => [
-        adminEditEmployeeDetailsStatus,
-        roleType,
+  List<Object?> get props =>
+      [
+        status,
+        role,
         error,
         dateOfJoining,
         nameError,

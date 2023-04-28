@@ -10,6 +10,7 @@ import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_request_rea
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/leave_type_card.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/total_leave_card.dart';
 import '../../../../data/configs/space_constant.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/apply_leave_bloc.dart';
 import 'bloc/apply_leave_state.dart';
@@ -44,12 +45,11 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
       ),
       body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
         listenWhen: (previous, current) =>
-            current.isFailure ||
-            current.leaveRequestStatus == ApplyLeaveStatus.success,
+            current.isFailure || current.leaveRequestStatus == Status.success,
         listener: (context, state) {
           if (state.isFailure) {
             showSnackBar(context: context, error: state.error);
-          } else if (state.leaveRequestStatus == ApplyLeaveStatus.success) {
+          } else if (state.leaveRequestStatus == Status.success) {
             showSnackBar(
                 context: context,
                 msg: localization.user_leaves_apply_leave_success_message);

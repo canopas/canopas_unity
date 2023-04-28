@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/admin/employee/edit_employee/widgets/admin_edit_employee_form.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
@@ -81,10 +82,8 @@ class _AdminEditEmployeeDetailsViewState
               AdminEditEmployeeDetailsState>(
             buildWhen: (previous, current) =>
                 previous.isValid != current.isValid ||
-                previous.adminEditEmployeeDetailsStatus !=
-                    current.adminEditEmployeeDetailsStatus,
-            builder: (context, state) => state.adminEditEmployeeDetailsStatus ==
-                    AdminEditEmployeeDetailsStatus.loading
+                previous.status != current.status,
+            builder: (context, state) => state.status == Status.loading
                 ? const Padding(
                     padding: EdgeInsets.only(right: 30),
                     child: AppCircularProgressIndicator(size: 20),

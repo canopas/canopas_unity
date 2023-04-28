@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -37,9 +38,9 @@ void main() {
     test("Delete space success test", () async {
       bloc.add(DeleteSpaceEvent());
       expect(bloc.stream, emitsInOrder([
-        const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
-        const EditSpaceState(deleteWorkSpaceStatus: Status.success),
-      ]));
+            const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
+            const EditSpaceState(deleteWorkSpaceStatus: Status.success),
+          ]));
       await untilCalled(spaceService.deleteSpace("id", ["uid"]));
       verify(spaceService.deleteSpace("id", ['uid'])).called(1);
       await untilCalled(userManager.removeSpace());
@@ -51,19 +52,20 @@ void main() {
       when(spaceService.deleteSpace('id', ['uid'])).thenThrow(
           Exception("error"));
       expect(bloc.stream, emitsInOrder([
-        const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
-        const EditSpaceState(deleteWorkSpaceStatus: Status.failure,
-            error: firestoreFetchDataError),
-      ]));
+            const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
+            const EditSpaceState(
+                deleteWorkSpaceStatus: Status.error,
+                error: firestoreFetchDataError),
+          ]));
     });
 
     test("update space details success test", () async {
       bloc.add(SaveSpaceDetails(
           paidTimeOff: "13", spaceName: "newName", spaceDomain: "newDomain"));
       expect(bloc.stream, emitsInOrder([
-        const EditSpaceState(updateSpaceStatus: Status.loading),
-        const EditSpaceState(updateSpaceStatus: Status.success),
-      ]));
+            const EditSpaceState(updateSpaceStatus: Status.loading),
+            const EditSpaceState(updateSpaceStatus: Status.success),
+          ]));
     });
   });
 }

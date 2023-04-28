@@ -48,7 +48,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
       body: BlocConsumer<AdminSettingsBloc, AdminSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == AdminSettingsStatus.failure) {
+          if (state.status == Status.error) {
             showSnackBar(context: context, error: state.error);
           }
         },
