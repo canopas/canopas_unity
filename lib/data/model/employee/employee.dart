@@ -1,15 +1,12 @@
-import 'dart:core';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'employee.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class Employee extends Equatable {
   final String uid;
-  final int? role;
+  final Role? role;
   final String name;
   final String email;
   @JsonKey(name: 'employee_id')
@@ -45,7 +42,7 @@ class Employee extends Equatable {
 
   Employee copyWith(
       {String? uid,
-      int? role,
+      Role? role,
       String? name,
       String? employeeId,
       String? email,
@@ -106,50 +103,17 @@ class Employee extends Equatable {
       ];
 }
 
-@JsonSerializable()
-class Session {
-  @JsonKey(name: 'device_id')
-  String? deviceId;
-  @JsonKey(name: 'device_token')
-  String? deviceToken;
-  @JsonKey(name: 'device_type')
-  int? deviceType;
-  int? version;
-  @JsonKey(name: 'device_name')
-  String? deviceName;
-  @JsonKey(name: 'os_version')
-  String? osVersion;
-  @JsonKey(name: 'last_accessed-on')
-  int? lastAccessedOn;
+enum Role {
+  @JsonValue(1)
+  admin(1),
+  @JsonValue(2)
+  employee(2),
+  @JsonValue(3)
+  hr(3);
 
-  Session(
-      {this.deviceId,
-      this.deviceToken,
-      this.deviceType,
-      this.version,
-      this.deviceName,
-      this.osVersion,
-      this.lastAccessedOn});
+  final int value;
 
-  factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
-
-  factory Session.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
-    Map<String, dynamic>? data = snapshot.data();
-    return Session(
-      deviceId: data?['device_id'] as String?,
-      deviceToken: data?['device_token'] as String?,
-      deviceType: data?['device_type'] as int?,
-      version: data?['version'] as int?,
-      deviceName: data?['device_name'] as String?,
-      osVersion: data?['os_version'] as String?,
-      lastAccessedOn: data?['last_accessed-on'] as int?,
-    );
-  }
-
-  Map<String, dynamic> sessionToJson() => _$SessionToJson(this);
+  const Role(this.value);
 }
 
 class EmployeeGender {

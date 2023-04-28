@@ -6,7 +6,6 @@ import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_event.dart';
 import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
-import '../../../../../data/core/utils/const/role.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/services/employee_service.dart';
@@ -59,10 +58,10 @@ class EmployeeDetailBloc
       Emitter<AdminEmployeeDetailState> emit) async {
     if (state is EmployeeDetailLoadedState) {
       final loadedState = state as EmployeeDetailLoadedState;
-      int roleType = kRoleTypeEmployee;
+      Role roleType = Role.employee;
       try {
-        if (loadedState.employee.role != kRoleTypeAdmin) {
-          roleType = kRoleTypeAdmin;
+        if (loadedState.employee.role != Role.admin) {
+          roleType = Role.admin;
         }
         await _employeeService.changeEmployeeRoleType(
             loadedState.employee.uid, roleType);

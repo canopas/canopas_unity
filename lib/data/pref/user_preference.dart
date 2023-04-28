@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../core/utils/const/pref_key.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';

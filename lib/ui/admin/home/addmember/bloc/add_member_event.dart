@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 
 abstract class AddMemberEvent extends Equatable {
   const AddMemberEvent();
 }
 
 class SelectRoleEvent extends AddMemberEvent {
-  final int? role;
+  final Role? role;
 
   const SelectRoleEvent({this.role});
 

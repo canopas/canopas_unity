@@ -5,7 +5,6 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
-import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leave_event.dart';
@@ -14,19 +13,16 @@ import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_s
 
 import 'admin_leaves_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, UserManager])
+@GenerateMocks([EmployeeService, LeaveService])
 void main() {
   late LeaveService leaveService;
   late EmployeeService employeeService;
-  late UserManager userManager;
   late AdminLeavesBloc bloc;
   group('Admin Leaves Test', () {
     setUp(() {
       leaveService = MockLeaveService();
       employeeService = MockEmployeeService();
-      userManager = MockUserManager();
-      bloc = AdminLeavesBloc(leaveService, employeeService, userManager);
-      when(userManager.isHR).thenReturn(true);
+      bloc = AdminLeavesBloc(leaveService, employeeService);
     });
     Leave leave = const Leave(
         leaveId: 'leave-id',
@@ -42,7 +38,7 @@ void main() {
 
     Employee employee = const Employee(
         uid: 'id',
-        role: 1,
+        role: Role.admin,
         name: 'Andrew jhone',
         employeeId: '100',
         email: 'andrew.j@canopas.com',
