@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../data/core/exception/error_const.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../../data/model/leave_application.dart';
@@ -49,7 +50,7 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   }
 
   Future<void> _getAbsenceEmployees(Emitter<WhoIsOutCardState> emit) async {
-    emit(state.copyWith(status: WhoOIsOutCardStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     try {
       List<Employee> employees = await _employeeService.getEmployees();
       List<Leave> absenceLeaves =
@@ -66,10 +67,10 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
           .whereNotNull()
           .toList();
 
-      emit(state.copyWith(
-          status: WhoOIsOutCardStatus.success, absence: absenceEmployee));
+      emit(state.copyWith(status: Status.success, absence: absenceEmployee));
     } on Exception catch (_) {
-      emit(state.failure(error: firestoreFetchDataError));
+      emit(
+          state.copyWith(status: Status.error, error: firestoreFetchDataError));
     }
   }
 }

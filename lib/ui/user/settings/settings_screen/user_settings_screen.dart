@@ -7,6 +7,7 @@ import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settin
 import 'package:projectunity/ui/widget/app_dialog.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
 import '../../../space/change_space_sheet/change_space_sheet.dart';
@@ -35,7 +36,6 @@ class UserSettingsScreen extends StatefulWidget {
 }
 
 class _UserSettingsScreenState extends State<UserSettingsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
       body: BlocConsumer<UserSettingsBloc, UserSettingsState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == UserSettingsStatus.failure) {
+          if (state.status == Status.error) {
             showSnackBar(context: context, error: state.error);
           }
         },

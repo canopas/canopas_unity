@@ -2,12 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/auth_service.dart';
-import 'package:projectunity/ui/admin/setting/bloc/admin_settings_bloc.dart';
-import 'package:projectunity/ui/admin/setting/bloc/admin_settings_event.dart';
-import 'package:projectunity/ui/admin/setting/bloc/admin_settings_state.dart';
+import 'package:projectunity/ui/admin/setting/settings_screen/bloc/admin_settings_bloc.dart';
+import 'package:projectunity/ui/admin/setting/settings_screen/bloc/admin_settings_event.dart';
+import 'package:projectunity/ui/admin/setting/settings_screen/bloc/admin_settings_state.dart';
 
 import 'admin_setting_test.mocks.dart';
 
@@ -45,9 +46,9 @@ void main() {
           adminSettingsBloc.stream,
           emitsInOrder([
             AdminSettingsState(
-                currentEmployee: employee, status: AdminSettingsStatus.loading),
+                currentEmployee: employee, status: Status.loading),
             AdminSettingsState(
-                currentEmployee: employee, status: AdminSettingsStatus.success),
+                currentEmployee: employee, status: Status.success),
           ]));
       await untilCalled(userManager.removeAll());
       verify(userManager.removeAll()).called(1);
@@ -61,10 +62,10 @@ void main() {
           adminSettingsBloc.stream,
           emitsInOrder([
             AdminSettingsState(
-                currentEmployee: employee, status: AdminSettingsStatus.loading),
+                currentEmployee: employee, status: Status.loading),
             AdminSettingsState(
                 currentEmployee: employee,
-                status: AdminSettingsStatus.failure,
+                status: Status.error,
                 error: signOutError),
           ]));
     });

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/admin_home_appbar.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import '../../../../data/configs/colors.dart';
@@ -62,11 +63,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             ),
             BlocConsumer<AdminHomeBloc, AdminHomeState>(
                 listener: (context, state) {
-              if (state.status == AdminHomeStatus.failure) {
+                  if (state.status == Status.error) {
                 showSnackBar(context: context, error: state.error);
               }
             }, builder: (context, state) {
-              if (state.status == AdminHomeStatus.loading) {
+              if (state.status == Status.loading) {
                 return Padding(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.22),

@@ -404,11 +404,13 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+
   @override
   bool get redirect => (super.noSuchMethod(
         Invocation.getter(#redirect),
         returnValue: false,
       ) as bool);
+
   @override
   set redirect(bool? _redirect) => super.noSuchMethod(
         Invocation.setter(

@@ -1,23 +1,22 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave_application.dart';
 
-enum AdminLeavesStatus { initial, loading, failure, success }
-
 class AdminLeavesState extends Equatable {
-  final AdminLeavesStatus status;
+  final Status status;
   final String? error;
   final List<LeaveApplication> upcomingLeaves;
   final List<LeaveApplication> recentLeaves;
 
   const AdminLeavesState({
-    this.status = AdminLeavesStatus.initial,
+    this.status = Status.initial,
     this.error,
     this.recentLeaves = const [],
     this.upcomingLeaves = const [],
   });
 
   copyWith({
-    AdminLeavesStatus? status,
+    Status? status,
     String? error,
     List<LeaveApplication>? upcomingLeaves,
     List<LeaveApplication>? recentLeaves,

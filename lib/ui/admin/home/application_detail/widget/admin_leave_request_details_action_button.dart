@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
@@ -22,8 +23,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
     return BlocListener<AdminLeaveApplicationDetailsBloc,
             AdminLeaveApplicationDetailsState>(
         listener: (context, state) {
-          if (state.adminLeaveResponseStatus ==
-              AdminLeaveResponseStatus.success) {
+          if (state.status == Status.success) {
             context.pop();
           }
         },

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -16,8 +17,11 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
   final SpaceService _spaceService;
   final LeaveService _leaveService;
 
-  AdminLeaveApplicationDetailsBloc(this._leaveService, this._userManager, this._spaceService,)
-      : super(const AdminLeaveApplicationDetailsState()) {
+  AdminLeaveApplicationDetailsBloc(
+    this._leaveService,
+    this._userManager,
+    this._spaceService,
+  ) : super(const AdminLeaveApplicationDetailsState()) {
     on<AdminLeaveApplicationFetchLeaveCountEvent>(_fetchLeaveCounts);
     on<AdminLeaveApplicationReasonChangedEvent>(_onReplyChange);
     on<AdminLeaveResponseEvent>(_responseToLeaveApplication);
@@ -26,26 +30,25 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
   Future<void> _fetchLeaveCounts(
       AdminLeaveApplicationFetchLeaveCountEvent event,
       Emitter<AdminLeaveApplicationDetailsState> emit) async {
-    emit(state.copyWith(adminLeaveCountStatus: AdminLeaveCountStatus.loading));
+    emit(state.copyWith(adminLeaveCountStatus: Status.loading));
     try {
-      int paidLeaves = await _spaceService.getPaidLeaves(spaceId: _userManager.currentSpaceId!);
+      int paidLeaves = await _spaceService.getPaidLeaves(
+          spaceId: _userManager.currentSpaceId!);
       double usedLeave =
           await _leaveService.getUserUsedLeaves(event.employeeId);
       emit(state.copyWith(
-          adminLeaveCountStatus: AdminLeaveCountStatus.success,
+          adminLeaveCountStatus: Status.success,
           paidLeaveCount: paidLeaves,
           usedLeaves: usedLeave));
     } on Exception {
       emit(state.copyWith(
-          error: firestoreFetchDataError,
-          adminLeaveCountStatus: AdminLeaveCountStatus.failure));
+          error: firestoreFetchDataError, adminLeaveCountStatus: Status.error));
     }
   }
 
   Future<void> _responseToLeaveApplication(AdminLeaveResponseEvent event,
       Emitter<AdminLeaveApplicationDetailsState> emit) async {
-    emit(state.copyWith(
-        adminLeaveResponseStatus: AdminLeaveResponseStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     try {
       if (event.response == AdminLeaveResponse.approve) {
         Map<String, dynamic> map =
@@ -56,12 +59,10 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
             _setLeaveApproval(rejectLeaveStatus, state.adminReply);
         await _leaveService.updateLeaveStatus(event.leaveId, map);
       }
-      emit(state.copyWith(
-          adminLeaveResponseStatus: AdminLeaveResponseStatus.success));
+      emit(state.copyWith(status: Status.success));
     } on Exception {
       emit(state.copyWith(
-          error: firestoreFetchDataError,
-          adminLeaveCountStatus: AdminLeaveCountStatus.failure));
+          error: firestoreFetchDataError, adminLeaveCountStatus: Status.error));
     }
   }
 

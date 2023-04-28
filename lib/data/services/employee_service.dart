@@ -11,7 +11,7 @@ class EmployeeService {
   final UserManager _userManager;
   final FirebaseFirestore fireStore;
 
-  EmployeeService(this._userManager,this.fireStore);
+  EmployeeService(this._userManager, this.fireStore);
 
   CollectionReference<Employee> _membersDbCollection(
           {required String spaceId}) =>
@@ -71,7 +71,6 @@ class EmployeeService {
         .update(employee.toJson())
         .onError((error, stackTrace) => throw Exception(error.toString()));
   }
-
 
   Future<void> changeEmployeeRoleType(String id, Role role) async {
     Map<String, int> data = {FireStoreConst.roleType: role.value};

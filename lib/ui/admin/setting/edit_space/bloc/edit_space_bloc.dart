@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/services/space_service.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
 import '../../../../../data/provider/user_data.dart';
 import 'edit_space_state.dart';
@@ -49,7 +50,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       await _userManager.removeSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(deleteWorkSpaceStatus: Status.failure, error: firestoreFetchDataError));
+      emit(state.copyWith(
+          deleteWorkSpaceStatus: Status.error, error: firestoreFetchDataError));
     }
   }
 
@@ -70,7 +72,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       await _userManager.updateSpaceDetails(updatedSpace);
       emit(state.copyWith(updateSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(updateSpaceStatus: Status.failure, error: firestoreFetchDataError));
+      emit(state.copyWith(
+          updateSpaceStatus: Status.error, error: firestoreFetchDataError));
     }
   }
 }

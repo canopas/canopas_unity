@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/core/utils/const/firestore.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_data.dart';
@@ -35,15 +36,16 @@ void main() {
               paidLeaveCount: 0,
               usedLeaves: 0.0,
               error: null,
-              adminLeaveCountStatus: AdminLeaveCountStatus.loading,
-              adminLeaveResponseStatus: AdminLeaveResponseStatus.initial);
+              adminLeaveCountStatus: Status.loading,
+              status: Status.initial);
 
       test(
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
         when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
         when(userManager.currentSpaceId).thenReturn('space-id');
-        when(spaceService.getPaidLeaves(spaceId: 'space-id')).thenAnswer((_) async => 12);
+        when(spaceService.getPaidLeaves(spaceId: 'space-id'))
+            .thenAnswer((_) async => 12);
 
         AdminLeaveApplicationDetailsState successState =
             const AdminLeaveApplicationDetailsState(
@@ -51,8 +53,8 @@ void main() {
                 paidLeaveCount: 12,
                 usedLeaves: 10,
                 error: null,
-                adminLeaveResponseStatus: AdminLeaveResponseStatus.initial,
-                adminLeaveCountStatus: AdminLeaveCountStatus.success);
+                status: Status.initial,
+                adminLeaveCountStatus: Status.success);
         expectLater(
             bloc.stream, emitsInOrder([leaveCountLoadingState, successState]));
         bloc.add(AdminLeaveApplicationFetchLeaveCountEvent(employeeId: 'id'));
@@ -61,7 +63,7 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause',
           () {
-        when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
+            when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
         when(userManager.currentSpaceId).thenReturn('space-id');
         when(spaceService.getPaidLeaves(spaceId: 'space-id'))
             .thenThrow(Exception(firestoreFetchDataError));
@@ -71,8 +73,8 @@ void main() {
                 paidLeaveCount: 0,
                 usedLeaves: 0,
                 error: firestoreFetchDataError,
-                adminLeaveResponseStatus: AdminLeaveResponseStatus.initial,
-                adminLeaveCountStatus: AdminLeaveCountStatus.failure);
+                status: Status.initial,
+                adminLeaveCountStatus: Status.error);
         expectLater(
             bloc.stream, emitsInOrder([leaveCountLoadingState, errorState]));
         bloc.add(AdminLeaveApplicationFetchLeaveCountEvent(employeeId: 'id'));
@@ -85,8 +87,8 @@ void main() {
               adminReply: '',
               paidLeaveCount: 0,
               usedLeaves: 0,
-              adminLeaveResponseStatus: AdminLeaveResponseStatus.loading,
-              adminLeaveCountStatus: AdminLeaveCountStatus.initial,
+              status: Status.loading,
+              adminLeaveCountStatus: Status.initial,
               error: null);
       test('Emits state with input of admin reply for reason', () {
         bloc.add(AdminLeaveApplicationReasonChangedEvent(
@@ -100,13 +102,12 @@ void main() {
       test(
           "emits successState if leave application has been approved successfully",
           () {
-        when(leaveService.updateLeaveStatus("leave-id", {
+            when(leaveService.updateLeaveStatus("leave-id", {
           'leave_status': approveLeaveStatus,
           'rejection_reason': "Your leave request has been approved",
         })).thenAnswer((_) async => {});
         AdminLeaveApplicationDetailsState responseSuccessState =
-            const AdminLeaveApplicationDetailsState(
-                adminLeaveResponseStatus: AdminLeaveResponseStatus.success);
+            const AdminLeaveApplicationDetailsState(status: Status.success);
 
         expectLater(bloc.stream,
             emitsInOrder([responseLoadingState, responseSuccessState]));
@@ -116,13 +117,12 @@ void main() {
       test(
           "emits successState if leave application has been rejected successfully",
           () {
-        when(leaveService.updateLeaveStatus("leave-id", {
+            when(leaveService.updateLeaveStatus("leave-id", {
           'leave_status': rejectLeaveStatus,
           'rejection_reason': "Your leave request has not been approved",
         })).thenAnswer((_) async => {});
         AdminLeaveApplicationDetailsState responseSuccessState =
-            const AdminLeaveApplicationDetailsState(
-                adminLeaveResponseStatus: AdminLeaveResponseStatus.success);
+            const AdminLeaveApplicationDetailsState(status: Status.success);
 
         expectLater(bloc.stream,
             emitsInOrder([responseLoadingState, responseSuccessState]));
@@ -132,7 +132,7 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause while updating response',
           () {
-        when(leaveService.updateLeaveStatus("leaveId", {
+            when(leaveService.updateLeaveStatus("leaveId", {
           FireStoreConst.leaveStatus: approveLeaveStatus,
           FireStoreConst.rejectionReason: '',
         })).thenThrow(Exception(firestoreFetchDataError));
@@ -142,8 +142,8 @@ void main() {
                 paidLeaveCount: 0,
                 usedLeaves: 0,
                 error: firestoreFetchDataError,
-                adminLeaveResponseStatus: AdminLeaveResponseStatus.loading,
-                adminLeaveCountStatus: AdminLeaveCountStatus.failure);
+                status: Status.loading,
+                adminLeaveCountStatus: Status.error);
         expectLater(
             bloc.stream, emitsInOrder([responseLoadingState, errorState]));
         bloc.add(AdminLeaveResponseEvent(

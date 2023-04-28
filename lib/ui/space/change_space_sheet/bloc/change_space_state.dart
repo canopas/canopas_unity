@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../data/model/space/space.dart';
-
-enum Status { initial, loading, failure, success }
 
 class ChangeSpaceState extends Equatable {
   final Status fetchSpaceStatus;
@@ -13,7 +12,7 @@ class ChangeSpaceState extends Equatable {
     this.error,
     this.spaces = const [],
     this.changeSpaceStatus = Status.initial,
-    this.fetchSpaceStatus = Status.failure,
+    this.fetchSpaceStatus = Status.initial,
   });
 
   copyWith({

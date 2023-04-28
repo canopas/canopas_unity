@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/employee_details_textfield.dart';
@@ -68,7 +69,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
               buildWhen: (previous, current) => previous.updateSpaceStatus != current.updateSpaceStatus
                   || previous.isDataValid != current.isDataValid,
               builder: (context, state) => state.updateSpaceStatus ==
-                      Status.loading
+                  Status.loading
                   ? const Padding(
                       padding: EdgeInsets.only(right: 30),
                       child: AppCircularProgressIndicator(size: 20),
@@ -162,7 +163,7 @@ class DeleteSpaceButton extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
         builder: (context, state) =>
-            state.deleteWorkSpaceStatus == Status.loading
+        state.deleteWorkSpaceStatus == Status.loading
                 ? const AppCircularProgressIndicator()
                 : TextButton(
                     style: ElevatedButton.styleFrom(

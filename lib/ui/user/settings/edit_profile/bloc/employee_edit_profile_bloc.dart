@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/mixin/input_validation.dart';
 import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/pref/user_preference.dart';
@@ -17,7 +19,7 @@ import 'employee_edit_profile_state.dart';
 
 @Injectable()
 class EmployeeEditProfileBloc
-    extends Bloc<EditProfileEvent, EmployeeEditProfileState> {
+    extends Bloc<EditProfileEvent, EmployeeEditProfileState> with InputValidationMixin{
   final EmployeeService _employeeService;
   final UserManager _userManager;
   final UserPreference _preference;
@@ -52,10 +54,10 @@ class EmployeeEditProfileBloc
 
   void _validName(EditProfileNameChangedEvent event,
       Emitter<EmployeeEditProfileState> emit) {
-    if (event.name.length < 4) {
-      emit(state.copyWith(nameError: true));
-    } else {
+    if (validInputLength(event.name)) {
       emit(state.copyWith(nameError: false));
+    } else {
+      emit(state.copyWith(nameError: true));
     }
   }
 
@@ -71,9 +73,9 @@ class EmployeeEditProfileBloc
 
   void _updateEmployeeDetails(EditProfileUpdateProfileEvent event,
       Emitter<EmployeeEditProfileState> emit) async {
-    emit(state.copyWith(status: EmployeeEditProfileStatus.loading));
+    emit(state.copyWith(status: Status.loading));
     if (state.nameError) {
-      emit(state.copyWith(status: EmployeeEditProfileStatus.failure, error: fillDetailsError));
+      emit(state.copyWith(status: Status.error, error: fillDetailsError));
     } else {
       final String? uri = await _saveImage();
       try {
@@ -95,11 +97,10 @@ class EmployeeEditProfileBloc
         await _employeeService.updateEmployeeDetails(employee: employee);
         _preference.setSpaceUser(employee);
         eventBus.fire(GetCurrentEmployeeUserSettingsEvent());
-        emit(state.copyWith(status: EmployeeEditProfileStatus.success));
+        emit(state.copyWith(status: Status.success));
       } on Exception {
         emit(state.copyWith(
-            status: EmployeeEditProfileStatus.failure,
-            error: firestoreFetchDataError));
+            status: Status.error, error: firestoreFetchDataError));
       }
     }
   }

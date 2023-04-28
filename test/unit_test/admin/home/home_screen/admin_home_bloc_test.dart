@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
@@ -45,21 +46,17 @@ void main() {
   AdminHomeState initialState = const AdminHomeState();
 
   AdminHomeState loadingState = const AdminHomeState(
-    status: AdminHomeStatus.loading,
+    status: Status.loading,
   );
 
   AdminHomeState failureState = const AdminHomeState(
-      status: AdminHomeStatus.failure, error: firestoreFetchDataError);
+      status: Status.error, error: firestoreFetchDataError);
 
   setUp(() {
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
     userManager = MockUserManager();
-    adminHomeBloc = AdminHomeBloc(
-      leaveService,
-      employeeService,
-      userManager
-    );
+    adminHomeBloc = AdminHomeBloc(leaveService, employeeService, userManager);
   });
 
   group('AdminHomeScreenBloc', () {
@@ -101,7 +98,7 @@ void main() {
         leave.startDate.toDate.dateOnly: [la]
       };
       AdminHomeState successState = AdminHomeState(
-        status: AdminHomeStatus.success,
+        status: Status.success,
         leaveAppMap: map,
       );
       expectLater(
@@ -129,7 +126,7 @@ void main() {
       adminHomeBloc.add(AdminHomeInitialLoadEvent());
 
       AdminHomeState successState = const AdminHomeState(
-        status: AdminHomeStatus.success,
+        status: Status.success,
         leaveAppMap: {},
       );
 

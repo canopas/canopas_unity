@@ -5,6 +5,7 @@ import '../../../data/configs/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
 import '../../../data/configs/theme.dart';
+import '../../../data/core/utils/bloc_status.dart';
 import '../../../data/core/utils/date_formatter.dart';
 import '../../../data/model/leave_application.dart';
 import '../../../data/di/service_locator.dart';
@@ -25,10 +26,9 @@ class WhoIsOutCard extends StatelessWidget {
       create: (context) =>
           getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
       child: BlocListener<WhoIsOutCardBloc, WhoIsOutCardState>(
-        listenWhen: (previous, current) =>
-            current.status == WhoOIsOutCardStatus.failure,
+        listenWhen: (previous, current) => current.status == Status.error,
         listener: (context, state) {
-          if (state.status == WhoOIsOutCardStatus.failure) {
+          if (state.status == Status.error) {
             showSnackBar(context: context, error: state.error);
           }
         },
@@ -55,8 +55,8 @@ class WhoIsOutCard extends StatelessWidget {
               const SizedBox(height: primaryVerticalSpacing),
               BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
                 builder: (context, state) =>
-                    state.status == WhoOIsOutCardStatus.loading
-                        ? const Padding(
+                state.status == Status.loading
+                    ? const Padding(
                             padding: EdgeInsets.all(primaryHorizontalSpacing),
                             child: ThreeBounceLoading(
                                 size: 15, color: AppColors.primaryBlue),

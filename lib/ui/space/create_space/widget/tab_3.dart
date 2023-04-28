@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../data/configs/text_style.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -38,13 +39,13 @@ class _PersonalInfoState extends State<PersonalInfo>
     return SingleChildScrollView(
         child: BlocListener<CreateSpaceBLoc, CreateSpaceState>(
             listenWhen: (previous, current) =>
-            current.createSpaceStatus == CreateSpaceStatus.error ||
-                current.createSpaceStatus == CreateSpaceStatus.success,
+                current.createSpaceStatus == Status.error ||
+                current.createSpaceStatus == Status.success,
             listener: (context, state) {
-              if (state.createSpaceStatus == CreateSpaceStatus.error) {
+              if (state.createSpaceStatus == Status.error) {
                 showSnackBar(context: context, error: state.error);
               }
-              if (state.createSpaceStatus == CreateSpaceStatus.success) {
+              if (state.createSpaceStatus == Status.success) {
                 context.goNamed(Routes.adminHome);
               }
             },

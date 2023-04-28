@@ -3,9 +3,11 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
+import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/core/utils/const/leave_time_constants.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../../data/provider/user_data.dart';
@@ -14,7 +16,7 @@ import 'apply_leave_event.dart';
 import 'apply_leave_state.dart';
 
 @Injectable()
-class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
+class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> with InputValidationMixin {
   final LeaveService _leaveService;
   final UserManager _userManager;
 
@@ -80,29 +82,27 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
 
   void _updateReason(
       ApplyLeaveReasonChangeEvent event, Emitter<ApplyLeaveState> emit) {
-    if (event.reason.length < 4) {
-      emit(state.copyWith(reason: event.reason, showTextFieldError: true));
-    } else {
+    if (validInputLength(event.reason)) {
       emit(state.copyWith(reason: event.reason, showTextFieldError: false));
+    } else {
+      emit(state.copyWith(reason: event.reason, showTextFieldError: true));
     }
   }
 
   Future<void> _applyLeave(
       ApplyLeaveSubmitFormEvent event, Emitter<ApplyLeaveState> emit) async {
-    emit(state.copyWith(leaveRequestStatus: ApplyLeaveStatus.loading));
-    if (state.reason.length < 4) {
+    emit(state.copyWith(leaveRequestStatus: Status.loading));
+    if (!validInputLength(state.reason)) {
       emit(state.copyWith(
           error: fillDetailsError,
           showTextFieldError: true,
-          leaveRequestStatus: ApplyLeaveStatus.failure));
+          leaveRequestStatus: Status.error));
     } else if (state.totalLeaveDays == 0) {
       emit(state.copyWith(
-          error: applyMinimumHalfDay,
-          leaveRequestStatus: ApplyLeaveStatus.failure));
+          error: applyMinimumHalfDay, leaveRequestStatus: Status.error));
     } else if (state.endDate.difference(state.startDate).inDays.isNegative) {
       emit(state.copyWith(
-          error: invalidLeaveDateError,
-          leaveRequestStatus: ApplyLeaveStatus.failure));
+          error: invalidLeaveDateError, leaveRequestStatus: Status.error));
     } else {
       try {
         final leaveAlreadyExist = await _leaveService.checkLeaveAlreadyApplied(
@@ -111,15 +111,14 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> {
         if (leaveAlreadyExist) {
           emit(state.copyWith(
               error: alreadyLeaveAppliedError,
-              leaveRequestStatus: ApplyLeaveStatus.failure));
+              leaveRequestStatus: Status.error));
         } else {
           await _leaveService.applyForLeave(_getLeaveData());
-          emit(state.copyWith(leaveRequestStatus: ApplyLeaveStatus.success));
+          emit(state.copyWith(leaveRequestStatus: Status.success));
         }
       } on Exception {
         emit(state.copyWith(
-            error: firestoreFetchDataError,
-            leaveRequestStatus: ApplyLeaveStatus.failure));
+            error: firestoreFetchDataError, leaveRequestStatus: Status.error));
       }
     }
   }

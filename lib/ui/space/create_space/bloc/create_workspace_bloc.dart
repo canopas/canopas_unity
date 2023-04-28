@@ -1,15 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
 import 'create_workspace_state.dart';
 
 @Injectable()
-class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
+class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with InputValidationMixin {
   final SpaceService _spaceService;
   final EmployeeService _employeeService;
   final UserManager _userManager;
@@ -24,11 +26,6 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
     on<UserNameChangeEvent>(_changeUserName);
   }
 
-  bool validName(String? name) => name != null && name.length >= 4;
-
-  bool validDomain(String? email) =>
-      email != null && email.length >= 4 && email.contains('.') ||
-          email!.isEmpty;
 
   void _onPageChange(PageChangeEvent event, Emitter<CreateSpaceState> emit) {
     emit(state.copyWith(buttonState: ButtonState.disable,page: event.page));
@@ -54,7 +51,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   void _onNameChanged(
       CompanyNameChangeEvent event, Emitter<CreateSpaceState> emit) {
-    if (validName(event.companyName)) {
+    if (validInputLength(event.companyName)) {
       emit(state.copyWith(
           companyName: event.companyName,
           companyNameError: false,
@@ -92,7 +89,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
   }
 
   void _changeUserName(UserNameChangeEvent event, Emitter<CreateSpaceState> emit) {
-    if (validName(event.name)) {
+    if (validInputLength(event.name)) {
       emit(state.copyWith(
         buttonState: ButtonState.enable,
         ownerName: event.name,
@@ -109,7 +106,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
 
   bool get validateFirstStep =>
       state.companyName.isNotEmpty &&
-          validName(state.companyName) &&
+          validInputLength(state.companyName) &&
           !state.companyNameError &&
           !state.domainError;
 
@@ -117,12 +114,12 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
       (state.paidTimeOff.isNotEmpty) && !state.paidTimeOffError;
 
   bool get validateThirdStep =>
-      validName(state.ownerName) && !state.companyNameError;
+      validInputLength(state.ownerName) && !state.companyNameError;
 
   Future<void> _createSpace(
       CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
     if (validateFirstStep&&validateSecondStep&&validateThirdStep) {
-      emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.loading));
+      emit(state.copyWith(createSpaceStatus: Status.loading));
       try {
         int timeOff = int.parse(state.paidTimeOff);
 
@@ -142,15 +139,15 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> {
         await _employeeService.addEmployeeBySpaceId(
             spaceId: newSpace.id, employee: employee);
 
-        emit(state.copyWith(createSpaceStatus: CreateSpaceStatus.success));
+        emit(state.copyWith(createSpaceStatus: Status.success));
         await _userManager.setSpace(space: newSpace, spaceUser: employee);
       } on Exception {
         emit(state.copyWith(
-            error: firestoreFetchDataError,
-            createSpaceStatus: CreateSpaceStatus.error));
+            error: firestoreFetchDataError, createSpaceStatus: Status.error));
       }
     } else {
-      emit(state.copyWith(error: provideRequiredInformation,createSpaceStatus: CreateSpaceStatus.error));
+      emit(state.copyWith(
+          error: provideRequiredInformation, createSpaceStatus: Status.error));
     }
   }
 }
