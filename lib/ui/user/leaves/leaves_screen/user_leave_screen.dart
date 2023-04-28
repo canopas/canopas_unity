@@ -7,7 +7,6 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_car
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/model/leave/leave.dart';
-import '../../../navigation/app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/leave_count/user_leave_count_bloc.dart';
@@ -17,7 +16,9 @@ import 'bloc/leaves/user_leave_event.dart';
 import 'bloc/leaves/user_leave_state.dart';
 
 class UserLeavePage extends StatelessWidget {
-  const UserLeavePage({Key? key}) : super(key: key);
+  final String applyLeaveRoute;
+  final String leaveDetailsRoute;
+  const UserLeavePage({Key? key, required this.applyLeaveRoute, required this.leaveDetailsRoute}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +28,14 @@ class UserLeavePage extends StatelessWidget {
               getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
       BlocProvider(
           create: (_) => getIt<UserLeaveBloc>()..add(FetchUserLeaveEvent()))
-    ], child: const UserLeaveScreen());
+    ], child:  UserLeaveScreen(applyLeaveRoute: applyLeaveRoute,leaveDetailsRoute: leaveDetailsRoute));
   }
 }
 
 class UserLeaveScreen extends StatefulWidget {
-  const UserLeaveScreen({Key? key}) : super(key: key);
+  final String applyLeaveRoute;
+  final String leaveDetailsRoute;
+  const UserLeaveScreen({Key? key, required this.applyLeaveRoute, required this.leaveDetailsRoute}) : super(key: key);
 
   @override
   State<UserLeaveScreen> createState() => _UserLeaveScreenState();
@@ -71,10 +74,12 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
                 const Divider(),
                 if (state.upcomingLeaves.isNotEmpty)
                   LeaveList(
+                      leaveDetailsRoute: widget.leaveDetailsRoute,
                       leaves: upcoming,
                       title: localization.user_leave_upcoming_leaves_tag),
                 if (state.pastLeaves.isNotEmpty)
                   LeaveList(
+                      leaveDetailsRoute: widget.leaveDetailsRoute,
                       leaves: past,
                       title: localization.user_leave_past_leaves_tag)
               ],
@@ -85,7 +90,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => context.goNamed(Routes.applyLeave),
+        onPressed: () => context.goNamed(widget.applyLeaveRoute),
       ),
     );
   }

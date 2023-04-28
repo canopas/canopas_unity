@@ -16,7 +16,7 @@ import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_pr
 
 import 'employee_edit_profile_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserManager, UserPreference])
+@GenerateMocks([EmployeeService, UserManager, UserPreference,StorageService,ImagePicker])
 void main() {
   late EmployeeService employeeService;
   late UserManager userManager;
