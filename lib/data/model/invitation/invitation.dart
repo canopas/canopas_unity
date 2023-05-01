@@ -19,8 +19,7 @@ class Invitation {
   factory Invitation.fromJson(Map<String, dynamic> json) =>
       _$InvitationFromJson(json);
 
-  Map<String, dynamic> toJson(Invitation invitation) =>
-      _$InvitationToJson(this);
+  Map<String, dynamic> toJson() => _$InvitationToJson(this);
 
   factory Invitation.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,

@@ -4,16 +4,18 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
-import 'dart:ui' as _i9;
+import 'dart:ui' as _i11;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
+import 'package:projectunity/data/model/invitation/invitation.dart' as _i7;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
-import 'package:projectunity/data/model/user/user.dart' as _i8;
-import 'package:projectunity/data/provider/user_data.dart' as _i7;
-import 'package:projectunity/data/services/employee_service.dart' as _i10;
-import 'package:projectunity/data/services/space_service.dart' as _i5;
+import 'package:projectunity/data/model/user/user.dart' as _i10;
+import 'package:projectunity/data/provider/user_data.dart' as _i9;
+import 'package:projectunity/data/services/employee_service.dart' as _i12;
+import 'package:projectunity/data/services/invitation_services.dart' as _i5;
+import 'package:projectunity/data/services/space_service.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -57,10 +59,58 @@ class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
         );
 }
 
+/// A class which mocks [InvitationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockInvitationService extends _i1.Mock implements _i5.InvitationService {
+  MockInvitationService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.FirebaseFirestore get fireStore => (super.noSuchMethod(
+        Invocation.getter(#fireStore),
+        returnValue: _FakeFirebaseFirestore_0(
+          this,
+          Invocation.getter(#fireStore),
+        ),
+      ) as _i2.FirebaseFirestore);
+
+  @override
+  _i6.Future<List<_i7.Invitation>> fetchSpacesForUserEmail(String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchSpacesForUserEmail,
+          [email],
+        ),
+        returnValue: _i6.Future<List<_i7.Invitation>>.value(<_i7.Invitation>[]),
+      ) as _i6.Future<List<_i7.Invitation>>);
+
+  @override
+  _i6.Future<void> addInvitation({
+    required String? senderId,
+    required String? spaceId,
+    required String? receiverEmail,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addInvitation,
+          [],
+          {
+            #senderId: senderId,
+            #spaceId: spaceId,
+            #receiverEmail: receiverEmail,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+}
+
 /// A class which mocks [SpaceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
+class MockSpaceService extends _i1.Mock implements _i8.SpaceService {
   MockSpaceService() {
     _i1.throwOnMissingStub(this);
   }
@@ -187,7 +237,7 @@ class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
 /// A class which mocks [UserManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i7.UserManager {
+class MockUserManager extends _i1.Mock implements _i9.UserManager {
   MockUserManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -197,6 +247,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#loggedIn),
         returnValue: false,
       ) as bool);
+
   @override
   set loggedIn(bool? _loggedIn) => super.noSuchMethod(
         Invocation.setter(
@@ -272,8 +323,9 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
+
   @override
-  _i6.Future<void> setUser(_i8.User? user) => (super.noSuchMethod(
+  _i6.Future<void> setUser(_i10.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
@@ -281,6 +333,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+
   @override
   _i6.Future<void> setSpace({
     required _i3.Space? space,
@@ -325,6 +378,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -333,22 +387,25 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+
   @override
-  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
         ),
         returnValueForMissingStub: null,
       );
+
   @override
-  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
         ),
         returnValueForMissingStub: null,
       );
+
   @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
@@ -370,7 +427,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
 /// A class which mocks [EmployeeService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmployeeService extends _i1.Mock implements _i10.EmployeeService {
+class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
   MockEmployeeService() {
     _i1.throwOnMissingStub(this);
   }
