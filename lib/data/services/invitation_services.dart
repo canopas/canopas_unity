@@ -6,15 +6,14 @@ import 'package:projectunity/data/model/invitation/invitation.dart';
 @LazySingleton()
 class InvitationService {
   final FirebaseFirestore fireStore;
-  final CollectionReference<Invitation> _invitationDb;
+  late final CollectionReference<Invitation> _invitationDb;
 
   InvitationService(this.fireStore)
       : _invitationDb = fireStore
             .collection(FireStoreConst.invitationsCollection)
             .withConverter(
                 fromFirestore: Invitation.fromFirestore,
-                toFirestore: (Invitation invitation, _) =>
-                    invitation.toJson(invitation));
+                toFirestore: (Invitation invitation, _) => invitation.toJson());
 
   Future<List<Invitation>> fetchSpacesForUserEmail(String email) async {
     final data = await _invitationDb

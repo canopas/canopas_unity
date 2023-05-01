@@ -91,31 +91,62 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                   style: AppFontStyle.bodyLarge),
               const SizedBox(height: 10),
               BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
+                buildWhen: (previous, current) =>
+                      current.fetchSpaceStatus == Status.success,
                   builder: (context, state) {
-                if (state.fetchSpaceStatus == Status.loading) {
-                  return const AppCircularProgressIndicator();
-                } else {
-                  if (state.spaces.isEmpty) {
-                    return Text(
-                      locale.empty_space_list_msg,
-                      style: AppFontStyle.subTitleGrey,
-                    );
-                  }
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: state.spaces
-                        .map((space) => SpaceCard(
-                              title: space.name,
-                              domain: space.domain,
-                              imageURL: space.logo,
-                              onPressed: () => context
-                                  .read<JoinSpaceBloc>()
-                                  .add(SelectSpaceEvent(space: space)),
-                            ))
-                        .toList(),
-                  );
-                }
-              })
+                    if (state.fetchSpaceStatus == Status.loading) {
+                      return const AppCircularProgressIndicator();
+                    } else {
+                      if (state.ownSpaces.isEmpty &&
+                          state.requestedSpaces.isEmpty) {
+                        return Text(locale.empty_space_list_msg);
+                      }
+                      return Column(
+                        children: [
+                          if (state.ownSpaces.isNotEmpty)
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: state.ownSpaces
+                                  .map((space) => SpaceCard(
+                                        title: space.name,
+                                        domain: space.domain,
+                                        imageURL: space.logo,
+                                        onPressed: () => context
+                                            .read<JoinSpaceBloc>()
+                                            .add(
+                                                SelectSpaceEvent(space: space)),
+                                      ))
+                                  .toList(),
+                            ),
+                          if (state.requestedSpaces.isNotEmpty)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: Text(locale.request_tag,
+                                      style: AppFontStyle.bodyLarge),
+                                ),
+                                Column(
+                                  children: state.requestedSpaces
+                                      .map((space) => SpaceCard(
+                                            title: space.name,
+                                            domain: space.domain,
+                                            imageURL: space.logo,
+                                            onPressed: () => context
+                                                .read<JoinSpaceBloc>()
+                                                .add(SelectSpaceEvent(
+                                                    space: space)),
+                                          ))
+                                      .toList(),
+                                )
+                              ],
+                            )
+                        ],
+                      );
+                    }
+                  }),
             ],
           ),
         ),
