@@ -15,8 +15,8 @@ import '../../data/provider/user_data.dart';
 import '../admin/employee/detail/employee_detail_screen.dart';
 import '../admin/employee/edit_employee/admin_edit_employee_screen.dart';
 import '../admin/employee/list/employee_list_screen.dart';
-import '../admin/home/addmember/admin_add_member_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
+import '../admin/home/invite_member/invite_screen.dart';
 import '../admin/leaves/detail/leave_details.dart';
 import '../admin/setting/settings_screen/admin_setting_screen.dart';
 import '../admin/setting/edit_space/edit_space_screen.dart';
@@ -92,7 +92,7 @@ class AppRouter {
                           name: Routes.addMember,
                           parentNavigatorKey: _adminShellNavigatorKey,
                           pageBuilder: (context, state) =>
-                              const CupertinoPage(child: AdminAddMemberPage())),
+                              const CupertinoPage(child: InviteMemberPage())),
                       GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.leaveRequestDetail,
