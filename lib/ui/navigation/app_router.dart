@@ -227,10 +227,7 @@ class AppRouter {
                           path: Routes.hrLeaves,
                           name: Routes.hrLeaves,
                           pageBuilder: (context, state) =>
-                          const CupertinoPage(child: UserLeavePage(
-                            applyLeaveRoute: Routes.hrApplyLeave,
-                            leaveDetailsRoute: Routes.hrLeaveDetails,
-                          )),
+                          const CupertinoPage(child: UserLeavePage()),
                           routes: <GoRoute>[
                             GoRoute(
                               name: Routes.hrApplyLeave,
@@ -299,7 +296,7 @@ class AppRouter {
                     path: Routes.userLeaves,
                     name: Routes.userLeaves,
                     pageBuilder: (context, state) =>
-                        const CupertinoPage(child: UserLeavePage(applyLeaveRoute: Routes.applyLeave,leaveDetailsRoute: Routes.userLeaveDetail,)),
+                        const CupertinoPage(child: UserLeavePage()),
                     routes: <GoRoute>[
                       GoRoute(
                         name: Routes.applyLeave,
