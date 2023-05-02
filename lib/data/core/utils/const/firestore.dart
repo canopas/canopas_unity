@@ -3,8 +3,7 @@ class FireStoreConst {
   static const String accountsCollection = 'accounts';
   static const String spacesCollection = 'spaces';
   static const String membersCollection = 'members';
-
-
+  static const String invitationsCollection = 'invitations';
 
   static const String spaces = 'spaces';
   static const String ownerIds = 'owner_ids';
@@ -30,4 +29,6 @@ class FireStoreConst {
   static const String endLeaveDate = 'end_date';
   static const String session = 'session';
   static const String uid = 'uid';
+
+  static const String receiverEmail = 'receiver_email';
 }

@@ -25,7 +25,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     try {
       firebase_auth.User? authUser = await _authService.signInWithGoogle();
       if (authUser != null) {
-
         final User user = await _authService.getUser(authUser);
         await _userManager.setUser(user);
         emit(SignInSuccessState());

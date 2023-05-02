@@ -37,6 +37,7 @@ class UserHomeScreen extends StatefulWidget {
 class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: EmployeeHomeAppBar(
         preferredSize: Size(MediaQuery.of(context).size.width, 80),
@@ -62,36 +63,35 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     return state.requests.isEmpty
                         ? const SizedBox()
                         : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 25, bottom: 10),
-                                  child: Text(
-                                      AppLocalizations.of(context)
-                                          .user_home_requests_tag,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 25, bottom: 10),
+                            child: Text(
+                                locale.request_tag,
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall),
-                                ),
-                                ListView.separated(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, leave) => LeaveCard(
-                                        hideStatus: true,
-                                        onTap: () {
-                                          context.goNamed(
-                                              Routes.userRequestDetail,
-                                              params: {
-                                                RoutesParamsConst.leaveId:
-                                                    state.requests[leave].leaveId
-                                              });
-                                        },
-                                        leave: state.requests[leave]),
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(height: 16),
-                                    itemCount: state.requests.length),
-                              ]);
+                          ),
+                          ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, leave) => LeaveCard(
+                                  hideStatus: true,
+                                  onTap: () {
+                                    context.goNamed(
+                                        Routes.userRequestDetail,
+                                        params: {
+                                          RoutesParamsConst.leaveId:
+                                          state.requests[leave].leaveId
+                                        });
+                                  },
+                                  leave: state.requests[leave]),
+                              separatorBuilder: (context, index) =>
+                              const SizedBox(height: 16),
+                              itemCount: state.requests.length),
+                        ]);
                   }
                   return const SizedBox();
                 },

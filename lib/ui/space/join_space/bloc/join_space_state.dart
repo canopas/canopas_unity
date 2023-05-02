@@ -5,28 +5,32 @@ import '../../../../data/model/space/space.dart';
 class JoinSpaceState extends Equatable {
   final Status fetchSpaceStatus;
   final Status selectSpaceStatus;
-  final List<Space> spaces;
+  final List<Space> ownSpaces;
+  final List<Space> requestedSpaces;
   final String? error;
 
   const JoinSpaceState({
     this.selectSpaceStatus = Status.initial,
     this.fetchSpaceStatus = Status.initial,
-    this.spaces = const [],
+    this.ownSpaces = const [],
+    this.requestedSpaces = const [],
     this.error,
   });
 
   JoinSpaceState copyWith(
           {Status? fetchSpaceStatus,
           Status? selectSpaceStatus,
-          List<Space>? spaces,
+          List<Space>? ownSpaces,
+          List<Space>? requestedSpaces,
           String? error}) =>
       JoinSpaceState(
           error: error,
           selectSpaceStatus: selectSpaceStatus ?? this.selectSpaceStatus,
           fetchSpaceStatus: fetchSpaceStatus ?? this.fetchSpaceStatus,
-          spaces: spaces ?? this.spaces);
+          requestedSpaces: requestedSpaces ?? this.requestedSpaces,
+          ownSpaces: ownSpaces ?? this.ownSpaces);
 
   @override
   List<Object?> get props =>
-      [fetchSpaceStatus, spaces, error, selectSpaceStatus];
+      [fetchSpaceStatus, ownSpaces, requestedSpaces, error, selectSpaceStatus];
 }

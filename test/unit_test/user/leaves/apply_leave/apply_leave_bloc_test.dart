@@ -35,7 +35,7 @@ void main() {
 
       when(userManager.userUID).thenReturn("id");
       when(userManager.employeeId).thenReturn("id");
-
+      when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
       when(leaveService.checkLeaveAlreadyApplied(
           userId: 'id',
           dateDuration: {DateTime(2000): 1})).thenAnswer((_) async => true);

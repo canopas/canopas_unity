@@ -40,8 +40,8 @@ class SpaceCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  height: 80,
-                  width: 80,
+                  height: 50,
+                  width: 50,
                   decoration: BoxDecoration(
                       color: imageURL == null
                           ? AppColors.textFieldBg

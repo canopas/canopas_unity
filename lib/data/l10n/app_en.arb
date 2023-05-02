@@ -19,6 +19,8 @@
   "space_tag":"Space",
   "next_tag":"Next",
   "back_tag":"Back",
+  "add_tag":"Add",
+   "request_tag":"Requests",
 
   "spaces_title":"Spaces",
   "delete_space_text":"Delete Space",
@@ -199,8 +201,13 @@
 
   "admin_home_empty_leave_request_message": "There is no request today!",
   "admin_home_no_request_title":"No Request",
-  "admin_home_request_tag":"Requests",
+
   "admin_home_absence_tag":"Absence",
+
+     "admin_home_invite_member_appbar_tag":"Invite Member",
+    "admin_home_invite_member_hint_text":"Add member by email",
+    "admin_home_invite_member_error_email":"Please enter valid email",
+
 
     "admin_home_add_member_error_email":"Please enter valid email",
     "admin_home_add_member_error_name": "Name is too short!!",
@@ -237,7 +244,7 @@
 
 
 
-  "user_home_requests_tag": "Requests",
+
 
 
   "user_leave_apply_tag":"Apply",

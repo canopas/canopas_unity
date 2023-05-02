@@ -4,8 +4,6 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/core/utils/const/leave_time_constants.dart';
@@ -132,7 +130,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> with InputVa
       ..removeWhere(
           (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
     return Leave(
-      leaveId: const Uuid().v4(),
+      leaveId: _leaveService.getNewLeaveId(),
       uid: _userManager.employeeId,
       type: state.leaveType,
       startDate: firstDate.timeStampToInt,
