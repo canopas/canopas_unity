@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class CreateSpaceEvent extends Equatable {}
 
@@ -55,9 +56,18 @@ class CreateSpaceButtonTapEvent extends CreateSpaceEvent {
 
 class UserNameChangeEvent extends CreateSpaceEvent {
   final String? name;
+
   UserNameChangeEvent({this.name});
 
   @override
   List<Object?> get props => [name];
 }
 
+class PickImageEvent extends CreateSpaceEvent {
+  final ImageSource imageSource;
+
+  PickImageEvent({required this.imageSource});
+
+  @override
+  List<Object?> get props => [imageSource];
+}

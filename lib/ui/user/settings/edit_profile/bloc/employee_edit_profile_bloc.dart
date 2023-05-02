@@ -106,8 +106,7 @@ class EmployeeEditProfileBloc
   }
 
   Future<String?> _saveImage() async {
-    final String storagePath =
-        'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
+    final String storagePath = 'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
 
     if (state.imageURL != null) {
       try {

@@ -43,7 +43,9 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                       shape: BoxShape.circle,
                       color: AppColors.whiteColor,
                       boxShadow: AppTheme.commonBoxShadow,
-                      image: DecorationImage(image: imageProvider),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: imageProvider),
                     ),
                   ),
                 ),

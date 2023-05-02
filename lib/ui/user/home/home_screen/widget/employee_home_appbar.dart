@@ -50,7 +50,9 @@ class EmployeeHomeAppBar extends StatelessWidget
                       shape: BoxShape.circle,
                       color: AppColors.whiteColor,
                       boxShadow: AppTheme.commonBoxShadow,
-                      image: DecorationImage(image: imageProvider),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: imageProvider),
                     ),
                   ),
                 ),
