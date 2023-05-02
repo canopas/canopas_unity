@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
+import '../core/utils/const/firestore.dart';
 import '../model/user/user.dart';
 
 @LazySingleton()
@@ -13,9 +14,10 @@ class AccountService {
             fromFirestore: User.fromFireStore,
             toFirestore: (User user, _) => user.toJson());
 
-  Future<List<User>> getAllAccounts() async {
-    final data = await accountsDb.get();
-    return data.docs.map((user) => user.data()).toList();
+  Future<void> updateSpaceOfUser(
+      {required String spaceID, required String uid}) async {
+    await accountsDb.doc(uid).update({
+      FireStoreConst.spaces: FieldValue.arrayUnion([spaceID])
+    });
   }
-
 }
