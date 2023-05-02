@@ -30,16 +30,6 @@ class CompanyDomainChangeEvent extends CreateSpaceEvent {
   List<Object?> get props => [domain];
 }
 
-class CompanyLogoChangeEvent extends CreateSpaceEvent {
-  @override
-  List<Object?> get props => [];
-}
-
-class SubmitFormEvent extends CreateSpaceEvent {
-  @override
-  List<Object?> get props => [];
-}
-
 class PaidTimeOffChangeEvent extends CreateSpaceEvent {
   final String? paidTimeOff;
 

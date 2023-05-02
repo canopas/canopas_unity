@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -195,7 +197,73 @@ void main() {
     });
   });
 
+  // Future<void> _createSpace(
+  //     CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
+  //   if (validateFirstStep && validateSecondStep && validateThirdStep) {
+  //     emit(state.copyWith(createSpaceStatus: Status.loading));
+  //     String? logoURL;
+  //     try {
+  //       int timeOff = int.parse(state.paidTimeOff);
+  //
+  //       if (state.logo != null) {
+  //         final String storagePath =
+  //             'images/${_userManager.currentSpaceId}/space-logo';
+  //         final File logoFile = File(state.logo!);
+  //         logoURL =
+  //         await storageService.uploadProfilePic(storagePath, logoFile);
+  //       }
+  //
+  //       final newSpace = await _spaceService.createSpace(
+  //           logo: logoURL,
+  //           name: state.companyName,
+  //           domain: state.domain.isEmpty ? null : state.domain,
+  //           timeOff: timeOff,
+  //           ownerId: _userManager.userUID!);
+  //
+  //       final employee = Employee(
+  //         uid: _userManager.userUID!,
+  //         role: Role.admin,
+  //         name: state.ownerName!,
+  //         email: _userManager.userEmail!,
+  //       );
+  //
+  //       await _employeeService.addEmployeeBySpaceId(
+  //           spaceId: newSpace.id, employee: employee);
+  //
+  //       emit(state.copyWith(createSpaceStatus: Status.success));
+  //       await _userManager.setSpace(space: newSpace, spaceUser: employee);
+  //     } on Exception {
+  //       emit(state.copyWith(
+  //           error: firestoreFetchDataError, createSpaceStatus: Status.error));
+  //     }
+  //   } else {
+  //     emit(state.copyWith(
+  //         error: provideRequiredInformation, createSpaceStatus: Status.error));
+  //   }
+  // }
+
   group('create space test', () {
 
+    test('success test', (){
+      bloc.add(CompanyNameChangeEvent(companyName: 'canopas'));
+      bloc.add(CompanyDomainChangeEvent(domain: 'www.canopas.com',));
+      bloc.add(PaidTimeOffChangeEvent(paidTimeOff: "12"));
+      bloc.add(UserNameChangeEvent(name: 'user-name'));
+      bloc.add(PickImageEvent(imageSource: ImageSource.gallery));
+
+      when(xFile.path).thenReturn('image-path');
+      when(imagePicker.pickImage(source: ImageSource.gallery)).thenAnswer((realInvocation) async => xFile);
+      when(userManager.currentSpaceId).thenReturn('space-id');
+      when(storageService.uploadProfilePic('images/space-id/space-logo', File(xFile.path))).thenAnswer((realInvocation) async => "image-url" );
+
+
+      expect(bloc.stream, emitsInOrder([
+        const CreateSpaceState(companyName: 'canopas'),
+        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com'),
+        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com', paidTimeOff: '12'),
+        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com', paidTimeOff: '12',ownerName: 'user-name'),
+        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com', paidTimeOff: '12',ownerName: 'user-name',logo: 'image-url',isLogoPickedDone: true),
+      ]));
+    });
   });
 }
