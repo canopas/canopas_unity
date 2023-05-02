@@ -29,7 +29,9 @@
 .packages
 .pub-cache/
 .pub/
-/build/
+build/
+
+
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -46,6 +48,6 @@ app.*.map.json
 /android/app/release
 /linux/
 /macos/
-/macos/
 /windows/
-/web/
+ios/Podfile.lock
+

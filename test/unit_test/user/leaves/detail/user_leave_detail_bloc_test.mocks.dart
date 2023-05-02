@@ -48,6 +48,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
+
   @override
   set fireStore(_i2.FirebaseFirestore? _fireStore) => super.noSuchMethod(
         Invocation.setter(
@@ -56,6 +57,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValueForMissingStub: null,
       );
+
   @override
   _i4.Future<List<_i5.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
@@ -64,6 +66,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
@@ -80,6 +83,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
   @override
   _i4.Future<List<_i5.Leave>> getRecentLeaves() => (super.noSuchMethod(
         Invocation.method(
@@ -88,6 +92,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<List<_i5.Leave>> getUpcomingLeaves() => (super.noSuchMethod(
         Invocation.method(
@@ -96,6 +101,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<void> updateLeaveStatus(
     String? id,
@@ -112,6 +118,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
   @override
   _i4.Future<List<_i5.Leave>> getAllLeaves() => (super.noSuchMethod(
         Invocation.method(
@@ -120,6 +127,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<List<_i5.Leave>> getAllAbsence({DateTime? date}) =>
       (super.noSuchMethod(
@@ -130,6 +138,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   String getNewLeaveId() => (super.noSuchMethod(
         Invocation.method(
@@ -138,6 +147,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: '',
       ) as String);
+
   @override
   _i4.Future<void> applyForLeave(_i5.Leave? leaveRequestData) =>
       (super.noSuchMethod(
@@ -148,6 +158,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
   @override
   _i4.Future<List<_i5.Leave>> getAllLeavesOfUser(String? id) =>
       (super.noSuchMethod(
@@ -157,6 +168,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<List<_i5.Leave>> getRecentLeavesOfUser(String? id) =>
       (super.noSuchMethod(
@@ -166,6 +178,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<List<_i5.Leave>> getPastLeavesOfUser(String? id) =>
       (super.noSuchMethod(
@@ -175,6 +188,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<List<_i5.Leave>> getRequestedLeave(String? id) =>
       (super.noSuchMethod(
@@ -184,6 +198,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<List<_i5.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(
@@ -193,6 +208,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+
   @override
   _i4.Future<void> deleteLeaveRequest(String? leaveId) => (super.noSuchMethod(
         Invocation.method(
@@ -202,6 +218,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
   @override
   _i4.Future<double> getUserUsedLeaves(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -210,6 +227,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<double>.value(0.0),
       ) as _i4.Future<double>);
+
   @override
   _i4.Future<void> deleteAllLeavesOfUser(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -219,6 +237,7 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
   @override
   _i4.Future<_i5.Leave?> fetchLeave(String? id) => (super.noSuchMethod(
         Invocation.method(
