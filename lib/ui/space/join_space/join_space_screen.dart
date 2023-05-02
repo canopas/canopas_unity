@@ -136,7 +136,7 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                                             imageURL: space.logo,
                                             onPressed: () => context
                                                 .read<JoinSpaceBloc>()
-                                                .add(SelectSpaceEvent(
+                                                .add(JoinRequestedSpaceEvent(
                                                     space: space)),
                                           ))
                                       .toList(),

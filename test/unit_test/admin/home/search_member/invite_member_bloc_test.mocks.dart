@@ -93,6 +93,17 @@ class MockInvitationService extends _i1.Mock implements _i4.InvitationService {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> deleteInvitation({required String? id}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteInvitation,
+          [],
+          {#id: id},
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserManager].
