@@ -431,7 +431,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void notifyListeners() => super.noSuchMethod(
         Invocation.method(
@@ -458,7 +457,6 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i2.CollectionReference<_i10.User> get accountsDb => (super.noSuchMethod(
         Invocation.getter(#accountsDb),
@@ -467,7 +465,6 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
           Invocation.getter(#accountsDb),
         ),
       ) as _i2.CollectionReference<_i10.User>);
-
   @override
   _i6.Future<void> updateSpaceOfUser({
     required String? spaceID,

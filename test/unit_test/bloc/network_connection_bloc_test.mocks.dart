@@ -35,7 +35,6 @@ class MockConnectivity extends _i1.Mock implements _i2.Connectivity {
         Invocation.getter(#onConnectivityChanged),
         returnValue: _i3.Stream<_i4.ConnectivityResult>.empty(),
       ) as _i3.Stream<_i4.ConnectivityResult>);
-
   @override
   _i3.Future<_i4.ConnectivityResult> checkConnectivity() => (super.noSuchMethod(
         Invocation.method(
