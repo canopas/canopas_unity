@@ -13,7 +13,8 @@ import 'package:projectunity/data/model/invitation/invitation.dart' as _i7;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
 import 'package:projectunity/data/model/user/user.dart' as _i10;
 import 'package:projectunity/data/provider/user_data.dart' as _i9;
-import 'package:projectunity/data/services/employee_service.dart' as _i12;
+import 'package:projectunity/data/services/account_service.dart' as _i12;
+import 'package:projectunity/data/services/employee_service.dart' as _i13;
 import 'package:projectunity/data/services/invitation_services.dart' as _i5;
 import 'package:projectunity/data/services/space_service.dart' as _i8;
 
@@ -51,6 +52,17 @@ class _FakeSpace_1 extends _i1.SmartFake implements _i3.Space {
 
 class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
   _FakeEmployee_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCollectionReference_3<T extends Object?> extends _i1.SmartFake
+    implements _i2.CollectionReference<T> {
+  _FakeCollectionReference_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,6 +111,17 @@ class MockInvitationService extends _i1.Mock implements _i5.InvitationService {
             #spaceId: spaceId,
             #receiverEmail: receiverEmail,
           },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> deleteInvitation({required String? id}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteInvitation,
+          [],
+          {#id: id},
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
@@ -408,6 +431,7 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+
   @override
   void notifyListeners() => super.noSuchMethod(
         Invocation.method(
@@ -418,10 +442,55 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
       );
 }
 
+/// A class which mocks [AccountService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAccountService extends _i1.Mock implements _i12.AccountService {
+  MockAccountService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.FirebaseFirestore get fireStore => (super.noSuchMethod(
+        Invocation.getter(#fireStore),
+        returnValue: _FakeFirebaseFirestore_0(
+          this,
+          Invocation.getter(#fireStore),
+        ),
+      ) as _i2.FirebaseFirestore);
+
+  @override
+  _i2.CollectionReference<_i10.User> get accountsDb => (super.noSuchMethod(
+        Invocation.getter(#accountsDb),
+        returnValue: _FakeCollectionReference_3<_i10.User>(
+          this,
+          Invocation.getter(#accountsDb),
+        ),
+      ) as _i2.CollectionReference<_i10.User>);
+
+  @override
+  _i6.Future<void> updateSpaceOfUser({
+    required String? spaceID,
+    required String? uid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateSpaceOfUser,
+          [],
+          {
+            #spaceID: spaceID,
+            #uid: uid,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+}
+
 /// A class which mocks [EmployeeService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
+class MockEmployeeService extends _i1.Mock implements _i13.EmployeeService {
   MockEmployeeService() {
     _i1.throwOnMissingStub(this);
   }

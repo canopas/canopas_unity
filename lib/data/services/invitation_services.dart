@@ -34,4 +34,8 @@ class InvitationService {
         receiverEmail: receiverEmail);
     await _invitationDb.doc(id).set(invitation);
   }
+
+  Future<void> deleteInvitation({required String id}) async {
+    await _invitationDb.doc(id).delete();
+  }
 }

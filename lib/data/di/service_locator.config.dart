@@ -170,6 +170,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i11.InvitationService>(),
           gh<_i15.SpaceService>(),
           gh<_i20.UserManager>(),
+          gh<_i18.AccountService>(),
           gh<_i26.EmployeeService>(),
         ));
     gh.lazySingleton<_i29.LeaveService>(() => _i29.LeaveService(
