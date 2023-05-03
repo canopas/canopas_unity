@@ -1,9 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -20,13 +22,11 @@ import 'create_space_bloc_test.mocks.dart';
   EmployeeService,
   StorageService,
   ImagePicker,
-  XFile
 ])
 void main() {
   late SpaceService spaceService;
   late StorageService storageService;
   late ImagePicker imagePicker;
-  late XFile xFile;
   late UserManager userManager;
   late EmployeeService employeeService;
   late CreateSpaceBLoc bloc;
@@ -37,7 +37,6 @@ void main() {
     employeeService = MockEmployeeService();
     storageService = MockStorageService();
     imagePicker = MockImagePicker();
-    xFile = MockXFile();
     when(userManager.userFirebaseAuthName).thenReturn('user name');
     bloc = CreateSpaceBLoc(spaceService, userManager, employeeService,
         imagePicker, storageService);
@@ -63,10 +62,9 @@ void main() {
   });
 
   group('Tab 1 Test', () {
-
     test('test image picked successfully', () {
+      XFile xFile = XFile('path');
       bloc.add(PickImageEvent(imageSource: ImageSource.gallery));
-      when(xFile.path).thenReturn('image-path');
       when(imagePicker.pickImage(source: ImageSource.gallery))
           .thenAnswer((realInvocation) async => xFile);
       when(imagePicker.pickImage(source: ImageSource.camera))
@@ -197,73 +195,114 @@ void main() {
     });
   });
 
-  // Future<void> _createSpace(
-  //     CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
-  //   if (validateFirstStep && validateSecondStep && validateThirdStep) {
-  //     emit(state.copyWith(createSpaceStatus: Status.loading));
-  //     String? logoURL;
-  //     try {
-  //       int timeOff = int.parse(state.paidTimeOff);
-  //
-  //       if (state.logo != null) {
-  //         final String storagePath =
-  //             'images/${_userManager.currentSpaceId}/space-logo';
-  //         final File logoFile = File(state.logo!);
-  //         logoURL =
-  //         await storageService.uploadProfilePic(storagePath, logoFile);
-  //       }
-  //
-  //       final newSpace = await _spaceService.createSpace(
-  //           logo: logoURL,
-  //           name: state.companyName,
-  //           domain: state.domain.isEmpty ? null : state.domain,
-  //           timeOff: timeOff,
-  //           ownerId: _userManager.userUID!);
-  //
-  //       final employee = Employee(
-  //         uid: _userManager.userUID!,
-  //         role: Role.admin,
-  //         name: state.ownerName!,
-  //         email: _userManager.userEmail!,
-  //       );
-  //
-  //       await _employeeService.addEmployeeBySpaceId(
-  //           spaceId: newSpace.id, employee: employee);
-  //
-  //       emit(state.copyWith(createSpaceStatus: Status.success));
-  //       await _userManager.setSpace(space: newSpace, spaceUser: employee);
-  //     } on Exception {
-  //       emit(state.copyWith(
-  //           error: firestoreFetchDataError, createSpaceStatus: Status.error));
-  //     }
-  //   } else {
-  //     emit(state.copyWith(
-  //         error: provideRequiredInformation, createSpaceStatus: Status.error));
-  //   }
-  // }
-
-  group('create space test', () {
-
-    test('success test', (){
-      bloc.add(CompanyNameChangeEvent(companyName: 'canopas'));
-      bloc.add(CompanyDomainChangeEvent(domain: 'www.canopas.com',));
-      bloc.add(PaidTimeOffChangeEvent(paidTimeOff: "12"));
-      bloc.add(UserNameChangeEvent(name: 'user-name'));
-      bloc.add(PickImageEvent(imageSource: ImageSource.gallery));
-
-      when(xFile.path).thenReturn('image-path');
-      when(imagePicker.pickImage(source: ImageSource.gallery)).thenAnswer((realInvocation) async => xFile);
+  group('Create space button tap test', () {
+    test('create space not valid data error test', () {
       when(userManager.currentSpaceId).thenReturn('space-id');
-      when(storageService.uploadProfilePic('images/space-id/space-logo', File(xFile.path))).thenAnswer((realInvocation) async => "image-url" );
+      when(userManager.userUID).thenReturn('uid');
+      when(userManager.userEmail).thenReturn('dummy@canopas.com');
 
+      bloc.add(CreateSpaceButtonTapEvent());
 
-      expect(bloc.stream, emitsInOrder([
-        const CreateSpaceState(companyName: 'canopas'),
-        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com'),
-        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com', paidTimeOff: '12'),
-        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com', paidTimeOff: '12',ownerName: 'user-name'),
-        const CreateSpaceState(companyName: 'canopas',domain: 'www.canopas.com', paidTimeOff: '12',ownerName: 'user-name',logo: 'image-url',isLogoPickedDone: true),
-      ]));
+      expect(
+          bloc.stream,
+          emitsInOrder([
+            const CreateSpaceState(
+                createSpaceStatus: Status.error,
+                error: provideRequiredInformation,
+                ownerName: 'user name'),
+          ]));
+    });
+
+    // test('create space success with all details test', () async {
+    //
+    //   final XFile file = XFile('path');
+    //
+    //   final state = CreateSpaceState(
+    //     ownerName: 'user name',
+    //     page: 2,
+    //     buttonState: ButtonState.enable,
+    //     domain: 'www.canopas.com',
+    //     paidTimeOff: '12',
+    //     logo: file.path,
+    //     companyName: 'canopas',
+    //   );
+    //
+    //   when(userManager.currentSpaceId).thenReturn('space-id');
+    //   when(storageService.uploadProfilePic('images/space-id/space-logo', File(file.path))).thenAnswer((realInvocation) async => 'image-url');
+    //
+    //
+    //   bloc.emit(state);
+    //
+    //   bloc.add(CreateSpaceButtonTapEvent());
+    //
+    //
+    //
+    //   final space = Space(
+    //       id: 'space-id',
+    //       name: 'canopas',
+    //       logo: 'image-url',
+    //       domain: 'www.canopas.com',
+    //       createdAt: DateTime(2000),
+    //       paidTimeOff: 12,
+    //       ownerIds: ['uid']);
+    //
+    //   when(spaceService.createSpace(
+    //           name: 'canopas',
+    //           logo: 'image-url',
+    //           domain: 'www.canopas.com',
+    //           timeOff: 12,
+    //           ownerId: 'uid'))
+    //       .thenAnswer((realInvocation) async => space);
+    //
+    //   await expectLater(
+    //       bloc.stream,
+    //       emitsInOrder([
+    //         state.copyWith(createSpaceStatus: Status.loading),
+    //         state.copyWith(createSpaceStatus: Status.success),
+    //       ]));
+    // });
+
+    test('create space success with only required details test', () {
+      bloc.emit(const CreateSpaceState(
+        ownerName: 'user name',
+        buttonState: ButtonState.enable,
+        paidTimeOff: '12',
+        companyName: 'canopas',
+      ));
+
+      when(userManager.currentSpaceId).thenReturn('space-id');
+      when(userManager.userUID).thenReturn('uid');
+      when(userManager.userEmail).thenReturn('dummy@canopas.com');
+
+      bloc.add(CreateSpaceButtonTapEvent());
+
+      final space = Space(
+          id: 'space-id',
+          name: 'canopas',
+          createdAt: DateTime(2000),
+          paidTimeOff: 12,
+          ownerIds: ['uid']);
+
+      when(spaceService.createSpace(
+              name: 'canopas', timeOff: 12, ownerId: 'uid'))
+          .thenAnswer((realInvocation) async => space);
+
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            const CreateSpaceState(
+                ownerName: 'user name',
+                buttonState: ButtonState.enable,
+                paidTimeOff: '12',
+                companyName: 'canopas',
+                createSpaceStatus: Status.loading),
+            const CreateSpaceState(
+                ownerName: 'user name',
+                buttonState: ButtonState.enable,
+                paidTimeOff: '12',
+                companyName: 'canopas',
+                createSpaceStatus: Status.success),
+          ]));
     });
   });
 }

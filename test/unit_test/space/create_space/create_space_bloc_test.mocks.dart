@@ -4,9 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i8;
-import 'dart:convert' as _i16;
 import 'dart:io' as _i14;
-import 'dart:typed_data' as _i17;
 import 'dart:ui' as _i11;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
@@ -89,16 +87,6 @@ class _FakeLostData_4 extends _i1.SmartFake implements _i6.LostData {
 class _FakeLostDataResponse_5 extends _i1.SmartFake
     implements _i6.LostDataResponse {
   _FakeLostDataResponse_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDateTime_6 extends _i1.SmartFake implements DateTime {
-  _FakeDateTime_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -739,89 +727,4 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
           ),
         )),
       ) as _i8.Future<_i6.LostDataResponse>);
-}
-
-/// A class which mocks [XFile].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockXFile extends _i1.Mock implements _i6.XFile {
-  MockXFile() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get path => (super.noSuchMethod(
-        Invocation.getter(#path),
-        returnValue: '',
-      ) as String);
-  @override
-  String get name => (super.noSuchMethod(
-        Invocation.getter(#name),
-        returnValue: '',
-      ) as String);
-  @override
-  _i8.Future<void> saveTo(String? path) => (super.noSuchMethod(
-        Invocation.method(
-          #saveTo,
-          [path],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-  @override
-  _i8.Future<int> length() => (super.noSuchMethod(
-        Invocation.method(
-          #length,
-          [],
-        ),
-        returnValue: _i8.Future<int>.value(0),
-      ) as _i8.Future<int>);
-  @override
-  _i8.Future<String> readAsString(
-          {_i16.Encoding? encoding = const _i16.Utf8Codec()}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #readAsString,
-          [],
-          {#encoding: encoding},
-        ),
-        returnValue: _i8.Future<String>.value(''),
-      ) as _i8.Future<String>);
-  @override
-  _i8.Future<_i17.Uint8List> readAsBytes() => (super.noSuchMethod(
-        Invocation.method(
-          #readAsBytes,
-          [],
-        ),
-        returnValue: _i8.Future<_i17.Uint8List>.value(_i17.Uint8List(0)),
-      ) as _i8.Future<_i17.Uint8List>);
-  @override
-  _i8.Stream<_i17.Uint8List> openRead([
-    int? start,
-    int? end,
-  ]) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #openRead,
-          [
-            start,
-            end,
-          ],
-        ),
-        returnValue: _i8.Stream<_i17.Uint8List>.empty(),
-      ) as _i8.Stream<_i17.Uint8List>);
-  @override
-  _i8.Future<DateTime> lastModified() => (super.noSuchMethod(
-        Invocation.method(
-          #lastModified,
-          [],
-        ),
-        returnValue: _i8.Future<DateTime>.value(_FakeDateTime_6(
-          this,
-          Invocation.method(
-            #lastModified,
-            [],
-          ),
-        )),
-      ) as _i8.Future<DateTime>);
 }
