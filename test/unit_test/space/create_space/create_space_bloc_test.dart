@@ -13,7 +13,6 @@ import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_event.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_state.dart';
-import 'package:mockito/mockito.dart';
 import 'create_space_bloc_test.mocks.dart';
 
 class FakeStorageService extends Fake implements StorageService {
@@ -77,7 +76,6 @@ void main() {
   group('Tab 1 Test', () {
     test('test image picked successfully', () {
       XFile xFile = XFile('path');
-      File file = File('path');
       bloc.add(PickImageEvent(imageSource: ImageSource.gallery));
       when(imagePicker.pickImage(source: ImageSource.gallery))
           .thenAnswer((realInvocation) async => xFile);
