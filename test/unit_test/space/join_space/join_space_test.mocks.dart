@@ -174,8 +174,9 @@ class MockSpaceService extends _i1.Mock implements _i10.SpaceService {
       ) as _i8.Future<_i3.Space?>);
   @override
   _i8.Future<_i3.Space> createSpace({
+    String? logo,
     required String? name,
-    required String? domain,
+    String? domain,
     required int? timeOff,
     required String? ownerId,
   }) =>
@@ -184,6 +185,7 @@ class MockSpaceService extends _i1.Mock implements _i10.SpaceService {
           #createSpace,
           [],
           {
+            #logo: logo,
             #name: name,
             #domain: domain,
             #timeOff: timeOff,
@@ -196,6 +198,7 @@ class MockSpaceService extends _i1.Mock implements _i10.SpaceService {
             #createSpace,
             [],
             {
+              #logo: logo,
               #name: name,
               #domain: domain,
               #timeOff: timeOff,
