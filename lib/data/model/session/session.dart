@@ -3,20 +3,14 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'session.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Session {
-  @JsonKey(name: 'device_id')
   String? deviceId;
-  @JsonKey(name: 'device_token')
   String? deviceToken;
-  @JsonKey(name: 'device_type')
   int? deviceType;
   int? version;
-  @JsonKey(name: 'device_name')
   String? deviceName;
-  @JsonKey(name: 'os_version')
   String? osVersion;
-  @JsonKey(name: 'last_accessed-on')
   int? lastAccessedOn;
 
   Session(

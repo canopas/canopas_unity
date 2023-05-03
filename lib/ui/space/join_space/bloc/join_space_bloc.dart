@@ -42,13 +42,20 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     })).then((value) => value.whereNotNull().toList());
   }
 
+  Future<List<Space>> joinedSpace() async {
+    final List<String> spaceIds =
+        await accountService.fetchSpaceIds(uid: _userManager.userUID!);
+    return await Future.wait(spaceIds.map((spaceId) async {
+      return await _spaceService.getSpace(spaceId);
+    })).then((value) => value.whereNotNull().toList());
+  }
+
   Future<void> _init(
       JoinSpaceInitialFetchEvent event, Emitter<JoinSpaceState> emit) async {
     emit(state.copyWith(fetchSpaceStatus: Status.loading));
     try {
       final requestedSpaces = await getRequestedSpaces();
-      final ownSpaces =
-          await _spaceService.getSpacesOfUser(_userManager.userUID!);
+      final ownSpaces = await joinedSpace();
       emit(state.copyWith(
           fetchSpaceStatus: Status.success,
           ownSpaces: ownSpaces,

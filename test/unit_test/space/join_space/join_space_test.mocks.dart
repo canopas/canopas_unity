@@ -428,7 +428,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void notifyListeners() => super.noSuchMethod(
         Invocation.method(
@@ -455,7 +454,6 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i2.CollectionReference<_i10.User> get accountsDb => (super.noSuchMethod(
         Invocation.getter(#accountsDb),
@@ -464,7 +462,6 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
           Invocation.getter(#accountsDb),
         ),
       ) as _i2.CollectionReference<_i10.User>);
-
   @override
   _i6.Future<void> updateSpaceOfUser({
     required String? spaceID,
@@ -482,6 +479,16 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+  @override
+  _i6.Future<List<String>> fetchSpaceIds({required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchSpaceIds,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i6.Future<List<String>>.value(<String>[]),
+      ) as _i6.Future<List<String>>);
 }
 
 /// A class which mocks [EmployeeService].
