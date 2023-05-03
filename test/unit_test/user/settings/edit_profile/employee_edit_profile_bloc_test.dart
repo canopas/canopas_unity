@@ -104,7 +104,8 @@ void main() {
           .thenAnswer((_) async => file);
 
       const storagePath = 'images/sid/123/profile';
-      when(storageService.uploadProfilePic(storagePath, File(file.path)))
+      when(storageService.uploadProfilePic(
+              path: storagePath, file: File(file.path)))
           .thenAnswer((_) async => 'uid');
 
       editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(

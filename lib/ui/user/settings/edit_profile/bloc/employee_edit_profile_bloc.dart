@@ -106,14 +106,13 @@ class EmployeeEditProfileBloc
   }
 
   Future<String?> _saveImage() async {
-    final String storagePath =
-        'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
+    final String storagePath = 'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
 
     if (state.imageURL != null) {
       try {
         final File imageFile = File(state.imageURL!);
-        final imageURL =
-            await storageService.uploadProfilePic(storagePath, imageFile);
+        final imageURL = await storageService.uploadProfilePic(
+            path: storagePath, file: imageFile);
         return imageURL;
       } on FirebaseException {
         throw Exception(firestoreFetchDataError);

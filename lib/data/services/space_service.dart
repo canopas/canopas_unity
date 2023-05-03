@@ -23,14 +23,16 @@ class SpaceService {
   }
 
   Future<Space> createSpace({
+    String? logo,
     required String name,
-    required String domain,
+    String? domain,
     required int timeOff,
     required String ownerId,
   }) async {
     final id = _spaceDb.doc().id;
 
     final space = Space(
+        logo: logo,
         id: id,
         name: name,
         domain: domain,

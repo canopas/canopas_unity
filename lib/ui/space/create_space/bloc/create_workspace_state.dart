@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import '../../../../data/core/utils/bloc_status.dart';
 
 enum ButtonState { enable, disable }
@@ -8,6 +7,8 @@ class CreateSpaceState extends Equatable {
   final String companyName;
   final int page;
   final String domain;
+  final String? logo;
+  final bool isLogoPickedDone;
   final bool companyNameError;
   final bool domainError;
   final String paidTimeOff;
@@ -18,8 +19,10 @@ class CreateSpaceState extends Equatable {
   final String? ownerName;
   final bool ownerNameError;
 
-  const CreateSpaceState(
-      {this.page = 0,
+  const CreateSpaceState({
+      this.isLogoPickedDone = false,
+      this.logo,
+      this.page = 0,
       this.companyName = '',
       this.domain = '',
       this.companyNameError = false,
@@ -33,6 +36,8 @@ class CreateSpaceState extends Equatable {
       this.error = ''});
 
   CreateSpaceState copyWith({
+    bool? isLogoPickedDone,
+    String? logo,
     int? page,
     String? companyName,
     String? domain,
@@ -47,6 +52,8 @@ class CreateSpaceState extends Equatable {
     Status? createSpaceStatus,
   }) =>
       CreateSpaceState(
+          isLogoPickedDone: isLogoPickedDone ?? false,
+          logo: logo ?? this.logo,
           page: page ?? this.page,
           companyName: companyName ?? this.companyName,
           domain: domain ?? this.domain,
@@ -62,6 +69,8 @@ class CreateSpaceState extends Equatable {
 
   @override
   List<Object?> get props => [
+    logo,
+    isLogoPickedDone,
     page,
     companyName,
     domain,

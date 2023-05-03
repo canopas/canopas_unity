@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
+import 'package:projectunity/data/services/storage_service.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/provider/user_data.dart';
 import '../../../../data/services/space_service.dart';
@@ -11,12 +14,16 @@ import 'create_workspace_event.dart';
 import 'create_workspace_state.dart';
 
 @Injectable()
-class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with InputValidationMixin {
+class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
+    with InputValidationMixin {
+  final ImagePicker imagePicker;
+  final StorageService storageService;
   final SpaceService _spaceService;
   final EmployeeService _employeeService;
   final UserManager _userManager;
 
-  CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService)
+  CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService,
+      this.imagePicker, this.storageService)
       : super(CreateSpaceState(ownerName: _userManager.userFirebaseAuthName)) {
     on<PageChangeEvent>(_onPageChange);
     on<CompanyNameChangeEvent>(_onNameChanged);
@@ -24,11 +31,11 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
     on<PaidTimeOffChangeEvent>(_onTimeOffChanged);
     on<CreateSpaceButtonTapEvent>(_createSpace);
     on<UserNameChangeEvent>(_changeUserName);
+    on<PickImageEvent>(_pickImage);
   }
 
-
   void _onPageChange(PageChangeEvent event, Emitter<CreateSpaceState> emit) {
-    emit(state.copyWith(buttonState: ButtonState.disable,page: event.page));
+    emit(state.copyWith(buttonState: ButtonState.disable, page: event.page));
     switch (event.page) {
       case 0:
         if (validateFirstStep) {
@@ -38,7 +45,6 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
       case 1:
         if (validateSecondStep) {
           emit(state.copyWith(buttonState: ButtonState.enable));
-
         }
         break;
       case 2:
@@ -47,7 +53,6 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
         }
     }
   }
-
 
   void _onNameChanged(
       CompanyNameChangeEvent event, Emitter<CreateSpaceState> emit) {
@@ -88,7 +93,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
     }
   }
 
-  void _changeUserName(UserNameChangeEvent event, Emitter<CreateSpaceState> emit) {
+  void _changeUserName(
+      UserNameChangeEvent event, Emitter<CreateSpaceState> emit) {
     if (validInputLength(event.name)) {
       emit(state.copyWith(
         buttonState: ButtonState.enable,
@@ -104,11 +110,19 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
     }
   }
 
+  Future<void> _pickImage(
+      PickImageEvent event, Emitter<CreateSpaceState> emit) async {
+    final XFile? image = await imagePicker.pickImage(source: event.imageSource);
+    if (image != null) {
+      emit(state.copyWith(logo: image.path,isLogoPickedDone: true));
+    }
+  }
+
   bool get validateFirstStep =>
       state.companyName.isNotEmpty &&
-          validInputLength(state.companyName) &&
-          !state.companyNameError &&
-          !state.domainError;
+      validInputLength(state.companyName) &&
+      !state.companyNameError &&
+      !state.domainError;
 
   bool get validateSecondStep =>
       (state.paidTimeOff.isNotEmpty) && !state.paidTimeOffError;
@@ -118,14 +132,24 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
 
   Future<void> _createSpace(
       CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
-    if (validateFirstStep&&validateSecondStep&&validateThirdStep) {
+    if (validateFirstStep && validateSecondStep && validateThirdStep) {
       emit(state.copyWith(createSpaceStatus: Status.loading));
+      String? logoURL;
       try {
         int timeOff = int.parse(state.paidTimeOff);
 
+        if (state.logo != null) {
+          final String storagePath =
+              'images/${_userManager.currentSpaceId}/space-logo';
+          final File logoFile = File(state.logo!);
+          logoURL = await storageService.uploadProfilePic(
+              path: storagePath, file: logoFile);
+        }
+
         final newSpace = await _spaceService.createSpace(
+            logo: logoURL,
             name: state.companyName,
-            domain: state.domain,
+            domain: state.domain.isEmpty ? null : state.domain,
             timeOff: timeOff,
             ownerId: _userManager.userUID!);
 
@@ -151,4 +175,3 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState> with Inpu
     }
   }
 }
-

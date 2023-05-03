@@ -478,17 +478,18 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
         ),
       ) as _i4.FirebaseStorage);
   @override
-  _i7.Future<String> uploadProfilePic(
-    String? path,
-    _i14.File? file,
-  ) =>
+  _i7.Future<String> uploadProfilePic({
+    required String? path,
+    required _i14.File? file,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #uploadProfilePic,
-          [
-            path,
-            file,
-          ],
+          [],
+          {
+            #path: path,
+            #file: file,
+          },
         ),
         returnValue: _i7.Future<String>.value(''),
       ) as _i7.Future<String>);
