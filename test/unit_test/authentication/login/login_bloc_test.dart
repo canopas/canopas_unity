@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_event.dart';
@@ -13,12 +14,14 @@ import 'login_bloc_test.mocks.dart';
 
 @GenerateMocks([
   AuthService,
+  AccountService,
   UserManager,
   firebase_auth.User,
 ])
 void main() {
   late UserManager userManager;
   late AuthService authService;
+  late AccountService accountService;
 
   late SignInBloc bloc;
   late firebase_auth.User authUser;
@@ -29,7 +32,8 @@ void main() {
     userManager = MockUserManager();
     authUser = MockUser();
     authService = MockAuthService();
-    bloc = SignInBloc(userManager, authService);
+    accountService = MockAccountService();
+    bloc = SignInBloc(userManager, authService,accountService);
   });
 
   group("Log in with google test", () {
@@ -50,7 +54,7 @@ void main() {
       when(authUser.email).thenAnswer((realInvocation) => user.email);
       when(authService.signInWithGoogle())
           .thenAnswer((realInvocation) async => authUser);
-      when(authService.getUser(authUser))
+      when(accountService.getUser(authUser))
           .thenAnswer((realInvocation) async => user);
       bloc.add(SignInEvent());
       expect(

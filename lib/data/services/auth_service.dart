@@ -6,45 +6,22 @@ import 'package:oauth2/oauth2.dart';
 import 'package:universal_platform/universal_platform.dart';
 import '../core/exception/custom_exception.dart';
 import '../core/exception/error_const.dart';
-import '../core/utils/const/firestore.dart';
-import '../model/user/user.dart';
 import '../state_manager/auth/desktop/desktop_auth_manager.dart';
 
 @Singleton()
 class AuthService {
   final DesktopAuthManager _desktopAuthManager;
   final FirebaseFirestore fireStore;
-  late final CollectionReference<User> _usersDb;
+
   final firebase_auth.FirebaseAuth firebaseAuth;
 
-  AuthService(this._desktopAuthManager, this.fireStore, this.firebaseAuth)
-      : _usersDb = fireStore
-            .collection(FireStoreConst.accountsCollection)
-            .withConverter(
-                fromFirestore: User.fromFireStore,
-                toFirestore: (User user, _) => user.toJson());
-
-  Future<User> getUser(firebase_auth.User authData) async {
-    final userData = await _usersDb
-        .where(FireStoreConst.uid, isEqualTo: authData.uid)
-        .limit(1)
-        .get();
-    final User user;
-    if (userData.docs.isEmpty) {
-      user = User(
-          uid: authData.uid,
-          email: authData.email!,
-          name: authData.displayName);
-      await _usersDb.doc(authData.uid).set(user);
-    } else {
-      user = userData.docs.first.data();
-    }
-    return user;
-  }
+  AuthService(this._desktopAuthManager, this.fireStore, this.firebaseAuth);
 
   Future<firebase_auth.User?> signInWithGoogle() async {
     firebase_auth.User? user;
-    if (UniversalPlatform.isMacOS || UniversalPlatform.isWindows || UniversalPlatform.isLinux) {
+    if (UniversalPlatform.isMacOS ||
+        UniversalPlatform.isWindows ||
+        UniversalPlatform.isLinux) {
       Credentials credentials = await _desktopAuthManager.login();
 
       firebase_auth.AuthCredential authCredential =
