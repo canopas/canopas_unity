@@ -3,17 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
+import 'dart:async' as _i6;
 import 'dart:ui' as _i10;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/model/employee/employee.dart' as _i5;
+import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/space/space.dart' as _i9;
-import 'package:projectunity/data/model/user/user.dart' as _i4;
-import 'package:projectunity/data/provider/user_data.dart' as _i8;
-import 'package:projectunity/data/services/auth_service.dart' as _i6;
+import 'package:projectunity/data/model/user/user.dart' as _i8;
+import 'package:projectunity/data/provider/user_data.dart' as _i7;
+import 'package:projectunity/data/services/auth_service.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -47,18 +47,8 @@ class _FakeFirebaseAuth_1 extends _i1.SmartFake implements _i3.FirebaseAuth {
         );
 }
 
-class _FakeUser_2 extends _i1.SmartFake implements _i4.User {
-  _FakeUser_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeEmployee_3 extends _i1.SmartFake implements _i5.Employee {
-  _FakeEmployee_3(
+class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
+  _FakeEmployee_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -70,7 +60,7 @@ class _FakeEmployee_3 extends _i1.SmartFake implements _i5.Employee {
 /// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i6.AuthService {
+class MockAuthService extends _i1.Mock implements _i5.AuthService {
   MockAuthService() {
     _i1.throwOnMissingStub(this);
   }
@@ -92,41 +82,27 @@ class MockAuthService extends _i1.Mock implements _i6.AuthService {
         ),
       ) as _i3.FirebaseAuth);
   @override
-  _i7.Future<_i4.User> getUser(_i3.User? authData) => (super.noSuchMethod(
-        Invocation.method(
-          #getUser,
-          [authData],
-        ),
-        returnValue: _i7.Future<_i4.User>.value(_FakeUser_2(
-          this,
-          Invocation.method(
-            #getUser,
-            [authData],
-          ),
-        )),
-      ) as _i7.Future<_i4.User>);
-  @override
-  _i7.Future<_i3.User?> signInWithGoogle() => (super.noSuchMethod(
+  _i6.Future<_i3.User?> signInWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
           [],
         ),
-        returnValue: _i7.Future<_i3.User?>.value(),
-      ) as _i7.Future<_i3.User?>);
+        returnValue: _i6.Future<_i3.User?>.value(),
+      ) as _i6.Future<_i3.User?>);
   @override
-  _i7.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
+  _i6.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signOutWithGoogle,
           [],
         ),
-        returnValue: _i7.Future<bool>.value(false),
-      ) as _i7.Future<bool>);
+        returnValue: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
 }
 
 /// A class which mocks [UserManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i8.UserManager {
+class MockUserManager extends _i1.Mock implements _i7.UserManager {
   MockUserManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -189,13 +165,13 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: '',
       ) as String);
   @override
-  _i5.Employee get employee => (super.noSuchMethod(
+  _i4.Employee get employee => (super.noSuchMethod(
         Invocation.getter(#employee),
-        returnValue: _FakeEmployee_3(
+        returnValue: _FakeEmployee_2(
           this,
           Invocation.getter(#employee),
         ),
-      ) as _i5.Employee);
+      ) as _i4.Employee);
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
@@ -212,18 +188,18 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  _i7.Future<void> setUser(_i4.User? user) => (super.noSuchMethod(
+  _i6.Future<void> setUser(_i8.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
-  _i7.Future<void> setSpace({
+  _i6.Future<void> setSpace({
     required _i9.Space? space,
-    required _i5.Employee? spaceUser,
+    required _i4.Employee? spaceUser,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -234,36 +210,36 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
             #spaceUser: spaceUser,
           },
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
-  _i7.Future<void> updateSpaceDetails(_i9.Space? space) => (super.noSuchMethod(
+  _i6.Future<void> updateSpaceDetails(_i9.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpaceDetails,
           [space],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
-  _i7.Future<void> removeSpace() => (super.noSuchMethod(
+  _i6.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
           #removeSpace,
           [],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
-  _i7.Future<void> removeAll() => (super.noSuchMethod(
+  _i6.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
           #removeAll,
           [],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
