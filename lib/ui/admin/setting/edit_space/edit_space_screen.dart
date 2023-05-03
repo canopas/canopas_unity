@@ -1,9 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
 import '../../../../data/core/utils/bloc_status.dart';
@@ -11,9 +16,11 @@ import '../../../../data/di/service_locator.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
+import '../../../widget/pick_image_bottom_sheet.dart';
 import 'bloc/edit_space_bloc.dart';
 import 'bloc/edit_space_event.dart';
 import 'bloc/edit_space_state.dart';
+import 'dart:io';
 
 class EditSpacePage extends StatelessWidget {
   const EditSpacePage({
@@ -37,6 +44,7 @@ class EditSpaceScreen extends StatefulWidget {
 }
 
 class _EditSpaceScreenState extends State<EditSpaceScreen> {
+  final UserManager _userManager = getIt<UserManager>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _domainController = TextEditingController();
   final TextEditingController _paidTimeOffLeaveController =
@@ -44,10 +52,10 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
 
   @override
   void initState() {
-    _nameController.text = context.read<EditSpaceBloc>().space.name;
-    _domainController.text = context.read<EditSpaceBloc>().space.domain ?? "";
+    _nameController.text = _userManager.currentSpace?.name ?? "";
+    _domainController.text = _userManager.currentSpace?.domain ?? "";
     _paidTimeOffLeaveController.text =
-        context.read<EditSpaceBloc>().space.paidTimeOff.toString();
+        _userManager.currentSpace?.paidTimeOff.toString() ?? "";
     super.initState();
   }
 
@@ -66,10 +74,11 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
         title: Text(AppLocalizations.of(context).space_tag),
         actions: [
           BlocBuilder<EditSpaceBloc, EditSpaceState>(
-              buildWhen: (previous, current) => previous.updateSpaceStatus != current.updateSpaceStatus
-                  || previous.isDataValid != current.isDataValid,
+              buildWhen: (previous, current) =>
+                  previous.updateSpaceStatus != current.updateSpaceStatus ||
+                  previous.isDataValid != current.isDataValid,
               builder: (context, state) => state.updateSpaceStatus ==
-                  Status.loading
+                      Status.loading
                   ? const Padding(
                       padding: EdgeInsets.only(right: 30),
                       child: AppCircularProgressIndicator(size: 20),
@@ -107,11 +116,24 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _OrgLogoView(
-                  imageURl: null,
-                  onButtonTap: () {
-                    ///TODO:set logo implementation
-                  }),
+              BlocConsumer<EditSpaceBloc, EditSpaceState>(
+                listenWhen: (previous, current) => current.isLogoPickedDone,
+                listener: (context, state) {
+                  if (state.isLogoPickedDone) {
+                    context.pop();
+                  }
+                },
+                buildWhen: (previous, current) => previous.logo != current.logo,
+                builder: (context, state) => _OrgLogoView(
+                    imageURL: _userManager.currentSpace?.logo,
+                    pickedLogo: state.logo,
+                    onButtonTap: () => showModalBottomSheet(
+                        context: context,
+                        builder: (_) => PickImageBottomSheet(
+                            onButtonTap: (ImageSource source) => context
+                                .read<EditSpaceBloc>()
+                                .add(PickImageEvent(imageSource: source))))),
+              ),
               const SizedBox(height: 30),
               FieldEntry(
                 onChanged: (name) => context
@@ -153,7 +175,7 @@ class DeleteSpaceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height-600,
+      height: MediaQuery.of(context).size.height - 600,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.bottomCenter,
       constraints: const BoxConstraints(
@@ -163,7 +185,7 @@ class DeleteSpaceButton extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
         builder: (context, state) =>
-        state.deleteWorkSpaceStatus == Status.loading
+            state.deleteWorkSpaceStatus == Status.loading
                 ? const AppCircularProgressIndicator()
                 : TextButton(
                     style: ElevatedButton.styleFrom(
@@ -189,10 +211,11 @@ class DeleteSpaceButton extends StatelessWidget {
 
 class _OrgLogoView extends StatelessWidget {
   final void Function()? onButtonTap;
+  final String? pickedLogo;
+  final String? imageURL;
 
-  final String? imageURl;
-
-  const _OrgLogoView({Key? key, this.onButtonTap, this.imageURl})
+  const _OrgLogoView(
+      {Key? key, this.onButtonTap, this.pickedLogo, required this.imageURL})
       : super(key: key);
 
   @override
@@ -205,19 +228,24 @@ class _OrgLogoView extends StatelessWidget {
             height: 110,
             width: 110,
             decoration: BoxDecoration(
-                border: Border.all(color: AppColors.textFieldBg, width: 3),
-                color: AppColors.textFieldBg,
-                borderRadius: AppTheme.commonBorderRadius,
-                image: imageURl == null
-                    ? null
-                    : DecorationImage(
-                        image: NetworkImage(imageURl!),
-                        fit: BoxFit.cover,
-                      )),
-            child: imageURl != null
-                ? null
-                : const Icon(Icons.business,
-                    color: AppColors.secondaryText, size: 45),
+              border: Border.all(color: AppColors.textFieldBg, width: 3),
+              color: AppColors.textFieldBg,
+              borderRadius: AppTheme.commonBorderRadius,
+              image: pickedLogo.isNotNullOrEmpty || imageURL.isNotNullOrEmpty
+                  ? DecorationImage(
+                      fit: BoxFit.cover,
+                      image: pickedLogo.isNotNullOrEmpty
+                          ? FileImage(File(pickedLogo!))
+                          : CachedNetworkImageProvider(imageURL!)
+                              as ImageProvider)
+                  : null,
+            ),
+            child: ValidateWidget(
+              isValid:
+                  !pickedLogo.isNotNullOrEmpty && !imageURL.isNotNullOrEmpty,
+              child: const Icon(Icons.business,
+                  color: AppColors.secondaryText, size: 45),
+            ),
           ),
           IconButton(
             style: IconButton.styleFrom(

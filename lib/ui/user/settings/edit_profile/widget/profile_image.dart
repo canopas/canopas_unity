@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_bloc.dart';
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_event.dart';
@@ -22,8 +23,14 @@ class ProfileImage extends StatelessWidget {
           CircleAvatar(
               radius: 70,
               backgroundColor: AppColors.textFieldBg,
-              child: BlocBuilder<EmployeeEditProfileBloc,
+              child: BlocConsumer<EmployeeEditProfileBloc,
                       EmployeeEditProfileState>(
+                  listenWhen: (previous, current) => current.isImagePickedDone,
+                  listener: (context, state) {
+                    if(state.isImagePickedDone){
+                      context.pop();
+                    }
+                  },
                   buildWhen: (previous, current) =>
                       (previous.imageURL != current.imageURL) &&
                       current.imageURL != null,

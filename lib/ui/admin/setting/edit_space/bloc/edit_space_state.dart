@@ -4,24 +4,32 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 class EditSpaceState extends Equatable {
   final Status deleteWorkSpaceStatus;
   final Status updateSpaceStatus;
+  final String? logo;
+  final bool isLogoPickedDone;
   final String? error;
   final bool nameIsValid;
   final bool yearlyPaidTimeOffIsValid;
 
   const EditSpaceState(
-      {this.deleteWorkSpaceStatus = Status.initial,
+      {this.logo,
+      this.isLogoPickedDone = false,
+      this.deleteWorkSpaceStatus = Status.initial,
       this.updateSpaceStatus = Status.initial,
       this.error,
       this.nameIsValid = true,
       this.yearlyPaidTimeOffIsValid = true});
 
   copyWith(
-          {String? error,
+          {String? logo,
+          bool? isLogoPickedDone,
+          String? error,
           Status? deleteWorkSpaceStatus,
           Status? updateSpaceStatus,
           bool? nameIsValid,
           bool? yearlyPaidTimeOffIsValid}) =>
       EditSpaceState(
+          logo: logo ?? this.logo,
+          isLogoPickedDone: isLogoPickedDone ?? false,
           error: error,
           updateSpaceStatus: updateSpaceStatus ?? this.updateSpaceStatus,
           deleteWorkSpaceStatus:
@@ -39,6 +47,8 @@ class EditSpaceState extends Equatable {
 
   @override
   List<Object?> get props => [
+        logo,
+        isLogoPickedDone,
         updateSpaceStatus,
         deleteWorkSpaceStatus,
         error,

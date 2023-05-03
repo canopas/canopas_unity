@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class EditSpaceEvent extends Equatable {}
 
@@ -26,9 +27,17 @@ class CompanyNameChangeEvent extends EditSpaceEvent {
 }
 
 class DeleteSpaceEvent extends EditSpaceEvent {
-
   @override
   List<Object?> get props => [];
+}
+
+class PickImageEvent extends EditSpaceEvent {
+  final ImageSource imageSource;
+
+  PickImageEvent({required this.imageSource});
+
+  @override
+  List<Object?> get props => [imageSource];
 }
 
 class SaveSpaceDetails extends EditSpaceEvent {

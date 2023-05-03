@@ -3,16 +3,22 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:ui' as _i9;
+import 'dart:async' as _i8;
+import 'dart:io' as _i14;
+import 'dart:ui' as _i11;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
+import 'package:firebase_storage/firebase_storage.dart' as _i6;
+import 'package:image_picker/image_picker.dart' as _i12;
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart'
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
-import 'package:projectunity/data/model/user/user.dart' as _i8;
-import 'package:projectunity/data/provider/user_data.dart' as _i7;
-import 'package:projectunity/data/services/space_service.dart' as _i5;
+import 'package:projectunity/data/model/user/user.dart' as _i10;
+import 'package:projectunity/data/provider/user_data.dart' as _i9;
+import 'package:projectunity/data/services/space_service.dart' as _i7;
+import 'package:projectunity/data/services/storage_service.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -56,10 +62,42 @@ class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
         );
 }
 
+class _FakeLostData_3 extends _i1.SmartFake implements _i5.LostData {
+  _FakeLostData_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeLostDataResponse_4 extends _i1.SmartFake
+    implements _i5.LostDataResponse {
+  _FakeLostDataResponse_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFirebaseStorage_5 extends _i1.SmartFake
+    implements _i6.FirebaseStorage {
+  _FakeFirebaseStorage_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [SpaceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
+class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
   MockSpaceService() {
     _i1.throwOnMissingStub(this);
   }
@@ -81,15 +119,15 @@ class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
         returnValueForMissingStub: null,
       );
   @override
-  _i6.Future<_i3.Space?> getSpace(String? spaceId) => (super.noSuchMethod(
+  _i8.Future<_i3.Space?> getSpace(String? spaceId) => (super.noSuchMethod(
         Invocation.method(
           #getSpace,
           [spaceId],
         ),
-        returnValue: _i6.Future<_i3.Space?>.value(),
-      ) as _i6.Future<_i3.Space?>);
+        returnValue: _i8.Future<_i3.Space?>.value(),
+      ) as _i8.Future<_i3.Space?>);
   @override
-  _i6.Future<_i3.Space> createSpace({
+  _i8.Future<_i3.Space> createSpace({
     String? logo,
     required String? name,
     String? domain,
@@ -108,7 +146,7 @@ class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
             #ownerId: ownerId,
           },
         ),
-        returnValue: _i6.Future<_i3.Space>.value(_FakeSpace_1(
+        returnValue: _i8.Future<_i3.Space>.value(_FakeSpace_1(
           this,
           Invocation.method(
             #createSpace,
@@ -122,18 +160,18 @@ class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
             },
           ),
         )),
-      ) as _i6.Future<_i3.Space>);
+      ) as _i8.Future<_i3.Space>);
   @override
-  _i6.Future<void> updateSpace(_i3.Space? space) => (super.noSuchMethod(
+  _i8.Future<void> updateSpace(_i3.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i6.Future<void> deleteSpace(
+  _i8.Future<void> deleteSpace(
     String? workspaceId,
     List<String>? owners,
   ) =>
@@ -145,30 +183,30 @@ class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
             owners,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i6.Future<List<_i3.Space>> getSpacesOfUser(String? uid) =>
+  _i8.Future<List<_i3.Space>> getSpacesOfUser(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #getSpacesOfUser,
           [uid],
         ),
-        returnValue: _i6.Future<List<_i3.Space>>.value(<_i3.Space>[]),
-      ) as _i6.Future<List<_i3.Space>>);
+        returnValue: _i8.Future<List<_i3.Space>>.value(<_i3.Space>[]),
+      ) as _i8.Future<List<_i3.Space>>);
   @override
-  _i6.Future<int> getPaidLeaves({required String? spaceId}) =>
+  _i8.Future<int> getPaidLeaves({required String? spaceId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPaidLeaves,
           [],
           {#spaceId: spaceId},
         ),
-        returnValue: _i6.Future<int>.value(0),
-      ) as _i6.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
   @override
-  _i6.Future<void> updateLeaveCount({
+  _i8.Future<void> updateLeaveCount({
     required String? spaceId,
     required int? paidLeaveCount,
   }) =>
@@ -181,15 +219,15 @@ class MockSpaceService extends _i1.Mock implements _i5.SpaceService {
             #paidLeaveCount: paidLeaveCount,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [UserManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i7.UserManager {
+class MockUserManager extends _i1.Mock implements _i9.UserManager {
   MockUserManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -275,16 +313,16 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  _i6.Future<void> setUser(_i8.User? user) => (super.noSuchMethod(
+  _i8.Future<void> setUser(_i10.User? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i6.Future<void> setSpace({
+  _i8.Future<void> setSpace({
     required _i3.Space? space,
     required _i4.Employee? spaceUser,
   }) =>
@@ -297,36 +335,36 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
             #spaceUser: spaceUser,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i6.Future<void> updateSpaceDetails(_i3.Space? space) => (super.noSuchMethod(
+  _i8.Future<void> updateSpaceDetails(_i3.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpaceDetails,
           [space],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i6.Future<void> removeSpace() => (super.noSuchMethod(
+  _i8.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
           #removeSpace,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i6.Future<void> removeAll() => (super.noSuchMethod(
+  _i8.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
           #removeAll,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -336,7 +374,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -344,7 +382,7 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -367,4 +405,206 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [ImagePicker].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockImagePicker extends _i1.Mock implements _i12.ImagePicker {
+  MockImagePicker() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i8.Future<_i5.PickedFile?> getImage({
+    required _i5.ImageSource? source,
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    _i5.CameraDevice? preferredCameraDevice = _i5.CameraDevice.rear,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getImage,
+          [],
+          {
+            #source: source,
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+            #preferredCameraDevice: preferredCameraDevice,
+          },
+        ),
+        returnValue: _i8.Future<_i5.PickedFile?>.value(),
+      ) as _i8.Future<_i5.PickedFile?>);
+  @override
+  _i8.Future<List<_i5.PickedFile>?> getMultiImage({
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMultiImage,
+          [],
+          {
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+          },
+        ),
+        returnValue: _i8.Future<List<_i5.PickedFile>?>.value(),
+      ) as _i8.Future<List<_i5.PickedFile>?>);
+  @override
+  _i8.Future<_i5.PickedFile?> getVideo({
+    required _i5.ImageSource? source,
+    _i5.CameraDevice? preferredCameraDevice = _i5.CameraDevice.rear,
+    Duration? maxDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getVideo,
+          [],
+          {
+            #source: source,
+            #preferredCameraDevice: preferredCameraDevice,
+            #maxDuration: maxDuration,
+          },
+        ),
+        returnValue: _i8.Future<_i5.PickedFile?>.value(),
+      ) as _i8.Future<_i5.PickedFile?>);
+  @override
+  _i8.Future<_i5.LostData> getLostData() => (super.noSuchMethod(
+        Invocation.method(
+          #getLostData,
+          [],
+        ),
+        returnValue: _i8.Future<_i5.LostData>.value(_FakeLostData_3(
+          this,
+          Invocation.method(
+            #getLostData,
+            [],
+          ),
+        )),
+      ) as _i8.Future<_i5.LostData>);
+  @override
+  _i8.Future<_i5.XFile?> pickImage({
+    required _i5.ImageSource? source,
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    _i5.CameraDevice? preferredCameraDevice = _i5.CameraDevice.rear,
+    bool? requestFullMetadata = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickImage,
+          [],
+          {
+            #source: source,
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+            #preferredCameraDevice: preferredCameraDevice,
+            #requestFullMetadata: requestFullMetadata,
+          },
+        ),
+        returnValue: _i8.Future<_i5.XFile?>.value(),
+      ) as _i8.Future<_i5.XFile?>);
+  @override
+  _i8.Future<List<_i5.XFile>> pickMultiImage({
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    bool? requestFullMetadata = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickMultiImage,
+          [],
+          {
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+            #requestFullMetadata: requestFullMetadata,
+          },
+        ),
+        returnValue: _i8.Future<List<_i5.XFile>>.value(<_i5.XFile>[]),
+      ) as _i8.Future<List<_i5.XFile>>);
+  @override
+  _i8.Future<_i5.XFile?> pickVideo({
+    required _i5.ImageSource? source,
+    _i5.CameraDevice? preferredCameraDevice = _i5.CameraDevice.rear,
+    Duration? maxDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickVideo,
+          [],
+          {
+            #source: source,
+            #preferredCameraDevice: preferredCameraDevice,
+            #maxDuration: maxDuration,
+          },
+        ),
+        returnValue: _i8.Future<_i5.XFile?>.value(),
+      ) as _i8.Future<_i5.XFile?>);
+  @override
+  _i8.Future<_i5.LostDataResponse> retrieveLostData() => (super.noSuchMethod(
+        Invocation.method(
+          #retrieveLostData,
+          [],
+        ),
+        returnValue:
+            _i8.Future<_i5.LostDataResponse>.value(_FakeLostDataResponse_4(
+          this,
+          Invocation.method(
+            #retrieveLostData,
+            [],
+          ),
+        )),
+      ) as _i8.Future<_i5.LostDataResponse>);
+}
+
+/// A class which mocks [StorageService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStorageService extends _i1.Mock implements _i13.StorageService {
+  MockStorageService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.FirebaseStorage get firebaseStorage => (super.noSuchMethod(
+        Invocation.getter(#firebaseStorage),
+        returnValue: _FakeFirebaseStorage_5(
+          this,
+          Invocation.getter(#firebaseStorage),
+        ),
+      ) as _i6.FirebaseStorage);
+  @override
+  _i8.Future<String> uploadProfilePic({
+    required String? path,
+    required _i14.File? file,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadProfilePic,
+          [],
+          {
+            #path: path,
+            #file: file,
+          },
+        ),
+        returnValue: _i8.Future<String>.value(''),
+      ) as _i8.Future<String>);
+  @override
+  _i8.Future<void> deleteProfileImage(String? path) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteProfileImage,
+          [path],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }

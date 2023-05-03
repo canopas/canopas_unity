@@ -48,7 +48,7 @@ class EmployeeEditProfileBloc
     final XFile? image = await imagePicker.pickImage(source: event.imageSource);
     if (image != null) {
       final file = File(image.path);
-      emit(state.copyWith(imageURL: file.path));
+      emit(state.copyWith(imageURL: file.path,isImagePickedDone: true));
     }
   }
 

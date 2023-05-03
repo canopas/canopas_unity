@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
 import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/services/storage_service.dart';
 import 'edit_space_state.dart';
 import 'edit_space_event.dart';
 
@@ -12,8 +17,11 @@ import 'edit_space_event.dart';
 class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
   final UserManager _userManager;
   final SpaceService _spaceService;
+  final ImagePicker imagePicker;
+  final StorageService storageService;
 
-  EditSpaceBloc(this._spaceService, this._userManager)
+  EditSpaceBloc(this._spaceService, this._userManager, this.imagePicker,
+      this.storageService)
       : super(const EditSpaceState()) {
     on<EditSpaceInitialEvent>(_init);
 
@@ -21,11 +29,10 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
     on<YearlyPaidTimeOffChangeEvent>(_timeOffChange);
     on<DeleteSpaceEvent>(_deleteSpace);
     on<SaveSpaceDetails>(_saveSpace);
+    on<PickImageEvent>(_pickImage);
   }
 
   void _init(EditSpaceInitialEvent event, Emitter<EditSpaceState> emit) async {}
-
-  Space get space => _userManager.currentSpace!;
 
   void _onNameChange(
       CompanyNameChangeEvent event, Emitter<EditSpaceState> emit) {
@@ -46,7 +53,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
     try {
       emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
-      await _spaceService.deleteSpace(space.id, space.ownerIds);
+      await _spaceService.deleteSpace(
+          _userManager.currentSpace!.id, _userManager.currentSpace!.ownerIds);
       await _userManager.removeSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
@@ -55,10 +63,30 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
     }
   }
 
+  Future<void> _pickImage(
+      PickImageEvent event, Emitter<EditSpaceState> emit) async {
+    final XFile? image = await imagePicker.pickImage(source: event.imageSource);
+    if (image != null) {
+      emit(state.copyWith(logo: image.path, isLogoPickedDone: true));
+    }
+  }
+
   Future<void> _saveSpace(
       SaveSpaceDetails event, Emitter<EditSpaceState> emit) async {
     try {
       emit(state.copyWith(updateSpaceStatus: Status.loading));
+      final space = _userManager.currentSpace!;
+
+      String? logoURL = space.logo;
+
+      if (state.logo.isNotNullOrEmpty) {
+        final String storagePath =
+            'images/${_userManager.currentSpaceId}/space-logo';
+        final File logoFile = File(state.logo!);
+        logoURL = await storageService.uploadProfilePic(
+            path: storagePath, file: logoFile);
+      }
+
       final Space updatedSpace = Space(
         name: event.spaceName,
         domain: event.spaceDomain,
@@ -66,7 +94,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
         id: space.id,
         createdAt: space.createdAt,
         ownerIds: space.ownerIds,
-        logo: space.logo,
+        logo: logoURL,
       );
       await _spaceService.updateSpace(updatedSpace);
       await _userManager.updateSpaceDetails(updatedSpace);
