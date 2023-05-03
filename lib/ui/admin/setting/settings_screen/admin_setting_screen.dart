@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
 import '../../../space/change_space_sheet/change_space_sheet.dart';
@@ -12,7 +14,6 @@ import '../../../user/settings/settings_screen/widget/user_settings_settings_opt
 import '../../../user/settings/settings_screen/widget/user_settings_user_profile.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/error_snack_bar.dart';
-
 import 'bloc/admin_settings_bloc.dart';
 import 'bloc/admin_settings_event.dart';
 import 'bloc/admin_settings_state.dart';
@@ -37,6 +38,8 @@ class AdminSettingScreen extends StatefulWidget {
 }
 
 class _AdminSettingScreenState extends State<AdminSettingScreen> {
+
+  final userManager = getIt<UserManager>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +78,16 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                       context: context,
                       builder: (context) => const ChangeSpaceBottomSheet());
                 }),
+            ValidateWidget(isValid: userManager.isHR,child: const Divider()),
+            ValidateWidget(
+              isValid: userManager.isHR,
+              child: SettingOption(
+                iconColor: Colors.black87,
+                icon: Icons.add_chart_rounded,
+                title: AppLocalizations.of(context).hr_leave_record_tag,
+                onTap: () => context.pushNamed(Routes.hrLeaves),
+              ),
+            ),
             const Divider(),
             SettingOption(
                 icon: Icons.logout_rounded,

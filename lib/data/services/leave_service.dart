@@ -124,9 +124,7 @@ class LeaveService {
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveId = leaveRequestData.leaveId;
-    _leaveDb()
-        .doc(leaveId)
-        .set(leaveRequestData);
+    _leaveDb().doc(leaveId).set(leaveRequestData);
   }
 
   Future<List<Leave>> getAllLeavesOfUser(String id) async {

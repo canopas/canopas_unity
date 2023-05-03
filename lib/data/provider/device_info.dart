@@ -1,13 +1,18 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../model/device_info/device_info.dart';
 import '../model/session/session.dart';
 
+@Injectable()
 class DeviceInfoProvider {
-  static Future<Session?> getDeviceInfo() async {
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  final DeviceInfoPlugin deviceInfoPlugin;
+
+  DeviceInfoProvider(this.deviceInfoPlugin);
+
+  Future<Session?> getDeviceInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     try {
       if (Platform.isAndroid) {
@@ -29,7 +34,7 @@ class DeviceInfoProvider {
             osVersion: iosInfo.systemVersion!);
       }
     } on PlatformException {
-      throw Exception('Failed to get platform version');
+      return null;
     }
     return null;
   }

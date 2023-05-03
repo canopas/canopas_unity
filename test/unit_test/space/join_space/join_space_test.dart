@@ -52,8 +52,6 @@ void main() {
     );
     when(userManager.userUID).thenReturn('uid');
     when(userManager.userEmail).thenReturn('email');
-    when(invitationService.fetchSpacesForUserEmail('email'))
-        .thenAnswer((_) async => [invitation]);
   });
 
   Space space = Space(
@@ -67,9 +65,15 @@ void main() {
       Employee(uid: 'uid', name: 'dummy', email: 'dummy@canopas.com');
 
   group('Fetch requested spaces', () {
+    setUp(() {
+      when(accountService.fetchSpaceIds(uid: 'uid'))
+          .thenAnswer((_) async => []);
+      when(invitationService.fetchSpacesForUserEmail('email'))
+          .thenAnswer((_) async => [invitation]);
+    });
     test('Fetch spaces success test for requested spaces for user', () {
       when(spaceService.getSpace('spaceId')).thenAnswer((_) async => space);
-      when(spaceService.getSpacesOfUser('uid')).thenAnswer((_) async => []);
+
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
           bloc.stream,
@@ -82,7 +86,6 @@ void main() {
     test('Should emit error state if exception is thrown by firestore', () {
       when(spaceService.getSpace('spaceId'))
           .thenThrow(Exception(firestoreFetchDataError));
-      when(spaceService.getSpacesOfUser('uid')).thenAnswer((_) async => []);
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
           bloc.stream,
@@ -95,10 +98,14 @@ void main() {
   });
 
   group('Join space test', () {
+    setUp(() {
+      when(accountService.fetchSpaceIds(uid: 'uid'))
+          .thenAnswer((_) async => [space.id]);
+      when(invitationService.fetchSpacesForUserEmail('email'))
+          .thenAnswer((_) async => []);
+    });
     test('Fetch spaces success test of created space by user', () {
-      when(spaceService.getSpace(space.id)).thenAnswer((_) async => null);
-      when(spaceService.getSpacesOfUser('uid'))
-          .thenAnswer((_) async => [space]);
+      when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
           bloc.stream,
@@ -110,8 +117,8 @@ void main() {
     });
 
     test('Fetch spaces failure test for created space by user', () {
-      when(spaceService.getSpacesOfUser('uid')).thenThrow(Exception('error'));
-      when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
+      when(spaceService.getSpace(space.id))
+          .thenThrow(Exception(firestoreFetchDataError));
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
           bloc.stream,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/services/account_service.dart';
 import '../../../data/core/exception/custom_exception.dart';
 import '../../../data/model/user/user.dart';
 import '../../../data/provider/user_data.dart';
@@ -12,10 +13,12 @@ import 'sign_in_view_state.dart';
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final UserManager _userManager;
   final AuthService _authService;
+  final AccountService _accountService;
 
   SignInBloc(
     this._userManager,
     this._authService,
+    this._accountService,
   ) : super(SignInInitialState()) {
     on<SignInEvent>(_signIn);
   }
@@ -25,7 +28,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     try {
       firebase_auth.User? authUser = await _authService.signInWithGoogle();
       if (authUser != null) {
-        final User user = await _authService.getUser(authUser);
+        final User user = await _accountService.getUser(authUser);
         await _userManager.setUser(user);
         emit(SignInSuccessState());
       } else {

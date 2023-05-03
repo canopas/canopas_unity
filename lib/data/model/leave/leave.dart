@@ -19,10 +19,8 @@ class Leave extends Equatable {
   final int startDate;
   @JsonKey(name: 'end_date')
   final int endDate;
-  @JsonKey(name: 'total')
   final double total;
   final String reason;
-  @JsonKey(name: 'status')
   final int status;
   @JsonKey(name: 'rejection_reason')
   final String? rejectionReason;

@@ -43,7 +43,7 @@ class EmployeeService {
 
   Future<Employee?> getEmployee(String id) async {
     final data =
-    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+        await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
             .doc(id)
             .get();
     return data.data();
@@ -51,7 +51,7 @@ class EmployeeService {
 
   Future<bool> hasUser(String email) async {
     final employeeDbCollection =
-    _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+        _membersDbCollection(spaceId: _userManager.currentSpaceId!)
             .where(FireStoreConst.email, isEqualTo: email)
             .limit(1);
     final data = await employeeDbCollection.get();
@@ -83,12 +83,8 @@ class EmployeeService {
   Future<void> deleteEmployee(String id) async {
     DocumentReference employeeDocRef =
         _membersDbCollection(spaceId: _userManager.currentSpaceId!).doc(id);
-    employeeDocRef
-        .collection(FireStoreConst.session)
-        .doc(FireStoreConst.session)
+    await employeeDocRef
         .delete()
-        .then((value) async {
-      await employeeDocRef.delete();
-    }).then((value) => eventBus.fire(EmployeeListUpdateEvent()));
+        .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
   }
 }
