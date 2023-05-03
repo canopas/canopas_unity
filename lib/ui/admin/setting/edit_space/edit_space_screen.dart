@@ -127,7 +127,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                 builder: (context, state) => _OrgLogoView(
                     imageURL: _userManager.currentSpace?.logo,
                     pickedLogo: state.logo,
-                    onButtonTap: () => showModalBottomSheet(
+                    onButtonTap: () => showBottomSheet(
                         context: context,
                         builder: (_) => PickImageBottomSheet(
                             onButtonTap: (ImageSource source) => context
