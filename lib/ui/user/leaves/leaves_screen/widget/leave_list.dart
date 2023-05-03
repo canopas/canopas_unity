@@ -8,10 +8,11 @@ import '../../../../navigation/app_router.dart';
 import '../../../../widget/leave_card.dart';
 
 class LeaveList extends StatelessWidget {
+  final bool isHR;
   final List<Leave> leaves;
   final String title;
 
-  const LeaveList({Key? key, required this.leaves, required this.title})
+  const LeaveList({Key? key, required this.leaves, required this.title, required this.isHR,})
       : super(key: key);
 
   @override
@@ -43,7 +44,7 @@ class LeaveList extends StatelessWidget {
                     child: LeaveCard(
                       leave: leaves[0],
                       onTap: () {
-                        context.goNamed(Routes.userLeaveDetail, params: {
+                        context.goNamed(isHR?Routes.hrLeaveDetails:Routes.userLeaveDetail, params: {
                           RoutesParamsConst.leaveId: leaves[0].leaveId
                         });
                       },
@@ -62,8 +63,7 @@ class LeaveList extends StatelessWidget {
                   final leave = leaves[index];
                   return LeaveCard(
                     onTap: () {
-                      context.goNamed(Routes.userLeaveDetail,
-                          params: {RoutesParamsConst.leaveId: leave.leaveId});
+                      context.goNamed(isHR?Routes.hrLeaveDetails:Routes.userLeaveDetail, params: {RoutesParamsConst.leaveId: leave.leaveId});
                     },
                     leave: leave,
                   );
