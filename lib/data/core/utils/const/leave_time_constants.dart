@@ -4,8 +4,7 @@ int secondHalfLeave = 2;
 int fullLeave = 3;
 Map<int, String> dayLeaveTime = Map.unmodifiable({
   fullLeave: "Full",
-  firstHalfLeave: "First half",
-  secondHalfLeave: "Second half",
-  noLeave: "0",
-
+  firstHalfLeave: "First-half",
+  secondHalfLeave: "Second-half",
+  noLeave: "No Leave",
 });
