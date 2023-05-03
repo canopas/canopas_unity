@@ -147,7 +147,6 @@ class MockAuthService extends _i1.Mock implements _i6.AuthService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i3.FirebaseAuth get firebaseAuth => (super.noSuchMethod(
         Invocation.getter(#firebaseAuth),
@@ -156,7 +155,6 @@ class MockAuthService extends _i1.Mock implements _i6.AuthService {
           Invocation.getter(#firebaseAuth),
         ),
       ) as _i3.FirebaseAuth);
-
   @override
   _i7.Future<_i4.User> getUser(_i3.User? authData) => (super.noSuchMethod(
         Invocation.method(
@@ -171,7 +169,6 @@ class MockAuthService extends _i1.Mock implements _i6.AuthService {
           ),
         )),
       ) as _i7.Future<_i4.User>);
-
   @override
   _i7.Future<_i3.User?> signInWithGoogle() => (super.noSuchMethod(
         Invocation.method(
@@ -180,7 +177,6 @@ class MockAuthService extends _i1.Mock implements _i6.AuthService {
         ),
         returnValue: _i7.Future<_i3.User?>.value(),
       ) as _i7.Future<_i3.User?>);
-
   @override
   _i7.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
         Invocation.method(
@@ -204,7 +200,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         Invocation.getter(#loggedIn),
         returnValue: false,
       ) as bool);
-
   @override
   set loggedIn(bool? _loggedIn) => super.noSuchMethod(
         Invocation.setter(
@@ -213,13 +208,11 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   bool get spaceSelected => (super.noSuchMethod(
         Invocation.getter(#spaceSelected),
         returnValue: false,
       ) as bool);
-
   @override
   set spaceSelected(bool? _spaceSelected) => super.noSuchMethod(
         Invocation.setter(
@@ -228,13 +221,11 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   bool get spaceUserExist => (super.noSuchMethod(
         Invocation.getter(#spaceUserExist),
         returnValue: false,
       ) as bool);
-
   @override
   set spaceUserExist(bool? _spaceUserExist) => super.noSuchMethod(
         Invocation.setter(
@@ -243,13 +234,11 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   bool get redirect => (super.noSuchMethod(
         Invocation.getter(#redirect),
         returnValue: false,
       ) as bool);
-
   @override
   set redirect(bool? _redirect) => super.noSuchMethod(
         Invocation.setter(
@@ -258,13 +247,11 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
         returnValue: '',
       ) as String);
-
   @override
   _i5.Employee get employee => (super.noSuchMethod(
         Invocation.getter(#employee),
@@ -273,25 +260,21 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
           Invocation.getter(#employee),
         ),
       ) as _i5.Employee);
-
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
         returnValue: false,
       ) as bool);
-
   @override
   bool get isHR => (super.noSuchMethod(
         Invocation.getter(#isHR),
         returnValue: false,
       ) as bool);
-
   @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
-
   @override
   _i7.Future<void> setUser(_i4.User? user) => (super.noSuchMethod(
         Invocation.method(
@@ -301,7 +284,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> setSpace({
     required _i9.Space? space,
@@ -319,7 +301,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> updateSpaceDetails(_i9.Space? space) => (super.noSuchMethod(
         Invocation.method(
@@ -329,7 +310,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
@@ -339,7 +319,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
@@ -349,7 +328,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -358,7 +336,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -367,7 +344,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void removeListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -376,7 +352,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
@@ -385,7 +360,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void notifyListeners() => super.noSuchMethod(
         Invocation.method(
@@ -409,13 +383,11 @@ class MockUser extends _i1.Mock implements _i3.User {
         Invocation.getter(#emailVerified),
         returnValue: false,
       ) as bool);
-
   @override
   bool get isAnonymous => (super.noSuchMethod(
         Invocation.getter(#isAnonymous),
         returnValue: false,
       ) as bool);
-
   @override
   _i3.UserMetadata get metadata => (super.noSuchMethod(
         Invocation.getter(#metadata),
@@ -424,19 +396,16 @@ class MockUser extends _i1.Mock implements _i3.User {
           Invocation.getter(#metadata),
         ),
       ) as _i3.UserMetadata);
-
   @override
   List<_i3.UserInfo> get providerData => (super.noSuchMethod(
         Invocation.getter(#providerData),
         returnValue: <_i3.UserInfo>[],
       ) as List<_i3.UserInfo>);
-
   @override
   String get uid => (super.noSuchMethod(
         Invocation.getter(#uid),
         returnValue: '',
       ) as String);
-
   @override
   _i3.MultiFactor get multiFactor => (super.noSuchMethod(
         Invocation.getter(#multiFactor),
@@ -445,7 +414,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           Invocation.getter(#multiFactor),
         ),
       ) as _i3.MultiFactor);
-
   @override
   _i7.Future<void> delete() => (super.noSuchMethod(
         Invocation.method(
@@ -455,7 +423,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<String> getIdToken([bool? forceRefresh = false]) =>
       (super.noSuchMethod(
@@ -465,7 +432,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         ),
         returnValue: _i7.Future<String>.value(''),
       ) as _i7.Future<String>);
-
   @override
   _i7.Future<_i3.IdTokenResult> getIdTokenResult(
           [bool? forceRefresh = false]) =>
@@ -482,7 +448,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.IdTokenResult>);
-
   @override
   _i7.Future<_i3.UserCredential> linkWithCredential(
           _i3.AuthCredential? credential) =>
@@ -499,7 +464,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.UserCredential>);
-
   @override
   _i7.Future<_i3.UserCredential> linkWithProvider(
           _i11.AuthProvider? provider) =>
@@ -516,7 +480,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.UserCredential>);
-
   @override
   _i7.Future<_i3.UserCredential> reauthenticateWithProvider(
           _i11.AuthProvider? provider) =>
@@ -533,7 +496,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.UserCredential>);
-
   @override
   _i7.Future<_i3.UserCredential> reauthenticateWithPopup(
           _i11.AuthProvider? provider) =>
@@ -550,7 +512,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.UserCredential>);
-
   @override
   _i7.Future<void> reauthenticateWithRedirect(_i11.AuthProvider? provider) =>
       (super.noSuchMethod(
@@ -561,7 +522,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<_i3.UserCredential> linkWithPopup(_i11.AuthProvider? provider) =>
       (super.noSuchMethod(
@@ -577,7 +537,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.UserCredential>);
-
   @override
   _i7.Future<void> linkWithRedirect(_i11.AuthProvider? provider) =>
       (super.noSuchMethod(
@@ -588,7 +547,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<_i3.ConfirmationResult> linkWithPhoneNumber(
     String? phoneNumber, [
@@ -614,7 +572,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.ConfirmationResult>);
-
   @override
   _i7.Future<_i3.UserCredential> reauthenticateWithCredential(
           _i3.AuthCredential? credential) =>
@@ -631,7 +588,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.UserCredential>);
-
   @override
   _i7.Future<void> reload() => (super.noSuchMethod(
         Invocation.method(
@@ -641,7 +597,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> sendEmailVerification(
           [_i3.ActionCodeSettings? actionCodeSettings]) =>
@@ -653,7 +608,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<_i3.User> unlink(String? providerId) => (super.noSuchMethod(
         Invocation.method(
@@ -668,7 +622,6 @@ class MockUser extends _i1.Mock implements _i3.User {
           ),
         )),
       ) as _i7.Future<_i3.User>);
-
   @override
   _i7.Future<void> updateEmail(String? newEmail) => (super.noSuchMethod(
         Invocation.method(
@@ -678,7 +631,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> updatePassword(String? newPassword) => (super.noSuchMethod(
         Invocation.method(
@@ -688,7 +640,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> updatePhoneNumber(
           _i3.PhoneAuthCredential? phoneCredential) =>
@@ -700,7 +651,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> updateDisplayName(String? displayName) =>
       (super.noSuchMethod(
@@ -711,7 +661,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> updatePhotoURL(String? photoURL) => (super.noSuchMethod(
         Invocation.method(
@@ -721,7 +670,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> updateProfile({
     String? displayName,
@@ -739,7 +687,6 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
-
   @override
   _i7.Future<void> verifyBeforeUpdateEmail(
     String? newEmail, [

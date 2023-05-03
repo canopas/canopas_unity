@@ -20,4 +20,13 @@ class AccountService {
       FireStoreConst.spaces: FieldValue.arrayUnion([spaceID])
     });
   }
+
+  Future<List<String>> fetchSpaceIds({required String uid}) async {
+    final userDoc = await accountsDb.doc(uid).get();
+    if (userDoc.data() == null) {
+      return [];
+    } else {
+      return userDoc.data()!.spaces;
+    }
+  }
 }

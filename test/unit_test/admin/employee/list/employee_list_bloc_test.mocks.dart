@@ -48,7 +48,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i5.Employee? employee,
@@ -66,7 +65,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<_i5.Employee?> getEmployeeBySpaceId({
     required String? userId,
@@ -83,7 +81,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<_i5.Employee?>.value(),
       ) as _i4.Future<_i5.Employee?>);
-
   @override
   _i4.Future<List<_i5.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
@@ -92,7 +89,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<List<_i5.Employee>>.value(<_i5.Employee>[]),
       ) as _i4.Future<List<_i5.Employee>>);
-
   @override
   _i4.Future<_i5.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -101,7 +97,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<_i5.Employee?>.value(),
       ) as _i4.Future<_i5.Employee?>);
-
   @override
   _i4.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
@@ -110,7 +105,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
-
   @override
   _i4.Future<void> addEmployee(_i5.Employee? employee) => (super.noSuchMethod(
         Invocation.method(
@@ -120,7 +114,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> updateEmployeeDetails({required _i5.Employee? employee}) =>
       (super.noSuchMethod(
@@ -132,7 +125,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> changeEmployeeRoleType(
     String? id,
@@ -149,7 +141,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
