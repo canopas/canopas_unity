@@ -72,12 +72,10 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
                   child: LeaveCountCard(),
                 ),
                 const Divider(),
-                if (state.upcomingLeaves.isNotEmpty)
                   LeaveList(
                       isHR: _userManager.isHR,
                       leaves: upcoming,
                       title: localization.user_leave_upcoming_leaves_tag),
-                if (state.pastLeaves.isNotEmpty)
                   LeaveList(
                       isHR: _userManager.isHR,
                       leaves: past,

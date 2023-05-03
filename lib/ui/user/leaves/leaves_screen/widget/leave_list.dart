@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/configs/theme.dart';
+
 import 'package:go_router/go_router.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -12,8 +14,12 @@ class LeaveList extends StatelessWidget {
   final List<Leave> leaves;
   final String title;
 
-  const LeaveList({Key? key, required this.leaves, required this.title, required this.isHR,})
-      : super(key: key);
+  const LeaveList({
+    Key? key,
+    required this.leaves,
+    required this.title,
+    required this.isHR,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +50,13 @@ class LeaveList extends StatelessWidget {
                     child: LeaveCard(
                       leave: leaves[0],
                       onTap: () {
-                        context.goNamed(isHR?Routes.hrLeaveDetails:Routes.userLeaveDetail, params: {
-                          RoutesParamsConst.leaveId: leaves[0].leaveId
-                        });
+                        context.goNamed(
+                            isHR
+                                ? Routes.hrLeaveDetails
+                                : Routes.userLeaveDetail,
+                            params: {
+                              RoutesParamsConst.leaveId: leaves[0].leaveId
+                            });
                       },
                     ),
                   )
@@ -63,18 +73,27 @@ class LeaveList extends StatelessWidget {
                   final leave = leaves[index];
                   return LeaveCard(
                     onTap: () {
-                      context.goNamed(isHR?Routes.hrLeaveDetails:Routes.userLeaveDetail, params: {RoutesParamsConst.leaveId: leave.leaveId});
+                      context.goNamed(
+                          isHR ? Routes.hrLeaveDetails : Routes.userLeaveDetail,
+                          params: {RoutesParamsConst.leaveId: leave.leaveId});
                     },
                     leave: leave,
                   );
                 }),
             builder: (context, expanded, collapsed) {
               return leaves.isEmpty
-                  ? Center(
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      alignment: Alignment.center,
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: AppColors.lightPrimaryBlue,
+                          borderRadius: AppTheme.commonBorderRadius),
                       child: Text(
-                      localization.user_leave_no_leaves_msg,
-                      style: const TextStyle(fontSize: 15),
-                    ))
+                        localization.user_leave_no_leaves_msg,
+                        style: const TextStyle(fontSize: 15),
+                      ))
                   : Column(
                       children: [
                         Expandable(collapsed: collapsed, expanded: expanded),
