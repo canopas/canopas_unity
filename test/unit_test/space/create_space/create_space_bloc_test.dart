@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'dart:io';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/space/space.dart';
@@ -12,8 +13,16 @@ import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_event.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_state.dart';
-
+import 'package:mockito/mockito.dart';
 import 'create_space_bloc_test.mocks.dart';
+
+class FakeStorageService extends Fake implements StorageService {
+  @override
+  Future<String> uploadProfilePic(
+      {required String path, required File file}) async {
+    return 'image-url';
+  }
+}
 
 @GenerateMocks([
   SpaceService,
@@ -30,16 +39,21 @@ void main() {
   late EmployeeService employeeService;
   late CreateSpaceBLoc bloc;
   late CreateSpaceState createSpaceState;
+  final XFile xFile = XFile('path');
+  final File file = File(xFile.path);
   setUp(() {
     spaceService = MockSpaceService();
     userManager = MockUserManager();
     employeeService = MockEmployeeService();
-    storageService = MockStorageService();
+    storageService = FakeStorageService();
     imagePicker = MockImagePicker();
     when(userManager.userFirebaseAuthName).thenReturn('user name');
     bloc = CreateSpaceBLoc(spaceService, userManager, employeeService,
         imagePicker, storageService);
     createSpaceState = const CreateSpaceState(ownerName: 'user name');
+    when(userManager.currentSpaceId).thenReturn('space-id');
+    when(userManager.userUID).thenReturn('uid');
+    when(userManager.userEmail).thenReturn('andrew.j@canopas.com');
   });
 
   group('Page Change Event', () {
@@ -63,6 +77,7 @@ void main() {
   group('Tab 1 Test', () {
     test('test image picked successfully', () {
       XFile xFile = XFile('path');
+      File file = File('path');
       bloc.add(PickImageEvent(imageSource: ImageSource.gallery));
       when(imagePicker.pickImage(source: ImageSource.gallery))
           .thenAnswer((realInvocation) async => xFile);
@@ -212,54 +227,42 @@ void main() {
           ]));
     });
 
-    // test('create space success with all details test', () async {
-    //
-    //   final XFile file = XFile('path');
-    //
-    //   final state = CreateSpaceState(
-    //     ownerName: 'user name',
-    //     page: 2,
-    //     buttonState: ButtonState.enable,
-    //     domain: 'www.canopas.com',
-    //     paidTimeOff: '12',
-    //     logo: file.path,
-    //     companyName: 'canopas',
-    //   );
-    //
-    //   when(userManager.currentSpaceId).thenReturn('space-id');
-    //   when(storageService.uploadProfilePic('images/space-id/space-logo', File(file.path))).thenAnswer((realInvocation) async => 'image-url');
-    //
-    //
-    //   bloc.emit(state);
-    //
-    //   bloc.add(CreateSpaceButtonTapEvent());
-    //
-    //
-    //
-    //   final space = Space(
-    //       id: 'space-id',
-    //       name: 'canopas',
-    //       logo: 'image-url',
-    //       domain: 'www.canopas.com',
-    //       createdAt: DateTime(2000),
-    //       paidTimeOff: 12,
-    //       ownerIds: ['uid']);
-    //
-    //   when(spaceService.createSpace(
-    //           name: 'canopas',
-    //           logo: 'image-url',
-    //           domain: 'www.canopas.com',
-    //           timeOff: 12,
-    //           ownerId: 'uid'))
-    //       .thenAnswer((realInvocation) async => space);
-    //
-    //   await expectLater(
-    //       bloc.stream,
-    //       emitsInOrder([
-    //         state.copyWith(createSpaceStatus: Status.loading),
-    //         state.copyWith(createSpaceStatus: Status.success),
-    //       ]));
-    // });
+    test('create space success with all details test', () async {
+      final state = CreateSpaceState(
+        ownerName: 'user name',
+        page: 2,
+        buttonState: ButtonState.enable,
+        domain: 'www.canopas.com',
+        paidTimeOff: '12',
+        logo: file.path,
+        companyName: 'canopas',
+      );
+
+      bloc.emit(state);
+      bloc.add(CreateSpaceButtonTapEvent());
+      final space = Space(
+          id: 'space-id',
+          name: 'canopas',
+          logo: 'image-url',
+          domain: 'www.canopas.com',
+          createdAt: DateTime(2000),
+          paidTimeOff: 12,
+          ownerIds: ['uid']);
+      when(spaceService.createSpace(
+              name: 'canopas',
+              logo: 'image-url',
+              domain: 'www.canopas.com',
+              timeOff: 12,
+              ownerId: 'uid'))
+          .thenAnswer((realInvocation) async => space);
+
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            state.copyWith(createSpaceStatus: Status.loading),
+            state.copyWith(createSpaceStatus: Status.success),
+          ]));
+    });
 
     test('create space success with only required details test', () {
       bloc.emit(const CreateSpaceState(

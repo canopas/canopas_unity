@@ -111,8 +111,8 @@ class EmployeeEditProfileBloc
     if (state.imageURL != null) {
       try {
         final File imageFile = File(state.imageURL!);
-        final imageURL =
-            await storageService.uploadProfilePic(storagePath, imageFile);
+        final imageURL = await storageService.uploadProfilePic(
+            path: storagePath, file: imageFile);
         return imageURL;
       } on FirebaseException {
         throw Exception(firestoreFetchDataError);

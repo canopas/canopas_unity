@@ -142,8 +142,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
           final String storagePath =
               'images/${_userManager.currentSpaceId}/space-logo';
           final File logoFile = File(state.logo!);
-          logoURL =
-              await storageService.uploadProfilePic(storagePath, logoFile);
+          logoURL = await storageService.uploadProfilePic(
+              path: storagePath, file: logoFile);
         }
 
         final newSpace = await _spaceService.createSpace(
