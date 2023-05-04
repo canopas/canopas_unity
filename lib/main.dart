@@ -35,25 +35,32 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (_) =>
           _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
-      child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.theme,
-          routerConfig: _router,
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          builder: (context, widget) =>
-              BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
-                listenWhen: (previous, current) =>
-                    current is NetworkConnectionFailureState,
-                listener: (context, state) {
-                  if (state is NetworkConnectionFailureState) {
-                    String connectionErrorMessage =
-                        AppLocalizations.of(context).network_connection_error;
-                    showSnackBar(context: context, msg: connectionErrorMessage);
-                  }
-                },
-                child: widget,
-              )),
+      child: GestureDetector(
+        onTap: () {
+          if (!FocusScope.of(context).hasPrimaryFocus && FocusScope.of(context).focusedChild != null) {
+            FocusScope.of(context).focusedChild?.unfocus();
+          }
+        },
+        child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.theme,
+            routerConfig: _router,
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            builder: (context, widget) =>
+                BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
+                  listenWhen: (previous, current) =>
+                      current is NetworkConnectionFailureState,
+                  listener: (context, state) {
+                    if (state is NetworkConnectionFailureState) {
+                      String connectionErrorMessage =
+                          AppLocalizations.of(context).network_connection_error;
+                      showSnackBar(context: context, msg: connectionErrorMessage);
+                    }
+                  },
+                  child: widget,
+                )),
+      ),
     );
   }
 }
