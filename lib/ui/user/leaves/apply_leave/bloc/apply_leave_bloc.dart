@@ -13,7 +13,8 @@ import 'apply_leave_event.dart';
 import 'apply_leave_state.dart';
 
 @Injectable()
-class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> with InputValidationMixin {
+class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
+    with InputValidationMixin {
   final LeaveService _leaveService;
   final UserManager _userManager;
 
@@ -21,9 +22,10 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> with InputVa
       : super(ApplyLeaveState(
           startDate: DateTime.now().dateOnly,
           endDate: DateTime.now().dateOnly,
-          selectedDates: <DateTime, LeaveDayDuration>{}.getSelectedLeaveOfTheDays(
-              startDate: DateTime.now().dateOnly,
-              endDate: DateTime.now().dateOnly),
+          selectedDates: <DateTime, LeaveDayDuration>{}
+              .getSelectedLeaveOfTheDays(
+                  startDate: DateTime.now().dateOnly,
+                  endDate: DateTime.now().dateOnly),
           totalLeaveDays: <DateTime, LeaveDayDuration>{}
               .getSelectedLeaveOfTheDays(
                   startDate: DateTime.now().dateOnly,
@@ -69,9 +71,12 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> with InputVa
 
   void _updateLeaveOfTheDay(
       ApplyLeaveUpdateLeaveOfTheDayEvent event, Emitter<ApplyLeaveState> emit) {
-    Map<DateTime, LeaveDayDuration> leaveOfTheDays = state.selectedDates;
+    final Map<DateTime, LeaveDayDuration> leaveOfTheDays = {};
+    leaveOfTheDays.addAll(state.selectedDates);
     leaveOfTheDays.update(event.date, (value) => event.value,
-        ifAbsent: () => event.date.isWeekend ? LeaveDayDuration.noLeave : LeaveDayDuration.fullLeave);
+        ifAbsent: () => event.date.isWeekend
+            ? LeaveDayDuration.noLeave
+            : LeaveDayDuration.fullLeave);
     emit(state.copyWith(
         selectedDates: leaveOfTheDays,
         totalLeaveDays: leaveOfTheDays.getTotalLeaveCount()));
@@ -121,8 +126,8 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState> with InputVa
   }
 
   Leave _getLeaveData() {
-    final entries =
-        state.selectedDates.entries.where((day) => day.value != LeaveDayDuration.noLeave);
+    final entries = state.selectedDates.entries
+        .where((day) => day.value != LeaveDayDuration.noLeave);
     DateTime firstDate = entries.first.key;
     DateTime lastDate = entries.last.key;
     Map<DateTime, LeaveDayDuration> selectedDates = state.selectedDates

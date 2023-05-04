@@ -20,6 +20,7 @@ class LeaveRequestDateRange extends StatelessWidget {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context).localeName;
     return BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
+      buildWhen: (previous, current) => previous.selectedDates != current.selectedDates,
       builder: (context, state) => state.selectedDates.length < 3
           ? Column(
               children: state.selectedDates.entries
