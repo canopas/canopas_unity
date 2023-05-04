@@ -41,7 +41,7 @@ void main() {
       reason: 'leave reason',
       status: 1,
       appliedOn: currentTime,
-      perDayDuration: const [1]);
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   List<LeaveApplication> leaveApplications = [
     LeaveApplication(employee: employee, leave: leave)

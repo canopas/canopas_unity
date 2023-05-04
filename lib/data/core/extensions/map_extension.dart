@@ -1,8 +1,8 @@
-import '../utils/const/leave_time_constants.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import 'date_time.dart';
 
-extension MapExtensions on Map<DateTime, int> {
-  Map<DateTime, int> getSelectedLeaveOfTheDays(
+extension MapExtensions on Map<DateTime, LeaveDayDuration> {
+  Map<DateTime, LeaveDayDuration> getSelectedLeaveOfTheDays(
       {required DateTime startDate, required DateTime endDate}) {
     List<DateTime> dates = [];
     if (startDate.isAtSameMomentAs(endDate)) {
@@ -13,7 +13,11 @@ extension MapExtensions on Map<DateTime, int> {
         ..add(endDate);
     }
     for (var date in dates) {
-      putIfAbsent(date.dateOnly, () => date.isWeekend ? noLeave : fullLeave);
+      putIfAbsent(
+          date.dateOnly,
+          () => date.isWeekend
+              ? LeaveDayDuration.noLeave
+              : LeaveDayDuration.fullLeave);
     }
     removeWhere((key, value) => !dates.contains(key));
     return this;
@@ -21,10 +25,11 @@ extension MapExtensions on Map<DateTime, int> {
 
   double getTotalLeaveCount() {
     double totalLeaves = 0.0;
-    for (int value in values) {
-      if (value == fullLeave) {
+    for (LeaveDayDuration value in values) {
+      if (value == LeaveDayDuration.fullLeave) {
         totalLeaves += 1;
-      } else if (value == firstHalfLeave || value == secondHalfLeave) {
+      } else if (value == LeaveDayDuration.firstHalfLeave ||
+          value == LeaveDayDuration.secondHalfLeave) {
         totalLeaves += 0.5;
       }
     }

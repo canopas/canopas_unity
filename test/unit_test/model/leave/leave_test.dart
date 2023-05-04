@@ -54,7 +54,7 @@ void main() {
           reason: 'suffering from viral fever',
           status: 5,
           appliedOn: 45643132,
-          perDayDuration: [1, 2, 2]);
+          perDayDuration: [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.secondHalfLeave, LeaveDayDuration.secondHalfLeave]);
 
       Map<String, dynamic> map = <String, dynamic>{
         'leave_id': leave.leaveId,

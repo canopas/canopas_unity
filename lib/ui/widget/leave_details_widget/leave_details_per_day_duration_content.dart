@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
@@ -8,7 +9,7 @@ import '../../../data/configs/theme.dart';
 import '../../../data/core/utils/const/leave_time_constants.dart';
 
 class PerDayDurationDateRange extends StatelessWidget {
-  final Map<DateTime, int> perDayDurationWithDate;
+  final Map<DateTime, LeaveDayDuration> perDayDurationWithDate;
 
   const PerDayDurationDateRange(
       {Key? key, required this.perDayDurationWithDate})

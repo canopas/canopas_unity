@@ -1,10 +1,8 @@
-int noLeave  = 0;
-int firstHalfLeave = 1;
-int secondHalfLeave = 2;
-int fullLeave = 3;
-Map<int, String> dayLeaveTime = Map.unmodifiable({
-  fullLeave: "Full",
-  firstHalfLeave: "First-half",
-  secondHalfLeave: "Second-half",
-  noLeave: "No Leave",
+import 'package:projectunity/data/model/leave/leave.dart';
+
+Map<LeaveDayDuration, String> dayLeaveTime = Map.unmodifiable({
+  LeaveDayDuration.fullLeave: "Full",
+  LeaveDayDuration.firstHalfLeave: "First-half",
+  LeaveDayDuration.secondHalfLeave: "Second-half",
+  LeaveDayDuration.noLeave: "No Leave",
 });

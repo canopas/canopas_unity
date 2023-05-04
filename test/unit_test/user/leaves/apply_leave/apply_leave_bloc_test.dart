@@ -5,7 +5,6 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/core/utils/const/leave_time_constants.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -38,7 +37,7 @@ void main() {
       when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
       when(leaveService.checkLeaveAlreadyApplied(
           userId: 'id',
-          dateDuration: {DateTime(2000): 1})).thenAnswer((_) async => true);
+          dateDuration: {DateTime(2000): LeaveDayDuration.firstHalfLeave})).thenAnswer((_) async => true);
     });
 
     test("leave Type change test", () {
@@ -48,7 +47,7 @@ void main() {
           emits(ApplyLeaveState(
               startDate: currentDate,
               endDate: currentDate,
-              selectedDates: {currentDate: 3},
+              selectedDates: {currentDate: LeaveDayDuration.fullLeave},
               leaveType: 1)));
     });
 
@@ -64,13 +63,13 @@ void main() {
                 leaveRequestStatus: Status.loading,
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 3}),
+                selectedDates: {currentDate: LeaveDayDuration.fullLeave}),
             ApplyLeaveState(
                 leaveRequestStatus: Status.error,
                 startDate: currentDate,
                 endDate: currentDate,
                 showTextFieldError: true,
-                selectedDates: {currentDate: 3},
+                selectedDates: {currentDate: LeaveDayDuration.fullLeave},
                 error: fillDetailsError),
           ]));
     });
@@ -83,28 +82,28 @@ void main() {
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 3},
+                selectedDates: {currentDate: LeaveDayDuration.fullLeave},
                 reason: "reason"),
           ));
     });
 
     test("date range per day selection change test", () {
       leaveRequestBloc
-          .add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: currentDate, value: 0));
+          .add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: currentDate, value: LeaveDayDuration.noLeave));
       expect(
           leaveRequestBloc.stream,
           emits(
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 0},
+                selectedDates: {currentDate: LeaveDayDuration.noLeave},
                 totalLeaveDays: 0),
           ));
     });
 
     test('on apply leave minimum hour error test', () {
       leaveRequestBloc
-          .add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: currentDate, value: 0));
+          .add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: currentDate, value: LeaveDayDuration.noLeave));
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
       expect(
@@ -113,13 +112,13 @@ void main() {
             ApplyLeaveState(
               startDate: currentDate,
               endDate: currentDate,
-              selectedDates: {currentDate: 0},
+              selectedDates: {currentDate: LeaveDayDuration.noLeave},
               totalLeaveDays: 0,
             ),
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 0},
+                selectedDates: {currentDate: LeaveDayDuration.noLeave},
                 totalLeaveDays: 0,
                 reason: "reason"),
             ApplyLeaveState(
@@ -127,22 +126,22 @@ void main() {
                 totalLeaveDays: 0,
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 0},
+                selectedDates: {currentDate: LeaveDayDuration.noLeave},
                 reason: "reason"),
             ApplyLeaveState(
                 leaveRequestStatus: Status.error,
                 totalLeaveDays: 0,
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: 0},
+                selectedDates: {currentDate: LeaveDayDuration.noLeave},
                 error: applyMinimumHalfDay,
                 reason: "reason"),
           ]));
     });
 
     test("start Date change test", () {
-      Map<DateTime, int> updatedSelectedLeaves = {
-        currentDate: 3
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
+        currentDate: LeaveDayDuration.fullLeave
       }.getSelectedLeaveOfTheDays(startDate: currentDate, endDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
@@ -159,8 +158,8 @@ void main() {
     });
 
     test("end Date change test", () {
-      Map<DateTime, int> updatedSelectedLeaves = {
-        currentDate: 3
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
+        currentDate: LeaveDayDuration.fullLeave
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
@@ -176,8 +175,8 @@ void main() {
     });
 
     test('on apply leave invalid leave date error test', () {
-      Map<DateTime, int> updatedSelectedLeaves = {
-        currentDate: 3
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
+        currentDate: LeaveDayDuration.fullLeave
       }.getSelectedLeaveOfTheDays(startDate: futureDate, endDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
       leaveRequestBloc
@@ -222,16 +221,16 @@ void main() {
               userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
           .thenAnswer((_) async => true);
       when(userManager.userUID).thenReturn('id');
-      Map<DateTime, int> updatedSelectedLeaves = {
-        currentDate: 3
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
+        currentDate: LeaveDayDuration.fullLeave
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
       final entries =
-          updatedSelectedLeaves.entries.where((day) => day.value != noLeave);
+          updatedSelectedLeaves.entries.where((day) => day.value != LeaveDayDuration.noLeave);
       DateTime firstDate = entries.first.key;
       DateTime lastDate = entries.last.key;
-      Map<DateTime, int> selectedDates = updatedSelectedLeaves
+      Map<DateTime, LeaveDayDuration> selectedDates = updatedSelectedLeaves
         ..removeWhere(
             (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
 
@@ -291,16 +290,16 @@ void main() {
           .thenAnswer((_) async => false);
       when(userManager.userUID).thenReturn('id');
 
-      Map<DateTime, int> updatedSelectedLeaves = {
-        currentDate: 3
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
+        currentDate: LeaveDayDuration.fullLeave
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
       final entries =
-          updatedSelectedLeaves.entries.where((day) => day.value != noLeave);
+          updatedSelectedLeaves.entries.where((day) => day.value != LeaveDayDuration.noLeave);
       DateTime firstDate = entries.first.key;
       DateTime lastDate = entries.last.key;
-      Map<DateTime, int> selectedDates = updatedSelectedLeaves
+      Map<DateTime, LeaveDayDuration> selectedDates = updatedSelectedLeaves
         ..removeWhere(
             (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
 

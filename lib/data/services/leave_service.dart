@@ -40,7 +40,7 @@ class LeaveService {
 
   Future<bool> checkLeaveAlreadyApplied(
       {required String userId,
-      required Map<DateTime, int> dateDuration}) async {
+      required Map<DateTime, LeaveDayDuration> dateDuration}) async {
     final leaves =
         await _leaveDb()
             .where(FireStoreConst.uid, isEqualTo: userId)

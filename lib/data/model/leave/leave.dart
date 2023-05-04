@@ -27,7 +27,7 @@ class Leave extends Equatable {
   @JsonKey(name: 'applied_on')
   final int appliedOn;
   @JsonKey(name: 'per_day_duration')
-  final List<int> perDayDuration;
+  final List<LeaveDayDuration> perDayDuration;
 
   const Leave(
       {required this.leaveId,
@@ -65,4 +65,19 @@ class Leave extends Equatable {
         appliedOn,
         rejectionReason
       ];
+}
+
+enum LeaveDayDuration {
+  @JsonValue(0)
+  noLeave(0),
+  @JsonValue(1)
+  firstHalfLeave(1),
+  @JsonValue(2)
+  secondHalfLeave(2),
+  @JsonValue(3)
+  fullLeave(3);
+
+  final int value;
+
+  const LeaveDayDuration(this.value);
 }

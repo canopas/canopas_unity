@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -95,7 +96,7 @@ class LeaveRequestDateRange extends StatelessWidget {
 }
 
 class LeaveTimePeriodBox extends StatelessWidget {
-  final MapEntry<DateTime, int> dayTimePeriod;
+  final MapEntry<DateTime, LeaveDayDuration> dayTimePeriod;
 
   const LeaveTimePeriodBox({
     Key? key,
@@ -118,7 +119,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(12),
         child: DropdownButtonHideUnderline(
-          child: DropdownButton<int>(
+          child: DropdownButton<LeaveDayDuration>(
             style: AppFontStyle.bodySmallRegular,
             isExpanded: true,
             iconSize: 0.0,
@@ -129,8 +130,8 @@ class LeaveTimePeriodBox extends StatelessWidget {
             items: dayLeaveTime.entries
                 .where((e) =>
                     dayTimePeriod.key.weekday != DateTime.saturday ||
-                    e.key == 0 ||
-                    e.key == 3)
+                    e.key == LeaveDayDuration.noLeave ||
+                    e.key == LeaveDayDuration.fullLeave)
                 .map((e) => DropdownMenuItem(
                     value: e.key, child: Center(child: Text(e.value))))
                 .toList(),

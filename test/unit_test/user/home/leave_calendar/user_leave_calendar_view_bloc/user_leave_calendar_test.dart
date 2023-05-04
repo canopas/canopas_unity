@@ -45,7 +45,7 @@ void main() {
       reason: 'leave reason',
       status: 1,
       appliedOn: 1000,
-      perDayDuration: const [1]);
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   const leaveCounts = LeaveCounts(
       paidLeaveCount: 12, usedLeaveCount: 6.0, remainingLeaveCount: 6.0);

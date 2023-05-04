@@ -37,7 +37,7 @@ void main() {
       reason: 'Suffering from viral fever',
       status: approveLeaveStatus,
       appliedOn: 1,
-      perDayDuration: const [1, 1]);
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {
     employeeService = MockEmployeeService();

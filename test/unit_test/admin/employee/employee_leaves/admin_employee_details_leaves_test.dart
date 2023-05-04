@@ -25,7 +25,7 @@ void main() {
       reason: 'reason',
       status: 2,
       appliedOn: 400,
-      perDayDuration: [0, 1]);
+      perDayDuration: [LeaveDayDuration.noLeave, LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {
     leaveService = MockLeaveService();
