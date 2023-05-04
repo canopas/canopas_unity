@@ -51,13 +51,10 @@ void main() {
   });
 
   group("Edit space test", () {
-
     test("Pick Image Test", () async {
       XFile xFile = XFile('path');
       bloc.add(PickImageEvent(imageSource: ImageSource.gallery));
       when(imagePicker.pickImage(source: ImageSource.gallery))
-          .thenAnswer((realInvocation) async => xFile);
-      when(imagePicker.pickImage(source: ImageSource.camera))
           .thenAnswer((realInvocation) async => xFile);
       expect(
           bloc.stream,
@@ -108,6 +105,17 @@ void main() {
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.loading),
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.success),
           ]));
+
+      Space updatedSpace = Space(
+          id: space.id,
+          name: 'newName',
+          createdAt: space.createdAt,
+          paidTimeOff: 13,
+          ownerIds: space.ownerIds,
+          domain: 'newDomain',
+          logo: 'image-url');
+
+      verify(userManager.updateSpaceDetails(updatedSpace)).called(1);
     });
   });
 }
