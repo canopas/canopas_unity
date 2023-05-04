@@ -7,7 +7,7 @@ part 'session.g.dart';
 class Session {
   String? deviceId;
   String? deviceToken;
-  int? deviceType;
+  DeviceType? deviceType;
   int? version;
   String? deviceName;
   String? osVersion;
@@ -33,4 +33,23 @@ class Session {
   }
 
   Map<String, dynamic> toJson() => _$SessionToJson(this);
+}
+
+enum DeviceType {
+  @JsonValue(1)
+  android(1),
+  @JsonValue(2)
+  ios(2),
+  @JsonValue(3)
+  web(3),
+  @JsonValue(4)
+  macOS(4),
+  @JsonValue(5)
+  linux(5),
+  @JsonValue(6)
+  windows(6);
+
+  final int value;
+
+  const DeviceType(this.value);
 }
