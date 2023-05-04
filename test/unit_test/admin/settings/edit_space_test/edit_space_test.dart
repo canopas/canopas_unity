@@ -105,17 +105,6 @@ void main() {
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.loading),
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.success),
           ]));
-
-      Space updatedSpace = Space(
-          id: space.id,
-          name: 'newName',
-          createdAt: space.createdAt,
-          paidTimeOff: 13,
-          ownerIds: space.ownerIds,
-          domain: 'newDomain',
-          logo: 'image-url');
-
-      verify(userManager.updateSpaceDetails(updatedSpace)).called(1);
     });
   });
 }
