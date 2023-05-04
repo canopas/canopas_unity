@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
-import 'package:universal_platform/universal_platform.dart';
 import '../core/exception/custom_exception.dart';
 import '../core/exception/error_const.dart';
 import '../state_manager/auth/desktop/desktop_auth_manager.dart';
@@ -19,9 +19,9 @@ class AuthService {
 
   Future<firebase_auth.User?> signInWithGoogle() async {
     firebase_auth.User? user;
-    if (UniversalPlatform.isMacOS ||
-        UniversalPlatform.isWindows ||
-        UniversalPlatform.isLinux) {
+    if (defaultTargetPlatform == TargetPlatform.macOS ||
+        defaultTargetPlatform == TargetPlatform.windows ||
+        defaultTargetPlatform == TargetPlatform.linux) {
       Credentials credentials = await _desktopAuthManager.login();
 
       firebase_auth.AuthCredential authCredential =
@@ -32,9 +32,9 @@ class AuthService {
       user = await _signInWithCredentials(authCredential);
 
       await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
-    } else if (UniversalPlatform.isWeb ||
-        UniversalPlatform.isAndroid ||
-        UniversalPlatform.isIOS) {
+    } else if (kIsWeb ||
+        defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS) {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
