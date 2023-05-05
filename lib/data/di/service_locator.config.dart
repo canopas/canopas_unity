@@ -164,6 +164,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i27.EditSpaceBloc>(() => _i27.EditSpaceBloc(
           gh<_i17.SpaceService>(),
           gh<_i22.UserManager>(),
+          gh<_i12.ImagePicker>(),
+          gh<_i18.StorageService>(),
         ));
     gh.lazySingleton<_i28.EmployeeService>(() => _i28.EmployeeService(
           gh<_i22.UserManager>(),

@@ -4,6 +4,8 @@ import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
+import '../../data/configs/theme.dart';
+
 class PickImageBottomSheet extends StatelessWidget {
   final void Function(ImageSource) onButtonTap;
 
@@ -14,9 +16,10 @@ class PickImageBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
+          boxShadow: AppTheme.commonBoxShadow,
           color: AppColors.whiteColor,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       height: 200,
       child: Row(
@@ -50,24 +53,28 @@ class SelectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+          fixedSize: const Size(120, 120),
+          shape:
+              RoundedRectangleBorder(borderRadius: AppTheme.commonBorderRadius),
+          side: const BorderSide(color: AppColors.dividerColor, width: 1)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            backgroundColor: AppColors.primaryBlue,
+            radius: 25,
+            child: Icon(icon, color: AppColors.whiteColor),
           ),
-          onPressed: onPressed,
-          child: Icon(icon),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          label,
-          style: AppFontStyle.subTitleGrey,
-        )
-      ],
+          const SizedBox(height: 10),
+          Text(
+            label,
+            style: AppFontStyle.subTitleGrey,
+          )
+        ],
+      ),
     );
   }
 }
