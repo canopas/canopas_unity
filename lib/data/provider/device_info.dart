@@ -23,8 +23,7 @@ class DeviceInfoProvider {
             version: int.parse(packageInfo.buildNumber),
             deviceName: webBrowserInfo.browserName.name,
             osVersion: webBrowserInfo.platform);
-      }
-      if (defaultTargetPlatform == TargetPlatform.android) {
+      } else if (defaultTargetPlatform == TargetPlatform.android) {
         AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
         return Session(
           lastAccessedOn: DateTime.now().timeStampToInt,
