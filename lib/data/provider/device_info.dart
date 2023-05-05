@@ -1,10 +1,9 @@
-import 'dart:io';
+import 'dart:html';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import '../model/device_info/device_info.dart';
 import '../model/session/session.dart';
 
 @Injectable()
@@ -29,20 +28,44 @@ class DeviceInfoProvider {
         IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
         return Session(
             deviceType: DeviceType.ios,
-            deviceId: iosInfo.identifierForVendor!,
+            deviceId: iosInfo.identifierForVendor,
             version: int.parse(packageInfo.buildNumber),
-            deviceName: iosInfo.name!,
-            osVersion: iosInfo.systemVersion!);
-      } else if(kIsWeb){
-         WebBrowserInfo webBrowserInfo =  await deviceInfoPlugin.webBrowserInfo;
-         return Session(
-             deviceType: DeviceType.web,
-             deviceId: webBrowserInfo.appCodeName,
-             version: int.parse(packageInfo.buildNumber),
-             deviceName: webBrowserInfo.browserName.name,
-             osVersion: webBrowserInfo.platform);
+            deviceName: iosInfo.utsname.machine,
+            osVersion: iosInfo.systemVersion);
+      } else if (defaultTargetPlatform == TargetPlatform.macOS) {
+        MacOsDeviceInfo macInfo = await deviceInfoPlugin.macOsInfo;
+        return Session(
+            deviceType: DeviceType.macOS,
+            deviceId: macInfo.systemGUID,
+            version: int.parse(packageInfo.buildNumber),
+            deviceName: macInfo.model,
+            osVersion:
+                "${macInfo.majorVersion}.${macInfo.minorVersion}.${macInfo.patchVersion}");
+      } else if (defaultTargetPlatform == TargetPlatform.linux) {
+        LinuxDeviceInfo linuxInfo = await deviceInfoPlugin.linuxInfo;
+        return Session(
+            deviceType: DeviceType.macOS,
+            deviceId: linuxInfo.id,
+            version: int.parse(packageInfo.buildNumber),
+            deviceName: linuxInfo.name,
+            osVersion: linuxInfo.version);
+      } else if (defaultTargetPlatform == TargetPlatform.windows) {
+        WindowsDeviceInfo windowsInfo = await deviceInfoPlugin.windowsInfo;
+        return Session(
+            deviceType: DeviceType.macOS,
+            deviceId: windowsInfo.deviceId,
+            version: int.parse(packageInfo.buildNumber),
+            deviceName: windowsInfo.productName,
+            osVersion: windowsInfo.);
+      } else if (kIsWeb) {
+        WebBrowserInfo webBrowserInfo = await deviceInfoPlugin.webBrowserInfo;
+        return Session(
+            deviceType: DeviceType.web,
+            deviceId: webBrowserInfo.appVersion,
+            version: int.parse(packageInfo.buildNumber),
+            deviceName: webBrowserInfo.browserName.name,
+            osVersion: webBrowserInfo.platform);
       }
-
     } on Exception {
       return null;
     }
