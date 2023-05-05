@@ -59,6 +59,7 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
                         itemCount: state.spaces.length,
                         padding: const EdgeInsets.all(16),
                         itemBuilder: (context, index) => SpaceCard(
+                          imageURL: state.spaces[index].logo,
                           title: state.spaces[index].name,
                           domain: state.spaces[index].domain,
                           onPressed: () => context
