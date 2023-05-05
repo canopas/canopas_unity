@@ -47,78 +47,71 @@ class SignInScreenState extends State<SignInScreen> {
             children: [
               Container(
                 constraints: const BoxConstraints(
-                  minHeight: 300,
+                  minHeight: 400,
                 ),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 100,
-                color: AppColors.primaryBlue,
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(height: 20),
-                        Flexible(
-                          child: Image.asset(ImageConst.loginPageVectorImage,
-                              width: MediaQuery.of(context).size.width * 0.8),
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
+                height: MediaQuery.of(context).size.height,
+                child: Padding(
+                  padding: const EdgeInsets.all(20).copyWith(bottom: 60),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(height: 20),
+                      Flexible(
+                        child: Image.asset(ImageConst.loginPageVectorImage,
+                            width: MediaQuery.of(context).size.width * 0.8),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              AppLocalizations.of(context).sign_in_title_text,
+                              textAlign: TextAlign.center,
+                              style: AppFontStyle.titleDark.copyWith(
+                                overflow: TextOverflow.fade,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20, top: 20, bottom: 40),
                               child: Text(
-                                AppLocalizations.of(context).sign_in_title_text,
-                                textAlign: TextAlign.center,
-                                style: AppFontStyle.titleDark.copyWith(
-                                    overflow: TextOverflow.fade,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.whiteColor),
-                              ),
-                            ),
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20, top: 20, bottom: 40),
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .sign_in_description_text,
-                                  style: AppFontStyle.bodyMedium.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.whiteColor),
-                                  overflow: TextOverflow.fade,
-                                  textAlign: TextAlign.center,
+                                AppLocalizations.of(context)
+                                    .sign_in_description_text,
+                                style: AppFontStyle.bodyMedium.copyWith(
+                                  fontWeight: FontWeight.w500,
                                 ),
+                                overflow: TextOverflow.fade,
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                color: AppColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                child: BlocBuilder<SignInBloc, SignInState>(
-                  buildWhen: (previous, current) =>
-                      previous is SignInLoadingState ||
-                      current is SignInLoadingState,
-                  builder: (context, state) => state is SignInLoadingState
-                      ? const AppCircularProgressIndicator()
-                      : Center(
+                          ),
+                        ],
+                      ),
+                      BlocBuilder<SignInBloc, SignInState>(
+                        buildWhen: (previous, current) =>
+                        previous is SignInLoadingState ||
+                            current is SignInLoadingState,
+                        builder: (context, state) => state is SignInLoadingState
+                            ? const Padding(
+                              padding: EdgeInsets.all(6),
+                              child: AppCircularProgressIndicator(),
+                            )
+                            : Center(
                           child: SignInButton(
                               onPressed: () {
-                                context
-                                    .read<SignInBloc>()
-                                    .add(SignInEvent());
+                                context.read<SignInBloc>().add(SignInEvent());
                               },
-                              title: AppLocalizations.of(context)
-                                  .login_button_text,
+                              title:
+                              AppLocalizations.of(context).login_button_text,
                               image: ImageConst.googleLogoImage),
                         ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

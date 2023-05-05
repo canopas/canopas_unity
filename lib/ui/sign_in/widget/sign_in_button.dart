@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/configs/text_style.dart';
 import '../../../data/configs/colors.dart';
 
 class SignInButton extends StatelessWidget {
@@ -15,30 +16,38 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(5),
-          elevation: 2,
-          fixedSize: Size(MediaQuery.of(context).size.width * 0.85, 50),
-        ),
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(image)),
-                  shape: BoxShape.circle),
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width * 0.8,
+      decoration: BoxDecoration(
+          color: AppColors.whiteColor,
+          borderRadius: BorderRadius.circular(25),
+          boxShadow:[
+            BoxShadow(
+              color: AppColors.primaryGray.withOpacity(0.60),
+              blurRadius: 3,
+              spreadRadius: 2,
+            )
+          ]),
+      child: GestureDetector(
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image(image: AssetImage(image),fit: BoxFit.cover,width: 35,height: 35),
+                Flexible(
+                  child: Text(
+                    title,
+                    style: AppFontStyle.bodyLarge,
+                    overflow: TextOverflow.clip,
+                  ),
+                ),
+                const Icon(Icons.arrow_forward_rounded),
+              ],
             ),
-            Text(title),
-            const SizedBox(
-                width: 40,
-                child: Center(child: Icon(Icons.arrow_forward_rounded)))
-          ],
-        ));
+          )),
+    );
   }
 }
