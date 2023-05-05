@@ -46,6 +46,7 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
             ),
             Expanded(
               child: BlocConsumer<ChangeSpaceBloc, ChangeSpaceState>(
+                  listenWhen: (previous, current) => current.error != null,
                   listener: (context, state) {
                     if (state.error != null) {
                       context.pop();

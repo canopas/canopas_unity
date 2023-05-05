@@ -54,7 +54,7 @@
   "create_space_invalid_website_url_error":"Please enter valid website url",
 
   "empty_change_space_title":"No spaces",
-  "empty_change_space_description":"You didn't have any other spaces yet",
+  "empty_change_space_description":"You don't have any other space.",
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
   "@days_placeholder_leave":{
