@@ -23,7 +23,7 @@ class FakeStorageService extends Fake implements StorageService {
   }
 }
 
-@GenerateMocks([SpaceService, UserManager, ImagePicker, StorageService])
+@GenerateMocks([SpaceService, UserManager, ImagePicker])
 void main() {
   late SpaceService spaceService;
   late UserManager userManager;
@@ -94,6 +94,16 @@ void main() {
 
     test("update space details success test", () async {
       final file = XFile('path');
+
+      final updatedSpace = Space(
+          ownerIds: space.ownerIds,
+          id: space.id,
+          name: 'newName',
+          paidTimeOff: int.parse('13'),
+          createdAt: space.createdAt,
+          domain: 'newDomain',
+          logo: 'image-url');
+
       bloc.emit(EditSpaceState(logo: file.path));
 
       bloc.add(SaveSpaceDetails(
@@ -105,6 +115,11 @@ void main() {
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.loading),
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.success),
           ]));
+
+      await (spaceService.updateSpace(updatedSpace));
+      verify.call(spaceService.updateSpace(updatedSpace));
+      await (userManager.updateSpaceDetails(updatedSpace));
+      verify.call(userManager.updateSpaceDetails(updatedSpace));
     });
   });
 }
