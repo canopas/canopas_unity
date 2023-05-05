@@ -257,6 +257,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserManager>(),
           gh<_i17.SpaceService>(),
           gh<_i28.EmployeeService>(),
+          gh<_i20.AccountService>(),
         ));
     gh.factory<_i50.CreateSpaceBLoc>(() => _i50.CreateSpaceBLoc(
           gh<_i17.SpaceService>(),

@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/provider/user_data.dart';
+import '../../../../data/services/account_service.dart';
 import '../../../../data/services/employee_service.dart';
 import '../../../../data/services/space_service.dart';
 import 'change_space_events.dart';
@@ -13,8 +15,10 @@ class ChangeSpaceBloc extends Bloc<ChangeSpaceEvents, ChangeSpaceState> {
   final UserManager _userManager;
   final SpaceService _spaceService;
   final EmployeeService _employeeService;
+  final AccountService _accountService;
 
-  ChangeSpaceBloc(this._userManager, this._spaceService, this._employeeService)
+  ChangeSpaceBloc(this._userManager, this._spaceService, this._employeeService,
+      this._accountService)
       : super(const ChangeSpaceState()) {
     on<ChangeSpaceInitialLoadEvent>(_init);
     on<SelectSpaceEvent>(_changeSpace);
@@ -24,7 +28,13 @@ class ChangeSpaceBloc extends Bloc<ChangeSpaceEvents, ChangeSpaceState> {
       ChangeSpaceInitialLoadEvent event, Emitter<ChangeSpaceState> emit) async {
     emit(state.copyWith(fetchSpaceStatus: Status.loading));
     try {
-      final spaces = await _spaceService.getSpacesOfUser(_userManager.userUID!);
+      final List<String> spaceIds =
+          await _accountService.fetchSpaceIds(uid: _userManager.userUID!);
+
+      final spaces = await Future.wait(spaceIds.map((spaceId) async {
+        return await _spaceService.getSpace(spaceId);
+      })).then((value) => value.whereNotNull().toList());
+
       emit(state.copyWith(fetchSpaceStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copyWith(
