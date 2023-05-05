@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/firebase_options.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
+import 'data/configs/scroll_behavior.dart';
 import 'data/configs/theme.dart';
 import 'data/bloc/network/network_connection_bloc.dart';
 import 'data/bloc/network/network_connection_event.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           }
         },
         child: MaterialApp.router(
+            scrollBehavior: AppScrollBehaviour(),
             debugShowCheckedModeBanner: false,
             theme: AppTheme.theme,
             routerConfig: _router,
