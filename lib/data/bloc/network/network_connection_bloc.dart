@@ -8,7 +8,8 @@ import 'network_connection_event.dart';
 import 'network_connection_state.dart';
 
 @Injectable()
-class NetworkConnectionBloc extends Bloc<NetworkConnectionEvent, NetworkConnectionState> {
+class NetworkConnectionBloc
+    extends Bloc<NetworkConnectionEvent, NetworkConnectionState> {
   StreamSubscription? _subscription;
   final Connectivity _connectivity;
 
@@ -23,7 +24,6 @@ class NetworkConnectionBloc extends Bloc<NetworkConnectionEvent, NetworkConnecti
     ConnectivityResult result = await _connectivity.checkConnectivity();
     _checkNetworkConnection(result);
     _subscription = _connectivity.onConnectivityChanged.listen((result) {
-      print('its chaged');
       _checkNetworkConnection(result);
     });
   }
