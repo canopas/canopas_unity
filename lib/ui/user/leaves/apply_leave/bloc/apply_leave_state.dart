@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 
 import '../../../../../data/core/utils/bloc_status.dart';
 
@@ -7,7 +8,7 @@ class ApplyLeaveState extends Equatable {
   final int leaveType;
   final DateTime startDate;
   final DateTime endDate;
-  final Map<DateTime, int> selectedDates;
+  final Map<DateTime, LeaveDayDuration> selectedDates;
   final double totalLeaveDays;
   final String reason;
   final bool showTextFieldError;
@@ -31,7 +32,7 @@ class ApplyLeaveState extends Equatable {
     int? leaveType,
     DateTime? startDate,
     DateTime? endDate,
-    Map<DateTime, int>? selectedDates,
+    Map<DateTime, LeaveDayDuration>? selectedDates,
     double? totalLeaveDays,
     String? reason,
     String? error,

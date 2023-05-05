@@ -38,7 +38,7 @@ void main() {
       reason: 'Suffering from fever',
       status: pendingLeaveStatus,
       appliedOn: 12,
-      perDayDuration: const [1, 1]);
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {
     userManager = MockUserManager();

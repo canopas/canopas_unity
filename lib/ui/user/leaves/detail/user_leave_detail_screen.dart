@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
@@ -11,9 +12,8 @@ import 'package:projectunity/ui/user/leaves/detail/widget/cancel_button.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/response_note.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_content.dart';
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
-
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/model/leave/leave.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -43,6 +43,7 @@ class UserLeaveDetailScreen extends StatefulWidget {
 }
 
 class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
@@ -71,24 +72,25 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
             if (state is UserLeaveDetailLoadingState) {
               return const AppCircularProgressIndicator();
             } else if (state is UserLeaveDetailSuccessState) {
-              Leave leave = state.leave;
               return ListView(
                 children: [
                   LeaveTypeAgoTitleWithStatus(
-                      appliedOnInTimeStamp: leave.appliedOn,
-                      leaveType: leave.type,
-                      status: leave.status),
-                  UserLeaveRequestDateContent(leave: leave),
+                      appliedOnInTimeStamp: state.leave.appliedOn,
+                      leaveType: state.leave.type,
+                      status: state.leave.status),
+                  UserLeaveRequestDateContent(leave: state.leave),
                   PerDayDurationDateRange(
-                      perDayDurationWithDate: leave.getDateAndDuration()),
+                      perDayDurationWithDate: state.leave.getDateAndDuration()),
                   ReasonField(
                     title: localization.reason_tag,
-                    reason: leave.reason,
+                    reason: state.leave.reason,
                   ),
-                  if ((leave.rejectionReason ?? "").trim().isNotEmpty)
-                    ResponseNote(leaveResponse: leave.rejectionReason!),
-                  if (state.showCancelButton)
-                    CancelButton(leaveId: leave.leaveId)
+                  ValidateWidget(
+                      isValid: state.leave.rejectionReason.isNotNullOrEmpty,
+                      child:ResponseNote(leaveResponse: state.leave.rejectionReason??"")),
+                  ValidateWidget(
+                      isValid: state.showCancelButton,
+                      child: CancelButton(leaveId: state.leave.leaveId))
                 ],
               );
             }

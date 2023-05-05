@@ -17,7 +17,7 @@ void main() {
               'status': 1,
               'rejection_reason': 'we have to finish project',
               'applied_on': 12346432,
-              'per_day_duration': [0, 1, 1, 2, 0],
+              'per_day_duration': [0, 1, 2, 3],
             }),
             isA<Leave>()
                 .having((leave) => leave.leaveId, 'Unique leave id',
@@ -40,7 +40,12 @@ void main() {
                 .having(
                     (leave) => leave.perDayDuration,
                     'Duration of each leave day like 0-no leave, 1- first half',
-                    [0, 1, 1, 2, 0]));
+                    [
+                  LeaveDayDuration.noLeave,
+                  LeaveDayDuration.firstHalfLeave,
+                  LeaveDayDuration.secondHalfLeave,
+                  LeaveDayDuration.fullLeave
+                ]));
       });
     });
     test('apply correct leave to firestore', () {
@@ -54,7 +59,12 @@ void main() {
           reason: 'suffering from viral fever',
           status: 5,
           appliedOn: 45643132,
-          perDayDuration: [1, 2, 2]);
+          perDayDuration: [
+            LeaveDayDuration.noLeave,
+            LeaveDayDuration.firstHalfLeave,
+            LeaveDayDuration.secondHalfLeave,
+            LeaveDayDuration.fullLeave
+          ]);
 
       Map<String, dynamic> map = <String, dynamic>{
         'leave_id': leave.leaveId,
@@ -66,7 +76,7 @@ void main() {
         'reason': leave.reason,
         'status': leave.status,
         'applied_on': leave.appliedOn,
-        'per_day_duration': leave.perDayDuration,
+        'per_day_duration': [0, 1, 2, 3],
       };
 
       expect(leave.toFireStore(leave), map);

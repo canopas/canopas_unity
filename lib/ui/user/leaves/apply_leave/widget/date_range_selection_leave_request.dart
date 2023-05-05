@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
-import '../../../../../data/core/utils/const/leave_time_constants.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -19,6 +19,8 @@ class LeaveRequestDateRange extends StatelessWidget {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context).localeName;
     return BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
+      buildWhen: (previous, current) =>
+          previous.selectedDates != current.selectedDates,
       builder: (context, state) => state.selectedDates.length < 3
           ? Column(
               children: state.selectedDates.entries
@@ -95,7 +97,7 @@ class LeaveRequestDateRange extends StatelessWidget {
 }
 
 class LeaveTimePeriodBox extends StatelessWidget {
-  final MapEntry<DateTime, int> dayTimePeriod;
+  final MapEntry<DateTime, LeaveDayDuration> dayTimePeriod;
 
   const LeaveTimePeriodBox({
     Key? key,
@@ -118,7 +120,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(12),
         child: DropdownButtonHideUnderline(
-          child: DropdownButton<int>(
+          child: DropdownButton<LeaveDayDuration>(
             style: AppFontStyle.bodySmallRegular,
             isExpanded: true,
             iconSize: 0.0,
@@ -126,13 +128,16 @@ class LeaveTimePeriodBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             alignment: Alignment.center,
             value: dayTimePeriod.value,
-            items: dayLeaveTime.entries
-                .where((e) =>
+            items: LeaveDayDuration.values
+                .where((dayDuration) =>
                     dayTimePeriod.key.weekday != DateTime.saturday ||
-                    e.key == 0 ||
-                    e.key == 3)
-                .map((e) => DropdownMenuItem(
-                    value: e.key, child: Center(child: Text(e.value))))
+                    dayDuration == LeaveDayDuration.noLeave ||
+                    dayDuration == LeaveDayDuration.fullLeave)
+                .map((dayDuration) => DropdownMenuItem(
+                    value: dayDuration,
+                    child: Center(
+                        child: Text(AppLocalizations.of(context)
+                            .leave_day_duration_tag(dayDuration.name)))))
                 .toList(),
             onChanged: !dayTimePeriod.key.isWeekend
                 ? (value) {

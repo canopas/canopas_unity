@@ -319,7 +319,7 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
   @override
   _i6.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
-    required Map<DateTime, int>? dateDuration,
+    required Map<DateTime, _i12.LeaveDayDuration>? dateDuration,
   }) =>
       (super.noSuchMethod(
         Invocation.method(

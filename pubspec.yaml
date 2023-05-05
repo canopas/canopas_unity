@@ -43,7 +43,6 @@ dependencies:
   table_calendar: ^3.0.7
   url_launcher: ^6.1.10
   uuid: ^3.0.6
-  universal_platform: ^1.0.0+1
   window_to_front: ^0.0.3
 
 

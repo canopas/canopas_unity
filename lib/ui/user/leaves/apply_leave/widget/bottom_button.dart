@@ -15,13 +15,13 @@ class ApplyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
-      child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-          builder: (context, state) => state.leaveRequestStatus ==
-              Status.loading
-              ? const AppCircularProgressIndicator()
+        padding:
+            const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
+        child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
+          builder: (context, state) => state.leaveRequestStatus !=
+                  Status.loading
+              ? const FittedBox(child: AppCircularProgressIndicator())
               : ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(MediaQuery.of(context).size.width, 50),
@@ -31,9 +31,11 @@ class ApplyButton extends StatelessWidget {
                         .read<ApplyLeaveBloc>()
                         .add(ApplyLeaveSubmitFormEvent());
                   },
-                  child: Text(localization.user_leaves_apply_leave_button_tag,
+                  child: Text(
+                      AppLocalizations.of(context)
+                          .user_leaves_apply_leave_button_tag,
                       style: AppFontStyle.buttonTextStyle
-                          .copyWith(color: AppColors.whiteColor)))),
-    );
+                          .copyWith(color: AppColors.whiteColor))),
+        ));
   }
 }

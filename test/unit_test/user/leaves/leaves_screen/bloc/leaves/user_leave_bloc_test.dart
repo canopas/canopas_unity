@@ -30,7 +30,7 @@ void main() {
       reason: 'Suffering from viral fever',
       status: approveLeaveStatus,
       appliedOn: today.timeStampToInt,
-      perDayDuration: const [1, 1]);
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 
   Leave pastLeave = Leave(
       leaveId: 'Leave-Id',
@@ -42,7 +42,7 @@ void main() {
       reason: 'Suffering from viral fever',
       status: approveLeaveStatus,
       appliedOn: today.timeStampToInt,
-      perDayDuration: const [1]);
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
   setUp(() {
     leaveService = MockLeaveService();
     userManager = MockUserManager();

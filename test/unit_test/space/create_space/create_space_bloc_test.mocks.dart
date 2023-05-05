@@ -119,7 +119,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   _i8.Future<_i3.Space?> getSpace(String? spaceId) => (super.noSuchMethod(
         Invocation.method(
@@ -128,7 +127,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         ),
         returnValue: _i8.Future<_i3.Space?>.value(),
       ) as _i8.Future<_i3.Space?>);
-
   @override
   _i8.Future<_i3.Space> createSpace({
     String? logo,
@@ -164,7 +162,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
           ),
         )),
       ) as _i8.Future<_i3.Space>);
-
   @override
   _i8.Future<void> updateSpace(_i3.Space? space) => (super.noSuchMethod(
         Invocation.method(
@@ -174,7 +171,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> deleteSpace(
     String? workspaceId,
@@ -191,7 +187,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<List<_i3.Space>> getSpacesOfUser(String? uid) =>
       (super.noSuchMethod(
@@ -201,7 +196,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         ),
         returnValue: _i8.Future<List<_i3.Space>>.value(<_i3.Space>[]),
       ) as _i8.Future<List<_i3.Space>>);
-
   @override
   _i8.Future<int> getPaidLeaves({required String? spaceId}) =>
       (super.noSuchMethod(
@@ -212,7 +206,6 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         ),
         returnValue: _i8.Future<int>.value(0),
       ) as _i8.Future<int>);
-
   @override
   _i8.Future<void> updateLeaveCount({
     required String? spaceId,
@@ -245,7 +238,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         Invocation.getter(#loggedIn),
         returnValue: false,
       ) as bool);
-
   @override
   set loggedIn(bool? _loggedIn) => super.noSuchMethod(
         Invocation.setter(
@@ -321,7 +313,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
-
   @override
   _i8.Future<void> setUser(_i10.User? user) => (super.noSuchMethod(
         Invocation.method(
@@ -331,7 +322,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> setSpace({
     required _i3.Space? space,
@@ -349,7 +339,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> updateSpaceDetails(_i3.Space? space) => (super.noSuchMethod(
         Invocation.method(
@@ -359,7 +348,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
@@ -369,7 +357,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
@@ -379,7 +366,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   void hasLoggedIn() => super.noSuchMethod(
         Invocation.method(
@@ -388,7 +374,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -397,7 +382,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void removeListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -406,7 +390,6 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
@@ -441,7 +424,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i8.Future<void> addEmployeeBySpaceId({
     required _i4.Employee? employee,
@@ -459,7 +441,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<_i4.Employee?> getEmployeeBySpaceId({
     required String? userId,
@@ -476,7 +457,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         ),
         returnValue: _i8.Future<_i4.Employee?>.value(),
       ) as _i8.Future<_i4.Employee?>);
-
   @override
   _i8.Future<List<_i4.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
@@ -485,7 +465,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         ),
         returnValue: _i8.Future<List<_i4.Employee>>.value(<_i4.Employee>[]),
       ) as _i8.Future<List<_i4.Employee>>);
-
   @override
   _i8.Future<_i4.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -494,7 +473,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         ),
         returnValue: _i8.Future<_i4.Employee?>.value(),
       ) as _i8.Future<_i4.Employee?>);
-
   @override
   _i8.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
@@ -503,7 +481,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         ),
         returnValue: _i8.Future<bool>.value(false),
       ) as _i8.Future<bool>);
-
   @override
   _i8.Future<void> addEmployee(_i4.Employee? employee) => (super.noSuchMethod(
         Invocation.method(
@@ -513,7 +490,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> updateEmployeeDetails({required _i4.Employee? employee}) =>
       (super.noSuchMethod(
@@ -525,7 +501,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> changeEmployeeRoleType(
     String? id,
@@ -542,7 +517,6 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -570,7 +544,6 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
           Invocation.getter(#firebaseStorage),
         ),
       ) as _i5.FirebaseStorage);
-
   @override
   _i8.Future<String> uploadProfilePic({
     required String? path,
@@ -587,7 +560,6 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
         ),
         returnValue: _i8.Future<String>.value(''),
       ) as _i8.Future<String>);
-
   @override
   _i8.Future<void> deleteProfileImage(String? path) => (super.noSuchMethod(
         Invocation.method(
@@ -629,7 +601,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
         ),
         returnValue: _i8.Future<_i6.PickedFile?>.value(),
       ) as _i8.Future<_i6.PickedFile?>);
-
   @override
   _i8.Future<List<_i6.PickedFile>?> getMultiImage({
     double? maxWidth,
@@ -648,7 +619,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
         ),
         returnValue: _i8.Future<List<_i6.PickedFile>?>.value(),
       ) as _i8.Future<List<_i6.PickedFile>?>);
-
   @override
   _i8.Future<_i6.PickedFile?> getVideo({
     required _i6.ImageSource? source,
@@ -667,7 +637,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
         ),
         returnValue: _i8.Future<_i6.PickedFile?>.value(),
       ) as _i8.Future<_i6.PickedFile?>);
-
   @override
   _i8.Future<_i6.LostData> getLostData() => (super.noSuchMethod(
         Invocation.method(
@@ -682,7 +651,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
           ),
         )),
       ) as _i8.Future<_i6.LostData>);
-
   @override
   _i8.Future<_i6.XFile?> pickImage({
     required _i6.ImageSource? source,
@@ -707,7 +675,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
         ),
         returnValue: _i8.Future<_i6.XFile?>.value(),
       ) as _i8.Future<_i6.XFile?>);
-
   @override
   _i8.Future<List<_i6.XFile>> pickMultiImage({
     double? maxWidth,
@@ -728,7 +695,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
         ),
         returnValue: _i8.Future<List<_i6.XFile>>.value(<_i6.XFile>[]),
       ) as _i8.Future<List<_i6.XFile>>);
-
   @override
   _i8.Future<_i6.XFile?> pickVideo({
     required _i6.ImageSource? source,
@@ -747,7 +713,6 @@ class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
         ),
         returnValue: _i8.Future<_i6.XFile?>.value(),
       ) as _i8.Future<_i6.XFile?>);
-
   @override
   _i8.Future<_i6.LostDataResponse> retrieveLostData() => (super.noSuchMethod(
         Invocation.method(

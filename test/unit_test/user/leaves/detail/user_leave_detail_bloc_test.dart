@@ -31,7 +31,7 @@ void main() {
         reason: 'Suffering from viral fever',
         status: 1,
         appliedOn: DateTime.now().timeStampToInt,
-        perDayDuration: const [1]);
+        perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
     pastLeave = Leave(
         leaveId: 'leaveId',
@@ -46,7 +46,7 @@ void main() {
         status: 1,
         appliedOn:
             DateTime.now().subtract(const Duration(days: 4)).timeStampToInt,
-        perDayDuration: const [1]);
+        perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
   });
 
   group('User leave Detail bloc state', () {

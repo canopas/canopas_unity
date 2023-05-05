@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 
 abstract class ApplyLeaveEvent extends Equatable {}
 
@@ -33,7 +34,7 @@ class ApplyLeaveReasonChangeEvent extends ApplyLeaveEvent{
 
 class ApplyLeaveUpdateLeaveOfTheDayEvent extends ApplyLeaveEvent{
   final DateTime date;
-  final int value;
+  final LeaveDayDuration value;
   ApplyLeaveUpdateLeaveOfTheDayEvent({required this.date,required this.value});
   @override
   List<Object?> get props => [date,value];
