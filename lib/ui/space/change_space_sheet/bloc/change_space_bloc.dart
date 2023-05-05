@@ -30,7 +30,9 @@ class ChangeSpaceBloc extends Bloc<ChangeSpaceEvents, ChangeSpaceState> {
     try {
       final List<String> spaceIds =
           await _accountService.fetchSpaceIds(uid: _userManager.userUID!);
-
+      if (spaceIds.contains(_userManager.currentSpaceId)) {
+        spaceIds.remove(_userManager.currentSpaceId);
+      }
       final spaces = await Future.wait(spaceIds.map((spaceId) async {
         return await _spaceService.getSpace(spaceId);
       })).then((value) => value.whereNotNull().toList());

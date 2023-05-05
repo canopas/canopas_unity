@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
+import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/text_style.dart';
@@ -25,7 +26,8 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ChangeSpaceBloc>()..add(ChangeSpaceInitialLoadEvent()),
+      create: (context) =>
+          getIt<ChangeSpaceBloc>()..add(ChangeSpaceInitialLoadEvent()),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -35,7 +37,7 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
         ),
         child: Column(
           children: [
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Text(
                 AppLocalizations.of(context).spaces_title,
@@ -44,17 +46,25 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
             ),
             Expanded(
               child: BlocConsumer<ChangeSpaceBloc, ChangeSpaceState>(
-                listener: (context, state){
-                  if(state.error != null){
-                    context.pop();
-                    showSnackBar(context: context,error: state.error);
-                  }
-                },
-                buildWhen: (previous, current) => previous.fetchSpaceStatus != current.fetchSpaceStatus,
+                  listener: (context, state) {
+                    if (state.error != null) {
+                      context.pop();
+                      showSnackBar(context: context, error: state.error);
+                    }
+                  },
+                  buildWhen: (previous, current) =>
+                      previous.fetchSpaceStatus != current.fetchSpaceStatus,
                   builder: (context, state) {
                     if (state.fetchSpaceStatus == Status.loading) {
                       return const AppCircularProgressIndicator();
                     } else if (state.fetchSpaceStatus == Status.success) {
+                      if (state.spaces.isNotEmpty) {
+                        return EmptyScreen(
+                            message: AppLocalizations.of(context)
+                                .empty_change_space_description,
+                            title: AppLocalizations.of(context)
+                                .empty_change_space_title);
+                      }
                       return ListView.builder(
                         itemCount: state.spaces.length,
                         padding: const EdgeInsets.all(16),
@@ -69,7 +79,7 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
                       );
                     }
                     return const SizedBox();
-              }),
+                  }),
             ),
           ],
         ),

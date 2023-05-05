@@ -30,6 +30,7 @@ void main() {
     bloc = ChangeSpaceBloc(
         userManager, spaceService, employeeService, accountService);
     when(userManager.userUID).thenReturn('uid');
+    when(userManager.currentSpaceId).thenReturn('sid');
     when(accountService.fetchSpaceIds(uid: 'uid'))
         .thenAnswer((realInvocation) async => ['space-id']);
   });
