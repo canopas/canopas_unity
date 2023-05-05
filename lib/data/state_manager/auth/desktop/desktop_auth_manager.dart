@@ -14,7 +14,7 @@ class DesktopAuthManager extends DesktopLoginManager {
 
   Future<oauth2.Credentials> login() async {
     await redirectServer?.close();
-    redirectServer = await HttpServer.bind('localhost', 0);
+    redirectServer = await HttpServer.bind('localhost', 3000);
     final redirectURL = redirectUrl + redirectServer!.port.toString();
     oauth2.Client authenticatedHttpClient =
     await _getOauthClient(Uri.parse(redirectURL));
