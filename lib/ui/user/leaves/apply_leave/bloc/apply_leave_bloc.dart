@@ -42,10 +42,10 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
 
   void _updateStartLeaveDate(
       ApplyLeaveStartDateChangeEvents event, Emitter<ApplyLeaveState> emit) {
-    Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = state.selectedDates
-        .getSelectedLeaveOfTheDays(
-            startDate: event.startDate ?? state.startDate,
-            endDate: state.endDate);
+    final Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {};
+    updatedSelectedLeaves.addAll(state.selectedDates);
+    updatedSelectedLeaves.getSelectedLeaveOfTheDays(
+        startDate: event.startDate ?? state.startDate, endDate: state.endDate);
     emit(state.copyWith(
         startDate: event.startDate,
         selectedDates: updatedSelectedLeaves,
@@ -59,10 +59,10 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
 
   void _updateEndLeaveDate(
       ApplyLeaveEndDateChangeEvent event, Emitter<ApplyLeaveState> emit) {
-    Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = state.selectedDates
-        .getSelectedLeaveOfTheDays(
-            startDate: state.startDate,
-            endDate: event.endDate ?? state.endDate);
+    final Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {};
+    updatedSelectedLeaves.addAll(state.selectedDates);
+    updatedSelectedLeaves.getSelectedLeaveOfTheDays(
+        startDate: state.startDate, endDate: event.endDate ?? state.endDate);
     emit(state.copyWith(
         endDate: event.endDate,
         selectedDates: updatedSelectedLeaves,

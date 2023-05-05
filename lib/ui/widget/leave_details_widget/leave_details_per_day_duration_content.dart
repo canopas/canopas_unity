@@ -6,7 +6,6 @@ import '../../../data/configs/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
 import '../../../data/configs/theme.dart';
-import '../../../data/core/utils/const/leave_time_constants.dart';
 
 class PerDayDurationDateRange extends StatelessWidget {
   final Map<DateTime, LeaveDayDuration> perDayDurationWithDate;
@@ -62,7 +61,8 @@ class PerDayDurationDateRange extends StatelessWidget {
                                 border:
                                     Border.all(color: AppColors.primaryGray),
                               ),
-                              child: Text(dayLeaveTime[date.value].toString()),
+                              child: Text(AppLocalizations.of(context)
+                                  .leave_day_duration_tag(date.value.name)),
                             ),
                           ],
                         ),
@@ -110,7 +110,8 @@ class PerDayDurationDateRange extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: AppColors.primaryGray),
                           ),
-                          child: Text(dayLeaveTime[date.value].toString()),
+                          child: Text(AppLocalizations.of(context)
+                              .leave_day_duration_tag(date.value.name)),
                         )
                       ],
                     )))

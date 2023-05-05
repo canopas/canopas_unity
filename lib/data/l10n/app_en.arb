@@ -146,6 +146,15 @@
           }
         },
 
+  "leave_day_duration_tag": "{dayDuration, select, fullLeave{Full Leave} firstHalfLeave{First-half} secondHalfLeave{Second-half} noLeave{No Leave} other{Other}}",
+  "@leave_day_duration_tag":{
+    "description": "Pass name of LeaveDayDuration enum for get string",
+    "placeholders": {
+      "dayDuration":{
+        "type": "String"
+      }
+    }
+  },
 
   "admin_employee_details_make_admin_tag":"Make Admin",
   "admin_employee_details_remove_admin_tag":"Remove Admin",
