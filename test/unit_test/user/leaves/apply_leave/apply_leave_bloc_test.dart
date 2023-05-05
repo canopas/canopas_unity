@@ -14,7 +14,7 @@ import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.d
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([ LeaveService, UserManager])
+@GenerateMocks([LeaveService, UserManager])
 void main() {
   late LeaveService leaveService;
   late UserManager userManager;
@@ -36,8 +36,9 @@ void main() {
       when(userManager.employeeId).thenReturn("id");
       when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
       when(leaveService.checkLeaveAlreadyApplied(
-          userId: 'id',
-          dateDuration: {DateTime(2000): LeaveDayDuration.firstHalfLeave})).thenAnswer((_) async => true);
+              userId: 'id',
+              dateDuration: {DateTime(2000): LeaveDayDuration.firstHalfLeave}))
+          .thenAnswer((_) async => true);
     });
 
     test("leave Type change test", () {
@@ -88,8 +89,8 @@ void main() {
     });
 
     test("date range per day selection change test", () {
-      leaveRequestBloc
-          .add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: currentDate, value: LeaveDayDuration.noLeave));
+      leaveRequestBloc.add(ApplyLeaveUpdateLeaveOfTheDayEvent(
+          date: currentDate, value: LeaveDayDuration.noLeave));
       expect(
           leaveRequestBloc.stream,
           emits(
@@ -102,8 +103,8 @@ void main() {
     });
 
     test('on apply leave minimum hour error test', () {
-      leaveRequestBloc
-          .add(ApplyLeaveUpdateLeaveOfTheDayEvent(date: currentDate, value: LeaveDayDuration.noLeave));
+      leaveRequestBloc.add(ApplyLeaveUpdateLeaveOfTheDayEvent(
+          date: currentDate, value: LeaveDayDuration.noLeave));
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
       expect(
@@ -218,7 +219,10 @@ void main() {
 
     test('on apply already leave applied error test', () async {
       when(leaveService.checkLeaveAlreadyApplied(
-              userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
+              userId: 'id',
+              dateDuration: leaveRequestBloc.state.selectedDates
+                  .getSelectedLeaveOfTheDays(
+                      startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => true);
       when(userManager.userUID).thenReturn('id');
       Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
@@ -226,8 +230,8 @@ void main() {
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
-      final entries =
-          updatedSelectedLeaves.entries.where((day) => day.value != LeaveDayDuration.noLeave);
+      final entries = updatedSelectedLeaves.entries
+          .where((day) => day.value != LeaveDayDuration.noLeave);
       DateTime firstDate = entries.first.key;
       DateTime lastDate = entries.last.key;
       Map<DateTime, LeaveDayDuration> selectedDates = updatedSelectedLeaves
@@ -286,7 +290,10 @@ void main() {
 
     test('on apply success test', () async {
       when(leaveService.checkLeaveAlreadyApplied(
-              userId: 'id', dateDuration: leaveRequestBloc.state.selectedDates))
+              userId: 'id',
+              dateDuration: leaveRequestBloc.state.selectedDates
+                  .getSelectedLeaveOfTheDays(
+                      startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => false);
       when(userManager.userUID).thenReturn('id');
 
@@ -295,8 +302,8 @@ void main() {
       }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
-      final entries =
-          updatedSelectedLeaves.entries.where((day) => day.value != LeaveDayDuration.noLeave);
+      final entries = updatedSelectedLeaves.entries
+          .where((day) => day.value != LeaveDayDuration.noLeave);
       DateTime firstDate = entries.first.key;
       DateTime lastDate = entries.last.key;
       Map<DateTime, LeaveDayDuration> selectedDates = updatedSelectedLeaves
