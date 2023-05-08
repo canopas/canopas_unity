@@ -6,27 +6,33 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_bloc.dart';
 import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_events.dart';
 import 'package:projectunity/ui/space/change_space_sheet/bloc/change_space_state.dart';
 
-
 import 'change_space_test.mocks.dart';
 
-@GenerateMocks([SpaceService, UserManager, EmployeeService])
+@GenerateMocks([SpaceService, UserManager, EmployeeService, AccountService])
 void main() {
   late SpaceService spaceService;
   late UserManager userManager;
   late EmployeeService employeeService;
+  late AccountService accountService;
   late ChangeSpaceBloc bloc;
   setUp(() {
     spaceService = MockSpaceService();
     userManager = MockUserManager();
     employeeService = MockEmployeeService();
-    bloc = ChangeSpaceBloc(userManager, spaceService, employeeService);
+    accountService = MockAccountService();
+    bloc = ChangeSpaceBloc(
+        userManager, spaceService, employeeService, accountService);
     when(userManager.userUID).thenReturn('uid');
+    when(userManager.currentSpaceId).thenReturn('sid');
+    when(accountService.fetchSpaceIds(uid: 'uid'))
+        .thenAnswer((realInvocation) async => ['space-id']);
   });
 
   Space space = Space(
@@ -41,8 +47,7 @@ void main() {
 
   group('Change space test', () {
     test('Fetch spaces success test', () {
-      when(spaceService.getSpacesOfUser('uid'))
-          .thenAnswer((_) async => [space]);
+      when(spaceService.getSpace('space-id')).thenAnswer((_) async => space);
       bloc.add(ChangeSpaceInitialLoadEvent());
       expect(
           bloc.stream,
@@ -53,7 +58,7 @@ void main() {
     });
 
     test('Fetch spaces failure test', () {
-      when(spaceService.getSpacesOfUser('uid')).thenThrow(Exception('error'));
+      when(spaceService.getSpace('space-id')).thenThrow(Exception('error'));
       bloc.add(ChangeSpaceInitialLoadEvent());
       expect(
           bloc.stream,
@@ -75,7 +80,8 @@ void main() {
             const ChangeSpaceState(changeSpaceStatus: Status.loading),
             const ChangeSpaceState(changeSpaceStatus: Status.success),
           ]));
-      await untilCalled(userManager.setSpace(space: space, spaceUser: employee));
+      await untilCalled(
+          userManager.setSpace(space: space, spaceUser: employee));
       verify(userManager.setSpace(space: space, spaceUser: employee)).called(1);
     });
 
