@@ -19,20 +19,7 @@ class AuthService {
 
   Future<firebase_auth.User?> signInWithGoogle() async {
     firebase_auth.User? user;
-    if (defaultTargetPlatform == TargetPlatform.macOS ||
-        defaultTargetPlatform == TargetPlatform.windows ||
-        defaultTargetPlatform == TargetPlatform.linux) {
-      Credentials credentials = await _desktopAuthManager.login();
-
-      firebase_auth.AuthCredential authCredential =
-          firebase_auth.GoogleAuthProvider.credential(
-              idToken: credentials.idToken,
-              accessToken: credentials.accessToken);
-
-      user = await _signInWithCredentials(authCredential);
-
-      await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
-    } else if (kIsWeb ||
+    if (kIsWeb ||
         defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS) {
       final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -52,6 +39,19 @@ class AuthService {
         user = await _signInWithCredentials(credential);
       }
       await googleSignIn.signOut();
+    } else if (defaultTargetPlatform == TargetPlatform.macOS ||
+        defaultTargetPlatform == TargetPlatform.windows ||
+        defaultTargetPlatform == TargetPlatform.linux) {
+      Credentials credentials = await _desktopAuthManager.login();
+
+      firebase_auth.AuthCredential authCredential =
+          firebase_auth.GoogleAuthProvider.credential(
+              idToken: credentials.idToken,
+              accessToken: credentials.accessToken);
+
+      user = await _signInWithCredentials(authCredential);
+
+      await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
     }
     return user;
   }

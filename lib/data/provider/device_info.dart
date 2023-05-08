@@ -14,7 +14,16 @@ class DeviceInfoProvider {
   Future<Session?> getDeviceInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     try {
-      if (defaultTargetPlatform == TargetPlatform.android) {
+      if (kIsWeb) {
+        WebBrowserInfo webBrowserInfo = await deviceInfoPlugin.webBrowserInfo;
+        return Session(
+            lastAccessedOn: DateTime.now().timeStampToInt,
+            deviceType: DeviceType.web,
+            deviceId: webBrowserInfo.appVersion,
+            version: int.parse(packageInfo.buildNumber),
+            deviceName: webBrowserInfo.browserName.name,
+            osVersion: webBrowserInfo.platform);
+      } else if (defaultTargetPlatform == TargetPlatform.android) {
         AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
         return Session(
           lastAccessedOn: DateTime.now().timeStampToInt,
@@ -62,15 +71,6 @@ class DeviceInfoProvider {
             deviceName: windowsInfo.productName,
             osVersion:
                 "${windowsInfo.majorVersion}.${windowsInfo.minorVersion}");
-      } else if (kIsWeb) {
-        WebBrowserInfo webBrowserInfo = await deviceInfoPlugin.webBrowserInfo;
-        return Session(
-            lastAccessedOn: DateTime.now().timeStampToInt,
-            deviceType: DeviceType.web,
-            deviceId: webBrowserInfo.appVersion,
-            version: int.parse(packageInfo.buildNumber),
-            deviceName: webBrowserInfo.browserName.name,
-            osVersion: webBrowserInfo.platform);
       }
     } on Exception {
       return null;

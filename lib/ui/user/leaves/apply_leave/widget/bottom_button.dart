@@ -19,7 +19,7 @@ class ApplyButton extends StatelessWidget {
         padding:
             const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
         child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-          builder: (context, state) => state.leaveRequestStatus !=
+          builder: (context, state) => state.leaveRequestStatus ==
                   Status.loading
               ? const FittedBox(child: AppCircularProgressIndicator())
               : ElevatedButton(
