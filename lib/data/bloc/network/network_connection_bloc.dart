@@ -21,8 +21,6 @@ class NetworkConnectionBloc
 
   Future<void> _observeConnection(NetworkConnectionObserveEvent event,
       Emitter<NetworkConnectionState> emit) async {
-    ConnectivityResult result = await _connectivity.checkConnectivity();
-    _checkNetworkConnection(result);
     _subscription = _connectivity.onConnectivityChanged.listen((result) {
       _checkNetworkConnection(result);
     });
