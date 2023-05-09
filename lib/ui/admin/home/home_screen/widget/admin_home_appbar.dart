@@ -8,6 +8,7 @@ import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../navigation/app_router.dart';
 import '../../../../widget/widget_validation.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String spaceName;
@@ -21,6 +22,7 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
       alignment: Alignment.bottomCenter,
@@ -58,22 +60,20 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                       overflow: TextOverflow.ellipsis),
                   ValidateWidget(
                     isValid: spaceDomain.isNotNullOrEmpty,
-                    child: Text(spaceDomain ?? "",
+                    child: Text(
+                      spaceDomain ?? "",
                       style: AppFontStyle.subTitleGrey,
                     ),
                   )
                 ],
               ),
               const Spacer(),
-              CircleAvatar(
-                backgroundColor: const Color(0xfff5f5f5),
-                child: IconButton(
-                    icon: const Icon(
-                      Icons.add,
-                      color: AppColors.darkGrey,
-                    ),
-                    onPressed: () => context.goNamed(Routes.addMember)),
-              ),
+              TextButton(
+                  onPressed: () => context.goNamed(Routes.addMember),
+                  child: Text(
+                    locale.admin_home_invite_member_appbar_tag,
+                    style: AppFontStyle.buttonTextStyle,
+                  )),
             ],
           ),
           const SizedBox(height: primaryHalfSpacing),

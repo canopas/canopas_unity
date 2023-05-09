@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/configs/text_style.dart';
 
 import 'package:projectunity/data/di/service_locator.dart';
 
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
+import '../../../../data/configs/colors.dart';
 import '../../../widget/employee_details_textfield.dart';
 import 'bloc/invite_member_bloc.dart';
 import 'bloc/invite_member_event.dart';
@@ -75,13 +77,16 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
                   );
                 }),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)))),
+              FloatingActionButton.extended(
+                extendedPadding: const EdgeInsets.symmetric(horizontal: 60),
+                elevation: 0,
                 onPressed: () =>
                     context.read<InviteMemberBloc>().add(InviteMemberEvent()),
-                child: Text(locale.add_tag),
+                label: Text(
+                  locale.admin_home_invite_Button_tag,
+                  style: AppFontStyle.buttonTextStyle
+                      .copyWith(color: AppColors.whiteColor),
+                ),
               )
             ],
           );

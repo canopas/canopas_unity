@@ -32,14 +32,6 @@ import 'package:projectunity/data/services/space_service.dart' as _i17;
 import 'package:projectunity/data/services/storage_service.dart' as _i18;
 import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manager.dart'
     as _i5;
-import 'package:projectunity/ui/admin/employee/detail/bloc/employee_detail_bloc.dart'
-    as _i51;
-import 'package:projectunity/ui/admin/employee/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
-    as _i43;
-import 'package:projectunity/ui/admin/employee/edit_employee/bloc/admin_edit_employee_bloc.dart'
-    as _i42;
-import 'package:projectunity/ui/admin/employee/list/bloc/employee_list_bloc.dart'
-    as _i53;
 import 'package:projectunity/ui/admin/home/addmember/bloc/add_member_bloc.dart'
     as _i41;
 import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart'
@@ -52,6 +44,14 @@ import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_bloc
     as _i46;
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
     as _i47;
+import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
+    as _i51;
+import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
+    as _i43;
+import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
+    as _i42;
+import 'package:projectunity/ui/admin/members/list/bloc/employee_list_bloc.dart'
+    as _i53;
 import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_bloc.dart'
     as _i27;
 import 'package:projectunity/ui/admin/setting/settings_screen/bloc/admin_settings_bloc.dart'
@@ -74,10 +74,6 @@ import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.da
     as _i50;
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
     as _i30;
-import 'package:projectunity/ui/user/employees/detail/bloc/user_employee_detail_bloc.dart'
-    as _i33;
-import 'package:projectunity/ui/user/employees/list/bloc/user_employees_bloc.dart'
-    as _i34;
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
     as _i35;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
@@ -92,6 +88,10 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
     as _i38;
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
     as _i36;
+import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart'
+    as _i33;
+import 'package:projectunity/ui/user/members/list/bloc/user_employees_bloc.dart'
+    as _i34;
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_bloc.dart'
     as _i52;
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart'

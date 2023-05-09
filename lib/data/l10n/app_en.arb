@@ -8,7 +8,19 @@
   "company_name":"Canopas Software",
   "company_subtitle":"www.canopas.com",
 
-  "delete_button_tag":"Delete",
+
+
+
+    "settings_tag": "Settings",
+    "members_tag": "Members",
+    "leaves_tag": "Leaves",
+
+
+
+  "recent_tag":"Recent",
+  "past_tag":"Past",
+  "upcoming_tag":"Upcoming",
+   "delete_button_tag":"Delete",
   "save_tag":"Save",
   "edit_tag":"Edit",
   "reason_tag":"Reason",
@@ -20,7 +32,8 @@
   "next_tag":"Next",
   "back_tag":"Back",
   "add_tag":"Add",
-   "request_tag":"Requests",
+  "request_tag":"Requests",
+  "alert_cancel_action":"Cancel",
 
   "spaces_title":"Spaces",
   "delete_space_text":"Delete Space",
@@ -218,6 +231,7 @@
      "admin_home_invite_member_appbar_tag":"Invite Member",
     "admin_home_invite_member_hint_text":"Add member by email",
     "admin_home_invite_member_error_email":"Please enter valid email",
+   "admin_home_invite_Button_tag":"Invite",
 
 
     "admin_home_add_member_error_email":"Please enter valid email",
@@ -343,15 +357,7 @@
     }
   },
   "remove_user_leave_alert":"Are you sure you want to delete this leave?",
-  "alert_cancel_action":"Cancel",
 
-  "settings_tag": "Settings",
-  "employees_tag": "Employees",
-  "leaves_tag": "Leaves",
-
-  "recent_tag":"Recent",
-  "past_tag":"Past",
-  "upcoming_tag":"Upcoming",
 
   "empty_upcoming_leaves_title":"No Upcoming Leaves",
   "empty_recent_leaves_title":"No Recent Leaves",

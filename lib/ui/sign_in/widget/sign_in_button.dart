@@ -20,9 +20,9 @@ class SignInButton extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: AppColors.primaryBlue,
           borderRadius: BorderRadius.circular(25),
-          boxShadow:[
+          boxShadow: [
             BoxShadow(
               color: AppColors.primaryGray.withOpacity(0.60),
               blurRadius: 3,
@@ -36,15 +36,23 @@ class SignInButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image(image: AssetImage(image),fit: BoxFit.cover,width: 35,height: 35),
+                Container(
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.whiteColor),
+                    child: Image(
+                        image: AssetImage(image),
+                        fit: BoxFit.contain,
+                        width: 35,
+                        height: 35)),
                 Flexible(
                   child: Text(
                     title,
-                    style: AppFontStyle.bodyLarge,
+                    style: AppFontStyle.bodyLarge
+                        .copyWith(color: AppColors.whiteColor),
                     overflow: TextOverflow.clip,
                   ),
                 ),
-                const Icon(Icons.arrow_forward_rounded),
+                const SizedBox(),
               ],
             ),
           )),
