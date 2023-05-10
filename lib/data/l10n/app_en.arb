@@ -228,7 +228,8 @@
 
   "admin_home_absence_tag":"Absence",
 
-     "admin_home_invite_member_appbar_tag":"Invite Member",
+    "admin_home_invite_member_appbar_tag":"Invite Member",
+    "invite_tag" :"Invite",
     "admin_home_invite_member_hint_text":"Add member by email",
     "admin_home_invite_member_error_email":"Please enter valid email",
    "admin_home_invite_Button_tag":"Invite",

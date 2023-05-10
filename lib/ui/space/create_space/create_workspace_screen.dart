@@ -7,7 +7,9 @@ import 'package:projectunity/ui/space/create_space/widget/tab_2.dart';
 import 'package:projectunity/ui/space/create_space/widget/tab_3.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/text_style.dart';
+import '../../../data/core/utils/bloc_status.dart';
 import '../../../data/di/service_locator.dart';
+import '../../widget/circular_progress_indicator.dart';
 import 'bloc/create_workspace_bloc.dart';
 import 'bloc/create_workspace_event.dart';
 
@@ -81,16 +83,13 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
               color: AppColors.whiteColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                SpaceBasicDetails(),
-                SetUpSpaceDetails(),
-                PersonalInfo(),
-              ],
-            ),
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              SpaceBasicDetails(),
+              SetUpSpaceDetails(),
+              PersonalInfo(),
+            ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -100,8 +99,12 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
             child: BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
                 buildWhen: (previous, current) =>
                     previous.buttonState != current.buttonState ||
-                    previous.page != current.page,
+                    previous.page != current.page ||
+                    previous.createSpaceStatus != current.createSpaceStatus,
                 builder: (context, state) {
+                  if (state.createSpaceStatus == Status.loading) {
+                    return const AppCircularProgressIndicator();
+                  }
                   return ElevatedButton(
                       onPressed: state.buttonState == ButtonState.enable
                           ? () {
