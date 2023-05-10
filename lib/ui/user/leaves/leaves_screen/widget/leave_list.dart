@@ -83,7 +83,6 @@ class LeaveList extends StatelessWidget {
             builder: (context, expanded, collapsed) {
               return leaves.isEmpty
                   ? Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       alignment: Alignment.center,
                       height: 50,
                       width: MediaQuery.of(context).size.width,
