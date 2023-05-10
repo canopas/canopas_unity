@@ -1,117 +1,73 @@
-import 'package:expandable/expandable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/theme.dart';
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../data/configs/colors.dart';
-import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/configs/theme.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../navigation/app_router.dart';
+import '../../../../widget/circular_progress_indicator.dart';
+import '../../../../widget/error_snack_bar.dart';
 import '../../../../widget/leave_card.dart';
+import '../bloc/leaves/user_leave_bloc.dart';
+import '../bloc/leaves/user_leave_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class LeaveList extends StatelessWidget {
   final bool isHR;
-  final List<Leave> leaves;
-  final String title;
-
-  const LeaveList({
-    Key? key,
-    required this.leaves,
-    required this.title,
-    required this.isHR,
-  }) : super(key: key);
+  const LeaveList({Key? key, required this.isHR}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
-    return ExpandableNotifier(
-      initialExpanded: true,
-      child: ScrollOnExpand(
-        scrollOnCollapse: true,
-        scrollOnExpand: true,
-        child: ExpandablePanel(
-            theme: const ExpandableThemeData(
-                headerAlignment: ExpandablePanelHeaderAlignment.center,
-                hasIcon: false),
-            header: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.greyColor,
-                      fontSize: 18),
-                )),
-            collapsed: leaves.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8, horizontal: 16.0),
-                    child: LeaveCard(
-                      leave: leaves[0],
-                      onTap: () {
-                        context.goNamed(
-                            isHR
-                                ? Routes.hrLeaveDetails
-                                : Routes.userLeaveDetail,
-                            params: {
-                              RoutesParamsConst.leaveId: leaves[0].leaveId
-                            });
-                      },
-                    ),
-                  )
-                : const SizedBox(),
-            expanded: ListView.separated(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: leaves.length,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
-                itemBuilder: (context, index) {
-                  final leave = leaves[index];
-                  return LeaveCard(
-                    onTap: () {
-                      context.goNamed(
-                          isHR ? Routes.hrLeaveDetails : Routes.userLeaveDetail,
-                          params: {RoutesParamsConst.leaveId: leave.leaveId});
-                    },
-                    leave: leave,
-                  );
-                }),
-            builder: (context, expanded, collapsed) {
-              return leaves.isEmpty
-                  ? Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      alignment: Alignment.center,
-                      height: 50,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: AppColors.lightPrimaryBlue,
-                          borderRadius: AppTheme.commonBorderRadius),
-                      child: Text(
-                        localization.user_leave_no_leaves_msg,
-                        style: const TextStyle(fontSize: 15),
-                      ))
-                  : Column(
-                      children: [
-                        Expandable(collapsed: collapsed, expanded: expanded),
-                        Builder(builder: (context) {
-                          var controller =
-                              ExpandableController.of(context, required: true)!;
-                          return TextButton(
-                              onPressed: () {
-                                controller.toggle();
-                              },
-                              child: Text(controller.expanded
-                                  ? localization.user_leave_view_more_tag
-                                  : localization.user_leave_show_less_tag));
-                        })
-                      ],
-                    );
-            }),
-      ),
+    return BlocConsumer<UserLeaveBloc, UserLeaveState>(
+      buildWhen: (previous, current) =>
+      previous.status != current.status ||
+          previous.leaves != current.leaves,
+      builder: (context, state) {
+        if (state.status == Status.loading) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: AppCircularProgressIndicator(),
+          );
+        } else if (state.status == Status.success &&
+            state.leaves.isNotEmpty) {
+          return ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+              itemBuilder: (context, index) => LeaveCard(
+                  onTap: () {
+                    context.goNamed(
+                        isHR
+                            ? Routes.hrLeaveDetails
+                            : Routes.userLeaveDetail,
+                        params: {
+                          RoutesParamsConst.leaveId:
+                          state.leaves[index].leaveId
+                        });
+                  },
+                  leave: state.leaves[index]),
+              separatorBuilder: (context, index) =>
+              const SizedBox(height: 16),
+              itemCount: state.leaves.length);
+        }
+        return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            alignment: Alignment.center,
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: AppColors.lightPrimaryBlue,
+                borderRadius: AppTheme.commonBorderRadius),
+            child: Text(
+              AppLocalizations.of(context).user_leave_no_leaves_msg,
+              style: const TextStyle(fontSize: 15),
+            ));
+      },
+      listenWhen: (previous, current) => current.status == Status.error,
+      listener: (context, state) {
+        if (state.status == Status.error) {
+          showSnackBar(context: context, error: state.error);
+        }
+      },
     );
   }
 }

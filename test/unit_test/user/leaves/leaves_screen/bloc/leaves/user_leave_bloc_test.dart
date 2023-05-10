@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -30,7 +31,10 @@ void main() {
       reason: 'Suffering from viral fever',
       status: approveLeaveStatus,
       appliedOn: today.timeStampToInt,
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
+      perDayDuration: const [
+        LeaveDayDuration.firstHalfLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
 
   Leave pastLeave = Leave(
       leaveId: 'Leave-Id',
@@ -43,30 +47,35 @@ void main() {
       status: approveLeaveStatus,
       appliedOn: today.timeStampToInt,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+
   setUp(() {
     leaveService = MockLeaveService();
     userManager = MockUserManager();
     userLeaveBloc = UserLeaveBloc(userManager, leaveService);
   });
 
+  tearDown(() async {
+    await userLeaveBloc.close();
+  });
+
   group('UserLeaveBloc stream test', () {
     test('Emits loading state as initial state of UserLeavesBloc', () {
-      expect(userLeaveBloc.state, UserLeaveInitialState());
+      expect(userLeaveBloc.state, const UserLeaveState());
     });
 
     test(
-        'Emits loading state and success state after add UserLeaveEvent respectively',
+        'Emits loading state and success with sorted leave leave after add UserLeaveEvent respectively',
         () {
       userLeaveBloc.add(FetchUserLeaveEvent());
       when(userManager.employeeId).thenReturn(employeeId);
       when(leaveService.getAllLeavesOfUser(employeeId))
-          .thenAnswer((_) async => [upcomingLeave, pastLeave]);
+          .thenAnswer((_) async => [pastLeave, upcomingLeave]);
       expectLater(
           userLeaveBloc.stream,
           emitsInOrder([
-            UserLeaveLoadingState(),
-            UserLeaveSuccessState(
-                pastLeaves: [pastLeave], upcomingLeaves: [upcomingLeave])
+            const UserLeaveState(status: Status.loading),
+            UserLeaveState(
+                status: Status.success, leaves: [upcomingLeave, pastLeave]),
           ]));
     });
     test('Emits error state when Exception is thrown', () {
@@ -74,12 +83,13 @@ void main() {
 
       when(userManager.employeeId).thenReturn(employeeId);
       when(leaveService.getAllLeavesOfUser(employeeId))
-          .thenThrow(Exception('Couldn\'t load'));
+          .thenThrow(Exception('error'));
       expectLater(
           userLeaveBloc.stream,
           emitsInOrder([
-            UserLeaveLoadingState(),
-            UserLeaveErrorState(error: firestoreFetchDataError)
+            const UserLeaveState(status: Status.loading),
+            const UserLeaveState(
+                error: firestoreFetchDataError, status: Status.error)
           ]));
     });
   });
