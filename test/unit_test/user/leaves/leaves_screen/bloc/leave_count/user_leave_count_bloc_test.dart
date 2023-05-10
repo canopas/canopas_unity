@@ -18,10 +18,11 @@ void main() {
   late UserManager userManager;
   late SpaceService spaceService;
   late UserLeaveCountBloc userLeaveCountBloc;
+
   UserLeaveCountState loadingState = const UserLeaveCountState(
       status: Status.loading,
       used: 0,
-      totalLeaves: 12,
+      totalLeaves: 0,
       leavePercentage: 0,
       error: null);
 
@@ -31,22 +32,26 @@ void main() {
     leaveService = MockLeaveService();
     userManager = MockUserManager();
     spaceService = MockSpaceService();
-
     userLeaveCountBloc =
         UserLeaveCountBloc(leaveService, userManager, spaceService);
+  });
+
+  tearDown(() async {
+    await userLeaveCountBloc.close();
   });
 
   group('User Leave count State', () {
     test(
         'Emits initial  state when screen is open and fetching data from service',
         () {
-      UserLeaveCountState initialState = const UserLeaveCountState(
-          status: Status.initial,
-          used: 0,
-          totalLeaves: 12,
-          leavePercentage: 0,
-          error: null);
-      expect(userLeaveCountBloc.state, initialState);
+      expect(
+          userLeaveCountBloc.state,
+          const UserLeaveCountState(
+              status: Status.initial,
+              used: 0,
+              totalLeaves: 0,
+              leavePercentage: 0,
+              error: null));
     });
     test(
         'emits loading state and success state after add FetchUserLeaveCountEvent respectively',
@@ -57,14 +62,14 @@ void main() {
       when(userManager.currentSpaceId).thenReturn("space-id");
       when(leaveService.getUserUsedLeaves(employeeId))
           .thenAnswer((_) async => 7);
-      when(spaceService.getPaidLeaves(spaceId: 'space-id')).thenAnswer((_) async => 12);
-      var percentage = 7 / 12;
+      when(spaceService.getPaidLeaves(spaceId: 'space-id'))
+          .thenAnswer((_) async => 12);
 
-      UserLeaveCountState successState = UserLeaveCountState(
+      const UserLeaveCountState successState = UserLeaveCountState(
           status: Status.success,
           used: 7,
           totalLeaves: 12,
-          leavePercentage: percentage,
+          leavePercentage: 7 / 12,
           error: null);
       expectLater(userLeaveCountBloc.stream,
           emitsInOrder([loadingState, successState]));
@@ -78,11 +83,11 @@ void main() {
       when(leaveService.getUserUsedLeaves('Ca 1044'))
           .thenAnswer((_) async => 7);
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
-          .thenThrow(Exception('Couldn\'t load'));
-      UserLeaveCountState errorState = const UserLeaveCountState(
+          .thenThrow(Exception('error'));
+      const UserLeaveCountState errorState = UserLeaveCountState(
           status: Status.success,
           used: 0,
-          totalLeaves: 12,
+          totalLeaves: 0,
           leavePercentage: 0,
           error: firestoreFetchDataError);
       expectLater(

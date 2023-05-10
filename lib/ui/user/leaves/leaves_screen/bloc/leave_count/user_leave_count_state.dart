@@ -1,18 +1,17 @@
 import 'package:equatable/equatable.dart';
-
 import '../../../../../../data/core/utils/bloc_status.dart';
 
 class UserLeaveCountState extends Equatable {
-  final Status? status;
-  final int? totalLeaves;
-  final double? used;
-  final double? leavePercentage;
+  final Status status;
+  final int totalLeaves;
+  final double used;
+  final double leavePercentage;
   final String? error;
 
   const UserLeaveCountState(
       {this.status = Status.initial,
       this.used = 0,
-      this.totalLeaves = 12,
+      this.totalLeaves = 0,
       this.leavePercentage = 0,
       this.error});
 

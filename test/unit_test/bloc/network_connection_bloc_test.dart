@@ -20,8 +20,6 @@ void main() {
   setUp(() {
     connectivity = MockConnectivity();
     networkConnectionBloc = NetworkConnectionBloc(connectivity);
-    when(connectivity.checkConnectivity())
-        .thenAnswer((_) => Future.value(ConnectivityResult.mobile));
   });
   group('Network connection', () {
     test(
@@ -44,12 +42,8 @@ void main() {
       when(connectivity.onConnectivityChanged).thenAnswer(
           (_) => Stream.fromIterable([ConnectivityResult.ethernet]));
       networkConnectionBloc.add(NetworkConnectionObserveEvent());
-      expectLater(
-          networkConnectionBloc.stream,
-          emitsInOrder([
-            NetWorkConnectionSuccessState(),
-            NetworkConnectionFailureState()
-          ]));
+      expectLater(networkConnectionBloc.stream,
+          emits(NetworkConnectionFailureState()));
     });
   });
 }

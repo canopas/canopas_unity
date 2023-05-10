@@ -1,34 +1,31 @@
 import 'package:equatable/equatable.dart';
+import '../../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../../data/model/leave/leave.dart';
 
-abstract class UserLeaveState extends Equatable {}
+class UserLeaveState extends Equatable {
+  final List<Leave> leaves;
+  final String? error;
+  final Status status;
 
-class UserLeaveInitialState extends UserLeaveState {
-  @override
-  List<Object?> get props => [];
-}
+  const UserLeaveState({
+    this.leaves = const [],
+    this.status = Status.initial,
+    this.error
+  });
 
-class UserLeaveLoadingState extends UserLeaveState {
-  @override
-  List<Object?> get props => [];
-}
-
-class UserLeaveSuccessState extends UserLeaveState {
-  final List<Leave> pastLeaves;
-  final List<Leave> upcomingLeaves;
-
-  UserLeaveSuccessState(
-      {required this.pastLeaves, required this.upcomingLeaves});
-
-  @override
-  List<Object?> get props => [pastLeaves, upcomingLeaves];
-}
-
-class UserLeaveErrorState extends UserLeaveState {
-  final String error;
-
-  UserLeaveErrorState({required this.error});
+  UserLeaveState copyWith({
+    List<Leave>? leaves,
+    String? error,
+    Status? status,
+  }) =>
+      UserLeaveState(
+        status: status ?? this.status,
+        leaves: leaves ?? this.leaves,
+        error: error,
+      );
 
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [leaves, error, status];
+
 }
+
