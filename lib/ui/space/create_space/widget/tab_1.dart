@@ -31,6 +31,7 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
     final bloc = BlocProvider.of<CreateSpaceBLoc>(context);
     final locale = AppLocalizations.of(context);
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

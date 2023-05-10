@@ -59,7 +59,7 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
                     if (state.fetchSpaceStatus == Status.loading) {
                       return const AppCircularProgressIndicator();
                     } else if (state.fetchSpaceStatus == Status.success) {
-                      if (state.spaces.isNotEmpty) {
+                      if (state.spaces.isEmpty) {
                         return EmptyScreen(
                             message: AppLocalizations.of(context)
                                 .empty_change_space_description,
@@ -70,8 +70,8 @@ class _ChangeSpaceBottomSheetState extends State<ChangeSpaceBottomSheet> {
                         itemCount: state.spaces.length,
                         padding: const EdgeInsets.all(16),
                         itemBuilder: (context, index) => SpaceCard(
-                          imageURL: state.spaces[index].logo,
-                          title: state.spaces[index].name,
+                          logo: state.spaces[index].logo,
+                          name: state.spaces[index].name,
                           domain: state.spaces[index].domain,
                           onPressed: () => context
                               .read<ChangeSpaceBloc>()

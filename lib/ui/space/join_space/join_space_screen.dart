@@ -78,7 +78,10 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                   indent: 15,
                   endIndent: 15,
                 )),
-                Text(locale.or_tag, style: AppFontStyle.subTitleGrey),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child:
+                        Text(locale.or_tag, style: AppFontStyle.subTitleGrey)),
                 const Expanded(
                     child: Divider(
                   indent: 15,
@@ -91,11 +94,14 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                   style: AppFontStyle.bodyLarge),
               const SizedBox(height: 10),
               BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
-                buildWhen: (previous, current) =>
+                  buildWhen: (previous, current) =>
                       current.fetchSpaceStatus == Status.success,
                   builder: (context, state) {
-                    if (state.fetchSpaceStatus == Status.loading) {
-                      return const AppCircularProgressIndicator();
+                    if (state.fetchSpaceStatus == Status.loading || state.fetchSpaceStatus == Status.initial) {
+                      return const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: AppCircularProgressIndicator(),
+                      );
                     } else {
                       if (state.ownSpaces.isEmpty &&
                           state.requestedSpaces.isEmpty) {
@@ -108,9 +114,9 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: state.ownSpaces
                                   .map((space) => SpaceCard(
-                                        title: space.name,
+                                        name: space.name,
                                         domain: space.domain,
-                                        imageURL: space.logo,
+                                        logo: space.logo,
                                         onPressed: () => context
                                             .read<JoinSpaceBloc>()
                                             .add(
@@ -131,9 +137,9 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                                 Column(
                                   children: state.requestedSpaces
                                       .map((space) => SpaceCard(
-                                            title: space.name,
+                                            name: space.name,
                                             domain: space.domain,
-                                            imageURL: space.logo,
+                                            logo: space.logo,
                                             onPressed: () => context
                                                 .read<JoinSpaceBloc>()
                                                 .add(JoinRequestedSpaceEvent(

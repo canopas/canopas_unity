@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
 import 'network_connection_event.dart';
 import 'network_connection_state.dart';
 
