@@ -74,7 +74,7 @@ class AdminLeaveApplicationDetailsBloc extends Bloc<
   Map<String, dynamic> _setLeaveApproval(int leaveStatus, String reason) {
     Map<String, dynamic> map = <String, dynamic>{
       FireStoreConst.leaveStatus: leaveStatus,
-      FireStoreConst.rejectionReason: reason,
+      FireStoreConst.response: reason,
     };
     return map;
   }

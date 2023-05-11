@@ -20,12 +20,14 @@ void main() {
   late UserEmployeeDetailBloc bloc;
 
   Employee employee = const Employee(
-      uid: 'uid',
-      role: Role.admin,
-      name: 'Andrew jhone',
-      employeeId: 'employeeId',
-      email: 'andrew.j@canopas.com',
-      designation: 'Android develeoper');
+    uid: 'uid',
+    role: Role.admin,
+    name: 'Andrew jhone',
+    employeeId: 'employeeId',
+    email: 'andrew.j@canopas.com',
+    designation: 'Android develeoper',
+    dateOfJoining: 11,
+  );
 
   Leave upcomingApproveLeave = Leave(
       leaveId: 'leaveId',

@@ -10,7 +10,7 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       uid: json['uid'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
-      role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
+      role: $enumDecode(_$RoleEnumMap, json['role']),
       employeeId: json['employee_id'] as String?,
       designation: json['designation'] as String?,
       phone: json['phone'] as String?,
@@ -18,7 +18,7 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       address: json['address'] as String?,
       gender: json['gender'] as int?,
       dateOfBirth: json['date_of_birth'] as int?,
-      dateOfJoining: json['date_of_joining'] as int?,
+      dateOfJoining: json['date_of_joining'] as int,
       level: json['level'] as String?,
       status: json['status'] as int?,
     );
@@ -26,6 +26,9 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
 Map<String, dynamic> _$EmployeeToJson(Employee instance) {
   final val = <String, dynamic>{
     'uid': instance.uid,
+    'role': _$RoleEnumMap[instance.role]!,
+    'name': instance.name,
+    'email': instance.email,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -34,9 +37,6 @@ Map<String, dynamic> _$EmployeeToJson(Employee instance) {
     }
   }
 
-  writeNotNull('role', _$RoleEnumMap[instance.role]);
-  val['name'] = instance.name;
-  val['email'] = instance.email;
   writeNotNull('employee_id', instance.employeeId);
   writeNotNull('designation', instance.designation);
   writeNotNull('phone', instance.phone);
@@ -44,7 +44,7 @@ Map<String, dynamic> _$EmployeeToJson(Employee instance) {
   writeNotNull('address', instance.address);
   writeNotNull('gender', instance.gender);
   writeNotNull('date_of_birth', instance.dateOfBirth);
-  writeNotNull('date_of_joining', instance.dateOfJoining);
+  val['date_of_joining'] = instance.dateOfJoining;
   writeNotNull('level', instance.level);
   writeNotNull('status', instance.status);
   return val;

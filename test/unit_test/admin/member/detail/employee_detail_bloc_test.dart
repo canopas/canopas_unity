@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -13,8 +14,10 @@ import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_state.
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, UserManager, SpaceService])
+@GenerateMocks(
+    [AccountService, EmployeeService, LeaveService, UserManager, SpaceService])
 void main() {
+  late AccountService accountService;
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late LeaveService leaveService;
@@ -26,21 +29,25 @@ void main() {
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
-      designation: 'Android developer');
+      designation: 'Android developer',
+      dateOfJoining: 1);
   Employee admin = const Employee(
       uid: 'id',
       role: Role.admin,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
-      designation: 'Android developer');
+      designation: 'Android developer',
+      dateOfJoining: 1);
 
   setUp(() {
+    accountService = MockAccountService();
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
     userManager = MockUserManager();
     spaceService = MockSpaceService();
     employeeDetailBloc = EmployeeDetailBloc(
+      accountService,
       spaceService,
       userManager,
       employeeService,
@@ -83,70 +90,70 @@ void main() {
           ]));
     });
     test('Emits Failure state when exception is thrown while fetching leaves',
-        () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenAnswer((_) async => employee);
-      when(leaveService.getUserUsedLeaves(employee.uid))
-          .thenThrow(Exception(firestoreFetchDataError));
-      employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
-      expectLater(
-          employeeDetailBloc.stream,
-          emitsInOrder([
-            EmployeeDetailLoadingState(),
-            EmployeeDetailFailureState(error: firestoreFetchDataError)
-          ]));
-    });
+            () {
+          when(employeeService.getEmployee(employee.uid))
+              .thenAnswer((_) async => employee);
+          when(leaveService.getUserUsedLeaves(employee.uid))
+              .thenThrow(Exception(firestoreFetchDataError));
+          employeeDetailBloc
+              .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
+          expectLater(
+              employeeDetailBloc.stream,
+              emitsInOrder([
+                EmployeeDetailLoadingState(),
+                EmployeeDetailFailureState(error: firestoreFetchDataError)
+              ]));
+        });
 
     test(
         'Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
-        () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenAnswer((_) async => employee);
+            () {
+          when(employeeService.getEmployee(employee.uid))
+              .thenAnswer((_) async => employee);
 
-      employeeDetailBloc
-          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
-      EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
-          employee: employee,
-          timeOffRatio: 10 / 12,
-          paidLeaves: 12,
-          usedLeaves: 10);
-      expectLater(employeeDetailBloc.stream,
-          emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
-    });
-    test('test for make user as admin', () {
-      EmployeeDetailLoadedState loadedStateWithEmployee =
-          EmployeeDetailLoadedState(
+          employeeDetailBloc
+              .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
+          EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
               employee: employee,
               timeOffRatio: 10 / 12,
               paidLeaves: 12,
               usedLeaves: 10);
+          expectLater(employeeDetailBloc.stream,
+              emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
+        });
+    test('test for make user as admin', () {
+      EmployeeDetailLoadedState loadedStateWithEmployee =
+      EmployeeDetailLoadedState(
+          employee: employee,
+          timeOffRatio: 10 / 12,
+          paidLeaves: 12,
+          usedLeaves: 10);
       employeeDetailBloc.emit(loadedStateWithEmployee);
       employeeDetailBloc.add(EmployeeDetailsChangeRoleEvent());
       EmployeeDetailLoadedState loadedStateWithAdmin =
-          EmployeeDetailLoadedState(
-              employee: admin,
-              timeOffRatio: 10 / 12,
-              paidLeaves: 12,
-              usedLeaves: 10);
+      EmployeeDetailLoadedState(
+          employee: admin,
+          timeOffRatio: 10 / 12,
+          paidLeaves: 12,
+          usedLeaves: 10);
 
       expectLater(employeeDetailBloc.stream, emits(loadedStateWithAdmin));
     });
     test('test for remove user as admin', () {
       EmployeeDetailLoadedState loadedStateWithAdmin =
-          EmployeeDetailLoadedState(
-              employee: admin,
-              timeOffRatio: 10 / 12,
-              paidLeaves: 12,
-              usedLeaves: 10);
+      EmployeeDetailLoadedState(
+          employee: admin,
+          timeOffRatio: 10 / 12,
+          paidLeaves: 12,
+          usedLeaves: 10);
       employeeDetailBloc.emit(loadedStateWithAdmin);
       employeeDetailBloc.add(EmployeeDetailsChangeRoleEvent());
       EmployeeDetailLoadedState loadedStateWithEmployee =
-          EmployeeDetailLoadedState(
-              employee: employee,
-              timeOffRatio: 10 / 12,
-              paidLeaves: 12,
-              usedLeaves: 10);
+      EmployeeDetailLoadedState(
+          employee: employee,
+          timeOffRatio: 10 / 12,
+          paidLeaves: 12,
+          usedLeaves: 10);
 
       expectLater(employeeDetailBloc.stream, emits(loadedStateWithEmployee));
     });

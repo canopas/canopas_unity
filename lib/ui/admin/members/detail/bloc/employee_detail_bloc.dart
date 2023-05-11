@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
@@ -17,9 +18,11 @@ class EmployeeDetailBloc
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
   final UserManager _userManager;
+  final AccountService _accountService;
   final SpaceService _spaceService;
 
-  EmployeeDetailBloc(this._spaceService, this._userManager, this._employeeService, this._leaveService)
+  EmployeeDetailBloc(this._accountService, this._spaceService,
+      this._userManager, this._employeeService, this._leaveService)
       : super(EmployeeDetailInitialState()) {
     eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
       add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
@@ -80,6 +83,8 @@ class EmployeeDetailBloc
     try {
       await _employeeService.deleteEmployee(event.employeeId);
       await _leaveService.deleteAllLeavesOfUser(event.employeeId);
+      await _accountService.deleteSpaceIdFromAccount(
+          spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
       eventBus.fire(DeleteEmployeeByAdmin(event.employeeId));
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));

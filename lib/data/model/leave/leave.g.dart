@@ -19,7 +19,7 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       perDayDuration: (json['per_day_duration'] as List<dynamic>)
           .map((e) => $enumDecode(_$LeaveDayDurationEnumMap, e))
           .toList(),
-      rejectionReason: json['rejection_reason'] as String?,
+      response: json['response'] as String?,
     );
 
 Map<String, dynamic> _$LeaveToJson(Leave instance) {
@@ -40,7 +40,7 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) {
     }
   }
 
-  writeNotNull('rejection_reason', instance.rejectionReason);
+  writeNotNull('response', instance.response);
   val['applied_on'] = instance.appliedOn;
   val['per_day_duration'] = instance.perDayDuration
       .map((e) => _$LeaveDayDurationEnumMap[e]!)

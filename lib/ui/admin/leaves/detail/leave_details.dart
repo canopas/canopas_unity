@@ -55,7 +55,7 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
-    final rejectionReason = widget.leaveApplication.leave.rejectionReason ?? "";
+    final rejectionReason = widget.leaveApplication.leave.response ?? "";
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.whiteColor,

@@ -23,12 +23,14 @@ void main() {
   late LeaveService leaveService;
 
   const employee = Employee(
-      uid: "1",
-      role: Role.employee,
-      name: "test",
-      employeeId: "103",
-      email: "abc@gmail.com",
-      designation: "android dev");
+    uid: "1",
+    role: Role.employee,
+    name: "test",
+    employeeId: "103",
+    email: "abc@gmail.com",
+    designation: "android dev",
+    dateOfJoining: 11,
+  );
 
   Leave leave = const Leave(
       leaveId: "101",

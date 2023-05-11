@@ -1,18 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:projectunity/data/model/user/user.dart';
+import 'package:projectunity/data/model/account/account.dart';
 
 void main() {
   group("User", () {
     test('Test returns correct Employee object from json and from fire-store',
         () {
       expect(
-          User.fromJson(const <String, dynamic>{
+          Account.fromJson(const <String, dynamic>{
             'uid': "unique-user-id",
             'email': "dummy@canopas.com",
             'name': "dummy",
             'spaces': ["space-id"],
           }),
-          isA<User>()
+          isA<Account>()
               .having(
                   (user) => user.uid, 'unique user auth id', "unique-user-id")
               .having(
@@ -23,7 +23,7 @@ void main() {
     });
 
     test('apply correct employee to fire-store', () {
-      const User user = User(
+      const Account user = Account(
         uid: "unique-user-id",
         email: "dummy@canopas.com",
         name: "dummy",

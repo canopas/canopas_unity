@@ -86,8 +86,9 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                     reason: state.leave.reason,
                   ),
                   ValidateWidget(
-                      isValid: state.leave.rejectionReason.isNotNullOrEmpty,
-                      child:ResponseNote(leaveResponse: state.leave.rejectionReason??"")),
+                      isValid: state.leave.response.isNotNullOrEmpty,
+                      child: ResponseNote(
+                          leaveResponse: state.leave.response ?? "")),
                   ValidateWidget(
                       isValid: state.showCancelButton,
                       child: CancelButton(leaveId: state.leave.leaveId))

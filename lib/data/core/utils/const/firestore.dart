@@ -24,7 +24,7 @@ class FireStoreConst {
   static const String totalLeavesDoc = 'totalLeaves';
   static const String leaves = 'leaves';
   static const String leaveStatus = 'status';
-  static const String rejectionReason = 'rejection_reason';
+  static const String response = 'response';
   static const String startLeaveDate = 'start_date';
   static const String endLeaveDate = 'end_date';
   static const String session = 'session';

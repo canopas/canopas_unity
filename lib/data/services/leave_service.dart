@@ -88,9 +88,7 @@ class LeaveService {
   }
 
   Future<void> updateLeaveStatus(String id, Map<String, dynamic> map) async {
-    await _leaveDb()
-        .doc(id)
-        .update(map);
+    await _leaveDb().doc(id).update(map);
   }
 
   Future<List<Leave>> getAllLeaves() async {

@@ -6,7 +6,7 @@ part 'employee.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Employee extends Equatable {
   final String uid;
-  final Role? role;
+  final Role role;
   final String name;
   final String email;
   @JsonKey(name: 'employee_id')
@@ -20,15 +20,15 @@ class Employee extends Equatable {
   @JsonKey(name: 'date_of_birth')
   final int? dateOfBirth;
   @JsonKey(name: 'date_of_joining')
-  final int? dateOfJoining;
+  final int dateOfJoining;
   final String? level;
   final int? status;
 
-  const Employee(
-      {required this.uid,
-      required this.name,
-      required this.email,
-      this.role,
+  const Employee({
+    required this.uid,
+    required this.name,
+    required this.email,
+    required this.role,
     this.employeeId,
     this.designation,
     this.phone,
@@ -36,7 +36,7 @@ class Employee extends Equatable {
     this.address,
     this.gender,
     this.dateOfBirth,
-    this.dateOfJoining,
+    required this.dateOfJoining,
     this.level,
     this.status,
   });
@@ -61,6 +61,7 @@ class Employee extends Equatable {
       uid: uid ?? this.uid,
       role: role ?? this.role,
       name: name ?? this.name,
+      dateOfJoining: dateOfJoining ?? this.dateOfJoining,
       employeeId: employeeId ?? this.employeeId,
       email: email ?? this.email,
       designation: designation ?? this.designation,
@@ -69,7 +70,6 @@ class Employee extends Equatable {
       address: address ?? this.address,
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-      dateOfJoining: dateOfJoining ?? this.dateOfJoining,
       level: level ?? this.level,
       status: status ?? this.status,
     );

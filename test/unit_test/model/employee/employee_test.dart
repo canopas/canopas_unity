@@ -64,7 +64,7 @@ void main() {
           level: '',
           gender: null,
           dateOfBirth: null,
-          dateOfJoining: null);
+          dateOfJoining: 11);
       Map<String, dynamic> map = <String, dynamic>{
         'uid': employee.uid,
         'role': 1,
@@ -76,6 +76,7 @@ void main() {
         'image_url': employee.imageUrl,
         'address': employee.address,
         'level': employee.level,
+        'date_of_joining': employee.dateOfJoining
       };
 
       expect(employee.toJson(), map);

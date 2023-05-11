@@ -269,6 +269,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i18.StorageService>(),
         ));
     gh.factory<_i51.EmployeeDetailBloc>(() => _i51.EmployeeDetailBloc(
+          gh<_i20.AccountService>(),
           gh<_i17.SpaceService>(),
           gh<_i22.UserManager>(),
           gh<_i28.EmployeeService>(),
