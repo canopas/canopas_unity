@@ -360,27 +360,9 @@
   "remove_user_leave_alert":"Are you sure you want to delete this leave?",
 
 
-  "empty_upcoming_leaves_title":"No Upcoming Leaves",
-  "empty_recent_leaves_title":"No Recent Leaves",
-  "empty_recent_leaves_message":"{name} don't have any recent leaves",
-  "@empty_recent_leaves_message":{
-    "placeholders":{
-      "name":{
-        "type":"String"
-      }
-    }
-  },
-  "empty_upcoming_leaves_message":"{name} don't have any upcoming leaves",
-  "@empty_upcoming_leaves_message":{
-    "placeholders":{
-      "name":{
-        "type":"String"
-      }
-    }
-  },
-  "empty_past_leaves_title":"No Past Leaves",
-  "empty_past_leaves_message":"{name} don't have any past leaves",
-  "@empty_past_leaves_message":{
+  "no_leaves_tag":"No Leaves",
+  "employee_empty_leave_message":"{name} don't have any leaves yet!",
+  "@employee_empty_leave_message":{
     "placeholders":{
       "name":{
         "type":"String"

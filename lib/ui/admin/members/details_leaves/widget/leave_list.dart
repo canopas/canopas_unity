@@ -1,51 +1,49 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../navigation/app_router.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/empty_screen.dart';
 import '../../../../widget/leave_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-class LeaveList extends StatelessWidget {
-  final String employeeName;
-  final Status status;
+class EmployeeLeaveList extends StatelessWidget {
+  final bool isLoading;
   final List<Leave> leaves;
-  final String emptyStringTitle;
-  final String emptyStringMessage;
+  final String employeeName;
 
-  const LeaveList(
+  const EmployeeLeaveList(
       {Key? key,
-      required this.status,
-      required this.leaves,
-      required this.emptyStringTitle,
-      required this.emptyStringMessage,
-      required this.employeeName})
+        required this.isLoading,
+        required this.leaves,
+        required this.employeeName})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return status == Status.loading
+    return isLoading
         ? const AppCircularProgressIndicator()
         : leaves.isEmpty
-            ? EmptyScreen(message: emptyStringMessage, title: emptyStringTitle)
-            : ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: leaves.length,
-                itemBuilder: (context, leave) => LeaveCard(
-                  onTap: () {
-                    context.goNamed(Routes.adminEmployeeDetailsLeavesDetails,
-                        params: {
-                          RoutesParamsConst.employeeId : leaves[leave].uid,
-                RoutesParamsConst.leaveId : leaves[leave].leaveId,
-                RoutesParamsConst.employeeName : employeeName,
+        ? EmptyScreen(
+        message: AppLocalizations.of(context)
+            .employee_empty_leave_message(employeeName),
+        title: AppLocalizations.of(context).no_leaves_tag)
+        : ListView.separated(
+      padding: const EdgeInsets.all(16),
+      itemCount: leaves.length,
+      itemBuilder: (context, index) => LeaveCard(
+        onTap: () {
+          context.goNamed(Routes.adminEmployeeDetailsLeavesDetails,
+              params: {
+                RoutesParamsConst.employeeId: leaves[index].uid,
+                RoutesParamsConst.leaveId: leaves[index].leaveId,
+                RoutesParamsConst.employeeName: employeeName,
               });
         },
-        leave: leaves[leave],
+        leave: leaves[index],
       ),
       separatorBuilder: (BuildContext context, int index) =>
       const SizedBox(height: 16),
     );
   }
 }
-

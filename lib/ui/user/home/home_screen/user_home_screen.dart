@@ -78,7 +78,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (context, leave) => LeaveCard(
-                                  hideStatus: true,
                                   onTap: () {
                                     context.goNamed(
                                         Routes.userRequestDetail,

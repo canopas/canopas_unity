@@ -7,28 +7,6 @@ import '../../data/core/utils/const/leave_map.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/leave/leave.dart';
 
-class _LeaveTypeView extends StatelessWidget {
-  final int leaveType;
-
-  const _LeaveTypeView({Key? key, required this.leaveType}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: leaveRequestCardColor[leaveType],
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-      child: Text(
-        AppLocalizations.of(context)
-            .leave_type_placeholder_text(leaveType.toString()),
-        style: AppFontStyle.labelRegular.copyWith(color: AppColors.whiteColor),
-      ),
-    );
-  }
-}
-
 class _LeaveStatusView extends StatelessWidget {
   final int status;
 
@@ -36,7 +14,7 @@ class _LeaveStatusView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Icon getLeaveStatusIcon() {
+    Widget getLeaveStatusIcon() {
       if (status == approveLeaveStatus) {
         return const Icon(Icons.done_all_rounded,
             color: AppColors.greenColor, size: 20);
@@ -45,11 +23,15 @@ class _LeaveStatusView extends StatelessWidget {
             color: AppColors.redColor, size: 20);
       }
       return const Icon(Icons.query_builder,
-          color: AppColors.secondaryText, size: 20);
+          color: AppColors.blackColor, size: 20);
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: leaveStatusColor(status),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Row(
         children: [
           getLeaveStatusIcon(),
@@ -66,16 +48,14 @@ class _LeaveStatusView extends StatelessWidget {
 }
 
 class LeaveCard extends StatelessWidget {
-  final bool hideStatus;
   final Leave leave;
   final void Function()? onTap;
 
-  const LeaveCard(
-      {Key? key,
-      required this.onTap,
-      required this.leave,
-      this.hideStatus = false})
-      : super(key: key);
+  const LeaveCard({
+    Key? key,
+    required this.onTap,
+    required this.leave,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,18 +80,18 @@ class LeaveCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _LeaveTypeView(leaveType: leave.type),
+                    _LeaveStatusView(status: leave.status),
                     Text(
-                      DateFormatter(AppLocalizations.of(context))
-                          .getLeaveDurationPresentation(leave.total)
-                          .toString(),
-                      style: AppFontStyle.bodySmallRegular,
-                    ),
+                        DateFormatter(AppLocalizations.of(context))
+                            .getDatePeriodPresentation(
+                                startTimeStamp: leave.startDate,
+                                endTimeStamp: leave.endDate),
+                        style: AppFontStyle.bodyMedium,
+                        overflow: TextOverflow.ellipsis),
                   ],
                 ),
                 const Divider(height: 32),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,14 +101,18 @@ class LeaveCard extends StatelessWidget {
                                 .dateInLine(
                                     startTimeStamp: leave.startDate,
                                     endTimeStamp: leave.endDate),
-                            style: AppFontStyle.bodyMedium),
-                        hideStatus
-                            ? const SizedBox()
-                            : _LeaveStatusView(
-                                status: leave.status,
-                              ),
+                            style: AppFontStyle.bodyMedium,
+                            overflow: TextOverflow.ellipsis),
+                        const SizedBox(height: 8),
+                        Text(
+                          DateFormatter(AppLocalizations.of(context))
+                              .getLeaveDurationPresentation(leave.total)
+                              .toString(),
+                          style: AppFontStyle.bodySmallRegular,
+                        ),
                       ],
                     ),
+                    const Spacer(),
                     const Icon(
                       Icons.arrow_forward_ios_rounded,
                       size: 16,
