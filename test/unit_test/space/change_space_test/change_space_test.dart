@@ -42,8 +42,13 @@ void main() {
       paidTimeOff: 12,
       ownerIds: ['uid']);
 
-  const Employee employee =
-      Employee(uid: 'uid', name: 'dummy', email: 'dummy@canopas.com');
+  const Employee employee = Employee(
+    uid: 'uid',
+    name: 'dummy',
+    email: 'dummy@canopas.com',
+    role: Role.employee,
+    dateOfJoining: 11,
+  );
 
   group('Change space test', () {
     test('Fetch spaces success test', () {

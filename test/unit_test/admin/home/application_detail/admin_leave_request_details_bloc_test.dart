@@ -134,7 +134,7 @@ void main() {
           () {
             when(leaveService.updateLeaveStatus("leaveId", {
           FireStoreConst.leaveStatus: approveLeaveStatus,
-          FireStoreConst.rejectionReason: '',
+          FireStoreConst.response: '',
         })).thenThrow(Exception(firestoreFetchDataError));
         AdminLeaveApplicationDetailsState errorState =
             const AdminLeaveApplicationDetailsState(

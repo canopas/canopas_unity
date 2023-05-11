@@ -9,9 +9,9 @@ import 'dart:ui' as _i10;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:firebase_auth/firebase_auth.dart' as _i13;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:projectunity/data/model/account/account.dart' as _i6;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
-import 'package:projectunity/data/model/user/user.dart' as _i6;
 import 'package:projectunity/data/provider/device_info.dart' as _i5;
 import 'package:projectunity/data/provider/user_data.dart' as _i9;
 import 'package:projectunity/data/services/account_service.dart' as _i12;
@@ -71,8 +71,8 @@ class _FakeDeviceInfoProvider_3 extends _i1.SmartFake
         );
 }
 
-class _FakeUser_4 extends _i1.SmartFake implements _i6.User {
-  _FakeUser_4(
+class _FakeAccount_4 extends _i1.SmartFake implements _i6.Account {
+  _FakeAccount_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -300,7 +300,7 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  _i8.Future<void> setUser(_i6.User? user) => (super.noSuchMethod(
+  _i8.Future<void> setUser(_i6.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
@@ -539,19 +539,19 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
         ),
       ) as _i5.DeviceInfoProvider);
   @override
-  _i8.Future<_i6.User> getUser(_i13.User? authData) => (super.noSuchMethod(
+  _i8.Future<_i6.Account> getUser(_i13.User? authData) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [authData],
         ),
-        returnValue: _i8.Future<_i6.User>.value(_FakeUser_4(
+        returnValue: _i8.Future<_i6.Account>.value(_FakeAccount_4(
           this,
           Invocation.method(
             #getUser,
             [authData],
           ),
         )),
-      ) as _i8.Future<_i6.User>);
+      ) as _i8.Future<_i6.Account>);
   @override
   _i8.Future<void> updateSpaceOfUser({
     required String? spaceID,
@@ -563,6 +563,23 @@ class MockAccountService extends _i1.Mock implements _i12.AccountService {
           [],
           {
             #spaceID: spaceID,
+            #uid: uid,
+          },
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+  @override
+  _i8.Future<void> deleteSpaceIdFromAccount({
+    required String? spaceId,
+    required String? uid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteSpaceIdFromAccount,
+          [],
+          {
+            #spaceId: spaceId,
             #uid: uid,
           },
         ),

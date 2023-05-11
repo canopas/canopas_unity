@@ -7,7 +7,7 @@ import '../model/space/space.dart';
 class SpaceService {
   late final FirebaseFirestore fireStore;
   late final CollectionReference<Space> _spaceDb;
-  late final CollectionReference<Map> _userDb;
+  late final CollectionReference<Map> _accountsDb;
 
   SpaceService(this.fireStore)
       : _spaceDb = fireStore
@@ -15,7 +15,7 @@ class SpaceService {
             .withConverter(
                 fromFirestore: Space.fromFirestore,
                 toFirestore: (Space space, _) => space.toFirestore()),
-        _userDb = fireStore.collection(FireStoreConst.accountsCollection);
+        _accountsDb = fireStore.collection(FireStoreConst.accountsCollection);
 
   Future<Space?> getSpace(String spaceId) async {
     final spaceDoc = await _spaceDb.doc(spaceId).get();
@@ -41,7 +41,7 @@ class SpaceService {
         ownerIds: [ownerId]);
 
     await _spaceDb.doc(id).set(space);
-    await _userDb.doc(ownerId).update({
+    await _accountsDb.doc(ownerId).update({
       FireStoreConst.spaces: FieldValue.arrayUnion([id]),
     });
 
@@ -70,7 +70,7 @@ class SpaceService {
     await _spaceDb.doc(workspaceId).delete();
 
     for (String owner in owners) {
-      await _userDb.doc(owner).update({
+      await _accountsDb.doc(owner).update({
         FireStoreConst.spaces: FieldValue.arrayRemove([workspaceId]),
       });
     }

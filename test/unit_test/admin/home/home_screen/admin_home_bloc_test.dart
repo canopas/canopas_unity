@@ -25,12 +25,14 @@ void main() {
   late AdminHomeBloc adminHomeBloc;
 
   Employee employee = const Employee(
-      uid: 'id',
-      role: Role.admin,
-      name: 'Andrew jhone',
-      employeeId: '100',
-      email: 'andrew.j@canopas.com',
-      designation: 'Android developer');
+    uid: 'id',
+    role: Role.admin,
+    name: 'Andrew jhone',
+    employeeId: '100',
+    email: 'andrew.j@canopas.com',
+    designation: 'Android developer',
+    dateOfJoining: 11,
+  );
 
   Leave leave = const Leave(
       leaveId: 'leave-id',
@@ -109,12 +111,14 @@ void main() {
         'Emits state with status as success and list of leave application is empty when leave user id doesn\'t match with any user id',
         () {
       Employee empl = const Employee(
-          uid: 'user id',
-          role: Role.employee,
-          name: 'Andrew jhone',
-          employeeId: 'Ca 1254',
-          email: 'andrew.j@canopas.com',
-          designation: 'Android developer');
+        uid: 'user id',
+        role: Role.employee,
+        name: 'Andrew jhone',
+        employeeId: 'Ca 1254',
+        email: 'andrew.j@canopas.com',
+        designation: 'Android developer',
+        dateOfJoining: 11,
+      );
 
       List<Employee> employees = [empl];
       List<Leave> leaves = [leave];

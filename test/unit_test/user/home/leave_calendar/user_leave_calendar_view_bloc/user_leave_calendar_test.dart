@@ -33,6 +33,7 @@ void main() {
     employeeId: "103",
     email: "abc@gmail.com",
     designation: "tester",
+    dateOfJoining: 11,
   );
 
   Leave leave = Leave(

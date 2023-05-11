@@ -33,10 +33,8 @@ class ProfileDetail extends StatelessWidget {
             subtitle: employee.phone),
         EmployeeDetailsField(
             title: AppLocalizations.of(context).employee_dateOfJoin_tag,
-            subtitle: employee.dateOfJoining == null
-                ? null
-                : localization
-                    .date_format_yMMMd(employee.dateOfJoining!.toDate)),
+            subtitle:
+                localization.date_format_yMMMd(employee.dateOfJoining.toDate)),
         EmployeeDetailsField(
             title: AppLocalizations.of(context).employee_dateOfBirth_tag,
             subtitle: employee.dateOfBirth == null

@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/utils/const/pref_key.dart';
+import '../model/account/account.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';
-import '../model/user/user.dart';
 
 @Singleton()
 class UserPreference {
@@ -12,13 +12,13 @@ class UserPreference {
 
   UserPreference(this._preferences);
 
-  Future<void> setUser(User user) async {
+  Future<void> setUser(Account user) async {
     await _preferences.setString(PrefKeys.user, jsonEncode(user.toJson()));
   }
 
-  User? getUser() {
+  Account? getUser() {
     final data = _preferences.getString(PrefKeys.user);
-    return data == null ? null : User.fromJson(jsonDecode(data));
+    return data == null ? null : Account.fromJson(jsonDecode(data));
   }
 
   Future<void> removeUser() async {

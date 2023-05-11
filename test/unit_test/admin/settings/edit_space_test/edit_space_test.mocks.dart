@@ -11,9 +11,9 @@ import 'package:image_picker/image_picker.dart' as _i11;
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart'
     as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
-import 'package:projectunity/data/model/user/user.dart' as _i9;
 import 'package:projectunity/data/provider/user_data.dart' as _i8;
 import 'package:projectunity/data/services/space_service.dart' as _i6;
 
@@ -299,7 +299,7 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  _i7.Future<void> setUser(_i9.User? user) => (super.noSuchMethod(
+  _i7.Future<void> setUser(_i9.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],

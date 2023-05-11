@@ -17,12 +17,14 @@ void main() {
   late UserEmployeesBloc userEmployeesBloc;
   late UserManager userManager;
   Employee employee = const Employee(
-      uid: 'id',
-      role: Role.admin,
-      name: 'Andrew jhone',
-      employeeId: 'CA 1254',
-      email: 'andrew.j@canopas.com',
-      designation: 'Android developer');
+    uid: 'id',
+    role: Role.admin,
+    name: 'Andrew jhone',
+    employeeId: 'CA 1254',
+    email: 'andrew.j@canopas.com',
+    designation: 'Android developer',
+    dateOfJoining: 11,
+  );
 
   setUpAll(() {
     employeeService = MockEmployeeService();

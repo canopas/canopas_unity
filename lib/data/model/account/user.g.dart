@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'account.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) => User(
+Account _$AccountFromJson(Map<String, dynamic> json) => Account(
       uid: json['uid'] as String,
       email: json['email'] as String,
       name: json['name'] as String?,
@@ -16,7 +16,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           const [],
     );
 
-Map<String, dynamic> _$UserToJson(User instance) {
+Map<String, dynamic> _$AccountToJson(Account instance) {
   final val = <String, dynamic>{
     'uid': instance.uid,
     'email': instance.email,

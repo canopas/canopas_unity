@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:projectunity/data/model/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/model/account/account.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
@@ -26,14 +26,14 @@ void main() {
   late SignInBloc bloc;
   late firebase_auth.User authUser;
 
-  const User user = User(uid: 'uid', email: "dummy@canopas.com");
+  const Account user = Account(uid: 'uid', email: "dummy@canopas.com");
 
   setUp(() {
     userManager = MockUserManager();
     authUser = MockUser();
     authService = MockAuthService();
     accountService = MockAccountService();
-    bloc = SignInBloc(userManager, authService,accountService);
+    bloc = SignInBloc(userManager, authService, accountService);
   });
 
   group("Log in with google test", () {

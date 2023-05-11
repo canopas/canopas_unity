@@ -8,10 +8,10 @@ import 'dart:ui' as _i11;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:projectunity/data/model/account/account.dart' as _i10;
 import 'package:projectunity/data/model/employee/employee.dart' as _i3;
 import 'package:projectunity/data/model/leave/leave.dart' as _i7;
 import 'package:projectunity/data/model/space/space.dart' as _i4;
-import 'package:projectunity/data/model/user/user.dart' as _i10;
 import 'package:projectunity/data/provider/user_data.dart' as _i9;
 import 'package:projectunity/data/services/employee_service.dart' as _i8;
 import 'package:projectunity/data/services/leave_service.dart' as _i5;
@@ -465,7 +465,7 @@ class MockUserManager extends _i1.Mock implements _i9.UserManager {
         returnValue: false,
       ) as bool);
   @override
-  _i6.Future<void> setUser(_i10.User? user) => (super.noSuchMethod(
+  _i6.Future<void> setUser(_i10.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],

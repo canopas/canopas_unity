@@ -19,12 +19,14 @@ void main() {
   late UserManager userManager;
 
   Employee employee = const Employee(
-      uid: 'id',
-      role: Role.admin,
-      name: 'Andrew jhone',
-      employeeId: '100',
-      email: 'dummy123@testing.com',
-      designation: 'Android developer');
+    uid: 'id',
+    role: Role.admin,
+    name: 'Andrew jhone',
+    employeeId: '100',
+    email: 'dummy123@testing.com',
+    designation: 'Android developer',
+    dateOfJoining: 11,
+  );
 
   group("User settings test", () {
     setUp(() {

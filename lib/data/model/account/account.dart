@@ -5,21 +5,25 @@ import 'package:equatable/equatable.dart';
 part 'user.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class User extends Equatable {
+class Account extends Equatable {
   final String uid;
   final String email;
   final String? name;
   final List<String> spaces;
 
-  const User({required this.uid, required this.email,this.name,this.spaces = const []});
+  const Account(
+      {required this.uid,
+      required this.email,
+      this.name,
+      this.spaces = const []});
 
-  factory User.fromJson(Map<String, dynamic> map) => _$UserFromJson(map);
+  factory Account.fromJson(Map<String, dynamic> map) => _$AccountFromJson(map);
 
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => _$AccountToJson(this);
 
-  factory User.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
+  factory Account.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
           SnapshotOptions? options) =>
-      User.fromJson(snapshot.data()!);
+      Account.fromJson(snapshot.data()!);
 
   @override
   List<Object?> get props => [uid, email, spaces,name];

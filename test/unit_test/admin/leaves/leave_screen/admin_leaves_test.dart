@@ -35,15 +35,20 @@ void main() {
         reason: 'reason',
         status: 2,
         appliedOn: 400,
-        perDayDuration: [LeaveDayDuration.noLeave, LeaveDayDuration.firstHalfLeave]);
+        perDayDuration: [
+          LeaveDayDuration.noLeave,
+          LeaveDayDuration.firstHalfLeave
+        ]);
 
     Employee employee = const Employee(
-        uid: 'id',
-        role: Role.admin,
-        name: 'Andrew jhone',
-        employeeId: '100',
-        email: 'andrew.j@canopas.com',
-        designation: 'Android developer');
+      uid: 'id',
+      role: Role.admin,
+      name: 'Andrew jhone',
+      employeeId: '100',
+      email: 'andrew.j@canopas.com',
+      designation: 'Android developer',
+      dateOfJoining: 11,
+    );
 
     test('successfully fetch initial data test', () {
       bloc.add(AdminLeavesInitialLoadEvent());

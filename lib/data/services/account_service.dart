@@ -4,29 +4,29 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:projectunity/data/model/session/session.dart';
 import 'package:projectunity/data/provider/device_info.dart';
 import '../core/utils/const/firestore.dart';
-import '../model/user/user.dart';
+import '../model/account/account.dart';
 
 @LazySingleton()
 class AccountService {
   final FirebaseFirestore fireStore;
   final DeviceInfoProvider deviceInfoProvider;
-  final CollectionReference<User> _accountsDb;
+  final CollectionReference<Account> _accountsDb;
 
   AccountService(this.fireStore, this.deviceInfoProvider)
       : _accountsDb = fireStore
             .collection(FireStoreConst.accountsCollection)
             .withConverter(
-                fromFirestore: User.fromFireStore,
-                toFirestore: (User user, _) => user.toJson());
+                fromFirestore: Account.fromFireStore,
+                toFirestore: (Account user, _) => user.toJson());
 
-  Future<User> getUser(firebase_auth.User authData) async {
+  Future<Account> getUser(firebase_auth.User authData) async {
     final userDataDoc = await _accountsDb.doc(authData.uid).get();
-    final User user;
-    final User? userData = userDataDoc.data();
+    final Account user;
+    final Account? userData = userDataDoc.data();
     if (userData != null) {
       user = userData;
     } else {
-      user = User(
+      user = Account(
           uid: authData.uid,
           email: authData.email!,
           name: authData.displayName);
@@ -51,6 +51,13 @@ class AccountService {
       {required String spaceID, required String uid}) async {
     await _accountsDb.doc(uid).update({
       FireStoreConst.spaces: FieldValue.arrayUnion([spaceID])
+    });
+  }
+
+  Future<void> deleteSpaceIdFromAccount(
+      {required String spaceId, required String uid}) async {
+    await _accountsDb.doc(uid).update({
+      FireStoreConst.spaces: FieldValue.arrayRemove([spaceId])
     });
   }
 

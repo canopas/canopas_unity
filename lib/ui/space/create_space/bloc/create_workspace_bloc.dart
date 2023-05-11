@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
@@ -158,6 +159,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
           role: Role.admin,
           name: state.ownerName!,
           email: _userManager.userEmail!,
+          dateOfJoining: DateTime.now().timeStampToInt,
         );
 
         await _employeeService.addEmployeeBySpaceId(

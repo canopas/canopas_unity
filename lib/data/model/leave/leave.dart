@@ -22,8 +22,7 @@ class Leave extends Equatable {
   final double total;
   final String reason;
   final int status;
-  @JsonKey(name: 'rejection_reason')
-  final String? rejectionReason;
+  final String? response;
   @JsonKey(name: 'applied_on')
   final int appliedOn;
   @JsonKey(name: 'per_day_duration')
@@ -40,7 +39,7 @@ class Leave extends Equatable {
       required this.status,
       required this.appliedOn,
       required this.perDayDuration,
-      this.rejectionReason});
+      this.response});
 
   factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -63,7 +62,7 @@ class Leave extends Equatable {
         reason,
         status,
         appliedOn,
-        rejectionReason
+    response
       ];
 }
 

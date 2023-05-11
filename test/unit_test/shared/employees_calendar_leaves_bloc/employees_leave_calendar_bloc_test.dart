@@ -28,6 +28,7 @@ void main() {
     employeeId: "103",
     email: "abc@gmail.com",
     designation: "tester",
+    dateOfJoining: 11,
   );
 
   final currentTime = DateTime.now().timeStampToInt;

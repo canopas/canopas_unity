@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import '../model/account/account.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';
-import '../model/user/user.dart';
 import '../pref/user_preference.dart';
 
 @Singleton()
@@ -18,7 +18,7 @@ class UserManager with ChangeNotifier {
     hasLoggedIn();
   }
 
-  Future<void> setUser(User user) async {
+  Future<void> setUser(Account user) async {
     await _userPreference.setUser(user);
     hasLoggedIn();
   }

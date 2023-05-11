@@ -51,7 +51,7 @@ class ProfileCard extends StatelessWidget {
               TextColumn(
                 title: localization.employee_role_tag,
                 subtitle:
-                    localization.user_detail_role_type(employee.role!.name),
+                    localization.user_detail_role_type(employee.role.name),
               ),
               Container(
                 height: 60,

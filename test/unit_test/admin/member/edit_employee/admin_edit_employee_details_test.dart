@@ -40,24 +40,23 @@ void main() {
       expect(
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin)));
+              dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin)));
     });
 
     test('change role type test', () {
       editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(
-          dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin));
+          dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin));
       editEmployeeDetailsBloc
           .add(ChangeEmployeeRoleEvent(roleType: Role.employee));
       expect(
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining!.dateOnly,
-              role: Role.employee)));
+              dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.employee)));
     });
 
     test('change joining date test', () {
       editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(
-          dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin));
+          dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin));
       DateTime otherDate = DateTime.now().add(const Duration(days: 5)).dateOnly;
       editEmployeeDetailsBloc
           .add(ChangeEmployeeDateOfJoiningEvent(dateOfJoining: otherDate));
@@ -129,13 +128,13 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin),
+                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly,
+                dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
                 status: Status.loading),
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly,
+                dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
                 status: Status.success),
           ]));
@@ -159,13 +158,13 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly, role: Role.admin),
+                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly,
+                dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
                 status: Status.loading),
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining!.dateOnly,
+                dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
                 status: Status.error,
                 error: firestoreFetchDataError),
