@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../bloc/leave_count/user_leave_count_bloc.dart';
 import '../bloc/leave_count/user_leave_count_state.dart';
 
@@ -24,7 +26,13 @@ class LeaveCountCard extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: BlocBuilder<UserLeaveCountBloc, UserLeaveCountState>(
+        child: BlocConsumer<UserLeaveCountBloc, UserLeaveCountState>(
+          listenWhen: (previous, current) => current.status == Status.error,
+           listener: (context, state) {
+             if(state.status == Status.error) {
+               showSnackBar(context: context, error: state.error);
+             }
+           },
             builder: (context, state) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +52,7 @@ class LeaveCountCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${state.used ?? 0}/${state.totalLeaves ?? 0}',
+                    '${state.used}/${state.totalLeaves}',
                     style: AppFontStyle.headerGrey
                         .copyWith(color: AppColors.primaryBlue),
                   ),

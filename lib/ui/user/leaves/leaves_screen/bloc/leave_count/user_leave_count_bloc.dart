@@ -15,8 +15,7 @@ class UserLeaveCountBloc
   final UserManager _userManger;
   final SpaceService _spaceService;
 
-  UserLeaveCountBloc(
-      this._leaveService, this._userManger, this._spaceService)
+  UserLeaveCountBloc(this._leaveService, this._userManger, this._spaceService)
       : super(const UserLeaveCountState()) {
     on<FetchLeaveCountEvent>(_fetchLeaveCount);
   }
