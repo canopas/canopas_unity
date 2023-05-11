@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/ui/widget/space_logo_view.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
 import '../../data/configs/theme.dart';
 
 class SpaceCard extends StatelessWidget {
-  final String title;
+  final String name;
   final String? domain;
   final void Function()? onPressed;
-  final String? imageURL;
+  final String? logo;
 
   const SpaceCard(
       {Key? key,
       this.onPressed,
-      this.imageURL,
-      required this.title,
+      this.logo,
+      required this.name,
       required this.domain})
       : super(key: key);
 
@@ -39,42 +40,27 @@ class SpaceCard extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      color: imageURL == null
-                          ? AppColors.textFieldBg
-                          : AppColors.whiteColor,
-                      borderRadius: AppTheme.commonBorderRadius,
-                      image: imageURL == null
-                          ? null
-                          : DecorationImage(
-                              image: NetworkImage(imageURL!),
-                              fit: BoxFit.cover,
-                            )),
-                  child: imageURL != null
-                      ? null
-                      : const Icon(Icons.business,
-                          color: AppColors.secondaryText, size: 40),
-                ),
+                SpaceLogoView(spaceLogo: logo),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        name,
                         style: AppFontStyle.bodyLarge
                             .copyWith(fontWeight: FontWeight.w600),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       ValidateWidget(
                           isValid: domain.isNotNullOrEmpty,
                           child: Text(domain ?? "",
-                              style: AppFontStyle.subTitleGrey)),
+                              style: AppFontStyle.subTitleGrey,
+                            overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),
+                const SizedBox(width: 10),
                 const Icon(Icons.arrow_forward_ios_rounded, size: 15),
               ],
             ),

@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
-
 import 'package:projectunity/data/di/service_locator.dart';
-
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
@@ -63,7 +61,7 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(primaryHorizontalSpacing),
+                padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
                 child: BlocBuilder<InviteMemberBloc, InviteMemberState>(
                     builder: (context, state) {
                   return FieldEntry(

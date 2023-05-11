@@ -37,6 +37,7 @@ class _PersonalInfoState extends State<PersonalInfo>
     final bloc = BlocProvider.of<CreateSpaceBLoc>(context);
     final locale = AppLocalizations.of(context);
     return SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: BlocListener<CreateSpaceBLoc, CreateSpaceState>(
             listenWhen: (previous, current) =>
                 current.createSpaceStatus == Status.error ||
