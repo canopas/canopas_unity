@@ -8,14 +8,13 @@ import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart';
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_events.dart';
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_state.dart';
-
 import 'admin_employee_details_leaves_test.mocks.dart';
 
 @GenerateMocks([LeaveService])
 void main() {
   late LeaveService leaveService;
   late AdminEmployeeDetailsLeavesBLoc bloc;
-  Leave leave = const Leave(
+  const leave = Leave(
       leaveId: 'leave-id',
       uid: 'id',
       type: 2,
@@ -25,42 +24,39 @@ void main() {
       reason: 'reason',
       status: 2,
       appliedOn: 400,
-      perDayDuration: [LeaveDayDuration.noLeave, LeaveDayDuration.firstHalfLeave]);
+      perDayDuration: [
+        LeaveDayDuration.noLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
 
   setUp(() {
     leaveService = MockLeaveService();
     bloc = AdminEmployeeDetailsLeavesBLoc(leaveService);
   });
 
+  tearDown(() {
+    bloc.close();
+  });
+
   group('Admin Employee Details Leaves Test', () {
     test('data fetch success on init test', () {
-      when(leaveService.getUpcomingLeavesOfUser("id"))
+      when(leaveService.getAllLeavesOfUser(leave.uid))
           .thenAnswer((_) async => [leave]);
-      when(leaveService.getPastLeavesOfUser("id"))
-          .thenAnswer((_) async => [leave, leave]);
-      when(leaveService.getRecentLeavesOfUser("id"))
-          .thenAnswer((_) async => [leave]);
-      bloc.add(AdminEmployeeDetailsLeavesInitEvent(employeeId: "id"));
+
+      bloc.add(InitEvents(employeeId: leave.uid));
       expect(
           bloc.stream,
-          emitsInOrder([
-            const AdminEmployeeDetailsLeavesState(status: Status.loading),
+          emitsInOrder(const [
+            AdminEmployeeDetailsLeavesState(status: Status.loading),
             AdminEmployeeDetailsLeavesState(
-                status: Status.success,
-                recentLeaves: [leave],
-                upcomingLeaves: [leave],
-                pastLeaves: [leave, leave]),
+                status: Status.success, leaves: [leave]),
           ]));
     });
 
     test('data fetch failure on init test', () {
-      when(leaveService.getUpcomingLeavesOfUser("id"))
-          .thenAnswer((_) async => [leave]);
-      when(leaveService.getPastLeavesOfUser("id"))
+      when(leaveService.getAllLeavesOfUser(leave.uid))
           .thenThrow(Exception(firestoreFetchDataError));
-      when(leaveService.getRecentLeavesOfUser("id"))
-          .thenAnswer((_) async => [leave]);
-      bloc.add(AdminEmployeeDetailsLeavesInitEvent(employeeId: "id"));
+      bloc.add(InitEvents(employeeId: leave.uid));
       expect(
           bloc.stream,
           emitsInOrder(const [

@@ -2,9 +2,8 @@ import 'package:equatable/equatable.dart';
 
 abstract class AdminEmployeeDetailsLeavesEvents extends Equatable {}
 
-class AdminEmployeeDetailsLeavesInitEvent
-    extends AdminEmployeeDetailsLeavesEvents {
-  AdminEmployeeDetailsLeavesInitEvent({required this.employeeId});
+class InitEvents extends AdminEmployeeDetailsLeavesEvents {
+  InitEvents({required this.employeeId});
 
   final String employeeId;
 

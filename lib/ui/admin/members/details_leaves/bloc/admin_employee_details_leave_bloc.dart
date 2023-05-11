@@ -14,26 +14,16 @@ class AdminEmployeeDetailsLeavesBLoc extends Bloc<
 
   AdminEmployeeDetailsLeavesBLoc(this._leaveService)
       : super(const AdminEmployeeDetailsLeavesState()) {
-    on<AdminEmployeeDetailsLeavesInitEvent>(_init);
+    on<InitEvents>(_init);
   }
 
-  _init(AdminEmployeeDetailsLeavesInitEvent event,
-      Emitter<AdminEmployeeDetailsLeavesState> emit) async {
+  _init(InitEvents event, Emitter<AdminEmployeeDetailsLeavesState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      List<Leave> recentLeaves =
-          await _leaveService.getRecentLeavesOfUser(event.employeeId);
-      List<Leave> upcomingLeaves =
-          await _leaveService.getUpcomingLeavesOfUser(event.employeeId);
-      List<Leave> pastLeaves =
-          await _leaveService.getPastLeavesOfUser(event.employeeId);
-      emit(state.copyWith(
-          recentLeaves: recentLeaves,
-          pastLeaves: pastLeaves,
-          upcomingLeaves: upcomingLeaves,
-          status: Status.success,
-          loading: false));
-    } catch (e) {
+      final List<Leave> leaves = await _leaveService.getAllLeavesOfUser(event.employeeId);
+      leaves.sort((a, b) => b.startDate.compareTo(a.startDate));
+      emit(state.copyWith(leaves: leaves, status: Status.success));
+    } catch (_) {
       emit(
           state.copyWith(error: firestoreFetchDataError, status: Status.error));
     }

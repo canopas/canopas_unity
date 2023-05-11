@@ -69,6 +69,18 @@ class DateFormatter {
     return '${_localization.date_format_yMMMd(startDate)} - ${_localization.date_format_yMMMd(endDate)}';
   }
 
+  String getDatePeriodPresentation(
+      {required int startTimeStamp, required int endTimeStamp}) {
+    final currentDate = DateTime.now().dateOnly;
+    if (endTimeStamp.dateOnly.isBefore(currentDate)) {
+      return _localization.past_tag;
+    } else if (startTimeStamp.dateOnly.isAfter(currentDate)) {
+      return _localization.upcoming_tag;
+    } else {
+      return _localization.recent_tag;
+    }
+  }
+
   String timeAgoPresentation(int timeStamp) {
     DateTime dateTime = timeStamp.toDate;
     Duration difference = today.difference(dateTime);
