@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
-import '../../data/configs/theme.dart';
 
 class SpaceLogoView extends StatelessWidget {
+  final double size;
   final String? spaceLogo;
 
-  const SpaceLogoView({Key? key, this.spaceLogo}) : super(key: key);
+  const SpaceLogoView({Key? key, this.spaceLogo, this.size = 50})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 50,
+      height: size,
+      width: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AppColors.whiteColor,
-        boxShadow: AppTheme.commonBoxShadow,
+        border: Border.all(color: AppColors.dividerColor),
         image: spaceLogo.isNotNullOrEmpty
             ? DecorationImage(
                 fit: BoxFit.cover,
@@ -27,8 +28,8 @@ class SpaceLogoView extends StatelessWidget {
       ),
       child: ValidateWidget(
           isValid: !spaceLogo.isNotNullOrEmpty,
-          child: const Icon(Icons.business_rounded,
-              size: 30, color: AppColors.secondaryText)),
+          child: Icon(Icons.business,
+              size: (size * 0.5), color: AppColors.secondaryText)),
     );
   }
 }

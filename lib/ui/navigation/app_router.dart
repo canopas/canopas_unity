@@ -246,6 +246,7 @@ class AppRouter {
                           ]),
                     ]),
               ]),
+
           ShellRoute(
               navigatorKey: _employeeShellNavigatorKey,
               builder: (context, state, child) {

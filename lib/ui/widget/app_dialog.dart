@@ -10,7 +10,7 @@ showAlertDialog(
         required void Function()? onActionButtonPressed}) =>
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (_) => AlertDialog(
               title: Text(title),
               content: Text(description),
               actions: [

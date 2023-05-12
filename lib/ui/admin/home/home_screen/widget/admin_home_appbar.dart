@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../data/event_bus/events.dart';
 import '../../../../widget/space_logo_view.dart';
 import '../../../../widget/widget_validation.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -38,7 +37,11 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SpaceLogoView(spaceLogo: spaceLogo),
+              InkWell(
+                  onTap: () {
+                    eventBus.fire(OpenDrawerEvent());
+                  },
+                  child: SpaceLogoView(spaceLogo: spaceLogo)),
               const SizedBox(width: primaryHorizontalSpacing),
               Expanded(
                 child: Column(
@@ -60,12 +63,6 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 ),
               ),
-              TextButton(
-                  onPressed: () => context.goNamed(Routes.addMember),
-                  child: Text(
-                    locale.admin_home_invite_member_appbar_tag,
-                    style: AppFontStyle.buttonTextStyle,
-                  )),
             ],
           ),
           const SizedBox(height: primaryHalfSpacing),
