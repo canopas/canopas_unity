@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-part 'user.g.dart';
+part 'account.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class Account extends Equatable {

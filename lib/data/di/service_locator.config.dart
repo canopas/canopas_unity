@@ -19,7 +19,7 @@ import 'package:image_picker/image_picker.dart' as _i12;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
     as _i15;
-import 'package:projectunity/data/di/app_module.dart' as _i55;
+import 'package:projectunity/data/di/app_module.dart' as _i56;
 import 'package:projectunity/data/pref/user_preference.dart' as _i19;
 import 'package:projectunity/data/provider/device_info.dart' as _i7;
 import 'package:projectunity/data/provider/user_data.dart' as _i22;
@@ -45,13 +45,13 @@ import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_bloc
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
     as _i47;
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
-    as _i51;
+    as _i52;
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
     as _i43;
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
     as _i42;
 import 'package:projectunity/ui/admin/members/list/bloc/employee_list_bloc.dart'
-    as _i53;
+    as _i54;
 import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_bloc.dart'
     as _i27;
 import 'package:projectunity/ui/admin/setting/settings_screen/bloc/admin_settings_bloc.dart'
@@ -61,10 +61,12 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i3;
 import 'package:projectunity/ui/navigation/app_router.dart' as _i26;
+import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_bloc.dart'
+    as _i51;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i8;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
-    as _i54;
+    as _i55;
 import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
     as _i40;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i32;
@@ -93,7 +95,7 @@ import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bl
 import 'package:projectunity/ui/user/members/list/bloc/user_employees_bloc.dart'
     as _i34;
 import 'package:projectunity/ui/user/settings/edit_profile/bloc/employee_edit_profile_bloc.dart'
-    as _i52;
+    as _i53;
 import 'package:projectunity/ui/user/settings/settings_screen/bloc/user_settings_bloc.dart'
     as _i23;
 import 'package:shared_preferences/shared_preferences.dart' as _i16;
@@ -268,24 +270,31 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i12.ImagePicker>(),
           gh<_i18.StorageService>(),
         ));
-    gh.factory<_i51.EmployeeDetailBloc>(() => _i51.EmployeeDetailBloc(
+    gh.factory<_i51.DrawerBloc>(() => _i51.DrawerBloc(
+          gh<_i17.SpaceService>(),
+          gh<_i22.UserManager>(),
+          gh<_i20.AccountService>(),
+          gh<_i28.EmployeeService>(),
+          gh<_i21.AuthService>(),
+        ));
+    gh.factory<_i52.EmployeeDetailBloc>(() => _i52.EmployeeDetailBloc(
           gh<_i20.AccountService>(),
           gh<_i17.SpaceService>(),
           gh<_i22.UserManager>(),
           gh<_i28.EmployeeService>(),
           gh<_i31.LeaveService>(),
         ));
-    gh.factory<_i52.EmployeeEditProfileBloc>(() => _i52.EmployeeEditProfileBloc(
+    gh.factory<_i53.EmployeeEditProfileBloc>(() => _i53.EmployeeEditProfileBloc(
           gh<_i28.EmployeeService>(),
           gh<_i19.UserPreference>(),
           gh<_i22.UserManager>(),
           gh<_i18.StorageService>(),
           gh<_i12.ImagePicker>(),
         ));
-    gh.factory<_i53.EmployeeListBloc>(
-        () => _i53.EmployeeListBloc(gh<_i28.EmployeeService>()));
-    gh.factory<_i54.EmployeesCalendarLeavesBloc>(
-        () => _i54.EmployeesCalendarLeavesBloc(
+    gh.factory<_i54.EmployeeListBloc>(
+        () => _i54.EmployeeListBloc(gh<_i28.EmployeeService>()));
+    gh.factory<_i55.EmployeesCalendarLeavesBloc>(
+        () => _i55.EmployeesCalendarLeavesBloc(
               gh<_i28.EmployeeService>(),
               gh<_i31.LeaveService>(),
               gh<_i22.UserManager>(),
@@ -294,4 +303,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$AppModule extends _i55.AppModule {}
+class _$AppModule extends _i56.AppModule {}

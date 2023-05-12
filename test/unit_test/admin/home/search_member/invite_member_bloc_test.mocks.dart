@@ -183,6 +183,11 @@ class MockUserManager extends _i1.Mock implements _i7.UserManager {
         returnValue: false,
       ) as bool);
   @override
+  bool get isSpaceOwner => (super.noSuchMethod(
+        Invocation.getter(#isSpaceOwner),
+        returnValue: false,
+      ) as bool);
+  @override
   bool get isHR => (super.noSuchMethod(
         Invocation.getter(#isHR),
         returnValue: false,

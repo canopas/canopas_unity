@@ -89,6 +89,12 @@ class AppRouter {
                     },
                     routes: <GoRoute>[
                       GoRoute(
+                          parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.editWorkspaceDetails,
+                          path: Routes.editWorkspaceDetails,
+                          pageBuilder: (context, state) =>
+                          const CupertinoPage(child: EditSpacePage())),
+                      GoRoute(
                           path: Routes.addMember,
                           name: Routes.addMember,
                           parentNavigatorKey: _adminShellNavigatorKey,
@@ -216,12 +222,6 @@ class AppRouter {
                           path: Routes.updateLeaveCount,
                           pageBuilder: (context, state) => const CupertinoPage(
                               child: AdminUpdateLeaveCountsPage())),
-                      GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.editWorkspaceDetails,
-                          path: Routes.editWorkspaceDetails,
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(child: EditSpacePage())),
 
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
@@ -246,6 +246,7 @@ class AppRouter {
                           ]),
                     ]),
               ]),
+
           ShellRoute(
               navigatorKey: _employeeShellNavigatorKey,
               builder: (context, state, child) {

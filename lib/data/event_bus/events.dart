@@ -16,3 +16,5 @@ class DeleteEmployeeByAdmin {
 }
 
 class EmployeeListUpdateEvent {}
+
+class OpenDrawerEvent{}

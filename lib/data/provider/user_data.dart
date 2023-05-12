@@ -76,5 +76,7 @@ class UserManager with ChangeNotifier {
 
   bool get isAdmin => _employee?.role == Role.admin;
 
+  bool get isSpaceOwner => currentSpace?.ownerIds.contains(userUID) ?? false;
+
   bool get isHR => _employee?.role == Role.hr;
 }

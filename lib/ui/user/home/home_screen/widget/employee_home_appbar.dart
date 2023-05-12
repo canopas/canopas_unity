@@ -6,6 +6,7 @@ import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/event_bus/events.dart';
 import '../../../../navigation/app_router.dart';
 
 class EmployeeHomeAppBar extends StatelessWidget
@@ -37,7 +38,11 @@ class EmployeeHomeAppBar extends StatelessWidget
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SpaceLogoView(spaceLogo: spaceLogo),
+              InkWell(
+                  onTap: (){
+                    eventBus.fire(OpenDrawerEvent());
+                  },
+                  child: SpaceLogoView(spaceLogo: spaceLogo)),
               const SizedBox(width: primaryHorizontalSpacing),
               Expanded(
                 child: Column(
