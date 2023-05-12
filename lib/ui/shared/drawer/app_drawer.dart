@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_bloc.dart';
 import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_event.dart';
@@ -8,6 +9,7 @@ import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_state.dart';
 import 'package:projectunity/ui/shared/drawer/widget/drawer_option.dart';
 import 'package:projectunity/ui/shared/drawer/widget/drawer_space_card.dart';
 import 'package:projectunity/ui/shared/drawer/widget/drawer_user_profile_card.dart';
+import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/text_style.dart';
@@ -32,37 +34,38 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return BlocProvider<DrawerBloc>(
       create: (context) => getIt<DrawerBloc>()..add(FetchSpacesEvent()),
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(30), topRight: Radius.circular(30)),
-          color: AppColors.whiteColor,
-        ),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: SafeArea(
-          child: Material(
+      child: BlocListener<DrawerBloc, DrawerState>(
+        listenWhen: (previous, current) => current.error.isNotNullOrEmpty,
+        listener: (context, state) {
+          if (state.error.isNotNullOrEmpty) {
+            context.pop();
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(30),
+                topRight: Radius.circular(30)),
             color: AppColors.whiteColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                UserProfileCard(
-                  currentEmployee: userManager.employee,
-                  currentSpace: userManager.currentSpace!,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Text(
-                      AppLocalizations.of(context)
-                          .spaces_list_title(userManager.userEmail!),
-                      style: AppFontStyle.subTitleGrey.copyWith(fontSize: 16)),
-                ),
-                const Divider(height: 0),
-                const SpaceList(),
-                const Divider(height: 0),
-                DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner),
-              ],
+          ),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: SafeArea(
+            child: Material(
+              color: AppColors.whiteColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UserProfileCard(
+                    currentEmployee: userManager.employee,
+                    currentSpace: userManager.currentSpace!,
+                  ),
+                  SpaceList(userEmail: userManager.userEmail!),
+                  const Divider(height: 0),
+                  DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner),
+                ],
+              ),
             ),
           ),
         ),
@@ -74,10 +77,12 @@ class _AppDrawerState extends State<AppDrawer> {
 class DrawerOptionList extends StatelessWidget {
   final bool isSpaceOwner;
 
-  const DrawerOptionList({Key? key, required this.isSpaceOwner}) : super(key: key);
+  const DrawerOptionList({Key? key, required this.isSpaceOwner})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -86,7 +91,7 @@ class DrawerOptionList extends StatelessWidget {
             isValid: isSpaceOwner,
             child: DrawerOption(
                 icon: Icons.edit_note_rounded,
-                title: AppLocalizations.of(context).edit_space_button_tag,
+                title: locale.edit_space_button_tag,
                 onTap: () {
                   context.pop();
                   context.goNamed(Routes.editWorkspaceDetails);
@@ -94,24 +99,26 @@ class DrawerOptionList extends StatelessWidget {
           ),
           DrawerOption(
               icon: Icons.person_outline_rounded,
-              title: AppLocalizations.of(context).view_profile_button_tag,
+              title: locale.view_profile_button_tag,
               onTap: () {
                 /// TODO: implement view profile navigation
               }),
           BlocBuilder<DrawerBloc, DrawerState>(
+            buildWhen: (previous, current) =>
+                previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
                 icon: Icons.logout_rounded,
-                title: AppLocalizations.of(context).sign_out_tag,
+                title: locale.sign_out_tag,
                 onTap: () {
                   showAlertDialog(
                     context: context,
                     actionButtonTitle:
-                        AppLocalizations.of(context).sign_out_tag,
+                    locale.sign_out_tag,
                     onActionButtonPressed: () {
                       context.read<DrawerBloc>().add(SignOutEvent());
                     },
-                    title: AppLocalizations.of(context).sign_out_tag,
-                    description: AppLocalizations.of(context).sign_out_alert,
+                    title: locale.sign_out_tag,
+                    description: locale.sign_out_alert,
                   );
                 }),
           ),
@@ -122,12 +129,17 @@ class DrawerOptionList extends StatelessWidget {
 }
 
 class SpaceList extends StatelessWidget {
-  const SpaceList({Key? key}) : super(key: key);
+  final String userEmail;
+
+  const SpaceList({Key? key, required this.userEmail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
     return Expanded(
-      child: BlocBuilder<DrawerBloc, DrawerState>(builder: (context, state) {
+      child: BlocBuilder<DrawerBloc, DrawerState>(
+        buildWhen: (previous, current) => previous.fetchSpacesStatus != current.fetchSpacesStatus,
+          builder: (context, state) {
         if (state.fetchSpacesStatus == Status.loading) {
           return const ThreeBounceLoading(
             color: AppColors.primaryBlue,
@@ -137,17 +149,32 @@ class SpaceList extends StatelessWidget {
           if (state.spaces.isEmpty) {
             return const SizedBox();
           }
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 11),
-            shrinkWrap: true,
-            itemCount: state.spaces.length,
-            itemBuilder: (context, index) => DrawerSpaceCard(
-              logo: state.spaces[index].logo,
-              name: state.spaces[index].name,
-              onTap: () => context
-                  .read<DrawerBloc>()
-                  .add(ChangeSpaceEvent(state.spaces[index])),
-            ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Text(
+                    locale.spaces_list_title(userEmail),
+                    style: AppFontStyle.subTitleGrey.copyWith(fontSize: 16)),
+              ),
+              const Divider(height: 0),
+              Expanded(
+                child: ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 11),
+                  itemCount: state.spaces.length,
+                  itemBuilder: (context, index) => DrawerSpaceCard(
+                    logo: state.spaces[index].logo,
+                    name: state.spaces[index].name,
+                    onTap: () => context
+                        .read<DrawerBloc>()
+                        .add(ChangeSpaceEvent(state.spaces[index])),
+                  ),
+                ),
+              ),
+            ],
           );
         }
         return const SizedBox();
