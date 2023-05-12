@@ -126,6 +126,7 @@
       }
     }
   },
+  "year_tag":"Year",
   "year_ago_tag":"year ago",
   "years_ago_tag":"years ago",
   "month_ago_tag":"month ago",
