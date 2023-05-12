@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_bloc.dart';
 import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_event.dart';
 import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_state.dart';
@@ -50,7 +52,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Text("Spaces for pratik.k@canopas.com",
+                  child: Text(AppLocalizations.of(context).spaces_list_title(userManager.userEmail!),
                       style: AppFontStyle.subTitleGrey.copyWith(fontSize: 16)),
                 ),
                 const Divider(height: 0),
