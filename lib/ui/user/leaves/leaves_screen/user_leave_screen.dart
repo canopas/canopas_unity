@@ -7,6 +7,7 @@ import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_card.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
+import 'package:projectunity/ui/user/leaves/leaves_screen/widget/year_selection.dart';
 import '../../../../data/configs/colors.dart';
 import 'bloc/leave_count/user_leave_count_bloc.dart';
 import 'bloc/leave_count/user_leave_cout_event.dart';
@@ -49,6 +50,8 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           const LeaveCountCard(),
+          const Divider(height: 32),
+          YearSelection(dateOfJoining: _userManager.employee.dateOfJoining),
           const Divider(height: 32),
           LeaveList(isHR: _userManager.isHR),
         ],
