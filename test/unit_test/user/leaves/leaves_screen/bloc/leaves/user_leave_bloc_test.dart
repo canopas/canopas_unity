@@ -48,6 +48,18 @@ void main() {
       appliedOn: today.timeStampToInt,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
+  Leave specificYearLeave = Leave(
+      leaveId: 'Leave-Id',
+      uid: "user id",
+      type: 1,
+      startDate: DateTime(2022).timeStampToInt,
+      endDate: DateTime(2022).timeStampToInt,
+      total: 1,
+      reason: 'Suffering from viral fever',
+      status: approveLeaveStatus,
+      appliedOn: today.timeStampToInt,
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+
   setUp(() {
     leaveService = MockLeaveService();
     userManager = MockUserManager();
@@ -60,24 +72,31 @@ void main() {
 
   group('UserLeaveBloc stream test', () {
     test('Emits loading state as initial state of UserLeavesBloc', () {
-      expect(userLeaveBloc.state, const UserLeaveState());
+      expect(
+          userLeaveBloc.state,
+          UserLeaveState(
+              selectedYear: DateTime.now().year,
+              leaves: const [],
+              error: null,
+              status: Status.initial));
     });
 
     test(
-        'Emits loading state and success with sorted leave leave after add UserLeaveEvent respectively',
+        'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
         () {
       userLeaveBloc.add(FetchUserLeaveEvent());
       when(userManager.employeeId).thenReturn(employeeId);
-      when(leaveService.getAllLeavesOfUser(employeeId))
-          .thenAnswer((_) async => [pastLeave, upcomingLeave]);
+      when(leaveService.getAllLeavesOfUser(employeeId)).thenAnswer(
+          (_) async => [pastLeave, upcomingLeave, specificYearLeave]);
       expectLater(
           userLeaveBloc.stream,
           emitsInOrder([
-            const UserLeaveState(status: Status.loading),
+            UserLeaveState(status: Status.loading),
             UserLeaveState(
                 status: Status.success, leaves: [upcomingLeave, pastLeave]),
           ]));
     });
+
     test('Emits error state when Exception is thrown', () {
       userLeaveBloc.add(FetchUserLeaveEvent());
 
@@ -87,10 +106,28 @@ void main() {
       expectLater(
           userLeaveBloc.stream,
           emitsInOrder([
-            const UserLeaveState(status: Status.loading),
-            const UserLeaveState(
-                error: firestoreFetchDataError, status: Status.error)
+            UserLeaveState(status: Status.loading),
+            UserLeaveState(error: firestoreFetchDataError, status: Status.error)
           ]));
     });
+  });
+
+  test('change year and show year wise leave test', () {
+    userLeaveBloc.add(FetchUserLeaveEvent());
+    when(userManager.employeeId).thenReturn(employeeId);
+    when(leaveService.getAllLeavesOfUser(employeeId))
+        .thenAnswer((_) async => [pastLeave, upcomingLeave, specificYearLeave]);
+    userLeaveBloc.add(ChangeYearEvent(year: 2022));
+    expectLater(
+        userLeaveBloc.stream,
+        emitsInOrder([
+          UserLeaveState(status: Status.loading),
+          UserLeaveState(
+              status: Status.success, leaves: [upcomingLeave, pastLeave]),
+          UserLeaveState(
+              status: Status.success,
+              leaves: [specificYearLeave],
+              selectedYear: 2022),
+        ]));
   });
 }
