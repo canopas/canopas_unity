@@ -52,6 +52,10 @@
       }
     }
   },
+
+  "edit_space_button_tag": "Edit Space",
+  "view_profile_button_tag": "View Profile",
+
   "empty_space_list_msg":"Looks like you haven't been added to any organizations yet. Please contact your administrator to get started.",
 
   "create_space_tag":"Create Space",

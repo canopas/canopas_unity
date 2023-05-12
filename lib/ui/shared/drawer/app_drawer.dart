@@ -8,6 +8,7 @@ import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_state.dart';
 import 'package:projectunity/ui/shared/drawer/widget/drawer_option.dart';
 import 'package:projectunity/ui/shared/drawer/widget/drawer_space_card.dart';
 import 'package:projectunity/ui/shared/drawer/widget/drawer_user_profile_card.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/text_style.dart';
 import '../../../data/core/utils/bloc_status.dart';
@@ -52,49 +53,69 @@ class _AppDrawerState extends State<AppDrawer> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Text(AppLocalizations.of(context).spaces_list_title(userManager.userEmail!),
+                  child: Text(
+                      AppLocalizations.of(context)
+                          .spaces_list_title(userManager.userEmail!),
                       style: AppFontStyle.subTitleGrey.copyWith(fontSize: 16)),
                 ),
                 const Divider(height: 0),
                 const SpaceList(),
                 const Divider(height: 0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      DrawerOption(
-                          icon: Icons.edit_note_rounded,
-                          title: "Edit Space",
-                          onTap: () {}),
-                      DrawerOption(
-                          icon: Icons.person_outline_rounded,
-                          title: "View Profile",
-                          onTap: () {}),
-                      BlocBuilder<DrawerBloc,DrawerState>(
-                        builder: (context, state) => DrawerOption(
-                            icon: Icons.logout_rounded,
-                            title: AppLocalizations.of(context).sign_out_tag,
-                            onTap: () {
-                              showAlertDialog(
-                                context: context,
-                                actionButtonTitle:
-                                    AppLocalizations.of(context).sign_out_tag,
-                                onActionButtonPressed: () {
-                                  context.read<DrawerBloc>().add(SignOutEvent());
-                                },
-                                title: AppLocalizations.of(context).sign_out_tag,
-                                description:
-                                    AppLocalizations.of(context).sign_out_alert,
-                              );
-                            }),
-                      ),
-                    ],
-                  ),
-                )
+                DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DrawerOptionList extends StatelessWidget {
+  final bool isSpaceOwner;
+
+  const DrawerOptionList({Key? key, required this.isSpaceOwner}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ValidateWidget(
+            isValid: isSpaceOwner,
+            child: DrawerOption(
+                icon: Icons.edit_note_rounded,
+                title: AppLocalizations.of(context).edit_space_button_tag,
+                onTap: () {
+                  context.pop();
+                  context.goNamed(Routes.editWorkspaceDetails);
+                }),
+          ),
+          DrawerOption(
+              icon: Icons.person_outline_rounded,
+              title: AppLocalizations.of(context).view_profile_button_tag,
+              onTap: () {
+                /// TODO: implement view profile navigation
+              }),
+          BlocBuilder<DrawerBloc, DrawerState>(
+            builder: (context, state) => DrawerOption(
+                icon: Icons.logout_rounded,
+                title: AppLocalizations.of(context).sign_out_tag,
+                onTap: () {
+                  showAlertDialog(
+                    context: context,
+                    actionButtonTitle:
+                        AppLocalizations.of(context).sign_out_tag,
+                    onActionButtonPressed: () {
+                      context.read<DrawerBloc>().add(SignOutEvent());
+                    },
+                    title: AppLocalizations.of(context).sign_out_tag,
+                    description: AppLocalizations.of(context).sign_out_alert,
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }

@@ -6,7 +6,6 @@ import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../widget/space_logo_view.dart';
 import '../../../../widget/widget_validation.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String spaceName;
@@ -26,7 +25,6 @@ class AdminHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
       alignment: Alignment.bottomCenter,
