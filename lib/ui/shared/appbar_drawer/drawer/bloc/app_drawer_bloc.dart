@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
-import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_event.dart';
-import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_state.dart';
-import '../../../../data/core/exception/error_const.dart';
-import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/provider/user_data.dart';
-import '../../../../data/services/employee_service.dart';
-import '../../../../data/services/space_service.dart';
+import '../../../../../data/core/exception/error_const.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
+import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/services/employee_service.dart';
+import '../../../../../data/services/space_service.dart';
+import 'app_drawer_event.dart';
+import 'app_drawer_state.dart';
 
 @Injectable()
 class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
@@ -29,7 +29,8 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
 
   Future<void> _fetchSpaces(
       FetchSpacesEvent event, Emitter<DrawerState> emit) async {
-    emit(state.copyWith(fetchSpacesStatus: Status.loading));
+    emit(state.copyWith(
+        fetchSpacesStatus: Status.loading, changeSpaceStatus: Status.initial));
     try {
       final List<String> spaceIds =
           await _accountService.fetchSpaceIds(uid: _userManager.userUID!);
@@ -39,7 +40,6 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
       final spaces = await Future.wait(spaceIds.map((spaceId) async {
         return await _spaceService.getSpace(spaceId);
       })).then((value) => value.whereNotNull().toList());
-
       emit(state.copyWith(fetchSpacesStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copyWith(

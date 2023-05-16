@@ -28,10 +28,12 @@ class UserManager with ChangeNotifier {
     await _userPreference.setSpace(space);
     await _userPreference.setSpaceUser(spaceUser);
     _redirect();
+    notifyListeners();
   }
 
   Future<void> updateSpaceDetails(Space space) async {
     await _userPreference.setSpace(space);
+    notifyListeners();
   }
 
   Future<void> removeSpace() async {

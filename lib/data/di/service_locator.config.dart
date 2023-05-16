@@ -61,7 +61,7 @@ import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_sett
 import 'package:projectunity/ui/admin/setting/update_leave_count/bloc/admin_setting_update_paid_leave_button_state_bloc.dart'
     as _i3;
 import 'package:projectunity/ui/navigation/app_router.dart' as _i26;
-import 'package:projectunity/ui/shared/drawer/bloc/app_drawer_bloc.dart'
+import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
     as _i51;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i8;
@@ -236,7 +236,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i44.AdminHomeBloc>(() => _i44.AdminHomeBloc(
           gh<_i31.LeaveService>(),
           gh<_i28.EmployeeService>(),
-          gh<_i22.UserManager>(),
         ));
     gh.factory<_i45.AdminLeaveApplicationDetailsBloc>(
         () => _i45.AdminLeaveApplicationDetailsBloc(

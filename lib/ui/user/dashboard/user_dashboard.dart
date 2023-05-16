@@ -1,9 +1,11 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/event_bus/events.dart';
 import 'package:projectunity/ui/admin/dashboard/navigation_item.dart';
-import 'package:projectunity/ui/shared/drawer/app_drawer.dart';
+import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
+
+import '../../../data/di/service_locator.dart';
+import '../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 
 class UserDashBoardScreen extends StatefulWidget {
   final Widget child;
@@ -17,33 +19,18 @@ class UserDashBoardScreen extends StatefulWidget {
 class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   int get _currentIndex => locationToTabIndex(GoRouter.of(context).location);
 
-  final GlobalKey<ScaffoldState> _dashboardScaffoldKey = GlobalKey();
-  late StreamSubscription _drawerEventsListener;
-
-  @override
-  void initState() {
-    _drawerEventsListener = eventBus.on<OpenDrawerEvent>().listen((event) {
-      _dashboardScaffoldKey.currentState!.openDrawer();
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _drawerEventsListener.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const AppDrawer(),
-      key: _dashboardScaffoldKey,
-      body: SafeArea(child: widget.child),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) => onItemTapped(index),
-        items: userTabs,
-        currentIndex: _currentIndex,
+    return BlocProvider(
+      create: (_) => getIt<DrawerBloc>(),
+      child: Scaffold(
+        drawer: const AppDrawer(),
+        body: SafeArea(child: widget.child),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) => onItemTapped(index),
+          items: userTabs,
+          currentIndex: _currentIndex,
+        ),
       ),
     );
   }

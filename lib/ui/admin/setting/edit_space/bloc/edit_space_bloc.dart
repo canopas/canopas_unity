@@ -73,8 +73,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
 
   Future<void> _saveSpace(
       SaveSpaceDetails event, Emitter<EditSpaceState> emit) async {
+    emit(state.copyWith(updateSpaceStatus: Status.loading));
     try {
-      emit(state.copyWith(updateSpaceStatus: Status.loading));
       final space = _userManager.currentSpace!;
 
       String? logoURL = space.logo;

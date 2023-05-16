@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
-import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/model/space/space.dart';
+
+import '../../../../../data/core/utils/bloc_status.dart';
+import '../../../../../data/model/space/space.dart';
 
 class DrawerState extends Equatable {
   final List<Space> spaces;

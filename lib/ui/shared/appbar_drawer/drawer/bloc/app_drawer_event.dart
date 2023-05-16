@@ -1,4 +1,4 @@
-import '../../../../data/model/space/space.dart';
+import '../../../../../data/model/space/space.dart';
 
 abstract class DrawerEvents {}
 

@@ -13,6 +13,7 @@ import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/theme.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../navigation/app_router.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -108,7 +109,8 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
           if (state.isFailure) {
             showSnackBar(context: context, error: state.error);
           } else if (state.updateSpaceStatus == Status.success) {
-            context.pop();
+            //TODO Implement context.pop()
+            context.goNamed(Routes.adminHome);
           }
         },
         child: SingleChildScrollView(

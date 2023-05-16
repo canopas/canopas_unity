@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../data/configs/text_style.dart';
-import '../../../../data/configs/theme.dart';
-import '../../../widget/space_logo_view.dart';
+
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
+import '../../../../widget/space_logo_view.dart';
 
 class DrawerSpaceCard extends StatelessWidget {
   final String name;

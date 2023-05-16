@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
-import '../../../../data/configs/theme.dart';
-import '../../../../data/model/employee/employee.dart';
-import '../../../../data/model/space/space.dart';
-import '../../../widget/space_logo_view.dart';
-import '../../../widget/user_profile_image.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/model/space/space.dart';
+
+import '../../../../widget/space_logo_view.dart';
+import '../../../../widget/user_profile_image.dart';
 
 class UserProfileCard extends StatelessWidget {
   final Employee currentEmployee;

@@ -33,10 +33,6 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
     });
   }
 
-  String get spaceName => _userManager.currentSpace!.name;
-  String? get spaceDomain => _userManager.currentSpace?.domain;
-  String? get spaceLogo => _userManager.currentSpace?.logo;
-
   Future<void> _removeUser(
       UserDisabled event, Emitter<UserHomeState> emit) async {
     if (event.employeeId == _userManager.employeeId) {
