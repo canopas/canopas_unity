@@ -8,7 +8,6 @@ import '../../../data/configs/theme.dart';
 import '../../../data/core/utils/bloc_status.dart';
 import '../../../data/core/utils/date_formatter.dart';
 import '../../../data/model/leave_application.dart';
-import '../../../data/di/service_locator.dart';
 import '../../widget/circular_progress_indicator.dart';
 import '../../widget/error_snack_bar.dart';
 import 'bloc/who_is_out_card_bloc.dart';
@@ -22,52 +21,51 @@ class WhoIsOutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
-      child: BlocListener<WhoIsOutCardBloc, WhoIsOutCardState>(
-        listenWhen: (previous, current) => current.status == Status.error,
-        listener: (context, state) {
-          if (state.status == Status.error) {
-            showSnackBar(context: context, error: state.error);
-          }
-        },
-        child: Container(
-          padding: const EdgeInsets.only(bottom: primaryVerticalSpacing),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: AppTheme.commonBorderRadius,
-            color: AppColors.whiteColor,
-            boxShadow: AppTheme.commonBoxShadow,
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(primaryHorizontalSpacing),
-                child: Text(
-                  AppLocalizations.of(context).who_is_out_card_title,
-                  style: AppFontStyle.titleDark,
-                ),
+    return BlocListener<WhoIsOutCardBloc, WhoIsOutCardState>(
+      listenWhen: (previous, current) => current.status == Status.error,
+      listener: (context, state) {
+        if (state.status == Status.error) {
+          showSnackBar(context: context, error: state.error);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.only(bottom: primaryVerticalSpacing),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: AppTheme.commonBorderRadius,
+          color: AppColors.whiteColor,
+          boxShadow: AppTheme.commonBoxShadow,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(primaryHorizontalSpacing),
+              child: Text(
+                AppLocalizations.of(context).who_is_out_card_title,
+                style: AppFontStyle.titleDark,
               ),
-              const Divider(indent: primaryHorizontalSpacing,endIndent: primaryHorizontalSpacing),
-              _WhoIsOutCardControlButtons(onSeeAllButtonTap: onSeeAllButtonTap),
-              const Divider(indent: primaryHorizontalSpacing,endIndent: primaryHorizontalSpacing),
-              const SizedBox(height: primaryVerticalSpacing),
-              BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
-                builder: (context, state) =>
-                state.status == Status.loading
-                    ? const Padding(
-                            padding: EdgeInsets.all(primaryHorizontalSpacing),
-                            child: ThreeBounceLoading(
-                                size: 15, color: AppColors.primaryBlue),
-                          )
-                        : _AbsenceEmployeesListWhoIsOutCardView(
-                            absence: state.absence,
-                            dateOfEmployeeAbsence: state.dateOfAbsenceEmployee,
-                          ),
-              ),
-            ],
-          ),
+            ),
+            const Divider(
+                indent: primaryHorizontalSpacing,
+                endIndent: primaryHorizontalSpacing),
+            _WhoIsOutCardControlButtons(onSeeAllButtonTap: onSeeAllButtonTap),
+            const Divider(
+                indent: primaryHorizontalSpacing,
+                endIndent: primaryHorizontalSpacing),
+            const SizedBox(height: primaryVerticalSpacing),
+            BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
+              builder: (context, state) => state.status == Status.loading
+                  ? const Padding(
+                      padding: EdgeInsets.all(primaryHorizontalSpacing),
+                      child: ThreeBounceLoading(
+                          size: 15, color: AppColors.primaryBlue),
+                    )
+                  : _AbsenceEmployeesListWhoIsOutCardView(
+                      absence: state.absence,
+                      dateOfEmployeeAbsence: state.dateOfAbsenceEmployee,
+                    ),
+            ),
+          ],
         ),
       ),
     );

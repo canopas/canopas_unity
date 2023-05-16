@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/ui/admin/home/home_screen/widget/admin_home_appbar.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
+
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
+import '../../../shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart';
+import '../../../shared/WhoIsOutCard/bloc/who_is_out_card_event.dart';
 import '../../../shared/WhoIsOutCard/who_is_out_card.dart';
+import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/empty_screen.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -22,9 +25,17 @@ class AdminHomeScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          getIt<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              getIt<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
+        ),
+      ],
       child: const AdminHomeScreen(),
     );
   }
@@ -38,19 +49,15 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminHomeAppBar(
-        preferredSize: Size(MediaQuery.of(context).size.width, 80),
-        spaceName: context.read<AdminHomeBloc>().spaceName,
-        spaceDomain: context.read<AdminHomeBloc>().spaceDomain,
-        spaceLogo: context.read<AdminHomeBloc>().spaceLogo,
-      ),
+      appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
       body: RefreshIndicator(
-          onRefresh: () async {
-            context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
-          },
+        onRefresh: () async {
+          context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
+        },
         child: ListView(
           children: [
             Padding(
@@ -63,7 +70,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             ),
             BlocConsumer<AdminHomeBloc, AdminHomeState>(
                 listener: (context, state) {
-                  if (state.status == Status.error) {
+              if (state.status == Status.error) {
                 showSnackBar(context: context, error: state.error);
               }
             }, builder: (context, state) {

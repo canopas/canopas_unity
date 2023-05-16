@@ -46,8 +46,8 @@ class AppRouter {
 
   GoRouter _goRouter(UserManager userManager) {
     return GoRouter(
-        refreshListenable: userManager,
         debugLogDiagnostics: true,
+        refreshListenable: userManager,
         initialLocation: (userManager.isAdmin || userManager.isHR)
             ? Routes.adminHome
             : Routes.userHome,
@@ -85,7 +85,8 @@ class AppRouter {
                     name: Routes.adminHome,
                     path: Routes.adminHome,
                     pageBuilder: (context, state) {
-                      return const CupertinoPage(child: AdminHomeScreenPage());
+                      return CupertinoPage(
+                          key: ValueKey(userManager.currentSpaceId), child: const AdminHomeScreenPage());
                     },
                     routes: <GoRoute>[
                       GoRoute(
@@ -257,8 +258,8 @@ class AppRouter {
                     parentNavigatorKey: _employeeShellNavigatorKey,
                     path: Routes.userHome,
                     name: Routes.userHome,
-                    pageBuilder: (context, state) =>
-                        const CupertinoPage(child: UserHomeScreenPage()),
+                    pageBuilder: (context, state) => CupertinoPage(
+                        key: ValueKey(userManager.currentSpaceId), child: const UserHomeScreenPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           name: Routes.userRequestDetail,

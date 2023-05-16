@@ -5,8 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_data.dart';
-import 'package:rxdart/rxdart.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -20,12 +18,8 @@ import 'admin_home_state.dart';
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  StreamSubscription? _subscription;
-  final UserManager _userManager;
-  final StreamController<List<LeaveApplication>> applications =
-      BehaviorSubject();
 
-  AdminHomeBloc(this._leaveService, this._employeeService, this._userManager)
+  AdminHomeBloc(this._leaveService, this._employeeService)
       : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplications);
   }
@@ -65,16 +59,5 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }
 
-  String get spaceName => _userManager.currentSpace!.name;
 
-  String? get spaceDomain => _userManager.currentSpace?.domain;
-
-  String? get spaceLogo => _userManager.currentSpace?.logo;
-
-  @override
-  Future<void> close() async {
-    await _subscription?.cancel();
-    await applications.close();
-    super.close();
-  }
 }

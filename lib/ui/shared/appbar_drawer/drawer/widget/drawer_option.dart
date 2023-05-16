@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
-import '../../../../data/configs/theme.dart';
+
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/theme.dart';
 
 class DrawerOption extends StatelessWidget {
   const DrawerOption(
       {required this.icon,
-        required this.title,
-        required this.onTap,
-        this.iconColor = AppColors.textDark,
-        this.titleColor = AppColors.textDark,
-        Key? key})
+      required this.title,
+      required this.onTap,
+      this.iconColor = AppColors.textDark,
+      this.titleColor = AppColors.textDark,
+      Key? key})
       : super(key: key);
   final Color titleColor;
   final Color iconColor;
