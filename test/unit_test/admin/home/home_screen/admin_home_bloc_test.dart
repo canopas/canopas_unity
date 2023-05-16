@@ -34,17 +34,20 @@ void main() {
     dateOfJoining: 11,
   );
 
-  Leave leave = const Leave(
+  Leave leave = Leave(
       leaveId: 'leave-id',
       uid: 'id',
       type: 2,
-      startDate: 500,
-      endDate: 600,
+      startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
+      endDate: DateTime.now().add(const Duration(days: 4)).timeStampToInt,
       total: 2,
       reason: 'reason',
       status: 2,
-      appliedOn: 400,
-      perDayDuration: [LeaveDayDuration.noLeave, LeaveDayDuration.firstHalfLeave]);
+      appliedOn: DateTime.now().timeStampToInt,
+      perDayDuration: const [
+        LeaveDayDuration.noLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
   AdminHomeState initialState = const AdminHomeState();
 
   AdminHomeState loadingState = const AdminHomeState(
@@ -97,7 +100,7 @@ void main() {
         leave: leave,
       );
       Map<DateTime, List<LeaveApplication>> map = {
-        leave.startDate.toDate.dateOnly: [la]
+        leave.appliedOn.dateOnly: [la]
       };
       AdminHomeState successState = AdminHomeState(
         status: Status.success,
