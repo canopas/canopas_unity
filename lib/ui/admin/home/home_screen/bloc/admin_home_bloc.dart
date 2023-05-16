@@ -35,9 +35,12 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     emit(state.copyWith(status: Status.loading));
     try {
       final List<Employee> employees = await _employeeService.getEmployees();
-      final List<Leave> leaves = await _leaveService.getLeaveRequestOfUsers();
-
-      final List<LeaveApplication> leaveApplications = leaves
+      final List<Leave> allRequests =
+          await _leaveService.getLeaveRequestOfUsers();
+      final List<Leave> pendingRequests = allRequests
+          .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
+          .toList();
+      final List<LeaveApplication> leaveApplications = pendingRequests
           .map((leave) {
             final employee = employees
                 .firstWhereOrNull((employee) => employee.uid == leave.uid);
@@ -63,7 +66,9 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   String get spaceName => _userManager.currentSpace!.name;
+
   String? get spaceDomain => _userManager.currentSpace?.domain;
+
   String? get spaceLogo => _userManager.currentSpace?.logo;
 
   @override
