@@ -11,7 +11,6 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
 import '../../data/provider/user_data.dart';
-
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/home/invite_member/invite_screen.dart';
 import '../admin/leaves/detail/leave_details.dart';
@@ -57,15 +56,17 @@ class AppRouter {
           GoRoute(
               path: Routes.viewProfile,
               name: Routes.viewProfile,
-              redirect: (context, state) => !_userManager.isAdmin
-                  ? Routes.userProfile
-                  : Routes.adminProfile),
+              redirect: (context, state) =>
+                  userManager.isAdmin || userManager.isHR
+                      ? Routes.adminProfile
+                      : Routes.userProfile),
           GoRoute(
               path: Routes.editProfile,
               name: Routes.editProfile,
-              redirect: (context, state) => !_userManager.isAdmin
-                  ? Routes.userEditProfile
-                  : Routes.adminEditProfile),
+              redirect: (context, state) =>
+                  userManager.isAdmin || userManager.isHR
+                      ? Routes.adminEditProfile
+                      : Routes.userEditProfile),
           GoRoute(
             parentNavigatorKey: _rootNavigatorKey,
             path: Routes.login,
@@ -99,7 +100,8 @@ class AppRouter {
                     path: Routes.adminHome,
                     pageBuilder: (context, state) {
                       return CupertinoPage(
-                          key: ValueKey(userManager.currentSpaceId), child: const AdminHomeScreenPage());
+                          key: ValueKey(userManager.currentSpaceId),
+                          child: const AdminHomeScreenPage());
                     },
                     routes: <GoRoute>[
                       GoRoute(
@@ -158,7 +160,9 @@ class AppRouter {
                     name: Routes.adminLeaves,
                     path: Routes.adminLeaves,
                     pageBuilder: (context, state) {
-                      return const CupertinoPage(child: AdminLeavesPage());
+                      return CupertinoPage(
+                          key: ValueKey(userManager.currentSpaceId),
+                          child: const AdminLeavesPage());
                     },
                     routes: <GoRoute>[
                       GoRoute(
@@ -175,8 +179,9 @@ class AppRouter {
                     parentNavigatorKey: _adminShellNavigatorKey,
                     name: Routes.adminEmployees,
                     path: Routes.adminEmployees,
-                    pageBuilder: (context, state) =>
-                        const CupertinoPage(child: EmployeeListPage()),
+                    pageBuilder: (context, state) => CupertinoPage(
+                        key: ValueKey(userManager.currentSpaceId),
+                        child: const EmployeeListPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           path: Routes.addMember,
@@ -243,18 +248,18 @@ class AppRouter {
                           path: Routes.updateLeaveCount,
                           pageBuilder: (context, state) => const CupertinoPage(
                               child: AdminUpdateLeaveCountsPage())),
-
                       GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           path: Routes.hrLeaves,
                           name: Routes.hrLeaves,
                           pageBuilder: (context, state) =>
-                          const CupertinoPage(child: UserLeavePage()),
+                              const CupertinoPage(child: UserLeavePage()),
                           routes: <GoRoute>[
                             GoRoute(
                               name: Routes.hrApplyLeave,
                               path: Routes.hrApplyLeave,
-                              pageBuilder: (context, state) => const CupertinoPage(
+                              pageBuilder: (context, state) =>
+                                  const CupertinoPage(
                                 child: ApplyLeavePage(),
                               ),
                             ),
@@ -262,12 +267,13 @@ class AppRouter {
                               name: Routes.hrLeaveDetails,
                               path: Routes.hrLeaveDetails,
                               pageBuilder: (context, state) => CupertinoPage(
-                                  child: UserLeaveDetailPage(leaveId: state.params[RoutesParamsConst.leaveId]!)),
+                                  child: UserLeaveDetailPage(
+                                      leaveId: state
+                                          .params[RoutesParamsConst.leaveId]!)),
                             ),
                           ]),
                     ]),
               ]),
-
           ShellRoute(
               navigatorKey: _employeeShellNavigatorKey,
               builder: (context, state, child) {
@@ -279,7 +285,8 @@ class AppRouter {
                     path: Routes.userHome,
                     name: Routes.userHome,
                     pageBuilder: (context, state) => CupertinoPage(
-                        key: ValueKey(userManager.currentSpaceId), child: const UserHomeScreenPage()),
+                        key: ValueKey(userManager.currentSpaceId),
+                        child: const UserHomeScreenPage()),
                     routes: <GoRoute>[
                       GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,
@@ -335,8 +342,9 @@ class AppRouter {
                     parentNavigatorKey: _employeeShellNavigatorKey,
                     path: Routes.userLeaves,
                     name: Routes.userLeaves,
-                    pageBuilder: (context, state) =>
-                        const CupertinoPage(child: UserLeavePage()),
+                    pageBuilder: (context, state) => CupertinoPage(
+                        key: ValueKey(userManager.currentSpaceId),
+                        child: const UserLeavePage()),
                     routes: <GoRoute>[
                       GoRoute(
                         name: Routes.applyLeave,
@@ -358,8 +366,9 @@ class AppRouter {
                     parentNavigatorKey: _employeeShellNavigatorKey,
                     path: Routes.userEmployees,
                     name: Routes.userEmployees,
-                    pageBuilder: (context, state) =>
-                        const CupertinoPage(child: UserEmployeesPage()),
+                    pageBuilder: (context, state) => CupertinoPage(
+                        key: ValueKey(userManager.currentSpaceId),
+                        child: const UserEmployeesPage()),
                     routes: <GoRoute>[
                       GoRoute(
                         parentNavigatorKey: _employeeShellNavigatorKey,

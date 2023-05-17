@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/widget/bottom_sheet_top_divider.dart';
 import 'package:projectunity/ui/widget/employee_card.dart';
 import 'package:projectunity/ui/widget/employee_details_textfield.dart';
+import 'package:projectunity/ui/widget/space_logo_view.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
+import '../../../../../data/di/service_locator.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../bloc /admin_leave_event.dart';
 import '../bloc /admin_leaves_bloc.dart';
@@ -141,17 +144,15 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
                                       .toUpperCase()) ||
                                   state.searchEmployeeInput.trim().isEmpty)
                               .toList();
-                          return ListView.builder(
-                            itemCount: searchResult.length,
-                            itemBuilder: (context, index) => EmployeeCard(
-                              employee: searchResult[index],
-                              onTap: () {
-                                context.read<AdminLeavesBloc>().add(
-                                  ChangeEmployeeEvent(
-                                      employee: searchResult[index]));
+                          return ListView(
+                            padding: const EdgeInsets.all(8),
+                            children: [
+                              const SearchEmployeeShowAllMemberLeaveButton(),
+                              ...searchResult.map((employee) => EmployeeCard(employee: employee,onTap: () {
+                                context.read<AdminLeavesBloc>().add(ChangeEmployeeEvent(employee: employee));
                                 context.pop();
-                                },
-                            ),
+                              })),
+                            ],
                           );
                         },
                       ),
@@ -183,3 +184,29 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
     );
   }
 }
+
+
+class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
+  const SearchEmployeeShowAllMemberLeaveButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        context.read<AdminLeavesBloc>().add(ChangeEmployeeEvent(employee: null));
+        context.pop();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          children: [
+            SpaceLogoView(spaceLogo: getIt<UserManager>().currentSpace?.logo),
+            const SizedBox(width: 20),
+            Text(AppLocalizations.of(context).see_all_member_leave_title, style: AppFontStyle.bodyMedium,overflow: TextOverflow.ellipsis),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

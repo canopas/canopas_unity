@@ -44,9 +44,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           AppLocalizations.of(context).members_tag,
         ),
         actions: [
-          TextButton(
-              onPressed: () => context.pushNamed(Routes.addMember),
-              child: Text(localizations.invite_tag))
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: TextButton(
+                onPressed: () => context.pushNamed(Routes.addMember),
+                child: Text(localizations.invite_tag)),
+          )
         ],
       ),
       body: BlocConsumer<EmployeeListBloc, EmployeeListState>(

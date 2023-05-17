@@ -82,25 +82,24 @@ class ContactSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 20),
-        Row(
-          children: [
-            const Icon(
-              Icons.phone,
-              color: AppColors.greyColor,
-              size: 20,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            ValidateWidget(
-              isValid: phone.isNotNullOrEmpty,
-              child: Text(
+        ValidateWidget(
+          isValid: phone.isNotNullOrEmpty,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.phone,
+                color: AppColors.greyColor,
+                size: 20,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
                 phone ?? '',
                 style: AppFontStyle.labelGrey,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         const SizedBox(height: 20),
         Row(
@@ -135,35 +134,35 @@ class ProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Row(
-        children: [
-          ImageProfile(imageUrl: employee.imageUrl, radius: 40),
-          const SizedBox(
-            width: 20,
-          ),
-          Column(
+    return Row(
+      children: [
+        ImageProfile(imageUrl: employee.imageUrl, radius: 40),
+        const SizedBox(
+          width: 20,
+        ),
+        Flexible(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 employee.name,
                 style: AppFontStyle.titleDark,
-                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
               ),
+              const SizedBox(height: 4),
               ValidateWidget(
                 isValid: employee.designation.isNotNullOrEmpty,
                 child: Text(
                   employee.designation ?? "",
                   style: AppFontStyle.labelGrey,
-                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

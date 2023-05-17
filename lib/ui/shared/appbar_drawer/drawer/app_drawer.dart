@@ -106,7 +106,8 @@ class DrawerOptionList extends StatelessWidget {
               icon: Icons.person_outline_rounded,
               title: locale.view_profile_button_tag,
               onTap: () {
-                /// TODO: implement view profile navigation
+                context.pop();
+                context.goNamed(Routes.viewProfile);
               }),
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>

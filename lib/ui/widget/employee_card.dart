@@ -37,13 +37,13 @@ class EmployeeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(employee.name, style: AppFontStyle.bodyMedium),
+                  Text(employee.name, style: AppFontStyle.bodyMedium,overflow: TextOverflow.ellipsis,maxLines: 1),
                   ValidateWidget(
                     isValid: employee.designation.isNotNullOrEmpty,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 2),
                       child: Text(employee.designation??"",
-                          style: AppFontStyle.subTitleGrey),
+                          style: AppFontStyle.subTitleGrey,overflow: TextOverflow.ellipsis,maxLines: 1),
                     ),
                   ),
                 ],

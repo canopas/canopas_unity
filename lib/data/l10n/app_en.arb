@@ -259,6 +259,8 @@
     "admin_home_add_member_address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
   "search_employee_tag":"Search employee",
+  "see_all_member_leave_title":"See all members leave",
+  "empty_leaves_message":"There is no any leaves, yet",
 
   "admin_leave_detail_enter_reason_tag":"Enter Message",
   "admin_leave_detail_note_tag": "Note",
