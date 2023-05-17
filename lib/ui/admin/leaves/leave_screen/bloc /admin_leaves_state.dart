@@ -1,33 +1,56 @@
 import 'package:equatable/equatable.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import '../../../../../data/model/leave_application.dart';
+import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/model/leave/leave.dart';
 
 class AdminLeavesState extends Equatable {
   final Status status;
   final String? error;
-  final List<LeaveApplication> upcomingLeaves;
-  final List<LeaveApplication> recentLeaves;
+  final List<Employee> employees;
+  final List<Leave> leaves;
+  final Employee? selectedEmployee;
+  final String searchEmployeeInput;
+  final int selectedYear;
 
-  const AdminLeavesState({
-    this.status = Status.initial,
-    this.error,
-    this.recentLeaves = const [],
-    this.upcomingLeaves = const [],
-  });
+  AdminLeavesState(
+      {this.searchEmployeeInput = '',
+      this.status = Status.initial,
+      this.error,
+      int? selectedYear,
+      this.leaves = const [],
+      this.employees = const [],
+      this.selectedEmployee})
+      : selectedYear = selectedYear ?? DateTime.now().year;
 
   copyWith({
+    String? searchEmployeeInput,
     Status? status,
     String? error,
-    List<LeaveApplication>? upcomingLeaves,
-    List<LeaveApplication>? recentLeaves,
+    List<Employee>? employees,
+    List<Leave>? leaves,
+    Employee? selectedEmployee,
+    bool assignSelectedEmployeeNull = false,
+    int? selectedYear,
   }) =>
       AdminLeavesState(
-        recentLeaves: recentLeaves ?? this.recentLeaves,
-        upcomingLeaves: upcomingLeaves ?? this.upcomingLeaves,
-        status: status ?? this.status,
+        searchEmployeeInput: searchEmployeeInput ?? this.searchEmployeeInput,
         error: error,
+        selectedYear: selectedYear ?? this.selectedYear,
+        status: status ?? this.status,
+        leaves: leaves ?? this.leaves,
+        employees: employees ?? this.employees,
+        selectedEmployee: selectedEmployee ??
+            (assignSelectedEmployeeNull ? null : this.selectedEmployee),
       );
 
   @override
-  List<Object?> get props => [status, error, upcomingLeaves, recentLeaves];
+  List<Object?> get props => [
+        status,
+        error,
+        leaves,
+        employees,
+        selectedYear,
+        selectedEmployee,
+        searchEmployeeInput
+      ];
 }

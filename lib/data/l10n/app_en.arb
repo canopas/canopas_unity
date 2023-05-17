@@ -34,6 +34,7 @@
   "add_tag":"Add",
   "request_tag":"Requests",
   "alert_cancel_action":"Cancel",
+  "all_tag":"All",
 
   "spaces_title":"Spaces",
   "delete_space_text":"Delete Space",
@@ -257,8 +258,7 @@
     "admin_home_add_member_blood_group_hint_text":"B+",
     "admin_home_add_member_address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
-  "admin_leaves_upcoming_leaves_tag":"Upcoming Leaves",
-  "admin_leaves_recent_leaves_tag":"Recent Leaves",
+  "search_employee_tag":"Search employee",
 
   "admin_leave_detail_enter_reason_tag":"Enter Message",
   "admin_leave_detail_note_tag": "Note",

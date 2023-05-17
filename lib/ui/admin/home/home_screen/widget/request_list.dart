@@ -58,11 +58,15 @@ class LeaveRequestList extends StatelessWidget {
                       vertical: primaryVerticalSpacing),
                   child: Column(
                     children: mapEntry.value
-                        .map((leaveApplication) => LeaveApplicationCard(
-                            onTap: () => context.goNamed(
-                                Routes.leaveRequestDetail,
-                                extra: leaveApplication),
-                            leaveApplication: leaveApplication))
+                        .map((leaveApplication) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
+                          child: LeaveApplicationCard(
+                              onTap: () => context.goNamed(
+                                  Routes.leaveRequestDetail,
+                                  extra: leaveApplication),
+                              leaveApplication: leaveApplication),
+                        ))
                         .toList(),
                   ),
                 )),
