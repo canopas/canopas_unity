@@ -43,7 +43,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     notifier: getIt.get<UserManager>(),
                     child: Builder(builder: (context) {
                       return SpaceLogoView(
-                          spaceLogo: SpaceNotifierWidget.of(context).logo);
+                          spaceLogo: SpaceNotifierWidget.of(context)?.logo);
                     }),
                   )),
               const SizedBox(width: primaryHorizontalSpacing),
@@ -52,9 +52,9 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                   notifier: getIt.get<UserManager>(),
                   child: Builder(
                     builder: (context) {
-                      final String name = SpaceNotifierWidget.of(context).name;
+                      final String name = SpaceNotifierWidget.of(context)?.name??"";
                       final String? domain =
-                          SpaceNotifierWidget.of(context).domain;
+                          SpaceNotifierWidget.of(context)?.domain;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
