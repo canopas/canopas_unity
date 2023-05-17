@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
+import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
@@ -54,6 +55,18 @@ class AppRouter {
         navigatorKey: _rootNavigatorKey,
         routes: [
           GoRoute(
+              path: Routes.viewProfile,
+              name: Routes.viewProfile,
+              redirect: (context, state) => !_userManager.isAdmin
+                  ? Routes.userProfile
+                  : Routes.adminProfile),
+          GoRoute(
+              path: Routes.editProfile,
+              name: Routes.editProfile,
+              redirect: (context, state) => !_userManager.isAdmin
+                  ? Routes.userEditProfile
+                  : Routes.adminEditProfile),
+          GoRoute(
             parentNavigatorKey: _rootNavigatorKey,
             path: Routes.login,
             name: Routes.login,
@@ -94,13 +107,23 @@ class AppRouter {
                           name: Routes.editWorkspaceDetails,
                           path: Routes.editWorkspaceDetails,
                           pageBuilder: (context, state) =>
-                          const CupertinoPage(child: EditSpacePage())),
+                              const CupertinoPage(child: EditSpacePage())),
                       GoRoute(
-                          path: Routes.addMember,
-                          name: Routes.addMember,
                           parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.adminProfile,
+                          path: 'profile',
                           pageBuilder: (context, state) =>
-                              const CupertinoPage(child: InviteMemberPage())),
+                              const CupertinoPage(child: ViewProfilePage()),
+                          routes: [
+                            GoRoute(
+                              path: 'edit',
+                              name: Routes.adminEditProfile,
+                              pageBuilder: (context, state) => CupertinoPage(
+                                  child: EmployeeEditProfilePage(
+                                employee: _userManager.employee,
+                              )),
+                            ),
+                          ]),
                       GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.leaveRequestDetail,
@@ -156,6 +179,12 @@ class AppRouter {
                         const CupertinoPage(child: EmployeeListPage()),
                     routes: <GoRoute>[
                       GoRoute(
+                          path: Routes.addMember,
+                          name: Routes.addMember,
+                          parentNavigatorKey: _adminShellNavigatorKey,
+                          pageBuilder: (context, state) =>
+                              const CupertinoPage(child: InviteMemberPage())),
+                      GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.adminEmployeeDetail,
                           path: Routes.adminEmployeeDetail,
@@ -209,15 +238,6 @@ class AppRouter {
                         const CupertinoPage(child: AdminSettingPage()),
                     routes: <GoRoute>[
                       GoRoute(
-                        parentNavigatorKey: _adminShellNavigatorKey,
-                        path: Routes.adminEditProfile,
-                        name: Routes.adminEditProfile,
-                        pageBuilder: (context, state) => CupertinoPage(
-                            child: EmployeeEditProfilePage(
-                          employee: state.extra as Employee,
-                        )),
-                      ),
-                      GoRoute(
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.updateLeaveCount,
                           path: Routes.updateLeaveCount,
@@ -261,6 +281,23 @@ class AppRouter {
                     pageBuilder: (context, state) => CupertinoPage(
                         key: ValueKey(userManager.currentSpaceId), child: const UserHomeScreenPage()),
                     routes: <GoRoute>[
+                      GoRoute(
+                          parentNavigatorKey: _employeeShellNavigatorKey,
+                          name: Routes.userProfile,
+                          path: 'profile',
+                          pageBuilder: (context, state) => const CupertinoPage(
+                                child: ViewProfilePage(),
+                              ),
+                          routes: [
+                            GoRoute(
+                              path: 'edit',
+                              name: Routes.userEditProfile,
+                              pageBuilder: (context, state) => CupertinoPage(
+                                  child: EmployeeEditProfilePage(
+                                employee: userManager.employee,
+                              )),
+                            ),
+                          ]),
                       GoRoute(
                           name: Routes.userRequestDetail,
                           path: Routes.userRequestDetail,
@@ -335,21 +372,12 @@ class AppRouter {
                       ),
                     ]),
                 GoRoute(
-                    parentNavigatorKey: _employeeShellNavigatorKey,
-                    path: Routes.userSettings,
-                    name: Routes.userSettings,
-                    pageBuilder: (context, state) =>
-                        const CupertinoPage(child: UserSettingsPage()),
-                    routes: <GoRoute>[
-                      GoRoute(
-                        path: Routes.userEditProfile,
-                        name: Routes.userEditProfile,
-                        pageBuilder: (context, state) => CupertinoPage(
-                            child: EmployeeEditProfilePage(
-                          employee: state.extra as Employee,
-                        )),
-                      ),
-                    ]),
+                  parentNavigatorKey: _employeeShellNavigatorKey,
+                  path: Routes.userSettings,
+                  name: Routes.userSettings,
+                  pageBuilder: (context, state) =>
+                      const CupertinoPage(child: UserSettingsPage()),
+                ),
               ])
         ],
         redirect: (context, state) {
@@ -387,7 +415,6 @@ abstract class Routes {
   static const adminLeaves = '/admin-leaves';
   static const adminEmployees = '/admin-employees';
   static const adminSettings = '/admin-settings';
-  static const adminEditProfile = "admin-edit-profile";
   static const addMember = 'new';
   static const adminCalender = 'admin-calender';
   static const adminLeaveDetails = 'admin-leave-details';
@@ -403,7 +430,7 @@ abstract class Routes {
   static const userCalendarLeaveDetail = 'leave-calendar-detail/:leaveId';
   static const userRequestDetail = 'leave-request-detail/:leaveId';
   static const userEmployeeDetail = 'employee-details/:employeeId';
-  static const userEditProfile = 'user-edit-profile';
+
   static const applyLeave = 'apply-leave';
   static const userCalender = 'calender';
   static const login = '/login';
@@ -419,4 +446,10 @@ abstract class Routes {
   static const hrLeaves = 'hr-leaves';
   static const hrApplyLeave = 'hr-apply-leave';
   static const hrLeaveDetails = 'hr-leave-details';
+  static const viewProfile = '/profile';
+  static const adminProfile = '/admin-home/profile';
+  static const userProfile = '/user-home/profile';
+  static const editProfile = '/edit';
+  static const userEditProfile = '/user-home/profile/edit';
+  static const adminEditProfile = "/admin-home/profile/edit";
 }

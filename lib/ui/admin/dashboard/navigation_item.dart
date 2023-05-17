@@ -25,10 +25,6 @@ List<BottomNavigationItem> adminTabs = [
       label: 'Employees',
       icon: const Icon(Icons.person),
       initialLocation: Routes.adminEmployees),
-  BottomNavigationItem(
-      label: 'Settings',
-      icon: const Icon(Icons.settings),
-      initialLocation: Routes.adminSettings)
 ];
 
 List<BottomNavigationItem> userTabs = [
@@ -44,8 +40,4 @@ List<BottomNavigationItem> userTabs = [
       label: 'Employees',
       icon: const Icon(Icons.person),
       initialLocation: Routes.userEmployees),
-  BottomNavigationItem(
-      label: 'Settings',
-      icon: const Icon(Icons.settings),
-      initialLocation: Routes.userSettings)
 ];

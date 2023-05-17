@@ -36,12 +36,18 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context).members_tag,
         ),
+        actions: [
+          TextButton(
+              onPressed: () => context.pushNamed(Routes.addMember),
+              child: Text(localizations.invite_tag))
+        ],
       ),
       body: BlocConsumer<EmployeeListBloc, EmployeeListState>(
         builder: (BuildContext context, EmployeeListState state) {
@@ -51,9 +57,9 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             List<Employee> employees = state.employees;
             return ListView.separated(
                 separatorBuilder: (context, index) => const Divider(
-                      endIndent: primaryVerticalSpacing,
-                      indent: primaryVerticalSpacing,
-                    ),
+                  endIndent: primaryVerticalSpacing,
+                  indent: primaryVerticalSpacing,
+                ),
                 padding: const EdgeInsets.symmetric(
                     horizontal: primaryVerticalSpacing,
                     vertical: primaryVerticalSpacing),
