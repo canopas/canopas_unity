@@ -22,61 +22,57 @@ class LeaveApplicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: AppTheme.commonBorderRadius,
-            color: AppColors.whiteColor,
-            boxShadow: AppTheme.commonBoxShadow),
-        child: Material(
+    return Container(
+      decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
           color: AppColors.whiteColor,
-          child: InkWell(
-            borderRadius: AppTheme.commonBorderRadius,
-            onTap: onTap,
-            child: Padding(
-              padding: const EdgeInsets.all(primaryHorizontalSpacing),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _LeaveTypeContent(
-                                leaveType: leaveApplication.leave.type),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            _LeaveDateContent(
-                              totalDays: leaveApplication.leave.total,
-                              startTimeStamp: leaveApplication.leave.startDate,
-                              endTimeStamp: leaveApplication.leave.endDate,
-                            ),
-                          ],
-                        ),
+          boxShadow: AppTheme.commonBoxShadow),
+      child: Material(
+        borderRadius: AppTheme.commonBorderRadius,
+        color: AppColors.whiteColor,
+        child: InkWell(
+          borderRadius: AppTheme.commonBorderRadius,
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(primaryHorizontalSpacing),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _LeaveTypeContent(
+                              leaveType: leaveApplication.leave.type),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          _LeaveDateContent(
+                            totalDays: leaveApplication.leave.total,
+                            startTimeStamp: leaveApplication.leave.startDate,
+                            endTimeStamp: leaveApplication.leave.endDate,
+                          ),
+                        ],
                       ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
-                        color: AppColors.greyColor,
-                      )
-                    ],
-                  ),
-                  const Divider(height: 30),
-                  _EmployeeContent(
-                    employee: leaveApplication.employee,
-                  ),
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15,
+                      color: AppColors.greyColor,
+                    )
+                  ],
+                ),
+                const Divider(height: 30),
+                _EmployeeContent(
+                  employee: leaveApplication.employee,
+                ),
 
-                  // const ButtonContent()
-                ],
-              ),
+                // const ButtonContent()
+              ],
             ),
           ),
         ),

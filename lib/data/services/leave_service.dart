@@ -92,10 +92,7 @@ class LeaveService {
   }
 
   Future<List<Leave>> getAllLeaves() async {
-    final allLeaves =
-        await _leaveDb()
-            .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
-            .get();
+    final allLeaves = await _leaveDb().get();
     return allLeaves.docs.map((e) => e.data()).toList();
   }
 
