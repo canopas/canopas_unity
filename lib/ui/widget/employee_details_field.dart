@@ -26,7 +26,7 @@ class EmployeeDetailsField extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   subtitle!,
-                  style: AppFontStyle.titleRegular,
+                  style: AppFontStyle.bodyMedium,
                 ),
               ],
             ),

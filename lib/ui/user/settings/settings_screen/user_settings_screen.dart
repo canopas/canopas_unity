@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settings_settings_options.dart';
 import 'package:projectunity/ui/user/settings/settings_screen/widget/user_settings_user_profile.dart';
 import 'package:projectunity/ui/widget/app_dialog.dart';
@@ -9,7 +8,6 @@ import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../navigation/app_router.dart';
 import '../../../space/change_space_sheet/change_space_sheet.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_settings_bloc.dart';
@@ -55,8 +53,8 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
             UserProfile(
               employee: state.currentEmployee,
               onTap: () {
-                context.goNamed(Routes.userEditProfile,
-                    extra: state.currentEmployee);
+                // context.goNamed(Routes.userEditProfile,
+                //     extra: state.currentEmployee);
               },
             ),
             const Divider(),
