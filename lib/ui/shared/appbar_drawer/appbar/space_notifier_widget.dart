@@ -9,11 +9,11 @@ class SpaceNotifierWidget extends InheritedNotifier<UserManager> {
       {super.key, required UserManager notifier, required Widget child})
       : super(notifier: notifier, child: child);
 
-  static Space of(BuildContext context) {
+  static Space? of(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<SpaceNotifierWidget>()!
         .notifier!
-        .currentSpace!;
+        .currentSpace;
   }
 
   @override
