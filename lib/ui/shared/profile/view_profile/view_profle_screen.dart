@@ -10,7 +10,6 @@ import 'package:projectunity/ui/shared/profile/view_profile/widget/basic_detail_
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/employee_details_field.dart';
@@ -52,9 +51,12 @@ class ViewProfileScreen extends StatelessWidget {
               appBar: AppBar(
                   title: Text(localization.admin_employee_detail_profile_tag),
                   actions: [
-                    TextButton(
-                      onPressed: () => context.pushNamed(Routes.editProfile),
-                      child: Text(localization.edit_tag),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: TextButton(
+                        onPressed: () => context.pushNamed(Routes.editProfile),
+                        child: Text(localization.edit_tag),
+                      ),
                     ),
                   ]),
               body: ListView(
