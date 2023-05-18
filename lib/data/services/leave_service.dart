@@ -96,6 +96,12 @@ class LeaveService {
     return allLeaves.docs.map((e) => e.data()).toList();
   }
 
+  Future<List<Leave>> getAllApprovedLeaves() async {
+    final allLeaves = await _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: approveLeaveStatus).get();
+    return allLeaves.docs.map((e) => e.data()).toList();
+  }
+
+
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
     final data = await _leaveDb()
