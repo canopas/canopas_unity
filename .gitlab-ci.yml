@@ -86,3 +86,17 @@ deploy_internal_android:
     - bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
   only:
     - main
+
+deploy_web:
+  extends: .android_docker_image
+  stage: deploy
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+  before_script:
+    - apt-get update && apt-get -y install --no-install-recommends awscli
+  script:
+    - flutter pub get
+    - flutter build web
+    - aws s3 sync build/web/ s3://$AWS_S3_BUCKET_NAME
+  only:
+    - main
