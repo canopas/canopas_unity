@@ -31,4 +31,5 @@ class FireStoreConst {
   static const String uid = 'uid';
 
   static const String receiverEmail = 'receiver_email';
+  static const String spaceId = 'space_id';
 }

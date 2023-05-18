@@ -13,8 +13,6 @@ const String firestoreFetchDataError = 'error-get-data-from-firestore';
 //Exception When trying to signout from google is not succeed
 const String signOutError = 'error-sign-out';
 
-const String userAlreadyExists = 'error-user-exists';
-
 //Format Exception Error
 const String wrongNumInputError = "wrong-num-input";
 
@@ -33,3 +31,6 @@ const String somethingWentWrongError = 'something-went-wrong';
 
 //Exception: when user don't provide all the required information in fields,
 const String provideRequiredInformation = 'provide-required-information';
+
+//Exception": When user already invited in this space.
+const String userAlreadyInvited = 'user-already-invited';

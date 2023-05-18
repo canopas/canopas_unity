@@ -22,6 +22,14 @@ class InvitationService {
     return data.docs.map((invitation) => invitation.data()).toList();
   }
 
+  Future<bool> checkMemberInvitationAlreadyExist({required String  spaceId, required String email}) async {
+    final data = await _invitationDb
+        .where(FireStoreConst.receiverEmail, isEqualTo: email)
+        .where(FireStoreConst.spaceId, isEqualTo:  spaceId)
+        .get();
+    return data.docs.isNotEmpty;
+  }
+
   Future<void> addInvitation(
       {required String senderId,
       required String spaceId,

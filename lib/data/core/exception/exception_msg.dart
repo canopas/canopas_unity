@@ -32,8 +32,8 @@ extension ExceptionMessage on String {
       case applyMinimumHalfDay:
         msg = appLocale.apply_leave_minimum_one_hour_error;
         break;
-      case userAlreadyExists:
-        msg = appLocale.add_member_employee_exists_error;
+      case userAlreadyInvited:
+        msg = appLocale.member_already_invited_error;
         break;
       case somethingWentWrongError:
         msg = appLocale.error_something_went_wrong;

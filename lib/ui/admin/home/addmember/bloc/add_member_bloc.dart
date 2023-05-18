@@ -98,7 +98,7 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberFormState> with InputV
         Employee employee = submitEmployee();
         bool employeeExists = await _employeeService.hasUser(employee.email);
         if (employeeExists) {
-          emit(state.copyWith(status: Status.error, msg: userAlreadyExists));
+          emit(state.copyWith(status: Status.error, msg: userAlreadyInvited));
         } else {
           await _employeeService.addEmployee(employee);
           emit(state.copyWith(status: Status.success));
