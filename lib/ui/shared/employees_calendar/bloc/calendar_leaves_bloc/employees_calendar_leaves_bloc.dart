@@ -45,7 +45,7 @@ class EmployeesCalendarLeavesBloc
   _loadData(EmployeeCalenadarLeavesInitialLoadEvent event,
       Emitter<EmployeesCalendarLeavesState> emit) async {
     emit(EmployeesCalendarLeavesLoadingState());
-    List<Leave> leaves = await _adminLeaveService.getAllLeaves();
+    List<Leave> leaves = await _adminLeaveService.getAllApprovedLeaves();
     List<Employee> employees = await _employeeService.getEmployees();
     try {
       _allLeaveRef = leaves

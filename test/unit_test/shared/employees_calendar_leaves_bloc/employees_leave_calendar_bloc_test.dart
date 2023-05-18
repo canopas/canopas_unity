@@ -60,7 +60,7 @@ void main() {
     test("who is out view initial load test", () {
       when(employeeService.getEmployees())
           .thenAnswer((_) => Future(() => [employee]));
-      when(leaveService.getAllLeaves())
+      when(leaveService.getAllApprovedLeaves())
           .thenAnswer((_) => Future(() => [leave]));
       whoIsOutViewBloc.add(EmployeeCalenadarLeavesInitialLoadEvent());
       expect(
