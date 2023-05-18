@@ -107,7 +107,10 @@ class LeaveTimePeriodBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width * 0.12,
+      constraints: const BoxConstraints(
+        maxWidth: 150,
+      ),
+      height: 50,
       width: MediaQuery.of(context).size.width * 0.26,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
 import '../../../data/configs/theme.dart';
 import '../../../data/model/leave_application.dart';
@@ -103,16 +104,20 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       LeaveApplication leaveApplication =
                           state.leaveApplications[index];
-                      return LeaveApplicationCard(
-                          leaveApplication: leaveApplication,
-                          onTap: () {
-                            context.read<EmployeesCalendarLeavesBloc>().isAdmin
-                                ? context.pushNamed(
-                                    Routes.adminCalendarLeaveDetails,
-                                    extra: leaveApplication)
-                                : context.pushNamed(Routes.userCalendarLeaveDetail,
-                                   params: {RoutesParamsConst.leaveId:leaveApplication.leave.leaveId});
-                          });
+                      return Padding(
+                        padding:  const EdgeInsets.symmetric(
+                            horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
+                        child: LeaveApplicationCard(
+                            leaveApplication: leaveApplication,
+                            onTap: () {
+                              context.read<EmployeesCalendarLeavesBloc>().isAdmin
+                                  ? context.pushNamed(
+                                      Routes.adminCalendarLeaveDetails,
+                                      extra: leaveApplication)
+                                  : context.pushNamed(Routes.userCalendarLeaveDetail,
+                                     params: {RoutesParamsConst.leaveId:leaveApplication.leave.leaveId});
+                            }),
+                      );
                     },
                     itemCount: state.leaveApplications.length,
                   );

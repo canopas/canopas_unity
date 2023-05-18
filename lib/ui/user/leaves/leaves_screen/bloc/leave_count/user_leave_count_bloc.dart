@@ -28,7 +28,10 @@ class UserLeaveCountBloc
           await _leaveService.getUserUsedLeaves(_userManger.employeeId);
       final int totalLeaves = await _spaceService.getPaidLeaves(
           spaceId: _userManger.currentSpaceId!);
-      final percentage = usedLeaves / totalLeaves;
+      double percentage = 0;
+      if (totalLeaves != 0) {
+        percentage = usedLeaves / totalLeaves;
+      }
       emit(state.copyWith(
           status: Status.success,
           used: usedLeaves,

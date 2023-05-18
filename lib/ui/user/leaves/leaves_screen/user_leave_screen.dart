@@ -37,8 +37,6 @@ class UserLeaveScreen extends StatefulWidget {
 }
 
 class _UserLeaveScreenState extends State<UserLeaveScreen> {
-  final UserManager _userManager = getIt<UserManager>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,15 +49,15 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         children: [
           const LeaveCountCard(),
           const Divider(height: 32),
-          YearSelection(dateOfJoining: _userManager.employee.dateOfJoining),
+          YearSelection(
+              dateOfJoining: getIt<UserManager>().employee.dateOfJoining),
           const Divider(height: 32),
-          LeaveList(isHR: _userManager.isHR),
+          const LeaveList(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => context.goNamed(
-            _userManager.isHR ? Routes.hrApplyLeave : Routes.applyLeave),
+        onPressed: () => context.goNamed(Routes.applyLeave),
       ),
     );
   }

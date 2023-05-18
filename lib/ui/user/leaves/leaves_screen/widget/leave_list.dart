@@ -13,14 +13,13 @@ import '../bloc/leaves/user_leave_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class LeaveList extends StatelessWidget {
-  final bool isHR;
-  const LeaveList({Key? key, required this.isHR}) : super(key: key);
+  const LeaveList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserLeaveBloc, UserLeaveState>(
       buildWhen: (previous, current) =>
-      previous.status != current.status ||
+          previous.status != current.status ||
           previous.leaves != current.leaves,
       builder: (context, state) {
         if (state.status == Status.loading) {
@@ -28,25 +27,18 @@ class LeaveList extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 20),
             child: AppCircularProgressIndicator(),
           );
-        } else if (state.status == Status.success &&
-            state.leaves.isNotEmpty) {
+        } else if (state.status == Status.success && state.leaves.isNotEmpty) {
           return ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
               itemBuilder: (context, index) => LeaveCard(
                   onTap: () {
-                    context.goNamed(
-                        isHR
-                            ? Routes.hrLeaveDetails
-                            : Routes.userLeaveDetail,
-                        params: {
-                          RoutesParamsConst.leaveId:
-                          state.leaves[index].leaveId
-                        });
+                    context.goNamed(Routes.userLeaveDetail, params: {
+                      RoutesParamsConst.leaveId: state.leaves[index].leaveId
+                    });
                   },
                   leave: state.leaves[index]),
-              separatorBuilder: (context, index) =>
-              const SizedBox(height: 16),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemCount: state.leaves.length);
         }
         return Container(
