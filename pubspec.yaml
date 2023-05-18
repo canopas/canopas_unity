@@ -33,15 +33,15 @@ dependencies:
   intl: ^0.17.0
   injectable: ^2.1.1
   image_picker: ^0.8.7+3
-  json_annotation: ^4.8.0
+  json_annotation: ^4.8.1
   oauth2: ^2.0.1
-  package_info_plus: ^3.1.1
+  package_info_plus: ^3.1.2
   simple_gesture_detector:
   rxdart: ^0.27.7
-  shared_preferences: ^2.1.0
+  shared_preferences: ^2.1.1
   sticky_headers: ^0.3.0+2
   table_calendar: ^3.0.7
-  url_launcher: ^6.1.10
+  url_launcher: ^6.1.11
   uuid: ^3.0.6
   window_to_front: ^0.0.3
 
