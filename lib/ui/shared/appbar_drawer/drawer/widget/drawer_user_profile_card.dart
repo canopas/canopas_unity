@@ -34,18 +34,19 @@ class UserProfileCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
-            alignment: Alignment.centerRight,
+            fit: StackFit.loose,
             children: [
-              Align(
-                  alignment: const Alignment(-1, 0),
-                  child: SpaceLogoView(spaceLogo: currentSpace.logo, size: 60)),
-              Align(
-                  alignment: const Alignment(-0.6, 0),
-                  child: ImageProfile(
+              SpaceLogoView(spaceLogo: currentSpace.logo, size: 60),
+              Row(
+                children: [
+                  const SizedBox(width: 40),
+                  ImageProfile(
                     borderSize: 1,
                     imageUrl: currentEmployee.imageUrl,
                     radius: 30,
-                  )),
+                  ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 10),

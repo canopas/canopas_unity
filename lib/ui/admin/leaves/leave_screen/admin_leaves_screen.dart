@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/data/model/leave_application.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_state.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/admin_leaves_filter.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
@@ -79,11 +80,19 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                         const SizedBox(height: 16),
                   )
                 : SizedBox(
-                height: MediaQuery.of(context).size.height-350,
-                child: EmptyScreen(message: AppLocalizations.of(context).empty_leaves_message, title: AppLocalizations.of(context).no_leaves_tag)),
+                    height: MediaQuery.of(context).size.height - 350,
+                    child: EmptyScreen(
+                        message: AppLocalizations.of(context).empty_leaves_message,
+                        title: AppLocalizations.of(context).no_leaves_tag)),
           ],
         );
       }),
+      floatingActionButton: getIt<UserManager>().isHR
+          ? FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => context.goNamed(Routes.hrApplyLeave),
+            )
+          : null,
       backgroundColor: AppColors.whiteColor,
     );
   }

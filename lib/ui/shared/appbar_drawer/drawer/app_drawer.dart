@@ -5,9 +5,7 @@ import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_option.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_space_card.dart';
-
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_user_profile_card.dart';
-
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
@@ -18,7 +16,6 @@ import '../../../../data/provider/user_data.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import 'bloc/app_drawer_bloc.dart';
 import 'bloc/app_drawer_event.dart';
 import 'bloc/app_drawer_state.dart';
@@ -55,6 +52,10 @@ class _AppDrawerState extends State<AppDrawer> {
               bottomRight: Radius.circular(30), topRight: Radius.circular(30)),
           color: AppColors.whiteColor,
         ),
+        constraints: const BoxConstraints(
+          maxWidth: 300,
+          minWidth: 200,
+        ),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.8,
         child: SafeArea(
@@ -69,7 +70,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 SpaceList(userEmail: userManager.userEmail!),
                 const Divider(height: 0),
-                DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner),
+                DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner, isAdminOrHr: userManager.isAdmin || userManager.isHR),
               ],
             ),
           ),
@@ -81,8 +82,10 @@ class _AppDrawerState extends State<AppDrawer> {
 
 class DrawerOptionList extends StatelessWidget {
   final bool isSpaceOwner;
+  final bool isAdminOrHr;
 
-  const DrawerOptionList({Key? key, required this.isSpaceOwner})
+  const DrawerOptionList(
+      {Key? key, required this.isSpaceOwner, required this.isAdminOrHr})
       : super(key: key);
 
   @override
@@ -107,7 +110,7 @@ class DrawerOptionList extends StatelessWidget {
               title: locale.view_profile_button_tag,
               onTap: () {
                 context.pop();
-                context.goNamed(Routes.viewProfile);
+                context.goNamed(isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
               }),
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>

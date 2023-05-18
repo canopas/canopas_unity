@@ -53,8 +53,11 @@ class PerDayDurationDateRange extends StatelessWidget {
                               height: primaryVerticalSpacing,
                             ),
                             Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 150,
+                              ),
                               alignment: Alignment.center,
-                              height: MediaQuery.of(context).size.width * 0.12,
+                              height: 50,
                               width: MediaQuery.of(context).size.width * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
@@ -103,8 +106,11 @@ class PerDayDurationDateRange extends StatelessWidget {
                         ),
                         const Spacer(),
                         Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 150,
+                          ),
                           alignment: Alignment.center,
-                          height: MediaQuery.of(context).size.width * 0.12,
+                          height: 50,
                           width: MediaQuery.of(context).size.width * 0.26,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),

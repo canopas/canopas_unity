@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
@@ -32,34 +33,36 @@ class ViewProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
-    return BlocConsumer<ViewProfileBloc, ViewProfileState>(
-        listenWhen: (previous, current) => current is ViewProfileErrorState,
-        listener: (context, state) {
-          if (state is ViewProfileErrorState) {
-            showSnackBar(context: context, error: state.error);
-          }
-        },
-        buildWhen: (previous, current) =>
-            current is ViewProfileSuccessState ||
-            current is ViewProfileLoadingState,
-        builder: (context, state) {
-          if (state is ViewProfileLoadingState) {
-            return const AppCircularProgressIndicator();
-          } else if (state is ViewProfileSuccessState) {
-            final Employee employee = state.employee;
-            return Scaffold(
-              appBar: AppBar(
-                  title: Text(localization.admin_employee_detail_profile_tag),
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: TextButton(
-                        onPressed: () => context.pushNamed(Routes.editProfile),
-                        child: Text(localization.edit_tag),
-                      ),
-                    ),
-                  ]),
-              body: ListView(
+    return Scaffold(
+      appBar: AppBar(
+          title: Text(localization.admin_employee_detail_profile_tag),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: TextButton(
+                onPressed: () => context.pushNamed(getIt<UserManager>().isAdmin
+                    ? Routes.adminEditProfile
+                    : Routes.userEditProfile),
+                child: Text(localization.edit_tag),
+              ),
+            ),
+          ]),
+      body: BlocConsumer<ViewProfileBloc, ViewProfileState>(
+          listenWhen: (previous, current) => current is ViewProfileErrorState,
+          listener: (context, state) {
+            if (state is ViewProfileErrorState) {
+              showSnackBar(context: context, error: state.error);
+            }
+          },
+          buildWhen: (previous, current) =>
+              current is ViewProfileSuccessState ||
+              current is ViewProfileLoadingState,
+          builder: (context, state) {
+            if (state is ViewProfileLoadingState) {
+              return const AppCircularProgressIndicator();
+            } else if (state is ViewProfileSuccessState) {
+              final Employee employee = state.employee;
+              return ListView(
                 children: [
                   BasicDetailSection(employee: employee),
                   EmployeeDetailsField(
@@ -86,11 +89,10 @@ class ViewProfileScreen extends StatelessWidget {
                       title: AppLocalizations.of(context).employee_address_tag,
                       subtitle: employee.address),
                 ],
-              ),
-            );
-          }
-          return const SizedBox();
-        });
+              );
+            }
+            return const SizedBox();
+          }),
+    );
   }
 }
-

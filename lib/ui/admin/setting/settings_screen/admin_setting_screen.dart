@@ -79,15 +79,6 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                       builder: (context) => const ChangeSpaceBottomSheet());
                 }),
             ValidateWidget(isValid: userManager.isHR,child: const Divider()),
-            ValidateWidget(
-              isValid: userManager.isHR,
-              child: SettingOption(
-                iconColor: Colors.black87,
-                icon: Icons.add_chart_rounded,
-                title: AppLocalizations.of(context).hr_leave_record_tag,
-                onTap: () => context.pushNamed(Routes.hrLeaves),
-              ),
-            ),
             const Divider(),
             SettingOption(
                 icon: Icons.logout_rounded,
