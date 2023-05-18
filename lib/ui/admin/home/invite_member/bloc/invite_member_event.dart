@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 abstract class InvitationEvent extends Equatable {}
 
 class AddEmailEvent extends InvitationEvent {
-  final String? query;
+  final String query;
 
   AddEmailEvent(this.query);
 

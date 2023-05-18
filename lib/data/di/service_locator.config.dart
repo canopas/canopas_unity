@@ -178,6 +178,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i29.InviteMemberBloc>(() => _i29.InviteMemberBloc(
           gh<_i13.InvitationService>(),
           gh<_i22.UserManager>(),
+          gh<_i28.EmployeeService>(),
         ));
     gh.factory<_i30.JoinSpaceBloc>(() => _i30.JoinSpaceBloc(
           gh<_i13.InvitationService>(),

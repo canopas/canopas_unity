@@ -238,6 +238,7 @@
     "invite_tag" :"Invite",
     "admin_home_invite_member_hint_text":"Add member by email",
     "admin_home_invite_member_error_email":"Please enter valid email",
+    "member_already_invited_error": "Member already invited!",
    "admin_home_invite_Button_tag":"Invite",
 
 
@@ -245,7 +246,6 @@
     "admin_home_add_member_error_name": "Name is too short!!",
     "admin_home_add_member_complete_mandatory_field_error": "Please complete this mandatory field",
     "admin_home_add_member_employee_added_message" : "An employee has been added successfully!!",
-    "admin_home_add_member_employee_exists_error": "Member already exists!",
     "admin_home_add_member_submit_button_tag":"Submit",
     "admin_home_add_member_designation_tag":"Designation",
     "admin_home_add_member_addMember_tag":"Add Member",

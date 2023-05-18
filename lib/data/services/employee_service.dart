@@ -50,11 +50,11 @@ class EmployeeService {
   }
 
   Future<bool> hasUser(String email) async {
-    final employeeDbCollection =
-        _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+    final data =
+        await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
             .where(FireStoreConst.email, isEqualTo: email)
-            .limit(1);
-    final data = await employeeDbCollection.get();
+            .limit(1)
+            .get();
     return data.docs.isNotEmpty;
   }
 

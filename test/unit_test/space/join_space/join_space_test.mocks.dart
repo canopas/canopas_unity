@@ -109,6 +109,22 @@ class MockInvitationService extends _i1.Mock implements _i7.InvitationService {
         returnValue: _i8.Future<List<_i9.Invitation>>.value(<_i9.Invitation>[]),
       ) as _i8.Future<List<_i9.Invitation>>);
   @override
+  _i8.Future<bool> checkMemberInvitationAlreadyExist({
+    required String? spaceId,
+    required String? email,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkMemberInvitationAlreadyExist,
+          [],
+          {
+            #spaceId: spaceId,
+            #email: email,
+          },
+        ),
+        returnValue: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+  @override
   _i8.Future<void> addInvitation({
     required String? senderId,
     required String? spaceId,
