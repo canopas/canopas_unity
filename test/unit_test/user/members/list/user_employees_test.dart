@@ -5,10 +5,9 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
-import 'package:projectunity/ui/user/members/list/bloc/user_employees_bloc.dart';
-import 'package:projectunity/ui/user/members/list/bloc/user_employees_event.dart';
-import 'package:projectunity/ui/user/members/list/bloc/user_employees_state.dart';
-
+import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_bloc.dart';
+import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_event.dart';
+import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_state.dart';
 import 'user_employees_test.mocks.dart';
 
 @GenerateMocks([EmployeeService, UserManager])

@@ -5,12 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-
 import '../../../../../data/configs/colors.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';
 import '../../../../widget/error_snack_bar.dart';
-import '../../../home/addmember/widget/role_toggle_button.dart';
+import 'role_toggle_button.dart';
 import '../bloc/admin_edit_employee_bloc.dart';
 import '../bloc/admin_edit_employee_events.dart';
 import '../bloc/admin_edit_employee_state.dart';

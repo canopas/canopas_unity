@@ -24,6 +24,7 @@ class AdminLeavesFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userManager = getIt<UserManager>();
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -42,7 +43,7 @@ class AdminLeavesFilter extends StatelessWidget {
             builder: (context, state) {
               final startLeaveYear =
                   state.selectedEmployee?.dateOfJoining.toDate.year ??
-                      DateTime.now().year;
+                      userManager.currentSpace!.createdAt.year;
               return Container(
                 height: 45,
                 width: 80,

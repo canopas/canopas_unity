@@ -4,9 +4,9 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
-import 'package:projectunity/ui/admin/members/list/bloc/employee_list_bloc.dart';
-import 'package:projectunity/ui/admin/members/list/bloc/employee_list_event.dart';
-import 'package:projectunity/ui/admin/members/list/bloc/employee_list_state.dart';
+import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart';
+import 'package:projectunity/ui/admin/members/list/bloc/member_list_event.dart';
+import 'package:projectunity/ui/admin/members/list/bloc/member_list_state.dart';
 
 import 'employee_list_bloc_test.mocks.dart';
 

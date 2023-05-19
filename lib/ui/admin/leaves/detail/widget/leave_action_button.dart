@@ -5,10 +5,9 @@ import '../../../../../data/configs/text_style.dart';
 
 class LeaveDetailActionButton extends StatelessWidget {
   const LeaveDetailActionButton(
-      {Key? key, required this.onTap, required this.leaveStatus})
+      {Key? key, required this.onTap})
       : super(key: key);
   final VoidCallback onTap;
-  final int leaveStatus;
 
   @override
   Widget build(BuildContext context) {

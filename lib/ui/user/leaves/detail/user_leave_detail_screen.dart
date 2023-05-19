@@ -14,6 +14,7 @@ import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_conten
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
+import '../../../../data/provider/user_data.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -43,6 +44,7 @@ class UserLeaveDetailScreen extends StatefulWidget {
 }
 
 class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
+  final userManager = getIt<UserManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +74,9 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
             if (state is UserLeaveDetailLoadingState) {
               return const AppCircularProgressIndicator();
             } else if (state is UserLeaveDetailSuccessState) {
+              bool userIsAbleToSeeAllData = userManager.isAdmin ||
+                  userManager.isHR ||
+                  userManager.employeeId == state.leave.uid;
               return ListView(
                 children: [
                   LeaveTypeAgoTitleWithStatus(
@@ -81,16 +86,20 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                   UserLeaveRequestDateContent(leave: state.leave),
                   PerDayDurationDateRange(
                       perDayDurationWithDate: state.leave.getDateAndDuration()),
-                  ReasonField(
-                    title: localization.reason_tag,
-                    reason: state.leave.reason,
+                  ValidateWidget(
+                    isValid: userIsAbleToSeeAllData,
+                    child: ReasonField(
+                      title: localization.reason_tag,
+                      reason: state.leave.reason,
+                    ),
                   ),
                   ValidateWidget(
-                      isValid: state.leave.response.isNotNullOrEmpty,
+                      isValid: state.leave.response.isNotNullOrEmpty &&
+                          userIsAbleToSeeAllData,
                       child: ResponseNote(
                           leaveResponse: state.leave.response ?? "")),
                   ValidateWidget(
-                      isValid: state.showCancelButton,
+                      isValid: state.showCancelButton && userIsAbleToSeeAllData,
                       child: CancelButton(leaveId: state.leave.leaveId))
                 ],
               );

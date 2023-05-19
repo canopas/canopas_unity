@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/model/employee/employee.dart';
-import '../../navigation/app_router.dart';
 import '../user_profile_image.dart';
 
 class UserContent extends StatelessWidget {
@@ -16,46 +14,38 @@ class UserContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: primaryVerticalSpacing),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () => context.pushNamed(Routes.adminEmployeeDetail,
-            params: {RoutesParamsConst.employeeId: employee.uid}),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: primaryHalfSpacing, horizontal: primaryVerticalSpacing),
-          child: Row(
-            children: [
-              ImageProfile(radius: 30, imageUrl: employee.imageUrl),
-              const SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      employee.name,
-                      style: AppFontStyle.labelRegular,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    ValidateWidget(
-                      isValid: employee.designation.isNotNullOrEmpty,
-                      child: Text(
-                        employee.designation ?? '',
-                        style: AppFontStyle.bodySmallRegular,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      padding: const EdgeInsets.symmetric(
+          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
+      child: Row(
+        children: [
+          ImageProfile(radius: 30, imageUrl: employee.imageUrl),
+          const SizedBox(
+            width: 10,
           ),
-        ),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  employee.name,
+                  style: AppFontStyle.labelRegular,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                ValidateWidget(
+                  isValid: employee.designation.isNotNullOrEmpty,
+                  child: Text(
+                    employee.designation ?? '',
+                    style: AppFontStyle.bodySmallRegular,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
