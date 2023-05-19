@@ -9,10 +9,9 @@ import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
-import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_bloc.dart';
-import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_event.dart';
-import 'package:projectunity/ui/admin/setting/edit_space/bloc/edit_space_state.dart';
-
+import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart';
+import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_event.dart';
+import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_state.dart';
 import 'edit_space_test.mocks.dart';
 
 class FakeStorageService extends Fake implements StorageService {

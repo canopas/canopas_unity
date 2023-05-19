@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_details_date_content.dart';
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
-
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
@@ -97,35 +98,36 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
                   title: localization.reason_tag,
                   reason: widget.leaveApplication.leave.reason,
                 ),
-                ReasonField(
+                ValidateWidget(
+                  isValid: rejectionReason.isNotEmpty,
+                  child: ReasonField(
                     reason: rejectionReason,
                     title: localization.admin_leave_detail_note_tag,
-                    hide: rejectionReason.isEmpty)
+                  ),
+                )
               ],
             );
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: widget.leaveApplication.leave.startDate.toDate
-                .isBefore(DateTime.now().dateOnly)
-            ? null
-            : LeaveDetailActionButton(
-                leaveStatus: widget.leaveApplication.leave.status,
-                onTap: () {
-                  showAlertDialog(
-                    context: context,
-                    title: AppLocalizations.of(context).delete_button_tag,
-                    description:
-                        AppLocalizations.of(context).remove_user_leave_alert,
-                    actionButtonTitle:
-                        AppLocalizations.of(context).delete_button_tag,
-                    onActionButtonPressed: () {
-                      context.read<AdminLeaveDetailBloc>().add(
-                          DeleteLeaveApplicationEvent(
-                              widget.leaveApplication.leave.leaveId));
-                      context.pop();
-                    },
-                  );
-                }));
+        floatingActionButton: getIt<UserManager>().isAdmin || (getIt<UserManager>().isHR
+        && widget.leaveApplication.employee.role != Role.hr)
+            ? LeaveDetailActionButton(onTap: () {
+                showAlertDialog(
+                  context: context,
+                  title: AppLocalizations.of(context).delete_button_tag,
+                  description:
+                      AppLocalizations.of(context).remove_user_leave_alert,
+                  actionButtonTitle:
+                      AppLocalizations.of(context).delete_button_tag,
+                  onActionButtonPressed: () {
+                    context.read<AdminLeaveDetailBloc>().add(
+                        DeleteLeaveApplicationEvent(
+                            widget.leaveApplication.leave.leaveId));
+                    context.pop();
+                  },
+                );
+              })
+            : null);
   }
 }

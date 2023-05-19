@@ -45,7 +45,6 @@ class UserHomeScreen extends StatefulWidget {
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);

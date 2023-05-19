@@ -102,7 +102,7 @@ class DrawerOptionList extends StatelessWidget {
                 title: locale.edit_space_button_tag,
                 onTap: () {
                   context.pop();
-                  context.pushNamed(Routes.editWorkspaceDetails);
+                  context.pushNamed(Routes.editSpaceDetails);
                 }),
           ),
           DrawerOption(

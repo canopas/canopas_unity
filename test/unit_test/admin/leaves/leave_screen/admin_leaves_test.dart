@@ -6,6 +6,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leave_event.dart';
@@ -95,7 +96,7 @@ void main() {
             bloc.state,
             AdminLeavesState(
               selectedEmployee: null,
-              leaves: const [],
+              leaveApplication: const [],
               selectedYear: DateTime.now().year,
               status: Status.initial,
               employees: const [],
@@ -113,14 +114,40 @@ void main() {
               joiCurrentYearLeave,
               joiPreviousYearLeave
             ]);
+
         expect(
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(status: Status.loading),
-              AdminLeavesState(
-                  status: Status.success,
-                  leaves: [andrewCurrentYearLeave, joiCurrentYearLeave],
-                  employees: const [andrew, joi])
+              AdminLeavesState(status: Status.success, leaveApplication: [
+                LeaveApplication(
+                    employee: andrew, leave: andrewCurrentYearLeave),
+                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
+              ], employees: const [
+                andrew,
+                joi
+              ])
+            ]));
+      });
+
+      test('check leave not add on list when employee not found', () {
+        bloc.add(AdminLeavesInitialLoadEvent());
+        when(employeeService.getEmployees()).thenAnswer((_) async => [andrew]);
+        when(leaveService.getAllLeaves()).thenAnswer((_) async => [
+              andrewCurrentYearLeave,
+              joiCurrentYearLeave,
+            ]);
+
+        expect(
+            bloc.stream,
+            emitsInOrder([
+              AdminLeavesState(status: Status.loading),
+              AdminLeavesState(status: Status.success, leaveApplication: [
+                LeaveApplication(
+                    employee: andrew, leave: andrewCurrentYearLeave),
+              ], employees: const [
+                andrew,
+              ])
             ]));
       });
 
@@ -146,7 +173,6 @@ void main() {
               AdminLeavesState(searchEmployeeInput: 'dummy'),
             ));
       });
-
     });
     group('Admin Leaves data filter test', () {
       setUpAll(() {
@@ -164,14 +190,19 @@ void main() {
               joiCurrentYearLeave,
               joiPreviousYearLeave
             ]);
+
         expect(
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(status: Status.loading),
-              AdminLeavesState(
-                  status: Status.success,
-                  leaves: [andrewCurrentYearLeave, joiCurrentYearLeave],
-                  employees: const [andrew, joi])
+              AdminLeavesState(status: Status.success, leaveApplication: [
+                LeaveApplication(
+                    employee: andrew, leave: andrewCurrentYearLeave),
+                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
+              ], employees: const [
+                andrew,
+                joi
+              ])
             ]));
       });
 
@@ -184,8 +215,13 @@ void main() {
                   selectedEmployee: joi,
                   selectedYear: DateTime.now().year,
                   status: Status.success,
-                  leaves: [joiCurrentYearLeave],
-                  employees: const [andrew, joi])
+                  leaveApplication: [
+                    LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
+                  ],
+                  employees: const [
+                    andrew,
+                    joi
+                  ])
             ]));
       });
       test('show particular employee leaves test', () async {
@@ -199,8 +235,13 @@ void main() {
                   selectedYear:
                       DateTime.now().subtract(const Duration(days: 365)).year,
                   status: Status.success,
-                  leaves: [joiPreviousYearLeave],
-                  employees: const [andrew, joi])
+                  leaveApplication: [
+                    LeaveApplication(employee: joi, leave: joiPreviousYearLeave)
+                  ],
+                  employees: const [
+                    andrew,
+                    joi
+                  ])
             ]));
       });
     });

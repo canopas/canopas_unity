@@ -68,7 +68,7 @@ class EmployeeService {
   Future<void> updateEmployeeDetails({required Employee employee}) async {
     await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(employee.uid)
-        .update(employee.toJson())
+        .set(employee)
         .onError((error, stackTrace) => throw Exception(error.toString()));
   }
 

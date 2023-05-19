@@ -40,8 +40,12 @@ class EmployeeDetailBloc
       Employee? employee = await _employeeService.getEmployee(event.employeeId);
       final double usedLeaves =
           await _leaveService.getUserUsedLeaves(event.employeeId);
-      final int totalLeaves = await _spaceService.getPaidLeaves(spaceId: _userManager.currentSpaceId!);
-      final percentage = usedLeaves / totalLeaves;
+      final int totalLeaves = await _spaceService.getPaidLeaves(
+          spaceId: _userManager.currentSpaceId!);
+      double percentage = 0.0;
+      if (totalLeaves != 0) {
+        percentage = usedLeaves / totalLeaves;
+      }
       if (employee != null) {
         emit(EmployeeDetailLoadedState(
             employee: employee,

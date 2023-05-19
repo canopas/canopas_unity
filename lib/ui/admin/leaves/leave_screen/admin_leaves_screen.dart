@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/di/service_locator.dart';
-import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_state.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/admin_leaves_filter.dart';
@@ -54,27 +53,23 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
           children: [
             const AdminLeavesFilter(),
             const Divider(height: 32),
-            state.leaves.isNotEmpty
+            state.leaveApplication.isNotEmpty
                 ? ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: state.leaves.length,
+                    itemCount: state.leaveApplication.length,
                     itemBuilder: (context, index) {
-                      final leaveApplication = LeaveApplication(
-                          employee: state.employees.firstWhere((element) =>
-                              element.uid == state.leaves[index].uid),
-                          leave: state.leaves[index]);
                       if (state.selectedEmployee == null) {
                         return LeaveApplicationCard(
                             onTap: () => context.goNamed(
                                 Routes.adminLeaveDetails,
-                                extra: leaveApplication),
-                            leaveApplication: leaveApplication);
+                                extra: state.leaveApplication[index]),
+                            leaveApplication: state.leaveApplication[index]);
                       }
                       return LeaveCard(
                           onTap: () => context.goNamed(Routes.adminLeaveDetails,
-                              extra: leaveApplication),
-                          leave: state.leaves[index]);
+                              extra: state.leaveApplication[index]),
+                          leave: state.leaveApplication[index].leave);
                     },
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
@@ -82,7 +77,8 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                 : SizedBox(
                     height: MediaQuery.of(context).size.height - 350,
                     child: EmptyScreen(
-                        message: AppLocalizations.of(context).empty_leaves_message,
+                        message:
+                            AppLocalizations.of(context).empty_leaves_message,
                         title: AppLocalizations.of(context).no_leaves_tag)),
           ],
         );
