@@ -16,46 +16,37 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: MediaQuery.of(context).size.width * 0.8,
-      decoration: BoxDecoration(
-          color: AppColors.primaryBlue,
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primaryGray.withOpacity(0.60),
-              blurRadius: 3,
-              spreadRadius: 2,
-            )
-          ]),
-      child: GestureDetector(
-          onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: AppColors.whiteColor),
-                    child: Image(
-                        image: AssetImage(image),
-                        fit: BoxFit.contain,
-                        width: 35,
-                        height: 35)),
-                Flexible(
-                  child: Text(
-                    title,
-                    style: AppFontStyle.bodyLarge
-                        .copyWith(color: AppColors.whiteColor),
-                    overflow: TextOverflow.clip,
-                  ),
-                ),
-                const SizedBox(),
-              ],
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero,
+        fixedSize: Size(MediaQuery.of(context).size.width * 0.8, 50),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: AppColors.whiteColor),
+                child: Image(
+                    image: AssetImage(image),
+                    fit: BoxFit.contain,
+                    width: 35,
+                    height: 35)),
+            Flexible(
+              child: Text(
+                title,
+                style: AppFontStyle.bodyLarge
+                    .copyWith(color: AppColors.whiteColor),
+                overflow: TextOverflow.clip,
+              ),
             ),
-          )),
+            const SizedBox(width: 35),
+          ],
+        ),
+      ),
     );
   }
 }
