@@ -20,11 +20,14 @@ void main() {
   late UserManager userManager;
   late ApplyLeaveBloc leaveRequestBloc;
 
-  DateTime currentDate = DateTime.now().dateOnly;
-  DateTime futureDate = DateTime.now()
-      .add(Duration(
-          days: currentDate.add(const Duration(days: 5)).isWeekend ? 7 : 5))
-      .dateOnly;
+  final DateTime currentDate = DateTime.now().dateOnly;
+  final DateTime futureDate = DateTime.now().add(const Duration(days: 5));
+
+  final Map<DateTime, LeaveDayDuration> currentDayMap = {
+    currentDate: currentDate.getLeaveDayDuration()
+  };
+  final double currentDayTotalLeaveCount =
+      {currentDate: currentDate.getLeaveDayDuration()}.getTotalLeaveCount();
 
   group("Leave Request Form view test", () {
     setUp(() {
@@ -35,10 +38,6 @@ void main() {
       when(userManager.userUID).thenReturn("id");
       when(userManager.employeeId).thenReturn("id");
       when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
-      when(leaveService.checkLeaveAlreadyApplied(
-              userId: 'id',
-              dateDuration: {DateTime(2000): LeaveDayDuration.firstHalfLeave}))
-          .thenAnswer((_) async => true);
     });
 
     test("leave Type change test", () {
@@ -48,14 +47,12 @@ void main() {
           emits(ApplyLeaveState(
               startDate: currentDate,
               endDate: currentDate,
-              selectedDates: {currentDate: LeaveDayDuration.fullLeave},
+              totalLeaveDays: currentDayTotalLeaveCount,
+              selectedDates: currentDayMap,
               leaveType: 1)));
     });
 
     test('on apply leave fill data error test', () async {
-      when(userManager.userUID).thenReturn("id");
-      when(userManager.employeeId).thenReturn("id");
-
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
       expectLater(
           leaveRequestBloc.stream,
@@ -64,13 +61,15 @@ void main() {
                 leaveRequestStatus: Status.loading,
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: LeaveDayDuration.fullLeave}),
+                totalLeaveDays: currentDayTotalLeaveCount,
+                selectedDates: currentDayMap),
             ApplyLeaveState(
                 leaveRequestStatus: Status.error,
                 startDate: currentDate,
                 endDate: currentDate,
                 showTextFieldError: true,
-                selectedDates: {currentDate: LeaveDayDuration.fullLeave},
+                totalLeaveDays: currentDayTotalLeaveCount,
+                selectedDates: currentDayMap,
                 error: fillDetailsError),
           ]));
     });
@@ -83,22 +82,23 @@ void main() {
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: LeaveDayDuration.fullLeave},
+                totalLeaveDays: currentDayTotalLeaveCount,
+                selectedDates: currentDayMap,
                 reason: "reason"),
           ));
     });
 
     test("date range per day selection change test", () {
       leaveRequestBloc.add(ApplyLeaveUpdateLeaveOfTheDayEvent(
-          date: currentDate, value: LeaveDayDuration.noLeave));
+          date: currentDate, value: LeaveDayDuration.secondHalfLeave));
       expect(
           leaveRequestBloc.stream,
           emits(
             ApplyLeaveState(
                 startDate: currentDate,
                 endDate: currentDate,
-                selectedDates: {currentDate: LeaveDayDuration.noLeave},
-                totalLeaveDays: 0),
+                selectedDates: {currentDate: LeaveDayDuration.secondHalfLeave},
+                totalLeaveDays: 0.5),
           ));
     });
 
@@ -141,27 +141,21 @@ void main() {
     });
 
     test("start Date change test", () {
-      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
-        currentDate: LeaveDayDuration.fullLeave
-      }.getSelectedLeaveOfTheDays(startDate: currentDate, endDate: currentDate);
-      double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
-
       leaveRequestBloc
           .add(ApplyLeaveStartDateChangeEvents(startDate: currentDate));
-
       expect(
           leaveRequestBloc.stream,
           emits(ApplyLeaveState(
               startDate: currentDate,
               endDate: currentDate,
-              selectedDates: updatedSelectedLeaves,
-              totalLeaveDays: totalDays)));
+              selectedDates: currentDayMap,
+              totalLeaveDays: currentDayTotalLeaveCount)));
     });
 
     test("end Date change test", () {
-      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
-        currentDate: LeaveDayDuration.fullLeave
-      }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves =
+          currentDayMap.getSelectedLeaveOfTheDays(
+              endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
       leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));
@@ -220,14 +214,13 @@ void main() {
     test('on apply already leave applied error test', () async {
       when(leaveService.checkLeaveAlreadyApplied(
               userId: 'id',
-              dateDuration: leaveRequestBloc.state.selectedDates
-                  .getSelectedLeaveOfTheDays(
-                      startDate: currentDate, endDate: futureDate)))
+              dateDuration: currentDayMap.getSelectedLeaveOfTheDays(
+                  startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => true);
       when(userManager.userUID).thenReturn('id');
-      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
-        currentDate: LeaveDayDuration.fullLeave
-      }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves =
+          currentDayMap.getSelectedLeaveOfTheDays(
+              endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
       final entries = updatedSelectedLeaves.entries
@@ -291,15 +284,13 @@ void main() {
     test('on apply success test', () async {
       when(leaveService.checkLeaveAlreadyApplied(
               userId: 'id',
-              dateDuration: leaveRequestBloc.state.selectedDates
-                  .getSelectedLeaveOfTheDays(
-                      startDate: currentDate, endDate: futureDate)))
+              dateDuration: currentDayMap.getSelectedLeaveOfTheDays(
+                  startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => false);
-      when(userManager.userUID).thenReturn('id');
 
-      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves = {
-        currentDate: LeaveDayDuration.fullLeave
-      }.getSelectedLeaveOfTheDays(endDate: futureDate, startDate: currentDate);
+      Map<DateTime, LeaveDayDuration> updatedSelectedLeaves =
+          currentDayMap.getSelectedLeaveOfTheDays(
+              endDate: futureDate, startDate: currentDate);
       double totalDays = updatedSelectedLeaves.getTotalLeaveCount();
 
       final entries = updatedSelectedLeaves.entries
