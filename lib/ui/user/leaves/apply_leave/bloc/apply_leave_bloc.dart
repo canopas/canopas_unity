@@ -74,9 +74,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
     final Map<DateTime, LeaveDayDuration> leaveOfTheDays = {};
     leaveOfTheDays.addAll(state.selectedDates);
     leaveOfTheDays.update(event.date, (value) => event.value,
-        ifAbsent: () => event.date.isWeekend
-            ? LeaveDayDuration.noLeave
-            : LeaveDayDuration.fullLeave);
+        ifAbsent: () => event.date.getLeaveDayDuration());
     emit(state.copyWith(
         selectedDates: leaveOfTheDays,
         totalLeaveDays: leaveOfTheDays.getTotalLeaveCount()));
