@@ -3,15 +3,13 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_event.dart';
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
-import '../../../../../data/provider/user_data.dart';
 import '../../../../../data/services/employee_service.dart';
 
 @Injectable()
 class UserEmployeesBloc extends Bloc<UserEmployeesEvent, UserEmployeesState> {
   final EmployeeService employeeService;
-  final UserManager _userManager;
 
-  UserEmployeesBloc(this.employeeService, this._userManager)
+  UserEmployeesBloc(this.employeeService)
       : super(UserEmployeesInitialState()) {
     on<FetchEmployeesEvent>(_fetchEmployee);
   }
@@ -20,10 +18,7 @@ class UserEmployeesBloc extends Bloc<UserEmployeesEvent, UserEmployeesState> {
       FetchEmployeesEvent event, Emitter<UserEmployeesState> emit) async {
     emit(UserEmployeesLoadingState());
     try {
-      final allEmployees = await employeeService.getEmployees();
-      final employees = allEmployees
-          .where((employee) => employee.uid != _userManager.employeeId)
-          .toList(growable: true);
+      final employees = await employeeService.getEmployees();
       emit(UserEmployeesSuccessState(employees: employees));
     } on Exception {
       emit(UserEmployeesFailureState(error: firestoreFetchDataError));

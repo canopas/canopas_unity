@@ -3,18 +3,16 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_bloc.dart';
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_event.dart';
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_state.dart';
 import 'user_employees_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserManager])
+@GenerateMocks([EmployeeService])
 void main() {
   late EmployeeService employeeService;
   late UserEmployeesBloc userEmployeesBloc;
-  late UserManager userManager;
   Employee employee = const Employee(
     uid: 'id',
     role: Role.admin,
@@ -27,8 +25,7 @@ void main() {
 
   setUpAll(() {
     employeeService = MockEmployeeService();
-    userManager = MockUserManager();
-    userEmployeesBloc = UserEmployeesBloc(employeeService, userManager);
+    userEmployeesBloc = UserEmployeesBloc(employeeService);
   });
 
   group('User Employees Bloc', () {
@@ -39,7 +36,6 @@ void main() {
     test('Emits failure state when Exception is thrown from any cause', () {
       when(employeeService.getEmployees())
           .thenThrow(Exception(firestoreFetchDataError));
-      when(userManager.employeeId).thenReturn(employee.uid);
       userEmployeesBloc.add(FetchEmployeesEvent());
       expectLater(
           userEmployeesBloc.stream,
@@ -53,7 +49,6 @@ void main() {
         () {
       List<Employee> employees = [employee, employee];
       when(employeeService.getEmployees()).thenAnswer((_) async => employees);
-      when(userManager.employeeId).thenReturn('uid');
       userEmployeesBloc.add(FetchEmployeesEvent());
       expectLater(
           userEmployeesBloc.stream,

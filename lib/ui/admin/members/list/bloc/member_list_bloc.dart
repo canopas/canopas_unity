@@ -26,7 +26,7 @@ class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {
     emit(EmployeeListLoadingState());
     try {
       List<Employee> employees = await _employeeService.getEmployees();
-      emit(EmployeeListLoadedState(employees: List.from(employees)));
+      emit(EmployeeListLoadedState(employees: employees));
     } on Exception {
       emit(const EmployeeListFailureState(error: firestoreFetchDataError));
     }

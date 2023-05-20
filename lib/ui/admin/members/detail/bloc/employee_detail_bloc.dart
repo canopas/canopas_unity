@@ -29,7 +29,6 @@ class EmployeeDetailBloc
     });
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
     on<DeleteEmployeeEvent>(_onDeleteEmployeeEvent);
-    on<EmployeeDetailsChangeRoleEvent>(_makeAndRemoveAsAdmin);
   }
 
   Future<void> _onInitialLoad(EmployeeDetailInitialLoadEvent event,
@@ -57,28 +56,6 @@ class EmployeeDetailBloc
       }
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
-    }
-  }
-
-  Future<void> _makeAndRemoveAsAdmin(EmployeeDetailsChangeRoleEvent event,
-      Emitter<AdminEmployeeDetailState> emit) async {
-    if (state is EmployeeDetailLoadedState) {
-      final loadedState = state as EmployeeDetailLoadedState;
-      Role roleType = Role.employee;
-      try {
-        if (loadedState.employee.role != Role.admin) {
-          roleType = Role.admin;
-        }
-        await _employeeService.changeEmployeeRoleType(
-            loadedState.employee.uid, roleType);
-        emit(EmployeeDetailLoadedState(
-            employee: loadedState.employee.copyWith(role: roleType),
-            timeOffRatio: loadedState.timeOffRatio,
-            paidLeaves: loadedState.paidLeaves,
-            usedLeaves: loadedState.usedLeaves));
-      } on Exception {
-        emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
-      }
     }
   }
 

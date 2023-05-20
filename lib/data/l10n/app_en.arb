@@ -177,9 +177,6 @@
     }
   },
 
-  "admin_employee_details_make_admin_tag":"Make Admin",
-  "admin_employee_details_remove_admin_tag":"Remove Admin",
-
    "leave_calendar_title": "Leave Calendar",
     "range_leave_calendar_title": "User Leave Calendar",
     "calendar_no_leave_msg": "There is no leave on {date}",

@@ -36,8 +36,7 @@ class EmployeeService {
   }
 
   Future<List<Employee>> getEmployees() async {
-    final data =
-        await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
+    final data = await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 
