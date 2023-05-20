@@ -15,9 +15,7 @@ extension MapExtensions on Map<DateTime, LeaveDayDuration> {
     for (var date in dates) {
       putIfAbsent(
           date.dateOnly,
-          () => date.isWeekend
-              ? LeaveDayDuration.noLeave
-              : LeaveDayDuration.fullLeave);
+          () => date.getLeaveDayDuration());
     }
     removeWhere((key, value) => !dates.contains(key));
     return this;

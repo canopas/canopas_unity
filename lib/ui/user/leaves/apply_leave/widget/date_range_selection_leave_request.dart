@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
@@ -115,9 +114,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-            color: dayTimePeriod.key.isWeekend
-                ? AppColors.primaryGray
-                : AppColors.darkGrey),
+            color: AppColors.darkGrey),
       ),
       child: Material(
         color: AppColors.whiteColor,
@@ -131,25 +128,18 @@ class LeaveTimePeriodBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             alignment: Alignment.center,
             value: dayTimePeriod.value,
-            items: LeaveDayDuration.values
-                .where((dayDuration) =>
-                    dayTimePeriod.key.weekday != DateTime.saturday ||
-                    dayDuration == LeaveDayDuration.noLeave ||
-                    dayDuration == LeaveDayDuration.fullLeave)
-                .map((dayDuration) => DropdownMenuItem(
+            items: LeaveDayDuration.values.map((dayDuration) => DropdownMenuItem(
                     value: dayDuration,
                     child: Center(
                         child: Text(AppLocalizations.of(context)
                             .leave_day_duration_tag(dayDuration.name)))))
                 .toList(),
-            onChanged: !dayTimePeriod.key.isWeekend
-                ? (value) {
+            onChanged: (value) {
                     context.read<ApplyLeaveBloc>().add(
                         ApplyLeaveUpdateLeaveOfTheDayEvent(
                             date: dayTimePeriod.key,
                             value: value ?? dayTimePeriod.value));
-                  }
-                : null,
+                  },
           ),
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../model/leave/leave.dart';
+
 extension DateExtention on int {
   DateTime get toDate => DateTime.fromMillisecondsSinceEpoch(this);
   TimeOfDay get toTime =>
@@ -17,11 +19,13 @@ extension TimestampExtension on DateTime {
   DateTime get dateOnly => DateUtils.dateOnly(this);
 
   bool get isWeekend =>
-      weekday == DateTime.sunday ||
-      (weekday == DateTime.saturday && isNotForthSaturday());
+      weekday == DateTime.sunday || weekday == DateTime.saturday;
 
-  bool areSameOrUpcoming(DateTime date) =>
-      DateUtils.isSameDay(date, this) || isAfter(date);
+  LeaveDayDuration getLeaveDayDuration() => isWeekend
+      ? isNotForthSaturday()
+          ? LeaveDayDuration.noLeave
+          : LeaveDayDuration.firstHalfLeave
+      : LeaveDayDuration.fullLeave;
 
   bool isNotForthSaturday() {
     DateTime monthFirstDate = DateTime(year, month);
@@ -41,6 +45,9 @@ extension TimestampExtension on DateTime {
     allDatesInMonth.clear();
     return !forthSaturdayDate.dateOnly.isAtSameMomentAs(dateOnly);
   }
+
+  bool areSameOrUpcoming(DateTime date) =>
+      DateUtils.isSameDay(date, this) || isAfter(date);
 
   bool areSame(DateTime date) => DateUtils.isSameDay(date, this);
 }
