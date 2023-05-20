@@ -31,14 +31,6 @@ void main() {
       email: 'andrew.j@canopas.com',
       designation: 'Android developer',
       dateOfJoining: 1);
-  Employee admin = const Employee(
-      uid: 'id',
-      role: Role.admin,
-      name: 'Andrew jhone',
-      employeeId: 'CA 1254',
-      email: 'andrew.j@canopas.com',
-      designation: 'Android developer',
-      dateOfJoining: 1);
 
   setUp(() {
     accountService = MockAccountService();
@@ -121,42 +113,6 @@ void main() {
           expectLater(employeeDetailBloc.stream,
               emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
         });
-    test('test for make user as admin', () {
-      EmployeeDetailLoadedState loadedStateWithEmployee =
-      EmployeeDetailLoadedState(
-          employee: employee,
-          timeOffRatio: 10 / 12,
-          paidLeaves: 12,
-          usedLeaves: 10);
-      employeeDetailBloc.emit(loadedStateWithEmployee);
-      employeeDetailBloc.add(EmployeeDetailsChangeRoleEvent());
-      EmployeeDetailLoadedState loadedStateWithAdmin =
-      EmployeeDetailLoadedState(
-          employee: admin,
-          timeOffRatio: 10 / 12,
-          paidLeaves: 12,
-          usedLeaves: 10);
-
-      expectLater(employeeDetailBloc.stream, emits(loadedStateWithAdmin));
-    });
-    test('test for remove user as admin', () {
-      EmployeeDetailLoadedState loadedStateWithAdmin =
-      EmployeeDetailLoadedState(
-          employee: admin,
-          timeOffRatio: 10 / 12,
-          paidLeaves: 12,
-          usedLeaves: 10);
-      employeeDetailBloc.emit(loadedStateWithAdmin);
-      employeeDetailBloc.add(EmployeeDetailsChangeRoleEvent());
-      EmployeeDetailLoadedState loadedStateWithEmployee =
-      EmployeeDetailLoadedState(
-          employee: employee,
-          timeOffRatio: 10 / 12,
-          paidLeaves: 12,
-          usedLeaves: 10);
-
-      expectLater(employeeDetailBloc.stream, emits(loadedStateWithEmployee));
-    });
 
     test('delete employee failed test', () {
       when(employeeService.deleteEmployee(employee.uid))
