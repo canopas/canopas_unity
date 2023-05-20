@@ -7,10 +7,10 @@ import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
-import '../../data/core/utils/const/leave_map.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
+import 'leave_card_status_view.dart';
 
 class LeaveApplicationCard extends StatelessWidget {
   final void Function()? onTap;
@@ -42,22 +42,19 @@ class LeaveApplicationCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _LeaveTypeContent(
-                              leaveType: leaveApplication.leave.type),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          _LeaveDateContent(
-                            totalDays: leaveApplication.leave.total,
-                            startTimeStamp: leaveApplication.leave.startDate,
-                            endTimeStamp: leaveApplication.leave.endDate,
-                          ),
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        LeaveStatusView(status: leaveApplication.leave.status),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _LeaveDateContent(
+                          totalDays: leaveApplication.leave.total,
+                          startTimeStamp: leaveApplication.leave.startDate,
+                          endTimeStamp: leaveApplication.leave.endDate,
+                        ),
+                      ],
                     ),
                     const Icon(
                       Icons.arrow_forward_ios,
@@ -70,8 +67,6 @@ class LeaveApplicationCard extends StatelessWidget {
                 _EmployeeContent(
                   employee: leaveApplication.employee,
                 ),
-
-                // const ButtonContent()
               ],
             ),
           ),
@@ -81,28 +76,7 @@ class LeaveApplicationCard extends StatelessWidget {
   }
 }
 
-class _LeaveTypeContent extends StatelessWidget {
-  final int leaveType;
 
-  const _LeaveTypeContent({Key? key, required this.leaveType})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: leaveRequestCardColor[leaveType],
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-      child: Text(
-        AppLocalizations.of(context)
-            .leave_type_placeholder_text(leaveType.toString()),
-        style: AppFontStyle.labelRegular.copyWith(color: AppColors.whiteColor),
-      ),
-    );
-  }
-}
 
 class _LeaveDateContent extends StatelessWidget {
   final double totalDays;

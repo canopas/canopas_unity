@@ -3,49 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import '../../data/configs/colors.dart';
-import '../../data/core/utils/const/leave_map.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/leave/leave.dart';
-
-class _LeaveStatusView extends StatelessWidget {
-  final int status;
-
-  const _LeaveStatusView({Key? key, required this.status}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Widget getLeaveStatusIcon() {
-      if (status == approveLeaveStatus) {
-        return const Icon(Icons.done_all_rounded,
-            color: AppColors.greenColor, size: 20);
-      } else if (status == rejectLeaveStatus) {
-        return const Icon(Icons.clear_rounded,
-            color: AppColors.redColor, size: 20);
-      }
-      return const Icon(Icons.query_builder,
-          color: AppColors.blackColor, size: 20);
-    }
-
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: leaveStatusColor(status),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-      child: Row(
-        children: [
-          getLeaveStatusIcon(),
-          const SizedBox(width: 5),
-          Text(
-            AppLocalizations.of(context)
-                .leave_status_placeholder_text(status.toString()),
-            style: AppFontStyle.labelRegular,
-          ),
-        ],
-      ),
-    );
-  }
-}
+import 'leave_card_status_view.dart';
 
 class LeaveCard extends StatelessWidget {
   final Leave leave;
@@ -80,7 +40,7 @@ class LeaveCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _LeaveStatusView(status: leave.status),
+                    LeaveStatusView(status: leave.status),
                     Text(
                         DateFormatter(AppLocalizations.of(context))
                             .getDatePeriodPresentation(
