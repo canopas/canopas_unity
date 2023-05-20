@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../navigation/app_router.dart';
@@ -94,18 +95,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                             );
                           },
                         ),
-                        PopupMenuItem(
-                          child: Text(state.employee.role == Role.admin
-                              ? AppLocalizations.of(context)
-                                  .admin_employee_details_remove_admin_tag
-                              : AppLocalizations.of(context)
-                                  .admin_employee_details_make_admin_tag),
-                          onTap: () {
-                            context
-                                .read<EmployeeDetailBloc>()
-                                .add(EmployeeDetailsChangeRoleEvent());
-                          },
-                        ),
                       ],
                     )
                   : const SizedBox(),
@@ -122,11 +111,14 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                 physics: const ClampingScrollPhysics(),
                 children: [
                   ProfileCard(employee: state.employee),
-                  TimeOffCard(
-                    employee: state.employee,
-                    percentage: state.timeOffRatio,
-                    usedLeaves: state.usedLeaves,
-                    paidLeaves: state.paidLeaves,
+                  ValidateWidget(
+                    isValid: state.employee.role != Role.admin,
+                    child: TimeOffCard(
+                      employee: state.employee,
+                      percentage: state.timeOffRatio,
+                      usedLeaves: state.usedLeaves,
+                      paidLeaves: state.paidLeaves,
+                    ),
                   ),
                   ProfileDetail(employee: state.employee),
                 ]);

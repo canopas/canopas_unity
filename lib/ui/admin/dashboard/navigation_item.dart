@@ -22,7 +22,7 @@ List<BottomNavigationItem> adminTabs = [
       icon: const Icon(Icons.calendar_month_sharp),
       initialLocation: Routes.adminLeaves),
   BottomNavigationItem(
-      label: 'Employees',
+      label: 'Members',
       icon: const Icon(Icons.person),
       initialLocation: Routes.adminMembers),
 ];
@@ -37,7 +37,7 @@ List<BottomNavigationItem> userTabs = [
       icon: const Icon(Icons.calendar_month_sharp),
       initialLocation: Routes.userLeaves),
   BottomNavigationItem(
-      label: 'Employees',
+      label: 'Members',
       icon: const Icon(Icons.person),
       initialLocation: Routes.userMembers),
 ];
