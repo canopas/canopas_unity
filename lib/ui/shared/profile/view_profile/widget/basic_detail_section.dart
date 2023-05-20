@@ -94,9 +94,12 @@ class ContactSection extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text(
-                phone ?? '',
-                style: AppFontStyle.labelGrey,
+              Flexible(
+                child: Text(
+                  phone ?? '',
+                  style: AppFontStyle.labelGrey,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -112,9 +115,12 @@ class ContactSection extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(
-              email,
-              style: AppFontStyle.labelGrey,
+            Flexible(
+              child: Text(
+                email,
+                style: AppFontStyle.labelGrey,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),
