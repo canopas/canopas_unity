@@ -8,14 +8,14 @@ import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
-import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/storage_service.dart';
 import 'edit_space_state.dart';
 import 'edit_space_event.dart';
 
 @Injectable()
 class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final SpaceService _spaceService;
   final ImagePicker imagePicker;
   final StorageService storageService;
@@ -55,7 +55,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
       await _spaceService.deleteSpace(
           _userManager.currentSpace!.id, _userManager.currentSpace!.ownerIds);
-      await _userManager.removeSpace();
+      await _userManager.removeEmployeeWithSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
       emit(state.copyWith(
@@ -97,7 +97,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
         logo: logoURL,
       );
       await _spaceService.updateSpace(updatedSpace);
-      await _userManager.updateSpaceDetails(updatedSpace);
+      await _userManager.updateSpace(updatedSpace);
       emit(state.copyWith(updateSpaceStatus: Status.success));
     } on Exception {
       emit(state.copyWith(

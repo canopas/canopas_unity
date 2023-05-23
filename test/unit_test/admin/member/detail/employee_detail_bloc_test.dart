@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -14,14 +14,19 @@ import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_state.
 
 import 'employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [AccountService, EmployeeService, LeaveService, UserManager, SpaceService])
+@GenerateMocks([
+  AccountService,
+  EmployeeService,
+  LeaveService,
+  UserStateNotifier,
+  SpaceService
+])
 void main() {
   late AccountService accountService;
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late LeaveService leaveService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
   Employee employee = const Employee(
       uid: 'id',
@@ -36,19 +41,20 @@ void main() {
     accountService = MockAccountService();
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     employeeDetailBloc = EmployeeDetailBloc(
       accountService,
       spaceService,
-      userManager,
+      userStateNotifier,
       employeeService,
       leaveService,
     );
     when(leaveService.getUserUsedLeaves(employee.uid))
         .thenAnswer((_) async => 10);
-    when(userManager.currentSpaceId).thenReturn("space-id");
-    when(spaceService.getPaidLeaves(spaceId: "space-id")).thenAnswer((_) async => 12);
+    when(userStateNotifier.currentSpaceId).thenReturn("space-id");
+    when(spaceService.getPaidLeaves(spaceId: "space-id"))
+        .thenAnswer((_) async => 12);
   });
 
   group('Employee detail bloc', () {
@@ -123,6 +129,7 @@ void main() {
     });
 
     test('delete employee success test', () async {
+      when(userStateNotifier.userUID).thenReturn(employee.uid);
       employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
       await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
       await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));

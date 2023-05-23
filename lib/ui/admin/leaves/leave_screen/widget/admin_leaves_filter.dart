@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/widget/bottom_sheet_top_divider.dart';
 import 'package:projectunity/ui/widget/employee_card.dart';
 import 'package:projectunity/ui/widget/employee_details_textfield.dart';
@@ -24,7 +24,7 @@ class AdminLeavesFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userManager = getIt<UserManager>();
+    final userManager = getIt<UserStateNotifier>();
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -201,9 +201,12 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Row(
           children: [
-            SpaceLogoView(spaceLogo: getIt<UserManager>().currentSpace?.logo),
+            SpaceLogoView(
+                spaceLogo: getIt<UserStateNotifier>().currentSpace?.logo),
             const SizedBox(width: 20),
-            Text(AppLocalizations.of(context).see_all_member_leave_title, style: AppFontStyle.bodyMedium,overflow: TextOverflow.ellipsis),
+            Text(AppLocalizations.of(context).see_all_member_leave_title,
+                style: AppFontStyle.bodyMedium,
+                overflow: TextOverflow.ellipsis),
           ],
         ),
       ),

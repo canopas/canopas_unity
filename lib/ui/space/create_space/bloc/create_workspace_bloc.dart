@@ -9,7 +9,7 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/provider/user_data.dart';
+import '../../../../data/provider/user_state.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
 import 'create_workspace_state.dart';
@@ -21,7 +21,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
   final StorageService storageService;
   final SpaceService _spaceService;
   final EmployeeService _employeeService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
 
   CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService,
       this.imagePicker, this.storageService)
@@ -166,7 +166,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
             spaceId: newSpace.id, employee: employee);
 
         emit(state.copyWith(createSpaceStatus: Status.success));
-        await _userManager.setSpace(space: newSpace, spaceUser: employee);
+        await _userManager.setEmployeeWithSpace(
+            space: newSpace, spaceUser: employee);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError, createSpaceStatus: Status.error));

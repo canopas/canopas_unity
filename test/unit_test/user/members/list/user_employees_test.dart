@@ -47,7 +47,7 @@ void main() {
     test(
         'Emits Loading state while fetching data from database and the emits success state with list of employees',
         () {
-      List<Employee> employees = [employee, employee];
+          List<Employee> employees = [employee, employee];
       when(employeeService.getEmployees()).thenAnswer((_) async => employees);
       userEmployeesBloc.add(FetchEmployeesEvent());
       expectLater(

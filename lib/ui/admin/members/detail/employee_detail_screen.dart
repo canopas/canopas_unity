@@ -89,6 +89,8 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                         employeeId: widget.employeeId));
                                 context.pop();
                                 context.pop();
+                                //   context.read<AppStateBloc>().add(
+                                //       UpdateUserEvent(uid: widget.employeeId));
                               },
                               actionButtonTitle: AppLocalizations.of(context)
                                   .delete_button_tag,

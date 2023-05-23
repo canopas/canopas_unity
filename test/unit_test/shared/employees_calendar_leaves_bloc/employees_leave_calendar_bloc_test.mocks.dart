@@ -12,7 +12,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i3;
 import 'package:projectunity/data/model/leave/leave.dart' as _i7;
 import 'package:projectunity/data/model/space/space.dart' as _i10;
-import 'package:projectunity/data/provider/user_data.dart' as _i8;
+import 'package:projectunity/data/provider/user_state.dart' as _i8;
 import 'package:projectunity/data/services/employee_service.dart' as _i4;
 import 'package:projectunity/data/services/leave_service.dart' as _i6;
 
@@ -373,66 +373,19 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
       ) as _i5.Future<_i7.Leave?>);
 }
 
-/// A class which mocks [UserManager].
+/// A class which mocks [UserStateNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserManager extends _i1.Mock implements _i8.UserManager {
-  MockUserManager() {
+class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
+  MockUserStateNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  bool get loggedIn => (super.noSuchMethod(
-        Invocation.getter(#loggedIn),
-        returnValue: false,
-      ) as bool);
-  @override
-  set loggedIn(bool? _loggedIn) => super.noSuchMethod(
-        Invocation.setter(
-          #loggedIn,
-          _loggedIn,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  bool get spaceSelected => (super.noSuchMethod(
-        Invocation.getter(#spaceSelected),
-        returnValue: false,
-      ) as bool);
-  @override
-  set spaceSelected(bool? _spaceSelected) => super.noSuchMethod(
-        Invocation.setter(
-          #spaceSelected,
-          _spaceSelected,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  bool get spaceUserExist => (super.noSuchMethod(
-        Invocation.getter(#spaceUserExist),
-        returnValue: false,
-      ) as bool);
-  @override
-  set spaceUserExist(bool? _spaceUserExist) => super.noSuchMethod(
-        Invocation.setter(
-          #spaceUserExist,
-          _spaceUserExist,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  bool get redirect => (super.noSuchMethod(
-        Invocation.getter(#redirect),
-        returnValue: false,
-      ) as bool);
-  @override
-  set redirect(bool? _redirect) => super.noSuchMethod(
-        Invocation.setter(
-          #redirect,
-          _redirect,
-        ),
-        returnValueForMissingStub: null,
-      );
+  _i8.UserState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i8.UserState.unknown,
+      ) as _i8.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -467,6 +420,14 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: false,
       ) as bool);
   @override
+  void getUserStatus() => super.noSuchMethod(
+        Invocation.method(
+          #getUserStatus,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i5.Future<void> setUser(_i9.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
@@ -476,13 +437,13 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> setSpace({
+  _i5.Future<void> setEmployeeWithSpace({
     required _i10.Space? space,
     required _i3.Employee? spaceUser,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #setSpace,
+          #setEmployeeWithSpace,
           [],
           {
             #space: space,
@@ -493,18 +454,18 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> updateSpaceDetails(_i10.Space? space) => (super.noSuchMethod(
+  _i5.Future<void> updateSpace(_i10.Space? space) => (super.noSuchMethod(
         Invocation.method(
-          #updateSpaceDetails,
+          #updateSpace,
           [space],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> removeSpace() => (super.noSuchMethod(
+  _i5.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
         Invocation.method(
-          #removeSpace,
+          #removeEmployeeWithSpace,
           [],
         ),
         returnValue: _i5.Future<void>.value(),
@@ -519,14 +480,6 @@ class MockUserManager extends _i1.Mock implements _i8.UserManager {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
-  @override
-  void hasLoggedIn() => super.noSuchMethod(
-        Invocation.method(
-          #hasLoggedIn,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(

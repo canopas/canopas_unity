@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_detail_approve_rejection_message.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_action_button.dart';
 import 'package:projectunity/ui/admin/home/application_detail/widget/admin_leave_request_details_date_content.dart';
@@ -107,14 +107,16 @@ class _AdminLeaveApplicationDetailScreenState
                 ),
               ),
               ValidateWidget(
-                  isValid: !(getIt<UserManager>().isHR && widget.leaveApplication.employee.role == Role.hr),
+                  isValid: !(getIt<UserStateNotifier>().isHR &&
+                      widget.leaveApplication.employee.role == Role.hr),
                   child: const ApproveRejectionMessage()),
             ],
           );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: getIt<UserManager>().isHR && widget.leaveApplication.employee.role == Role.hr
+      floatingActionButton: getIt<UserStateNotifier>().isHR &&
+              widget.leaveApplication.employee.role == Role.hr
           ? null
           : AdminLeaveDetailsActionButton(
               leaveID: widget.leaveApplication.leave.leaveId),

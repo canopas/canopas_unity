@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -17,7 +17,7 @@ class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final AccountService _accountService;
   final SpaceService _spaceService;
 
@@ -66,7 +66,6 @@ class EmployeeDetailBloc
       await _leaveService.deleteAllLeavesOfUser(event.employeeId);
       await _accountService.deleteSpaceIdFromAccount(
           spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
-      eventBus.fire(DeleteEmployeeByAdmin(event.employeeId));
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }

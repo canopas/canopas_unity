@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/model/account/account.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
@@ -15,11 +15,11 @@ import 'login_bloc_test.mocks.dart';
 @GenerateMocks([
   AuthService,
   AccountService,
-  UserManager,
+  UserStateNotifier,
   firebase_auth.User,
 ])
 void main() {
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late AuthService authService;
   late AccountService accountService;
 
@@ -29,11 +29,11 @@ void main() {
   const Account user = Account(uid: 'uid', email: "dummy@canopas.com");
 
   setUp(() {
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     authUser = MockUser();
     authService = MockAuthService();
     accountService = MockAccountService();
-    bloc = SignInBloc(userManager, authService, accountService);
+    bloc = SignInBloc(userStateNotifier, authService, accountService);
   });
 
   group("Log in with google test", () {
@@ -63,8 +63,8 @@ void main() {
             SignInLoadingState(),
             SignInSuccessState(),
           ]));
-      await untilCalled(userManager.setUser(user));
-      verify(userManager.setUser(user)).called(1);
+      await untilCalled(userStateNotifier.setUser(user));
+      verify(userStateNotifier.setUser(user)).called(1);
     });
   });
 }

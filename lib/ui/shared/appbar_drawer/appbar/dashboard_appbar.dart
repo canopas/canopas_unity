@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/appbar/space_notifier_widget.dart';
 
 import '../../../../data/configs/colors.dart';
@@ -40,7 +40,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     context.read<DrawerBloc>().add(FetchSpacesEvent());
                   },
                   child: SpaceNotifierWidget(
-                    notifier: getIt.get<UserManager>(),
+                    notifier: getIt.get<UserStateNotifier>(),
                     child: Builder(builder: (context) {
                       return SpaceLogoView(
                           spaceLogo: SpaceNotifierWidget.of(context)?.logo);
@@ -49,10 +49,11 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
               const SizedBox(width: primaryHorizontalSpacing),
               Expanded(
                 child: SpaceNotifierWidget(
-                  notifier: getIt.get<UserManager>(),
+                  notifier: getIt.get<UserStateNotifier>(),
                   child: Builder(
                     builder: (context) {
-                      final String name = SpaceNotifierWidget.of(context)?.name??"";
+                      final String name =
+                          SpaceNotifierWidget.of(context)?.name ?? "";
                       final String? domain =
                           SpaceNotifierWidget.of(context)?.domain;
                       return Column(

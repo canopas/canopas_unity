@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/detail/widget/leave_details_date_content.dart';
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
@@ -13,6 +12,7 @@ import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/leave_application.dart';
+import '../../../../data/provider/user_state.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -110,8 +110,9 @@ class _AdminLeaveDetailsScreenState extends State<AdminLeaveDetailsScreen> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: getIt<UserManager>().isAdmin || (getIt<UserManager>().isHR
-        && widget.leaveApplication.employee.role != Role.hr)
+        floatingActionButton: getIt<UserStateNotifier>().isAdmin ||
+                (getIt<UserStateNotifier>().isHR &&
+                    widget.leaveApplication.employee.role != Role.hr)
             ? LeaveDetailActionButton(onTap: () {
                 showAlertDialog(
                   context: context,

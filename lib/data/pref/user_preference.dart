@@ -12,16 +12,16 @@ class UserPreference {
 
   UserPreference(this._preferences);
 
-  Future<void> setUser(Account user) async {
+  Future<void> setAccount(Account user) async {
     await _preferences.setString(PrefKeys.user, jsonEncode(user.toJson()));
   }
 
-  Account? getUser() {
+  Account? getAccount() {
     final data = _preferences.getString(PrefKeys.user);
     return data == null ? null : Account.fromJson(jsonDecode(data));
   }
 
-  Future<void> removeUser() async {
+  Future<void> removeAccount() async {
     await _preferences.remove(PrefKeys.user);
   }
 
@@ -39,16 +39,16 @@ class UserPreference {
     await _preferences.remove(PrefKeys.space);
   }
 
-  Future<void> setSpaceUser(Employee user) async {
+  Future<void> setEmployee(Employee user) async {
     await _preferences.setString(PrefKeys.spaceUser, jsonEncode(user.toJson()));
   }
 
-  Employee? getSpaceUser() {
+  Employee? getEmployee() {
     final data = _preferences.getString(PrefKeys.spaceUser);
     return data == null ? null : Employee.fromJson(jsonDecode(data));
   }
 
-  Future<void> removeSpaceUser() async {
+  Future<void> removeEmployee() async {
     await _preferences.remove(PrefKeys.spaceUser);
   }
 

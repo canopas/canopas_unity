@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
@@ -17,25 +17,30 @@ import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_stat
 
 import 'drawer_test.mocks.dart';
 
-@GenerateMocks(
-    [SpaceService, UserManager, EmployeeService, AccountService, AuthService])
+@GenerateMocks([
+  SpaceService,
+  UserStateNotifier,
+  EmployeeService,
+  AccountService,
+  AuthService
+])
 void main() {
   late SpaceService spaceService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late EmployeeService employeeService;
   late AccountService accountService;
   late AuthService authService;
   late DrawerBloc bloc;
   setUp(() {
     spaceService = MockSpaceService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     accountService = MockAccountService();
     authService = MockAuthService();
-    bloc = DrawerBloc(spaceService, userManager, accountService,
+    bloc = DrawerBloc(spaceService, userStateNotifier, accountService,
         employeeService, authService);
-    when(userManager.userUID).thenReturn('uid');
-    when(userManager.currentSpaceId).thenReturn('sid');
+    when(userStateNotifier.userUID).thenReturn('uid');
+    when(userStateNotifier.currentSpaceId).thenReturn('sid');
     when(accountService.fetchSpaceIds(uid: 'uid'))
         .thenAnswer((realInvocation) async => ['space-id']);
   });
@@ -91,9 +96,11 @@ void main() {
             const DrawerState(changeSpaceStatus: Status.loading),
             const DrawerState(changeSpaceStatus: Status.success),
           ]));
-      await untilCalled(
-          userManager.setSpace(space: space, spaceUser: employee));
-      verify(userManager.setSpace(space: space, spaceUser: employee)).called(1);
+      await untilCalled(userStateNotifier.setEmployeeWithSpace(
+          space: space, spaceUser: employee));
+      verify(userStateNotifier.setEmployeeWithSpace(
+              space: space, spaceUser: employee))
+          .called(1);
     });
 
     test('Change space failure test', () {
@@ -121,8 +128,8 @@ void main() {
             const DrawerState(signOutStatus: Status.loading),
             const DrawerState(signOutStatus: Status.success),
           ]));
-      await untilCalled(userManager.removeAll());
-      verify(userManager.removeAll()).called(1);
+      await untilCalled(userStateNotifier.removeAll());
+      verify(userStateNotifier.removeAll()).called(1);
     });
 
     test("sign out failure test", () {

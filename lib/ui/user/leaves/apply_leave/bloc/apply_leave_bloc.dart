@@ -7,7 +7,7 @@ import 'package:projectunity/data/core/mixin/input_validation.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/leave_service.dart';
 import 'apply_leave_event.dart';
 import 'apply_leave_state.dart';
@@ -16,7 +16,7 @@ import 'apply_leave_state.dart';
 class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
     with InputValidationMixin {
   final LeaveService _leaveService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
 
   ApplyLeaveBloc(this._userManager, this._leaveService)
       : super(ApplyLeaveState(

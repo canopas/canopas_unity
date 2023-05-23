@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
@@ -17,7 +17,7 @@ import '../../../../data/services/space_service.dart';
 
 @Injectable()
 class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final EmployeeService _employeeService;
   final SpaceService _spaceService;
   final InvitationService _invitationService;
@@ -74,7 +74,8 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       final employee = await _employeeService.getEmployeeBySpaceId(
           spaceId: event.space.id, userId: _userManager.userUID!);
       if (employee != null) {
-        await _userManager.setSpace(space: event.space, spaceUser: employee);
+        await _userManager.setEmployeeWithSpace(
+            space: event.space, spaceUser: employee);
         emit(state.copyWith(selectSpaceStatus: Status.success));
       } else {
         emit(state.copyWith(
@@ -101,7 +102,8 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
           employee: employee, spaceId: event.space.id);
       await accountService.updateSpaceOfUser(
           spaceID: event.space.id, uid: _userManager.userUID!);
-      await _userManager.setSpace(space: event.space, spaceUser: employee);
+      await _userManager.setEmployeeWithSpace(
+          space: event.space, spaceUser: employee);
       final invitation = deleteInvitation(event.space.id);
       await _invitationService.deleteInvitation(id: invitation.id);
 

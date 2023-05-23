@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/invitation/invitation.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
@@ -20,13 +20,13 @@ import 'join_space_test.mocks.dart';
 @GenerateMocks([
   InvitationService,
   SpaceService,
-  UserManager,
+  UserStateNotifier,
   AccountService,
   EmployeeService
 ])
 void main() {
   late SpaceService spaceService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late EmployeeService employeeService;
   late InvitationService invitationService;
   late AccountService accountService;
@@ -38,7 +38,7 @@ void main() {
       receiverEmail: 'email');
   setUp(() {
     spaceService = MockSpaceService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     invitationService = MockInvitationService();
     accountService = MockAccountService();
@@ -46,12 +46,12 @@ void main() {
     bloc = JoinSpaceBloc(
       invitationService,
       spaceService,
-      userManager,
+      userStateNotifier,
       accountService,
       employeeService,
     );
-    when(userManager.userUID).thenReturn('uid');
-    when(userManager.userEmail).thenReturn('email');
+    when(userStateNotifier.userUID).thenReturn('uid');
+    when(userStateNotifier.userEmail).thenReturn('email');
   });
 
   Space space = Space(
@@ -147,9 +147,11 @@ void main() {
             const JoinSpaceState(selectSpaceStatus: Status.loading),
             const JoinSpaceState(selectSpaceStatus: Status.success),
           ]));
-      await untilCalled(
-          userManager.setSpace(space: space, spaceUser: employee));
-      verify(userManager.setSpace(space: space, spaceUser: employee)).called(1);
+      await untilCalled(userStateNotifier.setEmployeeWithSpace(
+          space: space, spaceUser: employee));
+      verify(userStateNotifier.setEmployeeWithSpace(
+              space: space, spaceUser: employee))
+          .called(1);
     });
 
     test('Change space failure test', () {
@@ -172,7 +174,7 @@ void main() {
     test(
         'Should emit loading and success state if user select space from requested spaces',
         () {
-      bloc.invitations = [invitation];
+          bloc.invitations = [invitation];
       when(employeeService.addEmployeeBySpaceId(
               employee: employee, spaceId: space.id))
           .thenAnswer((_) async {});
@@ -180,9 +182,10 @@ void main() {
           .thenAnswer((_) async {});
       when(invitationService.deleteInvitation(id: invitation.id))
           .thenAnswer((_) async {});
-      when(userManager.setSpace(space: space, spaceUser: employee))
+      when(userStateNotifier.setEmployeeWithSpace(
+              space: space, spaceUser: employee))
           .thenAnswer((_) async {});
-      when(userManager.userFirebaseAuthName).thenReturn(employee.name);
+      when(userStateNotifier.userFirebaseAuthName).thenReturn(employee.name);
       bloc.add(JoinRequestedSpaceEvent(space: space));
       expectLater(
           bloc.stream,
@@ -195,7 +198,7 @@ void main() {
     test(
         'Should emit loading and error state if user select space from requested spaces and firestore trows exception',
         () {
-      bloc.invitations = [invitation];
+          bloc.invitations = [invitation];
       when(employeeService.addEmployeeBySpaceId(
               employee: employee, spaceId: space.id))
           .thenThrow(Exception(firestoreFetchDataError));
@@ -203,9 +206,10 @@ void main() {
           .thenThrow(Exception(firestoreFetchDataError));
       when(invitationService.deleteInvitation(id: invitation.id))
           .thenAnswer((_) async {});
-      when(userManager.setSpace(space: space, spaceUser: employee))
+      when(userStateNotifier.setEmployeeWithSpace(
+              space: space, spaceUser: employee))
           .thenAnswer((_) async {});
-      when(userManager.userFirebaseAuthName).thenReturn(employee.name);
+      when(userStateNotifier.userFirebaseAuthName).thenReturn(employee.name);
       bloc.add(JoinRequestedSpaceEvent(space: space));
       expectLater(
           bloc.stream,

@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
@@ -13,10 +13,10 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave
 
 import 'user_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager])
+@GenerateMocks([LeaveService, UserStateNotifier])
 void main() {
   late LeaveService leaveService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late UserLeaveBloc userLeaveBloc;
   const String employeeId = 'CA 1044';
   DateTime today = DateTime.now();
@@ -62,8 +62,8 @@ void main() {
 
   setUp(() {
     leaveService = MockLeaveService();
-    userManager = MockUserManager();
-    userLeaveBloc = UserLeaveBloc(userManager, leaveService);
+    userStateNotifier = MockUserStateNotifier();
+    userLeaveBloc = UserLeaveBloc(userStateNotifier, leaveService);
   });
 
   tearDown(() async {
@@ -84,8 +84,8 @@ void main() {
     test(
         'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
         () {
-      userLeaveBloc.add(FetchUserLeaveEvent());
-      when(userManager.employeeId).thenReturn(employeeId);
+          userLeaveBloc.add(FetchUserLeaveEvent());
+      when(userStateNotifier.employeeId).thenReturn(employeeId);
       when(leaveService.getAllLeavesOfUser(employeeId)).thenAnswer(
           (_) async => [pastLeave, upcomingLeave, specificYearLeave]);
       expectLater(
@@ -100,7 +100,7 @@ void main() {
     test('Emits error state when Exception is thrown', () {
       userLeaveBloc.add(FetchUserLeaveEvent());
 
-      when(userManager.employeeId).thenReturn(employeeId);
+      when(userStateNotifier.employeeId).thenReturn(employeeId);
       when(leaveService.getAllLeavesOfUser(employeeId))
           .thenThrow(Exception('error'));
       expectLater(
@@ -114,7 +114,7 @@ void main() {
 
   test('change year and show year wise leave test', () {
     userLeaveBloc.add(FetchUserLeaveEvent());
-    when(userManager.employeeId).thenReturn(employeeId);
+    when(userStateNotifier.employeeId).thenReturn(employeeId);
     when(leaveService.getAllLeavesOfUser(employeeId))
         .thenAnswer((_) async => [pastLeave, upcomingLeave, specificYearLeave]);
     userLeaveBloc.add(ChangeYearEvent(year: 2022));
