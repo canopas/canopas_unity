@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
@@ -25,7 +25,7 @@ class FakeStorageService extends Fake implements StorageService {
 
 @GenerateMocks([
   SpaceService,
-  UserManager,
+  UserStateNotifier,
   EmployeeService,
   StorageService,
   ImagePicker,
@@ -34,7 +34,7 @@ void main() {
   late SpaceService spaceService;
   late StorageService storageService;
   late ImagePicker imagePicker;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late EmployeeService employeeService;
   late CreateSpaceBLoc bloc;
   late CreateSpaceState createSpaceState;
@@ -42,17 +42,17 @@ void main() {
   final File file = File(xFile.path);
   setUp(() {
     spaceService = MockSpaceService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     storageService = FakeStorageService();
     imagePicker = MockImagePicker();
-    when(userManager.userFirebaseAuthName).thenReturn('user name');
-    bloc = CreateSpaceBLoc(spaceService, userManager, employeeService,
+    when(userStateNotifier.userFirebaseAuthName).thenReturn('user name');
+    bloc = CreateSpaceBLoc(spaceService, userStateNotifier, employeeService,
         imagePicker, storageService);
     createSpaceState = const CreateSpaceState(ownerName: 'user name');
-    when(userManager.currentSpaceId).thenReturn('space-id');
-    when(userManager.userUID).thenReturn('uid');
-    when(userManager.userEmail).thenReturn('andrew.j@canopas.com');
+    when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+    when(userStateNotifier.userUID).thenReturn('uid');
+    when(userStateNotifier.userEmail).thenReturn('andrew.j@canopas.com');
   });
 
   group('Page Change Event', () {
@@ -182,7 +182,7 @@ void main() {
   });
 
   group('Tab 3 Test', () {
-    test('Emits state with username from userManager', () {
+    test('Emits state with username from userStateNotifier', () {
       expect(bloc.state.ownerName, 'user name');
     });
 
@@ -209,9 +209,9 @@ void main() {
 
   group('Create space button tap test', () {
     test('create space not valid data error test', () {
-      when(userManager.currentSpaceId).thenReturn('space-id');
-      when(userManager.userUID).thenReturn('uid');
-      when(userManager.userEmail).thenReturn('dummy@canopas.com');
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(userStateNotifier.userUID).thenReturn('uid');
+      when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
 
       bloc.add(CreateSpaceButtonTapEvent());
 
@@ -270,9 +270,9 @@ void main() {
         companyName: 'canopas',
       ));
 
-      when(userManager.currentSpaceId).thenReturn('space-id');
-      when(userManager.userUID).thenReturn('uid');
-      when(userManager.userEmail).thenReturn('dummy@canopas.com');
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(userStateNotifier.userUID).thenReturn('uid');
+      when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
 
       bloc.add(CreateSpaceButtonTapEvent());
 

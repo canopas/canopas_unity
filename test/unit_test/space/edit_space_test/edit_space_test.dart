@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart';
@@ -22,10 +22,10 @@ class FakeStorageService extends Fake implements StorageService {
   }
 }
 
-@GenerateMocks([SpaceService, UserManager, ImagePicker])
+@GenerateMocks([SpaceService, UserStateNotifier, ImagePicker])
 void main() {
   late SpaceService spaceService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late StorageService storageService;
   late ImagePicker imagePicker;
   late EditSpaceBloc bloc;
@@ -39,14 +39,14 @@ void main() {
       ownerIds: ["uid"]);
 
   setUp(() {
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     imagePicker = MockImagePicker();
     storageService = FakeStorageService();
-    bloc =
-        EditSpaceBloc(spaceService, userManager, imagePicker, storageService);
-    when(userManager.currentSpace).thenReturn(space);
-    when(userManager.currentSpaceId).thenReturn(space.id);
+    bloc = EditSpaceBloc(
+        spaceService, userStateNotifier, imagePicker, storageService);
+    when(userStateNotifier.currentSpace).thenReturn(space);
+    when(userStateNotifier.currentSpaceId).thenReturn(space.id);
   });
 
   group("Edit space test", () {
@@ -73,8 +73,8 @@ void main() {
           ]));
       await untilCalled(spaceService.deleteSpace("id", ["uid"]));
       verify(spaceService.deleteSpace("id", ['uid'])).called(1);
-      await untilCalled(userManager.removeSpace());
-      verify(userManager.removeSpace()).called(1);
+      await untilCalled(userStateNotifier.removeEmployeeWithSpace());
+      verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("Delete space failure test", () async {
@@ -117,8 +117,8 @@ void main() {
 
       await (spaceService.updateSpace(updatedSpace));
       verify.call(spaceService.updateSpace(updatedSpace));
-      await (userManager.updateSpaceDetails(updatedSpace));
-      verify.call(userManager.updateSpaceDetails(updatedSpace));
+      await (userStateNotifier.updateSpace(updatedSpace));
+      verify.call(userStateNotifier.updateSpace(updatedSpace));
     });
   });
 }

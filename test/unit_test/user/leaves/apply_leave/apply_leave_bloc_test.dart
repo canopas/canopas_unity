@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_event.dart';
@@ -14,10 +14,10 @@ import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.d
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager])
+@GenerateMocks([LeaveService, UserStateNotifier])
 void main() {
   late LeaveService leaveService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late ApplyLeaveBloc leaveRequestBloc;
 
   final DateTime currentDate = DateTime.now().dateOnly;
@@ -32,11 +32,11 @@ void main() {
   group("Leave Request Form view test", () {
     setUp(() {
       leaveService = MockLeaveService();
-      userManager = MockUserManager();
-      leaveRequestBloc = ApplyLeaveBloc(userManager, leaveService);
+      userStateNotifier = MockUserStateNotifier();
+      leaveRequestBloc = ApplyLeaveBloc(userStateNotifier, leaveService);
 
-      when(userManager.userUID).thenReturn("id");
-      when(userManager.employeeId).thenReturn("id");
+      when(userStateNotifier.userUID).thenReturn("id");
+      when(userStateNotifier.employeeId).thenReturn("id");
       when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
     });
 
@@ -217,7 +217,7 @@ void main() {
               dateDuration: currentDayMap.getSelectedLeaveOfTheDays(
                   startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => true);
-      when(userManager.userUID).thenReturn('id');
+      when(userStateNotifier.userUID).thenReturn('id');
       Map<DateTime, LeaveDayDuration> updatedSelectedLeaves =
           currentDayMap.getSelectedLeaveOfTheDays(
               endDate: futureDate, startDate: currentDate);

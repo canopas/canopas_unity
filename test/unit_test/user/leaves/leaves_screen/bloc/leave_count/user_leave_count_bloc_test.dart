@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart';
@@ -12,10 +12,10 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 
 import 'user_leave_count_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager, SpaceService])
+@GenerateMocks([LeaveService, UserStateNotifier, SpaceService])
 void main() {
   late LeaveService leaveService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
   late UserLeaveCountBloc userLeaveCountBloc;
 
@@ -30,10 +30,10 @@ void main() {
 
   setUp(() {
     leaveService = MockLeaveService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     userLeaveCountBloc =
-        UserLeaveCountBloc(leaveService, userManager, spaceService);
+        UserLeaveCountBloc(leaveService, userStateNotifier, spaceService);
   });
 
   tearDown(() async {
@@ -56,10 +56,10 @@ void main() {
     test(
         'emits loading state and success state after add FetchUserLeaveCountEvent respectively',
         () {
-      userLeaveCountBloc.add(FetchLeaveCountEvent());
+          userLeaveCountBloc.add(FetchLeaveCountEvent());
 
-      when(userManager.employeeId).thenReturn(employeeId);
-      when(userManager.currentSpaceId).thenReturn("space-id");
+      when(userStateNotifier.employeeId).thenReturn(employeeId);
+      when(userStateNotifier.currentSpaceId).thenReturn("space-id");
       when(leaveService.getUserUsedLeaves(employeeId))
           .thenAnswer((_) async => 7);
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
@@ -78,8 +78,8 @@ void main() {
     test('emits error state when Exception is thrown', () {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
-      when(userManager.employeeId).thenReturn('Ca 1044');
-      when(userManager.currentSpaceId).thenReturn('space-id');
+      when(userStateNotifier.employeeId).thenReturn('Ca 1044');
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
       when(leaveService.getUserUsedLeaves('Ca 1044'))
           .thenAnswer((_) async => 7);
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))

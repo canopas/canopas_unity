@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_bloc.dart';
@@ -11,20 +11,20 @@ import 'package:projectunity/ui/admin/leaves/detail/bloc/admin_leave_detail_stat
 
 import 'admin_leave_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager, SpaceService])
+@GenerateMocks([LeaveService, UserStateNotifier, SpaceService])
 void main() {
   late LeaveService leaveService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late AdminLeaveDetailBloc bloc;
   late SpaceService spaceService;
 
   setUp(() {
     leaveService = MockLeaveService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
-    bloc = AdminLeaveDetailBloc(leaveService, userManager,spaceService);
-    when(userManager.employeeId).thenReturn("id");
-    when(userManager.currentSpaceId).thenReturn("space-id");
+    bloc = AdminLeaveDetailBloc(leaveService, userStateNotifier, spaceService);
+    when(userStateNotifier.employeeId).thenReturn("id");
+    when(userStateNotifier.currentSpaceId).thenReturn("space-id");
   });
 
   group('Leave Application Detail bloc', () {
@@ -49,10 +49,11 @@ void main() {
   test(
       'Emits loading state and failure state respectively if Exception is thrown from firestore',
       () {
-    when(leaveService.getUserUsedLeaves('id'))
+        when(leaveService.getUserUsedLeaves('id'))
         .thenThrow(Exception(firestoreFetchDataError));
-    when(userManager.currentSpaceId).thenReturn('space-id');
-    when(spaceService.getPaidLeaves(spaceId: 'space-id')).thenAnswer((_) async => 12);
+    when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+    when(spaceService.getPaidLeaves(spaceId: 'space-id'))
+        .thenAnswer((_) async => 12);
     expectLater(
         bloc.stream,
         emitsInOrder([

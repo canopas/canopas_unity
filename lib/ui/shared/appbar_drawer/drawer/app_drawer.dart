@@ -12,7 +12,7 @@ import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../../data/provider/user_data.dart';
+import '../../../../data/provider/user_state.dart';
 import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -28,7 +28,7 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  final UserManager userManager = getIt<UserManager>();
+  final UserStateNotifier userManager = getIt<UserStateNotifier>();
 
   @override
   Widget build(BuildContext context) {

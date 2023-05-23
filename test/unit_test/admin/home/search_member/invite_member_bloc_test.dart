@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart';
@@ -11,23 +11,23 @@ import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_even
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_state.dart';
 import 'invite_member_bloc_test.mocks.dart';
 
-@GenerateMocks([InvitationService, UserManager, EmployeeService])
+@GenerateMocks([InvitationService, UserStateNotifier, EmployeeService])
 void main() {
   late InviteMemberBloc inviteMemberBloc;
   late InvitationService invitationService;
   late EmployeeService employeeService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
 
-    setUp(() {
-      userManager = MockUserManager();
-      invitationService = MockInvitationService();
-      employeeService = MockEmployeeService();
-      inviteMemberBloc =
-          InviteMemberBloc(invitationService, userManager, employeeService);
-    });
+  setUp(() {
+    userStateNotifier = MockUserStateNotifier();
+    invitationService = MockInvitationService();
+    employeeService = MockEmployeeService();
+    inviteMemberBloc =
+        InviteMemberBloc(invitationService, userStateNotifier, employeeService);
+  });
 
-    test('Should emit state initial state as default state ', () {
-      expect(inviteMemberBloc.state,
+  test('Should emit state initial state as default state ', () {
+    expect(inviteMemberBloc.state,
           const InviteMemberState(status: Status.initial));
     });
 
@@ -72,19 +72,19 @@ void main() {
     test(
         'Should emit loading state and success state  if email input is valid on InviteMemberEvent',
         () async {
-      when(userManager.userUID).thenReturn('uid');
-      when(userManager.currentSpaceId).thenReturn('space_id');
-      when(employeeService.hasUser('andrew.j@google.com'))
-          .thenAnswer((realInvocation) async => false);
-      when(invitationService.checkMemberInvitationAlreadyExist(
-              spaceId: 'space_id', email: 'andrew.j@google.com'))
-          .thenAnswer((realInvocation) async => false);
-      when(invitationService.addInvitation(
-              senderId: 'uid',
-              spaceId: 'space_id',
-              receiverEmail: 'andrew.j@google.com'))
-          .thenAnswer((_) async => {});
-      inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
+    when(userStateNotifier.userUID).thenReturn('uid');
+    when(userStateNotifier.currentSpaceId).thenReturn('space_id');
+    when(employeeService.hasUser('andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => false);
+    when(invitationService.checkMemberInvitationAlreadyExist(
+            spaceId: 'space_id', email: 'andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => false);
+    when(invitationService.addInvitation(
+            senderId: 'uid',
+            spaceId: 'space_id',
+            receiverEmail: 'andrew.j@google.com'))
+        .thenAnswer((_) async => {});
+    inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
       inviteMemberBloc.add(InviteMemberEvent());
       expectLater(
           inviteMemberBloc.stream,
@@ -101,24 +101,24 @@ void main() {
     test(
         'Should emit loading state and error state  if Exception is thrown by firestore',
         () {
-      when(invitationService.addInvitation(
-              senderId: 'uid',
-              spaceId: 'space_id',
-              receiverEmail: 'andrew.j@google.com'))
-          .thenThrow(Exception(firestoreFetchDataError));
-      when(userManager.userUID).thenReturn('uid');
-      when(userManager.currentSpaceId).thenReturn('space_id');
-      when(employeeService.hasUser('andrew.j@google.com'))
-          .thenAnswer((realInvocation) async => false);
-      when(invitationService.checkMemberInvitationAlreadyExist(
-              spaceId: 'space_id', email: 'andrew.j@google.com'))
-          .thenAnswer((realInvocation) async => false);
-      inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
-      inviteMemberBloc.add(InviteMemberEvent());
+          when(invitationService.addInvitation(
+            senderId: 'uid',
+            spaceId: 'space_id',
+            receiverEmail: 'andrew.j@google.com'))
+        .thenThrow(Exception(firestoreFetchDataError));
+    when(userStateNotifier.userUID).thenReturn('uid');
+    when(userStateNotifier.currentSpaceId).thenReturn('space_id');
+    when(employeeService.hasUser('andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => false);
+    when(invitationService.checkMemberInvitationAlreadyExist(
+            spaceId: 'space_id', email: 'andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => false);
+    inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
+    inviteMemberBloc.add(InviteMemberEvent());
 
-      expectLater(
-          inviteMemberBloc.stream,
-          emitsInOrder([
+    expectLater(
+        inviteMemberBloc.stream,
+        emitsInOrder([
             const InviteMemberState(
                 status: Status.initial, email: 'andrew.j@google.com'),
             const InviteMemberState(
@@ -133,24 +133,24 @@ void main() {
     test(
         'Should emit loading state and error state if user already invited exception',
         () {
-      when(invitationService.addInvitation(
-              senderId: 'uid',
-              spaceId: 'space_id',
-              receiverEmail: 'andrew.j@google.com'))
-          .thenThrow(Exception(firestoreFetchDataError));
-      when(userManager.userUID).thenReturn('uid');
-      when(userManager.currentSpaceId).thenReturn('space_id');
-      when(employeeService.hasUser('andrew.j@google.com'))
-          .thenAnswer((realInvocation) async => true);
-      when(invitationService.checkMemberInvitationAlreadyExist(
-              spaceId: 'space_id', email: 'andrew.j@google.com'))
-          .thenAnswer((realInvocation) async => true);
-      inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
-      inviteMemberBloc.add(InviteMemberEvent());
+          when(invitationService.addInvitation(
+            senderId: 'uid',
+            spaceId: 'space_id',
+            receiverEmail: 'andrew.j@google.com'))
+        .thenThrow(Exception(firestoreFetchDataError));
+    when(userStateNotifier.userUID).thenReturn('uid');
+    when(userStateNotifier.currentSpaceId).thenReturn('space_id');
+    when(employeeService.hasUser('andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => true);
+    when(invitationService.checkMemberInvitationAlreadyExist(
+            spaceId: 'space_id', email: 'andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => true);
+    inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
+    inviteMemberBloc.add(InviteMemberEvent());
 
-      expectLater(
-          inviteMemberBloc.stream,
-          emitsInOrder([
+    expectLater(
+        inviteMemberBloc.stream,
+        emitsInOrder([
             const InviteMemberState(
                 status: Status.initial, email: 'andrew.j@google.com'),
             const InviteMemberState(

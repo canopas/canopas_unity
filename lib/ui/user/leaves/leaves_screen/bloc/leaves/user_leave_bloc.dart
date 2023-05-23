@@ -9,13 +9,13 @@ import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../../data/event_bus/events.dart';
 import '../../../../../../data/model/leave/leave.dart';
-import '../../../../../../data/provider/user_data.dart';
+import '../../../../../../data/provider/user_state.dart';
 import '../../../../../../data/services/leave_service.dart';
 
 @Injectable()
 class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
   final LeaveService _leaveService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   late StreamSubscription? _streamSubscription;
   late List<Leave> allLeaves = [];
 

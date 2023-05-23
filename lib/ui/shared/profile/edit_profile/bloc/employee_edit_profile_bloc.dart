@@ -9,7 +9,7 @@ import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/pref/user_preference.dart';
-import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/storage_service.dart';
 import 'employee_edit_profile_event.dart';
@@ -20,7 +20,7 @@ class EmployeeEditProfileBloc
     extends Bloc<EditProfileEvent, EmployeeEditProfileState>
     with InputValidationMixin {
   final EmployeeService _employeeService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final UserPreference _preference;
   final ImagePicker imagePicker;
   final StorageService storageService;
@@ -94,7 +94,7 @@ class EmployeeEditProfileBloc
           dateOfJoining: _userManager.employee.dateOfJoining,
         );
         await _employeeService.updateEmployeeDetails(employee: employee);
-        _preference.setSpaceUser(employee);
+        _preference.setEmployee(employee);
 
         ///TODO: updateUserDataOnUserProfile
         emit(state.copyWith(status: Status.success));

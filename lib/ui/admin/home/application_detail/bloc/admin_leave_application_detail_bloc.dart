@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/const/firestore.dart';
@@ -13,7 +13,7 @@ import 'admin_leave_application_detail_state.dart';
 @Injectable()
 class AdminLeaveApplicationDetailsBloc extends Bloc<
     AdminLeaveApplicationDetailsEvents, AdminLeaveApplicationDetailsState> {
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final SpaceService _spaceService;
   final LeaveService _leaveService;
 

@@ -5,14 +5,14 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_cout_event.dart';
 import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/core/utils/bloc_status.dart';
-import '../../../../../../data/provider/user_data.dart';
+import '../../../../../../data/provider/user_state.dart';
 import '../../../../../../data/services/leave_service.dart';
 
 @Injectable()
 class UserLeaveCountBloc
     extends Bloc<FetchLeaveCountEvent, UserLeaveCountState> {
   final LeaveService _leaveService;
-  final UserManager _userManger;
+  final UserStateNotifier _userManger;
   final SpaceService _spaceService;
 
   UserLeaveCountBloc(this._leaveService, this._userManger, this._spaceService)

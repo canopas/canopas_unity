@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
-import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/invitation_services.dart';
 import 'invite_member_event.dart';
 import 'invite_member_state.dart';
@@ -12,7 +12,7 @@ import 'invite_member_state.dart';
 class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
   final InvitationService _invitationService;
   final EmployeeService _employeeService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
 
   InviteMemberBloc(
       this._invitationService, this._userManager, this._employeeService)

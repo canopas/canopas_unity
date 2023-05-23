@@ -8,7 +8,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/pref/user_preference.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart';
@@ -17,11 +17,16 @@ import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_p
 
 import 'employee_edit_profile_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [EmployeeService, UserManager, UserPreference, StorageService, ImagePicker])
+@GenerateMocks([
+  EmployeeService,
+  UserStateNotifier,
+  UserPreference,
+  StorageService,
+  ImagePicker
+])
 void main() {
   late EmployeeService employeeService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late UserPreference preference;
   late StorageService storageService;
   late ImagePicker imagePicker;
@@ -44,16 +49,16 @@ void main() {
   group("admin-edit-employee-details-test", () {
     setUp(() {
       employeeService = MockEmployeeService();
-      userManager = MockUserManager();
+      userStateNotifier = MockUserStateNotifier();
       preference = MockUserPreference();
       storageService = MockStorageService();
       imagePicker = MockImagePicker();
       editEmployeeDetailsBloc = EmployeeEditProfileBloc(employeeService,
-          preference, userManager, storageService, imagePicker);
-      when(userManager.employeeId).thenReturn(emp.uid);
-      when(userManager.employee).thenReturn(emp);
-      when(userManager.currentSpaceId).thenReturn('sid');
-      when(userManager.userUID).thenReturn('123');
+          preference, userStateNotifier, storageService, imagePicker);
+      when(userStateNotifier.employeeId).thenReturn(emp.uid);
+      when(userStateNotifier.employee).thenReturn(emp);
+      when(userStateNotifier.currentSpaceId).thenReturn('sid');
+      when(userStateNotifier.userUID).thenReturn('123');
     });
 
     test('test initial test', () {
@@ -154,8 +159,8 @@ void main() {
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
 
-      await untilCalled(preference.setSpaceUser(emp));
-      verify(preference.setSpaceUser(emp)).called(1);
+      await untilCalled(preference.setEmployee(emp));
+      verify(preference.setEmployee(emp)).called(1);
     });
 
     test('Emits error state while updating data on firestore', () async {

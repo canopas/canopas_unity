@@ -4,11 +4,11 @@ import 'package:injectable/injectable.dart';
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/employee/employee.dart';
-import '../provider/user_data.dart';
+import '../provider/user_state.dart';
 
 @LazySingleton()
 class EmployeeService {
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final FirebaseFirestore fireStore;
 
   EmployeeService(this._userManager, this.fireStore);

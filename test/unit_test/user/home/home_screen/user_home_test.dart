@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart';
@@ -14,10 +14,10 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart'
 
 import 'user_home_test.mocks.dart';
 
-@GenerateMocks([UserManager, AuthService, LeaveService])
+@GenerateMocks([UserStateNotifier, AuthService, LeaveService])
 void main() {
   late UserHomeBloc bLoc;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late AuthService authService;
   late LeaveService leaveService;
 
@@ -43,13 +43,13 @@ void main() {
       perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     authService = MockAuthService();
     leaveService = MockLeaveService();
-    bLoc = UserHomeBloc(authService, userManager, leaveService);
+    bLoc = UserHomeBloc(userStateNotifier, leaveService);
 
     when(authService.signOutWithGoogle()).thenAnswer((_) async => true);
-    when(userManager.employeeId).thenReturn(employee.uid);
+    when(userStateNotifier.employeeId).thenReturn(employee.uid);
   });
 
   group('User home bloc state for requests', () {
@@ -83,19 +83,6 @@ void main() {
             UserHomeErrorState(error: firestoreFetchDataError)
           ]));
       bLoc.add(UserHomeFetchLeaveRequest());
-    });
-  });
-
-  group('Authentication status event', () {
-    test(
-        ' on UserDisable event User should be navigate to login screen if has been deleted successfully by admin',
-        () async {
-      when(userManager.employeeId).thenReturn(employee.uid);
-      bLoc.add(UserDisabled(employee.uid));
-      await untilCalled(authService.signOutWithGoogle());
-      await untilCalled(userManager.removeAll());
-      verify(authService.signOutWithGoogle()).called(1);
-      verify(userManager.removeAll()).called(1);
     });
   });
 }

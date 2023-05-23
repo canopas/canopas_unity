@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_data.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/di/service_locator.dart';
+import '../../../../../data/provider/user_state.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';
 import '../../../../widget/error_snack_bar.dart';
@@ -52,7 +52,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
         children: [
           ValidateWidget(
-            isValid: getIt<UserManager>().isAdmin,
+            isValid: getIt<UserStateNotifier>().isAdmin,
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,
                 AdminEditEmployeeDetailsState>(
               buildWhen: (previous, current) => previous.role != current.role,

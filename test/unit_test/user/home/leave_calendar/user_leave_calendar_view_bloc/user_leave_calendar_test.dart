@@ -6,7 +6,7 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/model/leave_count.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -16,11 +16,11 @@ import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calenda
 
 import 'user_leave_calendar_test.mocks.dart';
 
-@GenerateMocks([LeaveService, EmployeeService, UserManager,SpaceService])
+@GenerateMocks([LeaveService, EmployeeService, UserStateNotifier, SpaceService])
 void main() {
   late LeaveService leaveService;
   late EmployeeService employeeService;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
   late UserLeaveCalendarBloc userLeaveCalendarViewBloc;
 
@@ -59,17 +59,17 @@ void main() {
     setUp(() {
       leaveService = MockLeaveService();
       employeeService = MockEmployeeService();
-      userManager = MockUserManager();
+      userStateNotifier = MockUserStateNotifier();
       spaceService = MockSpaceService();
       userLeaveCalendarViewBloc = UserLeaveCalendarBloc(
-          leaveService, employeeService, userManager,spaceService);
+          leaveService, employeeService, userStateNotifier, spaceService);
       when(employeeService.getEmployee(userID))
           .thenAnswer((_) => Future(() => employee));
       when(leaveService.getAllLeavesOfUser(userID))
           .thenAnswer((_) => Future(() => [leave]));
       when(leaveService.getUserUsedLeaves(userID))
           .thenAnswer((_) => Future(() => 6.0));
-      when(userManager.currentSpaceId).thenReturn('space-id');
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenAnswer((_) => Future(() => 12));
     });

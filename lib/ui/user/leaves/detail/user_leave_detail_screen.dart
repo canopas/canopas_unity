@@ -14,7 +14,7 @@ import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_conten
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/provider/user_data.dart';
+import '../../../../data/provider/user_state.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -44,7 +44,7 @@ class UserLeaveDetailScreen extends StatefulWidget {
 }
 
 class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
-  final userManager = getIt<UserManager>();
+  final userStateNotifier = getIt<UserStateNotifier>();
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +74,9 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
             if (state is UserLeaveDetailLoadingState) {
               return const AppCircularProgressIndicator();
             } else if (state is UserLeaveDetailSuccessState) {
-              bool userIsAbleToSeeAllData = userManager.isAdmin ||
-                  userManager.isHR ||
-                  userManager.employeeId == state.leave.uid;
+              bool userIsAbleToSeeAllData = userStateNotifier.isAdmin ||
+                  userStateNotifier.isHR ||
+                  userStateNotifier.employeeId == state.leave.uid;
               return ListView(
                 children: [
                   LeaveTypeAgoTitleWithStatus(

@@ -10,7 +10,7 @@ import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
-import '../../data/provider/user_data.dart';
+import '../../data/provider/user_state.dart';
 import '../admin/drawer_options/edit_space/edit_space_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/home/invite_member/invite_screen.dart';
@@ -32,7 +32,7 @@ import '../user/members/members_screen/user_members_screen.dart';
 
 @Injectable()
 class AppRouter {
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
 
   AppRouter(this._userManager);
 
@@ -41,11 +41,11 @@ class AppRouter {
   final _adminShellNavigatorKey = GlobalKey<NavigatorState>();
   final _employeeShellNavigatorKey = GlobalKey<NavigatorState>();
 
-  GoRouter _goRouter(UserManager userManager) {
+  GoRouter _goRouter(UserStateNotifier userManager) {
     return GoRouter(
         debugLogDiagnostics: true,
         refreshListenable: userManager,
-        initialLocation: (userManager.isAdmin || userManager.isHR)
+        initialLocation: (userManager.isAdmin || _userManager.isHR)
             ? Routes.adminHome
             : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
@@ -335,19 +335,16 @@ class AppRouter {
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
-          if (!userManager.loggedIn) {
+          if (userManager.state == UserState.unauthenticated) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.loggedIn &&
-              !userManager.spaceSelected &&
+          if (userManager.state == UserState.authenticated &&
               !state.subloc.contains(Routes.joinSpace)) {
             return Routes.joinSpace;
           }
-          if (userManager.loggedIn &&
-              userManager.spaceSelected &&
-              userManager.spaceUserExist &&
-              (state.subloc.contains(Routes.joinSpace) ||
-                  userManager.redirect)) {
+          if (userManager.state == UserState.update ||
+              (userManager.state == UserState.spaceJoined &&
+                  state.subloc.contains(Routes.joinSpace))) {
             return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;

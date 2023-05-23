@@ -21,7 +21,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<DrawerBloc>(),
+      create: (_) => getIt.get<DrawerBloc>(),
       child: Scaffold(
         drawer: const AppDrawer(),
         body: SafeArea(child: widget.child),

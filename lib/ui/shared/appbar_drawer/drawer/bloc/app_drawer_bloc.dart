@@ -5,7 +5,7 @@ import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
-import '../../../../../data/provider/user_data.dart';
+import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/space_service.dart';
 import 'app_drawer_event.dart';
@@ -15,7 +15,7 @@ import 'app_drawer_state.dart';
 class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   final SpaceService _spaceService;
   final AccountService _accountService;
-  final UserManager _userManager;
+  final UserStateNotifier _userManager;
   final AuthService _authService;
   final EmployeeService _employeeService;
 
@@ -54,7 +54,8 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
       final spaceUser = await _employeeService.getEmployeeBySpaceId(
           spaceId: event.space.id, userId: _userManager.userUID!);
       if (spaceUser != null) {
-        await _userManager.setSpace(space: event.space, spaceUser: spaceUser);
+        await _userManager.setEmployeeWithSpace(
+            space: event.space, spaceUser: spaceUser);
         emit(state.copyWith(changeSpaceStatus: Status.success));
       } else {
         emit(state.copyWith(

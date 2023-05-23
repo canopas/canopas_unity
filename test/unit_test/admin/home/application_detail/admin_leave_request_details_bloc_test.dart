@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/core/utils/const/firestore.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/provider/user_data.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_application_detail_bloc.dart';
@@ -14,18 +14,19 @@ import 'package:projectunity/ui/admin/home/application_detail/bloc/admin_leave_a
 
 import 'admin_leave_request_details_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserManager, SpaceService])
+@GenerateMocks([LeaveService, UserStateNotifier, SpaceService])
 void main() {
   late LeaveService leaveService;
   late AdminLeaveApplicationDetailsBloc bloc;
-  late UserManager userManager;
+  late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
 
   setUp(() {
     leaveService = MockLeaveService();
-    userManager = MockUserManager();
+    userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
-    bloc = AdminLeaveApplicationDetailsBloc(leaveService, userManager,spaceService);
+    bloc = AdminLeaveApplicationDetailsBloc(
+        leaveService, userStateNotifier, spaceService);
   });
 
   group('Leave Application Detail bloc', () {
@@ -42,8 +43,8 @@ void main() {
       test(
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
-        when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
-        when(userManager.currentSpaceId).thenReturn('space-id');
+            when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
+        when(userStateNotifier.currentSpaceId).thenReturn('space-id');
         when(spaceService.getPaidLeaves(spaceId: 'space-id'))
             .thenAnswer((_) async => 12);
 
@@ -64,7 +65,7 @@ void main() {
           'Emits loading state and error state if exception is thrown from any cause',
           () {
             when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
-        when(userManager.currentSpaceId).thenReturn('space-id');
+        when(userStateNotifier.currentSpaceId).thenReturn('space-id');
         when(spaceService.getPaidLeaves(spaceId: 'space-id'))
             .thenThrow(Exception(firestoreFetchDataError));
         AdminLeaveApplicationDetailsState errorState =
