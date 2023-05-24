@@ -153,7 +153,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i9.FirebaseFirestore>(),
         ));
     gh.factory<_i25.InviteMemberBloc>(() => _i25.InviteMemberBloc(
-      gh<_i12.InvitationService>(),
+          gh<_i12.InvitationService>(),
           gh<_i19.UserStateNotifier>(),
           gh<_i24.EmployeeService>(),
         ));

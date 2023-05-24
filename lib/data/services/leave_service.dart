@@ -23,27 +23,22 @@ class LeaveService {
         .doc(_userManager.currentSpaceId!)
         .collection(FireStoreConst.leaves)
         .withConverter(
-        fromFirestore: Leave.fromFireStore,
-        toFirestore: (Leave leave, _) => leave.toFireStore(leave));
+            fromFirestore: Leave.fromFireStore,
+            toFirestore: (Leave leave, _) => leave.toFireStore(leave));
   }
 
-
-
   Future<List<Leave>> getLeaveRequestOfUsers() async {
-    final requests =
-        await _leaveDb().where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
-            .get();
+    final requests = await _leaveDb()
+        .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
+        .get();
     return requests.docs.map((leave) => leave.data()).toList();
-
   }
 
   Future<bool> checkLeaveAlreadyApplied(
       {required String userId,
       required Map<DateTime, LeaveDayDuration> dateDuration}) async {
     final leaves =
-        await _leaveDb()
-            .where(FireStoreConst.uid, isEqualTo: userId)
-            .get();
+        await _leaveDb().where(FireStoreConst.uid, isEqualTo: userId).get();
     return leaves.docs
         .map((doc) => doc.data())
         .where((leave) =>
@@ -60,13 +55,12 @@ class LeaveService {
   }
 
   Future<List<Leave>> getRecentLeaves() async {
-    final allLeaves =
-        await _leaveDb()
-            .where(FireStoreConst.startLeaveDate,
-                isGreaterThanOrEqualTo:
-                    DateTime(DateTime.now().year, DateTime.now().month)
-                        .timeStampToInt)
-            .get();
+    final allLeaves = await _leaveDb()
+        .where(FireStoreConst.startLeaveDate,
+            isGreaterThanOrEqualTo:
+                DateTime(DateTime.now().year, DateTime.now().month)
+                    .timeStampToInt)
+        .get();
     return allLeaves.docs
         .map((e) => e.data())
         .where((leave) =>
@@ -96,10 +90,11 @@ class LeaveService {
   }
 
   Future<List<Leave>> getAllApprovedLeaves() async {
-    final allLeaves = await _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: approveLeaveStatus).get();
+    final allLeaves = await _leaveDb()
+        .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
+        .get();
     return allLeaves.docs.map((e) => e.data()).toList();
   }
-
 
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
@@ -119,18 +114,17 @@ class LeaveService {
   }
 
   String getNewLeaveId() {
-    return  _leaveDb().doc().id;
+    return _leaveDb().doc().id;
   }
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveId = leaveRequestData.leaveId;
-    _leaveDb().doc(leaveId).set(leaveRequestData);
+    await _leaveDb().doc(leaveId).set(leaveRequestData);
   }
 
   Future<List<Leave>> getAllLeavesOfUser(String id) async {
-    final data = await _leaveDb()
-        .where(FireStoreConst.uid, isEqualTo: id)
-        .get();
+    final data =
+        await _leaveDb().where(FireStoreConst.uid, isEqualTo: id).get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
@@ -145,15 +139,6 @@ class LeaveService {
         .toList();
   }
 
-  Future<List<Leave>> getPastLeavesOfUser(String id) async {
-    final data = await _leaveDb()
-        .where(FireStoreConst.uid, isEqualTo: id)
-        .get();
-    return data.docs
-        .where((e) => e.data().endDate <= DateTime.now().timeStampToInt)
-        .map((doc) => doc.data())
-        .toList();
-  }
 
   Future<List<Leave>> getRequestedLeave(String id) async {
     final data = await _leaveDb()
@@ -161,19 +146,12 @@ class LeaveService {
         .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
         .get();
 
-    List<Leave> leaves = data.docs.map((doc) => doc.data()).toList();
-    return leaves
-        .where((element) =>
-            element.startDate.dateOnly.isAfter(DateTime.now().dateOnly) ||
-            element.startDate.dateOnly
-                .isAtSameMomentAs(DateTime.now().dateOnly))
-        .toList();
+    return data.docs.map((doc) => doc.data()).toList();
   }
 
   Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
-    final data = await _leaveDb()
-        .where(FireStoreConst.uid, isEqualTo: employeeId)
-        .get();
+    final data =
+        await _leaveDb().where(FireStoreConst.uid, isEqualTo: employeeId).get();
     return data.docs
         .map((doc) => doc.data())
         .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
@@ -220,9 +198,7 @@ class LeaveService {
   }
 
   Future<Leave?> fetchLeave(String id) async {
-    final data = await _leaveDb()
-        .doc(id)
-        .get();
+    final data = await _leaveDb().doc(id).get();
     return data.data();
   }
 }
