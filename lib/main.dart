@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -19,11 +21,17 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await configureDependencies();
-  runApp(MyApp());
+
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(flutterErrorDetails);
     String error = flutterErrorDetails.exceptionAsString();
     return ErrorScreen(error: error);
   };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
