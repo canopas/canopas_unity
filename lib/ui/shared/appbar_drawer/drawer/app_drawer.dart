@@ -43,7 +43,9 @@ class _AppDrawerState extends State<AppDrawer> {
           context.pop();
           showSnackBar(context: context, error: state.error);
         } else if (state.changeSpaceStatus == Status.success) {
-          context.pop();
+          try{
+            context.pop();
+          }catch (_){}
         }
       },
       child: Container(
