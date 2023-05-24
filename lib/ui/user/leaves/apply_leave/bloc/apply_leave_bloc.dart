@@ -113,10 +113,9 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
               error: alreadyLeaveAppliedError,
               leaveRequestStatus: Status.error));
         } else {
-          try {
-            await _leaveService.applyForLeave(_getLeaveData());
-            emit(state.copyWith(leaveRequestStatus: Status.success));
-          } on Exception {
+          try {await _leaveService.applyForLeave(_getLeaveData());
+
+          emit(state.copyWith(leaveRequestStatus: Status.success));} on Exception {
             throw Exception();
           }
         }
