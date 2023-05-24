@@ -23,6 +23,7 @@ dependencies:
   expandable: ^5.0.1
   firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
+  firebase_crashlytics: ^3.3.1
   firebase_storage: ^11.1.1
   flutter_bloc: ^8.1.2
   flutter_secure_storage: ^8.0.0

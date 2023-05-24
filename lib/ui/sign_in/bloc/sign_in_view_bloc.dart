@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
-import '../../../data/core/exception/custom_exception.dart';
+import '../../../data/core/exception/error_const.dart';
 import '../../../data/model/account/account.dart';
 import '../../../data/provider/user_state.dart';
 import '../../../data/services/auth_service.dart';
@@ -34,8 +34,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       } else {
         emit(SignInInitialState());
       }
-    } on CustomException catch (error) {
-      emit(SignInFailureState(error: error.errorMessage.toString()));
+    } on Exception {
+      emit(SignInFailureState(error: firesbaseAuthError));
     }
   }
 }
