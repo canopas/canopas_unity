@@ -31,10 +31,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
       final List<Employee> employees = await _employeeService.getEmployees();
       final List<Leave> allRequests =
           await _leaveService.getLeaveRequestOfUsers();
-      final List<Leave> pendingRequests = allRequests
-          .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
-          .toList();
-      final List<LeaveApplication> leaveApplications = pendingRequests
+      final List<LeaveApplication> leaveApplications = allRequests
           .map((leave) {
             final employee = employees
                 .firstWhereOrNull((employee) => employee.uid == leave.uid);
