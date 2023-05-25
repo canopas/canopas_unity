@@ -56,9 +56,9 @@ void main() {
     expectLater(bloc.stream,
         emits(const UserControllerState(userState: UserState.update)));
     await untilCalled(userStateNotifier.setEmployeeWithSpace(
-        space: space, spaceUser: employee));
+        space: space, spaceUser: employee, redirect: false));
     verify(userStateNotifier.setEmployeeWithSpace(
-            space: space, spaceUser: employee))
+            space: space, spaceUser: employee,redirect: false))
         .called(1);
   });
   test(

@@ -41,12 +41,14 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> setEmployeeWithSpace(
-      {required Space space, required Employee spaceUser}) async {
-    _userState = UserState.update;
+      {required Space space, required Employee spaceUser, bool redirect = true}) async {
     await _userPreference.setSpace(space);
     await _userPreference.setEmployee(spaceUser);
-    notifyListeners();
-    _userState = UserState.spaceJoined;
+    if(redirect){
+      _userState = UserState.update;
+      notifyListeners();
+      _userState = UserState.spaceJoined;
+    }
   }
 
   Future<void> updateSpace(Space space) async {

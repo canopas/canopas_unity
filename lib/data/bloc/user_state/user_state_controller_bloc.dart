@@ -35,7 +35,8 @@ class UserStateControllerBloc
       if (employee == null || space == null) {
         emit(const UserControllerState(userState: UserState.unauthenticated));
       } else {
-        _userManager.setEmployeeWithSpace(space: space, spaceUser: employee);
+        await _userManager.setEmployeeWithSpace(
+            space: space, spaceUser: employee, redirect: false);
         emit(const UserControllerState(userState: UserState.update));
       }
     } on Exception {
