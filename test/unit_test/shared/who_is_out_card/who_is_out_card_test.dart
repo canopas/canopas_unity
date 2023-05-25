@@ -7,9 +7,9 @@ import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
-import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart';
-import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_event.dart';
-import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_state.dart';
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_state.dart';
 
 import 'who_is_out_card_test.mocks.dart';
 

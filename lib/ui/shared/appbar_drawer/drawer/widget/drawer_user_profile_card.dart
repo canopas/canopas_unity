@@ -4,8 +4,6 @@ import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/space/space.dart';
-
-import '../../../../widget/space_logo_view.dart';
 import '../../../../widget/user_profile_image.dart';
 
 class UserProfileCard extends StatelessWidget {
@@ -19,6 +17,7 @@ class UserProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -30,44 +29,22 @@ class UserProfileCard extends StatelessWidget {
           ),
           borderRadius: AppTheme.commonBorderRadius,
           boxShadow: AppTheme.commonBoxShadow),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Stack(
-            fit: StackFit.loose,
-            children: [
-              SpaceLogoView(spaceLogo: currentSpace.logo, size: 60),
-              Row(
-                children: [
-                  const SizedBox(width: 40),
-                  ImageProfile(
-                    borderSize: 1,
-                    imageUrl: currentEmployee.imageUrl,
-                    radius: 30,
-                  ),
-                ],
-              ),
-            ],
+          ImageProfile(
+            backgroundColor: AppColors.whiteColor,
+            imageUrl: currentEmployee.imageUrl,
+            radius: 24,
           ),
-          const SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                currentEmployee.name,
-                style: AppFontStyle.titleRegular
-                    .copyWith(color: AppColors.whiteColor),
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                currentSpace.name,
-                style: AppFontStyle.bodyLarge
-                    .copyWith(color: AppColors.whiteColor),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              currentEmployee.name,
+              style: AppFontStyle.titleRegular
+                  .copyWith(color: AppColors.whiteColor),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

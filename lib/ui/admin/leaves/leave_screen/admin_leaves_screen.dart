@@ -77,9 +77,8 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                 : SizedBox(
                     height: MediaQuery.of(context).size.height - 350,
                     child: EmptyScreen(
-                        message:
-                            AppLocalizations.of(context).empty_leaves_message,
-                        title: AppLocalizations.of(context).no_leaves_tag)),
+                        title: AppLocalizations.of(context).no_leaves_tag,
+                        message: AppLocalizations.of(context).admin_leave_empty_screen_message)),
           ],
         );
       }),

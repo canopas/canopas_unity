@@ -4,7 +4,6 @@ import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/exception/exception_msg.dart';
 import '../../data/core/utils/const/image_constant.dart';
 
-/// This screen will be appear we have some error.
 class ErrorScreen extends StatelessWidget {
   final String error;
 
@@ -20,20 +19,13 @@ class ErrorScreen extends StatelessWidget {
   }
 }
 
-/// This screen will be appear on data is empty.
 class EmptyScreen extends StatelessWidget {
   final String title;
   final String message;
-  final bool showActionButton;
-  final void Function()? onActionButtonTap;
-  final String actionButtonTitle;
 
   const EmptyScreen({
     Key? key,
     required this.message,
-    this.showActionButton = false,
-    this.onActionButtonTap,
-    this.actionButtonTitle = "",
     required this.title,
   }) : super(key: key);
 
@@ -52,27 +44,14 @@ class EmptyScreen extends StatelessWidget {
               width: 100,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.03,
             ),
             Text(title, style: AppFontStyle.titleDark),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(message,
                 textAlign: TextAlign.center, style: AppFontStyle.labelGrey),
-            SizedBox(
-              height: (showActionButton)
-                  ? MediaQuery.of(context).size.height * 0.035
-                  : 0,
-            ),
-            (showActionButton)
-                ? ElevatedButton(
-                    onPressed: onActionButtonTap,
-                    child: Text(
-                      actionButtonTitle,
-                      style: AppFontStyle.labelRegular,
-                    ))
-                : const SizedBox(),
           ],
         ),
       ),

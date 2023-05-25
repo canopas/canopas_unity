@@ -65,7 +65,7 @@ import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_p
     as _i49;
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
     as _i37;
-import 'package:projectunity/ui/shared/WhoIsOutCard/bloc/who_is_out_card_bloc.dart'
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
     as _i38;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i28;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
@@ -158,14 +158,14 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i24.EmployeeService>(),
         ));
     gh.factory<_i26.JoinSpaceBloc>(() => _i26.JoinSpaceBloc(
-      gh<_i12.InvitationService>(),
+          gh<_i12.InvitationService>(),
           gh<_i16.SpaceService>(),
           gh<_i19.UserStateNotifier>(),
           gh<_i20.AccountService>(),
           gh<_i24.EmployeeService>(),
         ));
     gh.lazySingleton<_i27.LeaveService>(() => _i27.LeaveService(
-      gh<_i19.UserStateNotifier>(),
+          gh<_i19.UserStateNotifier>(),
           gh<_i9.FirebaseFirestore>(),
         ));
     gh.factory<_i28.SignInBloc>(() => _i28.SignInBloc(
@@ -184,11 +184,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i27.LeaveService>(),
         ));
     gh.factory<_i32.UserLeaveBloc>(() => _i32.UserLeaveBloc(
-      gh<_i19.UserStateNotifier>(),
+          gh<_i19.UserStateNotifier>(),
           gh<_i27.LeaveService>(),
         ));
     gh.factory<_i33.UserLeaveCalendarBloc>(() => _i33.UserLeaveCalendarBloc(
-      gh<_i27.LeaveService>(),
+          gh<_i27.LeaveService>(),
           gh<_i24.EmployeeService>(),
           gh<_i19.UserStateNotifier>(),
           gh<_i16.SpaceService>(),

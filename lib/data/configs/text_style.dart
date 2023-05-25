@@ -20,6 +20,10 @@ class AppFontStyle {
       fontSize: AppFontSize.header,
       fontWeight: FontWeight.w500);
 
+  static const headerDark = TextStyle(
+      color: AppColors.darkText,
+      fontSize: AppFontSize.header);
+
   static const titleDark = TextStyle(
       color: AppColors.darkText,
       fontSize: AppFontSize.title,

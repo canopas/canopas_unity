@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/theme.dart';
+import 'package:projectunity/ui/widget/empty_screen.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../navigation/app_router.dart';
 import '../../../../widget/circular_progress_indicator.dart';
@@ -22,12 +21,7 @@ class LeaveList extends StatelessWidget {
           previous.status != current.status ||
           previous.leaves != current.leaves,
       builder: (context, state) {
-        if (state.status == Status.loading) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: AppCircularProgressIndicator(),
-          );
-        } else if (state.status == Status.success && state.leaves.isNotEmpty) {
+        if (state.status == Status.success && state.leaves.isNotEmpty) {
           return ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -41,17 +35,17 @@ class LeaveList extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemCount: state.leaves.length);
         }
-        return Container(
-            alignment: Alignment.center,
-            height: 50,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: AppColors.lightPrimaryBlue,
-                borderRadius: AppTheme.commonBorderRadius),
-            child: Text(
-              AppLocalizations.of(context).user_leave_no_leaves_msg,
-              style: const TextStyle(fontSize: 15),
-            ));
+        return ConstrainedBox(
+            constraints: const BoxConstraints(
+              minHeight: 300,
+            ),
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height - 500,
+                child: state.status == Status.loading
+                    ? const AppCircularProgressIndicator()
+                    : EmptyScreen(
+                        title: AppLocalizations.of(context).no_leaves_tag,
+                        message: AppLocalizations.of(context).user_leave_empty_screen_message)));
       },
       listenWhen: (previous, current) => current.status == Status.error,
       listener: (context, state) {
