@@ -126,6 +126,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
   _i6.Future<void> setEmployeeWithSpace({
     required _i8.Space? space,
     required _i2.Employee? spaceUser,
+    bool? redirect = true,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -134,6 +135,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
           {
             #space: space,
             #spaceUser: spaceUser,
+            #redirect: redirect,
           },
         ),
         returnValue: _i6.Future<void>.value(),
