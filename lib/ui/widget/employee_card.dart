@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
 import '../../data/configs/theme.dart';
@@ -28,8 +27,7 @@ class EmployeeCard extends StatelessWidget {
             ImageProfile(
                 imageUrl: employee.imageUrl,
                 radius: 25,
-                backgroundColor: AppColors.dividerColor,
-                iconColor: AppColors.greyColor),
+            ),
             const SizedBox(
               width: primaryHorizontalSpacing,
             ),

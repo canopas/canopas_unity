@@ -40,10 +40,10 @@ class LeaveRequestList extends StatelessWidget {
                             Text(
                                 DateFormatter(AppLocalizations.of(context))
                                     .getDateRepresentation(mapEntry.key),
-                                style: AppFontStyle.headerGrey),
+                                style: AppFontStyle.headerDark),
                             Text(
                               mapEntry.value.length.toString(),
-                              style: AppFontStyle.headerGrey,
+                              style: AppFontStyle.headerDark,
                             )
                           ],
                         ),
@@ -59,14 +59,15 @@ class LeaveRequestList extends StatelessWidget {
                   child: Column(
                     children: mapEntry.value
                         .map((leaveApplication) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
-                          child: LeaveApplicationCard(
-                              onTap: () => context.goNamed(
-                                  Routes.leaveRequestDetail,
-                                  extra: leaveApplication),
-                              leaveApplication: leaveApplication),
-                        ))
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: primaryHorizontalSpacing,
+                                  vertical: primaryHalfSpacing),
+                              child: LeaveApplicationCard(
+                                  onTap: () => context.goNamed(
+                                      Routes.leaveRequestDetail,
+                                      extra: leaveApplication),
+                                  leaveApplication: leaveApplication),
+                            ))
                         .toList(),
                   ),
                 )),

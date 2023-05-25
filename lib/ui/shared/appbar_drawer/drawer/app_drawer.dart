@@ -70,7 +70,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   currentEmployee: userManager.employee,
                   currentSpace: userManager.currentSpace!,
                 ),
-                SpaceList(userEmail: userManager.userEmail!),
+                SpaceList(userEmail: userManager.userEmail!,currentSpaceId: userManager.currentSpaceId),
                 const Divider(height: 0),
                 DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner, isAdminOrHr: userManager.isAdmin || userManager.isHR),
               ],
@@ -140,8 +140,9 @@ class DrawerOptionList extends StatelessWidget {
 
 class SpaceList extends StatelessWidget {
   final String userEmail;
+  final String? currentSpaceId;
 
-  const SpaceList({Key? key, required this.userEmail}) : super(key: key);
+  const SpaceList({Key? key, required this.userEmail, required this.currentSpaceId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -177,6 +178,7 @@ class SpaceList extends StatelessWidget {
                           vertical: 5, horizontal: 11),
                       itemCount: state.spaces.length,
                       itemBuilder: (context, index) => DrawerSpaceCard(
+                        isSelected: currentSpaceId == state.spaces[index].id,
                         logo: state.spaces[index].logo,
                         name: state.spaces[index].name,
                         onTap: () => context

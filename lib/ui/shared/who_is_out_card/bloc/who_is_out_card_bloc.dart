@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../data/core/exception/error_const.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
