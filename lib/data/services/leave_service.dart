@@ -105,8 +105,9 @@ class LeaveService {
     List<Leave> leaves = <Leave>[];
     for (var e in data.docs) {
       if (e.data().startDate <= date.timeStampToInt &&
-          !date.dateOnly.isWeekend &&
-          e.data().status == approveLeaveStatus) {
+          e.data().status == approveLeaveStatus &&
+          e.data().getDateAndDuration()[date.dateOnly] !=
+              LeaveDayDuration.noLeave) {
         leaves.add(e.data());
       }
     }
@@ -138,7 +139,6 @@ class LeaveService {
         .where((element) => element.endDate >= DateTime.now().timeStampToInt)
         .toList();
   }
-
 
   Future<List<Leave>> getRequestedLeave(String id) async {
     final data = await _leaveDb()
