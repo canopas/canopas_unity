@@ -105,7 +105,7 @@ class LeaveService {
     List<Leave> leaves = <Leave>[];
     for (var e in data.docs) {
       if (e.data().startDate <= date.timeStampToInt &&
-          !date.dateOnly.isWeekend &&
+          !(date.dateOnly.isWeekend && date.isNotForthSaturday()) &&
           e.data().status == approveLeaveStatus) {
         leaves.add(e.data());
       }
