@@ -31,7 +31,7 @@ void main() {
   late InvitationService invitationService;
   late AccountService accountService;
   late JoinSpaceBloc bloc;
-  final invitation = Invitation(
+  const invitation = Invitation(
       id: 'id',
       spaceId: 'spaceId',
       senderId: 'senderId',

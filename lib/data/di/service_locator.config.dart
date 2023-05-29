@@ -268,8 +268,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i17.StorageService>(),
           gh<_i11.ImagePicker>(),
         ));
-    gh.factory<_i50.EmployeeListBloc>(
-        () => _i50.EmployeeListBloc(gh<_i24.EmployeeService>()));
+    gh.factory<_i50.EmployeeListBloc>(() => _i50.EmployeeListBloc(
+          gh<_i24.EmployeeService>(),
+          gh<_i12.InvitationService>(),
+          gh<_i19.UserStateNotifier>(),
+        ));
     gh.factory<_i51.EmployeesCalendarLeavesBloc>(
         () => _i51.EmployeesCalendarLeavesBloc(
               gh<_i24.EmployeeService>(),

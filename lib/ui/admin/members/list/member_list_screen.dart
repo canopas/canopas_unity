@@ -3,16 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/ui/widget/employee_card.dart';
+import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
+import '../../../../data/configs/text_style.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../../data/model/employee/employee.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
-import '../../../widget/employee_card.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/member_list_bloc.dart';
 import 'bloc/member_list_event.dart';
 import 'bloc/member_list_state.dart';
+import 'inivitation_card.dart';
 
 class MemberListPage extends StatelessWidget {
   const MemberListPage({Key? key}) : super(key: key);
@@ -56,25 +58,66 @@ class _MemberListScreenState extends State<MemberListScreen> {
         builder: (BuildContext context, EmployeeListState state) {
           if (state is EmployeeListLoadingState) {
             return const AppCircularProgressIndicator();
-          } else if (state is EmployeeListLoadedState) {
-            List<Employee> employees = state.employees;
-            return ListView.separated(
-                separatorBuilder: (context, index) => const Divider(
-                  endIndent: primaryVerticalSpacing,
-                  indent: primaryVerticalSpacing,
-                ),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: primaryVerticalSpacing,
-                    vertical: primaryVerticalSpacing),
-                itemCount: employees.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Employee employee = employees[index];
-                  return EmployeeCard(
-                    employee: employee,
-                    onTap: () => context.goNamed(Routes.adminMemberDetails,
-                        params: {RoutesParamsConst.employeeId: employee.uid}),
-                  );
-                });
+          } else if (state is EmployeeListSuccessState) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                context
+                    .read<EmployeeListBloc>()
+                    .add(EmployeeListInitialLoadEvent());
+              },
+              child: ListView(
+                children: [
+                  ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (context, index) => const Divider(
+                            endIndent: primaryVerticalSpacing,
+                            indent: primaryVerticalSpacing,
+                          ),
+                      padding: const EdgeInsets.all(primaryVerticalSpacing),
+                      itemCount: state.employees.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return EmployeeCard(
+                          employee: state.employees[index],
+                          onTap: () => context
+                              .goNamed(Routes.adminMemberDetails, params: {
+                            RoutesParamsConst.employeeId:
+                                state.employees[index].uid
+                          }),
+                        );
+                      }),
+                  ValidateWidget(
+                    isValid: state.invitation.isNotEmpty,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            localizations.invited_members_title,
+                            style: AppFontStyle.headerDark,
+                          ),
+                        ),
+                        const Divider(height: 0),
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) => const Divider(
+                                  endIndent: primaryVerticalSpacing,
+                                  indent: primaryVerticalSpacing,
+                                ),
+                            padding:
+                                const EdgeInsets.all(primaryHorizontalSpacing),
+                            itemCount: state.invitation.length,
+                            itemBuilder: (BuildContext context, int index) =>
+                                InvitedMemberCard(
+                                    invitation: state.invitation[index])),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
           return const SizedBox();
         },

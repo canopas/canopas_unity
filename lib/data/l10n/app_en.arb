@@ -255,6 +255,8 @@
   "admin_employee_detail_profile_tag":"Profile",
   "admin_employees_detail_time_off_tag":"Time Off",
 
+  "invited_members_title":"Invited members",
+
   "admin_setting_update_leave_total_leaves_tag":"Total Leaves",
   "yearly_paid_time_off_tag":"Yearly Paid Time-Off",
   "hr_leave_record_tag":"Leave Record",
