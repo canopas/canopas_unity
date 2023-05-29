@@ -202,7 +202,7 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
         child: Row(
           children: [
             SpaceLogoView(
-                spaceLogo: getIt<UserStateNotifier>().currentSpace?.logo),
+                spaceLogoUrl: getIt<UserStateNotifier>().currentSpace?.logo),
             const SizedBox(width: 20),
             Text(AppLocalizations.of(context).see_all_member_leave_title,
                 style: AppFontStyle.bodyMedium,

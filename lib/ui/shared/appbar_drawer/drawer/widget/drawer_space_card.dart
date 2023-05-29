@@ -28,7 +28,7 @@ class DrawerSpaceCard extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           child: Row(
             children: [
-              SpaceLogoView(size: 45, spaceLogo: logo),
+              SpaceLogoView(size: 45, spaceLogoUrl: logo),
               const SizedBox(width: 10),
               Flexible(
                   child: Text(name,

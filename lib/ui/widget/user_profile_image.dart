@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../data/configs/colors.dart';
 
@@ -23,7 +24,11 @@ class ImageProfile extends StatelessWidget {
     if (imageUrl != null) {
       return CachedNetworkImageProvider(imageUrl!);
     } else if (pickedImage != null) {
-      return FileImage(File(pickedImage!));
+      if (kIsWeb) {
+        return CachedNetworkImageProvider(pickedImage!);
+      } else {
+        return FileImage(File(pickedImage!));
+      }
     }
     return null;
   }

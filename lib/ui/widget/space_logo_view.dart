@@ -1,15 +1,32 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/core/extensions/string_extension.dart';
-import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
+import '../../data/configs/theme.dart';
 
 class SpaceLogoView extends StatelessWidget {
   final double size;
-  final String? spaceLogo;
+  final String? spaceLogoUrl;
+  final String? pickedLogoFile;
 
-  const SpaceLogoView({Key? key, this.spaceLogo, this.size = 50})
+  const SpaceLogoView(
+      {Key? key, this.spaceLogoUrl, this.pickedLogoFile, this.size = 50})
       : super(key: key);
+
+  ImageProvider? setImage() {
+    if (pickedLogoFile != null) {
+      if (kIsWeb) {
+        return CachedNetworkImageProvider(pickedLogoFile!);
+      } else {
+        return FileImage(File(pickedLogoFile!));
+      }
+    } else if (spaceLogoUrl != null) {
+      return CachedNetworkImageProvider(spaceLogoUrl!);
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +34,19 @@ class SpaceLogoView extends StatelessWidget {
       height: size,
       width: size,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.whiteColor,
-        border: Border.all(color: AppColors.dividerColor),
-        image: spaceLogo.isNotNullOrEmpty
-            ? DecorationImage(
-                fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(spaceLogo!))
-            : null,
-      ),
-      child: ValidateWidget(
-          isValid: !spaceLogo.isNotNullOrEmpty,
-          child: Icon(Icons.business,
-              size: (size * 0.5), color: AppColors.secondaryText)),
+          border: Border.all(color: AppColors.dividerColor),
+          color: AppColors.whiteColor,
+          borderRadius: AppTheme.commonBorderRadius,
+          image: setImage() != null
+              ? DecorationImage(fit: BoxFit.cover, image: setImage()!)
+              : null),
+      child: setImage() == null
+          ? Icon(
+              Icons.business,
+              size: (size * 0.5),
+              color: AppColors.greyColor,
+            )
+          : null,
     );
   }
 }

@@ -1,16 +1,13 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/core/extensions/string_extension.dart';
-import 'package:projectunity/ui/widget/widget_validation.dart';
+import 'package:projectunity/ui/widget/space_logo_view.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/theme.dart';
 
 class OrgLogoView extends StatelessWidget {
   final void Function()? onButtonTap;
 
-  final String? imageURl;
+  final String? pickedLogoFile;
 
-  const OrgLogoView({Key? key, this.onButtonTap, this.imageURl})
+  const OrgLogoView({Key? key, this.onButtonTap, this.pickedLogoFile})
       : super(key: key);
 
   @override
@@ -19,24 +16,7 @@ class OrgLogoView extends StatelessWidget {
       child: Stack(
         alignment: const Alignment(1.5, 1.5),
         children: [
-          Container(
-              height: 110,
-              width: 110,
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.textFieldBg, width: 3),
-                  color: AppColors.textFieldBg,
-                  borderRadius: AppTheme.commonBorderRadius,
-                  image: imageURl == null
-                      ? null
-                      : DecorationImage(
-                          image: FileImage(File(imageURl!)),
-                          fit: BoxFit.cover,
-                        )),
-              child: ValidateWidget(
-                isValid: !imageURl.isNotNullOrEmpty,
-                child: const Icon(Icons.business,
-                    color: AppColors.secondaryText, size: 45),
-              )),
+          SpaceLogoView(size: 110, pickedLogoFile: pickedLogoFile),
           IconButton(
             style: IconButton.styleFrom(
                 fixedSize: const Size(45, 45),

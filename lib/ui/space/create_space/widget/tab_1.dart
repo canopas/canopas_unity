@@ -51,7 +51,7 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
             },
             buildWhen: (previous, current) => previous.logo != current.logo,
             builder: (context, state) => OrgLogoView(
-                imageURl: state.logo,
+                pickedLogoFile: state.logo,
                 onButtonTap: () => showModalBottomSheet(
                     context: context,
                     builder: (_) => PickImageBottomSheet(

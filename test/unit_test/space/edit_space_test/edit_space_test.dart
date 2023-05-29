@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -17,7 +16,7 @@ import 'edit_space_test.mocks.dart';
 class FakeStorageService extends Fake implements StorageService {
   @override
   Future<String> uploadProfilePic(
-      {required String path, required File file}) async {
+      {required String path, required XFile file}) async {
     return 'image-url';
   }
 }

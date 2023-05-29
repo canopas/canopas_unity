@@ -18,7 +18,7 @@ import 'create_space_bloc_test.mocks.dart';
 class FakeStorageService extends Fake implements StorageService {
   @override
   Future<String> uploadProfilePic(
-      {required String path, required File file}) async {
+      {required String path, required XFile file}) async {
     return 'image-url';
   }
 }

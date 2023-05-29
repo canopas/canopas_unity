@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -142,7 +141,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
         if (state.logo != null) {
           final String storagePath =
               'images/${_userManager.currentSpaceId}/space-logo';
-          final File logoFile = File(state.logo!);
+          final XFile logoFile = XFile(state.logo!);
           logoURL = await storageService.uploadProfilePic(
               path: storagePath, file: logoFile);
         }

@@ -43,7 +43,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     notifier: getIt.get<UserStateNotifier>(),
                     child: Builder(builder: (context) {
                       return SpaceLogoView(
-                          spaceLogo: SpaceNotifierWidget.of(context)?.logo);
+                          spaceLogoUrl: SpaceNotifierWidget.of(context)?.logo);
                     }),
                   )),
               const SizedBox(width: primaryHorizontalSpacing),
