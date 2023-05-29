@@ -1,6 +1,6 @@
-import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton()
@@ -10,9 +10,10 @@ class StorageService {
   StorageService(this.firebaseStorage);
 
   Future<String> uploadProfilePic(
-      {required String path, required File file}) async {
+      {required String path, required XFile file}) async {
     final Reference storageRef = firebaseStorage.ref().child(path);
-    await storageRef.putFile(file);
+    final data = await file.readAsBytes();
+    await storageRef.putData(data);
     String downloadedURL = await storageRef.getDownloadURL();
     return downloadedURL;
   }

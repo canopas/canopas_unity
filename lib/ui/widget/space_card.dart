@@ -40,7 +40,7 @@ class SpaceCard extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SpaceLogoView(spaceLogo: logo),
+                SpaceLogoView(spaceLogoUrl: logo),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(

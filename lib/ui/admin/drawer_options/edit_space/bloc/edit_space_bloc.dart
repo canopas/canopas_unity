@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -82,7 +81,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       if (state.logo.isNotNullOrEmpty) {
         final String storagePath =
             'images/${_userManager.currentSpaceId}/space-logo';
-        final File logoFile = File(state.logo!);
+        final XFile logoFile = XFile(state.logo!);
         logoURL = await storageService.uploadProfilePic(
             path: storagePath, file: logoFile);
       }

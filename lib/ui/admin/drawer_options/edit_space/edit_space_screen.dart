@@ -1,16 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
-import 'package:projectunity/ui/widget/widget_validation.dart';
+import 'package:projectunity/ui/widget/space_logo_view.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/theme.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
@@ -21,7 +18,6 @@ import '../../../widget/pick_image_bottom_sheet.dart';
 import 'bloc/edit_space_bloc.dart';
 import 'bloc/edit_space_event.dart';
 import 'bloc/edit_space_state.dart';
-import 'dart:io';
 
 class EditSpacePage extends StatelessWidget {
   const EditSpacePage({
@@ -119,23 +115,26 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BlocConsumer<EditSpaceBloc, EditSpaceState>(
-                listenWhen: (previous, current) => current.isLogoPickedDone,
-                listener: (context, state) {
-                  if (state.isLogoPickedDone) {
-                    context.pop();
-                  }
-                },
-                buildWhen: (previous, current) => previous.logo != current.logo,
-                builder: (context, state) => _OrgLogoView(
-                    imageURL: _userManager.currentSpace?.logo,
-                    pickedLogo: state.logo,
-                    onButtonTap: () => showBottomSheet(
-                        context: context,
-                        builder: (_) => PickImageBottomSheet(
-                            onButtonTap: (ImageSource source) => context
-                                .read<EditSpaceBloc>()
-                                .add(PickImageEvent(imageSource: source))))),
-              ),
+                  listenWhen: (previous, current) => current.isLogoPickedDone,
+                  listener: (context, state) {
+                    if (state.isLogoPickedDone) {
+                      context.pop();
+                    }
+                  },
+                  buildWhen: (previous, current) =>
+                      previous.logo != current.logo,
+                  builder: (context, state) {
+                    return _OrgLogoView(
+                        imageURL: _userManager.currentSpace?.logo,
+                        pickedLogo: state.logo,
+                        onButtonTap: () => showBottomSheet(
+                            context: context,
+                            builder: (_) => PickImageBottomSheet(
+                                onButtonTap: (ImageSource source) => context
+                                    .read<EditSpaceBloc>()
+                                    .add(
+                                        PickImageEvent(imageSource: source)))));
+                  }),
               const SizedBox(height: 30),
               FieldEntry(
                 onChanged: (name) => context
@@ -226,28 +225,10 @@ class _OrgLogoView extends StatelessWidget {
       child: Stack(
         alignment: const Alignment(1.5, 1.5),
         children: [
-          Container(
-            height: 110,
-            width: 110,
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.textFieldBg, width: 3),
-              color: AppColors.textFieldBg,
-              borderRadius: AppTheme.commonBorderRadius,
-              image: pickedLogo.isNotNullOrEmpty || imageURL.isNotNullOrEmpty
-                  ? DecorationImage(
-                      fit: BoxFit.cover,
-                      image: pickedLogo.isNotNullOrEmpty
-                          ? FileImage(File(pickedLogo!))
-                          : CachedNetworkImageProvider(imageURL!)
-                              as ImageProvider)
-                  : null,
-            ),
-            child: ValidateWidget(
-              isValid:
-                  !pickedLogo.isNotNullOrEmpty && !imageURL.isNotNullOrEmpty,
-              child: const Icon(Icons.business,
-                  color: AppColors.secondaryText, size: 45),
-            ),
+          SpaceLogoView(
+            size: 110,
+            pickedLogoFile: pickedLogo,
+            spaceLogoUrl: imageURL,
           ),
           IconButton(
             style: IconButton.styleFrom(

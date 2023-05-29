@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -110,7 +109,7 @@ void main() {
 
       const storagePath = 'images/sid/123/profile';
       when(storageService.uploadProfilePic(
-              path: storagePath, file: File(file.path)))
+              path: storagePath, file: XFile(file.path)))
           .thenAnswer((_) async => 'uid');
 
       editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(

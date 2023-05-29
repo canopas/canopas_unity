@@ -4,14 +4,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i8;
-import 'dart:io' as _i14;
 import 'dart:ui' as _i11;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:firebase_storage/firebase_storage.dart' as _i5;
-import 'package:image_picker/image_picker.dart' as _i15;
-import 'package:image_picker_platform_interface/image_picker_platform_interface.dart'
-    as _i6;
+import 'package:image_picker/image_picker.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i10;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
@@ -507,7 +504,7 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
   @override
   _i8.Future<String> uploadProfilePic({
     required String? path,
-    required _i14.File? file,
+    required _i6.XFile? file,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -534,7 +531,7 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
 /// A class which mocks [ImagePicker].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImagePicker extends _i1.Mock implements _i15.ImagePicker {
+class MockImagePicker extends _i1.Mock implements _i6.ImagePicker {
   MockImagePicker() {
     _i1.throwOnMissingStub(this);
   }

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -111,12 +110,12 @@ class EmployeeEditProfileBloc
 
     if (state.imageURL != null) {
       try {
-        final File imageFile = File(state.imageURL!);
+        final XFile file = XFile(state.imageURL!);
         final imageURL = await storageService.uploadProfilePic(
-            path: storagePath, file: imageFile);
+            path: storagePath, file: file);
         return imageURL;
-      } on FirebaseException {
-        throw Exception(firestoreFetchDataError);
+      } on Exception {
+        throw Exception();
       }
     }
     return null;
