@@ -48,7 +48,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
       {Employee? selectedEmployee,
       required int year,
       required List<Employee> employees}) {
-    return _allLeaves
+    final leaveApplication = _allLeaves
         .where((leave) => (leave.startDate.toDate.year == year ||
             leave.endDate.toDate.year == year))
         .map((leave) {
@@ -66,6 +66,8 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
         })
         .whereNotNull()
         .toList();
+    leaveApplication.sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
+    return leaveApplication;
   }
 
   void _changeEmployee(
