@@ -16,6 +16,7 @@ import 'data/bloc/network/network_connection_bloc.dart';
 import 'data/bloc/network/network_connection_event.dart';
 import 'data/bloc/network/network_connection_state.dart';
 import 'data/di/service_locator.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'ui/navigation/app_router.dart';
 
 Future<void> main() async {
@@ -32,6 +33,7 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+  usePathUrlStrategy();
   runApp(MyApp());
 }
 
