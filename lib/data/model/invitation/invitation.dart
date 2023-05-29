@@ -10,7 +10,7 @@ class Invitation {
   final String senderId;
   final String receiverEmail;
 
-  Invitation(
+  const Invitation(
       {required this.id,
       required this.spaceId,
       required this.senderId,

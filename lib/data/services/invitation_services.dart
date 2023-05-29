@@ -30,6 +30,13 @@ class InvitationService {
     return data.docs.isNotEmpty;
   }
 
+  Future<List<Invitation>> fetchSpaceInvitations({required String spaceId}) async {
+    final invitation = await _invitationDb
+        .where(FireStoreConst.spaceId, isEqualTo:  spaceId)
+        .get();
+    return invitation.docs.map((e) => e.data()).toList();
+  }
+
   Future<void> addInvitation(
       {required String senderId,
       required String spaceId,

@@ -90,6 +90,17 @@ class MockInvitationService extends _i1.Mock implements _i4.InvitationService {
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
   @override
+  _i5.Future<List<_i6.Invitation>> fetchSpaceInvitations(
+          {required String? spaceId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchAllSpaceInvitation,
+          [],
+          {#spaceId: spaceId},
+        ),
+        returnValue: _i5.Future<List<_i6.Invitation>>.value(<_i6.Invitation>[]),
+      ) as _i5.Future<List<_i6.Invitation>>);
+  @override
   _i5.Future<void> addInvitation({
     required String? senderId,
     required String? spaceId,

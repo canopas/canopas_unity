@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/model/invitation/invitation.dart';
 
 abstract class EmployeeListState extends Equatable {
   const EmployeeListState();
@@ -16,13 +17,14 @@ class EmployeeListLoadingState extends EmployeeListState {
   List<Object?> get props => [];
 }
 
-class EmployeeListLoadedState extends EmployeeListState {
+class EmployeeListSuccessState extends EmployeeListState {
   final List<Employee> employees;
+  final List<Invitation> invitation;
 
-  const EmployeeListLoadedState({required this.employees});
+  const EmployeeListSuccessState({required this.employees,required this.invitation});
 
   @override
-  List<Object?> get props => [employees];
+  List<Object?> get props => [employees, invitation];
 }
 
 class EmployeeListFailureState extends EmployeeListState {
