@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
-import 'package:projectunity/ui/admin/home/application_detail/admin_leave_application_detail.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
@@ -14,7 +13,7 @@ import '../../data/provider/user_state.dart';
 import '../admin/drawer_options/edit_space/edit_space_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/home/invite_member/invite_screen.dart';
-import '../admin/leaves/detail/leave_details.dart';
+import '../admin/leaves/details/admin_leave_detail.dart';
 import '../admin/members/detail/employee_detail_screen.dart';
 import '../admin/members/details_leaves/employee_details_leaves_screen.dart';
 import '../admin/members/edit_employee/admin_edit_employee_screen.dart';
@@ -114,7 +113,7 @@ class AppRouter {
                         name: Routes.leaveRequestDetail,
                         path: Routes.leaveRequestDetail,
                         pageBuilder: (context, state) => CupertinoPage(
-                            child: AdminLeaveApplicationDetailsPage(
+                            child: AdminLeaveDetailsPage(
                                 leaveApplication:
                                     state.extra as LeaveApplication)),
                       ),

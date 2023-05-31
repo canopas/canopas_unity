@@ -29,7 +29,7 @@ void main() {
       endDate: today.add(const Duration(days: 2)).timeStampToInt,
       total: 2,
       reason: 'Suffering from viral fever',
-      status: approveLeaveStatus,
+      status: LeaveStatus.approved,
       appliedOn: today.timeStampToInt,
       perDayDuration: const [
         LeaveDayDuration.firstHalfLeave,
@@ -44,7 +44,7 @@ void main() {
       endDate: today.subtract(const Duration(days: 1)).timeStampToInt,
       total: 1,
       reason: 'Suffering from viral fever',
-      status: approveLeaveStatus,
+      status: LeaveStatus.approved,
       appliedOn: today.timeStampToInt,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
@@ -56,7 +56,7 @@ void main() {
       endDate: DateTime(2022).timeStampToInt,
       total: 1,
       reason: 'Suffering from viral fever',
-      status: approveLeaveStatus,
+      status: LeaveStatus.approved,
       appliedOn: today.timeStampToInt,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 

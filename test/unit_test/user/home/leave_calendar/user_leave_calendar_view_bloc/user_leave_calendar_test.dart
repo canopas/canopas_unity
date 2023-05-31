@@ -44,7 +44,7 @@ void main() {
       endDate: DateTime.now().dateOnly.timeStampToInt,
       total: 1.0,
       reason: 'leave reason',
-      status: 1,
+      status: LeaveStatus.pending,
       appliedOn: 1000,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 

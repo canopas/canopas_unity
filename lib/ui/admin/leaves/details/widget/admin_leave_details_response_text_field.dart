@@ -5,8 +5,8 @@ import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
-import '../bloc/admin_leave_application_detail_bloc.dart';
-import '../bloc/admin_leave_application_detail_event.dart';
+import '../bloc/admin_leave_details_bloc.dart';
+import '../bloc/admin_leave_details_event.dart';
 
 class ApproveRejectionMessage extends StatelessWidget {
   const ApproveRejectionMessage({Key? key}) : super(key: key);
@@ -23,9 +23,7 @@ class ApproveRejectionMessage extends StatelessWidget {
             AppLocalizations.of(context).admin_leave_detail_note_tag,
             style: AppFontStyle.labelGrey,
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Container(
             padding:
                 const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
@@ -39,8 +37,8 @@ class ApproveRejectionMessage extends StatelessWidget {
               style: AppFontStyle.bodySmallRegular,
               onChanged: (value) {
                 context
-                    .read<AdminLeaveApplicationDetailsBloc>()
-                    .add(AdminLeaveApplicationReasonChangedEvent(value));
+                    .read<AdminLeaveDetailsBloc>()
+                    .add(ReasonChangedEvent(value));
               },
               maxLines: 5,
               textInputAction: TextInputAction.done,

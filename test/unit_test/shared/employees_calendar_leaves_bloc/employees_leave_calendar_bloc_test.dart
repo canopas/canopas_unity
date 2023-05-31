@@ -5,7 +5,6 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
-import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart';
@@ -14,11 +13,10 @@ import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_b
 
 import 'employees_leave_calendar_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, UserStateNotifier])
+@GenerateMocks([EmployeeService, LeaveService])
 void main() {
   late EmployeeService employeeService;
   late LeaveService leaveService;
-  late UserStateNotifier userStateNotifier;
   late EmployeesCalendarLeavesBloc whoIsOutViewBloc;
 
   const employee = Employee(
@@ -40,7 +38,7 @@ void main() {
       endDate: currentTime,
       total: 1.0,
       reason: 'leave reason',
-      status: 1,
+      status: LeaveStatus.pending,
       appliedOn: currentTime,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
@@ -51,9 +49,8 @@ void main() {
   setUpAll(() {
     employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
-    userStateNotifier = MockUserStateNotifier();
     whoIsOutViewBloc = EmployeesCalendarLeavesBloc(
-        employeeService, leaveService, userStateNotifier);
+        employeeService, leaveService);
   });
 
   group("who is out view test", () {

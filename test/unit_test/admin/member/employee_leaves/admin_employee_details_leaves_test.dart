@@ -22,7 +22,7 @@ void main() {
       endDate: 600,
       total: 2,
       reason: 'reason',
-      status: 2,
+      status: LeaveStatus.approved,
       appliedOn: 400,
       perDayDuration: [
         LeaveDayDuration.noLeave,

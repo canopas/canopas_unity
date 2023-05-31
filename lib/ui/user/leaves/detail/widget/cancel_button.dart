@@ -20,7 +20,7 @@ class CancelButton extends StatelessWidget {
                 .add(CancelLeaveApplicationEvent(leaveId: leaveId));
           },
           child: Text(AppLocalizations.of(context)
-              .user_leaves_detail_cancel_button_tag)),
+              .cancel_button_tag)),
     );
   }
 }

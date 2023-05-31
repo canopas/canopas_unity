@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
-
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/leave/leave.dart';
@@ -29,7 +27,7 @@ class LeaveService {
 
   Future<List<Leave>> getLeaveRequestOfUsers() async {
     final requests = await _leaveDb()
-        .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
+        .where(FireStoreConst.leaveStatus, isEqualTo: LeaveStatus.pending.value)
         .get();
     return requests.docs.map((leave) => leave.data()).toList();
   }
@@ -43,7 +41,9 @@ class LeaveService {
         .map((doc) => doc.data())
         .where((leave) =>
             leave.startDate >= dateDuration.keys.first.timeStampToInt &&
-            leave.endDate <= dateDuration.keys.last.timeStampToInt)
+            leave.endDate <= dateDuration.keys.last.timeStampToInt &&
+            leave.status != LeaveStatus.rejected &&
+            leave.status != LeaveStatus.cancelled)
         .where((leave) => leave
             .getDateAndDuration()
             .entries
@@ -64,7 +64,7 @@ class LeaveService {
     return allLeaves.docs
         .map((e) => e.data())
         .where((leave) =>
-            leave.status == approveLeaveStatus &&
+            leave.status == LeaveStatus.approved &&
             leave.startDate.toDate == DateTime.now().dateOnly)
         .toList();
   }
@@ -76,12 +76,23 @@ class LeaveService {
         .get();
     return data.docs
         .map((doc) => doc.data())
-        .where((leave) => leave.status == approveLeaveStatus)
+        .where((leave) => leave.status == LeaveStatus.approved)
         .toList();
   }
 
-  Future<void> updateLeaveStatus(String id, Map<String, dynamic> map) async {
-    await _leaveDb().doc(id).update(map);
+  Future<void> updateLeaveStatus(
+      {required String id,
+      required LeaveStatus status,
+      String response = ''}) async {
+    Map<String, dynamic> responseData = <String, dynamic>{
+      FireStoreConst.leaveStatus: status.value,
+    };
+
+    if (response.trim().isNotEmpty) {
+      responseData.addEntries([MapEntry(FireStoreConst.response, response)]);
+    }
+
+    await _leaveDb().doc(id).update(responseData);
   }
 
   Future<List<Leave>> getAllLeaves() async {
@@ -91,7 +102,8 @@ class LeaveService {
 
   Future<List<Leave>> getAllApprovedLeaves() async {
     final allLeaves = await _leaveDb()
-        .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
+        .where(FireStoreConst.leaveStatus,
+            isEqualTo: LeaveStatus.approved.value)
         .get();
     return allLeaves.docs.map((e) => e.data()).toList();
   }
@@ -105,7 +117,7 @@ class LeaveService {
     List<Leave> leaves = <Leave>[];
     for (var e in data.docs) {
       if (e.data().startDate <= date.timeStampToInt &&
-          e.data().status == approveLeaveStatus &&
+          e.data().status == LeaveStatus.approved &&
           e.data().getDateAndDuration()[date.dateOnly] !=
               LeaveDayDuration.noLeave) {
         leaves.add(e.data());
@@ -132,7 +144,8 @@ class LeaveService {
   Future<List<Leave>> getRecentLeavesOfUser(String id) async {
     final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
-        .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
+        .where(FireStoreConst.leaveStatus,
+            isEqualTo: LeaveStatus.approved.value)
         .get();
     return data.docs
         .map((doc) => doc.data())
@@ -143,7 +156,7 @@ class LeaveService {
   Future<List<Leave>> getRequestedLeave(String id) async {
     final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
-        .where(FireStoreConst.leaveStatus, isEqualTo: pendingLeaveStatus)
+        .where(FireStoreConst.leaveStatus, isEqualTo: LeaveStatus.pending.value)
         .get();
 
     return data.docs.map((doc) => doc.data()).toList();
@@ -155,7 +168,7 @@ class LeaveService {
     return data.docs
         .map((doc) => doc.data())
         .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
-        .where((leave) => leave.status == approveLeaveStatus)
+        .where((leave) => leave.status == LeaveStatus.approved)
         .toList();
   }
 
@@ -163,7 +176,7 @@ class LeaveService {
     await _leaveDb()
         .doc(leaveId)
         .delete()
-        .then((value) => eventBus.fire(CancelLeaveByUser()));
+        .then((value) => eventBus.fire(UpdateLeavesEvent()));
   }
 
   Future<double> getUserUsedLeaves(String id) async {
@@ -171,7 +184,8 @@ class LeaveService {
 
     final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
-        .where(FireStoreConst.leaveStatus, isEqualTo: approveLeaveStatus)
+        .where(FireStoreConst.leaveStatus,
+            isEqualTo: LeaveStatus.approved.value)
         .get();
 
     List<Leave> approvedLeaves = data.docs.map((doc) => doc.data()).toList();

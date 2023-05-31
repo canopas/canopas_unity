@@ -34,7 +34,7 @@ void main() {
                 .having((leave) => leave.reason, 'Reason of leave',
                     'not able to come')
                 .having((leave) => leave.status,
-                    'Status of leave: Pending-1, Approved-2, Rejected-3', 1)
+                    'Status of leave: Pending-1, Approved-2, Rejected-3', LeaveStatus.pending)
                 .having((leave) => leave.appliedOn,
                     'Time of applicaton applied-TimeStamp to int', 12346432)
                 .having(
@@ -57,7 +57,7 @@ void main() {
           endDate: 456314564,
           total: 5,
           reason: 'suffering from viral fever',
-          status: 5,
+          status: LeaveStatus.pending,
           appliedOn: 45643132,
           perDayDuration: [
             LeaveDayDuration.noLeave,
@@ -74,7 +74,7 @@ void main() {
         'end_date': leave.endDate,
         'total': leave.total,
         'reason': leave.reason,
-        'status': leave.status,
+        'status': leave.status.value,
         'applied_on': leave.appliedOn,
         'per_day_duration': [0, 1, 2, 3],
       };

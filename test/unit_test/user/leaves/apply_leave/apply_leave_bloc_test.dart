@@ -239,7 +239,7 @@ void main() {
         endDate: lastDate.timeStampToInt,
         total: totalDays,
         reason: "reason",
-        status: pendingLeaveStatus,
+        status: LeaveStatus.pending,
         appliedOn: currentDate.timeStampToInt,
         perDayDuration: selectedDates.values.toList(),
       );
@@ -309,7 +309,7 @@ void main() {
         endDate: lastDate.timeStampToInt,
         total: totalDays,
         reason: "reason",
-        status: pendingLeaveStatus,
+        status: LeaveStatus.pending,
         appliedOn: currentDate.timeStampToInt,
         perDayDuration: selectedDates.values.toList(),
       );

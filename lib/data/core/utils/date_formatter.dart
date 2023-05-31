@@ -1,6 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 
 class DateFormatter {
   final AppLocalizations _localization;
@@ -22,11 +23,13 @@ class DateFormatter {
     return _localization.date_format_yMMMd(dt);
   }
 
-  String getLeaveDurationPresentation(double totalLeaves) {
-    if (totalLeaves < 1) {
-      return _localization.dateFormatter_half_day;
-    } else if (totalLeaves == 1) {
-      return _localization.dateFormatter_one_day;
+  String getLeaveDurationPresentation({required double totalLeaves,required LeaveDayDuration firstDayDuration}) {
+    if (totalLeaves < 1 && firstDayDuration == LeaveDayDuration.firstHalfLeave) {
+      return _localization.dateFormatter_first_half_day;
+    } else if (totalLeaves < 1 && firstDayDuration == LeaveDayDuration.secondHalfLeave) {
+      return _localization.dateFormatter_second_half_day;
+    }else if (totalLeaves == 1) {
+      return _localization.dateFormatter_full_day;
     }
     return _localization.dateFormatter_placeholder_other_days(totalLeaves);
   }

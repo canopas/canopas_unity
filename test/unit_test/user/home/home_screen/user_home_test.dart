@@ -38,7 +38,7 @@ void main() {
       endDate: DateTime.now().add(const Duration(days: 4)).timeStampToInt,
       total: 2,
       reason: 'Suffering from fever',
-      status: pendingLeaveStatus,
+      status: LeaveStatus.pending,
       appliedOn: 12,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 

@@ -40,7 +40,7 @@ void main() {
       endDate: DateTime.now().add(const Duration(days: 4)).timeStampToInt,
       total: 2,
       reason: 'reason',
-      status: 2,
+      status: LeaveStatus.approved,
       appliedOn: DateTime.now().timeStampToInt,
       perDayDuration: const [
         LeaveDayDuration.noLeave,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../../configs/colors.dart';
 import '../../../model/leave/leave.dart';
 
-Color leaveStatusColor(int leaveStatus) {
-  if (leaveStatus == approveLeaveStatus) {
+Color leaveStatusColor(LeaveStatus leaveStatus) {
+  if (leaveStatus == LeaveStatus.approved) {
     return const Color(0xffB6F5D4);
-  } else if (leaveStatus == rejectLeaveStatus) {
-    return const Color(0xffFFE5E1);
+  } else if (leaveStatus == LeaveStatus.pending) {
+    return const Color(0xffF5F5F5);
   }
-  return const Color(0xffF5F5F5);
+  return const Color(0xffFFE5E1);
 }
 
 Map<int, String> leaveTypeMap = Map.unmodifiable({

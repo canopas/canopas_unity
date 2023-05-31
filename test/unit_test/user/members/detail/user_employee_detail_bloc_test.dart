@@ -37,7 +37,7 @@ void main() {
       endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
       total: 2,
       reason: 'Suffering from viral fever',
-      status: approveLeaveStatus,
+      status: LeaveStatus.approved,
       appliedOn: 1,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 

@@ -94,7 +94,7 @@ class MockInvitationService extends _i1.Mock implements _i4.InvitationService {
           {required String? spaceId}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchAllSpaceInvitation,
+          #fetchSpaceInvitations,
           [],
           {#spaceId: spaceId},
         ),
