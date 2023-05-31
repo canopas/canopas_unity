@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
@@ -50,6 +51,7 @@ class LeaveApplicationCard extends StatelessWidget {
                           height: 10,
                         ),
                         _LeaveDateContent(
+                          firstDayDuration: leaveApplication.leave.perDayDuration.first,
                           totalDays: leaveApplication.leave.total,
                           startTimeStamp: leaveApplication.leave.startDate,
                           endTimeStamp: leaveApplication.leave.endDate,
@@ -80,6 +82,7 @@ class LeaveApplicationCard extends StatelessWidget {
 
 class _LeaveDateContent extends StatelessWidget {
   final double totalDays;
+  final LeaveDayDuration firstDayDuration;
   final int startTimeStamp;
   final int endTimeStamp;
 
@@ -87,7 +90,7 @@ class _LeaveDateContent extends StatelessWidget {
       {Key? key,
       required this.totalDays,
       required this.startTimeStamp,
-      required this.endTimeStamp})
+      required this.endTimeStamp, required this.firstDayDuration})
       : super(key: key);
 
   @override
@@ -95,7 +98,7 @@ class _LeaveDateContent extends StatelessWidget {
     String duration = DateFormatter(AppLocalizations.of(context))
         .dateInLine(startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
     String days = DateFormatter(AppLocalizations.of(context))
-        .getLeaveDurationPresentation(totalDays);
+        .getLeaveDurationPresentation(totalLeaves: totalDays,firstDayDuration: firstDayDuration);
 
     return Text(
       '$days, $duration ',

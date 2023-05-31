@@ -23,7 +23,7 @@ class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
       : super(UserLeaveState()) {
     on<FetchUserLeaveEvent>(_fetchLeaves);
     on<ChangeYearEvent>(_showLeaveByYear);
-    _streamSubscription = eventBus.on<CancelLeaveByUser>().listen((event) {
+    _streamSubscription = eventBus.on<UpdateLeavesEvent>().listen((event) {
       add(FetchUserLeaveEvent());
     });
   }

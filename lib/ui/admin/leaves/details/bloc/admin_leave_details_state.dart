@@ -1,49 +1,46 @@
 import 'package:equatable/equatable.dart';
-
 import '../../../../../data/core/utils/bloc_status.dart';
 
-
-class AdminLeaveApplicationDetailsState extends Equatable {
-  final Status status;
-  final Status adminLeaveCountStatus;
+class AdminLeaveDetailsState extends Equatable {
+  final Status actionStatus;
+  final Status leaveCountStatus;
   final int paidLeaveCount;
   final double usedLeaves;
   final String? error;
   final String adminReply;
 
-  const AdminLeaveApplicationDetailsState({
+  const AdminLeaveDetailsState({
     this.adminReply = "",
     this.paidLeaveCount = 0,
     this.usedLeaves = 0.0,
     this.error,
-    this.status = Status.initial,
-    this.adminLeaveCountStatus = Status.initial,
+    this.actionStatus = Status.initial,
+    this.leaveCountStatus = Status.initial,
   });
 
-  AdminLeaveApplicationDetailsState copyWith(
+  AdminLeaveDetailsState copyWith(
       {int? paidLeaveCount,
       double? usedLeaves,
       String? error,
-      Status? status,
-      Status? adminLeaveCountStatus,
+      Status? actionStatus,
+      Status? leaveCountStatus,
       String? adminReply}) {
-    return AdminLeaveApplicationDetailsState(
+    return AdminLeaveDetailsState(
       adminReply: adminReply ?? this.adminReply,
       error: error,
       paidLeaveCount: paidLeaveCount ?? this.paidLeaveCount,
       usedLeaves: usedLeaves ?? this.usedLeaves,
-      status: status ?? this.status,
-      adminLeaveCountStatus:
-          adminLeaveCountStatus ?? this.adminLeaveCountStatus,
+      actionStatus: actionStatus ?? this.actionStatus,
+      leaveCountStatus:
+          leaveCountStatus ?? this.leaveCountStatus,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         error,
-        adminLeaveCountStatus,
-        status,
+        leaveCountStatus,
+        actionStatus,
         paidLeaveCount,
         usedLeaves,
         adminReply

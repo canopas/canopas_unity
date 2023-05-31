@@ -95,7 +95,7 @@
       }
     }
   },
-      "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} other{other}}",
+      "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} 4{Cancelled} other{other}}",
       "@leave_status_placeholder_text":{
         "description":"get leave type from leave status",
         "placeholders":{
@@ -120,9 +120,10 @@
  "dateFormatter_yesterday":"Yesterday",
   "dateFormatter_today":"Today",
   "dateFormatter_just_now":"Just now",
-  "dateFormatter_half_day":"Half Day Application",
-  "dateFormatter_one_day":"Full Day Application",
-  "dateFormatter_placeholder_other_days":"{totalLeave} Days Application",
+  "dateFormatter_first_half_day":"First Half Day",
+  "dateFormatter_second_half_day":"Second Half Day",
+  "dateFormatter_full_day":"Full Day",
+  "dateFormatter_placeholder_other_days":"{totalLeave} Days",
   "@dateFormatter_placeholder_other_days":{
     "description":"define total leave count more than one day",
     "placeholders":{
@@ -281,9 +282,8 @@
   "user_leaves_apply_leave_error_valid_reason": " • Please enter valid reason",
   "user_leaves_apply_leave_success_message":"You've successfully applied!",
 
-   "user_leaves_detail_cancel_button_tag":"Cancel",
-   "user_leave_detail_cancel_leave_message":"Leave application is cancelled!",
-   "user_leave_detail_delete_leave_message":"Leave application has been deleted!!",
+   "cancel_button_tag":"Cancel",
+   "cancel_leave_message":"Leave is cancelled successfully!",
 
   "user_settings_edit_select_tag": "Select",
   "user_setting_take_photo_tag":"Take Photo",
@@ -348,7 +348,7 @@
       }
     }
   },
-  "remove_user_leave_alert":"Are you sure you want to delete this leave?",
+  "remove_user_leave_alert":"Are you sure you want to cancel this leave?",
 
 
 

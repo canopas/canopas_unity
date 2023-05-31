@@ -29,7 +29,7 @@ void main() {
         endDate: DateTime.now().add(const Duration(days: 3)).timeStampToInt,
         total: 1,
         reason: 'Suffering from viral fever',
-        status: 1,
+        status: LeaveStatus.pending,
         appliedOn: DateTime.now().timeStampToInt,
         perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
@@ -43,7 +43,7 @@ void main() {
             DateTime.now().subtract(const Duration(days: 2)).timeStampToInt,
         total: 1,
         reason: 'Suffering from viral fever',
-        status: 1,
+        status: LeaveStatus.pending,
         appliedOn:
             DateTime.now().subtract(const Duration(days: 4)).timeStampToInt,
         perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
@@ -108,6 +108,23 @@ void main() {
             UserLeaveDetailLoadingState(),
             UserLeaveDetailErrorState(error: firestoreFetchDataError)
           ]));
+    });
+
+    test('Emit success state if leave canceled', () {
+      userLeaveDetailBloc.add(CancelLeaveApplicationEvent(leaveId: leaveId));
+      expectLater(
+          userLeaveDetailBloc.stream,
+          emitsInOrder(
+              [UserLeaveDetailLoadingState(), UserCancelLeaveSuccessState()]));
+    });
+
+    test('Emit failure state if leave canceled', () {
+      when(leaveService.updateLeaveStatus(id: leaveId, status: LeaveStatus.cancelled)).thenThrow(Exception('error'));
+      userLeaveDetailBloc.add(CancelLeaveApplicationEvent(leaveId: leaveId));
+      expectLater(
+          userLeaveDetailBloc.stream,
+          emitsInOrder(
+              [UserLeaveDetailLoadingState(), UserLeaveDetailErrorState(error: firestoreFetchDataError)]));
     });
   });
 }

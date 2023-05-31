@@ -4,9 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'leave.g.dart';
 
-const int pendingLeaveStatus = 1;
-const int approveLeaveStatus = 2;
-const int rejectLeaveStatus = 3;
 
 @JsonSerializable(includeIfNull: false)
 class Leave extends Equatable {
@@ -21,7 +18,7 @@ class Leave extends Equatable {
   final int endDate;
   final double total;
   final String reason;
-  final int status;
+  final LeaveStatus status;
   final String? response;
   @JsonKey(name: 'applied_on')
   final int appliedOn;
@@ -64,6 +61,19 @@ class Leave extends Equatable {
         appliedOn,
     response
       ];
+}
+
+
+@JsonEnum(valueField: 'value')
+enum LeaveStatus {
+  pending(1),
+  approved(2),
+  rejected(3),
+  cancelled(4);
+
+  final int value;
+
+  const LeaveStatus(this.value);
 }
 
 enum LeaveDayDuration {

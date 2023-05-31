@@ -142,7 +142,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
       endDate: lastDate.timeStampToInt,
       total: state.totalLeaveDays,
       reason: state.reason,
-      status: pendingLeaveStatus,
+      status: LeaveStatus.pending,
       appliedOn: DateTime.now().timeStampToInt,
       perDayDuration: selectedDates.values.toList(),
     );

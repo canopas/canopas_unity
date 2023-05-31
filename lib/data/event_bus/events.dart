@@ -8,7 +8,7 @@ class LeaveUpdateEventListener {
   LeaveUpdateEventListener(this.leaveApplication);
 }
 
-class CancelLeaveByUser {}
+class UpdateLeavesEvent {}
 
 class EmployeeListUpdateEvent {}
 

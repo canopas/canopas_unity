@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 class LeaveStatusView extends StatelessWidget {
   final double verticalPadding;
   final double horizontalPadding;
-  final int status;
+  final LeaveStatus status;
 
   const LeaveStatusView(
       {Key? key,
@@ -32,7 +32,7 @@ class LeaveStatusView extends StatelessWidget {
           const SizedBox(width: 5),
           Text(
             AppLocalizations.of(context)
-                .leave_status_placeholder_text(status.toString()),
+                .leave_status_placeholder_text(status.value.toString()),
             style: AppFontStyle.labelRegular,
           ),
         ],
@@ -42,17 +42,20 @@ class LeaveStatusView extends StatelessWidget {
 }
 
 class LeaveStatusIcon extends StatelessWidget {
-  final int status;
+  final LeaveStatus status;
 
   const LeaveStatusIcon({Key? key, required this.status}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (status == approveLeaveStatus) {
+    if (status == LeaveStatus.approved) {
       return const Icon(Icons.done_all_rounded,
           color: AppColors.greenColor, size: 20);
-    } else if (status == rejectLeaveStatus) {
+    } else if (status == LeaveStatus.rejected) {
       return const Icon(Icons.clear_rounded,
+          color: AppColors.redColor, size: 20);
+    } else if (status == LeaveStatus.cancelled) {
+      return const Icon(Icons.do_disturb_rounded,
           color: AppColors.redColor, size: 20);
     }
     return const Icon(Icons.query_builder,

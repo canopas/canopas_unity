@@ -219,17 +219,20 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
         returnValue: _i4.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
       ) as _i4.Future<List<_i7.Leave>>);
   @override
-  _i4.Future<void> updateLeaveStatus(
-    String? id,
-    Map<String, dynamic>? map,
-  ) =>
+  _i4.Future<void> updateLeaveStatus({
+    required String? id,
+    required _i7.LeaveStatus? status,
+    String? response = r'',
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateLeaveStatus,
-          [
-            id,
-            map,
-          ],
+          [],
+          {
+            #id: id,
+            #status: status,
+            #response: response,
+          },
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

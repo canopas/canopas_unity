@@ -40,7 +40,7 @@ void main() {
       endDate: 113,
       total: 1,
       reason: "test",
-      status: 0,
+      status: LeaveStatus.pending,
       appliedOn: 111,
       perDayDuration: []);
   late DateTime date;

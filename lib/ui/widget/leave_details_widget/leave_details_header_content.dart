@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/ui/widget/leave_card_status_view.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
-import '../../../data/core/utils/const/leave_map.dart';
 import '../../../data/core/utils/date_formatter.dart';
+import '../../../data/model/leave/leave.dart';
 
 class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   const LeaveTypeAgoTitleWithStatus(
@@ -15,7 +16,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
 
   final int appliedOnInTimeStamp;
   final int leaveType;
-  final int status;
+  final LeaveStatus status;
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +43,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            decoration: BoxDecoration(
-                color: leaveStatusColor(status),
-                borderRadius: BorderRadius.circular(8)),
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Text(
-                    AppLocalizations.of(context)
-                        .leave_status_placeholder_text(status.toString()),
-                    style: AppFontStyle.bodySmallHeavy),
-              ],
-            ),
-          ),
+          LeaveStatusView(status: status, verticalPadding: 8),
         ],
       ),
     );

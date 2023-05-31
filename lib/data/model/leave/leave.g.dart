@@ -14,7 +14,7 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       endDate: json['end_date'] as int,
       total: (json['total'] as num).toDouble(),
       reason: json['reason'] as String,
-      status: json['status'] as int,
+      status: $enumDecode(_$LeaveStatusEnumMap, json['status']),
       appliedOn: json['applied_on'] as int,
       perDayDuration: (json['per_day_duration'] as List<dynamic>)
           .map((e) => $enumDecode(_$LeaveDayDurationEnumMap, e))
@@ -31,7 +31,7 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) {
     'end_date': instance.endDate,
     'total': instance.total,
     'reason': instance.reason,
-    'status': instance.status,
+    'status': _$LeaveStatusEnumMap[instance.status]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -47,6 +47,13 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) {
       .toList();
   return val;
 }
+
+const _$LeaveStatusEnumMap = {
+  LeaveStatus.pending: 1,
+  LeaveStatus.approved: 2,
+  LeaveStatus.rejected: 3,
+  LeaveStatus.cancelled: 4,
+};
 
 const _$LeaveDayDurationEnumMap = {
   LeaveDayDuration.noLeave: 0,

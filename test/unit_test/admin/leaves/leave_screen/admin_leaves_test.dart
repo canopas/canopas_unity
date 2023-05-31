@@ -29,7 +29,7 @@ void main() {
         endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
         total: 2,
         reason: 'reason',
-        status: 2,
+        status: LeaveStatus.approved,
         appliedOn: 400,
         perDayDuration: const [
           LeaveDayDuration.noLeave,
@@ -43,7 +43,7 @@ void main() {
         endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
         total: 2,
         reason: 'reason',
-        status: 2,
+        status: LeaveStatus.approved,
         appliedOn: 400,
         perDayDuration: const [
           LeaveDayDuration.noLeave,
@@ -59,7 +59,7 @@ void main() {
             DateTime.now().subtract(const Duration(days: 364)).timeStampToInt,
         total: 2,
         reason: 'reason',
-        status: 2,
+        status: LeaveStatus.approved,
         appliedOn: 400,
         perDayDuration: const [
           LeaveDayDuration.noLeave,

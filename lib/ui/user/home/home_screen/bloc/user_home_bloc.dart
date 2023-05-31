@@ -18,7 +18,7 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
       : super(UserHomeInitialState()) {
     on<UserHomeFetchLeaveRequest>(_fetchLeaveRequest);
     _leaveRequestStreamSubscription =
-        eventBus.on<CancelLeaveByUser>().listen((event) {
+        eventBus.on<UpdateLeavesEvent>().listen((event) {
       add(UserHomeFetchLeaveRequest());
     });
   }

@@ -7,17 +7,17 @@ import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../widget/circular_progress_indicator.dart';
-import '../../../../widget/error_snack_bar.dart';
-import '../bloc/admin_leave_detail_bloc.dart';
-import '../bloc/admin_leave_detail_state.dart';
+import '../bloc/admin_leave_details_bloc.dart';
+import '../bloc/admin_leave_details_state.dart';
 
-class LeaveDetailsDateContent extends StatelessWidget {
+class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
   final Leave leave;
 
-  const LeaveDetailsDateContent({Key? key, required this.leave})
+  const AdminLeaveRequestDetailsDateContent({Key? key, required this.leave})
       : super(key: key);
 
   @override
@@ -39,29 +39,13 @@ class LeaveDetailsDateContent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          BlocConsumer<AdminLeaveDetailBloc, AdminLeaveDetailState>(
-            listenWhen: (previous, current) =>
-                current is AdminLeaveDetailFailureState,
-            listener: (context, state) {
-              if (state is AdminLeaveDetailFailureState) {
-                showSnackBar(context: context, error: state.error);
-              }
-            },
-            builder: (context, state) {
-              if (state is AdminLeaveDetailLoadingState) {
-                return const AppCircularProgressIndicator(size: 28);
-              } else if (state is AdminLeaveDetailSuccessState) {
-                return Text(
-                    "${state.usedLeaves.fixedAt(2)}/${state.paidLeaves}",
-                    style: AppFontStyle.titleDark);
-              }
-              return const SizedBox();
-            },
-          ),
-          const VerticalDivider(
-            color: AppColors.primaryBlue,
-            thickness: 0.5,
-            width: 32,
+          BlocBuilder<AdminLeaveDetailsBloc,
+              AdminLeaveDetailsState>(
+            buildWhen: (previous, current) => previous.leaveCountStatus != current.leaveCountStatus,
+            builder: (context, state) => state.leaveCountStatus == Status.loading
+                ? const AppCircularProgressIndicator(size: 28)
+                : Text("${state.usedLeaves.fixedAt(2)}/${state.paidLeaveCount}",
+                    style: AppFontStyle.titleDark),
           ),
           Expanded(
             child: Column(
@@ -69,9 +53,7 @@ class LeaveDetailsDateContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(duration, style: AppFontStyle.labelRegular),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 Text(
                   totalDays,
                   style: AppFontStyle.bodySmallHeavy

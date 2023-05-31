@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
-
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../../data/services/leave_service.dart';
@@ -29,7 +28,7 @@ class UserLeaveDetailBloc
       } else {
         bool canCancel =
             leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
-                leave.status == pendingLeaveStatus;
+                leave.status == LeaveStatus.pending;
         emit(UserLeaveDetailSuccessState(
             leave: leave, showCancelButton: canCancel));
       }
@@ -42,7 +41,7 @@ class UserLeaveDetailBloc
       Emitter<UserLeaveDetailState> emit) async {
     emit(UserLeaveDetailLoadingState());
     try {
-      await _leaveService.deleteLeaveRequest(event.leaveId);
+      await _leaveService.updateLeaveStatus(id: event.leaveId,status: LeaveStatus.cancelled);
       emit(UserCancelLeaveSuccessState());
     } on Exception {
       emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));

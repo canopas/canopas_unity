@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
@@ -44,6 +45,9 @@ class EmployeesCalendarScreen extends StatefulWidget {
 }
 
 class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
+
+  final userStateNotifier = getIt<UserStateNotifier>();
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
@@ -110,7 +114,7 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                         child: LeaveApplicationCard(
                             leaveApplication: leaveApplication,
                             onTap: () {
-                              context.read<EmployeesCalendarLeavesBloc>().isAdmin
+                              userStateNotifier.isAdmin || userStateNotifier.isHR
                                   ? context.pushNamed(
                                       Routes.adminCalendarLeaveDetails,
                                       extra: leaveApplication)

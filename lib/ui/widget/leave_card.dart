@@ -66,7 +66,7 @@ class LeaveCard extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           DateFormatter(AppLocalizations.of(context))
-                              .getLeaveDurationPresentation(leave.total)
+                              .getLeaveDurationPresentation(totalLeaves: leave.total,firstDayDuration: leave.perDayDuration.first)
                               .toString(),
                           style: AppFontStyle.bodySmallRegular,
                         ),
