@@ -18,7 +18,6 @@ import '../admin/members/detail/employee_detail_screen.dart';
 import '../admin/members/details_leaves/employee_details_leaves_screen.dart';
 import '../admin/members/edit_employee/admin_edit_employee_screen.dart';
 import '../admin/members/list/member_list_screen.dart';
-import '../shared/employees_calendar/employees_calendar_screen.dart';
 import '../shared/profile/edit_profile/edit_profile_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
 import '../space/join_space/join_space_screen.dart';
@@ -118,23 +117,14 @@ class AppRouter {
                                     state.extra as LeaveApplication)),
                       ),
                       GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.adminCalender,
-                          path: 'calendar',
-                          pageBuilder: (context, state) => const CupertinoPage(
-                                child: EmployeesLeaveCalenderPage(),
-                              ),
-                          routes: [
-                            GoRoute(
-                              parentNavigatorKey: _adminShellNavigatorKey,
-                              name: Routes.adminCalendarLeaveDetails,
-                              path: 'leave/details',
-                              pageBuilder: (context, state) => CupertinoPage(
-                                  child: AdminLeaveDetailsPage(
-                                      leaveApplication:
-                                          state.extra as LeaveApplication)),
-                            )
-                          ])
+                        parentNavigatorKey: _adminShellNavigatorKey,
+                        name: Routes.adminAbsenceDetails,
+                        path: 'absence/details',
+                        pageBuilder: (context, state) => CupertinoPage(
+                            child: AdminLeaveDetailsPage(
+                                leaveApplication:
+                                state.extra as LeaveApplication)),
+                      )
                     ]),
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
@@ -265,21 +255,13 @@ class AppRouter {
                                         .params[RoutesParamsConst.leaveId]!));
                           }),
                       GoRoute(
-                          parentNavigatorKey: _employeeShellNavigatorKey,
-                          path: Routes.userCalender,
-                          name: Routes.userCalender,
-                          routes: [
-                            GoRoute(
-                              name: Routes.userCalendarLeaveDetail,
-                              path: Routes.userCalendarLeaveDetail,
-                              pageBuilder: (context, state) => CupertinoPage(
-                                  child: UserLeaveDetailPage(
-                                      leaveId: state
-                                          .params[RoutesParamsConst.leaveId]!)),
-                            ),
-                          ],
-                          pageBuilder: (context, state) => const CupertinoPage(
-                              child: EmployeesLeaveCalenderPage())),
+                        name: Routes.userAbsenceDetails,
+                        path: Routes.userAbsenceDetails,
+                        pageBuilder: (context, state) => CupertinoPage(
+                            child: UserLeaveDetailPage(
+                                leaveId: state
+                                    .params[RoutesParamsConst.leaveId]!)),
+                      ),
                       GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           name: Routes.userLeaveCalender,
@@ -366,8 +348,7 @@ abstract class Routes {
 
   static const adminHome = '/admin/home';
   static const inviteMember = 'invite';
-  static const adminCalender = 'admin-calender';
-  static const adminCalendarLeaveDetails = 'admin-calendar-leave-details';
+  static const adminAbsenceDetails = 'admin-calendar-leave-details';
   static const leaveRequestDetail = 'leave-request/details';
   static const adminProfile = '/admin-home/profile';
   static const adminEditProfile = "/admin-home/profile/edit";
@@ -384,8 +365,7 @@ abstract class Routes {
   static const adminEditEmployee = 'edit-user-details';
 
   static const userHome = '/home';
-  static const userCalender = 'calender';
-  static const userCalendarLeaveDetail = 'leave-calendar-detail/:leaveId';
+  static const userAbsenceDetails = 'absence/details/:leaveId';
   static const userRequestDetail = 'leave-request-detail/:leaveId';
   static const userLeaveCalender = 'user-calender';
   static const userProfile = '/user-home/profile';

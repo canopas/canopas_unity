@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import '../../../../data/bloc/user_state/user_controller_state.dart';
@@ -11,7 +10,6 @@ import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
-import '../../../navigation/app_router.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_event.dart';
@@ -96,14 +94,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             },
             child: ListView(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
+                const Padding(
+                  padding: EdgeInsets.symmetric(
                       horizontal: primaryHorizontalSpacing,
                       vertical: primaryHalfSpacing),
-                  child: WhoIsOutCard(
-                    onSeeAllButtonTap: () =>
-                        context.goNamed(Routes.adminCalender),
-                  ),
+                  child: WhoIsOutCard(),
                 ),
                 BlocConsumer<AdminHomeBloc, AdminHomeState>(
                     listenWhen: (previous, current) =>

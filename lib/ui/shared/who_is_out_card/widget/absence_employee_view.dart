@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/leave_application.dart';
+import '../../../navigation/app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
@@ -39,11 +44,13 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
 class AbsenceEmployeeWrapLayout extends StatelessWidget {
   final List<LeaveApplication> absence;
 
-  const AbsenceEmployeeWrapLayout({Key? key, required this.absence})
+  const AbsenceEmployeeWrapLayout(
+      {Key? key, required this.absence})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userStateNotifier = getIt<UserStateNotifier>();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Wrap(
@@ -51,23 +58,40 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
             .map((absence) => SizedBox(
                   height: 100,
                   width: 100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ImageProfile(
-                            radius: 25, imageUrl: absence.employee.imageUrl),
-                        const SizedBox(height: 5),
-                        Flexible(
-                          child: Text(absence.employee.name,
-                              style: AppFontStyle.subTitleGrey,
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.clip),
+                  child: Material(
+                    color: AppColors.whiteColor,
+                    borderRadius: AppTheme.commonBorderRadius,
+                    child: InkWell(
+                      borderRadius: AppTheme.commonBorderRadius,
+                      onTap: () {
+                        userStateNotifier.isAdmin || userStateNotifier.isHR
+                            ? context.pushNamed(Routes.adminAbsenceDetails,
+                                extra: absence)
+                            : context
+                                .pushNamed(Routes.userAbsenceDetails, params: {
+                                RoutesParamsConst.leaveId: absence.leave.leaveId
+                              });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ImageProfile(
+                                radius: 25,
+                                imageUrl: absence.employee.imageUrl),
+                            const SizedBox(height: 5),
+                            Flexible(
+                              child: Text(absence.employee.name,
+                                  style: AppFontStyle.subTitleGrey,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.clip),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ))

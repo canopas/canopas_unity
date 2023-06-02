@@ -116,9 +116,9 @@ class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
                             onTap: () {
                               userStateNotifier.isAdmin || userStateNotifier.isHR
                                   ? context.pushNamed(
-                                      Routes.adminCalendarLeaveDetails,
+                                      Routes.adminAbsenceDetails,
                                       extra: leaveApplication)
-                                  : context.pushNamed(Routes.userCalendarLeaveDetail,
+                                  : context.pushNamed(Routes.userAbsenceDetails,
                                      params: {RoutesParamsConst.leaveId:leaveApplication.leave.leaveId});
                             }),
                       );

@@ -110,17 +110,16 @@ class LeaveService {
 
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
-    final data = await _leaveDb()
-        .where(FireStoreConst.endLeaveDate,
-            isGreaterThanOrEqualTo: date.dateOnly.timeStampToInt)
-        .get();
+    final data = await _leaveDb().get();
     List<Leave> leaves = <Leave>[];
-    for (var e in data.docs) {
-      if (e.data().startDate <= date.timeStampToInt &&
-          e.data().status == LeaveStatus.approved &&
-          e.data().getDateAndDuration()[date.dateOnly] !=
-              LeaveDayDuration.noLeave) {
-        leaves.add(e.data());
+    for (var leaveDoc in data.docs) {
+      final leave = leaveDoc.data();
+      if (((leave.startDate.dateOnly.month == date.month &&
+                  leave.startDate.dateOnly.year == date.year) ||
+              (leave.endDate.dateOnly.month == date.month &&
+                  leave.endDate.dateOnly.year == date.year)) &&
+          leave.status == LeaveStatus.approved) {
+        leaves.add(leave);
       }
     }
     return leaves;
