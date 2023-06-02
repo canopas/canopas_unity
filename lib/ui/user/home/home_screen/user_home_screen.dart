@@ -99,11 +99,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             child: ListView(
               padding: const EdgeInsets.all(primaryHorizontalSpacing),
               children: [
-                WhoIsOutCard(
-                  onSeeAllButtonTap: () {
-                    context.pushNamed(Routes.userCalender);
-                  },
-                ),
+                const WhoIsOutCard(),
                 BlocConsumer<UserHomeBloc, UserHomeState>(
                     buildWhen: (previous, current) =>
                         current is! UserHomeErrorState,
@@ -145,7 +141,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           ),
                           child: SizedBox(
                               height: MediaQuery.of(context).size.height - 500,
-                              child: state is UserHomeLoadingState || state is UserHomeInitialState
+                              child: state is UserHomeLoadingState ||
+                                      state is UserHomeInitialState
                                   ? const AppCircularProgressIndicator()
                                   : EmptyScreen(
                                       title: locale.empty_request_title,

@@ -66,9 +66,6 @@ void main() {
       expect(adminHomeBloc.state, initialState);
     });
     test('Emits failure state due to any exception', () {
-      when(leaveService.getAllAbsence()).thenAnswer((_) async {
-        return [leave, leave];
-      });
 
       when(employeeService.getEmployees())
           .thenThrow(Exception(firestoreFetchDataError));
