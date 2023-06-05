@@ -14,6 +14,9 @@ extension DateExtention on int {
 extension TimestampExtension on DateTime {
   int get futureDateSelectionYear => year + 2;
 
+  bool isBeforeOrSame(DateTime date) => isBefore(date) || isAtSameMomentAs(date);
+  bool isAfterOrSame(DateTime date) => isBefore(date) || isAtSameMomentAs(date);
+
   int get timeStampToInt => millisecondsSinceEpoch;
 
   DateTime get dateOnly => DateUtils.dateOnly(this);

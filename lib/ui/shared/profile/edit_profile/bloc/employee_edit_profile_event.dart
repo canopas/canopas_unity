@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../data/model/employee/employee.dart';
+
 abstract class EditProfileEvent extends Equatable {}
 
 class EditProfileInitialLoadEvent extends EditProfileEvent {
-  final int? gender;
-  final int? dateOfBirth;
+  final Gender? gender;
+  final DateTime? dateOfBirth;
 
   EditProfileInitialLoadEvent(
       {required this.gender, required this.dateOfBirth});
@@ -33,7 +35,7 @@ class EditProfileChangeDateOfBirthEvent extends EditProfileEvent {
 }
 
 class EditProfileChangeGenderEvent extends EditProfileEvent {
-  final int? gender;
+  final Gender? gender;
 
   EditProfileChangeGenderEvent({
     required this.gender,

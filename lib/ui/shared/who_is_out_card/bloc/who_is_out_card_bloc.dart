@@ -23,7 +23,7 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
     this._employeeService,
     this._leaveService,
   ) : super(WhoIsOutCardState(
-            selectedDate: DateTime.now(), focusDay: DateTime.now())) {
+            selectedDate: DateTime.now().dateOnly, focusDay: DateTime.now().dateOnly)) {
     on<WhoIsOutInitialLoadEvent>(_load);
     on<ChangeCalendarDate>(_changeCalendarDate);
     on<ChangeCalendarFormat>(_changeCalendarFormat);

@@ -14,17 +14,17 @@ import 'admin_employee_details_leaves_test.mocks.dart';
 void main() {
   late LeaveService leaveService;
   late AdminEmployeeDetailsLeavesBLoc bloc;
-  const leave = Leave(
+  Leave leave = Leave(
       leaveId: 'leave-id',
       uid: 'id',
-      type: 2,
-      startDate: 500,
-      endDate: 600,
+      type: LeaveType.annualLeave,
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
       total: 2,
       reason: 'reason',
       status: LeaveStatus.approved,
-      appliedOn: 400,
-      perDayDuration: [
+      appliedOn: DateTime.now(),
+      perDayDuration: const [
         LeaveDayDuration.noLeave,
         LeaveDayDuration.firstHalfLeave
       ]);
@@ -46,8 +46,8 @@ void main() {
       bloc.add(InitEvents(employeeId: leave.uid));
       expect(
           bloc.stream,
-          emitsInOrder(const [
-            AdminEmployeeDetailsLeavesState(status: Status.loading),
+          emitsInOrder( [
+            const AdminEmployeeDetailsLeavesState(status: Status.loading),
             AdminEmployeeDetailsLeavesState(
                 status: Status.success, leaves: [leave]),
           ]));

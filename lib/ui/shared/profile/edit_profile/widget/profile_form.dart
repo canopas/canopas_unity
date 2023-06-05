@@ -98,7 +98,7 @@ class GenderSelection extends StatelessWidget {
               Expanded(
                   child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    foregroundColor: state.gender == EmployeeGender.male
+                    foregroundColor: state.gender == Gender.male
                         ? AppColors.darkText
                         : AppColors.secondaryText,
                     backgroundColor: AppColors.textFieldBg,
@@ -107,7 +107,7 @@ class GenderSelection extends StatelessWidget {
                     )),
                 onPressed: () {
                   bloc.add(EditProfileChangeGenderEvent(
-                      gender: EmployeeGender.male));
+                      gender: Gender.male));
                 },
                 child: Text(
                   localization.gender_male_tag,
@@ -121,10 +121,10 @@ class GenderSelection extends StatelessWidget {
                   child: ElevatedButton(
                 onPressed: () {
                   bloc.add(EditProfileChangeGenderEvent(
-                      gender: EmployeeGender.female));
+                      gender: Gender.female));
                 },
                 style: ElevatedButton.styleFrom(
-                    foregroundColor: state.gender == EmployeeGender.female
+                    foregroundColor: state.gender == Gender.female
                         ? AppColors.darkText
                         : AppColors.secondaryText,
                     backgroundColor: AppColors.textFieldBg,

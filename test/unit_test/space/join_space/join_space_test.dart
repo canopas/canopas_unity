@@ -61,12 +61,12 @@ void main() {
       paidTimeOff: 12,
       ownerIds: ['uid']);
 
-  const Employee employee = Employee(
+  final employee = Employee(
     uid: 'uid',
     name: 'dummy',
     email: 'dummy@canopas.com',
     role: Role.employee,
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   group('Fetch requested spaces', () {

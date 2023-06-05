@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/services/employee_service.dart';
@@ -19,26 +18,26 @@ void main() {
   late LeaveService leaveService;
   late UserEmployeeDetailBloc bloc;
 
-  Employee employee = const Employee(
+  final employee =  Employee(
     uid: 'uid',
     role: Role.admin,
     name: 'Andrew jhone',
     employeeId: 'employeeId',
     email: 'andrew.j@canopas.com',
     designation: 'Android develeoper',
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   Leave upcomingApproveLeave = Leave(
       leaveId: 'leaveId',
       uid: 'uid',
-      type: 2,
-      startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
-      endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
+      type: LeaveType.annualLeave,
+      startDate: DateTime.now().add(const Duration(days: 2)),
+      endDate: DateTime.now().add(const Duration(days: 1)),
       total: 2,
       reason: 'Suffering from viral fever',
       status: LeaveStatus.approved,
-      appliedOn: 1,
+      appliedOn: DateTime.now(),
       perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {

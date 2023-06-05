@@ -16,12 +16,12 @@ void main() {
   late ViewProfileBloc bloc;
   late UserStateNotifier userStateNotifier;
   late EmployeeService employeeService;
-  const Employee employee = Employee(
+  final employee = Employee(
       uid: 'uid',
       name: 'Andrew jhone',
       email: 'andrew.j@gmail.com',
       role: Role.employee,
-      dateOfJoining: 10);
+      dateOfJoining: DateTime(2000));
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();

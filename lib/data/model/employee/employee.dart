@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'employee.g.dart';
 
 @JsonSerializable(includeIfNull: false)
@@ -16,13 +17,17 @@ class Employee extends Equatable {
   @JsonKey(name: 'image_url')
   final String? imageUrl;
   final String? address;
-  final int? gender;
-  @JsonKey(name: 'date_of_birth')
-  final int? dateOfBirth;
-  @JsonKey(name: 'date_of_joining')
-  final int dateOfJoining;
+  final Gender? gender;
+  @JsonKey(
+      name: 'date_of_birth',
+      fromJson: _dateOrNullFromJson,
+      toJson: _dateOrNullToJson)
+  final DateTime? dateOfBirth;
+  @JsonKey(
+      name: 'date_of_joining', fromJson: _dateFromJson, toJson: _dateToJson)
+  final DateTime dateOfJoining;
   final String? level;
-  final int? status;
+  final EmployeeStatus? status;
 
   const Employee({
     required this.uid,
@@ -41,21 +46,21 @@ class Employee extends Equatable {
     this.status,
   });
 
-  Employee copyWith(
-      {String? uid,
-      Role? role,
-      String? name,
-      String? employeeId,
+  Employee copyWith({
+    String? uid,
+    Role? role,
+    String? name,
+    String? employeeId,
     String? email,
     String? designation,
     String? phone,
     String? imageUrl,
     String? address,
-    int? gender,
-    int? dateOfBirth,
-    int? dateOfJoining,
+    Gender? gender,
+    DateTime? dateOfBirth,
+    DateTime? dateOfJoining,
     String? level,
-    int? status,
+    EmployeeStatus? status,
   }) {
     return Employee(
       uid: uid ?? this.uid,
@@ -74,6 +79,17 @@ class Employee extends Equatable {
       status: status ?? this.status,
     );
   }
+
+  static int _dateToJson(DateTime value) => value.millisecondsSinceEpoch;
+
+  static DateTime _dateFromJson(int value) =>
+      DateTime.fromMillisecondsSinceEpoch(value);
+
+  static int? _dateOrNullToJson(DateTime? value) =>
+      value?.millisecondsSinceEpoch;
+
+  static DateTime? _dateOrNullFromJson(int? value) =>
+      value != null ? DateTime.fromMillisecondsSinceEpoch(value) : null;
 
   factory Employee.fromJson(Map<String, dynamic>? map) =>
       _$EmployeeFromJson(map!);
@@ -119,8 +135,22 @@ enum Role {
   const Role(this.value);
 }
 
-class EmployeeGender {
-  static const int male = 1;
-  static const int female = 2;
-  static const List<int> values = [male, female];
+@JsonEnum(valueField: 'value')
+enum EmployeeStatus {
+  activated(1),
+  deactivated(2);
+
+  final int value;
+
+  const EmployeeStatus(this.value);
+}
+
+@JsonEnum(valueField: 'value')
+enum Gender {
+  male(1),
+  female(2);
+
+  final int value;
+
+  const Gender(this.value);
 }

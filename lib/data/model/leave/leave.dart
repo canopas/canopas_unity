@@ -4,24 +4,23 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'leave.g.dart';
 
-
 @JsonSerializable(includeIfNull: false)
 class Leave extends Equatable {
   @JsonKey(name: 'leave_id')
   final String leaveId;
   final String uid;
   @JsonKey(name: 'type')
-  final int type;
-  @JsonKey(name: 'start_date')
-  final int startDate;
-  @JsonKey(name: 'end_date')
-  final int endDate;
+  final LeaveType type;
+  @JsonKey(name: 'start_date', fromJson: _dateFromJson, toJson: _dateToJson)
+  final DateTime startDate;
+  @JsonKey(name: 'end_date', fromJson: _dateFromJson, toJson: _dateToJson)
+  final DateTime endDate;
   final double total;
   final String reason;
   final LeaveStatus status;
   final String? response;
-  @JsonKey(name: 'applied_on')
-  final int appliedOn;
+  @JsonKey(name: 'applied_on', fromJson: _dateFromJson, toJson: _dateToJson)
+  final DateTime appliedOn;
   @JsonKey(name: 'per_day_duration')
   final List<LeaveDayDuration> perDayDuration;
 
@@ -37,6 +36,11 @@ class Leave extends Equatable {
       required this.appliedOn,
       required this.perDayDuration,
       this.response});
+
+  static int _dateToJson(DateTime value) => value.millisecondsSinceEpoch;
+
+  static DateTime _dateFromJson(int value) =>
+      DateTime.fromMillisecondsSinceEpoch(value);
 
   factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
@@ -59,10 +63,24 @@ class Leave extends Equatable {
         reason,
         status,
         appliedOn,
-    response
+        response
       ];
 }
 
+@JsonEnum(valueField: 'value')
+enum LeaveType {
+  casualLeave(0),
+  sickLeave(1),
+  annualLeave(2),
+  paternityLeave(3),
+  maternityLeave(4),
+  marriageLeave(5),
+  bereavementLeave(6);
+
+  final int value;
+
+  const LeaveType(this.value);
+}
 
 @JsonEnum(valueField: 'value')
 enum LeaveStatus {
@@ -76,14 +94,11 @@ enum LeaveStatus {
   const LeaveStatus(this.value);
 }
 
+@JsonEnum(valueField: 'value')
 enum LeaveDayDuration {
-  @JsonValue(0)
   noLeave(0),
-  @JsonValue(1)
   firstHalfLeave(1),
-  @JsonValue(2)
   secondHalfLeave(2),
-  @JsonValue(3)
   fullLeave(3);
 
   final int value;

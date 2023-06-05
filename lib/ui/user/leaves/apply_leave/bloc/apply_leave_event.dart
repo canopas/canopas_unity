@@ -12,7 +12,7 @@ class ApplyLeaveStartDateChangeEvents extends ApplyLeaveEvent{
 }
 
 class ApplyLeaveChangeLeaveTypeEvent extends ApplyLeaveEvent{
-  final int? leaveType;
+  final LeaveType? leaveType;
   ApplyLeaveChangeLeaveTypeEvent({required this.leaveType});
   @override
   List<Object?> get props => [leaveType];

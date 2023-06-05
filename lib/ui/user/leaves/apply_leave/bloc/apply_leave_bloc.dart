@@ -138,12 +138,12 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
       leaveId: _leaveService.getNewLeaveId(),
       uid: _userManager.employeeId,
       type: state.leaveType,
-      startDate: firstDate.timeStampToInt,
-      endDate: lastDate.timeStampToInt,
+      startDate: firstDate,
+      endDate: lastDate,
       total: state.totalLeaveDays,
       reason: state.reason,
       status: LeaveStatus.pending,
-      appliedOn: DateTime.now().timeStampToInt,
+      appliedOn: DateTime.now(),
       perDayDuration: selectedDates.values.toList(),
     );
   }

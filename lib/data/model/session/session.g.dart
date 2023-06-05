@@ -13,7 +13,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       version: json['version'] as int?,
       deviceName: json['device_name'] as String?,
       osVersion: json['os_version'] as String?,
-      lastAccessedOn: json['last_accessed_on'] as int?,
+      lastAccessedOn: Session._dateFromJson(json['last_accessed_on'] as int?),
     );
 
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
@@ -23,7 +23,7 @@ Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'version': instance.version,
       'device_name': instance.deviceName,
       'os_version': instance.osVersion,
-      'last_accessed_on': instance.lastAccessedOn,
+      'last_accessed_on': Session._dateToJson(instance.lastAccessedOn),
     };
 
 const _$DeviceTypeEnumMap = {

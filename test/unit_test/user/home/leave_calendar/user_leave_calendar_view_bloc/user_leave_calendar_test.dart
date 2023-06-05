@@ -26,26 +26,26 @@ void main() {
 
   String userID = "123";
 
-  const employee = Employee(
+  final employee = Employee(
     uid: "123",
     role: Role.employee,
     name: "test",
     employeeId: "103",
     email: "abc@gmail.com",
     designation: "tester",
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   Leave leave = Leave(
       leaveId: "234",
       uid: "123",
-      type: 1,
-      startDate: DateTime.now().dateOnly.timeStampToInt,
-      endDate: DateTime.now().dateOnly.timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: DateTime.now().dateOnly,
+      endDate: DateTime.now().dateOnly,
       total: 1.0,
       reason: 'leave reason',
       status: LeaveStatus.pending,
-      appliedOn: 1000,
+      appliedOn: DateTime.now(),
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   const leaveCounts = LeaveCounts(

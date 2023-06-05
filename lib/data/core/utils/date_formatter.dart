@@ -47,11 +47,9 @@ class DateFormatter {
   }
 
   String dateInLine(
-      {required int startTimeStamp,
-      required int endTimeStamp,
+      {required DateTime startDate,
+      required DateTime endDate,
       bool lastTwoLine = false}) {
-    DateTime startDate = startTimeStamp.toDate;
-    DateTime endDate = endTimeStamp.toDate;
     String localeName = _localization.localeName;
 
     String startLeaveDay = DateFormat.d(localeName).format(startDate);
@@ -73,7 +71,7 @@ class DateFormatter {
   }
 
   String getDatePeriodPresentation(
-      {required int startTimeStamp, required int endTimeStamp}) {
+      {required DateTime startTimeStamp, required DateTime endTimeStamp}) {
     final currentDate = DateTime.now().dateOnly;
     if (endTimeStamp.dateOnly.isBefore(currentDate)) {
       return _localization.past_tag;
@@ -84,9 +82,8 @@ class DateFormatter {
     }
   }
 
-  String timeAgoPresentation(int timeStamp) {
-    DateTime dateTime = timeStamp.toDate;
-    Duration difference = today.difference(dateTime);
+  String timeAgoPresentation(DateTime date) {
+    Duration difference = today.difference(date);
     if (difference.inDays > 365) {
       return "${(difference.inDays / 365).floor()} ${(difference.inDays / 365).floor() == 1 ? _localization.year_ago_tag : _localization.years_ago_tag} ";
     }

@@ -11,7 +11,9 @@ class Session {
   int? version;
   String? deviceName;
   String? osVersion;
-  int? lastAccessedOn;
+  @JsonKey(
+      name: 'last_accessed_on', fromJson: _dateFromJson, toJson: _dateToJson)
+  DateTime? lastAccessedOn;
 
   Session(
       {this.deviceId,
@@ -21,6 +23,11 @@ class Session {
       this.deviceName,
       this.osVersion,
       this.lastAccessedOn});
+
+  static int? _dateToJson(DateTime? value) => value?.millisecondsSinceEpoch;
+
+  static DateTime? _dateFromJson(int? value) =>
+      value != null ? DateTime.fromMillisecondsSinceEpoch(value) : null;
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 
@@ -35,18 +42,13 @@ class Session {
   Map<String, dynamic> toJson() => _$SessionToJson(this);
 }
 
+@JsonEnum(valueField: 'value')
 enum DeviceType {
-  @JsonValue(1)
   android(1),
-  @JsonValue(2)
   ios(2),
-  @JsonValue(3)
   web(3),
-  @JsonValue(4)
   macOS(4),
-  @JsonValue(5)
   linux(5),
-  @JsonValue(6)
   windows(6);
 
   final int value;
