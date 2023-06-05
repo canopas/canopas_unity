@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
-import 'package:projectunity/data/core/exception/exception_msg.dart';
 import '../../data/core/utils/const/image_constant.dart';
-
-class ErrorScreen extends StatelessWidget {
-  final String error;
-
-  const ErrorScreen({Key? key, required this.error}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(error.errorMessage(context)),
-      ),
-    );
-  }
-}
 
 class EmptyScreen extends StatelessWidget {
   final String title;
