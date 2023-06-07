@@ -1,11 +1,24 @@
+
+
 stages:
-  - test
   - lints_test
+  - test
   - build
   - deploy
 
 .android_docker_image:
   image: cirrusci/flutter:3.7.7
+  before_script:
+    - echo "$FIREBASE_OPTIONS_BASE64" | base64 -di > lib/firebase_options.dart
+    - echo "$DESKTOP_CREDENTIALS_BASE64" | base64 -di > lib/desktop_credentials.dart
+    - echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -di > android/app/google-services.json
+    - echo "$GOOGLE_SERVICES_PLIST_IOS_BASE64" | base64 -di > ios/Runner/GoogleService-Info.plist
+    - echo "$GOOGLE_SERVICES_PLIST_MACOS_BASE64" | base64 -di > macos/Runner/GoogleService-Info.plist
+    - echo "$WEB_INDEX_HTML_BASE64" | base64 -di > web/index.html
+    - flutter clean
+    - flutter pub get
+
+
 
 test:
   extends: .android_docker_image
@@ -16,6 +29,7 @@ test:
 lints_test:
   extends: .android_docker_image
   stage: lints_test
+
   script:
     - flutter pub get
     - dart analyze --fatal-infos
@@ -24,7 +38,11 @@ android_build_apk:
   stage: build
   extends: .android_docker_image
   before_script:
+    - echo "$FIREBASE_OPTIONS_BASE64" | base64 -di > lib/firebase_options.dart
+    - echo "$DESKTOP_CREDENTIALS_BASE64" | base64 -di > lib/desktop_credentials.dart
+    - echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -di > android/app/google-services.json
     - flutter clean
+    - flutter pub get
   script:
     - file='VERSION'
     - fileData=`cat $file`
@@ -45,7 +63,11 @@ android_build_aab:
   stage: build
   extends: .android_docker_image
   before_script:
+    - echo "$FIREBASE_OPTIONS_BASE64" | base64 -di > lib/firebase_options.dart
+    - echo "$DESKTOP_CREDENTIALS_BASE64" | base64 -di > lib/desktop_credentials.dart
+    - echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -di > android/app/google-services.json
     - flutter clean
+    - flutter pub get
   script:
     - file='VERSION'
     - fileData=`cat $file`
@@ -67,6 +89,7 @@ deploy_internal_android:
   stage: deploy
   extends: .android_docker_image
   before_script:
+    - echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -di > android/app/google-services.json
     - file='VERSION'
     - fileData=`cat $file`
     - IFS='.'
@@ -93,6 +116,7 @@ deploy_web:
   variables:
     DEBIAN_FRONTEND: noninteractive
   before_script:
+    - echo "$WEB_INDEX_HTML_BASE64" | base64 -di > web/index.html
     - apt-get update && apt-get -y install --no-install-recommends awscli
   script:
     - flutter pub get

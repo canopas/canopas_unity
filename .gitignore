@@ -51,3 +51,10 @@ app.*.map.json
 /windows/
 ios/Podfile.lock
 
+firebase_options.dart
+/ios/Runner/GoogleService-Info.plist
+/android/app/google-services.json
+web/index.html
+ios/firebase_app_id_file.json
+config.json
+/lib/desktop_credentials.dart
