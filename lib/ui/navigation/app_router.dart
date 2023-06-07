@@ -27,6 +27,7 @@ import '../user/home/leave_calendar/user_leave_calendar_screen.dart';
 import '../user/leaves/apply_leave/apply_leave_screen.dart';
 import '../user/members/detail/user_employee_detail_screen.dart';
 import '../user/members/members_screen/user_members_screen.dart';
+import '../widget/error/page_not_found_screen.dart';
 
 @Injectable()
 class AppRouter {
@@ -41,7 +42,8 @@ class AppRouter {
 
   GoRouter _goRouter(UserStateNotifier userManager) {
     return GoRouter(
-        debugLogDiagnostics: true,
+        errorPageBuilder: (context, state) =>
+            const CupertinoPage(child: PageNotFoundScreen()),
         refreshListenable: userManager,
         initialLocation: (userManager.isAdmin || _userManager.isHR)
             ? Routes.adminHome
