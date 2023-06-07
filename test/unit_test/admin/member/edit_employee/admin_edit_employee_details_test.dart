@@ -16,12 +16,11 @@ import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_empl
 import 'admin_edit_employee_details_test.mocks.dart';
 
 @GenerateMocks(
-    [EmployeeService, ImagePicker, StorageService, UserStateNotifier])
+    [EmployeeService, StorageService, UserStateNotifier])
 void main() {
   late UserStateNotifier userStateNotifier;
   late StorageService storageService;
   late EmployeeService employeeService;
-  late ImagePicker imagePicker;
   late AdminEditEmployeeDetailsBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
@@ -38,11 +37,10 @@ void main() {
   group("admin-edit-employee-details-test", () {
     setUp(() {
       employeeService = MockEmployeeService();
-      imagePicker = MockImagePicker();
       storageService = MockStorageService();
       userStateNotifier = MockUserStateNotifier();
       editEmployeeDetailsBloc = AdminEditEmployeeDetailsBloc(
-          employeeService, imagePicker, userStateNotifier, storageService);
+          employeeService, userStateNotifier, storageService);
     });
 
     test('test initial test', () {
@@ -78,14 +76,10 @@ void main() {
     });
 
     test('pick and change profile image test', () {
-      editEmployeeDetailsBloc.add(ChangeProfileImageEvent(ImageSource.gallery));
-      when(imagePicker.pickImage(source: ImageSource.gallery))
-          .thenAnswer((realInvocation) async => XFile("path"));
-
+      editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
       expect(
           editEmployeeDetailsBloc.stream,
-          emits(const AdminEditEmployeeDetailsState(
-              pickedImage: 'path', isImagePickedDone: true)));
+          emits(const AdminEditEmployeeDetailsState(pickedImage: 'path')));
     });
 
     test('test validation validation', () {
@@ -166,14 +160,12 @@ void main() {
 
     test('update Employee details with profile test', () async {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-      when(imagePicker.pickImage(source: ImageSource.gallery))
-          .thenAnswer((realInvocation) async => XFile("path"));
-      when(storageService.uploadProfilePic(
-              path: 'images/space-id/${emp.uid}/profile', file: XFile("path")))
+
+
+      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(roleType: emp.role, dateOfJoining: emp.dateOfJoining));
+      editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
+      when(storageService.uploadProfilePic(path: 'images/space-id/${emp.uid}/profile', file: XFile('path')))
           .thenAnswer((realInvocation) async => 'image-url');
-      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
-          roleType: emp.role, dateOfJoining: emp.dateOfJoining));
-      editEmployeeDetailsBloc.add(ChangeProfileImageEvent(ImageSource.gallery));
       editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
           previousEmployeeData: emp,
           designation: emp.designation!,
@@ -184,23 +176,18 @@ void main() {
       expect(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                role: Role.admin,
-                status: Status.loading),
+            AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
+            AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin,pickedImage: 'path'),
             AdminEditEmployeeDetailsState(
                 status: Status.loading,
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
                 pickedImage: 'path',
-                isImagePickedDone: true),
+            ),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
                 pickedImage: 'path',
-                isImagePickedDone: true,
                 status: Status.success),
           ]));
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));

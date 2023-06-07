@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
-import 'package:projectunity/ui/shared/profile/edit_profile/widget/profile_image.dart';
+import 'package:projectunity/ui/widget/pick_profile_image/pick_user_profile_image.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -38,7 +38,11 @@ class ProfileForm extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 30),
       children: [
-        ProfileImage(imageURl: profileImageURL),
+        ProfileImagePicker(imageURl: profileImageURL,
+          onPickImageChange: (String image) => context
+              .read<EmployeeEditProfileBloc>()
+              .add(ChangeImageEvent(image)),
+        ),
         FieldTitle(title: localization.employee_name_tag),
         BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
           buildWhen: (previous, current) =>

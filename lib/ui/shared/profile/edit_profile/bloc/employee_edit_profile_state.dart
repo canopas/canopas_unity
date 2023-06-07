@@ -9,10 +9,8 @@ class EmployeeEditProfileState extends Equatable {
   final bool nameError;
   final String? error;
   final String? imageURL;
-  final bool isImagePickedDone;
 
   const EmployeeEditProfileState({
-    this.isImagePickedDone = false,
     this.gender,
     this.dateOfBirth,
     this.status = Status.initial,
@@ -24,7 +22,6 @@ class EmployeeEditProfileState extends Equatable {
   bool get isDataValid => !nameError;
 
   EmployeeEditProfileState copyWith({
-    bool? isImagePickedDone,
     int? gender,
     DateTime? dateOfBirth,
     bool? nameError,
@@ -33,7 +30,6 @@ class EmployeeEditProfileState extends Equatable {
     String? imageURL,
   }) {
     return EmployeeEditProfileState(
-        isImagePickedDone: isImagePickedDone ?? false,
         gender: gender ?? this.gender,
         dateOfBirth: dateOfBirth ?? this.dateOfBirth,
         error: error,
@@ -65,6 +61,5 @@ class EmployeeEditProfileState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [gender, dateOfBirth, status, nameError, error, imageURL];
+  List<Object?> get props => [gender, dateOfBirth, status, nameError, error, imageURL];
 }
