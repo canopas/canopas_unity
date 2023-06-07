@@ -17,8 +17,10 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       imageUrl: json['image_url'] as String?,
       address: json['address'] as String?,
       gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
-      dateOfBirth: Employee._dateOrNullFromJson(json['date_of_birth'] as int?),
-      dateOfJoining: Employee._dateFromJson(json['date_of_joining'] as int),
+      dateOfBirth: _$JsonConverterFromJson<int, DateTime>(
+          json['date_of_birth'], const DateTimeConverter().fromJson),
+      dateOfJoining:
+          const DateTimeConverter().fromJson(json['date_of_joining'] as int),
       level: json['level'] as String?,
       status: $enumDecodeNullable(_$EmployeeStatusEnumMap, json['status']),
     );
@@ -44,8 +46,11 @@ Map<String, dynamic> _$EmployeeToJson(Employee instance) {
   writeNotNull('address', instance.address);
   writeNotNull('gender', _$GenderEnumMap[instance.gender]);
   writeNotNull(
-      'date_of_birth', Employee._dateOrNullToJson(instance.dateOfBirth));
-  val['date_of_joining'] = Employee._dateToJson(instance.dateOfJoining);
+      'date_of_birth',
+      _$JsonConverterToJson<int, DateTime>(
+          instance.dateOfBirth, const DateTimeConverter().toJson));
+  val['date_of_joining'] =
+      const DateTimeConverter().toJson(instance.dateOfJoining);
   writeNotNull('level', instance.level);
   writeNotNull('status', _$EmployeeStatusEnumMap[instance.status]);
   return val;
@@ -62,7 +67,19 @@ const _$GenderEnumMap = {
   Gender.female: 2,
 };
 
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
 const _$EmployeeStatusEnumMap = {
   EmployeeStatus.active: 1,
   EmployeeStatus.inactive: 2,
 };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

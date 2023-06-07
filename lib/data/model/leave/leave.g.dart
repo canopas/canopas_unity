@@ -10,12 +10,12 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       leaveId: json['leave_id'] as String,
       uid: json['uid'] as String,
       type: $enumDecode(_$LeaveTypeEnumMap, json['type']),
-      startDate: Leave._dateFromJson(json['start_date'] as int),
-      endDate: Leave._dateFromJson(json['end_date'] as int),
+      startDate: const DateTimeConverter().fromJson(json['start_date'] as int),
+      endDate: const DateTimeConverter().fromJson(json['end_date'] as int),
       total: (json['total'] as num).toDouble(),
       reason: json['reason'] as String,
       status: $enumDecode(_$LeaveStatusEnumMap, json['status']),
-      appliedOn: Leave._dateFromJson(json['applied_on'] as int),
+      appliedOn: const DateTimeConverter().fromJson(json['applied_on'] as int),
       perDayDuration: (json['per_day_duration'] as List<dynamic>)
           .map((e) => $enumDecode(_$LeaveDayDurationEnumMap, e))
           .toList(),
@@ -27,8 +27,8 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) {
     'leave_id': instance.leaveId,
     'uid': instance.uid,
     'type': _$LeaveTypeEnumMap[instance.type]!,
-    'start_date': Leave._dateToJson(instance.startDate),
-    'end_date': Leave._dateToJson(instance.endDate),
+    'start_date': const DateTimeConverter().toJson(instance.startDate),
+    'end_date': const DateTimeConverter().toJson(instance.endDate),
     'total': instance.total,
     'reason': instance.reason,
     'status': _$LeaveStatusEnumMap[instance.status]!,
@@ -41,7 +41,7 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) {
   }
 
   writeNotNull('response', instance.response);
-  val['applied_on'] = Leave._dateToJson(instance.appliedOn);
+  val['applied_on'] = const DateTimeConverter().toJson(instance.appliedOn);
   val['per_day_duration'] = instance.perDayDuration
       .map((e) => _$LeaveDayDurationEnumMap[e]!)
       .toList();

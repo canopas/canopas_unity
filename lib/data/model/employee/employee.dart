@@ -1,30 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:projectunity/data/core/converters%20/date_converter.dart';
 
 part 'employee.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(
+    includeIfNull: false,
+    converters: [DateTimeConverter()],
+    fieldRename: FieldRename.snake)
 class Employee extends Equatable {
   final String uid;
   final Role role;
   final String name;
   final String email;
-  @JsonKey(name: 'employee_id')
   final String? employeeId;
   final String? designation;
   final String? phone;
-  @JsonKey(name: 'image_url')
   final String? imageUrl;
   final String? address;
   final Gender? gender;
-  @JsonKey(
-      name: 'date_of_birth',
-      fromJson: _dateOrNullFromJson,
-      toJson: _dateOrNullToJson)
   final DateTime? dateOfBirth;
-  @JsonKey(
-      name: 'date_of_joining', fromJson: _dateFromJson, toJson: _dateToJson)
   final DateTime dateOfJoining;
   final String? level;
   final EmployeeStatus? status;
@@ -80,17 +76,6 @@ class Employee extends Equatable {
     );
   }
 
-  static int _dateToJson(DateTime value) => value.millisecondsSinceEpoch;
-
-  static DateTime _dateFromJson(int value) =>
-      DateTime.fromMillisecondsSinceEpoch(value);
-
-  static int? _dateOrNullToJson(DateTime? value) =>
-      value?.millisecondsSinceEpoch;
-
-  static DateTime? _dateOrNullFromJson(int? value) =>
-      value != null ? DateTime.fromMillisecondsSinceEpoch(value) : null;
-
   factory Employee.fromJson(Map<String, dynamic>? map) =>
       _$EmployeeFromJson(map!);
 
@@ -122,12 +107,10 @@ class Employee extends Equatable {
       ];
 }
 
+@JsonEnum(valueField: 'value')
 enum Role {
-  @JsonValue(1)
   admin(1),
-  @JsonValue(2)
   employee(2),
-  @JsonValue(3)
   hr(3);
 
   final int value;
