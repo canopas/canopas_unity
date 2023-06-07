@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
@@ -24,6 +23,7 @@ void main() {
   late AdminEditEmployeeDetailsBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
+    imageUrl: 'image-url',
     uid: "123",
     role: Role.admin,
     name: "dummy tester",
@@ -164,7 +164,7 @@ void main() {
 
       editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(roleType: emp.role, dateOfJoining: emp.dateOfJoining));
       editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
-      when(storageService.uploadProfilePic(path: 'images/space-id/${emp.uid}/profile', file: XFile('path')))
+      when(storageService.uploadProfilePic(path: 'images/space-id/${emp.uid}/profile', imagePath: 'path'))
           .thenAnswer((realInvocation) async => 'image-url');
       editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
           previousEmployeeData: emp,

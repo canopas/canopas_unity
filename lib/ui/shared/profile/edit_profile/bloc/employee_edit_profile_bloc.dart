@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
@@ -103,9 +102,8 @@ class EmployeeEditProfileBloc
 
     if (state.imageURL != null) {
       try {
-        final XFile file = XFile(state.imageURL!);
         final imageURL = await storageService.uploadProfilePic(
-            path: storagePath, file: file);
+            path: storagePath, imagePath: state.imageURL!);
         return imageURL;
       } on Exception {
         throw Exception();

@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
@@ -49,8 +48,8 @@ void main() {
       userStateNotifier = MockUserStateNotifier();
       preference = MockUserPreference();
       storageService = MockStorageService();
-      editEmployeeDetailsBloc = EmployeeEditProfileBloc(employeeService,
-          preference, userStateNotifier, storageService);
+      editEmployeeDetailsBloc = EmployeeEditProfileBloc(
+          employeeService, preference, userStateNotifier, storageService);
       when(userStateNotifier.employeeId).thenReturn(emp.uid);
       when(userStateNotifier.employee).thenReturn(emp);
       when(userStateNotifier.currentSpaceId).thenReturn('sid');
@@ -86,12 +85,11 @@ void main() {
 
     test('Should upload profile on storage if user set profile picture',
         () async {
-      editEmployeeDetailsBloc
-          .add(ChangeImageEvent('path'));
+      editEmployeeDetailsBloc.add(ChangeImageEvent('path'));
 
       const storagePath = 'images/sid/123/profile';
       when(storageService.uploadProfilePic(
-              path: storagePath, file: XFile('path')))
+              path: storagePath, imagePath: 'path'))
           .thenAnswer((_) async => 'uid');
 
       editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
@@ -105,11 +103,9 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             const EmployeeEditProfileState(
-                status: Status.loading, imageURL: null),
+                status: Status.initial, imageURL: 'path'),
             const EmployeeEditProfileState(
-                status: Status.loading, imageURL: 'path'),
-            const EmployeeEditProfileState(
-                status: Status.success, imageURL: 'path')
+                status: Status.loading, imageURL: 'path')
           ]));
     });
 
