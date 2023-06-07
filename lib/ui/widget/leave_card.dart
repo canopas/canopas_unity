@@ -44,8 +44,8 @@ class LeaveCard extends StatelessWidget {
                     Text(
                         DateFormatter(AppLocalizations.of(context))
                             .getDatePeriodPresentation(
-                                startTimeStamp: leave.startDate,
-                                endTimeStamp: leave.endDate),
+                                startDate: leave.startDate,
+                                endDate: leave.endDate),
                         style: AppFontStyle.bodyMedium,
                         overflow: TextOverflow.ellipsis),
                   ],

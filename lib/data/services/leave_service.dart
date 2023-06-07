@@ -148,7 +148,7 @@ class LeaveService {
         .get();
     return data.docs
         .map((doc) => doc.data())
-        .where((leave) => leave.endDate.isAfter(DateTime.now().dateOnly) || leave.startDate.isAtSameMomentAs(DateTime.now().dateOnly))
+        .where((leave) => leave.endDate.isAfter(DateTime.now().dateOnly) || leave.endDate.isAtSameMomentAs(DateTime.now().dateOnly))
         .toList();
   }
 
@@ -166,7 +166,9 @@ class LeaveService {
         await _leaveDb().where(FireStoreConst.uid, isEqualTo: employeeId).get();
     return data.docs
         .map((doc) => doc.data())
-        .where((leave) => leave.startDate.isAfter(DateTime.now().dateOnly) || leave.startDate.isAtSameMomentAs(DateTime.now().dateOnly))
+        .where((leave) =>
+            leave.startDate.isAfter(DateTime.now().dateOnly) ||
+            leave.startDate.isAtSameMomentAs(DateTime.now().dateOnly))
         .where((leave) => leave.status == LeaveStatus.approved)
         .toList();
   }
@@ -210,8 +212,8 @@ class LeaveService {
     });
   }
 
-  Future<Leave?> fetchLeave(String id) async {
-    final data = await _leaveDb().doc(id).get();
+  Future<Leave?> fetchLeave(String leaveId) async {
+    final data = await _leaveDb().doc(leaveId).get();
     return data.data();
   }
 }

@@ -71,11 +71,11 @@ class DateFormatter {
   }
 
   String getDatePeriodPresentation(
-      {required DateTime startTimeStamp, required DateTime endTimeStamp}) {
+      {required DateTime startDate, required DateTime endDate}) {
     final currentDate = DateTime.now().dateOnly;
-    if (endTimeStamp.dateOnly.isBefore(currentDate)) {
+    if (endDate.dateOnly.isBefore(currentDate)) {
       return _localization.past_tag;
-    } else if (startTimeStamp.dateOnly.isAfter(currentDate)) {
+    } else if (startDate.dateOnly.isAfter(currentDate)) {
       return _localization.upcoming_tag;
     } else {
       return _localization.recent_tag;
