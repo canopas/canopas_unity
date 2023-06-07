@@ -137,8 +137,8 @@ enum Role {
 
 @JsonEnum(valueField: 'value')
 enum EmployeeStatus {
-  activated(1),
-  deactivated(2);
+  active(1),
+  inactive(2);
 
   final int value;
 

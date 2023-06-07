@@ -63,6 +63,6 @@ const _$GenderEnumMap = {
 };
 
 const _$EmployeeStatusEnumMap = {
-  EmployeeStatus.activated: 1,
-  EmployeeStatus.deactivated: 2,
+  EmployeeStatus.active: 1,
+  EmployeeStatus.inactive: 2,
 };
