@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/firebase_options.dart';
-import 'package:projectunity/ui/widget/empty_screen.dart';
+import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'data/configs/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
@@ -17,6 +16,7 @@ import 'data/bloc/network/network_connection_event.dart';
 import 'data/bloc/network/network_connection_state.dart';
 import 'data/di/service_locator.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'firebase_options.dart';
 import 'ui/navigation/app_router.dart';
 
 Future<void> main() async {
