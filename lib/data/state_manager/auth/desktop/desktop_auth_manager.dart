@@ -4,9 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:projectunity/data/configs/api.dart';
-
+import 'package:projectunity/desktop_credentials.dart';
 import 'desktop_manager.dart';
-
 
 @Injectable()
 class DesktopAuthManager extends DesktopLoginManager {
@@ -22,17 +21,15 @@ class DesktopAuthManager extends DesktopLoginManager {
   }
 
   Future<oauth2.Client> _getOauthClient(Uri redirectUrl) async {
-    var grant = oauth2.AuthorizationCodeGrant(googleClientId,
-        Uri.parse(googleAuthApi),
-        Uri.parse(googleTokenApi),
-        httpClient: _JsonAcceptingHttpClient(),
-        secret: authClientSecret);
+    var grant = oauth2.AuthorizationCodeGrant(
+        googleClientId, Uri.parse(googleAuthApi), Uri.parse(googleTokenApi),
+        httpClient: _JsonAcceptingHttpClient(), secret: authClientSecret);
     var authorizationUrl =
-    grant.getAuthorizationUrl(redirectUrl, scopes: [emailScope]);
+        grant.getAuthorizationUrl(redirectUrl, scopes: [emailScope]);
     await redirect(authorizationUrl);
     var responseQueryParameters = await listen();
     var client =
-    await grant.handleAuthorizationResponse(responseQueryParameters);
+        await grant.handleAuthorizationResponse(responseQueryParameters);
     return client;
   }
 

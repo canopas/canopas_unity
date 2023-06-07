@@ -38,8 +38,7 @@ void main() {
 
   group("Log in with google test", () {
     test("Set initial state on cancel login test", () async {
-      when(authService.signInWithGoogle())
-          .thenAnswer((realInvocation) async => null);
+      when(authService.signInWithGoogle()).thenAnswer((_) async => null);
       bloc.add(SignInEvent());
       expect(
           bloc.stream,
@@ -52,10 +51,8 @@ void main() {
     test("Login success test", () async {
       when(authUser.uid).thenAnswer((realInvocation) => user.uid);
       when(authUser.email).thenAnswer((realInvocation) => user.email);
-      when(authService.signInWithGoogle())
-          .thenAnswer((realInvocation) async => authUser);
-      when(accountService.getUser(authUser))
-          .thenAnswer((realInvocation) async => user);
+      when(authService.signInWithGoogle()).thenAnswer((_) async => authUser);
+      when(accountService.getUser(authUser)).thenAnswer((_) async => user);
       bloc.add(SignInEvent());
       expect(
           bloc.stream,

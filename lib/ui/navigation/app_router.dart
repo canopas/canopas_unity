@@ -44,7 +44,6 @@ class AppRouter {
     return GoRouter(
         errorPageBuilder: (context, state) =>
             const CupertinoPage(child: PageNotFoundScreen()),
-        debugLogDiagnostics: true,
         refreshListenable: userManager,
         initialLocation: (userManager.isAdmin || _userManager.isHR)
             ? Routes.adminHome
