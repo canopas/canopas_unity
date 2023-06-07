@@ -50,7 +50,7 @@ void main() {
       name: 'dummy space',
       createdAt: DateTime.now(),
       paidTimeOff: 12,
-      ownerIds: ['uid']);
+      ownerIds: const ['uid']);
 
   final Employee employee = Employee(
     uid: 'uid',

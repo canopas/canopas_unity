@@ -18,7 +18,7 @@ class Space extends Equatable {
   final int paidTimeOff;
   final String? domain;
 
-  Space({
+  const Space({
     required this.id,
     required this.name,
     required this.createdAt,

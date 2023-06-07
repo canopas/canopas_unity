@@ -35,11 +35,6 @@ class Leave extends Equatable {
       required this.perDayDuration,
       this.response});
 
-  static int _dateToJson(DateTime value) => value.millisecondsSinceEpoch;
-
-  static DateTime _dateFromJson(int value) =>
-      DateTime.fromMillisecondsSinceEpoch(value);
-
   factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     Map<String, dynamic>? data = snapshot.data();

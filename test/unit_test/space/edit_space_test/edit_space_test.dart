@@ -35,7 +35,7 @@ void main() {
       domain: "oldDomain",
       createdAt: DateTime.now(),
       paidTimeOff: 12,
-      ownerIds: ["uid"]);
+      ownerIds: const ["uid"]);
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
