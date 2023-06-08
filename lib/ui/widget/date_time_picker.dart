@@ -3,16 +3,12 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 
 Future<DateTime?> pickDate(
     {required BuildContext context,
-    required DateTime initialDate,
-    bool onlyFutureDateSelection = false}) async {
+    required DateTime initialDate}) async {
   DateTime? pickDate = await showDatePicker(
     context: context,
     initialDate: initialDate,
     firstDate: DateTime(1990),
     lastDate: DateTime(DateTime.now().futureDateSelectionYear),
-    selectableDayPredicate: (day) => onlyFutureDateSelection
-        ? day.isAfter(DateTime.now().subtract(const Duration(days: 1)))
-        : true,
   );
   return pickDate;
 }
