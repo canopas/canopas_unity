@@ -47,3 +47,7 @@ jobs:
           flutter clean
           flutter pub get
           dart analyze --fatal-infos
+
+      - name: Run unit test
+        run:
+          flutter test
