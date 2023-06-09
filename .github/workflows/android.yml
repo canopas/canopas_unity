@@ -63,5 +63,5 @@ jobs:
       - name:
         uses: { % data reusables.actions.action-upload-artifact % }
         with:
-          name: projectunity.apk
+          name: unity.apk
           path: ProjectUnity*.apk
