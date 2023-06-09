@@ -26,6 +26,7 @@ jobs:
 
       - name: Flutter analyze
         run: |
+          echo ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }} | base64 -di > lib/desktop_credentials.dart
           echo ${{ secrets.FIREBASE_OPTIONS_BASE64 }}  | base64 -di > lib/firebase_options.dart
           echo ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}  | base64 -di > android/app/google-services.json
           echo ${{ secrets.GOOGLE_SERVICES_PLIST_IOS_BASE64 }} | base64 -di > ios/Runner/GoogleService-Info.plist
