@@ -24,14 +24,6 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Decode files
-        uses: timheuer/base64-to-file@v1.0.3
-        id: write_file
-        with:
-          secret: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
-          filename: desktop_credentials.dart
-          fileDir: '/lib/'
-
       - name: Flutter analyze
         run: |
           echo ${{ secrets.FIREBASE_OPTIONS_BASE64 }}  | base64 -di > lib/firebase_options.dart
