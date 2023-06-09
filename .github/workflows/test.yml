@@ -8,8 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/checkout@v2
       - name: set up JDK 1.8
         uses: actions/setup-java@v1
         with:
@@ -21,18 +22,18 @@ jobs:
         with:
           flutter-version: 3.7.7
           channel: 'stable'
+          cache: true
 
-      #      - name: Decode files
-      #        uses: timheuer/base64-to-file@v1.0.3
-      #        with:
-      #          secret: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
-      #          filename: desktop_credentials.dart
-      #          destination-path: ~/lib
+      - name: Decode files
+        uses: timheuer/base64-to-file@v1.0.3
+        with:
+          secret: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
+          filename: desktop_credentials.dart
+          destination-path: ~/lib
 
       - name: Flutter analyze
         run: |
           echo "$FIREBASE_OPTIONS_BASE64" | base64 -di > lib/firebase_options.dart
-          echo "$DESKTOP_CREDENTIALS_BASE64" | base64 -di > lib/desktop_credentials.dart
           echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -di > android/app/google-services.json
           echo "$GOOGLE_SERVICES_PLIST_IOS_BASE64" | base64 -di > ios/Runner/GoogleService-Info.plist
           echo "$GOOGLE_SERVICES_PLIST_MACOS_BASE64" | base64 -di > macos/Runner/GoogleService-Info.plist
