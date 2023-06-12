@@ -1,11 +1,15 @@
 name: Web build
 
-on: push
+#on: push
+on: workflow_dispatch
 
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    env:
+      DEBIAN_FRONTEND: noninteractive
 
     steps:
       - name: Checkout
@@ -37,10 +41,13 @@ jobs:
           echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
           echo $WEB_INDEX_HTML_BASE64 | base64 -di > web/index.html
 
-      - name: web_deploy
+      - name: Install AWS CLI
         run: |
           apt-get update && apt-get -y install --no-install-recommends awscli
-          flutter pub get
-          flutter build web
-          aws s3 sync build/web/ s3://$AWS_S3_BUCKET_NAME
+
+      - name: Build Web App
+        run: flutter build web
+
+      - name: Deploy to AWS S3
+        run: aws s3 sync build/web/ s3://$AWS_S3_BUCKET_NAME
         

@@ -1,6 +1,7 @@
 name: IOS build
 
-on: push
+on:
+  push
 #    branches:
 #      - master
 
@@ -39,6 +40,7 @@ jobs:
 
 
       - name:
+        run: |
           cd ios
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
           chmod +x install_dist_profile.sh && ./install_dist_profile.sh
@@ -85,6 +87,7 @@ jobs:
           echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 -di > ios/Runner/GoogleService-Info.plist
 
       - name: ios_deploy
+        run: |
           cd ios
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
           chmod +x install_dist_profile.sh && ./install_dist_profile.sh
