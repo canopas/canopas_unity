@@ -72,6 +72,7 @@ jobs:
 
   android_build_aab:
     runs-on: ubuntu-latest
+    needs: android_build_apk
     steps:
 
       - name: Checkout
