@@ -1,14 +1,15 @@
 name: Android build
 
 on:
-  push
-#    branches:
-#     -  master
+  push:
+    branches:
+      - master
 
 
 jobs:
   android_build_apk:
     runs-on: ubuntu-latest
+
     steps:
 
       - name: Checkout
@@ -114,6 +115,8 @@ jobs:
 
   deploy_internal_android:
     runs-on: ubuntu-latest
+    needs: android_build_aab
+
     steps:
 
       - name: Checkout
