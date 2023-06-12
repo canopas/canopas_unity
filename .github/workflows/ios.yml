@@ -45,7 +45,7 @@ jobs:
           source ~/.zshrc
           flutter pub get
           arch -x86_64 pod install --repo-update
-          ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${CI_COMMIT_SHA}/${CI_JOB_ID}.xcarchive"
+          ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
           xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
           cd ..
           rm -rf $ARCHIVE_PATH
