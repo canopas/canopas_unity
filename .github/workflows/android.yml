@@ -56,21 +56,11 @@ jobs:
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
-          echo "buildName= ${buildNumber} $buildNumber= ${buildNumber}"   > version.txt
-      - name: Upload version.txt
+          flutter build apk --release --build-number=$buildNumber --build-name=$buildName
+          mv build/app/outputs/apk/release/ProjectUnity*.apk .
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: version
-          path: version.txt
-
-#build:
-#      - name: Build APK
-#        run: |
-#          flutter build apk --release --build-number=${{ env.BUILD_NUMBER }} --build-name=${{ env.BUILD_NAME }}
-#          mv build/app/outputs/apk/release/ProjectUnity*.apk .
-#
-#      - name: Upload APK Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: ProjectUnity APK
-#          path: ProjectUnity*.apk
+          name: ProjectUnity APK
+          path: ProjectUnity*.apk
