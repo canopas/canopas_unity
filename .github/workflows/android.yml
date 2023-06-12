@@ -56,7 +56,7 @@ jobs:
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
-          echo ${{ "buildName= $buildNumber $buildNumber= $buildNumber  }} > version.txt
+          echo "buildName= ${buildNumber} $buildNumber= ${buildNumber}   > version.txt
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
