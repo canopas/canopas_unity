@@ -6,7 +6,7 @@ on:
 #      - master
 
 jobs:
-  android_build_apk:
+  ios_build:
     runs-on: macos-latest
     steps:
 
@@ -53,6 +53,7 @@ jobs:
 
 
   deploy_testflight:
+    needs: ios_build
     runs-on: macos-latest
     steps:
 
