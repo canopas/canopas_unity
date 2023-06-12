@@ -1,7 +1,6 @@
 name: IOS build
 
-on:
-  push
+on: push
 #    branches:
 #      - master
 
