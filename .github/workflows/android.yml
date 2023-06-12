@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  build:
+  version:
     runs-on: ubuntu-latest
     steps:
 
@@ -46,7 +46,7 @@ jobs:
           echo $WEB_INDEX_HTML_BASE64 | base64 -di > web/index.html
 
 
-      - name: build
+      - name: Create version number
         run: |
           file='VERSION'
           fileData=`cat $file`
@@ -56,16 +56,21 @@ jobs:
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
-          echo " $buildName=${BUILD_NAME}" >> $GITHUB_ENV
-          echo " $buildNumber=${BUILD_NUMBER}" >> $GITHUB_ENV
-
-      - name: Build APK
-        run: |
-          flutter build apk --release --build-number=${{ env.BUILD_NUMBER }} --build-name=${{ env.BUILD_NAME }}
-          mv build/app/outputs/apk/release/ProjectUnity*.apk .
-
-      - name: Upload APK Artifact
+          echo ${{ "buildName= $buildNumber $buildNumber= $buildNumber  }} > version.txt
+      - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
-          name: ProjectUnity APK
-          path: ProjectUnity*.apk
+          name: version
+          path: version.txt
+
+#build:
+#      - name: Build APK
+#        run: |
+#          flutter build apk --release --build-number=${{ env.BUILD_NUMBER }} --build-name=${{ env.BUILD_NAME }}
+#          mv build/app/outputs/apk/release/ProjectUnity*.apk .
+#
+#      - name: Upload APK Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: ProjectUnity APK
+#          path: ProjectUnity*.apk
