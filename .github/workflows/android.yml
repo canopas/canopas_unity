@@ -56,8 +56,8 @@ jobs:
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
-          echo "::set-env name=BUILD_NUMBER::$buildNumber"
-          echo "::set-env name=BUILD_NAME::$buildName"
+          echo " $buildName=${BUILD_NAME}" >> $GITHUB_ENV
+          echo " $buildNumber=${BUILD_NUMBER}" >> $GITHUB_ENV
 
       - name: Build APK
         run: |
