@@ -51,7 +51,7 @@ jobs:
           file='VERSION'
           fileData=`cat $file`
           IFS='.'
-          read -a versionValue <<< "$fileData"
+          read -ra versionValue <<< "$fileData"
           versionNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
           IFS=''
           versionName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
