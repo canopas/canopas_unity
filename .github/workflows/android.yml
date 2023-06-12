@@ -52,16 +52,19 @@ jobs:
           file='VERSION'
           fileData=`cat $file`
           IFS='.'
-          read -a versionValue <<< "$fileData"
-          buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
+          read -ra versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
           IFS=''
-          buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
-          echo "Genrating android build $buildName $buildNumber"
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating android build $buildName $buildNumber"
+
+      - name: Build APK
+        run: |
           flutter build apk --release --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/apk/release/ProjectUnity*.apk .
 
-      - name:
-        uses: { % data reusables.actions.action-upload-artifact % }
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v2
         with:
-          name: unity.apk
+          name: ProjectUnity APK
           path: ProjectUnity*.apk
