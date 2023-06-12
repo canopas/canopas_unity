@@ -52,14 +52,14 @@ jobs:
           fileData=`cat $file`
           IFS='.'
           read -ra versionValue <<< "$fileData"
-          versionNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
           IFS=''
-          versionName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
-          echo "Generating android build $versionName $versionNumber"
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating android build $buildName $buildNumber"
 
       - name: Create Build APK
         run: |
-          flutter build apk --release --build-number=$versionNumber --build-name=$versionName
+          flutter build apk --release --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/apk/release/ProjectUnity*.apk .
 
       - name: Upload APK Artifact
