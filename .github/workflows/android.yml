@@ -52,9 +52,9 @@ jobs:
           fileData=`cat $file`
           IFS='.'
           read -a versionValue <<< "$fileData"
-          versionNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          versionNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_attempt }} ))
           IFS=''
-          versionName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          versionName="${versionValue[0]}.${versionValue[1]}.${{ github.run_attempt }}"
           echo "Generating android build $versionName $versionNumber"
 
       - name: Create Build APK
