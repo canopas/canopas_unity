@@ -1,14 +1,13 @@
-name: IOs build
+name: IOS build
 
 on:
-  push:
-    branches:
-      - master
-
+  push
+#    branches:
+#      - master
 
 jobs:
   android_build_apk:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
 
       - name: Checkout
@@ -28,76 +27,95 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Retrieve the secret and decode it to a file
+      - name: Install the Apple certificate and provisioning profile
         env:
           DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
-          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          GOOGLE_SERVICES_PLIST_IOS_BASE64: ${{ secrets.GOOGLE_SERVICES_PLIST_IOS_BASE64 }}
 
         run: |
           echo $DESKTOP_CREDENTIALS_BASE64 | base64 -di > lib/desktop_credentials.dart
           echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
-          echo $GOOGLE_SERVICES_JSON_BASE64 | base64 -di > android/app/google-services.json
+          echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 -di > ios/Runner/GoogleService-Info.plist
+
 
       - name:
+          cd ios
+          chmod +x install_dist_certs.sh && ./install_dist_certs.sh
+          chmod +x install_dist_profile.sh && ./install_dist_profile.sh
+          source ~/.zshrc
+          flutter pub get
+          arch -x86_64 pod install --repo-update
+          ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${CI_COMMIT_SHA}/${CI_JOB_ID}.xcarchive"
+          xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+          cd ..
+          rm -rf $ARCHIVE_PATH
 
 
+  deploy_testflight:
+    runs-on: macos-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17.0.6
+          cache: 'gradle'
 
 
+      - uses: subosito/flutter-action@v2
+        name: Set up Flutter SDK
+        with:
+          flutter-version: 3.7.7
+          channel: 'stable'
+          cache: true
 
+      - name: Install the Apple certificate and provisioning profile
+        env:
+          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
+          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
+          GOOGLE_SERVICES_PLIST_IOS_BASE64: ${{ secrets.GOOGLE_SERVICES_PLIST_IOS_BASE64 }}
 
+        run: |
+          echo $DESKTOP_CREDENTIALS_BASE64 | base64 -di > lib/desktop_credentials.dart
+          echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
+          echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 -di > ios/Runner/GoogleService-Info.plist
 
-ios_build:
-  stage: build
-  script:
-    - cd ios
-    - chmod +x install_dist_certs.sh && ./install_dist_certs.sh
-    - chmod +x install_dist_profile.sh && ./install_dist_profile.sh
-    - source ~/.zshrc
-    - flutter pub get
-    - arch -x86_64 pod install --repo-update
-    - ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${CI_COMMIT_SHA}/${CI_JOB_ID}.xcarchive"
-    - xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
-    - cd ..
-    - rm -rf $ARCHIVE_PATH
-  tags:
-    - ios-unity
-  except:
-    - main
+      - name: ios_deploy
+          cd ios
+          chmod +x install_dist_certs.sh && ./install_dist_certs.sh
+          chmod +x install_dist_profile.sh && ./install_dist_profile.sh
+          source ~/.zshrc
+          flutter pub get
+          arch -x86_64 pod install --repo-update
+          cd ..
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -ra versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Uploading build $buildName"
+          cd ios
+          ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
+          EXPORT_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}/"
+          xcodebuild app_version_code=${buildNumber} app_version_name=${buildName} -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+          xcodebuild -exportArchive -archivePath $ARCHIVE_PATH -exportOptionsPlist ExportOptionsAppStore.plist -exportPath $EXPORT_PATH
+          echo "Collecting artifacts.."
+          cp -R "${ARCHIVE_PATH}/dSYMs" .
+          IPA="${EXPORT_PATH}ProjectUnity.ipa"
+          echo $IPA
+          cd ..
+          echo "Uploading app to iTC..."
+          xcrun altool --upload-app -t ios -f $IPA -u ${{ secrets.ITC_USER_NAME }} -p ${{ secrets.ITC_USER_PASSWORD }}
 
-deploy_testflight:
-  stage: deploy
-  script:
-    - cd ios
-    - chmod +x install_dist_certs.sh && ./install_dist_certs.sh
-    - chmod +x install_dist_profile.sh && ./install_dist_profile.sh
-    - source ~/.zshrc
-    - flutter pub get
-    - arch -x86_64 pod install --repo-update
-    - cd ..
-    - file='VERSION'
-    - fileData=`cat $file`
-    - IFS='.'
-    - read -a versionValue <<< "$fileData"
-    - buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
-    - IFS=''
-    - buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
-    - echo "Uploading build $buildName"
-    - cd ios
-    - ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${CI_COMMIT_SHA}/${CI_JOB_ID}.xcarchive"
-    - EXPORT_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${CI_COMMIT_SHA}/${CI_JOB_ID}/"
-    - xcodebuild app_version_code=${buildNumber} app_version_name=${buildName} -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
-    - xcodebuild -exportArchive -archivePath $ARCHIVE_PATH -exportOptionsPlist ExportOptionsAppStore.plist -exportPath $EXPORT_PATH
-    - echo "Collecting artifacts.."
-    - cp -R "${ARCHIVE_PATH}/dSYMs" .
-    - IPA="${EXPORT_PATH}ProjectUnity.ipa"
-    - echo $IPA
-    - cd ..
-    - echo "Uploading app to iTC..."
-    - xcrun altool --upload-app -t ios -f $IPA -u $ITC_USER_NAME -p $ITC_USER_PASSWORD
-  retry: 2
-  artifacts:
-    paths:
-      - dSYMs
-  tags:
-    - ios-unity
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ProjectUnity ios
+          path: dSYMs
+
