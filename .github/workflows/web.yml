@@ -1,7 +1,7 @@
 name: Web build
 
-#on: push
-on: workflow_dispatch
+on: push
+#on: workflow_dispatch
 
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
 
       - name: Install AWS CLI
         run: |
-          sudo apt-get update && apt-get -y install --no-install-recommends awscli
+          sudo apt-get update && sudo apt-get -y install --no-install-recommends awscli
 
       - name: Build Web App
         run: flutter build web
