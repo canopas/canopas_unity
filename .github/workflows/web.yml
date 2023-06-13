@@ -41,9 +41,10 @@ jobs:
           echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
           echo $WEB_INDEX_HTML_BASE64 | base64 -di > web/index.html
 
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get update && sudo apt-get -y install --no-install-recommends awscli
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ap-south-1
 
       - name: Build Web App
         run: flutter build web
