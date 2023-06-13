@@ -36,6 +36,7 @@ jobs:
           WEB_INDEX_HTML_BASE64: ${{ secrets.WEB_INDEX_HTML_BASE64 }}
           AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
 
+
         run: |
           echo $DESKTOP_CREDENTIALS_BASE64 | base64 -di > lib/desktop_credentials.dart
           echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
@@ -43,10 +44,9 @@ jobs:
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
-        permissions:
-          id-token: write
-          contents: write
         with:
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-region: ap-south-1
 
       - name: Build Web App
