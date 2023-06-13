@@ -35,6 +35,7 @@ jobs:
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
           WEB_INDEX_HTML_BASE64: ${{ secrets.WEB_INDEX_HTML_BASE64 }}
           AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
 
 
         run: |
@@ -45,7 +46,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/unity-s3-access-role
+          role-to-assume: arn:aws:iam::$AWS_ACCOUNT_ID:role/unity-s3-access-role
           aws-region: ap-south-1
 
 
