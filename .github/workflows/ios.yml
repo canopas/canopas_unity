@@ -1,7 +1,7 @@
 name: IOS build
 
-on:
-  push
+on: workflow_dispatch
+#  push
 #    branches:
 #      - master
 
@@ -34,9 +34,9 @@ jobs:
           GOOGLE_SERVICES_PLIST_IOS_BASE64: ${{ secrets.GOOGLE_SERVICES_PLIST_IOS_BASE64 }}
 
         run: |
-          echo $DESKTOP_CREDENTIALS_BASE64 | base64 -di > lib/desktop_credentials.dart
-          echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
-          echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 -di > ios/Runner/GoogleService-Info.plist
+          echo -n $DESKTOP_CREDENTIALS_BASE64 | base64 --decode -o > lib/desktop_credentials.dart
+          echo -n $FIREBASE_OPTIONS_BASE64 | base64 --decode -o > lib/firebase_options.dart
+          echo -n $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode -o > ios/Runner/GoogleService-Info.plist
 
 
       - name:
