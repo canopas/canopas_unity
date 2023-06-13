@@ -49,5 +49,5 @@ jobs:
         run: flutter build web
 
       - name: Deploy to AWS S3
-        run: aws s3 sync build/web/ s3://$AWS_S3_BUCKET_NAME
+        run: aws s3 sync ./build/web/ s3://$AWS_S3_BUCKET_NAME
         
