@@ -36,14 +36,15 @@ jobs:
           echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
           echo $WEB_INDEX_HTML_BASE64 | base64 -di > web/index.html
 
-      - name: Build Web App
-        run: flutter build web
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/unity-s3-access-role
           aws-region: ap-south-1
+
+      - name: Build Web App
+        run: flutter build web
 
       - name: Deploy to AWS S3
         run: aws s3 sync build/web/ s3://${{ secrets.AWS_S3_BUCKET_NAME }}
