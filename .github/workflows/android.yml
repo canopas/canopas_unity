@@ -153,8 +153,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1.2'
-      - name: Install Fastlane
-        run: cd android && bundle install && cd ..
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'beta'
 
       - name: Create version number
         run: |
