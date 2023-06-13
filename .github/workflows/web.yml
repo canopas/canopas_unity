@@ -1,7 +1,9 @@
 name: Web build
 
-on: push
-#on: workflow_dispatch
+on:
+  push:
+    branches:
+      - master
 
 
 jobs:
