@@ -162,7 +162,7 @@ jobs:
           echo "Generating android build $buildName $buildNumber"
           cd android
           sudo apt-get -qq update
-          apt-get install -qqy --no-install-recommends build-essential ruby-full
+          sudo apt-get install -qqy --no-install-recommends build-essential ruby-full
           gem install bundler fastlane
           echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks

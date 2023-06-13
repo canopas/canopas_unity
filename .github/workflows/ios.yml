@@ -1,7 +1,8 @@
 name: IOS build
 
-on: workflow_dispatch
-#  push
+#on: workflow_dispatch
+on:
+  push
 #    branches:
 #      - master
 
@@ -27,19 +28,12 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Install the Apple certificate and provisioning profile
+      - name: Retrieve the secret and decode it to a file
         env:
           DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
           GOOGLE_SERVICES_PLIST_IOS_BASE64: ${{ secrets.GOOGLE_SERVICES_PLIST_IOS_BASE64 }}
 
-        run: |
-          echo -n $DESKTOP_CREDENTIALS_BASE64 | base64 --decode -o > lib/desktop_credentials.dart
-          echo -n $FIREBASE_OPTIONS_BASE64 | base64 --decode -o > lib/firebase_options.dart
-          echo -n $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode -o > ios/Runner/GoogleService-Info.plist
-
-
-      - name:
         run: |
           cd ios
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
@@ -51,7 +45,30 @@ jobs:
           xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
           cd ..
           rm -rf $ARCHIVE_PATH
-
+          
+          #        run: |
+          #          echo -n $DESKTOP_CREDENTIALS_BASE64 | base64 --decode -o > lib/desktop_credentials.dart
+          #          echo -n $FIREBASE_OPTIONS_BASE64 | base64 --decode -o > lib/firebase_options.dart
+          #          echo -n $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode -o > ios/Runner/GoogleService-Info.plist
+          
+          #      - name: Install the Apple certificate and provisioning profile
+          #        env:
+          #          APPLE_DISTRIBUTION_CERT_N_KEY: ${{ secrets.APPLE_DISTRIBUTION_CERT_N_KEY  }}
+          #          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD  }}
+          #          DIST_PROVISION: ${{ secrets.DIST_PROVISION  }}
+          #          DIST_PROVISION_UUID: ${{ secrets.DIST_PROVISION_UUID  }}
+          #        run: |
+          #          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          #          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          #          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          #
+          #          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          #          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+  
+  
+  
+  
+  
 
   deploy_testflight:
     needs: ios_build
