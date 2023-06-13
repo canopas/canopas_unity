@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
-import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
+import 'user_home_event.dart';
+import 'user_home_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
-import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/leave_service.dart';
 
@@ -16,23 +15,31 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
 
   UserHomeBloc(this._userManager, this._leaveService)
       : super(UserHomeInitialState()) {
-    on<UserHomeFetchLeaveRequest>(_fetchLeaveRequest);
-    _leaveRequestStreamSubscription =
-        eventBus.on<UpdateLeavesEvent>().listen((event) {
-      add(UserHomeFetchLeaveRequest());
+    on<ShowLoading>(_showLoading);
+    on<ShowError>(_showError);
+    on<UpdateLeaveRequest>(_updateLeaveRequest);
+    add(ShowLoading());
+    _leaveRequestStreamSubscription = _leaveService
+        .getRequestedLeaveSnapshot(_userManager.employeeId)
+        .listen((request) {
+      add(UpdateLeaveRequest(request));
+    }, onError: (error, _) {
+      add(ShowError(firestoreFetchDataError));
     });
   }
 
-  Future<void> _fetchLeaveRequest(
-      UserHomeFetchLeaveRequest event, Emitter<UserHomeState> emit) async {
+  void _updateLeaveRequest(
+      UpdateLeaveRequest event, Emitter<UserHomeState> emit) {
+    emit(UserHomeSuccessState(requests: event.requests));
+  }
+
+  void _showError(ShowError event, Emitter<UserHomeState> emit) {
+    emit(UserHomeErrorState(error: event.error));
+  }
+
+  void _showLoading(
+      ShowLoading event, Emitter<UserHomeState> emit) {
     emit(UserHomeLoadingState());
-    try {
-      final requests =
-          await _leaveService.getRequestedLeave(_userManager.employeeId);
-      emit(UserHomeSuccessState(requests: requests));
-    } on Exception {
-      emit(UserHomeErrorState(error: firestoreFetchDataError));
-    }
   }
 
   @override

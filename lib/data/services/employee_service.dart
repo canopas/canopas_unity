@@ -13,6 +13,11 @@ class EmployeeService {
 
   EmployeeService(this._userManager, this.fireStore);
 
+  Stream<List<Employee>> memberDBSnapshot() =>
+      _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+          .snapshots()
+          .map((e) => e.docs.map((e) => e.data()).toList());
+
   CollectionReference<Employee> _membersDbCollection(
           {required String spaceId}) =>
       fireStore
@@ -36,7 +41,8 @@ class EmployeeService {
   }
 
   Future<List<Employee>> getEmployees() async {
-    final data = await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
+    final data =
+        await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 

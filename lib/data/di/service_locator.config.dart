@@ -71,23 +71,23 @@ import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.da
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
     as _i26;
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
-    as _i31;
+    as _i30;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
     as _i13;
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
-    as _i33;
+    as _i32;
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart'
     as _i44;
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart'
-    as _i35;
-import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
     as _i34;
+import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
+    as _i33;
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
-    as _i32;
+    as _i31;
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart'
     as _i29;
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_bloc.dart'
-    as _i30;
+    as _i35;
 import 'package:shared_preferences/shared_preferences.dart' as _i15;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -175,29 +175,29 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i24.EmployeeService>(),
           gh<_i27.LeaveService>(),
         ));
-    gh.factory<_i30.UserEmployeesBloc>(
-        () => _i30.UserEmployeesBloc(gh<_i24.EmployeeService>()));
-    gh.factory<_i31.UserHomeBloc>(() => _i31.UserHomeBloc(
+    gh.factory<_i30.UserHomeBloc>(() => _i30.UserHomeBloc(
           gh<_i19.UserStateNotifier>(),
           gh<_i27.LeaveService>(),
         ));
-    gh.factory<_i32.UserLeaveBloc>(() => _i32.UserLeaveBloc(
+    gh.factory<_i31.UserLeaveBloc>(() => _i31.UserLeaveBloc(
           gh<_i19.UserStateNotifier>(),
           gh<_i27.LeaveService>(),
         ));
-    gh.factory<_i33.UserLeaveCalendarBloc>(() => _i33.UserLeaveCalendarBloc(
+    gh.factory<_i32.UserLeaveCalendarBloc>(() => _i32.UserLeaveCalendarBloc(
           gh<_i27.LeaveService>(),
           gh<_i24.EmployeeService>(),
           gh<_i19.UserStateNotifier>(),
           gh<_i16.SpaceService>(),
         ));
-    gh.factory<_i34.UserLeaveCountBloc>(() => _i34.UserLeaveCountBloc(
+    gh.factory<_i33.UserLeaveCountBloc>(() => _i33.UserLeaveCountBloc(
           gh<_i27.LeaveService>(),
           gh<_i19.UserStateNotifier>(),
           gh<_i16.SpaceService>(),
         ));
-    gh.factory<_i35.UserLeaveDetailBloc>(
-        () => _i35.UserLeaveDetailBloc(gh<_i27.LeaveService>()));
+    gh.factory<_i34.UserLeaveDetailBloc>(
+        () => _i34.UserLeaveDetailBloc(gh<_i27.LeaveService>()));
+    gh.factory<_i35.UserMembersBloc>(
+        () => _i35.UserMembersBloc(gh<_i24.EmployeeService>()));
     gh.factory<_i36.UserStateControllerBloc>(() => _i36.UserStateControllerBloc(
           gh<_i24.EmployeeService>(),
           gh<_i19.UserStateNotifier>(),

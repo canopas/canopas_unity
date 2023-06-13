@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
@@ -9,12 +8,11 @@ import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart';
-import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 
 import 'user_home_test.mocks.dart';
 
-@GenerateMocks([UserStateNotifier, AuthService, LeaveService])
+@GenerateMocks([UserStateNotifier, LeaveService])
 void main() {
   late UserHomeBloc bLoc;
   late UserStateNotifier userStateNotifier;
@@ -44,11 +42,9 @@ void main() {
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
-    authService = MockAuthService();
     leaveService = MockLeaveService();
     bLoc = UserHomeBloc(userStateNotifier, leaveService);
 
-    when(authService.signOutWithGoogle()).thenAnswer((_) async => true);
     when(userStateNotifier.employeeId).thenReturn(employee.uid);
   });
 
@@ -57,32 +53,6 @@ void main() {
       expect((bLoc.state), UserHomeInitialState());
     });
 
-    test(
-        'Emits loading state and then success state with requests if user has applied for any request',
-        () {
-      when(leaveService.getRequestedLeave(employee.uid))
-          .thenAnswer((_) async => [leave]);
 
-      expectLater(
-          bLoc.stream,
-          emitsInOrder([
-            UserHomeLoadingState(),
-            UserHomeSuccessState(requests: [leave])
-          ]));
-      bLoc.add(UserHomeFetchLeaveRequest());
-    });
-
-    test('Emits loading state and then error state if exception is thrown', () {
-      when(leaveService.getRequestedLeave(employee.uid))
-          .thenThrow(Exception(firestoreFetchDataError));
-
-      expectLater(
-          bLoc.stream,
-          emitsInOrder([
-            UserHomeLoadingState(),
-            UserHomeErrorState(error: firestoreFetchDataError)
-          ]));
-      bLoc.add(UserHomeFetchLeaveRequest());
-    });
   });
 }

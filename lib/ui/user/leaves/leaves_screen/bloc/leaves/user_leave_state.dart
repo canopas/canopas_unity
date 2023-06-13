@@ -11,7 +11,7 @@ class UserLeaveState extends Equatable {
   UserLeaveState(
       {int? selectedYear,
       this.leaves = const [],
-      this.status = Status.initial,
+      this.status = Status.loading,
       this.error})
       : selectedYear = selectedYear ?? DateTime.now().year;
 

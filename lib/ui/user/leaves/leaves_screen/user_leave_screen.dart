@@ -12,7 +12,6 @@ import '../../../../data/configs/colors.dart';
 import 'bloc/leave_count/user_leave_count_bloc.dart';
 import 'bloc/leave_count/user_leave_cout_event.dart';
 import 'bloc/leaves/user_leave_bloc.dart';
-import 'bloc/leaves/user_leave_event.dart';
 
 class UserLeavePage extends StatelessWidget {
   const UserLeavePage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class UserLeavePage extends StatelessWidget {
           create: (_) =>
               getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
       BlocProvider(
-          create: (_) => getIt<UserLeaveBloc>()..add(FetchUserLeaveEvent()))
+          create: (_) => getIt<UserLeaveBloc>())
     ], child: const UserLeaveScreen());
   }
 }

@@ -15,6 +15,15 @@ class LeaveService {
 
   LeaveService(this._userManager, this.fireStore);
 
+  Stream<List<Leave>> leaveDBSnapshot() => _leaveDb()
+      .snapshots()
+      .map((event) => event.docs.map((leaveDoc) => leaveDoc.data()).toList());
+
+  Stream<List<Leave>> leaveDBSnapshotOfUser(String uid) => _leaveDb()
+      .where(FireStoreConst.uid, isEqualTo: uid)
+      .snapshots()
+      .map((event) => event.docs.map((leaveDoc) => leaveDoc.data()).toList());
+
   CollectionReference<Leave> _leaveDb() {
     return fireStore
         .collection(FireStoreConst.spaces)
@@ -160,6 +169,13 @@ class LeaveService {
     return data.docs.map((doc) => doc.data()).toList();
   }
 
+  Stream<List<Leave>> getRequestedLeaveSnapshot(String id) =>
+      _leaveDb()
+          .where(FireStoreConst.uid, isEqualTo: id)
+          .where(FireStoreConst.leaveStatus,
+          isEqualTo: LeaveStatus.pending.value)
+          .snapshots().map((event) => event.docs.map((leaveDoc) => leaveDoc.data()).toList());
+
   Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
     final data =
         await _leaveDb().where(FireStoreConst.uid, isEqualTo: employeeId).get();
@@ -199,7 +215,7 @@ class LeaveService {
   }
 
   Future<void> deleteAllLeavesOfUser(String id) async {
-    _leaveDb()
+    await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .get()
         .then((snapshot) async {

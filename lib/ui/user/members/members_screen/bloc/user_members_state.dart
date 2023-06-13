@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 import '../../../../../data/model/employee/employee.dart';
 
-abstract class UserEmployeesState extends Equatable {}
+abstract class UserMembersState extends Equatable {}
 
-class UserEmployeesInitialState extends UserEmployeesState {
+class UserMembersInitialState extends UserMembersState {
   @override
   List<Object?> get props => [];
 }
 
-class UserEmployeesLoadingState extends UserEmployeesState {
+class UserMembersLoadingState extends UserMembersState {
   @override
   List<Object?> get props => [];
 }
 
-class UserEmployeesSuccessState extends UserEmployeesState {
+class UserMembersSuccessState extends UserMembersState {
   final List<Employee> employees;
 
-  UserEmployeesSuccessState({required this.employees});
+  UserMembersSuccessState({required this.employees});
 
   @override
   List<Object?> get props => [employees];
 }
 
-class UserEmployeesFailureState extends UserEmployeesState {
+class UserMembersFailureState extends UserMembersState {
   final String error;
 
-  UserEmployeesFailureState({required this.error});
+  UserMembersFailureState({required this.error});
 
   @override
   List<Object?> get props => [error];

@@ -1,8 +1,26 @@
 import 'package:equatable/equatable.dart';
 
-abstract class UserEmployeesEvent extends Equatable {}
+import '../../../../../data/model/employee/employee.dart';
 
-class FetchEmployeesEvent extends UserEmployeesEvent {
+abstract class UserMembersEvent extends Equatable {}
+
+class UserMemberSuccessEvent extends UserMembersEvent {
+  final List<Employee> members;
+
+  UserMemberSuccessEvent(this.members);
+
+  @override
+  List<Object?> get props => [members];
+}
+
+class UserMemberFailureEvent extends UserMembersEvent {
+  final String error;
+  UserMemberFailureEvent(this.error);
+  @override
+  List<Object?> get props => [error];
+}
+
+class UserMemberLoadingEvent extends UserMembersEvent {
   @override
   List<Object?> get props => [];
 }

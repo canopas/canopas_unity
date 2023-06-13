@@ -1,11 +1,16 @@
-import 'package:equatable/equatable.dart';
+import '../../../../../data/model/leave/leave.dart';
 
-abstract class UserHomeEvent extends Equatable {}
+abstract class UserHomeEvent {}
 
+class UpdateLeaveRequest extends UserHomeEvent {
+  final List<Leave> requests;
 
-class UserHomeFetchLeaveRequest extends UserHomeEvent {
-  UserHomeFetchLeaveRequest();
-
-  @override
-  List<Object?> get props => [];
+  UpdateLeaveRequest(this.requests);
 }
+
+class ShowError extends UserHomeEvent {
+  final String error;
+  ShowError(this.error);
+}
+
+class ShowLoading extends UserHomeEvent {}

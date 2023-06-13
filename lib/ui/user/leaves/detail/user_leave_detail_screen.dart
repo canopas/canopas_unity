@@ -62,11 +62,11 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
           listener: (context, state) {
             if (state is UserLeaveDetailErrorState) {
               showSnackBar(context: context, error: state.error);
+              context.pop();
             }
             if (state is UserCancelLeaveSuccessState) {
               showSnackBar(
-                  context: context,
-                  msg: localization.cancel_leave_message);
+                  context: context, msg: localization.cancel_leave_message);
               context.pop();
             }
           },
