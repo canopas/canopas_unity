@@ -184,6 +184,14 @@ class MockEmployeeService extends _i1.Mock implements _i10.EmployeeService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
+  _i8.Stream<List<_i5.Employee>> memberDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #memberDBSnapshot,
+          [],
+        ),
+        returnValue: _i8.Stream<List<_i5.Employee>>.empty(),
+      ) as _i8.Stream<List<_i5.Employee>>);
+  @override
   _i8.Future<void> addEmployeeBySpaceId({
     required _i5.Employee? employee,
     required String? spaceId,
@@ -311,6 +319,23 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i8.Stream<List<_i12.Leave>> leaveDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshot,
+          [],
+        ),
+        returnValue: _i8.Stream<List<_i12.Leave>>.empty(),
+      ) as _i8.Stream<List<_i12.Leave>>);
+  @override
+  _i8.Stream<List<_i12.Leave>> leaveDBSnapshotOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshotOfUser,
+          [uid],
+        ),
+        returnValue: _i8.Stream<List<_i12.Leave>>.empty(),
+      ) as _i8.Stream<List<_i12.Leave>>);
   @override
   _i8.Future<List<_i12.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
@@ -441,6 +466,15 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
         ),
         returnValue: _i8.Future<List<_i12.Leave>>.value(<_i12.Leave>[]),
       ) as _i8.Future<List<_i12.Leave>>);
+  @override
+  _i8.Stream<List<_i12.Leave>> getRequestedLeaveSnapshot(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRequestedLeaveSnapshot,
+          [id],
+        ),
+        returnValue: _i8.Stream<List<_i12.Leave>>.empty(),
+      ) as _i8.Stream<List<_i12.Leave>>);
   @override
   _i8.Future<List<_i12.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(

@@ -57,6 +57,23 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValueForMissingStub: null,
       );
   @override
+  _i4.Stream<List<_i5.Leave>> leaveDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshot,
+          [],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> leaveDBSnapshotOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshotOfUser,
+          [uid],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
   _i4.Future<List<_i5.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
           #getLeaveRequestOfUsers,
@@ -186,6 +203,15 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         ),
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> getRequestedLeaveSnapshot(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRequestedLeaveSnapshot,
+          [id],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
   @override
   _i4.Future<List<_i5.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(

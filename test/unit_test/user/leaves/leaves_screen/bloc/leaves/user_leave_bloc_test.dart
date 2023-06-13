@@ -84,7 +84,6 @@ void main() {
     test(
         'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
         () {
-          userLeaveBloc.add(FetchUserLeaveEvent());
       when(userStateNotifier.employeeId).thenReturn(employeeId);
       when(leaveService.getAllLeavesOfUser(employeeId)).thenAnswer(
           (_) async => [pastLeave, upcomingLeave, specificYearLeave]);

@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
@@ -16,7 +16,6 @@ import 'user_home_test.mocks.dart';
 void main() {
   late UserHomeBloc bLoc;
   late UserStateNotifier userStateNotifier;
-  late AuthService authService;
   late LeaveService leaveService;
 
   const employee = Employee(
@@ -38,21 +37,48 @@ void main() {
       reason: 'Suffering from fever',
       status: LeaveStatus.pending,
       appliedOn: 12,
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
+      perDayDuration: const [
+        LeaveDayDuration.firstHalfLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
     leaveService = MockLeaveService();
-    bLoc = UserHomeBloc(userStateNotifier, leaveService);
-
     when(userStateNotifier.employeeId).thenReturn(employee.uid);
   });
 
   group('User home bloc state for requests', () {
-    test('Emits initial state as state of bloc', () {
-      expect((bLoc.state), UserHomeInitialState());
+    test('listen realtime update in init state', () async {
+      when(leaveService.getRequestedLeaveSnapshot(employee.uid))
+          .thenAnswer((realInvocation) => Stream.value([leave]));
+      bLoc = UserHomeBloc(userStateNotifier, leaveService);
+      expect(bLoc.state, UserHomeInitialState());
+      expectLater(
+          bLoc.stream,
+          emitsInOrder([
+            UserHomeLoadingState(),
+            UserHomeSuccessState(requests: [leave])
+          ]));
+
+      await untilCalled(leaveService.getRequestedLeaveSnapshot(employee.uid));
+      verify(leaveService.getRequestedLeaveSnapshot(employee.uid)).called(1);
     });
 
+    test('emit failure state with error on error', () async {
+      when(leaveService.getRequestedLeaveSnapshot(employee.uid))
+          .thenAnswer((realInvocation) => Stream.error("error"));
+      bLoc = UserHomeBloc(userStateNotifier, leaveService);
+      expect(bLoc.state, UserHomeInitialState());
+      expectLater(
+          bLoc.stream,
+          emitsInOrder([
+            UserHomeLoadingState(),
+            UserHomeErrorState(error: firestoreFetchDataError)
+          ]));
 
+      await untilCalled(leaveService.getRequestedLeaveSnapshot(employee.uid));
+      verify(leaveService.getRequestedLeaveSnapshot(employee.uid)).called(1);
+    });
   });
 }

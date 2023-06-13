@@ -11,7 +11,7 @@ import '../../../../../data/services/leave_service.dart';
 class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
   final UserStateNotifier _userManager;
   final LeaveService _leaveService;
-  StreamSubscription? _leaveRequestStreamSubscription;
+  late StreamSubscription _leaveRequestStreamSubscription;
 
   UserHomeBloc(this._userManager, this._leaveService)
       : super(UserHomeInitialState()) {
@@ -37,14 +37,13 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
     emit(UserHomeErrorState(error: event.error));
   }
 
-  void _showLoading(
-      ShowLoading event, Emitter<UserHomeState> emit) {
+  void _showLoading(ShowLoading event, Emitter<UserHomeState> emit) {
     emit(UserHomeLoadingState());
   }
 
   @override
   Future<void> close() async {
-    await _leaveRequestStreamSubscription?.cancel();
+    await _leaveRequestStreamSubscription.cancel();
     return super.close();
   }
 }

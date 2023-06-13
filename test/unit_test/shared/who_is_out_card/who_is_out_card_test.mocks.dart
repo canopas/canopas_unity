@@ -59,6 +59,23 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValueForMissingStub: null,
       );
   @override
+  _i4.Stream<List<_i5.Leave>> leaveDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshot,
+          [],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> leaveDBSnapshotOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshotOfUser,
+          [uid],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
   _i4.Future<List<_i5.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
           #getLeaveRequestOfUsers,
@@ -189,6 +206,15 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
       ) as _i4.Future<List<_i5.Leave>>);
   @override
+  _i4.Stream<List<_i5.Leave>> getRequestedLeaveSnapshot(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRequestedLeaveSnapshot,
+          [id],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
   _i4.Future<List<_i5.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -249,6 +275,14 @@ class MockEmployeeService extends _i1.Mock implements _i6.EmployeeService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
+  @override
+  _i4.Stream<List<_i7.Employee>> memberDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #memberDBSnapshot,
+          [],
+        ),
+        returnValue: _i4.Stream<List<_i7.Employee>>.empty(),
+      ) as _i4.Stream<List<_i7.Employee>>);
   @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i7.Employee? employee,

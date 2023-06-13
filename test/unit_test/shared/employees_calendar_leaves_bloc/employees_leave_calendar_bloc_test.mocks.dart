@@ -51,6 +51,14 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
+  _i4.Stream<List<_i5.Employee>> memberDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #memberDBSnapshot,
+          [],
+        ),
+        returnValue: _i4.Stream<List<_i5.Employee>>.empty(),
+      ) as _i4.Stream<List<_i5.Employee>>);
+  @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i5.Employee? employee,
     required String? spaceId,
@@ -178,6 +186,23 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i4.Stream<List<_i7.Leave>> leaveDBSnapshot() => (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshot,
+          [],
+        ),
+        returnValue: _i4.Stream<List<_i7.Leave>>.empty(),
+      ) as _i4.Stream<List<_i7.Leave>>);
+  @override
+  _i4.Stream<List<_i7.Leave>> leaveDBSnapshotOfUser(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveDBSnapshotOfUser,
+          [uid],
+        ),
+        returnValue: _i4.Stream<List<_i7.Leave>>.empty(),
+      ) as _i4.Stream<List<_i7.Leave>>);
   @override
   _i4.Future<List<_i7.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
@@ -308,6 +333,15 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
         ),
         returnValue: _i4.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
       ) as _i4.Future<List<_i7.Leave>>);
+  @override
+  _i4.Stream<List<_i7.Leave>> getRequestedLeaveSnapshot(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRequestedLeaveSnapshot,
+          [id],
+        ),
+        returnValue: _i4.Stream<List<_i7.Leave>>.empty(),
+      ) as _i4.Stream<List<_i7.Leave>>);
   @override
   _i4.Future<List<_i7.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(
