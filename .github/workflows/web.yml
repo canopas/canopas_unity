@@ -43,6 +43,9 @@ jobs:
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
+        permissions:
+          id-token: write
+          contents: write
         with:
           aws-region: ap-south-1
 
