@@ -172,10 +172,9 @@ jobs:
           cd android
           gem install bundler
           bundle install
-          bundle update fastlane
-          echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
+          echo ${{ secrets.APKSIGN_KEYSTORE_BASE64 }} | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks
-          echo $APP_PLAY_SERVICE_JSON > ~/google_play_api_key.json
+          echo ${{ secrets.APP_PLAY_SERVICE_JSON }} > ~/google_play_api_key.json
           bundle exec fastlane supply init --track internal
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
 
