@@ -18,115 +18,132 @@ void main() {
   late LeaveService leaveService;
   late UserStateNotifier userStateNotifier;
   late UserLeaveBloc userLeaveBloc;
-  const String employeeId = 'CA 1044';
+
   DateTime today = DateTime.now();
 
   Leave upcomingLeave = Leave(
-      leaveId: 'Leave Id',
-      uid: "user id",
+      leaveId: 'leave-id-1',
+      uid: "user-id",
       type: 1,
       startDate: today.add(const Duration(days: 1)).timeStampToInt,
       endDate: today.add(const Duration(days: 2)).timeStampToInt,
       total: 2,
-      reason: 'Suffering from viral fever',
+      reason: 'reason',
       status: LeaveStatus.approved,
       appliedOn: today.timeStampToInt,
       perDayDuration: const [
-        LeaveDayDuration.firstHalfLeave,
-        LeaveDayDuration.firstHalfLeave
+        LeaveDayDuration.fullLeave,
+        LeaveDayDuration.fullLeave
       ]);
 
   Leave pastLeave = Leave(
-      leaveId: 'Leave-Id',
-      uid: "user id",
+      leaveId: 'Leave-id-2',
+      uid: "user-id",
       type: 1,
       startDate: today.subtract(const Duration(days: 2)).timeStampToInt,
       endDate: today.subtract(const Duration(days: 1)).timeStampToInt,
       total: 1,
-      reason: 'Suffering from viral fever',
+      reason: 'reason',
       status: LeaveStatus.approved,
       appliedOn: today.timeStampToInt,
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+      perDayDuration: const [LeaveDayDuration.fullLeave]);
 
   Leave specificYearLeave = Leave(
-      leaveId: 'Leave-Id',
-      uid: "user id",
+      leaveId: 'leave-id-3',
+      uid: "user-id",
       type: 1,
       startDate: DateTime(2022).timeStampToInt,
       endDate: DateTime(2022).timeStampToInt,
       total: 1,
-      reason: 'Suffering from viral fever',
+      reason: 'reason',
       status: LeaveStatus.approved,
       appliedOn: today.timeStampToInt,
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+      perDayDuration: const [LeaveDayDuration.fullLeave]);
 
   setUp(() {
     leaveService = MockLeaveService();
     userStateNotifier = MockUserStateNotifier();
-    userLeaveBloc = UserLeaveBloc(userStateNotifier, leaveService);
+    when(userStateNotifier.employeeId).thenReturn('user-id');
   });
 
   tearDown(() async {
     await userLeaveBloc.close();
   });
 
-  group('UserLeaveBloc stream test', () {
-    test('Emits loading state as initial state of UserLeavesBloc', () {
+  group('User leave test', () {
+    test('User leave test listen real-time data and emit success state test',
+        () async {
+      when(leaveService.leaveDBSnapshotOfUser('user-id')).thenAnswer(
+          (realInvocation) =>
+              Stream.value([upcomingLeave, pastLeave, specificYearLeave]));
+      userLeaveBloc = UserLeaveBloc(userStateNotifier, leaveService);
       expect(
-          userLeaveBloc.state,
-          UserLeaveState(
-              selectedYear: DateTime.now().year,
-              leaves: const [],
-              error: null,
-              status: Status.initial));
-    });
-
-    test(
-        'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
-        () {
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveService.getAllLeavesOfUser(employeeId)).thenAnswer(
-          (_) async => [pastLeave, upcomingLeave, specificYearLeave]);
+        userLeaveBloc.state,
+        UserLeaveState(
+            selectedYear: DateTime.now().year, status: Status.loading),
+      );
       expectLater(
-          userLeaveBloc.stream,
-          emitsInOrder([
-            UserLeaveState(status: Status.loading),
-            UserLeaveState(
-                status: Status.success, leaves: [upcomingLeave, pastLeave]),
-          ]));
+        userLeaveBloc.stream,
+        emits(UserLeaveState(
+            selectedYear: DateTime.now().year,
+            status: Status.success,
+            leaves: [upcomingLeave, pastLeave])),
+      );
+      await untilCalled(leaveService.leaveDBSnapshotOfUser('user-id'));
+      verify(leaveService.leaveDBSnapshotOfUser('user-id')).called(1);
     });
 
-    test('Emits error state when Exception is thrown', () {
-      userLeaveBloc.add(FetchUserLeaveEvent());
+    test('User leave test listen real-time data and emit error test', () async {
+      when(leaveService.leaveDBSnapshotOfUser('user-id')).thenAnswer(
+          (realInvocation) => Stream.error(firestoreFetchDataError));
 
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveService.getAllLeavesOfUser(employeeId))
-          .thenThrow(Exception('error'));
+      userLeaveBloc = UserLeaveBloc(userStateNotifier, leaveService);
+
+      expect(
+        userLeaveBloc.state,
+        UserLeaveState(
+            selectedYear: DateTime.now().year, status: Status.loading),
+      );
       expectLater(
-          userLeaveBloc.stream,
-          emitsInOrder([
-            UserLeaveState(status: Status.loading),
-            UserLeaveState(error: firestoreFetchDataError, status: Status.error)
-          ]));
-    });
-  });
+        userLeaveBloc.stream,
+        emits(UserLeaveState(
+            selectedYear: DateTime.now().year,
+            status: Status.error,
+            error: firestoreFetchDataError)),
+      );
 
-  test('change year and show year wise leave test', () {
-    userLeaveBloc.add(FetchUserLeaveEvent());
-    when(userStateNotifier.employeeId).thenReturn(employeeId);
-    when(leaveService.getAllLeavesOfUser(employeeId))
-        .thenAnswer((_) async => [pastLeave, upcomingLeave, specificYearLeave]);
-    userLeaveBloc.add(ChangeYearEvent(year: 2022));
-    expectLater(
+      await untilCalled(leaveService.leaveDBSnapshotOfUser('user-id'));
+      verify(leaveService.leaveDBSnapshotOfUser('user-id')).called(1);
+    });
+
+    test('change year and show year wise leave test', () async {
+      when(leaveService.leaveDBSnapshotOfUser('user-id')).thenAnswer(
+          (realInvocation) =>
+              Stream.value([upcomingLeave, pastLeave, specificYearLeave]));
+      userLeaveBloc = UserLeaveBloc(userStateNotifier, leaveService);
+      expect(
+        userLeaveBloc.state,
+        UserLeaveState(
+            selectedYear: DateTime.now().year, status: Status.loading),
+      );
+
+      await untilCalled(leaveService.leaveDBSnapshotOfUser('user-id'));
+      verify(leaveService.leaveDBSnapshotOfUser('user-id')).called(1);
+
+      userLeaveBloc.add(ChangeYearEvent(year: 2022));
+      expectLater(
         userLeaveBloc.stream,
         emitsInOrder([
-          UserLeaveState(status: Status.loading),
           UserLeaveState(
-              status: Status.success, leaves: [upcomingLeave, pastLeave]),
+              selectedYear: DateTime.now().year,
+              status: Status.success,
+              leaves: [upcomingLeave, pastLeave]),
           UserLeaveState(
               status: Status.success,
               leaves: [specificYearLeave],
               selectedYear: 2022),
-        ]));
+        ]),
+      );
+    });
   });
 }

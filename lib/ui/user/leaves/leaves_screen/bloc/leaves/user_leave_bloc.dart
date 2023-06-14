@@ -20,7 +20,6 @@ class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
 
   UserLeaveBloc(this._userManager, this._leaveService)
       : super(UserLeaveState()) {
-    on<UserLeavesShowLoadingEvent>(_showLoading);
     on<UserLeavesShowLeavesChangesEvent>(_showLeavesChanges);
     on<UserLeavesShowErrorEvent>(_showError);
     on<ChangeYearEvent>(_showLeaveByYear);
@@ -41,10 +40,6 @@ class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
         leaves: _getSelectedYearLeaveWithSortByDate(state.selectedYear)));
   }
 
-  void _showLoading(
-      UserLeavesShowLoadingEvent event, Emitter<UserLeaveState> emit) {
-    emit(state.copyWith(status: Status.loading));
-  }
 
   void _showError(
       UserLeavesShowErrorEvent event, Emitter<UserLeaveState> emit) {
