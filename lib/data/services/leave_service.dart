@@ -32,26 +32,25 @@ class LeaveService {
     return requests.docs.map((leave) => leave.data()).toList();
   }
 
-  Future<bool> checkLeaveAlreadyApplied(
-      {required String userId,
-      required Map<DateTime, LeaveDayDuration> dateDuration}) async {
+  Future<bool> checkLeaveAlreadyApplied({
+    required String userId,
+    required Map<DateTime, LeaveDayDuration> dateDuration,
+  }) async {
     final leaves =
         await _leaveDb().where(FireStoreConst.uid, isEqualTo: userId).get();
+
     return leaves.docs
         .map((doc) => doc.data())
         .where((leave) =>
-            leave.startDate.isAfterOrSame(dateDuration.keys.first) &&
-            leave.endDate.isBeforeOrSame(dateDuration.keys.last) &&
             leave.status != LeaveStatus.rejected &&
             leave.status != LeaveStatus.cancelled)
-        .where((leave) => leave
-            .getDateAndDuration()
-            .entries
-            .map((leaveDay) => dateDuration.entries
-                .map((selectedDay) => leaveDay == selectedDay)
-                .isNotEmpty)
-            .isNotEmpty)
-        .isNotEmpty;
+        .where((leave) {
+      final leaveDuration = leave.getDateAndDuration();
+      return leaveDuration.entries.any((existLeaveDay) => dateDuration.entries
+          .any((applyLeaveDay) =>
+              applyLeaveDay.key.isAtSameMomentAs(existLeaveDay.key) &&
+              applyLeaveDay.value == existLeaveDay.value));
+    }).isNotEmpty;
   }
 
   Future<List<Leave>> getRecentLeaves() async {

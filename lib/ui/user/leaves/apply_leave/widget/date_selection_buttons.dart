@@ -26,9 +26,7 @@ class LeaveRequestDateSelection extends StatelessWidget {
                   .user_leaves_apply_leave_start_tag,
               onPress: () async {
                 DateTime? date = await pickDate(
-                    context: context,
-                    initialDate: state.startDate,
-                    onlyFutureDateSelection: true);
+                    context: context, initialDate: state.startDate);
                 bloc.add(ApplyLeaveStartDateChangeEvents(startDate: date));
               },
               date: state.startDate,
@@ -42,9 +40,7 @@ class LeaveRequestDateSelection extends StatelessWidget {
                   AppLocalizations.of(context).user_leaves_apply_leave_end_tag,
               onPress: () async {
                 DateTime? date = await pickDate(
-                    context: context,
-                    initialDate: state.endDate,
-                    onlyFutureDateSelection: true);
+                    context: context, initialDate: state.endDate);
                 bloc.add(ApplyLeaveEndDateChangeEvent(endDate: date));
               },
               date: state.endDate,
