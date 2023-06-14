@@ -1,9 +1,12 @@
 name: Web Deploy
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  web:
+  web_deploy:
     runs-on: ubuntu-latest
 
     steps:
