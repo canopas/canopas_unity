@@ -35,11 +35,8 @@ jobs:
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
           APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
           APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
+        run: ./install_secret_script.sh
 
-        run: |
-          echo $DESKTOP_CREDENTIALS_BASE64 | base64 -di > lib/desktop_credentials.dart
-          echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
-          echo $GOOGLE_SERVICES_JSON_BASE64 | base64 -di > android/app/google-services.json
 
       - uses: actions/checkout@v2
 
@@ -51,14 +48,7 @@ jobs:
 
       - name: Create version number
         run: |
-          file='VERSION'
-          fileData=`cat $file`
-          IFS='.'
-          read -a versionValue <<< "$fileData"
-          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
-          IFS=''
-          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
-          echo "Generating android build $buildName $buildNumber"
+          ./create_version.sh
           cd android
           gem install bundler
           bundle install
