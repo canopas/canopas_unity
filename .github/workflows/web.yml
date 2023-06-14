@@ -2,8 +2,8 @@ name: Web
 
 on:
   push:
-#    branches:
-#      - master
+    branches:
+      - master
 
 
 jobs:
@@ -27,6 +27,13 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Retrieve the secret and decode it to a file
+        env:
+          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
+          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
+          WEB_INDEX_HTML_BASE64: ${{ secrets.WEB_INDEX_HTML_BASE64 }}
+        run: web/encrypt_var.sh
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -36,9 +43,7 @@ jobs:
           aws-region: ap-south-1
 
       - name: Build Web App
-        run: |
-          web/encrypt_var.sh
-          flutter build web
+        run: flutter build web
 
       - name: Deploy to AWS S3
         run: aws s3 sync build/web/ s3://${{ secrets.AWS_S3_BUCKET_NAME }}
