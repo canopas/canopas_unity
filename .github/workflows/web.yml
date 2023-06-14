@@ -37,7 +37,7 @@ jobs:
 
       - name: Build Web App
         run: |
-          chmod +x web/encrypt_var.sh
+          web/encrypt_var.sh
           flutter build web
 
       - name: Deploy to AWS S3
