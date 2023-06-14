@@ -46,7 +46,7 @@ jobs:
           ruby-version: 2.7.2 # omit if .ruby-version file exists in project, or replace with your team’s supported ruby version
           bundler-cache: true
 
-      - name: Create version number
+      - name: Deploy internally
         run: |
           ./create_version.sh
           cd android
