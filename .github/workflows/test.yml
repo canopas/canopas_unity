@@ -34,7 +34,7 @@ jobs:
           GOOGLE_SERVICES_PLIST_MACOS_BASE64: ${{ secrets.GOOGLE_SERVICES_PLIST_MACOS_BASE64 }}
           WEB_INDEX_HTML_BASE64: ${{ secrets.WEB_INDEX_HTML_BASE64 }}
 
-        run: chmod +x install_secret_script.sh && ./install_secret_script.sh
+        run: ./install_secret_script.sh
 
 
       - name: Run lints test
