@@ -1,4 +1,4 @@
-name: Android
+name: Android Deploy
 
 on: workflow_dispatch
 
