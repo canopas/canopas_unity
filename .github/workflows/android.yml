@@ -150,12 +150,14 @@ jobs:
           echo $FIREBASE_OPTIONS_BASE64 | base64 -di > lib/firebase_options.dart
           echo $GOOGLE_SERVICES_JSON_BASE64 | base64 -di > android/app/google-services.json
 
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v2
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1.2'
-      - uses: maierj/fastlane-action@v3.0.0
-        with:
-          lane: 'beta'
+          ruby-version: 2.7.2 # omit if .ruby-version file exists in project, or replace with your team’s supported ruby version
+          bundler-cache: true
+
 
       - name: Create version number
         run: |
@@ -168,6 +170,7 @@ jobs:
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
           cd android
+          gem install bundler 
           echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks
           echo $APP_PLAY_SERVICE_JSON > ~/google_play_api_key.json
