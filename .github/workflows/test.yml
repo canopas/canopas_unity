@@ -1,7 +1,6 @@
-name: Run Tests
+name: Test
 
-#on: push
-on: workflow_dispatch
+on: push
 
 
 jobs:
