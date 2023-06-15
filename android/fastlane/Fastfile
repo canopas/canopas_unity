@@ -28,7 +28,6 @@ platform :android do
     end
 
     upload_to_play_store(
-      json_key: ENV["ANDROID_JSON_KEY_FILE_PATH"]
       track: 'internal',
       skip_upload_metadata: true,
       skip_upload_images: true,
