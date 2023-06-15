@@ -55,9 +55,9 @@ jobs:
           bundle install
           echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks
-          echo $APP_PLAY_SERVICE_JSON | base64 -di > fastlane/google_play_api_key.json
+          echo $APP_PLAY_SERVICE_JSON | base64 -di > $GITHUB_WORKSPACE/fastlane/google_play_api_key.json
           bundle exec fastlane supply init --track internal
-          bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber 
+          bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
