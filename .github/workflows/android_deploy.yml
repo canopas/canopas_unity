@@ -66,3 +66,6 @@ jobs:
         env:
           APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
           APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
