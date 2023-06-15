@@ -77,7 +77,15 @@ jobs:
         run: ./install_secret_script.sh
 
       - name: Create version number
-        run: ./create_version.sh |
+        run: |
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -a versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating android build $buildName $buildNumber"
           flutter build appbundle --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/bundle/release/app-release.aab .
 
