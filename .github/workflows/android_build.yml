@@ -33,7 +33,7 @@ jobs:
 
         run: ./install_secret_script.sh
 
-      - name: Create version number
+      - name: Generate build
         run: |
           file='VERSION'
           fileData=`cat $file`
@@ -83,7 +83,7 @@ jobs:
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
         run: ./install_secret_script.sh
 
-      - name: Create version number
+      - name: Generate build
         run: |
           file='VERSION'
           fileData=`cat $file`
