@@ -58,6 +58,7 @@ jobs:
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
         env:
           APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
+          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
