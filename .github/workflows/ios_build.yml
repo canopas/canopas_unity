@@ -55,12 +55,12 @@ jobs:
 
       - name: Archive and build iOS project
         run: |
-          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
+          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.run_id  }}.xcarchive"
           xcodebuild -workspace ios/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
 
       - name: Cleanup
         run: |
-          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
+          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.run_id  }}.xcarchive"
           rm -rf $ARCHIVE_PATH
 
 
