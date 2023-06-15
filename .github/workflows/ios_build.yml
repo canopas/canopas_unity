@@ -37,15 +37,18 @@ jobs:
           echo $FIREBASE_OPTIONS_BASE64 | base64 --decode > lib/firebase_options.dart
           echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode > ios/Runner/GoogleService-Info.
 
-      - name: Generate build
+      - name: Install distribution certificates
         run: |
-          cd ios
           chmod +x ios_dist_profile_script.sh && ./ios_dist_profile_script.sh
           chmod +x ios_dist_certificate_script.sh && ./ios_dist_certificate_script.sh
           source ~/.zshrc
-          flutter pub get
-          ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${CI_COMMIT_SHA}/${CI_JOB_ID}.xcarchive"
-          xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
-          cd ..
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Archive and build iOS project
+        run: |
+          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
+          xcodebuild -workspace ios/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color    
           rm -rf $ARCHIVE_PATH
           echo "Build successfully"
