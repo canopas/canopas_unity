@@ -40,6 +40,12 @@ jobs:
           ruby-version: 2.7.2 # omit if .ruby-version file exists in project, or replace with your team’s supported ruby version
           bundler-cache: true
 
+      - name: Setup Fastlane
+        run: |
+          cd android
+          gem install bundler
+          bundle install
+
       - name: Generate build
         run: |
           file='VERSION'
@@ -50,9 +56,6 @@ jobs:
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
-          cd android
-          gem install bundler
-          bundle install
           echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks
           echo $APP_PLAY_SERVICE_JSON | base64 -di > google_play_api_key.json
