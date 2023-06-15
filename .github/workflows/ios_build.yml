@@ -50,11 +50,13 @@ jobs:
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
           chmod +x install_dist_profile.sh && ./install_dist_profile.sh
 
-      - name: Install CocoaPods dependencies
-        run: arch -x86_64 pod install --repo-update
+
 
       - name: Get Flutter dependencies
         run: flutter pub get
+
+      - name: Install CocoaPods dependencies
+        run: arch -x86_64 pod install --repo-update
 
       - name: Archive and build iOS project
         run: |
