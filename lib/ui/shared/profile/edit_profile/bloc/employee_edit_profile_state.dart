@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../../data/core/utils/bloc_status.dart';
+import '../../../../../data/model/employee/employee.dart';
 
 class EmployeeEditProfileState extends Equatable {
   final Status status;
-  final int? gender;
+  final Gender? gender;
   final DateTime? dateOfBirth;
   final bool nameError;
   final String? error;
@@ -22,7 +23,7 @@ class EmployeeEditProfileState extends Equatable {
   bool get isDataValid => !nameError;
 
   EmployeeEditProfileState copyWith({
-    int? gender,
+    Gender? gender,
     DateTime? dateOfBirth,
     bool? nameError,
     String? error,
@@ -49,7 +50,7 @@ class EmployeeEditProfileState extends Equatable {
     );
   }
 
-  EmployeeEditProfileState changeGender({int? gender}) {
+  EmployeeEditProfileState changeGender({Gender? gender}) {
     return EmployeeEditProfileState(
       status: status,
       dateOfBirth: dateOfBirth,

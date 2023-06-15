@@ -1,28 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:projectunity/data/core/converters%20/date_converter.dart';
+
 part 'employee.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(
+    includeIfNull: false,
+    converters: [DateTimeConverter()],
+    fieldRename: FieldRename.snake)
 class Employee extends Equatable {
   final String uid;
   final Role role;
   final String name;
   final String email;
-  @JsonKey(name: 'employee_id')
   final String? employeeId;
   final String? designation;
   final String? phone;
-  @JsonKey(name: 'image_url')
   final String? imageUrl;
   final String? address;
-  final int? gender;
-  @JsonKey(name: 'date_of_birth')
-  final int? dateOfBirth;
-  @JsonKey(name: 'date_of_joining')
-  final int dateOfJoining;
+  final Gender? gender;
+  final DateTime? dateOfBirth;
+  final DateTime dateOfJoining;
   final String? level;
-  final int? status;
+  final EmployeeStatus? status;
 
   const Employee({
     required this.uid,
@@ -41,21 +42,21 @@ class Employee extends Equatable {
     this.status,
   });
 
-  Employee copyWith(
-      {String? uid,
-      Role? role,
-      String? name,
-      String? employeeId,
+  Employee copyWith({
+    String? uid,
+    Role? role,
+    String? name,
+    String? employeeId,
     String? email,
     String? designation,
     String? phone,
     String? imageUrl,
     String? address,
-    int? gender,
-    int? dateOfBirth,
-    int? dateOfJoining,
+    Gender? gender,
+    DateTime? dateOfBirth,
+    DateTime? dateOfJoining,
     String? level,
-    int? status,
+    EmployeeStatus? status,
   }) {
     return Employee(
       uid: uid ?? this.uid,
@@ -106,12 +107,10 @@ class Employee extends Equatable {
       ];
 }
 
+@JsonEnum(valueField: 'value')
 enum Role {
-  @JsonValue(1)
   admin(1),
-  @JsonValue(2)
   employee(2),
-  @JsonValue(3)
   hr(3);
 
   final int value;
@@ -119,8 +118,22 @@ enum Role {
   const Role(this.value);
 }
 
-class EmployeeGender {
-  static const int male = 1;
-  static const int female = 2;
-  static const List<int> values = [male, female];
+@JsonEnum(valueField: 'value')
+enum EmployeeStatus {
+  active(1),
+  inactive(2);
+
+  final int value;
+
+  const EmployeeStatus(this.value);
+}
+
+@JsonEnum(valueField: 'value')
+enum Gender {
+  male(1),
+  female(2);
+
+  final int value;
+
+  const Gender(this.value);
 }

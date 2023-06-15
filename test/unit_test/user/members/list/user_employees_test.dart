@@ -13,14 +13,14 @@ import 'user_employees_test.mocks.dart';
 void main() {
   late EmployeeService employeeService;
   late UserEmployeesBloc userEmployeesBloc;
-  Employee employee = const Employee(
+  final employee = Employee(
     uid: 'id',
     role: Role.admin,
     name: 'Andrew jhone',
     employeeId: 'CA 1254',
     email: 'andrew.j@canopas.com',
     designation: 'Android developer',
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   setUpAll(() {

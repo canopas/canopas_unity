@@ -41,7 +41,7 @@ void main() {
     });
 
     test("leave Type change test", () {
-      leaveRequestBloc.add(ApplyLeaveChangeLeaveTypeEvent(leaveType: 1));
+      leaveRequestBloc.add(ApplyLeaveChangeLeaveTypeEvent(leaveType: LeaveType.sickLeave));
       expect(
           leaveRequestBloc.stream,
           emits(ApplyLeaveState(
@@ -49,7 +49,7 @@ void main() {
               endDate: currentDate,
               totalLeaveDays: currentDayTotalLeaveCount,
               selectedDates: currentDayMap,
-              leaveType: 1)));
+              leaveType: LeaveType.sickLeave)));
     });
 
     test('on apply leave fill data error test', () async {
@@ -234,13 +234,13 @@ void main() {
       Leave leave = Leave(
         leaveId: "1234",
         uid: "id",
-        type: 0,
-        startDate: firstDate.timeStampToInt,
-        endDate: lastDate.timeStampToInt,
+        type: LeaveType.casualLeave,
+        startDate: firstDate,
+        endDate: lastDate,
         total: totalDays,
         reason: "reason",
         status: LeaveStatus.pending,
-        appliedOn: currentDate.timeStampToInt,
+        appliedOn: currentDate,
         perDayDuration: selectedDates.values.toList(),
       );
 
@@ -304,13 +304,13 @@ void main() {
       Leave leave = Leave(
         leaveId: "1234",
         uid: "id",
-        type: 0,
-        startDate: firstDate.timeStampToInt,
-        endDate: lastDate.timeStampToInt,
+        type: LeaveType.casualLeave,
+        startDate: firstDate,
+        endDate: lastDate,
         total: totalDays,
         reason: "reason",
         status: LeaveStatus.pending,
-        appliedOn: currentDate.timeStampToInt,
+        appliedOn: currentDate,
         perDayDuration: selectedDates.values.toList(),
       );
 

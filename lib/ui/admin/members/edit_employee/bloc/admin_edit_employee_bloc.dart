@@ -37,7 +37,7 @@ class AdminEditEmployeeDetailsBloc
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(
         role: event.roleType,
-        dateOfJoining: event.dateOfJoining?.toDate ?? DateTime.now().dateOnly));
+        dateOfJoining: event.dateOfJoining ?? DateTime.now().dateOnly));
   }
 
   void _changeRoleType(ChangeEmployeeRoleEvent event,
@@ -118,7 +118,7 @@ class AdminEditEmployeeDetailsBloc
             email: event.email,
             designation: event.designation,
             level: event.level.isEmpty ? null : event.level,
-            dateOfJoining: state.dateOfJoining!.timeStampToInt,
+            dateOfJoining: state.dateOfJoining!,
             phone: event.previousEmployeeData.phone,
             address: event.previousEmployeeData.address,
             dateOfBirth: event.previousEmployeeData.dateOfBirth,

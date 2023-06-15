@@ -30,7 +30,7 @@ void main() {
     employeeId: "CA-1000",
     email: "dummy.t@canopas.com",
     designation: "Application Tester",
-    dateOfJoining: DateTime.now().dateOnly.timeStampToInt,
+    dateOfJoining: DateTime.now().dateOnly,
     level: "SW-L2",
   );
 

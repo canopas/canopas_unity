@@ -11,7 +11,7 @@ void main() {
             'name': "dummy space",
             'created_at': DateTime(2023).millisecondsSinceEpoch,
             'logo': "space-logo-url",
-            'owner_ids': ['uid'],
+            'owner_ids': const ['uid'],
             'paid_time_off': 12,
             'domain': 'website-url',
           }),
@@ -34,7 +34,7 @@ void main() {
           name: "dummy space",
           createdAt: DateTime(2023),
           paidTimeOff: 12,
-          ownerIds: ['uid'],
+          ownerIds: const ['uid'],
           logo: "space-logo-url",
           domain: 'website-url');
       Map<String, dynamic> map = <String, dynamic>{

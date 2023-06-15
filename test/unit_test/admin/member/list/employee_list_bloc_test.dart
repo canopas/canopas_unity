@@ -20,14 +20,14 @@ void main() {
   late UserStateNotifier userStateNotifier;
   late InvitationService invitationService;
 
-  const employee = Employee(
+   final employee = Employee(
     uid: 'id',
     role: Role.admin,
     name: 'Andrew jhone',
     employeeId: 'CA 1254',
     email: 'andrew.j@canopas.com',
     designation: 'Android developer',
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   const invitation = Invitation(
@@ -68,8 +68,8 @@ void main() {
       when(employeeService.getEmployees())
           .thenAnswer((_) async => [employee, employee]);
 
-      EmployeeListState successState = const EmployeeListSuccessState(
-          employees: [employee, employee], invitation: [invitation]);
+      EmployeeListState successState =  EmployeeListSuccessState(
+          employees: [employee, employee], invitation: const [invitation]);
 
       employeeListBloc.add(EmployeeListInitialLoadEvent());
       expectLater(employeeListBloc.stream,

@@ -242,7 +242,7 @@ void main() {
           domain: 'www.canopas.com',
           createdAt: DateTime(2000),
           paidTimeOff: 12,
-          ownerIds: ['uid']);
+          ownerIds: const ['uid']);
       when(spaceService.createSpace(
               name: 'canopas',
               logo: 'image-url',
@@ -278,7 +278,7 @@ void main() {
           name: 'canopas',
           createdAt: DateTime(2000),
           paidTimeOff: 12,
-          ownerIds: ['uid']);
+          ownerIds: const ['uid']);
 
       when(spaceService.createSpace(
               name: 'canopas', timeOff: 12, ownerId: 'uid'))

@@ -35,10 +35,10 @@ void main() {
       employeeId: "CA-1000",
       email: "dummy.t@canopas.com",
       designation: "Application Tester",
-      dateOfJoining: DateTime.now().dateOnly.timeStampToInt,
+      dateOfJoining: DateTime.now().dateOnly,
       level: "SW-L2",
-      gender: EmployeeGender.male,
-      dateOfBirth: DateTime.now().dateOnly.timeStampToInt,
+      gender: Gender.male,
+      dateOfBirth: DateTime.now().dateOnly,
       address: "california",
       phone: "+1 000000-0000");
 
@@ -62,7 +62,7 @@ void main() {
       expect(
           editEmployeeDetailsBloc.stream,
           emits(EmployeeEditProfileState(
-              dateOfBirth: emp.dateOfBirth!.toDate, gender: emp.gender)));
+              dateOfBirth: emp.dateOfBirth!, gender: emp.gender)));
     });
 
     test('test name validation', () {
@@ -122,13 +122,13 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!.toDate, gender: emp.gender),
+                dateOfBirth: emp.dateOfBirth!, gender: emp.gender),
             EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!.toDate,
+                dateOfBirth: emp.dateOfBirth!,
                 gender: emp.gender,
                 status: Status.loading),
             EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!.toDate,
+                dateOfBirth: emp.dateOfBirth!,
                 gender: emp.gender,
                 status: Status.success),
           ]));
@@ -155,14 +155,14 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!.toDate, gender: emp.gender),
+                dateOfBirth: emp.dateOfBirth!, gender: emp.gender),
             EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!.toDate,
-                gender: 1,
+                dateOfBirth: emp.dateOfBirth!,
+                gender: Gender.male,
                 status: Status.loading),
             EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!.toDate,
-                gender: 1,
+                dateOfBirth: emp.dateOfBirth!,
+                gender: Gender.male,
                 status: Status.error,
                 error: firestoreFetchDataError),
           ]));

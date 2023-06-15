@@ -53,8 +53,8 @@ class LeaveApplicationCard extends StatelessWidget {
                         _LeaveDateContent(
                           firstDayDuration: leaveApplication.leave.perDayDuration.first,
                           totalDays: leaveApplication.leave.total,
-                          startTimeStamp: leaveApplication.leave.startDate,
-                          endTimeStamp: leaveApplication.leave.endDate,
+                          startDate: leaveApplication.leave.startDate,
+                          endDate: leaveApplication.leave.endDate,
                         ),
                       ],
                     ),
@@ -83,20 +83,20 @@ class LeaveApplicationCard extends StatelessWidget {
 class _LeaveDateContent extends StatelessWidget {
   final double totalDays;
   final LeaveDayDuration firstDayDuration;
-  final int startTimeStamp;
-  final int endTimeStamp;
+  final DateTime startDate;
+  final DateTime endDate;
 
   const _LeaveDateContent(
       {Key? key,
       required this.totalDays,
-      required this.startTimeStamp,
-      required this.endTimeStamp, required this.firstDayDuration})
+      required this.startDate,
+      required this.endDate, required this.firstDayDuration})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String duration = DateFormatter(AppLocalizations.of(context))
-        .dateInLine(startTimeStamp: startTimeStamp, endTimeStamp: endTimeStamp);
+        .dateInLine(startDate: startDate, endDate: endDate);
     String days = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentation(totalLeaves: totalDays,firstDayDuration: firstDayDuration);
 

@@ -25,14 +25,14 @@ void main() {
   late EmployeeService employeeService;
   late LeaveService leaveService;
 
-  const employee = Employee(
+  final employee = Employee(
     uid: "uid",
     role: Role.employee,
     name: "tester",
     employeeId: "103",
     email: "tester@canopas.com",
     designation: "tester",
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   late DateTime selectedDate;
@@ -41,27 +41,25 @@ void main() {
   Leave leave = Leave(
       leaveId: "leave-id",
       uid: "uid",
-      type: 1,
-      startDate: DateTime.now().timeStampToInt,
-      endDate: DateTime.now().timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
       total: 1,
       reason: "test",
       status: LeaveStatus.approved,
-      appliedOn: DateTime.now().dateOnly.timeStampToInt,
+      appliedOn: DateTime.now().dateOnly,
       perDayDuration: const [LeaveDayDuration.fullLeave]);
 
   Leave nextMonthLeave = Leave(
       leaveId: "leave-id",
       uid: "uid",
-      type: 1,
-      startDate: DateTime(DateTime.now().year, DateTime.now().month + 1)
-          .timeStampToInt,
-      endDate: DateTime(DateTime.now().year, DateTime.now().month + 1)
-          .timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: DateTime(DateTime.now().year, DateTime.now().month + 1),
+      endDate: DateTime(DateTime.now().year, DateTime.now().month + 1),
       total: 1,
       reason: "test",
       status: LeaveStatus.approved,
-      appliedOn: DateTime.now().dateOnly.timeStampToInt,
+      appliedOn: DateTime.now().dateOnly,
       perDayDuration: const [LeaveDayDuration.fullLeave]);
 
   group('user home test', () {
