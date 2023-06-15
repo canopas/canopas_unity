@@ -38,9 +38,16 @@ jobs:
           echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode > ios/Runner/GoogleService-Info.
 
       - name: Install distribution certificates
+        env:
+          $APPLE_DISTRIBUTION_CERT_N_KEY: ${{ secrets.APPLE_DISTRIBUTION_CERT_N_KEY }}
+          $BUILD_KEY_CHAIN_PASS: ${{ secrets.BUILD_KEY_CHAIN_PASS }}
+          $BUILD_KEY_CHAIN: ${{ secrets.BUILD_KEY_CHAIN }}
+          $APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+          $DIST_PROVISION_UUID: ${{ secrets.DIST_PROVISION_UUID }}
+          $DIST_PROVISION: ${{ secrets.DIST_PROVISION }}
         run: |
-          chmod +x  ios_dist_profile_script.sh && ./ios_dist_profile_script.sh
           chmod +x  ios_dist_certificate_script.sh && ./ios_dist_certificate_script.sh
+          chmod +x  ios_dist_profile_script.sh && ./ios_dist_profile_script.sh
           source ~/.zshrc
 
       - name: Get Flutter dependencies
