@@ -22,12 +22,15 @@ platform :android do
 
     versionName = options[:versionName]
     versionCode = options[:versionCode]
+    jsonKey = options[:jsonKey]
+
 
     Dir.chdir "../.." do
        sh("flutter", "build", "appbundle", "--release", "--build-number=#{versionCode}" ,"--build-name=#{versionName}")
     end
 
     upload_to_play_store(
+      json_key: json_key,
       track: 'internal',
       skip_upload_metadata: true,
       skip_upload_images: true,
