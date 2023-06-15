@@ -35,8 +35,14 @@ jobs:
 
       - name: Create version number
         run: |
-          chmod +x ./create_version.sh
-          ./create_version.sh
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -a versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating android build $buildName $buildNumber"
           flutter build apk --release --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/apk/release/ProjectUnity*.apk .
 
