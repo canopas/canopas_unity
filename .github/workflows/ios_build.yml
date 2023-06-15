@@ -1,4 +1,4 @@
-name: IOS Build
+name: IOS build
 
 #on: workflow_dispatch
 on: push
