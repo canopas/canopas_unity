@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
@@ -12,6 +14,8 @@ import '../../../../../data/provider/user_state.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';
 import '../../../../widget/error_snack_bar.dart';
+import '../../../../widget/pick_image_bottom_sheet.dart';
+import '../../../../widget/user_profile_image.dart';
 import 'role_toggle_button.dart';
 import '../bloc/admin_edit_employee_bloc.dart';
 import '../bloc/admin_edit_employee_events.dart';
@@ -19,6 +23,7 @@ import '../bloc/admin_edit_employee_state.dart';
 
 class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final String employeeId;
+  final String? profileImageUrl;
   final TextEditingController nameFieldController;
   final TextEditingController emailFieldController;
   final TextEditingController designationFieldController;
@@ -27,6 +32,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
 
   const AdminEditEmployeeDetailsForm(
       {Key? key,
+      required this.profileImageUrl,
       required this.employeeId,
       required this.nameFieldController,
       required this.emailFieldController,
@@ -51,6 +57,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
         children: [
+          ProfileImage(imageURl: profileImageUrl),
           ValidateWidget(
             isValid: getIt<UserStateNotifier>().isAdmin,
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,
@@ -159,6 +166,65 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                         state.dateOfJoining ?? DateTime.now()),
                     style: AppFontStyle.labelRegular,
                   ))),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileImage extends StatelessWidget {
+  final String? imageURl;
+
+  const ProfileImage({Key? key, required this.imageURl}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          CircleAvatar(
+              radius: 70,
+              backgroundColor: AppColors.textFieldBg,
+              child: BlocConsumer<AdminEditEmployeeDetailsBloc,
+                      AdminEditEmployeeDetailsState>(
+                  listenWhen: (previous, current) =>
+                      previous.isImagePickedDone != current.isImagePickedDone,
+                  listener: (context, state) {
+                    if (state.isImagePickedDone) {
+                      context.pop();
+                    }
+                  },
+                  buildWhen: (previous, current) =>
+                      previous.pickedImage != current.pickedImage,
+                  builder: (context, state) {
+                    if (state.pickedImage.isNotNullOrEmpty) {
+                      return ImageProfile(
+                          radius: 65, pickedImage: state.pickedImage);
+                    }
+                    return ImageProfile(imageUrl: imageURl, radius: 65);
+                  })),
+          FloatingActionButton(
+              onPressed: () {
+                showBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return PickImageBottomSheet(
+                        onButtonTap: (ImageSource source) => context
+                            .read<AdminEditEmployeeDetailsBloc>()
+                            .add(ChangeProfileImageEvent(source)),
+                      );
+                    });
+              },
+              shape: const CircleBorder(
+                  side: BorderSide(color: AppColors.textFieldBg, width: 2)),
+              backgroundColor: AppColors.whiteColor,
+              elevation: 2,
+              mini: true,
+              child: const Icon(
+                Icons.edit,
+                color: AppColors.darkGrey,
+              )),
         ],
       ),
     );

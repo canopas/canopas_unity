@@ -1,20 +1,27 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
+import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart';
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_events.dart';
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_state.dart';
 
 import 'admin_edit_employee_details_test.mocks.dart';
 
-@GenerateMocks([EmployeeService])
+@GenerateMocks(
+    [EmployeeService, ImagePicker, StorageService, UserStateNotifier])
 void main() {
+  late UserStateNotifier userStateNotifier;
+  late StorageService storageService;
   late EmployeeService employeeService;
+  late ImagePicker imagePicker;
   late AdminEditEmployeeDetailsBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
@@ -31,7 +38,11 @@ void main() {
   group("admin-edit-employee-details-test", () {
     setUp(() {
       employeeService = MockEmployeeService();
-      editEmployeeDetailsBloc = AdminEditEmployeeDetailsBloc(employeeService);
+      imagePicker = MockImagePicker();
+      storageService = MockStorageService();
+      userStateNotifier = MockUserStateNotifier();
+      editEmployeeDetailsBloc = AdminEditEmployeeDetailsBloc(
+          employeeService, imagePicker, userStateNotifier, storageService);
     });
 
     test('test initial test', () {
@@ -64,6 +75,17 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
               dateOfJoining: otherDate, role: Role.admin)));
+    });
+
+    test('pick and change profile image test', () {
+      editEmployeeDetailsBloc.add(ChangeProfileImageEvent(ImageSource.gallery));
+      when(imagePicker.pickImage(source: ImageSource.gallery))
+          .thenAnswer((realInvocation) async => XFile("path"));
+
+      expect(
+          editEmployeeDetailsBloc.stream,
+          emits(const AdminEditEmployeeDetailsState(
+              pickedImage: 'path', isImagePickedDone: true)));
     });
 
     test('test validation validation', () {
@@ -136,6 +158,49 @@ void main() {
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
+                status: Status.success),
+          ]));
+      await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
+      verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
+    });
+
+    test('update Employee details with profile test', () async {
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(imagePicker.pickImage(source: ImageSource.gallery))
+          .thenAnswer((realInvocation) async => XFile("path"));
+      when(storageService.uploadProfilePic(
+              path: 'images/space-id/${emp.uid}/profile', file: XFile("path")))
+          .thenAnswer((realInvocation) async => 'image-url');
+      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
+          roleType: emp.role, dateOfJoining: emp.dateOfJoining));
+      editEmployeeDetailsBloc.add(ChangeProfileImageEvent(ImageSource.gallery));
+      editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
+          previousEmployeeData: emp,
+          designation: emp.designation!,
+          email: emp.email,
+          employeeId: emp.employeeId!,
+          level: emp.level!,
+          name: emp.name));
+      expect(
+          editEmployeeDetailsBloc.stream,
+          emitsInOrder([
+            AdminEditEmployeeDetailsState(
+                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
+            AdminEditEmployeeDetailsState(
+                dateOfJoining: emp.dateOfJoining.dateOnly,
+                role: Role.admin,
+                status: Status.loading),
+            AdminEditEmployeeDetailsState(
+                status: Status.loading,
+                dateOfJoining: emp.dateOfJoining.dateOnly,
+                role: Role.admin,
+                pickedImage: 'path',
+                isImagePickedDone: true),
+            AdminEditEmployeeDetailsState(
+                dateOfJoining: emp.dateOfJoining.dateOnly,
+                role: Role.admin,
+                pickedImage: 'path',
+                isImagePickedDone: true,
                 status: Status.success),
           ]));
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));

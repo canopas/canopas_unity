@@ -212,7 +212,12 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i27.LeaveService>(),
         ));
     gh.factory<_i39.AdminEditEmployeeDetailsBloc>(
-        () => _i39.AdminEditEmployeeDetailsBloc(gh<_i24.EmployeeService>()));
+        () => _i39.AdminEditEmployeeDetailsBloc(
+              gh<_i24.EmployeeService>(),
+              gh<_i11.ImagePicker>(),
+              gh<_i19.UserStateNotifier>(),
+              gh<_i17.StorageService>(),
+            ));
     gh.factory<_i40.AdminEmployeeDetailsLeavesBLoc>(
         () => _i40.AdminEmployeeDetailsLeavesBLoc(gh<_i27.LeaveService>()));
     gh.factory<_i41.AdminHomeBloc>(() => _i41.AdminHomeBloc(

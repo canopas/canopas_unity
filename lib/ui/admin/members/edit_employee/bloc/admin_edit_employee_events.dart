@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../data/model/employee/employee.dart';
 
@@ -67,6 +68,15 @@ class ChangeEmployeeDateOfJoiningEvent extends EditEmployeeByAdminEvent {
 
   @override
   List<Object?> get props => [dateOfJoining];
+}
+
+class ChangeProfileImageEvent extends EditEmployeeByAdminEvent {
+  final ImageSource imageSource;
+
+  ChangeProfileImageEvent(this.imageSource);
+
+  @override
+  List<Object?> get props => [imageSource];
 }
 
 class UpdateEmployeeByAdminEvent extends EditEmployeeByAdminEvent {

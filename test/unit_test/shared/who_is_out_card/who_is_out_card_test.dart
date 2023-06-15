@@ -75,7 +75,7 @@ void main() {
 
     test("test success test of fetch initial month leaves", () {
       when(employeeService.getEmployees()).thenAnswer((_) async => [employee]);
-      when(leaveService.getAllAbsence(date: selectedDate))
+      when(leaveService.getAllAbsence(date: focusDay))
           .thenAnswer((_) async => [leave]);
       bLoc.add(WhoIsOutInitialLoadEvent());
 
