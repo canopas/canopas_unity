@@ -58,6 +58,8 @@ jobs:
           echo $APP_PLAY_SERVICE_JSON | base64 -di > $GITHUB_WORKSPACE/fastlane/google_play_api_key.json
           bundle exec fastlane supply init --track internal
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
+        env:
+          ANDROID_JSON_KEY_FILE_PATH: $GITHUB_WORKSPACE/fastlane/google_play_api_key.json
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
