@@ -30,8 +30,18 @@ jobs:
           DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-
+          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
+          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
         run: ./install_secret_script.sh
+
+
+      - uses: actions/checkout@v2
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2 # omit if .ruby-version file exists in project, or replace with your team’s supported ruby version
+          bundler-cache: true
 
       - name: Generate build
         run: |
