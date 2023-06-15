@@ -32,33 +32,11 @@ jobs:
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
         run: ./install_secret_script.sh
 
-
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.2 # omit if .ruby-version file exists in project, or replace with your team’s supported ruby version
           bundler-cache: true
-          working-directory: android
-
-      - name: Configure Keystore
-        run: |
-          echo "$APKSIGN_KEYSTORE_BASE64" | base64 --decode > release.jks
-          export APKSIGN_KEYSTORE=`pwd`/release.jks
-        env:
-          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
-        working-directory: android
-
-      - name: Create Google Play Config file
-        run: |
-          echo $APP_PLAY_SERVICE_JSON | base64 -di > google_play_api_key.json
-        env:
-          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
-
-      - name: Install bundle
-        run: |
-          gem install bundler
-          bundle install
-        working-directory: android
 
       - name: Generate build
         run: |
@@ -71,8 +49,15 @@ jobs:
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
           cd android
+          gem install bundler
+          bundle install
+          echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
+          export APKSIGN_KEYSTORE=`pwd`/release.jks
+          echo $APP_PLAY_SERVICE_JSON | base64 -di > google_play_api_key.json
           bundle exec fastlane supply init --track internal
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
+        env:
+          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
