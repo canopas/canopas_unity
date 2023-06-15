@@ -77,8 +77,7 @@ jobs:
         run: ./install_secret_script.sh
 
       - name: Create version number
-        run: |
-          ./create_version.sh
+        run: ./create_version.sh |
           flutter build appbundle --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/bundle/release/app-release.aab .
 
