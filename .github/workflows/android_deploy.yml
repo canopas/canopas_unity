@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+    workflow_dispatch:
 
 jobs:
   deploy_internal_android:
@@ -27,16 +28,6 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Retrieve the secret and decode it to a file
-        env:
-          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
-          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
-          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
-          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
-        run: ./install_secret_script.sh
-
-
       - uses: actions/checkout@v2
 
       - name: Set up ruby env
@@ -48,6 +39,7 @@ jobs:
       - name: Deploy internally
 
         run: |
+          ./install_secret_script.sh
           file='VERSION'
           fileData=`cat $file`
           IFS='.'
@@ -56,11 +48,20 @@ jobs:
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
           echo "Generating android build $buildName $buildNumber"
+          echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
+          export APKSIGN_KEYSTORE=`pwd`/release.jks
           cd android
           gem install bundler
           bundle install
-          echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
-          export APKSIGN_KEYSTORE=`pwd`/release.jks
-          echo $APP_PLAY_SERVICE_JSON > ./google_play_api_key.json
+          echo $APP_PLAY_SERVICE_JSON > google_play_api_key.json
           bundle exec fastlane supply init --track internal
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
+        env:
+          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
+          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
+          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
+          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
+          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
