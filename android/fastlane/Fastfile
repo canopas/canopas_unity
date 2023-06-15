@@ -28,7 +28,7 @@ platform :android do
     end
 
     upload_to_play_store(
-      json_key_data: ENV['APP_PLAY_SERVICE_JSON']
+      json_key_data: ENV['APP_PLAY_SERVICE_JSON'],
       track: 'internal',
       skip_upload_metadata: true,
       skip_upload_images: true,
