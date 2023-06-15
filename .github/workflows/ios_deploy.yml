@@ -66,7 +66,7 @@ jobs:
           echo "Generating ios build $buildName $buildNumber".
           cd ios
           ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
-          EXPORT_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}/"
+          EXPORT_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
           
           xcodebuild app_version_code=${buildNumber} app_version_name=${buildName} -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
           xcodebuild -exportArchive -archivePath $ARCHIVE_PATH -exportOptionsPlist ExportOptions.plist -exportPath $EXPORT_PATH
