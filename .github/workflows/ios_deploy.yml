@@ -63,7 +63,8 @@ jobs:
           buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
           IFS=''
           buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
-          echo "Generating ios build $buildName $buildNumber"
+          echo "Generating ios build $buildName $buildNumber".
+          cd ios
           ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
           EXPORT_PATH="$HOME/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}/"
           
