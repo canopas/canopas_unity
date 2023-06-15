@@ -11,17 +11,12 @@ import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart';
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_event.dart';
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_state.dart';
+
 import 'edit_space_test.mocks.dart';
 
-class FakeStorageService extends Fake implements StorageService {
-  @override
-  Future<String> uploadProfilePic(
-      {required String path, required XFile file}) async {
-    return 'image-url';
-  }
-}
 
-@GenerateMocks([SpaceService, UserStateNotifier, ImagePicker])
+
+@GenerateMocks([SpaceService, UserStateNotifier, ImagePicker, StorageService])
 void main() {
   late SpaceService spaceService;
   late UserStateNotifier userStateNotifier;
@@ -30,18 +25,18 @@ void main() {
   late EditSpaceBloc bloc;
 
   final space = Space(
-      id: "id",
+      id: "space-id",
       name: "name",
       domain: "oldDomain",
       createdAt: DateTime.now(),
       paidTimeOff: 12,
-      ownerIds: ["uid"]);
+      ownerIds: const ["uid"]);
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     imagePicker = MockImagePicker();
-    storageService = FakeStorageService();
+    storageService = MockStorageService();
     bloc = EditSpaceBloc(
         spaceService, userStateNotifier, imagePicker, storageService);
     when(userStateNotifier.currentSpace).thenReturn(space);
@@ -70,15 +65,15 @@ void main() {
             const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
             const EditSpaceState(deleteWorkSpaceStatus: Status.success),
           ]));
-      await untilCalled(spaceService.deleteSpace("id", ["uid"]));
-      verify(spaceService.deleteSpace("id", ['uid'])).called(1);
+      await untilCalled(spaceService.deleteSpace("space-id", ["uid"]));
+      verify(spaceService.deleteSpace("space-id", ['uid'])).called(1);
       await untilCalled(userStateNotifier.removeEmployeeWithSpace());
       verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("Delete space failure test", () async {
       bloc.add(DeleteSpaceEvent());
-      when(spaceService.deleteSpace('id', ['uid']))
+      when(spaceService.deleteSpace('space-id', ['uid']))
           .thenThrow(Exception("error"));
       expect(
           bloc.stream,
@@ -92,7 +87,7 @@ void main() {
 
     test("update space details success test", () async {
       final file = XFile('path');
-
+      when(storageService.uploadProfilePic(path: 'images/space-id/space-logo', imagePath: 'path')).thenAnswer((realInvocation) async => 'image_url');
       final updatedSpace = Space(
           ownerIds: space.ownerIds,
           id: space.id,

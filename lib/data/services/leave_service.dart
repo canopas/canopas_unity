@@ -64,7 +64,7 @@ class LeaveService {
         .map((e) => e.data())
         .where((leave) =>
             leave.status == LeaveStatus.approved &&
-            leave.startDate.toDate == DateTime.now().dateOnly)
+            leave.startDate.dateOnly == DateTime.now().dateOnly)
         .toList();
   }
 
@@ -147,7 +147,7 @@ class LeaveService {
         .get();
     return data.docs
         .map((doc) => doc.data())
-        .where((element) => element.endDate >= DateTime.now().timeStampToInt)
+        .where((leave) => leave.endDate.isAfter(DateTime.now().dateOnly) || leave.endDate.isAtSameMomentAs(DateTime.now().dateOnly))
         .toList();
   }
 
@@ -165,7 +165,9 @@ class LeaveService {
         await _leaveDb().where(FireStoreConst.uid, isEqualTo: employeeId).get();
     return data.docs
         .map((doc) => doc.data())
-        .where((leave) => leave.startDate >= DateTime.now().timeStampToInt)
+        .where((leave) =>
+            leave.startDate.isAfter(DateTime.now().dateOnly) ||
+            leave.startDate.isAtSameMomentAs(DateTime.now().dateOnly))
         .where((leave) => leave.status == LeaveStatus.approved)
         .toList();
   }
@@ -190,8 +192,8 @@ class LeaveService {
     double leaveCount = 0.0;
     approvedLeaves
         .where((leave) =>
-            leave.startDate < currentTime.millisecondsSinceEpoch &&
-            leave.startDate.toDate.year == currentTime.year)
+            leave.startDate.isBefore(currentTime) &&
+            leave.startDate.year == currentTime.year)
         .forEach((leave) {
       leaveCount += leave.total;
     });
@@ -209,8 +211,8 @@ class LeaveService {
     });
   }
 
-  Future<Leave?> fetchLeave(String id) async {
-    final data = await _leaveDb().doc(id).get();
+  Future<Leave?> fetchLeave(String leaveId) async {
+    final data = await _leaveDb().doc(leaveId).get();
     return data.data();
   }
 }

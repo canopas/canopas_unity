@@ -249,10 +249,10 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<_i7.Leave?> fetchLeave(String? id) => (super.noSuchMethod(
+  _i6.Future<_i7.Leave?> fetchLeave(String? leaveId) => (super.noSuchMethod(
         Invocation.method(
           #fetchLeave,
-          [id],
+          [leaveId],
         ),
         returnValue: _i6.Future<_i7.Leave?>.value(),
       ) as _i6.Future<_i7.Leave?>);

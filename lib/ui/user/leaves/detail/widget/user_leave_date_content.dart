@@ -19,7 +19,7 @@ class UserLeaveRequestDateContent extends StatelessWidget {
     String totalDays = DateFormatter(AppLocalizations.of(context))
         .getLeaveDurationPresentationLong(leave.total);
     String duration = DateFormatter(AppLocalizations.of(context)).dateInLine(
-        startTimeStamp: leave.startDate, endTimeStamp: leave.endDate);
+        startDate: leave.startDate, endDate: leave.endDate);
 
     return Container(
       padding: const EdgeInsets.all(primaryHorizontalSpacing),

@@ -7,7 +7,7 @@ extension MapExtensions on Map<DateTime, LeaveDayDuration> {
     List<DateTime> dates = [];
     if (startDate.isAtSameMomentAs(endDate)) {
       dates = [startDate];
-    } else if (startDate.timeStampToInt < endDate.timeStampToInt) {
+    } else if (startDate.isBefore(endDate)) {
       dates = List.generate(endDate.difference(startDate).inDays,
           (days) => startDate.add(Duration(days: days)))
         ..add(endDate);

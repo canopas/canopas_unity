@@ -24,13 +24,13 @@ void main() {
     Leave andrewCurrentYearLeave = Leave(
         leaveId: 'leave-id',
         uid: 'andrew-id',
-        type: 2,
-        startDate: DateTime.now().timeStampToInt,
-        endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
+        type: LeaveType.annualLeave,
+        startDate: DateTime.now(),
+        endDate: DateTime.now().add(const Duration(days: 1)),
         total: 2,
         reason: 'reason',
         status: LeaveStatus.approved,
-        appliedOn: 400,
+        appliedOn: DateTime.now().dateOnly,
         perDayDuration: const [
           LeaveDayDuration.noLeave,
           LeaveDayDuration.firstHalfLeave
@@ -38,13 +38,13 @@ void main() {
     Leave joiCurrentYearLeave = Leave(
         leaveId: 'leave-id',
         uid: 'joi-id',
-        type: 2,
-        startDate: DateTime.now().timeStampToInt,
-        endDate: DateTime.now().add(const Duration(days: 1)).timeStampToInt,
+        type: LeaveType.sickLeave,
+        startDate: DateTime.now(),
+        endDate: DateTime.now().add(const Duration(days: 1)),
         total: 2,
         reason: 'reason',
         status: LeaveStatus.approved,
-        appliedOn: 400,
+        appliedOn: DateTime.now().dateOnly,
         perDayDuration: const [
           LeaveDayDuration.noLeave,
           LeaveDayDuration.firstHalfLeave
@@ -52,36 +52,36 @@ void main() {
     Leave joiPreviousYearLeave = Leave(
         leaveId: 'leave-id',
         uid: 'joi-id',
-        type: 2,
+        type: LeaveType.annualLeave,
         startDate:
-            DateTime.now().subtract(const Duration(days: 365)).timeStampToInt,
+            DateTime.now().subtract(const Duration(days: 365)),
         endDate:
-            DateTime.now().subtract(const Duration(days: 364)).timeStampToInt,
+            DateTime.now().subtract(const Duration(days: 364)),
         total: 2,
         reason: 'reason',
         status: LeaveStatus.approved,
-        appliedOn: 400,
+        appliedOn: DateTime.now().dateOnly,
         perDayDuration: const [
           LeaveDayDuration.noLeave,
           LeaveDayDuration.firstHalfLeave
         ]);
-    const andrew = Employee(
+     final andrew = Employee(
       uid: 'andrew-id',
       role: Role.admin,
       name: 'Andrew jhone',
       employeeId: '100',
       email: 'andrew.j@canopas.com',
       designation: 'Android developer',
-      dateOfJoining: 11,
+      dateOfJoining: DateTime(2000),
     );
-    const joi = Employee(
+    final joi = Employee(
       uid: 'joi-id',
       role: Role.admin,
       name: 'joi jhone',
       employeeId: '100',
       email: 'joi.j@canopas.com',
       designation: 'Android developer',
-      dateOfJoining: 11,
+      dateOfJoining: DateTime(2000),
     );
 
     group('Admin Leaves fetch data test', () {
@@ -120,10 +120,9 @@ void main() {
             emitsInOrder([
               AdminLeavesState(status: Status.loading),
               AdminLeavesState(status: Status.success, leaveApplication: [
-                LeaveApplication(
-                    employee: andrew, leave: andrewCurrentYearLeave),
+                LeaveApplication(employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], employees: const [
+              ], employees:  [
                 andrew,
                 joi
               ])
@@ -145,7 +144,7 @@ void main() {
               AdminLeavesState(status: Status.success, leaveApplication: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
-              ], employees: const [
+              ], employees:  [
                 andrew,
               ])
             ]));
@@ -199,7 +198,7 @@ void main() {
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], employees: const [
+              ], employees:  [
                 andrew,
                 joi
               ])
@@ -218,7 +217,7 @@ void main() {
                   leaveApplication: [
                     LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
                   ],
-                  employees: const [
+                  employees: [
                     andrew,
                     joi
                   ])
@@ -238,7 +237,7 @@ void main() {
                   leaveApplication: [
                     LeaveApplication(employee: joi, leave: joiPreviousYearLeave)
                   ],
-                  employees: const [
+                  employees:  [
                     andrew,
                     joi
                   ])
