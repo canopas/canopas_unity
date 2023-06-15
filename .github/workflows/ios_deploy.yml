@@ -49,7 +49,6 @@ jobs:
           cd ios
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
           chmod +x install_dist_profile.sh && ./install_dist_profile.sh
-          source ~/.zshrc
           flutter pub get
           arch -x86_64 pod install --repo-update
           cd ..
