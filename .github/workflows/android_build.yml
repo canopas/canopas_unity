@@ -46,6 +46,10 @@ jobs:
           export APKSIGN_KEYSTORE=`pwd`/release.jks
           flutter build apk --release --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/apk/release/ProjectUnity*.apk .
+        env:
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
@@ -98,6 +102,10 @@ jobs:
           export APKSIGN_KEYSTORE=`pwd`/release.jks
           flutter build appbundle --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/bundle/release/app-release.aab .
+        env:
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v2
