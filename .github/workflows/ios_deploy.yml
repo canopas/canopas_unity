@@ -75,7 +75,8 @@ jobs:
                  -sdk iphoneos | xcpretty --color 
                
                echo "archive build"
-          #          xcodebuild app_version_code=${buildNumber} app_version_name=${buildName} -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+          #          xcodebuild app_version_code=${buildNumber} app_version_name=${buildName} -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH
+          echo "archive done"
                xcodebuild -exportArchive -archivePath $ARCHIVE_PATH -exportOptionsPlist ExportOptions.plist -exportPath $EXPORT_PATH
                
                echo "Collecting artifacts.."
