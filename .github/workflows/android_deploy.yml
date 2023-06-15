@@ -28,14 +28,6 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Retrieve the secret and decode it to a file
-        env:
-          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
-          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
-          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-        run: ./install_secret_script.sh
-
-
       - uses: actions/checkout@v2
 
       - name: Set up ruby env
@@ -47,6 +39,7 @@ jobs:
       - name: Deploy internally
 
         run: |
+          ./install_secret_script.sh
           file='VERSION'
           fileData=`cat $file`
           IFS='.'
@@ -69,3 +62,6 @@ jobs:
           APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
           APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
           APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
+          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
+          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
+          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
