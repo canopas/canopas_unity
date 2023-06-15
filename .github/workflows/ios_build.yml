@@ -49,34 +49,9 @@ jobs:
           cd ios
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
           chmod +x install_dist_profile.sh && ./install_dist_profile.sh
-      #          echo "create variable..."
-      #           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-      #           PP_PATH=$$RUNNER_TEMP/build_pp.mobileProvosion
-      #           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-      #
-      #           echo -n  $APPLE_DISTRIBUTION_CERT_N_KEY | base64 --decode > $CERTIFICATE_PATH
-      #           echo -n "$DIST_PROVISION" | base64 --decode -o $PP_PATH
-      #           echo "certificate retrieved"
-      #
-      #           security create-keychain -p "$BUILD_KEY_CHAIN_PASS" $KEYCHAIN_PATH
-      #           security set-keychain-settings -lut 1430 $KEYCHAIN_PATH
-      #           security unlock-keychain -p "$BUILD_KEY_CHAIN_PASS" $KEYCHAIN_PATH
-      #           echo "Keychain created"
-      #
-      #           security import $CERTIFICATE_PATH -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-      #           security list-keychain -d user -S $KEYCHAIN_PATH
-      #
-      #
-      #           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-      #           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-      #           echo "JOb done"
-      #
-      #
 
-
-
-
-
+      - name: Install CocoaPods dependencies
+        run: arch -x86_64 pod install --repo-update
 
       - name: Get Flutter dependencies
         run: flutter pub get
@@ -84,6 +59,12 @@ jobs:
       - name: Archive and build iOS project
         run: |
           ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color    
+          xcodebuild -workspace ios/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+
+      - name: Cleanup
+        run: |
+          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
           rm -rf $ARCHIVE_PATH
-          echo "Build successfully"
+}
+
+
