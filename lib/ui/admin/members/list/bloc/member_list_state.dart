@@ -1,37 +1,38 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/invitation/invitation.dart';
 
-abstract class EmployeeListState extends Equatable {
-  const EmployeeListState();
-}
-
-class EmployeeListInitialState extends EmployeeListState {
-  @override
-  List<Object?> get props => [];
-}
-
-class EmployeeListLoadingState extends EmployeeListState {
-  @override
-  List<Object?> get props => [];
-}
-
-class EmployeeListSuccessState extends EmployeeListState {
-  final List<Employee> employees;
+class AdminMembersState extends Equatable {
+  final List<Employee> members;
   final List<Invitation> invitation;
+  final Status fetchMemberStatus;
+  final Status fetchInvitationStatus;
+  final String? error;
 
-  const EmployeeListSuccessState({required this.employees,required this.invitation});
+  const AdminMembersState({
+    this.error,
+    this.members = const [],
+    this.invitation = const [],
+    this.fetchInvitationStatus = Status.initial,
+    this.fetchMemberStatus = Status.initial,
+  });
+
+  AdminMembersState copyWith(
+          {List<Employee>? members,
+          List<Invitation>? invitation,
+          Status? fetchMemberStatus,
+          Status? fetchInvitationStatus,
+          String? error}) =>
+      AdminMembersState(
+          error: error,
+          invitation: invitation ?? this.invitation,
+          members: members ?? this.members,
+          fetchInvitationStatus: fetchInvitationStatus ?? this.fetchInvitationStatus,
+          fetchMemberStatus: fetchMemberStatus ?? this.fetchMemberStatus);
 
   @override
-  List<Object?> get props => [employees, invitation];
-}
-
-class EmployeeListFailureState extends EmployeeListState {
-  final String error;
-
-  const EmployeeListFailureState({required this.error});
-
-  @override
-  List<Object?> get props => [error];
+  List<Object?> get props =>
+      [error, members, invitation, fetchInvitationStatus, fetchMemberStatus];
 }

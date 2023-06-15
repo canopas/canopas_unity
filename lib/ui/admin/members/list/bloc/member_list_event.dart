@@ -1,8 +1,21 @@
-import 'package:equatable/equatable.dart';
+import '../../../../../data/model/employee/employee.dart';
 
-abstract class EmployeeListEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
+abstract class AdminMembersEvents {
+  const AdminMembersEvents();
 }
 
-class EmployeeListInitialLoadEvent extends EmployeeListEvent {}
+class FetchInvitationEvent extends AdminMembersEvents {}
+
+class ShowUpdatedMemberEvent extends AdminMembersEvents {
+  final List<Employee> members;
+
+  const ShowUpdatedMemberEvent(this.members);
+}
+
+class ShowErrorEvent extends AdminMembersEvents {
+  final String error;
+
+  const ShowErrorEvent(this.error);
+}
+
+class ShowLoadingEvent extends AdminMembersEvents {}
