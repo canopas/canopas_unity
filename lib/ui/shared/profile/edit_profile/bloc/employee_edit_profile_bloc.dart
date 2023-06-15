@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -20,11 +18,10 @@ class EmployeeEditProfileBloc
   final EmployeeService _employeeService;
   final UserStateNotifier _userManager;
   final UserPreference _preference;
-  final ImagePicker imagePicker;
   final StorageService storageService;
 
   EmployeeEditProfileBloc(this._employeeService, this._preference,
-      this._userManager, this.storageService, this.imagePicker)
+      this._userManager, this.storageService)
       : super(const EmployeeEditProfileState()) {
     on<EditProfileInitialLoadEvent>(_init);
     on<EditProfileNameChangedEvent>(_validName);
@@ -42,11 +39,7 @@ class EmployeeEditProfileBloc
 
   Future<void> _changeImage(
       ChangeImageEvent event, Emitter<EmployeeEditProfileState> emit) async {
-    final XFile? image = await imagePicker.pickImage(source: event.imageSource);
-    if (image != null) {
-      final file = File(image.path);
-      emit(state.copyWith(imageURL: file.path, isImagePickedDone: true));
-    }
+    emit(state.copyWith(imageURL: event.imagePath));
   }
 
   void _validName(EditProfileNameChangedEvent event,
@@ -104,14 +97,12 @@ class EmployeeEditProfileBloc
   }
 
   Future<String?> _saveImage() async {
-    final String storagePath =
-        'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
+    final String storagePath = 'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
 
     if (state.imageURL != null) {
       try {
-        final XFile file = XFile(state.imageURL!);
         final imageURL = await storageService.uploadProfilePic(
-            path: storagePath, file: file);
+            path: storagePath, imagePath: state.imageURL!);
         return imageURL;
       } on Exception {
         throw Exception();

@@ -8,7 +8,6 @@ class AdminEditEmployeeDetailsState extends Equatable {
   final DateTime? dateOfJoining;
   final String? error;
   final String? pickedImage;
-  final bool isImagePickedDone;
   final bool nameError;
   final bool designationError;
   final bool employeeIdError;
@@ -16,7 +15,6 @@ class AdminEditEmployeeDetailsState extends Equatable {
 
   const AdminEditEmployeeDetailsState({
     this.pickedImage,
-    this.isImagePickedDone = false,
     this.dateOfJoining,
     this.nameError = false,
     this.emailError = false,
@@ -43,11 +41,9 @@ class AdminEditEmployeeDetailsState extends Equatable {
     String? pickedImage,
     Role? role,
     Status? status,
-    bool? isImagePickedDone,
   }) {
     return AdminEditEmployeeDetailsState(
       pickedImage: pickedImage ?? this.pickedImage,
-      isImagePickedDone: isImagePickedDone ?? this.isImagePickedDone,
       dateOfJoining: dateOfJoining ?? this.dateOfJoining,
       designationError: designationError ?? this.designationError,
       emailError: emailError ?? this.emailError,
@@ -62,7 +58,6 @@ class AdminEditEmployeeDetailsState extends Equatable {
   @override
   List<Object?> get props => [
         pickedImage,
-        isImagePickedDone,
         status,
         role,
         error,

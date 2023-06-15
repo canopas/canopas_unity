@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
@@ -19,11 +17,10 @@ class AdminEditEmployeeDetailsBloc
     extends Bloc<EditEmployeeByAdminEvent, AdminEditEmployeeDetailsState> {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
-  final ImagePicker _imagePicker;
   final StorageService _storageService;
 
-  AdminEditEmployeeDetailsBloc(this._employeeService, this._imagePicker,
-      this._userStateNotifier, this._storageService)
+  AdminEditEmployeeDetailsBloc(
+      this._employeeService, this._userStateNotifier, this._storageService)
       : super(const AdminEditEmployeeDetailsState()) {
     on<EditEmployeeByAdminInitialEvent>(_initRoleTypeAndDate);
     on<ChangeEmployeeRoleEvent>(_changeRoleType);
@@ -91,12 +88,7 @@ class AdminEditEmployeeDetailsBloc
 
   Future<void> _changeImage(ChangeProfileImageEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) async {
-    final XFile? image =
-        await _imagePicker.pickImage(source: event.imageSource);
-    if (image != null) {
-      final file = File(image.path);
-      emit(state.copyWith(pickedImage: file.path, isImagePickedDone: true));
-    }
+    emit(state.copyWith(pickedImage: event.imagePath));
   }
 
   void _updateEmployee(UpdateEmployeeByAdminEvent event,
@@ -113,9 +105,8 @@ class AdminEditEmployeeDetailsBloc
 
         if (state.pickedImage != null) {
           imageUrl = await _storageService.uploadProfilePic(
-              path:
-                  'images/${_userStateNotifier.currentSpaceId}/${event.previousEmployeeData.uid}/profile',
-              file: XFile(state.pickedImage!));
+              path: 'images/${_userStateNotifier.currentSpaceId}/${event.previousEmployeeData.uid}/profile',
+              imagePath: state.pickedImage!);
         }
 
         await _employeeService.updateEmployeeDetails(

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../../data/model/employee/employee.dart';
 
@@ -46,12 +45,12 @@ class EditProfileChangeGenderEvent extends EditProfileEvent {
 }
 
 class ChangeImageEvent extends EditProfileEvent {
-  final ImageSource imageSource;
+  final String imagePath;
 
-  ChangeImageEvent({required this.imageSource});
+  ChangeImageEvent(this.imagePath);
 
   @override
-  List<Object?> get props => [imageSource];
+  List<Object?> get props => [imagePath];
 }
 
 class EditProfileUpdateProfileEvent extends EditProfileEvent {

@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
@@ -21,14 +20,12 @@ import 'employee_edit_profile_bloc_test.mocks.dart';
   UserStateNotifier,
   UserPreference,
   StorageService,
-  ImagePicker
 ])
 void main() {
   late EmployeeService employeeService;
   late UserStateNotifier userStateNotifier;
   late UserPreference preference;
   late StorageService storageService;
-  late ImagePicker imagePicker;
   late EmployeeEditProfileBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
@@ -51,9 +48,8 @@ void main() {
       userStateNotifier = MockUserStateNotifier();
       preference = MockUserPreference();
       storageService = MockStorageService();
-      imagePicker = MockImagePicker();
-      editEmployeeDetailsBloc = EmployeeEditProfileBloc(employeeService,
-          preference, userStateNotifier, storageService, imagePicker);
+      editEmployeeDetailsBloc = EmployeeEditProfileBloc(
+          employeeService, preference, userStateNotifier, storageService);
       when(userStateNotifier.employeeId).thenReturn(emp.uid);
       when(userStateNotifier.employee).thenReturn(emp);
       when(userStateNotifier.currentSpaceId).thenReturn('sid');
@@ -81,35 +77,19 @@ void main() {
           ]));
     });
 
-    test('Emits state with image if user picked image from gallery', () {
-      editEmployeeDetailsBloc
-          .add(ChangeImageEvent(imageSource: ImageSource.gallery));
-      final XFile file = XFile('path');
-      when(imagePicker.pickImage(source: ImageSource.gallery))
-          .thenAnswer((_) async => file);
+    test('Emits state with change image', () {
+      editEmployeeDetailsBloc.add(ChangeImageEvent('path'));
       expectLater(editEmployeeDetailsBloc.stream,
-          emitsInOrder([EmployeeEditProfileState(imageURL: file.path)]));
+          emits(const EmployeeEditProfileState(imageURL: 'path')));
     });
-    test('Emits state with image if user picked image from camera', () {
-      editEmployeeDetailsBloc
-          .add(ChangeImageEvent(imageSource: ImageSource.camera));
-      final XFile file = XFile('path');
-      when(imagePicker.pickImage(source: ImageSource.camera))
-          .thenAnswer((_) async => file);
-      expectLater(editEmployeeDetailsBloc.stream,
-          emitsInOrder([EmployeeEditProfileState(imageURL: file.path)]));
-    });
+
     test('Should upload profile on storage if user set profile picture',
         () async {
-      editEmployeeDetailsBloc
-          .add(ChangeImageEvent(imageSource: ImageSource.camera));
-      final XFile file = XFile('path');
-      when(imagePicker.pickImage(source: ImageSource.camera))
-          .thenAnswer((_) async => file);
+      editEmployeeDetailsBloc.add(ChangeImageEvent('path'));
 
       const storagePath = 'images/sid/123/profile';
       when(storageService.uploadProfilePic(
-              path: storagePath, file: XFile(file.path)))
+              path: storagePath, imagePath: 'path'))
           .thenAnswer((_) async => 'uid');
 
       editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
@@ -123,11 +103,9 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             const EmployeeEditProfileState(
-                status: Status.loading, imageURL: null),
-            EmployeeEditProfileState(
-                status: Status.loading, imageURL: file.path),
-            EmployeeEditProfileState(
-                status: Status.success, imageURL: file.path)
+                status: Status.initial, imageURL: 'path'),
+            const EmployeeEditProfileState(
+                status: Status.loading, imageURL: 'path')
           ]));
     });
 

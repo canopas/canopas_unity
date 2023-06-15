@@ -81,9 +81,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       if (state.logo.isNotNullOrEmpty) {
         final String storagePath =
             'images/${_userManager.currentSpaceId}/space-logo';
-        final XFile logoFile = XFile(state.logo!);
         logoURL = await storageService.uploadProfilePic(
-            path: storagePath, file: logoFile);
+            path: storagePath, imagePath: state.logo!);
       }
 
       final Space updatedSpace = Space(
