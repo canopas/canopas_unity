@@ -39,8 +39,8 @@ jobs:
 
       - name: Install distribution certificates
         run: |
-          chmod +x ./ios_dist_profile_script.sh && ./ios_dist_profile_script.sh
-          chmod +x ./ios_dist_certificate_script.sh && ./ios_dist_certificate_script.sh
+          chmod +x  ios_dist_profile_script.sh && ./ios_dist_profile_script.sh
+          chmod +x  ios_dist_certificate_script.sh && ./ios_dist_certificate_script.sh
           source ~/.zshrc
 
       - name: Get Flutter dependencies
