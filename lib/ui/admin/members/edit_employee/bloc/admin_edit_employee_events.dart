@@ -7,7 +7,7 @@ abstract class EditEmployeeByAdminEvent extends Equatable {}
 
 class EditEmployeeByAdminInitialEvent extends EditEmployeeByAdminEvent {
   final Role? roleType;
-  final int? dateOfJoining;
+  final DateTime? dateOfJoining;
 
   EditEmployeeByAdminInitialEvent(
       {required this.roleType, required this.dateOfJoining});

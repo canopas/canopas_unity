@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
 import '../../../../../../data/core/exception/error_const.dart';
@@ -46,8 +45,8 @@ class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
   List<Leave> _getSelectedYearLeaveWithSortByDate(int year) {
     final List<Leave> leaves = allLeaves
         .where((leave) =>
-            leave.startDate.toDate.year == year ||
-            leave.endDate.toDate.year == year)
+            leave.startDate.year == year ||
+            leave.endDate.year == year)
         .whereNotNull()
         .toList();
     leaves.sort((a, b) => b.startDate.compareTo(a.startDate));

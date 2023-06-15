@@ -6,7 +6,7 @@ void main() {
     group('from json and from firestore', () {
       test('returns correct Employee object ', () {
         expect(
-            Employee.fromJson(const <String, dynamic>{
+            Employee.fromJson( <String, dynamic>{
               'uid': 'unique-user-doc-id',
               'role': 1,
               'name': 'Andrew jhone',
@@ -17,8 +17,8 @@ void main() {
               'image_url': '',
               'address': '',
               'gender': 2,
-              'date_of_birth': 6465456,
-              'date_of_joining': 875425,
+              'date_of_birth': DateTime(2000).millisecondsSinceEpoch,
+              'date_of_joining': DateTime(2000).millisecondsSinceEpoch,
               'level': 'L1',
             }),
             isA<Employee>()
@@ -40,18 +40,18 @@ void main() {
                     'Image Url of employee', '')
                 .having(
                     (employee) => employee.address, 'Address of employee', '')
-                .having((employee) => employee.gender, 'Gender', 2)
+                .having((employee) => employee.gender, 'Gender', Gender.female)
                 .having((employee) => employee.dateOfBirth,
-                    'Date Of Birth-Timestamp to int', 6465456)
+                    'Date Of Birth-Timestamp to int', DateTime(2000))
                 .having((employee) => employee.dateOfJoining,
-                    'Date Of Joining-Timestamp to int', 875425)
+                    'Date Of Joining-Timestamp to int', DateTime(2000))
                 .having(
                     (employee) => employee.level, 'Level of employee', 'L1'));
       });
     });
 
     test('apply correct employee to firestore', () {
-      Employee employee = const Employee(
+      Employee employee =  Employee(
           uid: 'Unique-user-id',
           role: Role.admin,
           name: 'Andrew jhone',
@@ -62,12 +62,12 @@ void main() {
           imageUrl: '',
           address: '',
           level: '',
-          gender: null,
+          gender: Gender.male,
           dateOfBirth: null,
-          dateOfJoining: 11);
+          dateOfJoining: DateTime(2000));
       Map<String, dynamic> map = <String, dynamic>{
         'uid': employee.uid,
-        'role': 1,
+        'role': Role.admin.value,
         'name': employee.name,
         'employee_id': employee.employeeId,
         'email': employee.email,
@@ -76,7 +76,8 @@ void main() {
         'image_url': employee.imageUrl,
         'address': employee.address,
         'level': employee.level,
-        'date_of_joining': employee.dateOfJoining
+        'gender':employee.gender!.value,
+        'date_of_joining': employee.dateOfJoining.millisecondsSinceEpoch
       };
 
       expect(employee.toJson(), map);

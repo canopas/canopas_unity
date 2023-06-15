@@ -87,7 +87,7 @@ class _AdminLeaveApplicationDetailScreenState
           children: [
             LeaveTypeAgoTitleWithStatus(
                 status: widget.leaveApplication.leave.status,
-                appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
+                appliedOn: widget.leaveApplication.leave.appliedOn,
                 leaveType: widget.leaveApplication.leave.type),
             UserContent(employee: widget.leaveApplication.employee),
             AdminLeaveRequestDetailsDateContent(

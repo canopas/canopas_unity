@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
@@ -24,13 +23,13 @@ void main() {
   Leave upcomingLeave = Leave(
       leaveId: 'Leave Id',
       uid: "user id",
-      type: 1,
-      startDate: today.add(const Duration(days: 1)).timeStampToInt,
-      endDate: today.add(const Duration(days: 2)).timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: today.add(const Duration(days: 1)),
+      endDate: today.add(const Duration(days: 2)),
       total: 2,
       reason: 'Suffering from viral fever',
       status: LeaveStatus.approved,
-      appliedOn: today.timeStampToInt,
+      appliedOn: today,
       perDayDuration: const [
         LeaveDayDuration.firstHalfLeave,
         LeaveDayDuration.firstHalfLeave
@@ -39,25 +38,25 @@ void main() {
   Leave pastLeave = Leave(
       leaveId: 'Leave-Id',
       uid: "user id",
-      type: 1,
-      startDate: today.subtract(const Duration(days: 2)).timeStampToInt,
-      endDate: today.subtract(const Duration(days: 1)).timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: today.subtract(const Duration(days: 2)),
+      endDate: today.subtract(const Duration(days: 1)),
       total: 1,
       reason: 'Suffering from viral fever',
       status: LeaveStatus.approved,
-      appliedOn: today.timeStampToInt,
+      appliedOn: today,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   Leave specificYearLeave = Leave(
       leaveId: 'Leave-Id',
       uid: "user id",
-      type: 1,
-      startDate: DateTime(2022).timeStampToInt,
-      endDate: DateTime(2022).timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: DateTime(2022),
+      endDate: DateTime(2022),
       total: 1,
       reason: 'Suffering from viral fever',
       status: LeaveStatus.approved,
-      appliedOn: today.timeStampToInt,
+      appliedOn: today,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
@@ -38,7 +37,7 @@ class EmployeeEditProfileBloc
   void _init(EditProfileInitialLoadEvent event,
       Emitter<EmployeeEditProfileState> emit) {
     emit(state.copyWith(
-        gender: event.gender, dateOfBirth: event.dateOfBirth?.toDate));
+        gender: event.gender, dateOfBirth: event.dateOfBirth));
   }
 
   Future<void> _changeImage(
@@ -88,7 +87,7 @@ class EmployeeEditProfileBloc
           address: event.address.isEmpty ? null : event.address,
           imageUrl: uri ?? _userManager.employee.imageUrl,
           gender: state.gender,
-          dateOfBirth: state.dateOfBirth?.timeStampToInt,
+          dateOfBirth: state.dateOfBirth,
           phone: event.phoneNumber.isEmpty ? null : event.phoneNumber,
           dateOfJoining: _userManager.employee.dateOfJoining,
         );
