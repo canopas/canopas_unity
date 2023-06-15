@@ -50,21 +50,17 @@ jobs:
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
           chmod +x install_dist_profile.sh && ./install_dist_profile.sh
 
-      - name: Install CocoaPods dependencies
-        run: arch -x86_64 pod install --repo-update
-
       - name: Get Flutter dependencies
         run: flutter pub get
 
-      - name: Archive and build iOS project
+      - name: Generate build
         run: |
-          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
-
-      - name: Cleanup
-        run: |
-          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.job }}.xcarchive"
-          rm -rf $ARCHIVE_PATH
-
-
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -a versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating ios build $buildName $buildNumber"
 
