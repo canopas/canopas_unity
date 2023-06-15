@@ -89,6 +89,8 @@ deploy_internal_android:
   stage: deploy
   extends: .android_docker_image
   before_script:
+    - echo "$FIREBASE_OPTIONS_BASE64" | base64 -di > lib/firebase_options.dart
+    - echo "$DESKTOP_CREDENTIALS_BASE64" | base64 -di > lib/desktop_credentials.dart
     - echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -di > android/app/google-services.json
     - file='VERSION'
     - fileData=`cat $file`
@@ -116,6 +118,8 @@ deploy_web:
   variables:
     DEBIAN_FRONTEND: noninteractive
   before_script:
+    - echo "$FIREBASE_OPTIONS_BASE64" | base64 -di > lib/firebase_options.dart
+    - echo "$DESKTOP_CREDENTIALS_BASE64" | base64 -di > lib/desktop_credentials.dart
     - echo "$WEB_INDEX_HTML_BASE64" | base64 -di > web/index.html
     - apt-get update && apt-get -y install --no-install-recommends awscli
   script:
