@@ -54,15 +54,18 @@ class _MemberListScreenState extends State<MemberListScreen> {
           )
         ],
       ),
-      body: BlocConsumer<AdminMembersBloc, AdminMembersState>(
-        builder: (context, state) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.read<AdminMembersBloc>().add(FetchInvitationEvent());
-            },
-            child: ListView(
-              children: [
-                ListView.separated(
+      body: BlocListener<AdminMembersBloc, AdminMembersState>(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            context.read<AdminMembersBloc>().add(FetchInvitationEvent());
+          },
+          child: ListView(
+            children: [
+              BlocBuilder<AdminMembersBloc, AdminMembersState>(
+                buildWhen: (previous, current) =>
+                    previous.fetchMemberStatus != current.fetchMemberStatus ||
+                    previous.members != current.members,
+                builder: (context, state) => ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (context, index) => const Divider(
@@ -80,43 +83,52 @@ class _MemberListScreenState extends State<MemberListScreen> {
                         }),
                       );
                     }),
-                ValidateWidget(
-                  isValid: state.invitation.isNotEmpty,
-                  child: state.fetchInvitationStatus == Status.loading
-                      ? const AppCircularProgressIndicator()
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Text(
-                                localizations.invited_members_title,
-                                style: AppFontStyle.headerDark,
+              ),
+              BlocBuilder<AdminMembersBloc, AdminMembersState>(
+                  buildWhen: (previous, current) =>
+                      previous.fetchInvitationStatus !=
+                          current.fetchInvitationStatus ||
+                      previous.invitation != current.invitation,
+                  builder: (context, state) => state.fetchInvitationStatus ==
+                          Status.loading
+                      ? const Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: AppCircularProgressIndicator(),
+                        )
+                      : ValidateWidget(
+                          isValid: state.invitation.isNotEmpty,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Text(
+                                  localizations.invited_members_title,
+                                  style: AppFontStyle.headerDark,
+                                ),
                               ),
-                            ),
-                            const Divider(height: 0),
-                            ListView.separated(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                separatorBuilder: (context, index) =>
-                                    const Divider(
-                                      endIndent: primaryVerticalSpacing,
-                                      indent: primaryVerticalSpacing,
-                                    ),
-                                padding: const EdgeInsets.all(
-                                    primaryHorizontalSpacing),
-                                itemCount: state.invitation.length,
-                                itemBuilder: (BuildContext context,
-                                        int index) =>
-                                    InvitedMemberCard(
-                                        invitation: state.invitation[index])),
-                          ],
-                        ),
-                ),
-              ],
-            ),
-          );
-        },
+                              const Divider(height: 0),
+                              ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  separatorBuilder: (context, index) =>
+                                      const Divider(
+                                        endIndent: primaryVerticalSpacing,
+                                        indent: primaryVerticalSpacing,
+                                      ),
+                                  padding: const EdgeInsets.all(
+                                      primaryHorizontalSpacing),
+                                  itemCount: state.invitation.length,
+                                  itemBuilder: (BuildContext context,
+                                          int index) =>
+                                      InvitedMemberCard(
+                                          invitation: state.invitation[index])),
+                            ],
+                          ),
+                        )),
+            ],
+          ),
+        ),
         listener: (context, state) {
           if (state.error != null &&
               (state.fetchMemberStatus == Status.error ||
