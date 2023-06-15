@@ -34,9 +34,6 @@ jobs:
           APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
         run: ./install_secret_script.sh
 
-
-      - uses: actions/checkout@v2
-
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
         with:
@@ -58,7 +55,7 @@ jobs:
           bundle install
           echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks
-          echo ${{ secrets.APP_PLAY_SERVICE_JSON }} > google_play_api_key.json
+          echo $APP_PLAY_SERVICE_JSON > google_play_api_key.json
           bundle exec fastlane supply init --track internal
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
 
