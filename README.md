@@ -4,7 +4,7 @@ Unity is cross-platform Leave Management application written in dart using Flutt
 
 ## Download App
 
-<img width="100%" alt="Fwiiter Banner" src="https://user-images.githubusercontent.com/37103237/152671482-885fd940-f4ea-4fb6-8baf-816c17b541d7.png">
+<img src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/app-store-dl.png" width="200">   <img src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/google-playstore-dl.png" width="200">
 
 ## Getting Started
 
