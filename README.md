@@ -1,6 +1,10 @@
-# projectunity
+## Unity - Flutter Application
 
-A new Flutter project.
+Unity is cross-platform Leave Management application written in dart using Flutter.
+
+## Download App
+
+<img width="100%" alt="Fwiiter Banner" src="https://user-images.githubusercontent.com/37103237/152671482-885fd940-f4ea-4fb6-8baf-816c17b541d7.png">
 
 ## Getting Started
 
