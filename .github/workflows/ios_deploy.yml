@@ -31,20 +31,22 @@ jobs:
           DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
           GOOGLE_SERVICES_PLIST_IOS_BASE64: ${{ secrets.GOOGLE_SERVICES_PLIST_IOS_BASE64 }}
+          IOS_EXPORT_OPTIONS_PLIST: ${{ secrets.IOS_EXPORT_OPTIONS_PLIST}}
 
         run: |
           echo $DESKTOP_CREDENTIALS_BASE64 | base64 --decode > lib/desktop_credentials.dart
           echo $FIREBASE_OPTIONS_BASE64 | base64 --decode > lib/firebase_options.dart
-          echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode > ios/Runner/GoogleService-Info.
+          echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode > ios/Runner/GoogleService-Info.plist
+          echo IOS_EXPORT_OPTIONS_PLIST | base64 --decode > ios/ExportOptions.plist
 
       - name: Install distribution certificates
         env:
-          $APPLE_DISTRIBUTION_CERT_N_KEY: ${{ secrets.APPLE_DISTRIBUTION_CERT_N_KEY }}
-          $BUILD_KEY_CHAIN_PASS: ${{ secrets.BUILD_KEY_CHAIN_PASS }}
-          $BUILD_KEY_CHAIN: ${{ secrets.BUILD_KEY_CHAIN }}
-          $APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD }}
-          $DIST_PROVISION_UUID: ${{ secrets.DIST_PROVISION_UUID }}
-          $DIST_PROVISION: ${{ secrets.DIST_PROVISION }}
+          APPLE_DISTRIBUTION_CERT_N_KEY: ${{ secrets.APPLE_DISTRIBUTION_CERT_N_KEY }}
+          BUILD_KEY_CHAIN_PASS: ${{ secrets.BUILD_KEY_CHAIN_PASS }}
+          BUILD_KEY_CHAIN: ${{ secrets.BUILD_KEY_CHAIN }}
+          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+          DIST_PROVISION_UUID: ${{ secrets.DIST_PROVISION_UUID }}
+          DIST_PROVISION: ${{ secrets.DIST_PROVISION }}
         run: |
           cd ios
           chmod +x install_dist_certs.sh && ./install_dist_certs.sh
@@ -60,9 +62,9 @@ jobs:
           fileData=`cat $file`
           IFS='.'
           read -a versionValue <<< "$fileData"
-          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_id }} ))
           IFS=''
-          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_id }}"
           echo "Generating ios build $buildName $buildNumber".
           cd ios
           ARCHIVE_PATH="$PWD/build/unity.xcarchive"
