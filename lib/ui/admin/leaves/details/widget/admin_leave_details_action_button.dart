@@ -18,6 +18,7 @@ import '../bloc/admin_leave_details_state.dart';
 
 class AdminLeaveDetailsActionButton extends StatelessWidget {
   final String leaveID;
+  final String uid;
   final LeaveStatus status;
   final Role role;
 
@@ -26,13 +27,15 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
     required this.leaveID,
     required this.status,
     required this.role,
+    required this.uid,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userStateNotifier = getIt<UserStateNotifier>();
     final localization = AppLocalizations.of(context);
-    if (status == LeaveStatus.approved &&
-        !(getIt<UserStateNotifier>().isHR && role == Role.hr)) {
+    if ((status == LeaveStatus.approved && !(userStateNotifier.isHR && role == Role.hr)) ||
+        (uid == userStateNotifier.employeeId && status == LeaveStatus.pending)) {
       return CancelButton(onTap: () {
         showAlertDialog(
           context: context,
@@ -48,7 +51,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
       });
     }
     if (status == LeaveStatus.pending &&
-        !(getIt<UserStateNotifier>().isHR && role == Role.hr)) {
+        !(userStateNotifier.isHR && role == Role.hr)) {
       return Container(
         padding: const EdgeInsets.all(10),
         height: 65,

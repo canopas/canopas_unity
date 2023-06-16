@@ -119,6 +119,7 @@ class _AdminLeaveApplicationDetailScreenState
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AdminLeaveDetailsActionButton(
+          uid: widget.leaveApplication.leave.uid,
           leaveID: widget.leaveApplication.leave.leaveId,
           role: widget.leaveApplication.employee.role,
           status: widget.leaveApplication.leave.status),
