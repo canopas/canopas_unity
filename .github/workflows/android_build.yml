@@ -39,9 +39,9 @@ jobs:
           fileData=`cat $file`
           IFS='.'
           read -a versionValue <<< "$fileData"
-          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_id }} ))
           IFS=''
-          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_id }}"
           echo "Generating android build $buildName $buildNumber"
           flutter build apk --release --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/apk/release/ProjectUnity*.apk .
@@ -89,9 +89,9 @@ jobs:
           fileData=`cat $file`
           IFS='.'
           read -a versionValue <<< "$fileData"
-          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_id }} ))
           IFS=''
-          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_id }}"
           echo "Generating android build $buildName $buildNumber"
           flutter build appbundle --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/bundle/release/app-release.aab .
