@@ -6,7 +6,8 @@ DIST_PROFILE_FILE=${DIST_PROVISION_UUID}.mobileprovision
 echo $DIST_PROVISION | base64 --decode > $DIST_PROFILE_FILE
 
 # copy where Xcode can find it
-cp ${DIST_PROFILE_FILE} "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision"
+mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+cp ${DIST_PROFILE_FILE} ./Library/MobileDevice/Provisioning\ Profiles
 
 # clean
 rm -fr *.mobileprovision
