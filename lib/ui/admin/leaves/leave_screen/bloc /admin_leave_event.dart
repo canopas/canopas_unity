@@ -1,36 +1,34 @@
-import 'package:equatable/equatable.dart';
 import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/model/leave_application.dart';
 
-abstract class AdminLeavesEvents extends Equatable {}
-
-class AdminLeavesInitialLoadEvent extends AdminLeavesEvents {
-  @override
-  List<Object?> get props => [];
+abstract class AdminLeavesEvents {
+  const AdminLeavesEvents();
 }
+
+class ShowErrorEvent extends AdminLeavesEvents {
+  final String error;
+
+  const ShowErrorEvent(this.error);
+}
+
+class UpdateDataEvent extends AdminLeavesEvents {}
+
+class ShowLoadingEvent extends AdminLeavesEvents {}
 
 class ChangeEmployeeEvent extends AdminLeavesEvents {
   final Employee? employee;
 
-  ChangeEmployeeEvent({required this.employee});
-
-  @override
-  List<Object?> get props => [employee];
+  const ChangeEmployeeEvent({required this.employee});
 }
 
 class ChangeEmployeeLeavesYearEvent extends AdminLeavesEvents {
   final int year;
 
-  ChangeEmployeeLeavesYearEvent({required this.year});
-
-  @override
-  List<Object?> get props => [year];
+  const ChangeEmployeeLeavesYearEvent({required this.year});
 }
 
 class SearchEmployeeEvent extends AdminLeavesEvents {
   final String search;
 
-  SearchEmployeeEvent({required this.search});
-
-  @override
-  List<Object?> get props => [search];
+  const SearchEmployeeEvent({required this.search});
 }

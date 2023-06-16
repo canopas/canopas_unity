@@ -23,7 +23,7 @@ class AdminLeavesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          getIt<AdminLeavesBloc>()..add(AdminLeavesInitialLoadEvent()),
+          getIt<AdminLeavesBloc>()..add(ShowLoadingEvent()),
       child: const AdminLeavesScreen(),
     );
   }

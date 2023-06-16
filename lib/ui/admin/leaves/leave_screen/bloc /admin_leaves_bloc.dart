@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave_application.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -16,57 +18,75 @@ import 'admin_leaves_state.dart';
 class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  List<Leave> _allLeaves = [];
+  late StreamSubscription _dBSubscription;
+
+  List<LeaveApplication> _allLeaves = [];
+  List<Employee> _allMembers = [];
 
   AdminLeavesBloc(this._leaveService, this._employeeService)
       : super(AdminLeavesState()) {
-    on<AdminLeavesInitialLoadEvent>(_initialLoad);
     on<ChangeEmployeeEvent>(_changeEmployee);
     on<ChangeEmployeeLeavesYearEvent>(_changeLeaveYear);
     on<SearchEmployeeEvent>(_searchEmployee);
+    on<UpdateDataEvent>(_updateData);
+    on<ShowErrorEvent>(_showError);
+    on<ShowLoadingEvent>(_showLoading);
+
+    _dBSubscription =
+        Rx.combineLatest2<List<Employee>, List<Leave>, List<LeaveApplication>>(
+      _employeeService.memberDBSnapshot(),
+      _leaveService.leaveDBSnapshot(),
+      leaveListAndEmployeeListToLeaveApplicationList,
+    ).listen((leaveApplication) {
+      _allLeaves = leaveApplication;
+      add(UpdateDataEvent());
+    }, onError: (error, _) {
+      add(const ShowErrorEvent(firestoreFetchDataError));
+    });
   }
 
-  Future<void> _initialLoad(
-      AdminLeavesInitialLoadEvent event, Emitter<AdminLeavesState> emit) async {
+  void _showError(ShowErrorEvent event, Emitter<AdminLeavesState> emit) {
+    emit(state.copyWith(status: Status.error, error: event.error));
+  }
+
+  void _showLoading(ShowLoadingEvent event, Emitter<AdminLeavesState> emit) {
     emit(state.copyWith(status: Status.loading));
-    try {
-      final employees = await _employeeService.getEmployees();
-      _allLeaves = await _leaveService.getAllLeaves();
-
-      emit(state.copyWith(
-          status: Status.success,
-          employees: employees,
-          leaveApplication: _getLeavesByEmployeeAndYear(
-              year: state.selectedYear, employees: employees)));
-    } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
-    }
   }
 
-  List<LeaveApplication> _getLeavesByEmployeeAndYear(
-      {Employee? selectedEmployee,
-      required int year,
-      required List<Employee> employees}) {
-    final leaveApplication = _allLeaves
-        .where((leave) => (leave.startDate.toDate.year == year ||
-            leave.endDate.toDate.year == year))
+  void _updateData(UpdateDataEvent event, Emitter<AdminLeavesState> emit) {
+    emit(state.copyWith(
+        status: Status.success,
+        employees: _allMembers,
+        leaveApplication:
+            _getLeavesByEmployeeAndYear(year: state.selectedYear)));
+  }
+
+  List<LeaveApplication> leaveListAndEmployeeListToLeaveApplicationList(
+      List<Employee> members, List<Leave> leaves) {
+    _allMembers = members;
+    return leaves
         .map((leave) {
-          if (selectedEmployee != null) {
-            if (leave.uid == selectedEmployee.uid) {
-              return LeaveApplication(employee: selectedEmployee, leave: leave);
-            }
-          } else {
-            final Employee? employee = employees
-                .firstWhereOrNull((employee) => employee.uid == leave.uid);
-            if (employee != null) {
-              return LeaveApplication(employee: employee, leave: leave);
-            }
+          final employee =
+              members.firstWhereOrNull((member) => member.uid == leave.uid);
+          if (employee != null) {
+            return LeaveApplication(employee: employee, leave: leave);
           }
+          return null;
         })
         .whereNotNull()
         .toList();
-    leaveApplication.sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
+  }
+
+  List<LeaveApplication> _getLeavesByEmployeeAndYear(
+      {Employee? selectedEmployee, required int year}) {
+    final leaveApplication = _allLeaves
+        .where((la) =>
+            (la.leave.startDate.toDate.year == year ||
+                la.leave.endDate.toDate.year == year) &&
+            (selectedEmployee == null || la.leave.uid == selectedEmployee.uid))
+        .toList();
+    leaveApplication
+        .sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
     return leaveApplication;
   }
 
@@ -77,9 +97,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
         assignSelectedEmployeeNull: true,
         selectedYear: DateTime.now().year,
         leaveApplication: _getLeavesByEmployeeAndYear(
-            employees: state.employees,
-            selectedEmployee: event.employee,
-            year: DateTime.now().year)));
+            selectedEmployee: event.employee, year: DateTime.now().year)));
   }
 
   void _changeLeaveYear(
@@ -87,9 +105,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
     emit(state.copyWith(
         selectedYear: event.year,
         leaveApplication: _getLeavesByEmployeeAndYear(
-            employees: state.employees,
-            selectedEmployee: state.selectedEmployee,
-            year: event.year)));
+            selectedEmployee: state.selectedEmployee, year: event.year)));
   }
 
   void _searchEmployee(
@@ -98,8 +114,10 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _allLeaves.clear();
-    return super.close();
+    _allMembers.clear();
+    await _dBSubscription.cancel();
+    super.close();
   }
 }

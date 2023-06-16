@@ -106,7 +106,7 @@ void main() {
       });
 
       test('successfully fetch initial data test', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(ShowLoadingEvent());
         when(employeeService.getEmployees())
             .thenAnswer((_) async => [andrew, joi]);
         when(leaveService.getAllLeaves()).thenAnswer((_) async => [
@@ -131,7 +131,7 @@ void main() {
       });
 
       test('check leave not add on list when employee not found', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(ShowLoadingEvent());
         when(employeeService.getEmployees()).thenAnswer((_) async => [andrew]);
         when(leaveService.getAllLeaves()).thenAnswer((_) async => [
               andrewCurrentYearLeave,
@@ -152,7 +152,7 @@ void main() {
       });
 
       test('show error on initial data failure test', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(ShowLoadingEvent());
         when(employeeService.getEmployees())
             .thenAnswer((_) async => [andrew, joi]);
         when(leaveService.getAllLeaves()).thenThrow(Exception('error'));
@@ -182,7 +182,7 @@ void main() {
       });
 
       test('successfully fetch initial data test', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(ShowLoadingEvent());
         when(employeeService.getEmployees())
             .thenAnswer((_) async => [andrew, joi]);
         when(leaveService.getAllLeaves()).thenAnswer((_) async => [
