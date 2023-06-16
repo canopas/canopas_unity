@@ -36,7 +36,16 @@ jobs:
           echo $FIREBASE_OPTIONS_BASE64 | base64 --decode > lib/firebase_options.dart
           echo $GOOGLE_SERVICES_PLIST_IOS_BASE64 | base64 --decode > ios/Runner/GoogleService-Info.
 
-      - name: Install distribution certificates
+      - name: Archive and build iOS project
+        run: |
+          cd ios
+          chmod +x install_dist_certs.sh && ./install_dist_certs.sh
+          chmod +x install_dist_profile.sh && ./install_dist_profile.sh
+          flutter pub get
+          arch -x86_64 pod install --repo-update
+          ARCHIVE_PATH="$PWD/build/unity.xcarchive"
+          xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+          echo "Archive done"
         env:
           APPLE_DISTRIBUTION_CERT_N_KEY: ${{ secrets.APPLE_DISTRIBUTION_CERT_N_KEY }}
           BUILD_KEY_CHAIN_PASS: ${{ secrets.BUILD_KEY_CHAIN_PASS }}
@@ -44,20 +53,6 @@ jobs:
           APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD }}
           DIST_PROVISION_UUID: ${{ secrets.DIST_PROVISION_UUID }}
           DIST_PROVISION: ${{ secrets.DIST_PROVISION }}
-        run: |
-          cd ios
-          chmod +x install_dist_certs.sh && ./install_dist_certs.sh
-          chmod +x install_dist_profile.sh && ./install_dist_profile.sh
-          flutter pub get
-          arch -x86_64 pod install --repo-update
-          cd ..
-
-      - name: Archive and build iOS project
-        run: |
-          cd ios
-          ARCHIVE_PATH="$PWD/build/unity.xcarchive"
-          xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
-          echo "Archive done"
 
       - name: Cleanup
         run: |
