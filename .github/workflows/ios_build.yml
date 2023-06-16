@@ -56,7 +56,7 @@ jobs:
         run: |
           cd ios
           ARCHIVE_PATH="$PWD/build/unity.xcarchive"
-          xcodebuild -workspace $PWD/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+          xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
           echo "Archive done"
 
       - name: Cleanup
