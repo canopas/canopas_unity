@@ -7,7 +7,7 @@ echo $DIST_PROVISION | base64 --decode > $DIST_PROFILE_FILE
 
 # copy where Xcode can find it
 mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-cp ${DIST_PROFILE_FILE} ./Library/MobileDevice/Provisioning\ Profiles
+cp ${DIST_PROFILE_FILE} ~/Library/MobileDevice/Provisioning\ Profiles
 
 # clean
 rm -fr *.mobileprovision
