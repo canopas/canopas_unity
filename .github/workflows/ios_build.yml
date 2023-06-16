@@ -54,11 +54,10 @@ jobs:
 
       - name: Archive and build iOS project
         run: |
-               cd ios
-               ARCHIVE_PATH="$PWD/build/Runner.xcarchive"
-               xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH
-          # | xcpretty --color
-               echo "Archive done"
+          cd ios
+          ARCHIVE_PATH="$PWD/build/Runner.xcarchive"
+          xcodebuild -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH
+          echo "Archive done"
 
       - name: Cleanup
         run: |
