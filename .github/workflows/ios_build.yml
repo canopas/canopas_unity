@@ -58,28 +58,28 @@ jobs:
         env:
           $IOS_EXPORT_OPTIONS_PLIST: ${{ secrets.IOS_EXPORT_OPTIONS_PLIST }}
         run: |
-               file='VERSION'
-               fileData=`cat $file`
-               IFS='.'
-               read -a versionValue <<< "$fileData"
-               buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${{ github.run_id }})
-               IFS=''
-               buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_id }}"
-               echo "Uploading build $buildName"
-               echo $IOS_EXPORT_OPTIONS_PLIST | base64 --decode > ios/Runner/ExportOptions.plist
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -a versionValue <<< "$fileData"
+          buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${{ github.run_id }})
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_id }}"
+          echo "Uploading build $buildName"
+          echo $IOS_EXPORT_OPTIONS_PLIST | base64 --decode > ios/Runner/ExportOptions.plist
                
-               flutter build ipa --export-options-plist=ios/Runner/ExportOptions.plist
-          #          flutter build ios --release
-          #
-          #          xcodebuild -workspace "$(pwd)/ios/Runner.xcworkspace" \
-          #            -scheme "Runner" clean archive \
-          #            -sdk iphoneos \
-          #            -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" | xcpretty --color
-          #
-          #          xcodebuild -exportArchive \
-          #            -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" \
-          #            -exportOptionsPlist "$(pwd)/ios/Runner/ExportOptions.plist" \
-          #            -exportPath "$(pwd)/build/ios/iphoneos/Runner.ipa"
+          flutter build ipa --export-options-plist=ios/Runner/ExportOptions.plist
+#                    flutter build ios --release
+#
+#                    xcodebuild -workspace "$(pwd)/ios/Runner.xcworkspace" \
+#                      -scheme "Runner" clean archive \
+#                      -sdk iphoneos \
+#                      -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" | xcpretty --color
+#
+#                    xcodebuild -exportArchive \
+#                      -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" \
+#                      -exportOptionsPlist "$(pwd)/ios/Runner/ExportOptions.plist" \
+#                      -exportPath "$(pwd)/build/ios/iphoneos/Runner.ipa"
                
                echo 'archive done"
 
