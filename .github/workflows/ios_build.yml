@@ -62,9 +62,9 @@ jobs:
           fileData=`cat $file`
           IFS='.'
           read -a versionValue <<< "$fileData"
-          buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
+          buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${{ github.run_id }})
           IFS=''
-          buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_id }}"
           echo "Uploading build $buildName"
           echo $IOS_EXPORT_OPTIONS_PLIST | base64 --decode > ios/Runner/ExportOptions.plist
           flutter build ios --release
