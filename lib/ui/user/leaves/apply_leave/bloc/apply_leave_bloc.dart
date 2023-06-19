@@ -4,6 +4,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
+import 'package:projectunity/data/services/mail_notification_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -15,10 +16,12 @@ import 'apply_leave_state.dart';
 @Injectable()
 class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
     with InputValidationMixin {
+  final NotificationService _notificationService;
   final LeaveService _leaveService;
-  final UserStateNotifier _userManager;
+  final UserStateNotifier _userStateNotifier;
 
-  ApplyLeaveBloc(this._userManager, this._leaveService)
+  ApplyLeaveBloc(
+      this._userStateNotifier, this._leaveService, this._notificationService)
       : super(ApplyLeaveState(
           startDate: DateTime.now().dateOnly,
           endDate: DateTime.now().dateOnly,
@@ -105,19 +108,22 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
           error: invalidLeaveDateError, leaveRequestStatus: Status.error));
     } else {
       try {
+        final leaveData = _getLeaveData();
         final leaveAlreadyExist = await _leaveService.checkLeaveAlreadyApplied(
-            userId: _userManager.userUID!,
-            dateDuration: _getLeaveData().getDateAndDuration());
+            userId: _userStateNotifier.userUID!,
+            dateDuration: leaveData.getDateAndDuration());
         if (leaveAlreadyExist) {
           emit(state.copyWith(
               error: alreadyLeaveAppliedError,
               leaveRequestStatus: Status.error));
         } else {
-          try {await _leaveService.applyForLeave(_getLeaveData());
-
-          emit(state.copyWith(leaveRequestStatus: Status.success));} on Exception {
-            throw Exception();
-          }
+          await _leaveService.applyForLeave(leaveData);
+          await _notificationService.notifyHRForNewLeave(
+            name: _userStateNotifier.employee.name,
+            startDate: leaveData.startDate,
+            endDate: leaveData.endDate,
+          );
+          emit(state.copyWith(leaveRequestStatus: Status.success));
         }
       } on Exception {
         emit(state.copyWith(
@@ -136,7 +142,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
           (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
     return Leave(
       leaveId: _leaveService.getNewLeaveId(),
-      uid: _userManager.employeeId,
+      uid: _userStateNotifier.employeeId,
       type: state.leaveType,
       startDate: firstDate,
       endDate: lastDate,
