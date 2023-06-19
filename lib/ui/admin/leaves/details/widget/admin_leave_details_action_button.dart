@@ -27,10 +27,10 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userStateNotifier = getIt<UserStateNotifier>();
     final localization = AppLocalizations.of(context);
-    if (leaveApplication.leave.status == LeaveStatus.approved &&
-        !(getIt<UserStateNotifier>().isHR &&
-            leaveApplication.employee.role == Role.hr)) {
+    if ((leaveApplication.leave.status == LeaveStatus.approved && !(userStateNotifier.isHR && leaveApplication.employee.role == Role.hr)) ||
+        (uid == userStateNotifier.employeeId && leaveApplication.leave.status == LeaveStatus.pending)) {
       return CancelButton(onTap: () {
         showAlertDialog(
           context: context,
@@ -52,8 +52,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
       });
     }
     if (leaveApplication.leave.status == LeaveStatus.pending &&
-        !(getIt<UserStateNotifier>().isHR &&
-            leaveApplication.employee.role == Role.hr)) {
+        !(userStateNotifier.isHR && leaveApplication.employee.role == Role.hr)) {
       return Container(
         padding: const EdgeInsets.all(10),
         height: 65,
