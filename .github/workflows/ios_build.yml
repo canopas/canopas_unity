@@ -55,8 +55,19 @@ jobs:
 
       - name: Archive and build iOS project
         run: |
-          flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
-          echo 'archive done"
+               file='VERSION'
+               fileData=`cat $file`
+               IFS='.'
+               read -a versionValue <<< "$fileData"
+               buildNumber=$(expr `expr ${versionValue[0]} \* 1000000` + `expr ${versionValue[1]} \* 10000` + ${CI_PIPELINE_IID})
+               IFS=''
+               buildName="${versionValue[0]}.${versionValue[1]}.$CI_PIPELINE_IID"
+               echo "Uploading build $buildName"
+               cd ios
+          #         xcodebuild app_version_code=${buildNumber} app_version_name=${buildName} -workspace Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
+          #      - xcodebuild -exportArchive -archivePath $ARCHIVE_PATH -exportOptionsPlist ExportOptionsAppStore.plist -exportPath $EXPORT_PATH
+               flutter build ipa build-name ${buildName} build-version ${buildNumber}  --release --export-options-plist=ios/ExportOptions.plist
+               echo 'archive done"
       #          ARCHIVE_PATH="$Home/Library/Developer/Xcode/Archives/ProjectUnity/${{ github.sha }}/${{ github.run_id  }}.xcarchive"
       #          xcodebuild -workspace ios/Runner.xcworkspace -scheme "Runner" clean archive -sdk iphoneos -archivePath $ARCHIVE_PATH | xcpretty --color
 
