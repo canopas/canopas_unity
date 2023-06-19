@@ -68,14 +68,16 @@ jobs:
           echo "Uploading build $buildName"
           echo $IOS_EXPORT_OPTIONS_PLIST | base64 --decode > ios/Runner/ExportOptions.plist
           flutter build ios --release
-          xcodebuild -workspace `pwd`/ios/Runner.xcworkspace \
-          -scheme "Runner" clean archive \
-          -sdk iphoneos \
-          -archivePath `pwd`/build/ios/iphoneos/Runner.xcarchive | xcpretty --color
-          xcodebuild -exportArchive \ 
-          -archivePath `pwd`/build/ios/iphoneos/Runner.xcarchive \ 
-          -exportOptionsPlist `pwd`/ios/ExportOptions.plist \ 
-          -exportPath `pwd`/build/ios/iphoneos/Runner.ipa
+          
+          xcodebuild -workspace "$(pwd)/ios/Runner.xcworkspace" \
+            -scheme "Runner" clean archive \
+            -sdk iphoneos \
+            -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" | xcpretty --color
+          
+          xcodebuild -exportArchive \
+            -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" \
+            -exportOptionsPlist "$(pwd)/ios/Runner/ExportOptions.plist" \
+            -exportPath "$(pwd)/build/ios/iphoneos/Runner.ipa"
 
           echo 'archive done"
 
