@@ -72,6 +72,7 @@ jobs:
           xcodebuild -workspace "$(pwd)/ios/Runner.xcworkspace" \
              -scheme "Runner" clean archive \
              -sdk iphoneos \
+             -allowProvisioningUpdates
              -archivePath "$(pwd)/build/ios/iphoneos/Runner.xcarchive" | xcpretty --color
 
           xcodebuild -exportArchive \
