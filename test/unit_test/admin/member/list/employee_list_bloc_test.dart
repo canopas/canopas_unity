@@ -63,7 +63,7 @@ void main() {
       expectLater(
           employeeListBloc.stream,
           emitsInOrder([
-            const AdminMembersState(
+             AdminMembersState(
                 members: [employee], fetchMemberStatus: Status.success)
           ]));
     });
@@ -103,9 +103,9 @@ void main() {
               invitation: [invitation],
               fetchInvitationStatus: Status.success,
             ),
-            const AdminMembersState(
+             AdminMembersState(
                 members: [employee],
-                invitation: [invitation],
+                invitation: const [invitation],
                 fetchInvitationStatus: Status.success,
                 fetchMemberStatus: Status.success)
           ]));
@@ -130,7 +130,7 @@ void main() {
               error: firestoreFetchDataError,
               fetchInvitationStatus: Status.error,
             ),
-            const AdminMembersState(
+            AdminMembersState(
                 members: [employee],
                 fetchInvitationStatus: Status.error,
                 fetchMemberStatus: Status.success)

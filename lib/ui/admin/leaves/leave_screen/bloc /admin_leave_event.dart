@@ -1,5 +1,4 @@
 import '../../../../../data/model/employee/employee.dart';
-import '../../../../../data/model/leave_application.dart';
 
 abstract class AdminLeavesEvents {
   const AdminLeavesEvents();

@@ -165,7 +165,7 @@ void main() {
       });
 
       test('text search employee text-field inputs', () {
-        bloc.add(SearchEmployeeEvent(search: "dummy"));
+        bloc.add(const SearchEmployeeEvent(search: "dummy"));
         expect(
             bloc.stream,
             emits(
