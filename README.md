@@ -37,7 +37,8 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * In the Firebase console, in the settings of your project
 * Click on the Flutter Icon to add Flutter app
 * Follow the instruction to add Flutter app
-  <img width="496" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/flutter_firebase_register.png">
+
+  <img width="1050" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/flutter_firebase_register.png">
 
 * It will create firebase_options.dart file in the lib folder.
 
@@ -45,8 +46,9 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * Go to Google Cloud Console: https://console.cloud.google.com/
 * On the top, Choose your project from drop down menu if selected default project is not your current project.
 * Click on the "API APIs and services".
-  <img width="496" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/Google%20cloud-console.png">
-* 
+
+  <img width="1080" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/Google%20cloud-console.png">
+
 * On the left side menu, Select "Credentials".
 * Click on the "Web client(auto created by Google Service)".
 * Copy **"Client Id"** and **"Client Secret"** (We will use in next step).
