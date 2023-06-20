@@ -1,10 +1,6 @@
-import 'package:equatable/equatable.dart';
 import 'package:projectunity/data/model/space/space.dart';
 
-class JoinSpaceEvents extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+class JoinSpaceEvents {}
 
 class JoinSpaceInitialFetchEvent extends JoinSpaceEvents {}
 
@@ -25,3 +21,5 @@ class SelectInvitationEvent extends JoinSpaceEvents {
 
   SelectInvitationEvent({required this.invitation});
 }
+
+class SignOutEvent extends JoinSpaceEvents {}

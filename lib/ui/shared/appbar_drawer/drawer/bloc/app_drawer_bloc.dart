@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
-import 'package:projectunity/data/services/auth_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/provider/user_state.dart';
@@ -16,15 +15,14 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   final SpaceService _spaceService;
   final AccountService _accountService;
   final UserStateNotifier _userManager;
-  final AuthService _authService;
   final EmployeeService _employeeService;
 
   DrawerBloc(this._spaceService, this._userManager, this._accountService,
-      this._employeeService, this._authService)
+      this._employeeService)
       : super(const DrawerState()) {
     on<FetchSpacesEvent>(_fetchSpaces);
     on<ChangeSpaceEvent>(_changeSpace);
-    on<SignOutEvent>(_signOut);
+    on<SignOutWithCurrentSpaceEvent>(_signOutFromCurrentSpace);
   }
 
   Future<void> _fetchSpaces(
@@ -64,13 +62,13 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
     }
   }
 
-  Future<void> _signOut(SignOutEvent event, Emitter<DrawerState> emit) async {
+  Future<void> _signOutFromCurrentSpace(
+      SignOutWithCurrentSpaceEvent event, Emitter<DrawerState> emit) async {
     emit(state.copyWith(signOutStatus: Status.loading));
-    bool isLogOut = await _authService.signOutWithGoogle();
-    if (isLogOut) {
-      await _userManager.removeAll();
+    try {
+      await _userManager.removeEmployeeWithSpace();
       emit(state.copyWith(signOutStatus: Status.success));
-    } else {
+    } on Exception {
       emit(state.copyWith(error: signOutError, signOutStatus: Status.error));
     }
   }

@@ -13,7 +13,6 @@ import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
-import '../../../widget/app_dialog.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'bloc/app_drawer_bloc.dart';
@@ -43,9 +42,9 @@ class _AppDrawerState extends State<AppDrawer> {
           context.pop();
           showSnackBar(context: context, error: state.error);
         } else if (state.changeSpaceStatus == Status.success) {
-          try{
+          try {
             context.pop();
-          }catch (_){}
+          } catch (_) {}
         }
       },
       child: Container(
@@ -70,9 +69,13 @@ class _AppDrawerState extends State<AppDrawer> {
                   currentEmployee: userManager.employee,
                   currentSpace: userManager.currentSpace!,
                 ),
-                SpaceList(userEmail: userManager.userEmail!,currentSpaceId: userManager.currentSpaceId),
+                SpaceList(
+                    userEmail: userManager.userEmail!,
+                    currentSpaceId: userManager.currentSpaceId),
                 const Divider(height: 0),
-                DrawerOptionList(isSpaceOwner: userManager.isSpaceOwner, isAdminOrHr: userManager.isAdmin || userManager.isHR),
+                DrawerOptionList(
+                    isSpaceOwner: userManager.isSpaceOwner,
+                    isAdminOrHr: userManager.isAdmin || userManager.isHR),
               ],
             ),
           ),
@@ -112,25 +115,19 @@ class DrawerOptionList extends StatelessWidget {
               title: locale.view_profile_button_tag,
               onTap: () {
                 context.pop();
-                context.goNamed(isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
+                context.goNamed(
+                    isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
               }),
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
-                icon: Icons.logout_rounded,
-                title: locale.sign_out_tag,
-                onTap: () {
-                  showAlertDialog(
-                    context: context,
-                    actionButtonTitle: locale.sign_out_tag,
-                    onActionButtonPressed: () {
-                      context.read<DrawerBloc>().add(SignOutEvent());
-                    },
-                    title: locale.sign_out_tag,
-                    description: locale.sign_out_alert,
-                  );
-                }),
+              icon: Icons.logout_rounded,
+              title: locale.sign_out_tag,
+              onTap: () => context
+                  .read<DrawerBloc>()
+                  .add(SignOutWithCurrentSpaceEvent()),
+            ),
           ),
         ],
       ),
@@ -142,7 +139,9 @@ class SpaceList extends StatelessWidget {
   final String userEmail;
   final String? currentSpaceId;
 
-  const SpaceList({Key? key, required this.userEmail, required this.currentSpaceId}) : super(key: key);
+  const SpaceList(
+      {Key? key, required this.userEmail, required this.currentSpaceId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

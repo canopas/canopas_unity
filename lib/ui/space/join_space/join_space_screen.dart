@@ -15,6 +15,7 @@ import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/core/utils/bloc_status.dart';
 import '../../navigation/app_router.dart';
+import '../../widget/app_dialog.dart';
 
 class JoinSpacePage extends StatelessWidget {
   const JoinSpacePage({Key? key}) : super(key: key);
@@ -97,7 +98,8 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                   buildWhen: (previous, current) =>
                       current.fetchSpaceStatus == Status.success,
                   builder: (context, state) {
-                    if (state.fetchSpaceStatus == Status.loading || state.fetchSpaceStatus == Status.initial) {
+                    if (state.fetchSpaceStatus == Status.loading ||
+                        state.fetchSpaceStatus == Status.initial) {
                       return const Padding(
                         padding: EdgeInsets.all(20),
                         child: AppCircularProgressIndicator(),
@@ -148,7 +150,32 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                                       .toList(),
                                 )
                               ],
-                            )
+                            ),
+                          const SizedBox(height: 10),
+                          TextButton(
+                            onPressed: () {
+                              showAlertDialog(
+                                context: context,
+                                actionButtonTitle: locale.sign_out_tag,
+                                onActionButtonPressed: () { context
+                                    .read<JoinSpaceBloc>()
+                                    .add(SignOutEvent());
+                                  context.pop();
+                                  },
+                                title: locale.sign_out_tag,
+                                description: locale.sign_out_alert,
+                              );
+                            },
+                            style: TextButton.styleFrom(
+                                fixedSize:
+                                    Size(MediaQuery.of(context).size.width, 50),
+                                foregroundColor: AppColors.redColor),
+                            child: Text(
+                              "Sign out from ${context.read<JoinSpaceBloc>().userEmail}",
+                              style: AppFontStyle.buttonTextStyle
+                                  .copyWith(color: AppColors.redColor),
+                            ),
+                          ),
                         ],
                       );
                     }

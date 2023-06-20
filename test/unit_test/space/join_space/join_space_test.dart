@@ -8,6 +8,7 @@ import 'package:projectunity/data/model/invitation/invitation.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
+import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -22,7 +23,8 @@ import 'join_space_test.mocks.dart';
   SpaceService,
   UserStateNotifier,
   AccountService,
-  EmployeeService
+  EmployeeService,
+  AuthService
 ])
 void main() {
   late SpaceService spaceService;
@@ -30,6 +32,7 @@ void main() {
   late EmployeeService employeeService;
   late InvitationService invitationService;
   late AccountService accountService;
+  late AuthService authService;
   late JoinSpaceBloc bloc;
   const invitation = Invitation(
       id: 'id',
@@ -37,19 +40,15 @@ void main() {
       senderId: 'senderId',
       receiverEmail: 'email');
   setUp(() {
+    authService = MockAuthService();
     spaceService = MockSpaceService();
     userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     invitationService = MockInvitationService();
     accountService = MockAccountService();
 
-    bloc = JoinSpaceBloc(
-      invitationService,
-      spaceService,
-      userStateNotifier,
-      accountService,
-      employeeService,
-    );
+    bloc = JoinSpaceBloc(invitationService, spaceService, userStateNotifier,
+        accountService, employeeService, authService);
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.userEmail).thenReturn('email');
   });
@@ -174,7 +173,7 @@ void main() {
     test(
         'Should emit loading and success state if user select space from requested spaces',
         () {
-          bloc.invitations = [invitation];
+      bloc.invitations = [invitation];
       when(employeeService.addEmployeeBySpaceId(
               employee: employee, spaceId: space.id))
           .thenAnswer((_) async {});
@@ -198,7 +197,7 @@ void main() {
     test(
         'Should emit loading and error state if user select space from requested spaces and firestore trows exception',
         () {
-          bloc.invitations = [invitation];
+      bloc.invitations = [invitation];
       when(employeeService.addEmployeeBySpaceId(
               employee: employee, spaceId: space.id))
           .thenThrow(Exception(firestoreFetchDataError));
@@ -217,6 +216,46 @@ void main() {
             const JoinSpaceState(selectSpaceStatus: Status.loading),
             const JoinSpaceState(
                 selectSpaceStatus: Status.error, error: firestoreFetchDataError)
+          ]));
+    });
+  });
+  group("sign out test ", () {
+    test("sign out successful test with navigation test", () async {
+      when(authService.signOutWithGoogle())
+          .thenAnswer((_) => Future(() => true));
+      bloc.add(SignOutEvent());
+      expect(
+          bloc.stream,
+          emitsInOrder([
+            const JoinSpaceState(signOutStatus: Status.loading),
+            const JoinSpaceState(signOutStatus: Status.success),
+          ]));
+      await untilCalled(userStateNotifier.removeAll());
+      verify(userStateNotifier.removeAll()).called(1);
+    });
+
+    test("sign out failure test", () {
+      when(authService.signOutWithGoogle())
+          .thenAnswer((_) => Future(() => false));
+      bloc.add(SignOutEvent());
+      expect(
+          bloc.stream,
+          emitsInOrder([
+            const JoinSpaceState(signOutStatus: Status.loading),
+            const JoinSpaceState(
+                signOutStatus: Status.error, error: signOutError),
+          ]));
+    });
+
+    test("sign out failure test on exception", () {
+      when(authService.signOutWithGoogle()).thenThrow(Exception(signOutError));
+      bloc.add(SignOutEvent());
+      expect(
+          bloc.stream,
+          emitsInOrder([
+            const JoinSpaceState(signOutStatus: Status.loading),
+            const JoinSpaceState(
+                signOutStatus: Status.error, error: signOutError),
           ]));
     });
   });

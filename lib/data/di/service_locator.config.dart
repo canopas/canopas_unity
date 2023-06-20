@@ -173,6 +173,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i23.AccountService>(),
           gh<_i27.EmployeeService>(),
+          gh<_i25.AuthService>(),
         ));
     gh.lazySingleton<_i30.LeaveService>(() => _i30.LeaveService(
           gh<_i22.UserStateNotifier>(),
@@ -262,7 +263,6 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i23.AccountService>(),
           gh<_i27.EmployeeService>(),
-          gh<_i25.AuthService>(),
         ));
     gh.factory<_i50.EmployeeDetailBloc>(() => _i50.EmployeeDetailBloc(
           gh<_i23.AccountService>(),
