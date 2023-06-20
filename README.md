@@ -61,10 +61,20 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * Click on the "Web client(auto created by Google Service)".
 * Copy **"Client Id"** and **"Client Secret"** and replace it with below.
 
-5. Create Local file 
+6. Create Local file 
 * Add a new dart file named desktop_credentials in the lib folder.
 * Add the Following Code in the file
 `const String googleClientId =
   "YOUR_GOOGLE_CLIENT_ID";
   const String authClientSecret = "YOUR AUTH_CLIENT_SECRET";`
+
+7. Run app on Android (Skip if not running on Android)
+* Run the following command from the project folder to get your SHA-1 key:
+
+```
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+```
+
+* Open Android app within your Firebase console
+* 
 
