@@ -38,7 +38,7 @@ void main() {
           bLoc.stream,
           emitsInOrder([
             UserMembersLoadingState(),
-            UserMembersSuccessState(employees: const [employee])
+            UserMembersSuccessState(employees: [employee])
           ]));
 
       await untilCalled(memberService.memberDBSnapshot());
