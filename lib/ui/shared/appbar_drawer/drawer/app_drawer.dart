@@ -95,6 +95,7 @@ class DrawerOptionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userStateNotifier= getIt<UserStateNotifier>();
     final locale = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -118,12 +119,13 @@ class DrawerOptionList extends StatelessWidget {
                 context.goNamed(
                     isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
               }),
+          
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
               icon: Icons.logout_rounded,
-              title: locale.sign_out_tag,
+              title: locale.sign_out_from_text(userStateNotifier.currentSpace?.name ?? "current space"),
               onTap: () => context
                   .read<DrawerBloc>()
                   .add(SignOutWithCurrentSpaceEvent()),
