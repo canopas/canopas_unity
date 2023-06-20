@@ -64,9 +64,11 @@ $ git clone https://github.com/canopas/canopas-unity.git
 6. Create Local file 
 * Add a new dart file named desktop_credentials in the lib folder.
 * Add the Following Code in the file
-`const String googleClientId =
+```
+const String googleClientId =
   "YOUR_GOOGLE_CLIENT_ID";
-  const String authClientSecret = "YOUR AUTH_CLIENT_SECRET";`
+  const String authClientSecret = "YOUR AUTH_CLIENT_SECRET";
+```
 
 7. Run app on Android (Skip if not running on Android)
 * Run the following command from the project folder to get your SHA-1 key:
@@ -76,5 +78,40 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 ```
 
 * Open Android app within your Firebase console
-* 
+* Add your SHA-1 key by clicking "Add Fingerprint".
+* Download google-services.json.
+* Replace it with old `google_services.json` in `android/app/` (You can also do it by Flutterfire CLI).
 
+8.Run app on iOS(Skip if not running on iOS)
+* Open XCode, right click the Runner folder, select the "Add Files to 'Runner'" menu, and select the GoogleService-Info.plist file to add it to /ios/Runner in XCode
+* Open /ios/Runner/Info.plist in a text editor.
+* Then add the CFBundleURLTypes attributes
+```
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.861823949799-vc35cprkp249096uujjn0vvnmcvjppkn</string>
+		</array>
+	</dict>
+</array>
+```
+* When running the app on the simulator for the first time, it may take a longer time to build.
+
+9. Run app on web(Skip if not running on web)
+* Open the "Credentials" page of the [Google APIs console](https://console.cloud.google.com/apis/).
+* Click on the `Web client  (auto created by Google Service)`.
+* Copy the  `Client ID` located at the top left side of the page.
+* Open web/index.html file, add the following meta tag.
+```
+<meta name="google-signin-client_id" content="YOUR_GOOGLE_SIGN_IN_OAUTH_CLIENT_ID.apps.googleusercontent.com">
+
+```
+* Add localhost entries if you are running app on specific port on `Authorized JavaScript origins` or use the port that already specified in this field.
+* Run `flutter run -d chrome --web-hostname localhost --web-port 7357`.
+* Replace the port with one you added to the  `Authorized JavaScript origins` fields.
