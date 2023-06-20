@@ -6,6 +6,13 @@ Unity is cross-platform Leave Management application written in dart using Flutt
 
 <img src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/app-store-dl.png" width="200">   <img src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/google-playstore-dl.png" width="200">
 
+## Features
+* Unity is open source leave management app designed to track employee's leave within an organization.
+* Unity allows you to create and manage multiple spaces.
+* You can easily add employees with different role types such as Admin, HR and Employee.
+
+:boom: Unity app uses `firestore` database.:boom
+
 ## Getting started
 * Project setup instructions 
 
