@@ -19,6 +19,7 @@ $ git clone https://github.com/canopas/canopas-unity.git
 #### 3. Setup the firebase app
 
 1. You'll need to create a Firebase instance. Follow the instructions at https://console.firebase.google.com/
+
 2. Once your Firebase instance is created, you'll need to be enable Google authentication.
 
 * Go to Firebase console for your new instance.
@@ -40,11 +41,11 @@ $ git clone https://github.com/canopas/canopas-unity.git
 
   <img width="1050" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/flutter_firebase_register.png">
 
-* It will create firebase_options.dart file in the lib folder.
+* It will create `firebase_options.dart` file in the `lib` folder.
 
 5. Get Google ClientId for app
-* Go to Google Cloud Console: https://console.cloud.google.com/
-* On the top, Choose your project from drop down menu if selected default project is not your current project.
+* Go to [Google APIs console](https://console.cloud.google.com/apis/).
+* On the top bar, Choose your project from drop down menu if selected default project is not your current project.
 * Click on the "API APIs and services".
 
   <img width="1080" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/Google%20cloud-console.png">
