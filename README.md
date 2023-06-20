@@ -11,7 +11,7 @@ Unity is cross-platform Leave Management application written in dart using Flutt
 * Unity allows you to create and manage multiple spaces.
 * You can easily add employees with different role types such as Admin, HR and Employee.
 
-:boom: Unity app uses `firestore` database.:boom
+:boom: Unity app uses `firestore` database. :boom:
 
 ## Getting started
 * Project setup instructions 
