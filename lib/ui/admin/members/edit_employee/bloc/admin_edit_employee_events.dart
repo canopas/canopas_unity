@@ -6,7 +6,7 @@ abstract class EditEmployeeByAdminEvent extends Equatable {}
 
 class EditEmployeeByAdminInitialEvent extends EditEmployeeByAdminEvent {
   final Role? roleType;
-  final int? dateOfJoining;
+  final DateTime? dateOfJoining;
 
   EditEmployeeByAdminInitialEvent(
       {required this.roleType, required this.dateOfJoining});
@@ -67,6 +67,15 @@ class ChangeEmployeeDateOfJoiningEvent extends EditEmployeeByAdminEvent {
 
   @override
   List<Object?> get props => [dateOfJoining];
+}
+
+class ChangeProfileImageEvent extends EditEmployeeByAdminEvent {
+  final String imagePath;
+
+  ChangeProfileImageEvent(this.imagePath);
+
+  @override
+  List<Object?> get props => [imagePath];
 }
 
 class UpdateEmployeeByAdminEvent extends EditEmployeeByAdminEvent {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
-import '../../data/core/utils/const/leave_map.dart';
 import '../../data/model/leave/leave.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
@@ -39,6 +38,15 @@ class LeaveStatusView extends StatelessWidget {
       ),
     );
   }
+}
+
+Color leaveStatusColor(LeaveStatus leaveStatus) {
+  if (leaveStatus == LeaveStatus.approved) {
+    return const Color(0xffB6F5D4);
+  } else if (leaveStatus == LeaveStatus.pending) {
+    return const Color(0xffF5F5F5);
+  }
+  return const Color(0xffFFE5E1);
 }
 
 class LeaveStatusIcon extends StatelessWidget {

@@ -113,6 +113,7 @@ class _AdminEditEmployeeDetailsViewState
         ],
       ),
       body: AdminEditEmployeeDetailsForm(
+        profileImageUrl: widget.employee.imageUrl,
         employeeId: widget.employee.uid,
         designationFieldController: designationFieldController,
         emailFieldController: emailFieldController,

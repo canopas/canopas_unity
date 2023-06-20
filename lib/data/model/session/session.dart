@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
+import '../../core/converters /date_converter.dart';
 
 part 'session.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(
+    fieldRename: FieldRename.snake,
+    includeIfNull: false,
+    converters: [DateTimeConverter()])
 class Session {
   String? deviceId;
   String? deviceToken;
@@ -11,7 +15,7 @@ class Session {
   int? version;
   String? deviceName;
   String? osVersion;
-  int? lastAccessedOn;
+  DateTime? lastAccessedOn;
 
   Session(
       {this.deviceId,
@@ -35,18 +39,13 @@ class Session {
   Map<String, dynamic> toJson() => _$SessionToJson(this);
 }
 
+@JsonEnum(valueField: 'value')
 enum DeviceType {
-  @JsonValue(1)
   android(1),
-  @JsonValue(2)
   ios(2),
-  @JsonValue(3)
   web(3),
-  @JsonValue(4)
   macOS(4),
-  @JsonValue(5)
   linux(5),
-  @JsonValue(6)
   windows(6);
 
   final int value;

@@ -37,7 +37,7 @@ jobs:
         run: ./install_secret_script.sh
 
 
-      - name: Run lints test
+      - name: Run lint check
         run: |
           flutter clean
           flutter pub get

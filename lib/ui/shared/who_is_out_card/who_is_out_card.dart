@@ -19,9 +19,9 @@ class WhoIsOutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<WhoIsOutCardBloc, WhoIsOutCardState>(
-      listenWhen: (previous, current) => current.status == Status.error,
+      listenWhen: (previous, current) => current.status == Status.error && current.error != null,
       listener: (context, state) {
-        if (state.status == Status.error) {
+        if (state.status == Status.error && state.error != null) {
           showSnackBar(context: context, error: state.error);
         }
       },

@@ -49,8 +49,8 @@ class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
   List<Leave> _getSelectedYearLeaveWithSortByDate(int year) {
     final List<Leave> leaves = allLeaves
         .where((leave) =>
-            leave.startDate.toDate.year == year ||
-            leave.endDate.toDate.year == year)
+            leave.startDate.year == year ||
+            leave.endDate.year == year)
         .whereNotNull()
         .toList();
     leaves.sort((a, b) => b.startDate.compareTo(a.startDate));

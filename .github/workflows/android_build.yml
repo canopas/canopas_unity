@@ -3,6 +3,7 @@ name: Android Build
 on: workflow_dispatch
 
 jobs:
+
   android_build_apk:
     runs-on: ubuntu-latest
 
@@ -30,14 +31,26 @@ jobs:
           DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-
         run: ./install_secret_script.sh
 
-      - name: Create version number
+      - name: Generate build
         run: |
-          create_version.sh
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -a versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating android build $buildName $buildNumber"
+          echo $APKSIGN_KEYSTORE_PASS | base64 -di > release.jks
+          export APKSIGN_KEYSTORE=`pwd`/release.jks
           flutter build apk --release --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/apk/release/ProjectUnity*.apk .
+        env:
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
@@ -76,11 +89,24 @@ jobs:
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
         run: ./install_secret_script.sh
 
-      - name: Create version number
+      - name: Generate build
         run: |
-          ./create_version.sh
+          file='VERSION'
+          fileData=`cat $file`
+          IFS='.'
+          read -a versionValue <<< "$fileData"
+          buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+          IFS=''
+          buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+          echo "Generating android build $buildName $buildNumber"
+          echo $APKSIGN_KEYSTORE_PASS | base64 -di > release.jks
+          export APKSIGN_KEYSTORE=`pwd`/release.jks
           flutter build appbundle --build-number=$buildNumber --build-name=$buildName
           mv build/app/outputs/bundle/release/app-release.aab .
+        env:
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v2

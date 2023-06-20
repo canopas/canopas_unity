@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
@@ -24,28 +23,28 @@ void main() {
     upcomingLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
-        type: 5,
-        startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
-        endDate: DateTime.now().add(const Duration(days: 3)).timeStampToInt,
+        type: LeaveType.marriageLeave,
+        startDate: DateTime.now().add(const Duration(days: 2)),
+        endDate: DateTime.now().add(const Duration(days: 3)),
         total: 1,
         reason: 'Suffering from viral fever',
         status: LeaveStatus.pending,
-        appliedOn: DateTime.now().timeStampToInt,
+        appliedOn: DateTime.now(),
         perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
     pastLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
-        type: 5,
+        type: LeaveType.marriageLeave,
         startDate:
-            DateTime.now().subtract(const Duration(days: 3)).timeStampToInt,
+            DateTime.now().subtract(const Duration(days: 3)),
         endDate:
-            DateTime.now().subtract(const Duration(days: 2)).timeStampToInt,
+            DateTime.now().subtract(const Duration(days: 2)),
         total: 1,
         reason: 'Suffering from viral fever',
         status: LeaveStatus.pending,
         appliedOn:
-            DateTime.now().subtract(const Duration(days: 4)).timeStampToInt,
+            DateTime.now().subtract(const Duration(days: 4)),
         perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
   });
 

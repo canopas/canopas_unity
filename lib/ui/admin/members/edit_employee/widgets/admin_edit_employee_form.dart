@@ -12,6 +12,7 @@ import '../../../../../data/provider/user_state.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';
 import '../../../../widget/error_snack_bar.dart';
+import '../../../../widget/pick_profile_image/pick_user_profile_image.dart';
 import 'role_toggle_button.dart';
 import '../bloc/admin_edit_employee_bloc.dart';
 import '../bloc/admin_edit_employee_events.dart';
@@ -19,6 +20,7 @@ import '../bloc/admin_edit_employee_state.dart';
 
 class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final String employeeId;
+  final String? profileImageUrl;
   final TextEditingController nameFieldController;
   final TextEditingController emailFieldController;
   final TextEditingController designationFieldController;
@@ -27,6 +29,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
 
   const AdminEditEmployeeDetailsForm(
       {Key? key,
+      required this.profileImageUrl,
       required this.employeeId,
       required this.nameFieldController,
       required this.emailFieldController,
@@ -41,6 +44,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
     final bloc = context.read<AdminEditEmployeeDetailsBloc>();
     return BlocListener<AdminEditEmployeeDetailsBloc,
         AdminEditEmployeeDetailsState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == Status.error) {
           showSnackBar(context: context, error: state.error);
@@ -51,6 +55,12 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(primaryHorizontalSpacing),
         children: [
+          ProfileImagePicker(
+            imageURl: profileImageUrl,
+            onPickImageChange: (String image) => context
+                .read<AdminEditEmployeeDetailsBloc>()
+                .add(ChangeProfileImageEvent(image)),
+          ),
           ValidateWidget(
             isValid: getIt<UserStateNotifier>().isAdmin,
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,

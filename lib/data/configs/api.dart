@@ -7,3 +7,4 @@ const String redirectUrl = 'http://localhost:';
 const String authenticatedResponse = 'You can close this tab.';
 const String revokeTokenUrl = 'https://oauth2.googleapis.com/revoke';
 const String token = 'token';
+const String baseURL = "prod-stack-api.canopas.com";

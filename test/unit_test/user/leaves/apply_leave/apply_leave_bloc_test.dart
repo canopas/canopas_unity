@@ -5,20 +5,23 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
+import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.dart';
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserStateNotifier])
+@GenerateMocks([LeaveService, UserStateNotifier, NotificationService])
 void main() {
   late LeaveService leaveService;
   late UserStateNotifier userStateNotifier;
   late ApplyLeaveBloc leaveRequestBloc;
+  late NotificationService notificationService;
 
   final DateTime currentDate = DateTime.now().dateOnly;
   final DateTime futureDate = DateTime.now().add(const Duration(days: 5));
@@ -33,7 +36,9 @@ void main() {
     setUp(() {
       leaveService = MockLeaveService();
       userStateNotifier = MockUserStateNotifier();
-      leaveRequestBloc = ApplyLeaveBloc(userStateNotifier, leaveService);
+      notificationService = MockNotificationService();
+      leaveRequestBloc =
+          ApplyLeaveBloc(userStateNotifier, leaveService, notificationService);
 
       when(userStateNotifier.userUID).thenReturn("id");
       when(userStateNotifier.employeeId).thenReturn("id");
@@ -41,7 +46,8 @@ void main() {
     });
 
     test("leave Type change test", () {
-      leaveRequestBloc.add(ApplyLeaveChangeLeaveTypeEvent(leaveType: 1));
+      leaveRequestBloc
+          .add(ApplyLeaveChangeLeaveTypeEvent(leaveType: LeaveType.sickLeave));
       expect(
           leaveRequestBloc.stream,
           emits(ApplyLeaveState(
@@ -49,7 +55,7 @@ void main() {
               endDate: currentDate,
               totalLeaveDays: currentDayTotalLeaveCount,
               selectedDates: currentDayMap,
-              leaveType: 1)));
+              leaveType: LeaveType.sickLeave)));
     });
 
     test('on apply leave fill data error test', () async {
@@ -234,13 +240,13 @@ void main() {
       Leave leave = Leave(
         leaveId: "1234",
         uid: "id",
-        type: 0,
-        startDate: firstDate.timeStampToInt,
-        endDate: lastDate.timeStampToInt,
+        type: LeaveType.casualLeave,
+        startDate: firstDate,
+        endDate: lastDate,
         total: totalDays,
         reason: "reason",
         status: LeaveStatus.pending,
-        appliedOn: currentDate.timeStampToInt,
+        appliedOn: currentDate,
         perDayDuration: selectedDates.values.toList(),
       );
 
@@ -301,20 +307,33 @@ void main() {
         ..removeWhere(
             (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
 
+      Employee employee = Employee(
+          uid: 'uid',
+          name: 'dummy',
+          email: 'dummy@canopas.com',
+          role: Role.employee,
+          dateOfJoining: DateTime(2002));
+
       Leave leave = Leave(
         leaveId: "1234",
         uid: "id",
-        type: 0,
-        startDate: firstDate.timeStampToInt,
-        endDate: lastDate.timeStampToInt,
+        type: LeaveType.casualLeave,
+        startDate: firstDate,
+        endDate: lastDate,
         total: totalDays,
         reason: "reason",
         status: LeaveStatus.pending,
-        appliedOn: currentDate.timeStampToInt,
+        appliedOn: currentDate,
         perDayDuration: selectedDates.values.toList(),
       );
 
       when(leaveService.applyForLeave(leave)).thenAnswer((_) async {});
+      when(userStateNotifier.employee).thenReturn(employee);
+      when(notificationService.notifyHRForNewLeave(
+              name: "dummy",
+              startDate: leave.startDate,
+              endDate: leave.endDate))
+          .thenAnswer((realInvocation) async => true);
       leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());

@@ -80,7 +80,7 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
               return ListView(
                 children: [
                   LeaveTypeAgoTitleWithStatus(
-                      appliedOnInTimeStamp: state.leave.appliedOn,
+                      appliedOn: state.leave.appliedOn,
                       leaveType: state.leave.type,
                       status: state.leave.status),
                   UserLeaveRequestDateContent(leave: state.leave),

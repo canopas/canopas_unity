@@ -18,12 +18,12 @@ void main() {
   late EmployeeService employeeService;
   late SpaceService spaceService;
   late UserStateNotifier userStateNotifier;
-  const Employee employee = Employee(
+  final employee = Employee(
       uid: 'uid',
       name: 'Andrew jhone',
       email: 'andrew.j@gmail.com',
       role: Role.admin,
-      dateOfJoining: 10);
+      dateOfJoining: DateTime(2000));
 
   final Space space = Space(
       id: 'space_id',

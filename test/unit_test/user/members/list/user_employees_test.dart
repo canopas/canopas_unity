@@ -14,14 +14,14 @@ void main() {
   late UserMembersBloc bLoc;
   late EmployeeService memberService;
 
-  const employee = Employee(
+  final employee = Employee(
     uid: "1",
     role: Role.employee,
     name: "test",
     employeeId: "103",
     email: "abc@gmail.com",
     designation: "android dev",
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   setUp(() {
