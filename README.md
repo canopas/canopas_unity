@@ -16,7 +16,7 @@ Unity is cross-platform Leave Management application written in dart using Flutt
 ## Getting started
 * Project setup instructions 
 
-### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
+#### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
 > **Note**: Flutter sdk vesion `3.3.7` is recommended to run project.
 
 #### 2. Clone the repo
@@ -43,14 +43,18 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * In the Firebase console, in the settings of your project
 * Click on the Flutter Icon to add Flutter app
 * Follow the instruction to add Flutter app
+
   <img width="1050" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/flutter_firebase_register.png">
+  
 * It will create `firebase_options.dart` file in the `lib` folder.
 
 #### 7. Get Google ClientId for app
 * Go to [Google APIs console](https://console.cloud.google.com/apis/).
 * On the top bar, Choose your project from drop down menu if selected default project is not your current project.
 * Click on the "API APIs and services".
+
   <img width="1080" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/Google%20cloud-console.png">
+  
 * On the left side menu, Select "Credentials".
 * Click on the "Web client(auto created by Google Service)".
 * Copy **"Client Id"** and **"Client Secret"** (We will use in next step).
