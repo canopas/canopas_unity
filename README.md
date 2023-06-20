@@ -16,7 +16,7 @@ Unity is cross-platform Leave Management application written in dart using Flutt
 ## Getting started
 * Project setup instructions 
 
-#### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
+### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
 > **Note**: Flutter sdk vesion `3.3.7` is recommended to run project.
 
 #### 2. Clone the repo
