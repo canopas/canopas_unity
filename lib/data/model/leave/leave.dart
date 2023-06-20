@@ -1,28 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:projectunity/data/core/converters%20/date_converter.dart';
 
 part 'leave.g.dart';
 
-
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(
+    includeIfNull: false,
+    converters: [DateTimeConverter()],
+    fieldRename: FieldRename.snake)
 class Leave extends Equatable {
-  @JsonKey(name: 'leave_id')
   final String leaveId;
   final String uid;
-  @JsonKey(name: 'type')
-  final int type;
-  @JsonKey(name: 'start_date')
-  final int startDate;
-  @JsonKey(name: 'end_date')
-  final int endDate;
+  final LeaveType type;
+  final DateTime startDate;
+  final DateTime endDate;
   final double total;
   final String reason;
   final LeaveStatus status;
   final String? response;
-  @JsonKey(name: 'applied_on')
-  final int appliedOn;
-  @JsonKey(name: 'per_day_duration')
+  final DateTime appliedOn;
   final List<LeaveDayDuration> perDayDuration;
 
   const Leave(
@@ -59,10 +56,24 @@ class Leave extends Equatable {
         reason,
         status,
         appliedOn,
-    response
+        response
       ];
 }
 
+@JsonEnum(valueField: 'value')
+enum LeaveType {
+  casualLeave(0),
+  sickLeave(1),
+  annualLeave(2),
+  paternityLeave(3),
+  maternityLeave(4),
+  marriageLeave(5),
+  bereavementLeave(6);
+
+  final int value;
+
+  const LeaveType(this.value);
+}
 
 @JsonEnum(valueField: 'value')
 enum LeaveStatus {
@@ -76,14 +87,11 @@ enum LeaveStatus {
   const LeaveStatus(this.value);
 }
 
+@JsonEnum(valueField: 'value')
 enum LeaveDayDuration {
-  @JsonValue(0)
   noLeave(0),
-  @JsonValue(1)
   firstHalfLeave(1),
-  @JsonValue(2)
   secondHalfLeave(2),
-  @JsonValue(3)
   fullLeave(3);
 
   final int value;

@@ -2,11 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-
+import 'package:projectunity/data/provider/user_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/services/employee_service.dart';
+import '../../../../../data/services/storage_service.dart';
 import '../../detail/bloc/employee_detail_event.dart';
 import 'admin_edit_employee_events.dart';
 import 'admin_edit_employee_state.dart';
@@ -15,8 +16,11 @@ import 'admin_edit_employee_state.dart';
 class AdminEditEmployeeDetailsBloc
     extends Bloc<EditEmployeeByAdminEvent, AdminEditEmployeeDetailsState> {
   final EmployeeService _employeeService;
+  final UserStateNotifier _userStateNotifier;
+  final StorageService _storageService;
 
-  AdminEditEmployeeDetailsBloc(this._employeeService)
+  AdminEditEmployeeDetailsBloc(
+      this._employeeService, this._userStateNotifier, this._storageService)
       : super(const AdminEditEmployeeDetailsState()) {
     on<EditEmployeeByAdminInitialEvent>(_initRoleTypeAndDate);
     on<ChangeEmployeeRoleEvent>(_changeRoleType);
@@ -26,13 +30,14 @@ class AdminEditEmployeeDetailsBloc
     on<ChangeEmployeeEmailEvent>(_validEmail);
     on<ChangeEmployeeIdEvent>(_validEmployeeId);
     on<ChangeEmployeeNameEvent>(_validName);
+    on<ChangeProfileImageEvent>(_changeImage);
   }
 
   void _initRoleTypeAndDate(EditEmployeeByAdminInitialEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(
         role: event.roleType,
-        dateOfJoining: event.dateOfJoining?.toDate ?? DateTime.now().dateOnly));
+        dateOfJoining: event.dateOfJoining ?? DateTime.now().dateOnly));
   }
 
   void _changeRoleType(ChangeEmployeeRoleEvent event,
@@ -81,6 +86,11 @@ class AdminEditEmployeeDetailsBloc
     }
   }
 
+  Future<void> _changeImage(ChangeProfileImageEvent event,
+      Emitter<AdminEditEmployeeDetailsState> emit) async {
+    emit(state.copyWith(pickedImage: event.imagePath));
+  }
+
   void _updateEmployee(UpdateEmployeeByAdminEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) async {
     emit(state.copyWith(status: Status.loading));
@@ -91,6 +101,14 @@ class AdminEditEmployeeDetailsBloc
       emit(state.copyWith(status: Status.error, error: fillDetailsError));
     } else {
       try {
+        String? imageUrl;
+
+        if (state.pickedImage != null) {
+          imageUrl = await _storageService.uploadProfilePic(
+              path: 'images/${_userStateNotifier.currentSpaceId}/${event.previousEmployeeData.uid}/profile',
+              imagePath: state.pickedImage!);
+        }
+
         await _employeeService.updateEmployeeDetails(
           employee: Employee(
             uid: event.previousEmployeeData.uid,
@@ -100,12 +118,12 @@ class AdminEditEmployeeDetailsBloc
             email: event.email,
             designation: event.designation,
             level: event.level.isEmpty ? null : event.level,
-            dateOfJoining: state.dateOfJoining!.timeStampToInt,
+            dateOfJoining: state.dateOfJoining!,
             phone: event.previousEmployeeData.phone,
             address: event.previousEmployeeData.address,
             dateOfBirth: event.previousEmployeeData.dateOfBirth,
             gender: event.previousEmployeeData.gender,
-            imageUrl: event.previousEmployeeData.imageUrl,
+            imageUrl: imageUrl ?? event.previousEmployeeData.imageUrl,
           ),
         );
         eventBus.fire(EmployeeDetailInitialLoadEvent(

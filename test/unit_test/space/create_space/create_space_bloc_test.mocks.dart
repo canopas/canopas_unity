@@ -512,7 +512,7 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
   @override
   _i8.Future<String> uploadProfilePic({
     required String? path,
-    required _i6.XFile? file,
+    required String? imagePath,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -520,7 +520,7 @@ class MockStorageService extends _i1.Mock implements _i13.StorageService {
           [],
           {
             #path: path,
-            #file: file,
+            #imagePath: imagePath,
           },
         ),
         returnValue: _i8.Future<String>.value(''),

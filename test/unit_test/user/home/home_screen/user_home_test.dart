@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
@@ -18,25 +17,25 @@ void main() {
   late UserStateNotifier userStateNotifier;
   late LeaveService leaveService;
 
-  const employee = Employee(
+  final employee = Employee(
     uid: "1",
     role: Role.employee,
     name: "test",
     employeeId: "103",
     email: "abc@gmail.com",
     designation: "android dev",
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
   final leave = Leave(
       leaveId: 'leaveId',
       uid: employee.uid,
-      type: 2,
-      startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
-      endDate: DateTime.now().add(const Duration(days: 4)).timeStampToInt,
+      type: LeaveType.sickLeave,
+      startDate: DateTime.now().add(const Duration(days: 2)),
+      endDate: DateTime.now().add(const Duration(days: 4)),
       total: 2,
       reason: 'Suffering from fever',
       status: LeaveStatus.pending,
-      appliedOn: 12,
+      appliedOn: DateTime.now(),
       perDayDuration: const [
         LeaveDayDuration.firstHalfLeave,
         LeaveDayDuration.firstHalfLeave

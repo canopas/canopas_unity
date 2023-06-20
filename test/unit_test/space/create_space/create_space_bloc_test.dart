@@ -15,13 +15,7 @@ import 'package:projectunity/ui/space/create_space/bloc/create_workspace_event.d
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_state.dart';
 import 'create_space_bloc_test.mocks.dart';
 
-class FakeStorageService extends Fake implements StorageService {
-  @override
-  Future<String> uploadProfilePic(
-      {required String path, required XFile file}) async {
-    return 'image-url';
-  }
-}
+
 
 @GenerateMocks([
   SpaceService,
@@ -44,7 +38,7 @@ void main() {
     spaceService = MockSpaceService();
     userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
-    storageService = FakeStorageService();
+    storageService = MockStorageService();
     imagePicker = MockImagePicker();
     when(userStateNotifier.userFirebaseAuthName).thenReturn('user name');
     bloc = CreateSpaceBLoc(spaceService, userStateNotifier, employeeService,
@@ -226,6 +220,9 @@ void main() {
     });
 
     test('create space success with all details test', () async {
+      when(storageService.uploadProfilePic(path: 'images/space-id/space-logo', imagePath: 'path'))
+          .thenAnswer((realInvocation) async => 'image-url');
+
       final state = CreateSpaceState(
         ownerName: 'user name',
         page: 2,
@@ -245,7 +242,7 @@ void main() {
           domain: 'www.canopas.com',
           createdAt: DateTime(2000),
           paidTimeOff: 12,
-          ownerIds: ['uid']);
+          ownerIds: const ['uid']);
       when(spaceService.createSpace(
               name: 'canopas',
               logo: 'image-url',
@@ -281,7 +278,7 @@ void main() {
           name: 'canopas',
           createdAt: DateTime(2000),
           paidTimeOff: 12,
-          ownerIds: ['uid']);
+          ownerIds: const ['uid']);
 
       when(spaceService.createSpace(
               name: 'canopas', timeOff: 12, ownerId: 'uid'))

@@ -27,7 +27,7 @@ class UserLeaveDetailBloc
         emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));
       } else {
         bool canCancel =
-            leave.startDate.toDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
+            leave.startDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
                 leave.status == LeaveStatus.pending;
         emit(UserLeaveDetailSuccessState(
             leave: leave, showCancelButton: canCancel));

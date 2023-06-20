@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -17,22 +18,22 @@ import '../bloc/admin_leave_details_event.dart';
 import '../bloc/admin_leave_details_state.dart';
 
 class AdminLeaveDetailsActionButton extends StatelessWidget {
-  final String leaveID;
-  final LeaveStatus status;
-  final Role role;
+  final LeaveApplication leaveApplication;
 
   const AdminLeaveDetailsActionButton({
     Key? key,
-    required this.leaveID,
-    required this.status,
-    required this.role,
+    required this.leaveApplication,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userStateNotifier = getIt<UserStateNotifier>();
     final localization = AppLocalizations.of(context);
-    if (status == LeaveStatus.approved &&
-        !(getIt<UserStateNotifier>().isHR && role == Role.hr)) {
+    if ((leaveApplication.leave.status == LeaveStatus.approved &&
+            !(userStateNotifier.isHR &&
+                leaveApplication.employee.role == Role.hr)) ||
+        (leaveApplication.leave.uid == userStateNotifier.employeeId &&
+            leaveApplication.leave.status == LeaveStatus.pending)) {
       return CancelButton(onTap: () {
         showAlertDialog(
           context: context,
@@ -41,14 +42,21 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
           actionButtonTitle: AppLocalizations.of(context).cancel_button_tag,
           onActionButtonPressed: () {
             context.read<AdminLeaveDetailsBloc>().add(LeaveResponseEvent(
-                responseStatus: LeaveStatus.cancelled, leaveId: leaveID));
+                  endDate: leaveApplication.leave.endDate,
+                  startDate: leaveApplication.leave.startDate,
+                  email: leaveApplication.employee.email,
+                  name: leaveApplication.employee.name,
+                  responseStatus: LeaveStatus.cancelled,
+                  leaveId: leaveApplication.leave.leaveId,
+                ));
             context.pop();
           },
         );
       });
     }
-    if (status == LeaveStatus.pending &&
-        !(getIt<UserStateNotifier>().isHR && role == Role.hr)) {
+    if (leaveApplication.leave.status == LeaveStatus.pending &&
+        !(userStateNotifier.isHR &&
+            leaveApplication.employee.role == Role.hr)) {
       return Container(
         padding: const EdgeInsets.all(10),
         height: 65,
@@ -73,10 +81,16 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                         backgroundColor: AppColors.redColor,
                       ),
                       onPressed: () {
-                        context.read<AdminLeaveDetailsBloc>().add(
-                            LeaveResponseEvent(
-                                responseStatus: LeaveStatus.rejected,
-                                leaveId: leaveID));
+                        context
+                            .read<AdminLeaveDetailsBloc>()
+                            .add(LeaveResponseEvent(
+                              endDate: leaveApplication.leave.endDate,
+                              startDate: leaveApplication.leave.startDate,
+                              email: leaveApplication.employee.email,
+                              name: leaveApplication.employee.name,
+                              responseStatus: LeaveStatus.rejected,
+                              leaveId: leaveApplication.leave.leaveId,
+                            ));
                       },
                       child: Text(
                           localization.admin_leave_detail_reject_button_tag,
@@ -91,8 +105,12 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                       onPressed: () {
                         context.read<AdminLeaveDetailsBloc>().add(
                             LeaveResponseEvent(
+                                endDate: leaveApplication.leave.endDate,
+                                startDate: leaveApplication.leave.startDate,
+                                email: leaveApplication.employee.email,
+                                name: leaveApplication.employee.name,
                                 responseStatus: LeaveStatus.approved,
-                                leaveId: leaveID));
+                                leaveId: leaveApplication.leave.leaveId));
                       },
                       child: Text(
                           localization.admin_leave_detail_approve_button_tag,

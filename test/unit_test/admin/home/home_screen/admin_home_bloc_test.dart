@@ -22,26 +22,26 @@ void main() {
   late LeaveService leaveService;
   late AdminHomeBloc adminHomeBloc;
 
-  Employee employee = const Employee(
+  final employee = Employee(
     uid: 'id',
     role: Role.admin,
     name: 'Andrew jhone',
     employeeId: '100',
     email: 'andrew.j@canopas.com',
     designation: 'Android developer',
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
   Leave leave = Leave(
       leaveId: 'leave-id',
       uid: 'id',
-      type: 2,
-      startDate: DateTime.now().add(const Duration(days: 2)).timeStampToInt,
-      endDate: DateTime.now().add(const Duration(days: 4)).timeStampToInt,
+      type: LeaveType.annualLeave,
+      startDate: DateTime.now().add(const Duration(days: 2)),
+      endDate: DateTime.now().add(const Duration(days: 4)),
       total: 2,
       reason: 'reason',
       status: LeaveStatus.approved,
-      appliedOn: DateTime.now().timeStampToInt,
+      appliedOn: DateTime.now(),
       perDayDuration: const [
         LeaveDayDuration.noLeave,
         LeaveDayDuration.firstHalfLeave
@@ -107,17 +107,17 @@ void main() {
     test(
         'Emits state with status as success and list of leave application is empty when leave user id doesn\'t match with any user id',
         () {
-      Employee empl = const Employee(
+      final emp =  Employee(
         uid: 'user id',
         role: Role.employee,
         name: 'Andrew jhone',
         employeeId: 'Ca 1254',
         email: 'andrew.j@canopas.com',
         designation: 'Android developer',
-        dateOfJoining: 11,
+        dateOfJoining: DateTime(2000),
       );
 
-      List<Employee> employees = [empl];
+      List<Employee> employees = [emp];
       List<Leave> leaves = [leave];
 
       when(employeeService.getEmployees()).thenAnswer((_) async => employees);

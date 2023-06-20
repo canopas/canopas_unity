@@ -28,14 +28,14 @@ void main() {
   late LeaveService leaveService;
   late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
-  Employee employee = const Employee(
+  final employee = Employee(
       uid: 'id',
       role: Role.employee,
       name: 'Andrew jhone',
       employeeId: 'CA 1254',
       email: 'andrew.j@canopas.com',
       designation: 'Android developer',
-      dateOfJoining: 1);
+      dateOfJoining: DateTime(2000));
 
   setUp(() {
     accountService = MockAccountService();

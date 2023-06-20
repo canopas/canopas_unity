@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
-import '../../../../../data/core/utils/const/leave_map.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -45,16 +45,14 @@ class LeaveTypeCard extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous.leaveType != current.leaveType,
                 builder: (context, state) => DropdownButtonHideUnderline(
-                  child: DropdownButton<int>(
+                  child: DropdownButton<LeaveType>(
                     isExpanded: true,
                     icon: const Icon(Icons.arrow_drop_down),
                     borderRadius: BorderRadius.circular(12),
-                    items: leaveTypeMap
-                        .map((key, value) {
-                          return MapEntry(
-                              key,
-                              DropdownMenuItem<int>(
-                                value: key,
+                    items: LeaveType.values
+                        .map((leaveType) {
+                          return DropdownMenuItem<LeaveType>(
+                                value: leaveType,
                                 child: Row(
                                   children: [
                                     const SizedBox(
@@ -63,18 +61,16 @@ class LeaveTypeCard extends StatelessWidget {
                                     Flexible(
                                       child: Text(localization
                                           .leave_type_placeholder_text(
-                                              key.toString())),
+                                          leaveType.value.toString())),
                                     ),
                                   ],
                                 ),
-                              ));
-                        })
-                        .values
-                        .toList(),
+                              );
+                        }).toList(),
                     value: state.leaveType,
-                    onChanged: (int? value) {
+                    onChanged: (LeaveType? leaveType) {
                       context.read<ApplyLeaveBloc>().add(
-                          ApplyLeaveChangeLeaveTypeEvent(leaveType: value));
+                          ApplyLeaveChangeLeaveTypeEvent(leaveType: leaveType));
                     },
                   ),
                 ),

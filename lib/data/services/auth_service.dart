@@ -38,26 +38,25 @@ class AuthService {
           await googleSignIn.signOut();
         }
       } on Exception {
-        throw Exception();
+        rethrow;
       }
     } else if (defaultTargetPlatform == TargetPlatform.macOS ||
         defaultTargetPlatform == TargetPlatform.windows ||
         defaultTargetPlatform == TargetPlatform.linux) {
-      try{
+      try {
         Credentials credentials = await _desktopAuthManager.login();
 
         firebase_auth.AuthCredential authCredential =
-        firebase_auth.GoogleAuthProvider.credential(
-            idToken: credentials.idToken,
-            accessToken: credentials.accessToken);
+            firebase_auth.GoogleAuthProvider.credential(
+                idToken: credentials.idToken,
+                accessToken: credentials.accessToken);
 
         user = await _signInWithCredentials(authCredential);
 
         await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
-      }on Exception catch(e){
-        throw Exception(e.toString());
+      } on Exception {
+        rethrow;
       }
-
     }
     return user;
   }
@@ -70,7 +69,7 @@ class AuthService {
           await firebaseAuth.signInWithCredential(authCredential);
       user = userCredential.user;
     } on Exception {
-      throw Exception();
+      rethrow;
     }
     return user;
   }

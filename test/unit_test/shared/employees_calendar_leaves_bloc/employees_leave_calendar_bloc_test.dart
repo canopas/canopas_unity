@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
@@ -19,21 +18,21 @@ void main() {
   late LeaveService leaveService;
   late EmployeesCalendarLeavesBloc whoIsOutViewBloc;
 
-  const employee = Employee(
+  final employee = Employee(
     uid: "123",
     role: Role.employee,
     name: "test",
     employeeId: "103",
     email: "abc@gmail.com",
     designation: "tester",
-    dateOfJoining: 11,
+    dateOfJoining: DateTime(2000),
   );
 
-  final currentTime = DateTime.now().timeStampToInt;
+  final currentTime = DateTime.now();
   final leave = Leave(
       leaveId: "234",
       uid: "123",
-      type: 1,
+      type: LeaveType.sickLeave,
       startDate: currentTime,
       endDate: currentTime,
       total: 1.0,
@@ -71,8 +70,8 @@ void main() {
 
     test("who is out view date select test", () {
       whoIsOutViewBloc.add(GetSelectedDateLeavesEvent(
-          currentTime.toDate.add(const Duration(days: 5))));
-      whoIsOutViewBloc.add(GetSelectedDateLeavesEvent(currentTime.toDate));
+          currentTime.add(const Duration(days: 5))));
+      whoIsOutViewBloc.add(GetSelectedDateLeavesEvent(currentTime));
       expect(
           whoIsOutViewBloc.stream,
           emitsInOrder([

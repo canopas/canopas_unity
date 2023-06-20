@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
@@ -10,7 +9,7 @@ import '../bloc/leaves/user_leave_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class YearSelection extends StatelessWidget {
-  final int dateOfJoining;
+  final DateTime dateOfJoining;
 
   const YearSelection({
     Key? key,
@@ -54,9 +53,9 @@ class YearSelection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     alignment: Alignment.center,
                     items: List.generate(
-                        DateTime.now().year - (dateOfJoining.toDate.year - 1),
+                        DateTime.now().year - (dateOfJoining.year - 1),
                         (change) =>
-                            dateOfJoining.toDate.year + change).map((year) {
+                            dateOfJoining.year + change).map((year) {
                       return DropdownMenuItem<int>(
                         alignment: Alignment.center,
                         value: year,

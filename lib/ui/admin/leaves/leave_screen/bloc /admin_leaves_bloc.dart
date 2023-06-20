@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave_application.dart';
 import 'package:rxdart/rxdart.dart';
@@ -81,8 +80,8 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
       {Employee? selectedEmployee, required int year}) {
     final leaveApplication = _allLeaves
         .where((la) =>
-            (la.leave.startDate.toDate.year == year ||
-                la.leave.endDate.toDate.year == year) &&
+            (la.leave.startDate.year == year ||
+                la.leave.endDate.year == year) &&
             (selectedEmployee == null || la.leave.uid == selectedEmployee.uid))
         .toList();
     leaveApplication

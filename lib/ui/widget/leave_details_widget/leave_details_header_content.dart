@@ -9,19 +9,19 @@ import '../../../data/model/leave/leave.dart';
 class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   const LeaveTypeAgoTitleWithStatus(
       {Key? key,
-      required this.appliedOnInTimeStamp,
+      required this.appliedOn,
       required this.leaveType,
       required this.status})
       : super(key: key);
 
-  final int appliedOnInTimeStamp;
-  final int leaveType;
+  final DateTime appliedOn;
+  final LeaveType leaveType;
   final LeaveStatus status;
 
   @override
   Widget build(BuildContext context) {
-    String appliedOn = DateFormatter(AppLocalizations.of(context))
-        .timeAgoPresentation(appliedOnInTimeStamp);
+    String appliedOnPresentation = DateFormatter(AppLocalizations.of(context))
+        .timeAgoPresentation(appliedOn);
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
@@ -38,7 +38,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                appliedOn,
+                appliedOnPresentation,
                 style: AppFontStyle.labelGrey,
               ),
             ],

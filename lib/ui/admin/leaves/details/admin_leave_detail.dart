@@ -28,8 +28,7 @@ import 'bloc/admin_leave_details_state.dart';
 class AdminLeaveDetailsPage extends StatelessWidget {
   final LeaveApplication leaveApplication;
 
-  const AdminLeaveDetailsPage(
-      {Key? key, required this.leaveApplication})
+  const AdminLeaveDetailsPage({Key? key, required this.leaveApplication})
       : super(key: key);
 
   @override
@@ -87,7 +86,7 @@ class _AdminLeaveApplicationDetailScreenState
           children: [
             LeaveTypeAgoTitleWithStatus(
                 status: widget.leaveApplication.leave.status,
-                appliedOnInTimeStamp: widget.leaveApplication.leave.appliedOn,
+                appliedOn: widget.leaveApplication.leave.appliedOn,
                 leaveType: widget.leaveApplication.leave.type),
             UserContent(employee: widget.leaveApplication.employee),
             AdminLeaveRequestDetailsDateContent(
@@ -103,7 +102,8 @@ class _AdminLeaveApplicationDetailScreenState
               ),
             ),
             ValidateWidget(
-              isValid: (widget.leaveApplication.leave.response ?? "").isNotEmpty,
+              isValid:
+                  (widget.leaveApplication.leave.response ?? "").isNotEmpty,
               child: ReasonField(
                 reason: (widget.leaveApplication.leave.response ?? ""),
                 title: localization.admin_leave_detail_note_tag,
@@ -119,9 +119,8 @@ class _AdminLeaveApplicationDetailScreenState
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AdminLeaveDetailsActionButton(
-          leaveID: widget.leaveApplication.leave.leaveId,
-          role: widget.leaveApplication.employee.role,
-          status: widget.leaveApplication.leave.status),
+        leaveApplication: widget.leaveApplication,
+      ),
     );
   }
 }

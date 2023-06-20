@@ -1,10 +1,8 @@
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import '../../model/leave_application.dart';
 
 extension ListExtention on List<LeaveApplication> {
   void sortedByDate() {
-    return sort(
-        (a, b) => b.leave.appliedOn.toDate.compareTo(a.leave.appliedOn.toDate));
+    return sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
   }
 }
 

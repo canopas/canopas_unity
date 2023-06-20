@@ -5,7 +5,7 @@ import '../../../../../data/core/utils/bloc_status.dart';
 
 class ApplyLeaveState extends Equatable {
   final Status leaveRequestStatus;
-  final int leaveType;
+  final LeaveType leaveType;
   final DateTime startDate;
   final DateTime endDate;
   final Map<DateTime, LeaveDayDuration> selectedDates;
@@ -18,7 +18,7 @@ class ApplyLeaveState extends Equatable {
     this.leaveRequestStatus = Status.initial,
     this.error,
     this.showTextFieldError = false,
-    this.leaveType = 0,
+    this.leaveType = LeaveType.casualLeave,
     required this.startDate,
     required this.endDate,
     required this.selectedDates,
@@ -29,7 +29,7 @@ class ApplyLeaveState extends Equatable {
   ApplyLeaveState copyWith({
     Status? leaveRequestStatus,
     bool? showTextFieldError,
-    int? leaveType,
+    LeaveType? leaveType,
     DateTime? startDate,
     DateTime? endDate,
     Map<DateTime, LeaveDayDuration>? selectedDates,
