@@ -12,13 +12,11 @@ import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
-import '../../../shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/empty_screen.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/admin_home_bloc.dart';
-import 'bloc/admin_home_event.dart';
 import 'bloc/admin_home_state.dart';
 
 class AdminHomeScreenPage extends StatelessWidget {
@@ -32,9 +30,7 @@ class AdminHomeScreenPage extends StatelessWidget {
           create: (context) =>
               getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
         ),
-        BlocProvider(
-          create: (context) => getIt<AdminHomeBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<AdminHomeBloc>()),
         BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
       ],
       child: const AdminHomeScreen(),
@@ -55,82 +51,73 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     final locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
-      body: RefreshIndicator(
-          onRefresh: () async {
-            context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
-          },
-          child: BlocListener<UserStateControllerBloc, UserControllerState>(
-            listenWhen: (previous, current) =>
-                current.userState == UserState.unauthenticated ||
-                current.userState == UserState.update,
-            listener: (context, state) {
-              if (state.userState == UserState.unauthenticated) {
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (_) {
-                      return AlertDialog(
-                        title: Text(locale
-                            .state_controller_access_revoked_alert_dialogue_title),
-                        content: Text(locale
-                            .state_controller_access_revoked_alert_dialogue_subtitle),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                context
-                                    .read<UserStateControllerBloc>()
-                                    .add(ClearDataForDisableUser());
-                              },
-                              child: Text(locale.ok_tag))
-                        ],
-                      );
-                    });
-              } else if (state.userState == UserState.update) {
-                context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
-                context
-                    .read<WhoIsOutCardBloc>()
-                    .add(WhoIsOutInitialLoadEvent());
-              }
-            },
-            child: ListView(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: primaryHorizontalSpacing,
-                      vertical: primaryHalfSpacing),
-                  child: WhoIsOutCard(),
-                ),
-                BlocConsumer<AdminHomeBloc, AdminHomeState>(
-                    listenWhen: (previous, current) =>
-                        current.status == Status.error,
-                    listener: (context, state) {
-                      if (state.status == Status.error) {
-                        showSnackBar(context: context, error: state.error);
-                      }
-                    },
-                    buildWhen: (previous, current) =>
-                        current.status != Status.error,
-                    builder: (context, state) {
-                      if (state.status == Status.success &&
-                          state.leaveAppMap.isNotEmpty) {
-                        return LeaveRequestList(map: state.leaveAppMap);
-                      }
-                      return ConstrainedBox(
-                        constraints: const BoxConstraints(minHeight: 300),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height - 500,
-                          child: state.status == Status.loading
-                              ? const AppCircularProgressIndicator()
-                              : EmptyScreen(
-                                  message: locale.empty_request_message,
-                                  title: locale.empty_request_title,
-                                ),
-                        ),
-                      );
-                    }),
-              ],
+      body: BlocListener<UserStateControllerBloc, UserControllerState>(
+        listenWhen: (previous, current) =>
+            current.userState == UserState.unauthenticated ||
+            current.userState == UserState.update,
+        listener: (context, state) {
+          if (state.userState == UserState.unauthenticated) {
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    title: Text(locale
+                        .state_controller_access_revoked_alert_dialogue_title),
+                    content: Text(locale
+                        .state_controller_access_revoked_alert_dialogue_subtitle),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            context
+                                .read<UserStateControllerBloc>()
+                                .add(ClearDataForDisableUser());
+                          },
+                          child: Text(locale.ok_tag))
+                    ],
+                  );
+                });
+          }
+        },
+        child: ListView(
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: primaryHorizontalSpacing,
+                  vertical: primaryHalfSpacing),
+              child: WhoIsOutCard(),
             ),
-          )),
+            BlocConsumer<AdminHomeBloc, AdminHomeState>(
+                listenWhen: (previous, current) =>
+                    current.status == Status.error,
+                listener: (context, state) {
+                  if (state.status == Status.error) {
+                    showSnackBar(context: context, error: state.error);
+                  }
+                },
+                buildWhen: (previous, current) =>
+                    current.status != Status.error,
+                builder: (context, state) {
+                  if (state.status == Status.success &&
+                      state.leaveAppMap.isNotEmpty) {
+                    return LeaveRequestList(map: state.leaveAppMap);
+                  }
+                  return ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 300),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height - 500,
+                      child: state.status == Status.loading
+                          ? const AppCircularProgressIndicator()
+                          : EmptyScreen(
+                              message: locale.empty_request_message,
+                              title: locale.empty_request_title,
+                            ),
+                    ),
+                  );
+                }),
+          ],
+        ),
+      ),
       backgroundColor: AppColors.whiteColor,
     );
   }
