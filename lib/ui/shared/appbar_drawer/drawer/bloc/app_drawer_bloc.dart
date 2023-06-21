@@ -22,7 +22,7 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
       : super(const DrawerState()) {
     on<FetchSpacesEvent>(_fetchSpaces);
     on<ChangeSpaceEvent>(_changeSpace);
-    on<SignOutWithCurrentSpaceEvent>(_signOutFromCurrentSpace);
+    on<SignOutFromSpace>(_signOutFromCurrentSpace);
   }
 
   Future<void> _fetchSpaces(
@@ -63,7 +63,7 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   }
 
   Future<void> _signOutFromCurrentSpace(
-      SignOutWithCurrentSpaceEvent event, Emitter<DrawerState> emit) async {
+      SignOutFromSpace event, Emitter<DrawerState> emit) async {
     emit(state.copyWith(signOutStatus: Status.loading));
     try {
       await _userManager.removeEmployeeWithSpace();

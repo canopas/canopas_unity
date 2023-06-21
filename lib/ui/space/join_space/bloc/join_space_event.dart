@@ -16,10 +16,4 @@ class JoinRequestedSpaceEvent extends JoinSpaceEvents {
   JoinRequestedSpaceEvent({required this.space});
 }
 
-class SelectInvitationEvent extends JoinSpaceEvents {
-  final Invocation invitation;
-
-  SelectInvitationEvent({required this.invitation});
-}
-
 class SignOutEvent extends JoinSpaceEvents {}

@@ -114,7 +114,7 @@ void main() {
     });
 
     test("sign out successful test with navigation test", () async {
-      bloc.add(SignOutWithCurrentSpaceEvent());
+      bloc.add(SignOutFromSpace());
       expect(
           bloc.stream,
           emitsInOrder([
@@ -127,7 +127,7 @@ void main() {
 
     test("sign out failure test", () {
       when(userStateNotifier.removeEmployeeWithSpace()).thenThrow(Exception("error"));
-      bloc.add(SignOutWithCurrentSpaceEvent());
+      bloc.add(SignOutFromSpace());
       expect(
           bloc.stream,
           emitsInOrder([

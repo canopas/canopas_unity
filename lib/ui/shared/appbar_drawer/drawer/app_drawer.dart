@@ -125,10 +125,10 @@ class DrawerOptionList extends StatelessWidget {
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
               icon: Icons.logout_rounded,
-              title: locale.sign_out_from_text(userStateNotifier.currentSpace?.name ?? "current space"),
+              title: locale.sign_out_from_text(userStateNotifier.currentSpace!.name),
               onTap: () => context
                   .read<DrawerBloc>()
-                  .add(SignOutWithCurrentSpaceEvent()),
+                  .add(SignOutFromSpace()),
             ),
           ),
         ],
