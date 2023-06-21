@@ -27,44 +27,46 @@ class LeaveCountCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: BlocConsumer<UserLeaveCountBloc, UserLeaveCountState>(
-          listenWhen: (previous, current) => current.status == Status.error,
-           listener: (context, state) {
-             if(state.status == Status.error) {
-               showSnackBar(context: context, error: state.error);
-             }
-           },
+            listenWhen: (previous, current) => current.status == Status.error,
+            listener: (context, state) {
+              if (state.status == Status.error) {
+                showSnackBar(context: context, error: state.error);
+              }
+            },
             builder: (context, state) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(
-                  strokeWidth: 8,
-                  color: AppColors.primaryBlue,
-                  backgroundColor: AppColors.lightPrimaryBlue,
-                  value: state.leavePercentage,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '${state.used}/${state.totalLeaves}',
-                    style: AppFontStyle.headerGrey
-                        .copyWith(color: AppColors.primaryBlue),
+                  SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 8,
+                      color: AppColors.primaryBlue,
+                      backgroundColor: AppColors.lightPrimaryBlue,
+                      value: state.leavePercentage,
+                    ),
                   ),
-                  Text(
-                    AppLocalizations.of(context).user_leave_used_leaves_tag,
-                    style: AppFontStyle.labelRegular,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        state.totalLeaves == 0
+                            ? state.used.toString()
+                            : "${state.used}/${state.totalLeaves}",
+                        style: AppFontStyle.headerGrey
+                            .copyWith(color: AppColors.primaryBlue),
+                      ),
+                      Text(
+                        AppLocalizations.of(context).user_leave_used_leaves_tag,
+                        style: AppFontStyle.labelRegular,
+                      )
+                    ],
                   )
                 ],
-              )
-            ],
-          );
-        }),
+              );
+            }),
       ),
     );
   }
