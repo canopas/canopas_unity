@@ -128,7 +128,7 @@ class DrawerOptionList extends StatelessWidget {
               title: locale.sign_out_from_text(userStateNotifier.currentSpace!.name),
               onTap: () => context
                   .read<DrawerBloc>()
-                  .add(SignOutFromSpace()),
+                  .add(SignOutFromSpaceEvent()),
             ),
           ),
         ],

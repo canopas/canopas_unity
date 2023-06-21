@@ -10,4 +10,4 @@ class ChangeSpaceEvent extends DrawerEvents {
   ChangeSpaceEvent(this.space);
 }
 
-class SignOutFromSpace extends DrawerEvents {}
+class SignOutFromSpaceEvent extends DrawerEvents {}
