@@ -23,23 +23,27 @@ Unity is cross-platform Leave Management application written in dart using Flutt
 ```sh
 $ git clone https://github.com/canopas/canopas-unity.git
 ```
-#### 3. Setup the firebase app
+#### 3. Rename the app Package Name
+* Rename the app package name (because this can affect the firebase).
+* You can do it manually or using this package [Rename Package](https://pub.dev/packages/rename) or look at this [Stackoverflow Question](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter).
+
+#### 4. Setup the firebase app
 * You'll need to create a Firebase instance. Follow the instructions at https://console.firebase.google.com
 
-#### 4. Enable Google Authentication
+#### 5. Enable Google Authentication
 * Go to Firebase console for your new instance.
 * Click "Authentication" in the left-hand menu
 * Click the "sign-in method" tab
 * Click the "Google" and enable it.
 
-#### 5. Enable the Firebase Database
+#### 6. Enable the Firebase Database
 * Go to the Firebase Console
 * Click "Firestore Database" in the left-hand menu
 * Click the "Create Database" button
 * It will prompt you to set up, rules, for the sake of simplicity, let us choose test mode, for now.
 * On the next screen, select any of the locations you prefer.
 
-#### 6.Add Flutter App in Firebase
+#### 7.Add Flutter App in Firebase
 * In the Firebase console, in the settings of your project
 * Click on the Flutter Icon to add Flutter app
 * Follow the instruction to add Flutter app
@@ -48,7 +52,7 @@ $ git clone https://github.com/canopas/canopas-unity.git
   
 * It will create `firebase_options.dart` file in the `lib` folder.
 
-#### 7. Get Google ClientId for app
+#### 8. Get Google ClientId for app
 * Go to [Google APIs console](https://console.cloud.google.com/apis/).
 * On the top bar, Choose your project from drop down menu if selected default project is not your current project.
 * Click on the "API APIs and services".
@@ -59,7 +63,7 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * Click on the "Web client(auto created by Google Service)".
 * Copy **"Client Id"** and **"Client Secret"** (We will use in next step).
 
-#### 8. Create Local file 
+#### 9. Create Local file 
 * Add a new dart file named `desktop_credentials` in the `lib` folder.
 * Add the below Code in the file.
 ```
