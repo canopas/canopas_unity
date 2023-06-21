@@ -114,7 +114,6 @@ void main() {
           EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
               employee: employee,
               timeOffRatio: 10 / 12,
-              paidLeaves: 12,
               usedLeaves: 10);
           expectLater(employeeDetailBloc.stream,
               emitsInOrder([EmployeeDetailLoadingState(), loadedState]));

@@ -35,7 +35,6 @@ class UserLeaveCountBloc
       emit(state.copyWith(
           status: Status.success,
           used: usedLeaves,
-          totalLeaves: totalLeaves,
           leavePercentage: percentage));
     } on Exception {
       emit(state.copyWith(

@@ -237,8 +237,6 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i45.AdminLeaveDetailsBloc>(() => _i45.AdminLeaveDetailsBloc(
           gh<_i30.LeaveService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i19.SpaceService>(),
           gh<_i16.NotificationService>(),
         ));
     gh.factory<_i46.AdminLeavesBloc>(() => _i46.AdminLeavesBloc(

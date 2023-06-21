@@ -119,7 +119,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       employee: state.employee,
                       percentage: state.timeOffRatio,
                       usedLeaves: state.usedLeaves,
-                      paidLeaves: state.paidLeaves,
                     ),
                   ),
                   ProfileDetail(employee: state.employee),

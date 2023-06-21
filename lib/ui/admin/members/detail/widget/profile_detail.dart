@@ -57,13 +57,11 @@ class TimeOffCard extends StatelessWidget {
     Key? key,
     required this.percentage,
     required this.usedLeaves,
-    required this.paidLeaves,
     required this.employee,
   }) : super(key: key);
   final Employee employee;
   final double percentage;
   final double usedLeaves;
-  final int paidLeaves;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +110,7 @@ class TimeOffCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      paidLeaves == 0?usedLeaves.fixedAt(2).toString():'$usedLeaves/$paidLeaves',
+                      usedLeaves.fixedAt(2).toString(),
                       style: AppFontStyle.titleRegular,
                     ),
                     const SizedBox(width: 10),

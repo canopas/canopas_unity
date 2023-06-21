@@ -52,9 +52,7 @@ class LeaveCountCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        state.totalLeaves == 0
-                            ? state.used.toString()
-                            : "${state.used}/${state.totalLeaves}",
+                        state.used.toString(),
                         style: AppFontStyle.headerGrey
                             .copyWith(color: AppColors.primaryBlue),
                       ),

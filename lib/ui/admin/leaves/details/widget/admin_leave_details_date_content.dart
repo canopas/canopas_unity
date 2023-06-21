@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
-
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -47,7 +46,7 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text( state.paidLeaveCount==0?state.usedLeaves.fixedAt(2).toString():"${state.usedLeaves.fixedAt(2)}/${state.paidLeaveCount}",
+                    Text(state.usedLeaves.fixedAt(2).toString(),
                         style: AppFontStyle.titleDark),
                     const SizedBox(height: 8),
                     Text(
