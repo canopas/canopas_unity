@@ -20,17 +20,13 @@ import 'admin_leave_request_details_bloc_test.mocks.dart';
 void main() {
   late LeaveService leaveService;
   late AdminLeaveDetailsBloc bloc;
-  late UserStateNotifier userStateNotifier;
-  late SpaceService spaceService;
   late NotificationService notificationService;
 
   setUp(() {
     leaveService = MockLeaveService();
-    userStateNotifier = MockUserStateNotifier();
-    spaceService = MockSpaceService();
     notificationService = MockNotificationService();
     bloc = AdminLeaveDetailsBloc(
-        leaveService, userStateNotifier, spaceService, notificationService);
+        leaveService, notificationService);
   });
 
   group('Leave Application Detail bloc', () {
@@ -38,7 +34,6 @@ void main() {
       AdminLeaveDetailsState leaveCountLoadingState =
           const AdminLeaveDetailsState(
               adminReply: '',
-              paidLeaveCount: 0,
               usedLeaves: 0.0,
               error: null,
               leaveCountStatus: Status.loading,
@@ -48,13 +43,8 @@ void main() {
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
         when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
-        when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-        when(spaceService.getPaidLeaves(spaceId: 'space-id'))
-            .thenAnswer((_) async => 12);
-
         AdminLeaveDetailsState successState = const AdminLeaveDetailsState(
             adminReply: '',
-            paidLeaveCount: 12,
             usedLeaves: 10,
             error: null,
             actionStatus: Status.initial,
@@ -67,13 +57,9 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause',
           () {
-        when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
-        when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-        when(spaceService.getPaidLeaves(spaceId: 'space-id'))
-            .thenThrow(Exception(firestoreFetchDataError));
+        when(leaveService.getUserUsedLeaves('id')).thenThrow(Exception('error'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
-            paidLeaveCount: 0,
             usedLeaves: 0,
             error: firestoreFetchDataError,
             actionStatus: Status.initial,
@@ -88,7 +74,6 @@ void main() {
       AdminLeaveDetailsState responseLoadingState =
           const AdminLeaveDetailsState(
               adminReply: '',
-              paidLeaveCount: 0,
               usedLeaves: 0,
               actionStatus: Status.loading,
               leaveCountStatus: Status.initial,
@@ -192,7 +177,6 @@ void main() {
             leaveId: 'leave-id'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
-            paidLeaveCount: 0,
             usedLeaves: 0,
             error: firestoreFetchDataError,
             actionStatus: Status.error);

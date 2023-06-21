@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
-
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -44,19 +43,30 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
             buildWhen: (previous, current) => previous.leaveCountStatus != current.leaveCountStatus,
             builder: (context, state) => state.leaveCountStatus == Status.loading
                 ? const AppCircularProgressIndicator(size: 28)
-                : Text("${state.usedLeaves.fixedAt(2)}/${state.paidLeaveCount}",
-                    style: AppFontStyle.titleDark),
+                : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(state.usedLeaves.fixedAt(2).toString(),
+                        style: AppFontStyle.titleDark),
+                    const SizedBox(height: 8),
+                    Text(
+                      AppLocalizations.of(context).user_leave_used_leaves_tag,
+                      style: AppFontStyle.bodyMedium
+                          .copyWith(color: AppColors.primaryBlue),
+                    )
+                  ],
+                ),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(duration, style: AppFontStyle.labelRegular),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Text(duration, style: AppFontStyle.titleDark),
+                const SizedBox(height:8),
                 Text(
                   totalDays,
-                  style: AppFontStyle.bodySmallHeavy
+                  style: AppFontStyle.bodyMedium
                       .copyWith(color: AppColors.primaryBlue),
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/double_extension.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -56,13 +57,11 @@ class TimeOffCard extends StatelessWidget {
     Key? key,
     required this.percentage,
     required this.usedLeaves,
-    required this.paidLeaves,
     required this.employee,
   }) : super(key: key);
   final Employee employee;
   final double percentage;
   final double usedLeaves;
-  final int paidLeaves;
 
   @override
   Widget build(BuildContext context) {
@@ -111,10 +110,10 @@ class TimeOffCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '$usedLeaves/$paidLeaves',
+                      usedLeaves.fixedAt(2).toString(),
                       style: AppFontStyle.titleRegular,
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 10),
                     const Icon(
                       Icons.arrow_forward_ios_outlined,
                       color: AppColors.greyColor,

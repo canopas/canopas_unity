@@ -49,7 +49,6 @@ class EmployeeDetailBloc
         emit(EmployeeDetailLoadedState(
             employee: employee,
             timeOffRatio: percentage,
-            paidLeaves: totalLeaves,
             usedLeaves: usedLeaves));
       } else {
         emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
