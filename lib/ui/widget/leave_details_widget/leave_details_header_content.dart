@@ -33,7 +33,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)
-                    .leave_type_placeholder_text(leaveType.toString()),
+                    .leave_type_placeholder_text(leaveType.value.toString()),
                 style: AppFontStyle.titleDark,
               ),
               const SizedBox(height: 2),
