@@ -28,25 +28,25 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * You can do it manually or using this package [Rename Package](https://pub.dev/packages/rename) or look at this [Stackoverflow Question](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter).
 
 #### 4. Setup the firebase app
-* You'll need to create a Firebase instance. Follow the instructions at https://console.firebase.google.com
+* You'll need to create a Firebase instance. Follow the instructions at https://console.firebase.google.com.
 
 #### 5. Enable Google Authentication
 * Go to Firebase console for your new instance.
-* Click "Authentication" in the left-hand menu
-* Click the "sign-in method" tab
+* Click "Authentication" in the left-hand menu.
+* Click the "sign-in method" tab.
 * Click the "Google" and enable it.
 
 #### 6. Enable the Firebase Database
-* Go to the Firebase Console
-* Click "Firestore Database" in the left-hand menu
-* Click the "Create Database" button
+* Go to the Firebase Console.
+* Click "Firestore Database" in the left-hand menu.
+* Click the "Create Database" button.
 * It will prompt you to set up, rules, for the sake of simplicity, let us choose test mode, for now.
 * On the next screen, select any of the locations you prefer.
 
 #### 7.Add Flutter App in Firebase
-* In the Firebase console, in the settings of your project
-* Click on the Flutter Icon to add Flutter app
-* Follow the instruction to add Flutter app
+* In the Firebase console, in the settings of your project.
+* Click on the Flutter Icon to add Flutter app.
+* Follow the instruction to add Flutter app.
 
   <img width="1050" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/flutter_firebase_register.png">
   
@@ -79,15 +79,15 @@ const String googleClientId =
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
-* Open Android app within your Firebase console
+* Open Android app within your Firebase console.
 * Add your SHA-1 key by clicking "Add Fingerprint".
 * Download google-services.json.
 * Replace it with old `google_services.json` in `android/app/` (You can also do it by Flutterfire CLI).
 
 ####  * Run app on iOS
-* Open XCode, right click the Runner folder, select the "Add Files to 'Runner'" menu, and select the GoogleService-Info.plist file to add it to /ios/Runner in XCode
+* Open XCode, right click the Runner folder, select the "Add Files to 'Runner'" menu, and select the GoogleService-Info.plist file to add it to /ios/Runner in XCode.
 * Open /ios/Runner/Info.plist in a text editor.
-* Then add the CFBundleURLTypes attributes
+* Then add the CFBundleURLTypes attributes.
 ```
 <key>CFBundleURLTypes</key>
 <array>
