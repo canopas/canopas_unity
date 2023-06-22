@@ -175,7 +175,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                     .read<EditSpaceBloc>()
                     .add(NotificationEmailChangeEvent(notificationEmail)),
                 controller: _notificationEmailController,
-                hintText: "Notification email",
+                hintText: AppLocalizations.of(context).leave_notification_email_tag,
               ),
               const DeleteSpaceButton(),
             ],
