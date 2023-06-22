@@ -21,7 +21,8 @@ class NotificationService {
   Future<bool> notifyHRForNewLeave(
       {required String name,
       required DateTime startDate,
-      required DateTime endDate}) async {
+      required DateTime endDate,
+      required String receiver}) async {
     if (kDebugMode) return true;
     try {
       http.Response response =
@@ -30,7 +31,7 @@ class NotificationService {
                 'name': name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
                 "status": "pending",
-                'receiver': "hr@canopas.com",
+                'receiver': receiver,
               }));
       return response.statusCode == 200;
     } on Exception {

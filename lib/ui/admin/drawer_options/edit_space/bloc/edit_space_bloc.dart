@@ -1,9 +1,9 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
@@ -13,7 +13,8 @@ import 'edit_space_state.dart';
 import 'edit_space_event.dart';
 
 @Injectable()
-class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
+class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
+    with InputValidationMixin {
   final UserStateNotifier _userManager;
   final SpaceService _spaceService;
   final ImagePicker imagePicker;
@@ -24,8 +25,9 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       : super(const EditSpaceState()) {
     on<EditSpaceInitialEvent>(_init);
 
-    on<CompanyNameChangeEvent>(_onNameChange);
-    on<YearlyPaidTimeOffChangeEvent>(_timeOffChange);
+    on<CompanyNameChangeEvent>(_onNameChangeValidation);
+    on<YearlyPaidTimeOffChangeEvent>(_timeOffChangeValidation);
+    on<NotificationEmailChangeEvent>(_notificationEmailChangeValidation);
     on<DeleteSpaceEvent>(_deleteSpace);
     on<SaveSpaceDetails>(_saveSpace);
     on<PickImageEvent>(_pickImage);
@@ -33,12 +35,19 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
 
   void _init(EditSpaceInitialEvent event, Emitter<EditSpaceState> emit) async {}
 
-  void _onNameChange(
+  void _onNameChangeValidation(
       CompanyNameChangeEvent event, Emitter<EditSpaceState> emit) {
-    emit(state.copyWith(nameIsValid: event.companyName.trim().length > 4));
+    emit(state.copyWith(nameIsValid: validInputLength(event.companyName)));
   }
 
-  void _timeOffChange(
+  void _notificationEmailChangeValidation(
+      NotificationEmailChangeEvent event, Emitter<EditSpaceState> emit) {
+    emit(state.copyWith(
+        nameIsValid: event.notificationEmail.trim().isEmpty ||
+            validEmail(event.notificationEmail)));
+  }
+
+  void _timeOffChangeValidation(
       YearlyPaidTimeOffChangeEvent event, Emitter<EditSpaceState> emit) {
     try {
       int.parse(event.timeOff);
@@ -86,6 +95,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState> {
       }
 
       final Space updatedSpace = Space(
+        notificationEmail: event.notificationEmail,
         name: event.spaceName,
         domain: event.spaceDomain,
         paidTimeOff: int.parse(event.paidTimeOff),

@@ -46,6 +46,8 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
   final TextEditingController _domainController = TextEditingController();
   final TextEditingController _paidTimeOffLeaveController =
       TextEditingController();
+  final TextEditingController _notificationEmailController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -53,6 +55,8 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
     _domainController.text = _userManager.currentSpace?.domain ?? "";
     _paidTimeOffLeaveController.text =
         _userManager.currentSpace?.paidTimeOff.toString() ?? "";
+    _notificationEmailController.text =
+        _userManager.currentSpace?.notificationEmail ?? "";
     super.initState();
   }
 
@@ -61,6 +65,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
     _nameController.dispose();
     _domainController.dispose();
     _paidTimeOffLeaveController.dispose();
+    _notificationEmailController.dispose();
     super.dispose();
   }
 
@@ -90,7 +95,10 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                                           paidTimeOff:
                                               _paidTimeOffLeaveController.text,
                                           spaceName: _nameController.text,
-                                          spaceDomain: _domainController.text));
+                                          spaceDomain: _domainController.text,
+                                          notificationEmail:
+                                              _notificationEmailController
+                                                  .text));
                                 }
                               : null,
                           child: Text(AppLocalizations.of(context).save_tag)),
@@ -161,6 +169,14 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                 controller: _paidTimeOffLeaveController,
                 hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
               ),
+              const SizedBox(height: 20),
+              FieldEntry(
+                onChanged: (notificationEmail) => context
+                    .read<EditSpaceBloc>()
+                    .add(NotificationEmailChangeEvent(notificationEmail)),
+                controller: _notificationEmailController,
+                hintText: "Notification email",
+              ),
               const DeleteSpaceButton(),
             ],
           ),
@@ -176,7 +192,7 @@ class DeleteSpaceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height - 600,
+      height: MediaQuery.of(context).size.height - 660,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.bottomCenter,
       constraints: const BoxConstraints(
