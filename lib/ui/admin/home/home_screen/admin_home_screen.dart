@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/Repo/leave_application_repo.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import '../../../../data/bloc/user_state/user_controller_state.dart';
@@ -26,18 +27,21 @@ class AdminHomeScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) =>
-              getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
-        ),
-        BlocProvider(
-          create: (context) => getIt<AdminHomeBloc>(),
-        ),
-        BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
-      ],
-      child: const AdminHomeScreen(),
+    return RepositoryProvider(
+      create: (_)=>getIt.get<LeaveApplicationRepo>(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
+          ),
+          BlocProvider(
+            create: (context) =>AdminHomeBloc(context.read<LeaveApplicationRepo>()),
+          ),
+          BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
+        ],
+        child: const AdminHomeScreen(),
+      ),
     );
   }
 }

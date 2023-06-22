@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:rxdart/rxdart.dart';
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/leave/leave.dart';
@@ -30,6 +31,11 @@ class LeaveService {
         .where(FireStoreConst.leaveStatus, isEqualTo: LeaveStatus.pending.value)
         .get();
     return requests.docs.map((leave) => leave.data()).toList();
+  }
+  
+ Stream<List<Leave>> get leaveRequests{
+    return  _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: LeaveStatus.pending.value)
+        .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList());
   }
 
   Future<bool> checkLeaveAlreadyApplied({
