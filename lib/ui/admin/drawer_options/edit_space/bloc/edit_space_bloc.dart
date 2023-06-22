@@ -95,7 +95,9 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       }
 
       final Space updatedSpace = Space(
-        notificationEmail: event.notificationEmail,
+        notificationEmail: event.notificationEmail.trim().isEmpty
+            ? null
+            : event.notificationEmail,
         name: event.spaceName,
         domain: event.spaceDomain,
         paidTimeOff: int.parse(event.paidTimeOff),
