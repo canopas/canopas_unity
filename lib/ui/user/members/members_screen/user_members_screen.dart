@@ -59,8 +59,7 @@ class _UserMembersScreenState extends State<UserMembersScreen> {
                 return const AppCircularProgressIndicator();
               } else if (state is UserEmployeesSuccessState) {
                 return ListView.separated(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: primaryVerticalSpacing),
+                    padding: const EdgeInsets.all( primaryVerticalSpacing),
                     itemBuilder: (BuildContext context, int index) {
                       Employee employee = state.employees[index];
                       return EmployeeCard(

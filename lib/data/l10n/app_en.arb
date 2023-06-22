@@ -366,6 +366,15 @@
     }
   },
 
+  "sign_out_from_text":"Sign out from {text}",
+  "@sign_out_from_text":{
+    "placeholders":{
+      "text":{
+        "type":"String"
+      }
+    }
+  },
+
   "employee_details_leaves_title":"{name}'s Leaves",
   "@employee_details_leaves_title":{
     "placeholders":{
