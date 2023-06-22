@@ -171,7 +171,7 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                                     Size(MediaQuery.of(context).size.width, 50),
                                 foregroundColor: AppColors.redColor),
                             child: Text(
-                              locale.sign_out_from_text(context.read<JoinSpaceBloc>().userEmail),
+                              locale.sign_out_tag,
                               style: AppFontStyle.buttonTextStyle
                                   .copyWith(color: AppColors.redColor),
                             ),
