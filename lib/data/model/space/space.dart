@@ -17,6 +17,7 @@ class Space extends Equatable {
   final List<String> ownerIds;
   final int paidTimeOff;
   final String? domain;
+  final String? notificationEmail;
 
   const Space({
     required this.id,
@@ -26,6 +27,7 @@ class Space extends Equatable {
     required this.ownerIds,
     this.domain,
     this.logo,
+    this.notificationEmail,
   });
 
   factory Space.fromJson(Map<String, dynamic> map) => _$SpaceFromJson(map);
@@ -47,5 +49,6 @@ class Space extends Equatable {
         ownerIds,
         domain,
         logo,
+        notificationEmail
       ];
 }

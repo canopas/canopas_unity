@@ -118,11 +118,15 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
               leaveRequestStatus: Status.error));
         } else {
           await _leaveService.applyForLeave(leaveData);
-          await _notificationService.notifyHRForNewLeave(
-            name: _userStateNotifier.employee.name,
-            startDate: leaveData.startDate,
-            endDate: leaveData.endDate,
-          );
+          final notificationEmail =
+              _userStateNotifier.currentSpace!.notificationEmail;
+          if (notificationEmail != null) {
+            await _notificationService.notifyHRForNewLeave(
+                name: _userStateNotifier.employee.name,
+                startDate: leaveData.startDate,
+                endDate: leaveData.endDate,
+                receiver: notificationEmail);
+          }
           emit(state.copyWith(leaveRequestStatus: Status.success));
         }
       } on Exception {

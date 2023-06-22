@@ -574,6 +574,7 @@ class MockNotificationService extends _i1.Mock
     required String? name,
     required DateTime? startDate,
     required DateTime? endDate,
+    required String? receiver,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -583,6 +584,7 @@ class MockNotificationService extends _i1.Mock
             #name: name,
             #startDate: startDate,
             #endDate: endDate,
+            #receiver: receiver,
           },
         ),
         returnValue: _i7.Future<bool>.value(false),
