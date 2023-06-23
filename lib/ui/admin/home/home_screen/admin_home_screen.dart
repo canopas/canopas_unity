@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:http/http.dart';
 import 'package:projectunity/data/Repo/leave_application_repo.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
@@ -22,21 +23,42 @@ import 'bloc/admin_home_bloc.dart';
 import 'bloc/admin_home_event.dart';
 import 'bloc/admin_home_state.dart';
 
-class AdminHomeScreenPage extends StatelessWidget {
+class AdminHomeScreenPage extends StatefulWidget {
   const AdminHomeScreenPage({Key? key}) : super(key: key);
+
+  @override
+  State<AdminHomeScreenPage> createState() => _AdminHomeScreenPageState();
+}
+
+class _AdminHomeScreenPageState extends State<AdminHomeScreenPage> {
+  late final LeaveApplicationRepo repo;
+
+  @override
+  void initState() {
+  repo= getIt.get<LeaveApplicationRepo>();
+ super.initState();
+  }
+
+  @override
+  void dispose() {
+   super.dispose();
+   //repo.close();
+  }
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
+
       create: (_)=>getIt.get<LeaveApplicationRepo>(),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) =>
                 getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
+
           ),
           BlocProvider(
-            create: (context) =>AdminHomeBloc(context.read<LeaveApplicationRepo>()),
+            create: (context) =>getIt.get<AdminHomeBloc>(),
           ),
           BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
         ],
@@ -53,7 +75,11 @@ class AdminHomeScreen extends StatefulWidget {
   State<AdminHomeScreen> createState() => _AdminHomeScreenState();
 }
 
+
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);

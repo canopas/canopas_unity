@@ -10,50 +10,84 @@ import '../model/leave/leave.dart';
 import '../model/leave_application.dart';
 
 @Injectable()
-class LeaveApplicationRepo extends Bloc {
+class LeaveApplicationRepo {
   final LeaveService leaveService;
   final EmployeeService employeeService;
   late ReplayConnectableStream<List<Leave>> leaveRC;
   late ReplayConnectableStream<List<Employee>> employeeRC;
-  final leave$ = BehaviorSubject<List<Leave>>();
-  final employee$ = BehaviorSubject<List<Employee>>();
-  late final StreamSubscription<List<Leave>> leaveStreamSubscription;
-  late final StreamSubscription<List<Employee>> employeeStreamSubscription;
+  final _leaveController = StreamController<List<Leave>>();
+  late final Stream<List<Leave>> leave$;
 
-  LeaveApplicationRepo(this.leaveService, this.employeeService) : super(null) {
-    leaveRC = leaveService.leaveRequests.publishReplay();
-    leaveStreamSubscription = leaveRC.listen((event) {
-      leave$.add(event);
-    });
-    employeeRC = employeeService.employees.publishReplay();
-    employeeStreamSubscription = employeeRC.listen((value) {
-      employee$.add(value);
-    });
-  }
+  Stream<List<Employee>> get employee$ => _employeeController.stream;
+  final _employeeController = StreamController<List<Employee>>();
+  late final StreamSubscription<List<Leave>>? leaveStreamSubscription;
+  late final StreamSubscription<List<Employee>>? employeeStreamSubscription;
 
-  Stream<List<LeaveApplication>> get combineStreams {
-    return Rx.combineLatest2(
-        leaveService.leaveRequests, employeeService.employees,
-        (List<Leave> leaves, List<Employee> employees) {
-      return leaves
-          .map((leave) {
-            final employee =
-                employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
-            if (employee == null) {
-              return null;
-            } else {
-              return LeaveApplication(leave: leave, employee: employee);
-            }
-          })
-          .whereNotNull()
-          .toList();
+  LeaveApplicationRepo(this.leaveService, this.employeeService) {
+    leaveStreamSubscription = leaveService.leaveRequests.listen((event) {
+      _leaveController.add(event);
+    });
+    employeeStreamSubscription = employeeService.employees.listen((value) {
+      _employeeController.add(value);
     });
   }
 
-  @override
-  Future<void> close() async {
-    super.close();
-    await leaveStreamSubscription.cancel();
-    await employeeStreamSubscription.cancel();
+  Stream<List<Leave>> get leaves {
+    return _leaveController.stream.asBroadcastStream(
+        onCancel: (_) {
+          print('leaveStreamSubscription is cancelled');
+          leaveStreamSubscription?.cancel();
+        },
+        onListen: (_) {
+          print('leaveStreamSubscription is resumed');
+
+          leaveStreamSubscription?.resume();
+        }
+    );
   }
+
+
+  Stream<List<Employee>> get employees {
+    return _employeeController.stream.asBroadcastStream(
+        onCancel: (_) {
+          print('employeeStreamSubscription is cancelled');
+
+          employeeStreamSubscription?.cancel();
+        },
+        onListen: (_) {
+          print('employeeStreamSubscription is resumed');
+
+          employeeStreamSubscription?.resume();
+        }
+    );
+  }
+
+
+  Future<void> disConnect() async {
+    await leaveStreamSubscription?.cancel();
+    await _leaveController.close();
+    await employeeStreamSubscription?.cancel();
+    await _employeeController.close();
+  }
+
+
+  // inal broadcastStream = stream.asBroadcastStream(
+  //   onCancel: (subscription) {
+  //     subscription.pause();
+  //   },
+  //   onListen: (subscription) {
+  //     subscription.resume();
+  //   },
+  // );
+
+
+  // Future<void> close() async {
+  //   print('repo closed');
+  //   await leaveStreamSubscription.cancel();
+  //   await employeeStreamSubscription.cancel();
+  //   print(
+  //       'leavestreamSubscription in repo: ${leaveStreamSubscription.isPaused}');
+  //   print('employeeStreamSubscription in repo: ${employeeStreamSubscription
+  //       .isPaused}');
+  // }
 }

@@ -22,16 +22,16 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   // final EmployeeService _employeeService;
   final LeaveApplicationRepo leaveApplicationRepo;
   late final List<StreamSubscription<dynamic>> subscriptions;
-  late  StreamSubscription<List<LeaveApplication>> leaveApplications;
-  List<LeaveApplication> list=[];
+
+  //late StreamSubscription<List<LeaveApplication>> leaveApplications;
+  List<LeaveApplication> list = [];
 
   AdminHomeBloc(this.leaveApplicationRepo) : super(const AdminHomeState()) {
-    subscriptions = <StreamSubscription<dynamic>>[
-      leaveApplicationRepo.leaveRC.connect(),
-      leaveApplicationRepo.employeeRC.connect()
-    ];
+    // subscriptions = <StreamSubscription<dynamic>>[
+    //   leaveApplicationRepo.leave$.connect(),
+    //   leaveApplicationRepo.employeeRC.connect()
+    // ];
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplication);
-
   }
 
   Future<void> _loadLeaveApplication(
@@ -39,8 +39,19 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     emit(state.copyWith(status: Status.loading));
 
     try {
-      leaveApplications = Rx.combineLatest2(
-          leaveApplicationRepo.leave$, leaveApplicationRepo.employee$,
+     return  emit.forEach(leaveApplications,
+          onData: (List<LeaveApplication> applications)=>
+         state.copyWith(
+            status: Status.success,
+            leaveAppMap: convertListToMap(applications))
+      );
+    } on Exception {
+      emit(state.failureState(failureMessage: firestoreFetchDataError));
+    }
+  }
+
+  Stream<List<LeaveApplication>> get leaveApplications => Rx.combineLatest2(
+          leaveApplicationRepo.leaves, leaveApplicationRepo.employees,
           (List<Leave> leaves, List<Employee> employees) {
         return leaves
             .map((leave) {
@@ -54,15 +65,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
             })
             .whereNotNull()
             .toList();
-      }).listen((value) {
-        emit(state.copyWith(
-            status: Status.success, leaveAppMap: convertListToMap(value)));
       });
-
-    } on Exception {
-      emit(state.failureState(failureMessage: firestoreFetchDataError));
-    }
-  }
 
   //
   // Future<void> _loadLeaveApplications(
@@ -100,9 +103,6 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   @override
   Future<void> close() async {
     super.close();
-    subscriptions.forEach((element) {
-      element.cancel();
-    });
-    leaveApplications.cancel();
+    await leaveApplicationRepo.disConnect();
   }
 }
