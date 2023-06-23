@@ -13,12 +13,7 @@ import '../model/leave_application.dart';
 class LeaveApplicationRepo {
   final LeaveService leaveService;
   final EmployeeService employeeService;
-  late ReplayConnectableStream<List<Leave>> leaveRC;
-  late ReplayConnectableStream<List<Employee>> employeeRC;
   final _leaveController = StreamController<List<Leave>>();
-  late final Stream<List<Leave>> leave$;
-
-  Stream<List<Employee>> get employee$ => _employeeController.stream;
   final _employeeController = StreamController<List<Employee>>();
   late final StreamSubscription<List<Leave>>? leaveStreamSubscription;
   late final StreamSubscription<List<Employee>>? employeeStreamSubscription;
@@ -35,12 +30,9 @@ class LeaveApplicationRepo {
   Stream<List<Leave>> get leaves {
     return _leaveController.stream.asBroadcastStream(
         onCancel: (_) {
-          print('leaveStreamSubscription is cancelled');
           leaveStreamSubscription?.cancel();
         },
         onListen: (_) {
-          print('leaveStreamSubscription is resumed');
-
           leaveStreamSubscription?.resume();
         }
     );
@@ -50,13 +42,9 @@ class LeaveApplicationRepo {
   Stream<List<Employee>> get employees {
     return _employeeController.stream.asBroadcastStream(
         onCancel: (_) {
-          print('employeeStreamSubscription is cancelled');
-
           employeeStreamSubscription?.cancel();
         },
         onListen: (_) {
-          print('employeeStreamSubscription is resumed');
-
           employeeStreamSubscription?.resume();
         }
     );
@@ -70,24 +58,4 @@ class LeaveApplicationRepo {
     await _employeeController.close();
   }
 
-
-  // inal broadcastStream = stream.asBroadcastStream(
-  //   onCancel: (subscription) {
-  //     subscription.pause();
-  //   },
-  //   onListen: (subscription) {
-  //     subscription.resume();
-  //   },
-  // );
-
-
-  // Future<void> close() async {
-  //   print('repo closed');
-  //   await leaveStreamSubscription.cancel();
-  //   await employeeStreamSubscription.cancel();
-  //   print(
-  //       'leavestreamSubscription in repo: ${leaveStreamSubscription.isPaused}');
-  //   print('employeeStreamSubscription in repo: ${employeeStreamSubscription
-  //       .isPaused}');
-  // }
 }

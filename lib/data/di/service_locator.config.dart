@@ -221,8 +221,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i27.EmployeeService>(),
         ));
     gh.factory<_i41.WhoIsOutCardBloc>(() => _i41.WhoIsOutCardBloc(
-          gh<_i27.EmployeeService>(),
           gh<_i30.LeaveService>(),
+          gh<_i27.EmployeeService>(),
         ));
     gh.factory<_i42.AdminEditEmployeeDetailsBloc>(
         () => _i42.AdminEditEmployeeDetailsBloc(
