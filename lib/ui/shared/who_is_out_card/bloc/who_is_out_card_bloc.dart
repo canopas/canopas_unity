@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import '../../../../data/Repo/employee_repo.dart';
+import '../../../../data/Repo/leave_application_repo.dart';
+import '../../../../data/Repo/leave_repo.dart';
 import '../../../../data/core/exception/error_const.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
@@ -16,12 +19,15 @@ import 'who_is_out_card_state.dart';
 
 @Injectable()
 class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
-  final EmployeeService _employeeService;
-  final LeaveService _leaveService;
+  final LeaveService leaveService;
+  final EmployeeService employeeService;
+  final EmployeeRepo employeeRepo;
+  final LeaveRepo leaveRepo;
 
   WhoIsOutCardBloc(
-    this._employeeService,
-    this._leaveService,
+      this.employeeRepo,
+this.leaveRepo,
+this.leaveService,this.employeeService
   ) : super(WhoIsOutCardState(
             selectedDate: DateTime.now().dateOnly, focusDay: DateTime.now().dateOnly)) {
     on<WhoIsOutInitialLoadEvent>(_load);
@@ -37,8 +43,14 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
       WhoIsOutInitialLoadEvent event, Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      _employees = await _employeeService.getEmployees();
-      final allAbsences = await fetchAbsences(state.selectedDate);
+       final allAbsences = await fetchAbsences(state.selectedDate);
+      // emit.forEach(employeeRepo.employees,
+      //     onData: (List<Employee> employees)=>state.copyWith( status: Status.success,
+      //         selectedDayAbsences: getPerDayAbsences(
+      //             date: state.selectedDate, allAbsences: allAbsences),
+      //         allAbsences: allAbsences));
+      _employees = await employeeService.getEmployees();
+
       emit(state.copyWith(
           status: Status.success,
           selectedDayAbsences: getPerDayAbsences(
@@ -84,7 +96,7 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   }
 
   Future<List<LeaveApplication>> fetchAbsences(DateTime date) async {
-    List<Leave> absenceLeaves = await _leaveService.getAllAbsence(date: date);
+    List<Leave> absenceLeaves = await leaveService.getAllAbsence(date: date);
     List<LeaveApplication> absences =
         _getLeaveApplication(employees: _employees, leaves: absenceLeaves);
     _loadHistory.add("${date.month}-${date.year}");

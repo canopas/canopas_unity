@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
@@ -16,17 +18,19 @@ import '../../../../../data/services/leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
-@Injectable()
+
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   // final LeaveService _leaveService;
   // final EmployeeService _employeeService;
-  final LeaveApplicationRepo leaveApplicationRepo;
+  //final LeaveApplicationRepo leaveApplicationRepo;
+  final LeaveRepo leaveRepo;
+  final EmployeeRepo employeeRepo;
   late final List<StreamSubscription<dynamic>> subscriptions;
 
   //late StreamSubscription<List<LeaveApplication>> leaveApplications;
   List<LeaveApplication> list = [];
 
-  AdminHomeBloc(this.leaveApplicationRepo) : super(const AdminHomeState()) {
+  AdminHomeBloc(this.leaveRepo,this.employeeRepo) : super(const AdminHomeState()) {
     // subscriptions = <StreamSubscription<dynamic>>[
     //   leaveApplicationRepo.leave$.connect(),
     //   leaveApplicationRepo.employeeRC.connect()
@@ -51,7 +55,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   Stream<List<LeaveApplication>> get leaveApplications => Rx.combineLatest2(
-          leaveApplicationRepo.leaves, leaveApplicationRepo.employees,
+          leaveRepo.leaves, employeeRepo.employees,
           (List<Leave> leaves, List<Employee> employees) {
         return leaves
             .map((leave) {
@@ -103,6 +107,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   @override
   Future<void> close() async {
     super.close();
-    await leaveApplicationRepo.disConnect();
+    await leaveRepo.disconnect();
+    await employeeRepo.disconnect();
   }
 }

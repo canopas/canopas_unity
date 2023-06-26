@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import '../../../../data/bloc/user_state/user_controller_state.dart';
@@ -26,19 +28,31 @@ class AdminHomeScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider(
-          create: (context) =>
-              getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
-        ),
-        BlocProvider(
-          create: (context) => getIt<AdminHomeBloc>(),
-        ),
-        BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
+        RepositoryProvider(
+            create: (_) => getIt.get<LeaveRepo>()),
+        RepositoryProvider(
+            create: (_) => getIt.get<EmployeeRepo>()),
       ],
-      child: const AdminHomeScreen(),
+
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+            getIt<UserStateControllerBloc>()
+              ..add(CheckUserStatus()),
+          ),
+          BlocProvider(
+            create: (context) => AdminHomeBloc(
+                context.read<LeaveRepo>(), context.read<EmployeeRepo>()),
+          ),
+          BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
+        ],
+        child: const AdminHomeScreen(),
+      ),
     );
+
   }
 }
 
@@ -61,7 +75,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           },
           child: BlocListener<UserStateControllerBloc, UserControllerState>(
             listenWhen: (previous, current) =>
-                current.userState == UserState.unauthenticated ||
+            current.userState == UserState.unauthenticated ||
                 current.userState == UserState.update,
             listener: (context, state) {
               if (state.userState == UserState.unauthenticated) {
@@ -102,14 +116,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
                 BlocConsumer<AdminHomeBloc, AdminHomeState>(
                     listenWhen: (previous, current) =>
-                        current.status == Status.error,
+                    current.status == Status.error,
                     listener: (context, state) {
                       if (state.status == Status.error) {
                         showSnackBar(context: context, error: state.error);
                       }
                     },
                     buildWhen: (previous, current) =>
-                        current.status != Status.error,
+                    current.status != Status.error,
                     builder: (context, state) {
                       if (state.status == Status.success &&
                           state.leaveAppMap.isNotEmpty) {
@@ -118,13 +132,16 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       return ConstrainedBox(
                         constraints: const BoxConstraints(minHeight: 300),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height - 500,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height - 500,
                           child: state.status == Status.loading
                               ? const AppCircularProgressIndicator()
                               : EmptyScreen(
-                                  message: locale.empty_request_message,
-                                  title: locale.empty_request_title,
-                                ),
+                            message: locale.empty_request_message,
+                            title: locale.empty_request_title,
+                          ),
                         ),
                       );
                     }),

@@ -27,31 +27,12 @@ class LeaveApplicationRepo {
     });
   }
 
-  Stream<List<Leave>> get leaves {
-    return _leaveController.stream.asBroadcastStream(
-        onCancel: (_) {
-          leaveStreamSubscription?.cancel();
-        },
-        onListen: (_) {
-          leaveStreamSubscription?.resume();
-        }
-    );
-  }
+  Stream<List<Leave>> get leaves => _leaveController.stream.asBroadcastStream();
+  Stream<List<Employee>> get employees => _employeeController.stream.asBroadcastStream();
 
 
-  Stream<List<Employee>> get employees {
-    return _employeeController.stream.asBroadcastStream(
-        onCancel: (_) {
-          employeeStreamSubscription?.cancel();
-        },
-        onListen: (_) {
-          employeeStreamSubscription?.resume();
-        }
-    );
-  }
 
-
-  Future<void> disConnect() async {
+  Future<void> disconnect() async {
     await leaveStreamSubscription?.cancel();
     await _leaveController.close();
     await employeeStreamSubscription?.cancel();
