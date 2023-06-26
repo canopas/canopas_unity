@@ -19,15 +19,10 @@ import 'admin_home_state.dart';
 
 @Injectable()
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
-  // final LeaveService _leaveService;
-  // final EmployeeService _employeeService;
-  //final LeaveApplicationRepo leaveApplicationRepo;
+
   final LeaveRepo leaveRepo;
   final EmployeeRepo employeeRepo;
-  late final List<StreamSubscription<dynamic>> subscriptions;
 
-  //late StreamSubscription<List<LeaveApplication>> leaveApplications;
-  List<LeaveApplication> list = [];
 
   AdminHomeBloc(this.leaveRepo,this.employeeRepo) : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplication);
@@ -38,15 +33,12 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     emit(state.copyWith(status: Status.loading));
 
     try {
-      print('ok');
-
      return  emit.forEach(leaveApplications,
           onData: (List<LeaveApplication> applications)=>
          state.copyWith(
             status: Status.success,
             leaveAppMap: convertListToMap(applications))
       );
-
     } on Exception {
       emit(state.failureState(failureMessage: firestoreFetchDataError));
     }
@@ -69,31 +61,6 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
             .toList();
       });
 
-  //
-  // Future<void> _loadLeaveApplications(
-  //     AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
-  //   emit(state.copyWith(status: Status.loading));
-  //   try {
-  //     final List<Employee> employees = await _employeeService.getEmployees();
-  //     final List<Leave> allRequests =
-  //         await _leaveService.getLeaveRequestOfUsers();
-  //     final List<LeaveApplication> leaveApplications = allRequests
-  //         .map((leave) {
-  //           final employee = employees
-  //               .firstWhereOrNull((employee) => employee.uid == leave.uid);
-  //           return employee == null
-  //               ? null
-  //               : LeaveApplication(employee: employee, leave: leave);
-  //         })
-  //         .whereNotNull()
-  //         .toList();
-  //     emit(state.copyWith(
-  //         status: Status.success,
-  //         leaveAppMap: convertListToMap(leaveApplications)));
-  //   } catch (_) {
-  //     emit(state.failureState(failureMessage: firestoreFetchDataError));
-  //   }
-  // }
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {

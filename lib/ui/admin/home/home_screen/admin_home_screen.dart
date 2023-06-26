@@ -28,28 +28,19 @@ class AdminHomeScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider(
-            create: (_) => getIt.get<LeaveRepo>()),
-        RepositoryProvider(
-            create: (_) => getIt.get<EmployeeRepo>()),
+        BlocProvider(
+          create: (context) =>
+          getIt<UserStateControllerBloc>()
+            ..add(CheckUserStatus()),
+        ),
+        BlocProvider(
+          create: (context) => getIt.get<AdminHomeBloc>(),
+        ),
+        BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
       ],
-
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) =>
-            getIt<UserStateControllerBloc>()
-              ..add(CheckUserStatus()),
-          ),
-          BlocProvider(
-            create: (context) => getIt.get<AdminHomeBloc>(),
-          ),
-          BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
-        ],
-        child: const AdminHomeScreen(),
-      ),
+      child: const AdminHomeScreen(),
     );
 
   }
