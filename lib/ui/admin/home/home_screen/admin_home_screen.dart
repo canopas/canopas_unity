@@ -44,8 +44,7 @@ class AdminHomeScreenPage extends StatelessWidget {
               ..add(CheckUserStatus()),
           ),
           BlocProvider(
-            create: (context) => AdminHomeBloc(
-                context.read<LeaveRepo>(), context.read<EmployeeRepo>()),
+            create: (context) => getIt.get<AdminHomeBloc>(),
           ),
           BlocProvider(create: (_) => getIt<WhoIsOutCardBloc>()),
         ],

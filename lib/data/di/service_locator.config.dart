@@ -27,8 +27,7 @@ import 'package:projectunity/data/pref/user_preference.dart' as _i21;
 import 'package:projectunity/data/provider/device_info.dart' as _i7;
 import 'package:projectunity/data/provider/user_state.dart' as _i22;
 import 'package:projectunity/data/Repo/employee_repo.dart' as _i51;
-import 'package:projectunity/data/Repo/leave_application_repo.dart' as _i53;
-import 'package:projectunity/data/Repo/leave_repo.dart' as _i54;
+import 'package:projectunity/data/Repo/leave_repo.dart' as _i53;
 import 'package:projectunity/data/services/account_service.dart' as _i23;
 import 'package:projectunity/data/services/auth_service.dart' as _i25;
 import 'package:projectunity/data/services/employee_service.dart' as _i27;
@@ -42,6 +41,8 @@ import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manage
     as _i5;
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart'
     as _i26;
+import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart'
+    as _i55;
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart'
     as _i28;
 import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bloc.dart'
@@ -68,7 +69,7 @@ import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_p
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
     as _i40;
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
-    as _i55;
+    as _i54;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i31;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
     as _i46;
@@ -276,22 +277,25 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
         ));
     gh.singleton<_i51.EmployeeRepo>(
-        _i51.EmployeeRepo(gh<_i27.EmployeeService>()));
+      _i51.EmployeeRepo(gh<_i27.EmployeeService>()),
+      dispose: (i) => i.dispose(),
+    );
     gh.factory<_i52.EmployeesCalendarLeavesBloc>(
         () => _i52.EmployeesCalendarLeavesBloc(
               gh<_i27.EmployeeService>(),
               gh<_i30.LeaveService>(),
             ));
-    gh.factory<_i53.LeaveApplicationRepo>(() => _i53.LeaveApplicationRepo(
+    gh.lazySingleton<_i53.LeaveRepo>(
+        () => _i53.LeaveRepo(gh<_i30.LeaveService>()));
+    gh.factory<_i54.WhoIsOutCardBloc>(() => _i54.WhoIsOutCardBloc(
+          gh<_i51.EmployeeRepo>(),
+          gh<_i53.LeaveRepo>(),
           gh<_i30.LeaveService>(),
           gh<_i27.EmployeeService>(),
         ));
-    gh.factory<_i54.LeaveRepo>(() => _i54.LeaveRepo(gh<_i30.LeaveService>()));
-    gh.factory<_i55.WhoIsOutCardBloc>(() => _i55.WhoIsOutCardBloc(
+    gh.factory<_i55.AdminHomeBloc>(() => _i55.AdminHomeBloc(
+          gh<_i53.LeaveRepo>(),
           gh<_i51.EmployeeRepo>(),
-          gh<_i54.LeaveRepo>(),
-          gh<_i30.LeaveService>(),
-          gh<_i27.EmployeeService>(),
         ));
     return this;
   }

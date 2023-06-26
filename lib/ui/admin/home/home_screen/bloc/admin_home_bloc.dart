@@ -8,7 +8,6 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../../../../data/Repo/leave_application_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -18,7 +17,7 @@ import '../../../../../data/services/leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
-
+@Injectable()
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   // final LeaveService _leaveService;
   // final EmployeeService _employeeService;
@@ -31,10 +30,6 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   List<LeaveApplication> list = [];
 
   AdminHomeBloc(this.leaveRepo,this.employeeRepo) : super(const AdminHomeState()) {
-    // subscriptions = <StreamSubscription<dynamic>>[
-    //   leaveApplicationRepo.leave$.connect(),
-    //   leaveApplicationRepo.employeeRC.connect()
-    // ];
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplication);
   }
 
@@ -43,12 +38,15 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     emit(state.copyWith(status: Status.loading));
 
     try {
+      print('ok');
+
      return  emit.forEach(leaveApplications,
           onData: (List<LeaveApplication> applications)=>
          state.copyWith(
             status: Status.success,
             leaveAppMap: convertListToMap(applications))
       );
+
     } on Exception {
       emit(state.failureState(failureMessage: firestoreFetchDataError));
     }
