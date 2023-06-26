@@ -38,6 +38,11 @@ class LeaveService {
         .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList());
   }
 
+  Stream<List<Leave>> get absences{
+    return  _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: LeaveStatus.approved.value)
+        .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList());
+  }
+
   Future<bool> checkLeaveAlreadyApplied({
     required String userId,
     required Map<DateTime, LeaveDayDuration> dateDuration,
@@ -112,6 +117,7 @@ class LeaveService {
         .get();
     return allLeaves.docs.map((e) => e.data()).toList();
   }
+
 
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();

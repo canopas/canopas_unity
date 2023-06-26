@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../../data/Repo/employee_repo.dart';
 import '../../../../data/Repo/leave_repo.dart';
 import '../../../../data/core/exception/error_const.dart';
@@ -23,38 +24,29 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   final EmployeeRepo employeeRepo;
   final LeaveRepo leaveRepo;
 
-  WhoIsOutCardBloc(
-      this.employeeRepo,
-this.leaveRepo,
-this.leaveService,this.employeeService
-  ) : super(WhoIsOutCardState(
-            selectedDate: DateTime.now().dateOnly, focusDay: DateTime.now().dateOnly)) {
+  WhoIsOutCardBloc(this.employeeRepo, this.leaveRepo, this.leaveService,
+      this.employeeService)
+      : super(WhoIsOutCardState(
+            selectedDate: DateTime.now().dateOnly,
+            focusDay: DateTime.now().dateOnly)) {
     on<WhoIsOutInitialLoadEvent>(_load);
     on<ChangeCalendarDate>(_changeCalendarDate);
     on<ChangeCalendarFormat>(_changeCalendarFormat);
     on<FetchMoreLeaves>(_fetchMoreLeavesEvent);
   }
 
-  List<Employee> _employees = [];
   final Set<String> _loadHistory = {};
 
   FutureOr<void> _load(
       WhoIsOutInitialLoadEvent event, Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-       final allAbsences = await fetchAbsences(state.selectedDate);
-      // emit.forEach(employeeRepo.employees,
-      //     onData: (List<Employee> employees)=>state.copyWith( status: Status.success,
-      //         selectedDayAbsences: getPerDayAbsences(
-      //             date: state.selectedDate, allAbsences: allAbsences),
-      //         allAbsences: allAbsences));
-      _employees = await employeeService.getEmployees();
-
-      emit(state.copyWith(
-          status: Status.success,
-          selectedDayAbsences: getPerDayAbsences(
-              date: state.selectedDate, allAbsences: allAbsences),
-          allAbsences: allAbsences));
+      await emit.forEach(leaveApplications(state.selectedDate),
+          onData: (List<LeaveApplication> allAbsences) => state.copyWith(
+              status: Status.success,
+              selectedDayAbsences: getPerDayAbsences(
+                  date: state.selectedDate, allAbsences: allAbsences),
+              allAbsences: allAbsences));
     } on Exception {
       emit(
           state.copyWith(status: Status.error, error: firestoreFetchDataError));
@@ -84,7 +76,7 @@ this.leaveService,this.employeeService
 
     if (loadMore) {
       try {
-        final fetchedAbsences = await fetchAbsences(event.date);
+        final fetchedAbsences = await leaveApplications(event.date).last;
         allAbsences.addAll(fetchedAbsences);
         emit(state.copyWith(allAbsences: allAbsences, status: Status.success));
       } on Exception {
@@ -94,12 +86,25 @@ this.leaveService,this.employeeService
     }
   }
 
-  Future<List<LeaveApplication>> fetchAbsences(DateTime date) async {
-    List<Leave> absenceLeaves = await leaveService.getAllAbsence(date: date);
-    List<LeaveApplication> absences =
-        _getLeaveApplication(employees: _employees, leaves: absenceLeaves);
-    _loadHistory.add("${date.month}-${date.year}");
-    return absences;
+  Stream<List<LeaveApplication>> leaveApplications(DateTime selectedDate) {
+    final stream = Rx.combineLatest2(
+        leaveRepo.absence(selectedDate), employeeRepo.employees,
+        (List<Leave> leaves, List<Employee> employees) {
+      return leaves
+          .map((leave) {
+            final employee =
+                employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
+            if (employee == null) {
+              return null;
+            } else {
+              return LeaveApplication(leave: leave, employee: employee);
+            }
+          })
+          .whereNotNull()
+          .toList();
+    });
+    _loadHistory.add("${selectedDate.month}-${selectedDate.year}");
+    return stream;
   }
 
   List<LeaveApplication> getPerDayAbsences(
@@ -112,24 +117,9 @@ this.leaveService,this.employeeService
         .toList();
   }
 
-  List<LeaveApplication> _getLeaveApplication(
-      {required List<Employee> employees, required List<Leave> leaves}) {
-    return leaves
-        .map((leave) {
-          final employee =
-              employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
-          return (employee == null)
-              ? null
-              : LeaveApplication(employee: employee, leave: leave);
-        })
-        .whereNotNull()
-        .toList();
-  }
-
   @override
-  Future<void> close() {
-    _employees.clear();
+  Future<void> close() async {
+    super.close();
     _loadHistory.clear();
-    return super.close();
   }
 }

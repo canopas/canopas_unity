@@ -53,7 +53,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   Stream<List<LeaveApplication>> get leaveApplications => Rx.combineLatest2(
-          leaveRepo.leaves, employeeRepo.employees,
+          leaveRepo.pendingLeaves, employeeRepo.employees,
           (List<Leave> leaves, List<Employee> employees) {
         return leaves
             .map((leave) {
