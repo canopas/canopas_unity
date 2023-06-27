@@ -23,6 +23,11 @@ class UserStateNotifier with ChangeNotifier {
     getUserStatus();
   }
 
+  void setState(UserState state){
+    _userState= state;
+    notifyListeners();
+  }
+
   void getUserStatus() async {
     if (_userPreference.getAccount() == null) {
       _userState = UserState.unauthenticated;

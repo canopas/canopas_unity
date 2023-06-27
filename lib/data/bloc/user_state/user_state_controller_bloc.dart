@@ -15,11 +15,11 @@ import '../../services/space_service.dart';
 class UserStateControllerBloc
     extends Bloc<UserStateControllerEvent, UserControllerState> {
   final EmployeeService _employeeService;
-  final UserStateNotifier _userManager;
+  final UserStateNotifier _userStateManager;
   final SpaceService _spaceService;
 
   UserStateControllerBloc(
-      this._employeeService, this._userManager, this._spaceService)
+      this._employeeService, this._userStateManager, this._spaceService)
       : super(const UserControllerState(userState: UserState.unknown)) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
@@ -29,23 +29,24 @@ class UserStateControllerBloc
       CheckUserStatus event, Emitter<UserControllerState> emit) async {
     try {
       final Employee? employee =
-          await _employeeService.getEmployee(_userManager.userUID!);
+          await _employeeService.getEmployee(_userStateManager.userUID!);
       final Space? space =
-          await _spaceService.getSpace(_userManager.currentSpaceId!);
+          await _spaceService.getSpace(_userStateManager.currentSpaceId!);
       if (employee == null || space == null) {
         emit(const UserControllerState(userState: UserState.unauthenticated));
       } else {
-        await _userManager.setEmployeeWithSpace(
+        await _userStateManager.setEmployeeWithSpace(
             space: space, spaceUser: employee, redirect: false);
         emit(const UserControllerState(userState: UserState.update));
       }
     } on Exception {
+      _userStateManager.setState(UserState.unknown);
       emit(const UserControllerState(userState: UserState.unauthenticated));
     }
   }
 
   Future<void> _clearData(
       ClearDataForDisableUser event, Emitter<UserControllerState> emit) async {
-    _userManager.removeEmployeeWithSpace();
+    _userStateManager.removeEmployeeWithSpace();
   }
 }
