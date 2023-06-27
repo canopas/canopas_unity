@@ -40,7 +40,7 @@ class LeaveService {
 
   Stream<List<Leave>> get absences{
     return  _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: LeaveStatus.approved.value)
-        .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList());
+        .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList()).doOnError((p0, p1) { });
   }
 
   Future<bool> checkLeaveAlreadyApplied({

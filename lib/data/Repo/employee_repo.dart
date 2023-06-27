@@ -30,7 +30,8 @@ class EmployeeRepo {
             _employeeStreamSubscription!.resume();
           }
         }
-      });
+      },
+      );
 
   Future<void> disconnect() async {
     await _employeeStreamSubscription?.cancel();
