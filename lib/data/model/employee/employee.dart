@@ -23,7 +23,7 @@ class Employee extends Equatable {
   final DateTime? dateOfBirth;
   final DateTime dateOfJoining;
   final String? level;
-  final EmployeeStatus? status;
+  final EmployeeStatus status;
 
   const Employee({
     required this.uid,
@@ -39,7 +39,7 @@ class Employee extends Equatable {
     this.dateOfBirth,
     required this.dateOfJoining,
     this.level,
-    this.status,
+    this.status = EmployeeStatus.active,
   });
 
   Employee copyWith({

@@ -285,6 +285,23 @@ class MockEmployeeService extends _i1.Mock implements _i10.EmployeeService {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
+  @override
+  _i8.Future<void> changeAccountStatus({
+    required String? id,
+    required _i5.EmployeeStatus? status,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changeAccountStatus,
+          [],
+          {
+            #id: id,
+            #status: status,
+          },
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [LeaveService].

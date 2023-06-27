@@ -107,6 +107,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           if (state is EmployeeDetailLoadingState) {
             return const AppCircularProgressIndicator();
           } else if (state is EmployeeDetailLoadedState) {
+
             return ListView(
                 padding: const EdgeInsets.symmetric(
                     vertical: primaryHorizontalSpacing),

@@ -61,8 +61,8 @@ class EmployeeDetailBloc
   Future<void> _onDeleteEmployeeEvent(
       DeleteEmployeeEvent event, Emitter<AdminEmployeeDetailState> emit) async {
     try {
-      await _employeeService.deleteEmployee(event.employeeId);
-      await _leaveService.deleteAllLeavesOfUser(event.employeeId);
+      await _employeeService.changeAccountStatus(
+          id: event.employeeId, status: EmployeeStatus.inactive);
       await _accountService.deleteSpaceIdFromAccount(
           spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
     } on Exception {
