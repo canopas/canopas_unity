@@ -21,6 +21,7 @@
   "past_tag":"Past",
   "upcoming_tag":"Upcoming",
    "delete_button_tag":"Delete",
+  "deactivate_tag":"Deactivate",
   "save_tag":"Save",
   "edit_tag":"Edit",
   "reason_tag":"Reason",
