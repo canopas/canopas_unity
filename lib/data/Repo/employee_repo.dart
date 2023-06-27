@@ -27,6 +27,7 @@ class EmployeeRepo {
 
   @disposeMethod
   Future<void> dispose() async {
+    await _employeeStreamSubscription?.cancel();
     await _employeeController.close();
   }
 }

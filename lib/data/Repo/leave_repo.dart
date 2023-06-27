@@ -39,6 +39,8 @@ class LeaveRepo {
 
   @disposeMethod
   Future<void> close()async{
+    _pendingLeaveStreamSubscription?.cancel();
+    _absenceLeaveStreamSubscription?.cancel();
     _pendingLeaveController.close();
     _absenceLeaveController.close();
   }
