@@ -95,8 +95,7 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                   style: AppFontStyle.bodyLarge),
               const SizedBox(height: 10),
               BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
-                  buildWhen: (previous, current) =>
-                      current.fetchSpaceStatus == Status.success,
+                  buildWhen: (previous, current) => current.fetchSpaceStatus == Status.success  ||  current.fetchSpaceStatus == Status.error,
                   builder: (context, state) {
                     if (state.fetchSpaceStatus == Status.loading ||
                         state.fetchSpaceStatus == Status.initial) {

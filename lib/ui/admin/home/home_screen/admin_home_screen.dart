@@ -60,9 +60,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
           },
           child: BlocListener<UserStateControllerBloc, UserControllerState>(
-            listenWhen: (previous, current) =>
-                current.userState == UserState.unauthenticated ||
-                current.userState == UserState.update,
+            listenWhen: (previous, current) => previous.userState != current.userState,
             listener: (context, state) {
               if (state.userState == UserState.unauthenticated) {
                 showDialog(
@@ -85,7 +83,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         ],
                       );
                     });
-              } else if (state.userState == UserState.update) {
+              } else if (state.userState == UserState.authenticated) {
                 context.read<AdminHomeBloc>().add(AdminHomeInitialLoadEvent());
                 context
                     .read<WhoIsOutCardBloc>()

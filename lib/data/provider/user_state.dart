@@ -6,7 +6,6 @@ import '../model/space/space.dart';
 import '../pref/user_preference.dart';
 
 enum UserState {
-  unknown,
   authenticated,
   unauthenticated,
   spaceJoined,
