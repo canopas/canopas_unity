@@ -120,7 +120,7 @@ void main() {
         });
 
     test('delete employee failed test', () {
-      when(employeeService.deleteEmployee(employee.uid))
+      when(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive))
           .thenThrow(Exception("error"));
       employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
       expect(employeeDetailBloc.stream,
@@ -130,10 +130,8 @@ void main() {
     test('delete employee success test', () async {
       when(userStateNotifier.userUID).thenReturn(employee.uid);
       employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
-      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
-      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
-      verify(employeeService.deleteEmployee(employee.uid)).called(1);
-      verify(leaveService.deleteAllLeavesOfUser(employee.uid)).called(1);
+      await untilCalled(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive));
+      verify(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive)).called(1);
     });
   });
 }
