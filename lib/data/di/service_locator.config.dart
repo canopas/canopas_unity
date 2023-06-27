@@ -276,8 +276,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i13.InvitationService>(),
           gh<_i22.UserStateNotifier>(),
         ));
-    gh.singleton<_i51.EmployeeRepo>(
-      _i51.EmployeeRepo(gh<_i27.EmployeeService>()),
+    gh.lazySingleton<_i51.EmployeeRepo>(
+      () => _i51.EmployeeRepo(
+        gh<_i27.EmployeeService>(),
+        gh<_i22.UserStateNotifier>(),
+      ),
       dispose: (i) => i.dispose(),
     );
     gh.factory<_i52.EmployeesCalendarLeavesBloc>(

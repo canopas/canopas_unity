@@ -352,6 +352,15 @@ class MockUserStateNotifier extends _i1.Mock implements _i11.UserStateNotifier {
         returnValueForMissingStub: null,
       );
   @override
+  _i8.Future<void> setUserState(_i11.UserState? state) => (super.noSuchMethod(
+        Invocation.method(
+          #setUserState,
+          [state],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+  @override
   _i8.Future<void> setUser(_i6.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
@@ -541,8 +550,12 @@ class MockEmployeeService extends _i1.Mock implements _i15.EmployeeService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
-  _i8.Stream<List<_i4.Employee>> get employees => (super.noSuchMethod(
-        Invocation.getter(#employees),
+  _i8.Stream<List<_i4.Employee>> employees(String? spaceId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #employees,
+          [spaceId],
+        ),
         returnValue: _i8.Stream<List<_i4.Employee>>.empty(),
       ) as _i8.Stream<List<_i4.Employee>>);
   @override

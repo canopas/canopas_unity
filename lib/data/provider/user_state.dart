@@ -34,6 +34,11 @@ class UserStateNotifier with ChangeNotifier {
     }
   }
 
+  Future<void> setUserState(UserState state)async{
+    _userState= state;
+    notifyListeners();
+  }
+
   Future<void> setUser(Account user) async {
     await _userPreference.setAccount(user);
     _userState = UserState.authenticated;

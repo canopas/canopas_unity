@@ -24,8 +24,8 @@ class EmployeeService {
               fromFirestore: Employee.fromFirestore,
               toFirestore: (Employee emp, _) => emp.toJson());
 
-  Stream<List<Employee>> get  employees{
-    return _membersDbCollection(spaceId: _userManager.currentSpaceId!).snapshots().map((event) => event.docs.map((employee) => employee.data()).toList());
+  Stream<List<Employee>>   employees(String spaceId){
+    return _membersDbCollection(spaceId: spaceId).snapshots().map((event) => event.docs.map((employee) => employee.data()).toList());
   }
 
   Future<void> addEmployeeBySpaceId(

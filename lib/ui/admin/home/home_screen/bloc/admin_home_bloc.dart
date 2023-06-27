@@ -69,10 +69,4 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }
 
-  @override
-  Future<void> close() async {
-    super.close();
-    await leaveRepo.disconnect();
-    await employeeRepo.disconnect();
-  }
 }

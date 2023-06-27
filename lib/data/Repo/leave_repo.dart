@@ -37,9 +37,10 @@ class LeaveRepo {
     return list;
   });
 
-
-  Future<void> disconnect() async {
-    await _pendingLeaveStreamSubscription?.cancel();
-    await _absenceLeaveStreamSubscription?.cancel();
+  @disposeMethod
+  Future<void> close()async{
+    _pendingLeaveController.close();
+    _absenceLeaveController.close();
   }
+
 }

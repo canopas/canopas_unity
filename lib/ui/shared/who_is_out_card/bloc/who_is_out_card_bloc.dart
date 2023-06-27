@@ -121,7 +121,5 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   Future<void> close() async {
     super.close();
     _loadHistory.clear();
-    await leaveRepo.disconnect();
-    await employeeRepo.disconnect();
   }
 }

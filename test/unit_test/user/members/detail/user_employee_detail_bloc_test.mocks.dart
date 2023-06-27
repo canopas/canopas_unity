@@ -69,8 +69,12 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
-  _i5.Stream<List<_i6.Employee>> get employees => (super.noSuchMethod(
-        Invocation.getter(#employees),
+  _i5.Stream<List<_i6.Employee>> employees(String? spaceId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #employees,
+          [spaceId],
+        ),
         returnValue: _i5.Stream<List<_i6.Employee>>.empty(),
       ) as _i5.Stream<List<_i6.Employee>>);
   @override
@@ -204,6 +208,11 @@ class MockLeaveService extends _i1.Mock implements _i7.LeaveService {
   @override
   _i5.Stream<List<_i8.Leave>> get leaveRequests => (super.noSuchMethod(
         Invocation.getter(#leaveRequests),
+        returnValue: _i5.Stream<List<_i8.Leave>>.empty(),
+      ) as _i5.Stream<List<_i8.Leave>>);
+  @override
+  _i5.Stream<List<_i8.Leave>> get absences => (super.noSuchMethod(
+        Invocation.getter(#absences),
         returnValue: _i5.Stream<List<_i8.Leave>>.empty(),
       ) as _i5.Stream<List<_i8.Leave>>);
   @override
