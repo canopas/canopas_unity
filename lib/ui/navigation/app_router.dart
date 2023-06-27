@@ -318,7 +318,7 @@ class AppRouter {
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
-          if (userManager.state == UserState.unauthenticated) {
+          if (userManager.state == UserState.unauthenticated || userManager.state==UserState.unknown) {
             return loggingIn ? null : Routes.login;
           }
           if (userManager.state == UserState.authenticated &&
