@@ -15,11 +15,12 @@ class NotificationService {
 
   @disposeMethod
   Future<void> dispose() async {
-   httpClient.close();
+    httpClient.close();
   }
 
   Future<bool> notifyHRForNewLeave(
       {required String name,
+      required String reason,
       required DateTime startDate,
       required DateTime endDate,
       required String receiver}) async {
@@ -31,6 +32,7 @@ class NotificationService {
                 'name': name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
                 "status": LeaveStatus.pending.value,
+                'reason': reason,
                 'receiver': receiver,
               }));
       return response.statusCode == 200;
