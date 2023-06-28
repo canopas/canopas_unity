@@ -122,14 +122,14 @@ void main() {
     test('delete employee failed test', () {
       when(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive))
           .thenThrow(Exception("error"));
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
+      employeeDetailBloc.add(DeactivateEmployeeEvent(employeeId: employee.uid));
       expect(employeeDetailBloc.stream,
           emits(EmployeeDetailFailureState(error: firestoreFetchDataError)));
     });
 
     test('delete employee success test', () async {
       when(userStateNotifier.userUID).thenReturn(employee.uid);
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
+      employeeDetailBloc.add(DeactivateEmployeeEvent(employeeId: employee.uid));
       await untilCalled(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive));
       verify(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive)).called(1);
     });

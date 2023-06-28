@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/configs/colors.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
@@ -25,8 +26,8 @@ class EmployeeCard extends StatelessWidget {
         child: Row(
           children: [
             ImageProfile(
-                imageUrl: employee.imageUrl,
-                radius: 25,
+              imageUrl: employee.imageUrl,
+              radius: 25,
             ),
             const SizedBox(
               width: primaryHorizontalSpacing,
@@ -35,13 +36,21 @@ class EmployeeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(employee.name, style: AppFontStyle.bodyMedium,overflow: TextOverflow.ellipsis,maxLines: 1),
+                  Text(employee.name,
+                      style: employee.status == EmployeeStatus.inactive
+                          ? AppFontStyle.bodyMedium
+                              .copyWith(color: AppColors.secondaryText)
+                          : AppFontStyle.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1),
                   ValidateWidget(
                     isValid: employee.designation.isNotNullOrEmpty,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 2),
-                      child: Text(employee.designation??"",
-                          style: AppFontStyle.subTitleGrey,overflow: TextOverflow.ellipsis,maxLines: 1),
+                      child: Text(employee.designation ?? "",
+                          style: AppFontStyle.subTitleGrey,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1),
                     ),
                   ),
                 ],

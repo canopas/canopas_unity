@@ -74,6 +74,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     currentSpaceId: userManager.currentSpaceId),
                 const Divider(height: 0),
                 DrawerOptionList(
+                    currentSpaceName: userManager.currentSpace!.name,
                     isSpaceOwner: userManager.isSpaceOwner,
                     isAdminOrHr: userManager.isAdmin || userManager.isHR),
               ],
@@ -88,14 +89,14 @@ class _AppDrawerState extends State<AppDrawer> {
 class DrawerOptionList extends StatelessWidget {
   final bool isSpaceOwner;
   final bool isAdminOrHr;
+  final String currentSpaceName;
 
   const DrawerOptionList(
-      {Key? key, required this.isSpaceOwner, required this.isAdminOrHr})
+      {Key? key, required this.isSpaceOwner, required this.isAdminOrHr, required this.currentSpaceName})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final userStateNotifier= getIt<UserStateNotifier>();
     final locale = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -125,7 +126,7 @@ class DrawerOptionList extends StatelessWidget {
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
               icon: Icons.logout_rounded,
-              title: locale.sign_out_from_text(userStateNotifier.currentSpace!.name),
+              title: locale.sign_out_from_text(currentSpaceName),
               onTap: () => context
                   .read<DrawerBloc>()
                   .add(SignOutFromSpaceEvent()),

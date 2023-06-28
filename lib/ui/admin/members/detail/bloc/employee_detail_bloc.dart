@@ -28,7 +28,7 @@ class EmployeeDetailBloc
       add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
     });
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
-    on<DeleteEmployeeEvent>(_onDeleteEmployeeEvent);
+    on<DeactivateEmployeeEvent>(_onDeactivateEmployeeEvent);
   }
 
   Future<void> _onInitialLoad(EmployeeDetailInitialLoadEvent event,
@@ -58,8 +58,8 @@ class EmployeeDetailBloc
     }
   }
 
-  Future<void> _onDeleteEmployeeEvent(
-      DeleteEmployeeEvent event, Emitter<AdminEmployeeDetailState> emit) async {
+  Future<void> _onDeactivateEmployeeEvent(
+      DeactivateEmployeeEvent event, Emitter<AdminEmployeeDetailState> emit) async {
     try {
       await _employeeService.changeAccountStatus(
           id: event.employeeId, status: EmployeeStatus.inactive);

@@ -347,8 +347,8 @@
 
 
   "sign_out_alert":"Are you sure you want to sign out?",
-  "delete_user_account_alert":"Are you sure you want to permanently delete {username}'s account?",
-  "@delete_user_account_alert":{
+  "deactivate_user_account_alert":"Are you sure you want to permanently deactivate {username}'s account?",
+  "@deactivate_user_account_alert":{
     "placeholders":{
       "username":{
         "type":"String"
