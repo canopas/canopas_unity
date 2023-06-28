@@ -340,6 +340,7 @@ void main() {
       when(userStateNotifier.employee).thenReturn(employee);
       when(userStateNotifier.currentSpace).thenReturn(space);
       when(notificationService.notifyHRForNewLeave(
+              reason: 'reason',
               receiver: 'hr@canopas.com',
               name: "dummy",
               startDate: leave.startDate,

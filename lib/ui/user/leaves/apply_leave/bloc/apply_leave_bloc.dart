@@ -125,6 +125,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
                 name: _userStateNotifier.employee.name,
                 startDate: leaveData.startDate,
                 endDate: leaveData.endDate,
+                reason: leaveData.reason,
                 receiver: notificationEmail);
           }
           emit(state.copyWith(leaveRequestStatus: Status.success));
