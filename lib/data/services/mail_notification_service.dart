@@ -30,7 +30,7 @@ class NotificationService {
               body: json.encode({
                 'name': name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
-                "status": "pending",
+                "status": LeaveStatus.pending.value,
                 'receiver': receiver,
               }));
       return response.statusCode == 200;
@@ -51,7 +51,7 @@ class NotificationService {
               body: json.encode({
                 "name": name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
-                "status": status.name,
+                "status": status.value,
                 "receiver": receiver,
               }));
       return response.statusCode == 200;
