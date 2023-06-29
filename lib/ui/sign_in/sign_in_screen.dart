@@ -46,9 +46,7 @@ class SignInScreenState extends State<SignInScreen> {
           child: Column(
             children: [
               Container(
-                constraints: const BoxConstraints(
-                  minHeight: 400,
-                ),
+                constraints: const BoxConstraints(minHeight: 400),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Padding(
@@ -58,8 +56,7 @@ class SignInScreenState extends State<SignInScreen> {
                     children: [
                       const SizedBox(height: 20),
                       Flexible(
-                        child: Image.asset(ImageConst.loginPageVectorImage,
-                            width: MediaQuery.of(context).size.width * 0.8),
+                        child: Image.asset(ImageConst.loginPageVectorImage, width: MediaQuery.of(context).size.width * 0.8),
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -76,14 +73,10 @@ class SignInScreenState extends State<SignInScreen> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20.0, right: 20, top: 20, bottom: 40),
+                              padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20, bottom: 40),
                               child: Text(
-                                AppLocalizations.of(context)
-                                    .sign_in_description_text,
-                                style: AppFontStyle.bodyMedium.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                AppLocalizations.of(context).sign_in_description_text,
+                                style: AppFontStyle.bodyMedium.copyWith(fontWeight: FontWeight.w500),
                                 overflow: TextOverflow.fade,
                                 textAlign: TextAlign.center,
                               ),
@@ -93,22 +86,21 @@ class SignInScreenState extends State<SignInScreen> {
                       ),
                       BlocBuilder<SignInBloc, SignInState>(
                         buildWhen: (previous, current) =>
-                        previous is SignInLoadingState ||
+                            previous is SignInLoadingState ||
                             current is SignInLoadingState,
                         builder: (context, state) => state is SignInLoadingState
                             ? const Padding(
-                              padding: EdgeInsets.all(6),
-                              child: AppCircularProgressIndicator(),
-                            )
+                                padding: EdgeInsets.all(6),
+                                child: AppCircularProgressIndicator(),
+                              )
                             : Center(
-                          child: SignInButton(
-                              onPressed: () {
-                                context.read<SignInBloc>().add(SignInEvent());
-                              },
-                              title:
-                              AppLocalizations.of(context).login_button_text,
-                              image: ImageConst.googleLogoImage),
-                        ),
+                                child: SignInButton(
+                                    onPressed: () {
+                                      context.read<SignInBloc>().add(SignInEvent());
+                                    },
+                                    title: AppLocalizations.of(context).login_button_text,
+                                    image: ImageConst.googleLogoImage),
+                              ),
                       ),
                     ],
                   ),

@@ -15,12 +15,12 @@ import 'edit_space_event.dart';
 @Injectable()
 class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
     with InputValidationMixin {
-  final UserStateNotifier _userManager;
+  final UserStateNotifier _userStateNotifier;
   final SpaceService _spaceService;
   final ImagePicker imagePicker;
   final StorageService storageService;
 
-  EditSpaceBloc(this._spaceService, this._userManager, this.imagePicker,
+  EditSpaceBloc(this._spaceService, this._userStateNotifier, this.imagePicker,
       this.storageService)
       : super(const EditSpaceState()) {
     on<EditSpaceInitialEvent>(_init);
@@ -59,11 +59,11 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
 
   Future<void> _deleteSpace(
       DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
+    emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
     try {
-      emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
       await _spaceService.deleteSpace(
-          _userManager.currentSpace!.id, _userManager.currentSpace!.ownerIds);
-      await _userManager.removeEmployeeWithSpace();
+         spaceId:  _userStateNotifier.currentSpace!.id, owners: _userStateNotifier.currentSpace!.ownerIds,uid: _userStateNotifier.employeeId);
+      await _userStateNotifier.removeEmployeeWithSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
       emit(state.copyWith(
@@ -83,13 +83,13 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       SaveSpaceDetails event, Emitter<EditSpaceState> emit) async {
     emit(state.copyWith(updateSpaceStatus: Status.loading));
     try {
-      final space = _userManager.currentSpace!;
+      final space = _userStateNotifier.currentSpace!;
 
       String? logoURL = space.logo;
 
       if (state.logo.isNotNullOrEmpty) {
         final String storagePath =
-            'images/${_userManager.currentSpaceId}/space-logo';
+            'images/${_userStateNotifier.currentSpaceId}/space-logo';
         logoURL = await storageService.uploadProfilePic(
             path: storagePath, imagePath: state.logo!);
       }
@@ -107,7 +107,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
         logo: logoURL,
       );
       await _spaceService.updateSpace(updatedSpace);
-      await _userManager.updateSpace(updatedSpace);
+      await _userStateNotifier.updateSpace(updatedSpace);
       emit(state.copyWith(updateSpaceStatus: Status.success));
     } on Exception {
       emit(state.copyWith(
