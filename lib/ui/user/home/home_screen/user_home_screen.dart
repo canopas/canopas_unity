@@ -65,8 +65,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           backgroundColor: AppColors.whiteColor,
           child: BlocListener<UserStateControllerBloc, UserControllerState>(
             listenWhen: (previous, current) =>
-                current.userState == UserState.unauthenticated ||
-                current.userState == UserState.update,
+                current.userState != previous.userState,
             listener: (context, state) {
               if (state.userState == UserState.unauthenticated) {
                 showDialog(
@@ -89,7 +88,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                         ],
                       );
                     });
-              } else if (state.userState == UserState.update) {
+              } else if (state.userState == UserState.authenticated) {
                 context.read<UserHomeBloc>().add(UserHomeFetchLeaveRequest());
                 context
                     .read<WhoIsOutCardBloc>()

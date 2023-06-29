@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
 import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
 import 'package:projectunity/data/model/space/space.dart';
-
 import '../../model/employee/employee.dart';
 import '../../provider/user_state.dart';
 import '../../services/employee_service.dart';
@@ -20,7 +18,7 @@ class UserStateControllerBloc
 
   UserStateControllerBloc(
       this._employeeService, this._userManager, this._spaceService)
-      : super(const UserControllerState(userState: UserState.unknown)) {
+      : super(const UserControllerState()) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
   }
@@ -37,7 +35,7 @@ class UserStateControllerBloc
       } else {
         await _userManager.setEmployeeWithSpace(
             space: space, spaceUser: employee, redirect: false);
-        emit(const UserControllerState(userState: UserState.update));
+        emit(const UserControllerState(userState: UserState.authenticated));
       }
     } on Exception {
       emit(const UserControllerState(userState: UserState.unauthenticated));
@@ -46,6 +44,6 @@ class UserStateControllerBloc
 
   Future<void> _clearData(
       ClearDataForDisableUser event, Emitter<UserControllerState> emit) async {
-    _userManager.removeEmployeeWithSpace();
+    await _userManager.removeEmployeeWithSpace();
   }
 }
