@@ -30,7 +30,9 @@ class UserStateControllerBloc
           await _employeeService.getEmployee(_userManager.userUID!);
       final Space? space =
           await _spaceService.getSpace(_userManager.currentSpaceId!);
-      if (employee == null || space == null) {
+      if (employee == null ||
+          space == null ||
+          employee.status == EmployeeStatus.inactive) {
         emit(const UserControllerState(userState: UserState.unauthenticated));
       } else {
         await _userManager.setEmployeeWithSpace(
