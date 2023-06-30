@@ -36,10 +36,22 @@ jobs:
           ruby-version: 2.7.2 # omit if .ruby-version file exists in project, or replace with your team’s supported ruby version
           bundler-cache: true
 
+      - name: Retrieve the secret and decode it to a file
+        env:
+          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
+          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
+          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+        run: .github/script/install_secret_script.sh
+
       - name: Deploy internally
+        env:
+          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
+          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
+          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
+          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
+          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
         run: |
-          ./install_secret_script.sh
           file='VERSION'
           fileData=`cat $file`
           IFS='.'
@@ -56,12 +68,3 @@ jobs:
           echo $APP_PLAY_SERVICE_JSON > google_play_api_key.json
           bundle exec fastlane supply init --track internal
           bundle exec fastlane upload_internal versionName:$buildName versionCode:$buildNumber
-        env:
-          APP_PLAY_SERVICE_JSON: ${{ secrets.APP_PLAY_SERVICE_JSON }}
-          APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
-          APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
-          APKSIGN_KEY_ALIAS: ${{ secrets.APKSIGN_KEY_ALIAS }}
-          APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
-          DESKTOP_CREDENTIALS_BASE64: ${{ secrets.DESKTOP_CREDENTIALS_BASE64 }}
-          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
-          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}

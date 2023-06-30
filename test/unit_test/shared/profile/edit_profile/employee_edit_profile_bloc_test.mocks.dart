@@ -208,7 +208,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
   @override
   _i7.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i7.UserState.unknown,
+        returnValue: _i7.UserState.authenticated,
       ) as _i7.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
