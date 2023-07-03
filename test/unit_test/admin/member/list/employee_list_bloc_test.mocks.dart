@@ -345,10 +345,11 @@ class MockInvitationService extends _i1.Mock implements _i10.InvitationService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
-  _i5.Future<List<_i11.Invitation>> fetchSpacesForUserEmail(String? email) =>
+  _i5.Future<List<_i11.Invitation>> fetchSpaceInvitationsForUserEmail(
+          String? email) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchSpacesForUserEmail,
+          #fetchSpaceInvitationsForUserEmail,
           [email],
         ),
         returnValue:

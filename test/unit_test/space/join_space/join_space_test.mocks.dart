@@ -111,10 +111,11 @@ class MockInvitationService extends _i1.Mock implements _i8.InvitationService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
-  _i9.Future<List<_i10.Invitation>> fetchSpacesForUserEmail(String? email) =>
+  _i9.Future<List<_i10.Invitation>> fetchSpaceInvitationsForUserEmail(
+          String? email) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchSpacesForUserEmail,
+          #fetchSpaceInvitationsForUserEmail,
           [email],
         ),
         returnValue:
@@ -257,17 +258,20 @@ class MockSpaceService extends _i1.Mock implements _i11.SpaceService {
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
   @override
-  _i9.Future<void> deleteSpace(
-    String? workspaceId,
-    List<String>? owners,
-  ) =>
+  _i9.Future<void> deleteSpace({
+    required String? spaceId,
+    required List<String>? owners,
+    required String? uid,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteSpace,
-          [
-            workspaceId,
-            owners,
-          ],
+          [],
+          {
+            #spaceId: spaceId,
+            #owners: owners,
+            #uid: uid,
+          },
         ),
         returnValue: _i9.Future<void>.value(),
         returnValueForMissingStub: _i9.Future<void>.value(),

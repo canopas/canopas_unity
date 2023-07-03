@@ -72,7 +72,7 @@ void main() {
     setUp(() {
       when(accountService.fetchSpaceIds(uid: 'uid'))
           .thenAnswer((_) async => []);
-      when(invitationService.fetchSpacesForUserEmail('email'))
+      when(invitationService.fetchSpaceInvitationsForUserEmail('email'))
           .thenAnswer((_) async => [invitation]);
     });
     test('Fetch spaces success test for requested spaces for user', () {
@@ -105,7 +105,7 @@ void main() {
     setUp(() {
       when(accountService.fetchSpaceIds(uid: 'uid'))
           .thenAnswer((_) async => [space.id]);
-      when(invitationService.fetchSpacesForUserEmail('email'))
+      when(invitationService.fetchSpaceInvitationsForUserEmail('email'))
           .thenAnswer((_) async => []);
     });
     test('Fetch spaces success test of created space by user', () {

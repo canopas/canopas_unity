@@ -150,35 +150,33 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
                                 )
                               ],
                             ),
-                          const SizedBox(height: 10),
-                          TextButton(
-                            onPressed: () {
-                              showAlertDialog(
-                                context: context,
-                                actionButtonTitle: locale.sign_out_tag,
-                                onActionButtonPressed: () { context
-                                    .read<JoinSpaceBloc>()
-                                    .add(SignOutEvent());
-                                  context.pop();
-                                  },
-                                title: locale.sign_out_tag,
-                                description: locale.sign_out_alert,
-                              );
-                            },
-                            style: TextButton.styleFrom(
-                                fixedSize:
-                                    Size(MediaQuery.of(context).size.width, 50),
-                                foregroundColor: AppColors.redColor),
-                            child: Text(
-                              locale.sign_out_tag,
-                              style: AppFontStyle.buttonTextStyle
-                                  .copyWith(color: AppColors.redColor),
-                            ),
-                          ),
                         ],
                       );
                     }
                   }),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () {
+                  showAlertDialog(
+                    context: context,
+                    actionButtonTitle: locale.sign_out_tag,
+                    onActionButtonPressed: () {
+                      context.read<JoinSpaceBloc>().add(SignOutEvent());
+                      context.pop();
+                    },
+                    title: locale.sign_out_tag,
+                    description: locale.sign_out_alert,
+                  );
+                },
+                style: TextButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width, 50),
+                    foregroundColor: AppColors.redColor),
+                child: Text(
+                  locale.sign_out_tag,
+                  style: AppFontStyle.buttonTextStyle
+                      .copyWith(color: AppColors.redColor),
+                ),
+              ),
             ],
           ),
         ),

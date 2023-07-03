@@ -29,7 +29,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       this.accountService, this._employeeService, this._authService)
       : super(const JoinSpaceState()) {
     on<JoinSpaceInitialFetchEvent>(_init);
-    on<SelectSpaceEvent>(_selectSpace);
+    on<SelectSpaceEvent>(_joinSpace);
     on<JoinRequestedSpaceEvent>(_joinRequestedSpace);
     on<SignOutEvent>(_signOut);
   }
@@ -38,7 +38,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
 
   Future<List<Space>> getRequestedSpaces() async {
     invitations = await _invitationService
-        .fetchSpacesForUserEmail(_userManager.userEmail!);
+        .fetchSpaceInvitationsForUserEmail(_userManager.userEmail!);
 
     return await Future.wait(invitations.map((invitation) async {
       return await _spaceService.getSpace(invitation.spaceId);
@@ -69,7 +69,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     }
   }
 
-  Future<void> _selectSpace(
+  Future<void> _joinSpace(
       SelectSpaceEvent event, Emitter<JoinSpaceState> emit) async {
     emit(state.copyWith(selectSpaceStatus: Status.loading));
     try {
@@ -106,7 +106,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
           spaceID: event.space.id, uid: _userManager.userUID!);
       await _userManager.setEmployeeWithSpace(
           space: event.space, spaceUser: employee);
-      final invitation = deleteInvitation(event.space.id);
+      final invitation = getSelectedInvitation(event.space.id);
       await _invitationService.deleteInvitation(id: invitation.id);
 
       emit(state.copyWith(selectSpaceStatus: Status.success));
@@ -116,7 +116,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     }
   }
 
-  Invitation deleteInvitation(String spaceId) {
+  Invitation getSelectedInvitation(String spaceId) {
     return invitations
         .firstWhere((invitation) => invitation.spaceId == spaceId);
   }
@@ -135,5 +135,11 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     } on Exception {
       emit(state.copyWith(error: signOutError, signOutStatus: Status.error));
     }
+  }
+
+  @override
+  Future<void> close() {
+    invitations.clear();
+    return super.close();
   }
 }
