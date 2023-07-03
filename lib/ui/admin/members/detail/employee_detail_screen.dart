@@ -73,27 +73,25 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         ),
                         PopupMenuItem(
                           child: Text(
-                            AppLocalizations.of(context).delete_button_tag,
+                            AppLocalizations.of(context).deactivate_tag,
                           ),
                           onTap: () {
                             showAlertDialog(
                               context: context,
-                              title: AppLocalizations.of(context)
-                                  .delete_button_tag,
+                              title:
+                                  AppLocalizations.of(context).deactivate_tag,
                               description: AppLocalizations.of(context)
-                                  .delete_user_account_alert(
+                                  .deactivate_user_account_alert(
                                       state.employee.name),
                               onActionButtonPressed: () {
                                 context.read<EmployeeDetailBloc>().add(
-                                    DeleteEmployeeEvent(
+                                    DeactivateEmployeeEvent(
                                         employeeId: widget.employeeId));
                                 context.pop();
                                 context.pop();
-                                //   context.read<AppStateBloc>().add(
-                                //       UpdateUserEvent(uid: widget.employeeId));
                               },
-                              actionButtonTitle: AppLocalizations.of(context)
-                                  .delete_button_tag,
+                              actionButtonTitle:
+                                  AppLocalizations.of(context).deactivate_tag,
                             );
                           },
                         ),
@@ -119,7 +117,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       employee: state.employee,
                       percentage: state.timeOffRatio,
                       usedLeaves: state.usedLeaves,
-                      paidLeaves: state.paidLeaves,
                     ),
                   ),
                   ProfileDetail(employee: state.employee),

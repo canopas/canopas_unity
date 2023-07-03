@@ -8,10 +8,12 @@ class EditSpaceState extends Equatable {
   final bool isLogoPickedDone;
   final String? error;
   final bool nameIsValid;
+  final bool notificationEmailIsValid;
   final bool yearlyPaidTimeOffIsValid;
 
   const EditSpaceState(
       {this.logo,
+      this.notificationEmailIsValid = true,
       this.isLogoPickedDone = false,
       this.deleteWorkSpaceStatus = Status.initial,
       this.updateSpaceStatus = Status.initial,
@@ -26,8 +28,11 @@ class EditSpaceState extends Equatable {
           Status? deleteWorkSpaceStatus,
           Status? updateSpaceStatus,
           bool? nameIsValid,
+          bool? notificationEmailIsValid,
           bool? yearlyPaidTimeOffIsValid}) =>
       EditSpaceState(
+          notificationEmailIsValid:
+              notificationEmailIsValid ?? this.notificationEmailIsValid,
           logo: logo ?? this.logo,
           isLogoPickedDone: isLogoPickedDone ?? false,
           error: error,
@@ -38,7 +43,7 @@ class EditSpaceState extends Equatable {
           yearlyPaidTimeOffIsValid:
               yearlyPaidTimeOffIsValid ?? this.yearlyPaidTimeOffIsValid);
 
-  bool get isDataValid => nameIsValid && yearlyPaidTimeOffIsValid;
+  bool get isDataValid => nameIsValid && yearlyPaidTimeOffIsValid && notificationEmailIsValid;
 
   bool get isFailure =>
       (updateSpaceStatus != Status.error ||
@@ -47,6 +52,7 @@ class EditSpaceState extends Equatable {
 
   @override
   List<Object?> get props => [
+        notificationEmailIsValid,
         logo,
         isLogoPickedDone,
         updateSpaceStatus,

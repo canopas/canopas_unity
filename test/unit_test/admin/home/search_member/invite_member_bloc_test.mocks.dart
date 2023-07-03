@@ -65,10 +65,11 @@ class MockInvitationService extends _i1.Mock implements _i4.InvitationService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
-  _i5.Future<List<_i6.Invitation>> fetchSpacesForUserEmail(String? email) =>
+  _i5.Future<List<_i6.Invitation>> fetchSpaceInvitationsForUserEmail(
+          String? email) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchSpacesForUserEmail,
+          #fetchSpaceInvitationsForUserEmail,
           [email],
         ),
         returnValue: _i5.Future<List<_i6.Invitation>>.value(<_i6.Invitation>[]),
@@ -143,7 +144,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
   @override
   _i7.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i7.UserState.unknown,
+        returnValue: _i7.UserState.authenticated,
       ) as _i7.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
@@ -397,6 +398,23 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         Invocation.method(
           #deleteEmployee,
           [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> changeAccountStatus({
+    required String? id,
+    required _i3.EmployeeStatus? status,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changeAccountStatus,
+          [],
+          {
+            #id: id,
+            #status: status,
+          },
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

@@ -22,7 +22,6 @@ void main() {
   UserLeaveCountState loadingState = const UserLeaveCountState(
       status: Status.loading,
       used: 0,
-      totalLeaves: 0,
       leavePercentage: 0,
       error: null);
 
@@ -49,7 +48,6 @@ void main() {
           const UserLeaveCountState(
               status: Status.initial,
               used: 0,
-              totalLeaves: 0,
               leavePercentage: 0,
               error: null));
     });
@@ -68,7 +66,6 @@ void main() {
       const UserLeaveCountState successState = UserLeaveCountState(
           status: Status.success,
           used: 7,
-          totalLeaves: 12,
           leavePercentage: 7 / 12,
           error: null);
       expectLater(userLeaveCountBloc.stream,
@@ -87,7 +84,6 @@ void main() {
       const UserLeaveCountState errorState = UserLeaveCountState(
           status: Status.success,
           used: 0,
-          totalLeaves: 0,
           leavePercentage: 0,
           error: firestoreFetchDataError);
       expectLater(

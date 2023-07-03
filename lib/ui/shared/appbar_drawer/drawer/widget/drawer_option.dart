@@ -38,7 +38,7 @@ class DrawerOption extends StatelessWidget {
               child: Text(
                 title,
                 style: AppFontStyle.bodyLarge.copyWith(color: titleColor),
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.fade,
               ),
             ),
           ],

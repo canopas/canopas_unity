@@ -22,6 +22,7 @@ class BasicDetailSection extends StatelessWidget {
           const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
       child: Column(children: [
         ProfileSection(employee: employee),
+        const SizedBox(height: 20),
         ContactSection(
           email: employee.email,
           phone: employee.phone,
@@ -104,7 +105,7 @@ class ContactSection extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 8),
         Row(
           children: [
             const Icon(

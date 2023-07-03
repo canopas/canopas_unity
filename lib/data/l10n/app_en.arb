@@ -21,6 +21,7 @@
   "past_tag":"Past",
   "upcoming_tag":"Upcoming",
    "delete_button_tag":"Delete",
+  "deactivate_tag":"Deactivate",
   "save_tag":"Save",
   "edit_tag":"Edit",
   "reason_tag":"Reason",
@@ -266,6 +267,7 @@
   "yearly_paid_time_off_tag":"Yearly Paid Time-Off",
   "hr_leave_record_tag":"Leave Record",
 
+  "leave_notification_email_tag":"Leave notification email",
 
   "user_leave_apply_tag":"Apply",
   "user_leave_used_leaves_tag":"Used Leaves",
@@ -345,8 +347,8 @@
 
 
   "sign_out_alert":"Are you sure you want to sign out?",
-  "delete_user_account_alert":"Are you sure you want to permanently delete {username}'s account?",
-  "@delete_user_account_alert":{
+  "deactivate_user_account_alert":"Are you sure you want to deactivate {username}'s account? This action cannot be undone.",
+  "@deactivate_user_account_alert":{
     "placeholders":{
       "username":{
         "type":"String"
@@ -361,6 +363,15 @@
   "@employee_empty_leave_message":{
     "placeholders":{
       "name":{
+        "type":"String"
+      }
+    }
+  },
+
+  "sign_out_from_text":"Sign out from {text}",
+  "@sign_out_from_text":{
+    "placeholders":{
+      "text":{
         "type":"String"
       }
     }

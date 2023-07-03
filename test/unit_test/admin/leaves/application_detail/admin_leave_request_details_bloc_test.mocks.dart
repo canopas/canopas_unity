@@ -307,7 +307,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i9.UserStateNotifier {
   @override
   _i9.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i9.UserState.unknown,
+        returnValue: _i9.UserState.authenticated,
       ) as _i9.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
@@ -516,17 +516,20 @@ class MockSpaceService extends _i1.Mock implements _i12.SpaceService {
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
   @override
-  _i7.Future<void> deleteSpace(
-    String? workspaceId,
-    List<String>? owners,
-  ) =>
+  _i7.Future<void> deleteSpace({
+    required String? spaceId,
+    required List<String>? owners,
+    required String? uid,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteSpace,
-          [
-            workspaceId,
-            owners,
-          ],
+          [],
+          {
+            #spaceId: spaceId,
+            #owners: owners,
+            #uid: uid,
+          },
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
@@ -598,8 +601,10 @@ class MockNotificationService extends _i1.Mock
   @override
   _i7.Future<bool> notifyHRForNewLeave({
     required String? name,
+    required String? reason,
     required DateTime? startDate,
     required DateTime? endDate,
+    required String? receiver,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -607,8 +612,10 @@ class MockNotificationService extends _i1.Mock
           [],
           {
             #name: name,
+            #reason: reason,
             #startDate: startDate,
             #endDate: endDate,
+            #receiver: receiver,
           },
         ),
         returnValue: _i7.Future<bool>.value(false),

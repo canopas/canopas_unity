@@ -43,7 +43,7 @@ void main() {
   });
 
   test('Should emit initial state as default state of bloc', () {
-    expect(bloc.state, const UserControllerState(userState: UserState.unknown));
+    expect(bloc.state, const UserControllerState());
   });
 
   test(
@@ -54,7 +54,7 @@ void main() {
         .thenAnswer((_) async => employee);
     when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
     expectLater(bloc.stream,
-        emits(const UserControllerState(userState: UserState.update)));
+        emits(const UserControllerState(userState: UserState.authenticated)));
     await untilCalled(userStateNotifier.setEmployeeWithSpace(
         space: space, spaceUser: employee, redirect: false));
     verify(userStateNotifier.setEmployeeWithSpace(

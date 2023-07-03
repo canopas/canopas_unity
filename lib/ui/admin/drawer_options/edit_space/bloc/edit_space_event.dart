@@ -26,6 +26,15 @@ class CompanyNameChangeEvent extends EditSpaceEvent {
   List<Object?> get props => [companyName];
 }
 
+class NotificationEmailChangeEvent extends EditSpaceEvent {
+  final String notificationEmail;
+
+  NotificationEmailChangeEvent(this.notificationEmail);
+
+  @override
+  List<Object?> get props => [notificationEmail];
+}
+
 class DeleteSpaceEvent extends EditSpaceEvent {
   @override
   List<Object?> get props => [];
@@ -44,14 +53,17 @@ class SaveSpaceDetails extends EditSpaceEvent {
   final String paidTimeOff;
   final String spaceName;
   final String spaceDomain;
+  final String notificationEmail;
 
   SaveSpaceDetails(
-      {required this.paidTimeOff,
+      {required this.notificationEmail,
+      required this.paidTimeOff,
       required this.spaceName,
       required this.spaceDomain});
 
   @override
   List<Object?> get props => [
+        notificationEmail,
         paidTimeOff,
         spaceName,
         spaceDomain,

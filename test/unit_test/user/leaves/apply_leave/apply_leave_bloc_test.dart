@@ -7,6 +7,7 @@ import 'package:projectunity/data/core/extensions/map_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/mail_notification_service.dart';
@@ -327,9 +328,20 @@ void main() {
         perDayDuration: selectedDates.values.toList(),
       );
 
+      final space = Space(
+          id: 'space-id',
+          name: 'name',
+          createdAt: DateTime.now(),
+          paidTimeOff: 12,
+          ownerIds: const ["uid"],
+          notificationEmail: "hr@canopas.com");
+
       when(leaveService.applyForLeave(leave)).thenAnswer((_) async {});
       when(userStateNotifier.employee).thenReturn(employee);
+      when(userStateNotifier.currentSpace).thenReturn(space);
       when(notificationService.notifyHRForNewLeave(
+              reason: 'reason',
+              receiver: 'hr@canopas.com',
               name: "dummy",
               startDate: leave.startDate,
               endDate: leave.endDate))

@@ -44,7 +44,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         title: Text(AppLocalizations.of(context).leaves_tag),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16).copyWith(bottom: 86),
         children: [
           const LeaveCountCard(),
           const Divider(height: 32),
