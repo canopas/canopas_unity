@@ -36,7 +36,8 @@ class EmployeeService {
   }
 
   Future<List<Employee>> getEmployees() async {
-    final data = await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
+    final data =
+        await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 
@@ -85,5 +86,12 @@ class EmployeeService {
     await employeeDocRef
         .delete()
         .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
+  }
+
+  Future<void> changeAccountStatus(
+      {required String id, required EmployeeStatus status}) async {
+    _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+        .doc(id)
+        .update({'status': status.value});
   }
 }

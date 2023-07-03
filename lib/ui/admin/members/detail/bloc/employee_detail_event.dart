@@ -11,10 +11,10 @@ class EmployeeDetailInitialLoadEvent extends EmployeeDetailEvent {
   List<Object?> get props => [employeeId];
 }
 
-class DeleteEmployeeEvent extends EmployeeDetailEvent {
+class DeactivateEmployeeEvent extends EmployeeDetailEvent {
   final String employeeId;
 
-  DeleteEmployeeEvent({required this.employeeId});
+  DeactivateEmployeeEvent({required this.employeeId});
 
   @override
   List<Object?> get props => [employeeId];

@@ -22,7 +22,8 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       dateOfJoining:
           const DateTimeConverter().fromJson(json['date_of_joining'] as int),
       level: json['level'] as String?,
-      status: $enumDecodeNullable(_$EmployeeStatusEnumMap, json['status']),
+      status: $enumDecodeNullable(_$EmployeeStatusEnumMap, json['status']) ??
+          EmployeeStatus.active,
     );
 
 Map<String, dynamic> _$EmployeeToJson(Employee instance) {
@@ -52,7 +53,7 @@ Map<String, dynamic> _$EmployeeToJson(Employee instance) {
   val['date_of_joining'] =
       const DateTimeConverter().toJson(instance.dateOfJoining);
   writeNotNull('level', instance.level);
-  writeNotNull('status', _$EmployeeStatusEnumMap[instance.status]);
+  val['status'] = _$EmployeeStatusEnumMap[instance.status]!;
   return val;
 }
 
