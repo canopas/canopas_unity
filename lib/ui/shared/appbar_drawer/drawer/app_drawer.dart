@@ -74,7 +74,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     currentSpaceId: userManager.currentSpaceId),
                 const Divider(height: 0),
                 DrawerOptionList(
-                    isSpaceOwner: userManager.isSpaceOwner,
+                    isAdmin: userManager.isAdmin,
                     isAdminOrHr: userManager.isAdmin || userManager.isHR),
               ],
             ),
@@ -86,11 +86,11 @@ class _AppDrawerState extends State<AppDrawer> {
 }
 
 class DrawerOptionList extends StatelessWidget {
-  final bool isSpaceOwner;
+  final bool isAdmin;
   final bool isAdminOrHr;
 
   const DrawerOptionList(
-      {Key? key, required this.isSpaceOwner, required this.isAdminOrHr})
+      {Key? key, required this.isAdmin, required this.isAdminOrHr})
       : super(key: key);
 
   @override
@@ -102,7 +102,7 @@ class DrawerOptionList extends StatelessWidget {
       child: Column(
         children: [
           ValidateWidget(
-            isValid: isSpaceOwner,
+            isValid: isAdmin,
             child: DrawerOption(
                 icon: Icons.edit_note_rounded,
                 title: locale.edit_space_button_tag,

@@ -11,12 +11,12 @@ import 'sign_in_view_state.dart';
 
 @Injectable()
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  final UserStateNotifier _userManager;
+  final UserStateNotifier _userStateNotifier;
   final AuthService _authService;
   final AccountService _accountService;
 
   SignInBloc(
-    this._userManager,
+    this._userStateNotifier,
     this._authService,
     this._accountService,
   ) : super(SignInInitialState()) {
@@ -29,7 +29,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       firebase_auth.User? authUser = await _authService.signInWithGoogle();
       if (authUser != null) {
         final Account user = await _accountService.getUser(authUser);
-        await _userManager.setUser(user);
+        await _userStateNotifier.setUser(user);
         emit(SignInSuccessState());
       } else {
         emit(SignInInitialState());

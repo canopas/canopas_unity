@@ -15,7 +15,7 @@ class InvitationService {
                 fromFirestore: Invitation.fromFirestore,
                 toFirestore: (Invitation invitation, _) => invitation.toJson());
 
-  Future<List<Invitation>> fetchSpacesForUserEmail(String email) async {
+  Future<List<Invitation>> fetchSpaceInvitationsForUserEmail(String email) async {
     final data = await _invitationDb
         .where(FireStoreConst.receiverEmail, isEqualTo: email)
         .get();

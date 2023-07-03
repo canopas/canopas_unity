@@ -39,6 +39,7 @@ void main() {
         spaceService, userStateNotifier, imagePicker, storageService);
     when(userStateNotifier.currentSpace).thenReturn(space);
     when(userStateNotifier.currentSpaceId).thenReturn(space.id);
+    when(userStateNotifier.employeeId).thenReturn('uid');
   });
 
   group("Edit space test", () {
@@ -63,15 +64,15 @@ void main() {
             const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
             const EditSpaceState(deleteWorkSpaceStatus: Status.success),
           ]));
-      await untilCalled(spaceService.deleteSpace("space-id", ["uid"]));
-      verify(spaceService.deleteSpace("space-id", ['uid'])).called(1);
+      await untilCalled(spaceService.deleteSpace(spaceId: "space-id", owners: ["uid"], uid: 'uid' ));
+      verify(spaceService.deleteSpace(spaceId: "space-id", owners: ['uid'],uid: 'uid')).called(1);
       await untilCalled(userStateNotifier.removeEmployeeWithSpace());
       verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("Delete space failure test", () async {
       bloc.add(DeleteSpaceEvent());
-      when(spaceService.deleteSpace('space-id', ['uid']))
+      when(spaceService.deleteSpace(spaceId: 'space-id',  owners: ['uid'], uid: 'uid'))
           .thenThrow(Exception("error"));
       expect(
           bloc.stream,
