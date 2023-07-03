@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
+import '../di/service_locator.dart';
 import '../model/account/account.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';
@@ -54,6 +57,8 @@ class UserStateNotifier with ChangeNotifier {
       notifyListeners();
       _userState = UserState.spaceJoined;
     }
+    await getIt<LeaveRepo>().reset();
+    await getIt<EmployeeRepo>().reset();
   }
 
   Future<void> updateSpace(Space space) async {
@@ -62,6 +67,8 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> removeEmployeeWithSpace() async {
+    await getIt<LeaveRepo>().dispose();
+    await getIt<EmployeeRepo>().dispose();
     await _userPreference.removeSpace();
     await _userPreference.removeEmployee();
     _userState = UserState.authenticated;
@@ -69,6 +76,8 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> removeAll() async {
+    await getIt<LeaveRepo>().dispose();
+    await getIt<EmployeeRepo>().dispose();
     await _userPreference.clearAll();
     _userState = UserState.unauthenticated;
     notifyListeners();

@@ -9,20 +9,11 @@ import '../services/employee_service.dart';
 class EmployeeRepo {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
-  final _employeeController = BehaviorSubject<List<Employee>>();
-  late final StreamSubscription<List<Employee>> _employeeStreamSubscription;
+  BehaviorSubject<List<Employee>> _employeeController =
+      BehaviorSubject<List<Employee>>();
+  StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
   EmployeeRepo(this._employeeService, this._userStateNotifier) {
-    _employeeStreamSubscription =
-        _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
-      (value) {
-        _employeeController.add(value);
-      },
-    );
-  }
-
-  reset() {
-    _employeeStreamSubscription.cancel();
     _employeeStreamSubscription =
         _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
       (value) {
@@ -34,9 +25,23 @@ class EmployeeRepo {
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();
 
+  Future<void> reset() async {
+    if (!_employeeController.isClosed) {
+      await _employeeController.close();
+    }
+    _employeeController = BehaviorSubject<List<Employee>>();
+    await _employeeStreamSubscription?.cancel();
+    _employeeStreamSubscription =
+        _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
+      (value) {
+        _employeeController.add(value);
+      },
+    );
+  }
+
   @disposeMethod
   Future<void> dispose() async {
-    await _employeeStreamSubscription.cancel();
+    await _employeeStreamSubscription?.cancel();
     await _employeeController.close();
   }
 }
