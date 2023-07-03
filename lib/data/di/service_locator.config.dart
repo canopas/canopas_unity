@@ -289,7 +289,9 @@ extension GetItInjectableX on _i1.GetIt {
               gh<_i30.LeaveService>(),
             ));
     gh.lazySingleton<_i53.LeaveRepo>(
-        () => _i53.LeaveRepo(gh<_i30.LeaveService>()));
+      () => _i53.LeaveRepo(gh<_i30.LeaveService>()),
+      dispose: (i) => i.close(),
+    );
     gh.factory<_i54.WhoIsOutCardBloc>(() => _i54.WhoIsOutCardBloc(
           gh<_i51.EmployeeRepo>(),
           gh<_i53.LeaveRepo>(),

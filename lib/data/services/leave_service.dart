@@ -32,16 +32,11 @@ class LeaveService {
         .get();
     return requests.docs.map((leave) => leave.data()).toList();
   }
-  
- Stream<List<Leave>> get leaveRequests{
-    return  _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: LeaveStatus.pending.value)
-        .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList());
-  }
 
-  Stream<List<Leave>> get absences{
-    return  _leaveDb().where(FireStoreConst.leaveStatus,isEqualTo: LeaveStatus.approved.value)
-        .snapshots().map((event) => event.docs.map((leave) => leave.data()).toList()).doOnError((p0, p1) { });
-  }
+  Stream<List<Leave>> get leaveRequests => _leaveDb()
+      .snapshots()
+      .map((event) => event.docs.map((leave) => leave.data()).toList());
+
 
   Future<bool> checkLeaveAlreadyApplied({
     required String userId,
@@ -118,19 +113,19 @@ class LeaveService {
     return allLeaves.docs.map((e) => e.data()).toList();
   }
 
-
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
     final data = await _leaveDb()
-        .where(FireStoreConst.leaveStatus, isEqualTo: LeaveStatus.approved.value)
+        .where(FireStoreConst.leaveStatus,
+            isEqualTo: LeaveStatus.approved.value)
         .get();
     List<Leave> leaves = <Leave>[];
     for (var leaveDoc in data.docs) {
       final leave = leaveDoc.data();
       if (((leave.startDate.dateOnly.month == date.month &&
-                  leave.startDate.dateOnly.year == date.year) ||
-              (leave.endDate.dateOnly.month == date.month &&
-                  leave.endDate.dateOnly.year == date.year)) ) {
+              leave.startDate.dateOnly.year == date.year) ||
+          (leave.endDate.dateOnly.month == date.month &&
+              leave.endDate.dateOnly.year == date.year))) {
         leaves.add(leave);
       }
     }
@@ -160,7 +155,9 @@ class LeaveService {
         .get();
     return data.docs
         .map((doc) => doc.data())
-        .where((leave) => leave.endDate.isAfter(DateTime.now().dateOnly) || leave.endDate.isAtSameMomentAs(DateTime.now().dateOnly))
+        .where((leave) =>
+            leave.endDate.isAfter(DateTime.now().dateOnly) ||
+            leave.endDate.isAtSameMomentAs(DateTime.now().dateOnly))
         .toList();
   }
 

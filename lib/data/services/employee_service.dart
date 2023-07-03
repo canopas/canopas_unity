@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/employee/employee.dart';
@@ -24,8 +23,10 @@ class EmployeeService {
               fromFirestore: Employee.fromFirestore,
               toFirestore: (Employee emp, _) => emp.toJson());
 
-  Stream<List<Employee>>   employees(String spaceId){
-    return _membersDbCollection(spaceId: spaceId).snapshots().map((event) => event.docs.map((employee) => employee.data()).toList());
+  Stream<List<Employee>> employees(String spaceId) {
+    return _membersDbCollection(spaceId: spaceId)
+        .snapshots()
+        .map((event) => event.docs.map((employee) => employee.data()).toList());
   }
 
   Future<void> addEmployeeBySpaceId(
@@ -41,7 +42,8 @@ class EmployeeService {
   }
 
   Future<List<Employee>> getEmployees() async {
-    final data = await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
+    final data =
+        await _membersDbCollection(spaceId: _userManager.currentSpaceId!).get();
     return data.docs.map((employee) => employee.data()).toList();
   }
 
