@@ -17,12 +17,11 @@ import 'admin_home_state.dart';
 
 @Injectable()
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
-
   final LeaveRepo leaveRepo;
   final EmployeeRepo employeeRepo;
 
-
-  AdminHomeBloc(this.leaveRepo,this.employeeRepo) : super(const AdminHomeState()) {
+  AdminHomeBloc(this.leaveRepo, this.employeeRepo)
+      : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplication);
   }
 
@@ -31,19 +30,17 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     emit(state.copyWith(status: Status.loading));
 
     try {
-     return  emit.forEach(leaveApplications,
-          onData: (List<LeaveApplication> applications)=>
-         state.copyWith(
-            status: Status.success,
-            leaveAppMap: convertListToMap(applications))
-      );
+      return emit.forEach(leaveApplications,
+          onData: (List<LeaveApplication> applications) => state.copyWith(
+              status: Status.success,
+              leaveAppMap: convertListToMap(applications)));
     } on Exception {
       emit(state.failureState(failureMessage: firestoreFetchDataError));
     }
   }
 
-  Stream<List<LeaveApplication>> get leaveApplications => Rx.combineLatest2(
-          leaveRepo.pendingLeaves, employeeRepo.employees,
+  Stream<List<LeaveApplication>> get leaveApplications =>
+      Rx.combineLatest2(leaveRepo.pendingLeaves, employeeRepo.employees,
           (List<Leave> leaves, List<Employee> employees) {
         return leaves
             .map((leave) {
@@ -59,12 +56,10 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
             .toList();
       });
 
-
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {
     leaveApplications.sortedByDate();
     return leaveApplications.groupBy(
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }
-
 }

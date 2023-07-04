@@ -249,15 +249,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValueForMissingStub: null,
       );
   @override
-  _i5.Future<void> setUserState(_i6.UserState? state) => (super.noSuchMethod(
-        Invocation.method(
-          #setUserState,
-          [state],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-  @override
   _i5.Future<void> setUser(_i7.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,

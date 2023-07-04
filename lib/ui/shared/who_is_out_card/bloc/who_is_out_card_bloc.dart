@@ -12,20 +12,15 @@ import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../../data/model/leave_application.dart';
-import '../../../../data/services/employee_service.dart';
-import '../../../../data/services/leave_service.dart';
 import 'who_is_out_card_event.dart';
 import 'who_is_out_card_state.dart';
 
 @Injectable()
 class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
-  final LeaveService leaveService;
-  final EmployeeService employeeService;
   final EmployeeRepo employeeRepo;
   final LeaveRepo leaveRepo;
 
-  WhoIsOutCardBloc(this.employeeRepo, this.leaveRepo, this.leaveService,
-      this.employeeService)
+  WhoIsOutCardBloc(this.employeeRepo, this.leaveRepo)
       : super(WhoIsOutCardState(
             selectedDate: DateTime.now().dateOnly,
             focusDay: DateTime.now().dateOnly)) {

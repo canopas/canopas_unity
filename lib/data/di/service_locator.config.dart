@@ -293,8 +293,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i54.WhoIsOutCardBloc>(() => _i54.WhoIsOutCardBloc(
           gh<_i51.EmployeeRepo>(),
           gh<_i53.LeaveRepo>(),
-          gh<_i30.LeaveService>(),
-          gh<_i27.EmployeeService>(),
         ));
     gh.factory<_i55.AdminHomeBloc>(() => _i55.AdminHomeBloc(
           gh<_i53.LeaveRepo>(),
