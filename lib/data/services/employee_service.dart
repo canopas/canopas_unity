@@ -93,4 +93,11 @@ class EmployeeService {
         .delete()
         .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
   }
+
+  Future<void> changeAccountStatus(
+      {required String id, required EmployeeStatus status}) async {
+    _membersDbCollection(spaceId: _userManager.currentSpaceId!)
+        .doc(id)
+        .update({'status': status.value});
+  }
 }

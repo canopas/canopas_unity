@@ -57,7 +57,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i4.UserStateNotifier {
   @override
   _i4.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i4.UserState.unknown,
+        returnValue: _i4.UserState.authenticated,
       ) as _i4.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
@@ -321,6 +321,23 @@ class MockEmployeeService extends _i1.Mock implements _i9.EmployeeService {
         Invocation.method(
           #deleteEmployee,
           [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> changeAccountStatus({
+    required String? id,
+    required _i2.EmployeeStatus? status,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changeAccountStatus,
+          [],
+          {
+            #id: id,
+            #status: status,
+          },
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

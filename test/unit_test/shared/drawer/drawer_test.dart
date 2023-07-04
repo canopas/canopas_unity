@@ -7,10 +7,8 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
-import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
-
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_state.dart';
@@ -22,23 +20,20 @@ import 'drawer_test.mocks.dart';
   UserStateNotifier,
   EmployeeService,
   AccountService,
-  AuthService
 ])
 void main() {
   late SpaceService spaceService;
   late UserStateNotifier userStateNotifier;
   late EmployeeService employeeService;
   late AccountService accountService;
-  late AuthService authService;
   late DrawerBloc bloc;
   setUp(() {
     spaceService = MockSpaceService();
     userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     accountService = MockAccountService();
-    authService = MockAuthService();
     bloc = DrawerBloc(spaceService, userStateNotifier, accountService,
-        employeeService, authService);
+        employeeService);
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.currentSpaceId).thenReturn('sid');
     when(accountService.fetchSpaceIds(uid: 'uid'))
@@ -119,23 +114,20 @@ void main() {
     });
 
     test("sign out successful test with navigation test", () async {
-      when(authService.signOutWithGoogle())
-          .thenAnswer((_) => Future(() => true));
-      bloc.add(SignOutEvent());
+      bloc.add(SignOutFromSpaceEvent());
       expect(
           bloc.stream,
           emitsInOrder([
             const DrawerState(signOutStatus: Status.loading),
             const DrawerState(signOutStatus: Status.success),
           ]));
-      await untilCalled(userStateNotifier.removeAll());
-      verify(userStateNotifier.removeAll()).called(1);
+      await untilCalled(userStateNotifier.removeEmployeeWithSpace());
+      verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("sign out failure test", () {
-      when(authService.signOutWithGoogle())
-          .thenAnswer((_) => Future(() => false));
-      bloc.add(SignOutEvent());
+      when(userStateNotifier.removeEmployeeWithSpace()).thenThrow(Exception("error"));
+      bloc.add(SignOutFromSpaceEvent());
       expect(
           bloc.stream,
           emitsInOrder([

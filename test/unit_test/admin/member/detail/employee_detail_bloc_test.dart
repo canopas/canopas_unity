@@ -114,27 +114,24 @@ void main() {
           EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
               employee: employee,
               timeOffRatio: 10 / 12,
-              paidLeaves: 12,
               usedLeaves: 10);
           expectLater(employeeDetailBloc.stream,
               emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
         });
 
     test('delete employee failed test', () {
-      when(employeeService.deleteEmployee(employee.uid))
+      when(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive))
           .thenThrow(Exception("error"));
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
+      employeeDetailBloc.add(DeactivateEmployeeEvent(employeeId: employee.uid));
       expect(employeeDetailBloc.stream,
           emits(EmployeeDetailFailureState(error: firestoreFetchDataError)));
     });
 
     test('delete employee success test', () async {
       when(userStateNotifier.userUID).thenReturn(employee.uid);
-      employeeDetailBloc.add(DeleteEmployeeEvent(employeeId: employee.uid));
-      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
-      await untilCalled(leaveService.deleteAllLeavesOfUser(employee.uid));
-      verify(employeeService.deleteEmployee(employee.uid)).called(1);
-      verify(leaveService.deleteAllLeavesOfUser(employee.uid)).called(1);
+      employeeDetailBloc.add(DeactivateEmployeeEvent(employeeId: employee.uid));
+      await untilCalled(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive));
+      verify(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive)).called(1);
     });
   });
 }

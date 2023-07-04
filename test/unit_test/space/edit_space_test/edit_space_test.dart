@@ -14,8 +14,6 @@ import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_
 
 import 'edit_space_test.mocks.dart';
 
-
-
 @GenerateMocks([SpaceService, UserStateNotifier, ImagePicker, StorageService])
 void main() {
   late SpaceService spaceService;
@@ -41,6 +39,7 @@ void main() {
         spaceService, userStateNotifier, imagePicker, storageService);
     when(userStateNotifier.currentSpace).thenReturn(space);
     when(userStateNotifier.currentSpaceId).thenReturn(space.id);
+    when(userStateNotifier.employeeId).thenReturn('uid');
   });
 
   group("Edit space test", () {
@@ -65,15 +64,15 @@ void main() {
             const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
             const EditSpaceState(deleteWorkSpaceStatus: Status.success),
           ]));
-      await untilCalled(spaceService.deleteSpace("space-id", ["uid"]));
-      verify(spaceService.deleteSpace("space-id", ['uid'])).called(1);
+      await untilCalled(spaceService.deleteSpace(spaceId: "space-id", owners: ["uid"], uid: 'uid' ));
+      verify(spaceService.deleteSpace(spaceId: "space-id", owners: ['uid'],uid: 'uid')).called(1);
       await untilCalled(userStateNotifier.removeEmployeeWithSpace());
       verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("Delete space failure test", () async {
       bloc.add(DeleteSpaceEvent());
-      when(spaceService.deleteSpace('space-id', ['uid']))
+      when(spaceService.deleteSpace(spaceId: 'space-id',  owners: ['uid'], uid: 'uid'))
           .thenThrow(Exception("error"));
       expect(
           bloc.stream,
@@ -87,20 +86,26 @@ void main() {
 
     test("update space details success test", () async {
       final file = XFile('path');
-      when(storageService.uploadProfilePic(path: 'images/space-id/space-logo', imagePath: 'path')).thenAnswer((realInvocation) async => 'image_url');
+      when(storageService.uploadProfilePic(
+              path: 'images/space-id/space-logo', imagePath: 'path'))
+          .thenAnswer((realInvocation) async => 'image_url');
       final updatedSpace = Space(
           ownerIds: space.ownerIds,
           id: space.id,
           name: 'newName',
-          paidTimeOff: int.parse('13'),
+          notificationEmail: 'hr@canopas.com',
+          paidTimeOff: 13,
           createdAt: space.createdAt,
           domain: 'newDomain',
-          logo: 'image-url');
+          logo: 'image_url');
 
       bloc.emit(EditSpaceState(logo: file.path));
 
       bloc.add(SaveSpaceDetails(
-          paidTimeOff: "13", spaceName: "newName", spaceDomain: "newDomain"));
+          paidTimeOff: "13",
+          spaceName: "newName",
+          spaceDomain: "newDomain",
+          notificationEmail: "hr@canopas.com"));
 
       expect(
           bloc.stream,
@@ -109,10 +114,10 @@ void main() {
             EditSpaceState(logo: file.path, updateSpaceStatus: Status.success),
           ]));
 
-      await (spaceService.updateSpace(updatedSpace));
-      verify.call(spaceService.updateSpace(updatedSpace));
-      await (userStateNotifier.updateSpace(updatedSpace));
-      verify.call(userStateNotifier.updateSpace(updatedSpace));
+      await untilCalled(spaceService.updateSpace(updatedSpace));
+      verify(spaceService.updateSpace(updatedSpace)).called(1);
+      await untilCalled(userStateNotifier.updateSpace(updatedSpace));
+      verify(userStateNotifier.updateSpace(updatedSpace)).called(1);
     });
   });
 }

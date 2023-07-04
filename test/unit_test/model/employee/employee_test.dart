@@ -20,6 +20,7 @@ void main() {
               'date_of_birth': DateTime(2000).millisecondsSinceEpoch,
               'date_of_joining': DateTime(2000).millisecondsSinceEpoch,
               'level': 'L1',
+              'status': 1
             }),
             isA<Employee>()
                 .having((employee) => employee.uid, 'unique employee id',
@@ -45,6 +46,8 @@ void main() {
                     'Date Of Birth-Timestamp to int', DateTime(2000))
                 .having((employee) => employee.dateOfJoining,
                     'Date Of Joining-Timestamp to int', DateTime(2000))
+                .having((employee) => employee.status,
+                'status int to enum(active, inactive)', EmployeeStatus.active)
                 .having(
                     (employee) => employee.level, 'Level of employee', 'L1'));
       });
@@ -64,6 +67,7 @@ void main() {
           level: '',
           gender: Gender.male,
           dateOfBirth: null,
+          status: EmployeeStatus.active,
           dateOfJoining: DateTime(2000));
       Map<String, dynamic> map = <String, dynamic>{
         'uid': employee.uid,
@@ -77,7 +81,8 @@ void main() {
         'address': employee.address,
         'level': employee.level,
         'gender':employee.gender!.value,
-        'date_of_joining': employee.dateOfJoining.millisecondsSinceEpoch
+        'date_of_joining': employee.dateOfJoining.millisecondsSinceEpoch,
+        'status': employee.status.value,
       };
 
       expect(employee.toJson(), map);

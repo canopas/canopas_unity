@@ -52,26 +52,39 @@ class SpaceService {
     await _spaceDb.doc(space.id).update(space.toFirestore());
   }
 
-  Future<void> deleteSpace(String workspaceId, List<String> owners) async {
+  Future<void> deleteSpace(
+      {required String spaceId,
+      required List<String> owners,
+      required String uid}) async {
     final leavesDocs =
-        await _spaceDb.doc(workspaceId).collection(FireStoreConst.leaves).get();
+        await _spaceDb.doc(spaceId).collection(FireStoreConst.leaves).get();
     for (var doc in leavesDocs.docs) {
       await doc.reference.delete();
     }
 
     final membersDocs = await _spaceDb
-        .doc(workspaceId)
+        .doc(spaceId)
         .collection(FireStoreConst.membersCollection)
+        .where(FireStoreConst.uid, isNotEqualTo: uid)
         .get();
+
     for (var doc in membersDocs.docs) {
       await doc.reference.delete();
     }
 
-    await _spaceDb.doc(workspaceId).delete();
+    final currentMemberDoc = await _spaceDb
+        .doc(spaceId)
+        .collection(FireStoreConst.membersCollection)
+        .where(FireStoreConst.uid, isEqualTo: uid)
+        .get();
+
+    await currentMemberDoc.docs.first.reference.delete();
+
+    await _spaceDb.doc(spaceId).delete();
 
     for (String owner in owners) {
       await _accountsDb.doc(owner).update({
-        FireStoreConst.spaces: FieldValue.arrayRemove([workspaceId]),
+        FireStoreConst.spaces: FieldValue.arrayRemove([spaceId]),
       });
     }
   }

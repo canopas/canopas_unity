@@ -15,13 +15,15 @@ class NotificationService {
 
   @disposeMethod
   Future<void> dispose() async {
-   httpClient.close();
+    httpClient.close();
   }
 
   Future<bool> notifyHRForNewLeave(
       {required String name,
+      required String reason,
       required DateTime startDate,
-      required DateTime endDate}) async {
+      required DateTime endDate,
+      required String receiver}) async {
     if (kDebugMode) return true;
     try {
       http.Response response =
@@ -29,8 +31,9 @@ class NotificationService {
               body: json.encode({
                 'name': name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
-                "status": "pending",
-                'receiver': "hr@canopas.com",
+                "status": LeaveStatus.pending.value,
+                'reason': reason,
+                'receiver': receiver,
               }));
       return response.statusCode == 200;
     } on Exception {
@@ -50,7 +53,7 @@ class NotificationService {
               body: json.encode({
                 "name": name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
-                "status": status.name,
+                "status": status.value,
                 "receiver": receiver,
               }));
       return response.statusCode == 200;

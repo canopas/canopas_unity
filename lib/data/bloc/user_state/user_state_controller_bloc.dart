@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
 import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
 import 'package:projectunity/data/model/space/space.dart';
-
 import '../../model/employee/employee.dart';
 import '../../provider/user_state.dart';
 import '../../services/employee_service.dart';
@@ -20,7 +18,7 @@ class UserStateControllerBloc
 
   UserStateControllerBloc(
       this._employeeService, this._userStateNotifier, this._spaceService)
-      : super(const UserControllerState(userState: UserState.unknown)) {
+      : super(const UserControllerState()) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
   }
@@ -31,22 +29,24 @@ class UserStateControllerBloc
       final Employee? employee =
           await _employeeService.getEmployee(_userStateNotifier.userUID!);
       final Space? space =
-          await _spaceService.getSpace(_userStateNotifier.currentSpaceId!);
-      if (employee == null || space == null) {
+          await _spaceService.getSpace(_userManager.currentSpaceId!);
+      if (employee == null ||
+          space == null ||
+          employee.status == EmployeeStatus.inactive) {
         emit(const UserControllerState(userState: UserState.unauthenticated));
       } else {
         await _userStateNotifier.setEmployeeWithSpace(
             space: space, spaceUser: employee, redirect: false);
-        emit(const UserControllerState(userState: UserState.update));
+        emit(const UserControllerState(userState: UserState.authenticated));
       }
     } on Exception {
-      _userStateNotifier.setUserState(UserState.unknown);
-      emit(const UserControllerState(userState: UserState.unknown));
+      _userStateNotifier.setUserState(UserState.unauthenticated);
+      emit(const UserControllerState(userState: UserState.unauthenticated));
     }
   }
 
   Future<void> _clearData(
       ClearDataForDisableUser event, Emitter<UserControllerState> emit) async {
-    _userStateNotifier.removeEmployeeWithSpace();
+    await _userStateNotifier.removeEmployeeWithSpace();
   }
 }

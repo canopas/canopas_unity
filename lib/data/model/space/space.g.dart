@@ -15,6 +15,7 @@ Space _$SpaceFromJson(Map<String, dynamic> json) => Space(
           (json['owner_ids'] as List<dynamic>).map((e) => e as String).toList(),
       domain: json['domain'] as String?,
       logo: json['logo'] as String?,
+      notificationEmail: json['notification_email'] as String?,
     );
 
 Map<String, dynamic> _$SpaceToJson(Space instance) {
@@ -34,5 +35,6 @@ Map<String, dynamic> _$SpaceToJson(Space instance) {
   val['owner_ids'] = instance.ownerIds;
   val['paid_time_off'] = instance.paidTimeOff;
   writeNotNull('domain', instance.domain);
+  writeNotNull('notification_email', instance.notificationEmail);
   return val;
 }

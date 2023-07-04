@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/services/leave_service.dart';
 import '../../../../../data/services/mail_notification_service.dart';
@@ -12,15 +10,11 @@ import 'admin_leave_details_state.dart';
 @Injectable()
 class AdminLeaveDetailsBloc
     extends Bloc<AdminLeaveDetailsEvents, AdminLeaveDetailsState> {
-  final UserStateNotifier _userManager;
-  final SpaceService _spaceService;
   final LeaveService _leaveService;
   final NotificationService _notificationService;
 
   AdminLeaveDetailsBloc(
     this._leaveService,
-    this._userManager,
-    this._spaceService,
     this._notificationService,
   ) : super(const AdminLeaveDetailsState()) {
     on<AdminLeaveDetailsFetchLeaveCountEvent>(_fetchLeaveCounts);
@@ -32,14 +26,10 @@ class AdminLeaveDetailsBloc
       Emitter<AdminLeaveDetailsState> emit) async {
     emit(state.copyWith(leaveCountStatus: Status.loading));
     try {
-      int paidLeaves = await _spaceService.getPaidLeaves(
-          spaceId: _userManager.currentSpaceId!);
       double usedLeave =
           await _leaveService.getUserUsedLeaves(event.employeeId);
       emit(state.copyWith(
-          leaveCountStatus: Status.success,
-          paidLeaveCount: paidLeaves,
-          usedLeaves: usedLeave));
+          leaveCountStatus: Status.success, usedLeaves: usedLeave));
     } on Exception {
       emit(state.copyWith(
           error: firestoreFetchDataError, leaveCountStatus: Status.error));

@@ -13,17 +13,15 @@ class EmployeeDetailLoadingState extends AdminEmployeeDetailState {}
 class EmployeeDetailLoadedState extends AdminEmployeeDetailState {
   final Employee employee;
   final double timeOffRatio;
-  final int paidLeaves;
   final double usedLeaves;
 
   EmployeeDetailLoadedState(
       {required this.employee,
       required this.timeOffRatio,
-      required this.paidLeaves,
       required this.usedLeaves});
 
   @override
-  List<Object?> get props => [employee, timeOffRatio, paidLeaves, usedLeaves];
+  List<Object?> get props => [employee, timeOffRatio, usedLeaves];
 }
 
 class EmployeeDetailFailureState extends AdminEmployeeDetailState {

@@ -275,7 +275,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
   @override
   _i8.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i8.UserState.unknown,
+        returnValue: _i8.UserState.authenticated,
       ) as _i8.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
@@ -445,8 +445,10 @@ class MockNotificationService extends _i1.Mock
   @override
   _i6.Future<bool> notifyHRForNewLeave({
     required String? name,
+    required String? reason,
     required DateTime? startDate,
     required DateTime? endDate,
+    required String? receiver,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -454,8 +456,10 @@ class MockNotificationService extends _i1.Mock
           [],
           {
             #name: name,
+            #reason: reason,
             #startDate: startDate,
             #endDate: endDate,
+            #receiver: receiver,
           },
         ),
         returnValue: _i6.Future<bool>.value(false),

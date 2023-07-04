@@ -170,17 +170,20 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
   @override
-  _i8.Future<void> deleteSpace(
-    String? workspaceId,
-    List<String>? owners,
-  ) =>
+  _i8.Future<void> deleteSpace({
+    required String? spaceId,
+    required List<String>? owners,
+    required String? uid,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteSpace,
-          [
-            workspaceId,
-            owners,
-          ],
+          [],
+          {
+            #spaceId: spaceId,
+            #owners: owners,
+            #uid: uid,
+          },
         ),
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
@@ -234,7 +237,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i9.UserStateNotifier {
   @override
   _i9.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i9.UserState.unknown,
+        returnValue: _i9.UserState.authenticated,
       ) as _i9.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
