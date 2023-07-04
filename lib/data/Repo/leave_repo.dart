@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -19,6 +18,8 @@ class LeaveRepo {
       },
     );
   }
+
+  Stream<List<Leave>> get leaves => _leavesController.stream;
 
   Stream<List<Leave>> get pendingLeaves =>
       _leavesController.stream.asyncMap((event) =>
