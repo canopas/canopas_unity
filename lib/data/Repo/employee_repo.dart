@@ -9,7 +9,7 @@ import '../services/employee_service.dart';
 class EmployeeRepo {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
-  BehaviorSubject<List<Employee>> _employeeController =
+  final BehaviorSubject<List<Employee>> _employeeController =
       BehaviorSubject<List<Employee>>();
   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
@@ -26,10 +26,6 @@ class EmployeeRepo {
       _employeeController.stream.asBroadcastStream();
 
   Future<void> reset() async {
-    if (!_employeeController.isClosed) {
-      await _employeeController.close();
-    }
-    _employeeController = BehaviorSubject<List<Employee>>();
     await _employeeStreamSubscription?.cancel();
     _employeeStreamSubscription =
         _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
@@ -37,6 +33,10 @@ class EmployeeRepo {
         _employeeController.add(value);
       },
     );
+  }
+
+  Future<void> cancel() async {
+    await _employeeStreamSubscription?.cancel();
   }
 
   @disposeMethod

@@ -35,8 +35,11 @@ class UserStateControllerBloc
           employee.status == EmployeeStatus.inactive) {
         emit(const UserControllerState(userState: UserState.unauthenticated));
       } else {
-        await _userStateNotifier.setEmployeeWithSpace(
-            space: space, spaceUser: employee, redirect: false);
+        if (_userStateNotifier.currentSpace != space ||
+            _userStateNotifier.employee != employee) {
+          await _userStateNotifier.setEmployeeWithSpace(
+              space: space, spaceUser: employee, redirect: false);
+        }
         emit(const UserControllerState(userState: UserState.authenticated));
       }
     } on Exception {

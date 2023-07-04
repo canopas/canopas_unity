@@ -59,8 +59,8 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> removeEmployeeWithSpace() async {
-    await getIt<LeaveRepo>().dispose();
-    await getIt<EmployeeRepo>().dispose();
+    await getIt<LeaveRepo>().cancel();
+    await getIt<EmployeeRepo>().cancel();
     await _userPreference.removeSpace();
     await _userPreference.removeEmployee();
     _userState = UserState.authenticated;
@@ -68,8 +68,6 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> removeAll() async {
-    await getIt<LeaveRepo>().dispose();
-    await getIt<EmployeeRepo>().dispose();
     await _userPreference.clearAll();
     _userState = UserState.unauthenticated;
     notifyListeners();
