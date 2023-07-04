@@ -6,14 +6,14 @@
 import 'dart:async' as _i5;
 import 'dart:ui' as _i9;
 
-import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i7;
-import 'package:projectunity/data/model/employee/employee.dart' as _i3;
+import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/model/invitation/invitation.dart' as _i11;
 import 'package:projectunity/data/model/space/space.dart' as _i8;
 import 'package:projectunity/data/provider/user_state.dart' as _i6;
-import 'package:projectunity/data/services/employee_service.dart' as _i4;
+import 'package:projectunity/data/Repo/employee_repo.dart' as _i4;
 import 'package:projectunity/data/services/invitation_services.dart' as _i10;
 
 // ignore_for_file: type=lint
@@ -27,9 +27,8 @@ import 'package:projectunity/data/services/invitation_services.dart' as _i10;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeFirebaseFirestore_0 extends _i1.SmartFake
-    implements _i2.FirebaseFirestore {
-  _FakeFirebaseFirestore_0(
+class _FakeEmployee_0 extends _i1.SmartFake implements _i2.Employee {
+  _FakeEmployee_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -38,8 +37,9 @@ class _FakeFirebaseFirestore_0 extends _i1.SmartFake
         );
 }
 
-class _FakeEmployee_1 extends _i1.SmartFake implements _i3.Employee {
-  _FakeEmployee_1(
+class _FakeFirebaseFirestore_1 extends _i1.SmartFake
+    implements _i3.FirebaseFirestore {
+  _FakeFirebaseFirestore_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -48,146 +48,42 @@ class _FakeEmployee_1 extends _i1.SmartFake implements _i3.Employee {
         );
 }
 
-/// A class which mocks [EmployeeService].
+/// A class which mocks [EmployeeRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
-  MockEmployeeService() {
+class MockEmployeeRepo extends _i1.Mock implements _i4.EmployeeRepo {
+  MockEmployeeRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.FirebaseFirestore get fireStore => (super.noSuchMethod(
-        Invocation.getter(#fireStore),
-        returnValue: _FakeFirebaseFirestore_0(
-          this,
-          Invocation.getter(#fireStore),
-        ),
-      ) as _i2.FirebaseFirestore);
+  _i5.Stream<List<_i2.Employee>> get employees => (super.noSuchMethod(
+        Invocation.getter(#employees),
+        returnValue: _i5.Stream<List<_i2.Employee>>.empty(),
+      ) as _i5.Stream<List<_i2.Employee>>);
   @override
-  _i5.Stream<List<_i3.Employee>> employees(String? spaceId) =>
-      (super.noSuchMethod(
+  _i5.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
-          #employees,
-          [spaceId],
-        ),
-        returnValue: _i5.Stream<List<_i3.Employee>>.empty(),
-      ) as _i5.Stream<List<_i3.Employee>>);
-  @override
-  _i5.Future<void> addEmployeeBySpaceId({
-    required _i3.Employee? employee,
-    required String? spaceId,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #addEmployeeBySpaceId,
+          #reset,
           [],
-          {
-            #employee: employee,
-            #spaceId: spaceId,
-          },
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<_i3.Employee?> getEmployeeBySpaceId({
-    required String? userId,
-    required String? spaceId,
-  }) =>
-      (super.noSuchMethod(
+  _i5.Future<void> cancel() => (super.noSuchMethod(
         Invocation.method(
-          #getEmployeeBySpaceId,
+          #cancel,
           [],
-          {
-            #userId: userId,
-            #spaceId: spaceId,
-          },
-        ),
-        returnValue: _i5.Future<_i3.Employee?>.value(),
-      ) as _i5.Future<_i3.Employee?>);
-  @override
-  _i5.Future<List<_i3.Employee>> getEmployees() => (super.noSuchMethod(
-        Invocation.method(
-          #getEmployees,
-          [],
-        ),
-        returnValue: _i5.Future<List<_i3.Employee>>.value(<_i3.Employee>[]),
-      ) as _i5.Future<List<_i3.Employee>>);
-  @override
-  _i5.Future<_i3.Employee?> getEmployee(String? id) => (super.noSuchMethod(
-        Invocation.method(
-          #getEmployee,
-          [id],
-        ),
-        returnValue: _i5.Future<_i3.Employee?>.value(),
-      ) as _i5.Future<_i3.Employee?>);
-  @override
-  _i5.Future<bool> hasUser(String? email) => (super.noSuchMethod(
-        Invocation.method(
-          #hasUser,
-          [email],
-        ),
-        returnValue: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
-  @override
-  _i5.Future<void> addEmployee(_i3.Employee? employee) => (super.noSuchMethod(
-        Invocation.method(
-          #addEmployee,
-          [employee],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> updateEmployeeDetails({required _i3.Employee? employee}) =>
-      (super.noSuchMethod(
+  _i5.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
-          #updateEmployeeDetails,
+          #dispose,
           [],
-          {#employee: employee},
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-  @override
-  _i5.Future<void> changeEmployeeRoleType(
-    String? id,
-    _i3.Role? role,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #changeEmployeeRoleType,
-          [
-            id,
-            role,
-          ],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-  @override
-  _i5.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteEmployee,
-          [id],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-  @override
-  _i5.Future<void> changeAccountStatus({
-    required String? id,
-    required _i3.EmployeeStatus? status,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #changeAccountStatus,
-          [],
-          {
-            #id: id,
-            #status: status,
-          },
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
@@ -213,13 +109,13 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValue: '',
       ) as String);
   @override
-  _i3.Employee get employee => (super.noSuchMethod(
+  _i2.Employee get employee => (super.noSuchMethod(
         Invocation.getter(#employee),
-        returnValue: _FakeEmployee_1(
+        returnValue: _FakeEmployee_0(
           this,
           Invocation.getter(#employee),
         ),
-      ) as _i3.Employee);
+      ) as _i2.Employee);
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
@@ -260,7 +156,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
   @override
   _i5.Future<void> setEmployeeWithSpace({
     required _i8.Space? space,
-    required _i3.Employee? spaceUser,
+    required _i2.Employee? spaceUser,
     bool? redirect = true,
   }) =>
       (super.noSuchMethod(
@@ -346,13 +242,13 @@ class MockInvitationService extends _i1.Mock implements _i10.InvitationService {
   }
 
   @override
-  _i2.FirebaseFirestore get fireStore => (super.noSuchMethod(
+  _i3.FirebaseFirestore get fireStore => (super.noSuchMethod(
         Invocation.getter(#fireStore),
-        returnValue: _FakeFirebaseFirestore_0(
+        returnValue: _FakeFirebaseFirestore_1(
           this,
           Invocation.getter(#fireStore),
         ),
-      ) as _i2.FirebaseFirestore);
+      ) as _i3.FirebaseFirestore);
   @override
   _i5.Future<List<_i11.Invitation>> fetchSpaceInvitationsForUserEmail(
           String? email) =>

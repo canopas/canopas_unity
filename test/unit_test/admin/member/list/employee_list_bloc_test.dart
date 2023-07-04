@@ -1,26 +1,26 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/invitation/invitation.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart';
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_event.dart';
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_state.dart';
-
 import 'employee_list_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, UserStateNotifier, InvitationService])
+@GenerateMocks([EmployeeRepo, UserStateNotifier, InvitationService])
 void main() {
-  late EmployeeService employeeService;
-  late AdminMembersBloc employeeListBloc;
+  late EmployeeRepo employeeRepo;
+  late AdminMembersBloc bloc;
   late UserStateNotifier userStateNotifier;
   late InvitationService invitationService;
 
-   final employee = Employee(
+  final employee = Employee(
     uid: 'id',
     role: Role.admin,
     name: 'Andrew jhone',
@@ -36,44 +36,97 @@ void main() {
       senderId: 'sender-id',
       receiverEmail: 'joi@canopas.com');
 
-  setUpAll(() {
-    employeeService = MockEmployeeService();
+  setUp(() {
+    employeeRepo = MockEmployeeRepo();
     invitationService = MockInvitationService();
     userStateNotifier = MockUserStateNotifier();
-    employeeListBloc =
-        AdminMembersBloc(employeeService, invitationService, userStateNotifier);
+    bloc = AdminMembersBloc(employeeRepo, invitationService, userStateNotifier);
   });
 
   group('Employee List Bloc', () {
     test('Emits initial state after Employee list screen is open ', () {
-      expect(employeeListBloc.state, EmployeeListInitialState());
+      expect(bloc.state, const AdminMembersState());
     });
 
-    test('Emits failure state when Exception is thrown from any cause', () {
-      when(employeeService.getEmployees())
-          .thenThrow(Exception(firestoreFetchDataError));
-      AdminMembersState failureState =
-          const EmployeeListFailureState(error: firestoreFetchDataError);
-      employeeListBloc.add(AdminMembersInitialLoadEvent());
-      expectLater(employeeListBloc.stream,
-          emitsInOrder([EmployeeListLoadingState(), failureState]));
+    test('Emits success after fetch data', () {
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
+          .thenAnswer((_) async => [invitation]);
+      bloc.add(AdminMembersInitialLoadEvent());
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            const AdminMembersState(
+              invitationFetchStatus: Status.loading,
+              memberFetchStatus: Status.loading,
+            ),
+            const AdminMembersState(
+              invitationFetchStatus: Status.success,
+              memberFetchStatus: Status.loading,
+              invitation: [invitation],
+            ),
+            AdminMembersState(
+                invitationFetchStatus: Status.success,
+                memberFetchStatus: Status.success,
+                members: [employee],
+                invitation: const [invitation]),
+          ]));
+    });
+
+    test('Emits failure state when Exception is thrown by invitation service',
+        () {
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
+          .thenThrow(Exception());
+      bloc.add(AdminMembersInitialLoadEvent());
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            const AdminMembersState(
+              invitationFetchStatus: Status.loading,
+              memberFetchStatus: Status.loading,
+            ),
+            const AdminMembersState(
+                invitationFetchStatus: Status.error,
+                memberFetchStatus: Status.loading,
+                error: firestoreFetchDataError),
+            AdminMembersState(
+                invitationFetchStatus: Status.error,
+                memberFetchStatus: Status.success,
+                members: [employee],
+                invitation: const []),
+          ]));
     });
 
     test(
-        'Emits Loading state while fetching data from firestore and the Emits success state with list of employees and invitation',
+        'Emits failure state when Exception is thrown by real-time members service',
         () {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(employeeRepo.employees)
+          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
       when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
-          .thenAnswer((_) async => [invitation]);
-      when(employeeService.getEmployees())
-          .thenAnswer((_) async => [employee, employee]);
-
-      AdminMembersState successState =  EmployeeListSuccessState(
-          employees: [employee, employee], invitation: const [invitation]);
-
-      employeeListBloc.add(AdminMembersInitialLoadEvent());
-      expectLater(employeeListBloc.stream,
-          emitsInOrder([EmployeeListLoadingState(), successState]));
+          .thenAnswer((realInvocation) async => [invitation]);
+      bloc.add(AdminMembersInitialLoadEvent());
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            const AdminMembersState(
+              invitationFetchStatus: Status.loading,
+              memberFetchStatus: Status.loading,
+            ),
+            const AdminMembersState(
+                invitationFetchStatus: Status.success,
+                memberFetchStatus: Status.loading,
+                invitation: [invitation]),
+            const AdminMembersState(
+                invitationFetchStatus: Status.success,
+                memberFetchStatus: Status.error,
+                members: [],
+                invitation: [invitation],
+                error: firestoreFetchDataError),
+          ]));
     });
   });
 }

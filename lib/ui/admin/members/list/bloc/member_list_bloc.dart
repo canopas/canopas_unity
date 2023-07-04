@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/Repo/employee_repo.dart';
-import 'package:projectunity/data/model/invitation/invitation.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -28,18 +27,19 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
     emit(state.copyWith(
         memberFetchStatus: Status.loading,
         invitationFetchStatus: Status.loading));
-    emit.forEach(_employeeRepo.employees,
+    try {
+      _invitationService
+          .fetchSpaceInvitations(spaceId: _userStateNotifier.currentSpaceId!)
+          .then((invitation) => emit(state.copyWith(
+              invitation: invitation, invitationFetchStatus: Status.success)));
+    } on Exception {
+      emit(state.copyWith(
+          error: firestoreFetchDataError, invitationFetchStatus: Status.error));
+    }
+    return emit.forEach(_employeeRepo.employees,
         onData: (List<Employee> members) =>
             state.copyWith(members: members, memberFetchStatus: Status.success),
         onError: (error, stackTrace) => state.copyWith(
             error: firestoreFetchDataError, memberFetchStatus: Status.error));
-    try {
-      List<Invitation> invitation = await _invitationService
-          .fetchSpaceInvitations(spaceId: _userStateNotifier.currentSpaceId!);
-      emit(state.copyWith(
-          invitation: invitation, invitationFetchStatus: Status.success));
-    } on Exception {
-      emit(state.copyWith(error: firestoreFetchDataError));
-    }
   }
 }
