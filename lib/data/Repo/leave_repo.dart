@@ -7,13 +7,11 @@ import 'package:rxdart/rxdart.dart';
 @LazySingleton()
 class LeaveRepo {
   final LeaveService _leaveService;
-  BehaviorSubject<List<Leave>> _leavesController =
-      BehaviorSubject<List<Leave>>();
+  BehaviorSubject<List<Leave>> _leavesController = BehaviorSubject<List<Leave>>();
   StreamSubscription<List<Leave>>? _leavesStreamSubscription;
 
   LeaveRepo(this._leaveService) {
-    _leavesStreamSubscription = _leaveService.leaveRequests.listen(
-      (value) {
+    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
         _leavesController.add(value);
       },
     );
@@ -37,7 +35,7 @@ class LeaveRepo {
     }
     _leavesController = BehaviorSubject<List<Leave>>();
     await _leavesStreamSubscription?.cancel();
-    _leavesStreamSubscription = _leaveService.leaveRequests.listen(
+    _leavesStreamSubscription = _leaveService.leaves.listen(
       (value) {
         _leavesController.add(value);
       },

@@ -32,10 +32,9 @@ class LeaveService {
     return requests.docs.map((leave) => leave.data()).toList();
   }
 
-  Stream<List<Leave>> get leaveRequests => _leaveDb()
+  Stream<List<Leave>> get leaves => _leaveDb()
       .snapshots()
       .map((event) => event.docs.map((leave) => leave.data()).toList());
-
 
   Future<bool> checkLeaveAlreadyApplied({
     required String userId,
