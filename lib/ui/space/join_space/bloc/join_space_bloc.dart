@@ -6,6 +6,7 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
+import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
 import '../../../../data/core/utils/bloc_status.dart';
@@ -21,12 +22,20 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
   final EmployeeService _employeeService;
   final SpaceService _spaceService;
   final InvitationService _invitationService;
+  final NotificationService _notificationService;
   final AccountService accountService;
   final AuthService _authService;
   late final List<Invitation> invitations;
 
-  JoinSpaceBloc(this._invitationService, this._spaceService, this._userManager,
-      this.accountService, this._employeeService, this._authService)
+  JoinSpaceBloc(
+      this._invitationService,
+      this._spaceService,
+      this._userManager,
+      this.accountService,
+      this._employeeService,
+      this._authService,
+      this._notificationService,
+      this.invitations)
       : super(const JoinSpaceState()) {
     on<JoinSpaceInitialFetchEvent>(_init);
     on<SelectSpaceEvent>(_joinSpace);
@@ -108,7 +117,9 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
           space: event.space, spaceUser: employee);
       final invitation = getSelectedInvitation(event.space.id);
       await _invitationService.deleteInvitation(id: invitation.id);
-
+      await _notificationService.sendInviteAcceptNotificationNotification(
+          sender: _userManager.userEmail!,
+          receiver: event.space.notificationEmail!);
       emit(state.copyWith(selectSpaceStatus: Status.success));
     } on Exception {
       emit(state.copyWith(

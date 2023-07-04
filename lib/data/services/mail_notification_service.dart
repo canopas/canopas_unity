@@ -71,4 +71,36 @@ class NotificationService {
     }
     return '${DateFormat('dd MMM yyyy').format(startDate)} to ${DateFormat('dd MMM yyyy').format(endDate)}';
   }
+
+  Future<bool> sendInviteNotification(
+      {required String companyName,
+      required String receiver}) async {
+    try {
+      http.Response response =
+          await httpClient.post(Uri.https(baseURL, '/api/invitation'),
+              body: json.encode({
+                "receiver": receiver,
+                "companyname": companyName,
+                "spacelink": "https://unity.canopas.com/home",
+              }));
+      return response.statusCode == 200;
+    } on Exception {
+      return false;
+    }
+  }
+
+  Future<bool> sendInviteAcceptNotificationNotification(
+      {required String sender, required String receiver}) async {
+    try {
+      http.Response response =
+          await httpClient.post(Uri.https(baseURL, '/api/acceptence'),
+              body: json.encode({
+                "receiver": receiver,
+                "sender": sender,
+              }));
+      return response.statusCode == 200;
+    } on Exception {
+      return false;
+    }
+  }
 }

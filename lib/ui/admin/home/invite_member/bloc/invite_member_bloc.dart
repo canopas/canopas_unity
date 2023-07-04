@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/services/employee_service.dart';
+import 'package:projectunity/data/services/mail_notification_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/invitation_services.dart';
@@ -12,10 +13,11 @@ import 'invite_member_state.dart';
 class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
   final InvitationService _invitationService;
   final EmployeeService _employeeService;
+  final NotificationService _notificationService;
   final UserStateNotifier _userManager;
 
-  InviteMemberBloc(
-      this._invitationService, this._userManager, this._employeeService)
+  InviteMemberBloc(this._invitationService, this._userManager,
+      this._employeeService, this._notificationService)
       : super(const InviteMemberState()) {
     on<AddEmailEvent>(_enterEmailEvent);
     on<InviteMemberEvent>(_inviteMember);
@@ -44,6 +46,10 @@ class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
               senderId: _userManager.userUID!,
               spaceId: _userManager.currentSpaceId!,
               receiverEmail: state.email);
+          await _notificationService.sendInviteNotification(
+            companyName: _userManager.currentSpace!.name,
+            receiver: state.email,
+          );
           emit(state.copyWith(status: Status.success));
         }
       } on Exception {
