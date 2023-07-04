@@ -16,7 +16,7 @@ import 'employee_list_bloc_test.mocks.dart';
 @GenerateMocks([EmployeeService, UserStateNotifier, InvitationService])
 void main() {
   late EmployeeService employeeService;
-  late EmployeeListBloc employeeListBloc;
+  late AdminMembersBloc employeeListBloc;
   late UserStateNotifier userStateNotifier;
   late InvitationService invitationService;
 
@@ -41,7 +41,7 @@ void main() {
     invitationService = MockInvitationService();
     userStateNotifier = MockUserStateNotifier();
     employeeListBloc =
-        EmployeeListBloc(employeeService, invitationService, userStateNotifier);
+        AdminMembersBloc(employeeService, invitationService, userStateNotifier);
   });
 
   group('Employee List Bloc', () {
@@ -52,9 +52,9 @@ void main() {
     test('Emits failure state when Exception is thrown from any cause', () {
       when(employeeService.getEmployees())
           .thenThrow(Exception(firestoreFetchDataError));
-      EmployeeListState failureState =
+      AdminMembersState failureState =
           const EmployeeListFailureState(error: firestoreFetchDataError);
-      employeeListBloc.add(EmployeeListInitialLoadEvent());
+      employeeListBloc.add(AdminMembersInitialLoadEvent());
       expectLater(employeeListBloc.stream,
           emitsInOrder([EmployeeListLoadingState(), failureState]));
     });
@@ -68,10 +68,10 @@ void main() {
       when(employeeService.getEmployees())
           .thenAnswer((_) async => [employee, employee]);
 
-      EmployeeListState successState =  EmployeeListSuccessState(
+      AdminMembersState successState =  EmployeeListSuccessState(
           employees: [employee, employee], invitation: const [invitation]);
 
-      employeeListBloc.add(EmployeeListInitialLoadEvent());
+      employeeListBloc.add(AdminMembersInitialLoadEvent());
       expectLater(employeeListBloc.stream,
           emitsInOrder([EmployeeListLoadingState(), successState]));
     });

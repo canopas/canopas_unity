@@ -270,7 +270,7 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
       );
   @override
   _i6.Stream<List<_i12.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaveRequests),
+        Invocation.getter(#leaves),
         returnValue: _i6.Stream<List<_i12.Leave>>.empty(),
       ) as _i6.Stream<List<_i12.Leave>>);
   @override

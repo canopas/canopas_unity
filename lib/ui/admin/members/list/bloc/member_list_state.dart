@@ -1,37 +1,38 @@
 import 'package:equatable/equatable.dart';
-
+import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/invitation/invitation.dart';
 
-abstract class EmployeeListState extends Equatable {
-  const EmployeeListState();
-}
-
-class EmployeeListInitialState extends EmployeeListState {
-  @override
-  List<Object?> get props => [];
-}
-
-class EmployeeListLoadingState extends EmployeeListState {
-  @override
-  List<Object?> get props => [];
-}
-
-class EmployeeListSuccessState extends EmployeeListState {
-  final List<Employee> employees;
+class AdminMembersState extends Equatable {
+  final List<Employee> members;
   final List<Invitation> invitation;
+  final Status memberFetchStatus;
+  final Status invitationFetchStatus;
+  final String? error;
 
-  const EmployeeListSuccessState({required this.employees,required this.invitation});
+  const AdminMembersState(
+      {this.members = const [],
+      this.invitation = const [],
+      this.memberFetchStatus = Status.initial,
+      this.invitationFetchStatus = Status.initial,
+      this.error});
+
+  AdminMembersState copyWith(
+          {List<Employee>? members,
+          List<Invitation>? invitation,
+          Status? memberFetchStatus,
+          Status? invitationFetchStatus,
+          String? error}) =>
+      AdminMembersState(
+        members: members ?? this.members,
+        memberFetchStatus: memberFetchStatus ?? this.memberFetchStatus,
+        invitationFetchStatus:
+            invitationFetchStatus ?? this.invitationFetchStatus,
+        invitation: invitation ?? this.invitation,
+        error: error,
+      );
 
   @override
-  List<Object?> get props => [employees, invitation];
-}
-
-class EmployeeListFailureState extends EmployeeListState {
-  final String error;
-
-  const EmployeeListFailureState({required this.error});
-
-  @override
-  List<Object?> get props => [error];
+  List<Object?> get props =>
+      [members, invitation, memberFetchStatus, invitationFetchStatus, error];
 }

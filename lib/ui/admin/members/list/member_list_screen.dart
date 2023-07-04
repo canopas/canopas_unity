@@ -7,6 +7,7 @@ import 'package:projectunity/ui/widget/employee_card.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/text_style.dart';
+import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -21,9 +22,9 @@ class MemberListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<EmployeeListBloc>(
+    return BlocProvider<AdminMembersBloc>(
         create: (_) =>
-            getIt<EmployeeListBloc>()..add(EmployeeListInitialLoadEvent()),
+            getIt<AdminMembersBloc>()..add(AdminMembersInitialLoadEvent()),
         child: const MemberListScreen());
   }
 }
@@ -54,20 +55,13 @@ class _MemberListScreenState extends State<MemberListScreen> {
           )
         ],
       ),
-      body: BlocConsumer<EmployeeListBloc, EmployeeListState>(
-        builder: (BuildContext context, EmployeeListState state) {
-          if (state is EmployeeListLoadingState) {
-            return const AppCircularProgressIndicator();
-          } else if (state is EmployeeListSuccessState) {
-            return RefreshIndicator(
-              onRefresh: () async {
-                context
-                    .read<EmployeeListBloc>()
-                    .add(EmployeeListInitialLoadEvent());
-              },
-              child: ListView(
-                children: [
-                  ListView.separated(
+      body: BlocConsumer<AdminMembersBloc, AdminMembersState>(
+        builder: (BuildContext context, AdminMembersState state) {
+          return ListView(
+            children: [
+              state.memberFetchStatus == Status.loading
+                  ? const AppCircularProgressIndicator()
+                  : ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => const Divider(
@@ -75,54 +69,54 @@ class _MemberListScreenState extends State<MemberListScreen> {
                             indent: primaryVerticalSpacing,
                           ),
                       padding: const EdgeInsets.all(primaryVerticalSpacing),
-                      itemCount: state.employees.length,
+                      itemCount: state.members.length,
                       itemBuilder: (BuildContext context, int index) {
                         return EmployeeCard(
-                          employee: state.employees[index],
+                          employee: state.members[index],
                           onTap: () => context
                               .goNamed(Routes.adminMemberDetails, params: {
                             RoutesParamsConst.employeeId:
-                                state.employees[index].uid
+                                state.members[index].uid
                           }),
                         );
                       }),
-                  ValidateWidget(
-                    isValid: state.invitation.isNotEmpty,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            localizations.invited_members_title,
-                            style: AppFontStyle.headerDark,
+              state.invitationFetchStatus == Status.loading
+                  ? const AppCircularProgressIndicator()
+                  : ValidateWidget(
+                      isValid: state.invitation.isNotEmpty,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              localizations.invited_members_title,
+                              style: AppFontStyle.headerDark,
+                            ),
                           ),
-                        ),
-                        const Divider(height: 0),
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            separatorBuilder: (context, index) => const Divider(
-                                  endIndent: primaryVerticalSpacing,
-                                  indent: primaryVerticalSpacing,
-                                ),
-                            padding:
-                                const EdgeInsets.all(primaryHorizontalSpacing),
-                            itemCount: state.invitation.length,
-                            itemBuilder: (BuildContext context, int index) =>
-                                InvitedMemberCard(
-                                    invitation: state.invitation[index])),
-                      ],
+                          const Divider(height: 0),
+                          ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
+                                    endIndent: primaryVerticalSpacing,
+                                    indent: primaryVerticalSpacing,
+                                  ),
+                              padding: const EdgeInsets.all(
+                                  primaryHorizontalSpacing),
+                              itemCount: state.invitation.length,
+                              itemBuilder: (BuildContext context, int index) =>
+                                  InvitedMemberCard(
+                                      invitation: state.invitation[index])),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }
-          return const SizedBox();
+            ],
+          );
         },
-        listener: (BuildContext context, EmployeeListState state) {
-          if (state is EmployeeListFailureState) {
+        listener: (BuildContext context, AdminMembersState state) {
+          if (state.error != null) {
             showSnackBar(context: context, error: state.error);
           }
         },
