@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
-import 'package:rxdart/rxdart.dart';
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/leave/leave.dart';

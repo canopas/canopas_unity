@@ -58,9 +58,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
       appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
       body: BlocListener<UserStateControllerBloc, UserControllerState>(
-        listenWhen: (previous, current) =>
-        current.userState == UserState.unauthenticated ||
-            current.userState == UserState.update,
+        listenWhen: (previous, current) => previous.userState != current.userState,
         listener: (context, state) {
           if (state.userState == UserState.unauthenticated) {
             showDialog(

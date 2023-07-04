@@ -29,7 +29,7 @@ class UserStateControllerBloc
       final Employee? employee =
           await _employeeService.getEmployee(_userStateNotifier.userUID!);
       final Space? space =
-          await _spaceService.getSpace(_userManager.currentSpaceId!);
+          await _spaceService.getSpace(_userStateNotifier.currentSpaceId!);
       if (employee == null ||
           space == null ||
           employee.status == EmployeeStatus.inactive) {
@@ -40,7 +40,6 @@ class UserStateControllerBloc
         emit(const UserControllerState(userState: UserState.authenticated));
       }
     } on Exception {
-      _userStateNotifier.setUserState(UserState.unauthenticated);
       emit(const UserControllerState(userState: UserState.unauthenticated));
     }
   }

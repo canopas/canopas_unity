@@ -8,11 +8,7 @@ import '../model/employee/employee.dart';
 import '../model/space/space.dart';
 import '../pref/user_preference.dart';
 
-enum UserState {
-  authenticated,
-  unauthenticated,
-  spaceJoined,
-  update }
+enum UserState { authenticated, unauthenticated, spaceJoined, update }
 
 @Singleton()
 class UserStateNotifier with ChangeNotifier {
@@ -36,11 +32,6 @@ class UserStateNotifier with ChangeNotifier {
     }
   }
 
-  Future<void> setUserState(UserState state)async{
-    _userState= state;
-    notifyListeners();
-  }
-
   Future<void> setUser(Account user) async {
     await _userPreference.setAccount(user);
     _userState = UserState.authenticated;
@@ -48,10 +39,12 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> setEmployeeWithSpace(
-      {required Space space, required Employee spaceUser, bool redirect = true}) async {
+      {required Space space,
+      required Employee spaceUser,
+      bool redirect = true}) async {
     await _userPreference.setSpace(space);
     await _userPreference.setEmployee(spaceUser);
-    if(redirect){
+    if (redirect) {
       _userState = UserState.update;
       notifyListeners();
       _userState = UserState.spaceJoined;
