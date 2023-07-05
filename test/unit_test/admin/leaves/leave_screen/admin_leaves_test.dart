@@ -1,23 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
-import 'package:projectunity/data/services/employee_service.dart';
-import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leave_event.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_state.dart';
 import 'admin_leaves_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService])
+@GenerateMocks([EmployeeRepo, LeaveRepo])
 void main() {
-  late LeaveService leaveService;
-  late EmployeeService employeeService;
+  late EmployeeRepo employeeRepo;
+  late LeaveRepo leaveRepo;
   late AdminLeavesBloc bloc;
 
   group('Admin Leaves Test', () {
@@ -25,8 +25,8 @@ void main() {
         leaveId: 'leave-id',
         uid: 'andrew-id',
         type: LeaveType.annualLeave,
-        startDate: DateTime.now(),
-        endDate: DateTime.now().add(const Duration(days: 1)),
+        startDate: DateTime.now().dateOnly,
+        endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
         total: 2,
         reason: 'reason',
         status: LeaveStatus.approved,
@@ -39,8 +39,8 @@ void main() {
         leaveId: 'leave-id',
         uid: 'joi-id',
         type: LeaveType.sickLeave,
-        startDate: DateTime.now(),
-        endDate: DateTime.now().add(const Duration(days: 1)),
+        startDate: DateTime.now().dateOnly,
+        endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
         total: 2,
         reason: 'reason',
         status: LeaveStatus.approved,
@@ -53,10 +53,8 @@ void main() {
         leaveId: 'leave-id',
         uid: 'joi-id',
         type: LeaveType.annualLeave,
-        startDate:
-            DateTime.now().subtract(const Duration(days: 365)),
-        endDate:
-            DateTime.now().subtract(const Duration(days: 364)),
+        startDate: DateTime.now().dateOnly.subtract(const Duration(days: 365)),
+        endDate: DateTime.now().dateOnly.subtract(const Duration(days: 364)),
         total: 2,
         reason: 'reason',
         status: LeaveStatus.approved,
@@ -65,9 +63,9 @@ void main() {
           LeaveDayDuration.noLeave,
           LeaveDayDuration.firstHalfLeave
         ]);
-     final andrew = Employee(
+    final andrew = Employee(
       uid: 'andrew-id',
-      role: Role.admin,
+      role: Role.employee,
       name: 'Andrew jhone',
       employeeId: '100',
       email: 'andrew.j@canopas.com',
@@ -76,7 +74,7 @@ void main() {
     );
     final joi = Employee(
       uid: 'joi-id',
-      role: Role.admin,
+      role: Role.employee,
       name: 'joi jhone',
       employeeId: '100',
       email: 'joi.j@canopas.com',
@@ -86,9 +84,9 @@ void main() {
 
     group('Admin Leaves fetch data test', () {
       setUp(() {
-        leaveService = MockLeaveService();
-        employeeService = MockEmployeeService();
-        bloc = AdminLeavesBloc(leaveService, employeeService);
+        leaveRepo = MockLeaveRepo();
+        employeeRepo = MockEmployeeRepo();
+        bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
       });
 
       test('initial value test', () {
@@ -101,41 +99,18 @@ void main() {
               status: Status.initial,
               members: const [],
               error: null,
-              searchEmployeeInput: '',
             ));
       });
 
-      test('successfully fetch initial data test', () {
+      test('Successfully read real-time changes', () {
         bloc.add(AdminLeavesInitialLoadEvent());
-        when(employeeService.getEmployees())
-            .thenAnswer((_) async => [andrew, joi]);
-        when(leaveService.getAllLeaves()).thenAnswer((_) async => [
+        when(employeeRepo.employees)
+            .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
+        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
               andrewCurrentYearLeave,
               joiCurrentYearLeave,
               joiPreviousYearLeave
-            ]);
-
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(status: Status.loading),
-              AdminLeavesState(status: Status.success, leaveApplication: [
-                LeaveApplication(employee: andrew, leave: andrewCurrentYearLeave),
-                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], members:  [
-                andrew,
-                joi
-              ])
             ]));
-      });
-
-      test('check leave not add on list when employee not found', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
-        when(employeeService.getEmployees()).thenAnswer((_) async => [andrew]);
-        when(leaveService.getAllLeaves()).thenAnswer((_) async => [
-              andrewCurrentYearLeave,
-              joiCurrentYearLeave,
-            ]);
 
         expect(
             bloc.stream,
@@ -144,7 +119,30 @@ void main() {
               AdminLeavesState(status: Status.success, leaveApplication: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
-              ], members:  [
+                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
+              ], members: [
+                andrew,
+                joi
+              ])
+            ]));
+      });
+
+      test('Check leave not add on list when employee not found', () {
+        when(employeeRepo.employees)
+            .thenAnswer((realInvocation) => Stream.value([andrew]));
+        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
+              andrewCurrentYearLeave,
+              joiCurrentYearLeave,
+            ]));
+        bloc.add(AdminLeavesInitialLoadEvent());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              AdminLeavesState(status: Status.loading),
+              AdminLeavesState(status: Status.success, leaveApplication: [
+                LeaveApplication(
+                    employee: andrew, leave: andrewCurrentYearLeave),
+              ], members: [
                 andrew,
               ])
             ]));
@@ -152,10 +150,10 @@ void main() {
 
       test('show error on initial data failure test', () {
         bloc.add(AdminLeavesInitialLoadEvent());
-        when(employeeService.getEmployees())
-            .thenAnswer((_) async => [andrew, joi]);
-        when(leaveService.getAllLeaves()).thenThrow(Exception('error'));
-        expect(
+        when(employeeRepo.employees)
+            .thenAnswer((realInvocation) => Stream.value([andrew]));
+        when(leaveRepo.leaves).thenThrow(Exception('error'));
+        expectLater(
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(status: Status.loading),
@@ -164,31 +162,54 @@ void main() {
             ]));
       });
 
-      test('text search employee text-field inputs', () {
-        bloc.add(SearchEmployeeEvent(search: "dummy"));
-        expect(
+      test('Show employee by search', () {
+        bloc.add(AdminLeavesInitialLoadEvent());
+        when(employeeRepo.employees)
+            .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
+        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
+              andrewCurrentYearLeave,
+              joiCurrentYearLeave,
+              joiPreviousYearLeave
+            ]));
+        bloc.add(SearchEmployeeEvent(search: "joi"));
+        expectLater(
             bloc.stream,
-            emits(
-              AdminLeavesState(searchEmployeeInput: 'dummy'),
-            ));
+            emitsInOrder([
+              AdminLeavesState(status: Status.loading),
+              AdminLeavesState(status: Status.success, leaveApplication: [
+                LeaveApplication(
+                    employee: andrew, leave: andrewCurrentYearLeave),
+                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
+              ], members: [
+                andrew,
+                joi
+              ]),
+              AdminLeavesState(status: Status.success, leaveApplication: [
+                LeaveApplication(
+                    employee: andrew, leave: andrewCurrentYearLeave),
+                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
+              ], members: [
+                joi
+              ]),
+            ]));
       });
     });
     group('Admin Leaves data filter test', () {
       setUpAll(() {
-        leaveService = MockLeaveService();
-        employeeService = MockEmployeeService();
-        bloc = AdminLeavesBloc(leaveService, employeeService);
+        leaveRepo = MockLeaveRepo();
+        employeeRepo = MockEmployeeRepo();
+        bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
       });
 
-      test('successfully fetch initial data test', () {
+      test('Successfully read real-time changes', () {
         bloc.add(AdminLeavesInitialLoadEvent());
-        when(employeeService.getEmployees())
-            .thenAnswer((_) async => [andrew, joi]);
-        when(leaveService.getAllLeaves()).thenAnswer((_) async => [
+        when(employeeRepo.employees)
+            .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
+        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
               andrewCurrentYearLeave,
               joiCurrentYearLeave,
               joiPreviousYearLeave
-            ]);
+            ]));
 
         expect(
             bloc.stream,
@@ -198,7 +219,7 @@ void main() {
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], members:  [
+              ], members: [
                 andrew,
                 joi
               ])
@@ -237,7 +258,7 @@ void main() {
                   leaveApplication: [
                     LeaveApplication(employee: joi, leave: joiPreviousYearLeave)
                   ],
-                  members:  [
+                  members: [
                     andrew,
                     joi
                   ])

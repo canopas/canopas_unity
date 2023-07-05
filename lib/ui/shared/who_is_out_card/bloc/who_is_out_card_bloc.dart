@@ -1,15 +1,13 @@
 import 'dart:async';
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:projectunity/data/core/extensions/stream_extension.dart';
 import '../../../../data/Repo/employee_repo.dart';
 import '../../../../data/Repo/leave_repo.dart';
 import '../../../../data/core/exception/error_const.dart';
 import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/model/employee/employee.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../../data/model/leave_application.dart';
 import 'who_is_out_card_event.dart';
@@ -36,15 +34,16 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
       WhoIsOutInitialLoadEvent event, Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      await emit.forEach(leaveApplications(state.selectedDate),
+      return emit.forEach(leaveApplications(state.selectedDate),
           onData: (List<LeaveApplication> allAbsences) => state.copyWith(
               status: Status.success,
               selectedDayAbsences: getPerDayAbsences(
                   date: state.selectedDate, allAbsences: allAbsences),
-              allAbsences: allAbsences));
+              allAbsences: allAbsences),
+          onError: (e,_) => state.copyWith(
+              status: Status.error, error: firestoreFetchDataError));
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+      emit(state.copyWith(status: Status.error, error: firestoreFetchDataError));
     }
   }
 
@@ -82,22 +81,9 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   }
 
   Stream<List<LeaveApplication>> leaveApplications(DateTime selectedDate) {
-    final stream = Rx.combineLatest2(
-        leaveRepo.absence(selectedDate), employeeRepo.employees,
-        (List<Leave> leaves, List<Employee> employees) {
-      return leaves
-          .map((leave) {
-            final employee =
-                employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
-            if (employee == null) {
-              return null;
-            } else {
-              return LeaveApplication(leave: leave, employee: employee);
-            }
-          })
-          .whereNotNull()
-          .toList();
-    });
+    final stream = getLeaveApplicationStream(
+        leaveStream: leaveRepo.absence(selectedDate),
+        membersStream: employeeRepo.employees);
     _loadHistory.add("${selectedDate.month}-${selectedDate.year}");
     return stream;
   }
