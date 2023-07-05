@@ -34,8 +34,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       this.accountService,
       this._employeeService,
       this._authService,
-      this._notificationService,
-      this.invitations)
+      this._notificationService)
       : super(const JoinSpaceState()) {
     on<JoinSpaceInitialFetchEvent>(_init);
     on<SelectSpaceEvent>(_joinSpace);

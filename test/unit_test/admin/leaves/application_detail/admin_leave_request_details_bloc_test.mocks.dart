@@ -632,4 +632,36 @@ class MockNotificationService extends _i1.Mock
         ),
         returnValue: '',
       ) as String);
+  @override
+  _i7.Future<bool> sendInviteNotification({
+    required String? companyName,
+    required String? receiver,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendInviteNotification,
+          [],
+          {
+            #companyName: companyName,
+            #receiver: receiver,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+  @override
+  _i7.Future<bool> sendInviteAcceptNotificationNotification({
+    required String? sender,
+    required String? receiver,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendInviteAcceptNotificationNotification,
+          [],
+          {
+            #sender: sender,
+            #receiver: receiver,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
 }

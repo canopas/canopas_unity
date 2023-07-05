@@ -47,7 +47,7 @@ class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
               spaceId: _userManager.currentSpaceId!,
               receiverEmail: state.email);
           await _notificationService.sendInviteNotification(
-            companyName: _userManager.currentSpace!.name,
+            companyName: _userManager.currentSpaceName!,
             receiver: state.email,
           );
           emit(state.copyWith(status: Status.success));

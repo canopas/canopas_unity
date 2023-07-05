@@ -11,6 +11,7 @@ import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
+import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
@@ -24,7 +25,8 @@ import 'join_space_test.mocks.dart';
   UserStateNotifier,
   AccountService,
   EmployeeService,
-  AuthService
+  AuthService,
+  NotificationService
 ])
 void main() {
   late SpaceService spaceService;
@@ -33,6 +35,7 @@ void main() {
   late InvitationService invitationService;
   late AccountService accountService;
   late AuthService authService;
+  late NotificationService notificationService;
   late JoinSpaceBloc bloc;
   const invitation = Invitation(
       id: 'id',
@@ -46,9 +49,10 @@ void main() {
     employeeService = MockEmployeeService();
     invitationService = MockInvitationService();
     accountService = MockAccountService();
+    notificationService = MockNotificationService();
 
     bloc = JoinSpaceBloc(invitationService, spaceService, userStateNotifier,
-        accountService, employeeService, authService);
+        accountService, employeeService, authService, notificationService);
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.userEmail).thenReturn('email');
   });
@@ -58,6 +62,7 @@ void main() {
       name: 'dummy space',
       createdAt: DateTime.now(),
       paidTimeOff: 12,
+      notificationEmail: 'hr@canopas.com',
       ownerIds: const ['uid']);
 
   final employee = Employee(
@@ -173,6 +178,10 @@ void main() {
     test(
         'Should emit loading and success state if user select space from requested spaces',
         () {
+      when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
+      when(notificationService.sendInviteAcceptNotificationNotification(
+              sender: 'dummy@canopas.com', receiver: space.notificationEmail!))
+          .thenAnswer((_) async => true);
       bloc.invitations = [invitation];
       when(employeeService.addEmployeeBySpaceId(
               employee: employee, spaceId: space.id))
