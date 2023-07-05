@@ -11,7 +11,6 @@ import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/di/service_locator.dart';
-import '../../../../../data/model/employee/employee.dart';
 import '../bloc /admin_leave_event.dart';
 import '../bloc /admin_leaves_bloc.dart';
 import '../bloc /admin_leaves_state.dart';
@@ -99,6 +98,8 @@ class SearchEmployeeBottomSheet extends StatefulWidget {
 }
 
 class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
+  final TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -123,6 +124,7 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: FieldEntry(
+                        controller: searchController,
                         hintText:
                             AppLocalizations.of(context).search_employee_tag,
                         onChanged: (searchInput) => context
