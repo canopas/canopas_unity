@@ -116,7 +116,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
           space: event.space, spaceUser: employee);
       final invitation = getSelectedInvitation(event.space.id);
       await _invitationService.deleteInvitation(id: invitation.id);
-      await _notificationService.sendInviteAcceptNotificationNotification(
+      await _notificationService.sendSpaceInviteAcceptNotification(
           sender: _userManager.userEmail!,
           receiver: event.space.notificationEmail!);
       emit(state.copyWith(selectSpaceStatus: Status.success));

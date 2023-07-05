@@ -505,7 +505,7 @@ class MockNotificationService extends _i1.Mock
         returnValue: _i6.Future<bool>.value(false),
       ) as _i6.Future<bool>);
   @override
-  _i6.Future<bool> sendInviteAcceptNotificationNotification({
+  _i6.Future<bool> sendSpaceInviteAcceptNotification({
     required String? sender,
     required String? receiver,
   }) =>

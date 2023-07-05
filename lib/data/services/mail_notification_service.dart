@@ -89,7 +89,7 @@ class NotificationService {
     }
   }
 
-  Future<bool> sendInviteAcceptNotificationNotification(
+  Future<bool> sendSpaceInviteAcceptNotification(
       {required String sender, required String receiver}) async {
     try {
       http.Response response =

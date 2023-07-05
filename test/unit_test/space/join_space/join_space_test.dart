@@ -179,7 +179,7 @@ void main() {
         'Should emit loading and success state if user select space from requested spaces',
         () {
       when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
-      when(notificationService.sendInviteAcceptNotificationNotification(
+      when(notificationService.sendSpaceInviteAcceptNotification(
               sender: 'dummy@canopas.com', receiver: space.notificationEmail!))
           .thenAnswer((_) async => true);
       bloc.invitations = [invitation];
