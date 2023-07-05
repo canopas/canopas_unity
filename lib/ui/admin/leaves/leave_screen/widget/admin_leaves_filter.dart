@@ -123,7 +123,8 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: FieldEntry(
-                        hintText: AppLocalizations.of(context).search_employee_tag,
+                        hintText:
+                            AppLocalizations.of(context).search_employee_tag,
                         onChanged: (searchInput) => context
                             .read<AdminLeavesBloc>()
                             .add(SearchEmployeeEvent(search: searchInput)),
@@ -133,25 +134,19 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
                     Expanded(
                       child: BlocBuilder<AdminLeavesBloc, AdminLeavesState>(
                         buildWhen: (previous, current) =>
-                            previous.employees != current.employees ||
-                            previous.searchEmployeeInput !=
-                                current.searchEmployeeInput,
+                            previous.members != current.members,
                         builder: (context, state) {
-                          final List<Employee> searchResult = state.employees
-                              .where((emp) =>
-                                  emp.name.toUpperCase().contains(state
-                                      .searchEmployeeInput
-                                      .toUpperCase()) ||
-                                  state.searchEmployeeInput.trim().isEmpty)
-                              .toList();
                           return ListView(
                             padding: const EdgeInsets.all(8),
                             children: [
                               const SearchEmployeeShowAllMemberLeaveButton(),
-                              ...searchResult.map((employee) => EmployeeCard(employee: employee,onTap: () {
-                                context.read<AdminLeavesBloc>().add(ChangeEmployeeEvent(employee: employee));
-                                context.pop();
-                              })),
+                              ...state.members.map((member) => EmployeeCard(
+                                  employee: member,
+                                  onTap: () {
+                                    context.read<AdminLeavesBloc>().add(
+                                        ChangeMemberEvent(member: member));
+                                    context.pop();
+                                  })),
                             ],
                           );
                         },
@@ -185,7 +180,6 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
   }
 }
 
-
 class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
   const SearchEmployeeShowAllMemberLeaveButton({Key? key}) : super(key: key);
 
@@ -193,7 +187,9 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.read<AdminLeavesBloc>().add(ChangeEmployeeEvent(employee: null));
+        context
+            .read<AdminLeavesBloc>()
+            .add(ChangeMemberEvent(member: null));
         context.pop();
       },
       child: Padding(
@@ -212,4 +208,3 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
     );
   }
 }
-

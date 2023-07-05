@@ -99,7 +99,7 @@ void main() {
               leaveApplication: const [],
               selectedYear: DateTime.now().year,
               status: Status.initial,
-              employees: const [],
+              members: const [],
               error: null,
               searchEmployeeInput: '',
             ));
@@ -122,7 +122,7 @@ void main() {
               AdminLeavesState(status: Status.success, leaveApplication: [
                 LeaveApplication(employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], employees:  [
+              ], members:  [
                 andrew,
                 joi
               ])
@@ -144,7 +144,7 @@ void main() {
               AdminLeavesState(status: Status.success, leaveApplication: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
-              ], employees:  [
+              ], members:  [
                 andrew,
               ])
             ]));
@@ -198,7 +198,7 @@ void main() {
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], employees:  [
+              ], members:  [
                 andrew,
                 joi
               ])
@@ -206,7 +206,7 @@ void main() {
       });
 
       test('show particular employee leaves test', () async {
-        bloc.add(ChangeEmployeeEvent(employee: joi));
+        bloc.add(ChangeMemberEvent(member: joi));
         expect(
             bloc.stream,
             emitsInOrder([
@@ -217,7 +217,7 @@ void main() {
                   leaveApplication: [
                     LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
                   ],
-                  employees: [
+                  members: [
                     andrew,
                     joi
                   ])
@@ -237,7 +237,7 @@ void main() {
                   leaveApplication: [
                     LeaveApplication(employee: joi, leave: joiPreviousYearLeave)
                   ],
-                  employees:  [
+                  members:  [
                     andrew,
                     joi
                   ])

@@ -33,13 +33,17 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
           .then((invitation) => emit(state.copyWith(
               invitation: invitation, invitationFetchStatus: Status.success)));
     } on Exception {
-      emit(state.copyWith(
-          error: firestoreFetchDataError, invitationFetchStatus: Status.error));
+      emit(state.copyWith(error: firestoreFetchDataError, invitationFetchStatus: Status.error));
     }
-    return emit.forEach(_employeeRepo.employees,
-        onData: (List<Employee> members) =>
-            state.copyWith(members: members, memberFetchStatus: Status.success),
-        onError: (error, stackTrace) => state.copyWith(
-            error: firestoreFetchDataError, memberFetchStatus: Status.error));
+    try {
+      return emit.forEach(_employeeRepo.employees,
+          onData: (List<Employee> members) => state.copyWith(
+              members: members, memberFetchStatus: Status.success),
+          onError: (error, stackTrace) => state.copyWith(
+              error: firestoreFetchDataError, memberFetchStatus: Status.error));
+    } on Exception {
+      emit(state.copyWith(
+          error: firestoreFetchDataError, memberFetchStatus: Status.error));
+    }
   }
 }
