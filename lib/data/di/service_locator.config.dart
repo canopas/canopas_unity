@@ -26,8 +26,8 @@ import 'package:projectunity/data/di/app_module.dart' as _i56;
 import 'package:projectunity/data/pref/user_preference.dart' as _i21;
 import 'package:projectunity/data/provider/device_info.dart' as _i7;
 import 'package:projectunity/data/provider/user_state.dart' as _i22;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i49;
-import 'package:projectunity/data/Repo/leave_repo.dart' as _i51;
+import 'package:projectunity/data/Repo/employee_repo.dart' as _i50;
+import 'package:projectunity/data/Repo/leave_repo.dart' as _i52;
 import 'package:projectunity/data/services/account_service.dart' as _i23;
 import 'package:projectunity/data/services/auth_service.dart' as _i25;
 import 'package:projectunity/data/services/employee_service.dart' as _i27;
@@ -46,33 +46,33 @@ import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart'
     as _i28;
 import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bloc.dart'
-    as _i43;
+    as _i44;
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
     as _i54;
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
-    as _i47;
+    as _i48;
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
-    as _i42;
+    as _i43;
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
-    as _i41;
+    as _i42;
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
     as _i55;
 import 'package:projectunity/ui/navigation/app_router.dart' as _i24;
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
-    as _i46;
+    as _i47;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
     as _i8;
 import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
-    as _i50;
+    as _i51;
 import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
-    as _i48;
+    as _i49;
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
     as _i40;
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
-    as _i52;
+    as _i41;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i31;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
-    as _i45;
+    as _i46;
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
     as _i29;
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
@@ -82,7 +82,7 @@ import 'package:projectunity/ui/user/home/leave_calendar/bloc/calendar_bloc/leav
 import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
     as _i36;
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart'
-    as _i44;
+    as _i45;
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart'
     as _i38;
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
@@ -222,79 +222,79 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i27.EmployeeService>(),
         ));
-    gh.factory<_i41.AdminEditEmployeeDetailsBloc>(
-        () => _i41.AdminEditEmployeeDetailsBloc(
+    gh.factory<_i41.WhoIsOutCardBloc>(() => _i41.WhoIsOutCardBloc(
+          gh<_i27.EmployeeService>(),
+          gh<_i30.LeaveService>(),
+        ));
+    gh.factory<_i42.AdminEditEmployeeDetailsBloc>(
+        () => _i42.AdminEditEmployeeDetailsBloc(
               gh<_i27.EmployeeService>(),
               gh<_i22.UserStateNotifier>(),
               gh<_i20.StorageService>(),
             ));
-    gh.factory<_i42.AdminEmployeeDetailsLeavesBLoc>(
-        () => _i42.AdminEmployeeDetailsLeavesBLoc(gh<_i30.LeaveService>()));
-    gh.factory<_i43.AdminLeaveDetailsBloc>(() => _i43.AdminLeaveDetailsBloc(
+    gh.factory<_i43.AdminEmployeeDetailsLeavesBLoc>(
+        () => _i43.AdminEmployeeDetailsLeavesBLoc(gh<_i30.LeaveService>()));
+    gh.factory<_i44.AdminLeaveDetailsBloc>(() => _i44.AdminLeaveDetailsBloc(
           gh<_i30.LeaveService>(),
           gh<_i16.NotificationService>(),
         ));
-    gh.factory<_i44.ApplyLeaveBloc>(() => _i44.ApplyLeaveBloc(
+    gh.factory<_i45.ApplyLeaveBloc>(() => _i45.ApplyLeaveBloc(
           gh<_i22.UserStateNotifier>(),
           gh<_i30.LeaveService>(),
           gh<_i16.NotificationService>(),
         ));
-    gh.factory<_i45.CreateSpaceBLoc>(() => _i45.CreateSpaceBLoc(
+    gh.factory<_i46.CreateSpaceBLoc>(() => _i46.CreateSpaceBLoc(
           gh<_i19.SpaceService>(),
           gh<_i22.UserStateNotifier>(),
           gh<_i27.EmployeeService>(),
           gh<_i12.ImagePicker>(),
           gh<_i20.StorageService>(),
         ));
-    gh.factory<_i46.DrawerBloc>(() => _i46.DrawerBloc(
+    gh.factory<_i47.DrawerBloc>(() => _i47.DrawerBloc(
           gh<_i19.SpaceService>(),
           gh<_i22.UserStateNotifier>(),
           gh<_i23.AccountService>(),
           gh<_i27.EmployeeService>(),
         ));
-    gh.factory<_i47.EmployeeDetailBloc>(() => _i47.EmployeeDetailBloc(
+    gh.factory<_i48.EmployeeDetailBloc>(() => _i48.EmployeeDetailBloc(
           gh<_i23.AccountService>(),
           gh<_i19.SpaceService>(),
           gh<_i22.UserStateNotifier>(),
           gh<_i27.EmployeeService>(),
           gh<_i30.LeaveService>(),
         ));
-    gh.factory<_i48.EmployeeEditProfileBloc>(() => _i48.EmployeeEditProfileBloc(
+    gh.factory<_i49.EmployeeEditProfileBloc>(() => _i49.EmployeeEditProfileBloc(
           gh<_i27.EmployeeService>(),
           gh<_i21.UserPreference>(),
           gh<_i22.UserStateNotifier>(),
           gh<_i20.StorageService>(),
         ));
-    gh.lazySingleton<_i49.EmployeeRepo>(
-      () => _i49.EmployeeRepo(
+    gh.lazySingleton<_i50.EmployeeRepo>(
+      () => _i50.EmployeeRepo(
         gh<_i27.EmployeeService>(),
         gh<_i22.UserStateNotifier>(),
       ),
       dispose: (i) => i.dispose(),
     );
-    gh.factory<_i50.EmployeesCalendarLeavesBloc>(
-        () => _i50.EmployeesCalendarLeavesBloc(
+    gh.factory<_i51.EmployeesCalendarLeavesBloc>(
+        () => _i51.EmployeesCalendarLeavesBloc(
               gh<_i27.EmployeeService>(),
               gh<_i30.LeaveService>(),
             ));
-    gh.lazySingleton<_i51.LeaveRepo>(
-      () => _i51.LeaveRepo(gh<_i30.LeaveService>()),
+    gh.lazySingleton<_i52.LeaveRepo>(
+      () => _i52.LeaveRepo(gh<_i30.LeaveService>()),
       dispose: (i) => i.dispose(),
     );
-    gh.factory<_i52.WhoIsOutCardBloc>(() => _i52.WhoIsOutCardBloc(
-          gh<_i49.EmployeeRepo>(),
-          gh<_i51.LeaveRepo>(),
-        ));
     gh.factory<_i53.AdminHomeBloc>(() => _i53.AdminHomeBloc(
-          gh<_i51.LeaveRepo>(),
-          gh<_i49.EmployeeRepo>(),
+          gh<_i52.LeaveRepo>(),
+          gh<_i50.EmployeeRepo>(),
         ));
     gh.factory<_i54.AdminLeavesBloc>(() => _i54.AdminLeavesBloc(
-          gh<_i51.LeaveRepo>(),
-          gh<_i49.EmployeeRepo>(),
+          gh<_i52.LeaveRepo>(),
+          gh<_i50.EmployeeRepo>(),
         ));
     gh.factory<_i55.AdminMembersBloc>(() => _i55.AdminMembersBloc(
-          gh<_i49.EmployeeRepo>(),
+          gh<_i50.EmployeeRepo>(),
           gh<_i13.InvitationService>(),
           gh<_i22.UserStateNotifier>(),
         ));
