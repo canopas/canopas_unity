@@ -39,6 +39,15 @@ class LeaveRepo {
     );
   }
 
+  Stream<List<Leave>> userLeaveRequest(String uid) =>
+      _leavesController.stream.asyncMap((leaves) => leaves
+          .where((leave) =>
+              leave.uid == uid && leave.status == LeaveStatus.pending)
+          .toList());
+
+  Stream<List<Leave>> userLeaves(String uid) => _leavesController.stream
+      .asyncMap((leaves) => leaves.where((leave) => leave.uid == uid).toList());
+
   Future<void> cancel() async {
     await _leavesStreamSubscription?.cancel();
   }

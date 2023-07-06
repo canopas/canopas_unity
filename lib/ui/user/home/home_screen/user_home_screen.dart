@@ -34,10 +34,12 @@ class UserHomeScreenPage extends StatelessWidget {
               getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
         ),
         BlocProvider(
-          create: (_) => getIt<UserHomeBloc>(),
+          create: (_) =>
+              getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
         ),
         BlocProvider(
-          create: (_) => getIt<WhoIsOutCardBloc>(),
+          create: (_) =>
+              getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
         ),
       ],
       child: const UserHomeScreen(),
@@ -88,11 +90,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                         ],
                       );
                     });
-              } else if (state.userState == UserState.authenticated) {
-                context.read<UserHomeBloc>().add(UserHomeFetchLeaveRequest());
-                context
-                    .read<WhoIsOutCardBloc>()
-                    .add(WhoIsOutInitialLoadEvent());
               }
             },
             child: ListView(
