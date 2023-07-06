@@ -25,6 +25,11 @@ class EmployeeRepo {
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();
 
+  Stream<List<Employee>> get activeEmployees =>
+      _employeeController.stream.asyncMap((employees) => employees
+          .where((employee) => employee.status == EmployeeStatus.active)
+          .toList());
+
   Future<void> reset() async {
     await _employeeStreamSubscription?.cancel();
     _employeeStreamSubscription =

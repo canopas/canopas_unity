@@ -36,6 +36,11 @@ class MockEmployeeRepo extends _i1.Mock implements _i2.EmployeeRepo {
         returnValue: _i3.Stream<List<_i4.Employee>>.empty(),
       ) as _i3.Stream<List<_i4.Employee>>);
   @override
+  _i3.Stream<List<_i4.Employee>> get activeEmployees => (super.noSuchMethod(
+        Invocation.getter(#activeEmployees),
+        returnValue: _i3.Stream<List<_i4.Employee>>.empty(),
+      ) as _i3.Stream<List<_i4.Employee>>);
+  @override
   _i3.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
           #reset,
@@ -99,6 +104,23 @@ class MockLeaveRepo extends _i1.Mock implements _i5.LeaveRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+  @override
+  _i3.Stream<List<_i6.Leave>> userLeaveRequest(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userLeaveRequest,
+          [uid],
+        ),
+        returnValue: _i3.Stream<List<_i6.Leave>>.empty(),
+      ) as _i3.Stream<List<_i6.Leave>>);
+  @override
+  _i3.Stream<List<_i6.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
+        Invocation.method(
+          #userLeaves,
+          [uid],
+        ),
+        returnValue: _i3.Stream<List<_i6.Leave>>.empty(),
+      ) as _i3.Stream<List<_i6.Leave>>);
   @override
   _i3.Future<void> cancel() => (super.noSuchMethod(
         Invocation.method(
