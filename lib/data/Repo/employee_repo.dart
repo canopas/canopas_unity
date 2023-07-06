@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -21,6 +22,9 @@ class EmployeeRepo {
       },
     );
   }
+
+  Stream<Employee?> memberDetails(String uid) => _employeeController.stream
+      .asyncMap((members) => members.firstWhereOrNull((e) => e.uid == uid));
 
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();
