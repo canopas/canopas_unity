@@ -6,39 +6,35 @@ import '../../../../../data/model/employee/employee.dart';
 class AdminLeavesState extends Equatable {
   final Status status;
   final String? error;
-  final List<Employee> employees;
+  final List<Employee> members;
   final List<LeaveApplication> leaveApplication;
   final Employee? selectedEmployee;
-  final String searchEmployeeInput;
   final int selectedYear;
 
   AdminLeavesState(
-      {this.searchEmployeeInput = '',
-      this.status = Status.initial,
+      {this.status = Status.initial,
       this.error,
       int? selectedYear,
       this.leaveApplication = const [],
-      this.employees = const [],
+      this.members = const [],
       this.selectedEmployee})
       : selectedYear = selectedYear ?? DateTime.now().year;
 
   copyWith({
-    String? searchEmployeeInput,
     Status? status,
     String? error,
-    List<Employee>? employees,
+    List<Employee>? members,
     List<LeaveApplication>? leaveApplication,
     Employee? selectedEmployee,
     bool assignSelectedEmployeeNull = false,
     int? selectedYear,
   }) =>
       AdminLeavesState(
-        searchEmployeeInput: searchEmployeeInput ?? this.searchEmployeeInput,
         error: error,
         selectedYear: selectedYear ?? this.selectedYear,
         status: status ?? this.status,
         leaveApplication: leaveApplication ?? this.leaveApplication,
-        employees: employees ?? this.employees,
+        members: members ?? this.members,
         selectedEmployee: selectedEmployee ??
             (assignSelectedEmployeeNull ? null : this.selectedEmployee),
       );
@@ -48,9 +44,8 @@ class AdminLeavesState extends Equatable {
         status,
         error,
         leaveApplication,
-        employees,
+        members,
         selectedYear,
-        selectedEmployee,
-        searchEmployeeInput
+        selectedEmployee
       ];
 }

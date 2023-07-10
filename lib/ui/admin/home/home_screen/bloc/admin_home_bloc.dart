@@ -1,50 +1,43 @@
 import 'dart:async';
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/core/exception/error_const.dart';
-import '../../../../../data/model/employee/employee.dart';
-import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/core/extensions/stream_extension.dart';
 import '../../../../../data/model/leave_application.dart';
-import '../../../../../data/services/employee_service.dart';
-import '../../../../../data/services/leave_service.dart';
 import 'admin_home_event.dart';
 import 'admin_home_state.dart';
 
 @Injectable()
 class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
-  final LeaveService _leaveService;
-  final EmployeeService _employeeService;
+  final LeaveRepo leaveRepo;
+  final EmployeeRepo employeeRepo;
 
-  AdminHomeBloc(this._leaveService, this._employeeService)
+  AdminHomeBloc(this.leaveRepo, this.employeeRepo)
       : super(const AdminHomeState()) {
-    on<AdminHomeInitialLoadEvent>(_loadLeaveApplications);
+    on<AdminHomeInitialLoadEvent>(_loadLeaveApplication);
   }
 
-  Future<void> _loadLeaveApplications(
+  Future<void> _loadLeaveApplication(
       AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
     emit(state.copyWith(status: Status.loading));
+
     try {
-      final List<Employee> employees = await _employeeService.getEmployees();
-      final List<Leave> allRequests =
-          await _leaveService.getLeaveRequestOfUsers();
-      final List<LeaveApplication> leaveApplications = allRequests
-          .map((leave) {
-            final employee = employees
-                .firstWhereOrNull((employee) => employee.uid == leave.uid);
-            return employee == null
-                ? null
-                : LeaveApplication(employee: employee, leave: leave);
-          })
-          .whereNotNull()
-          .toList();
-      emit(state.copyWith(
-          status: Status.success,
-          leaveAppMap: convertListToMap(leaveApplications)));
-    } catch (_) {
+      return emit.forEach(
+        getLeaveApplicationStream(
+            leaveStream: leaveRepo.pendingLeaves,
+            membersStream: employeeRepo.employees),
+        onData: (List<LeaveApplication> applications) => state.copyWith(
+            status: Status.success,
+            leaveAppMap: convertListToMap(applications)),
+        onError: (error, stackTrace) =>
+            state.failureState(failureMessage: firestoreFetchDataError),
+      );
+    } on Exception {
       emit(state.failureState(failureMessage: firestoreFetchDataError));
     }
   }
@@ -55,6 +48,4 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
     return leaveApplications.groupBy(
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }
-
-
 }
