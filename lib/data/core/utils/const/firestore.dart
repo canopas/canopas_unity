@@ -4,6 +4,7 @@ class FireStoreConst {
   static const String spacesCollection = 'spaces';
   static const String membersCollection = 'members';
   static const String invitationsCollection = 'invitations';
+  static const String hrDeskRequestCollection = 'hr-desk-request';
 
   static const String spaces = 'spaces';
   static const String ownerIds = 'owner_ids';
