@@ -12,7 +12,6 @@ import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
-import '../../../shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/empty_screen.dart';
@@ -36,7 +35,7 @@ class AdminHomeScreenPage extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
         ),
-        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())),
+        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()),
       ],
       child: const AdminHomeScreen(),
     );

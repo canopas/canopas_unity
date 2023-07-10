@@ -16,7 +16,6 @@ import '../../../../data/provider/user_state.dart';
 import '../../../navigation/app_router.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
-import '../../../shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_card.dart';
@@ -39,7 +38,7 @@ class UserHomeScreenPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) =>
-              getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent()),
+              getIt<WhoIsOutCardBloc>()
         ),
       ],
       child: const UserHomeScreen(),
