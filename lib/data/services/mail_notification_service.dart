@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,8 @@ class NotificationService {
                 'receiver': receiver,
               }));
       return response.statusCode == 200;
-    } on Exception {
+    } on Exception catch (e) {
+      FirebaseCrashlytics.instance.log(e.toString());
       return false;
     }
   }
@@ -57,7 +59,8 @@ class NotificationService {
                 "receiver": receiver,
               }));
       return response.statusCode == 200;
-    } on Exception {
+    } on Exception catch (e) {
+      FirebaseCrashlytics.instance.log(e.toString());
       return false;
     }
   }
@@ -73,8 +76,7 @@ class NotificationService {
   }
 
   Future<bool> sendInviteNotification(
-      {required String companyName,
-      required String receiver}) async {
+      {required String companyName, required String receiver}) async {
     try {
       http.Response response =
           await httpClient.post(Uri.https(baseURL, '/api/invitation'),
@@ -84,7 +86,8 @@ class NotificationService {
                 "spacelink": "https://unity.canopas.com/home",
               }));
       return response.statusCode == 200;
-    } on Exception {
+    } on Exception catch (e) {
+      FirebaseCrashlytics.instance.log(e.toString());
       return false;
     }
   }
@@ -99,7 +102,8 @@ class NotificationService {
                 "sender": sender,
               }));
       return response.statusCode == 200;
-    } on Exception {
+    } on Exception catch (e) {
+      FirebaseCrashlytics.instance.log(e.toString());
       return false;
     }
   }
