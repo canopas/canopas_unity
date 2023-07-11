@@ -67,6 +67,11 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
         returnValue: false,
       ) as bool);
   @override
+  bool get isEmployee => (super.noSuchMethod(
+        Invocation.getter(#isEmployee),
+        returnValue: false,
+      ) as bool);
+  @override
   bool get isSpaceOwner => (super.noSuchMethod(
         Invocation.getter(#isSpaceOwner),
         returnValue: false,
@@ -197,8 +202,11 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
       ) as _i4.Stream<List<_i9.Leave>>);
   @override
-  _i4.Stream<List<_i9.Leave>> get absence => (super.noSuchMethod(
-        Invocation.getter(#absence),
+  _i4.Stream<List<_i9.Leave>> absence(DateTime? date) => (super.noSuchMethod(
+        Invocation.method(
+          #absence,
+          [date],
+        ),
         returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
       ) as _i4.Stream<List<_i9.Leave>>);
   @override

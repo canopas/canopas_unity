@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -12,11 +13,12 @@ class LeaveRepo {
   StreamSubscription<List<Leave>>? _leavesStreamSubscription;
 
   LeaveRepo(this._leaveService) {
-    _leavesStreamSubscription = _leaveService.leaves.listen(
-      (value) {
-        _leavesController.add(value);
-      },
-    );
+    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
+      _leavesController.add(value);
+    }, onError: (e, s) async {
+      _leavesController.addError(e);
+      await FirebaseCrashlytics.instance.recordError(e, s);
+    });
   }
 
   Stream<List<Leave>> get leaves => _leavesController.stream;
@@ -25,9 +27,14 @@ class LeaveRepo {
       _leavesController.stream.asyncMap((event) =>
           event.where((leave) => leave.status == LeaveStatus.pending).toList());
 
-  Stream<List<Leave>> get absence =>
+  Stream<List<Leave>> absence(DateTime date) =>
       _leavesController.stream.asyncMap((event) => event
-          .where((leave) => leave.status == LeaveStatus.approved)
+          .where((leave) =>
+              leave.status == LeaveStatus.approved &&
+              ((leave.startDate.month == date.month &&
+                      leave.startDate.year == date.year) ||
+                  (leave.endDate.month == date.month &&
+                      leave.endDate.year == date.year)))
           .toList());
 
   Future<void> reset() async {

@@ -549,6 +549,11 @@ class MockUserStateNotifier extends _i1.Mock implements _i13.UserStateNotifier {
         returnValue: false,
       ) as bool);
   @override
+  bool get isEmployee => (super.noSuchMethod(
+        Invocation.getter(#isEmployee),
+        returnValue: false,
+      ) as bool);
+  @override
   bool get isSpaceOwner => (super.noSuchMethod(
         Invocation.getter(#isSpaceOwner),
         returnValue: false,
