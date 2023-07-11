@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../../data/bloc/user_state/user_controller_state.dart';
 import '../../../../data/bloc/user_state/user_state_controller_bloc.dart';
 import '../../../../data/bloc/user_state/user_state_controller_event.dart';
@@ -35,7 +36,7 @@ class AdminHomeScreenPage extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
         ),
-        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()),
+        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())),
       ],
       child: const AdminHomeScreen(),
     );

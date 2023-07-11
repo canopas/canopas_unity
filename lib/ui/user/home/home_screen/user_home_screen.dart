@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import '../../../../data/bloc/user_state/user_state_controller_bloc.dart';
@@ -38,7 +39,7 @@ class UserHomeScreenPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) =>
-              getIt<WhoIsOutCardBloc>()
+              getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())
         ),
       ],
       child: const UserHomeScreen(),

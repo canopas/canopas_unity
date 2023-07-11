@@ -52,9 +52,9 @@ import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_b
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
     as _i43;
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
-    as _i38;
+    as _i52;
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
-    as _i37;
+    as _i38;
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
     as _i55;
 import 'package:projectunity/ui/navigation/app_router.dart' as _i24;
@@ -69,7 +69,7 @@ import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_p
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
     as _i51;
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
-    as _i52;
+    as _i37;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i31;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
     as _i41;
@@ -208,14 +208,16 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i19.SpaceService>(),
         ));
-    gh.factory<_i37.AdminEditEmployeeDetailsBloc>(
-        () => _i37.AdminEditEmployeeDetailsBloc(
+    gh.factory<_i37.WhoIsOutCardBloc>(() => _i37.WhoIsOutCardBloc(
+          gh<_i27.EmployeeService>(),
+          gh<_i30.LeaveService>(),
+        ));
+    gh.factory<_i38.AdminEditEmployeeDetailsBloc>(
+        () => _i38.AdminEditEmployeeDetailsBloc(
               gh<_i27.EmployeeService>(),
               gh<_i22.UserStateNotifier>(),
               gh<_i20.StorageService>(),
             ));
-    gh.factory<_i38.AdminEmployeeDetailsLeavesBLoc>(
-        () => _i38.AdminEmployeeDetailsLeavesBLoc(gh<_i30.LeaveService>()));
     gh.factory<_i39.AdminLeaveDetailsBloc>(() => _i39.AdminLeaveDetailsBloc(
           gh<_i30.LeaveService>(),
           gh<_i16.NotificationService>(),
@@ -281,10 +283,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i45.EmployeeRepo>(),
         ));
-    gh.factory<_i52.WhoIsOutCardBloc>(() => _i52.WhoIsOutCardBloc(
-          gh<_i47.LeaveRepo>(),
-          gh<_i45.EmployeeRepo>(),
-        ));
+    gh.factory<_i52.AdminEmployeeDetailsLeavesBLoc>(
+        () => _i52.AdminEmployeeDetailsLeavesBLoc(gh<_i47.LeaveRepo>()));
     gh.factory<_i53.AdminHomeBloc>(() => _i53.AdminHomeBloc(
           gh<_i47.LeaveRepo>(),
           gh<_i45.EmployeeRepo>(),

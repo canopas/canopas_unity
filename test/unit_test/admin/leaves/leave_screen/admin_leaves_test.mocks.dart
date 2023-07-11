@@ -96,11 +96,8 @@ class MockLeaveRepo extends _i1.Mock implements _i5.LeaveRepo {
         returnValue: _i3.Stream<List<_i6.Leave>>.empty(),
       ) as _i3.Stream<List<_i6.Leave>>);
   @override
-  _i3.Stream<List<_i6.Leave>> absence(DateTime? date) => (super.noSuchMethod(
-        Invocation.method(
-          #absence,
-          [date],
-        ),
+  _i3.Stream<List<_i6.Leave>> get absence => (super.noSuchMethod(
+        Invocation.getter(#absence),
         returnValue: _i3.Stream<List<_i6.Leave>>.empty(),
       ) as _i3.Stream<List<_i6.Leave>>);
   @override

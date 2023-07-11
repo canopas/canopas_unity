@@ -25,7 +25,7 @@ class LeaveRepo {
       _leavesController.stream.asyncMap((event) =>
           event.where((leave) => leave.status == LeaveStatus.pending).toList());
 
-  Stream<List<Leave>> absence(DateTime date) =>
+  Stream<List<Leave>> get absence =>
       _leavesController.stream.asyncMap((event) => event
           .where((leave) => leave.status == LeaveStatus.approved)
           .toList());
