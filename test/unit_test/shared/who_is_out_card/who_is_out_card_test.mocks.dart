@@ -59,6 +59,11 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValueForMissingStub: null,
       );
   @override
+  _i4.Stream<List<_i5.Leave>> get leaves => (super.noSuchMethod(
+        Invocation.getter(#leaves),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
   _i4.Future<List<_i5.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
           #getLeaveRequestOfUsers,
@@ -249,6 +254,15 @@ class MockEmployeeService extends _i1.Mock implements _i6.EmployeeService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
+  @override
+  _i4.Stream<List<_i7.Employee>> employees(String? spaceId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #employees,
+          [spaceId],
+        ),
+        returnValue: _i4.Stream<List<_i7.Employee>>.empty(),
+      ) as _i4.Stream<List<_i7.Employee>>);
   @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i7.Employee? employee,

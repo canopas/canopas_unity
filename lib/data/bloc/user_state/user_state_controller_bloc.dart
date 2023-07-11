@@ -13,11 +13,11 @@ import '../../services/space_service.dart';
 class UserStateControllerBloc
     extends Bloc<UserStateControllerEvent, UserControllerState> {
   final EmployeeService _employeeService;
-  final UserStateNotifier _userManager;
+  final UserStateNotifier _userStateNotifier;
   final SpaceService _spaceService;
 
   UserStateControllerBloc(
-      this._employeeService, this._userManager, this._spaceService)
+      this._employeeService, this._userStateNotifier, this._spaceService)
       : super(const UserControllerState()) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
@@ -27,16 +27,19 @@ class UserStateControllerBloc
       CheckUserStatus event, Emitter<UserControllerState> emit) async {
     try {
       final Employee? employee =
-          await _employeeService.getEmployee(_userManager.userUID!);
+          await _employeeService.getEmployee(_userStateNotifier.userUID!);
       final Space? space =
-          await _spaceService.getSpace(_userManager.currentSpaceId!);
+          await _spaceService.getSpace(_userStateNotifier.currentSpaceId!);
       if (employee == null ||
           space == null ||
           employee.status == EmployeeStatus.inactive) {
         emit(const UserControllerState(userState: UserState.unauthenticated));
       } else {
-        await _userManager.setEmployeeWithSpace(
-            space: space, spaceUser: employee, redirect: false);
+        if (_userStateNotifier.currentSpace != space ||
+            _userStateNotifier.employee != employee) {
+          await _userStateNotifier.setEmployeeWithSpace(
+              space: space, spaceUser: employee, redirect: false);
+        }
         emit(const UserControllerState(userState: UserState.authenticated));
       }
     } on Exception {
@@ -46,6 +49,6 @@ class UserStateControllerBloc
 
   Future<void> _clearData(
       ClearDataForDisableUser event, Emitter<UserControllerState> emit) async {
-    await _userManager.removeEmployeeWithSpace();
+    await _userStateNotifier.removeEmployeeWithSpace();
   }
 }

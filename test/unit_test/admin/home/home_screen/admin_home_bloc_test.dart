@@ -1,32 +1,31 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
-import 'package:projectunity/data/services/employee_service.dart';
-import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_event.dart';
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_state.dart';
 
 import 'admin_home_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService])
+@GenerateMocks([EmployeeRepo, LeaveRepo])
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  late EmployeeService employeeService;
-  late LeaveService leaveService;
-  late AdminHomeBloc adminHomeBloc;
+  late EmployeeRepo employeeRepo;
+  late LeaveRepo leaveRepo;
+  late AdminHomeBloc bloc;
 
   final employee = Employee(
-    uid: 'id',
+    uid: 'uid',
     role: Role.admin,
     name: 'Andrew jhone',
-    employeeId: '100',
+    employeeId: 'CA 1254',
     email: 'andrew.j@canopas.com',
     designation: 'Android developer',
     dateOfJoining: DateTime(2000),
@@ -34,108 +33,64 @@ void main() {
 
   Leave leave = Leave(
       leaveId: 'leave-id',
-      uid: 'id',
-      type: LeaveType.annualLeave,
-      startDate: DateTime.now().add(const Duration(days: 2)),
-      endDate: DateTime.now().add(const Duration(days: 4)),
+      uid: 'uid',
+      type: LeaveType.casualLeave,
+      startDate: DateTime.now().dateOnly,
+      endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
       total: 2,
       reason: 'reason',
-      status: LeaveStatus.approved,
-      appliedOn: DateTime.now(),
+      status: LeaveStatus.pending,
+      appliedOn: DateTime.now().dateOnly,
       perDayDuration: const [
         LeaveDayDuration.noLeave,
         LeaveDayDuration.firstHalfLeave
       ]);
-  AdminHomeState initialState = const AdminHomeState();
-
-  AdminHomeState loadingState = const AdminHomeState(
-    status: Status.loading,
-  );
-
-  AdminHomeState failureState = const AdminHomeState(
-      status: Status.error, error: firestoreFetchDataError);
 
   setUp(() {
-    employeeService = MockEmployeeService();
-    leaveService = MockLeaveService();
-    adminHomeBloc = AdminHomeBloc(leaveService, employeeService);
+    employeeRepo = MockEmployeeRepo();
+    leaveRepo = MockLeaveRepo();
+    bloc = AdminHomeBloc(leaveRepo, employeeRepo);
   });
 
-  group('AdminHomeScreenBloc', () {
-    test('emits initial state after AdminHome screen is open', () {
-      expect(adminHomeBloc.state, initialState);
+  group('Admin Home Bloc Test', () {
+    test('Emits initial state after admin home initialized', () {
+      expect(bloc.state, const AdminHomeState());
     });
-    test('Emits failure state due to any exception', () {
 
-      when(employeeService.getEmployees())
-          .thenThrow(Exception(firestoreFetchDataError));
-
-      adminHomeBloc.add(AdminHomeInitialLoadEvent());
-
+    test('Emits success after fetch data', () {
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.pendingLeaves).thenAnswer((_) => Stream.value([leave]));
+      bloc.add(AdminHomeInitialLoadEvent());
       expectLater(
-          adminHomeBloc.stream, emitsInOrder([loadingState, failureState]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminHomeState(
+              status: Status.loading,
+            ),
+            AdminHomeState(
+              status: Status.success,
+              leaveAppMap: bloc.convertListToMap([LeaveApplication(employee: employee, leave: leave)])
+            ),
+          ]));
     });
 
-    test(
-        'Emits loading state while fetching data from firestore and then emits Success state with  data with correct remaining leavews',
-        () async {
-      List<Employee> employeeList = [employee];
-      List<Leave> leaveList = [leave];
-
-      when(employeeService.getEmployees())
-          .thenAnswer((_) async => employeeList);
-      when(leaveService.getLeaveRequestOfUsers())
-          .thenAnswer((_) async => leaveList);
-
-      adminHomeBloc.add(AdminHomeInitialLoadEvent());
-
-      LeaveApplication la = LeaveApplication(
-        employee: employee,
-        leave: leave,
-      );
-      Map<DateTime, List<LeaveApplication>> map = {
-        leave.appliedOn.dateOnly: [la]
-      };
-      AdminHomeState successState = AdminHomeState(
-        status: Status.success,
-        leaveAppMap: map,
-      );
+    test('Emits failure after fetch data', () {
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.pendingLeaves).thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      bloc.add(AdminHomeInitialLoadEvent());
       expectLater(
-          adminHomeBloc.stream, emitsInOrder([loadingState, successState]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminHomeState(
+              status: Status.loading,
+            ),
+            const AdminHomeState(
+                error: firestoreFetchDataError,
+                status: Status.error,
+            ),
+          ]));
     });
 
-    test(
-        'Emits state with status as success and list of leave application is empty when leave user id doesn\'t match with any user id',
-        () {
-      final emp =  Employee(
-        uid: 'user id',
-        role: Role.employee,
-        name: 'Andrew jhone',
-        employeeId: 'Ca 1254',
-        email: 'andrew.j@canopas.com',
-        designation: 'Android developer',
-        dateOfJoining: DateTime(2000),
-      );
 
-      List<Employee> employees = [emp];
-      List<Leave> leaves = [leave];
-
-      when(employeeService.getEmployees()).thenAnswer((_) async => employees);
-      when(leaveService.getLeaveRequestOfUsers())
-          .thenAnswer((_) async => leaves);
-
-      adminHomeBloc.add(AdminHomeInitialLoadEvent());
-
-      AdminHomeState successState = const AdminHomeState(
-        status: Status.success,
-        leaveAppMap: {},
-      );
-
-      expectLater(adminHomeBloc.stream, emitsThrough(successState));
-    });
-  });
-
-  tearDownAll(() async {
-    await adminHomeBloc.close();
   });
 }

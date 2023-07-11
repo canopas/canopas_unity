@@ -25,9 +25,19 @@ void main() {
       role: Role.admin,
       dateOfJoining: DateTime(2000));
 
+
+
+
   final Space space = Space(
       id: 'space_id',
       name: 'Google',
+      createdAt: DateTime.fromMillisecondsSinceEpoch(20),
+      paidTimeOff: 20,
+      ownerIds: [employee.uid]);
+
+  final Space newSpace = Space(
+      id: 'space)id',
+      name: 'Alphabet',
       createdAt: DateTime.fromMillisecondsSinceEpoch(20),
       paidTimeOff: 20,
       ownerIds: [employee.uid]);
@@ -49,16 +59,20 @@ void main() {
   test(
       'Fetch data of user and space from firestore and update it on CheckUserStatusEvent',
       () async {
+        when(userStateNotifier.currentSpace)
+            .thenReturn(space);
+        when(userStateNotifier.employee)
+            .thenReturn(employee);
         bloc.add(CheckUserStatus());
     when(employeeService.getEmployee(employee.uid))
         .thenAnswer((_) async => employee);
-    when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
+    when(spaceService.getSpace(space.id)).thenAnswer((_) async => newSpace);
     expectLater(bloc.stream,
         emits(const UserControllerState(userState: UserState.authenticated)));
     await untilCalled(userStateNotifier.setEmployeeWithSpace(
-        space: space, spaceUser: employee, redirect: false));
+        space: newSpace, spaceUser: employee, redirect: false));
     verify(userStateNotifier.setEmployeeWithSpace(
-            space: space, spaceUser: employee,redirect: false))
+            space: newSpace, spaceUser: employee,redirect: false))
         .called(1);
   });
   test(

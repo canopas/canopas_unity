@@ -32,6 +32,10 @@ class LeaveService {
     return requests.docs.map((leave) => leave.data()).toList();
   }
 
+  Stream<List<Leave>> get leaves => _leaveDb()
+      .snapshots()
+      .map((event) => event.docs.map((leave) => leave.data()).toList());
+
   Future<bool> checkLeaveAlreadyApplied({
     required String userId,
     required Map<DateTime, LeaveDayDuration> dateDuration,
@@ -109,15 +113,17 @@ class LeaveService {
 
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
-    final data = await _leaveDb().get();
+    final data = await _leaveDb()
+        .where(FireStoreConst.leaveStatus,
+            isEqualTo: LeaveStatus.approved.value)
+        .get();
     List<Leave> leaves = <Leave>[];
     for (var leaveDoc in data.docs) {
       final leave = leaveDoc.data();
       if (((leave.startDate.dateOnly.month == date.month &&
-                  leave.startDate.dateOnly.year == date.year) ||
-              (leave.endDate.dateOnly.month == date.month &&
-                  leave.endDate.dateOnly.year == date.year)) &&
-          leave.status == LeaveStatus.approved) {
+              leave.startDate.dateOnly.year == date.year) ||
+          (leave.endDate.dateOnly.month == date.month &&
+              leave.endDate.dateOnly.year == date.year))) {
         leaves.add(leave);
       }
     }
@@ -147,7 +153,9 @@ class LeaveService {
         .get();
     return data.docs
         .map((doc) => doc.data())
-        .where((leave) => leave.endDate.isAfter(DateTime.now().dateOnly) || leave.endDate.isAtSameMomentAs(DateTime.now().dateOnly))
+        .where((leave) =>
+            leave.endDate.isAfter(DateTime.now().dateOnly) ||
+            leave.endDate.isAtSameMomentAs(DateTime.now().dateOnly))
         .toList();
   }
 

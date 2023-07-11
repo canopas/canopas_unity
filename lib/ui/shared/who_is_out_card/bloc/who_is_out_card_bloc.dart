@@ -20,10 +20,10 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   final LeaveService _leaveService;
 
   WhoIsOutCardBloc(
-    this._employeeService,
-    this._leaveService,
-  ) : super(WhoIsOutCardState(
-            selectedDate: DateTime.now().dateOnly, focusDay: DateTime.now().dateOnly)) {
+      this._employeeService,
+      this._leaveService,
+      ) : super(WhoIsOutCardState(
+      selectedDate: DateTime.now().dateOnly, focusDay: DateTime.now().dateOnly)) {
     on<WhoIsOutInitialLoadEvent>(_load);
     on<ChangeCalendarDate>(_changeCalendarDate);
     on<ChangeCalendarFormat>(_changeCalendarFormat);
@@ -67,7 +67,7 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
       FetchMoreLeaves event, Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(focusDay: event.date));
     final bool loadMore =
-        !_loadHistory.contains("${event.date.month}-${event.date.year}");
+    !_loadHistory.contains("${event.date.month}-${event.date.year}");
 
     final allAbsences = state.allAbsences.toList();
 
@@ -86,7 +86,7 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   Future<List<LeaveApplication>> fetchAbsences(DateTime date) async {
     List<Leave> absenceLeaves = await _leaveService.getAllAbsence(date: date);
     List<LeaveApplication> absences =
-        _getLeaveApplication(employees: _employees, leaves: absenceLeaves);
+    _getLeaveApplication(employees: _employees, leaves: absenceLeaves);
     _loadHistory.add("${date.month}-${date.year}");
     return absences;
   }
@@ -95,9 +95,9 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
       {required DateTime date, required List<LeaveApplication> allAbsences}) {
     return allAbsences
         .where((la) =>
-            la.leave.getDateAndDuration().containsKey(date.dateOnly) &&
-            la.leave.getDateAndDuration()[date.dateOnly] !=
-                LeaveDayDuration.noLeave)
+    la.leave.getDateAndDuration().containsKey(date.dateOnly) &&
+        la.leave.getDateAndDuration()[date.dateOnly] !=
+            LeaveDayDuration.noLeave)
         .toList();
   }
 
@@ -105,12 +105,12 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
       {required List<Employee> employees, required List<Leave> leaves}) {
     return leaves
         .map((leave) {
-          final employee =
-              employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
-          return (employee == null)
-              ? null
-              : LeaveApplication(employee: employee, leave: leave);
-        })
+      final employee =
+      employees.firstWhereOrNull((emp) => emp.uid == leave.uid);
+      return (employee == null)
+          ? null
+          : LeaveApplication(employee: employee, leave: leave);
+    })
         .whereNotNull()
         .toList();
   }

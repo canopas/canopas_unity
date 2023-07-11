@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 
-enum StateController { initial, enable, disable }
-
 class UserControllerState extends Equatable {
   final UserState? userState;
 
