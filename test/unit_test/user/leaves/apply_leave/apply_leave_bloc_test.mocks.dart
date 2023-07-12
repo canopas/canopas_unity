@@ -516,7 +516,7 @@ class MockNotificationService extends _i1.Mock
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #sendInviteAcceptNotificationNotification,
+          #sendSpaceInviteAcceptNotification,
           [],
           {
             #sender: sender,
