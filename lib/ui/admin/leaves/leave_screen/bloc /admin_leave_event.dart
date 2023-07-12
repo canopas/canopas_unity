@@ -8,13 +8,13 @@ class AdminLeavesInitialLoadEvent extends AdminLeavesEvents {
   List<Object?> get props => [];
 }
 
-class ChangeEmployeeEvent extends AdminLeavesEvents {
-  final Employee? employee;
+class ChangeMemberEvent extends AdminLeavesEvents {
+  final Employee? member;
 
-  ChangeEmployeeEvent({required this.employee});
+  ChangeMemberEvent({required this.member});
 
   @override
-  List<Object?> get props => [employee];
+  List<Object?> get props => [member];
 }
 
 class ChangeEmployeeLeavesYearEvent extends AdminLeavesEvents {

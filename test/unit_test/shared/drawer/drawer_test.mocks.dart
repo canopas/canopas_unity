@@ -374,6 +374,15 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
+  _i8.Stream<List<_i4.Employee>> employees(String? spaceId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #employees,
+          [spaceId],
+        ),
+        returnValue: _i8.Stream<List<_i4.Employee>>.empty(),
+      ) as _i8.Stream<List<_i4.Employee>>);
+  @override
   _i8.Future<void> addEmployeeBySpaceId({
     required _i4.Employee? employee,
     required String? spaceId,

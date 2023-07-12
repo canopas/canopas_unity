@@ -1,24 +1,26 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
 
 import 'user_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserStateNotifier])
+@GenerateMocks([LeaveRepo, UserStateNotifier])
 void main() {
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late UserStateNotifier userStateNotifier;
-  late UserLeaveBloc userLeaveBloc;
+  late UserLeaveBloc bloc;
+
   const String employeeId = 'CA 1044';
-  DateTime today = DateTime.now();
+  DateTime today = DateTime.now().dateOnly;
 
   Leave upcomingLeave = Leave(
       leaveId: 'Leave Id',
@@ -60,19 +62,19 @@ void main() {
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   setUp(() {
-    leaveService = MockLeaveService();
+    leaveRepo = MockLeaveRepo();
     userStateNotifier = MockUserStateNotifier();
-    userLeaveBloc = UserLeaveBloc(userStateNotifier, leaveService);
+    bloc = UserLeaveBloc(userStateNotifier, leaveRepo);
   });
 
   tearDown(() async {
-    await userLeaveBloc.close();
+    await bloc.close();
   });
 
   group('UserLeaveBloc stream test', () {
     test('Emits loading state as initial state of UserLeavesBloc', () {
       expect(
-          userLeaveBloc.state,
+          bloc.state,
           UserLeaveState(
               selectedYear: DateTime.now().year,
               leaves: const [],
@@ -83,12 +85,12 @@ void main() {
     test(
         'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
         () {
-          userLeaveBloc.add(FetchUserLeaveEvent());
+      bloc.add(FetchUserLeaveEvent());
       when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveService.getAllLeavesOfUser(employeeId)).thenAnswer(
-          (_) async => [pastLeave, upcomingLeave, specificYearLeave]);
+      when(leaveRepo.userLeaves(employeeId)).thenAnswer(
+          (_) => Stream.value([pastLeave, upcomingLeave, specificYearLeave]));
       expectLater(
-          userLeaveBloc.stream,
+          bloc.stream,
           emitsInOrder([
             UserLeaveState(status: Status.loading),
             UserLeaveState(
@@ -97,36 +99,49 @@ void main() {
     });
 
     test('Emits error state when Exception is thrown', () {
-      userLeaveBloc.add(FetchUserLeaveEvent());
+      bloc.add(FetchUserLeaveEvent());
 
       when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveService.getAllLeavesOfUser(employeeId))
-          .thenThrow(Exception('error'));
+      when(leaveRepo.userLeaves(employeeId)).thenThrow(Exception('error'));
       expectLater(
-          userLeaveBloc.stream,
+          bloc.stream,
           emitsInOrder([
             UserLeaveState(status: Status.loading),
             UserLeaveState(error: firestoreFetchDataError, status: Status.error)
           ]));
     });
-  });
 
-  test('change year and show year wise leave test', () {
-    userLeaveBloc.add(FetchUserLeaveEvent());
-    when(userStateNotifier.employeeId).thenReturn(employeeId);
-    when(leaveService.getAllLeavesOfUser(employeeId))
-        .thenAnswer((_) async => [pastLeave, upcomingLeave, specificYearLeave]);
-    userLeaveBloc.add(ChangeYearEvent(year: 2022));
-    expectLater(
-        userLeaveBloc.stream,
-        emitsInOrder([
-          UserLeaveState(status: Status.loading),
-          UserLeaveState(
-              status: Status.success, leaves: [upcomingLeave, pastLeave]),
-          UserLeaveState(
-              status: Status.success,
-              leaves: [specificYearLeave],
-              selectedYear: 2022),
-        ]));
+    test('Emits error state when stream have any error', () {
+      bloc.add(FetchUserLeaveEvent());
+
+      when(userStateNotifier.employeeId).thenReturn(employeeId);
+      when(leaveRepo.userLeaves(employeeId))
+          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            UserLeaveState(status: Status.loading),
+            UserLeaveState(error: firestoreFetchDataError, status: Status.error)
+          ]));
+    });
+
+    test('change year and show year wise leave test', () {
+      bloc.add(FetchUserLeaveEvent());
+      when(userStateNotifier.employeeId).thenReturn(employeeId);
+      when(leaveRepo.userLeaves(employeeId)).thenAnswer(
+          (_) => Stream.value([pastLeave, upcomingLeave, specificYearLeave]));
+      bloc.add(ChangeYearEvent(year: 2022));
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            UserLeaveState(status: Status.loading),
+            UserLeaveState(
+                status: Status.success, leaves: [upcomingLeave, pastLeave]),
+            UserLeaveState(
+                status: Status.success,
+                leaves: [specificYearLeave],
+                selectedYear: 2022),
+          ]));
+    });
   });
 }
