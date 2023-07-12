@@ -25,6 +25,8 @@ class UserStateControllerBloc
   LeaveRepo leaveRepo;
   final UserPreference _userPreference;
   final SpaceManager _spaceManager;
+    StreamSubscription<Employee?>? streamSubscription;
+
 
   UserStateControllerBloc(this._employeeRepo,this.leaveRepo,
       this._employeeService, this._userStateNotifier, this._spaceService,this._userPreference,this._spaceManager)
@@ -38,25 +40,37 @@ class UserStateControllerBloc
   }
 
   void _updateUser(){
-    //if(_userStateNotifier.state==UserState.update)
     print('update user is called');
     add(CheckUserStatus());
   }
 
   Future<void> _checkUserStatus(CheckUserStatus status, Emitter<UserControllerState> emit)async{
-    if(_userStateNotifier.state== UserState.spaceJoined){
+     await streamSubscription?.cancel();
       final Space? space = await _spaceService.getSpace(_spaceManager.currentSpaceId);
       if(space==null){
         return;
       }
       _userStateNotifier.updateSpace(space);
       add(UpdateUserDataEvent());
-    }
+
   }
 
   Future<void> _updateUserData(UpdateUserDataEvent event, Emitter<UserControllerState> emit)async{
+
     try{
-      await _userStateNotifier.resetStreamSubscription();
+       await _userStateNotifier.resetStreamSubscription();
+       // streamSubscription?.cancel();
+       // streamSubscription= _employeeRepo.memberDetails(_userStateNotifier.userUID!).listen((user) {
+       //   print('======================================== ${user!.toJson()}');
+       //   if(user==null){
+       //     emit(UserControllerErrorState(error: firestoreFetchDataError));
+       //   }else{
+       //     if(user.status== EmployeeStatus.inactive){
+       //       emit(RevokeAccessState());
+       //     }else{
+       //       _userStateNotifier.updateCurrentUser(user);
+       //     }}
+       // });
       await emit.onEach(_employeeRepo.memberDetails(_userStateNotifier.userUID!),
       onData: (Employee? user) async {
         print('======================================== ${user!.toJson()}');
@@ -73,6 +87,7 @@ class UserStateControllerBloc
         FirebaseCrashlytics.instance.recordError(error, stackTrace,reason: 'ERROR WHILE LISTENING THE CURRENT USER STRAEM');
       }
       );
+
     }on Exception catch(error,stacktrace){
       emit(UserControllerErrorState(error: firestoreFetchDataError));
       FirebaseCrashlytics.instance.recordError(error,stacktrace,reason: 'EXCEPTION ===== GET CURRENT USER INFO WHEN THE USER STATUS IS ${_userStateNotifier.state}');

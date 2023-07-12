@@ -54,8 +54,10 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> resetStreamSubscription()async{
+
     await getIt<LeaveRepo>().reset();
     await getIt<EmployeeRepo>().reset();
+    print('subscription is cancelled');
   }
 
   Future<void> updateCurrentUser(Employee user)async{
