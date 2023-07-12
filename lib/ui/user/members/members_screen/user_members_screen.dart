@@ -59,15 +59,17 @@ class _UserMembersScreenState extends State<UserMembersScreen> {
                 return const AppCircularProgressIndicator();
               } else if (state is UserEmployeesSuccessState) {
                 return ListView.separated(
-                    padding: const EdgeInsets.all( primaryVerticalSpacing),
+                    padding: const EdgeInsets.all(primaryVerticalSpacing),
                     itemBuilder: (BuildContext context, int index) {
                       Employee employee = state.employees[index];
                       return EmployeeCard(
                         employee: employee,
                         onTap: () {
-                          context.goNamed(Routes.userEmployeeDetail, params: {
-                            RoutesParamsConst.employeeId: employee.uid
-                          });
+                          context.goNamed(Routes.userEmployeeDetail,
+                              extra: employee,
+                              params: {
+                                RoutesParamsConst.employeeId: employee.uid
+                              });
                         },
                       );
                     },

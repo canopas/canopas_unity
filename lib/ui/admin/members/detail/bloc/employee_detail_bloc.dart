@@ -20,11 +20,13 @@ class EmployeeDetailBloc
   final UserStateNotifier _userManager;
   final AccountService _accountService;
   final SpaceService _spaceService;
+  late StreamSubscription _subscription;
 
   EmployeeDetailBloc(this._accountService, this._spaceService,
       this._userManager, this._employeeService, this._leaveService)
       : super(EmployeeDetailInitialState()) {
-    eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
+    _subscription =
+        eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
       add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
     });
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
@@ -58,8 +60,8 @@ class EmployeeDetailBloc
     }
   }
 
-  Future<void> _onDeactivateEmployeeEvent(
-      DeactivateEmployeeEvent event, Emitter<AdminEmployeeDetailState> emit) async {
+  Future<void> _onDeactivateEmployeeEvent(DeactivateEmployeeEvent event,
+      Emitter<AdminEmployeeDetailState> emit) async {
     try {
       await _employeeService.changeAccountStatus(
           id: event.employeeId, status: EmployeeStatus.inactive);
@@ -68,5 +70,11 @@ class EmployeeDetailBloc
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await _subscription.cancel();
+    return super.close();
   }
 }

@@ -1,18 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
-
 import '../../../../../data/provider/user_state.dart';
-import '../../../../../data/services/employee_service.dart';
 
 @Injectable()
 class ViewProfileBloc extends Bloc<ViewProfileEvent, ViewProfileState> {
   final UserStateNotifier _userManager;
-  final EmployeeService _employeeService;
+  final EmployeeRepo _employeeRepo;
 
-  ViewProfileBloc(this._userManager, this._employeeService)
+  ViewProfileBloc(this._userManager, this._employeeRepo)
       : super(ViewProfileInitialState()) {
     on<InitialLoadevent>(_initialLoad);
   }
@@ -21,13 +21,16 @@ class ViewProfileBloc extends Bloc<ViewProfileEvent, ViewProfileState> {
       InitialLoadevent event, Emitter<ViewProfileState> emit) async {
     emit(ViewProfileLoadingState());
     try {
-      final employee =
-      await _employeeService.getEmployee(_userManager.userUID!);
-      if (employee == null) {
-        emit(ViewProfileErrorState(firestoreFetchDataError));
-      } else {
-        emit(ViewProfileSuccessState(employee));
-      }
+      return emit.forEach(_employeeRepo.memberDetails(_userManager.employeeId),
+          onData: (Employee? employee) {
+            if (employee == null) {
+              return ViewProfileErrorState(firestoreFetchDataError);
+            } else {
+              return ViewProfileSuccessState(employee);
+            }
+          },
+          onError: (error, stackTrace) =>
+              ViewProfileErrorState(firestoreFetchDataError));
     } on Exception {
       emit(ViewProfileErrorState(firestoreFetchDataError));
     }

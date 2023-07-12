@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
 
 import 'view_profile_bloc_test.mocks.dart';
 
-@GenerateMocks([UserStateNotifier, EmployeeService])
+@GenerateMocks([UserStateNotifier, EmployeeRepo])
 void main() {
   late ViewProfileBloc bloc;
   late UserStateNotifier userStateNotifier;
-  late EmployeeService employeeService;
+  late EmployeeRepo employeeRepo;
   final employee = Employee(
       uid: 'uid',
       name: 'Andrew jhone',
@@ -25,30 +25,32 @@ void main() {
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
-    employeeService = MockEmployeeService();
-    bloc = ViewProfileBloc(userStateNotifier, employeeService);
+    employeeRepo = MockEmployeeRepo();
+    bloc = ViewProfileBloc(userStateNotifier, employeeRepo);
   });
 
   test('Emits Initial state as default state of bloc', () {
     expect(bloc.state, ViewProfileInitialState());
   });
+
   test(
       'Should emit loading state and then success state when fetched data from firestore successfully',
       () {
-        bloc.add(InitialLoadevent());
-    when(userStateNotifier.userUID).thenReturn('uid');
-    when(employeeService.getEmployee(employee.uid))
-        .thenAnswer((_) async => employee);
+    bloc.add(InitialLoadevent());
+    when(userStateNotifier.employeeId).thenReturn('uid');
+    when(employeeRepo.memberDetails('uid'))
+        .thenAnswer((_) => Stream.value(employee));
     expectLater(
         bloc.stream,
         emitsInOrder(
             [ViewProfileLoadingState(), ViewProfileSuccessState(employee)]));
   });
+
   test('Should emit loading state and then Error state in case of Exception ',
       () {
-        bloc.add(InitialLoadevent());
-    when(userStateNotifier.userUID).thenReturn('uid');
-    when(employeeService.getEmployee(employee.uid))
+    bloc.add(InitialLoadevent());
+    when(userStateNotifier.employeeId).thenReturn('uid');
+    when(employeeRepo.memberDetails('uid'))
         .thenThrow(Exception(firestoreFetchDataError));
     expectLater(
         bloc.stream,
@@ -57,4 +59,18 @@ void main() {
           ViewProfileErrorState(firestoreFetchDataError)
         ]));
   });
+
+  test('Should emit loading state and then Error state in Stream have error ',
+          () {
+        bloc.add(InitialLoadevent());
+        when(userStateNotifier.employeeId).thenReturn('uid');
+        when(employeeRepo.memberDetails('uid'))
+            .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              ViewProfileLoadingState(),
+              ViewProfileErrorState(firestoreFetchDataError)
+            ]));
+      });
 }
