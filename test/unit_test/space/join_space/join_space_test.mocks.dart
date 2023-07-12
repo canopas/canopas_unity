@@ -402,6 +402,24 @@ class MockUserStateNotifier extends _i1.Mock implements _i12.UserStateNotifier {
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
   @override
+  _i9.Future<void> resetStreamSubscription() => (super.noSuchMethod(
+        Invocation.method(
+          #resetStreamSubscription,
+          [],
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
+  @override
+  _i9.Future<void> updateCurrentUser(_i4.Employee? user) => (super.noSuchMethod(
+        Invocation.method(
+          #updateCurrentUser,
+          [user],
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
+  @override
   _i9.Future<void> updateSpace(_i3.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,

@@ -14,6 +14,9 @@ class SpaceManager extends ChangeNotifier{
   String get currentSpaceId=>_currentSpaceId;
 
   void setCurrentSpaceId(String spaceId){
+    if(currentSpaceId==spaceId){
+      return;
+    }
     print('$spaceId in SPACEMANAGER');
     _currentSpaceId= spaceId;
     notifyListeners();

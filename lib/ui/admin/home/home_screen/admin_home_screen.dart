@@ -58,9 +58,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
       appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
       body: BlocListener<UserStateControllerBloc, UserControllerState>(
-        listenWhen: (previous, current) => previous.userState != current.userState,
+        listenWhen: (previous, current) => current is UserControllerErrorState||current is RevokeAccessState,
         listener: (context, state) {
-          if (state.userState == UserState.unauthenticated) {
+          if (state is RevokeAccessState) {
             showDialog(
                 barrierDismissible: false,
                 context: context,
@@ -75,7 +75,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           onPressed: () {
                             context
                                 .read<UserStateControllerBloc>()
-                                .add(ClearDataForDisableUser());
+                                .add(DeactivateUserEvent());
                           },
                           child: Text(locale.ok_tag))
                     ],

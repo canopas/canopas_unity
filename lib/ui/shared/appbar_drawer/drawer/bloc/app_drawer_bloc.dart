@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
+import '../../../../../data/provider/space_manager.dart';
 import '../../../../../data/provider/user_state.dart';
 import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/space_service.dart';
@@ -16,8 +17,9 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   final AccountService _accountService;
   final UserStateNotifier _userManager;
   final EmployeeService _employeeService;
+  final SpaceManager _spaceManager;
 
-  DrawerBloc(this._spaceService, this._userManager, this._accountService,
+  DrawerBloc(this._spaceService, this._userManager, this._accountService,this._spaceManager,
       this._employeeService)
       : super(const DrawerState()) {
     on<FetchSpacesEvent>(_fetchSpaces);
@@ -46,16 +48,18 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
       ChangeSpaceEvent event, Emitter<DrawerState> emit) async {
     emit(state.copyWith(changeSpaceStatus: Status.loading));
     try {
-      final spaceUser = await _employeeService.getEmployeeBySpaceId(
-          spaceId: event.space.id, userId: _userManager.userUID!);
-      if (spaceUser != null) {
-        await _userManager.setEmployeeWithSpace(
-            space: event.space, spaceUser: spaceUser);
+      _spaceManager.setCurrentSpaceId(event.space.id);
+      // final spaceUser = await _employeeService.getEmployeeBySpaceId(
+      //     spaceId: event.space.id, userId: _userManager.userUID!);
+      // if (spaceUser != null) {
+      //   await _userManager.setEmployeeWithSpace(
+      //       space: event.space, spaceUser: spaceUser);
         emit(state.copyWith(changeSpaceStatus: Status.success));
-      } else {
-        emit(state.copyWith(
-            changeSpaceStatus: Status.error, error: firestoreFetchDataError));
-      }
+      // } else {
+      //   emit(state.copyWith(
+      //       changeSpaceStatus: Status.error, error: firestoreFetchDataError));
+      // }
+
     } on Exception {
       emit(state.copyWith(
           changeSpaceStatus: Status.error, error: firestoreFetchDataError));

@@ -53,6 +53,16 @@ class UserStateNotifier with ChangeNotifier {
     await getIt<EmployeeRepo>().reset();
   }
 
+  Future<void> resetStreamSubscription()async{
+    await getIt<LeaveRepo>().reset();
+    await getIt<EmployeeRepo>().reset();
+  }
+
+  Future<void> updateCurrentUser(Employee user)async{
+    await _userPreference.setEmployee(user);
+    notifyListeners();
+  }
+
   Future<void> updateSpace(Space space) async {
     await _userPreference.setSpace(space);
     notifyListeners();

@@ -29,10 +29,7 @@ class UserHomeScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) =>
-              getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
-        ),
+
         BlocProvider(
           create: (_) =>
               getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
@@ -67,9 +64,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           backgroundColor: AppColors.whiteColor,
           child: BlocListener<UserStateControllerBloc, UserControllerState>(
             listenWhen: (previous, current) =>
-                current.userState != previous.userState,
+                current is RevokeAccessState|| current is UserControllerErrorState,
             listener: (context, state) {
-              if (state.userState == UserState.unauthenticated) {
+              if (state is RevokeAccessState) {
                 showDialog(
                     barrierDismissible: false,
                     context: context,
@@ -84,7 +81,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               onPressed: () {
                                 context
                                     .read<UserStateControllerBloc>()
-                                    .add(ClearDataForDisableUser());
+                                    .add(DeactivateUserEvent());
                               },
                               child: Text(locale.ok_tag))
                         ],

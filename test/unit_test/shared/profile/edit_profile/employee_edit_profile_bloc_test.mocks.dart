@@ -294,6 +294,24 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
+  _i6.Future<void> resetStreamSubscription() => (super.noSuchMethod(
+        Invocation.method(
+          #resetStreamSubscription,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> updateCurrentUser(_i3.Employee? user) => (super.noSuchMethod(
+        Invocation.method(
+          #updateCurrentUser,
+          [user],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
   _i6.Future<void> updateSpace(_i9.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
@@ -385,6 +403,15 @@ class MockUserPreference extends _i1.Mock implements _i11.UserPreference {
         Invocation.method(
           #setSpace,
           [space],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> setCurrentSpaceId(String? spaceID) => (super.noSuchMethod(
+        Invocation.method(
+          #setCurrentSpaceId,
+          [spaceID],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
