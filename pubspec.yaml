@@ -22,7 +22,6 @@ dependencies:
   device_info_plus: ^8.2.1
   equatable: ^2.0.5
   event_bus: ^2.0.0
-  expandable: ^5.0.1
   firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
   firebase_crashlytics: ^3.3.1

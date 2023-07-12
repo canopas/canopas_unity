@@ -1,9 +1,7 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
@@ -36,44 +34,35 @@ class TabContent extends StatelessWidget {
             );
           } else if (state is UserEmployeeDetailSuccessState &&
               state.upcomingLeaves.isNotEmpty) {
-            return Padding(
-              padding: const EdgeInsets.all(primaryHorizontalSpacing),
-              child: ExpandableNotifier(
-                child: ScrollOnExpand(
-                  scrollOnCollapse: false,
-                  scrollOnExpand: true,
-                  child: ExpandablePanel(
-                    theme: const ExpandableThemeData(hasIcon: false),
-                    header: Text(
-                      localization.user_leave_upcoming_leaves_tag,
-                      style: AppFontStyle.buttonTextStyle,
-                    ),
-                    expanded: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.upcomingLeaves.length,
-                        itemBuilder: (context, index) {
-                          Leave leave = state.upcomingLeaves[index];
-                          return LeaveCard(
-                            onTap: () {
-                              context.goNamed(Routes.userLeaveDetail, params: {
-                                RoutesParamsConst.leaveId: leave.leaveId
-                              });
-                            },
-                            leave: leave,
-                          );
-                        }),
-                    builder: (context, collapsed, expanded) {
-                      return Expandable(
-                        collapsed: collapsed,
-                        expanded: expanded,
-                        theme: const ExpandableThemeData(crossFadePoint: 0),
-                      );
-                    },
-                    collapsed: const SizedBox(),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 16),
+                  child: Text(
+                    localization.user_leave_upcoming_leaves_tag,
+                    style: AppFontStyle.titleDark,
                   ),
                 ),
-              ),
+                ListView.separated(
+                    padding: const EdgeInsets.all(16),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.upcomingLeaves.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
+                    itemBuilder: (context, index) {
+                      Leave leave = state.upcomingLeaves[index];
+                      return LeaveCard(
+                        onTap: () {
+                          context.goNamed(Routes.userLeaveDetail, params: {
+                            RoutesParamsConst.leaveId: leave.leaveId
+                          });
+                        },
+                        leave: leave,
+                      );
+                    }),
+              ],
             );
           }
           return const SizedBox();

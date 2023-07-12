@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
 import 'package:projectunity/ui/user/members/detail/widget/employee_info.dart';
 import 'package:projectunity/ui/user/members/detail/widget/tab_content.dart';
 import '../../../../data/model/employee/employee.dart';
@@ -61,6 +62,17 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
               endIndent: primaryHorizontalSpacing,
             ),
             EmployeeInfo(employee: widget.employee),
+            const SizedBox(height: 16),
+            BlocBuilder<UserEmployeeDetailBloc, UserEmployeeDetailState>(
+              builder: (context, state) =>
+                  state is UserEmployeeDetailSuccessState &&
+                          state.upcomingLeaves.isNotEmpty
+                      ? const Divider(
+                          indent: primaryHorizontalSpacing,
+                          endIndent: primaryHorizontalSpacing,
+                        )
+                      : const SizedBox(),
+            ),
             const TabContent(),
           ],
         ));
