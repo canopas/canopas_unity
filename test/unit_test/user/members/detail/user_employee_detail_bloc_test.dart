@@ -2,9 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
-import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_event.dart';
@@ -12,38 +11,29 @@ import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_st
 
 import 'user_employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeService, LeaveService, UserEmployeeDetailBloc])
+@GenerateMocks([LeaveService])
 void main() {
-  late EmployeeService employeeService;
   late LeaveService leaveService;
   late UserEmployeeDetailBloc bloc;
-
-  final employee =  Employee(
-    uid: 'uid',
-    role: Role.admin,
-    name: 'Andrew jhone',
-    employeeId: 'employeeId',
-    email: 'andrew.j@canopas.com',
-    designation: 'Android develeoper',
-    dateOfJoining: DateTime(2000),
-  );
 
   Leave upcomingApproveLeave = Leave(
       leaveId: 'leaveId',
       uid: 'uid',
       type: LeaveType.annualLeave,
-      startDate: DateTime.now().add(const Duration(days: 2)),
-      endDate: DateTime.now().add(const Duration(days: 1)),
+      startDate: DateTime.now().add(const Duration(days: 2)).dateOnly,
+      endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
       total: 2,
       reason: 'Suffering from viral fever',
       status: LeaveStatus.approved,
-      appliedOn: DateTime.now(),
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave, LeaveDayDuration.firstHalfLeave]);
+      appliedOn: DateTime.now().dateOnly,
+      perDayDuration: const [
+        LeaveDayDuration.firstHalfLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
 
   setUp(() {
-    employeeService = MockEmployeeService();
     leaveService = MockLeaveService();
-    bloc = UserEmployeeDetailBloc(employeeService, leaveService);
+    bloc = UserEmployeeDetailBloc(leaveService);
   });
 
   group('bloc state stream', () {
@@ -54,40 +44,21 @@ void main() {
     test(
         'Emits loading state and success state after data is fetched successfully from firestore',
         () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenAnswer((_) async => employee);
-      when(leaveService.getUpcomingLeavesOfUser(employee.uid))
+      when(leaveService.getUpcomingLeavesOfUser('uid'))
           .thenAnswer((_) async => [upcomingApproveLeave]);
       expectLater(
           bloc.stream,
           emitsInOrder([
             UserEmployeeDetailLoadingState(),
             UserEmployeeDetailSuccessState(
-                employee: employee, upcomingLeaves: [upcomingApproveLeave])
+                upcomingLeaves: [upcomingApproveLeave])
           ]));
-      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.uid));
-    });
-    test(
-        'Emits loading state and error state if employee is found null from firestore',
-        () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenAnswer((_) async => null);
-      when(leaveService.getUpcomingLeavesOfUser(employee.uid))
-          .thenAnswer((_) async => [upcomingApproveLeave]);
-      expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserEmployeeDetailLoadingState(),
-            UserEmployeeDetailErrorState(error: firestoreFetchDataError)
-          ]));
-      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.uid));
+      bloc.add(UserEmployeeDetailFetchEvent(uid: 'uid'));
     });
     test(
         'Emits loading state and error state if exception is thrown from firestore',
         () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenAnswer((_) async => null);
-      when(leaveService.getUpcomingLeavesOfUser(employee.uid))
+      when(leaveService.getUpcomingLeavesOfUser('uid'))
           .thenThrow(Exception(firestoreFetchDataError));
       expectLater(
           bloc.stream,
@@ -95,7 +66,7 @@ void main() {
             UserEmployeeDetailLoadingState(),
             UserEmployeeDetailErrorState(error: firestoreFetchDataError)
           ]));
-      bloc.add(UserEmployeeDetailFetchEvent(employeeId: employee.uid));
+      bloc.add(UserEmployeeDetailFetchEvent(uid: 'uid'));
     });
   });
 }

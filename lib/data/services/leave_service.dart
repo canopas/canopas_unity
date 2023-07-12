@@ -169,14 +169,15 @@ class LeaveService {
   }
 
   Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
-    final data =
-        await _leaveDb().where(FireStoreConst.uid, isEqualTo: employeeId).get();
+    final data = await _leaveDb()
+        .where(FireStoreConst.uid, isEqualTo: employeeId)
+        .where(FireStoreConst.leaveStatus, isEqualTo: LeaveStatus.approved.value)
+        .get();
     return data.docs
         .map((doc) => doc.data())
         .where((leave) =>
             leave.startDate.isAfter(DateTime.now().dateOnly) ||
             leave.startDate.isAtSameMomentAs(DateTime.now().dateOnly))
-        .where((leave) => leave.status == LeaveStatus.approved)
         .toList();
   }
 

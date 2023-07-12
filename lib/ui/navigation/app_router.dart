@@ -42,6 +42,7 @@ class AppRouter {
 
   GoRouter _goRouter(UserStateNotifier userManager) {
     return GoRouter(
+        debugLogDiagnostics: true,
         errorPageBuilder: (context, state) =>
             const CupertinoPage(child: PageNotFoundScreen()),
         refreshListenable: userManager,
@@ -310,8 +311,7 @@ class AppRouter {
                         path: Routes.userEmployeeDetail,
                         pageBuilder: (context, state) => CupertinoPage(
                             child: UserEmployeeDetailPage(
-                                employeeId: state
-                                    .params[RoutesParamsConst.employeeId]!)),
+                                employee: state.extra as Employee)),
                       ),
                     ]),
               ])
