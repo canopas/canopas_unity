@@ -96,6 +96,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               padding: const EdgeInsets.all(primaryHorizontalSpacing),
               children: [
                 const WhoIsOutCard(),
+                ElevatedButton(onPressed: (){
+                  context.goNamed(Routes.hrRequests);
+                }, child: const Text("HR Service Request")),
                 BlocConsumer<UserHomeBloc, UserHomeState>(
                     buildWhen: (previous, current) =>
                         current is! UserHomeErrorState,

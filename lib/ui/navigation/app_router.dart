@@ -5,6 +5,7 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
+import 'package:projectunity/ui/user/hr_requests/hr_requests_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 import '../../data/model/employee/employee.dart';
@@ -231,6 +232,11 @@ class AppRouter {
                         child: const UserHomeScreenPage()),
                     routes: <GoRoute>[
                       GoRoute(
+                          path: Routes.hrRequests,
+                          name: Routes.hrRequests,
+                          pageBuilder: (context, state) => const CupertinoPage(child: HrRequestsPage()),
+                      ),
+                      GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,
                           name: Routes.userProfile,
                           path: 'profile',
@@ -371,6 +377,8 @@ abstract class Routes {
   static const userRequestDetail = 'leave-request-detail/:leaveId';
   static const userLeaveCalender = 'user-calender';
   static const userProfile = '/user-home/profile';
+  static const hrRequests = 'hr-request';
+  static const applyHrRequests = 'apply-hr-request';
   static const userEditProfile = '/user-home/profile/edit';
 
   static const userLeaves = '/leaves';

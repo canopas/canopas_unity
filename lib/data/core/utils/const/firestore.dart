@@ -4,7 +4,7 @@ class FireStoreConst {
   static const String spacesCollection = 'spaces';
   static const String membersCollection = 'members';
   static const String invitationsCollection = 'invitations';
-  static const String hrDeskRequestCollection = 'hr-desk-request';
+  static const String hrRequestsCollection = 'hr-requests';
 
   static const String spaces = 'spaces';
   static const String ownerIds = 'owner_ids';
@@ -30,6 +30,9 @@ class FireStoreConst {
   static const String endLeaveDate = 'end_date';
   static const String session = 'session';
   static const String uid = 'uid';
+
+  static const String id = 'uid';
+  static const String status = 'status';
 
   static const String receiverEmail = 'receiver_email';
   static const String spaceId = 'space_id';

@@ -3,46 +3,46 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:projectunity/data/core/converters%20/date_converter.dart';
 
-part 'hr_desk_request.g.dart';
+part 'hr_request.g.dart';
 
 @JsonSerializable(
     fieldRename: FieldRename.snake,
     includeIfNull: false,
     converters: [DateTimeConverter()])
-class HrDeskRequest extends Equatable {
+class HrRequest extends Equatable {
   final String id;
-  final String requestBy;
+  final String uid;
   final DateTime requestedAt;
-  final HRDeskRequestType type;
+  final HrRequestType type;
   final String description;
-  final HRDeskRequestStatus status;
+  final HrRequestStatus status;
 
-  HrDeskRequest({
+  HrRequest({
     required this.id,
     required this.type,
-    required this.requestBy,
+    required this.uid,
     required this.description,
-    this.status = HRDeskRequestStatus.pending,
+    this.status = HrRequestStatus.pending,
   }) : requestedAt = DateTime.now();
 
-  factory HrDeskRequest.fromFireStore(
+  factory HrRequest.fromFireStore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     Map<String, dynamic>? data = snapshot.data();
-    return HrDeskRequest.fromJson(data!);
+    return HrRequest.fromJson(data!);
   }
 
-  factory HrDeskRequest.fromJson(Map<String, dynamic> map) =>
-      _$HrDeskRequestFromJson(map);
+  factory HrRequest.fromJson(Map<String, dynamic> map) =>
+      _$HrRequestFromJson(map);
 
-  Map<String, dynamic> toFireStore() => _$HrDeskRequestToJson(this);
+  Map<String, dynamic> toFireStore() => _$HrRequestToJson(this);
 
   @override
-  List<Object?> get props => [id, type, requestBy, description];
+  List<Object?> get props => [id, type, uid, description];
 }
 
 @JsonEnum(valueField: 'value')
-enum HRDeskRequestType {
+enum HrRequestType {
   employeeRelations(1),
   training(2),
   payroll(3),
@@ -53,15 +53,15 @@ enum HRDeskRequestType {
 
   final int value;
 
-  const HRDeskRequestType(this.value);
+  const HrRequestType(this.value);
 }
 
 @JsonEnum(valueField: 'value')
-enum HRDeskRequestStatus {
+enum HrRequestStatus {
   pending(1),
   done(2);
 
   final int value;
 
-  const HRDeskRequestStatus(this.value);
+  const HrRequestStatus(this.value);
 }
