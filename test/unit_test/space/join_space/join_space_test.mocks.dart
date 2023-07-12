@@ -770,7 +770,7 @@ class MockNotificationService extends _i1.Mock
         returnValueForMissingStub: _i10.Future<void>.value(),
       ) as _i10.Future<void>);
   @override
-  _i10.Future<bool> notifyHRForNewLeave({
+  _i10.Future<void> notifyHRForNewLeave({
     required String? name,
     required String? reason,
     required DateTime? startDate,
@@ -789,10 +789,11 @@ class MockNotificationService extends _i1.Mock
             #receiver: receiver,
           },
         ),
-        returnValue: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
   @override
-  _i10.Future<bool> leaveResponse({
+  _i10.Future<void> leaveResponse({
     required String? name,
     required DateTime? startDate,
     required DateTime? endDate,
@@ -811,8 +812,9 @@ class MockNotificationService extends _i1.Mock
             #receiver: receiver,
           },
         ),
-        returnValue: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
   @override
   String getFormatDate({
     required DateTime? startDate,
@@ -830,7 +832,7 @@ class MockNotificationService extends _i1.Mock
         returnValue: '',
       ) as String);
   @override
-  _i10.Future<bool> sendInviteNotification({
+  _i10.Future<void> sendInviteNotification({
     required String? companyName,
     required String? receiver,
   }) =>
@@ -843,10 +845,11 @@ class MockNotificationService extends _i1.Mock
             #receiver: receiver,
           },
         ),
-        returnValue: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
   @override
-  _i10.Future<bool> sendSpaceInviteAcceptNotification({
+  _i10.Future<void> sendSpaceInviteAcceptNotification({
     required String? sender,
     required String? receiver,
   }) =>
@@ -859,6 +862,7 @@ class MockNotificationService extends _i1.Mock
             #receiver: receiver,
           },
         ),
-        returnValue: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
 }
