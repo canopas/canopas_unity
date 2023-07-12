@@ -29,6 +29,12 @@ class UserPreference {
     await _preferences.setString(
         PrefKeys.space, jsonEncode(space.toFirestore()));
   }
+  String? getCurrentSpaceId(){
+    return _preferences.getString('currentSpaceId');
+  }
+  Future<void> setCurrentSpaceId(String spaceID)async{
+     await _preferences.setString('currentSpaceId', spaceID);
+  }
 
   Space? getSpace() {
     final data = _preferences.getString(PrefKeys.space);
