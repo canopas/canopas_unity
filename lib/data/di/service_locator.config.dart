@@ -181,6 +181,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i13.InvitationService>(),
           gh<_i22.UserStateNotifier>(),
           gh<_i27.EmployeeService>(),
+          gh<_i16.NotificationService>(),
         ));
     gh.factory<_i31.JoinSpaceBloc>(() => _i31.JoinSpaceBloc(
           gh<_i13.InvitationService>(),
@@ -189,6 +190,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i23.AccountService>(),
           gh<_i27.EmployeeService>(),
           gh<_i25.AuthService>(),
+          gh<_i16.NotificationService>(),
         ));
     gh.lazySingleton<_i32.LeaveService>(() => _i32.LeaveService(
           gh<_i22.UserStateNotifier>(),
