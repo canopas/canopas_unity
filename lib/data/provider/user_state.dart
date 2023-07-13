@@ -81,6 +81,8 @@ class UserStateNotifier with ChangeNotifier {
 
   Space? get currentSpace => _userPreference.getSpace();
 
+  String? get currentSpaceName => _userPreference.getSpace()?.name;
+
   String? get currentSpaceId => _userPreference.getSpace()?.id;
 
   Employee? get _employee => _userPreference.getEmployee();

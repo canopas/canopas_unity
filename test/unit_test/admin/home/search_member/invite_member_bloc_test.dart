@@ -6,72 +6,83 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/invitation_services.dart';
+import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart';
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_event.dart';
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_state.dart';
 import 'invite_member_bloc_test.mocks.dart';
 
-@GenerateMocks([InvitationService, UserStateNotifier, EmployeeService])
+@GenerateMocks([
+  InvitationService,
+  UserStateNotifier,
+  EmployeeService,
+  NotificationService
+])
 void main() {
   late InviteMemberBloc inviteMemberBloc;
   late InvitationService invitationService;
   late EmployeeService employeeService;
   late UserStateNotifier userStateNotifier;
+  late NotificationService notificationService;
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
     invitationService = MockInvitationService();
     employeeService = MockEmployeeService();
-    inviteMemberBloc =
-        InviteMemberBloc(invitationService, userStateNotifier, employeeService);
+    notificationService = MockNotificationService();
+    inviteMemberBloc = InviteMemberBloc(invitationService, userStateNotifier,
+        employeeService, notificationService);
   });
 
   test('Should emit state initial state as default state ', () {
     expect(inviteMemberBloc.state,
-          const InviteMemberState(status: Status.initial));
-    });
+        const InviteMemberState(status: Status.initial));
+  });
 
-    test(
-        'Should emit state with emailError false if user has not added any input',
-        () {
-      expect(
-          inviteMemberBloc.state, const InviteMemberState(emailError: false));
-    });
+  test(
+      'Should emit state with emailError false if user has not added any input',
+      () {
+    expect(inviteMemberBloc.state, const InviteMemberState(emailError: false));
+  });
 
-    test(
-        'Should emit state with input that contains properly formatted email if user add any input in textField',
-        () {
-      inviteMemberBloc.add(AddEmailEvent('Andrew.j@google.com'));
-      expect(
-          inviteMemberBloc.stream,
-          emits(const InviteMemberState(
-              email: 'Andrew.j@google.com', emailError: false)));
-    });
+  test(
+      'Should emit state with input that contains properly formatted email if user add any input in textField',
+      () {
+    inviteMemberBloc.add(AddEmailEvent('Andrew.j@google.com'));
+    expect(
+        inviteMemberBloc.stream,
+        emits(const InviteMemberState(
+            email: 'Andrew.j@google.com', emailError: false)));
+  });
 
-    test(
-        'Should emit error state with input that contains does not  properly formatted email if user add any input in textField',
-        () {
-      inviteMemberBloc.add(AddEmailEvent('Andrew'));
-      expect(inviteMemberBloc.stream,
-          emits(const InviteMemberState(email: 'Andrew', emailError: true)));
-    });
+  test(
+      'Should emit error state with input that contains does not  properly formatted email if user add any input in textField',
+      () {
+    inviteMemberBloc.add(AddEmailEvent('Andrew'));
+    expect(inviteMemberBloc.stream,
+        emits(const InviteMemberState(email: 'Andrew', emailError: true)));
+  });
 
-    test(
-        'Should emit loading and error state if email input is not valid on InviteMemberEvent',
-        () {
-      inviteMemberBloc.add(InviteMemberEvent());
-      expect(
-          inviteMemberBloc.stream,
-          emitsInOrder([
-            const InviteMemberState(status: Status.loading),
-            const InviteMemberState(
-                status: Status.error, error: provideRequiredInformation)
-          ]));
-    });
+  test(
+      'Should emit loading and error state if email input is not valid on InviteMemberEvent',
+      () {
+    inviteMemberBloc.add(InviteMemberEvent());
+    expect(
+        inviteMemberBloc.stream,
+        emitsInOrder([
+          const InviteMemberState(status: Status.loading),
+          const InviteMemberState(
+              status: Status.error, error: provideRequiredInformation)
+        ]));
+  });
 
-    test(
-        'Should emit loading state and success state  if email input is valid on InviteMemberEvent',
-        () async {
+  test(
+      'Should emit loading state and success state  if email input is valid on InviteMemberEvent',
+      () async {
+    when(userStateNotifier.currentSpaceName).thenReturn('canopas');
+    when(notificationService.sendInviteNotification(
+            companyName: 'canopas', receiver: 'andrew.j@google.com'))
+        .thenAnswer((realInvocation) async => true);
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.currentSpaceId).thenReturn('space_id');
     when(employeeService.hasUser('andrew.j@google.com'))
@@ -85,23 +96,23 @@ void main() {
             receiverEmail: 'andrew.j@google.com'))
         .thenAnswer((_) async => {});
     inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
-      inviteMemberBloc.add(InviteMemberEvent());
-      expectLater(
-          inviteMemberBloc.stream,
-          emitsInOrder([
-            const InviteMemberState(
-                status: Status.initial, email: 'andrew.j@google.com'),
-            const InviteMemberState(
-                status: Status.loading, email: 'andrew.j@google.com'),
-            const InviteMemberState(
-                status: Status.success, email: 'andrew.j@google.com')
-          ]));
-    });
+    inviteMemberBloc.add(InviteMemberEvent());
+    expectLater(
+        inviteMemberBloc.stream,
+        emitsInOrder([
+          const InviteMemberState(
+              status: Status.initial, email: 'andrew.j@google.com'),
+          const InviteMemberState(
+              status: Status.loading, email: 'andrew.j@google.com'),
+          const InviteMemberState(
+              status: Status.success, email: 'andrew.j@google.com')
+        ]));
+  });
 
-    test(
-        'Should emit loading state and error state  if Exception is thrown by firestore',
-        () {
-          when(invitationService.addInvitation(
+  test(
+      'Should emit loading state and error state  if Exception is thrown by firestore',
+      () {
+    when(invitationService.addInvitation(
             senderId: 'uid',
             spaceId: 'space_id',
             receiverEmail: 'andrew.j@google.com'))
@@ -119,21 +130,21 @@ void main() {
     expectLater(
         inviteMemberBloc.stream,
         emitsInOrder([
-            const InviteMemberState(
-                status: Status.initial, email: 'andrew.j@google.com'),
-            const InviteMemberState(
-                status: Status.loading, email: 'andrew.j@google.com'),
-            const InviteMemberState(
-                status: Status.error,
-                email: 'andrew.j@google.com',
-                error: firestoreFetchDataError)
-          ]));
-    });
+          const InviteMemberState(
+              status: Status.initial, email: 'andrew.j@google.com'),
+          const InviteMemberState(
+              status: Status.loading, email: 'andrew.j@google.com'),
+          const InviteMemberState(
+              status: Status.error,
+              email: 'andrew.j@google.com',
+              error: firestoreFetchDataError)
+        ]));
+  });
 
-    test(
-        'Should emit loading state and error state if user already invited exception',
-        () {
-          when(invitationService.addInvitation(
+  test(
+      'Should emit loading state and error state if user already invited exception',
+      () {
+    when(invitationService.addInvitation(
             senderId: 'uid',
             spaceId: 'space_id',
             receiverEmail: 'andrew.j@google.com'))
@@ -151,14 +162,14 @@ void main() {
     expectLater(
         inviteMemberBloc.stream,
         emitsInOrder([
-            const InviteMemberState(
-                status: Status.initial, email: 'andrew.j@google.com'),
-            const InviteMemberState(
-                status: Status.loading, email: 'andrew.j@google.com'),
-            const InviteMemberState(
-                status: Status.error,
-                email: 'andrew.j@google.com',
-                error: userAlreadyInvited)
-          ]));
-    });
+          const InviteMemberState(
+              status: Status.initial, email: 'andrew.j@google.com'),
+          const InviteMemberState(
+              status: Status.loading, email: 'andrew.j@google.com'),
+          const InviteMemberState(
+              status: Status.error,
+              email: 'andrew.j@google.com',
+              error: userAlreadyInvited)
+        ]));
+  });
 }
