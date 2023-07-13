@@ -116,7 +116,6 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
         ),
         returnValue: _i5.Future<List<_i6.Employee>>.value(<_i6.Employee>[]),
       ) as _i5.Future<List<_i6.Employee>>);
-
   @override
   _i5.Future<_i6.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -125,7 +124,6 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
         ),
         returnValue: _i5.Future<_i6.Employee?>.value(),
       ) as _i5.Future<_i6.Employee?>);
-
   @override
   _i5.Stream<_i6.Employee?> getCurrentUser({
     required String? spaceId,
@@ -142,7 +140,6 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
         ),
         returnValue: _i5.Stream<_i6.Employee?>.empty(),
       ) as _i5.Stream<_i6.Employee?>);
-
   @override
   _i5.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
@@ -151,7 +148,6 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
         ),
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
-
   @override
   _i5.Future<void> addEmployee(_i6.Employee? employee) => (super.noSuchMethod(
         Invocation.method(
@@ -267,7 +263,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   _i5.Future<void> setUser(_i8.Account? user) => (super.noSuchMethod(
         Invocation.method(
@@ -277,37 +272,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> setEmployeeWithSpace({
-    required _i9.Space? space,
-    required _i6.Employee? spaceUser,
-    bool? redirect = true,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setEmployeeWithSpace,
-          [],
-          {
-            #space: space,
-            #spaceUser: spaceUser,
-            #redirect: redirect,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> resetStreamSubscription() => (super.noSuchMethod(
-        Invocation.method(
-          #resetStreamSubscription,
-          [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
   @override
   _i5.Future<void> updateCurrentUser(_i6.Employee? user) => (super.noSuchMethod(
         Invocation.method(

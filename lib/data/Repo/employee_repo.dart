@@ -24,9 +24,9 @@ class EmployeeRepo {
         .map((members) => members.firstWhereOrNull((e) => e.uid == uid));
   }
 
-  Stream<Employee?> getCurrentUser({required String uid}) {
-    return _employeeService.getCurrentUser(
-        spaceId: _userStateNotifier.currentSpaceId!, id: uid);
+  Stream<Employee?> getCurrentUser(
+      {required String spaceID, required String uid}) {
+    return _employeeService.getCurrentUser(spaceId: spaceID, id: uid);
   }
 
   Stream<List<Employee>> get employees =>

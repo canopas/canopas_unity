@@ -9,17 +9,14 @@ class SpaceManager extends ChangeNotifier{
   late String _currentSpaceId='';
   SpaceManager(this._userPreference) {
     _currentSpaceId = _userPreference.getSpace()?.id ?? '';
-    print('CURRENT SPACE ID: ======================= $currentSpaceId');
   }
 
   String get currentSpaceId=>_currentSpaceId;
 
   Future<void> setCurrentSpaceId(String spaceId) async {
     if (currentSpaceId == spaceId) {
-      print('${spaceId == currentSpaceId} in SPACE  ẓMANAGER');
-      //return;
+      return;
     }
-    print('$spaceId in SPACE  ẓMANAGER');
     _currentSpaceId = spaceId;
     notifyListeners();
   }

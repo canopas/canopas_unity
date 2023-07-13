@@ -6,7 +6,6 @@ import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/provider/space_manager.dart';
 import '../../../../../data/provider/user_state.dart';
-import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/space_service.dart';
 import 'app_drawer_event.dart';
 import 'app_drawer_state.dart';
@@ -16,12 +15,14 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   final SpaceService _spaceService;
   final AccountService _accountService;
   final UserStateNotifier _userManager;
-  final EmployeeService _employeeService;
   final SpaceManager _spaceManager;
 
-  DrawerBloc(this._spaceService, this._userManager, this._accountService,this._spaceManager,
-      this._employeeService)
-      : super(const DrawerState()) {
+  DrawerBloc(
+    this._spaceService,
+    this._userManager,
+    this._accountService,
+    this._spaceManager,
+  ) : super(const DrawerState()) {
     on<FetchSpacesEvent>(_fetchSpaces);
     on<ChangeSpaceEvent>(_changeSpace);
     on<SignOutFromSpaceEvent>(_signOutFromCurrentSpace);

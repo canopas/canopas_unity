@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 
-import 'navigation_item.dart';
+import '../../shared/dashboard/navigation_item.dart';
 
 class AdminDashBoardScreen extends StatefulWidget {
   const AdminDashBoardScreen({Key? key, required this.child}) : super(key: key);
@@ -21,13 +20,8 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
+    return BlocProvider(
           create: (BuildContext context) => getIt<DrawerBloc>(),
-     
-        ),
-      ],
       child: Scaffold(
         drawer: const AppDrawer(),
         body: SafeArea(child: widget.child),

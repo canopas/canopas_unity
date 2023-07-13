@@ -100,7 +100,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<List<_i5.Employee>>.value(<_i5.Employee>[]),
       ) as _i4.Future<List<_i5.Employee>>);
-
   @override
   _i4.Future<_i5.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -109,7 +108,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<_i5.Employee?>.value(),
       ) as _i4.Future<_i5.Employee?>);
-
   @override
   _i4.Stream<_i5.Employee?> getCurrentUser({
     required String? spaceId,
@@ -126,7 +124,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Stream<_i5.Employee?>.empty(),
       ) as _i4.Stream<_i5.Employee?>);
-
   @override
   _i4.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
@@ -135,7 +132,6 @@ class MockEmployeeService extends _i1.Mock implements _i3.EmployeeService {
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
-
   @override
   _i4.Future<void> addEmployee(_i5.Employee? employee) => (super.noSuchMethod(
         Invocation.method(

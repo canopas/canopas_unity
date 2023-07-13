@@ -12,8 +12,8 @@ import 'package:firebase_auth_platform_interface/firebase_auth_platform_interfac
     as _i13;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i5;
-import 'package:projectunity/data/model/employee/employee.dart' as _i11;
-import 'package:projectunity/data/model/space/space.dart' as _i10;
+import 'package:projectunity/data/model/employee/employee.dart' as _i10;
+import 'package:projectunity/data/model/space/space.dart' as _i11;
 import 'package:projectunity/data/provider/device_info.dart' as _i4;
 import 'package:projectunity/data/provider/user_state.dart' as _i9;
 import 'package:projectunity/data/services/account_service.dart' as _i8;
@@ -323,37 +323,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i9.UserStateNotifier {
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<void> setEmployeeWithSpace({
-    required _i10.Space? space,
-    required _i11.Employee? spaceUser,
-    bool? redirect = true,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setEmployeeWithSpace,
-          [],
-          {
-            #space: space,
-            #spaceUser: spaceUser,
-            #redirect: redirect,
-          },
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
-
-  @override
-  _i7.Future<void> resetStreamSubscription() => (super.noSuchMethod(
-        Invocation.method(
-          #resetStreamSubscription,
-          [],
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
-
-  @override
-  _i7.Future<void> updateCurrentUser(_i11.Employee? user) =>
+  _i7.Future<void> updateCurrentUser(_i10.Employee? user) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCurrentUser,
@@ -364,7 +334,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i9.UserStateNotifier {
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<void> updateSpace(_i10.Space? space) => (super.noSuchMethod(
+  _i7.Future<void> updateSpace(_i11.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],

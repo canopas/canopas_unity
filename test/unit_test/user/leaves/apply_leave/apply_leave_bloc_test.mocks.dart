@@ -10,9 +10,9 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i8;
-import 'package:projectunity/data/model/employee/employee.dart' as _i10;
+import 'package:projectunity/data/model/employee/employee.dart' as _i9;
 import 'package:projectunity/data/model/leave/leave.dart' as _i6;
-import 'package:projectunity/data/model/space/space.dart' as _i9;
+import 'package:projectunity/data/model/space/space.dart' as _i10;
 import 'package:projectunity/data/provider/user_state.dart' as _i7;
 import 'package:projectunity/data/services/leave_service.dart' as _i4;
 import 'package:projectunity/data/services/mail_notification_service.dart'
@@ -317,38 +317,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setEmployeeWithSpace({
-    required _i9.Space? space,
-    required _i10.Employee? spaceUser,
-    bool? redirect = true,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setEmployeeWithSpace,
-          [],
-          {
-            #space: space,
-            #spaceUser: spaceUser,
-            #redirect: redirect,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> resetStreamSubscription() => (super.noSuchMethod(
-        Invocation.method(
-          #resetStreamSubscription,
-          [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> updateCurrentUser(_i10.Employee? user) =>
-      (super.noSuchMethod(
+  _i5.Future<void> updateCurrentUser(_i9.Employee? user) => (super.noSuchMethod(
         Invocation.method(
           #updateCurrentUser,
           [user],
@@ -358,7 +327,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> updateSpace(_i9.Space? space) => (super.noSuchMethod(
+  _i5.Future<void> updateSpace(_i10.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],

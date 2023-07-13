@@ -8,9 +8,9 @@ import 'dart:ui' as _i9;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i6;
-import 'package:projectunity/data/model/employee/employee.dart' as _i8;
+import 'package:projectunity/data/model/employee/employee.dart' as _i7;
 import 'package:projectunity/data/model/leave/leave.dart' as _i4;
-import 'package:projectunity/data/model/space/space.dart' as _i7;
+import 'package:projectunity/data/model/space/space.dart' as _i8;
 import 'package:projectunity/data/provider/user_state.dart' as _i5;
 import 'package:projectunity/data/Repo/leave_repo.dart' as _i2;
 
@@ -160,37 +160,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<void> setEmployeeWithSpace({
-    required _i7.Space? space,
-    required _i8.Employee? spaceUser,
-    bool? redirect = true,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setEmployeeWithSpace,
-          [],
-          {
-            #space: space,
-            #spaceUser: spaceUser,
-            #redirect: redirect,
-          },
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> resetStreamSubscription() => (super.noSuchMethod(
-        Invocation.method(
-          #resetStreamSubscription,
-          [],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> updateCurrentUser(_i8.Employee? user) => (super.noSuchMethod(
+  _i3.Future<void> updateCurrentUser(_i7.Employee? user) => (super.noSuchMethod(
         Invocation.method(
           #updateCurrentUser,
           [user],
@@ -200,7 +170,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<void> updateSpace(_i7.Space? space) => (super.noSuchMethod(
+  _i3.Future<void> updateSpace(_i8.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],

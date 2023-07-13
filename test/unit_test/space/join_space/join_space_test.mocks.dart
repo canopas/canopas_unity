@@ -353,7 +353,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i11.UserStateNotifier {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   _i8.Future<void> setUser(_i5.Account? user) => (super.noSuchMethod(
         Invocation.method(
@@ -363,37 +362,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i11.UserStateNotifier {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
-
-  @override
-  _i8.Future<void> setEmployeeWithSpace({
-    required _i3.Space? space,
-    required _i12.Employee? spaceUser,
-    bool? redirect = true,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setEmployeeWithSpace,
-          [],
-          {
-            #space: space,
-            #spaceUser: spaceUser,
-            #redirect: redirect,
-          },
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-
-  @override
-  _i8.Future<void> resetStreamSubscription() => (super.noSuchMethod(
-        Invocation.method(
-          #resetStreamSubscription,
-          [],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-
   @override
   _i8.Future<void> updateCurrentUser(_i12.Employee? user) =>
       (super.noSuchMethod(
@@ -615,7 +583,6 @@ class MockEmployeeService extends _i1.Mock implements _i15.EmployeeService {
         ),
         returnValue: _i8.Future<List<_i12.Employee>>.value(<_i12.Employee>[]),
       ) as _i8.Future<List<_i12.Employee>>);
-
   @override
   _i8.Future<_i12.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -624,7 +591,6 @@ class MockEmployeeService extends _i1.Mock implements _i15.EmployeeService {
         ),
         returnValue: _i8.Future<_i12.Employee?>.value(),
       ) as _i8.Future<_i12.Employee?>);
-
   @override
   _i8.Stream<_i12.Employee?> getCurrentUser({
     required String? spaceId,
@@ -641,7 +607,6 @@ class MockEmployeeService extends _i1.Mock implements _i15.EmployeeService {
         ),
         returnValue: _i8.Stream<_i12.Employee?>.empty(),
       ) as _i8.Stream<_i12.Employee?>);
-
   @override
   _i8.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
@@ -650,7 +615,6 @@ class MockEmployeeService extends _i1.Mock implements _i15.EmployeeService {
         ),
         returnValue: _i8.Future<bool>.value(false),
       ) as _i8.Future<bool>);
-
   @override
   _i8.Future<void> addEmployee(_i12.Employee? employee) => (super.noSuchMethod(
         Invocation.method(

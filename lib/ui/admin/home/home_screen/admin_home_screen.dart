@@ -4,13 +4,12 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
-import '../../../../data/bloc/user_state/user_controller_state.dart';
-import '../../../../data/bloc/user_state/user_state_controller_bloc.dart';
-import '../../../../data/bloc/user_state/user_state_controller_event.dart';
+import '../../../../data/bloc/user_state/space_user_state.dart';
+import '../../../../data/bloc/user_state/space_user_bloc.dart';
+import '../../../../data/bloc/user_state/space_user_event.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../../data/provider/user_state.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
@@ -52,73 +51,41 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     final locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
-      body: BlocListener<UserStateControllerBloc, UserControllerState>(
-        listenWhen: (previous, current) => current is UserControllerErrorState||current is RevokeAccessState,
-        listener: (context, state) {
-          if (state is RevokeAccessState) {
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (_) {
-                  return AlertDialog(
-                    title: Text(locale
-                        .state_controller_access_revoked_alert_dialogue_title),
-                    content: Text(locale
-                        .state_controller_access_revoked_alert_dialogue_subtitle),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            context
-                                .read<UserStateControllerBloc>()
-                                .add(DeactivateUserEvent());
-                          },
-                          child: Text(locale.ok_tag))
-                    ],
-                  );
-                });
-          }
-        },
-        child: ListView(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: primaryHorizontalSpacing,
-                  vertical: primaryHalfSpacing),
-              child: WhoIsOutCard(),
-            ),
-            BlocConsumer<AdminHomeBloc, AdminHomeState>(
-                listenWhen: (previous, current) =>
-                current.status == Status.error,
-                listener: (context, state) {
-                  if (state.status == Status.error) {
-                    showSnackBar(context: context, error: state.error);
-                  }
-                },
-                buildWhen: (previous, current) =>
-                current.status != Status.error,
-                builder: (context, state) {
-                  if (state.status == Status.success &&
-                      state.leaveAppMap.isNotEmpty) {
-                    return LeaveRequestList(map: state.leaveAppMap);
-                  }
-                  return ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 300),
-                    child: SizedBox(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height - 500,
-                      child: state.status == Status.loading
-                          ? const AppCircularProgressIndicator()
-                          : EmptyScreen(
-                        message: locale.empty_request_message,
-                        title: locale.empty_request_title,
-                      ),
-                    ),
-                  );
-                }),
-          ],
-        ),
+      body: ListView(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: primaryHorizontalSpacing,
+                vertical: primaryHalfSpacing),
+            child: WhoIsOutCard(),
+          ),
+          BlocConsumer<AdminHomeBloc, AdminHomeState>(
+              listenWhen: (previous, current) => current.status == Status.error,
+              listener: (context, state) {
+                if (state.status == Status.error) {
+                  showSnackBar(context: context, error: state.error);
+                }
+              },
+              buildWhen: (previous, current) => current.status != Status.error,
+              builder: (context, state) {
+                if (state.status == Status.success &&
+                    state.leaveAppMap.isNotEmpty) {
+                  return LeaveRequestList(map: state.leaveAppMap);
+                }
+                return ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 300),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height - 500,
+                    child: state.status == Status.loading
+                        ? const AppCircularProgressIndicator()
+                        : EmptyScreen(
+                            message: locale.empty_request_message,
+                            title: locale.empty_request_title,
+                          ),
+                  ),
+                );
+              }),
+        ],
       ),
       backgroundColor: AppColors.whiteColor,
     );

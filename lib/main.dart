@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -7,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
+import 'package:projectunity/data/bloc/user_state/space_user_state.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'data/bloc/user_state/user_state_controller_bloc.dart';
+import 'data/bloc/user_state/space_user_bloc.dart';
 import 'data/configs/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
 import 'data/configs/theme.dart';
@@ -48,7 +47,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('==================build');
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -56,7 +54,7 @@ class MyApp extends StatelessWidget {
               _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
         ),
         BlocProvider(
-          create: (_) => getIt<UserStateControllerBloc>(),
+          create: (_) => getIt<SpaceUserBloc>(),
           lazy: false,
         )
       ],
@@ -75,19 +73,32 @@ class MyApp extends StatelessWidget {
             routerConfig: _router,
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
-            builder: (context, widget) =>
-                BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
-                  listenWhen: (previous, current) =>
-                      current is NetworkConnectionFailureState,
-                  listener: (context, state) {
-                    if (state is NetworkConnectionFailureState) {
-                      String connectionErrorMessage =
-                          AppLocalizations.of(context).network_connection_error;
-                      showSnackBar(
-                          context: context, msg: connectionErrorMessage);
-                    }
-                  },
-                  child: widget,
+            builder: (_, widget) => MultiBlocListener(
+                  listeners: [
+                    BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
+                      listenWhen: (previous, current) =>
+                          current is NetworkConnectionFailureState,
+                      listener: (context, state) {
+                        if (state is NetworkConnectionFailureState) {
+                          String connectionErrorMessage =
+                              AppLocalizations.of(context)
+                                  .network_connection_error;
+                          showSnackBar(
+                              context: context, msg: connectionErrorMessage);
+                        }
+                      },
+                    ),
+                    BlocListener<SpaceUserBloc, SpaceUserState>(
+                      listenWhen: (previous, current) =>
+                          current is SpaceUserErrorState,
+                      listener: (context, state) {
+                        if (state is SpaceUserErrorState) {
+                          showSnackBar(context: context, error: state.error);
+                        }
+                      },
+                    ),
+                  ],
+                  child: widget!,
                 )),
       ),
     );

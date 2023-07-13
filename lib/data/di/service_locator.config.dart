@@ -20,8 +20,7 @@ import 'package:image_picker/image_picker.dart' as _i12;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
     as _i15;
-import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart'
-    as _i50;
+import 'package:projectunity/data/bloc/user_state/space_user_bloc.dart' as _i50;
 import 'package:projectunity/data/di/app_module.dart' as _i57;
 import 'package:projectunity/data/pref/user_preference.dart' as _i21;
 import 'package:projectunity/data/provider/device_info.dart' as _i7;
@@ -224,7 +223,6 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i23.AccountService>(),
           gh<_i31.SpaceManager>(),
-          gh<_i27.EmployeeService>(),
         ));
     gh.factory<_i41.EmployeeDetailBloc>(() => _i41.EmployeeDetailBloc(
           gh<_i23.AccountService>(),
@@ -274,12 +272,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i46.LeaveRepo>(),
         ));
-    gh.factory<_i50.UserStateControllerBloc>(() => _i50.UserStateControllerBloc(
+    gh.factory<_i50.SpaceUserBloc>(() => _i50.SpaceUserBloc(
           gh<_i43.EmployeeRepo>(),
           gh<_i46.LeaveRepo>(),
           gh<_i22.UserStateNotifier>(),
           gh<_i19.SpaceService>(),
-          gh<_i21.UserPreference>(),
           gh<_i31.SpaceManager>(),
         ));
     gh.factory<_i51.ViewProfileBloc>(() => _i51.ViewProfileBloc(

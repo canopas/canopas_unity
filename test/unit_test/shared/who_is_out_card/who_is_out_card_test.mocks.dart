@@ -112,7 +112,6 @@ class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
         Invocation.getter(#activeEmployees),
         returnValue: _i3.Stream<List<_i6.Employee>>.empty(),
       ) as _i3.Stream<List<_i6.Employee>>);
-
   @override
   _i3.Stream<_i6.Employee?> memberDetails(String? uid) => (super.noSuchMethod(
         Invocation.method(
@@ -121,7 +120,6 @@ class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
         ),
         returnValue: _i3.Stream<_i6.Employee?>.empty(),
       ) as _i3.Stream<_i6.Employee?>);
-
   @override
   _i3.Stream<_i6.Employee?> getCurrentUser({required String? uid}) =>
       (super.noSuchMethod(
@@ -132,7 +130,6 @@ class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
         ),
         returnValue: _i3.Stream<_i6.Employee?>.empty(),
       ) as _i3.Stream<_i6.Employee?>);
-
   @override
   _i3.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
