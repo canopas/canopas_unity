@@ -83,16 +83,6 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
     try {
       await _spaceManager.setCurrentSpaceId(event.space.id);
       emit(state.copyWith(selectSpaceStatus: Status.success));
-      // final employee = await _employeeService.getEmployeeBySpaceId(
-      //     spaceId: event.space.id, userId: _userManager.userUID!);
-      // if (employee != null) {
-      //   await _userManager.setEmployeeWithSpace(
-      //       space: event.space, spaceUser: employee);
-      //   emit(state.copyWith(selectSpaceStatus: Status.success));
-      // } else {
-      //   emit(state.copyWith(
-      //       selectSpaceStatus: Status.error, error: firestoreFetchDataError));
-      // }
     } on Exception {
       emit(state.copyWith(
           selectSpaceStatus: Status.error, error: firestoreFetchDataError));
@@ -115,8 +105,6 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       await accountService.updateSpaceOfUser(
           spaceID: event.space.id, uid: _userManager.userUID!);
       await _spaceManager.setCurrentSpaceId(event.space.id);
-      // await _userManager.setEmployeeWithSpace(
-      //     space: event.space, spaceUser: employee);
       final invitation = getSelectedInvitation(event.space.id);
       await _invitationService.deleteInvitation(id: invitation.id);
 

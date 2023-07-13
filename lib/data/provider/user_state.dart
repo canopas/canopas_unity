@@ -13,9 +13,6 @@ enum UserState { authenticated, unauthenticated, spaceJoined, update }
 @Singleton()
 class UserStateNotifier with ChangeNotifier {
   final UserPreference _userPreference;
-
-  // final LeaveRepo _leaveRepo;
-  // final EmployeeRepo _employeeRepo;
   UserState _userState = UserState.unauthenticated;
 
   UserState get state => _userState;
@@ -41,27 +38,6 @@ class UserStateNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setEmployeeWithSpace(
-      {required Space space,
-      required Employee spaceUser,
-      bool redirect = true}) async {
-    await _userPreference.setSpace(space);
-    await _userPreference.setEmployee(spaceUser);
-    if (redirect) {
-      _userState = UserState.update;
-      notifyListeners();
-      _userState = UserState.spaceJoined;
-    }
-    await getIt<LeaveRepo>().reset();
-    await getIt<EmployeeRepo>().reset();
-  }
-
-  Future<void> resetStreamSubscription()async{
-    await getIt<LeaveRepo>().reset();
-    await getIt<EmployeeRepo>().reset();
-    print('subscription is cancelled');
-  }
-
   Future<void> updateCurrentUser(Employee user)async {
     if (_userPreference.getEmployee() == null) {
       _userState = UserState.spaceJoined;
@@ -76,8 +52,6 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> removeEmployeeWithSpace() async {
-    // await getIt<LeaveRepo>().cancel();
-    // await getIt<EmployeeRepo>().cancel();
     await _userPreference.removeSpace();
     await _userPreference.removeEmployee();
     _userState = UserState.authenticated;

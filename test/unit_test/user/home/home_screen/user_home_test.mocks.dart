@@ -8,9 +8,9 @@ import 'dart:ui' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i4;
-import 'package:projectunity/data/model/employee/employee.dart' as _i5;
+import 'package:projectunity/data/model/employee/employee.dart' as _i6;
 import 'package:projectunity/data/model/leave/leave.dart' as _i9;
-import 'package:projectunity/data/model/space/space.dart' as _i6;
+import 'package:projectunity/data/model/space/space.dart' as _i5;
 import 'package:projectunity/data/provider/user_state.dart' as _i2;
 import 'package:projectunity/data/Repo/leave_repo.dart' as _i8;
 
@@ -38,7 +38,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
         Invocation.getter(#state),
         returnValue: _i2.UserState.authenticated,
       ) as _i2.UserState);
-
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -69,7 +68,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
-
   @override
   void getUserStatus() => super.noSuchMethod(
         Invocation.method(
@@ -90,6 +88,26 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
       ) as _i3.Future<void>);
 
   @override
+  _i3.Future<void> setEmployeeWithSpace({
+    required _i5.Space? space,
+    required _i6.Employee? spaceUser,
+    bool? redirect = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setEmployeeWithSpace,
+          [],
+          {
+            #space: space,
+            #spaceUser: spaceUser,
+            #redirect: redirect,
+          },
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
   _i3.Future<void> resetStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
           #resetStreamSubscription,
@@ -100,7 +118,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<void> updateCurrentUser(_i5.Employee? user) => (super.noSuchMethod(
+  _i3.Future<void> updateCurrentUser(_i6.Employee? user) => (super.noSuchMethod(
         Invocation.method(
           #updateCurrentUser,
           [user],
@@ -110,7 +128,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<void> updateSpace(_i6.Space? space) => (super.noSuchMethod(
+  _i3.Future<void> updateSpace(_i5.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
@@ -128,7 +146,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
@@ -138,7 +155,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -186,13 +202,11 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         Invocation.getter(#leaves),
         returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
       ) as _i3.Stream<List<_i9.Leave>>);
-
   @override
   _i3.Stream<List<_i9.Leave>> get pendingLeaves => (super.noSuchMethod(
         Invocation.getter(#pendingLeaves),
         returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
       ) as _i3.Stream<List<_i9.Leave>>);
-
   @override
   _i3.Stream<List<_i9.Leave>> absence(DateTime? date) => (super.noSuchMethod(
         Invocation.method(
@@ -201,7 +215,6 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         ),
         returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
       ) as _i3.Stream<List<_i9.Leave>>);
-
   @override
   _i3.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
@@ -211,7 +224,6 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Stream<List<_i9.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(
@@ -221,7 +233,6 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         ),
         returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
       ) as _i3.Stream<List<_i9.Leave>>);
-
   @override
   _i3.Stream<List<_i9.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
         Invocation.method(
@@ -230,7 +241,6 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         ),
         returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
       ) as _i3.Stream<List<_i9.Leave>>);
-
   @override
   _i3.Future<void> cancel() => (super.noSuchMethod(
         Invocation.method(
@@ -240,7 +250,6 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(

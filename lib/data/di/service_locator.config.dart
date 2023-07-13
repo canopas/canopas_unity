@@ -274,16 +274,14 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.UserStateNotifier>(),
           gh<_i46.LeaveRepo>(),
         ));
-    gh.lazySingleton<_i50.UserStateControllerBloc>(
-        () => _i50.UserStateControllerBloc(
-              gh<_i43.EmployeeRepo>(),
-              gh<_i46.LeaveRepo>(),
-              gh<_i27.EmployeeService>(),
-              gh<_i22.UserStateNotifier>(),
-              gh<_i19.SpaceService>(),
-              gh<_i21.UserPreference>(),
-              gh<_i31.SpaceManager>(),
-            ));
+    gh.factory<_i50.UserStateControllerBloc>(() => _i50.UserStateControllerBloc(
+          gh<_i43.EmployeeRepo>(),
+          gh<_i46.LeaveRepo>(),
+          gh<_i22.UserStateNotifier>(),
+          gh<_i19.SpaceService>(),
+          gh<_i21.UserPreference>(),
+          gh<_i31.SpaceManager>(),
+        ));
     gh.factory<_i51.ViewProfileBloc>(() => _i51.ViewProfileBloc(
           gh<_i22.UserStateNotifier>(),
           gh<_i43.EmployeeRepo>(),

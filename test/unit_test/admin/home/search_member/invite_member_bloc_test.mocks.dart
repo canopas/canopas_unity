@@ -9,9 +9,9 @@ import 'dart:ui' as _i10;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i7;
-import 'package:projectunity/data/model/employee/employee.dart' as _i8;
+import 'package:projectunity/data/model/employee/employee.dart' as _i9;
 import 'package:projectunity/data/model/invitation/invitation.dart' as _i5;
-import 'package:projectunity/data/model/space/space.dart' as _i9;
+import 'package:projectunity/data/model/space/space.dart' as _i8;
 import 'package:projectunity/data/provider/user_state.dart' as _i6;
 import 'package:projectunity/data/services/employee_service.dart' as _i11;
 import 'package:projectunity/data/services/invitation_services.dart' as _i3;
@@ -54,7 +54,6 @@ class MockInvitationService extends _i1.Mock implements _i3.InvitationService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i4.Future<List<_i5.Invitation>> fetchSpaceInvitationsForUserEmail(
           String? email) =>
@@ -65,7 +64,6 @@ class MockInvitationService extends _i1.Mock implements _i3.InvitationService {
         ),
         returnValue: _i4.Future<List<_i5.Invitation>>.value(<_i5.Invitation>[]),
       ) as _i4.Future<List<_i5.Invitation>>);
-
   @override
   _i4.Future<bool> checkMemberInvitationAlreadyExist({
     required String? spaceId,
@@ -82,7 +80,6 @@ class MockInvitationService extends _i1.Mock implements _i3.InvitationService {
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
-
   @override
   _i4.Future<List<_i5.Invitation>> fetchSpaceInvitations(
           {required String? spaceId}) =>
@@ -94,7 +91,6 @@ class MockInvitationService extends _i1.Mock implements _i3.InvitationService {
         ),
         returnValue: _i4.Future<List<_i5.Invitation>>.value(<_i5.Invitation>[]),
       ) as _i4.Future<List<_i5.Invitation>>);
-
   @override
   _i4.Future<void> addInvitation({
     required String? senderId,
@@ -114,7 +110,6 @@ class MockInvitationService extends _i1.Mock implements _i3.InvitationService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> deleteInvitation({required String? id}) =>
       (super.noSuchMethod(
@@ -141,7 +136,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         Invocation.getter(#state),
         returnValue: _i6.UserState.authenticated,
       ) as _i6.UserState);
-
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -172,7 +166,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
-
   @override
   void getUserStatus() => super.noSuchMethod(
         Invocation.method(
@@ -193,6 +186,26 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
       ) as _i4.Future<void>);
 
   @override
+  _i4.Future<void> setEmployeeWithSpace({
+    required _i8.Space? space,
+    required _i9.Employee? spaceUser,
+    bool? redirect = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setEmployeeWithSpace,
+          [],
+          {
+            #space: space,
+            #spaceUser: spaceUser,
+            #redirect: redirect,
+          },
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   _i4.Future<void> resetStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
           #resetStreamSubscription,
@@ -203,7 +216,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<void> updateCurrentUser(_i8.Employee? user) => (super.noSuchMethod(
+  _i4.Future<void> updateCurrentUser(_i9.Employee? user) => (super.noSuchMethod(
         Invocation.method(
           #updateCurrentUser,
           [user],
@@ -213,7 +226,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<void> updateSpace(_i9.Space? space) => (super.noSuchMethod(
+  _i4.Future<void> updateSpace(_i8.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
@@ -231,7 +244,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
@@ -241,7 +253,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -294,18 +305,18 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
       ) as _i2.FirebaseFirestore);
 
   @override
-  _i4.Stream<List<_i8.Employee>> employees(String? spaceId) =>
+  _i4.Stream<List<_i9.Employee>> employees(String? spaceId) =>
       (super.noSuchMethod(
         Invocation.method(
           #employees,
           [spaceId],
         ),
-        returnValue: _i4.Stream<List<_i8.Employee>>.empty(),
-      ) as _i4.Stream<List<_i8.Employee>>);
+        returnValue: _i4.Stream<List<_i9.Employee>>.empty(),
+      ) as _i4.Stream<List<_i9.Employee>>);
 
   @override
   _i4.Future<void> addEmployeeBySpaceId({
-    required _i8.Employee? employee,
+    required _i9.Employee? employee,
     required String? spaceId,
   }) =>
       (super.noSuchMethod(
@@ -322,7 +333,7 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<_i8.Employee?> getEmployeeBySpaceId({
+  _i4.Future<_i9.Employee?> getEmployeeBySpaceId({
     required String? userId,
     required String? spaceId,
   }) =>
@@ -335,26 +346,43 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
             #spaceId: spaceId,
           },
         ),
-        returnValue: _i4.Future<_i8.Employee?>.value(),
-      ) as _i4.Future<_i8.Employee?>);
+        returnValue: _i4.Future<_i9.Employee?>.value(),
+      ) as _i4.Future<_i9.Employee?>);
 
   @override
-  _i4.Future<List<_i8.Employee>> getEmployees() => (super.noSuchMethod(
+  _i4.Future<List<_i9.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
           #getEmployees,
           [],
         ),
-        returnValue: _i4.Future<List<_i8.Employee>>.value(<_i8.Employee>[]),
-      ) as _i4.Future<List<_i8.Employee>>);
+        returnValue: _i4.Future<List<_i9.Employee>>.value(<_i9.Employee>[]),
+      ) as _i4.Future<List<_i9.Employee>>);
 
   @override
-  _i4.Future<_i8.Employee?> getEmployee(String? id) => (super.noSuchMethod(
+  _i4.Future<_i9.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getEmployee,
           [id],
         ),
-        returnValue: _i4.Future<_i8.Employee?>.value(),
-      ) as _i4.Future<_i8.Employee?>);
+        returnValue: _i4.Future<_i9.Employee?>.value(),
+      ) as _i4.Future<_i9.Employee?>);
+
+  @override
+  _i4.Stream<_i9.Employee?> getCurrentUser({
+    required String? spaceId,
+    required String? id,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentUser,
+          [],
+          {
+            #spaceId: spaceId,
+            #id: id,
+          },
+        ),
+        returnValue: _i4.Stream<_i9.Employee?>.empty(),
+      ) as _i4.Stream<_i9.Employee?>);
 
   @override
   _i4.Future<bool> hasUser(String? email) => (super.noSuchMethod(
@@ -366,7 +394,7 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
       ) as _i4.Future<bool>);
 
   @override
-  _i4.Future<void> addEmployee(_i8.Employee? employee) => (super.noSuchMethod(
+  _i4.Future<void> addEmployee(_i9.Employee? employee) => (super.noSuchMethod(
         Invocation.method(
           #addEmployee,
           [employee],
@@ -376,7 +404,7 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
       ) as _i4.Future<void>);
 
   @override
-  _i4.Future<void> updateEmployeeDetails({required _i8.Employee? employee}) =>
+  _i4.Future<void> updateEmployeeDetails({required _i9.Employee? employee}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateEmployeeDetails,
@@ -390,7 +418,7 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
   @override
   _i4.Future<void> changeEmployeeRoleType(
     String? id,
-    _i8.Role? role,
+    _i9.Role? role,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -403,7 +431,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -413,11 +440,10 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> changeAccountStatus({
     required String? id,
-    required _i8.EmployeeStatus? status,
+    required _i9.EmployeeStatus? status,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
