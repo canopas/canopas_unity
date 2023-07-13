@@ -35,7 +35,7 @@ class LeaveTypeCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 2),
               child: Text(
-                localization.user_leaves_apply_leave_type_tag,
+                localization.type_tag,
                 style: AppFontStyle.labelGrey,
               ),
             ),

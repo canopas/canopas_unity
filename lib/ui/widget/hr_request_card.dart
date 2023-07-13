@@ -94,7 +94,7 @@ class HRStatusView extends StatelessWidget {
 }
 
 Color hrRequestStatusColor(HrRequestStatus status) {
-  if (status == HrRequestStatus.approved) {
+  if (status == HrRequestStatus.resolved) {
     return const Color(0xffB6F5D4);
   } else if (status == HrRequestStatus.pending) {
     return const Color(0xffF5F5F5);
@@ -109,10 +109,10 @@ class HrRequestStatusIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (status == HrRequestStatus.approved) {
+    if (status == HrRequestStatus.resolved) {
       return const Icon(Icons.done_all_rounded,
           color: AppColors.greenColor, size: 20);
-    } else if (status == HrRequestStatus.rejected) {
+    } else if (status == HrRequestStatus.canceled) {
       return const Icon(Icons.clear_rounded,
           color: AppColors.redColor, size: 20);
     }

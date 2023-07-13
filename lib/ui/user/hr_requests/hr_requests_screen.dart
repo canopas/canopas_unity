@@ -68,10 +68,11 @@ class _HrServiceDeskRequestScreenState extends State<HrRequestsScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-           bool? value = await context.pushNamed(Routes.applyHrRequests);
-           if(value == true){
-             context.read<HrRequestsBloc>().add(HrRequestsInit());
-           }
+          final bloc = context.read<HrRequestsBloc>();
+          bool? value = await context.pushNamed(Routes.applyHrRequests);
+          if (value == true) {
+            bloc.add(HrRequestsInit());
+          }
         },
         label: Text(locale.new_request_tag),
         icon: const Icon(Icons.add),
@@ -79,4 +80,3 @@ class _HrServiceDeskRequestScreenState extends State<HrRequestsScreen> {
     );
   }
 }
-
