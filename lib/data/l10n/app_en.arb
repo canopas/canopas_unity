@@ -37,6 +37,9 @@
   "alert_cancel_action":"Cancel",
   "all_tag":"All",
   "ok_tag":"OK",
+  "type_tag":"Type",
+  "description_tag":"Description",
+
 
   "spaces_title":"Spaces",
   "delete_space_text":"Delete Space",
@@ -281,7 +284,7 @@
 
   "user_leaves_apply_appbar_tag":"Leave Request",
   "user_leaves_apply_enter_reason_tag":"Enter reason",
-  "user_leaves_apply_leave_type_tag":"Type",
+
   "user_leaves_apply_leave_start_tag": "Start",
   "user_leaves_apply_leave_end_tag": "End",
   "user_leaves_apply_leave_button_tag": "Apply Leave",
@@ -381,6 +384,29 @@
   "@employee_details_leaves_title":{
     "placeholders":{
       "name":{
+        "type":"String"
+      }
+    }
+  },
+
+  "hr_requests_title":"HR Requests",
+  "new_request_tag":"New Request",
+
+  "hr_request_status":"{status, select, 0{Pending} 1{Resolved} 2{Canceled} other{Other}}",
+  "@hr_request_status":{
+    "description":"get hr request status",
+    "placeholders":{
+      "status":{
+        "type": "String"
+      }
+    }
+  },
+
+  "hr_request_types":"{type, select, 0{Employee Relations} 1{Training} 2{payroll} 3{Time And Attendance} 4{HR Benefits} 5{Technical Issue} other{Other}}",
+  "@hr_request_types":{
+    "description":"get hr request type",
+    "placeholders":{
+      "type":{
         "type":"String"
       }
     }

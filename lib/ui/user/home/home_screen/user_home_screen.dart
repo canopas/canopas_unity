@@ -98,7 +98,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 const WhoIsOutCard(),
                 ElevatedButton(onPressed: (){
                   context.goNamed(Routes.hrRequests);
-                }, child: const Text("HR Service Request")),
+                }, child: Text(locale.hr_requests_title)),
                 BlocConsumer<UserHomeBloc, UserHomeState>(
                     buildWhen: (previous, current) =>
                         current is! UserHomeErrorState,

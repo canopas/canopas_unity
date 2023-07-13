@@ -5,6 +5,7 @@ import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
+import 'package:projectunity/ui/user/hr_requests/apply_hr_request/hr_request_form.dart';
 import 'package:projectunity/ui/user/hr_requests/hr_requests_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
@@ -236,6 +237,13 @@ class AppRouter {
                           path: Routes.hrRequests,
                           name: Routes.hrRequests,
                           pageBuilder: (context, state) => const CupertinoPage(child: HrRequestsPage()),
+                          routes: [
+                            GoRoute(
+                              path: Routes.applyHrRequests,
+                              name: Routes.applyHrRequests,
+                              pageBuilder: (context, state) => const CupertinoPage(child: HrRequestFormPage()),
+                            ),
+                          ]
                       ),
                       GoRoute(
                           parentNavigatorKey: _employeeShellNavigatorKey,

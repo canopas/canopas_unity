@@ -26,6 +26,7 @@ class FieldEntry extends StatelessWidget {
   final String? errorText;
   final String? hintText;
   final int? maxLine;
+  final TextInputAction textInputAction;
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
   final int? maxLength;
@@ -39,7 +40,8 @@ class FieldEntry extends StatelessWidget {
       this.controller,
       this.keyboardType,
       this.maxLength,
-      this.inputFormatters})
+      this.inputFormatters,
+      this.textInputAction = TextInputAction.next})
       : super(key: key);
 
   @override
@@ -47,7 +49,7 @@ class FieldEntry extends StatelessWidget {
     return TextField(
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      textInputAction: TextInputAction.next,
+      textInputAction: textInputAction,
       onChanged: onChanged,
       maxLines: maxLine,
       maxLength: maxLength,

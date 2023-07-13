@@ -16,14 +16,17 @@ class HrRequest extends Equatable {
   final HrRequestType type;
   final String description;
   final HrRequestStatus status;
+  final String? response;
 
-  HrRequest({
+  const HrRequest({
     required this.id,
     required this.type,
     required this.uid,
     required this.description,
+    required this.requestedAt,
+    this.response,
     this.status = HrRequestStatus.pending,
-  }) : requestedAt = DateTime.now();
+  });
 
   factory HrRequest.fromFireStore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -43,13 +46,13 @@ class HrRequest extends Equatable {
 
 @JsonEnum(valueField: 'value')
 enum HrRequestType {
-  employeeRelations(1),
-  training(2),
-  payroll(3),
-  timeAndAttendance(4),
-  hrBenefits(5),
-  technicalIssue(6),
-  other(7);
+  employeeRelations(0),
+  training(1),
+  payroll(2),
+  timeAndAttendance(3),
+  hrBenefits(4),
+  technicalIssue(5),
+  other(6);
 
   final int value;
 
@@ -58,8 +61,9 @@ enum HrRequestType {
 
 @JsonEnum(valueField: 'value')
 enum HrRequestStatus {
-  pending(1),
-  done(2);
+  pending(0),
+  resolved(1),
+  canceled(2);
 
   final int value;
 

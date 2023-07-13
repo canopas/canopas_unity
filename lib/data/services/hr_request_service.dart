@@ -22,9 +22,8 @@ class HrRequestService {
                 hrRequest.toFireStore());
   }
 
-  Future<void> setHrRequest(
-      HrRequest hrDeskRequest) async {
-    await _hrRequestDB().doc(hrDeskRequest.id).set(hrDeskRequest);
+  Future<void> setHrRequest(HrRequest hrRequest) async {
+    await _hrRequestDB().doc(hrRequest.id).set(hrRequest);
   }
 
   String get generateNewId => _hrRequestDB().doc().id;
@@ -34,17 +33,24 @@ class HrRequestService {
     return hrDeskRequestsCollection.docs.map((e) => e.data()).toList();
   }
 
-  Future<List<HrRequest>> getHrRequestsOfUser(
-      String uid) async {
-    final hrDeskRequestsCollection = await _hrRequestDB()
-        .where(FireStoreConst.uid, isEqualTo: uid)
-        .get();
+  Future<List<HrRequest>> getHrRequestsOfUser(String uid) async {
+    final hrDeskRequestsCollection =
+        await _hrRequestDB().where(FireStoreConst.uid, isEqualTo: uid).get();
     return hrDeskRequestsCollection.docs.map((e) => e.data()).toList();
   }
 
-  Future<void> setHrRequestDone(String id) async {
-    await _hrRequestDB().doc(id).update({
-      FireStoreConst.status: HrRequestStatus.done,
-    });
+  Future<void> setHrRequestDone(
+      {required String id,
+      required HrRequestStatus status,
+      String response = ''}) async {
+    Map<String, dynamic> data = <String, dynamic>{
+      FireStoreConst.status: status.value,
+    };
+
+    if (response.trim().isNotEmpty) {
+      data.addEntries([MapEntry(FireStoreConst.response, response)]);
+    }
+
+    await _hrRequestDB().doc(id).update(data);
   }
 }
