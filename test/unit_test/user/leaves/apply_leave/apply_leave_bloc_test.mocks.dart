@@ -439,7 +439,7 @@ class MockNotificationService extends _i1.Mock
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<bool> notifyHRForNewLeave({
+  _i6.Future<void> notifyHRForNewLeave({
     required String? name,
     required String? reason,
     required DateTime? startDate,
@@ -458,10 +458,11 @@ class MockNotificationService extends _i1.Mock
             #receiver: receiver,
           },
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
-  _i6.Future<bool> leaveResponse({
+  _i6.Future<void> leaveResponse({
     required String? name,
     required DateTime? startDate,
     required DateTime? endDate,
@@ -480,8 +481,9 @@ class MockNotificationService extends _i1.Mock
             #receiver: receiver,
           },
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
   String getFormatDate({
     required DateTime? startDate,
@@ -498,4 +500,38 @@ class MockNotificationService extends _i1.Mock
         ),
         returnValue: '',
       ) as String);
+  @override
+  _i6.Future<void> sendInviteNotification({
+    required String? companyName,
+    required String? receiver,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendInviteNotification,
+          [],
+          {
+            #companyName: companyName,
+            #receiver: receiver,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> sendSpaceInviteAcceptNotification({
+    required String? sender,
+    required String? receiver,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendSpaceInviteAcceptNotification,
+          [],
+          {
+            #sender: sender,
+            #receiver: receiver,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
