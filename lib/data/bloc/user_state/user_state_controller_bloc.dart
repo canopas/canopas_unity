@@ -22,83 +22,104 @@ class UserStateControllerBloc
   final UserStateNotifier _userStateNotifier;
   final SpaceService _spaceService;
   EmployeeRepo _employeeRepo;
-  LeaveRepo leaveRepo;
+  LeaveRepo _leaveRepo;
   final UserPreference _userPreference;
   final SpaceManager _spaceManager;
-    StreamSubscription<Employee?>? streamSubscription;
+  StreamSubscription<Employee?>? streamSubscription;
 
-
-  UserStateControllerBloc(this._employeeRepo,this.leaveRepo,
-      this._employeeService, this._userStateNotifier, this._spaceService,this._userPreference,this._spaceManager)
+  UserStateControllerBloc(
+      this._employeeRepo,
+      this._leaveRepo,
+      this._employeeService,
+      this._userStateNotifier,
+      this._spaceService,
+      this._userPreference,
+      this._spaceManager)
       : super(UserControllerInitialState()) {
     on<CheckUserStatus>(_checkUserStatus);
     on<UpdateUserDataEvent>(_updateUserData);
     on<DeactivateUserEvent>(_deactivateUser);
+    on<AppStatusEvent>(_appStatusEvent);
+    print(_userStateNotifier.state);
+    if (_userStateNotifier.state == UserState.spaceJoined) {
+      add(CheckUserStatus());
+    }
     _spaceManager.addListener(() {
+      print('spaceManager is called');
       _updateUser();
     });
+
+    print('UserStateControllerBloc is initialized');
   }
 
-  void _updateUser(){
+  _appStatusEvent(
+      AppStatusEvent event, Emitter<UserControllerState> emit) async {}
+
+  Future<void> _updateUser() async {
     print('update user is called');
     add(CheckUserStatus());
   }
 
-  Future<void> _checkUserStatus(CheckUserStatus status, Emitter<UserControllerState> emit)async{
-     await streamSubscription?.cancel();
-      final Space? space = await _spaceService.getSpace(_spaceManager.currentSpaceId);
-      if(space==null){
+  Future<void> _checkUserStatus(
+      CheckUserStatus status, Emitter<UserControllerState> emit) async {
+    print('Inside checkUserStaus');
+    if (_spaceManager.currentSpaceId == '') {
+      if (_userStateNotifier.employee != null ||
+          _userStateNotifier.currentSpace != null) {
+        _userStateNotifier.removeEmployeeWithSpace();
+        await _leaveRepo.cancel();
+        await _employeeRepo.cancel();
+        print('------------------------  ${_spaceManager.currentSpaceId}');
+      }
+    } else {
+      final Space? space =
+          await _spaceService.getSpace(_spaceManager.currentSpaceId);
+      print('------------------------  get space called');
+
+      if (space == null) {
         return;
       }
       _userStateNotifier.updateSpace(space);
       add(UpdateUserDataEvent());
-
-  }
-
-  Future<void> _updateUserData(UpdateUserDataEvent event, Emitter<UserControllerState> emit)async{
-
-    try{
-       await _userStateNotifier.resetStreamSubscription();
-       // streamSubscription?.cancel();
-       // streamSubscription= _employeeRepo.memberDetails(_userStateNotifier.userUID!).listen((user) {
-       //   print('======================================== ${user!.toJson()}');
-       //   if(user==null){
-       //     emit(UserControllerErrorState(error: firestoreFetchDataError));
-       //   }else{
-       //     if(user.status== EmployeeStatus.inactive){
-       //       emit(RevokeAccessState());
-       //     }else{
-       //       _userStateNotifier.updateCurrentUser(user);
-       //     }}
-       // });
-      await emit.onEach(_employeeRepo.memberDetails(_userStateNotifier.userUID!),
-      onData: (Employee? user) async {
-        print('======================================== ${user!.toJson()}');
-        if(user==null){
-          emit(UserControllerErrorState(error: firestoreFetchDataError));
-        }else{
-          if(user.status== EmployeeStatus.inactive){
-           emit(RevokeAccessState());
-          }else{
-            _userStateNotifier.updateCurrentUser(user);
-          }}
-      },onError: (error, stackTrace){
-        emit(UserControllerErrorState(error: firestoreFetchDataError));
-        FirebaseCrashlytics.instance.recordError(error, stackTrace,reason: 'ERROR WHILE LISTENING THE CURRENT USER STRAEM');
-      }
-      );
-
-    }on Exception catch(error,stacktrace){
-      emit(UserControllerErrorState(error: firestoreFetchDataError));
-      FirebaseCrashlytics.instance.recordError(error,stacktrace,reason: 'EXCEPTION ===== GET CURRENT USER INFO WHEN THE USER STATUS IS ${_userStateNotifier.state}');
+      print('------------------------  ${space.toFirestore()}');
     }
   }
 
-  Future<void> _deactivateUser(DeactivateUserEvent event, Emitter<UserControllerState> emit)async{
-    await _userStateNotifier.removeEmployeeWithSpace();
+  Future<void> _updateUserData(
+      UpdateUserDataEvent event, Emitter<UserControllerState> emit) async {
+    try {
+      await _userStateNotifier.resetStreamSubscription();
+      await emit.onEach(
+          _employeeRepo.getCurrentUser(uid: _userStateNotifier.userUID!),
+          onData: (Employee? user) async {
+        print('======================================== ${user!.toJson()}');
+        if (user == null) {
+          emit(UserControllerErrorState(error: firestoreFetchDataError));
+        } else {
+          if (user.status == EmployeeStatus.inactive) {
+            emit(RevokeAccessState());
+          } else {
+            _userStateNotifier.updateCurrentUser(user);
+          }
+        }
+      }, onError: (error, stackTrace) {
+        emit(UserControllerErrorState(error: firestoreFetchDataError));
+        FirebaseCrashlytics.instance.recordError(error, stackTrace,
+            reason: 'ERROR WHILE LISTENING THE CURRENT USER STRAEM');
+      });
+    } on Exception catch (error, stacktrace) {
+      emit(UserControllerErrorState(error: firestoreFetchDataError));
+      FirebaseCrashlytics.instance.recordError(error, stacktrace,
+          reason:
+              'EXCEPTION == GET CURRENT USER INFO WHEN THE USER STATUS IS ${_userStateNotifier.state}');
+    }
   }
 
-
+  Future<void> _deactivateUser(
+      DeactivateUserEvent event, Emitter<UserControllerState> emit) async {
+    await _userStateNotifier.removeEmployeeWithSpace();
+    _userStateNotifier.removeListener(() {});
+  }
 
 // Future<void> _updateEmployee(
 //     CheckUserStatus event, Emitter<UserControllerState> emit) async {
@@ -128,5 +149,4 @@ class UserStateControllerBloc
 //     ClearDataForDisableUser event, Emitter<UserControllerState> emit) async {
 //   await _userStateNotifier.removeEmployeeWithSpace();
 // }
-
 }

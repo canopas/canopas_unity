@@ -8,27 +8,27 @@ import 'package:rxdart/rxdart.dart';
 @LazySingleton()
 class LeaveRepo {
   final LeaveService _leaveService;
-  final BehaviorSubject<List<Leave>> _leavesController =
+  BehaviorSubject<List<Leave>>? _leavesController =
       BehaviorSubject<List<Leave>>();
   StreamSubscription<List<Leave>>? _leavesStreamSubscription;
 
   LeaveRepo(this._leaveService) {
-    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
-      _leavesController.add(value);
-    }, onError: (e, s) async {
-      _leavesController.addError(e);
-      await FirebaseCrashlytics.instance.recordError(e, s);
-    });
+    // _leavesStreamSubscription = _leaveService.leaves.listen((value) {
+    //   _leavesController.add(value);
+    // }, onError: (e, s) async {
+    //   _leavesController.addError(e);
+    //   await FirebaseCrashlytics.instance.recordError(e, s);
+    // });
   }
 
-  Stream<List<Leave>> get leaves => _leavesController.stream;
+  Stream<List<Leave>> get leaves => _leavesController!.stream;
 
   Stream<List<Leave>> get pendingLeaves =>
-      _leavesController.stream.asyncMap((event) =>
+      _leavesController!.stream.asyncMap((event) =>
           event.where((leave) => leave.status == LeaveStatus.pending).toList());
 
   Stream<List<Leave>> absence(DateTime date) =>
-      _leavesController.stream.asyncMap((event) => event
+      _leavesController!.stream.asyncMap((event) => event
           .where((leave) =>
               leave.status == LeaveStatus.approved &&
               ((leave.startDate.month == date.month &&
@@ -38,21 +38,31 @@ class LeaveRepo {
           .toList());
 
   Future<void> reset() async {
-    await _leavesStreamSubscription?.cancel();
-    _leavesStreamSubscription = _leaveService.leaves.listen(
-      (value) {
-        _leavesController.add(value);
-      },
-    );
+    if (_leavesStreamSubscription != null) {
+      _leavesStreamSubscription!.cancel();
+    }
+    // if(_leavesController!=null){
+    //   _leavesController=null;
+    // }
+//
+    print(_leavesController?.isClosed);
+    // await _leavesStreamSubscription?.cancel();
+
+    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
+      _leavesController!.add(value);
+    }, onError: (e, s) async {
+      _leavesController!.addError(e);
+      await FirebaseCrashlytics.instance.recordError(e, s);
+    });
   }
 
   Stream<List<Leave>> userLeaveRequest(String uid) =>
-      _leavesController.stream.asyncMap((leaves) => leaves
+      _leavesController!.stream.asyncMap((leaves) => leaves
           .where((leave) =>
               leave.uid == uid && leave.status == LeaveStatus.pending)
           .toList());
 
-  Stream<List<Leave>> userLeaves(String uid) => _leavesController.stream
+  Stream<List<Leave>> userLeaves(String uid) => _leavesController!.stream
       .asyncMap((leaves) => leaves.where((leave) => leave.uid == uid).toList());
 
   Future<void> cancel() async {
@@ -62,6 +72,6 @@ class LeaveRepo {
   @disposeMethod
   Future<void> dispose() async {
     await _leavesStreamSubscription?.cancel();
-    await _leavesController.close();
+    await _leavesController!.close();
   }
 }

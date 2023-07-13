@@ -107,7 +107,7 @@ class AppRouter {
                                 name: Routes.adminEditProfile,
                                 pageBuilder: (context, state) => CupertinoPage(
                                         child: EmployeeEditProfilePage(
-                                      employee: _userManager.employee,
+                                      employee: _userManager.employee!,
                                     )))
                           ]),
                       GoRoute(
@@ -244,7 +244,7 @@ class AppRouter {
                               name: Routes.userEditProfile,
                               pageBuilder: (context, state) => CupertinoPage(
                                   child: EmployeeEditProfilePage(
-                                employee: userManager.employee,
+                                    employee: userManager.employee!,
                               )),
                             ),
                           ]),

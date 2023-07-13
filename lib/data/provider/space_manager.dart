@@ -7,18 +7,25 @@ import '../pref/user_preference.dart';
 class SpaceManager extends ChangeNotifier{
   final UserPreference _userPreference;
   late String _currentSpaceId='';
-  SpaceManager(this._userPreference){
-    _currentSpaceId= _userPreference.getCurrentSpaceId()??'';
+  SpaceManager(this._userPreference) {
+    _currentSpaceId = _userPreference.getSpace()?.id ?? '';
+    print('CURRENT SPACE ID: ======================= $currentSpaceId');
   }
 
   String get currentSpaceId=>_currentSpaceId;
 
-  void setCurrentSpaceId(String spaceId){
-    if(currentSpaceId==spaceId){
-      return;
+  Future<void> setCurrentSpaceId(String spaceId) async {
+    if (currentSpaceId == spaceId) {
+      print('${spaceId == currentSpaceId} in SPACE  ẓMANAGER');
+      //return;
     }
-    print('$spaceId in SPACEMANAGER');
-    _currentSpaceId= spaceId;
+    print('$spaceId in SPACE  ẓMANAGER');
+    _currentSpaceId = spaceId;
+    notifyListeners();
+  }
+
+  Future<void> removeCurrentSpaceID() async {
+    _currentSpaceId = '';
     notifyListeners();
   }
 }

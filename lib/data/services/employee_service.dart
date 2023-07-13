@@ -55,6 +55,14 @@ class EmployeeService {
     return data.data();
   }
 
+  Stream<Employee?> getCurrentUser(
+      {required String spaceId, required String id}) {
+    return _membersDbCollection(spaceId: spaceId)
+        .doc(id)
+        .snapshots()
+        .map((event) => event.data());
+  }
+
   Future<bool> hasUser(String email) async {
     final data =
         await _membersDbCollection(spaceId: _userManager.currentSpaceId!)

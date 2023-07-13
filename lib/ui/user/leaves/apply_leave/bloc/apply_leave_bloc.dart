@@ -122,7 +122,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
               _userStateNotifier.currentSpace!.notificationEmail;
           if (notificationEmail != null) {
             await _notificationService.notifyHRForNewLeave(
-                name: _userStateNotifier.employee.name,
+                name: _userStateNotifier.employee!.name,
                 startDate: leaveData.startDate,
                 endDate: leaveData.endDate,
                 reason: leaveData.reason,

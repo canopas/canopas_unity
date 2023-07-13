@@ -70,7 +70,8 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
       SignOutFromSpaceEvent event, Emitter<DrawerState> emit) async {
     emit(state.copyWith(signOutStatus: Status.loading));
     try {
-      await _userManager.removeEmployeeWithSpace();
+      _spaceManager.removeCurrentSpaceID();
+      // await _userManager.removeEmployeeWithSpace();
       emit(state.copyWith(signOutStatus: Status.success));
     } on Exception {
       emit(state.copyWith(error: signOutError, signOutStatus: Status.error));

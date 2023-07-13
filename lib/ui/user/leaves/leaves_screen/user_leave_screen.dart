@@ -50,7 +50,8 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
           const LeaveCountCard(),
           const Divider(height: 32),
           YearSelection(
-              dateOfJoining: getIt<UserStateNotifier>().employee.dateOfJoining),
+              dateOfJoining:
+                  getIt<UserStateNotifier>().employee!.dateOfJoining),
           const Divider(height: 32),
           const LeaveList(),
         ],

@@ -71,18 +71,18 @@ class EmployeeEditProfileBloc
       try {
         Employee employee = Employee(
           uid: _userManager.employeeId,
-          role: _userManager.employee.role,
+          role: _userManager.employee!.role,
           name: event.name,
-          employeeId: _userManager.employee.employeeId,
-          email: _userManager.employee.email,
+          employeeId: _userManager.employee!.employeeId,
+          email: _userManager.employee!.email,
           designation: event.designation,
           level: event.level.isEmpty ? null : event.level,
           address: event.address.isEmpty ? null : event.address,
-          imageUrl: uri ?? _userManager.employee.imageUrl,
+          imageUrl: uri ?? _userManager.employee!.imageUrl,
           gender: state.gender,
           dateOfBirth: state.dateOfBirth,
           phone: event.phoneNumber.isEmpty ? null : event.phoneNumber,
-          dateOfJoining: _userManager.employee.dateOfJoining,
+          dateOfJoining: _userManager.employee!.dateOfJoining,
         );
         await _employeeService.updateEmployeeDetails(employee: employee);
         _preference.setEmployee(employee);

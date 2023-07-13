@@ -25,7 +25,6 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
       providers: [
         BlocProvider(
         create: (_) => getIt.get<DrawerBloc>(),),
-        BlocProvider(create: (_)=>getIt<UserStateControllerBloc>())
       ],
       child: Scaffold(
         drawer: const AppDrawer(),

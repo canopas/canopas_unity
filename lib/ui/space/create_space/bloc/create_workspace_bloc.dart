@@ -7,6 +7,7 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../data/provider/space_manager.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
@@ -20,9 +21,10 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
   final SpaceService _spaceService;
   final EmployeeService _employeeService;
   final UserStateNotifier _userManager;
+  final SpaceManager _spaceManager;
 
   CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService,
-      this.imagePicker, this.storageService)
+      this._spaceManager, this.imagePicker, this.storageService)
       : super(CreateSpaceState(ownerName: _userManager.userFirebaseAuthName)) {
     on<PageChangeEvent>(_onPageChange);
     on<CompanyNameChangeEvent>(_onNameChanged);
@@ -163,8 +165,9 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
             spaceId: newSpace.id, employee: employee);
 
         emit(state.copyWith(createSpaceStatus: Status.success));
-        await _userManager.setEmployeeWithSpace(
-            space: newSpace, spaceUser: employee);
+        _spaceManager.setCurrentSpaceId(newSpace.id);
+        // await _userManager.setEmployeeWithSpace(
+        //     space: newSpace, spaceUser: employee);
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError, createSpaceStatus: Status.error));

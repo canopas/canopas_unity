@@ -11,6 +11,7 @@ import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/invitation/invitation.dart';
 import '../../../../data/model/space/space.dart';
+import '../../../../data/provider/space_manager.dart';
 import '../../../../data/services/employee_service.dart';
 import '../../../../data/services/invitation_services.dart';
 import '../../../../data/services/space_service.dart';
@@ -24,9 +25,16 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
   final AccountService accountService;
   final AuthService _authService;
   late final List<Invitation> invitations;
+  final SpaceManager _spaceManager;
 
-  JoinSpaceBloc(this._invitationService, this._spaceService, this._userManager,
-      this.accountService, this._employeeService, this._authService)
+  JoinSpaceBloc(
+      this._invitationService,
+      this._spaceService,
+      this._userManager,
+      this._spaceManager,
+      this.accountService,
+      this._employeeService,
+      this._authService)
       : super(const JoinSpaceState()) {
     on<JoinSpaceInitialFetchEvent>(_init);
     on<SelectSpaceEvent>(_joinSpace);
@@ -73,16 +81,18 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       SelectSpaceEvent event, Emitter<JoinSpaceState> emit) async {
     emit(state.copyWith(selectSpaceStatus: Status.loading));
     try {
-      final employee = await _employeeService.getEmployeeBySpaceId(
-          spaceId: event.space.id, userId: _userManager.userUID!);
-      if (employee != null) {
-        await _userManager.setEmployeeWithSpace(
-            space: event.space, spaceUser: employee);
-        emit(state.copyWith(selectSpaceStatus: Status.success));
-      } else {
-        emit(state.copyWith(
-            selectSpaceStatus: Status.error, error: firestoreFetchDataError));
-      }
+      await _spaceManager.setCurrentSpaceId(event.space.id);
+      emit(state.copyWith(selectSpaceStatus: Status.success));
+      // final employee = await _employeeService.getEmployeeBySpaceId(
+      //     spaceId: event.space.id, userId: _userManager.userUID!);
+      // if (employee != null) {
+      //   await _userManager.setEmployeeWithSpace(
+      //       space: event.space, spaceUser: employee);
+      //   emit(state.copyWith(selectSpaceStatus: Status.success));
+      // } else {
+      //   emit(state.copyWith(
+      //       selectSpaceStatus: Status.error, error: firestoreFetchDataError));
+      // }
     } on Exception {
       emit(state.copyWith(
           selectSpaceStatus: Status.error, error: firestoreFetchDataError));
@@ -104,8 +114,9 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
           employee: employee, spaceId: event.space.id);
       await accountService.updateSpaceOfUser(
           spaceID: event.space.id, uid: _userManager.userUID!);
-      await _userManager.setEmployeeWithSpace(
-          space: event.space, spaceUser: employee);
+      await _spaceManager.setCurrentSpaceId(event.space.id);
+      // await _userManager.setEmployeeWithSpace(
+      //     space: event.space, spaceUser: employee);
       final invitation = getSelectedInvitation(event.space.id);
       await _invitationService.deleteInvitation(id: invitation.id);
 

@@ -66,7 +66,7 @@ class _AppDrawerState extends State<AppDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UserProfileCard(
-                  currentEmployee: userManager.employee,
+                  currentEmployee: userManager.employee!,
                   currentSpace: userManager.currentSpace!,
                 ),
                 SpaceList(

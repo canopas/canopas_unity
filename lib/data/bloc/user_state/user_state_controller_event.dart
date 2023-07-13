@@ -4,6 +4,8 @@ class CheckUserStatus extends UserStateControllerEvent {}
 
 class ClearDataForDisableUser extends UserStateControllerEvent {}
 
-class UpdateUserDataEvent extends UserStateControllerEvent{}
+class UpdateUserDataEvent extends UserStateControllerEvent {}
 
-class DeactivateUserEvent extends UserStateControllerEvent{}
+class DeactivateUserEvent extends UserStateControllerEvent {}
+
+class AppStatusEvent extends UserStateControllerEvent {}

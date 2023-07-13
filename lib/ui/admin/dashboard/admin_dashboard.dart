@@ -27,7 +27,6 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
           create: (BuildContext context) => getIt<DrawerBloc>(),
      
         ),
-        BlocProvider(create: (_)=>getIt<UserStateControllerBloc>())
       ],
       child: Scaffold(
         drawer: const AppDrawer(),

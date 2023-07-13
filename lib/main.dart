@@ -2,12 +2,15 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
+import 'data/bloc/user_state/user_state_controller_bloc.dart';
 import 'data/configs/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
 import 'data/configs/theme.dart';
@@ -33,6 +36,7 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
   usePathUrlStrategy();
   runApp(MyApp());
 }
@@ -44,12 +48,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
+    print('==================build');
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) =>
+              _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
+        ),
+        BlocProvider(
+          create: (_) => getIt<UserStateControllerBloc>(),
+          lazy: false,
+        )
+      ],
       child: GestureDetector(
         onTap: () {
-          if (!FocusScope.of(context).hasPrimaryFocus && FocusScope.of(context).focusedChild != null) {
+          if (!FocusScope.of(context).hasPrimaryFocus &&
+              FocusScope.of(context).focusedChild != null) {
             FocusScope.of(context).focusedChild?.unfocus();
           }
         },
@@ -69,7 +83,8 @@ class MyApp extends StatelessWidget {
                     if (state is NetworkConnectionFailureState) {
                       String connectionErrorMessage =
                           AppLocalizations.of(context).network_connection_error;
-                      showSnackBar(context: context, msg: connectionErrorMessage);
+                      showSnackBar(
+                          context: context, msg: connectionErrorMessage);
                     }
                   },
                   child: widget,

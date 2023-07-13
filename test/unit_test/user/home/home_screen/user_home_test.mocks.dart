@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 import 'dart:ui' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/model/account/account.dart' as _i5;
-import 'package:projectunity/data/model/employee/employee.dart' as _i2;
+import 'package:projectunity/data/model/account/account.dart' as _i4;
+import 'package:projectunity/data/model/employee/employee.dart' as _i5;
 import 'package:projectunity/data/model/leave/leave.dart' as _i9;
 import 'package:projectunity/data/model/space/space.dart' as _i6;
-import 'package:projectunity/data/provider/user_state.dart' as _i3;
+import 'package:projectunity/data/provider/user_state.dart' as _i2;
 import 'package:projectunity/data/Repo/leave_repo.dart' as _i8;
 
 // ignore_for_file: type=lint
@@ -25,42 +25,25 @@ import 'package:projectunity/data/Repo/leave_repo.dart' as _i8;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEmployee_0 extends _i1.SmartFake implements _i2.Employee {
-  _FakeEmployee_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [UserStateNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
+class MockUserStateNotifier extends _i1.Mock implements _i2.UserStateNotifier {
   MockUserStateNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.UserState get state => (super.noSuchMethod(
+  _i2.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i3.UserState.authenticated,
-      ) as _i3.UserState);
+        returnValue: _i2.UserState.authenticated,
+      ) as _i2.UserState);
+
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
         returnValue: '',
       ) as String);
-  @override
-  _i2.Employee get employee => (super.noSuchMethod(
-        Invocation.getter(#employee),
-        returnValue: _FakeEmployee_0(
-          this,
-          Invocation.getter(#employee),
-        ),
-      ) as _i2.Employee);
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
@@ -86,6 +69,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
+
   @override
   void getUserStatus() => super.noSuchMethod(
         Invocation.method(
@@ -94,79 +78,67 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
         ),
         returnValueForMissingStub: null,
       );
+
   @override
-  _i4.Future<void> setUser(_i5.Account? user) => (super.noSuchMethod(
+  _i3.Future<void> setUser(_i4.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Future<void> setEmployeeWithSpace({
-    required _i6.Space? space,
-    required _i2.Employee? spaceUser,
-    bool? redirect = true,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setEmployeeWithSpace,
-          [],
-          {
-            #space: space,
-            #spaceUser: spaceUser,
-            #redirect: redirect,
-          },
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-  @override
-  _i4.Future<void> resetStreamSubscription() => (super.noSuchMethod(
+  _i3.Future<void> resetStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
           #resetStreamSubscription,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Future<void> updateCurrentUser(_i2.Employee? user) => (super.noSuchMethod(
+  _i3.Future<void> updateCurrentUser(_i5.Employee? user) => (super.noSuchMethod(
         Invocation.method(
           #updateCurrentUser,
           [user],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Future<void> updateSpace(_i6.Space? space) => (super.noSuchMethod(
+  _i3.Future<void> updateSpace(_i6.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
+  _i3.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
         Invocation.method(
           #removeEmployeeWithSpace,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Future<void> removeAll() => (super.noSuchMethod(
+  _i3.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
           #removeAll,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
   void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
@@ -210,65 +182,72 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
   }
 
   @override
-  _i4.Stream<List<_i9.Leave>> get leaves => (super.noSuchMethod(
+  _i3.Stream<List<_i9.Leave>> get leaves => (super.noSuchMethod(
         Invocation.getter(#leaves),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
+      ) as _i3.Stream<List<_i9.Leave>>);
+
   @override
-  _i4.Stream<List<_i9.Leave>> get pendingLeaves => (super.noSuchMethod(
+  _i3.Stream<List<_i9.Leave>> get pendingLeaves => (super.noSuchMethod(
         Invocation.getter(#pendingLeaves),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
+      ) as _i3.Stream<List<_i9.Leave>>);
+
   @override
-  _i4.Stream<List<_i9.Leave>> absence(DateTime? date) => (super.noSuchMethod(
+  _i3.Stream<List<_i9.Leave>> absence(DateTime? date) => (super.noSuchMethod(
         Invocation.method(
           #absence,
           [date],
         ),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
+      ) as _i3.Stream<List<_i9.Leave>>);
+
   @override
-  _i4.Future<void> reset() => (super.noSuchMethod(
+  _i3.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
           #reset,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Stream<List<_i9.Leave>> userLeaveRequest(String? uid) =>
+  _i3.Stream<List<_i9.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #userLeaveRequest,
           [uid],
         ),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
+      ) as _i3.Stream<List<_i9.Leave>>);
+
   @override
-  _i4.Stream<List<_i9.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
+  _i3.Stream<List<_i9.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
         Invocation.method(
           #userLeaves,
           [uid],
         ),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i3.Stream<List<_i9.Leave>>.empty(),
+      ) as _i3.Stream<List<_i9.Leave>>);
+
   @override
-  _i4.Future<void> cancel() => (super.noSuchMethod(
+  _i3.Future<void> cancel() => (super.noSuchMethod(
         Invocation.method(
           #cancel,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
   @override
-  _i4.Future<void> dispose() => (super.noSuchMethod(
+  _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
           #dispose,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
