@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,13 +16,18 @@ class EmployeeRepo {
   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
   EmployeeRepo(this._employeeService, this._userStateNotifier) {
-    _employeeStreamSubscription =
-        _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
-      (value) {
-        _employeeController.add(value);
-      },
-    );
+    _employeeStreamSubscription = _employeeService
+        .employees(_userStateNotifier.currentSpaceId!)
+        .listen((value) {
+      _employeeController.add(value);
+    }, onError: (e, s) async {
+      _employeeController.addError(e);
+      await FirebaseCrashlytics.instance.recordError(e, s);
+    });
   }
+
+  Stream<Employee?> memberDetails(String uid) => _employeeController.stream
+      .asyncMap((members) => members.firstWhereOrNull((e) => e.uid == uid));
 
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();

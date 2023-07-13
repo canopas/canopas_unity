@@ -67,6 +67,14 @@ class MockEmployeeRepo extends _i1.Mock implements _i4.EmployeeRepo {
         returnValue: _i5.Stream<List<_i2.Employee>>.empty(),
       ) as _i5.Stream<List<_i2.Employee>>);
   @override
+  _i5.Stream<_i2.Employee?> memberDetails(String? uid) => (super.noSuchMethod(
+        Invocation.method(
+          #memberDetails,
+          [uid],
+        ),
+        returnValue: _i5.Stream<_i2.Employee?>.empty(),
+      ) as _i5.Stream<_i2.Employee?>);
+  @override
   _i5.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
           #reset,
@@ -124,6 +132,11 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool get isEmployee => (super.noSuchMethod(
+        Invocation.getter(#isEmployee),
         returnValue: false,
       ) as bool);
   @override

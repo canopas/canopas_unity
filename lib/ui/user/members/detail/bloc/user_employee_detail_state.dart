@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
 
 abstract class UserEmployeeDetailState extends Equatable {}
@@ -15,14 +14,12 @@ class UserEmployeeDetailLoadingState extends UserEmployeeDetailState {
 }
 
 class UserEmployeeDetailSuccessState extends UserEmployeeDetailState {
-  final Employee employee;
   final List<Leave> upcomingLeaves;
 
-  UserEmployeeDetailSuccessState(
-      {required this.employee, required this.upcomingLeaves});
+  UserEmployeeDetailSuccessState({required this.upcomingLeaves});
 
   @override
-  List<Object?> get props => [employee, upcomingLeaves];
+  List<Object?> get props => [upcomingLeaves];
 }
 
 class UserEmployeeDetailErrorState extends UserEmployeeDetailState {

@@ -121,7 +121,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
                 titleTextStyle: AppFontStyle.labelRegular),
             eventLoader: (day) => context
                 .read<WhoIsOutCardBloc>()
-                .getPerDayAbsences(date: day, allAbsences: state.allAbsences),
+                .getSelectedDateAbsences(date: day, allAbsences: state.allAbsences),
             focusedDay: state.focusDay,
           );
         });

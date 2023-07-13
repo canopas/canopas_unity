@@ -124,27 +124,29 @@ class _EmployeeContent extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              employee.name,
-              style: AppFontStyle.bodyMedium,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            ValidateWidget(
-              isValid: employee.employeeId.isNotNullOrEmpty,
-              child: Text(
-                employee.employeeId ?? '',
-                style: AppFontStyle.subTitleGrey,
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                employee.name,
+                style: AppFontStyle.bodyMedium,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 5,
+              ),
+              ValidateWidget(
+                isValid: employee.employeeId.isNotNullOrEmpty,
+                child: Text(
+                  employee.employeeId ?? '',
+                  style: AppFontStyle.subTitleGrey,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

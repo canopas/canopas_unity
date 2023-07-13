@@ -3,32 +3,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
 import 'package:projectunity/ui/user/members/detail/widget/employee_info.dart';
 import 'package:projectunity/ui/user/members/detail/widget/tab_content.dart';
+import '../../../../data/model/employee/employee.dart';
 import '../../../admin/members/detail/widget/profile_card.dart';
-import '../../../widget/circular_progress_indicator.dart';
-import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_employee_detail_bloc.dart';
 import 'bloc/user_employee_detail_event.dart';
-import 'bloc/user_employee_detail_state.dart';
 
 class UserEmployeeDetailPage extends StatelessWidget {
-  final String employeeId;
+  final Employee employee;
 
-  const UserEmployeeDetailPage({Key? key, required this.employeeId})
+  const UserEmployeeDetailPage({Key? key, required this.employee})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UserEmployeeDetailBloc>(
-        create: (_) => getIt<UserEmployeeDetailBloc>()
-          ..add(UserEmployeeDetailFetchEvent(employeeId: employeeId)),
-        child: const UserEmployeeDetailScreen());
+        create: (_) => getIt<UserEmployeeDetailBloc>(),
+        child: UserEmployeeDetailScreen(employee: employee));
   }
 }
 
 class UserEmployeeDetailScreen extends StatefulWidget {
-  const UserEmployeeDetailScreen({Key? key}) : super(key: key);
+  final Employee employee;
+
+  const UserEmployeeDetailScreen({Key? key, required this.employee})
+      : super(key: key);
 
   @override
   State<UserEmployeeDetailScreen> createState() =>
@@ -37,47 +38,43 @@ class UserEmployeeDetailScreen extends StatefulWidget {
 
 class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
   @override
+  void initState() {
+    if (widget.employee.role != Role.admin) {
+      context
+          .read<UserEmployeeDetailBloc>()
+          .add(UserEmployeeDetailFetchEvent(uid: widget.employee.uid));
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).details_tag),
-      ),
-      body: BlocConsumer<UserEmployeeDetailBloc, UserEmployeeDetailState>(
-          listenWhen: (previous, current) =>
-              previous is! UserEmployeeDetailErrorState &&
-              current is UserEmployeeDetailErrorState,
-          listener: (context, state) {
-            if (state is UserEmployeeDetailErrorState) {
-              showSnackBar(context: context, error: state.error);
-            }
-          },
-          builder: (context, state) {
-            if (state is UserEmployeeDetailLoadingState) {
-              return const AppCircularProgressIndicator();
-            }
-            if (state is UserEmployeeDetailSuccessState) {
-              return ListView(
-                padding: const EdgeInsets.symmetric(
-                    vertical: primaryHorizontalSpacing),
-                children: [
-                  ProfileCard(employee: state.employee),
-                  const Divider(
-                    indent: primaryHorizontalSpacing,
-                    endIndent: primaryHorizontalSpacing,
-                  ),
-                  EmployeeInfo(employee: state.employee),
-                  if (state.upcomingLeaves.isNotEmpty)
-                    const Divider(
-                      indent: primaryHorizontalSpacing,
-                      endIndent: primaryHorizontalSpacing,
-                    ),
-                  if (state.upcomingLeaves.isNotEmpty)
-                    TabContent(leaves: state.upcomingLeaves),
-                ],
-              );
-            }
-            return const SizedBox();
-          }),
-    );
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context).details_tag),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
+          children: [
+            ProfileCard(employee: widget.employee),
+            const Divider(
+              indent: primaryHorizontalSpacing,
+              endIndent: primaryHorizontalSpacing,
+            ),
+            EmployeeInfo(employee: widget.employee),
+            const SizedBox(height: 16),
+            BlocBuilder<UserEmployeeDetailBloc, UserEmployeeDetailState>(
+              builder: (context, state) =>
+                  state is UserEmployeeDetailSuccessState &&
+                          state.upcomingLeaves.isNotEmpty
+                      ? const Divider(
+                          indent: primaryHorizontalSpacing,
+                          endIndent: primaryHorizontalSpacing,
+                        )
+                      : const SizedBox(),
+            ),
+            const TabContent(),
+          ],
+        ));
   }
 }

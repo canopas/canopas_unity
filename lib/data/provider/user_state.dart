@@ -91,6 +91,8 @@ class UserStateNotifier with ChangeNotifier {
 
   bool get isAdmin => _employee?.role == Role.admin;
 
+  bool get isEmployee => _employee?.role == Role.employee;
+
   bool get isSpaceOwner => currentSpace?.ownerIds.contains(userUID) ?? false;
 
   bool get isHR => _employee?.role == Role.hr;
