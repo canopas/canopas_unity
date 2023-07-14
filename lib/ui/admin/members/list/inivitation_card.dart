@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart';
+import 'package:projectunity/ui/admin/members/list/bloc/member_list_event.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/configs/text_style.dart';
@@ -20,12 +23,19 @@ class InvitedMemberCard extends StatelessWidget {
           child: Icon(Icons.person, size: 25, color: AppColors.greyColor),
         ),
         const SizedBox(width: primaryHorizontalSpacing),
-        Flexible(
+        Expanded(
           child: Text(invitation.receiverEmail,
               style: AppFontStyle.bodyMedium,
               overflow: TextOverflow.ellipsis,
               maxLines: 1),
-        )
+        ),
+        IconButton(
+            onPressed: () {
+              context
+                  .read<AdminMembersBloc>()
+                  .add(CancelUserInvitation(invitation.id));
+            },
+            icon: const Icon(Icons.close))
       ],
     );
   }

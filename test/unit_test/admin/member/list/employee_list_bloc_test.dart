@@ -20,9 +20,21 @@ void main() {
   late UserStateNotifier userStateNotifier;
   late InvitationService invitationService;
 
-  final employee = Employee(
-    uid: 'id',
+  final activeEmployee = Employee(
+    uid: 'active-id',
     role: Role.admin,
+    status: EmployeeStatus.active,
+    name: 'Andrew jhone',
+    employeeId: 'CA 1254',
+    email: 'andrew.j@canopas.com',
+    designation: 'Android developer',
+    dateOfJoining: DateTime(2000),
+  );
+
+  final inactiveEmployee = Employee(
+    uid: 'inactive-id',
+    role: Role.employee,
+    status: EmployeeStatus.inactive,
     name: 'Andrew jhone',
     employeeId: 'CA 1254',
     email: 'andrew.j@canopas.com',
@@ -50,7 +62,8 @@ void main() {
 
     test('Emits success after fetch data', () {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(employeeRepo.employees)
+          .thenAnswer((_) => Stream.value([activeEmployee, inactiveEmployee]));
       when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
           .thenAnswer((_) async => [invitation]);
       bloc.add(AdminMembersInitialLoadEvent());
@@ -69,7 +82,8 @@ void main() {
             AdminMembersState(
                 invitationFetchStatus: Status.success,
                 memberFetchStatus: Status.success,
-                members: [employee],
+                activeMembers: [activeEmployee],
+                inactiveMembers: [inactiveEmployee],
                 invitation: const [invitation]),
           ]));
     });
@@ -77,7 +91,8 @@ void main() {
     test('Emits failure state when Exception is thrown by invitation service',
         () {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(employeeRepo.employees)
+          .thenAnswer((_) => Stream.value([activeEmployee, inactiveEmployee]));
       when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
           .thenThrow(Exception());
       bloc.add(AdminMembersInitialLoadEvent());
@@ -93,10 +108,11 @@ void main() {
                 memberFetchStatus: Status.loading,
                 error: firestoreFetchDataError),
             AdminMembersState(
-                invitationFetchStatus: Status.error,
-                memberFetchStatus: Status.success,
-                members: [employee],
-                invitation: const []),
+              invitationFetchStatus: Status.error,
+              memberFetchStatus: Status.success,
+              activeMembers: [activeEmployee],
+              inactiveMembers: [inactiveEmployee],
+            ),
           ]));
     });
 
@@ -123,9 +139,39 @@ void main() {
             const AdminMembersState(
                 invitationFetchStatus: Status.success,
                 memberFetchStatus: Status.error,
-                members: [],
                 invitation: [invitation],
                 error: firestoreFetchDataError),
+          ]));
+    });
+
+    test('Cancel invitation and fetch invitation success test', () {
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
+          .thenAnswer((realInvocation) async => [invitation]);
+      bloc.add(CancelUserInvitation(invitation.id));
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            const AdminMembersState(invitationFetchStatus: Status.loading),
+            const AdminMembersState(
+              invitationFetchStatus: Status.success,
+              invitation: [invitation],
+            ),
+          ]));
+    });
+    test('Cancel invitation and fetch invitation failure test', () {
+      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(invitationService.fetchSpaceInvitations(spaceId: 'space-id'))
+          .thenThrow(Exception('error'));
+      bloc.add(CancelUserInvitation(invitation.id));
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            const AdminMembersState(invitationFetchStatus: Status.loading),
+            const AdminMembersState(
+              invitationFetchStatus: Status.error,
+              error: firestoreFetchDataError,
+            ),
           ]));
     });
   });

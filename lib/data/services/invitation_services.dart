@@ -15,24 +15,26 @@ class InvitationService {
                 fromFirestore: Invitation.fromFirestore,
                 toFirestore: (Invitation invitation, _) => invitation.toJson());
 
-  Future<List<Invitation>> fetchSpaceInvitationsForUserEmail(String email) async {
+  Future<List<Invitation>> fetchSpaceInvitationsForUserEmail(
+      String email) async {
     final data = await _invitationDb
         .where(FireStoreConst.receiverEmail, isEqualTo: email)
         .get();
     return data.docs.map((invitation) => invitation.data()).toList();
   }
 
-  Future<bool> checkMemberInvitationAlreadyExist({required String  spaceId, required String email}) async {
+  Future<bool> checkMemberInvitationAlreadyExist(
+      {required String spaceId, required String email}) async {
     final data = await _invitationDb
         .where(FireStoreConst.receiverEmail, isEqualTo: email)
-        .where(FireStoreConst.spaceId, isEqualTo:  spaceId)
-        .get();
-    return data.docs.isNotEmpty;
+        .where(FireStoreConst.spaceId, isEqualTo: spaceId).count().get();
+    return data.count > 0;
   }
 
-  Future<List<Invitation>> fetchSpaceInvitations({required String spaceId}) async {
+  Future<List<Invitation>> fetchSpaceInvitations(
+      {required String spaceId}) async {
     final invitation = await _invitationDb
-        .where(FireStoreConst.spaceId, isEqualTo:  spaceId)
+        .where(FireStoreConst.spaceId, isEqualTo: spaceId)
         .get();
     return invitation.docs.map((e) => e.data()).toList();
   }
