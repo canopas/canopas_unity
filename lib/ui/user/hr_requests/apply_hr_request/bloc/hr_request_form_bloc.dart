@@ -33,7 +33,7 @@ class HrRequestFormBloc extends Bloc<HrRequestFormEvents, HrRequestFormState> {
       ApplyHrRequest event, Emitter<HrRequestFormState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      if (state.type != null && state.description.isNotEmpty) {
+      if (state.isProvidedDataValid) {
         final hrRequest = HrRequest(
             id: _hrRequestService.generateNewId,
             type: state.type!,
@@ -43,7 +43,7 @@ class HrRequestFormBloc extends Bloc<HrRequestFormEvents, HrRequestFormState> {
         await _hrRequestService.setHrRequest(hrRequest);
         emit(state.copyWith(status: Status.success));
       } else {
-        emit(state.copyWith(error: fillDetailsError));
+        emit(state.copyWith(error: fillDetailsError, status: Status.error));
       }
     } on Exception {
       emit(

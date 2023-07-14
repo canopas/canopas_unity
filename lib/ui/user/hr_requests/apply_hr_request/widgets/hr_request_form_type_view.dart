@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';

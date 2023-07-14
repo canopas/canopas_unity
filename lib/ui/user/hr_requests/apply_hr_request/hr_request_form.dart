@@ -37,7 +37,7 @@ class _HrRequestFormScreenState extends State<HrRequestFormScreen> {
     final locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hr Request Form'),
+        title: Text(locale.hr_request_title),
         actions: [
           BlocBuilder<HrRequestFormBloc, HrRequestFormState>(
               buildWhen: (previous, current) =>
@@ -58,7 +58,8 @@ class _HrRequestFormScreenState extends State<HrRequestFormScreen> {
                                       .add(ApplyHrRequest());
                                 }
                               : null,
-                          child: Text(AppLocalizations.of(context).save_tag)),
+                          child: Text(
+                              AppLocalizations.of(context).submit_button_tag)),
                     )),
         ],
       ),

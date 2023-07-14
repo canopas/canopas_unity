@@ -39,6 +39,7 @@
   "ok_tag":"OK",
   "type_tag":"Type",
   "description_tag":"Description",
+  "submit_button_tag":"Submit",
 
 
   "spaces_title":"Spaces",
@@ -241,7 +242,6 @@
     "admin_home_add_member_error_name": "Name is too short!!",
     "admin_home_add_member_complete_mandatory_field_error": "Please complete this mandatory field",
     "admin_home_add_member_employee_added_message" : "An employee has been added successfully!!",
-    "admin_home_add_member_submit_button_tag":"Submit",
     "admin_home_add_member_designation_tag":"Designation",
     "admin_home_add_member_addMember_tag":"Add Member",
     "admin_home_add_member_name_hint_text":"Andrew Jhone",
@@ -391,6 +391,7 @@
 
   "hr_requests_title":"HR Requests",
   "new_request_tag":"New Request",
+  "hr_request_title":"HR Request",
 
   "hr_request_status":"{status, select, 0{Pending} 1{Resolved} 2{Canceled} other{Other}}",
   "@hr_request_status":{
