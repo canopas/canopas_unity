@@ -24,12 +24,12 @@ class HrRequestsBloc
     try {
       final hrServiceDeskRequests = await _hrRequestService
           .getHrRequestsOfUser(_userStateNotifier.employeeId);
+      hrServiceDeskRequests.sort((a, b) => b.requestedAt.compareTo(a.requestedAt));
       emit(state.copyWith(
           status: Status.success,
           hrServiceDeskRequests: hrServiceDeskRequests));
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+      emit(state.copyWith(status: Status.error, error: firestoreFetchDataError));
     }
   }
 }

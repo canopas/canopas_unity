@@ -103,6 +103,16 @@ class DrawerOptionList extends StatelessWidget {
       child: Column(
         children: [
           ValidateWidget(
+            isValid: !isAdminOrHr,
+            child: DrawerOption(
+                icon: Icons.help_outline_rounded,
+                title: "HR Service Desk",
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.hrRequests);
+                }),
+          ),
+          ValidateWidget(
             isValid: isAdmin,
             child: DrawerOption(
                 icon: Icons.edit_note_rounded,

@@ -29,13 +29,15 @@ class HrRequestService {
   String get generateNewId => _hrRequestDB().doc().id;
 
   Future<List<HrRequest>> getHrRequests() async {
-    final hrDeskRequestsCollection = await _hrRequestDB().get();
+    final hrDeskRequestsCollection =
+        await _hrRequestDB().get();
     return hrDeskRequestsCollection.docs.map((e) => e.data()).toList();
   }
 
   Future<List<HrRequest>> getHrRequestsOfUser(String uid) async {
-    final hrDeskRequestsCollection =
-        await _hrRequestDB().where(FireStoreConst.uid, isEqualTo: uid).get();
+    final hrDeskRequestsCollection = await _hrRequestDB()
+        .where(FireStoreConst.uid, isEqualTo: uid)
+        .get();
     return hrDeskRequestsCollection.docs.map((e) => e.data()).toList();
   }
 
