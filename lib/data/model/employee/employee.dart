@@ -91,6 +91,7 @@ class Employee extends Equatable {
 
   @override
   List<Object?> get props => [
+        status,
         uid,
         role,
         name,

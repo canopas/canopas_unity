@@ -15,6 +15,7 @@ import 'package:projectunity/data/model/leave/leave.dart' as _i11;
 import 'package:projectunity/data/model/space/space.dart' as _i13;
 import 'package:projectunity/data/provider/device_info.dart' as _i3;
 import 'package:projectunity/data/provider/user_state.dart' as _i12;
+import 'package:projectunity/data/Repo/employee_repo.dart' as _i16;
 import 'package:projectunity/data/services/account_service.dart' as _i6;
 import 'package:projectunity/data/services/employee_service.dart' as _i9;
 import 'package:projectunity/data/services/leave_service.dart' as _i10;
@@ -136,6 +137,23 @@ class MockAccountService extends _i1.Mock implements _i6.AccountService {
       (super.noSuchMethod(
         Invocation.method(
           #deleteSpaceIdFromAccount,
+          [],
+          {
+            #spaceId: spaceId,
+            #uid: uid,
+          },
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> addSpaceIdFromAccount({
+    required String? spaceId,
+    required String? uid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addSpaceIdFromAccount,
           [],
           {
             #spaceId: spaceId,
@@ -763,6 +781,61 @@ class MockSpaceService extends _i1.Mock implements _i15.SpaceService {
             #spaceId: spaceId,
             #paidLeaveCount: paidLeaveCount,
           },
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+}
+
+/// A class which mocks [EmployeeRepo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEmployeeRepo extends _i1.Mock implements _i16.EmployeeRepo {
+  MockEmployeeRepo() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.Stream<List<_i5.Employee>> get employees => (super.noSuchMethod(
+        Invocation.getter(#employees),
+        returnValue: _i7.Stream<List<_i5.Employee>>.empty(),
+      ) as _i7.Stream<List<_i5.Employee>>);
+  @override
+  _i7.Stream<List<_i5.Employee>> get activeEmployees => (super.noSuchMethod(
+        Invocation.getter(#activeEmployees),
+        returnValue: _i7.Stream<List<_i5.Employee>>.empty(),
+      ) as _i7.Stream<List<_i5.Employee>>);
+  @override
+  _i7.Stream<_i5.Employee?> memberDetails(String? uid) => (super.noSuchMethod(
+        Invocation.method(
+          #memberDetails,
+          [uid],
+        ),
+        returnValue: _i7.Stream<_i5.Employee?>.empty(),
+      ) as _i7.Stream<_i5.Employee?>);
+  @override
+  _i7.Future<void> reset() => (super.noSuchMethod(
+        Invocation.method(
+          #reset,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> cancel() => (super.noSuchMethod(
+        Invocation.method(
+          #cancel,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> dispose() => (super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),

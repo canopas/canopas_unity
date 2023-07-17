@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
+import '../../../../../data/Repo/employee_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
-import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/leave_service.dart';
@@ -17,28 +17,27 @@ class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
+  final EmployeeRepo _employeeRepo;
   final UserStateNotifier _userManager;
   final AccountService _accountService;
   final SpaceService _spaceService;
-  late StreamSubscription _subscription;
 
-  EmployeeDetailBloc(this._accountService, this._spaceService,
-      this._userManager, this._employeeService, this._leaveService)
+  EmployeeDetailBloc(
+      this._accountService,
+      this._spaceService,
+      this._userManager,
+      this._employeeService,
+      this._leaveService,
+      this._employeeRepo)
       : super(EmployeeDetailInitialState()) {
-    _subscription =
-        eventBus.on<EmployeeDetailInitialLoadEvent>().listen((event) {
-      add(EmployeeDetailInitialLoadEvent(employeeId: event.employeeId));
-    });
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
-    on<DeactivateEmployeeEvent>(_onDeactivateEmployeeEvent);
+    on<EmployeeStatusChangeEvent>(_onEmployeeStatusChangeEvent);
   }
 
   Future<void> _onInitialLoad(EmployeeDetailInitialLoadEvent event,
       Emitter<AdminEmployeeDetailState> emit) async {
     emit(EmployeeDetailLoadingState());
-
     try {
-      Employee? employee = await _employeeService.getEmployee(event.employeeId);
       final double usedLeaves =
           await _leaveService.getUserUsedLeaves(event.employeeId);
       final int totalLeaves = await _spaceService.getPaidLeaves(
@@ -47,34 +46,41 @@ class EmployeeDetailBloc
       if (totalLeaves != 0) {
         percentage = usedLeaves / totalLeaves;
       }
-      if (employee != null) {
-        emit(EmployeeDetailLoadedState(
-            employee: employee,
-            timeOffRatio: percentage,
-            usedLeaves: usedLeaves));
-      } else {
-        emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
+
+      return emit.forEach(
+        _employeeRepo.memberDetails(event.employeeId),
+        onData: (Employee? employee) {
+          if (employee != null) {
+            return EmployeeDetailLoadedState(
+                employee: employee,
+                timeOffRatio: percentage,
+                usedLeaves: usedLeaves);
+          } else {
+            return EmployeeDetailFailureState(error: firestoreFetchDataError);
+          }
+        },
+        onError: (error, stackTrace) =>
+            EmployeeDetailFailureState(error: firestoreFetchDataError),
+      );
+    } on Exception {
+      emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
+    }
+  }
+
+  Future<void> _onEmployeeStatusChangeEvent(EmployeeStatusChangeEvent event,
+      Emitter<AdminEmployeeDetailState> emit) async {
+    try {
+      await _employeeService.changeAccountStatus(
+          id: event.employeeId, status: event.status);
+      if (event.status == EmployeeStatus.inactive) {
+        await _accountService.deleteSpaceIdFromAccount(
+            spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
+      } else if (event.status == EmployeeStatus.active) {
+        await _accountService.addSpaceIdFromAccount(
+            spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
       }
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
     }
-  }
-
-  Future<void> _onDeactivateEmployeeEvent(DeactivateEmployeeEvent event,
-      Emitter<AdminEmployeeDetailState> emit) async {
-    try {
-      await _employeeService.changeAccountStatus(
-          id: event.employeeId, status: EmployeeStatus.inactive);
-      await _accountService.deleteSpaceIdFromAccount(
-          spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
-    } on Exception {
-      emit(EmployeeDetailFailureState(error: firestoreFetchDataError));
-    }
-  }
-
-  @override
-  Future<void> close() async {
-    await _subscription.cancel();
-    return super.close();
   }
 }

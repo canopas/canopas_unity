@@ -50,11 +50,9 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           ),
           actions: [
             BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
-              buildWhen: (previous, current) =>
-                  previous is! EmployeeDetailLoadedState &&
-                  current is EmployeeDetailLoadedState,
-              builder: (context, state) => state is EmployeeDetailLoadedState
-                  ? PopupMenuButton(
+              builder: (context, state){
+                if(state is EmployeeDetailLoadedState){
+                return PopupMenuButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -73,31 +71,43 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         ),
                         PopupMenuItem(
                           child: Text(
-                            AppLocalizations.of(context).deactivate_tag,
+                            state.employee.status == EmployeeStatus.active?
+                            AppLocalizations.of(context).deactivate_tag
+                                :AppLocalizations.of(context).activate_tag,
                           ),
                           onTap: () {
-                            showAlertDialog(
-                              context: context,
-                              title:
-                                  AppLocalizations.of(context).deactivate_tag,
-                              description: AppLocalizations.of(context)
-                                  .deactivate_user_account_alert(
-                                      state.employee.name),
-                              onActionButtonPressed: () {
-                                context.read<EmployeeDetailBloc>().add(
-                                    DeactivateEmployeeEvent(
-                                        employeeId: widget.employeeId));
-                                context.pop();
-                                context.pop();
-                              },
-                              actionButtonTitle:
-                                  AppLocalizations.of(context).deactivate_tag,
-                            );
+                            if (state.employee.status ==
+                                EmployeeStatus.inactive) {
+                              context.read<EmployeeDetailBloc>().add(
+                                  EmployeeStatusChangeEvent(
+                                      status: EmployeeStatus.active,
+                                      employeeId: widget.employeeId));
+                            } else {
+                              showAlertDialog(
+                                context: context,
+                                title:
+                                    AppLocalizations.of(context).deactivate_tag,
+                                description: AppLocalizations.of(context)
+                                    .deactivate_user_account_alert(
+                                        state.employee.name),
+                                onActionButtonPressed: () {
+                                  context.read<EmployeeDetailBloc>().add(
+                                      EmployeeStatusChangeEvent(
+                                          status: EmployeeStatus.inactive,
+                                          employeeId: widget.employeeId));
+                                  context.pop();
+                                },
+                                actionButtonTitle:
+                                    AppLocalizations.of(context).deactivate_tag,
+                              );
+                            }
                           },
                         ),
                       ],
-                    )
-                  : const SizedBox(),
+                    );
+                }
+                return const SizedBox();
+              },
             ),
           ]),
       body: BlocConsumer<EmployeeDetailBloc, AdminEmployeeDetailState>(

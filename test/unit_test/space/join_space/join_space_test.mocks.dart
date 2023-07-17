@@ -520,6 +520,23 @@ class MockAccountService extends _i1.Mock implements _i15.AccountService {
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
   @override
+  _i9.Future<void> addSpaceIdFromAccount({
+    required String? spaceId,
+    required String? uid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addSpaceIdFromAccount,
+          [],
+          {
+            #spaceId: spaceId,
+            #uid: uid,
+          },
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
+  @override
   _i9.Future<List<String>> fetchSpaceIds({required String? uid}) =>
       (super.noSuchMethod(
         Invocation.method(
