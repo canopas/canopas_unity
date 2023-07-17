@@ -137,6 +137,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
         listener: (BuildContext context, AdminEmployeeDetailState state) {
           if (state is EmployeeDetailFailureState) {
             showSnackBar(context: context, error: state.error);
+            context.pop();
           }
         },
       ),
