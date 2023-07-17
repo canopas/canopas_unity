@@ -3,17 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 import 'dart:ui' as _i10;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i9;
-import 'package:projectunity/data/model/employee/employee.dart' as _i4;
-import 'package:projectunity/data/model/space/space.dart' as _i3;
+import 'package:projectunity/data/model/employee/employee.dart' as _i3;
+import 'package:projectunity/data/model/space/space.dart' as _i7;
 import 'package:projectunity/data/provider/user_state.dart' as _i8;
-import 'package:projectunity/data/services/employee_service.dart' as _i5;
-import 'package:projectunity/data/services/space_service.dart' as _i7;
+import 'package:projectunity/data/services/employee_service.dart' as _i4;
+import 'package:projectunity/data/services/space_service.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -37,18 +37,8 @@ class _FakeFirebaseFirestore_0 extends _i1.SmartFake
         );
 }
 
-class _FakeSpace_1 extends _i1.SmartFake implements _i3.Space {
-  _FakeSpace_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
-  _FakeEmployee_2(
+class _FakeEmployee_1 extends _i1.SmartFake implements _i3.Employee {
+  _FakeEmployee_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -60,7 +50,7 @@ class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
 /// A class which mocks [EmployeeService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
+class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
   MockEmployeeService() {
     _i1.throwOnMissingStub(this);
   }
@@ -74,17 +64,17 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
         ),
       ) as _i2.FirebaseFirestore);
   @override
-  _i6.Stream<List<_i4.Employee>> employees(String? spaceId) =>
+  _i5.Stream<List<_i3.Employee>> employees(String? spaceId) =>
       (super.noSuchMethod(
         Invocation.method(
           #employees,
           [spaceId],
         ),
-        returnValue: _i6.Stream<List<_i4.Employee>>.empty(),
-      ) as _i6.Stream<List<_i4.Employee>>);
+        returnValue: _i5.Stream<List<_i3.Employee>>.empty(),
+      ) as _i5.Stream<List<_i3.Employee>>);
   @override
-  _i6.Future<void> addEmployeeBySpaceId({
-    required _i4.Employee? employee,
+  _i5.Future<void> addEmployeeBySpaceId({
+    required _i3.Employee? employee,
     required String? spaceId,
   }) =>
       (super.noSuchMethod(
@@ -96,11 +86,11 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
             #spaceId: spaceId,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<_i4.Employee?> getEmployeeBySpaceId({
+  _i5.Future<_i3.Employee?> getEmployeeBySpaceId({
     required String? userId,
     required String? spaceId,
   }) =>
@@ -113,56 +103,56 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
             #spaceId: spaceId,
           },
         ),
-        returnValue: _i6.Future<_i4.Employee?>.value(),
-      ) as _i6.Future<_i4.Employee?>);
+        returnValue: _i5.Future<_i3.Employee?>.value(),
+      ) as _i5.Future<_i3.Employee?>);
   @override
-  _i6.Future<List<_i4.Employee>> getEmployees() => (super.noSuchMethod(
+  _i5.Future<List<_i3.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
           #getEmployees,
           [],
         ),
-        returnValue: _i6.Future<List<_i4.Employee>>.value(<_i4.Employee>[]),
-      ) as _i6.Future<List<_i4.Employee>>);
+        returnValue: _i5.Future<List<_i3.Employee>>.value(<_i3.Employee>[]),
+      ) as _i5.Future<List<_i3.Employee>>);
   @override
-  _i6.Future<_i4.Employee?> getEmployee(String? id) => (super.noSuchMethod(
+  _i5.Future<_i3.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getEmployee,
           [id],
         ),
-        returnValue: _i6.Future<_i4.Employee?>.value(),
-      ) as _i6.Future<_i4.Employee?>);
+        returnValue: _i5.Future<_i3.Employee?>.value(),
+      ) as _i5.Future<_i3.Employee?>);
   @override
-  _i6.Future<bool> hasUser(String? email) => (super.noSuchMethod(
+  _i5.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
           #hasUser,
           [email],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
   @override
-  _i6.Future<void> addEmployee(_i4.Employee? employee) => (super.noSuchMethod(
+  _i5.Future<void> addEmployee(_i3.Employee? employee) => (super.noSuchMethod(
         Invocation.method(
           #addEmployee,
           [employee],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> updateEmployeeDetails({required _i4.Employee? employee}) =>
+  _i5.Future<void> updateEmployeeDetails({required _i3.Employee? employee}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateEmployeeDetails,
           [],
           {#employee: employee},
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> changeEmployeeRoleType(
+  _i5.Future<void> changeEmployeeRoleType(
     String? id,
-    _i4.Role? role,
+    _i3.Role? role,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -172,22 +162,22 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
             role,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
+  _i5.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteEmployee,
           [id],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> changeAccountStatus({
+  _i5.Future<void> changeAccountStatus({
     required String? id,
-    required _i4.EmployeeStatus? status,
+    required _i3.EmployeeStatus? status,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -198,15 +188,15 @@ class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
             #status: status,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [SpaceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
+class MockSpaceService extends _i1.Mock implements _i6.SpaceService {
   MockSpaceService() {
     _i1.throwOnMissingStub(this);
   }
@@ -228,59 +218,40 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
         returnValueForMissingStub: null,
       );
   @override
-  _i6.Future<_i3.Space?> getSpace(String? spaceId) => (super.noSuchMethod(
+  String get generateNewSpaceId => (super.noSuchMethod(
+        Invocation.getter(#generateNewSpaceId),
+        returnValue: '',
+      ) as String);
+  @override
+  _i5.Future<_i7.Space?> getSpace(String? spaceId) => (super.noSuchMethod(
         Invocation.method(
           #getSpace,
           [spaceId],
         ),
-        returnValue: _i6.Future<_i3.Space?>.value(),
-      ) as _i6.Future<_i3.Space?>);
+        returnValue: _i5.Future<_i7.Space?>.value(),
+      ) as _i5.Future<_i7.Space?>);
   @override
-  _i6.Future<_i3.Space> createSpace({
-    String? logo,
-    required String? name,
-    String? domain,
-    required int? timeOff,
-    required String? ownerId,
-  }) =>
+  _i5.Future<void> createSpace({required _i7.Space? space}) =>
       (super.noSuchMethod(
         Invocation.method(
           #createSpace,
           [],
-          {
-            #logo: logo,
-            #name: name,
-            #domain: domain,
-            #timeOff: timeOff,
-            #ownerId: ownerId,
-          },
+          {#space: space},
         ),
-        returnValue: _i6.Future<_i3.Space>.value(_FakeSpace_1(
-          this,
-          Invocation.method(
-            #createSpace,
-            [],
-            {
-              #logo: logo,
-              #name: name,
-              #domain: domain,
-              #timeOff: timeOff,
-              #ownerId: ownerId,
-            },
-          ),
-        )),
-      ) as _i6.Future<_i3.Space>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> updateSpace(_i3.Space? space) => (super.noSuchMethod(
+  _i5.Future<void> updateSpace(_i7.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> deleteSpace({
+  _i5.Future<void> deleteSpace({
     required String? spaceId,
     required List<String>? owners,
     required String? uid,
@@ -295,30 +266,30 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
             #uid: uid,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<List<_i3.Space>> getSpacesOfUser(String? uid) =>
+  _i5.Future<List<_i7.Space>> getSpacesOfUser(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #getSpacesOfUser,
           [uid],
         ),
-        returnValue: _i6.Future<List<_i3.Space>>.value(<_i3.Space>[]),
-      ) as _i6.Future<List<_i3.Space>>);
+        returnValue: _i5.Future<List<_i7.Space>>.value(<_i7.Space>[]),
+      ) as _i5.Future<List<_i7.Space>>);
   @override
-  _i6.Future<int> getPaidLeaves({required String? spaceId}) =>
+  _i5.Future<int> getPaidLeaves({required String? spaceId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPaidLeaves,
           [],
           {#spaceId: spaceId},
         ),
-        returnValue: _i6.Future<int>.value(0),
-      ) as _i6.Future<int>);
+        returnValue: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
   @override
-  _i6.Future<void> updateLeaveCount({
+  _i5.Future<void> updateLeaveCount({
     required String? spaceId,
     required int? paidLeaveCount,
   }) =>
@@ -331,9 +302,9 @@ class MockSpaceService extends _i1.Mock implements _i7.SpaceService {
             #paidLeaveCount: paidLeaveCount,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserStateNotifier].
@@ -355,13 +326,13 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
         returnValue: '',
       ) as String);
   @override
-  _i4.Employee get employee => (super.noSuchMethod(
+  _i3.Employee get employee => (super.noSuchMethod(
         Invocation.getter(#employee),
-        returnValue: _FakeEmployee_2(
+        returnValue: _FakeEmployee_1(
           this,
           Invocation.getter(#employee),
         ),
-      ) as _i4.Employee);
+      ) as _i3.Employee);
   @override
   bool get isAdmin => (super.noSuchMethod(
         Invocation.getter(#isAdmin),
@@ -396,18 +367,18 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
         returnValueForMissingStub: null,
       );
   @override
-  _i6.Future<void> setUser(_i9.Account? user) => (super.noSuchMethod(
+  _i5.Future<void> setUser(_i9.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> setEmployeeWithSpace({
-    required _i3.Space? space,
-    required _i4.Employee? spaceUser,
+  _i5.Future<void> setEmployeeWithSpace({
+    required _i7.Space? space,
+    required _i3.Employee? spaceUser,
     bool? redirect = true,
   }) =>
       (super.noSuchMethod(
@@ -420,36 +391,36 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
             #redirect: redirect,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> updateSpace(_i3.Space? space) => (super.noSuchMethod(
+  _i5.Future<void> updateSpace(_i7.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
+  _i5.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
         Invocation.method(
           #removeEmployeeWithSpace,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<void> removeAll() => (super.noSuchMethod(
+  _i5.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
           #removeAll,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(

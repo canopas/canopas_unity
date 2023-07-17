@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import '../../../../data/core/utils/bloc_status.dart';
@@ -135,21 +136,26 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
       emit(state.copyWith(createSpaceStatus: Status.loading));
       String? logoURL;
       try {
+        final newSpaceId = _spaceService.generateNewSpaceId;
         int timeOff = int.parse(state.paidTimeOff);
 
         if (state.logo != null) {
           final String storagePath =
-              'images/${_userManager.currentSpaceId}/space-logo';
+              'images/$newSpaceId/space-logo';
           logoURL = await storageService.uploadProfilePic(
               path: storagePath, imagePath: state.logo!);
         }
 
-        final newSpace = await _spaceService.createSpace(
+        final newSpace = Space(
+            id: newSpaceId,
             logo: logoURL,
             name: state.companyName,
             domain: state.domain.isEmpty ? null : state.domain,
-            timeOff: timeOff,
-            ownerId: _userManager.userUID!);
+            paidTimeOff: timeOff,
+            createdAt: DateTime.now(),
+            ownerIds: [_userManager.userUID!]);
+
+        await _spaceService.createSpace(space: newSpace);
 
         final employee = Employee(
           uid: _userManager.userUID!,

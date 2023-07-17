@@ -22,30 +22,15 @@ class SpaceService {
     return spaceDoc.data();
   }
 
-  Future<Space> createSpace({
-    String? logo,
-    required String name,
-    String? domain,
-    required int timeOff,
-    required String ownerId,
-  }) async {
-    final id = _spaceDb.doc().id;
+  String get generateNewSpaceId => _spaceDb.doc().id;
 
-    final space = Space(
-        logo: logo,
-        id: id,
-        name: name,
-        domain: domain,
-        createdAt: DateTime.now(),
-        paidTimeOff: timeOff,
-        ownerIds: [ownerId]);
-
-    await _spaceDb.doc(id).set(space);
-    await _accountsDb.doc(ownerId).update({
-      FireStoreConst.spaces: FieldValue.arrayUnion([id]),
-    });
-
-    return space;
+  Future<void> createSpace({required Space space}) async {
+    await _spaceDb.doc(space.id).set(space);
+    for (final String ownerId in space.ownerIds) {
+      await _accountsDb.doc(ownerId).update({
+        FireStoreConst.spaces: FieldValue.arrayUnion([space.id]),
+      });
+    }
   }
 
   Future<void> updateSpace(Space space) async {
