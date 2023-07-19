@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/Repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_state.dart';
@@ -19,7 +20,8 @@ import 'employee_detail_bloc_test.mocks.dart';
   EmployeeService,
   LeaveService,
   UserStateNotifier,
-  SpaceService
+  SpaceService,
+  EmployeeRepo
 ])
 void main() {
   late AccountService accountService;
@@ -28,6 +30,7 @@ void main() {
   late LeaveService leaveService;
   late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
+  late EmployeeRepo employeeRepo;
   final employee = Employee(
       uid: 'id',
       role: Role.employee,
@@ -43,18 +46,12 @@ void main() {
     leaveService = MockLeaveService();
     userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
-    employeeDetailBloc = EmployeeDetailBloc(
-      accountService,
-      spaceService,
-      userStateNotifier,
-      employeeService,
-      leaveService,
-    );
-    when(leaveService.getUserUsedLeaves(employee.uid))
-        .thenAnswer((_) async => 10);
+    employeeRepo = MockEmployeeRepo();
+    employeeDetailBloc = EmployeeDetailBloc(accountService, spaceService,
+        userStateNotifier, employeeService, leaveService, employeeRepo);
+    when(leaveService.getUserUsedLeaves(employee.uid)).thenAnswer((_) async => 10);
     when(userStateNotifier.currentSpaceId).thenReturn("space-id");
-    when(spaceService.getPaidLeaves(spaceId: "space-id"))
-        .thenAnswer((_) async => 12);
+    when(spaceService.getPaidLeaves(spaceId: "space-id")).thenAnswer((_) async => 12);
   });
 
   group('Employee detail bloc', () {
@@ -63,8 +60,9 @@ void main() {
     });
 
     test('Emits Failure state when employee is found null', () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenAnswer((_) async => await null);
+      
+      when(employeeRepo.memberDetails(employee.uid))
+          .thenAnswer((_)  => Stream.value(null));
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       expectLater(
@@ -76,8 +74,8 @@ void main() {
     });
 
     test('Emits Failure state when exception is thrown by any cause', () {
-      when(employeeService.getEmployee(employee.uid))
-          .thenThrow(Exception('Employee not found'));
+      when(employeeRepo.memberDetails(employee.uid))
+          .thenThrow(Exception('error'));
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       expectLater(
@@ -88,50 +86,72 @@ void main() {
           ]));
     });
     test('Emits Failure state when exception is thrown while fetching leaves',
-            () {
-          when(employeeService.getEmployee(employee.uid))
-              .thenAnswer((_) async => employee);
-          when(leaveService.getUserUsedLeaves(employee.uid))
-              .thenThrow(Exception(firestoreFetchDataError));
-          employeeDetailBloc
-              .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
-          expectLater(
-              employeeDetailBloc.stream,
-              emitsInOrder([
-                EmployeeDetailLoadingState(),
-                EmployeeDetailFailureState(error: firestoreFetchDataError)
-              ]));
-        });
+        () {
+      when(employeeRepo.memberDetails(employee.uid))
+          .thenAnswer((_)  => Stream.value(employee));
+      when(leaveService.getUserUsedLeaves(employee.uid))
+          .thenThrow(Exception(firestoreFetchDataError));
+      employeeDetailBloc
+          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
+      expectLater(
+          employeeDetailBloc.stream,
+          emitsInOrder([
+            EmployeeDetailLoadingState(),
+            EmployeeDetailFailureState(error: firestoreFetchDataError)
+          ]));
+    });
 
-    test(
-        'Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
-            () {
-          when(employeeService.getEmployee(employee.uid))
-              .thenAnswer((_) async => employee);
+    test('Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
+        () {
+          when(employeeRepo.memberDetails(employee.uid))
+              .thenAnswer((_)  => Stream.value(employee));
 
-          employeeDetailBloc
-              .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
-          EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
-              employee: employee,
-              timeOffRatio: 10 / 12,
-              usedLeaves: 10);
-          expectLater(employeeDetailBloc.stream,
-              emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
-        });
+      employeeDetailBloc
+          .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
+      EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
+          employee: employee, timeOffRatio: 10 / 12, usedLeaves: 10);
+      expectLater(employeeDetailBloc.stream,
+          emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
+    });
 
-    test('delete employee failed test', () {
-      when(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive))
+    test('deactivate employee failed test', () {
+      when(employeeService.changeAccountStatus(
+              id: employee.uid, status: EmployeeStatus.inactive))
           .thenThrow(Exception("error"));
-      employeeDetailBloc.add(DeactivateEmployeeEvent(employeeId: employee.uid));
+      employeeDetailBloc.add(EmployeeStatusChangeEvent(
+          employeeId: employee.uid, status: EmployeeStatus.inactive));
       expect(employeeDetailBloc.stream,
           emits(EmployeeDetailFailureState(error: firestoreFetchDataError)));
     });
 
-    test('delete employee success test', () async {
-      when(userStateNotifier.userUID).thenReturn(employee.uid);
-      employeeDetailBloc.add(DeactivateEmployeeEvent(employeeId: employee.uid));
-      await untilCalled(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive));
-      verify(employeeService.changeAccountStatus(id: employee.uid,status: EmployeeStatus.inactive)).called(1);
+    test('deactivate employee success test', () async {
+      employeeDetailBloc.add(EmployeeStatusChangeEvent(
+          employeeId: employee.uid, status: EmployeeStatus.inactive));
+      await untilCalled(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.inactive));
+      verify(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.inactive)).called(1);
+
+      await untilCalled(accountService.deleteSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid));
+      verify(accountService.deleteSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid)).called(1);
+    });
+
+    test('activate employee failed test', () {
+      when(employeeService.changeAccountStatus(
+          id: employee.uid, status: EmployeeStatus.active))
+          .thenThrow(Exception("error"));
+      employeeDetailBloc.add(EmployeeStatusChangeEvent(
+          employeeId: employee.uid, status: EmployeeStatus.active));
+      expect(employeeDetailBloc.stream,
+          emits(EmployeeDetailFailureState(error: firestoreFetchDataError)));
+    });
+
+    test('activate employee success test', () async {
+      employeeDetailBloc.add(EmployeeStatusChangeEvent(
+          employeeId: employee.uid, status: EmployeeStatus.active));
+      await untilCalled(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.active));
+      verify(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.active)).called(1);
+
+      await untilCalled(accountService.addSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid));
+      verify(accountService.addSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid)).called(1);
     });
   });
 }

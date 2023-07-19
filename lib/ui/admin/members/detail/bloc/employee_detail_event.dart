@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../../../data/model/employee/employee.dart';
 
 abstract class EmployeeDetailEvent extends Equatable {}
 
@@ -11,10 +12,11 @@ class EmployeeDetailInitialLoadEvent extends EmployeeDetailEvent {
   List<Object?> get props => [employeeId];
 }
 
-class DeactivateEmployeeEvent extends EmployeeDetailEvent {
+class EmployeeStatusChangeEvent extends EmployeeDetailEvent {
   final String employeeId;
+  final EmployeeStatus status;
 
-  DeactivateEmployeeEvent({required this.employeeId});
+  EmployeeStatusChangeEvent({required this.employeeId, required this.status});
 
   @override
   List<Object?> get props => [employeeId];

@@ -98,14 +98,20 @@ class SearchEmployeeBottomSheet extends StatefulWidget {
 }
 
 class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
-  final TextEditingController searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
-        onTap: () {
-          showModalBottomSheet(
+        onTap: () async {
+          await showModalBottomSheet(
             isScrollControlled: true,
             backgroundColor: AppColors.whiteColor,
             context: context,
@@ -124,7 +130,7 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: FieldEntry(
-                        controller: searchController,
+                        controller: _searchController,
                         hintText:
                             AppLocalizations.of(context).search_employee_tag,
                         onChanged: (searchInput) => context
@@ -145,8 +151,9 @@ class _SearchEmployeeBottomSheetState extends State<SearchEmployeeBottomSheet> {
                               ...state.members.map((member) => EmployeeCard(
                                   employee: member,
                                   onTap: () {
-                                    context.read<AdminLeavesBloc>().add(
-                                        ChangeMemberEvent(member: member));
+                                    context
+                                        .read<AdminLeavesBloc>()
+                                        .add(ChangeMemberEvent(member: member));
                                     context.pop();
                                   })),
                             ],
@@ -189,9 +196,7 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context
-            .read<AdminLeavesBloc>()
-            .add(ChangeMemberEvent(member: null));
+        context.read<AdminLeavesBloc>().add(ChangeMemberEvent(member: null));
         context.pop();
       },
       child: Padding(

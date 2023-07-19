@@ -61,6 +61,13 @@ class AccountService {
     });
   }
 
+  Future<void> addSpaceIdFromAccount(
+      {required String spaceId, required String uid}) async {
+    await _accountsDb.doc(uid).update({
+      FireStoreConst.spaces: FieldValue.arrayUnion([spaceId])
+    });
+  }
+
   Future<List<String>> fetchSpaceIds({required String uid}) async {
     final userDoc = await _accountsDb.doc(uid).get();
     if (userDoc.data() == null) {

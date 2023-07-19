@@ -1,8 +1,6 @@
-import 'package:equatable/equatable.dart';
-
-abstract class AdminMembersEvents extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
+abstract class AdminMembersEvents  {}
 class AdminMembersInitialLoadEvent extends AdminMembersEvents {}
+class CancelUserInvitation extends AdminMembersEvents {
+  final String id;
+  CancelUserInvitation(this.id);
+}

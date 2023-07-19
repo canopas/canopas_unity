@@ -66,13 +66,16 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,
                 AdminEditEmployeeDetailsState>(
               buildWhen: (previous, current) => previous.role != current.role,
-              builder: (context, state) => ToggleButton(
-                  onRoleChange: (role) {
-                    context
-                        .read<AdminEditEmployeeDetailsBloc>()
-                        .add(ChangeEmployeeRoleEvent(roleType: role));
-                  },
-                  role: state.role),
+              builder: (context, state) => Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: ToggleButton(
+                    onRoleChange: (role) {
+                      context
+                          .read<AdminEditEmployeeDetailsBloc>()
+                          .add(ChangeEmployeeRoleEvent(roleType: role));
+                    },
+                    role: state.role),
+              ),
             ),
           ),
           FieldTitle(title: localization.employee_employeeID_tag),
