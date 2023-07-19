@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
+import 'package:projectunity/data/core/utils/const/image_storage_path_const.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -97,7 +98,7 @@ class EmployeeEditProfileBloc
   }
 
   Future<String?> _saveImage() async {
-    final String storagePath = 'images/${_userManager.currentSpaceId}/${_userManager.userUID}/profile';
+    final String storagePath = ImageStoragePath.membersProfilePath(spaceId: _userManager.currentSpaceId!, uid: _userManager.userUID!);
 
     if (state.imageURL != null) {
       try {

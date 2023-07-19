@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
+import 'package:projectunity/data/core/utils/const/image_storage_path_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/services/employee_service.dart';
@@ -140,8 +141,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
         int timeOff = int.parse(state.paidTimeOff);
 
         if (state.logo != null) {
-          final String storagePath =
-              'images/$newSpaceId/space-logo';
+          final String storagePath = ImageStoragePath.spaceLogoPath(spaceId: newSpaceId);
           logoURL = await storageService.uploadProfilePic(
               path: storagePath, imagePath: state.logo!);
         }

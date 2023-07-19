@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/core/utils/const/image_storage_path_const.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -103,7 +104,7 @@ class AdminEditEmployeeDetailsBloc
 
         if (state.pickedImage != null) {
           imageUrl = await _storageService.uploadProfilePic(
-              path: 'images/${_userStateNotifier.currentSpaceId}/${event.previousEmployeeData.uid}/profile',
+              path: ImageStoragePath.membersProfilePath(spaceId: _userStateNotifier.currentSpaceId!, uid: event.previousEmployeeData.uid),
               imagePath: state.pickedImage!);
         }
 

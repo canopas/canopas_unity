@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
+import 'package:projectunity/data/core/utils/const/image_storage_path_const.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
@@ -88,8 +89,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       String? logoURL = space.logo;
 
       if (state.logo.isNotNullOrEmpty) {
-        final String storagePath =
-            'images/${_userStateNotifier.currentSpaceId}/space-logo';
+        final String storagePath = ImageStoragePath.spaceLogoPath(spaceId: _userStateNotifier.currentSpaceId!);
         logoURL = await _storageService.uploadProfilePic(
             path: storagePath, imagePath: state.logo!);
       }
