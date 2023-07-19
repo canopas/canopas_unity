@@ -89,9 +89,10 @@ class MyApp extends StatelessWidget {
                       },
                     ),
                     BlocListener<SpaceUserBloc, SpaceUserState>(
-                      listenWhen: (previous, current) =>
-                          current is SpaceUserErrorState,
+                      // listenWhen: (previous, current) =>
+                      //     current is SpaceUserErrorState,
                       listener: (context, state) {
+                        print('$state in main.dart');
                         if (state is SpaceUserErrorState) {
                           showSnackBar(context: context, error: state.error);
                         }

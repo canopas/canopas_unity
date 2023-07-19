@@ -39,7 +39,7 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
 
   Future<void> _checkUserStatus(
       CheckSpaceEvent status, Emitter<SpaceUserState> emit) async {
-    if (_spaceManager.currentSpaceId == '') {
+    if (_spaceManager.currentSpaceId == null) {
       if (_userStateNotifier.employee != null ||
           _userStateNotifier.currentSpace != null) {
         _userStateNotifier.removeEmployeeWithSpace();
@@ -47,7 +47,7 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
       }
     } else {
       final Space? space =
-          await _spaceService.getSpace(_spaceManager.currentSpaceId);
+          await _spaceService.getSpace(_spaceManager.currentSpaceId!);
       if (space == null) {
         return;
       }
@@ -92,7 +92,10 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
   Future<void> _deactivateUser(
       DeactivateUserEvent event, Emitter<SpaceUserState> emit) async {
     await _userStateNotifier.removeEmployeeWithSpace();
-    _userStateNotifier.removeListener(() {});
+    await _spaceManager.removeCurrentSpaceID();
+    await _cancelStreamSubscription();
+    // _userStateNotifier.removeListener(() {
+    // });
   }
 
   Future<void> _cancelStreamSubscription() async {

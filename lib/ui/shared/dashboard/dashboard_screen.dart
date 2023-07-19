@@ -28,13 +28,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
-    var bloc = BlocProvider.of<SpaceUserBloc>(context);
+    var bloc = context.read<SpaceUserBloc>();
     return BlocProvider(
       create: (BuildContext context) => getIt<DrawerBloc>(),
       child: Scaffold(
         drawer: const AppDrawer(),
         body: SafeArea(
             child: BlocListener<SpaceUserBloc, SpaceUserState>(
+          bloc: bloc,
           listenWhen: (previous, current) =>
               current is SpaceUserRevokeAccessState,
           listener: (context, state) {
@@ -46,23 +47,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text(locale
-                          .state_controller_access_revoked_alert_dialogue_title),
-                      content: Text(locale
-                          .state_controller_access_revoked_alert_dialogue_subtitle),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              BlocProvider.of<SpaceUserBloc>(context)
-                                  .add(DeactivateUserEvent());
-                            },
-                            child: Text(locale.ok_tag))
-                      ],
-                    );
-                  });
-            }
-          },
-          child: widget.child,
+                          title: Text(locale
+                              .state_controller_access_revoked_alert_dialogue_title),
+                          content: Text(locale
+                              .state_controller_access_revoked_alert_dialogue_subtitle),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  BlocProvider.of<SpaceUserBloc>(context)
+                                      .add(DeactivateUserEvent());
+                                },
+                                child: Text(locale.ok_tag))
+                          ],
+                        );
+                      });
+                }
+              },
+              child: widget.child,
         )),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (int index) => onItemTapped(index),

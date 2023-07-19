@@ -35,6 +35,18 @@ class UserPreference {
     return data == null ? null : Space.fromJson(jsonDecode(data));
   }
 
+  Future<void> setCurrentSpaceId(String spaceId) async {
+    await _preferences.setString('current-space-id', spaceId);
+  }
+
+  String? getCurrentSpaceId(String spaceId) {
+    return _preferences.getString('current-space-id');
+  }
+
+  Future<void> removeCurrentSpaceId() async {
+    await _preferences.remove('current-space-id');
+  }
+
   Future<void> removeSpace() async {
     await _preferences.remove(PrefKeys.space);
   }

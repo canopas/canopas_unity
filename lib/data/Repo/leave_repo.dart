@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -34,8 +35,22 @@ class LeaveRepo {
     if (_leavesStreamSubscription != null) {
       _leavesStreamSubscription!.cancel();
     }
+    DateTime dateTime = DateTime(2023, 7, 1);
+    _leavesStreamSubscription =
+        _leaveService.leaves(dateTime.timeStampToInt).listen((value) {
+      _leavesController.add(value);
+    }, onError: (e, s) async {
+      _leavesController.addError(e);
+      await FirebaseCrashlytics.instance.recordError(e, s);
+    });
+  }
 
-    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
+  Future<void> loadMore(DateTime dateTime) async {
+    if (_leavesStreamSubscription != null) {
+      _leavesStreamSubscription!.cancel();
+    }
+    _leavesStreamSubscription =
+        _leaveService.leaves(dateTime.timeStampToInt).listen((value) {
       _leavesController.add(value);
     }, onError: (e, s) async {
       _leavesController.addError(e);

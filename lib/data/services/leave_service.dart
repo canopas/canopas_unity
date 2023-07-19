@@ -32,9 +32,12 @@ class LeaveService {
     return requests.docs.map((leave) => leave.data()).toList();
   }
 
-  Stream<List<Leave>> get leaves => _leaveDb()
-      .snapshots()
-      .map((event) => event.docs.map((leave) => leave.data()).toList());
+  Stream<List<Leave>> leaves(int monthDate) {
+    return _leaveDb()
+        .where(FireStoreConst.startLeaveDate, isGreaterThanOrEqualTo: monthDate)
+        .snapshots()
+        .map((event) => event.docs.map((leave) => leave.data()).toList());
+  }
 
   Future<bool> checkLeaveAlreadyApplied({
     required String userId,
