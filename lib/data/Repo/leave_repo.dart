@@ -44,6 +44,10 @@ class LeaveRepo {
       (value) {
         _leavesController.add(value);
       },
+      onError: (e, s) async {
+        _leavesController.addError(e);
+        await FirebaseCrashlytics.instance.recordError(e, s);
+      },
     );
   }
 

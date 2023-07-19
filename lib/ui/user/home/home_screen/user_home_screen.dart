@@ -31,16 +31,11 @@ class UserHomeScreenPage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) =>
-              getIt<UserStateControllerBloc>()..add(CheckUserStatus()),
-        ),
-        BlocProvider(
-          create: (_) =>
               getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
         ),
         BlocProvider(
-          create: (_) =>
-              getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())
-        ),
+            create: (_) =>
+                getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())),
       ],
       child: const UserHomeScreen(),
     );

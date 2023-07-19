@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/admin/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
+import '../../../data/bloc/user_state/user_state_controller_bloc.dart';
+import '../../../data/bloc/user_state/user_state_controller_event.dart';
 import '../../../data/di/service_locator.dart';
 import '../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 
@@ -20,8 +22,13 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt.get<DrawerBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt.get<DrawerBloc>()),
+        BlocProvider(
+            create: (_) =>
+                getIt<UserStateControllerBloc>()..add(CheckUserStatus())),
+      ],
       child: Scaffold(
         drawer: const AppDrawer(),
         body: SafeArea(child: widget.child),

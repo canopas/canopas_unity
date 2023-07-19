@@ -29,11 +29,6 @@ class AdminHomeScreenPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-          getIt<UserStateControllerBloc>()
-            ..add(CheckUserStatus()),
-        ),
-        BlocProvider(
           create: (context) => getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
         ),
         BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())),
