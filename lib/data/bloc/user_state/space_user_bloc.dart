@@ -8,6 +8,7 @@ import 'package:projectunity/data/bloc/user_state/space_user_event.dart';
 import 'package:projectunity/data/bloc/user_state/space_user_state.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/space/space.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../model/employee/employee.dart';
 import '../../provider/space_manager.dart';
 import '../../provider/user_state.dart';
@@ -20,6 +21,9 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
   final EmployeeRepo _employeeRepo;
   final LeaveRepo _leaveRepo;
   final SpaceManager _spaceManager;
+  StreamSubscription<Employee?>? _streamSubscription;
+  final BehaviorSubject<Employee?> _userController =
+      BehaviorSubject<Employee?>();
 
   SpaceUserBloc(this._employeeRepo, this._leaveRepo, this._userStateNotifier,
       this._spaceService, this._spaceManager)
@@ -29,11 +33,9 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
     on<DeactivateUserEvent>(_deactivateUser);
     if (_userStateNotifier.state == UserState.spaceJoined) {
       add(CheckSpaceEvent());
-      print('check status');
     }
     _spaceManager.addListener(() {
       add(CheckSpaceEvent());
-      print('space changed');
     });
   }
 
@@ -42,8 +44,7 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
     if (_spaceManager.currentSpaceId == null) {
       if (_userStateNotifier.employee != null ||
           _userStateNotifier.currentSpace != null) {
-        _userStateNotifier.removeEmployeeWithSpace();
-        await _cancelStreamSubscription();
+        add(DeactivateUserEvent());
       }
     } else {
       final Space? space =
@@ -52,40 +53,42 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
         return;
       }
       _userStateNotifier.updateSpace(space);
-      add(CheckUserEvent());
+      if (_streamSubscription != null) {
+        _streamSubscription!.cancel();
+      }
+      try {
+        await _resetStreamSubscription();
+        _streamSubscription = _employeeRepo
+            .getCurrentUser(
+                spaceID: _userStateNotifier.currentSpaceId!,
+                uid: _userStateNotifier.userUID!)
+            .listen((event) {
+          _userController.add(event);
+          add(CheckUserEvent(employee: event));
+        }, onError: (error, stackTrace) {
+          emit(SpaceUserErrorState(error: firestoreFetchDataError));
+          FirebaseCrashlytics.instance.recordError(error, stackTrace,
+              reason: 'ERROR WHILE LISTENING THE CURRENT USER STRAEM');
+        });
+      } on Exception catch (error, stacktrace) {
+        emit(SpaceUserErrorState(error: firestoreFetchDataError));
+        FirebaseCrashlytics.instance.recordError(error, stacktrace,
+            reason:
+                'EXCEPTION == GET CURRENT USER INFO WHEN THE USER STATUS IS ${_userStateNotifier.state}');
+      }
     }
   }
 
   Future<void> _updateUserData(
       CheckUserEvent event, Emitter<SpaceUserState> emit) async {
-    try {
-      await _resetStreamSubscription();
-      await emit.onEach(
-          _employeeRepo.getCurrentUser(
-              spaceID: _userStateNotifier.currentSpaceId!,
-              uid: _userStateNotifier.userUID!),
-          onData: (Employee? user) async {
-        print('=======================  ${user!.toJson()}');
-        if (user == null) {
-          emit(SpaceUserErrorState(error: firestoreFetchDataError));
-        } else {
-          if (user.status == EmployeeStatus.inactive) {
-            print(user.status);
-            emit(SpaceUserRevokeAccessState());
-          } else {
-            _userStateNotifier.updateCurrentUser(user);
-          }
-        }
-      }, onError: (error, stackTrace) {
-        emit(SpaceUserErrorState(error: firestoreFetchDataError));
-        FirebaseCrashlytics.instance.recordError(error, stackTrace,
-            reason: 'ERROR WHILE LISTENING THE CURRENT USER STRAEM');
-      });
-    } on Exception catch (error, stacktrace) {
+    if (event.employee == null) {
       emit(SpaceUserErrorState(error: firestoreFetchDataError));
-      FirebaseCrashlytics.instance.recordError(error, stacktrace,
-          reason:
-              'EXCEPTION == GET CURRENT USER INFO WHEN THE USER STATUS IS ${_userStateNotifier.state}');
+    } else {
+      if (event.employee!.status == EmployeeStatus.inactive) {
+        emit(SpaceUserRevokeAccessState());
+      } else {
+        _userStateNotifier.updateCurrentUser(event.employee!);
+      }
     }
   }
 
@@ -94,8 +97,6 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
     await _userStateNotifier.removeEmployeeWithSpace();
     await _spaceManager.removeCurrentSpaceID();
     await _cancelStreamSubscription();
-    // _userStateNotifier.removeListener(() {
-    // });
   }
 
   Future<void> _cancelStreamSubscription() async {

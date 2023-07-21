@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-abstract class SpaceUserState extends Equatable {}
+abstract class SpaceUserState {}
 
 class SpaceUserErrorState extends SpaceUserState {
   final String error;
@@ -16,7 +16,4 @@ class SpaceUserInitialState extends SpaceUserState {
   List<Object?> get props => [];
 }
 
-class SpaceUserRevokeAccessState extends SpaceUserState {
-  @override
-  List<Object?> get props => [];
-}
+class SpaceUserRevokeAccessState extends SpaceUserState {}

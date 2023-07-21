@@ -1,7 +1,27 @@
-abstract class SpaceUserEvent {}
+import 'package:equatable/equatable.dart';
 
-class CheckSpaceEvent extends SpaceUserEvent {}
+import '../../model/employee/employee.dart';
 
-class CheckUserEvent extends SpaceUserEvent {}
+abstract class SpaceUserEvent extends Equatable {}
 
-class DeactivateUserEvent extends SpaceUserEvent {}
+class CheckSpaceEvent extends SpaceUserEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class CheckUserEvent extends SpaceUserEvent {
+  final Employee? employee;
+
+  CheckUserEvent({required this.employee});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [employee];
+}
+
+class DeactivateUserEvent extends SpaceUserEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

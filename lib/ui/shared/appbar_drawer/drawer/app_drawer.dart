@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/bloc/user_state/space_user_bloc.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_option.dart';
@@ -31,6 +32,8 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final blocStatus = context.read<SpaceUserBloc>().state;
+    print('==================================  $blocStatus');
     return BlocListener<DrawerBloc, DrawerState>(
       listenWhen: (previous, current) =>
           current.error.isNotNullOrEmpty ||
@@ -43,7 +46,7 @@ class _AppDrawerState extends State<AppDrawer> {
           showSnackBar(context: context, error: state.error);
         } else if (state.changeSpaceStatus == Status.success) {
           try {
-           Navigator.of(context).pop();
+            Navigator.of(context).pop();
           } catch (_) {}
         }
       },

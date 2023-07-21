@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/dashboard_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
+import 'package:projectunity/ui/user/dashboard/user_dashboard.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 import '../../data/model/employee/employee.dart';
@@ -325,12 +327,18 @@ class AppRouter {
               !state.subloc.contains(Routes.joinSpace)) {
             return Routes.joinSpace;
           }
-          if (userManager.state == UserState.update ||
-              (userManager.state == UserState.spaceJoined &&
-                  state.subloc.contains(Routes.joinSpace))) {
+          if ((userManager.state == UserState.spaceJoined &&
+              state.subloc.contains(Routes.joinSpace))) {
             return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;
+          }
+          if (_userManager.state == UserState.update) {
+            print(state.location);
+            context.replaceNamed(userManager.isAdmin || userManager.isHR
+                ? Routes.adminHome
+                : Routes.userHome);
+            return state.location;
           }
           return null;
         });

@@ -26,6 +26,7 @@ class EmployeeRepo {
 
   Stream<Employee?> getCurrentUser(
       {required String spaceID, required String uid}) {
+    print('employeeRepo is called');
     return _employeeService.getCurrentUser(spaceId: spaceID, id: uid);
   }
 
@@ -45,6 +46,7 @@ class EmployeeRepo {
         .employees(_userStateNotifier.currentSpaceId!)
         .listen((value) {
       _employeeController.add(value);
+      print('${_employeeController.value.length}');
     }, onError: (e, s) async {
       _employeeController.addError(e);
       await FirebaseCrashlytics.instance.recordError(e, s);
@@ -53,6 +55,7 @@ class EmployeeRepo {
 
   Future<void> cancel() async {
     await _employeeStreamSubscription?.cancel();
+    print(_employeeStreamSubscription?.isPaused);
   }
 
   @disposeMethod

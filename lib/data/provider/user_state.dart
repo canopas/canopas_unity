@@ -37,12 +37,16 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> updateCurrentUser(Employee user)async {
-    print('Employee in userPreference: ${user.name}');
     if (_userPreference.getEmployee() == null) {
       _userState = UserState.spaceJoined;
+      return;
     }
+    // if(_userPreference.getEmployee()?.role!=user.role){
+    //   _userState= UserState.update;
+    // }
+
     await _userPreference.setEmployee(user);
-    print(_userState);
+    _userState = UserState.update;
     notifyListeners();
   }
 
@@ -54,7 +58,6 @@ class UserStateNotifier with ChangeNotifier {
   Future<void> removeEmployeeWithSpace() async {
     await _userPreference.removeSpace();
     await _userPreference.removeEmployee();
-    print("employee after removel: ${_userPreference.getEmployee()}");
     _userState = UserState.authenticated;
     notifyListeners();
   }

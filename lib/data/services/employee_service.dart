@@ -26,7 +26,9 @@ class EmployeeService {
   Stream<List<Employee>> employees(String spaceId) {
     return _membersDbCollection(spaceId: spaceId)
         .snapshots()
-        .map((event) => event.docs.map((employee) => employee.data()).toList());
+        .map((event) => event.docs.map((employee) {
+              return employee.data();
+            }).toList());
   }
 
   Future<void> addEmployeeBySpaceId(
@@ -60,7 +62,10 @@ class EmployeeService {
     return _membersDbCollection(spaceId: spaceId)
         .doc(id)
         .snapshots()
-        .map((event) => event.data());
+        .map((event) {
+      print(event.data());
+      return event.data();
+    });
   }
 
   Future<bool> hasUser(String email) async {
