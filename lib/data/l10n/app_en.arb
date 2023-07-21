@@ -22,6 +22,7 @@
   "upcoming_tag":"Upcoming",
    "delete_button_tag":"Delete",
   "deactivate_tag":"Deactivate",
+  "activate_tag":"Activate",
   "save_tag":"Save",
   "edit_tag":"Edit",
   "reason_tag":"Reason",
@@ -262,6 +263,7 @@
   "admin_employees_detail_time_off_tag":"Time Off",
 
   "invited_members_title":"Invited members",
+  "inactive_members_title":"Inactive members",
 
   "admin_setting_update_leave_total_leaves_tag":"Total Leaves",
   "yearly_paid_time_off_tag":"Yearly Paid Time-Off",

@@ -22,13 +22,18 @@ class PersonalInfo extends StatefulWidget {
 
 class _PersonalInfoState extends State<PersonalInfo>
     with AutomaticKeepAliveClientMixin {
-  late final TextEditingController controller;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController();
-    controller.text = context.read<CreateSpaceBLoc>().state.ownerName ?? "";
+    _controller.text = context.read<CreateSpaceBLoc>().state.ownerName ?? "";
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -61,11 +66,13 @@ class _PersonalInfoState extends State<PersonalInfo>
                   height: 30,
                 ),
                 BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-                    buildWhen: (previous,current)=>previous.ownerName!= current.ownerName,
+                    buildWhen: (previous, current) =>
+                        previous.ownerName != current.ownerName,
                     builder: (context, state) {
                       return FieldEntry(
-                        hintText: state.ownerName??locale.create_space_enter_your_name_hint_text,
-                        controller: controller,
+                        hintText: state.ownerName ??
+                            locale.create_space_enter_your_name_hint_text,
+                        controller: _controller,
                         keyboardType: TextInputType.name,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.singleLineFormatter

@@ -5,7 +5,6 @@ import 'package:mockito/mockito.dart';
 import 'dart:io';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -14,8 +13,6 @@ import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.da
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_event.dart';
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_state.dart';
 import 'create_space_bloc_test.mocks.dart';
-
-
 
 @GenerateMocks([
   SpaceService,
@@ -34,6 +31,7 @@ void main() {
   late CreateSpaceState createSpaceState;
   final XFile xFile = XFile('path');
   final File file = File(xFile.path);
+
   setUp(() {
     spaceService = MockSpaceService();
     userStateNotifier = MockUserStateNotifier();
@@ -44,7 +42,6 @@ void main() {
     bloc = CreateSpaceBLoc(spaceService, userStateNotifier, employeeService,
         imagePicker, storageService);
     createSpaceState = const CreateSpaceState(ownerName: 'user name');
-    when(userStateNotifier.currentSpaceId).thenReturn('space-id');
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.userEmail).thenReturn('andrew.j@canopas.com');
   });
@@ -220,7 +217,9 @@ void main() {
     });
 
     test('create space success with all details test', () async {
-      when(storageService.uploadProfilePic(path: 'images/space-id/space-logo', imagePath: 'path'))
+      when(spaceService.generateNewSpaceId).thenReturn('space-id');
+      when(storageService.uploadProfilePic(
+              path: 'images/space-id/space-logo', imagePath: 'path'))
           .thenAnswer((realInvocation) async => 'image-url');
 
       final state = CreateSpaceState(
@@ -235,21 +234,6 @@ void main() {
 
       bloc.emit(state);
       bloc.add(CreateSpaceButtonTapEvent());
-      final space = Space(
-          id: 'space-id',
-          name: 'canopas',
-          logo: 'image-url',
-          domain: 'www.canopas.com',
-          createdAt: DateTime(2000),
-          paidTimeOff: 12,
-          ownerIds: const ['uid']);
-      when(spaceService.createSpace(
-              name: 'canopas',
-              logo: 'image-url',
-              domain: 'www.canopas.com',
-              timeOff: 12,
-              ownerId: 'uid'))
-          .thenAnswer((realInvocation) async => space);
 
       expectLater(
           bloc.stream,
@@ -266,23 +250,11 @@ void main() {
         paidTimeOff: '12',
         companyName: 'canopas',
       ));
-
-      when(userStateNotifier.currentSpaceId).thenReturn('space-id');
+      when(spaceService.generateNewSpaceId).thenReturn('space-id');
       when(userStateNotifier.userUID).thenReturn('uid');
       when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
 
       bloc.add(CreateSpaceButtonTapEvent());
-
-      final space = Space(
-          id: 'space-id',
-          name: 'canopas',
-          createdAt: DateTime(2000),
-          paidTimeOff: 12,
-          ownerIds: const ['uid']);
-
-      when(spaceService.createSpace(
-              name: 'canopas', timeOff: 12, ownerId: 'uid'))
-          .thenAnswer((realInvocation) async => space);
 
       expectLater(
           bloc.stream,

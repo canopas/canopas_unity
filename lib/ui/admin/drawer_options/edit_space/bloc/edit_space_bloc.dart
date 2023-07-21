@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
+import 'package:projectunity/data/core/utils/const/image_storage_path_const.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
@@ -17,11 +18,11 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
     with InputValidationMixin {
   final UserStateNotifier _userStateNotifier;
   final SpaceService _spaceService;
-  final ImagePicker imagePicker;
-  final StorageService storageService;
+  final ImagePicker _imagePicker;
+  final StorageService _storageService;
 
-  EditSpaceBloc(this._spaceService, this._userStateNotifier, this.imagePicker,
-      this.storageService)
+  EditSpaceBloc(this._spaceService, this._userStateNotifier, this._imagePicker,
+      this._storageService)
       : super(const EditSpaceState()) {
     on<EditSpaceInitialEvent>(_init);
 
@@ -61,8 +62,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
     emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
     try {
-      await _spaceService.deleteSpace(
-         spaceId:  _userStateNotifier.currentSpace!.id, owners: _userStateNotifier.currentSpace!.ownerIds,uid: _userStateNotifier.employeeId);
+      await _spaceService.deleteSpace(spaceId:  _userStateNotifier.currentSpace!.id, owners: _userStateNotifier.currentSpace!.ownerIds,uid: _userStateNotifier.employeeId);
+      await _storageService.deleteStorageFolder("images/${_userStateNotifier.currentSpaceId}");
       await _userStateNotifier.removeEmployeeWithSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
@@ -73,7 +74,7 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
 
   Future<void> _pickImage(
       PickImageEvent event, Emitter<EditSpaceState> emit) async {
-    final XFile? image = await imagePicker.pickImage(source: event.imageSource);
+    final XFile? image = await _imagePicker.pickImage(source: event.imageSource);
     if (image != null) {
       emit(state.copyWith(logo: image.path, isLogoPickedDone: true));
     }
@@ -88,9 +89,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       String? logoURL = space.logo;
 
       if (state.logo.isNotNullOrEmpty) {
-        final String storagePath =
-            'images/${_userStateNotifier.currentSpaceId}/space-logo';
-        logoURL = await storageService.uploadProfilePic(
+        final String storagePath = ImageStoragePath.spaceLogoPath(spaceId: _userStateNotifier.currentSpaceId!);
+        logoURL = await _storageService.uploadProfilePic(
             path: storagePath, imagePath: state.logo!);
       }
 

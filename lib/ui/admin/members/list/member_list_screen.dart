@@ -61,25 +61,71 @@ class _MemberListScreenState extends State<MemberListScreen> {
             children: [
               state.memberFetchStatus == Status.loading
                   ? const AppCircularProgressIndicator()
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      separatorBuilder: (context, index) => const Divider(
-                            endIndent: primaryVerticalSpacing,
-                            indent: primaryVerticalSpacing,
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) => const Divider(
+                                  endIndent: primaryVerticalSpacing,
+                                  indent: primaryVerticalSpacing,
+                                ),
+                            padding:
+                                const EdgeInsets.all(primaryVerticalSpacing),
+                            itemCount: state.activeMembers.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return EmployeeCard(
+                                employee: state.activeMembers[index],
+                                onTap: () => context.goNamed(
+                                    Routes.adminMemberDetails,
+                                    params: {
+                                      RoutesParamsConst.employeeId:
+                                          state.activeMembers[index].uid
+                                    }),
+                              );
+                            }),
+                        ValidateWidget(
+                          isValid: state.inactiveMembers.isNotEmpty,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .inactive_members_title,
+                              style: AppFontStyle.headerDark,
+                            ),
                           ),
-                      padding: const EdgeInsets.all(primaryVerticalSpacing),
-                      itemCount: state.members.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return EmployeeCard(
-                          employee: state.members[index],
-                          onTap: () => context
-                              .goNamed(Routes.adminMemberDetails, params: {
-                            RoutesParamsConst.employeeId:
-                                state.members[index].uid
-                          }),
-                        );
-                      }),
+                        ),
+                        ValidateWidget(
+                            isValid: state.inactiveMembers.isNotEmpty,
+                            child: const Divider(height: 0)),
+                        ValidateWidget(
+                          isValid: state.inactiveMembers.isNotEmpty,
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
+                                    endIndent: primaryVerticalSpacing,
+                                    indent: primaryVerticalSpacing,
+                                  ),
+                              padding:
+                                  const EdgeInsets.all(primaryVerticalSpacing),
+                              itemCount: state.inactiveMembers.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return EmployeeCard(
+                                  employee: state.inactiveMembers[index],
+                                  onTap: () => context.goNamed(
+                                      Routes.adminMemberDetails,
+                                      params: {
+                                        RoutesParamsConst.employeeId:
+                                            state.inactiveMembers[index].uid
+                                      }),
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
               state.invitationFetchStatus == Status.loading
                   ? const AppCircularProgressIndicator()
                   : ValidateWidget(

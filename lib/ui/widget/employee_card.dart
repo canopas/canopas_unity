@@ -48,7 +48,10 @@ class EmployeeCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 2),
                       child: Text(employee.designation ?? "",
-                          style: AppFontStyle.subTitleGrey,
+                          style: employee.status == EmployeeStatus.inactive
+                              ? AppFontStyle.subTitleGrey
+                                  .copyWith(color: AppColors.secondaryText)
+                              : AppFontStyle.subTitleGrey,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1),
                     ),

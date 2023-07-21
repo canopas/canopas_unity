@@ -59,9 +59,9 @@ class EmployeeService {
     final data =
         await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
             .where(FireStoreConst.email, isEqualTo: email)
-            .limit(1)
+            .count()
             .get();
-    return data.docs.isNotEmpty;
+    return data.count > 0;
   }
 
   Future<void> addEmployee(Employee employee) async {

@@ -468,4 +468,13 @@ class MockStorageService extends _i1.Mock implements _i12.StorageService {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> deleteStorageFolder(String? path) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteStorageFolder,
+          [path],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
