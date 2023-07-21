@@ -11,11 +11,11 @@ import '../services/employee_service.dart';
 class EmployeeRepo {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
-  final BehaviorSubject<List<Employee>> _employeeController =
-      BehaviorSubject<List<Employee>>();
+  late BehaviorSubject<List<Employee>> _employeeController;
   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
   EmployeeRepo(this._employeeService, this._userStateNotifier) {
+    _employeeController = BehaviorSubject<List<Employee>>();
     _employeeStreamSubscription = _employeeService
         .employees(_userStateNotifier.currentSpaceId!)
         .listen((value) {
@@ -38,6 +38,7 @@ class EmployeeRepo {
           .toList());
 
   Future<void> reset() async {
+    _employeeController = BehaviorSubject<List<Employee>>();
     await _employeeStreamSubscription?.cancel();
     _employeeStreamSubscription =
         _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
@@ -47,13 +48,9 @@ class EmployeeRepo {
     );
   }
 
-  Future<void> cancel() async {
-    await _employeeStreamSubscription?.cancel();
-  }
-
   @disposeMethod
   Future<void> dispose() async {
-    await _employeeStreamSubscription?.cancel();
     await _employeeController.close();
+    await _employeeStreamSubscription?.cancel();
   }
 }
