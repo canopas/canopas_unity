@@ -35,7 +35,10 @@ class UserStateControllerBloc
           if (employee != null &&
               space != null &&
               employee.status == EmployeeStatus.active) {
-            add(UpdateUserData(employee: employee, space: space));
+            if (employee != _userStateNotifier.employee ||
+                space != _userStateNotifier.currentSpace) {
+              add(UpdateUserData(employee: employee, space: space));
+            }
             return const UserControllerState(
                 userState: UserState.authenticated);
           } else {

@@ -12,7 +12,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
 import 'package:projectunity/data/provider/user_state.dart' as _i8;
-import 'package:projectunity/data/services/employee_service.dart' as _i5;
+import 'package:projectunity/data/Repo/employee_repo.dart' as _i5;
 import 'package:projectunity/data/services/space_service.dart' as _i7;
 
 // ignore_for_file: type=lint
@@ -57,146 +57,46 @@ class _FakeEmployee_2 extends _i1.SmartFake implements _i4.Employee {
         );
 }
 
-/// A class which mocks [EmployeeService].
+/// A class which mocks [EmployeeRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmployeeService extends _i1.Mock implements _i5.EmployeeService {
-  MockEmployeeService() {
+class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
+  MockEmployeeRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.FirebaseFirestore get fireStore => (super.noSuchMethod(
-        Invocation.getter(#fireStore),
-        returnValue: _FakeFirebaseFirestore_0(
-          this,
-          Invocation.getter(#fireStore),
-        ),
-      ) as _i2.FirebaseFirestore);
-  @override
-  _i6.Stream<List<_i4.Employee>> employees(String? spaceId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #employees,
-          [spaceId],
-        ),
+  _i6.Stream<List<_i4.Employee>> get employees => (super.noSuchMethod(
+        Invocation.getter(#employees),
         returnValue: _i6.Stream<List<_i4.Employee>>.empty(),
       ) as _i6.Stream<List<_i4.Employee>>);
   @override
-  _i6.Future<void> addEmployeeBySpaceId({
-    required _i4.Employee? employee,
-    required String? spaceId,
-  }) =>
-      (super.noSuchMethod(
+  _i6.Stream<List<_i4.Employee>> get activeEmployees => (super.noSuchMethod(
+        Invocation.getter(#activeEmployees),
+        returnValue: _i6.Stream<List<_i4.Employee>>.empty(),
+      ) as _i6.Stream<List<_i4.Employee>>);
+  @override
+  _i6.Stream<_i4.Employee?> memberDetails(String? uid) => (super.noSuchMethod(
         Invocation.method(
-          #addEmployeeBySpaceId,
+          #memberDetails,
+          [uid],
+        ),
+        returnValue: _i6.Stream<_i4.Employee?>.empty(),
+      ) as _i6.Stream<_i4.Employee?>);
+  @override
+  _i6.Future<void> reset() => (super.noSuchMethod(
+        Invocation.method(
+          #reset,
           [],
-          {
-            #employee: employee,
-            #spaceId: spaceId,
-          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<_i4.Employee?> getEmployeeBySpaceId({
-    required String? userId,
-    required String? spaceId,
-  }) =>
-      (super.noSuchMethod(
+  _i6.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
-          #getEmployeeBySpaceId,
+          #dispose,
           [],
-          {
-            #userId: userId,
-            #spaceId: spaceId,
-          },
-        ),
-        returnValue: _i6.Future<_i4.Employee?>.value(),
-      ) as _i6.Future<_i4.Employee?>);
-  @override
-  _i6.Future<List<_i4.Employee>> getEmployees() => (super.noSuchMethod(
-        Invocation.method(
-          #getEmployees,
-          [],
-        ),
-        returnValue: _i6.Future<List<_i4.Employee>>.value(<_i4.Employee>[]),
-      ) as _i6.Future<List<_i4.Employee>>);
-  @override
-  _i6.Future<_i4.Employee?> getEmployee(String? id) => (super.noSuchMethod(
-        Invocation.method(
-          #getEmployee,
-          [id],
-        ),
-        returnValue: _i6.Future<_i4.Employee?>.value(),
-      ) as _i6.Future<_i4.Employee?>);
-  @override
-  _i6.Future<bool> hasUser(String? email) => (super.noSuchMethod(
-        Invocation.method(
-          #hasUser,
-          [email],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
-  @override
-  _i6.Future<void> addEmployee(_i4.Employee? employee) => (super.noSuchMethod(
-        Invocation.method(
-          #addEmployee,
-          [employee],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> updateEmployeeDetails({required _i4.Employee? employee}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateEmployeeDetails,
-          [],
-          {#employee: employee},
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> changeEmployeeRoleType(
-    String? id,
-    _i4.Role? role,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #changeEmployeeRoleType,
-          [
-            id,
-            role,
-          ],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteEmployee,
-          [id],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> changeAccountStatus({
-    required String? id,
-    required _i4.EmployeeStatus? status,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #changeAccountStatus,
-          [],
-          {
-            #id: id,
-            #status: status,
-          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
