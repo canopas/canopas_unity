@@ -35,15 +35,17 @@ class UserStateControllerBloc
           if (employee != null &&
               space != null &&
               employee.status == EmployeeStatus.active) {
-            _userStateNotifier.setEmployeeWithSpace(space: space, spaceUser: employee, redirect: false);
-            return const UserControllerState(userState: UserState.authenticated);
+            add(UpdateUserData(employee: employee, space: space));
+            return const UserControllerState(
+                userState: UserState.authenticated);
           } else {
             return const UserControllerState(
                 userState: UserState.unauthenticated);
           }
         },
         onError: (error, _) {
-           return const UserControllerState(userState: UserState.unauthenticated);
+          return const UserControllerState(
+              userState: UserState.unauthenticated);
         },
       );
     } on Exception {
@@ -53,7 +55,8 @@ class UserStateControllerBloc
 
   Future<void> _updateData(
       UpdateUserData event, Emitter<UserControllerState> emit) async {
-
+    await _userStateNotifier.setEmployeeWithSpace(
+        space: event.space, spaceUser: event.employee, redirect: false);
   }
 
   Future<void> _clearData(

@@ -48,9 +48,9 @@ class UserStateNotifier with ChangeNotifier {
       _userState = UserState.update;
       notifyListeners();
       _userState = UserState.spaceJoined;
+      await getIt<LeaveRepo>().reset();
+      await getIt<EmployeeRepo>().reset();
     }
-    await getIt<LeaveRepo>().reset();
-    await getIt<EmployeeRepo>().reset();
   }
 
   Future<void> updateSpace(Space space) async {
