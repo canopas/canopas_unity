@@ -54,6 +54,8 @@ class WhoIsOutCard extends StatelessWidget {
                 BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
                   buildWhen: (previous, current) =>
                       previous.status != current.status ||
+                      previous.selectedDayAbsences !=
+                          current.selectedDayAbsences ||
                       previous.selectedDate != current.selectedDate,
                   builder: (context, state) =>
                       AbsenceEmployeesListWhoIsOutCardView(

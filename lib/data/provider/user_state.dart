@@ -39,15 +39,15 @@ class UserStateNotifier with ChangeNotifier {
   Future<void> updateCurrentUser(Employee user)async {
     if (_userPreference.getEmployee() == null) {
       _userState = UserState.spaceJoined;
-      return;
+      await _userPreference.setEmployee(user);
+      notifyListeners();
     }
-    // if(_userPreference.getEmployee()?.role!=user.role){
-    //   _userState= UserState.update;
-    // }
-
-    await _userPreference.setEmployee(user);
-    _userState = UserState.update;
-    notifyListeners();
+    if (_userPreference.getEmployee()?.role != user.role) {
+      _userState = UserState.update;
+      await _userPreference.setEmployee(user);
+      notifyListeners();
+    }
+    _userState = UserState.spaceJoined;
   }
 
   Future<void> updateSpace(Space space) async {

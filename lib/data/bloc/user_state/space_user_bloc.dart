@@ -41,18 +41,13 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
 
   Future<void> _checkUserStatus(
       CheckSpaceEvent status, Emitter<SpaceUserState> emit) async {
-    if (_spaceManager.currentSpaceId == null) {
-      if (_userStateNotifier.employee != null ||
-          _userStateNotifier.currentSpace != null) {
-        add(DeactivateUserEvent());
-      }
-    } else {
+    if (_spaceManager.currentSpaceId != null) {
       final Space? space =
           await _spaceService.getSpace(_spaceManager.currentSpaceId!);
       if (space == null) {
         return;
       }
-      _userStateNotifier.updateSpace(space);
+      await _userStateNotifier.updateSpace(space);
       if (_streamSubscription != null) {
         _streamSubscription!.cancel();
       }
@@ -65,7 +60,7 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
             .listen((event) {
           _userController.add(event);
           add(CheckUserEvent(employee: event));
-        }, onError: (error, stackTrace) {
+        }, onError: (error, stackTrace) async {
           emit(SpaceUserErrorState(error: firestoreFetchDataError));
           FirebaseCrashlytics.instance.recordError(error, stackTrace,
               reason: 'ERROR WHILE LISTENING THE CURRENT USER STRAEM');
@@ -87,7 +82,7 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
       if (event.employee!.status == EmployeeStatus.inactive) {
         emit(SpaceUserRevokeAccessState());
       } else {
-        _userStateNotifier.updateCurrentUser(event.employee!);
+        await _userStateNotifier.updateCurrentUser(event.employee!);
       }
     }
   }

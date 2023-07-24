@@ -327,18 +327,16 @@ class AppRouter {
               !state.subloc.contains(Routes.joinSpace)) {
             return Routes.joinSpace;
           }
-          if ((userManager.state == UserState.spaceJoined &&
-              state.subloc.contains(Routes.joinSpace))) {
+          if (_userManager.state == UserState.spaceJoined &&
+              state.subloc.contains(Routes.joinSpace)) {
             return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;
           }
           if (_userManager.state == UserState.update) {
-            print(state.location);
-            context.replaceNamed(userManager.isAdmin || userManager.isHR
+            return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
-                : Routes.userHome);
-            return state.location;
+                : Routes.userHome;
           }
           return null;
         });
