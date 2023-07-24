@@ -55,7 +55,6 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   FutureOr<void> _fetchMoreLeavesEvent(
       FetchMoreLeaves event, Emitter<WhoIsOutCardState> emit) async {
     try {
-      _leaveRepo.loadMore(DateTime(2023, 6, 1));
       return emit.forEach(
         getLeaveApplicationStream(
             leaveStream: _leaveRepo.absence(event.date),

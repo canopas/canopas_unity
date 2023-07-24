@@ -95,8 +95,8 @@ class SpaceUserBloc extends Bloc<SpaceUserEvent, SpaceUserState> {
   }
 
   Future<void> _cancelStreamSubscription() async {
-    await _leaveRepo.cancel();
-    await _employeeRepo.cancel();
+    await _leaveRepo.cancelLeaveStreamSubscription();
+    await _employeeRepo.cancelEmpStreamSubscription();
   }
 
   Future<void> _resetStreamSubscription() async {

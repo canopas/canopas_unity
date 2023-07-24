@@ -725,6 +725,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.6.2"
+  leak_detector:
+    dependency: "direct main"
+    description:
+      name: leak_detector
+      sha256: "079901dbe331c14bc3c45d391a3cf921b7876274812091e038caea2927b5c18e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1+4"
   lints:
     dependency: transitive
     description:
@@ -1282,6 +1290,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  vm_service:
+    dependency: transitive
+    description:
+      name: vm_service
+      sha256: e686ae49284939abc06972e25f634ccdb5007d5664c4dfa1995002e8b6aa27a9
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.3.0"
   watcher:
     dependency: transitive
     description:

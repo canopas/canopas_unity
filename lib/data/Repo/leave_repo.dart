@@ -33,22 +33,9 @@ class LeaveRepo {
 
   Future<void> reset() async {
     if (_leavesStreamSubscription != null) {
-      _leavesStreamSubscription!.cancel();
+      await cancelLeaveStreamSubscription();
     }
     DateTime dateTime = DateTime(2023, 7, 1);
-    _leavesStreamSubscription =
-        _leaveService.leaves(dateTime.timeStampToInt).listen((value) {
-      _leavesController.add(value);
-    }, onError: (e, s) async {
-      _leavesController.addError(e);
-      await FirebaseCrashlytics.instance.recordError(e, s);
-    });
-  }
-
-  Future<void> loadMore(DateTime dateTime) async {
-    if (_leavesStreamSubscription != null) {
-      _leavesStreamSubscription!.cancel();
-    }
     _leavesStreamSubscription =
         _leaveService.leaves(dateTime.timeStampToInt).listen((value) {
       _leavesController.add(value);
@@ -67,13 +54,13 @@ class LeaveRepo {
   Stream<List<Leave>> userLeaves(String uid) => _leavesController.stream
       .asyncMap((leaves) => leaves.where((leave) => leave.uid == uid).toList());
 
-  Future<void> cancel() async {
+  Future<void> cancelLeaveStreamSubscription() async {
     await _leavesStreamSubscription?.cancel();
   }
 
   @disposeMethod
   Future<void> dispose() async {
-    await _leavesStreamSubscription?.cancel();
+    await cancelLeaveStreamSubscription();
     await _leavesController.close();
   }
 }

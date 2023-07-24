@@ -40,7 +40,7 @@ class EmployeeRepo {
 
   Future<void> reset() async {
     if (_employeeStreamSubscription != null) {
-      _employeeStreamSubscription!.cancel();
+      await cancelEmpStreamSubscription();
     }
     _employeeStreamSubscription = _employeeService
         .employees(_userStateNotifier.currentSpaceId!)
@@ -53,14 +53,13 @@ class EmployeeRepo {
     });
   }
 
-  Future<void> cancel() async {
+  Future<void> cancelEmpStreamSubscription() async {
     await _employeeStreamSubscription?.cancel();
-    print(_employeeStreamSubscription?.isPaused);
   }
 
   @disposeMethod
   Future<void> dispose() async {
-    await _employeeStreamSubscription?.cancel();
+    await cancelEmpStreamSubscription();
     await _employeeController.close();
   }
 }

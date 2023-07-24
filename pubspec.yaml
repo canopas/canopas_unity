@@ -36,6 +36,7 @@ dependencies:
   injectable: ^2.1.1
   image_picker: ^0.8.7+3
   json_annotation: ^4.8.1
+  leak_detector:
   oauth2: ^2.0.1
   package_info_plus: ^3.1.2
   simple_gesture_detector:

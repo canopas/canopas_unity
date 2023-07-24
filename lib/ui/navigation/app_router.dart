@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:leak_detector/leak_detector.dart';
 import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/dashboard_screen.dart';
@@ -30,6 +31,28 @@ import '../user/leaves/apply_leave/apply_leave_screen.dart';
 import '../user/members/detail/user_employee_detail_screen.dart';
 import '../user/members/members_screen/user_members_screen.dart';
 import '../widget/error/page_not_found_screen.dart';
+
+class GoRouterObserver extends NavigatorObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    print('MyTest didPush: $route');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    print('MyTest didPop: $route');
+  }
+
+  @override
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    print('MyTest didRemove: $route');
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    print('MyTest didReplace: $newRoute');
+  }
+}
 
 @Injectable()
 class AppRouter {

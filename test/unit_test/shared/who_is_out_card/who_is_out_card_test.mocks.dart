@@ -74,8 +74,9 @@ class MockLeaveRepo extends _i1.Mock implements _i2.LeaveRepo {
         ),
         returnValue: _i3.Stream<List<_i4.Leave>>.empty(),
       ) as _i3.Stream<List<_i4.Leave>>);
+
   @override
-  _i3.Future<void> cancel() => (super.noSuchMethod(
+  _i3.Future<void> cancelLeaveStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
           #cancel,
           [],
@@ -83,6 +84,7 @@ class MockLeaveRepo extends _i1.Mock implements _i2.LeaveRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+
   @override
   _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
@@ -130,6 +132,7 @@ class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
         ),
         returnValue: _i3.Stream<_i6.Employee?>.empty(),
       ) as _i3.Stream<_i6.Employee?>);
+
   @override
   _i3.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
@@ -139,8 +142,9 @@ class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+
   @override
-  _i3.Future<void> cancel() => (super.noSuchMethod(
+  _i3.Future<void> cancelEmpStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
           #cancel,
           [],
@@ -148,6 +152,7 @@ class MockEmployeeRepo extends _i1.Mock implements _i5.EmployeeRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+
   @override
   _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(

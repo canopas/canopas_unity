@@ -83,8 +83,9 @@ class MockEmployeeRepo extends _i1.Mock implements _i3.EmployeeRepo {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
   @override
-  _i4.Future<void> cancel() => (super.noSuchMethod(
+  _i4.Future<void> cancelEmpStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
           #cancel,
           [],
@@ -92,6 +93,7 @@ class MockEmployeeRepo extends _i1.Mock implements _i3.EmployeeRepo {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
   @override
   _i4.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(

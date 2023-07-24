@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leak_detector/leak_detector.dart';
 import 'package:projectunity/data/bloc/user_state/space_user_state.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
@@ -35,15 +36,46 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+  LeakDetector().init(maxRetainingPath: 300);
+
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
   usePathUrlStrategy();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final GoRouter _router = getIt<AppRouter>().router;
+  bool isChecking = false;
+
   final _networkConnectionBloc = getIt<NetworkConnectionBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+    LeakDetector().onLeakedStream.forEach((LeakedInfo info) {
+      info.retainingPath.forEach((node) {
+        print(node);
+      });
+    });
+    LeakDetector().onEventStream.listen((event) {
+      if (event.type == DetectorEventType.startAnalyze) {
+        setState(() {
+          isChecking = true;
+        });
+      } else if (event.type == DetectorEventType.endAnalyze) {
+        setState(() {
+          isChecking = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,32 +106,32 @@ class MyApp extends StatelessWidget {
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             builder: (_, widget) => MultiBlocListener(
-                  listeners: [
-                    BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
-                      listenWhen: (previous, current) =>
-                          current is NetworkConnectionFailureState,
-                      listener: (context, state) {
-                        if (state is NetworkConnectionFailureState) {
-                          String connectionErrorMessage =
-                              AppLocalizations.of(context)
-                                  .network_connection_error;
-                          showSnackBar(
-                              context: context, msg: connectionErrorMessage);
-                        }
-                      },
-                    ),
-                    BlocListener<SpaceUserBloc, SpaceUserState>(
-                      listenWhen: (previous, current) =>
-                          current is SpaceUserErrorState,
-                      listener: (context, state) {
-                        if (state is SpaceUserErrorState) {
-                          showSnackBar(context: context, error: state.error);
-                        }
-                      },
-                    ),
-                  ],
-                  child: widget!,
-                )),
+              listeners: [
+                BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
+                  listenWhen: (previous, current) =>
+                  current is NetworkConnectionFailureState,
+                  listener: (context, state) {
+                    if (state is NetworkConnectionFailureState) {
+                      String connectionErrorMessage =
+                          AppLocalizations.of(context)
+                              .network_connection_error;
+                      showSnackBar(
+                          context: context, msg: connectionErrorMessage);
+                    }
+                  },
+                ),
+                BlocListener<SpaceUserBloc, SpaceUserState>(
+                  listenWhen: (previous, current) =>
+                  current is SpaceUserErrorState,
+                  listener: (context, state) {
+                    if (state is SpaceUserErrorState) {
+                      showSnackBar(context: context, error: state.error);
+                    }
+                  },
+                ),
+              ],
+              child: widget!,
+            )),
       ),
     );
   }

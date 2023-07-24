@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leak_detector/leak_detector.dart';
 import 'package:projectunity/data/bloc/user_state/space_user_bloc.dart';
+import 'package:projectunity/ui/navigation/app_router.dart';
 
 import '../../../data/bloc/user_state/space_user_state.dart';
 import '../../../data/bloc/user_state/space_user_event.dart';
@@ -24,6 +26,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int get _currentIndex => locationToTabIndex(GoRouter.of(context).location);
+  final router = getIt<AppRouter>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +74,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void onItemTapped(int index) {
+    final ctx = router.router.routerDelegate.navigatorKey.currentContext;
+    getLeakedRecording().then((List<LeakedInfo> infoList) {
+      print('=============================   ${infoList.length}');
+      // showLeakedInfoListPage(ctx!, infoList);
+    });
+
     context.goNamed(widget.items[index].initialLocation);
   }
 
