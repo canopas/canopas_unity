@@ -26,20 +26,20 @@ Future<void> main() async {
   await configureDependencies();
 
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(flutterErrorDetails);
+    getIt<FirebaseCrashlytics>().recordFlutterFatalError(flutterErrorDetails);
     String error = flutterErrorDetails.exceptionAsString();
     return ErrorScreen(error: error);
   };
 
   if (kDebugMode) {
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(false);
   }
 
   PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    getIt<FirebaseCrashlytics>().recordError(error, stack, fatal: true);
     return true;
   };
-  
+
   usePathUrlStrategy();
   runApp(MyApp());
 }
