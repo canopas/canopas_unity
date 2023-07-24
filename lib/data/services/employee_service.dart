@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import '../core/utils/const/firestore.dart';
-import '../event_bus/events.dart';
+
 import '../model/employee/employee.dart';
 import '../provider/user_state.dart';
 
@@ -64,34 +64,11 @@ class EmployeeService {
     return data.count > 0;
   }
 
-  Future<void> addEmployee(Employee employee) async {
-    final docId = employee.uid;
-    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
-        .doc(docId)
-        .set(employee);
-  }
-
   Future<void> updateEmployeeDetails({required Employee employee}) async {
     await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
         .doc(employee.uid)
         .set(employee)
         .onError((error, stackTrace) => throw Exception(error.toString()));
-  }
-
-  Future<void> changeEmployeeRoleType(String id, Role role) async {
-    Map<String, int> data = {FireStoreConst.roleType: role.value};
-    await _membersDbCollection(spaceId: _userManager.currentSpaceId!)
-        .doc(id)
-        .update(data)
-        .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
-  }
-
-  Future<void> deleteEmployee(String id) async {
-    DocumentReference employeeDocRef =
-        _membersDbCollection(spaceId: _userManager.currentSpaceId!).doc(id);
-    await employeeDocRef
-        .delete()
-        .then((value) => eventBus.fire(EmployeeListUpdateEvent()));
   }
 
   Future<void> changeAccountStatus(

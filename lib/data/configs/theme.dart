@@ -84,15 +84,14 @@ class AppTheme {
   static CalendarStyle calendarStyle = const CalendarStyle(
     outsideDaysVisible: false,
     weekendTextStyle: AppFontStyle.bodySmallHeavy,
-    selectedDecoration: BoxDecoration(
-        color: AppColors.primaryBlue, shape: BoxShape.circle),
+    selectedDecoration:
+        BoxDecoration(color: AppColors.primaryBlue, shape: BoxShape.circle),
     markerDecoration: BoxDecoration(
       color: AppColors.orangeColor,
       shape: BoxShape.circle,
     ),
-    todayDecoration: BoxDecoration(
-        color: AppColors.textFieldBg,
-        shape: BoxShape.circle),
+    todayDecoration:
+        BoxDecoration(color: AppColors.textFieldBg, shape: BoxShape.circle),
     todayTextStyle: AppFontStyle.bodySmallRegular,
   );
 

@@ -184,11 +184,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
         returnValue: false,
       ) as bool);
   @override
-  bool get isSpaceOwner => (super.noSuchMethod(
-        Invocation.getter(#isSpaceOwner),
-        returnValue: false,
-      ) as bool);
-  @override
   bool get isHR => (super.noSuchMethod(
         Invocation.getter(#isHR),
         returnValue: false,
@@ -378,46 +373,12 @@ class MockEmployeeService extends _i1.Mock implements _i12.EmployeeService {
         returnValue: _i6.Future<bool>.value(false),
       ) as _i6.Future<bool>);
   @override
-  _i6.Future<void> addEmployee(_i3.Employee? employee) => (super.noSuchMethod(
-        Invocation.method(
-          #addEmployee,
-          [employee],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
   _i6.Future<void> updateEmployeeDetails({required _i3.Employee? employee}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateEmployeeDetails,
           [],
           {#employee: employee},
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> changeEmployeeRoleType(
-    String? id,
-    _i3.Role? role,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #changeEmployeeRoleType,
-          [
-            id,
-            role,
-          ],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteEmployee,
-          [id],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),

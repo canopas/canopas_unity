@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'data/configs/app_const.dart';
+import 'data/core/utils/const/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
 import 'data/configs/theme.dart';
 import 'data/bloc/network/network_connection_bloc.dart';
@@ -30,14 +30,16 @@ Future<void> main() async {
     String error = flutterErrorDetails.exceptionAsString();
     return ErrorScreen(error: error);
   };
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
 
   if (kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   }
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  
   usePathUrlStrategy();
   runApp(MyApp());
 }
@@ -54,7 +56,8 @@ class MyApp extends StatelessWidget {
           _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
       child: GestureDetector(
         onTap: () {
-          if (!FocusScope.of(context).hasPrimaryFocus && FocusScope.of(context).focusedChild != null) {
+          if (!FocusScope.of(context).hasPrimaryFocus &&
+              FocusScope.of(context).focusedChild != null) {
             FocusScope.of(context).focusedChild?.unfocus();
           }
         },
@@ -74,7 +77,8 @@ class MyApp extends StatelessWidget {
                     if (state is NetworkConnectionFailureState) {
                       String connectionErrorMessage =
                           AppLocalizations.of(context).network_connection_error;
-                      showSnackBar(context: context, msg: connectionErrorMessage);
+                      showSnackBar(
+                          context: context, msg: connectionErrorMessage);
                     }
                   },
                   child: widget,

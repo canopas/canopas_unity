@@ -8,17 +8,22 @@ import 'package:injectable/injectable.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 @module
 abstract class AppModule {
   @preResolve
   Future<SharedPreferences> get preferences => SharedPreferences.getInstance();
-  Connectivity get connectivity => Connectivity();
-  ImagePicker get  imagePicker =>ImagePicker();
-  FirebaseStorage get firebaseStorage => FirebaseStorage.instance;
-  FirebaseFirestore get firebaseFireStore => FirebaseFirestore.instance;
-  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
-  DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
-  http.Client get httpClient => http.Client();
 
+  Connectivity get connectivity => Connectivity();
+
+  ImagePicker get imagePicker => ImagePicker();
+
+  FirebaseStorage get firebaseStorage => FirebaseStorage.instance;
+
+  FirebaseFirestore get firebaseFireStore => FirebaseFirestore.instance;
+
+  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+
+  DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
+
+  http.Client get httpClient => http.Client();
 }

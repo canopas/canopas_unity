@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const peachColor = Color(0xfff2a699);
-  static const creamColor = Color(0xfffef9f5);
-
   //Color used for rejected status container
   static const redColor = Colors.red;
 
@@ -13,10 +10,7 @@ class AppColors {
 
   static const Color primaryGray = Color(0xFFd7dee9);
   static const Color primaryDarkYellow = Color(0xFFf2d97c);
-  static const Color primaryPink = Color(0xFFda9090);
-  static const Color primaryGreen = Color(0xFF74d8c1);
   static const Color primaryBlue = Color(0xFF75a2ed);
-  static const Color darkBlue = Color(0xff0072bb);
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
   static const Color darkGrey = Color(0xff7d7d7d);

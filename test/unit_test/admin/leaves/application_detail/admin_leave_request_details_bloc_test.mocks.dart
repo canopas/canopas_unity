@@ -91,14 +91,6 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         returnValue: _i6.Stream<List<_i7.Leave>>.empty(),
       ) as _i6.Stream<List<_i7.Leave>>);
   @override
-  _i6.Future<List<_i7.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
-        Invocation.method(
-          #getLeaveRequestOfUsers,
-          [],
-        ),
-        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
-      ) as _i6.Future<List<_i7.Leave>>);
-  @override
   _i6.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
     required Map<DateTime, _i7.LeaveDayDuration>? dateDuration,
@@ -114,22 +106,6 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         ),
         returnValue: _i6.Future<bool>.value(false),
       ) as _i6.Future<bool>);
-  @override
-  _i6.Future<List<_i7.Leave>> getRecentLeaves() => (super.noSuchMethod(
-        Invocation.method(
-          #getRecentLeaves,
-          [],
-        ),
-        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
-      ) as _i6.Future<List<_i7.Leave>>);
-  @override
-  _i6.Future<List<_i7.Leave>> getUpcomingLeaves() => (super.noSuchMethod(
-        Invocation.method(
-          #getUpcomingLeaves,
-          [],
-        ),
-        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
-      ) as _i6.Future<List<_i7.Leave>>);
   @override
   _i6.Future<void> updateLeaveStatus({
     required String? id,
@@ -149,14 +125,6 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
-  @override
-  _i6.Future<List<_i7.Leave>> getAllLeaves() => (super.noSuchMethod(
-        Invocation.method(
-          #getAllLeaves,
-          [],
-        ),
-        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
-      ) as _i6.Future<List<_i7.Leave>>);
   @override
   _i6.Future<List<_i7.Leave>> getAllApprovedLeaves() => (super.noSuchMethod(
         Invocation.method(
@@ -203,24 +171,6 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
       ) as _i6.Future<List<_i7.Leave>>);
   @override
-  _i6.Future<List<_i7.Leave>> getRecentLeavesOfUser(String? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getRecentLeavesOfUser,
-          [id],
-        ),
-        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
-      ) as _i6.Future<List<_i7.Leave>>);
-  @override
-  _i6.Future<List<_i7.Leave>> getRequestedLeave(String? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getRequestedLeave,
-          [id],
-        ),
-        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
-      ) as _i6.Future<List<_i7.Leave>>);
-  @override
   _i6.Future<List<_i7.Leave>> getUpcomingLeavesOfUser(String? employeeId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -230,15 +180,6 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
       ) as _i6.Future<List<_i7.Leave>>);
   @override
-  _i6.Future<void> deleteLeaveRequest(String? leaveId) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteLeaveRequest,
-          [leaveId],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
   _i6.Future<double> getUserUsedLeaves(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getUserUsedLeaves,
@@ -246,15 +187,6 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         ),
         returnValue: _i6.Future<double>.value(0.0),
       ) as _i6.Future<double>);
-  @override
-  _i6.Future<void> deleteAllLeavesOfUser(String? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteAllLeavesOfUser,
-          [id],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
   @override
   _i6.Future<_i7.Leave?> fetchLeave(String? leaveId) => (super.noSuchMethod(
         Invocation.method(
@@ -299,11 +231,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
   @override
   bool get isEmployee => (super.noSuchMethod(
         Invocation.getter(#isEmployee),
-        returnValue: false,
-      ) as bool);
-  @override
-  bool get isSpaceOwner => (super.noSuchMethod(
-        Invocation.getter(#isSpaceOwner),
         returnValue: false,
       ) as bool);
   @override
@@ -490,15 +417,6 @@ class MockSpaceService extends _i1.Mock implements _i12.SpaceService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<List<_i10.Space>> getSpacesOfUser(String? uid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getSpacesOfUser,
-          [uid],
-        ),
-        returnValue: _i6.Future<List<_i10.Space>>.value(<_i10.Space>[]),
-      ) as _i6.Future<List<_i10.Space>>);
-  @override
   _i6.Future<int> getPaidLeaves({required String? spaceId}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -508,23 +426,6 @@ class MockSpaceService extends _i1.Mock implements _i12.SpaceService {
         ),
         returnValue: _i6.Future<int>.value(0),
       ) as _i6.Future<int>);
-  @override
-  _i6.Future<void> updateLeaveCount({
-    required String? spaceId,
-    required int? paidLeaveCount,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateLeaveCount,
-          [],
-          {
-            #spaceId: spaceId,
-            #paidLeaveCount: paidLeaveCount,
-          },
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
 }
 
 /// A class which mocks [NotificationService].

@@ -23,7 +23,6 @@ import '../space/create_space/create_workspace_screen.dart';
 import '../space/join_space/join_space_screen.dart';
 import '../user/dashboard/user_dashboard.dart';
 import '../user/home/home_screen/user_home_screen.dart';
-import '../user/home/leave_calendar/user_leave_calendar_screen.dart';
 import '../user/leaves/apply_leave/apply_leave_screen.dart';
 import '../user/members/detail/user_employee_detail_screen.dart';
 import '../user/members/members_screen/user_members_screen.dart';
@@ -265,13 +264,6 @@ class AppRouter {
                                 leaveId: state
                                     .params[RoutesParamsConst.leaveId]!)),
                       ),
-                      GoRoute(
-                          parentNavigatorKey: _employeeShellNavigatorKey,
-                          name: Routes.userLeaveCalender,
-                          path: Routes.userLeaveCalender,
-                          pageBuilder: (context, state) => CupertinoPage(
-                              child: UserLeaveCalendarPage(
-                                  userId: userManager.userUID!))),
                     ]),
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
