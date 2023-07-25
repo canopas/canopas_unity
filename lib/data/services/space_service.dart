@@ -74,12 +74,6 @@ class SpaceService {
     }
   }
 
-  Future<List<Space>> getSpacesOfUser(String uid) async {
-    final spaceData =
-        await _spaceDb.where(FireStoreConst.ownerIds, arrayContains: uid).get();
-    return spaceData.docs.map((space) => space.data()).toList();
-  }
-
   Future<int> getPaidLeaves({required String spaceId}) async {
     return await _spaceDb.doc(spaceId).get().then((val) {
       if (val.data()?.paidTimeOff != null) {
@@ -87,12 +81,5 @@ class SpaceService {
       }
       return 0;
     });
-  }
-
-  Future<void> updateLeaveCount(
-      {required String spaceId, required int paidLeaveCount}) async {
-    return _spaceDb
-        .doc(spaceId)
-        .update({FireStoreConst.paidTimeOff: paidLeaveCount});
   }
 }

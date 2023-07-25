@@ -1,3 +1,4 @@
-extension DoubleExtension on double{
-   dynamic fixedAt(int l) => (toInt() == this)?toInt():double.parse(toStringAsFixed(l));
+extension DoubleExtension on double {
+  dynamic fixedAt(int l) =>
+      (toInt() == this) ? toInt() : double.parse(toStringAsFixed(l));
 }

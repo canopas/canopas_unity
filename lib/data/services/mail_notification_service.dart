@@ -11,13 +11,14 @@ import 'package:projectunity/data/model/leave/leave.dart';
 
 @LazySingleton()
 class NotificationService {
-  final http.Client httpClient;
+  final FirebaseCrashlytics _crashlytics;
+  final http.Client _httpClient;
 
-  NotificationService(this.httpClient);
+  NotificationService(this._httpClient, this._crashlytics);
 
   @disposeMethod
   Future<void> dispose() async {
-    httpClient.close();
+    _httpClient.close();
   }
 
   Future<void> notifyHRForNewLeave(
@@ -29,7 +30,7 @@ class NotificationService {
     if (kDebugMode) return;
     try {
       http.Response response =
-          await httpClient.post(Uri.https(baseURL, 'api/leave/new'),
+          await _httpClient.post(Uri.https(baseURL, 'api/leave/new'),
               body: json.encode({
                 'name': name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
@@ -42,7 +43,7 @@ class NotificationService {
             name: 'Notification');
       }
     } on Exception catch (e) {
-      FirebaseCrashlytics.instance.log(e.toString());
+     await _crashlytics.log(e.toString());
     }
   }
 
@@ -54,7 +55,7 @@ class NotificationService {
       required String receiver}) async {
     try {
       http.Response response =
-          await httpClient.post(Uri.https(baseURL, 'api/leave/update'),
+          await _httpClient.post(Uri.https(baseURL, 'api/leave/update'),
               body: json.encode({
                 "name": name,
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
@@ -66,7 +67,7 @@ class NotificationService {
             name: 'Notification');
       }
     } on Exception catch (e) {
-      FirebaseCrashlytics.instance.log(e.toString());
+      await _crashlytics.log(e.toString());
     }
   }
 
@@ -84,7 +85,7 @@ class NotificationService {
       {required String companyName, required String receiver}) async {
     try {
       http.Response response =
-          await httpClient.post(Uri.https(baseURL, '/api/invitation'),
+          await _httpClient.post(Uri.https(baseURL, '/api/invitation'),
               body: json.encode({
                 "receiver": receiver,
                 "companyname": companyName,
@@ -94,7 +95,7 @@ class NotificationService {
         log('Invite notification mail send successfully', name: 'Notification');
       }
     } on Exception catch (e) {
-      FirebaseCrashlytics.instance.log(e.toString());
+     await  _crashlytics.log(e.toString());
     }
   }
 
@@ -102,7 +103,7 @@ class NotificationService {
       {required String sender, required String receiver}) async {
     try {
       http.Response response =
-          await httpClient.post(Uri.https(baseURL, '/api/acceptence'),
+          await _httpClient.post(Uri.https(baseURL, '/api/acceptence'),
               body: json.encode({
                 "receiver": receiver,
                 "sender": sender,
@@ -112,7 +113,7 @@ class NotificationService {
             name: 'Notification');
       }
     } on Exception catch (e) {
-      FirebaseCrashlytics.instance.log(e.toString());
+      await _crashlytics.log(e.toString());
     }
   }
 }

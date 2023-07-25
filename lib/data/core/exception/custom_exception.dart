@@ -1,4 +1,3 @@
-
 class CustomException implements Exception {
   String errorMessage;
 

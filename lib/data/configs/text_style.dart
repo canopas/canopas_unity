@@ -6,11 +6,6 @@ class AppFontStyle {
   static const buttonTextStyle =
       TextStyle(color: AppColors.primaryBlue, fontSize: AppFontSize.label);
 
-  static TextStyle appTitleText = const TextStyle(
-    fontSize: AppFontSize.appTitleTextSize,
-    color: AppColors.blackColor,
-  );
-
   static const appbarHeaderDark = TextStyle(
       color: AppColors.blackColor,
       fontSize: AppFontSize.header,
@@ -20,9 +15,8 @@ class AppFontStyle {
       fontSize: AppFontSize.header,
       fontWeight: FontWeight.w500);
 
-  static const headerDark = TextStyle(
-      color: AppColors.darkText,
-      fontSize: AppFontSize.header);
+  static const headerDark =
+      TextStyle(color: AppColors.darkText, fontSize: AppFontSize.header);
 
   static const titleDark = TextStyle(
       color: AppColors.darkText,

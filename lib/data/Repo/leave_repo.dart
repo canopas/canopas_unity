@@ -8,16 +8,17 @@ import 'package:rxdart/rxdart.dart';
 @LazySingleton()
 class LeaveRepo {
   final LeaveService _leaveService;
+  final FirebaseCrashlytics _crashlytics;
   late BehaviorSubject<List<Leave>> _leavesController;
   StreamSubscription<List<Leave>>? _leavesStreamSubscription;
 
-  LeaveRepo(this._leaveService) {
+  LeaveRepo(this._leaveService, this._crashlytics) {
     _leavesController = BehaviorSubject<List<Leave>>();
     _leavesStreamSubscription = _leaveService.leaves.listen((value) {
       _leavesController.add(value);
     }, onError: (e, s) async {
       _leavesController.addError(e);
-      await FirebaseCrashlytics.instance.recordError(e, s);
+      await _crashlytics.recordError(e, s);
     });
   }
 
@@ -40,15 +41,12 @@ class LeaveRepo {
   Future<void> reset() async {
     _leavesController = BehaviorSubject<List<Leave>>();
     await _leavesStreamSubscription?.cancel();
-    _leavesStreamSubscription = _leaveService.leaves.listen(
-      (value) {
-        _leavesController.add(value);
-      },
-      onError: (e, s) async {
-        _leavesController.addError(e);
-        await FirebaseCrashlytics.instance.recordError(e, s);
-      },
-    );
+    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
+      _leavesController.add(value);
+    }, onError: (e, s) async {
+      _leavesController.addError(e);
+      await _crashlytics.recordError(e, s);
+    });
   }
 
   Stream<List<Leave>> userLeaveRequest(String uid) =>

@@ -21,7 +21,6 @@ dependencies:
   connectivity_plus: ^3.0.5
   device_info_plus: ^8.2.1
   equatable: ^2.0.5
-  event_bus: ^2.0.0
   firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
   firebase_crashlytics: ^3.3.1
@@ -44,7 +43,6 @@ dependencies:
   sticky_headers: ^0.3.0+2
   table_calendar: ^3.0.7
   url_launcher: ^6.1.11
-  uuid: ^3.0.6
   window_to_front: ^0.0.3
 
 
