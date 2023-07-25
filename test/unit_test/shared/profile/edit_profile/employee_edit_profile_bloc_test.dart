@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/pref/user_preference.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart';
@@ -17,13 +17,13 @@ import 'employee_edit_profile_bloc_test.mocks.dart';
 
 @GenerateMocks([
   EmployeeService,
-  UserStateNotifier,
+  UserStatusNotifier,
   UserPreference,
   StorageService,
 ])
 void main() {
   late EmployeeService employeeService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late UserPreference preference;
   late StorageService storageService;
   late EmployeeEditProfileBloc editEmployeeDetailsBloc;

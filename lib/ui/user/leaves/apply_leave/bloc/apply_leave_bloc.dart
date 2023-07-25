@@ -8,7 +8,7 @@ import 'package:projectunity/data/services/mail_notification_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 import '../../../../../data/services/leave_service.dart';
 import 'apply_leave_event.dart';
 import 'apply_leave_state.dart';
@@ -18,7 +18,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
     with InputValidationMixin {
   final NotificationService _notificationService;
   final LeaveService _leaveService;
-  final UserStateNotifier _userStateNotifier;
+  final UserStatusNotifier _userStateNotifier;
 
   ApplyLeaveBloc(
       this._userStateNotifier, this._leaveService, this._notificationService)

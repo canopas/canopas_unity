@@ -6,7 +6,7 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/data/model/leave_count.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -16,11 +16,12 @@ import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calenda
 
 import 'user_leave_calendar_test.mocks.dart';
 
-@GenerateMocks([LeaveService, EmployeeService, UserStateNotifier, SpaceService])
+@GenerateMocks(
+    [LeaveService, EmployeeService, UserStatusNotifier, SpaceService])
 void main() {
   late LeaveService leaveService;
   late EmployeeService employeeService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late SpaceService spaceService;
   late UserLeaveCalendarBloc userLeaveCalendarViewBloc;
 

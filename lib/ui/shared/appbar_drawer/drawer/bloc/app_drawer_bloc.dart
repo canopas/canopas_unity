@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
-import '../../../../../data/provider/space_manager.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/space_notifier.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 import '../../../../../data/services/space_service.dart';
 import 'app_drawer_event.dart';
 import 'app_drawer_state.dart';
@@ -14,8 +14,8 @@ import 'app_drawer_state.dart';
 class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   final SpaceService _spaceService;
   final AccountService _accountService;
-  final UserStateNotifier _userManager;
-  final SpaceManager _spaceManager;
+  final UserStatusNotifier _userManager;
+  final SpaceNotifier _spaceManager;
 
   DrawerBloc(
     this._spaceService,

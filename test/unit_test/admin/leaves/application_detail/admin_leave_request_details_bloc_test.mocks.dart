@@ -13,7 +13,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i10;
 import 'package:projectunity/data/model/leave/leave.dart' as _i7;
 import 'package:projectunity/data/model/space/space.dart' as _i3;
-import 'package:projectunity/data/provider/user_state.dart' as _i8;
+import 'package:projectunity/data/provider/user_status_notifier.dart' as _i8;
 import 'package:projectunity/data/services/leave_service.dart' as _i5;
 import 'package:projectunity/data/services/mail_notification_service.dart'
     as _i13;
@@ -85,11 +85,7 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         ),
         returnValueForMissingStub: null,
       );
-  @override
-  _i6.Stream<List<_i7.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i6.Stream<List<_i7.Leave>>.empty(),
-      ) as _i6.Stream<List<_i7.Leave>>);
+
   @override
   _i6.Future<List<_i7.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
@@ -98,6 +94,16 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         ),
         returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
       ) as _i6.Future<List<_i7.Leave>>);
+
+  @override
+  _i6.Stream<List<_i7.Leave>> leaves(int? monthDate) => (super.noSuchMethod(
+        Invocation.method(
+          #leaves,
+          [monthDate],
+        ),
+        returnValue: _i6.Stream<List<_i7.Leave>>.empty(),
+      ) as _i6.Stream<List<_i7.Leave>>);
+
   @override
   _i6.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
@@ -265,19 +271,21 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
       ) as _i6.Future<_i7.Leave?>);
 }
 
-/// A class which mocks [UserStateNotifier].
+/// A class which mocks [UserStatusNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
-  MockUserStateNotifier() {
+class MockUserStatusNotifier extends _i1.Mock
+    implements _i8.UserStatusNotifier {
+  MockUserStatusNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.UserState get state => (super.noSuchMethod(
+  _i8.UserStatus get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i8.UserState.authenticated,
-      ) as _i8.UserState);
+        returnValue: _i8.UserStatus.authenticated,
+      ) as _i8.UserStatus);
+
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),

@@ -6,11 +6,11 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart'
 import '../../../../../data/Repo/leave_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 
 @Injectable()
 class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   final LeaveRepo _leaveRepo;
 
   UserHomeBloc(this._userManager, this._leaveRepo)

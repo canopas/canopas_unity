@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:rxdart/rxdart.dart';
 import '../model/employee/employee.dart';
 import '../services/employee_service.dart';
@@ -10,7 +10,7 @@ import '../services/employee_service.dart';
 @LazySingleton()
 class EmployeeRepo {
   final EmployeeService _employeeService;
-  final UserStateNotifier _userStateNotifier;
+  final UserStatusNotifier _userStateNotifier;
 
   final BehaviorSubject<List<Employee>> _employeeController =
       BehaviorSubject<List<Employee>>();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
@@ -40,7 +40,7 @@ class ViewProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               child: TextButton(
                 onPressed: () => context.pushNamed(
-                    getIt<UserStateNotifier>().isAdmin
+                    getIt<UserStatusNotifier>().isAdmin
                         ? Routes.adminEditProfile
                         : Routes.userEditProfile),
                 child: Text(localization.edit_tag),

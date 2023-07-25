@@ -12,7 +12,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i7;
 import 'package:projectunity/data/model/employee/employee.dart' as _i5;
 import 'package:projectunity/data/model/invitation/invitation.dart' as _i11;
 import 'package:projectunity/data/model/space/space.dart' as _i8;
-import 'package:projectunity/data/provider/user_state.dart' as _i6;
+import 'package:projectunity/data/provider/user_status_notifier.dart' as _i6;
 import 'package:projectunity/data/Repo/employee_repo.dart' as _i3;
 import 'package:projectunity/data/services/invitation_services.dart' as _i10;
 
@@ -56,6 +56,7 @@ class MockEmployeeRepo extends _i1.Mock implements _i3.EmployeeRepo {
         Invocation.getter(#activeEmployees),
         returnValue: _i4.Stream<List<_i5.Employee>>.empty(),
       ) as _i4.Stream<List<_i5.Employee>>);
+
   @override
   _i4.Stream<_i5.Employee?> memberDetails(String? uid) => (super.noSuchMethod(
         Invocation.method(
@@ -64,13 +65,20 @@ class MockEmployeeRepo extends _i1.Mock implements _i3.EmployeeRepo {
         ),
         returnValue: _i4.Stream<_i5.Employee?>.empty(),
       ) as _i4.Stream<_i5.Employee?>);
+
   @override
-  _i4.Stream<_i5.Employee?> getCurrentUser({required String? uid}) =>
+  _i4.Stream<_i5.Employee?> getCurrentUser({
+    required String? spaceID,
+    required String? uid,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCurrentUser,
           [],
-          {#uid: uid},
+          {
+            #spaceID: spaceID,
+            #uid: uid,
+          },
         ),
         returnValue: _i4.Stream<_i5.Employee?>.empty(),
       ) as _i4.Stream<_i5.Employee?>);
@@ -83,17 +91,15 @@ class MockEmployeeRepo extends _i1.Mock implements _i3.EmployeeRepo {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> cancelEmpStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
-          #cancel,
+          #cancelEmpStreamSubscription,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
@@ -105,19 +111,21 @@ class MockEmployeeRepo extends _i1.Mock implements _i3.EmployeeRepo {
       ) as _i4.Future<void>);
 }
 
-/// A class which mocks [UserStateNotifier].
+/// A class which mocks [UserStatusNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
-  MockUserStateNotifier() {
+class MockUserStatusNotifier extends _i1.Mock
+    implements _i6.UserStatusNotifier {
+  MockUserStatusNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.UserState get state => (super.noSuchMethod(
+  _i6.UserStatus get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i6.UserState.authenticated,
-      ) as _i6.UserState);
+        returnValue: _i6.UserStatus.authenticated,
+      ) as _i6.UserStatus);
+
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),

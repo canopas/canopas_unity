@@ -8,7 +8,7 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/di/service_locator.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';
 import '../../../../widget/error_snack_bar.dart';
@@ -62,7 +62,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                 .add(ChangeProfileImageEvent(image)),
           ),
           ValidateWidget(
-            isValid: getIt<UserStateNotifier>().isAdmin,
+            isValid: getIt<UserStatusNotifier>().isAdmin,
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,
                 AdminEditEmployeeDetailsState>(
               buildWhen: (previous, current) => previous.role != current.role,

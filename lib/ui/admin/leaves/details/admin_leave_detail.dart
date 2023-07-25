@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_date_content.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_response_text_field.dart';
@@ -110,7 +110,7 @@ class _AdminLeaveApplicationDetailScreenState
               ),
             ),
             ValidateWidget(
-                isValid: !(getIt<UserStateNotifier>().isHR &&
+                isValid: !(getIt<UserStatusNotifier>().isHR &&
                         widget.leaveApplication.employee.role == Role.hr) &&
                     widget.leaveApplication.leave.status == LeaveStatus.pending,
                 child: const ApproveRejectionMessage()),

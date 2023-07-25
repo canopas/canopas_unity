@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/event_bus/events.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -16,7 +16,7 @@ import 'admin_edit_employee_state.dart';
 class AdminEditEmployeeDetailsBloc
     extends Bloc<EditEmployeeByAdminEvent, AdminEditEmployeeDetailsState> {
   final EmployeeService _employeeService;
-  final UserStateNotifier _userStateNotifier;
+  final UserStatusNotifier _userStateNotifier;
   final StorageService _storageService;
 
   AdminEditEmployeeDetailsBloc(

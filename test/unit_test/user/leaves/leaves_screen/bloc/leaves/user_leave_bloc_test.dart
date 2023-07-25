@@ -6,17 +6,17 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
 
 import 'user_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveRepo, UserStateNotifier])
+@GenerateMocks([LeaveRepo, UserStatusNotifier])
 void main() {
   late LeaveRepo leaveRepo;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late UserLeaveBloc bloc;
 
   const String employeeId = 'CA 1044';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/di/service_locator.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_card.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
@@ -51,7 +51,7 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
           const Divider(height: 32),
           YearSelection(
               dateOfJoining:
-                  getIt<UserStateNotifier>().employee!.dateOfJoining),
+                  getIt<UserStatusNotifier>().employee!.dateOfJoining),
           const Divider(height: 32),
           const LeaveList(),
         ],

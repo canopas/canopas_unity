@@ -6,48 +6,48 @@ import '../model/employee/employee.dart';
 import '../model/space/space.dart';
 import '../pref/user_preference.dart';
 
-enum UserState { authenticated, unauthenticated, spaceJoined, update }
+enum UserStatus { authenticated, unauthenticated, spaceJoined, update }
 
 @Singleton()
-class UserStateNotifier with ChangeNotifier {
+class UserStatusNotifier with ChangeNotifier {
   final UserPreference _userPreference;
-  UserState _userState = UserState.unauthenticated;
+  UserStatus _userStatus = UserStatus.unauthenticated;
 
-  UserState get state => _userState;
+  UserStatus get state => _userStatus;
 
-  UserStateNotifier(this._userPreference) {
+  UserStatusNotifier(this._userPreference) {
     getUserStatus();
   }
 
   void getUserStatus() async {
     if (_userPreference.getAccount() == null) {
-      _userState = UserState.unauthenticated;
+      _userStatus = UserStatus.unauthenticated;
     } else if (_userPreference.getSpace() != null &&
         _userPreference.getEmployee() != null) {
-      _userState = UserState.spaceJoined;
+      _userStatus = UserStatus.spaceJoined;
     } else if (_userPreference.getAccount() != null) {
-      _userState = UserState.authenticated;
+      _userStatus = UserStatus.authenticated;
     }
   }
 
   Future<void> setUser(Account user) async {
     await _userPreference.setAccount(user);
-    _userState = UserState.authenticated;
+    _userStatus = UserStatus.authenticated;
     notifyListeners();
   }
 
   Future<void> updateCurrentUser(Employee user)async {
     if (_userPreference.getEmployee() == null) {
-      _userState = UserState.spaceJoined;
+      _userStatus = UserStatus.spaceJoined;
       await _userPreference.setEmployee(user);
       notifyListeners();
     }
     if (_userPreference.getEmployee()?.role != user.role) {
-      _userState = UserState.update;
+      _userStatus = UserStatus.update;
       await _userPreference.setEmployee(user);
       notifyListeners();
     }
-    _userState = UserState.spaceJoined;
+    _userStatus = UserStatus.spaceJoined;
   }
 
   Future<void> updateSpace(Space space) async {
@@ -58,13 +58,13 @@ class UserStateNotifier with ChangeNotifier {
   Future<void> removeEmployeeWithSpace() async {
     await _userPreference.removeSpace();
     await _userPreference.removeEmployee();
-    _userState = UserState.authenticated;
+    _userStatus = UserStatus.authenticated;
     notifyListeners();
   }
 
   Future<void> removeAll() async {
     await _userPreference.clearAll();
-    _userState = UserState.unauthenticated;
+    _userStatus = UserStatus.unauthenticated;
     notifyListeners();
   }
 

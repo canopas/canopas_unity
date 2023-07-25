@@ -14,7 +14,7 @@ import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_conten
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/provider/user_state.dart';
+import '../../../../data/provider/user_status_notifier.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../../../widget/leave_details_widget/leave_details_per_day_duration_content.dart';
@@ -44,7 +44,7 @@ class UserLeaveDetailScreen extends StatefulWidget {
 }
 
 class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
-  final userStateNotifier = getIt<UserStateNotifier>();
+  final userStateNotifier = getIt<UserStatusNotifier>();
 
   @override
   Widget build(BuildContext context) {

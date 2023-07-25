@@ -46,13 +46,20 @@ class MockEmployeeRepo extends _i1.Mock implements _i2.EmployeeRepo {
         ),
         returnValue: _i3.Stream<_i4.Employee?>.empty(),
       ) as _i3.Stream<_i4.Employee?>);
+
   @override
-  _i3.Stream<_i4.Employee?> getCurrentUser({required String? uid}) =>
+  _i3.Stream<_i4.Employee?> getCurrentUser({
+    required String? spaceID,
+    required String? uid,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCurrentUser,
           [],
-          {#uid: uid},
+          {
+            #spaceID: spaceID,
+            #uid: uid,
+          },
         ),
         returnValue: _i3.Stream<_i4.Employee?>.empty(),
       ) as _i3.Stream<_i4.Employee?>);
@@ -65,17 +72,15 @@ class MockEmployeeRepo extends _i1.Mock implements _i2.EmployeeRepo {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> cancelEmpStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
-          #cancel,
+          #cancelEmpStreamSubscription,
           [],
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leak_detector/leak_detector.dart';
-import 'package:projectunity/data/bloc/user_state/space_user_bloc.dart';
+import 'package:projectunity/data/bloc/user_state/user_state_bloc.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 
-import '../../../data/bloc/user_state/space_user_state.dart';
-import '../../../data/bloc/user_state/space_user_event.dart';
+import '../../../data/bloc/user_state/user_state.dart';
+import '../../../data/bloc/user_state/user_state_event.dart';
 import '../../../data/di/service_locator.dart';
 import '../appbar_drawer/drawer/app_drawer.dart';
 import '../appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
@@ -36,11 +36,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Scaffold(
         drawer: const AppDrawer(),
         body: SafeArea(
-            child: BlocListener<SpaceUserBloc, SpaceUserState>(
-          listenWhen: (previous, current) =>
-              current is SpaceUserRevokeAccessState,
+            child: BlocListener<UserStateBloc, UserState>(
+          listenWhen: (previous, current) => current is UserRevokeAccessState,
           listener: (_, state) {
-            if (state is SpaceUserRevokeAccessState) {
+            if (state is UserRevokeAccessState) {
               showDialog(
                   barrierDismissible: false,
                   context: context,
@@ -51,10 +50,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       content: Text(locale
                           .state_controller_access_revoked_alert_dialogue_subtitle),
                       actions: [
-                            TextButton(
+                        TextButton(
                                 onPressed: () {
-                                  BlocProvider.of<SpaceUserBloc>(context)
-                                      .add(DeactivateUserEvent());
+                                  BlocProvider.of<UserStateBloc>(context)
+                                  .add(DeactivateUserEvent());
                                 },
                                 child: Text(locale.ok_tag))
                           ],

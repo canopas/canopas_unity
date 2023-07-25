@@ -4,17 +4,17 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/Repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
 
 import 'view_profile_bloc_test.mocks.dart';
 
-@GenerateMocks([UserStateNotifier, EmployeeRepo])
+@GenerateMocks([UserStatusNotifier, EmployeeRepo])
 void main() {
   late ViewProfileBloc bloc;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late EmployeeRepo employeeRepo;
   final employee = Employee(
       uid: 'uid',

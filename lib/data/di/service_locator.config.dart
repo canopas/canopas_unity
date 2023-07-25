@@ -20,12 +20,12 @@ import 'package:image_picker/image_picker.dart' as _i12;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
     as _i15;
-import 'package:projectunity/data/bloc/user_state/space_user_bloc.dart' as _i50;
+import 'package:projectunity/data/bloc/user_state/user_state_bloc.dart' as _i50;
 import 'package:projectunity/data/di/app_module.dart' as _i57;
 import 'package:projectunity/data/pref/user_preference.dart' as _i21;
 import 'package:projectunity/data/provider/device_info.dart' as _i7;
-import 'package:projectunity/data/provider/space_manager.dart' as _i31;
-import 'package:projectunity/data/provider/user_state.dart' as _i22;
+import 'package:projectunity/data/provider/space_notifier.dart' as _i31;
+import 'package:projectunity/data/provider/user_status_notifier.dart' as _i22;
 import 'package:projectunity/data/Repo/employee_repo.dart' as _i43;
 import 'package:projectunity/data/Repo/leave_repo.dart' as _i46;
 import 'package:projectunity/data/services/account_service.dart' as _i23;
@@ -141,14 +141,14 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i20.StorageService(gh<_i11.FirebaseStorage>()));
     gh.singleton<_i21.UserPreference>(
         _i21.UserPreference(gh<_i18.SharedPreferences>()));
-    gh.singleton<_i22.UserStateNotifier>(
-        _i22.UserStateNotifier(gh<_i21.UserPreference>()));
+    gh.singleton<_i22.UserStatusNotifier>(
+        _i22.UserStatusNotifier(gh<_i21.UserPreference>()));
     gh.lazySingleton<_i23.AccountService>(() => _i23.AccountService(
           gh<_i10.FirebaseFirestore>(),
           gh<_i7.DeviceInfoProvider>(),
         ));
     gh.factory<_i24.AppRouter>(
-        () => _i24.AppRouter(gh<_i22.UserStateNotifier>()));
+        () => _i24.AppRouter(gh<_i22.UserStatusNotifier>()));
     gh.singleton<_i25.AuthService>(_i25.AuthService(
       gh<_i5.DesktopAuthManager>(),
       gh<_i10.FirebaseFirestore>(),
@@ -156,49 +156,53 @@ extension GetItInjectableX on _i1.GetIt {
     ));
     gh.factory<_i26.EditSpaceBloc>(() => _i26.EditSpaceBloc(
           gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i12.ImagePicker>(),
           gh<_i20.StorageService>(),
         ));
     gh.lazySingleton<_i27.EmployeeService>(() => _i27.EmployeeService(
-          gh<_i22.UserStateNotifier>(),
+      gh<_i22.UserStatusNotifier>(),
           gh<_i10.FirebaseFirestore>(),
         ));
     gh.factory<_i28.InviteMemberBloc>(() => _i28.InviteMemberBloc(
-          gh<_i13.InvitationService>(),
-          gh<_i22.UserStateNotifier>(),
+      gh<_i13.InvitationService>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i27.EmployeeService>(),
         ));
-    gh.lazySingleton<_i29.LeaveService>(() => _i29.LeaveService(
-          gh<_i22.UserStateNotifier>(),
+    gh.lazySingleton<_i29.LeaveService>(() =>
+        _i29.LeaveService(
+          gh<_i22.UserStatusNotifier>(),
           gh<_i10.FirebaseFirestore>(),
         ));
-    gh.factory<_i30.SignInBloc>(() => _i30.SignInBloc(
-          gh<_i22.UserStateNotifier>(),
+    gh.factory<_i30.SignInBloc>(() =>
+        _i30.SignInBloc(
+          gh<_i22.UserStatusNotifier>(),
           gh<_i25.AuthService>(),
           gh<_i23.AccountService>(),
         ));
-    gh.lazySingleton<_i31.SpaceManager>(
-        () => _i31.SpaceManager(gh<_i21.UserPreference>()));
+    gh.lazySingleton<_i31.SpaceNotifier>(
+            () => _i31.SpaceNotifier(gh<_i21.UserPreference>()));
     gh.factory<_i32.UserEmployeeDetailBloc>(
-        () => _i32.UserEmployeeDetailBloc(gh<_i29.LeaveService>()));
-    gh.factory<_i33.UserLeaveCalendarBloc>(() => _i33.UserLeaveCalendarBloc(
+            () => _i32.UserEmployeeDetailBloc(gh<_i29.LeaveService>()));
+    gh.factory<_i33.UserLeaveCalendarBloc>(() =>
+        _i33.UserLeaveCalendarBloc(
           gh<_i29.LeaveService>(),
           gh<_i27.EmployeeService>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i19.SpaceService>(),
         ));
-    gh.factory<_i34.UserLeaveCountBloc>(() => _i34.UserLeaveCountBloc(
+    gh.factory<_i34.UserLeaveCountBloc>(() =>
+        _i34.UserLeaveCountBloc(
           gh<_i29.LeaveService>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i19.SpaceService>(),
         ));
     gh.factory<_i35.UserLeaveDetailBloc>(
         () => _i35.UserLeaveDetailBloc(gh<_i29.LeaveService>()));
     gh.factory<_i36.AdminEditEmployeeDetailsBloc>(
         () => _i36.AdminEditEmployeeDetailsBloc(
-              gh<_i27.EmployeeService>(),
-              gh<_i22.UserStateNotifier>(),
+          gh<_i27.EmployeeService>(),
+              gh<_i22.UserStatusNotifier>(),
               gh<_i20.StorageService>(),
             ));
     gh.factory<_i37.AdminLeaveDetailsBloc>(() => _i37.AdminLeaveDetailsBloc(
@@ -206,41 +210,41 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i16.NotificationService>(),
         ));
     gh.factory<_i38.ApplyLeaveBloc>(() => _i38.ApplyLeaveBloc(
-          gh<_i22.UserStateNotifier>(),
+      gh<_i22.UserStatusNotifier>(),
           gh<_i29.LeaveService>(),
           gh<_i16.NotificationService>(),
         ));
     gh.factory<_i39.CreateSpaceBLoc>(() => _i39.CreateSpaceBLoc(
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
+      gh<_i19.SpaceService>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i27.EmployeeService>(),
-          gh<_i31.SpaceManager>(),
+          gh<_i31.SpaceNotifier>(),
           gh<_i12.ImagePicker>(),
           gh<_i20.StorageService>(),
         ));
     gh.factory<_i40.DrawerBloc>(() => _i40.DrawerBloc(
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
+      gh<_i19.SpaceService>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i23.AccountService>(),
-          gh<_i31.SpaceManager>(),
+          gh<_i31.SpaceNotifier>(),
         ));
     gh.factory<_i41.EmployeeDetailBloc>(() => _i41.EmployeeDetailBloc(
-          gh<_i23.AccountService>(),
+      gh<_i23.AccountService>(),
           gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i27.EmployeeService>(),
           gh<_i29.LeaveService>(),
         ));
     gh.factory<_i42.EmployeeEditProfileBloc>(() => _i42.EmployeeEditProfileBloc(
-          gh<_i27.EmployeeService>(),
+      gh<_i27.EmployeeService>(),
           gh<_i21.UserPreference>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i20.StorageService>(),
         ));
     gh.lazySingleton<_i43.EmployeeRepo>(
       () => _i43.EmployeeRepo(
         gh<_i27.EmployeeService>(),
-        gh<_i22.UserStateNotifier>(),
+        gh<_i22.UserStatusNotifier>(),
       ),
       dispose: (i) => i.dispose(),
     );
@@ -250,10 +254,10 @@ extension GetItInjectableX on _i1.GetIt {
               gh<_i29.LeaveService>(),
             ));
     gh.factory<_i45.JoinSpaceBloc>(() => _i45.JoinSpaceBloc(
-          gh<_i13.InvitationService>(),
+      gh<_i13.InvitationService>(),
           gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i31.SpaceManager>(),
+          gh<_i22.UserStatusNotifier>(),
+          gh<_i31.SpaceNotifier>(),
           gh<_i23.AccountService>(),
           gh<_i27.EmployeeService>(),
           gh<_i25.AuthService>(),
@@ -265,22 +269,22 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i47.UserEmployeesBloc>(
         () => _i47.UserEmployeesBloc(gh<_i43.EmployeeRepo>()));
     gh.factory<_i48.UserHomeBloc>(() => _i48.UserHomeBloc(
-          gh<_i22.UserStateNotifier>(),
+      gh<_i22.UserStatusNotifier>(),
           gh<_i46.LeaveRepo>(),
         ));
     gh.factory<_i49.UserLeaveBloc>(() => _i49.UserLeaveBloc(
-          gh<_i22.UserStateNotifier>(),
+      gh<_i22.UserStatusNotifier>(),
           gh<_i46.LeaveRepo>(),
         ));
-    gh.factory<_i50.SpaceUserBloc>(() => _i50.SpaceUserBloc(
+    gh.factory<_i50.UserStateBloc>(() => _i50.UserStateBloc(
           gh<_i43.EmployeeRepo>(),
           gh<_i46.LeaveRepo>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
           gh<_i19.SpaceService>(),
-          gh<_i31.SpaceManager>(),
+          gh<_i31.SpaceNotifier>(),
         ));
     gh.factory<_i51.ViewProfileBloc>(() => _i51.ViewProfileBloc(
-          gh<_i22.UserStateNotifier>(),
+      gh<_i22.UserStatusNotifier>(),
           gh<_i43.EmployeeRepo>(),
         ));
     gh.factory<_i52.WhoIsOutCardBloc>(() => _i52.WhoIsOutCardBloc(
@@ -300,7 +304,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i56.AdminMembersBloc>(() => _i56.AdminMembersBloc(
       gh<_i43.EmployeeRepo>(),
           gh<_i13.InvitationService>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i22.UserStatusNotifier>(),
         ));
     return this;
   }

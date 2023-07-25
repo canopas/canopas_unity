@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/space_logo_view.dart';
 import '../../../../data/configs/colors.dart';
@@ -41,7 +41,7 @@ class EditSpaceScreen extends StatefulWidget {
 }
 
 class _EditSpaceScreenState extends State<EditSpaceScreen> {
-  final UserStateNotifier _userManager = getIt<UserStateNotifier>();
+  final UserStatusNotifier _userManager = getIt<UserStatusNotifier>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _domainController = TextEditingController();
   final TextEditingController _paidTimeOffLeaveController =

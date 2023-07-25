@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/invitation/invitation.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
@@ -21,14 +21,14 @@ import 'join_space_test.mocks.dart';
 @GenerateMocks([
   InvitationService,
   SpaceService,
-  UserStateNotifier,
+  UserStatusNotifier,
   AccountService,
   EmployeeService,
   AuthService
 ])
 void main() {
   late SpaceService spaceService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late EmployeeService employeeService;
   late InvitationService invitationService;
   late AccountService accountService;

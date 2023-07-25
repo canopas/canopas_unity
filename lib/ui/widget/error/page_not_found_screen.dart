@@ -3,7 +3,7 @@ import 'package:projectunity/data/configs/colors.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../data/di/service_locator.dart';
-import '../../../data/provider/user_state.dart';
+import '../../../data/provider/user_status_notifier.dart';
 
 class PageNotFoundScreen extends StatefulWidget {
   const PageNotFoundScreen({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class PageNotFoundScreen extends StatefulWidget {
 }
 
 class _PageNotFoundScreenState extends State<PageNotFoundScreen> {
-  final userStateNotifier = getIt<UserStateNotifier>();
+  final userStateNotifier = getIt<UserStatusNotifier>();
 
   @override
   Widget build(BuildContext context) {

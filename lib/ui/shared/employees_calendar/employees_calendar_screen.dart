@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
@@ -46,7 +46,7 @@ class EmployeesCalendarScreen extends StatefulWidget {
 
 class _EmployeesCalendarScreenState extends State<EmployeesCalendarScreen> {
 
-  final userStateNotifier = getIt<UserStateNotifier>();
+  final userStateNotifier = getIt<UserStatusNotifier>();
 
   @override
   Widget build(BuildContext context) {

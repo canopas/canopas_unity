@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart';
@@ -12,18 +12,15 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 
 import 'user_leave_count_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserStateNotifier, SpaceService])
+@GenerateMocks([LeaveService, UserStatusNotifier, SpaceService])
 void main() {
   late LeaveService leaveService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late SpaceService spaceService;
   late UserLeaveCountBloc userLeaveCountBloc;
 
   UserLeaveCountState loadingState = const UserLeaveCountState(
-      status: Status.loading,
-      used: 0,
-      leavePercentage: 0,
-      error: null);
+      status: Status.loading, used: 0, leavePercentage: 0, error: null);
 
   const String employeeId = 'Employee Id';
 

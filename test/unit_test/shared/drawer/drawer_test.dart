@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -17,13 +17,13 @@ import 'drawer_test.mocks.dart';
 
 @GenerateMocks([
   SpaceService,
-  UserStateNotifier,
+  UserStatusNotifier,
   EmployeeService,
   AccountService,
 ])
 void main() {
   late SpaceService spaceService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late EmployeeService employeeService;
   late AccountService accountService;
   late DrawerBloc bloc;
@@ -32,8 +32,8 @@ void main() {
     userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     accountService = MockAccountService();
-    bloc = DrawerBloc(spaceService, userStateNotifier, accountService,
-        employeeService);
+    bloc = DrawerBloc(
+        spaceService, userStateNotifier, accountService, employeeService);
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.currentSpaceId).thenReturn('sid');
     when(accountService.fetchSpaceIds(uid: 'uid'))

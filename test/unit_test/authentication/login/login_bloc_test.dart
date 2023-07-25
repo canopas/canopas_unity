@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/model/account/account.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart';
@@ -15,11 +15,11 @@ import 'login_bloc_test.mocks.dart';
 @GenerateMocks([
   AuthService,
   AccountService,
-  UserStateNotifier,
+  UserStatusNotifier,
   firebase_auth.User,
 ])
 void main() {
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late AuthService authService;
   late AccountService accountService;
 

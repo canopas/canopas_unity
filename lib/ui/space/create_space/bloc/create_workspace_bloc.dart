@@ -7,8 +7,8 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/provider/space_manager.dart';
-import '../../../../data/provider/user_state.dart';
+import '../../../../data/provider/space_notifier.dart';
+import '../../../../data/provider/user_status_notifier.dart';
 import '../../../../data/services/space_service.dart';
 import 'create_workspace_event.dart';
 import 'create_workspace_state.dart';
@@ -20,8 +20,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
   final StorageService storageService;
   final SpaceService _spaceService;
   final EmployeeService _employeeService;
-  final UserStateNotifier _userManager;
-  final SpaceManager _spaceManager;
+  final UserStatusNotifier _userManager;
+  final SpaceNotifier _spaceManager;
 
   CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService,
       this._spaceManager, this.imagePicker, this.storageService)

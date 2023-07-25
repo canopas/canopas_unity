@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/text_style.dart';
@@ -50,7 +50,7 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userStateNotifier = getIt<UserStateNotifier>();
+    final userStateNotifier = getIt<UserStatusNotifier>();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Wrap(

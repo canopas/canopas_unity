@@ -5,11 +5,11 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 
 @Injectable()
 class ViewProfileBloc extends Bloc<ViewProfileEvent, ViewProfileState> {
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   final EmployeeRepo _employeeRepo;
 
   ViewProfileBloc(this._userManager, this._employeeRepo)

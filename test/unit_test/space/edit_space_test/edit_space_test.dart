@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart';
@@ -14,10 +14,10 @@ import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_
 
 import 'edit_space_test.mocks.dart';
 
-@GenerateMocks([SpaceService, UserStateNotifier, ImagePicker, StorageService])
+@GenerateMocks([SpaceService, UserStatusNotifier, ImagePicker, StorageService])
 void main() {
   late SpaceService spaceService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late StorageService storageService;
   late ImagePicker imagePicker;
   late EditSpaceBloc bloc;

@@ -8,7 +8,7 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
@@ -17,10 +17,10 @@ import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.d
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserStateNotifier, NotificationService])
+@GenerateMocks([LeaveService, UserStatusNotifier, NotificationService])
 void main() {
   late LeaveService leaveService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late ApplyLeaveBloc leaveRequestBloc;
   late NotificationService notificationService;
 

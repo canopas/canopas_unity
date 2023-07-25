@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/data/services/storage_service.dart';
@@ -19,7 +19,7 @@ import 'create_space_bloc_test.mocks.dart';
 
 @GenerateMocks([
   SpaceService,
-  UserStateNotifier,
+  UserStatusNotifier,
   EmployeeService,
   StorageService,
   ImagePicker,
@@ -28,7 +28,7 @@ void main() {
   late SpaceService spaceService;
   late StorageService storageService;
   late ImagePicker imagePicker;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late EmployeeService employeeService;
   late CreateSpaceBLoc bloc;
   late CreateSpaceState createSpaceState;

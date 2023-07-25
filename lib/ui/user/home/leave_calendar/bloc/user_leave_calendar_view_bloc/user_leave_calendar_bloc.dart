@@ -11,7 +11,7 @@ import '../../../../../../data/model/employee/employee.dart';
 import '../../../../../../data/model/leave/leave.dart';
 import '../../../../../../data/model/leave_application.dart';
 import '../../../../../../data/model/leave_count.dart';
-import '../../../../../../data/provider/user_state.dart';
+import '../../../../../../data/provider/user_status_notifier.dart';
 import '../../../../../../data/services/employee_service.dart';
 import '../../../../../../data/services/leave_service.dart';
 import 'user_leave_calendar_events.dart';
@@ -21,7 +21,7 @@ class UserLeaveCalendarBloc
     extends Bloc<UserLeaveCalendarEvent, UserLeaveCalendarViewState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   final SpaceService _spaceService;
   late StreamSubscription _streamSubscription;
 

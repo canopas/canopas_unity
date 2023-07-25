@@ -11,7 +11,7 @@ import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/di/service_locator.dart';
 import '../../../../../data/model/employee/employee.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 import '../../../../widget/app_dialog.dart';
 import '../bloc/admin_leave_details_bloc.dart';
 import '../bloc/admin_leave_details_event.dart';
@@ -27,7 +27,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userStateNotifier = getIt<UserStateNotifier>();
+    final userStateNotifier = getIt<UserStatusNotifier>();
     final localization = AppLocalizations.of(context);
     if ((leaveApplication.leave.status == LeaveStatus.approved &&
             !(userStateNotifier.isHR &&

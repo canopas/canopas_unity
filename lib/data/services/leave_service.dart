@@ -6,11 +6,11 @@ import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import '../core/utils/const/firestore.dart';
 import '../event_bus/events.dart';
 import '../model/leave/leave.dart';
-import '../provider/user_state.dart';
+import '../provider/user_status_notifier.dart';
 
 @LazySingleton()
 class LeaveService {
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   late final FirebaseFirestore fireStore;
 
   LeaveService(this._userManager, this.fireStore);

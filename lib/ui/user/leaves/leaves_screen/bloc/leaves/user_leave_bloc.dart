@@ -8,12 +8,12 @@ import '../../../../../../data/Repo/leave_repo.dart';
 import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../../data/model/leave/leave.dart';
-import '../../../../../../data/provider/user_state.dart';
+import '../../../../../../data/provider/user_status_notifier.dart';
 
 @Injectable()
 class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
   final LeaveRepo _leaveRepo;
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   late List<Leave> _allLeaves = [];
 
   UserLeaveBloc(this._userManager, this._leaveRepo) : super(UserLeaveState()) {

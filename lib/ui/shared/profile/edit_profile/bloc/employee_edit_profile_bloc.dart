@@ -5,7 +5,7 @@ import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/pref/user_preference.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 import '../../../../../data/services/employee_service.dart';
 import '../../../../../data/services/storage_service.dart';
 import 'employee_edit_profile_event.dart';
@@ -16,7 +16,7 @@ class EmployeeEditProfileBloc
     extends Bloc<EditProfileEvent, EmployeeEditProfileState>
     with InputValidationMixin {
   final EmployeeService _employeeService;
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   final UserPreference _preference;
   final StorageService storageService;
 

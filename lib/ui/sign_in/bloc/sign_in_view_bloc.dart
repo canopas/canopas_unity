@@ -4,14 +4,14 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import '../../../data/core/exception/error_const.dart';
 import '../../../data/model/account/account.dart';
-import '../../../data/provider/user_state.dart';
+import '../../../data/provider/user_status_notifier.dart';
 import '../../../data/services/auth_service.dart';
 import 'sign_in_view_event.dart';
 import 'sign_in_view_state.dart';
 
 @Injectable()
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  final UserStateNotifier _userStateNotifier;
+  final UserStatusNotifier _userStateNotifier;
   final AuthService _authService;
   final AccountService _accountService;
 

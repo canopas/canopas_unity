@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -17,7 +17,7 @@ class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
   final LeaveService _leaveService;
   final EmployeeService _employeeService;
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   final AccountService _accountService;
   final SpaceService _spaceService;
   late StreamSubscription _subscription;

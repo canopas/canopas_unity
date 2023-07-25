@@ -220,11 +220,7 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
         ),
         returnValueForMissingStub: null,
       );
-  @override
-  _i4.Stream<List<_i7.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i4.Stream<List<_i7.Leave>>.empty(),
-      ) as _i4.Stream<List<_i7.Leave>>);
+
   @override
   _i4.Future<List<_i7.Leave>> getLeaveRequestOfUsers() => (super.noSuchMethod(
         Invocation.method(
@@ -233,6 +229,16 @@ class MockLeaveService extends _i1.Mock implements _i6.LeaveService {
         ),
         returnValue: _i4.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
       ) as _i4.Future<List<_i7.Leave>>);
+
+  @override
+  _i4.Stream<List<_i7.Leave>> leaves(int? monthDate) => (super.noSuchMethod(
+        Invocation.method(
+          #leaves,
+          [monthDate],
+        ),
+        returnValue: _i4.Stream<List<_i7.Leave>>.empty(),
+      ) as _i4.Stream<List<_i7.Leave>>);
+
   @override
   _i4.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,

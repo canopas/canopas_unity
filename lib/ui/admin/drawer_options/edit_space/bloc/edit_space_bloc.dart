@@ -7,7 +7,7 @@ import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/space/space.dart';
-import '../../../../../data/provider/user_state.dart';
+import '../../../../../data/provider/user_status_notifier.dart';
 import '../../../../../data/services/storage_service.dart';
 import 'edit_space_state.dart';
 import 'edit_space_event.dart';
@@ -15,7 +15,7 @@ import 'edit_space_event.dart';
 @Injectable()
 class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
     with InputValidationMixin {
-  final UserStateNotifier _userStateNotifier;
+  final UserStatusNotifier _userStateNotifier;
   final SpaceService _spaceService;
   final ImagePicker imagePicker;
   final StorageService storageService;

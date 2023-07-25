@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/auth_service.dart';
 import 'package:projectunity/ui/space/join_space/bloc/join_space_event.dart';
@@ -11,21 +11,21 @@ import 'package:projectunity/ui/space/join_space/bloc/join_space_state.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/invitation/invitation.dart';
 import '../../../../data/model/space/space.dart';
-import '../../../../data/provider/space_manager.dart';
+import '../../../../data/provider/space_notifier.dart';
 import '../../../../data/services/employee_service.dart';
 import '../../../../data/services/invitation_services.dart';
 import '../../../../data/services/space_service.dart';
 
 @Injectable()
 class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
   final EmployeeService _employeeService;
   final SpaceService _spaceService;
   final InvitationService _invitationService;
   final AccountService accountService;
   final AuthService _authService;
   late final List<Invitation> invitations;
-  final SpaceManager _spaceManager;
+  final SpaceNotifier _spaceManager;
 
   JoinSpaceBloc(
       this._invitationService,

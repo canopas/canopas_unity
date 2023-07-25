@@ -4,17 +4,17 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/Repo/leave_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 
 import 'user_home_test.mocks.dart';
 
-@GenerateMocks([UserStateNotifier, LeaveRepo])
+@GenerateMocks([UserStatusNotifier, LeaveRepo])
 void main() {
   late UserHomeBloc bLoc;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late LeaveRepo leaveRepo;
 
   const employeeUID = 'uid';

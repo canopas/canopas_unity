@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leak_detector/leak_detector.dart';
-import 'package:projectunity/data/bloc/user_state/space_user_bloc.dart';
+import 'package:projectunity/data/bloc/user_state/user_state_bloc.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_option.dart';
@@ -14,7 +14,7 @@ import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../../data/provider/user_state.dart';
+import '../../../../data/provider/user_status_notifier.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'bloc/app_drawer_bloc.dart';
@@ -29,11 +29,11 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  final UserStateNotifier userManager = getIt<UserStateNotifier>();
+  final UserStatusNotifier userManager = getIt<UserStatusNotifier>();
 
   @override
   Widget build(BuildContext context) {
-    final blocStatus = context.read<SpaceUserBloc>().state;
+    final blocStatus = context.read<UserStateBloc>().state;
     print('==================================  $blocStatus');
     return BlocListener<DrawerBloc, DrawerState>(
       listenWhen: (previous, current) =>

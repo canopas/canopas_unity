@@ -7,10 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leak_detector/leak_detector.dart';
-import 'package:projectunity/data/bloc/user_state/space_user_state.dart';
+import 'package:projectunity/data/bloc/user_state/user_state.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'data/bloc/user_state/space_user_bloc.dart';
+import 'data/bloc/user_state/user_state_bloc.dart';
 import 'data/configs/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
 import 'data/configs/theme.dart';
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
               _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
         ),
         BlocProvider(
-          create: (_) => getIt<SpaceUserBloc>(),
+          create: (_) => getIt<UserStateBloc>(),
           lazy: false,
         )
       ],
@@ -120,15 +120,15 @@ class _MyAppState extends State<MyApp> {
                     }
                   },
                 ),
-                BlocListener<SpaceUserBloc, SpaceUserState>(
-                  listenWhen: (previous, current) =>
-                  current is SpaceUserErrorState,
-                  listener: (context, state) {
-                    if (state is SpaceUserErrorState) {
-                      showSnackBar(context: context, error: state.error);
-                    }
-                  },
-                ),
+                BlocListener<UserStateBloc, UserState>(
+                      listenWhen: (previous, current) =>
+                          current is UserErrorState,
+                      listener: (context, state) {
+                        if (state is UserErrorState) {
+                          showSnackBar(context: context, error: state.error);
+                        }
+                      },
+                    ),
               ],
               child: widget!,
             )),

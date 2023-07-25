@@ -13,7 +13,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i8;
 import 'package:projectunity/data/model/employee/employee.dart' as _i6;
 import 'package:projectunity/data/model/space/space.dart' as _i9;
 import 'package:projectunity/data/pref/user_preference.dart' as _i11;
-import 'package:projectunity/data/provider/user_state.dart' as _i7;
+import 'package:projectunity/data/provider/user_status_notifier.dart' as _i7;
 import 'package:projectunity/data/services/employee_service.dart' as _i4;
 import 'package:projectunity/data/services/storage_service.dart' as _i12;
 
@@ -212,19 +212,21 @@ class MockEmployeeService extends _i1.Mock implements _i4.EmployeeService {
       ) as _i5.Future<void>);
 }
 
-/// A class which mocks [UserStateNotifier].
+/// A class which mocks [UserStatusNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i7.UserStateNotifier {
-  MockUserStateNotifier() {
+class MockUserStatusNotifier extends _i1.Mock
+    implements _i7.UserStatusNotifier {
+  MockUserStatusNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.UserState get state => (super.noSuchMethod(
+  _i7.UserStatus get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i7.UserState.authenticated,
-      ) as _i7.UserState);
+        returnValue: _i7.UserStatus.authenticated,
+      ) as _i7.UserStatus);
+
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -368,6 +370,7 @@ class MockUserPreference extends _i1.Mock implements _i11.UserPreference {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
   @override
   _i5.Future<void> setSpace(_i9.Space? space) => (super.noSuchMethod(
         Invocation.method(
@@ -377,6 +380,34 @@ class MockUserPreference extends _i1.Mock implements _i11.UserPreference {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> setCurrentSpaceId(String? spaceId) => (super.noSuchMethod(
+        Invocation.method(
+          #setCurrentSpaceId,
+          [spaceId],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  String? getCurrentSpaceId(String? spaceId) =>
+      (super.noSuchMethod(Invocation.method(
+        #getCurrentSpaceId,
+        [spaceId],
+      )) as String?);
+
+  @override
+  _i5.Future<void> removeCurrentSpaceId() => (super.noSuchMethod(
+        Invocation.method(
+          #removeCurrentSpaceId,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
   @override
   _i5.Future<void> removeSpace() => (super.noSuchMethod(
         Invocation.method(
@@ -386,6 +417,7 @@ class MockUserPreference extends _i1.Mock implements _i11.UserPreference {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
   @override
   _i5.Future<void> setEmployee(_i6.Employee? user) => (super.noSuchMethod(
         Invocation.method(

@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/provider/user_status_notifier.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -18,7 +18,7 @@ import 'employee_detail_bloc_test.mocks.dart';
   AccountService,
   EmployeeService,
   LeaveService,
-  UserStateNotifier,
+  UserStatusNotifier,
   SpaceService
 ])
 void main() {
@@ -26,7 +26,7 @@ void main() {
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
   late LeaveService leaveService;
-  late UserStateNotifier userStateNotifier;
+  late UserStatusNotifier userStateNotifier;
   late SpaceService spaceService;
   final employee = Employee(
       uid: 'id',

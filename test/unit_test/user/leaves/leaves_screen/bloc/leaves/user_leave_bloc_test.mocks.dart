@@ -11,7 +11,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i6;
 import 'package:projectunity/data/model/employee/employee.dart' as _i7;
 import 'package:projectunity/data/model/leave/leave.dart' as _i4;
 import 'package:projectunity/data/model/space/space.dart' as _i8;
-import 'package:projectunity/data/provider/user_state.dart' as _i5;
+import 'package:projectunity/data/provider/user_status_notifier.dart' as _i5;
 import 'package:projectunity/data/Repo/leave_repo.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -77,17 +77,15 @@ class MockLeaveRepo extends _i1.Mock implements _i2.LeaveRepo {
         ),
         returnValue: _i3.Stream<List<_i4.Leave>>.empty(),
       ) as _i3.Stream<List<_i4.Leave>>);
-
   @override
   _i3.Future<void> cancelLeaveStreamSubscription() => (super.noSuchMethod(
         Invocation.method(
-          #cancel,
+          #cancelLeaveStreamSubscription,
           [],
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
@@ -99,19 +97,21 @@ class MockLeaveRepo extends _i1.Mock implements _i2.LeaveRepo {
       ) as _i3.Future<void>);
 }
 
-/// A class which mocks [UserStateNotifier].
+/// A class which mocks [UserStatusNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
-  MockUserStateNotifier() {
+class MockUserStatusNotifier extends _i1.Mock
+    implements _i5.UserStatusNotifier {
+  MockUserStatusNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.UserState get state => (super.noSuchMethod(
+  _i5.UserStatus get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i5.UserState.authenticated,
-      ) as _i5.UserState);
+        returnValue: _i5.UserStatus.authenticated,
+      ) as _i5.UserStatus);
+
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -150,7 +150,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   _i3.Future<void> setUser(_i6.Account? user) => (super.noSuchMethod(
         Invocation.method(
@@ -160,7 +159,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> updateCurrentUser(_i7.Employee? user) => (super.noSuchMethod(
         Invocation.method(
@@ -170,7 +168,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> updateSpace(_i8.Space? space) => (super.noSuchMethod(
         Invocation.method(
@@ -180,7 +177,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i5.UserStateNotifier {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
-
   @override
   _i3.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
         Invocation.method(

@@ -13,7 +13,7 @@ import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
-import '../../data/provider/user_state.dart';
+import '../../data/provider/user_status_notifier.dart';
 import '../admin/drawer_options/edit_space/edit_space_screen.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/home/invite_member/invite_screen.dart';
@@ -56,7 +56,7 @@ class GoRouterObserver extends NavigatorObserver {
 
 @Injectable()
 class AppRouter {
-  final UserStateNotifier _userManager;
+  final UserStatusNotifier _userManager;
 
   AppRouter(this._userManager);
 
@@ -65,7 +65,7 @@ class AppRouter {
   final _adminShellNavigatorKey = GlobalKey<NavigatorState>();
   final _employeeShellNavigatorKey = GlobalKey<NavigatorState>();
 
-  GoRouter _goRouter(UserStateNotifier userManager) {
+  GoRouter _goRouter(UserStatusNotifier userManager) {
     return GoRouter(
         debugLogDiagnostics: true,
         errorPageBuilder: (context, state) =>
@@ -343,20 +343,20 @@ class AppRouter {
         ],
         redirect: (context, state) {
           final loggingIn = state.subloc == Routes.login;
-          if (userManager.state == UserState.unauthenticated) {
+          if (userManager.state == UserStatus.unauthenticated) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.state == UserState.authenticated &&
+          if (userManager.state == UserStatus.authenticated &&
               !state.subloc.contains(Routes.joinSpace)) {
             return Routes.joinSpace;
           }
-          if (_userManager.state == UserState.spaceJoined &&
+          if (_userManager.state == UserStatus.spaceJoined &&
               state.subloc.contains(Routes.joinSpace)) {
             return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;
           }
-          if (_userManager.state == UserState.update) {
+          if (_userManager.state == UserStatus.update) {
             return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;

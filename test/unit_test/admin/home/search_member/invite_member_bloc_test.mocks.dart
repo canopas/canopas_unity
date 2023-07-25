@@ -12,7 +12,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i7;
 import 'package:projectunity/data/model/employee/employee.dart' as _i8;
 import 'package:projectunity/data/model/invitation/invitation.dart' as _i5;
 import 'package:projectunity/data/model/space/space.dart' as _i9;
-import 'package:projectunity/data/provider/user_state.dart' as _i6;
+import 'package:projectunity/data/provider/user_status_notifier.dart' as _i6;
 import 'package:projectunity/data/services/employee_service.dart' as _i11;
 import 'package:projectunity/data/services/invitation_services.dart' as _i3;
 
@@ -123,19 +123,21 @@ class MockInvitationService extends _i1.Mock implements _i3.InvitationService {
       ) as _i4.Future<void>);
 }
 
-/// A class which mocks [UserStateNotifier].
+/// A class which mocks [UserStatusNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
-  MockUserStateNotifier() {
+class MockUserStatusNotifier extends _i1.Mock
+    implements _i6.UserStatusNotifier {
+  MockUserStatusNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.UserState get state => (super.noSuchMethod(
+  _i6.UserStatus get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i6.UserState.authenticated,
-      ) as _i6.UserState);
+        returnValue: _i6.UserStatus.authenticated,
+      ) as _i6.UserStatus);
+
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -174,7 +176,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   _i4.Future<void> setUser(_i7.Account? user) => (super.noSuchMethod(
         Invocation.method(
@@ -184,7 +185,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> updateCurrentUser(_i8.Employee? user) => (super.noSuchMethod(
         Invocation.method(
@@ -194,7 +194,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> updateSpace(_i9.Space? space) => (super.noSuchMethod(
         Invocation.method(
@@ -204,7 +203,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i6.UserStateNotifier {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
         Invocation.method(
@@ -273,7 +271,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
           Invocation.getter(#fireStore),
         ),
       ) as _i2.FirebaseFirestore);
-
   @override
   _i4.Stream<List<_i8.Employee>> employees(String? spaceId) =>
       (super.noSuchMethod(
@@ -283,7 +280,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
         returnValue: _i4.Stream<List<_i8.Employee>>.empty(),
       ) as _i4.Stream<List<_i8.Employee>>);
-
   @override
   _i4.Future<void> addEmployeeBySpaceId({
     required _i8.Employee? employee,
@@ -301,7 +297,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<_i8.Employee?> getEmployeeBySpaceId({
     required String? userId,
@@ -318,7 +313,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
         returnValue: _i4.Future<_i8.Employee?>.value(),
       ) as _i4.Future<_i8.Employee?>);
-
   @override
   _i4.Future<List<_i8.Employee>> getEmployees() => (super.noSuchMethod(
         Invocation.method(
@@ -327,7 +321,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
         returnValue: _i4.Future<List<_i8.Employee>>.value(<_i8.Employee>[]),
       ) as _i4.Future<List<_i8.Employee>>);
-
   @override
   _i4.Future<_i8.Employee?> getEmployee(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -336,7 +329,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
         returnValue: _i4.Future<_i8.Employee?>.value(),
       ) as _i4.Future<_i8.Employee?>);
-
   @override
   _i4.Stream<_i8.Employee?> getCurrentUser({
     required String? spaceId,
@@ -353,7 +345,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
         returnValue: _i4.Stream<_i8.Employee?>.empty(),
       ) as _i4.Stream<_i8.Employee?>);
-
   @override
   _i4.Future<bool> hasUser(String? email) => (super.noSuchMethod(
         Invocation.method(
@@ -362,7 +353,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
-
   @override
   _i4.Future<void> addEmployee(_i8.Employee? employee) => (super.noSuchMethod(
         Invocation.method(
@@ -372,7 +362,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> updateEmployeeDetails({required _i8.Employee? employee}) =>
       (super.noSuchMethod(
@@ -384,7 +373,6 @@ class MockEmployeeService extends _i1.Mock implements _i11.EmployeeService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-
   @override
   _i4.Future<void> changeEmployeeRoleType(
     String? id,
