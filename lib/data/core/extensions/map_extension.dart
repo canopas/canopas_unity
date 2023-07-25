@@ -1,4 +1,5 @@
-import 'package:projectunity/data/model/leave/leave.dart';
+
+import '../../model/leave/leave.dart';
 import 'date_time.dart';
 
 extension MapExtensions on Map<DateTime, LeaveDayDuration> {

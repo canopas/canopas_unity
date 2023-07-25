@@ -1,7 +1,6 @@
 import 'date_time.dart';
 import '../../model/leave/leave.dart';
 
-
 extension LeaveExtension on Leave {
   Map<DateTime, LeaveDayDuration> getDateAndDuration() {
     List<DateTime> dates = List.generate(

@@ -12,90 +12,83 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as _i10;
 import 'package:connectivity_plus/connectivity_plus.dart' as _i4;
 import 'package:device_info_plus/device_info_plus.dart' as _i6;
-import 'package:firebase_auth/firebase_auth.dart' as _i9;
+import 'package:firebase_auth/firebase_auth.dart' as _i8;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart' as _i9;
 import 'package:firebase_storage/firebase_storage.dart' as _i11;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:http/http.dart' as _i3;
 import 'package:image_picker/image_picker.dart' as _i12;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
-    as _i15;
+    as _i14;
 import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart'
-    as _i36;
-import 'package:projectunity/data/di/app_module.dart' as _i56;
-import 'package:projectunity/data/pref/user_preference.dart' as _i21;
+    as _i34;
+import 'package:projectunity/data/di/app_module.dart' as _i53;
+import 'package:projectunity/data/pref/user_preference.dart' as _i20;
 import 'package:projectunity/data/provider/device_info.dart' as _i7;
-import 'package:projectunity/data/provider/user_state.dart' as _i22;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i43;
-import 'package:projectunity/data/Repo/leave_repo.dart' as _i45;
-import 'package:projectunity/data/services/account_service.dart' as _i23;
-import 'package:projectunity/data/services/auth_service.dart' as _i25;
-import 'package:projectunity/data/services/employee_service.dart' as _i27;
+import 'package:projectunity/data/provider/user_state.dart' as _i21;
+import 'package:projectunity/data/Repo/employee_repo.dart' as _i41;
+import 'package:projectunity/data/Repo/leave_repo.dart' as _i42;
+import 'package:projectunity/data/services/account_service.dart' as _i22;
+import 'package:projectunity/data/services/auth_service.dart' as _i24;
+import 'package:projectunity/data/services/employee_service.dart' as _i26;
 import 'package:projectunity/data/services/invitation_services.dart' as _i13;
-import 'package:projectunity/data/services/leave_service.dart' as _i30;
+import 'package:projectunity/data/services/leave_service.dart' as _i29;
 import 'package:projectunity/data/services/mail_notification_service.dart'
-    as _i16;
-import 'package:projectunity/data/services/space_service.dart' as _i19;
-import 'package:projectunity/data/services/storage_service.dart' as _i20;
+    as _i15;
+import 'package:projectunity/data/services/space_service.dart' as _i18;
+import 'package:projectunity/data/services/storage_service.dart' as _i19;
 import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manager.dart'
     as _i5;
 import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart'
-    as _i26;
+    as _i25;
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart'
-    as _i52;
-import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart'
-    as _i28;
-import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bloc.dart'
-    as _i38;
-import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
-    as _i53;
-import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
-    as _i55;
-import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
-    as _i51;
-import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
-    as _i37;
-import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
-    as _i54;
-import 'package:projectunity/ui/navigation/app_router.dart' as _i24;
-import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
-    as _i41;
-import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_bloc/employees_calendar_bloc.dart'
-    as _i8;
-import 'package:projectunity/ui/shared/employees_calendar/bloc/calendar_leaves_bloc/employees_calendar_leaves_bloc.dart'
-    as _i44;
-import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
-    as _i42;
-import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
     as _i49;
-import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
+import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart'
+    as _i27;
+import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bloc.dart'
+    as _i36;
+import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
     as _i50;
-import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i31;
-import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
-    as _i40;
-import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
-    as _i29;
-import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
-    as _i47;
-import 'package:projectunity/ui/user/home/leave_calendar/bloc/calendar_bloc/leave_calendar_bloc.dart'
-    as _i14;
-import 'package:projectunity/ui/user/home/leave_calendar/bloc/user_leave_calendar_view_bloc/user_leave_calendar_bloc.dart'
-    as _i33;
-import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart'
-    as _i39;
-import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart'
-    as _i35;
-import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
-    as _i34;
-import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
+import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
+    as _i52;
+import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
     as _i48;
-import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart'
-    as _i32;
-import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_bloc.dart'
+import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
+    as _i35;
+import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
+    as _i51;
+import 'package:projectunity/ui/navigation/app_router.dart' as _i23;
+import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
+    as _i39;
+import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
+    as _i40;
+import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
     as _i46;
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
+    as _i47;
+import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i30;
+import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
+    as _i38;
+import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
+    as _i28;
+import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_bloc.dart'
+    as _i44;
+import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart'
+    as _i37;
+import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart'
+    as _i33;
+import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart'
+    as _i32;
+import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_bloc.dart'
+    as _i45;
+import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart'
+    as _i31;
+import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_bloc.dart'
+    as _i43;
 import 'package:projectunity/ui/widget/pick_profile_image/bloc/pick_image_bloc.dart'
-    as _i17;
-import 'package:shared_preferences/shared_preferences.dart' as _i18;
+    as _i16;
+import 'package:shared_preferences/shared_preferences.dart' as _i17;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -115,192 +108,187 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i6.DeviceInfoPlugin>(() => appModule.deviceInfoPlugin);
     gh.factory<_i7.DeviceInfoProvider>(
         () => _i7.DeviceInfoProvider(gh<_i6.DeviceInfoPlugin>()));
-    gh.factory<_i8.EmployeesCalenderBloc>(() => _i8.EmployeesCalenderBloc());
-    gh.factory<_i9.FirebaseAuth>(() => appModule.firebaseAuth);
+    gh.factory<_i8.FirebaseAuth>(() => appModule.firebaseAuth);
+    gh.factory<_i9.FirebaseCrashlytics>(() => appModule.firebaseCrashlytics);
     gh.factory<_i10.FirebaseFirestore>(() => appModule.firebaseFireStore);
     gh.factory<_i11.FirebaseStorage>(() => appModule.firebaseStorage);
     gh.factory<_i12.ImagePicker>(() => appModule.imagePicker);
     gh.lazySingleton<_i13.InvitationService>(
         () => _i13.InvitationService(gh<_i10.FirebaseFirestore>()));
-    gh.factory<_i14.LeaveCalendarBloc>(() => _i14.LeaveCalendarBloc());
-    gh.factory<_i15.NetworkConnectionBloc>(
-        () => _i15.NetworkConnectionBloc(gh<_i4.Connectivity>()));
-    gh.lazySingleton<_i16.NotificationService>(
-      () => _i16.NotificationService(gh<_i3.Client>()),
-      dispose: (i) => i.dispose(),
-    );
-    gh.factory<_i17.PickImageBloc>(
-        () => _i17.PickImageBloc(gh<_i12.ImagePicker>()));
-    await gh.factoryAsync<_i18.SharedPreferences>(
-      () => appModule.preferences,
-      preResolve: true,
-    );
-    gh.lazySingleton<_i19.SpaceService>(
-        () => _i19.SpaceService(gh<_i10.FirebaseFirestore>()));
-    gh.lazySingleton<_i20.StorageService>(
-        () => _i20.StorageService(gh<_i11.FirebaseStorage>()));
-    gh.singleton<_i21.UserPreference>(
-        _i21.UserPreference(gh<_i18.SharedPreferences>()));
-    gh.singleton<_i22.UserStateNotifier>(
-        _i22.UserStateNotifier(gh<_i21.UserPreference>()));
-    gh.lazySingleton<_i23.AccountService>(() => _i23.AccountService(
-          gh<_i10.FirebaseFirestore>(),
-          gh<_i7.DeviceInfoProvider>(),
-        ));
-    gh.factory<_i24.AppRouter>(
-        () => _i24.AppRouter(gh<_i22.UserStateNotifier>()));
-    gh.singleton<_i25.AuthService>(_i25.AuthService(
-      gh<_i5.DesktopAuthManager>(),
-      gh<_i10.FirebaseFirestore>(),
-      gh<_i9.FirebaseAuth>(),
-    ));
-    gh.factory<_i26.EditSpaceBloc>(() => _i26.EditSpaceBloc(
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i12.ImagePicker>(),
-          gh<_i20.StorageService>(),
-        ));
-    gh.lazySingleton<_i27.EmployeeService>(() => _i27.EmployeeService(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i10.FirebaseFirestore>(),
-        ));
-    gh.factory<_i28.InviteMemberBloc>(() => _i28.InviteMemberBloc(
-          gh<_i13.InvitationService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i27.EmployeeService>(),
-          gh<_i16.NotificationService>(),
-        ));
-    gh.factory<_i29.JoinSpaceBloc>(() => _i29.JoinSpaceBloc(
-          gh<_i13.InvitationService>(),
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i23.AccountService>(),
-          gh<_i27.EmployeeService>(),
-          gh<_i25.AuthService>(),
-          gh<_i16.NotificationService>(),
-        ));
-    gh.lazySingleton<_i30.LeaveService>(() => _i30.LeaveService(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i10.FirebaseFirestore>(),
-        ));
-    gh.factory<_i31.SignInBloc>(() => _i31.SignInBloc(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i25.AuthService>(),
-          gh<_i23.AccountService>(),
-        ));
-    gh.factory<_i32.UserEmployeeDetailBloc>(
-        () => _i32.UserEmployeeDetailBloc(gh<_i30.LeaveService>()));
-    gh.factory<_i33.UserLeaveCalendarBloc>(() => _i33.UserLeaveCalendarBloc(
-          gh<_i30.LeaveService>(),
-          gh<_i27.EmployeeService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i19.SpaceService>(),
-        ));
-    gh.factory<_i34.UserLeaveCountBloc>(() => _i34.UserLeaveCountBloc(
-          gh<_i30.LeaveService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i19.SpaceService>(),
-        ));
-    gh.factory<_i35.UserLeaveDetailBloc>(
-        () => _i35.UserLeaveDetailBloc(gh<_i30.LeaveService>()));
-    gh.factory<_i36.UserStateControllerBloc>(() => _i36.UserStateControllerBloc(
-          gh<_i27.EmployeeService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i19.SpaceService>(),
-        ));
-    gh.factory<_i37.AdminEditEmployeeDetailsBloc>(
-        () => _i37.AdminEditEmployeeDetailsBloc(
-              gh<_i27.EmployeeService>(),
-              gh<_i22.UserStateNotifier>(),
-              gh<_i20.StorageService>(),
-            ));
-    gh.factory<_i38.AdminLeaveDetailsBloc>(() => _i38.AdminLeaveDetailsBloc(
-          gh<_i30.LeaveService>(),
-          gh<_i16.NotificationService>(),
-        ));
-    gh.factory<_i39.ApplyLeaveBloc>(() => _i39.ApplyLeaveBloc(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i30.LeaveService>(),
-          gh<_i16.NotificationService>(),
-        ));
-    gh.factory<_i40.CreateSpaceBLoc>(() => _i40.CreateSpaceBLoc(
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i27.EmployeeService>(),
-          gh<_i12.ImagePicker>(),
-          gh<_i20.StorageService>(),
-        ));
-    gh.factory<_i41.DrawerBloc>(() => _i41.DrawerBloc(
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i23.AccountService>(),
-          gh<_i27.EmployeeService>(),
-        ));
-    gh.factory<_i42.EmployeeEditProfileBloc>(() => _i42.EmployeeEditProfileBloc(
-          gh<_i27.EmployeeService>(),
-          gh<_i21.UserPreference>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i20.StorageService>(),
-        ));
-    gh.lazySingleton<_i43.EmployeeRepo>(
-      () => _i43.EmployeeRepo(
-        gh<_i27.EmployeeService>(),
-        gh<_i22.UserStateNotifier>(),
+    gh.factory<_i14.NetworkConnectionBloc>(
+        () => _i14.NetworkConnectionBloc(gh<_i4.Connectivity>()));
+    gh.lazySingleton<_i15.NotificationService>(
+      () => _i15.NotificationService(
+        gh<_i3.Client>(),
+        gh<_i9.FirebaseCrashlytics>(),
       ),
       dispose: (i) => i.dispose(),
     );
-    gh.factory<_i44.EmployeesCalendarLeavesBloc>(
-        () => _i44.EmployeesCalendarLeavesBloc(
-              gh<_i27.EmployeeService>(),
-              gh<_i30.LeaveService>(),
+    gh.factory<_i16.PickImageBloc>(
+        () => _i16.PickImageBloc(gh<_i12.ImagePicker>()));
+    await gh.factoryAsync<_i17.SharedPreferences>(
+      () => appModule.preferences,
+      preResolve: true,
+    );
+    gh.lazySingleton<_i18.SpaceService>(
+        () => _i18.SpaceService(gh<_i10.FirebaseFirestore>()));
+    gh.lazySingleton<_i19.StorageService>(
+        () => _i19.StorageService(gh<_i11.FirebaseStorage>()));
+    gh.singleton<_i20.UserPreference>(
+        _i20.UserPreference(gh<_i17.SharedPreferences>()));
+    gh.singleton<_i21.UserStateNotifier>(
+        _i21.UserStateNotifier(gh<_i20.UserPreference>()));
+    gh.lazySingleton<_i22.AccountService>(() => _i22.AccountService(
+          gh<_i10.FirebaseFirestore>(),
+          gh<_i7.DeviceInfoProvider>(),
+        ));
+    gh.factory<_i23.AppRouter>(
+        () => _i23.AppRouter(gh<_i21.UserStateNotifier>()));
+    gh.singleton<_i24.AuthService>(_i24.AuthService(
+      gh<_i5.DesktopAuthManager>(),
+      gh<_i10.FirebaseFirestore>(),
+      gh<_i8.FirebaseAuth>(),
+    ));
+    gh.factory<_i25.EditSpaceBloc>(() => _i25.EditSpaceBloc(
+          gh<_i18.SpaceService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i12.ImagePicker>(),
+          gh<_i19.StorageService>(),
+        ));
+    gh.lazySingleton<_i26.EmployeeService>(() => _i26.EmployeeService(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i10.FirebaseFirestore>(),
+        ));
+    gh.factory<_i27.InviteMemberBloc>(() => _i27.InviteMemberBloc(
+          gh<_i13.InvitationService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i26.EmployeeService>(),
+          gh<_i15.NotificationService>(),
+        ));
+    gh.factory<_i28.JoinSpaceBloc>(() => _i28.JoinSpaceBloc(
+          gh<_i13.InvitationService>(),
+          gh<_i18.SpaceService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i22.AccountService>(),
+          gh<_i26.EmployeeService>(),
+          gh<_i24.AuthService>(),
+          gh<_i15.NotificationService>(),
+        ));
+    gh.lazySingleton<_i29.LeaveService>(() => _i29.LeaveService(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i10.FirebaseFirestore>(),
+        ));
+    gh.factory<_i30.SignInBloc>(() => _i30.SignInBloc(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i24.AuthService>(),
+          gh<_i22.AccountService>(),
+        ));
+    gh.factory<_i31.UserEmployeeDetailBloc>(
+        () => _i31.UserEmployeeDetailBloc(gh<_i29.LeaveService>()));
+    gh.factory<_i32.UserLeaveCountBloc>(() => _i32.UserLeaveCountBloc(
+          gh<_i29.LeaveService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i18.SpaceService>(),
+        ));
+    gh.factory<_i33.UserLeaveDetailBloc>(
+        () => _i33.UserLeaveDetailBloc(gh<_i29.LeaveService>()));
+    gh.factory<_i34.UserStateControllerBloc>(() => _i34.UserStateControllerBloc(
+          gh<_i26.EmployeeService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i18.SpaceService>(),
+        ));
+    gh.factory<_i35.AdminEditEmployeeDetailsBloc>(
+        () => _i35.AdminEditEmployeeDetailsBloc(
+              gh<_i26.EmployeeService>(),
+              gh<_i21.UserStateNotifier>(),
+              gh<_i19.StorageService>(),
             ));
-    gh.lazySingleton<_i45.LeaveRepo>(
-      () => _i45.LeaveRepo(gh<_i30.LeaveService>()),
+    gh.factory<_i36.AdminLeaveDetailsBloc>(() => _i36.AdminLeaveDetailsBloc(
+          gh<_i29.LeaveService>(),
+          gh<_i15.NotificationService>(),
+        ));
+    gh.factory<_i37.ApplyLeaveBloc>(() => _i37.ApplyLeaveBloc(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i29.LeaveService>(),
+          gh<_i15.NotificationService>(),
+        ));
+    gh.factory<_i38.CreateSpaceBLoc>(() => _i38.CreateSpaceBLoc(
+          gh<_i18.SpaceService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i26.EmployeeService>(),
+          gh<_i12.ImagePicker>(),
+          gh<_i19.StorageService>(),
+        ));
+    gh.factory<_i39.DrawerBloc>(() => _i39.DrawerBloc(
+          gh<_i18.SpaceService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i22.AccountService>(),
+          gh<_i26.EmployeeService>(),
+        ));
+    gh.factory<_i40.EmployeeEditProfileBloc>(() => _i40.EmployeeEditProfileBloc(
+          gh<_i26.EmployeeService>(),
+          gh<_i20.UserPreference>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i19.StorageService>(),
+        ));
+    gh.lazySingleton<_i41.EmployeeRepo>(
+      () => _i41.EmployeeRepo(
+        gh<_i26.EmployeeService>(),
+        gh<_i21.UserStateNotifier>(),
+        gh<_i9.FirebaseCrashlytics>(),
+      ),
       dispose: (i) => i.dispose(),
     );
-    gh.factory<_i46.UserEmployeesBloc>(
-        () => _i46.UserEmployeesBloc(gh<_i43.EmployeeRepo>()));
-    gh.factory<_i47.UserHomeBloc>(() => _i47.UserHomeBloc(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i45.LeaveRepo>(),
+    gh.lazySingleton<_i42.LeaveRepo>(
+      () => _i42.LeaveRepo(
+        gh<_i29.LeaveService>(),
+        gh<_i9.FirebaseCrashlytics>(),
+      ),
+      dispose: (i) => i.dispose(),
+    );
+    gh.factory<_i43.UserEmployeesBloc>(
+        () => _i43.UserEmployeesBloc(gh<_i41.EmployeeRepo>()));
+    gh.factory<_i44.UserHomeBloc>(() => _i44.UserHomeBloc(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i42.LeaveRepo>(),
         ));
-    gh.factory<_i48.UserLeaveBloc>(() => _i48.UserLeaveBloc(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i45.LeaveRepo>(),
+    gh.factory<_i45.UserLeaveBloc>(() => _i45.UserLeaveBloc(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i42.LeaveRepo>(),
         ));
-    gh.factory<_i49.ViewProfileBloc>(() => _i49.ViewProfileBloc(
-          gh<_i22.UserStateNotifier>(),
-          gh<_i43.EmployeeRepo>(),
+    gh.factory<_i46.ViewProfileBloc>(() => _i46.ViewProfileBloc(
+          gh<_i21.UserStateNotifier>(),
+          gh<_i41.EmployeeRepo>(),
         ));
-    gh.factory<_i50.WhoIsOutCardBloc>(() => _i50.WhoIsOutCardBloc(
-          gh<_i43.EmployeeRepo>(),
-          gh<_i45.LeaveRepo>(),
+    gh.factory<_i47.WhoIsOutCardBloc>(() => _i47.WhoIsOutCardBloc(
+          gh<_i41.EmployeeRepo>(),
+          gh<_i42.LeaveRepo>(),
         ));
-    gh.factory<_i51.AdminEmployeeDetailsLeavesBLoc>(
-        () => _i51.AdminEmployeeDetailsLeavesBLoc(gh<_i45.LeaveRepo>()));
-    gh.factory<_i52.AdminHomeBloc>(() => _i52.AdminHomeBloc(
-          gh<_i45.LeaveRepo>(),
-          gh<_i43.EmployeeRepo>(),
+    gh.factory<_i48.AdminEmployeeDetailsLeavesBLoc>(
+        () => _i48.AdminEmployeeDetailsLeavesBLoc(gh<_i42.LeaveRepo>()));
+    gh.factory<_i49.AdminHomeBloc>(() => _i49.AdminHomeBloc(
+          gh<_i42.LeaveRepo>(),
+          gh<_i41.EmployeeRepo>(),
         ));
-    gh.factory<_i53.AdminLeavesBloc>(() => _i53.AdminLeavesBloc(
-          gh<_i45.LeaveRepo>(),
-          gh<_i43.EmployeeRepo>(),
+    gh.factory<_i50.AdminLeavesBloc>(() => _i50.AdminLeavesBloc(
+          gh<_i42.LeaveRepo>(),
+          gh<_i41.EmployeeRepo>(),
         ));
-    gh.factory<_i54.AdminMembersBloc>(() => _i54.AdminMembersBloc(
-          gh<_i43.EmployeeRepo>(),
+    gh.factory<_i51.AdminMembersBloc>(() => _i51.AdminMembersBloc(
+          gh<_i41.EmployeeRepo>(),
           gh<_i13.InvitationService>(),
-          gh<_i22.UserStateNotifier>(),
+          gh<_i21.UserStateNotifier>(),
         ));
-    gh.factory<_i55.EmployeeDetailBloc>(() => _i55.EmployeeDetailBloc(
-          gh<_i23.AccountService>(),
-          gh<_i19.SpaceService>(),
-          gh<_i22.UserStateNotifier>(),
-          gh<_i27.EmployeeService>(),
-          gh<_i30.LeaveService>(),
-          gh<_i43.EmployeeRepo>(),
+    gh.factory<_i52.EmployeeDetailBloc>(() => _i52.EmployeeDetailBloc(
+          gh<_i22.AccountService>(),
+          gh<_i18.SpaceService>(),
+          gh<_i21.UserStateNotifier>(),
+          gh<_i26.EmployeeService>(),
+          gh<_i29.LeaveService>(),
+          gh<_i41.EmployeeRepo>(),
         ));
     return this;
   }
 }
 
-class _$AppModule extends _i56.AppModule {}
+class _$AppModule extends _i53.AppModule {}

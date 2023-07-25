@@ -11,10 +11,11 @@ import '../services/employee_service.dart';
 class EmployeeRepo {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
+  final FirebaseCrashlytics _crashlytics;
   late BehaviorSubject<List<Employee>> _employeeController;
   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
-  EmployeeRepo(this._employeeService, this._userStateNotifier) {
+  EmployeeRepo(this._employeeService, this._userStateNotifier, this._crashlytics) {
     _employeeController = BehaviorSubject<List<Employee>>();
     _employeeStreamSubscription = _employeeService
         .employees(_userStateNotifier.currentSpaceId!)
@@ -22,7 +23,7 @@ class EmployeeRepo {
       _employeeController.add(value);
     }, onError: (e, s) async {
       _employeeController.addError(e);
-      await FirebaseCrashlytics.instance.recordError(e, s);
+      await _crashlytics.recordError(e, s);
     });
   }
 
@@ -40,12 +41,14 @@ class EmployeeRepo {
   Future<void> reset() async {
     _employeeController = BehaviorSubject<List<Employee>>();
     await _employeeStreamSubscription?.cancel();
-    _employeeStreamSubscription =
-        _employeeService.employees(_userStateNotifier.currentSpaceId!).listen(
-      (value) {
-        _employeeController.add(value);
-      },
-    );
+    _employeeStreamSubscription = _employeeService
+        .employees(_userStateNotifier.currentSpaceId!)
+        .listen((value) {
+      _employeeController.add(value);
+    }, onError: (e, s) async {
+      _employeeController.addError(e);
+      await _crashlytics.recordError(e, s);
+    });
   }
 
   @disposeMethod
