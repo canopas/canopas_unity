@@ -48,7 +48,8 @@ class UserStateControllerBloc
       CheckUserStatus event, Emitter<UserControllerStatus> emit) async {
     try {
       log("Function called", name: "User Status");
-      final Space? space = await _spaceService.getSpace(_userStateNotifier.currentSpaceId!);
+      final Space? space =
+          await _spaceService.getSpace(_userStateNotifier.currentSpaceId!);
       log("space fetched", name: "User Status");
       _subscription =
           _employeeRepo.memberDetails(_userStateNotifier.userUID!).listen(
@@ -67,14 +68,14 @@ class UserStateControllerBloc
 
   Future<void> _updateData(
       UpdateUserData event, Emitter<UserControllerStatus> emit) async {
-    if (event.employee != null &&
-        event.space != null &&
-        event.employee?.status == EmployeeStatus.active) {
-      if (event.employee != _userStateNotifier.employee ||
-          event.space != _userStateNotifier.currentSpace) {
-        await _userStateNotifier.setEmployeeWithSpace(
-            space: event.space!, spaceUser: event.employee!, redirect: false);
-        log("Data updated", name: "User Status");
+    if (event.employee != null && event.space != null && event.employee?.status == EmployeeStatus.active) {
+      if (event.employee != _userStateNotifier.employee) {
+        await _userStateNotifier.setEmployee(member: event.employee!);
+        log("Employee updated", name: "User Status");
+      }
+      if (event.space != _userStateNotifier.currentSpace) {
+        await _userStateNotifier.setSpace(space: event.space!);
+        log("Space  updated", name: "User Status");
       }
       emit(const UserUpdatedStatus());
     } else {

@@ -82,11 +82,8 @@ void main() {
       when(userStateNotifier.employee).thenReturn(employee);
       bloc.add(CheckUserStatus());
       expectLater(bloc.stream, emits(const UserUpdatedStatus()));
-      await untilCalled(userStateNotifier.setEmployeeWithSpace(
-          space: newSpace, spaceUser: employee, redirect: false));
-      verify(userStateNotifier.setEmployeeWithSpace(
-              space: newSpace, spaceUser: employee, redirect: false))
-          .called(1);
+      await untilCalled(userStateNotifier.setSpace(space: newSpace));
+      verify(userStateNotifier.setSpace(space: newSpace)).called(1);
     });
 
     test('Update user data listen check inactive status', () async {

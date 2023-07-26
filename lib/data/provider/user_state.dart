@@ -39,18 +39,22 @@ class UserStateNotifier with ChangeNotifier {
   }
 
   Future<void> setEmployeeWithSpace(
-      {required Space space,
-      required Employee spaceUser,
-      bool redirect = true}) async {
+      {required Space space, required Employee spaceUser}) async {
     await _userPreference.setSpace(space);
     await _userPreference.setEmployee(spaceUser);
-    if (redirect) {
-      _userState = UserState.update;
-      notifyListeners();
-      _userState = UserState.spaceJoined;
-      await getIt<LeaveRepo>().reset();
-      await getIt<EmployeeRepo>().reset();
-    }
+    _userState = UserState.update;
+    notifyListeners();
+    _userState = UserState.spaceJoined;
+    await getIt<LeaveRepo>().reset();
+    await getIt<EmployeeRepo>().reset();
+  }
+
+  Future<void> setEmployee({required Employee member}) async {
+    await _userPreference.setEmployee(member);
+  }
+
+  Future<void> setSpace({required Space space}) async {
+    await _userPreference.setSpace(space);
   }
 
   Future<void> updateSpace(Space space) async {
