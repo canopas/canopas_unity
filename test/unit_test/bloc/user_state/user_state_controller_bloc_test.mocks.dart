@@ -170,15 +170,6 @@ class MockSpaceService extends _i1.Mock implements _i6.SpaceService {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<List<_i7.Space>> getSpacesOfUser(String? uid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getSpacesOfUser,
-          [uid],
-        ),
-        returnValue: _i5.Future<List<_i7.Space>>.value(<_i7.Space>[]),
-      ) as _i5.Future<List<_i7.Space>>);
-  @override
   _i5.Future<int> getPaidLeaves({required String? spaceId}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -188,23 +179,6 @@ class MockSpaceService extends _i1.Mock implements _i6.SpaceService {
         ),
         returnValue: _i5.Future<int>.value(0),
       ) as _i5.Future<int>);
-  @override
-  _i5.Future<void> updateLeaveCount({
-    required String? spaceId,
-    required int? paidLeaveCount,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateLeaveCount,
-          [],
-          {
-            #spaceId: spaceId,
-            #paidLeaveCount: paidLeaveCount,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [UserStateNotifier].
@@ -241,11 +215,6 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
   @override
   bool get isEmployee => (super.noSuchMethod(
         Invocation.getter(#isEmployee),
-        returnValue: false,
-      ) as bool);
-  @override
-  bool get isSpaceOwner => (super.noSuchMethod(
-        Invocation.getter(#isSpaceOwner),
         returnValue: false,
       ) as bool);
   @override

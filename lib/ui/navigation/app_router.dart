@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/ui/admin/dashboard/admin_dashboard.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
+import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
@@ -18,10 +18,10 @@ import '../admin/members/detail/employee_detail_screen.dart';
 import '../admin/members/details_leaves/employee_details_leaves_screen.dart';
 import '../admin/members/edit_employee/admin_edit_employee_screen.dart';
 import '../admin/members/list/member_list_screen.dart';
+import '../shared/dashboard/dashboard.dart';
 import '../shared/profile/edit_profile/edit_profile_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
 import '../space/join_space/join_space_screen.dart';
-import '../user/dashboard/user_dashboard.dart';
 import '../user/home/home_screen/user_home_screen.dart';
 import '../user/leaves/apply_leave/apply_leave_screen.dart';
 import '../user/members/detail/user_employee_detail_screen.dart';
@@ -75,8 +75,7 @@ class AppRouter {
           ),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
-              builder: (context, state, child) =>
-                  AdminDashBoardScreen(child: child),
+              builder: (context, state, child) => DashBoardScreen(tabs: adminTabs, child: child),
               routes: [
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
@@ -218,9 +217,7 @@ class AppRouter {
               ]),
           ShellRoute(
               navigatorKey: _employeeShellNavigatorKey,
-              builder: (context, state, child) {
-                return UserDashBoardScreen(child: child);
-              },
+              builder: (context, state, child) => DashBoardScreen(tabs: userTabs, child: child),
               routes: <GoRoute>[
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,

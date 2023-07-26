@@ -27,6 +27,14 @@ void main() {
       status: EmployeeStatus.active,
       dateOfJoining: DateTime(2000));
 
+  final inActiveEmployee = Employee(
+      uid: 'uid',
+      name: 'Andrew jhone',
+      email: 'andrew.j@gmail.com',
+      role: Role.admin,
+      status: EmployeeStatus.inactive,
+      dateOfJoining: DateTime(2000));
+
   final Space space = Space(
       id: 'space_id',
       name: 'Google',
@@ -46,14 +54,22 @@ void main() {
       employeeRepo = MockEmployeeRepo();
       spaceService = MockSpaceService();
       userStateNotifier = MockUserStateNotifier();
+
+      when(userStateNotifier.currentSpaceId).thenReturn(space.id);
+      when(userStateNotifier.userUID).thenReturn(employee.uid);
+      when(userStateNotifier.currentSpace).thenReturn(space);
+      when(userStateNotifier.employee).thenReturn(employee);
+      when(spaceService.getSpace(space.id))
+          .thenAnswer((realInvocation) async => space);
+      when(employeeRepo.memberDetails(employee.uid))
+          .thenAnswer((realInvocation) => Stream.value(employee));
+
       bloc = UserStateControllerBloc(
           employeeRepo, userStateNotifier, spaceService);
-      when(userStateNotifier.currentSpaceId).thenReturn(space.id);
-      when(userStateNotifier.employeeId).thenReturn(employee.uid);
     });
 
     test('Should emit initial state as default state of bloc', () {
-      expect(bloc.state, const UserControllerState());
+      expect(bloc.state, const UserInitialStatus());
     });
 
     test(
@@ -65,8 +81,7 @@ void main() {
       when(userStateNotifier.currentSpace).thenReturn(space);
       when(userStateNotifier.employee).thenReturn(employee);
       bloc.add(CheckUserStatus());
-      expectLater(bloc.stream,
-          emits(const UserControllerState(userState: UserState.authenticated)));
+      expectLater(bloc.stream, emits(const UserUpdatedStatus()));
       await untilCalled(userStateNotifier.setEmployeeWithSpace(
           space: newSpace, spaceUser: employee, redirect: false));
       verify(userStateNotifier.setEmployeeWithSpace(
@@ -74,17 +89,12 @@ void main() {
           .called(1);
     });
 
-    test(
-        'Fetch data of user and space from firestore and if value found null then remove user from space',
-        () async {
-      bloc.add(CheckUserStatus());
+    test('Update user data listen check inactive status', () async {
       when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((_) => Stream.value(employee));
-      when(spaceService.getSpace(space.id)).thenAnswer((_) async => null);
-      expectLater(
-          bloc.stream,
-          emits(
-              const UserControllerState(userState: UserState.unauthenticated)));
+          .thenAnswer((_) => Stream.value(inActiveEmployee));
+      when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
+      bloc.add(CheckUserStatus());
+      expect(bloc.stream, emits(const UserAccessRevokedStatus()));
     });
 
     test(
@@ -94,10 +104,7 @@ void main() {
       when(employeeRepo.memberDetails(employee.uid))
           .thenAnswer((_) => Stream.error('error'));
       when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
-      expectLater(
-          bloc.stream,
-          emits(
-              const UserControllerState(userState: UserState.unauthenticated)));
+      expectLater(bloc.stream, emits(const UserErrorStatus()));
     });
 
     test(
@@ -107,10 +114,7 @@ void main() {
       when(employeeRepo.memberDetails(employee.uid))
           .thenThrow(Exception('error'));
       when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
-      expectLater(
-          bloc.stream,
-          emits(
-              const UserControllerState(userState: UserState.unauthenticated)));
+      expectLater(bloc.stream, emits(const UserErrorStatus()));
     });
 
     test(
@@ -119,6 +123,32 @@ void main() {
       bloc.add(ClearDataForDisableUser());
       await untilCalled(userStateNotifier.removeEmployeeWithSpace());
       verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
+    });
+  });
+
+  group('User status check when space is null', () {
+    setUp(() {
+      employeeRepo = MockEmployeeRepo();
+      spaceService = MockSpaceService();
+      userStateNotifier = MockUserStateNotifier();
+      when(userStateNotifier.currentSpaceId).thenReturn(space.id);
+      when(userStateNotifier.userUID).thenReturn(employee.uid);
+      when(userStateNotifier.currentSpace).thenReturn(space);
+      when(userStateNotifier.employee).thenReturn(employee);
+    });
+
+    test('Emit user access revoked status if space is null', () async {
+      when(spaceService.getSpace(space.id))
+          .thenAnswer((realInvocation) async => null);
+      when(employeeRepo.memberDetails(employee.uid))
+          .thenAnswer((realInvocation) => Stream.value(employee));
+
+      bloc = UserStateControllerBloc(
+          employeeRepo, userStateNotifier, spaceService);
+
+      bloc.add(CheckUserStatus());
+
+      expect(bloc.stream, emits(const UserAccessRevokedStatus()));
     });
   });
 }
