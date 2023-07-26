@@ -8,6 +8,8 @@ import 'dart:ui' as _i10;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart'
+    as _i11;
 import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i3;
 import 'package:projectunity/data/model/space/space.dart' as _i7;
@@ -309,6 +311,79 @@ class MockUserStateNotifier extends _i1.Mock implements _i8.UserStateNotifier {
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+  @override
+  void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(_i10.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [SpaceChangeNotifier].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSpaceChangeNotifier extends _i1.Mock
+    implements _i11.SpaceChangeNotifier {
+  MockSpaceChangeNotifier() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  set currentSpaceId(String? _currentSpaceId) => super.noSuchMethod(
+        Invocation.setter(
+          #currentSpaceId,
+          _currentSpaceId,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+  @override
+  void setSpaceId({required String? spaceId}) => super.noSuchMethod(
+        Invocation.method(
+          #setSpaceId,
+          [],
+          {#spaceId: spaceId},
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeSpaceId() => super.noSuchMethod(
+        Invocation.method(
+          #removeSpaceId,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(

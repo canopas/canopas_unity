@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart';
 import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
@@ -12,12 +13,13 @@ import 'package:projectunity/data/services/space_service.dart';
 
 import 'user_state_controller_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeRepo, SpaceService, UserStateNotifier])
+@GenerateMocks([EmployeeRepo, SpaceService, UserStateNotifier, SpaceChangeNotifier])
 void main() {
   late UserStateControllerBloc bloc;
   late EmployeeRepo employeeRepo;
   late SpaceService spaceService;
   late UserStateNotifier userStateNotifier;
+  late SpaceChangeNotifier spaceChangeNotifier;
 
   final employee = Employee(
       uid: 'uid',
@@ -54,7 +56,7 @@ void main() {
       employeeRepo = MockEmployeeRepo();
       spaceService = MockSpaceService();
       userStateNotifier = MockUserStateNotifier();
-
+      spaceChangeNotifier = MockSpaceChangeNotifier();
       when(userStateNotifier.currentSpaceId).thenReturn(space.id);
       when(userStateNotifier.userUID).thenReturn(employee.uid);
       when(userStateNotifier.currentSpace).thenReturn(space);
@@ -65,7 +67,7 @@ void main() {
           .thenAnswer((realInvocation) => Stream.value(employee));
 
       bloc = UserStateControllerBloc(
-          employeeRepo, userStateNotifier, spaceService);
+          employeeRepo, userStateNotifier, spaceService,spaceChangeNotifier);
     });
 
     test('Should emit initial state as default state of bloc', () {
@@ -128,6 +130,7 @@ void main() {
       employeeRepo = MockEmployeeRepo();
       spaceService = MockSpaceService();
       userStateNotifier = MockUserStateNotifier();
+      spaceChangeNotifier = MockSpaceChangeNotifier();
       when(userStateNotifier.currentSpaceId).thenReturn(space.id);
       when(userStateNotifier.userUID).thenReturn(employee.uid);
       when(userStateNotifier.currentSpace).thenReturn(space);
@@ -141,7 +144,7 @@ void main() {
           .thenAnswer((realInvocation) => Stream.value(employee));
 
       bloc = UserStateControllerBloc(
-          employeeRepo, userStateNotifier, spaceService);
+          employeeRepo, userStateNotifier, spaceService, spaceChangeNotifier);
 
       bloc.add(CheckUserStatus());
 
