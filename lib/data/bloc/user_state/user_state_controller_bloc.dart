@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
 import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
 import 'package:projectunity/data/model/space/space.dart';
@@ -16,11 +17,11 @@ class UserStateControllerBloc
   final EmployeeRepo _employeeRepo;
   final UserStateNotifier _userStateNotifier;
   final SpaceService _spaceService;
-  String? spaceId;
+  final SpaceChangeNotifier _spaceChangeNotifier;
   StreamSubscription? _subscription;
 
   UserStateControllerBloc(
-      this._employeeRepo, this._userStateNotifier, this._spaceService)
+      this._employeeRepo, this._userStateNotifier, this._spaceService, this._spaceChangeNotifier)
       : super(const UserInitialStatus()) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
@@ -28,20 +29,18 @@ class UserStateControllerBloc
     on<ShowUserStatusFetchError>(_showError);
 
     log("Init user status", name: "User Status");
-    if (_userStateNotifier.currentSpaceId != null) {
-      spaceId = _userStateNotifier.currentSpaceId;
-      log("Set initial space id", name: "User Status");
-      add(CheckUserStatus());
-    }
-    _userStateNotifier.addListener(() async {
-      if (_userStateNotifier.currentSpaceId != null &&
-          _userStateNotifier.currentSpaceId != spaceId) {
-        log("Space id updated", name: "User Status");
-        spaceId = _userStateNotifier.currentSpaceId;
+    _spaceChangeNotifier.addListener(() async {
+      if(_subscription != null){
         await _subscription?.cancel();
+        log("Stream canceled", name: "User Status");
+      }
+      if (_userStateNotifier.currentSpaceId != null) {
         add(CheckUserStatus());
       }
     });
+    if (_userStateNotifier.currentSpaceId != null) {
+      _spaceChangeNotifier.setSpaceId(spaceId: _userStateNotifier.currentSpaceId!);
+    }
   }
 
   Future<void> _updateEmployee(
@@ -92,13 +91,14 @@ class UserStateControllerBloc
 
   Future<void> _clearData(
       ClearDataForDisableUser event, Emitter<UserControllerStatus> emit) async {
-    await _subscription?.cancel();
     await _userStateNotifier.removeEmployeeWithSpace();
     log("All data cleared", name: "User Status");
   }
 
   @override
   Future<void> close() async {
+    _spaceChangeNotifier.removeSpaceId();
+    _spaceChangeNotifier.removeListener(() { });
     await _subscription?.cancel();
     return super.close();
   }

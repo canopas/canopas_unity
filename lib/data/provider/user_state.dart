@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/Repo/employee_repo.dart';
 import 'package:projectunity/data/Repo/leave_repo.dart';
+import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart';
 import '../di/service_locator.dart';
 import '../model/account/account.dart';
 import '../model/employee/employee.dart';
@@ -10,14 +11,15 @@ import '../pref/user_preference.dart';
 
 enum UserState { authenticated, unauthenticated, spaceJoined, update }
 
-@Singleton()
+@LazySingleton()
 class UserStateNotifier with ChangeNotifier {
   final UserPreference _userPreference;
+  final SpaceChangeNotifier _spaceChangeNotifier;
   UserState _userState = UserState.unauthenticated;
 
   UserState get state => _userState;
 
-  UserStateNotifier(this._userPreference) {
+  UserStateNotifier(this._userPreference, this._spaceChangeNotifier) {
     getUserStatus();
   }
 
@@ -42,6 +44,7 @@ class UserStateNotifier with ChangeNotifier {
       {required Space space, required Employee spaceUser}) async {
     await _userPreference.setSpace(space);
     await _userPreference.setEmployee(spaceUser);
+    _spaceChangeNotifier.setSpaceId(spaceId: space.id);
     _userState = UserState.update;
     notifyListeners();
     _userState = UserState.spaceJoined;
@@ -67,6 +70,7 @@ class UserStateNotifier with ChangeNotifier {
     await getIt<EmployeeRepo>().dispose();
     await _userPreference.removeSpace();
     await _userPreference.removeEmployee();
+    _spaceChangeNotifier.removeSpaceId();
     _userState = UserState.authenticated;
     notifyListeners();
   }
