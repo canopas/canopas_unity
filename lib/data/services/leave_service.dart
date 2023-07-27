@@ -31,7 +31,7 @@ class LeaveService {
 
   Stream<List<Leave>> monthlyLeaveByStartDate(
           {required int year, required int month, required String spaceId}) =>
-      _leaveDb(spaceId: _userManager.currentSpaceId!)
+      _leaveDb(spaceId: spaceId)
           .where(FireStoreConst.leaveStatus,
               isEqualTo: LeaveStatus.approved.value)
           .where(FireStoreConst.startLeaveDate,
