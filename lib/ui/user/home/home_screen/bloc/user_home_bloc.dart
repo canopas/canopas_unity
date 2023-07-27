@@ -24,8 +24,10 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
     try {
       return emit.forEach(
         _leaveRepo.userLeaveRequest(_userManager.employeeId),
-        onData: (List<Leave> requests) =>
-            UserHomeSuccessState(requests: requests),
+        onData: (List<Leave> requests) {
+          requests.sort((a, b) => b.appliedOn.compareTo(a.appliedOn));
+          return UserHomeSuccessState(requests: requests);
+        },
         onError: (error, _) =>
             UserHomeErrorState(error: firestoreFetchDataError),
       );

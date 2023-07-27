@@ -2,17 +2,19 @@ import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @LazySingleton()
 class LeaveRepo {
   final LeaveService _leaveService;
+  final UserStateNotifier _userStateNotifier;
   final FirebaseCrashlytics _crashlytics;
   late BehaviorSubject<List<Leave>> _leavesController;
   StreamSubscription<List<Leave>>? _leavesStreamSubscription;
 
-  LeaveRepo(this._leaveService, this._crashlytics) {
+  LeaveRepo(this._leaveService, this._crashlytics, this._userStateNotifier) {
     _leavesController = BehaviorSubject<List<Leave>>();
     _leavesStreamSubscription = _leaveService.leaves.listen((value) {
       _leavesController.add(value);
@@ -28,16 +30,6 @@ class LeaveRepo {
       _leavesController.stream.asyncMap((event) =>
           event.where((leave) => leave.status == LeaveStatus.pending).toList());
 
-  Stream<List<Leave>> absence(DateTime date) =>
-      _leavesController.stream.asyncMap((event) => event
-          .where((leave) =>
-              leave.status == LeaveStatus.approved &&
-              ((leave.startDate.month == date.month &&
-                      leave.startDate.year == date.year) ||
-                  (leave.endDate.month == date.month &&
-                      leave.endDate.year == date.year)))
-          .toList());
-
   Future<void> reset() async {
     _leavesController = BehaviorSubject<List<Leave>>();
     await _leavesStreamSubscription?.cancel();
@@ -50,13 +42,32 @@ class LeaveRepo {
   }
 
   Stream<List<Leave>> userLeaveRequest(String uid) =>
-      _leavesController.stream.asyncMap((leaves) => leaves
-          .where((leave) =>
-              leave.uid == uid && leave.status == LeaveStatus.pending)
-          .toList());
+      _leaveService.userLeaveByStatus(
+          uid: uid,
+          status: LeaveStatus.pending,
+          spaceId: _userStateNotifier.currentSpaceId!);
 
   Stream<List<Leave>> userLeaves(String uid) => _leavesController.stream
       .asyncMap((leaves) => leaves.where((leave) => leave.uid == uid).toList());
+
+  Stream<List<Leave>> leaveByMonth(DateTime date) =>
+      Rx.combineLatest2<List<Leave>, List<Leave>, List<Leave>>(
+        _leaveService.monthlyLeaveByStartDate(
+            year: date.year,
+            month: date.month,
+            spaceId: _userStateNotifier.currentSpaceId!),
+        _leaveService.monthlyLeaveByEndDate(
+            year: date.year,
+            month: date.month,
+            spaceId: _userStateNotifier.currentSpaceId!),
+        (leavesByStartDate, leavesByEndDate) {
+          List<Leave> mergedList = leavesByStartDate;
+          mergedList.addAll(leavesByEndDate.where((endDateLeave) =>
+              !leavesByEndDate.any((startDateLeave) =>
+                  startDateLeave.leaveId == endDateLeave.leaveId)));
+          return mergedList;
+        },
+      );
 
   @disposeMethod
   Future<void> dispose() async {

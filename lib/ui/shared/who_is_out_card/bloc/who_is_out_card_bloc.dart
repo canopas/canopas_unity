@@ -36,15 +36,15 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
     try {
       return emit.forEach(
         getLeaveApplicationStream(
-            leaveStream: _leaveRepo.absence(state.focusDay),
+            leaveStream: _leaveRepo.leaveByMonth(state.focusDay),
             membersStream: _employeeRepo.employees),
         onData: (List<LeaveApplication> leaveApplications) => state.copyWith(
             allAbsences: leaveApplications,
             status: Status.success,
             selectedDayAbsences: getSelectedDateAbsences(
                 date: state.selectedDate, allAbsences: leaveApplications)),
-        onError: (error, stackTrace) =>
-            state.copyWith(status: Status.error, error: firestoreFetchDataError),
+        onError: (error, stackTrace) => state.copyWith(
+            status: Status.error, error: firestoreFetchDataError),
       );
     } on Exception {
       emit(
@@ -57,16 +57,20 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
     try {
       return emit.forEach(
         getLeaveApplicationStream(
-            leaveStream: _leaveRepo.absence(event.date),
+            leaveStream: _leaveRepo.leaveByMonth(event.date),
             membersStream: _employeeRepo.employees),
         onData: (List<LeaveApplication> leaveApplications) => state.copyWith(
             allAbsences: leaveApplications, focusDay: event.date),
-        onError: (error, stackTrace) =>
-            state.copyWith(status: Status.error, error: firestoreFetchDataError,focusDay: event.date),
+        onError: (error, stackTrace) => state.copyWith(
+            status: Status.error,
+            error: firestoreFetchDataError,
+            focusDay: event.date),
       );
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError, focusDay: event.date));
+      emit(state.copyWith(
+          status: Status.error,
+          error: firestoreFetchDataError,
+          focusDay: event.date));
     }
   }
 
