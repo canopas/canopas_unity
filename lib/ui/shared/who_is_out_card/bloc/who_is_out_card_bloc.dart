@@ -35,17 +35,16 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
     emit(state.copyWith(status: Status.loading));
     try {
       return emit.forEach(
-        getLeaveApplicationStream(
-            leaveStream: _leaveRepo.leaveByMonth(state.focusDay),
-            membersStream: _employeeRepo.employees),
-        onData: (List<LeaveApplication> leaveApplications) => state.copyWith(
-            allAbsences: leaveApplications,
-            status: Status.success,
-            selectedDayAbsences: getSelectedDateAbsences(
-                date: state.selectedDate, allAbsences: leaveApplications)),
-        onError: (error, stackTrace) => state.copyWith(
-            status: Status.error, error: firestoreFetchDataError),
-      );
+          getLeaveApplicationStream(
+              leaveStream: _leaveRepo.leaveByMonth(state.focusDay),
+              membersStream: _employeeRepo.employees),
+          onData: (List<LeaveApplication> leaveApplications) => state.copyWith(
+              allAbsences: leaveApplications,
+              status: Status.success,
+              selectedDayAbsences: getSelectedDateAbsences(
+                  date: state.selectedDate, allAbsences: leaveApplications)),
+          onError: (error, stackTrace) => state.copyWith(
+              status: Status.error, error: firestoreFetchDataError));
     } on Exception {
       emit(
           state.copyWith(status: Status.error, error: firestoreFetchDataError));

@@ -32,6 +32,8 @@ class LeaveService {
   Stream<List<Leave>> monthlyLeaveByStartDate(
           {required int year, required int month, required String spaceId}) =>
       _leaveDb(spaceId: _userManager.currentSpaceId!)
+          .where(FireStoreConst.leaveStatus,
+              isEqualTo: LeaveStatus.approved.value)
           .where(FireStoreConst.startLeaveDate,
               isGreaterThanOrEqualTo: DateTime(year, month).timeStampToInt)
           .where(FireStoreConst.startLeaveDate,
@@ -42,12 +44,17 @@ class LeaveService {
   Stream<List<Leave>> monthlyLeaveByEndDate(
           {required int year, required int month, required String spaceId}) =>
       _leaveDb(spaceId: spaceId)
+          .where(FireStoreConst.leaveStatus,
+              isEqualTo: LeaveStatus.approved.value)
           .where(FireStoreConst.endLeaveDate,
               isGreaterThanOrEqualTo: DateTime(year, month).timeStampToInt)
           .where(FireStoreConst.endLeaveDate,
               isLessThan: DateTime(year, month + 1).timeStampToInt)
           .snapshots()
-          .map((event) => event.docs.map((leave) => leave.data()).toList());
+          .asyncMap((event) => event.docs
+              .map((leave) => leave.data())
+              .where((leave) => leave.startDate.isBefore(DateTime(year, month)))
+              .toList());
 
   Stream<List<Leave>> userLeaveByStatus(
           {required String uid,

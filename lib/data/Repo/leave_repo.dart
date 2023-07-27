@@ -55,11 +55,11 @@ class LeaveRepo {
         _leaveService.monthlyLeaveByStartDate(
             year: date.year,
             month: date.month,
-            spaceId: _userStateNotifier.currentSpaceId!),
+            spaceId: _userStateNotifier.currentSpaceId!).distinct(),
         _leaveService.monthlyLeaveByEndDate(
             year: date.year,
             month: date.month,
-            spaceId: _userStateNotifier.currentSpaceId!),
+            spaceId: _userStateNotifier.currentSpaceId!).distinct(),
         (leavesByStartDate, leavesByEndDate) {
           List<Leave> mergedList = leavesByStartDate;
           mergedList.addAll(leavesByEndDate.where((endDateLeave) =>
@@ -67,7 +67,7 @@ class LeaveRepo {
                   startDateLeave.leaveId == endDateLeave.leaveId)));
           return mergedList;
         },
-      );
+      ).distinct();
 
   @disposeMethod
   Future<void> dispose() async {
