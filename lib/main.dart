@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
+import 'data/bloc/user_state/user_state_controller_bloc.dart';
 import 'data/core/utils/const/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
 import 'data/configs/theme.dart';
@@ -51,9 +52,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          _networkConnectionBloc..add(NetworkConnectionObserveEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) =>
+                _networkConnectionBloc..add(NetworkConnectionObserveEvent())),
+        BlocProvider(
+            create: (context) =>
+                getIt<UserStateControllerBloc>()),
+      ],
       child: GestureDetector(
         onTap: () {
           if (!FocusScope.of(context).hasPrimaryFocus &&

@@ -1,11 +1,19 @@
-import 'package:equatable/equatable.dart';
-import 'package:projectunity/data/provider/user_state.dart';
-
-class UserControllerState extends Equatable {
-  final UserState? userState;
-
-  const UserControllerState({ this.userState});
-
-  @override
-  List<Object?> get props => [userState];
+class UserControllerStatus{
+  const UserControllerStatus();
 }
+class UserInitialStatus extends UserControllerStatus{
+  const UserInitialStatus();
+}
+
+class UserAccessRevokedStatus extends UserControllerStatus{
+  const UserAccessRevokedStatus();
+}
+
+class UserErrorStatus extends UserControllerStatus{
+  const UserErrorStatus();
+}
+
+class UserUpdatedStatus extends UserControllerStatus{
+  const UserUpdatedStatus();
+}
+
