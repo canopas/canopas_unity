@@ -47,19 +47,24 @@ class LeaveRepo {
           status: LeaveStatus.pending,
           spaceId: _userStateNotifier.currentSpaceId!);
 
-  Stream<List<Leave>> userLeaves(String uid) => _leavesController.stream
-      .asyncMap((leaves) => leaves.where((leave) => leave.uid == uid).toList());
+  Stream<List<Leave>> userLeavesByYear(String uid, int year) =>
+      _leaveService.userYearlyLeave(
+          uid: uid, year: year, spaceId: _userStateNotifier.currentSpaceId!);
 
   Stream<List<Leave>> leaveByMonth(DateTime date) =>
       Rx.combineLatest2<List<Leave>, List<Leave>, List<Leave>>(
-        _leaveService.monthlyLeaveByStartDate(
-            year: date.year,
-            month: date.month,
-            spaceId: _userStateNotifier.currentSpaceId!).distinct(),
-        _leaveService.monthlyLeaveByEndDate(
-            year: date.year,
-            month: date.month,
-            spaceId: _userStateNotifier.currentSpaceId!).distinct(),
+        _leaveService
+            .monthlyLeaveByStartDate(
+                year: date.year,
+                month: date.month,
+                spaceId: _userStateNotifier.currentSpaceId!)
+            .distinct(),
+        _leaveService
+            .monthlyLeaveByEndDate(
+                year: date.year,
+                month: date.month,
+                spaceId: _userStateNotifier.currentSpaceId!)
+            .distinct(),
         (leavesByStartDate, leavesByEndDate) {
           List<Leave> mergedList = leavesByStartDate;
           mergedList.addAll(leavesByEndDate.where((endDateLeave) =>

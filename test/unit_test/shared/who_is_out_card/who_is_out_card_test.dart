@@ -63,7 +63,7 @@ void main() {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
       when(leaveRepo.leaveByMonth(focusDay))
           .thenAnswer((_) => Stream.value([leave]));
-      bLoc.add(WhoIsOutInitialLoadEvent());
+      bLoc.add(FetchWhoIsOutCardLeaves());
 
       expect(
           bLoc.stream,
@@ -88,7 +88,7 @@ void main() {
     test("Fetch initial month leaves failure state if exception thrown", () {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
       when(leaveRepo.leaveByMonth(selectedDate)).thenThrow(Exception("error"));
-      bLoc.add(WhoIsOutInitialLoadEvent());
+      bLoc.add(FetchWhoIsOutCardLeaves());
 
       expect(
           bLoc.stream,
@@ -110,7 +110,7 @@ void main() {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
       when(leaveRepo.leaveByMonth(selectedDate))
           .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-      bLoc.add(WhoIsOutInitialLoadEvent());
+      bLoc.add(FetchWhoIsOutCardLeaves());
 
       expect(
           bLoc.stream,
@@ -131,16 +131,25 @@ void main() {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
       when(leaveRepo.leaveByMonth(DateTime(focusDay.year, focusDay.month + 1)))
           .thenAnswer((_) => Stream.value([leave]));
-      bLoc.add(FetchMoreLeaves(DateTime(focusDay.year, focusDay.month + 1)));
+      bLoc.add(FetchWhoIsOutCardLeaves(
+          focusDay: DateTime(focusDay.year, focusDay.month + 1)));
       expect(
           bLoc.stream,
-          emits(
+          emitsInOrder([
             WhoIsOutCardState(
+                selectedDate: selectedDate,
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                status: Status.loading),
+            WhoIsOutCardState(
+              status: Status.success,
               selectedDate: selectedDate,
               focusDay: DateTime(focusDay.year, focusDay.month + 1),
               allAbsences: [LeaveApplication(employee: employee, leave: leave)],
+              selectedDayAbsences: [
+                LeaveApplication(employee: employee, leave: leave)
+              ],
             ),
-          ));
+          ]));
     });
 
     test(
@@ -149,16 +158,21 @@ void main() {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
       when(leaveRepo.leaveByMonth(DateTime(focusDay.year, focusDay.month + 1)))
           .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-      bLoc.add(FetchMoreLeaves(DateTime(focusDay.year, focusDay.month + 1)));
+      bLoc.add(FetchWhoIsOutCardLeaves(
+          focusDay: DateTime(focusDay.year, focusDay.month + 1)));
       expect(
           bLoc.stream,
-          emits(
+          emitsInOrder([
+            WhoIsOutCardState(
+                selectedDate: selectedDate,
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                status: Status.loading),
             WhoIsOutCardState(
                 selectedDate: selectedDate,
                 focusDay: DateTime(focusDay.year, focusDay.month + 1),
                 error: firestoreFetchDataError,
                 status: Status.error),
-          ));
+          ]));
     });
 
     test(
@@ -167,16 +181,21 @@ void main() {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
       when(leaveRepo.leaveByMonth(DateTime(focusDay.year, focusDay.month + 1)))
           .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-      bLoc.add(FetchMoreLeaves(DateTime(focusDay.year, focusDay.month + 1)));
+      bLoc.add(FetchWhoIsOutCardLeaves(
+          focusDay: DateTime(focusDay.year, focusDay.month + 1)));
       expect(
           bLoc.stream,
-          emits(
+          emitsInOrder([
+            WhoIsOutCardState(
+                selectedDate: selectedDate,
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                status: Status.loading),
             WhoIsOutCardState(
                 selectedDate: selectedDate,
                 focusDay: DateTime(focusDay.year, focusDay.month + 1),
                 error: firestoreFetchDataError,
                 status: Status.error),
-          ));
+          ]));
     });
 
     test("Change Calendar format test", () {

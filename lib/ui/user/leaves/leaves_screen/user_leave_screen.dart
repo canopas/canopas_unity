@@ -24,7 +24,8 @@ class UserLeavePage extends StatelessWidget {
           create: (_) =>
               getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
       BlocProvider(
-          create: (_) => getIt<UserLeaveBloc>()..add(FetchUserLeaveEvent()))
+          create: (_) => getIt<UserLeaveBloc>()
+            ..add(ListenUserLeaves(year: DateTime.now().year)))
     ], child: const UserLeaveScreen());
   }
 }

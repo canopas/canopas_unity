@@ -72,10 +72,17 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
   @override
-  _i4.Stream<List<_i5.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
+  _i4.Stream<List<_i5.Leave>> userLeavesByYear(
+    String? uid,
+    int? year,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #userLeaves,
-          [uid],
+          #userLeavesByYear,
+          [
+            uid,
+            year,
+          ],
         ),
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);

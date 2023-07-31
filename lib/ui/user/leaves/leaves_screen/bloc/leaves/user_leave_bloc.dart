@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
@@ -11,56 +10,48 @@ import '../../../../../../data/model/leave/leave.dart';
 import '../../../../../../data/provider/user_state.dart';
 
 @Injectable()
-class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
+class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
   final LeaveRepo _leaveRepo;
   final UserStateNotifier _userManager;
-  late List<Leave> _allLeaves = [];
+  StreamSubscription? _subscription;
 
   UserLeaveBloc(this._userManager, this._leaveRepo) : super(UserLeaveState()) {
-    on<FetchUserLeaveEvent>(_fetchLeaves);
-    on<ChangeYearEvent>(_showLeaveByYear);
+    on<ListenUserLeaves>(_listenLeaves);
+    on<ShowUserLeaves>(_showLeaves);
+    on<ShowError>(_showError);
   }
 
-  Future<void> _fetchLeaves(
-      FetchUserLeaveEvent event, Emitter<UserLeaveState> emit) async {
-    emit(state.copyWith(status: Status.loading));
+  Future<void> _listenLeaves(
+      ListenUserLeaves event, Emitter<UserLeaveState> emit) async {
+    emit(state.copyWith(status: Status.loading, selectedYear: event.year));
     try {
-      return emit.forEach(_leaveRepo.userLeaves(_userManager.employeeId),
-          onData: (List<Leave> leaves) {
-            _allLeaves = leaves.toList();
-            return state.copyWith(
-                status: Status.success,
-                leaves:
-                    _getSelectedYearLeaveWithSortByDate(state.selectedYear));
-          },
-          onError: (error, _) => state.copyWith(
-              status: Status.error, error: firestoreFetchDataError));
+      if (_subscription != null) {
+       await _subscription?.cancel();
+      }
+      _subscription = _leaveRepo
+          .userLeavesByYear(_userManager.employeeId, event.year)
+          .listen((List<Leave> leaves) {
+        add(ShowUserLeaves(leaves));
+      }, onError: (error, _) {
+        add(const ShowError());
+      });
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+      add(const ShowError());
     }
   }
 
-  List<Leave> _getSelectedYearLeaveWithSortByDate(int year) {
-    final List<Leave> leaves = _allLeaves
-        .where((leave) =>
-            leave.startDate.year == year || leave.endDate.year == year)
-        .whereNotNull()
-        .toList();
-    leaves.sort((a, b) => b.startDate.compareTo(a.startDate));
-    return leaves;
+  void _showLeaves(ShowUserLeaves event, Emitter<UserLeaveState> emit) {
+    event.leaves.sort((a, b) => b.startDate.compareTo(a.startDate));
+    emit(state.copyWith(status: Status.success, leaves: event.leaves));
   }
 
-  Future<void> _showLeaveByYear(
-      ChangeYearEvent event, Emitter<UserLeaveState> emit) async {
-    emit(state.copyWith(
-        leaves: _getSelectedYearLeaveWithSortByDate(event.year),
-        selectedYear: event.year));
+  void _showError(ShowError event, Emitter<UserLeaveState> emit) {
+    emit(state.copyWith(status: Status.error, error: firestoreFetchDataError));
   }
 
   @override
   Future<void> close() async {
-    _allLeaves.clear();
+    await _subscription?.cancel();
     return super.close();
   }
 }

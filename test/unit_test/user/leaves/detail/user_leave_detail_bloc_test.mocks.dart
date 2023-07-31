@@ -98,6 +98,24 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
   @override
+  _i4.Stream<List<_i5.Leave>> userYearlyLeave({
+    required String? uid,
+    required int? year,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userYearlyLeave,
+          [],
+          {
+            #uid: uid,
+            #year: year,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
   _i4.Stream<List<_i5.Leave>> userLeaveByStatus({
     required String? uid,
     required _i5.LeaveStatus? status,

@@ -56,6 +56,17 @@ class LeaveService {
               .where((leave) => leave.startDate.isBefore(DateTime(year, month)))
               .toList());
 
+  Stream<List<Leave>> userYearlyLeave(
+      {required String uid, required int year, required String spaceId}) =>
+      _leaveDb(spaceId: _userManager.currentSpaceId!)
+          .where(FireStoreConst.uid, isEqualTo: uid)
+          .where(FireStoreConst.startLeaveDate,
+          isGreaterThanOrEqualTo: DateTime(year).timeStampToInt)
+          .where(FireStoreConst.startLeaveDate,
+          isLessThanOrEqualTo: DateTime(year, 12, 31).timeStampToInt)
+          .snapshots()
+          .map((event) => event.docs.map((leave) => leave.data()).toList());
+
   Stream<List<Leave>> userLeaveByStatus(
           {required String uid,
           required LeaveStatus status,
