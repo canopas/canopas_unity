@@ -9,7 +9,6 @@ import '../../../../../data/Repo/leave_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../data/model/leave_application.dart';
 import 'admin_leave_event.dart';
 import 'admin_leaves_state.dart';
 
@@ -55,9 +54,9 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
       _lastDoc = paginatedData.lastDoc;
       emit(state.copyWith(
           leavesFetchStatus: Status.success,
-          leaveApplicationMap: convertListToMap(
-              getLeaveApplicationFromLeaveEmployee(
-                  leaves: paginatedData.leaves, members: _members))));
+          leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                  leaves: paginatedData.leaves, members: _members)
+              .groupByAppliedOnMonth()));
     } on Exception {
       emit(state.copyWith(
         leavesFetchStatus: Status.error,
@@ -76,14 +75,14 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
         if (paginatedData.lastDoc == _lastDoc) {
           _isLoadedMax = true;
         }
-          _lastDoc = paginatedData.lastDoc;
-          final leaveApplications = state.leaveApplicationMap.values.merge();
-          leaveApplications.addAll(getLeaveApplicationFromLeaveEmployee(
-              leaves: paginatedData.leaves, members: _members));
-          emit(state.copyWith(
-              leavesFetchStatus: Status.success,
-              showPaginationLoading: false,
-              leaveApplicationMap: convertListToMap(leaveApplications)));
+        _lastDoc = paginatedData.lastDoc;
+        final leaveApplications = state.leaveApplicationMap.values.merge();
+        leaveApplications.addAll(getLeaveApplicationFromLeaveEmployee(
+            leaves: paginatedData.leaves, members: _members));
+        emit(state.copyWith(
+            leavesFetchStatus: Status.success,
+            showPaginationLoading: false,
+            leaveApplicationMap: leaveApplications.groupByAppliedOnMonth()));
       } on Exception {
         emit(state.copyWith(
             leavesFetchStatus: Status.error,
@@ -91,15 +90,6 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
             showPaginationLoading: false));
       }
     }
-  }
-
-  Map<DateTime, List<LeaveApplication>> convertListToMap(
-      List<LeaveApplication> leaveApplications) {
-    leaveApplications
-        .sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
-    return leaveApplications.groupBy((leaveApplication) => DateTime(
-        leaveApplication.leave.appliedOn.year,
-        leaveApplication.leave.appliedOn.month));
   }
 
   void _searchEmployee(
