@@ -63,6 +63,11 @@ class MockEmployeeRepo extends _i1.Mock implements _i4.EmployeeRepo {
         returnValue: _i5.Stream<List<_i3.Employee>>.empty(),
       ) as _i5.Stream<List<_i3.Employee>>);
   @override
+  List<_i3.Employee> get allEmployees => (super.noSuchMethod(
+        Invocation.getter(#allEmployees),
+        returnValue: <_i3.Employee>[],
+      ) as List<_i3.Employee>);
+  @override
   _i5.Stream<List<_i3.Employee>> get activeEmployees => (super.noSuchMethod(
         Invocation.getter(#activeEmployees),
         returnValue: _i5.Stream<List<_i3.Employee>>.empty(),

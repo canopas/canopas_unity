@@ -1,14 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart' show DocumentSnapshot;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/extensions/stream_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
-import 'package:projectunity/data/model/leave_application.dart';
-import 'package:rxdart/rxdart.dart';
 import '../../../../../data/Repo/employee_repo.dart';
 import '../../../../../data/Repo/leave_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/model/leave/leave.dart';
+import '../../../../../data/model/leave_application.dart';
 import 'admin_leave_event.dart';
 import 'admin_leaves_state.dart';
 
@@ -16,78 +17,83 @@ import 'admin_leaves_state.dart';
 class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
   final LeaveRepo _leaveRepo;
   final EmployeeRepo _employeeRepo;
-  List<LeaveApplication> _allLeaves = [];
+
   List<Employee> _members = [];
+  DocumentSnapshot<Leave>? _lastDoc;
 
   AdminLeavesBloc(this._leaveRepo, this._employeeRepo)
-      : super(AdminLeavesState()) {
-    on<AdminLeavesInitialLoadEvent>(_listenRealTImeLeaveApplication);
-    on<ChangeMemberEvent>(_changeEmployee);
-    on<ChangeEmployeeLeavesYearEvent>(_changeLeaveYear);
+      : super(const AdminLeavesState()) {
+    on<InitialAdminLeavesEvent>(_init);
+    on<FetchLeavesInitialEvent>(_fetchInitialLeaves);
+    on<FetchMoreLeavesEvent>(_fetchMoreLeaves);
     on<SearchEmployeeEvent>(_searchEmployee);
   }
 
-  Future<void> _listenRealTImeLeaveApplication(
-      AdminLeavesInitialLoadEvent event, Emitter<AdminLeavesState> emit) async {
-    emit(state.copyWith(status: Status.loading));
+  Future<void> _init(
+      InitialAdminLeavesEvent event, Emitter<AdminLeavesState> emit) async {
     try {
-      return emit.forEach(_leaveApplicationStream(),
-          onData: (List<LeaveApplication> leaveApplications) {
-            _allLeaves = leaveApplications.toList();
-            return state.copyWith(
-                status: Status.success,
-                members: _members,
-                leaveApplication: _getLeavesByEmployeeAndYear(
-                    year: state.selectedYear,
-                    selectedEmployee: state.selectedEmployee));
-          },
-          onError: (error, stackTrace) => state.copyWith(
-              status: Status.error, error: firestoreFetchDataError));
+      _members = _employeeRepo.allEmployees.toList();
+      emit(state.copyWith(
+          members: _members, membersFetchStatus: Status.success));
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+      emit(state.copyWith(
+          membersFetchStatus: Status.error, error: firestoreFetchDataError));
+    }
+    add(FetchLeavesInitialEvent());
+  }
+
+  Future<void> _fetchInitialLeaves(
+      FetchLeavesInitialEvent event, Emitter<AdminLeavesState> emit) async {
+    emit(state.copyWith(
+        assignSelectedEmployeeNull: true,
+        selectedMember: event.member,
+        leavesFetchStatus: Status.loading));
+    try {
+      final paginatedData = await _leaveRepo.leaves(uid: event.member?.uid);
+      _lastDoc = paginatedData.lastDoc;
+      emit(state.copyWith(
+          leavesFetchStatus: Status.success,
+          leaveApplicationMap: convertListToMap(
+              getLeaveApplicationFromLeaveEmployee(
+                  leaves: paginatedData.leaves, members: _members))));
+    } on Exception {
+      emit(state.copyWith(
+        leavesFetchStatus: Status.error,
+        error: firestoreFetchDataError,
+      ));
     }
   }
 
-  Stream<List<LeaveApplication>> _leaveApplicationStream() =>
-      Rx.combineLatest2(_leaveRepo.leaves, _employeeRepo.employees,
-          (List<Leave> leaves, List<Employee> members) {
-        _members =
-            members.where((member) => member.role != Role.admin).toList();
-        return getLeaveApplicationFromLeaveEmployee(
-            leaves: leaves, members: members);
-      });
+  Future<void> _fetchMoreLeaves(
+      FetchMoreLeavesEvent event, Emitter<AdminLeavesState> emit) async {
+    emit(state.copyWith(showPaginationLoading: true));
+    try {
+      final paginatedData = await _leaveRepo.leaves(
+          lastDoc: _lastDoc, uid: state.selectedMember?.uid);
 
-  List<LeaveApplication> _getLeavesByEmployeeAndYear(
-      {Employee? selectedEmployee, required int year}) {
-    final leaveApplications = _allLeaves
-        .where((leaveApplication) =>
-            (leaveApplication.leave.startDate.year == year ||
-                leaveApplication.leave.endDate.year == year) &&
-            (selectedEmployee == null ||
-                leaveApplication.leave.uid == selectedEmployee.uid))
-        .toList();
+      _lastDoc = paginatedData.lastDoc;
+      final leaveApplications = state.leaveApplicationMap.values.merge();
+      leaveApplications.addAll(getLeaveApplicationFromLeaveEmployee(
+          leaves: paginatedData.leaves, members: _members));
+      emit(state.copyWith(
+          leavesFetchStatus: Status.success,
+          showPaginationLoading: false,
+          leaveApplicationMap: convertListToMap(leaveApplications)));
+    } on Exception {
+      emit(state.copyWith(
+          leavesFetchStatus: Status.error,
+          error: firestoreFetchDataError,
+          showPaginationLoading: false));
+    }
+  }
+
+  Map<DateTime, List<LeaveApplication>> convertListToMap(
+      List<LeaveApplication> leaveApplications) {
     leaveApplications
         .sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
-    return leaveApplications;
-  }
-
-  void _changeEmployee(
-      ChangeMemberEvent event, Emitter<AdminLeavesState> emit) {
-    emit(state.copyWith(
-        selectedEmployee: event.member,
-        assignSelectedEmployeeNull: true,
-        selectedYear: DateTime.now().year,
-        leaveApplication: _getLeavesByEmployeeAndYear(
-            selectedEmployee: event.member, year: DateTime.now().year)));
-  }
-
-  void _changeLeaveYear(
-      ChangeEmployeeLeavesYearEvent event, Emitter<AdminLeavesState> emit) {
-    emit(state.copyWith(
-        selectedYear: event.year,
-        leaveApplication: _getLeavesByEmployeeAndYear(
-            selectedEmployee: state.selectedEmployee, year: event.year)));
+    return leaveApplications.groupBy((leaveApplication) => DateTime(
+        leaveApplication.leave.appliedOn.year,
+        leaveApplication.leave.appliedOn.month));
   }
 
   void _searchEmployee(
@@ -104,7 +110,6 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
 
   @override
   Future<void> close() {
-    _allLeaves.clear();
     _members.clear();
     return super.close();
   }

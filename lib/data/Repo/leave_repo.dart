@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/model/Pagination/pagination.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -10,36 +11,20 @@ import 'package:rxdart/rxdart.dart';
 class LeaveRepo {
   final LeaveService _leaveService;
   final UserStateNotifier _userStateNotifier;
-  final FirebaseCrashlytics _crashlytics;
-  late BehaviorSubject<List<Leave>> _leavesController;
-  StreamSubscription<List<Leave>>? _leavesStreamSubscription;
 
-  LeaveRepo(this._leaveService, this._crashlytics, this._userStateNotifier) {
-    _leavesController = BehaviorSubject<List<Leave>>();
-    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
-      _leavesController.add(value);
-    }, onError: (e, s) async {
-      _leavesController.addError(e);
-      await _crashlytics.recordError(e, s);
-    });
-  }
+  LeaveRepo(this._leaveService, this._userStateNotifier);
 
-  Stream<List<Leave>> get leaves => _leavesController.stream;
+  Stream<List<Leave>> get pendingLeaves => _leaveService
+      .allPendingLeaveRequests(spaceId: _userStateNotifier.currentSpaceId!);
 
-  Stream<List<Leave>> get pendingLeaves =>
-      _leavesController.stream.asyncMap((event) =>
-          event.where((leave) => leave.status == LeaveStatus.pending).toList());
-
-  Future<void> reset() async {
-    _leavesController = BehaviorSubject<List<Leave>>();
-    await _leavesStreamSubscription?.cancel();
-    _leavesStreamSubscription = _leaveService.leaves.listen((value) {
-      _leavesController.add(value);
-    }, onError: (e, s) async {
-      _leavesController.addError(e);
-      await _crashlytics.recordError(e, s);
-    });
-  }
+  Future<LeavesPaginationData> leaves(
+          {DocumentSnapshot<Leave>? lastDoc, String? uid}) async =>
+      await _leaveService.leaves(
+        limit: 5,
+        uid: uid,
+        lastDoc: lastDoc,
+        spaceId: _userStateNotifier.currentSpaceId!,
+      );
 
   Stream<List<Leave>> userLeaveRequest(String uid) =>
       _leaveService.userLeaveByStatus(
@@ -73,10 +58,4 @@ class LeaveRepo {
           return mergedList;
         },
       ).distinct();
-
-  @disposeMethod
-  Future<void> dispose() async {
-    await _leavesController.close();
-    await _leavesStreamSubscription?.cancel();
-  }
 }

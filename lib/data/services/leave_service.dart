@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/model/Pagination/pagination.dart';
 import '../core/utils/const/firestore.dart';
 import '../model/leave/leave.dart';
 import '../provider/user_state.dart';
@@ -24,10 +25,35 @@ class LeaveService {
             toFirestore: (Leave leave, _) => leave.toFireStore(leave));
   }
 
-  Stream<List<Leave>> get leaves =>
-      _leaveDb(spaceId: _userManager.currentSpaceId!)
+  Stream<List<Leave>> allPendingLeaveRequests({required String spaceId}) =>
+      _leaveDb(spaceId: spaceId)
+          .where(FireStoreConst.leaveStatus,
+              isEqualTo: LeaveStatus.pending.value)
           .snapshots()
-          .map((event) => event.docs.map((leave) => leave.data()).toList());
+          .asyncMap((event) => event.docs.map((e) => e.data()).toList());
+
+  Future<LeavesPaginationData> leaves(
+      {DocumentSnapshot<Leave>? lastDoc,
+      String? uid,
+      required String spaceId,
+      required int limit}) async {
+    Query<Leave> query = _leaveDb(spaceId: spaceId)
+        .orderBy(FireStoreConst.appliedOn, descending: true);
+
+    if (uid != null) {
+      query = query.where(FireStoreConst.uid, isEqualTo: uid);
+    }
+
+    if (lastDoc != null) {
+      query = query.startAfterDocument(lastDoc);
+    }
+
+    final leavesDoc = await query.limit(limit).get();
+
+    return LeavesPaginationData(
+        leaves: leavesDoc.docs.map((e) => e.data()).toList(),
+        lastDoc: leavesDoc.docs.isNotEmpty ? leavesDoc.docs.last : lastDoc!);
+  }
 
   Stream<List<Leave>> monthlyLeaveByStartDate(
           {required int year, required int month, required String spaceId}) =>
@@ -57,13 +83,13 @@ class LeaveService {
               .toList());
 
   Stream<List<Leave>> userYearlyLeave(
-      {required String uid, required int year, required String spaceId}) =>
+          {required String uid, required int year, required String spaceId}) =>
       _leaveDb(spaceId: _userManager.currentSpaceId!)
           .where(FireStoreConst.uid, isEqualTo: uid)
           .where(FireStoreConst.startLeaveDate,
-          isGreaterThanOrEqualTo: DateTime(year).timeStampToInt)
+              isGreaterThanOrEqualTo: DateTime(year).timeStampToInt)
           .where(FireStoreConst.startLeaveDate,
-          isLessThanOrEqualTo: DateTime(year, 12, 31).timeStampToInt)
+              isLessThanOrEqualTo: DateTime(year, 12, 31).timeStampToInt)
           .snapshots()
           .map((event) => event.docs.map((leave) => leave.data()).toList());
 
@@ -116,36 +142,8 @@ class LeaveService {
         .update(responseData);
   }
 
-  Future<List<Leave>> getAllApprovedLeaves() async {
-    final allLeaves = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.leaveStatus,
-            isEqualTo: LeaveStatus.approved.value)
-        .get();
-    return allLeaves.docs.map((e) => e.data()).toList();
-  }
-
-  Future<List<Leave>> getAllAbsence({DateTime? date}) async {
-    date = date ?? DateTime.now();
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.leaveStatus,
-            isEqualTo: LeaveStatus.approved.value)
-        .get();
-    List<Leave> leaves = <Leave>[];
-    for (var leaveDoc in data.docs) {
-      final leave = leaveDoc.data();
-      if (((leave.startDate.dateOnly.month == date.month &&
-              leave.startDate.dateOnly.year == date.year) ||
-          (leave.endDate.dateOnly.month == date.month &&
-              leave.endDate.dateOnly.year == date.year))) {
-        leaves.add(leave);
-      }
-    }
-    return leaves;
-  }
-
-  String getNewLeaveId() {
-    return _leaveDb(spaceId: _userManager.currentSpaceId!).doc().id;
-  }
+  String get generateLeaveId =>
+      _leaveDb(spaceId: _userManager.currentSpaceId!).doc().id;
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveId = leaveRequestData.leaveId;
@@ -154,25 +152,15 @@ class LeaveService {
         .set(leaveRequestData);
   }
 
-  Future<List<Leave>> getAllLeavesOfUser(String id) async {
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.uid, isEqualTo: id)
-        .get();
-    return data.docs.map((doc) => doc.data()).toList();
-  }
-
   Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
     final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
         .where(FireStoreConst.uid, isEqualTo: employeeId)
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
+        .where(FireStoreConst.startLeaveDate,
+            isGreaterThanOrEqualTo: DateTime.now().dateOnly.timeStampToInt)
         .get();
-    return data.docs
-        .map((doc) => doc.data())
-        .where((leave) =>
-            leave.startDate.isAfter(DateTime.now().dateOnly) ||
-            leave.startDate.isAtSameMomentAs(DateTime.now().dateOnly))
-        .toList();
+    return data.docs.map((doc) => doc.data()).toList();
   }
 
   Future<double> getUserUsedLeaves(String id) async {

@@ -43,7 +43,7 @@ void main() {
 
       when(userStateNotifier.userUID).thenReturn("id");
       when(userStateNotifier.employeeId).thenReturn("id");
-      when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
+      when(leaveService.generateLeaveId).thenReturn("new-leave-id");
     });
 
     test("leave Type change test", () {

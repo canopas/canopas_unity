@@ -84,7 +84,7 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
                 onPressed: () =>
                     context.read<InviteMemberBloc>().add(InviteMemberEvent()),
                 label: Text(
-                  locale.admin_home_invite_Button_tag,
+                  locale.invite_tag,
                   style: AppFontStyle.buttonTextStyle
                       .copyWith(color: AppColors.whiteColor),
                 ),

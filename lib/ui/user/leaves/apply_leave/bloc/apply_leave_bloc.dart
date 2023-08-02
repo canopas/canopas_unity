@@ -146,7 +146,7 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
       ..removeWhere(
           (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
     return Leave(
-      leaveId: _leaveService.getNewLeaveId(),
+      leaveId: _leaveService.generateLeaveId,
       uid: _userStateNotifier.employeeId,
       type: state.leaveType,
       startDate: firstDate,

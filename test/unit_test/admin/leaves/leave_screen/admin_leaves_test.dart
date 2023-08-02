@@ -93,17 +93,17 @@ void main() {
         expect(
             bloc.state,
             AdminLeavesState(
-              selectedEmployee: null,
-              leaveApplication: const [],
+              selectedMember: null,
+              leaveApplicationMap: const [],
               selectedYear: DateTime.now().year,
-              status: Status.initial,
+              leavesFetchStatus: Status.initial,
               members: const [],
               error: null,
             ));
       });
 
       test('Successfully read real-time changes', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(FetchMoreLeavesEvent());
         when(employeeRepo.employees)
             .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
         when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
@@ -115,8 +115,8 @@ void main() {
         expect(
             bloc.stream,
             emitsInOrder([
-              AdminLeavesState(status: Status.loading),
-              AdminLeavesState(status: Status.success, leaveApplication: [
+              AdminLeavesState(leavesFetchStatus: Status.loading),
+              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
@@ -134,12 +134,12 @@ void main() {
               andrewCurrentYearLeave,
               joiCurrentYearLeave,
             ]));
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(FetchMoreLeavesEvent());
         expectLater(
             bloc.stream,
             emitsInOrder([
-              AdminLeavesState(status: Status.loading),
-              AdminLeavesState(status: Status.success, leaveApplication: [
+              AdminLeavesState(leavesFetchStatus: Status.loading),
+              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
               ], members: [
@@ -149,21 +149,21 @@ void main() {
       });
 
       test('show error on initial data failure test', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(FetchMoreLeavesEvent());
         when(employeeRepo.employees)
             .thenAnswer((realInvocation) => Stream.value([andrew]));
         when(leaveRepo.leaves).thenThrow(Exception('error'));
         expectLater(
             bloc.stream,
             emitsInOrder([
-              AdminLeavesState(status: Status.loading),
+              AdminLeavesState(leavesFetchStatus: Status.loading),
               AdminLeavesState(
-                  status: Status.error, error: firestoreFetchDataError),
+                  leavesFetchStatus: Status.error, error: firestoreFetchDataError),
             ]));
       });
 
       test('Show employee by search', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(FetchMoreLeavesEvent());
         when(employeeRepo.employees)
             .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
         when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
@@ -175,8 +175,8 @@ void main() {
         expectLater(
             bloc.stream,
             emitsInOrder([
-              AdminLeavesState(status: Status.loading),
-              AdminLeavesState(status: Status.success, leaveApplication: [
+              AdminLeavesState(leavesFetchStatus: Status.loading),
+              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
@@ -184,7 +184,7 @@ void main() {
                 andrew,
                 joi
               ]),
-              AdminLeavesState(status: Status.success, leaveApplication: [
+              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
@@ -202,7 +202,7 @@ void main() {
       });
 
       test('Successfully read real-time changes', () {
-        bloc.add(AdminLeavesInitialLoadEvent());
+        bloc.add(FetchMoreLeavesEvent());
         when(employeeRepo.employees)
             .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
         when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
@@ -214,8 +214,8 @@ void main() {
         expect(
             bloc.stream,
             emitsInOrder([
-              AdminLeavesState(status: Status.loading),
-              AdminLeavesState(status: Status.success, leaveApplication: [
+              AdminLeavesState(leavesFetchStatus: Status.loading),
+              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
                 LeaveApplication(
                     employee: andrew, leave: andrewCurrentYearLeave),
                 LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
@@ -227,15 +227,15 @@ void main() {
       });
 
       test('show particular employee leaves test', () async {
-        bloc.add(ChangeMemberEvent(member: joi));
+        bloc.add(FetchInitialMemberLeavesEvent(member: joi));
         expect(
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(
-                  selectedEmployee: joi,
+                  selectedMember: joi,
                   selectedYear: DateTime.now().year,
-                  status: Status.success,
-                  leaveApplication: [
+                  leavesFetchStatus: Status.success,
+                  leaveApplicationMap: [
                     LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
                   ],
                   members: [
@@ -251,11 +251,11 @@ void main() {
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(
-                  selectedEmployee: joi,
+                  selectedMember: joi,
                   selectedYear:
                       DateTime.now().subtract(const Duration(days: 365)).year,
-                  status: Status.success,
-                  leaveApplication: [
+                  leavesFetchStatus: Status.success,
+                  leaveApplicationMap: [
                     LeaveApplication(employee: joi, leave: joiPreviousYearLeave)
                   ],
                   members: [

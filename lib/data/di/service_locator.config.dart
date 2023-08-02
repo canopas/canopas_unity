@@ -240,14 +240,10 @@ extension GetItInjectableX on _i1.GetIt {
       ),
       dispose: (i) => i.dispose(),
     );
-    gh.lazySingleton<_i42.LeaveRepo>(
-      () => _i42.LeaveRepo(
-        gh<_i30.LeaveService>(),
-        gh<_i9.FirebaseCrashlytics>(),
-        gh<_i22.UserStateNotifier>(),
-      ),
-      dispose: (i) => i.dispose(),
-    );
+    gh.lazySingleton<_i42.LeaveRepo>(() => _i42.LeaveRepo(
+          gh<_i30.LeaveService>(),
+          gh<_i22.UserStateNotifier>(),
+        ));
     gh.factory<_i43.UserEmployeesBloc>(
         () => _i43.UserEmployeesBloc(gh<_i41.EmployeeRepo>()));
     gh.factory<_i44.UserHomeBloc>(() => _i44.UserHomeBloc(
