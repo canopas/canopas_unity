@@ -20,6 +20,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
 
   List<Employee> _members = [];
   DocumentSnapshot<Leave>? _lastDoc;
+  bool _isLoadedMax = false;
 
   AdminLeavesBloc(this._leaveRepo, this._employeeRepo)
       : super(const AdminLeavesState()) {
@@ -44,6 +45,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
 
   Future<void> _fetchInitialLeaves(
       FetchLeavesInitialEvent event, Emitter<AdminLeavesState> emit) async {
+    _isLoadedMax = false;
     emit(state.copyWith(
         assignSelectedEmployeeNull: true,
         selectedMember: event.member,
@@ -66,24 +68,28 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
 
   Future<void> _fetchMoreLeaves(
       FetchMoreLeavesEvent event, Emitter<AdminLeavesState> emit) async {
-    emit(state.copyWith(showPaginationLoading: true));
-    try {
-      final paginatedData = await _leaveRepo.leaves(
-          lastDoc: _lastDoc, uid: state.selectedMember?.uid);
-
-      _lastDoc = paginatedData.lastDoc;
-      final leaveApplications = state.leaveApplicationMap.values.merge();
-      leaveApplications.addAll(getLeaveApplicationFromLeaveEmployee(
-          leaves: paginatedData.leaves, members: _members));
-      emit(state.copyWith(
-          leavesFetchStatus: Status.success,
-          showPaginationLoading: false,
-          leaveApplicationMap: convertListToMap(leaveApplications)));
-    } on Exception {
-      emit(state.copyWith(
-          leavesFetchStatus: Status.error,
-          error: firestoreFetchDataError,
-          showPaginationLoading: false));
+    if (!state.showPaginationLoading && !_isLoadedMax) {
+      emit(state.copyWith(showPaginationLoading: true));
+      try {
+        final paginatedData = await _leaveRepo.leaves(
+            lastDoc: _lastDoc, uid: state.selectedMember?.uid);
+        if (paginatedData.lastDoc == _lastDoc) {
+          _isLoadedMax = true;
+        }
+          _lastDoc = paginatedData.lastDoc;
+          final leaveApplications = state.leaveApplicationMap.values.merge();
+          leaveApplications.addAll(getLeaveApplicationFromLeaveEmployee(
+              leaves: paginatedData.leaves, members: _members));
+          emit(state.copyWith(
+              leavesFetchStatus: Status.success,
+              showPaginationLoading: false,
+              leaveApplicationMap: convertListToMap(leaveApplications)));
+      } on Exception {
+        emit(state.copyWith(
+            leavesFetchStatus: Status.error,
+            error: firestoreFetchDataError,
+            showPaginationLoading: false));
+      }
     }
   }
 
@@ -111,6 +117,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
   @override
   Future<void> close() {
     _members.clear();
+    _lastDoc = null;
     return super.close();
   }
 }

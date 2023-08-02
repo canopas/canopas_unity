@@ -56,8 +56,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset ==
-        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.offset >= _scrollController.position.maxScrollExtent - 200) {
       context.read<AdminLeavesBloc>().add(FetchMoreLeavesEvent());
     }
   }
@@ -66,6 +65,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         title: Text(AppLocalizations.of(context).leaves_tag),
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(40),
