@@ -11,10 +11,10 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i6;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/model/leave/leave.dart' as _i10;
-import 'package:projectunity/data/model/Pagination/pagination.dart' as _i3;
+import 'package:projectunity/data/model/pagination/pagination.dart' as _i3;
 import 'package:projectunity/data/model/space/space.dart' as _i7;
 import 'package:projectunity/data/provider/user_state.dart' as _i4;
-import 'package:projectunity/data/Repo/leave_repo.dart' as _i9;
+import 'package:projectunity/data/repo/leave_repo.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -37,9 +37,9 @@ class _FakeEmployee_0 extends _i1.SmartFake implements _i2.Employee {
         );
 }
 
-class _FakeLeavesPaginationData_1 extends _i1.SmartFake
-    implements _i3.LeavesPaginationData {
-  _FakeLeavesPaginationData_1(
+class _FakePaginatedLeaves_1 extends _i1.SmartFake
+    implements _i3.PaginatedLeaves {
+  _FakePaginatedLeaves_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -224,7 +224,7 @@ class MockLeaveRepo extends _i1.Mock implements _i9.LeaveRepo {
         returnValue: _i5.Stream<List<_i10.Leave>>.empty(),
       ) as _i5.Stream<List<_i10.Leave>>);
   @override
-  _i5.Future<_i3.LeavesPaginationData> leaves({
+  _i5.Future<_i3.PaginatedLeaves> leaves({
     _i11.DocumentSnapshot<_i10.Leave>? lastDoc,
     String? uid,
   }) =>
@@ -237,8 +237,8 @@ class MockLeaveRepo extends _i1.Mock implements _i9.LeaveRepo {
             #uid: uid,
           },
         ),
-        returnValue: _i5.Future<_i3.LeavesPaginationData>.value(
-            _FakeLeavesPaginationData_1(
+        returnValue:
+            _i5.Future<_i3.PaginatedLeaves>.value(_FakePaginatedLeaves_1(
           this,
           Invocation.method(
             #leaves,
@@ -249,7 +249,7 @@ class MockLeaveRepo extends _i1.Mock implements _i9.LeaveRepo {
             },
           ),
         )),
-      ) as _i5.Future<_i3.LeavesPaginationData>);
+      ) as _i5.Future<_i3.PaginatedLeaves>);
   @override
   _i5.Stream<List<_i10.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(

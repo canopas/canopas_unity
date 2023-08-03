@@ -8,7 +8,7 @@ import 'dart:async' as _i5;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/leave/leave.dart' as _i6;
-import 'package:projectunity/data/model/Pagination/pagination.dart' as _i3;
+import 'package:projectunity/data/model/pagination/pagination.dart' as _i3;
 import 'package:projectunity/data/services/leave_service.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -33,9 +33,9 @@ class _FakeFirebaseFirestore_0 extends _i1.SmartFake
         );
 }
 
-class _FakeLeavesPaginationData_1 extends _i1.SmartFake
-    implements _i3.LeavesPaginationData {
-  _FakeLeavesPaginationData_1(
+class _FakePaginatedLeaves_1 extends _i1.SmartFake
+    implements _i3.PaginatedLeaves {
+  _FakePaginatedLeaves_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -85,7 +85,7 @@ class MockLeaveService extends _i1.Mock implements _i4.LeaveService {
         returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
       ) as _i5.Stream<List<_i6.Leave>>);
   @override
-  _i5.Future<_i3.LeavesPaginationData> leaves({
+  _i5.Future<_i3.PaginatedLeaves> leaves({
     _i2.DocumentSnapshot<_i6.Leave>? lastDoc,
     String? uid,
     required String? spaceId,
@@ -102,8 +102,8 @@ class MockLeaveService extends _i1.Mock implements _i4.LeaveService {
             #limit: limit,
           },
         ),
-        returnValue: _i5.Future<_i3.LeavesPaginationData>.value(
-            _FakeLeavesPaginationData_1(
+        returnValue:
+            _i5.Future<_i3.PaginatedLeaves>.value(_FakePaginatedLeaves_1(
           this,
           Invocation.method(
             #leaves,
@@ -116,7 +116,7 @@ class MockLeaveService extends _i1.Mock implements _i4.LeaveService {
             },
           ),
         )),
-      ) as _i5.Future<_i3.LeavesPaginationData>);
+      ) as _i5.Future<_i3.PaginatedLeaves>);
   @override
   _i5.Stream<List<_i6.Leave>> monthlyLeaveByStartDate({
     required int? year,

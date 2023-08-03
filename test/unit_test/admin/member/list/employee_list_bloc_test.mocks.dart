@@ -13,7 +13,7 @@ import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/model/invitation/invitation.dart' as _i11;
 import 'package:projectunity/data/model/space/space.dart' as _i8;
 import 'package:projectunity/data/provider/user_state.dart' as _i6;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i4;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i4;
 import 'package:projectunity/data/services/invitation_services.dart' as _i10;
 
 // ignore_for_file: type=lint

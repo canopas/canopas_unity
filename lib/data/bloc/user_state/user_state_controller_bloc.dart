@@ -6,7 +6,7 @@ import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
 import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
 import 'package:projectunity/data/model/space/space.dart';
-import '../../Repo/employee_repo.dart';
+import '../../repo/employee_repo.dart';
 import '../../model/employee/employee.dart';
 import '../../provider/user_state.dart';
 import '../../services/space_service.dart';

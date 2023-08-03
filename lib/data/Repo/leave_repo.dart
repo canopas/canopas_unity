@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/model/Pagination/pagination.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/model/pagination/pagination.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,7 +17,7 @@ class LeaveRepo {
   Stream<List<Leave>> get pendingLeaves => _leaveService
       .allPendingLeaveRequests(spaceId: _userStateNotifier.currentSpaceId!);
 
-  Future<LeavesPaginationData> leaves(
+  Future<PaginatedLeaves> leaves(
           {DocumentSnapshot<Leave>? lastDoc, String? uid}) async =>
       await _leaveService.leaves(
         limit: 5,

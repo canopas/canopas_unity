@@ -1,24 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/Repo/employee_repo.dart';
-import 'package:projectunity/data/Repo/leave_repo.dart';
-import 'package:projectunity/data/core/exception/error_const.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
+import 'package:projectunity/data/repo/employee_repo.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/extensions/list.dart';
+import 'package:projectunity/data/core/extensions/stream_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/model/pagination/pagination.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/model/leave_application.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leave_event.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_state.dart';
 import 'admin_leaves_test.mocks.dart';
 
-@GenerateMocks([EmployeeRepo, LeaveRepo])
+@GenerateMocks([EmployeeRepo, LeaveRepo, DocumentSnapshot])
 void main() {
   late EmployeeRepo employeeRepo;
   late LeaveRepo leaveRepo;
   late AdminLeavesBloc bloc;
+  late DocumentSnapshot<Leave> lastDoc;
 
   group('Admin Leaves Test', () {
     Leave andrewCurrentYearLeave = Leave(
@@ -86,15 +89,18 @@ void main() {
       setUp(() {
         leaveRepo = MockLeaveRepo();
         employeeRepo = MockEmployeeRepo();
+        lastDoc = MockDocumentSnapshot();
         bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
       });
 
-      test('initial value test', () {
+      test('Initial value test', () {
         expect(
             bloc.state,
             AdminLeavesState(
+              showPaginationLoading: false,
+              membersFetchStatus: Status.initial,
               selectedMember: null,
-              leaveApplicationMap: const [],
+              leaveApplicationMap: const {},
               selectedYear: DateTime.now().year,
               leavesFetchStatus: Status.initial,
               members: const [],
@@ -102,166 +108,42 @@ void main() {
             ));
       });
 
-      test('Successfully read real-time changes', () {
-        bloc.add(FetchMoreLeavesEvent());
-        when(employeeRepo.employees)
-            .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
-        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
-              andrewCurrentYearLeave,
-              joiCurrentYearLeave,
-              joiPreviousYearLeave
-            ]));
-
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(leavesFetchStatus: Status.loading),
-              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
-                LeaveApplication(
-                    employee: andrew, leave: andrewCurrentYearLeave),
-                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], members: [
-                andrew,
-                joi
-              ])
-            ]));
-      });
-
-      test('Check leave not add on list when employee not found', () {
-        when(employeeRepo.employees)
-            .thenAnswer((realInvocation) => Stream.value([andrew]));
-        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
-              andrewCurrentYearLeave,
-              joiCurrentYearLeave,
-            ]));
-        bloc.add(FetchMoreLeavesEvent());
-        expectLater(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(leavesFetchStatus: Status.loading),
-              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
-                LeaveApplication(
-                    employee: andrew, leave: andrewCurrentYearLeave),
-              ], members: [
-                andrew,
-              ])
-            ]));
-      });
-
-      test('show error on initial data failure test', () {
-        bloc.add(FetchMoreLeavesEvent());
-        when(employeeRepo.employees)
-            .thenAnswer((realInvocation) => Stream.value([andrew]));
-        when(leaveRepo.leaves).thenThrow(Exception('error'));
-        expectLater(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(leavesFetchStatus: Status.loading),
-              AdminLeavesState(
-                  leavesFetchStatus: Status.error, error: firestoreFetchDataError),
-            ]));
-      });
-
-      test('Show employee by search', () {
-        bloc.add(FetchMoreLeavesEvent());
-        when(employeeRepo.employees)
-            .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
-        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
-              andrewCurrentYearLeave,
-              joiCurrentYearLeave,
-              joiPreviousYearLeave
-            ]));
-        bloc.add(SearchEmployeeEvent(search: "joi"));
-        expectLater(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(leavesFetchStatus: Status.loading),
-              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
-                LeaveApplication(
-                    employee: andrew, leave: andrewCurrentYearLeave),
-                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], members: [
-                andrew,
-                joi
-              ]),
-              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
-                LeaveApplication(
-                    employee: andrew, leave: andrewCurrentYearLeave),
-                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], members: [
-                joi
-              ]),
-            ]));
-      });
-    });
-    group('Admin Leaves data filter test', () {
-      setUpAll(() {
-        leaveRepo = MockLeaveRepo();
-        employeeRepo = MockEmployeeRepo();
-        bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
-      });
-
-      test('Successfully read real-time changes', () {
-        bloc.add(FetchMoreLeavesEvent());
-        when(employeeRepo.employees)
-            .thenAnswer((realInvocation) => Stream.value([andrew, joi]));
-        when(leaveRepo.leaves).thenAnswer((realInvocation) => Stream.value([
-              andrewCurrentYearLeave,
-              joiCurrentYearLeave,
-              joiPreviousYearLeave
-            ]));
-
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(leavesFetchStatus: Status.loading),
-              AdminLeavesState(leavesFetchStatus: Status.success, leaveApplicationMap: [
-                LeaveApplication(
-                    employee: andrew, leave: andrewCurrentYearLeave),
-                LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-              ], members: [
-                andrew,
-                joi
-              ])
-            ]));
-      });
-
-      test('show particular employee leaves test', () async {
-        bloc.add(FetchInitialMemberLeavesEvent(member: joi));
+      test('Admin leave initial data load test', () {
+        when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
+        when(leaveRepo.leaves())
+            .thenAnswer((_) async => PaginatedLeaves(leaves: [
+                  joiCurrentYearLeave,
+                  andrewCurrentYearLeave,
+                  joiPreviousYearLeave,
+                  andrewCurrentYearLeave
+                ], lastDoc: lastDoc));
+        bloc.add(InitialAdminLeavesEvent());
         expect(
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(
-                  selectedMember: joi,
-                  selectedYear: DateTime.now().year,
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+              ),
+              AdminLeavesState(
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+                leavesFetchStatus: Status.loading,
+              ),
+              AdminLeavesState(
+                  members: [joi, andrew],
+                  membersFetchStatus: Status.success,
                   leavesFetchStatus: Status.success,
-                  leaveApplicationMap: [
-                    LeaveApplication(employee: joi, leave: joiCurrentYearLeave)
-                  ],
-                  members: [
-                    andrew,
-                    joi
-                  ])
-            ]));
-      });
-      test('show particular employee leaves test', () async {
-        bloc.add(ChangeEmployeeLeavesYearEvent(
-            year: DateTime.now().subtract(const Duration(days: 365)).year));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(
-                  selectedMember: joi,
-                  selectedYear:
-                      DateTime.now().subtract(const Duration(days: 365)).year,
-                  leavesFetchStatus: Status.success,
-                  leaveApplicationMap: [
-                    LeaveApplication(employee: joi, leave: joiPreviousYearLeave)
-                  ],
-                  members: [
-                    andrew,
-                    joi
-                  ])
+                  leaveApplicationMap:
+                      getLeaveApplicationFromLeaveEmployee(leaves: [
+                    joiCurrentYearLeave,
+                    andrewCurrentYearLeave,
+                    joiPreviousYearLeave,
+                    andrewCurrentYearLeave
+                  ], members: [
+                    joi,
+                    andrew
+                  ]).groupByAppliedOnMonth()),
             ]));
       });
     });

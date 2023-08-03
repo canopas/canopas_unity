@@ -11,7 +11,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/leave/leave.dart' as _i7;
-import 'package:projectunity/data/model/Pagination/pagination.dart' as _i3;
+import 'package:projectunity/data/model/pagination/pagination.dart' as _i3;
 import 'package:projectunity/data/model/space/space.dart' as _i10;
 import 'package:projectunity/data/provider/user_state.dart' as _i8;
 import 'package:projectunity/data/services/leave_service.dart' as _i5;
@@ -39,9 +39,9 @@ class _FakeFirebaseFirestore_0 extends _i1.SmartFake
         );
 }
 
-class _FakeLeavesPaginationData_1 extends _i1.SmartFake
-    implements _i3.LeavesPaginationData {
-  _FakeLeavesPaginationData_1(
+class _FakePaginatedLeaves_1 extends _i1.SmartFake
+    implements _i3.PaginatedLeaves {
+  _FakePaginatedLeaves_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -101,7 +101,7 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
         returnValue: _i6.Stream<List<_i7.Leave>>.empty(),
       ) as _i6.Stream<List<_i7.Leave>>);
   @override
-  _i6.Future<_i3.LeavesPaginationData> leaves({
+  _i6.Future<_i3.PaginatedLeaves> leaves({
     _i2.DocumentSnapshot<_i7.Leave>? lastDoc,
     String? uid,
     required String? spaceId,
@@ -118,8 +118,8 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
             #limit: limit,
           },
         ),
-        returnValue: _i6.Future<_i3.LeavesPaginationData>.value(
-            _FakeLeavesPaginationData_1(
+        returnValue:
+            _i6.Future<_i3.PaginatedLeaves>.value(_FakePaginatedLeaves_1(
           this,
           Invocation.method(
             #leaves,
@@ -132,7 +132,7 @@ class MockLeaveService extends _i1.Mock implements _i5.LeaveService {
             },
           ),
         )),
-      ) as _i6.Future<_i3.LeavesPaginationData>);
+      ) as _i6.Future<_i3.PaginatedLeaves>);
   @override
   _i6.Stream<List<_i7.Leave>> monthlyLeaveByStartDate({
     required int? year,

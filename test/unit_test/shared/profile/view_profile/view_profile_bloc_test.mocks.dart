@@ -11,7 +11,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i5;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/model/space/space.dart' as _i6;
 import 'package:projectunity/data/provider/user_state.dart' as _i3;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i8;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

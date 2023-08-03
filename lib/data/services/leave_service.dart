@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
-import 'package:projectunity/data/model/Pagination/pagination.dart';
+import 'package:projectunity/data/model/pagination/pagination.dart';
 import '../core/utils/const/firestore.dart';
 import '../model/leave/leave.dart';
 import '../provider/user_state.dart';
@@ -32,7 +32,7 @@ class LeaveService {
           .snapshots()
           .asyncMap((event) => event.docs.map((e) => e.data()).toList());
 
-  Future<LeavesPaginationData> leaves(
+  Future<PaginatedLeaves> leaves(
       {DocumentSnapshot<Leave>? lastDoc,
       String? uid,
       required String spaceId,
@@ -50,7 +50,7 @@ class LeaveService {
 
     final leavesDoc = await query.limit(limit).get();
 
-    return LeavesPaginationData(
+    return PaginatedLeaves(
         leaves: leavesDoc.docs.map((e) => e.data()).toList(),
         lastDoc: leavesDoc.docs.isNotEmpty ? leavesDoc.docs.last : lastDoc!);
   }

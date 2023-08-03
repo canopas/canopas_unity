@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';

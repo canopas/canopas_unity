@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
-import '../../../../../data/Repo/employee_repo.dart';
+import '../../../../../data/repo/employee_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../data/services/employee_service.dart';

@@ -14,7 +14,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i3;
 import 'package:projectunity/data/model/space/space.dart' as _i7;
 import 'package:projectunity/data/provider/user_state.dart' as _i8;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i4;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i4;
 import 'package:projectunity/data/services/space_service.dart' as _i6;
 
 // ignore_for_file: type=lint

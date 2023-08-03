@@ -12,11 +12,11 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i4;
 import 'package:projectunity/data/model/employee/employee.dart' as _i6;
 import 'package:projectunity/data/model/leave/leave.dart' as _i12;
-import 'package:projectunity/data/model/Pagination/pagination.dart' as _i5;
+import 'package:projectunity/data/model/pagination/pagination.dart' as _i5;
 import 'package:projectunity/data/model/space/space.dart' as _i14;
 import 'package:projectunity/data/provider/device_info.dart' as _i3;
 import 'package:projectunity/data/provider/user_state.dart' as _i13;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i17;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i17;
 import 'package:projectunity/data/services/account_service.dart' as _i7;
 import 'package:projectunity/data/services/employee_service.dart' as _i10;
 import 'package:projectunity/data/services/leave_service.dart' as _i11;
@@ -65,9 +65,9 @@ class _FakeAccount_2 extends _i1.SmartFake implements _i4.Account {
         );
 }
 
-class _FakeLeavesPaginationData_3 extends _i1.SmartFake
-    implements _i5.LeavesPaginationData {
-  _FakeLeavesPaginationData_3(
+class _FakePaginatedLeaves_3 extends _i1.SmartFake
+    implements _i5.PaginatedLeaves {
+  _FakePaginatedLeaves_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -340,7 +340,7 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
         returnValue: _i8.Stream<List<_i12.Leave>>.empty(),
       ) as _i8.Stream<List<_i12.Leave>>);
   @override
-  _i8.Future<_i5.LeavesPaginationData> leaves({
+  _i8.Future<_i5.PaginatedLeaves> leaves({
     _i2.DocumentSnapshot<_i12.Leave>? lastDoc,
     String? uid,
     required String? spaceId,
@@ -357,8 +357,8 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
             #limit: limit,
           },
         ),
-        returnValue: _i8.Future<_i5.LeavesPaginationData>.value(
-            _FakeLeavesPaginationData_3(
+        returnValue:
+            _i8.Future<_i5.PaginatedLeaves>.value(_FakePaginatedLeaves_3(
           this,
           Invocation.method(
             #leaves,
@@ -371,7 +371,7 @@ class MockLeaveService extends _i1.Mock implements _i11.LeaveService {
             },
           ),
         )),
-      ) as _i8.Future<_i5.LeavesPaginationData>);
+      ) as _i8.Future<_i5.PaginatedLeaves>);
   @override
   _i8.Stream<List<_i12.Leave>> monthlyLeaveByStartDate({
     required int? year,

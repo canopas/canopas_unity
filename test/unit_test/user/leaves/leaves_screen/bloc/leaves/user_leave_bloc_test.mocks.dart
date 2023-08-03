@@ -11,10 +11,10 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/account/account.dart' as _i9;
 import 'package:projectunity/data/model/employee/employee.dart' as _i3;
 import 'package:projectunity/data/model/leave/leave.dart' as _i6;
-import 'package:projectunity/data/model/Pagination/pagination.dart' as _i2;
+import 'package:projectunity/data/model/pagination/pagination.dart' as _i2;
 import 'package:projectunity/data/model/space/space.dart' as _i10;
 import 'package:projectunity/data/provider/user_state.dart' as _i8;
-import 'package:projectunity/data/Repo/leave_repo.dart' as _i4;
+import 'package:projectunity/data/repo/leave_repo.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -27,9 +27,9 @@ import 'package:projectunity/data/Repo/leave_repo.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeLeavesPaginationData_0 extends _i1.SmartFake
-    implements _i2.LeavesPaginationData {
-  _FakeLeavesPaginationData_0(
+class _FakePaginatedLeaves_0 extends _i1.SmartFake
+    implements _i2.PaginatedLeaves {
+  _FakePaginatedLeaves_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -62,7 +62,7 @@ class MockLeaveRepo extends _i1.Mock implements _i4.LeaveRepo {
         returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
       ) as _i5.Stream<List<_i6.Leave>>);
   @override
-  _i5.Future<_i2.LeavesPaginationData> leaves({
+  _i5.Future<_i2.PaginatedLeaves> leaves({
     _i7.DocumentSnapshot<_i6.Leave>? lastDoc,
     String? uid,
   }) =>
@@ -75,8 +75,8 @@ class MockLeaveRepo extends _i1.Mock implements _i4.LeaveRepo {
             #uid: uid,
           },
         ),
-        returnValue: _i5.Future<_i2.LeavesPaginationData>.value(
-            _FakeLeavesPaginationData_0(
+        returnValue:
+            _i5.Future<_i2.PaginatedLeaves>.value(_FakePaginatedLeaves_0(
           this,
           Invocation.method(
             #leaves,
@@ -87,7 +87,7 @@ class MockLeaveRepo extends _i1.Mock implements _i4.LeaveRepo {
             },
           ),
         )),
-      ) as _i5.Future<_i2.LeavesPaginationData>);
+      ) as _i5.Future<_i2.PaginatedLeaves>);
   @override
   _i5.Stream<List<_i6.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(
