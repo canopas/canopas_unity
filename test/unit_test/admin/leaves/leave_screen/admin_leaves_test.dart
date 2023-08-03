@@ -244,5 +244,85 @@ void main() {
             ]));
       });
     });
+
+    group('Admin leaves fetch more leaves test', () {
+      setUpAll(() {
+        leaveRepo = MockLeaveRepo();
+        employeeRepo = MockEmployeeRepo();
+        lastDoc = MockDocumentSnapshot();
+        bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
+      });
+
+      test('Admin leave initial data load test', () {
+        when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
+        when(leaveRepo.leaves()).thenAnswer((_) async => PaginatedLeaves(
+            leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
+            lastDoc: lastDoc));
+        bloc.add(InitialAdminLeavesEvent());
+        expect(
+            bloc.stream,
+            emitsInOrder([
+              AdminLeavesState(
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+              ),
+              AdminLeavesState(
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+                leavesFetchStatus: Status.loading,
+              ),
+              AdminLeavesState(
+                  members: [joi, andrew],
+                  membersFetchStatus: Status.success,
+                  leavesFetchStatus: Status.success,
+                  leaveApplicationMap:
+                      getLeaveApplicationFromLeaveEmployee(leaves: [
+                    joiCurrentYearLeave,
+                    andrewCurrentYearLeave,
+                  ], members: [
+                    joi,
+                    andrew
+                  ]).groupByAppliedOnMonth()),
+            ]));
+      });
+
+      test('Fetch more leave test', () {
+        when(leaveRepo.leaves(lastDoc: anyNamed('lastDoc'))).thenAnswer(
+            (_) async => PaginatedLeaves(
+                leaves: [joiPreviousYearLeave], lastDoc: lastDoc));
+        bloc.add(FetchMoreLeavesEvent());
+        expect(
+            bloc.stream,
+            emitsInOrder([
+              AdminLeavesState(
+                  showPaginationLoading: true,
+                  members: [joi, andrew],
+                  membersFetchStatus: Status.success,
+                  leavesFetchStatus: Status.success,
+                  leaveApplicationMap:
+                      getLeaveApplicationFromLeaveEmployee(leaves: [
+                    joiCurrentYearLeave,
+                    andrewCurrentYearLeave,
+                  ], members: [
+                    joi,
+                    andrew
+                  ]).groupByAppliedOnMonth()),
+              AdminLeavesState(
+                  showPaginationLoading: false,
+                  members: [joi, andrew],
+                  membersFetchStatus: Status.success,
+                  leavesFetchStatus: Status.success,
+                  leaveApplicationMap:
+                      getLeaveApplicationFromLeaveEmployee(leaves: [
+                    joiCurrentYearLeave,
+                    andrewCurrentYearLeave,
+                    joiPreviousYearLeave,
+                  ], members: [
+                    joi,
+                    andrew
+                  ]).groupByAppliedOnMonth()),
+            ]));
+      });
+    });
   });
 }
