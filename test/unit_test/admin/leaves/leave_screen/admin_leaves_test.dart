@@ -86,7 +86,7 @@ void main() {
     );
 
     group('Admin Leaves fetch data test', () {
-      setUp(() {
+      setUpAll(() {
         leaveRepo = MockLeaveRepo();
         employeeRepo = MockEmployeeRepo();
         lastDoc = MockDocumentSnapshot();
@@ -110,13 +110,9 @@ void main() {
 
       test('Admin leave initial data load test', () {
         when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
-        when(leaveRepo.leaves())
-            .thenAnswer((_) async => PaginatedLeaves(leaves: [
-                  joiCurrentYearLeave,
-                  andrewCurrentYearLeave,
-                  joiPreviousYearLeave,
-                  andrewCurrentYearLeave
-                ], lastDoc: lastDoc));
+        when(leaveRepo.leaves()).thenAnswer((_) async => PaginatedLeaves(
+            leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
+            lastDoc: lastDoc));
         bloc.add(InitialAdminLeavesEvent());
         expect(
             bloc.stream,
@@ -138,12 +134,66 @@ void main() {
                       getLeaveApplicationFromLeaveEmployee(leaves: [
                     joiCurrentYearLeave,
                     andrewCurrentYearLeave,
-                    joiPreviousYearLeave,
-                    andrewCurrentYearLeave
                   ], members: [
                     joi,
                     andrew
                   ]).groupByAppliedOnMonth()),
+            ]));
+      });
+
+      test('Search employee test', () {
+        bloc.add(SearchEmployeeEvent(search: 'joi'));
+        expectLater(
+            bloc.stream,
+            emits(AdminLeavesState(
+                members: [joi],
+                membersFetchStatus: Status.success,
+                leavesFetchStatus: Status.success,
+                leaveApplicationMap:
+                    getLeaveApplicationFromLeaveEmployee(leaves: [
+                  joiCurrentYearLeave,
+                  andrewCurrentYearLeave,
+                ], members: [
+                  joi,
+                  andrew
+                ]).groupByAppliedOnMonth())));
+      });
+
+      test('select employee test', () {
+        bloc.add(FetchLeavesInitialEvent(member: joi));
+        when(leaveRepo.leaves(uid: joi.uid)).thenAnswer((_) async =>
+            PaginatedLeaves(
+                leaves: [joiCurrentYearLeave, joiPreviousYearLeave],
+                lastDoc: lastDoc));
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              AdminLeavesState(
+                  members: [joi],
+                  selectedMember: joi,
+                  membersFetchStatus: Status.success,
+                  leavesFetchStatus: Status.loading,
+                  leaveApplicationMap:
+                      getLeaveApplicationFromLeaveEmployee(leaves: [
+                    joiCurrentYearLeave,
+                    andrewCurrentYearLeave,
+                  ], members: [
+                    joi,
+                    andrew
+                  ]).groupByAppliedOnMonth()),
+              AdminLeavesState(
+                  members: [joi],
+                  selectedMember: joi,
+                  membersFetchStatus: Status.success,
+                  leavesFetchStatus: Status.success,
+                  leaveApplicationMap:
+                      getLeaveApplicationFromLeaveEmployee(leaves: [
+                    joiCurrentYearLeave,
+                    joiPreviousYearLeave,
+                  ], members: [
+                    joi,
+                    andrew
+                  ]).groupByAppliedOnMonth())
             ]));
       });
     });
