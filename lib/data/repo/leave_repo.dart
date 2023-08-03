@@ -20,7 +20,7 @@ class LeaveRepo {
   Future<PaginatedLeaves> leaves(
           {DocumentSnapshot<Leave>? lastDoc, String? uid}) async =>
       await _leaveService.leaves(
-        limit: 5,
+        limit: 8,
         uid: uid,
         lastDoc: lastDoc,
         spaceId: _userStateNotifier.currentSpaceId!,

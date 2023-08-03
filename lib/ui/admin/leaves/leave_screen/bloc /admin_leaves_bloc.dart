@@ -33,7 +33,8 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
       InitialAdminLeavesEvent event, Emitter<AdminLeavesState> emit) async {
     try {
       _members = _employeeRepo.allEmployees.toList();
-      emit(state.copyWith(members: _members, membersFetchStatus: Status.success));
+      emit(state.copyWith(
+          members: _members, membersFetchStatus: Status.success));
       add(FetchLeavesInitialEvent());
     } on Exception {
       emit(state.copyWith(
@@ -72,7 +73,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
       try {
         final paginatedData = await _leaveRepo.leaves(
             lastDoc: _lastDoc, uid: state.selectedMember?.uid);
-        if (paginatedData.lastDoc == _lastDoc) {
+        if (paginatedData.lastDoc == null) {
           _isLoadedMax = true;
         }
         _lastDoc = paginatedData.lastDoc;

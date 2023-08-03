@@ -52,7 +52,7 @@ class LeaveService {
 
     return PaginatedLeaves(
         leaves: leavesDoc.docs.map((e) => e.data()).toList(),
-        lastDoc: leavesDoc.docs.isNotEmpty ? leavesDoc.docs.last : lastDoc!);
+        lastDoc: leavesDoc.docs.isNotEmpty ? leavesDoc.docs.last : null);
   }
 
   Stream<List<Leave>> monthlyLeaveByStartDate(

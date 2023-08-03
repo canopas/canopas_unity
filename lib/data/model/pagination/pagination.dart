@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../leave/leave.dart';
 
 class PaginatedLeaves extends Equatable {
-  final DocumentSnapshot<Leave> lastDoc;
+  final DocumentSnapshot<Leave>? lastDoc;
   final List<Leave> leaves;
 
   const PaginatedLeaves({required this.leaves, required this.lastDoc});
