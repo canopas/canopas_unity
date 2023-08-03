@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/repo/employee_repo.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
@@ -194,6 +195,52 @@ void main() {
                     joi,
                     andrew
                   ]).groupByAppliedOnMonth())
+            ]));
+      });
+    });
+
+    group('Admin Leaves fetch data failure state test', () {
+      setUp(() {
+        leaveRepo = MockLeaveRepo();
+        employeeRepo = MockEmployeeRepo();
+        lastDoc = MockDocumentSnapshot();
+        bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
+      });
+
+      test('test failure state on fetch member exception', () {
+        when(employeeRepo.allEmployees).thenThrow(Exception('error'));
+
+        bloc.add(InitialAdminLeavesEvent());
+        expect(
+            bloc.stream,
+            emits(
+              const AdminLeavesState(
+                  membersFetchStatus: Status.error,
+                  error: firestoreFetchDataError),
+            ));
+      });
+
+      test('test failure state on fetch leave exception', () {
+        when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
+        when(leaveRepo.leaves()).thenThrow(Exception('Error'));
+        bloc.add(InitialAdminLeavesEvent());
+        expect(
+            bloc.stream,
+            emitsInOrder([
+              AdminLeavesState(
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+              ),
+              AdminLeavesState(
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+                leavesFetchStatus: Status.loading,
+              ),
+              AdminLeavesState(
+                  members: [joi, andrew],
+                  membersFetchStatus: Status.success,
+                  leavesFetchStatus: Status.error,
+                  error: firestoreFetchDataError),
             ]));
       });
     });

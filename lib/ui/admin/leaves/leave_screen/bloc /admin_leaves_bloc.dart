@@ -33,13 +33,12 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
       InitialAdminLeavesEvent event, Emitter<AdminLeavesState> emit) async {
     try {
       _members = _employeeRepo.allEmployees.toList();
-      emit(state.copyWith(
-          members: _members, membersFetchStatus: Status.success));
+      emit(state.copyWith(members: _members, membersFetchStatus: Status.success));
+      add(FetchLeavesInitialEvent());
     } on Exception {
       emit(state.copyWith(
           membersFetchStatus: Status.error, error: firestoreFetchDataError));
     }
-    add(FetchLeavesInitialEvent());
   }
 
   Future<void> _fetchInitialLeaves(
@@ -58,6 +57,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
                   leaves: paginatedData.leaves, members: _members)
               .groupByAppliedOnMonth()));
     } on Exception {
+      _isLoadedMax = true;
       emit(state.copyWith(
         leavesFetchStatus: Status.error,
         error: firestoreFetchDataError,
