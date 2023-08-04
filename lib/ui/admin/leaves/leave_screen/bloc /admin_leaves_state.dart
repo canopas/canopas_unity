@@ -5,7 +5,7 @@ import '../../../../../data/model/employee/employee.dart';
 
 class AdminLeavesState extends Equatable {
   final Status leavesFetchStatus;
-  final bool showPaginationLoading;
+  final Status fetchMoreData;
   final Status membersFetchStatus;
   final String? error;
   final List<Employee> members;
@@ -16,14 +16,14 @@ class AdminLeavesState extends Equatable {
       {this.leavesFetchStatus = Status.initial,
       this.membersFetchStatus = Status.initial,
       this.error,
-      this.showPaginationLoading = false,
+      this.fetchMoreData = Status.initial,
       int? selectedYear,
       this.leaveApplicationMap = const {},
       this.members = const [],
       this.selectedMember});
 
   copyWith({
-    bool? showPaginationLoading,
+    Status? fetchMoreData,
     Status? leavesFetchStatus,
     Status? membersFetchStatus,
     String? error,
@@ -39,15 +39,14 @@ class AdminLeavesState extends Equatable {
         members: members ?? this.members,
         membersFetchStatus: membersFetchStatus ?? this.membersFetchStatus,
         leavesFetchStatus: leavesFetchStatus ?? this.leavesFetchStatus,
-        showPaginationLoading:
-            showPaginationLoading ?? this.showPaginationLoading,
+        fetchMoreData: fetchMoreData ?? this.fetchMoreData,
         error: error,
       );
 
   @override
   List<Object?> get props => [
         membersFetchStatus,
-        showPaginationLoading,
+        fetchMoreData,
         leavesFetchStatus,
         error,
         leaveApplicationMap,

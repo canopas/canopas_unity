@@ -17,6 +17,7 @@ class LeaveCountCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
       height: 100,
       decoration: BoxDecoration(

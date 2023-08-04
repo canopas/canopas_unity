@@ -32,10 +32,6 @@ class LeaveRepo {
           status: LeaveStatus.pending,
           spaceId: _userStateNotifier.currentSpaceId!);
 
-  Stream<List<Leave>> userLeavesByYear(String uid, int year) =>
-      _leaveService.userYearlyLeave(
-          uid: uid, year: year, spaceId: _userStateNotifier.currentSpaceId!);
-
   Stream<List<Leave>> leaveByMonth(DateTime date) =>
       Rx.combineLatest2<List<Leave>, List<Leave>, List<Leave>>(
         _leaveService

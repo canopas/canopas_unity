@@ -3,13 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:cloud_firestore/cloud_firestore.dart' as _i6;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/model/leave/leave.dart' as _i5;
+import 'package:projectunity/data/model/leave/leave.dart' as _i6;
 import 'package:projectunity/data/model/pagination/pagination.dart' as _i2;
-import 'package:projectunity/data/repo/leave_repo.dart' as _i3;
+import 'package:projectunity/data/repo/leave_repo.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -33,22 +33,44 @@ class _FakePaginatedLeaves_0 extends _i1.SmartFake
         );
 }
 
+class _FakeDocumentReference_1<T extends Object?> extends _i1.SmartFake
+    implements _i3.DocumentReference<T> {
+  _FakeDocumentReference_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSnapshotMetadata_2 extends _i1.SmartFake
+    implements _i3.SnapshotMetadata {
+  _FakeSnapshotMetadata_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [LeaveRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
+class MockLeaveRepo extends _i1.Mock implements _i4.LeaveRepo {
   MockLeaveRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Stream<List<_i5.Leave>> get pendingLeaves => (super.noSuchMethod(
+  _i5.Stream<List<_i6.Leave>> get pendingLeaves => (super.noSuchMethod(
         Invocation.getter(#pendingLeaves),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
   @override
-  _i4.Future<_i2.PaginatedLeaves> leaves({
-    _i6.DocumentSnapshot<_i5.Leave>? lastDoc,
+  _i5.Future<_i2.PaginatedLeaves> leaves({
+    _i3.DocumentSnapshot<_i6.Leave>? lastDoc,
     String? uid,
   }) =>
       (super.noSuchMethod(
@@ -61,7 +83,7 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
           },
         ),
         returnValue:
-            _i4.Future<_i2.PaginatedLeaves>.value(_FakePaginatedLeaves_0(
+            _i5.Future<_i2.PaginatedLeaves>.value(_FakePaginatedLeaves_0(
           this,
           Invocation.method(
             #leaves,
@@ -72,38 +94,70 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
             },
           ),
         )),
-      ) as _i4.Future<_i2.PaginatedLeaves>);
+      ) as _i5.Future<_i2.PaginatedLeaves>);
   @override
-  _i4.Stream<List<_i5.Leave>> userLeaveRequest(String? uid) =>
+  _i5.Stream<List<_i6.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #userLeaveRequest,
           [uid],
         ),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
   @override
-  _i4.Stream<List<_i5.Leave>> userLeavesByYear(
-    String? uid,
-    int? year,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #userLeavesByYear,
-          [
-            uid,
-            year,
-          ],
-        ),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
-  @override
-  _i4.Stream<List<_i5.Leave>> leaveByMonth(DateTime? date) =>
+  _i5.Stream<List<_i6.Leave>> leaveByMonth(DateTime? date) =>
       (super.noSuchMethod(
         Invocation.method(
           #leaveByMonth,
           [date],
         ),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
+}
+
+/// A class which mocks [DocumentSnapshot].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
+    implements _i3.DocumentSnapshot<T> {
+  MockDocumentSnapshot() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get id => (super.noSuchMethod(
+        Invocation.getter(#id),
+        returnValue: '',
+      ) as String);
+  @override
+  _i3.DocumentReference<T> get reference => (super.noSuchMethod(
+        Invocation.getter(#reference),
+        returnValue: _FakeDocumentReference_1<T>(
+          this,
+          Invocation.getter(#reference),
+        ),
+      ) as _i3.DocumentReference<T>);
+  @override
+  _i3.SnapshotMetadata get metadata => (super.noSuchMethod(
+        Invocation.getter(#metadata),
+        returnValue: _FakeSnapshotMetadata_2(
+          this,
+          Invocation.getter(#metadata),
+        ),
+      ) as _i3.SnapshotMetadata);
+  @override
+  bool get exists => (super.noSuchMethod(
+        Invocation.getter(#exists),
+        returnValue: false,
+      ) as bool);
+  @override
+  dynamic get(Object? field) => super.noSuchMethod(Invocation.method(
+        #get,
+        [field],
+      ));
+  @override
+  dynamic operator [](Object? field) => super.noSuchMethod(Invocation.method(
+        #[],
+        [field],
+      ));
 }

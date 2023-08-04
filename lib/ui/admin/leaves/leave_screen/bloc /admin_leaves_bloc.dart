@@ -56,7 +56,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
           leavesFetchStatus: Status.success,
           leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
                   leaves: paginatedData.leaves, members: _members)
-              .groupByAppliedOnMonth()));
+              .groupByMonth((la) => la.leave.appliedOn)));
     } on Exception {
       _isLoadedMax = true;
       emit(state.copyWith(
@@ -68,8 +68,8 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
 
   Future<void> _fetchMoreLeaves(
       FetchMoreLeavesEvent event, Emitter<AdminLeavesState> emit) async {
-    if (!state.showPaginationLoading && !_isLoadedMax) {
-      emit(state.copyWith(showPaginationLoading: true));
+    if (state.fetchMoreData != Status.loading && !_isLoadedMax) {
+      emit(state.copyWith(fetchMoreData: Status.loading));
       try {
         final paginatedData = await _leaveRepo.leaves(
             lastDoc: _lastDoc, uid: state.selectedMember?.uid);
@@ -81,14 +81,12 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
         leaveApplications.addAll(getLeaveApplicationFromLeaveEmployee(
             leaves: paginatedData.leaves, members: _members));
         emit(state.copyWith(
-            leavesFetchStatus: Status.success,
-            showPaginationLoading: false,
-            leaveApplicationMap: leaveApplications.groupByAppliedOnMonth()));
+            fetchMoreData: Status.success,
+            leaveApplicationMap:
+                leaveApplications.groupByMonth((la) => la.leave.appliedOn)));
       } on Exception {
         emit(state.copyWith(
-            leavesFetchStatus: Status.error,
-            error: firestoreFetchDataError,
-            showPaginationLoading: false));
+            error: firestoreFetchDataError, fetchMoreData: Status.error));
       }
     }
   }

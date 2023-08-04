@@ -3,31 +3,30 @@ import '../../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../../data/model/leave/leave.dart';
 
 class UserLeaveState extends Equatable {
-  final List<Leave> leaves;
+  final Map<DateTime, List<Leave>> leavesMap;
   final String? error;
   final Status status;
-  final int selectedYear;
+  final Status fetchMoreDataStatus;
 
-  UserLeaveState(
-      {int? selectedYear,
-      this.leaves = const [],
+  const UserLeaveState(
+      {this.fetchMoreDataStatus = Status.initial,
+      this.leavesMap = const {},
       this.status = Status.initial,
-      this.error})
-      : selectedYear = selectedYear ?? DateTime.now().year;
+      this.error});
 
   UserLeaveState copyWith({
-    int? selectedYear,
-    List<Leave>? leaves,
+    Status? fetchMoreDataStatus,
+    Map<DateTime, List<Leave>>? leavesMap,
     String? error,
     Status? status,
   }) =>
       UserLeaveState(
-        selectedYear: selectedYear ?? this.selectedYear,
+        fetchMoreDataStatus: fetchMoreDataStatus ?? this.fetchMoreDataStatus,
         status: status ?? this.status,
-        leaves: leaves ?? this.leaves,
+        leavesMap: leavesMap ?? this.leavesMap,
         error: error,
       );
 
   @override
-  List<Object?> get props => [leaves, error, status, selectedYear];
+  List<Object?> get props => [leavesMap, error, status, fetchMoreDataStatus];
 }

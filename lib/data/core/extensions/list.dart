@@ -1,5 +1,3 @@
-import 'package:projectunity/data/model/leave_application.dart';
-
 extension Iterables<E> on Iterable<E> {
   Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
       <K, List<E>>{},
@@ -17,11 +15,9 @@ extension IterableListMergeExtension<T> on Iterable<List<T>> {
   }
 }
 
-extension ConvertListToMapExtension on List<LeaveApplication> {
-  Map<DateTime, List<LeaveApplication>> groupByAppliedOnMonth() {
-    sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
-    return groupBy((leaveApplication) => DateTime(
-        leaveApplication.leave.appliedOn.year,
-        leaveApplication.leave.appliedOn.month));
+extension ConvertListToMapExtension<T> on List<T> {
+  Map<DateTime, List<T>> groupByMonth( DateTime Function(T element) extractor) {
+    sort((a, b) => extractor(b).compareTo(extractor(a)));
+    return groupBy((item) => DateTime(extractor(item).year, extractor(item).month));
   }
 }

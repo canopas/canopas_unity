@@ -98,7 +98,7 @@ void main() {
         expect(
             bloc.state,
             AdminLeavesState(
-              showPaginationLoading: false,
+              fetchMoreData: Status.initial,
               membersFetchStatus: Status.initial,
               selectedMember: null,
               leaveApplicationMap: const {},
@@ -138,7 +138,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByAppliedOnMonth()),
+                  ]).groupByMonth((la) => la.leave.appliedOn)),
             ]));
       });
 
@@ -157,7 +157,7 @@ void main() {
                 ], members: [
                   joi,
                   andrew
-                ]).groupByAppliedOnMonth())));
+                ]).groupByMonth((la) => la.leave.appliedOn))));
       });
 
       test('select employee test', () {
@@ -181,7 +181,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByAppliedOnMonth()),
+                  ]).groupByMonth((la) => la.leave.appliedOn)),
               AdminLeavesState(
                   members: [joi],
                   selectedMember: joi,
@@ -194,7 +194,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByAppliedOnMonth())
+                  ]).groupByMonth((la) => la.leave.appliedOn))
             ]));
       });
     });
@@ -282,7 +282,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByAppliedOnMonth()),
+                  ]).groupByMonth((la) => la.leave.appliedOn)),
             ]));
       });
 
@@ -295,7 +295,7 @@ void main() {
             bloc.stream,
             emitsInOrder([
               AdminLeavesState(
-                  showPaginationLoading: true,
+                  fetchMoreData: Status.loading,
                   members: [joi, andrew],
                   membersFetchStatus: Status.success,
                   leavesFetchStatus: Status.success,
@@ -306,9 +306,9 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByAppliedOnMonth()),
+                  ]).groupByMonth((la) => la.leave.appliedOn)),
               AdminLeavesState(
-                  showPaginationLoading: false,
+                  fetchMoreData: Status.success,
                   members: [joi, andrew],
                   membersFetchStatus: Status.success,
                   leavesFetchStatus: Status.success,
@@ -320,7 +320,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByAppliedOnMonth()),
+                  ]).groupByMonth((la) => la.leave.appliedOn)),
             ]));
       });
     });

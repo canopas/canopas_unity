@@ -11,9 +11,9 @@ import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/leave_application_card.dart';
 import 'package:projectunity/ui/widget/leave_card.dart';
+import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/leave_application.dart';
 import '../../../navigation/app_router.dart';
@@ -56,7 +56,8 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent - 200) {
+    if (_scrollController.offset >=
+        _scrollController.position.maxScrollExtent - 200) {
       context.read<AdminLeavesBloc>().add(FetchMoreLeavesEvent());
     }
   }
@@ -80,7 +81,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
             }
           },
           buildWhen: (previous, current) =>
-              previous.showPaginationLoading != current.showPaginationLoading ||
+              previous.fetchMoreData != current.fetchMoreData ||
               previous.selectedMember != current.selectedMember ||
               previous.leaveApplicationMap != current.leaveApplicationMap ||
               previous.leavesFetchStatus != current.leavesFetchStatus,
@@ -95,86 +96,27 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                         .map((MapEntry<DateTime, List<LeaveApplication>>
                                 monthWiseLeaveApplications) =>
                             StickyHeader(
-                                header: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: const BoxDecoration(
-                                        color: AppColors.whiteColor),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                                  horizontal: 16)
-                                              .copyWith(top: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                  AppLocalizations.of(context)
-                                                      .date_format_yMMMM(
-                                                          monthWiseLeaveApplications
-                                                              .key),
-                                                  style:
-                                                      AppFontStyle.headerDark),
-                                              Text(
-                                                monthWiseLeaveApplications
-                                                    .value.length
-                                                    .toString(),
-                                                style: AppFontStyle.headerDark,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        const Divider(height: 1)
-                                      ],
-                                    )),
-                                content: ListView.separated(
-                                  padding: const EdgeInsets.all(16),
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: monthWiseLeaveApplications.key ==
+                                header: LeaveListHeader(
+                                  title: AppLocalizations.of(context)
+                                      .date_format_yMMMM(
+                                          monthWiseLeaveApplications.key),
+                                  count:
+                                      monthWiseLeaveApplications.value.length,
+                                ),
+                                content: MonthLeaveList(
+                                  onCardTap: (la) {
+                                    context.goNamed(Routes.adminLeaveDetails,
+                                        extra: la);
+                                  },
+                                  leaveApplications:
+                                      monthWiseLeaveApplications.value,
+                                  showLeaveApplicationCard:
+                                      state.selectedMember == null,
+                                  isPaginationLoading:
+                                      monthWiseLeaveApplications.key ==
                                               state.leaveApplicationMap.keys
                                                   .last &&
-                                          state.showPaginationLoading
-                                      ? monthWiseLeaveApplications
-                                              .value.length +
-                                          1
-                                      : monthWiseLeaveApplications.value.length,
-                                  itemBuilder: (context, index) {
-                                    if (index ==
-                                            monthWiseLeaveApplications
-                                                .value.length &&
-                                        monthWiseLeaveApplications.key ==
-                                            state.leaveApplicationMap.keys
-                                                .last) {
-                                      return const Padding(
-                                        padding: EdgeInsets.all(50),
-                                        child: AppCircularProgressIndicator(),
-                                      );
-                                    }
-                                    if (state.selectedMember == null) {
-                                      return LeaveApplicationCard(
-                                          onTap: () => context.goNamed(
-                                              Routes.adminLeaveDetails,
-                                              extra: monthWiseLeaveApplications
-                                                  .value[index]),
-                                          leaveApplication:
-                                              monthWiseLeaveApplications
-                                                  .value[index]);
-                                    }
-                                    return LeaveCard(
-                                        onTap: () => context.goNamed(
-                                            Routes.adminLeaveDetails,
-                                            extra: monthWiseLeaveApplications
-                                                .value[index]),
-                                        leave: monthWiseLeaveApplications
-                                            .value[index].leave);
-                                  },
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(height: 16),
+                                          state.fetchMoreData == Status.loading,
                                 )))
                         .toList(),
                   )
@@ -190,6 +132,49 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
             )
           : null,
       backgroundColor: AppColors.whiteColor,
+    );
+  }
+}
+
+class MonthLeaveList extends StatelessWidget {
+  final List<LeaveApplication> leaveApplications;
+  final bool isPaginationLoading;
+  final bool showLeaveApplicationCard;
+  final void Function(LeaveApplication) onCardTap;
+
+  const MonthLeaveList(
+      {super.key,
+      required this.leaveApplications,
+      required this.isPaginationLoading,
+      required this.showLeaveApplicationCard,
+      required this.onCardTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      padding: const EdgeInsets.all(16),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: isPaginationLoading
+          ? leaveApplications.length + 1
+          : leaveApplications.length,
+      itemBuilder: (context, index) {
+        if (index == leaveApplications.length && isPaginationLoading) {
+          return const Padding(
+            padding: EdgeInsets.all(50),
+            child: AppCircularProgressIndicator(),
+          );
+        }
+        if (showLeaveApplicationCard) {
+          return LeaveApplicationCard(
+              onTap: () => onCardTap(leaveApplications[index]),
+              leaveApplication: leaveApplications[index]);
+        }
+        return LeaveCard(
+            onTap: () => onCardTap(leaveApplications[index]),
+            leave: leaveApplications[index].leave);
+      },
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
     );
   }
 }
