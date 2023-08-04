@@ -22,7 +22,7 @@ class AdminEmployeeDetailsLeavesBLoc extends Bloc<
     emit(state.copyWith(status: Status.loading));
     try {
       return emit.forEach(
-        _leaveRepo.userLeaves(event.employeeId),
+        _leaveRepo.userLeavesByYear(event.employeeId, DateTime.now().year),
         onData: (List<Leave> data) {
           final userLeaves = data.toList();
           userLeaves.sort((a, b) => b.startDate.compareTo(a.startDate));

@@ -54,14 +54,6 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
   @override
-  _i4.Stream<List<_i5.Leave>> absence(DateTime? date) => (super.noSuchMethod(
-        Invocation.method(
-          #absence,
-          [date],
-        ),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
-  @override
   _i4.Future<void> reset() => (super.noSuchMethod(
         Invocation.method(
           #reset,
@@ -80,10 +72,26 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
   @override
-  _i4.Stream<List<_i5.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
+  _i4.Stream<List<_i5.Leave>> userLeavesByYear(
+    String? uid,
+    int? year,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #userLeaves,
-          [uid],
+          #userLeavesByYear,
+          [
+            uid,
+            year,
+          ],
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> leaveByMonth(DateTime? date) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveByMonth,
+          [date],
         ),
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);

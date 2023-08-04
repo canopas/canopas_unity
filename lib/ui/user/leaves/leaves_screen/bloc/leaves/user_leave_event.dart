@@ -1,9 +1,21 @@
-abstract class UserLeaveEvents {}
+import '../../../../../../data/model/leave/leave.dart';
 
-class FetchUserLeaveEvent extends UserLeaveEvents {}
+abstract class UserLeavesEvents {
+  const UserLeavesEvents();
+}
 
-class ChangeYearEvent extends UserLeaveEvents {
+class ListenUserLeaves extends UserLeavesEvents {
   final int year;
 
-  ChangeYearEvent({required this.year});
+  const ListenUserLeaves({required this.year});
+}
+
+class ShowUserLeaves extends UserLeavesEvents {
+  final List<Leave> leaves;
+
+  const ShowUserLeaves(this.leaves);
+}
+
+class ShowError extends UserLeavesEvents {
+  const ShowError();
 }

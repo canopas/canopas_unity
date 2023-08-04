@@ -62,6 +62,78 @@ class MockLeaveService extends _i1.Mock implements _i3.LeaveService {
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
   @override
+  _i4.Stream<List<_i5.Leave>> monthlyLeaveByStartDate({
+    required int? year,
+    required int? month,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #monthlyLeaveByStartDate,
+          [],
+          {
+            #year: year,
+            #month: month,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> monthlyLeaveByEndDate({
+    required int? year,
+    required int? month,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #monthlyLeaveByEndDate,
+          [],
+          {
+            #year: year,
+            #month: month,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> userYearlyLeave({
+    required String? uid,
+    required int? year,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userYearlyLeave,
+          [],
+          {
+            #uid: uid,
+            #year: year,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Stream<List<_i5.Leave>> userLeaveByStatus({
+    required String? uid,
+    required _i5.LeaveStatus? status,
+    required String? spaceId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userLeaveByStatus,
+          [],
+          {
+            #uid: uid,
+            #status: status,
+            #spaceId: spaceId,
+          },
+        ),
+        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
+      ) as _i4.Stream<List<_i5.Leave>>);
+  @override
   _i4.Future<bool> checkLeaveAlreadyApplied({
     required String? userId,
     required Map<DateTime, _i5.LeaveDayDuration>? dateDuration,
