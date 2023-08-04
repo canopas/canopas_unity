@@ -33,6 +33,9 @@ class EmployeeRepo {
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();
 
+  List<Employee> get allEmployees =>
+      _employeeController.value;
+
   Stream<List<Employee>> get activeEmployees =>
       _employeeController.stream.asyncMap((employees) => employees
           .where((employee) => employee.status == EmployeeStatus.active)

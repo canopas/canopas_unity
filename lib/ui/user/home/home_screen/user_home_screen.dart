@@ -30,7 +30,7 @@ class UserHomeScreenPage extends StatelessWidget {
         ),
         BlocProvider(
             create: (_) =>
-                getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())),
+                getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
       ],
       child: const UserHomeScreen(),
     );

@@ -4,48 +4,53 @@ import 'package:projectunity/data/model/leave_application.dart';
 import '../../../../../data/model/employee/employee.dart';
 
 class AdminLeavesState extends Equatable {
-  final Status status;
+  final Status leavesFetchStatus;
+  final Status fetchMoreData;
+  final Status membersFetchStatus;
   final String? error;
   final List<Employee> members;
-  final List<LeaveApplication> leaveApplication;
-  final Employee? selectedEmployee;
-  final int selectedYear;
+  final Map<DateTime, List<LeaveApplication>> leaveApplicationMap;
+  final Employee? selectedMember;
 
-  AdminLeavesState(
-      {this.status = Status.initial,
+  const AdminLeavesState(
+      {this.leavesFetchStatus = Status.initial,
+      this.membersFetchStatus = Status.initial,
       this.error,
+      this.fetchMoreData = Status.initial,
       int? selectedYear,
-      this.leaveApplication = const [],
+      this.leaveApplicationMap = const {},
       this.members = const [],
-      this.selectedEmployee})
-      : selectedYear = selectedYear ?? DateTime.now().year;
+      this.selectedMember});
 
   copyWith({
-    Status? status,
+    Status? fetchMoreData,
+    Status? leavesFetchStatus,
+    Status? membersFetchStatus,
     String? error,
     List<Employee>? members,
-    List<LeaveApplication>? leaveApplication,
-    Employee? selectedEmployee,
+    Map<DateTime, List<LeaveApplication>>? leaveApplicationMap,
+    Employee? selectedMember,
     bool assignSelectedEmployeeNull = false,
-    int? selectedYear,
   }) =>
       AdminLeavesState(
-        error: error,
-        selectedYear: selectedYear ?? this.selectedYear,
-        status: status ?? this.status,
-        leaveApplication: leaveApplication ?? this.leaveApplication,
+        selectedMember: selectedMember ??
+            (assignSelectedEmployeeNull ? null : this.selectedMember),
+        leaveApplicationMap: leaveApplicationMap ?? this.leaveApplicationMap,
         members: members ?? this.members,
-        selectedEmployee: selectedEmployee ??
-            (assignSelectedEmployeeNull ? null : this.selectedEmployee),
+        membersFetchStatus: membersFetchStatus ?? this.membersFetchStatus,
+        leavesFetchStatus: leavesFetchStatus ?? this.leavesFetchStatus,
+        fetchMoreData: fetchMoreData ?? this.fetchMoreData,
+        error: error,
       );
 
   @override
   List<Object?> get props => [
-        status,
+        membersFetchStatus,
+        fetchMoreData,
+        leavesFetchStatus,
         error,
-        leaveApplication,
+        leaveApplicationMap,
         members,
-        selectedYear,
-        selectedEmployee
+        selectedMember
       ];
 }

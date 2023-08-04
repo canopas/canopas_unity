@@ -1,66 +1,78 @@
 import 'dart:async';
-import 'package:collection/collection.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_state.dart';
-import '../../../../../../data/Repo/leave_repo.dart';
+import '../../../../../../data/model/leave/leave.dart';
+import '../../../../../../data/repo/leave_repo.dart';
 import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/core/utils/bloc_status.dart';
-import '../../../../../../data/model/leave/leave.dart';
 import '../../../../../../data/provider/user_state.dart';
 
 @Injectable()
-class UserLeaveBloc extends Bloc<UserLeaveEvents, UserLeaveState> {
+class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
   final LeaveRepo _leaveRepo;
   final UserStateNotifier _userManager;
-  late List<Leave> _allLeaves = [];
 
-  UserLeaveBloc(this._userManager, this._leaveRepo) : super(UserLeaveState()) {
-    on<FetchUserLeaveEvent>(_fetchLeaves);
-    on<ChangeYearEvent>(_showLeaveByYear);
+  DocumentSnapshot<Leave>? _lastDoc;
+  bool _isLoadedMax = false;
+
+  UserLeaveBloc(this._userManager, this._leaveRepo)
+      : super(const UserLeaveState()) {
+    on<LoadInitialUserLeaves>(_fetchInitialLeaves);
+    on<FetchMoreUserLeaves>(_fetchMoreLeaves);
   }
 
-  Future<void> _fetchLeaves(
-      FetchUserLeaveEvent event, Emitter<UserLeaveState> emit) async {
+  Future<void> _fetchInitialLeaves(
+      LoadInitialUserLeaves event, Emitter<UserLeaveState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      return emit.forEach(_leaveRepo.userLeaves(_userManager.employeeId),
-          onData: (List<Leave> leaves) {
-            _allLeaves = leaves.toList();
-            return state.copyWith(
-                status: Status.success,
-                leaves:
-                    _getSelectedYearLeaveWithSortByDate(state.selectedYear));
-          },
-          onError: (error, _) => state.copyWith(
-              status: Status.error, error: firestoreFetchDataError));
+      final paginatedData =
+          await _leaveRepo.leaves(uid: _userManager.employeeId);
+      _lastDoc = paginatedData.lastDoc;
+      emit(state.copyWith(
+          status: Status.success,
+          leavesMap:
+              paginatedData.leaves.groupByMonth((leave) => leave.appliedOn)));
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+      _isLoadedMax = true;
+      emit(state.copyWith(
+        status: Status.error,
+        error: firestoreFetchDataError,
+      ));
     }
   }
 
-  List<Leave> _getSelectedYearLeaveWithSortByDate(int year) {
-    final List<Leave> leaves = _allLeaves
-        .where((leave) =>
-            leave.startDate.year == year || leave.endDate.year == year)
-        .whereNotNull()
-        .toList();
-    leaves.sort((a, b) => b.startDate.compareTo(a.startDate));
-    return leaves;
-  }
-
-  Future<void> _showLeaveByYear(
-      ChangeYearEvent event, Emitter<UserLeaveState> emit) async {
-    emit(state.copyWith(
-        leaves: _getSelectedYearLeaveWithSortByDate(event.year),
-        selectedYear: event.year));
+  Future<void> _fetchMoreLeaves(
+      FetchMoreUserLeaves event, Emitter<UserLeaveState> emit) async {
+    if (state.fetchMoreDataStatus != Status.loading && !_isLoadedMax) {
+      emit(state.copyWith(fetchMoreDataStatus: Status.loading));
+      try {
+        final paginatedData = await _leaveRepo.leaves(
+            lastDoc: _lastDoc, uid: _userManager.employeeId);
+        if (paginatedData.lastDoc == null) {
+          _isLoadedMax = true;
+          emit(state.copyWith(fetchMoreDataStatus: Status.success));
+        } else {
+          _lastDoc = paginatedData.lastDoc;
+          final leaves = state.leavesMap.values.merge();
+          leaves.addAll(paginatedData.leaves);
+          emit(state.copyWith(
+              fetchMoreDataStatus: Status.success,
+              leavesMap: leaves.groupByMonth((leave) => leave.appliedOn)));
+        }
+      } on Exception {
+        emit(state.copyWith(
+            error: firestoreFetchDataError, fetchMoreDataStatus: Status.error));
+      }
+    }
   }
 
   @override
-  Future<void> close() async {
-    _allLeaves.clear();
+  Future<void> close() {
+    _lastDoc = null;
     return super.close();
   }
 }

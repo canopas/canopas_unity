@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
+import 'package:projectunity/ui/widget/pagination_widget.dart';
+import 'package:sticky_headers/sticky_headers/widget.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../navigation/app_router.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/error_snack_bar.dart';
-import '../../../../widget/leave_card.dart';
 import '../bloc/leaves/user_leave_bloc.dart';
 import '../bloc/leaves/user_leave_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -19,21 +21,32 @@ class LeaveList extends StatelessWidget {
     return BlocConsumer<UserLeaveBloc, UserLeaveState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.leaves != current.leaves,
+          previous.leavesMap != current.leavesMap ||
+          previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
       builder: (context, state) {
-        if (state.status == Status.success && state.leaves.isNotEmpty) {
-          return ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => LeaveCard(
-                  onTap: () {
-                    context.goNamed(Routes.userLeaveDetail, params: {
-                      RoutesParamsConst.leaveId: state.leaves[index].leaveId
-                    });
-                  },
-                  leave: state.leaves[index]),
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
-              itemCount: state.leaves.length);
+        if (state.status == Status.success && state.leavesMap.isNotEmpty) {
+          return Column(
+            children: state.leavesMap.entries
+                .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
+                    StickyHeader(
+                        header: LeaveListHeader(
+                          title: AppLocalizations.of(context)
+                              .date_format_yMMMM(monthWiseLeaves.key),
+                          count: monthWiseLeaves.value.length,
+                        ),
+                        content: LeaveListByMonth(
+                          onCardTap: (leave) {
+                            context.goNamed(Routes.userLeaveDetail, params: {
+                              RoutesParamsConst.leaveId: leave.leaveId
+                            });
+                          },
+                          isPaginationLoading: monthWiseLeaves.key ==
+                                  state.leavesMap.keys.last &&
+                              state.fetchMoreDataStatus == Status.loading,
+                          leaves: monthWiseLeaves.value,
+                        )))
+                .toList(),
+          );
         }
         return ConstrainedBox(
             constraints: const BoxConstraints(
@@ -45,14 +58,19 @@ class LeaveList extends StatelessWidget {
                     ? const AppCircularProgressIndicator()
                     : EmptyScreen(
                         title: AppLocalizations.of(context).no_leaves_tag,
-                        message: AppLocalizations.of(context).user_leave_empty_screen_message)));
+                        message: AppLocalizations.of(context)
+                            .user_leave_empty_screen_message)));
       },
-      listenWhen: (previous, current) => current.status == Status.error,
+      listenWhen: (previous, current) =>
+          current.status == Status.error ||
+          current.fetchMoreDataStatus == Status.error,
       listener: (context, state) {
-        if (state.status == Status.error) {
+        if (state.error != null) {
           showSnackBar(context: context, error: state.error);
         }
       },
     );
   }
 }
+
+

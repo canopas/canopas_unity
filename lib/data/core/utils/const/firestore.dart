@@ -27,6 +27,7 @@ class FireStoreConst {
   static const String response = 'response';
   static const String startLeaveDate = 'start_date';
   static const String endLeaveDate = 'end_date';
+  static const String appliedOn = 'applied_on';
   static const String session = 'session';
   static const String uid = 'uid';
 

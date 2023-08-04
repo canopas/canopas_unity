@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/Repo/employee_repo.dart';
+import 'package:projectunity/data/repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/employee_service.dart';
-import 'package:projectunity/data/services/leave_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart';
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_event.dart';
@@ -18,7 +18,7 @@ import 'employee_detail_bloc_test.mocks.dart';
 @GenerateMocks([
   AccountService,
   EmployeeService,
-  LeaveService,
+  LeaveRepo,
   UserStateNotifier,
   SpaceService,
   EmployeeRepo
@@ -27,7 +27,7 @@ void main() {
   late AccountService accountService;
   late EmployeeService employeeService;
   late EmployeeDetailBloc employeeDetailBloc;
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
   late EmployeeRepo employeeRepo;
@@ -43,13 +43,13 @@ void main() {
   setUp(() {
     accountService = MockAccountService();
     employeeService = MockEmployeeService();
-    leaveService = MockLeaveService();
+    leaveRepo = MockLeaveRepo();
     userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     employeeRepo = MockEmployeeRepo();
     employeeDetailBloc = EmployeeDetailBloc(accountService, spaceService,
-        userStateNotifier, employeeService, leaveService, employeeRepo);
-    when(leaveService.getUserUsedLeaves(employee.uid)).thenAnswer((_) async => 10);
+        userStateNotifier, employeeService, leaveRepo, employeeRepo);
+    when(leaveRepo.getUserUsedLeaves(uid: employee.uid)).thenAnswer((_) async => 10);
     when(userStateNotifier.currentSpaceId).thenReturn("space-id");
     when(spaceService.getPaidLeaves(spaceId: "space-id")).thenAnswer((_) async => 12);
   });
@@ -89,7 +89,7 @@ void main() {
         () {
       when(employeeRepo.memberDetails(employee.uid))
           .thenAnswer((_)  => Stream.value(employee));
-      when(leaveService.getUserUsedLeaves(employee.uid))
+      when(leaveRepo.getUserUsedLeaves(uid: employee.uid))
           .thenThrow(Exception(firestoreFetchDataError));
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));

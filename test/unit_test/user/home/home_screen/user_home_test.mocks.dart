@@ -3,16 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
-import 'dart:ui' as _i7;
+import 'dart:async' as _i5;
+import 'dart:ui' as _i8;
 
+import 'package:cloud_firestore/cloud_firestore.dart' as _i11;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/model/account/account.dart' as _i5;
+import 'package:projectunity/data/model/account/account.dart' as _i6;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
-import 'package:projectunity/data/model/leave/leave.dart' as _i9;
-import 'package:projectunity/data/model/space/space.dart' as _i6;
-import 'package:projectunity/data/provider/user_state.dart' as _i3;
-import 'package:projectunity/data/Repo/leave_repo.dart' as _i8;
+import 'package:projectunity/data/model/leave/leave.dart' as _i10;
+import 'package:projectunity/data/model/pagination/pagination.dart' as _i3;
+import 'package:projectunity/data/model/space/space.dart' as _i7;
+import 'package:projectunity/data/provider/user_state.dart' as _i4;
+import 'package:projectunity/data/repo/leave_repo.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,19 +37,30 @@ class _FakeEmployee_0 extends _i1.SmartFake implements _i2.Employee {
         );
 }
 
+class _FakePaginatedLeaves_1 extends _i1.SmartFake
+    implements _i3.PaginatedLeaves {
+  _FakePaginatedLeaves_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [UserStateNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
+class MockUserStateNotifier extends _i1.Mock implements _i4.UserStateNotifier {
   MockUserStateNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.UserState get state => (super.noSuchMethod(
+  _i4.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i3.UserState.authenticated,
-      ) as _i3.UserState);
+        returnValue: _i4.UserState.authenticated,
+      ) as _i4.UserState);
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
@@ -90,17 +103,17 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Future<void> setUser(_i5.Account? user) => (super.noSuchMethod(
+  _i5.Future<void> setUser(_i6.Account? user) => (super.noSuchMethod(
         Invocation.method(
           #setUser,
           [user],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> setEmployeeWithSpace({
-    required _i6.Space? space,
+  _i5.Future<void> setEmployeeWithSpace({
+    required _i7.Space? space,
     required _i2.Employee? spaceUser,
   }) =>
       (super.noSuchMethod(
@@ -112,59 +125,59 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
             #spaceUser: spaceUser,
           },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> setEmployee({required _i2.Employee? member}) =>
+  _i5.Future<void> setEmployee({required _i2.Employee? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #setEmployee,
           [],
           {#member: member},
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> setSpace({required _i6.Space? space}) => (super.noSuchMethod(
+  _i5.Future<void> setSpace({required _i7.Space? space}) => (super.noSuchMethod(
         Invocation.method(
           #setSpace,
           [],
           {#space: space},
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> updateSpace(_i6.Space? space) => (super.noSuchMethod(
+  _i5.Future<void> updateSpace(_i7.Space? space) => (super.noSuchMethod(
         Invocation.method(
           #updateSpace,
           [space],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
+  _i5.Future<void> removeEmployeeWithSpace() => (super.noSuchMethod(
         Invocation.method(
           #removeEmployeeWithSpace,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> removeAll() => (super.noSuchMethod(
+  _i5.Future<void> removeAll() => (super.noSuchMethod(
         Invocation.method(
           #removeAll,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i8.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -172,7 +185,7 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i8.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -200,62 +213,141 @@ class MockUserStateNotifier extends _i1.Mock implements _i3.UserStateNotifier {
 /// A class which mocks [LeaveRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
+class MockLeaveRepo extends _i1.Mock implements _i9.LeaveRepo {
   MockLeaveRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Stream<List<_i9.Leave>> get leaves => (super.noSuchMethod(
-        Invocation.getter(#leaves),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
-  @override
-  _i4.Stream<List<_i9.Leave>> get pendingLeaves => (super.noSuchMethod(
+  _i5.Stream<List<_i10.Leave>> get pendingLeaves => (super.noSuchMethod(
         Invocation.getter(#pendingLeaves),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i5.Stream<List<_i10.Leave>>.empty(),
+      ) as _i5.Stream<List<_i10.Leave>>);
   @override
-  _i4.Stream<List<_i9.Leave>> absence(DateTime? date) => (super.noSuchMethod(
-        Invocation.method(
-          #absence,
-          [date],
-        ),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+  String get generateLeaveId => (super.noSuchMethod(
+        Invocation.getter(#generateLeaveId),
+        returnValue: '',
+      ) as String);
   @override
-  _i4.Future<void> reset() => (super.noSuchMethod(
+  _i5.Future<_i3.PaginatedLeaves> leaves({
+    _i11.DocumentSnapshot<_i10.Leave>? lastDoc,
+    String? uid,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #reset,
+          #leaves,
           [],
+          {
+            #lastDoc: lastDoc,
+            #uid: uid,
+          },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue:
+            _i5.Future<_i3.PaginatedLeaves>.value(_FakePaginatedLeaves_1(
+          this,
+          Invocation.method(
+            #leaves,
+            [],
+            {
+              #lastDoc: lastDoc,
+              #uid: uid,
+            },
+          ),
+        )),
+      ) as _i5.Future<_i3.PaginatedLeaves>);
   @override
-  _i4.Stream<List<_i9.Leave>> userLeaveRequest(String? uid) =>
+  _i5.Stream<List<_i10.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #userLeaveRequest,
           [uid],
         ),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i5.Stream<List<_i10.Leave>>.empty(),
+      ) as _i5.Stream<List<_i10.Leave>>);
   @override
-  _i4.Stream<List<_i9.Leave>> userLeaves(String? uid) => (super.noSuchMethod(
+  _i5.Stream<List<_i10.Leave>> leaveByMonth(DateTime? date) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #userLeaves,
-          [uid],
+          #leaveByMonth,
+          [date],
         ),
-        returnValue: _i4.Stream<List<_i9.Leave>>.empty(),
-      ) as _i4.Stream<List<_i9.Leave>>);
+        returnValue: _i5.Stream<List<_i10.Leave>>.empty(),
+      ) as _i5.Stream<List<_i10.Leave>>);
   @override
-  _i4.Future<void> dispose() => (super.noSuchMethod(
+  _i5.Future<bool> checkLeaveAlreadyApplied({
+    required String? uid,
+    required Map<DateTime, _i10.LeaveDayDuration>? dateDuration,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #dispose,
+          #checkLeaveAlreadyApplied,
           [],
+          {
+            #uid: uid,
+            #dateDuration: dateDuration,
+          },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
+  @override
+  _i5.Future<void> updateLeaveStatus({
+    required String? leaveId,
+    required _i10.LeaveStatus? status,
+    String? response = r'',
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateLeaveStatus,
+          [],
+          {
+            #leaveId: leaveId,
+            #status: status,
+            #response: response,
+          },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> applyForLeave({required _i10.Leave? leave}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #applyForLeave,
+          [],
+          {#leave: leave},
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<List<_i10.Leave>> getUpcomingLeavesOfUser(
+          {required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUpcomingLeavesOfUser,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i5.Future<List<_i10.Leave>>.value(<_i10.Leave>[]),
+      ) as _i5.Future<List<_i10.Leave>>);
+  @override
+  _i5.Future<double> getUserUsedLeaves({required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserUsedLeaves,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i5.Future<double>.value(0.0),
+      ) as _i5.Future<double>);
+  @override
+  _i5.Future<_i10.Leave?> fetchLeave({required String? leaveId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchLeave,
+          [],
+          {#leaveId: leaveId},
+        ),
+        returnValue: _i5.Future<_i10.Leave?>.value(),
+      ) as _i5.Future<_i10.Leave?>);
 }

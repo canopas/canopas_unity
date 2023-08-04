@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/Repo/employee_repo.dart';
-import 'package:projectunity/data/Repo/leave_repo.dart';
+import 'package:projectunity/data/repo/employee_repo.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
@@ -44,7 +44,7 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {
-    leaveApplications.sortedByDate();
+    leaveApplications.sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
     return leaveApplications.groupBy(
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }

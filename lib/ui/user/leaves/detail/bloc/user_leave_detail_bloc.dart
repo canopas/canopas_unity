@@ -1,18 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../data/services/leave_service.dart';
 
 @Injectable()
 class UserLeaveDetailBloc
     extends Bloc<UserLeaveDetailEvent, UserLeaveDetailState> {
-  final LeaveService _leaveService;
+  final LeaveRepo _leaveRepo;
 
-  UserLeaveDetailBloc(this._leaveService)
+  UserLeaveDetailBloc(this._leaveRepo)
       : super(UserLeaveDetailInitialState()) {
     on<FetchLeaveDetailEvent>(_fetchLeaveDetail);
     on<CancelLeaveApplicationEvent>(_cancelLeaveApplication);
@@ -22,7 +22,7 @@ class UserLeaveDetailBloc
       FetchLeaveDetailEvent event, Emitter<UserLeaveDetailState> emit) async {
     emit(UserLeaveDetailLoadingState());
     try {
-      Leave? leave = await _leaveService.fetchLeave(event.leaveId);
+      Leave? leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
       if (leave == null) {
         emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));
       } else {
@@ -41,7 +41,7 @@ class UserLeaveDetailBloc
       Emitter<UserLeaveDetailState> emit) async {
     emit(UserLeaveDetailLoadingState());
     try {
-      await _leaveService.updateLeaveStatus(id: event.leaveId,status: LeaveStatus.cancelled);
+      await _leaveRepo.updateLeaveStatus(leaveId: event.leaveId,status: LeaveStatus.cancelled);
       emit(UserCancelLeaveSuccessState());
     } on Exception {
       emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));

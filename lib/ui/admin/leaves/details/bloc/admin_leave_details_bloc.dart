@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import '../../../../../data/core/exception/error_const.dart';
-import '../../../../../data/services/leave_service.dart';
+import '../../../../../data/repo/leave_repo.dart';
 import '../../../../../data/services/mail_notification_service.dart';
 import 'admin_leave_details_event.dart';
 import 'admin_leave_details_state.dart';
@@ -10,11 +10,11 @@ import 'admin_leave_details_state.dart';
 @Injectable()
 class AdminLeaveDetailsBloc
     extends Bloc<AdminLeaveDetailsEvents, AdminLeaveDetailsState> {
-  final LeaveService _leaveService;
+  final LeaveRepo _leaveRepo;
   final NotificationService _notificationService;
 
   AdminLeaveDetailsBloc(
-    this._leaveService,
+    this._leaveRepo,
     this._notificationService,
   ) : super(const AdminLeaveDetailsState()) {
     on<AdminLeaveDetailsFetchLeaveCountEvent>(_fetchLeaveCounts);
@@ -27,7 +27,7 @@ class AdminLeaveDetailsBloc
     emit(state.copyWith(leaveCountStatus: Status.loading));
     try {
       double usedLeave =
-          await _leaveService.getUserUsedLeaves(event.employeeId);
+          await _leaveRepo.getUserUsedLeaves(uid: event.employeeId);
       emit(state.copyWith(
           leaveCountStatus: Status.success, usedLeaves: usedLeave));
     } on Exception {
@@ -40,8 +40,8 @@ class AdminLeaveDetailsBloc
       LeaveResponseEvent event, Emitter<AdminLeaveDetailsState> emit) async {
     emit(state.copyWith(actionStatus: Status.loading));
     try {
-      await _leaveService.updateLeaveStatus(
-          id: event.leaveId,
+      await _leaveRepo.updateLeaveStatus(
+          leaveId: event.leaveId,
           status: event.responseStatus,
           response: state.adminReply);
       await _notificationService.leaveResponse(

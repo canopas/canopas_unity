@@ -11,7 +11,7 @@ import 'package:projectunity/data/model/account/account.dart' as _i5;
 import 'package:projectunity/data/model/employee/employee.dart' as _i2;
 import 'package:projectunity/data/model/space/space.dart' as _i6;
 import 'package:projectunity/data/provider/user_state.dart' as _i3;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i8;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -209,6 +209,11 @@ class MockEmployeeRepo extends _i1.Mock implements _i8.EmployeeRepo {
         Invocation.getter(#employees),
         returnValue: _i4.Stream<List<_i2.Employee>>.empty(),
       ) as _i4.Stream<List<_i2.Employee>>);
+  @override
+  List<_i2.Employee> get allEmployees => (super.noSuchMethod(
+        Invocation.getter(#allEmployees),
+        returnValue: <_i2.Employee>[],
+      ) as List<_i2.Employee>);
   @override
   _i4.Stream<List<_i2.Employee>> get activeEmployees => (super.noSuchMethod(
         Invocation.getter(#activeEmployees),

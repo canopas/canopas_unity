@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/Repo/employee_repo.dart';
-import 'package:projectunity/data/Repo/leave_repo.dart';
+import 'package:projectunity/data/repo/employee_repo.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
@@ -60,9 +60,10 @@ void main() {
     });
 
     test("Fetch initial month leaves success state test", () {
-      when(employeeRepo.employees).thenAnswer((_)  => Stream.value([employee]));
-      when(leaveRepo.absence(focusDay)).thenAnswer((_)  => Stream.value([leave]));
-      bLoc.add(WhoIsOutInitialLoadEvent());
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.leaveByMonth(focusDay))
+          .thenAnswer((_) => Stream.value([leave]));
+      bLoc.add(FetchWhoIsOutCardLeaves());
 
       expect(
           bLoc.stream,
@@ -85,10 +86,9 @@ void main() {
     });
 
     test("Fetch initial month leaves failure state if exception thrown", () {
-      when(employeeRepo.employees).thenAnswer((_)  => Stream.value([employee]));
-      when(leaveRepo.absence(selectedDate))
-          .thenThrow(Exception("error"));
-      bLoc.add(WhoIsOutInitialLoadEvent());
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.leaveByMonth(selectedDate)).thenThrow(Exception("error"));
+      bLoc.add(FetchWhoIsOutCardLeaves());
 
       expect(
           bLoc.stream,
@@ -105,10 +105,12 @@ void main() {
           ]));
     });
 
-    test("Fetch initial month leaves failure state if stream has error test", () {
-      when(employeeRepo.employees).thenAnswer((_)  => Stream.value([employee]));
-      when(leaveRepo.absence(selectedDate)).thenAnswer((_)  => Stream.error(firestoreFetchDataError));
-      bLoc.add(WhoIsOutInitialLoadEvent());
+    test("Fetch initial month leaves failure state if stream has error test",
+        () {
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.leaveByMonth(selectedDate))
+          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      bLoc.add(FetchWhoIsOutCardLeaves());
 
       expect(
           bLoc.stream,
@@ -126,54 +128,75 @@ void main() {
     });
 
     test("Fetch more leave on month change test success state", () {
-      when(employeeRepo.employees).thenAnswer((_)  => Stream.value([employee]));
-      when(leaveRepo.absence(DateTime( focusDay.year, focusDay.month+1))).thenAnswer((_)  => Stream.value([leave]));
-      bLoc.add(FetchMoreLeaves(DateTime( focusDay.year, focusDay.month+1)));
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.leaveByMonth(DateTime(focusDay.year, focusDay.month + 1)))
+          .thenAnswer((_) => Stream.value([leave]));
+      bLoc.add(FetchWhoIsOutCardLeaves(
+          focusDay: DateTime(focusDay.year, focusDay.month + 1)));
       expect(
           bLoc.stream,
-          emits(
+          emitsInOrder([
             WhoIsOutCardState(
                 selectedDate: selectedDate,
-                focusDay: DateTime( focusDay.year, focusDay.month+1),
-                allAbsences: [
-                  LeaveApplication(employee: employee, leave: leave)
-                ],
-               ),
-          ));
-    });
-
-    test('Fetch more leave on month change test failure state if exception thrown', () {
-      when(employeeRepo.employees).thenAnswer((_)  => Stream.value([employee]));
-      when(leaveRepo.absence(DateTime( focusDay.year, focusDay.month+1))).thenAnswer((_)  => Stream.error(firestoreFetchDataError));
-      bLoc.add(FetchMoreLeaves(DateTime( focusDay.year, focusDay.month+1)));
-      expect(
-          bLoc.stream,
-          emits(
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                status: Status.loading),
             WhoIsOutCardState(
+              status: Status.success,
               selectedDate: selectedDate,
-              focusDay: DateTime( focusDay.year, focusDay.month+1),
-              error: firestoreFetchDataError,
-              status: Status.error
+              focusDay: DateTime(focusDay.year, focusDay.month + 1),
+              allAbsences: [LeaveApplication(employee: employee, leave: leave)],
+              selectedDayAbsences: [
+                LeaveApplication(employee: employee, leave: leave)
+              ],
             ),
-          ));
+          ]));
     });
 
-    test('Fetch more leave on month change test failure state if stream emit error', () {
-      when(employeeRepo.employees).thenAnswer((_)  => Stream.value([employee]));
-      when(leaveRepo.absence(DateTime( focusDay.year, focusDay.month+1))).thenAnswer((_)  => Stream.error(firestoreFetchDataError));
-      bLoc.add(FetchMoreLeaves(DateTime( focusDay.year, focusDay.month+1)));
+    test(
+        'Fetch more leave on month change test failure state if exception thrown',
+        () {
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.leaveByMonth(DateTime(focusDay.year, focusDay.month + 1)))
+          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      bLoc.add(FetchWhoIsOutCardLeaves(
+          focusDay: DateTime(focusDay.year, focusDay.month + 1)));
       expect(
           bLoc.stream,
-          emits(
+          emitsInOrder([
             WhoIsOutCardState(
                 selectedDate: selectedDate,
-                focusDay: DateTime( focusDay.year, focusDay.month+1),
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                status: Status.loading),
+            WhoIsOutCardState(
+                selectedDate: selectedDate,
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
                 error: firestoreFetchDataError,
-                status: Status.error
-            ),
-          ));
+                status: Status.error),
+          ]));
     });
 
+    test(
+        'Fetch more leave on month change test failure state if stream emit error',
+        () {
+      when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
+      when(leaveRepo.leaveByMonth(DateTime(focusDay.year, focusDay.month + 1)))
+          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      bLoc.add(FetchWhoIsOutCardLeaves(
+          focusDay: DateTime(focusDay.year, focusDay.month + 1)));
+      expect(
+          bLoc.stream,
+          emitsInOrder([
+            WhoIsOutCardState(
+                selectedDate: selectedDate,
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                status: Status.loading),
+            WhoIsOutCardState(
+                selectedDate: selectedDate,
+                focusDay: DateTime(focusDay.year, focusDay.month + 1),
+                error: firestoreFetchDataError,
+                status: Status.error),
+          ]));
+    });
 
     test("Change Calendar format test", () {
       bLoc.add(ChangeCalendarFormat(CalendarFormat.month));
@@ -189,5 +212,4 @@ void main() {
       bLoc.close();
     });
   });
-
 }

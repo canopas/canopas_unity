@@ -9,7 +9,7 @@ import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/space/space.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/leave_service.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_bloc.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_event.dart';
@@ -17,9 +17,9 @@ import 'package:projectunity/ui/user/leaves/apply_leave/bloc/apply_leave_state.d
 
 import 'apply_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserStateNotifier, NotificationService])
+@GenerateMocks([LeaveRepo, UserStateNotifier, NotificationService])
 void main() {
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late UserStateNotifier userStateNotifier;
   late ApplyLeaveBloc leaveRequestBloc;
   late NotificationService notificationService;
@@ -35,15 +35,15 @@ void main() {
 
   group("Leave Request Form view test", () {
     setUp(() {
-      leaveService = MockLeaveService();
+      leaveRepo = MockLeaveRepo();
       userStateNotifier = MockUserStateNotifier();
       notificationService = MockNotificationService();
       leaveRequestBloc =
-          ApplyLeaveBloc(userStateNotifier, leaveService, notificationService);
+          ApplyLeaveBloc(userStateNotifier, leaveRepo, notificationService);
 
       when(userStateNotifier.userUID).thenReturn("id");
       when(userStateNotifier.employeeId).thenReturn("id");
-      when(leaveService.getNewLeaveId()).thenReturn("new-leave-id");
+      when(leaveRepo.generateLeaveId).thenReturn("new-leave-id");
     });
 
     test("leave Type change test", () {
@@ -219,8 +219,8 @@ void main() {
     });
 
     test('on apply already leave applied error test', () async {
-      when(leaveService.checkLeaveAlreadyApplied(
-              userId: 'id',
+      when(leaveRepo.checkLeaveAlreadyApplied(
+              uid: 'id',
               dateDuration: currentDayMap.getSelectedLeaveOfTheDays(
                   startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => true);
@@ -251,7 +251,7 @@ void main() {
         perDayDuration: selectedDates.values.toList(),
       );
 
-      when(leaveService.applyForLeave(leave)).thenAnswer((_) async {});
+      when(leaveRepo.applyForLeave(leave: leave)).thenAnswer((_) async {});
       leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
@@ -289,8 +289,8 @@ void main() {
     });
 
     test('on apply success test', () async {
-      when(leaveService.checkLeaveAlreadyApplied(
-              userId: 'id',
+      when(leaveRepo.checkLeaveAlreadyApplied(
+              uid: 'id',
               dateDuration: currentDayMap.getSelectedLeaveOfTheDays(
                   startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => false);
@@ -336,7 +336,7 @@ void main() {
           ownerIds: const ["uid"],
           notificationEmail: "hr@canopas.com");
 
-      when(leaveService.applyForLeave(leave)).thenAnswer((_) async {});
+      when(leaveRepo.applyForLeave(leave: leave)).thenAnswer((_) async {});
       when(userStateNotifier.employee).thenReturn(employee);
       when(userStateNotifier.currentSpace).thenReturn(space);
       when(notificationService.notifyHRForNewLeave(

@@ -1,9 +1,5 @@
-abstract class UserLeaveEvents {}
+abstract class UserLeavesEvents {}
 
-class FetchUserLeaveEvent extends UserLeaveEvents {}
+class LoadInitialUserLeaves extends UserLeavesEvents {}
 
-class ChangeYearEvent extends UserLeaveEvents {
-  final int year;
-
-  ChangeYearEvent({required this.year});
-}
+class FetchMoreUserLeaves extends UserLeavesEvents {}

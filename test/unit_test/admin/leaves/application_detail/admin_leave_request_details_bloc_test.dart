@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/leave_service.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/mail_notification_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bloc.dart';
@@ -16,17 +16,17 @@ import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_st
 import 'admin_leave_request_details_bloc_test.mocks.dart';
 
 @GenerateMocks(
-    [LeaveService, UserStateNotifier, SpaceService, NotificationService])
+    [LeaveRepo, UserStateNotifier, SpaceService, NotificationService])
 void main() {
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late AdminLeaveDetailsBloc bloc;
   late NotificationService notificationService;
 
   setUp(() {
-    leaveService = MockLeaveService();
+    leaveRepo = MockLeaveRepo();
     notificationService = MockNotificationService();
     bloc = AdminLeaveDetailsBloc(
-        leaveService, notificationService);
+        leaveRepo, notificationService);
   });
 
   group('Leave Application Detail bloc', () {
@@ -42,7 +42,7 @@ void main() {
       test(
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
-        when(leaveService.getUserUsedLeaves('id')).thenAnswer((_) async => 10);
+        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenAnswer((_) async => 10);
         AdminLeaveDetailsState successState = const AdminLeaveDetailsState(
             adminReply: '',
             usedLeaves: 10,
@@ -57,7 +57,7 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause',
           () {
-        when(leaveService.getUserUsedLeaves('id')).thenThrow(Exception('error'));
+        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenThrow(Exception('error'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
             usedLeaves: 0,
@@ -165,8 +165,8 @@ void main() {
                 startDate: DateTime.now().dateOnly,
                 status: LeaveStatus.approved))
             .thenAnswer((realInvocation) async => true);
-        when(leaveService.updateLeaveStatus(
-                id: "leave-id", status: LeaveStatus.approved, response: ''))
+        when(leaveRepo.updateLeaveStatus(
+                leaveId: "leave-id", status: LeaveStatus.approved, response: ''))
             .thenThrow(Exception(firestoreFetchDataError));
         bloc.add(LeaveResponseEvent(
             name: "dummy",

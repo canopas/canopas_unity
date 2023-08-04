@@ -4,18 +4,18 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/account_service.dart';
 import 'package:projectunity/data/services/space_service.dart';
-import '../../../../../data/Repo/employee_repo.dart';
+import '../../../../../data/repo/employee_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
 import '../../../../../data/model/employee/employee.dart';
+import '../../../../../data/repo/leave_repo.dart';
 import '../../../../../data/services/employee_service.dart';
-import '../../../../../data/services/leave_service.dart';
 import 'employee_detail_event.dart';
 import 'employee_detail_state.dart';
 
 @Injectable()
 class EmployeeDetailBloc
     extends Bloc<EmployeeDetailEvent, AdminEmployeeDetailState> {
-  final LeaveService _leaveService;
+  final LeaveRepo _leaveRepo;
   final EmployeeService _employeeService;
   final EmployeeRepo _employeeRepo;
   final UserStateNotifier _userManager;
@@ -27,7 +27,7 @@ class EmployeeDetailBloc
       this._spaceService,
       this._userManager,
       this._employeeService,
-      this._leaveService,
+      this._leaveRepo,
       this._employeeRepo)
       : super(EmployeeDetailInitialState()) {
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
@@ -39,7 +39,7 @@ class EmployeeDetailBloc
     emit(EmployeeDetailLoadingState());
     try {
       final double usedLeaves =
-          await _leaveService.getUserUsedLeaves(event.employeeId);
+          await _leaveRepo.getUserUsedLeaves(uid: event.employeeId);
       final int totalLeaves = await _spaceService.getPaidLeaves(
           spaceId: _userManager.currentSpaceId!);
       double percentage = 0.0;

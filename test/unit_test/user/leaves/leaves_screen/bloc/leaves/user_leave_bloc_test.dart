@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:projectunity/data/Repo/leave_repo.dart';
+import 'package:projectunity/data/core/extensions/list.dart';
+import 'package:projectunity/data/model/pagination/pagination.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
@@ -13,7 +16,7 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave
 
 import 'user_leave_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveRepo, UserStateNotifier])
+@GenerateMocks([LeaveRepo, UserStateNotifier, DocumentSnapshot])
 void main() {
   late LeaveRepo leaveRepo;
   late UserStateNotifier userStateNotifier;
@@ -22,7 +25,7 @@ void main() {
   const String employeeId = 'CA 1044';
   DateTime today = DateTime.now().dateOnly;
 
-  Leave upcomingLeave = Leave(
+  Leave initialLeave = Leave(
       leaveId: 'Leave Id',
       uid: "user id",
       type: LeaveType.sickLeave,
@@ -37,7 +40,7 @@ void main() {
         LeaveDayDuration.firstHalfLeave
       ]);
 
-  Leave pastLeave = Leave(
+  Leave moreLeave = Leave(
       leaveId: 'Leave-Id',
       uid: "user id",
       type: LeaveType.sickLeave,
@@ -49,99 +52,159 @@ void main() {
       appliedOn: today,
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
-  Leave specificYearLeave = Leave(
-      leaveId: 'Leave-Id',
-      uid: "user id",
-      type: LeaveType.sickLeave,
-      startDate: DateTime(2022),
-      endDate: DateTime(2022),
-      total: 1,
-      reason: 'Suffering from viral fever',
-      status: LeaveStatus.approved,
-      appliedOn: today,
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+  group('User Leaves Test', () {
+    group('User Leave initial fetch data test', () {
+      final lastDoc = MockDocumentSnapshot<Leave>();
 
-  setUp(() {
-    leaveRepo = MockLeaveRepo();
-    userStateNotifier = MockUserStateNotifier();
-    bloc = UserLeaveBloc(userStateNotifier, leaveRepo);
-  });
+      setUp(() {
+        leaveRepo = MockLeaveRepo();
+        userStateNotifier = MockUserStateNotifier();
+        bloc = UserLeaveBloc(userStateNotifier, leaveRepo);
+      });
 
-  tearDown(() async {
-    await bloc.close();
-  });
+      tearDown(() async {
+        await bloc.close();
+      });
 
-  group('UserLeaveBloc stream test', () {
-    test('Emits loading state as initial state of UserLeavesBloc', () {
-      expect(
-          bloc.state,
-          UserLeaveState(
-              selectedYear: DateTime.now().year,
-              leaves: const [],
-              error: null,
-              status: Status.initial));
+      test('Emits initial state of UserLeavesBloc', () {
+        expect(
+            bloc.state,
+            const UserLeaveState(
+                fetchMoreDataStatus: Status.initial,
+                leavesMap: {},
+                error: null,
+                status: Status.initial));
+      });
+
+      test('Load initial leave success test', () {
+        when(userStateNotifier.employeeId).thenReturn(employeeId);
+        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
+            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        bloc.add(LoadInitialUserLeaves());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              const UserLeaveState(status: Status.loading),
+              UserLeaveState(
+                  status: Status.success,
+                  leavesMap: [initialLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+            ]));
+      });
+
+      test('Load initial leave failure test', () {
+        when(userStateNotifier.employeeId).thenReturn(employeeId);
+        when(leaveRepo.leaves(uid: employeeId)).thenThrow(Exception('error'));
+        bloc.add(LoadInitialUserLeaves());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              const UserLeaveState(status: Status.loading),
+              const UserLeaveState(
+                  status: Status.error, error: firestoreFetchDataError),
+            ]));
+      });
     });
+    group('User Leave fetch more data success test', () {
+      final lastDoc = MockDocumentSnapshot<Leave>();
+      final moreDataLastDoc = MockDocumentSnapshot<Leave>();
 
-    test(
-        'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
-        () {
-      bloc.add(FetchUserLeaveEvent());
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeaves(employeeId)).thenAnswer(
-          (_) => Stream.value([pastLeave, upcomingLeave, specificYearLeave]));
-      expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserLeaveState(status: Status.loading),
-            UserLeaveState(
-                status: Status.success, leaves: [upcomingLeave, pastLeave]),
-          ]));
+      setUpAll(() {
+        leaveRepo = MockLeaveRepo();
+        userStateNotifier = MockUserStateNotifier();
+        bloc = UserLeaveBloc(userStateNotifier, leaveRepo);
+      });
+
+      tearDownAll(() async {
+        await bloc.close();
+      });
+
+      test('Load initial leave success test', () {
+        when(userStateNotifier.employeeId).thenReturn(employeeId);
+        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
+            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        bloc.add(LoadInitialUserLeaves());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              const UserLeaveState(status: Status.loading),
+              UserLeaveState(
+                  status: Status.success,
+                  leavesMap: [initialLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+            ]));
+      });
+
+      test('fetch more data leave success test', () {
+        when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc)).thenAnswer(
+            (_) async =>
+                PaginatedLeaves(leaves: [moreLeave], lastDoc: moreDataLastDoc));
+        bloc.add(FetchMoreUserLeaves());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              UserLeaveState(
+                  fetchMoreDataStatus: Status.loading,
+                  status: Status.success,
+                  leavesMap: [initialLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+              UserLeaveState(
+                  fetchMoreDataStatus: Status.success,
+                  status: Status.success,
+                  leavesMap: [initialLeave, moreLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+            ]));
+      });
     });
+    group('User Leave fetch more data failure test', () {
+      final lastDoc = MockDocumentSnapshot<Leave>();
 
-    test('Emits error state when Exception is thrown', () {
-      bloc.add(FetchUserLeaveEvent());
+      setUpAll(() {
+        leaveRepo = MockLeaveRepo();
+        userStateNotifier = MockUserStateNotifier();
+        bloc = UserLeaveBloc(userStateNotifier, leaveRepo);
+      });
 
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeaves(employeeId)).thenThrow(Exception('error'));
-      expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserLeaveState(status: Status.loading),
-            UserLeaveState(error: firestoreFetchDataError, status: Status.error)
-          ]));
-    });
+      tearDownAll(() async {
+        await bloc.close();
+      });
 
-    test('Emits error state when stream have any error', () {
-      bloc.add(FetchUserLeaveEvent());
+      test('Load initial leave success test', () {
+        when(userStateNotifier.employeeId).thenReturn(employeeId);
+        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
+            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        bloc.add(LoadInitialUserLeaves());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              const UserLeaveState(status: Status.loading),
+              UserLeaveState(
+                  status: Status.success,
+                  leavesMap: [initialLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+            ]));
+      });
 
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeaves(employeeId))
-          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-      expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserLeaveState(status: Status.loading),
-            UserLeaveState(error: firestoreFetchDataError, status: Status.error)
-          ]));
-    });
-
-    test('change year and show year wise leave test', () {
-      bloc.add(FetchUserLeaveEvent());
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeaves(employeeId)).thenAnswer(
-          (_) => Stream.value([pastLeave, upcomingLeave, specificYearLeave]));
-      bloc.add(ChangeYearEvent(year: 2022));
-      expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserLeaveState(status: Status.loading),
-            UserLeaveState(
-                status: Status.success, leaves: [upcomingLeave, pastLeave]),
-            UserLeaveState(
-                status: Status.success,
-                leaves: [specificYearLeave],
-                selectedYear: 2022),
-          ]));
+      test('fetch more data leave success test', () {
+        when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc))
+            .thenThrow(Exception('error'));
+        bloc.add(FetchMoreUserLeaves());
+        expectLater(
+            bloc.stream,
+            emitsInOrder([
+              UserLeaveState(
+                  fetchMoreDataStatus: Status.loading,
+                  status: Status.success,
+                  leavesMap: [initialLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+              UserLeaveState(
+                  fetchMoreDataStatus: Status.error,
+                  error: firestoreFetchDataError,
+                  status: Status.success,
+                  leavesMap: [initialLeave]
+                      .groupByMonth((element) => element.appliedOn)),
+            ]));
+      });
     });
   });
 }

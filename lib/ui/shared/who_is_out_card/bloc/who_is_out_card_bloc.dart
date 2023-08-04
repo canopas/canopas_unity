@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/stream_extension.dart';
-import '../../../../data/Repo/employee_repo.dart';
-import '../../../../data/Repo/leave_repo.dart';
+import '../../../../data/repo/employee_repo.dart';
+import '../../../../data/repo/leave_repo.dart';
 import '../../../../data/core/exception/error_const.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/leave/leave.dart';
@@ -17,6 +17,7 @@ import 'who_is_out_card_state.dart';
 class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   final EmployeeRepo _employeeRepo;
   final LeaveRepo _leaveRepo;
+  StreamSubscription? _subscription;
 
   WhoIsOutCardBloc(
     this._employeeRepo,
@@ -24,49 +25,33 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   ) : super(WhoIsOutCardState(
             selectedDate: DateTime.now().dateOnly,
             focusDay: DateTime.now().dateOnly)) {
-    on<WhoIsOutInitialLoadEvent>(initialLoad);
+    on<FetchWhoIsOutCardLeaves>(_fetchWhoIsOutCardLeaves);
     on<ChangeCalendarDate>(_changeCalendarDate);
     on<ChangeCalendarFormat>(_changeCalendarFormat);
-    on<FetchMoreLeaves>(_fetchMoreLeavesEvent);
+    on<ShowCalendarData>(_showCalendarData);
+    on<ShowCalendarError>(_showCalendarError);
   }
 
-  FutureOr<void> initialLoad(
-      WhoIsOutInitialLoadEvent event, Emitter<WhoIsOutCardState> emit) async {
-    emit(state.copyWith(status: Status.loading));
+  FutureOr<void> _fetchWhoIsOutCardLeaves(
+      FetchWhoIsOutCardLeaves event, Emitter<WhoIsOutCardState> emit) async {
+    emit(state.copyWith(
+        status: state.selectedDayAbsences == null ? Status.loading : null,
+        focusDay: event.focusDay));
     try {
-      return emit.forEach(
-        getLeaveApplicationStream(
-            leaveStream: _leaveRepo.absence(state.focusDay),
-            membersStream: _employeeRepo.employees),
-        onData: (List<LeaveApplication> leaveApplications) => state.copyWith(
-            allAbsences: leaveApplications,
-            status: Status.success,
-            selectedDayAbsences: getSelectedDateAbsences(
-                date: state.selectedDate, allAbsences: leaveApplications)),
-        onError: (error, stackTrace) =>
-            state.copyWith(status: Status.error, error: firestoreFetchDataError),
-      );
+      if (_subscription != null) {
+        await _subscription?.cancel();
+      }
+      _subscription = getLeaveApplicationStream(
+              leaveStream:
+                  _leaveRepo.leaveByMonth(event.focusDay ?? state.focusDay),
+              membersStream: _employeeRepo.employees)
+          .listen((List<LeaveApplication> leaveApplications) {
+        add(ShowCalendarData(leaveApplications));
+      }, onError: (error, _) {
+        add(ShowCalendarError());
+      });
     } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
-    }
-  }
-
-  FutureOr<void> _fetchMoreLeavesEvent(
-      FetchMoreLeaves event, Emitter<WhoIsOutCardState> emit) async {
-    try {
-      return emit.forEach(
-        getLeaveApplicationStream(
-            leaveStream: _leaveRepo.absence(event.date),
-            membersStream: _employeeRepo.employees),
-        onData: (List<LeaveApplication> leaveApplications) => state.copyWith(
-            allAbsences: leaveApplications, focusDay: event.date),
-        onError: (error, stackTrace) =>
-            state.copyWith(status: Status.error, error: firestoreFetchDataError,focusDay: event.date),
-      );
-    } on Exception {
-      emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError, focusDay: event.date));
+      add(ShowCalendarError());
     }
   }
 
@@ -83,6 +68,21 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
     emit(state.copyWith(calendarFormat: event.calendarFormat));
   }
 
+  void _showCalendarData(
+      ShowCalendarData event, Emitter<WhoIsOutCardState> emit) async {
+    emit(state.copyWith(
+        status: Status.success,
+        allAbsences: event.allAbsence,
+        selectedDayAbsences: state.selectedDayAbsences ??
+            getSelectedDateAbsences(
+                date: state.selectedDate, allAbsences: event.allAbsence)));
+  }
+
+  void _showCalendarError(
+      ShowCalendarError event, Emitter<WhoIsOutCardState> emit) async {
+    emit(state.copyWith(status: Status.error, error: firestoreFetchDataError));
+  }
+
   List<LeaveApplication> getSelectedDateAbsences(
       {required DateTime date, required List<LeaveApplication> allAbsences}) {
     return allAbsences
@@ -91,5 +91,11 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
             la.leave.getDateAndDuration()[date.dateOnly] !=
                 LeaveDayDuration.noLeave)
         .toList();
+  }
+
+  @override
+  Future<void> close() async {
+    await _subscription?.cancel();
+    return super.close();
   }
 }

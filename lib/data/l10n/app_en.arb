@@ -2,56 +2,53 @@
   "language": "English",
   "appTitle": "Unity",
 
-  "sign_in_description_text":"Help you to manage your office leaves and employees easily with unity.",
-  "sign_in_title_text":"Effortless Leave\nManagement with Unity",
+  "sign_in_description_text": "Help you to manage your office leaves and employees easily with unity.",
+  "sign_in_title_text": "Effortless Leave\nManagement with Unity",
   "login_button_text": "Sign in with Google",
-  "company_name":"Canopas Software",
-  "company_subtitle":"www.canopas.com",
+  "company_name": "Canopas Software",
+  "company_subtitle": "www.canopas.com",
 
+  "settings_tag": "Settings",
+  "members_tag": "Members",
+  "leaves_tag": "Leaves",
 
+  "recent_tag": "Recent",
+  "past_tag": "Past",
+  "upcoming_tag": "Upcoming",
 
+  "deactivate_tag": "Deactivate",
+  "activate_tag": "Activate",
 
-    "settings_tag": "Settings",
-    "members_tag": "Members",
-    "leaves_tag": "Leaves",
-
-
-
-  "recent_tag":"Recent",
-  "past_tag":"Past",
-  "upcoming_tag":"Upcoming",
-   "delete_button_tag":"Delete",
-  "deactivate_tag":"Deactivate",
-  "activate_tag":"Activate",
-  "save_tag":"Save",
-  "edit_tag":"Edit",
-  "reason_tag":"Reason",
-  "details_tag":"Details",
+  "delete_button_tag": "Delete",
+  "save_tag": "Save",
+  "edit_tag": "Edit",
+  "reason_tag": "Reason",
+  "details_tag": "Details",
   "sign_out_tag": "Sign Out",
   "update_tag": "Update",
   "or_tag": "OR",
-  "space_tag":"Space",
-  "next_tag":"Next",
-  "back_tag":"Back",
-  "add_tag":"Add",
-  "request_tag":"Requests",
-  "alert_cancel_action":"Cancel",
-  "all_tag":"All",
-  "ok_tag":"OK",
+  "space_tag": "Space",
+  "next_tag": "Next",
+  "back_tag": "Back",
+  "add_tag": "Add",
+  "request_tag": "Requests",
+  "alert_cancel_action": "Cancel",
+  "all_tag": "All",
+  "ok_tag": "OK",
 
-  "spaces_title":"Spaces",
-  "delete_space_text":"Delete Space",
-  "delete_dialog_description_text":"Are you sure you want to permanently delete space?",
-  "change_space_tag":"Change Space",
-  "company_name_tag":"Company Name",
-  "create_space_Website_url_label":"Website URL (Optional)",
-  "create_new_space_title":"Create New Space",
+  "spaces_title": "Spaces",
+  "delete_space_text": "Delete Space",
+  "delete_dialog_description_text": "Are you sure you want to permanently delete space?",
+  "change_space_tag": "Change Space",
+  "company_name_tag": "Company Name",
+  "create_space_Website_url_label": "Website URL (Optional)",
+  "create_new_space_title": "Create New Space",
   "create_own_space_title": "Want to create your own space?",
-  "welcome_to_unity_text":"Welcome To Unity",
+  "welcome_to_unity_text": "Welcome To Unity",
   "spaces_list_title": "Spaces for {email}",
-  "@spaces_list_title":{
+  "@spaces_list_title": {
     "placeholders": {
-      "email":{
+      "email": {
         "type": "String"
       }
     }
@@ -60,330 +57,330 @@
   "edit_space_button_tag": "Edit Space",
   "view_profile_button_tag": "View Profile",
 
-  "empty_space_list_msg":"Looks like you haven't been added to any organizations yet. Please contact your administrator to get started.",
+  "empty_space_list_msg": "Looks like you haven't been added to any organizations yet. Please contact your administrator to get started.",
 
-  "create_space_tag":"Create Space",
-  "create_space_tab_1_tag":"Space Details",
-  "create_space_tab_2_tag":"Space SetUp",
-  "create_space_tab_3_tag":"Personal Details",
-  "create_space_enter_space_details_text":"Enter Space Details",
-  "create_space_set_up_your_space_text":"Set up Your Space",
-  "create_space_enter_your_details_text":"Enter Your Details",
-  "create_space_enter_your_name_hint_text":"Your Name",
-  "create_space_invalid_time_off_error":"Please enter valid input",
-  "create_space_invalid_name_error":"Please enter valid name",
-  "create_space_invalid_website_url_error":"Please enter valid website url",
+  "create_space_tag": "Create Space",
+  "create_space_tab_1_tag": "Space Details",
+  "create_space_tab_2_tag": "Space SetUp",
+  "create_space_tab_3_tag": "Personal Details",
+  "create_space_enter_space_details_text": "Enter Space Details",
+  "create_space_set_up_your_space_text": "Set up Your Space",
+  "create_space_enter_your_details_text": "Enter Your Details",
+  "create_space_enter_your_name_hint_text": "Your Name",
+  "create_space_invalid_time_off_error": "Please enter valid input",
+  "create_space_invalid_name_error": "Please enter valid name",
+  "create_space_invalid_website_url_error": "Please enter valid website url",
 
-  "empty_change_space_title":"No spaces",
-  "empty_change_space_description":"You don't have any other space.",
+  "empty_change_space_title": "No spaces",
+  "empty_change_space_description": "You don't have any other space.",
 
   "days_placeholder_leave": "{leave,plural,=0{{leave} Day Application} =1{{leave} Day Application} other{{leave} Days Application}}",
-  "@days_placeholder_leave":{
+  "@days_placeholder_leave": {
     "description": "Pass the value of leaves for leave days",
     "placeholders": {
-      "leave":{
+      "leave": {
         "type": "int"
       }
     }
   },
 
-
   "page_not_found_error_code": "404",
   "page_not_found_error_title": "page not found!",
   "page_not_found_error_message": "It looks like we can't find the page you're looking for!",
 
-
- "leave_type_placeholder_text":"{leaveType, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave} other{other}}",
-  "@leave_type_placeholder_text":{
-    "description":"get leave type from leave status",
-    "placeholders":{
-      "leaveType":{
-        "type":"String"
+  "leave_type_placeholder_text": "{leaveType, select, 0{Casual Leave} 1{Sick Leave} 2{Annual Leave} 3{Paternity Leave} 4{Maternity Leave} 5{Marriage Leave} 6{Bereavement Leave} other{other}}",
+  "@leave_type_placeholder_text": {
+    "description": "get leave type from leave status",
+    "placeholders": {
+      "leaveType": {
+        "type": "String"
       }
     }
   },
-      "leave_status_placeholder_text":"{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} 4{Cancelled} other{other}}",
-      "@leave_status_placeholder_text":{
-        "description":"get leave type from leave status",
-        "placeholders":{
-          "leaveStatus":{
-            "type":"String"
-          }
-        }
-      },
+  "leave_status_placeholder_text": "{leaveStatus, select, 1{Pending} 2{Approved} 3{Rejected} 4{Cancelled} other{other}}",
+  "@leave_status_placeholder_text": {
+    "description": "get leave type from leave status",
+    "placeholders": {
+      "leaveStatus": {
+        "type": "String"
+      }
+    }
+  },
 
   "user_detail_role_type": "{role, select, admin{Admin} employee{Employee} hr{HR} other{other}}",
-  "@user_detail_role_type":{
+  "@user_detail_role_type": {
     "description": "Pass the value of role to get role of user",
     "placeholders": {
-      "role":{
+      "role": {
         "type": "String"
       }
     }
   },
 
+  "dateFormatter_yesterday": "Yesterday",
+  "dateFormatter_today": "Today",
+  "dateFormatter_just_now": "Just now",
+  "dateFormatter_first_half_day": "First Half Day",
+  "dateFormatter_second_half_day": "Second Half Day",
+  "dateFormatter_full_day": "Full Day",
 
-
- "dateFormatter_yesterday":"Yesterday",
-  "dateFormatter_today":"Today",
-  "dateFormatter_just_now":"Just now",
-  "dateFormatter_first_half_day":"First Half Day",
-  "dateFormatter_second_half_day":"Second Half Day",
-  "dateFormatter_full_day":"Full Day",
-  "dateFormatter_placeholder_other_days":"{totalLeave} Days",
-  "@dateFormatter_placeholder_other_days":{
-    "description":"define total leave count more than one day",
-    "placeholders":{
-      "totalLeave":{
-        "type":"double",
-        "format":"decimalPattern"
+  "dateFormatter_placeholder_other_days": "{totalLeave} Days",
+  "@dateFormatter_placeholder_other_days": {
+    "description": "define total leave count more than one day",
+    "placeholders": {
+      "totalLeave": {
+        "type": "double",
+        "format": "decimalPattern"
       }
     }
   },
-  "year_tag":"Year",
-  "year_ago_tag":"year ago",
-  "years_ago_tag":"years ago",
-  "month_ago_tag":"month ago",
-  "months_ago_tag":"months ago",
-  "week_ago_tag":"week ago",
-  "weeks_ago_tag":"weeks ago",
-  "day_ago_tag":"day ago",
-  "days_ago_tag":"days ago",
-  "hour_ago_tag":"hour ago",
-  "hours_ago_tag":"hours ago",
-  "minute_ago_tag":"minute ago",
-  "minutes_ago_tag":"minutes ago",
-  "dateFormatter_tomorrow":"Tomorrow",
-  "date_formatter_leave_request_total_half_day_text":"Leave request is for half day",
-  "date_formatter_leave_request_total_zero_day_text":"Leave request is for 0 day",
-  "date_formatter_leave_request_total_one_day_text":"Leave request is for 1 day",
-  "date_formatter_leave_request_total_days_text":"Leave request is for {day} days",
-  "@date_formatter_leave_request_total_days_text":{
-     "placeholders":{
-        "day":{
-          "type":"double",
-          "format":"decimalPattern"
-          }
-        }
-      },
-      "date_format_yMMMd": "{date}",
-      "@date_format_yMMMd":{
-        "placeholders":{
-          "date":{
-            "type":"DateTime",
-            "format": "yMMMd"
-            }
-          }
-        },
 
+  "year_tag": "Year",
+  "year_ago_tag": "year ago",
+  "years_ago_tag": "years ago",
+  "month_ago_tag": "month ago",
+  "months_ago_tag": "months ago",
+  "week_ago_tag": "week ago",
+  "weeks_ago_tag": "weeks ago",
+  "day_ago_tag": "day ago",
+  "days_ago_tag": "days ago",
+  "hour_ago_tag": "hour ago",
+  "hours_ago_tag": "hours ago",
+  "minute_ago_tag": "minute ago",
+  "minutes_ago_tag": "minutes ago",
+  "dateFormatter_tomorrow": "Tomorrow",
+  "date_formatter_leave_request_total_half_day_text": "Leave request is for half day",
+  "date_formatter_leave_request_total_zero_day_text": "Leave request is for 0 day",
+  "date_formatter_leave_request_total_one_day_text": "Leave request is for 1 day",
+
+  "date_formatter_leave_request_total_days_text": "Leave request is for {day} days",
+  "@date_formatter_leave_request_total_days_text": {
+    "placeholders": {
+      "day": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  },
+
+  "date_format_yMMMd": "{date}",
+  "@date_format_yMMMd": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+
+  "date_format_yMMMM": "{date}",
+  "@date_format_yMMMM": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMM"
+      }
+    }
+  },
   "leave_day_duration_tag": "{dayDuration, select, fullLeave{Full Leave} firstHalfLeave{First-half} secondHalfLeave{Second-half} noLeave{No Leave} other{Other}}",
-  "@leave_day_duration_tag":{
+  "@leave_day_duration_tag": {
     "description": "Pass name of LeaveDayDuration enum for get string",
     "placeholders": {
-      "dayDuration":{
+      "dayDuration": {
         "type": "String"
       }
     }
   },
 
-   "leave_calendar_title": "Leave Calendar",
-    "range_leave_calendar_title": "User Leave Calendar",
-    "calendar_no_leave_msg": "There is no leave on {date}",
-    "@calendar_no_leave_msg":{
-      "placeholders":{
-        "date":{
-          "type":"DateTime",
-          "format": "yMMMd"
-        }
+  "leave_calendar_title": "Leave Calendar",
+  "range_leave_calendar_title": "User Leave Calendar",
+  "calendar_no_leave_msg": "There is no leave on {date}",
+  "@calendar_no_leave_msg": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
       }
-    },
+    }
+  },
 
-    "range_calendar_no_leave_msg": "There is no leave on\n{startDate} to {endDate}",
-    "@range_calendar_no_leave_msg":{
-      "placeholders":{
-        "startDate":{
-          "type":"DateTime",
-          "format": "yMMMd"
-        },
-        "endDate":{
-          "type":"DateTime",
-          "format": "yMMMd"
-        }
+  "range_calendar_no_leave_msg": "There is no leave on\n{startDate} to {endDate}",
+  "@range_calendar_no_leave_msg": {
+    "placeholders": {
+      "startDate": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      },
+      "endDate": {
+        "type": "DateTime",
+        "format": "yMMMd"
       }
-    },
+    }
+  },
 
   "who_is_out_card_no_leave_present_title": "All Hands on Deck",
   "who_is_out_card_no_leave_present_message": "Not a single beach umbrella in sight, all workstations full!",
 
-  "who_is_out_card_see_all_button_tag":"See All",
+  "who_is_out_card_see_all_button_tag": "See All",
   "who_is_out_card_title": "Who is out of office?",
 
-  "state_controller_access_revoked_alert_dialogue_title":"Access revoked",
-  "state_controller_access_revoked_alert_dialogue_subtitle":"You no longer have access to this space",
-
+  "state_controller_access_revoked_alert_dialogue_title": "Access revoked",
+  "state_controller_access_revoked_alert_dialogue_subtitle": "You no longer have access to this space",
 
   "empty_request_message": "Everything is sorted out! Relax!!",
-  "empty_request_title":"No Pending Leave Requests",
+  "empty_request_title": "No Pending Leave Requests",
 
-  "admin_home_absence_tag":"Absence",
+  "admin_home_absence_tag": "Absence",
+  "admin_home_invite_member_appbar_tag": "Invite Member",
+  "invite_tag": "Invite",
+  "admin_home_invite_member_hint_text": "Add member by email",
+  "admin_home_invite_member_error_email": "Please enter valid email",
+  "member_already_invited_error": "Member already invited!",
 
-    "admin_home_invite_member_appbar_tag":"Invite Member",
-    "invite_tag" :"Invite",
-    "admin_home_invite_member_hint_text":"Add member by email",
-    "admin_home_invite_member_error_email":"Please enter valid email",
-    "member_already_invited_error": "Member already invited!",
-   "admin_home_invite_Button_tag":"Invite",
+  "admin_home_add_member_error_email": "Please enter valid email",
+  "admin_home_add_member_error_name": "Name is too short!!",
+  "admin_home_add_member_complete_mandatory_field_error": "Please complete this mandatory field",
+  "admin_home_add_member_employee_added_message": "An employee has been added successfully!!",
+  "admin_home_add_member_submit_button_tag": "Submit",
+  "admin_home_add_member_designation_tag": "Designation",
+  "admin_home_add_member_addMember_tag": "Add Member",
+  "admin_home_add_member_name_hint_text": "Andrew Jhone",
+  "admin_home_add_member_employee_id_hint_text": "CA 1001",
+  "admin_home_add_member_email_hint_text": "andrew@canopas.com",
+  "admin_home_add_member_designation_hint_text": "Android developer",
+  "admin_home_add_member_level_hint_text": "SW-L1 Junior engineer",
+  "admin_home_add_member_mobile_number_hint_text": "+91 123456-7890",
+  "admin_home_add_member_blood_group_hint_text": "B+",
+  "admin_home_add_member_address_hint_text": "552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
+  "search_employee_tag": "Search employee",
+  "empty_leaves_message": "There is no any leaves, yet",
 
-    "admin_home_add_member_error_email":"Please enter valid email",
-    "admin_home_add_member_error_name": "Name is too short!!",
-    "admin_home_add_member_complete_mandatory_field_error": "Please complete this mandatory field",
-    "admin_home_add_member_employee_added_message" : "An employee has been added successfully!!",
-    "admin_home_add_member_submit_button_tag":"Submit",
-    "admin_home_add_member_designation_tag":"Designation",
-    "admin_home_add_member_addMember_tag":"Add Member",
-    "admin_home_add_member_name_hint_text":"Andrew Jhone",
-    "admin_home_add_member_employee_id_hint_text":"CA 1001",
-    "admin_home_add_member_email_hint_text":"andrew@canopas.com",
-    "admin_home_add_member_designation_hint_text":"Android developer",
-    "admin_home_add_member_level_hint_text":"SW-L1 Junior engineer",
-    "admin_home_add_member_mobile_number_hint_text":"+91 123456-7890",
-    "admin_home_add_member_blood_group_hint_text":"B+",
-    "admin_home_add_member_address_hint_text":"552_554, Laxmi Enclave-2, Katargam, surat-395004",
-
-  "search_employee_tag":"Search employee",
-  "empty_leaves_message":"There is no any leaves, yet",
-
-  "admin_leave_detail_enter_reason_tag":"Enter Message",
+  "admin_leave_detail_enter_reason_tag": "Enter Message",
   "admin_leave_detail_note_tag": "Note",
-  "admin_leave_detail_reject_button_tag":"Reject",
-  "admin_leave_detail_approve_button_tag":"Approve",
+  "admin_leave_detail_reject_button_tag": "Reject",
+  "admin_leave_detail_approve_button_tag": "Approve",
 
-  "admin_employee_detail_profile_tag":"Profile",
-  "admin_employees_detail_time_off_tag":"Time Off",
+  "admin_employee_detail_profile_tag": "Profile",
+  "admin_employees_detail_time_off_tag": "Time Off",
 
-  "invited_members_title":"Invited members",
-  "inactive_members_title":"Inactive members",
+  "invited_members_title": "Invited members",
+  "inactive_members_title": "Inactive members",
 
-  "admin_setting_update_leave_total_leaves_tag":"Total Leaves",
-  "yearly_paid_time_off_tag":"Yearly Paid Time-Off",
-  "hr_leave_record_tag":"Leave Record",
+  "admin_setting_update_leave_total_leaves_tag": "Total Leaves",
+  "yearly_paid_time_off_tag": "Yearly Paid Time-Off",
+  "hr_leave_record_tag": "Leave Record",
 
-  "leave_notification_email_tag":"Leave notification email",
+  "leave_notification_email_tag": "Leave notification email",
 
-  "user_leave_apply_tag":"Apply",
-  "user_leave_used_leaves_tag":"Used Leaves",
-  "user_leave_past_leaves_tag":"Past Leaves",
-  "user_leave_upcoming_leaves_tag":"Upcoming Leaves",
-  "user_leave_show_less_tag":"Show less",
-  "user_leave_view_more_tag":"View more",
+  "user_leave_apply_tag": "Apply",
+  "user_leave_used_leaves_tag": "Used Leaves",
+  "user_leave_past_leaves_tag": "Past Leaves",
+  "user_leave_upcoming_leaves_tag": "Upcoming Leaves",
+  "user_leave_show_less_tag": "Show less",
+  "user_leave_view_more_tag": "View more",
   "no_leaves_tag": "No Leaves!",
   "user_leave_empty_screen_message": "Are you secretly a superhero?",
 
-
-  "user_leaves_apply_appbar_tag":"Leave Request",
-  "user_leaves_apply_enter_reason_tag":"Enter reason",
-  "user_leaves_apply_leave_type_tag":"Type",
+  "user_leaves_apply_appbar_tag": "Leave Request",
+  "user_leaves_apply_enter_reason_tag": "Enter reason",
+  "user_leaves_apply_leave_type_tag": "Type",
   "user_leaves_apply_leave_start_tag": "Start",
   "user_leaves_apply_leave_end_tag": "End",
   "user_leaves_apply_leave_button_tag": "Apply Leave",
   "user_leaves_apply_leave_error_message_fill_details": "Please fill all details",
   "user_leaves_apply_leave_error_valid_reason": " • Please enter valid reason",
-  "user_leaves_apply_leave_success_message":"You've successfully applied!",
+  "user_leaves_apply_leave_success_message": "You've successfully applied!",
 
-   "cancel_button_tag":"Cancel",
-   "cancel_leave_message":"Leave is cancelled successfully!",
+  "cancel_button_tag": "Cancel",
+  "cancel_leave_message": "Leave is cancelled successfully!",
 
   "user_settings_edit_select_tag": "Select",
-  "user_setting_take_photo_tag":"Take Photo",
-  "user_setting_gallery_tag":"Gallery",
+  "user_setting_take_photo_tag": "Take Photo",
+  "user_setting_gallery_tag": "Gallery",
 
+  "employee_designation_tag": "Designation",
+  "employee_blood_group_tag": "Blood Group",
+  "employee_role_tag": "Role",
+  "employee_mobile_tag": "Mobile",
+  "employee_email_tag": "Email",
+  "employee_address_tag": "Address",
+  "employee_gender_tag": "Gender",
+  "employee_dateOfBirth_tag": "Date Of Birth",
+  "employee_dateOfJoin_tag": "Date of Joining",
+  "employee_level_tag": "Level",
+  "employee_employeeID_tag": "Employee Id",
+  "employee_name_tag": "Name",
 
-  "employee_designation_tag":"Designation",
-  "employee_blood_group_tag":"Blood Group",
-  "employee_role_tag":"Role",
-  "employee_mobile_tag":"Mobile",
-  "employee_email_tag":"Email",
-  "employee_address_tag":"Address",
-  "employee_gender_tag":"Gender",
-  "employee_dateOfBirth_tag":"Date Of Birth",
-  "employee_dateOfJoin_tag":"Date of Joining",
-  "employee_level_tag":"Level",
-  "employee_employeeID_tag":"Employee Id",
-  "employee_name_tag":"Name",
+  "admin_leave_detail_button_reject": "Reject",
+  "admin_leave_detail_button_approve": "Approve",
+  "admin_leave_detail_button_ok": "OK",
+  "admin_leave_detail_daysLeft_tag": "Days left",
+  "admin_leave_empty_screen_message": "No any Leaves, yet!",
 
-  "admin_leave_detail_button_reject":"Reject",
-  "admin_leave_detail_button_approve":"Approve",
-  "admin_leave_detail_button_ok":"OK",
-  "admin_leave_detail_daysLeft_tag":"Days left",
-
-  "admin_leave_empty_screen_message":"No any Leaves, yet!",
-
-  "gender_male_tag":"Male",
-  "gender_female_tag":"Female",
+  "gender_male_tag": "Male",
+  "gender_female_tag": "Female",
 
   "user_details_gender": "{gender, plural, =1{Male} =2{Female} other{Other}}",
-  "@user_details_gender":{
+  "@user_details_gender": {
     "description": "Pass the value of gender to get gender of user",
     "placeholders": {
-      "gender":{
+      "gender": {
         "type": "num",
-        "format":"compact"
+        "format": "compact"
       }
     }
   },
 
   "network_connection_error": "Please check your Internet connection",
-  "user_not_found_error_message":"User with this email doesn't exist, Please ask your manager to add it",
+  "user_not_found_error_message": "User with this email doesn't exist, Please ask your manager to add it",
   "user_data_not_update_error_message": "Error in Updating your account information, Please check that you have signed in correct account",
   "firestore_fetch_data_error_message": "Something went wrong",
   "firebase_auth_error_message": "Error occurred while Google sign in. Try again",
   "sign_out_error_message": "Your attempt to sign out failed,Please try again later",
-   "error_something_went_wrong": "Something went wrong",
-  "fill_all_details_error":"Please fill all details",
-  "invalid_date_selection_error":"Please select valid date",
-  "apply_leave_minimum_one_hour_error":"Please apply leave for minimum half day",
+  "error_something_went_wrong": "Something went wrong",
+  "fill_all_details_error": "Please fill all details",
+  "invalid_date_selection_error": "Please select valid date",
+  "apply_leave_minimum_one_hour_error": "Please apply leave for minimum half day",
   "add_member_employee_exists_error": "Member already exists!",
-  "leave_already_applied_error_message":"Leave request has been already applied!",
-  "provide_required_information":"Please provide the required information to continue",
+  "leave_already_applied_error_message": "Leave request has been already applied!",
+  "provide_required_information": "Please provide the required information to continue",
 
+  "sign_out_alert": "Are you sure you want to sign out?",
 
-  "sign_out_alert":"Are you sure you want to sign out?",
-  "deactivate_user_account_alert":"Are you sure you want to deactivate {username}'s account? This action cannot be undone.",
-  "@deactivate_user_account_alert":{
-    "placeholders":{
-      "username":{
-        "type":"String"
+  "deactivate_user_account_alert": "Are you sure you want to deactivate {username}'s account? This action cannot be undone.",
+  "@deactivate_user_account_alert": {
+    "placeholders": {
+      "username": {
+        "type": "String"
       }
     }
   },
-  "remove_user_leave_alert":"Are you sure you want to cancel this leave?",
+  "remove_user_leave_alert": "Are you sure you want to cancel this leave?",
 
-
-
-  "employee_empty_leave_message":"{name} don't have any leaves yet!",
-  "@employee_empty_leave_message":{
-    "placeholders":{
-      "name":{
-        "type":"String"
-      }
-    }
-  },
-
-  "sign_out_from_text":"Sign out from {text}",
-  "@sign_out_from_text":{
-    "placeholders":{
-      "text":{
-        "type":"String"
+  "employee_empty_leave_message": "{name} don't have any leaves yet!",
+  "@employee_empty_leave_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
       }
     }
   },
 
-  "employee_details_leaves_title":"{name}'s Leaves",
-  "@employee_details_leaves_title":{
-    "placeholders":{
-      "name":{
-        "type":"String"
+  "sign_out_from_text": "Sign out from {text}",
+  "@sign_out_from_text": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+
+  "employee_details_leaves_title": "{name}'s Leaves",
+  "@employee_details_leaves_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
       }
     }
   }

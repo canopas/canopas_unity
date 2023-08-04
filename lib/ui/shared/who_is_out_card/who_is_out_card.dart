@@ -19,7 +19,8 @@ class WhoIsOutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<WhoIsOutCardBloc, WhoIsOutCardState>(
-      listenWhen: (previous, current) => current.status == Status.error && current.error != null,
+      listenWhen: (previous, current) =>
+          current.status == Status.error && current.error != null,
       listener: (context, state) {
         if (state.status == Status.error && state.error != null) {
           showSnackBar(context: context, error: state.error);
@@ -58,7 +59,7 @@ class WhoIsOutCard extends StatelessWidget {
                   builder: (context, state) =>
                       AbsenceEmployeesListWhoIsOutCardView(
                     status: state.status,
-                    absence: state.selectedDayAbsences,
+                    absence: state.selectedDayAbsences ?? [],
                     dateOfEmployeeAbsence: state.selectedDate,
                   ),
                 ),
@@ -91,7 +92,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
             rangeSelectionMode: RangeSelectionMode.disabled,
             onPageChanged: (focusedDay) => context
                 .read<WhoIsOutCardBloc>()
-                .add(FetchMoreLeaves(focusedDay)),
+                .add(FetchWhoIsOutCardLeaves(focusDay: focusedDay)),
             onDaySelected: (selectedDay, focusedDay) {
               context
                   .read<WhoIsOutCardBloc>()
@@ -112,7 +113,8 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
                 leftChevronMargin: EdgeInsets.zero,
                 leftChevronPadding: EdgeInsets.zero,
                 leftChevronIcon: SizedBox(),
-                headerPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 8),
+                headerPadding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 rightChevronMargin: EdgeInsets.zero,
                 rightChevronPadding: EdgeInsets.zero,
                 titleCentered: true,
@@ -121,7 +123,8 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
                 titleTextStyle: AppFontStyle.labelRegular),
             eventLoader: (day) => context
                 .read<WhoIsOutCardBloc>()
-                .getSelectedDateAbsences(date: day, allAbsences: state.allAbsences),
+                .getSelectedDateAbsences(
+                    date: day, allAbsences: state.allAbsences),
             focusedDay: state.focusDay,
           );
         });

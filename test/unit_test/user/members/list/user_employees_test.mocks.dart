@@ -7,7 +7,7 @@ import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
-import 'package:projectunity/data/Repo/employee_repo.dart' as _i2;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -33,6 +33,11 @@ class MockEmployeeRepo extends _i1.Mock implements _i2.EmployeeRepo {
         Invocation.getter(#employees),
         returnValue: _i3.Stream<List<_i4.Employee>>.empty(),
       ) as _i3.Stream<List<_i4.Employee>>);
+  @override
+  List<_i4.Employee> get allEmployees => (super.noSuchMethod(
+        Invocation.getter(#allEmployees),
+        returnValue: <_i4.Employee>[],
+      ) as List<_i4.Employee>);
   @override
   _i3.Stream<List<_i4.Employee>> get activeEmployees => (super.noSuchMethod(
         Invocation.getter(#activeEmployees),

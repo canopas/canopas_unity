@@ -1,29 +1,25 @@
 import 'package:equatable/equatable.dart';
-import '../../../../../data/model/employee/employee.dart';
+import 'package:projectunity/data/model/employee/employee.dart';
 
 abstract class AdminLeavesEvents extends Equatable {}
 
-class AdminLeavesInitialLoadEvent extends AdminLeavesEvents {
+class InitialAdminLeavesEvent extends AdminLeavesEvents {
   @override
   List<Object?> get props => [];
 }
 
-class ChangeMemberEvent extends AdminLeavesEvents {
+class FetchLeavesInitialEvent extends AdminLeavesEvents {
   final Employee? member;
 
-  ChangeMemberEvent({required this.member});
+  FetchLeavesInitialEvent({this.member});
 
   @override
   List<Object?> get props => [member];
 }
 
-class ChangeEmployeeLeavesYearEvent extends AdminLeavesEvents {
-  final int year;
-
-  ChangeEmployeeLeavesYearEvent({required this.year});
-
+class FetchMoreLeavesEvent extends AdminLeavesEvents {
   @override
-  List<Object?> get props => [year];
+  List<Object?> get props => [];
 }
 
 class SearchEmployeeEvent extends AdminLeavesEvents {
