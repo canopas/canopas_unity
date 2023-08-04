@@ -244,7 +244,6 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i42.LeaveRepo(
         gh<_i30.LeaveService>(),
         gh<_i9.FirebaseCrashlytics>(),
-        gh<_i22.UserStateNotifier>(),
       ),
       dispose: (i) => i.dispose(),
     );

@@ -27,7 +27,7 @@ class AdminHomeScreenPage extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
         ),
-        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
+        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()..add(WhoIsOutInitialLoadEvent())),
       ],
       child: const AdminHomeScreen(),
     );

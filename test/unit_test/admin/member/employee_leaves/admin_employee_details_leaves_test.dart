@@ -41,7 +41,7 @@ void main() {
 
   group('Admin Employee Details Leaves Test', () {
     test('data fetch success on init test', () {
-      when(leaveRepo.userLeavesByYear(leave.uid, DateTime.now().year))
+      when(leaveRepo.userLeaves(leave.uid))
           .thenAnswer((_) => Stream.value([leave]));
 
       bloc.add(InitEvents(employeeId: leave.uid));
@@ -55,7 +55,7 @@ void main() {
     });
 
     test('data fetch failure by stream error', () {
-      when(leaveRepo.userLeavesByYear(leave.uid, DateTime.now().year))
+      when(leaveRepo.userLeaves(leave.uid))
           .thenAnswer((_) => Stream.error(firestoreFetchDataError));
       bloc.add(InitEvents(employeeId: leave.uid));
       expect(
@@ -68,8 +68,7 @@ void main() {
     });
 
     test('data fetch failure by exception', () {
-      when(leaveRepo.userLeavesByYear(leave.uid, DateTime.now().year))
-          .thenThrow(Exception('error'));
+      when(leaveRepo.userLeaves(leave.uid)).thenThrow(Exception('error'));
       bloc.add(InitEvents(employeeId: leave.uid));
       expect(
           bloc.stream,

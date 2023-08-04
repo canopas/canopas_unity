@@ -14,76 +14,26 @@ class LeaveService {
 
   LeaveService(this._userManager, this.fireStore);
 
-  CollectionReference<Leave> _leaveDb({required String spaceId}) {
+  CollectionReference<Leave> _leaveDb() {
     return fireStore
         .collection(FireStoreConst.spaces)
-        .doc(spaceId)
+        .doc(_userManager.currentSpaceId!)
         .collection(FireStoreConst.leaves)
         .withConverter(
             fromFirestore: Leave.fromFireStore,
             toFirestore: (Leave leave, _) => leave.toFireStore(leave));
   }
 
-  Stream<List<Leave>> get leaves =>
-      _leaveDb(spaceId: _userManager.currentSpaceId!)
-          .snapshots()
-          .map((event) => event.docs.map((leave) => leave.data()).toList());
-
-  Stream<List<Leave>> monthlyLeaveByStartDate(
-          {required int year, required int month, required String spaceId}) =>
-      _leaveDb(spaceId: spaceId)
-          .where(FireStoreConst.leaveStatus,
-              isEqualTo: LeaveStatus.approved.value)
-          .where(FireStoreConst.startLeaveDate,
-              isGreaterThanOrEqualTo: DateTime(year, month).timeStampToInt)
-          .where(FireStoreConst.startLeaveDate,
-              isLessThan: DateTime(year, month + 1).timeStampToInt)
-          .snapshots()
-          .map((event) => event.docs.map((leave) => leave.data()).toList());
-
-  Stream<List<Leave>> monthlyLeaveByEndDate(
-          {required int year, required int month, required String spaceId}) =>
-      _leaveDb(spaceId: spaceId)
-          .where(FireStoreConst.leaveStatus,
-              isEqualTo: LeaveStatus.approved.value)
-          .where(FireStoreConst.endLeaveDate,
-              isGreaterThanOrEqualTo: DateTime(year, month).timeStampToInt)
-          .where(FireStoreConst.endLeaveDate,
-              isLessThan: DateTime(year, month + 1).timeStampToInt)
-          .snapshots()
-          .asyncMap((event) => event.docs
-              .map((leave) => leave.data())
-              .where((leave) => leave.startDate.isBefore(DateTime(year, month)))
-              .toList());
-
-  Stream<List<Leave>> userYearlyLeave(
-      {required String uid, required int year, required String spaceId}) =>
-      _leaveDb(spaceId: _userManager.currentSpaceId!)
-          .where(FireStoreConst.uid, isEqualTo: uid)
-          .where(FireStoreConst.startLeaveDate,
-          isGreaterThanOrEqualTo: DateTime(year).timeStampToInt)
-          .where(FireStoreConst.startLeaveDate,
-          isLessThanOrEqualTo: DateTime(year, 12, 31).timeStampToInt)
-          .snapshots()
-          .map((event) => event.docs.map((leave) => leave.data()).toList());
-
-  Stream<List<Leave>> userLeaveByStatus(
-          {required String uid,
-          required LeaveStatus status,
-          required String spaceId}) =>
-      _leaveDb(spaceId: spaceId)
-          .where(FireStoreConst.uid, isEqualTo: uid)
-          .where(FireStoreConst.leaveStatus, isEqualTo: status.value)
-          .snapshots()
-          .map((event) => event.docs.map((leave) => leave.data()).toList());
+  Stream<List<Leave>> get leaves => _leaveDb()
+      .snapshots()
+      .map((event) => event.docs.map((leave) => leave.data()).toList());
 
   Future<bool> checkLeaveAlreadyApplied({
     required String userId,
     required Map<DateTime, LeaveDayDuration> dateDuration,
   }) async {
-    final leaves = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.uid, isEqualTo: userId)
-        .get();
+    final leaves =
+        await _leaveDb().where(FireStoreConst.uid, isEqualTo: userId).get();
 
     return leaves.docs
         .map((doc) => doc.data())
@@ -111,13 +61,11 @@ class LeaveService {
       responseData.addEntries([MapEntry(FireStoreConst.response, response)]);
     }
 
-    await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .doc(id)
-        .update(responseData);
+    await _leaveDb().doc(id).update(responseData);
   }
 
   Future<List<Leave>> getAllApprovedLeaves() async {
-    final allLeaves = await _leaveDb(spaceId: _userManager.currentSpaceId!)
+    final allLeaves = await _leaveDb()
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
         .get();
@@ -126,7 +74,7 @@ class LeaveService {
 
   Future<List<Leave>> getAllAbsence({DateTime? date}) async {
     date = date ?? DateTime.now();
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
         .get();
@@ -144,25 +92,22 @@ class LeaveService {
   }
 
   String getNewLeaveId() {
-    return _leaveDb(spaceId: _userManager.currentSpaceId!).doc().id;
+    return _leaveDb().doc().id;
   }
 
   Future<void> applyForLeave(Leave leaveRequestData) async {
     final leaveId = leaveRequestData.leaveId;
-    await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .doc(leaveId)
-        .set(leaveRequestData);
+    await _leaveDb().doc(leaveId).set(leaveRequestData);
   }
 
   Future<List<Leave>> getAllLeavesOfUser(String id) async {
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.uid, isEqualTo: id)
-        .get();
+    final data =
+        await _leaveDb().where(FireStoreConst.uid, isEqualTo: id).get();
     return data.docs.map((doc) => doc.data()).toList();
   }
 
   Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: employeeId)
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
@@ -178,7 +123,7 @@ class LeaveService {
   Future<double> getUserUsedLeaves(String id) async {
     DateTime currentTime = DateTime.now();
 
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
+    final data = await _leaveDb()
         .where(FireStoreConst.uid, isEqualTo: id)
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
@@ -197,9 +142,7 @@ class LeaveService {
   }
 
   Future<Leave?> fetchLeave(String leaveId) async {
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .doc(leaveId)
-        .get();
+    final data = await _leaveDb().doc(leaveId).get();
     return data.data();
   }
 }
