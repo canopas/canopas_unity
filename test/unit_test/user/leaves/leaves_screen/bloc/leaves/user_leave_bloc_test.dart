@@ -85,55 +85,58 @@ void main() {
     test(
         'Emits loading state and success with sorted leave and show current year leave after add UserLeaveEvent respectively',
         () {
+      bloc.add(FetchUserLeaveEvent());
       when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeavesByYear(employeeId, today.year)).thenAnswer(
-          (_) => Stream.value([pastLeave, upcomingLeave]));
-      bloc.add(ListenUserLeaves(year: today.year));
+      when(leaveRepo.userLeaves(employeeId)).thenAnswer(
+          (_) => Stream.value([pastLeave, upcomingLeave, specificYearLeave]));
       expectLater(
           bloc.stream,
           emitsInOrder([
-            UserLeaveState(status: Status.loading, selectedYear: today.year),
+            UserLeaveState(status: Status.loading),
             UserLeaveState(
                 status: Status.success, leaves: [upcomingLeave, pastLeave]),
           ]));
     });
 
     test('Emits error state when Exception is thrown', () {
-      bloc.add(ListenUserLeaves(year: today.year));
+      bloc.add(FetchUserLeaveEvent());
 
       when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeavesByYear(employeeId, today.year)).thenThrow(Exception('error'));
+      when(leaveRepo.userLeaves(employeeId)).thenThrow(Exception('error'));
       expectLater(
           bloc.stream,
           emitsInOrder([
-            UserLeaveState(status: Status.loading, selectedYear: today.year),
+            UserLeaveState(status: Status.loading),
             UserLeaveState(error: firestoreFetchDataError, status: Status.error)
           ]));
     });
 
     test('Emits error state when stream have any error', () {
-      bloc.add( ListenUserLeaves(year: today.year));
+      bloc.add(FetchUserLeaveEvent());
 
       when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeavesByYear(employeeId, today.year))
+      when(leaveRepo.userLeaves(employeeId))
           .thenAnswer((_) => Stream.error(firestoreFetchDataError));
       expectLater(
           bloc.stream,
           emitsInOrder([
-            UserLeaveState(status: Status.loading,  selectedYear: today.year),
+            UserLeaveState(status: Status.loading),
             UserLeaveState(error: firestoreFetchDataError, status: Status.error)
           ]));
     });
 
     test('change year and show year wise leave test', () {
+      bloc.add(FetchUserLeaveEvent());
       when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(leaveRepo.userLeavesByYear(employeeId, 2022)).thenAnswer(
-          (_) => Stream.value([specificYearLeave]));
-      bloc.add(const ListenUserLeaves(year: 2022));
+      when(leaveRepo.userLeaves(employeeId)).thenAnswer(
+          (_) => Stream.value([pastLeave, upcomingLeave, specificYearLeave]));
+      bloc.add(ChangeYearEvent(year: 2022));
       expectLater(
           bloc.stream,
           emitsInOrder([
-            UserLeaveState(status: Status.loading, selectedYear: 2022),
+            UserLeaveState(status: Status.loading),
+            UserLeaveState(
+                status: Status.success, leaves: [upcomingLeave, pastLeave]),
             UserLeaveState(
                 status: Status.success,
                 leaves: [specificYearLeave],

@@ -54,7 +54,8 @@ class YearSelection extends StatelessWidget {
                     alignment: Alignment.center,
                     items: List.generate(
                         DateTime.now().year - (dateOfJoining.year - 1),
-                        (change) => dateOfJoining.year + change).map((year) {
+                        (change) =>
+                            dateOfJoining.year + change).map((year) {
                       return DropdownMenuItem<int>(
                         alignment: Alignment.center,
                         value: year,
@@ -62,12 +63,9 @@ class YearSelection extends StatelessWidget {
                       );
                     }).toList(),
                     value: state.selectedYear,
-                    onChanged: (int? year) {
-                      if (year != null) {
-                        context
-                            .read<UserLeaveBloc>()
-                            .add(ListenUserLeaves(year: year));
-                      }
+                    onChanged: (int? value) {
+                      context.read<UserLeaveBloc>().add(
+                          ChangeYearEvent(year: value ?? state.selectedYear));
                     },
                   ),
                 ),

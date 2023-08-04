@@ -9,7 +9,7 @@ class WhoIsOutCardState extends Equatable {
   final DateTime focusDay;
   final CalendarFormat calendarFormat;
   final List<LeaveApplication> allAbsences;
-  final List<LeaveApplication>? selectedDayAbsences;
+  final List<LeaveApplication> selectedDayAbsences;
   final String? error;
 
   const WhoIsOutCardState(
@@ -18,7 +18,7 @@ class WhoIsOutCardState extends Equatable {
       required this.focusDay,
       this.status = Status.initial,
       this.allAbsences = const [],
-      this.selectedDayAbsences,
+      this.selectedDayAbsences = const [],
       this.error});
 
   WhoIsOutCardState copyWith(
