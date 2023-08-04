@@ -54,4 +54,42 @@ class LeaveRepo {
           return mergedList;
         },
       ).distinct();
+
+  Future<bool> checkLeaveAlreadyApplied({
+    required String uid,
+    required Map<DateTime, LeaveDayDuration> dateDuration,
+  }) async =>
+      await _leaveService.checkLeaveAlreadyApplied(
+          uid: uid,
+          dateDuration: dateDuration,
+          spaceId: _userStateNotifier.currentSpaceId!);
+
+  Future<void> updateLeaveStatus(
+          {required String leaveId,
+          required LeaveStatus status,
+          String response = ''}) async =>
+      await _leaveService.updateLeaveStatus(
+          leaveId: leaveId,
+          status: status,
+          spaceId: _userStateNotifier.currentSpaceId!,
+          response: response);
+
+  String get generateLeaveId =>
+      _leaveService.generateLeaveId(_userStateNotifier.currentSpaceId!);
+
+  Future<void> applyForLeave({required Leave leave}) async =>
+      await _leaveService.applyForLeave(
+          leave: leave, spaceId: _userStateNotifier.currentSpaceId!);
+
+  Future<List<Leave>> getUpcomingLeavesOfUser({required String uid}) async =>
+      await _leaveService.getUpcomingLeavesOfUser(
+          uid: uid, spaceId: _userStateNotifier.currentSpaceId!);
+
+  Future<double> getUserUsedLeaves({required String uid}) async =>
+      await _leaveService.getUserUsedLeaves(
+          uid: uid, spaceId: _userStateNotifier.currentSpaceId!);
+
+  Future<Leave?> fetchLeave({required String leaveId}) async =>
+      await _leaveService.fetchLeave(
+          leaveId: leaveId, spaceId: _userStateNotifier.currentSpaceId!);
 }

@@ -49,6 +49,11 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
   @override
+  String get generateLeaveId => (super.noSuchMethod(
+        Invocation.getter(#generateLeaveId),
+        returnValue: '',
+      ) as String);
+  @override
   _i4.Future<_i2.PaginatedLeaves> leaves({
     _i6.DocumentSnapshot<_i5.Leave>? lastDoc,
     String? uid,
@@ -93,6 +98,82 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
         ),
         returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
       ) as _i4.Stream<List<_i5.Leave>>);
+  @override
+  _i4.Future<bool> checkLeaveAlreadyApplied({
+    required String? uid,
+    required Map<DateTime, _i5.LeaveDayDuration>? dateDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkLeaveAlreadyApplied,
+          [],
+          {
+            #uid: uid,
+            #dateDuration: dateDuration,
+          },
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Future<void> updateLeaveStatus({
+    required String? leaveId,
+    required _i5.LeaveStatus? status,
+    String? response = r'',
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateLeaveStatus,
+          [],
+          {
+            #leaveId: leaveId,
+            #status: status,
+            #response: response,
+          },
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> applyForLeave({required _i5.Leave? leave}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #applyForLeave,
+          [],
+          {#leave: leave},
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<List<_i5.Leave>> getUpcomingLeavesOfUser({required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUpcomingLeavesOfUser,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
+      ) as _i4.Future<List<_i5.Leave>>);
+  @override
+  _i4.Future<double> getUserUsedLeaves({required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserUsedLeaves,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i4.Future<double>.value(0.0),
+      ) as _i4.Future<double>);
+  @override
+  _i4.Future<_i5.Leave?> fetchLeave({required String? leaveId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchLeave,
+          [],
+          {#leaveId: leaveId},
+        ),
+        returnValue: _i4.Future<_i5.Leave?>.value(),
+      ) as _i4.Future<_i5.Leave?>);
 }
 
 /// A class which mocks [EmployeeRepo].

@@ -4,16 +4,16 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/services/leave_service.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_event.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
 
 import 'user_employee_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService])
+@GenerateMocks([LeaveRepo])
 void main() {
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late UserEmployeeDetailBloc bloc;
 
   Leave upcomingApproveLeave = Leave(
@@ -32,8 +32,8 @@ void main() {
       ]);
 
   setUp(() {
-    leaveService = MockLeaveService();
-    bloc = UserEmployeeDetailBloc(leaveService);
+    leaveRepo = MockLeaveRepo();
+    bloc = UserEmployeeDetailBloc(leaveRepo);
   });
 
   group('bloc state stream', () {
@@ -44,7 +44,7 @@ void main() {
     test(
         'Emits loading state and success state after data is fetched successfully from firestore',
         () {
-      when(leaveService.getUpcomingLeavesOfUser('uid'))
+      when(leaveRepo.getUpcomingLeavesOfUser(uid: 'uid'))
           .thenAnswer((_) async => [upcomingApproveLeave]);
       expectLater(
           bloc.stream,
@@ -58,7 +58,7 @@ void main() {
     test(
         'Emits loading state and error state if exception is thrown from firestore',
         () {
-      when(leaveService.getUpcomingLeavesOfUser('uid'))
+      when(leaveRepo.getUpcomingLeavesOfUser(uid: 'uid'))
           .thenThrow(Exception(firestoreFetchDataError));
       expectLater(
           bloc.stream,

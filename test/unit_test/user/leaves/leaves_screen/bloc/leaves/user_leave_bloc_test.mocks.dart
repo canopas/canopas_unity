@@ -84,6 +84,11 @@ class MockLeaveRepo extends _i1.Mock implements _i5.LeaveRepo {
         returnValue: _i6.Stream<List<_i7.Leave>>.empty(),
       ) as _i6.Stream<List<_i7.Leave>>);
   @override
+  String get generateLeaveId => (super.noSuchMethod(
+        Invocation.getter(#generateLeaveId),
+        returnValue: '',
+      ) as String);
+  @override
   _i6.Future<_i2.PaginatedLeaves> leaves({
     _i4.DocumentSnapshot<_i7.Leave>? lastDoc,
     String? uid,
@@ -128,6 +133,82 @@ class MockLeaveRepo extends _i1.Mock implements _i5.LeaveRepo {
         ),
         returnValue: _i6.Stream<List<_i7.Leave>>.empty(),
       ) as _i6.Stream<List<_i7.Leave>>);
+  @override
+  _i6.Future<bool> checkLeaveAlreadyApplied({
+    required String? uid,
+    required Map<DateTime, _i7.LeaveDayDuration>? dateDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkLeaveAlreadyApplied,
+          [],
+          {
+            #uid: uid,
+            #dateDuration: dateDuration,
+          },
+        ),
+        returnValue: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
+  @override
+  _i6.Future<void> updateLeaveStatus({
+    required String? leaveId,
+    required _i7.LeaveStatus? status,
+    String? response = r'',
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateLeaveStatus,
+          [],
+          {
+            #leaveId: leaveId,
+            #status: status,
+            #response: response,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> applyForLeave({required _i7.Leave? leave}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #applyForLeave,
+          [],
+          {#leave: leave},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<List<_i7.Leave>> getUpcomingLeavesOfUser({required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUpcomingLeavesOfUser,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i6.Future<List<_i7.Leave>>.value(<_i7.Leave>[]),
+      ) as _i6.Future<List<_i7.Leave>>);
+  @override
+  _i6.Future<double> getUserUsedLeaves({required String? uid}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserUsedLeaves,
+          [],
+          {#uid: uid},
+        ),
+        returnValue: _i6.Future<double>.value(0.0),
+      ) as _i6.Future<double>);
+  @override
+  _i6.Future<_i7.Leave?> fetchLeave({required String? leaveId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchLeave,
+          [],
+          {#leaveId: leaveId},
+        ),
+        returnValue: _i6.Future<_i7.Leave?>.value(),
+      ) as _i6.Future<_i7.Leave?>);
 }
 
 /// A class which mocks [UserStateNotifier].

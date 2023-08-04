@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/data/services/leave_service.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_bloc.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
@@ -12,9 +12,9 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 
 import 'user_leave_count_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService, UserStateNotifier, SpaceService])
+@GenerateMocks([LeaveRepo, UserStateNotifier, SpaceService])
 void main() {
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late UserStateNotifier userStateNotifier;
   late SpaceService spaceService;
   late UserLeaveCountBloc userLeaveCountBloc;
@@ -28,11 +28,11 @@ void main() {
   const String employeeId = 'Employee Id';
 
   setUp(() {
-    leaveService = MockLeaveService();
+    leaveRepo = MockLeaveRepo();
     userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     userLeaveCountBloc =
-        UserLeaveCountBloc(leaveService, userStateNotifier, spaceService);
+        UserLeaveCountBloc(leaveRepo, userStateNotifier, spaceService);
   });
 
   tearDown(() async {
@@ -58,7 +58,7 @@ void main() {
 
       when(userStateNotifier.employeeId).thenReturn(employeeId);
       when(userStateNotifier.currentSpaceId).thenReturn("space-id");
-      when(leaveService.getUserUsedLeaves(employeeId))
+      when(leaveRepo.getUserUsedLeaves(uid: employeeId))
           .thenAnswer((_) async => 7);
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenAnswer((_) async => 12);
@@ -77,7 +77,7 @@ void main() {
 
       when(userStateNotifier.employeeId).thenReturn('Ca 1044');
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-      when(leaveService.getUserUsedLeaves('Ca 1044'))
+      when(leaveRepo.getUserUsedLeaves(uid: 'Ca 1044'))
           .thenAnswer((_) async => 7);
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenThrow(Exception('error'));

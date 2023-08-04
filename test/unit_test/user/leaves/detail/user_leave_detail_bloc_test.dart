@@ -3,23 +3,23 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import 'package:projectunity/data/services/leave_service.dart';
+import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
 
 import 'user_leave_detail_bloc_test.mocks.dart';
 
-@GenerateMocks([LeaveService])
+@GenerateMocks([LeaveRepo])
 void main() {
-  late LeaveService leaveService;
+  late LeaveRepo leaveRepo;
   late UserLeaveDetailBloc userLeaveDetailBloc;
   const String leaveId = 'leave-id';
   Leave? upcomingLeave;
   Leave? pastLeave;
   setUp(() {
-    leaveService = MockLeaveService();
-    userLeaveDetailBloc = UserLeaveDetailBloc(leaveService);
+    leaveRepo = MockLeaveRepo();
+    userLeaveDetailBloc = UserLeaveDetailBloc(leaveRepo);
     upcomingLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
@@ -58,7 +58,7 @@ void main() {
         () {
       userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
 
-      when(leaveService.fetchLeave(leaveId))
+      when(leaveRepo.fetchLeave(leaveId: leaveId))
           .thenAnswer((_) async => upcomingLeave);
       expectLater(
           userLeaveDetailBloc.stream,
@@ -73,7 +73,7 @@ void main() {
         () {
       userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
 
-      when(leaveService.fetchLeave(leaveId)).thenAnswer((_) async => pastLeave);
+      when(leaveRepo.fetchLeave(leaveId: leaveId)).thenAnswer((_) async => pastLeave);
       expectLater(
           userLeaveDetailBloc.stream,
           emitsInOrder([
@@ -86,7 +86,7 @@ void main() {
     test(
         'Emits loading state and error state if exception is thrown from firestore',
         () {
-      when(leaveService.fetchLeave(leaveId))
+      when(leaveRepo.fetchLeave(leaveId: leaveId))
           .thenThrow(Exception(firestoreFetchDataError));
       userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
       expectLater(
@@ -99,7 +99,7 @@ void main() {
     test(
         'Emits loading state and error state if leaveId is not matched with any document reference and found null from firestore',
         () {
-      when(leaveService.fetchLeave(leaveId)).thenAnswer((_) async => null);
+      when(leaveRepo.fetchLeave(leaveId: leaveId)).thenAnswer((_) async => null);
       userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
       expectLater(
           userLeaveDetailBloc.stream,
@@ -118,7 +118,7 @@ void main() {
     });
 
     test('Emit failure state if leave canceled', () {
-      when(leaveService.updateLeaveStatus(id: leaveId, status: LeaveStatus.cancelled)).thenThrow(Exception('error'));
+      when(leaveRepo.updateLeaveStatus(leaveId: leaveId, status: LeaveStatus.cancelled)).thenThrow(Exception('error'));
       userLeaveDetailBloc.add(CancelLeaveApplicationEvent(leaveId: leaveId));
       expectLater(
           userLeaveDetailBloc.stream,

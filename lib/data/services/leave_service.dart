@@ -6,14 +6,12 @@ import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/model/pagination/pagination.dart';
 import '../core/utils/const/firestore.dart';
 import '../model/leave/leave.dart';
-import '../provider/user_state.dart';
 
 @LazySingleton()
 class LeaveService {
-  final UserStateNotifier _userManager;
   late final FirebaseFirestore fireStore;
 
-  LeaveService(this._userManager, this.fireStore);
+  LeaveService(this.fireStore);
 
   CollectionReference<Leave> _leaveDb({required String spaceId}) {
     return fireStore
@@ -93,18 +91,16 @@ class LeaveService {
           .map((event) => event.docs.map((leave) => leave.data()).toList());
 
   Future<bool> checkLeaveAlreadyApplied({
-    required String userId,
+    required String uid,
+    required String spaceId,
     required Map<DateTime, LeaveDayDuration> dateDuration,
   }) async {
-    final leaves = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.uid, isEqualTo: userId)
-        .where(FireStoreConst.leaveStatus, isNotEqualTo: LeaveStatus.rejected)
-        .where(FireStoreConst.leaveStatus, isNotEqualTo: LeaveStatus.cancelled)
+    final leaves = await _leaveDb(spaceId: spaceId)
+        .where(FireStoreConst.uid, isEqualTo: uid)
+        .where(FireStoreConst.leaveStatus, isLessThanOrEqualTo: LeaveStatus.approved.value)
         .get();
 
-    return leaves.docs
-        .map((doc) => doc.data())
-        .where((leave) {
+    return leaves.docs.map((doc) => doc.data()).where((leave) {
       final leaveDuration = leave.getDateAndDuration();
       return leaveDuration.entries.any((existLeaveDay) => dateDuration.entries
           .any((applyLeaveDay) =>
@@ -114,7 +110,8 @@ class LeaveService {
   }
 
   Future<void> updateLeaveStatus(
-      {required String id,
+      {required String leaveId,
+      required String spaceId,
       required LeaveStatus status,
       String response = ''}) async {
     Map<String, dynamic> responseData = <String, dynamic>{
@@ -125,24 +122,21 @@ class LeaveService {
       responseData.addEntries([MapEntry(FireStoreConst.response, response)]);
     }
 
-    await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .doc(id)
-        .update(responseData);
+    await _leaveDb(spaceId: spaceId).doc(leaveId).update(responseData);
   }
 
-  String get generateLeaveId =>
-      _leaveDb(spaceId: _userManager.currentSpaceId!).doc().id;
+  String generateLeaveId(spaceId) => _leaveDb(spaceId: spaceId).doc().id;
 
-  Future<void> applyForLeave(Leave leaveRequestData) async {
-    final leaveId = leaveRequestData.leaveId;
-    await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .doc(leaveId)
-        .set(leaveRequestData);
+  Future<void> applyForLeave(
+      {required Leave leave, required String spaceId}) async {
+    final leaveId = leave.leaveId;
+    await _leaveDb(spaceId: spaceId).doc(leaveId).set(leave);
   }
 
-  Future<List<Leave>> getUpcomingLeavesOfUser(String employeeId) async {
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.uid, isEqualTo: employeeId)
+  Future<List<Leave>> getUpcomingLeavesOfUser(
+      {required String uid, required String spaceId}) async {
+    final data = await _leaveDb(spaceId: spaceId)
+        .where(FireStoreConst.uid, isEqualTo: uid)
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
         .where(FireStoreConst.startLeaveDate,
@@ -151,11 +145,12 @@ class LeaveService {
     return data.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<double> getUserUsedLeaves(String id) async {
+  Future<double> getUserUsedLeaves(
+      {required String uid, required String spaceId}) async {
     DateTime currentTime = DateTime.now();
 
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .where(FireStoreConst.uid, isEqualTo: id)
+    final data = await _leaveDb(spaceId: spaceId)
+        .where(FireStoreConst.uid, isEqualTo: uid)
         .where(FireStoreConst.leaveStatus,
             isEqualTo: LeaveStatus.approved.value)
         .get();
@@ -172,10 +167,9 @@ class LeaveService {
     return leaveCount;
   }
 
-  Future<Leave?> fetchLeave(String leaveId) async {
-    final data = await _leaveDb(spaceId: _userManager.currentSpaceId!)
-        .doc(leaveId)
-        .get();
+  Future<Leave?> fetchLeave(
+      {required String leaveId, required String spaceId}) async {
+    final data = await _leaveDb(spaceId: spaceId).doc(leaveId).get();
     return data.data();
   }
 }

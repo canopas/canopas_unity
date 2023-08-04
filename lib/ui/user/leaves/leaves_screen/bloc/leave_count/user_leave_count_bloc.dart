@@ -6,16 +6,16 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_
 import '../../../../../../data/core/exception/error_const.dart';
 import '../../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../../data/provider/user_state.dart';
-import '../../../../../../data/services/leave_service.dart';
+import '../../../../../../data/repo/leave_repo.dart';
 
 @Injectable()
 class UserLeaveCountBloc
     extends Bloc<FetchLeaveCountEvent, UserLeaveCountState> {
-  final LeaveService _leaveService;
+  final LeaveRepo _leaveRepo;
   final UserStateNotifier _userManger;
   final SpaceService _spaceService;
 
-  UserLeaveCountBloc(this._leaveService, this._userManger, this._spaceService)
+  UserLeaveCountBloc(this._leaveRepo, this._userManger, this._spaceService)
       : super(const UserLeaveCountState()) {
     on<FetchLeaveCountEvent>(_fetchLeaveCount);
   }
@@ -25,7 +25,7 @@ class UserLeaveCountBloc
     emit(state.copyWith(status: Status.loading));
     try {
       final double usedLeaves =
-          await _leaveService.getUserUsedLeaves(_userManger.employeeId);
+          await _leaveRepo.getUserUsedLeaves(uid: _userManger.employeeId);
       final int totalLeaves = await _spaceService.getPaidLeaves(
           spaceId: _userManger.currentSpaceId!);
       double percentage = 0;
