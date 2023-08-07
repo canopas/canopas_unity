@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
 import 'package:projectunity/data/model/leave_count.dart';
+import 'package:projectunity/ui/widget/leave_count_view.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/model/employee/employee.dart';
-import '../../../../../data/model/leave/leave.dart';
 import '../../../../navigation/app_router.dart';
 
 class TimeOffCard extends StatelessWidget {
@@ -51,48 +51,7 @@ class TimeOffCard extends StatelessWidget {
                     border: Border.all(color: AppColors.dividerColor),
                     borderRadius: AppTheme.commonBorderRadius,
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Text(usedLeaves.casualLeaves.fixedAt(2).toString(),
-                                style: AppFontStyle.titleDark),
-                            const SizedBox(height: 8),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .leave_type_placeholder_text(
-                                      LeaveType.casualLeave.value.toString()),
-                              style: AppFontStyle.bodyMedium
-                                  .copyWith(color: AppColors.primaryBlue),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 70,
-                        width: 1,
-                        color: AppColors.lightGreyColor,
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Text(usedLeaves.urgentLeaves.fixedAt(2).toString(),
-                                style: AppFontStyle.titleDark),
-                            const SizedBox(height: 8),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .leave_type_placeholder_text(
-                                      LeaveType.urgentLeave.value.toString()),
-                              style: AppFontStyle.bodyMedium
-                                  .copyWith(color: AppColors.primaryBlue),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                  child: UsedLeaveCountsView(leaveCounts: usedLeaves),
                 ),
                 const SizedBox(height: 16),
                 Row(
