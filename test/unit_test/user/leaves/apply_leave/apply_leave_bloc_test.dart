@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
+import 'package:projectunity/data/core/functions/shared_function.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
@@ -22,6 +23,7 @@ void main() {
   late LeaveRepo leaveRepo;
   late UserStateNotifier userStateNotifier;
   late ApplyLeaveBloc leaveRequestBloc;
+  late AppFunctions appFunctions;
   late NotificationService notificationService;
 
   final DateTime currentDate = DateTime.now().dateOnly;
@@ -38,8 +40,9 @@ void main() {
       leaveRepo = MockLeaveRepo();
       userStateNotifier = MockUserStateNotifier();
       notificationService = MockNotificationService();
-      leaveRequestBloc =
-          ApplyLeaveBloc(userStateNotifier, leaveRepo, notificationService);
+      appFunctions = AppFunctions();
+      leaveRequestBloc = ApplyLeaveBloc(
+          userStateNotifier, leaveRepo, notificationService, appFunctions);
 
       when(userStateNotifier.userUID).thenReturn("id");
       when(userStateNotifier.employeeId).thenReturn("id");
@@ -47,8 +50,8 @@ void main() {
     });
 
     test("leave Type change test", () {
-      leaveRequestBloc
-          .add(ApplyLeaveChangeLeaveTypeEvent(leaveType: LeaveType.urgentLeave));
+      leaveRequestBloc.add(
+          ApplyLeaveChangeLeaveTypeEvent(leaveType: LeaveType.urgentLeave));
       expect(
           leaveRequestBloc.stream,
           emits(ApplyLeaveState(
@@ -224,6 +227,7 @@ void main() {
               dateDuration: currentDayMap.getSelectedLeaveOfTheDays(
                   startDate: currentDate, endDate: futureDate)))
           .thenAnswer((_) async => true);
+
       when(userStateNotifier.userUID).thenReturn('id');
       Map<DateTime, LeaveDayDuration> updatedSelectedLeaves =
           currentDayMap.getSelectedLeaveOfTheDays(

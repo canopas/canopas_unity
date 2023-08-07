@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/space_service.dart';
@@ -21,7 +22,7 @@ void main() {
 
   UserLeaveCountState loadingState = const UserLeaveCountState(
       status: Status.loading,
-      usedLeavesCounts: 0,
+      usedLeavesCounts: LeaveCounts(),
       leavePercentage: 0,
       error: null);
 
@@ -47,25 +48,25 @@ void main() {
           userLeaveCountBloc.state,
           const UserLeaveCountState(
               status: Status.initial,
-              usedLeavesCounts: 0,
+              usedLeavesCounts: LeaveCounts(),
               leavePercentage: 0,
               error: null));
     });
     test(
         'emits loading state and success state after add FetchUserLeaveCountEvent respectively',
         () {
-          userLeaveCountBloc.add(FetchLeaveCountEvent());
+      userLeaveCountBloc.add(FetchLeaveCountEvent());
 
       when(userStateNotifier.employeeId).thenReturn(employeeId);
       when(userStateNotifier.currentSpaceId).thenReturn("space-id");
-      when(leaveRepo.getUserUsedLeaves(uid: employeeId))
-          .thenAnswer((_) async => 7);
+      when(leaveRepo.getUserUsedLeaves(uid: employeeId)).thenAnswer(
+          (_) async => const LeaveCounts(urgentLeaves: 2, casualLeaves: 5));
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenAnswer((_) async => 12);
 
       const UserLeaveCountState successState = UserLeaveCountState(
           status: Status.success,
-          usedLeavesCounts: 7,
+          usedLeavesCounts: LeaveCounts(urgentLeaves: 2, casualLeaves: 5),
           leavePercentage: 7 / 12,
           error: null);
       expectLater(userLeaveCountBloc.stream,
@@ -77,13 +78,13 @@ void main() {
 
       when(userStateNotifier.employeeId).thenReturn('Ca 1044');
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-      when(leaveRepo.getUserUsedLeaves(uid: 'Ca 1044'))
-          .thenAnswer((_) async => 7);
+      when(leaveRepo.getUserUsedLeaves(uid: 'Ca 1044')).thenAnswer(
+          (_) async => const LeaveCounts(urgentLeaves: 2, casualLeaves: 5));
       when(spaceService.getPaidLeaves(spaceId: 'space-id'))
           .thenThrow(Exception('error'));
       const UserLeaveCountState errorState = UserLeaveCountState(
           status: Status.success,
-          usedLeavesCounts: 0,
+          usedLeavesCounts: LeaveCounts(urgentLeaves: 0, casualLeaves: 0),
           leavePercentage: 0,
           error: firestoreFetchDataError);
       expectLater(

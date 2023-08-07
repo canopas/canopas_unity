@@ -19,7 +19,7 @@ void main() {
   Leave upcomingApproveLeave = Leave(
       leaveId: 'leaveId',
       uid: 'uid',
-      type: LeaveType.annualLeave,
+      type: LeaveType.casualLeave,
       startDate: DateTime.now().add(const Duration(days: 2)).dateOnly,
       endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
       total: 2,

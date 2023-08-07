@@ -28,7 +28,7 @@ void main() {
     Leave andrewCurrentYearLeave = Leave(
         leaveId: 'leave-id',
         uid: 'andrew-id',
-        type: LeaveType.annualLeave,
+        type: LeaveType.casualLeave,
         startDate: DateTime.now().dateOnly,
         endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
         total: 2,
@@ -56,7 +56,7 @@ void main() {
     Leave joiPreviousYearLeave = Leave(
         leaveId: 'leave-id',
         uid: 'joi-id',
-        type: LeaveType.annualLeave,
+        type: LeaveType.casualLeave,
         startDate: DateTime.now().dateOnly.subtract(const Duration(days: 365)),
         endDate: DateTime.now().dateOnly.subtract(const Duration(days: 364)),
         total: 2,

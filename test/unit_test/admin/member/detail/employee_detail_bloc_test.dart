@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import 'package:projectunity/data/repo/employee_repo.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
@@ -49,7 +50,7 @@ void main() {
     employeeRepo = MockEmployeeRepo();
     employeeDetailBloc = EmployeeDetailBloc(accountService, spaceService,
         userStateNotifier, employeeService, leaveRepo, employeeRepo);
-    when(leaveRepo.getUserUsedLeaves(uid: employee.uid)).thenAnswer((_) async => 10);
+    when(leaveRepo.getUserUsedLeaves(uid: employee.uid)).thenAnswer((_) async => const LeaveCounts(urgentLeaves: 5,casualLeaves: 5));
     when(userStateNotifier.currentSpaceId).thenReturn("space-id");
     when(spaceService.getPaidLeaves(spaceId: "space-id")).thenAnswer((_) async => 12);
   });
@@ -109,7 +110,7 @@ void main() {
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
-          employee: employee, timeOffRatio: 10 / 12, usedLeaves: 10);
+          employee: employee, timeOffRatio: 10 / 12, usedLeaves: const LeaveCounts(urgentLeaves: 5,casualLeaves: 5));
       expectLater(employeeDetailBloc.stream,
           emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
     });
