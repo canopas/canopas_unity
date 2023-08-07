@@ -41,7 +41,7 @@ void main() {
   Leave leave = Leave(
       leaveId: "leave-id",
       uid: "uid",
-      type: LeaveType.sickLeave,
+      type: LeaveType.urgentLeave,
       startDate: DateTime.now().dateOnly,
       endDate: DateTime.now().dateOnly,
       total: 1,

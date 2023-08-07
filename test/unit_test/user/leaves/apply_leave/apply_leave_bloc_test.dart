@@ -48,7 +48,7 @@ void main() {
 
     test("leave Type change test", () {
       leaveRequestBloc
-          .add(ApplyLeaveChangeLeaveTypeEvent(leaveType: LeaveType.sickLeave));
+          .add(ApplyLeaveChangeLeaveTypeEvent(leaveType: LeaveType.urgentLeave));
       expect(
           leaveRequestBloc.stream,
           emits(ApplyLeaveState(
@@ -56,7 +56,7 @@ void main() {
               endDate: currentDate,
               totalLeaveDays: currentDayTotalLeaveCount,
               selectedDates: currentDayMap,
-              leaveType: LeaveType.sickLeave)));
+              leaveType: LeaveType.urgentLeave)));
     });
 
     test('on apply leave fill data error test', () async {

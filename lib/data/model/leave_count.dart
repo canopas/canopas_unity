@@ -1,16 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class LeaveCounts extends Equatable {
-  final double remainingLeaveCount;
-  final double usedLeaveCount;
-  final int paidLeaveCount;
+  final double totalUsedLeave;
+  final double urgentLeaves;
+  final double casualLeaves;
 
   const LeaveCounts(
-      {this.remainingLeaveCount = 0.0,
-      this.usedLeaveCount = 0.0,
-      this.paidLeaveCount = 0});
+      {this.casualLeaves = 0.0, this.urgentLeaves = 0.0})
+      : totalUsedLeave = urgentLeaves + casualLeaves;
 
   @override
-  List<Object?> get props =>
-      [remainingLeaveCount, usedLeaveCount, paidLeaveCount];
+  List<Object?> get props => [totalUsedLeave, urgentLeaves, casualLeaves];
 }

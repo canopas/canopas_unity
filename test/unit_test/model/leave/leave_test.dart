@@ -25,7 +25,7 @@ void main() {
                 .having(
                     (leave) => leave.uid, 'Unique user id', 'unique-user-id')
                 .having(
-                    (leave) => leave.type, 'Type of leave e.g seek casual', LeaveType.sickLeave)
+                    (leave) => leave.type, 'Type of leave e.g seek casual', LeaveType.urgentLeave)
                 .having((leave) => leave.startDate,
                     'Leave start date timestamp to int value', DateTime(2000))
                 .having((leave) => leave.endDate,
@@ -54,7 +54,7 @@ void main() {
       Leave leave = Leave(
           leaveId: 'unique-leave-doc-id',
           uid: 'unique-user-id',
-          type: LeaveType.sickLeave,
+          type: LeaveType.urgentLeave,
           startDate: DateTime(2000),
           endDate: DateTime(2000),
           total: 5,

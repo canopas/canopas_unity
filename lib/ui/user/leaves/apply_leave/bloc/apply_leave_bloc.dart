@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/map_extension.dart';
+import 'package:projectunity/data/core/functions/shared_function.dart';
 import 'package:projectunity/data/core/mixin/input_validation.dart';
 import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/mail_notification_service.dart';
@@ -18,10 +19,11 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
     with InputValidationMixin {
   final NotificationService _notificationService;
   final LeaveRepo _leaveRepo;
+  final AppFunctions _appFunctions;
   final UserStateNotifier _userStateNotifier;
 
-  ApplyLeaveBloc(
-      this._userStateNotifier, this._leaveRepo, this._notificationService)
+  ApplyLeaveBloc(this._userStateNotifier, this._leaveRepo,
+      this._notificationService, this._appFunctions)
       : super(ApplyLeaveState(
           startDate: DateTime.now().dateOnly,
           endDate: DateTime.now().dateOnly,
@@ -131,7 +133,6 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
           emit(state.copyWith(leaveRequestStatus: Status.success));
         }
       } on Exception {
-
         emit(state.copyWith(
             error: firestoreFetchDataError, leaveRequestStatus: Status.error));
       }
@@ -141,21 +142,31 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
   Leave _getLeaveData() {
     final entries = state.selectedDates.entries
         .where((day) => day.value != LeaveDayDuration.noLeave);
-    DateTime firstDate = entries.first.key;
-    DateTime lastDate = entries.last.key;
-    Map<DateTime, LeaveDayDuration> selectedDates = state.selectedDates
+
+    final DateTime firstDate = entries.first.key;
+    final DateTime lastDate = entries.last.key;
+
+    final Map<DateTime, LeaveDayDuration> selectedDates = state.selectedDates
       ..removeWhere(
           (key, value) => key.isBefore(firstDate) || key.isAfter(lastDate));
+
+    final DateTime appliedOn = DateTime.now();
+
+    final bool isUrgentLeave = _appFunctions.isUrgentLeave(
+        startDate: firstDate,
+        appliedOn: appliedOn,
+        totalLeaves: state.totalLeaveDays);
+
     return Leave(
       leaveId: _leaveRepo.generateLeaveId,
       uid: _userStateNotifier.employeeId,
-      type: state.leaveType,
+      type: isUrgentLeave ? LeaveType.urgentLeave : state.leaveType,
       startDate: firstDate,
       endDate: lastDate,
       total: state.totalLeaveDays,
       reason: state.reason,
       status: LeaveStatus.pending,
-      appliedOn: DateTime.now(),
+      appliedOn: appliedOn,
       perDayDuration: selectedDates.values.toList(),
     );
   }

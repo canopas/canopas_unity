@@ -3,13 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:cloud_firestore/cloud_firestore.dart' as _i6;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/model/leave/leave.dart' as _i5;
+import 'package:projectunity/data/model/leave/leave.dart' as _i6;
+import 'package:projectunity/data/model/leave_count.dart' as _i3;
 import 'package:projectunity/data/model/pagination/pagination.dart' as _i2;
-import 'package:projectunity/data/repo/leave_repo.dart' as _i3;
+import 'package:projectunity/data/repo/leave_repo.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -33,27 +34,37 @@ class _FakePaginatedLeaves_0 extends _i1.SmartFake
         );
 }
 
+class _FakeLeaveCounts_1 extends _i1.SmartFake implements _i3.LeaveCounts {
+  _FakeLeaveCounts_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [LeaveRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
+class MockLeaveRepo extends _i1.Mock implements _i4.LeaveRepo {
   MockLeaveRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Stream<List<_i5.Leave>> get pendingLeaves => (super.noSuchMethod(
+  _i5.Stream<List<_i6.Leave>> get pendingLeaves => (super.noSuchMethod(
         Invocation.getter(#pendingLeaves),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
   @override
   String get generateLeaveId => (super.noSuchMethod(
         Invocation.getter(#generateLeaveId),
         returnValue: '',
       ) as String);
   @override
-  _i4.Future<_i2.PaginatedLeaves> leaves({
-    _i6.DocumentSnapshot<_i5.Leave>? lastDoc,
+  _i5.Future<_i2.PaginatedLeaves> leaves({
+    _i7.DocumentSnapshot<_i6.Leave>? lastDoc,
     String? uid,
   }) =>
       (super.noSuchMethod(
@@ -66,7 +77,7 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
           },
         ),
         returnValue:
-            _i4.Future<_i2.PaginatedLeaves>.value(_FakePaginatedLeaves_0(
+            _i5.Future<_i2.PaginatedLeaves>.value(_FakePaginatedLeaves_0(
           this,
           Invocation.method(
             #leaves,
@@ -77,29 +88,29 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
             },
           ),
         )),
-      ) as _i4.Future<_i2.PaginatedLeaves>);
+      ) as _i5.Future<_i2.PaginatedLeaves>);
   @override
-  _i4.Stream<List<_i5.Leave>> userLeaveRequest(String? uid) =>
+  _i5.Stream<List<_i6.Leave>> userLeaveRequest(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #userLeaveRequest,
           [uid],
         ),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
   @override
-  _i4.Stream<List<_i5.Leave>> leaveByMonth(DateTime? date) =>
+  _i5.Stream<List<_i6.Leave>> leaveByMonth(DateTime? date) =>
       (super.noSuchMethod(
         Invocation.method(
           #leaveByMonth,
           [date],
         ),
-        returnValue: _i4.Stream<List<_i5.Leave>>.empty(),
-      ) as _i4.Stream<List<_i5.Leave>>);
+        returnValue: _i5.Stream<List<_i6.Leave>>.empty(),
+      ) as _i5.Stream<List<_i6.Leave>>);
   @override
-  _i4.Future<bool> checkLeaveAlreadyApplied({
+  _i5.Future<bool> checkLeaveAlreadyApplied({
     required String? uid,
-    required Map<DateTime, _i5.LeaveDayDuration>? dateDuration,
+    required Map<DateTime, _i6.LeaveDayDuration>? dateDuration,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -110,12 +121,12 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
             #dateDuration: dateDuration,
           },
         ),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
   @override
-  _i4.Future<void> updateLeaveStatus({
+  _i5.Future<void> updateLeaveStatus({
     required String? leaveId,
-    required _i5.LeaveStatus? status,
+    required _i6.LeaveStatus? status,
     String? response = r'',
   }) =>
       (super.noSuchMethod(
@@ -128,48 +139,55 @@ class MockLeaveRepo extends _i1.Mock implements _i3.LeaveRepo {
             #response: response,
           },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<void> applyForLeave({required _i5.Leave? leave}) =>
+  _i5.Future<void> applyForLeave({required _i6.Leave? leave}) =>
       (super.noSuchMethod(
         Invocation.method(
           #applyForLeave,
           [],
           {#leave: leave},
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i4.Future<List<_i5.Leave>> getUpcomingLeavesOfUser({required String? uid}) =>
+  _i5.Future<List<_i6.Leave>> getUpcomingLeavesOfUser({required String? uid}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUpcomingLeavesOfUser,
           [],
           {#uid: uid},
         ),
-        returnValue: _i4.Future<List<_i5.Leave>>.value(<_i5.Leave>[]),
-      ) as _i4.Future<List<_i5.Leave>>);
+        returnValue: _i5.Future<List<_i6.Leave>>.value(<_i6.Leave>[]),
+      ) as _i5.Future<List<_i6.Leave>>);
   @override
-  _i4.Future<double> getUserUsedLeaves({required String? uid}) =>
+  _i5.Future<_i3.LeaveCounts> getUserUsedLeaves({required String? uid}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUserUsedLeaves,
           [],
           {#uid: uid},
         ),
-        returnValue: _i4.Future<double>.value(0.0),
-      ) as _i4.Future<double>);
+        returnValue: _i5.Future<_i3.LeaveCounts>.value(_FakeLeaveCounts_1(
+          this,
+          Invocation.method(
+            #getUserUsedLeaves,
+            [],
+            {#uid: uid},
+          ),
+        )),
+      ) as _i5.Future<_i3.LeaveCounts>);
   @override
-  _i4.Future<_i5.Leave?> fetchLeave({required String? leaveId}) =>
+  _i5.Future<_i6.Leave?> fetchLeave({required String? leaveId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchLeave,
           [],
           {#leaveId: leaveId},
         ),
-        returnValue: _i4.Future<_i5.Leave?>.value(),
-      ) as _i4.Future<_i5.Leave?>);
+        returnValue: _i5.Future<_i6.Leave?>.value(),
+      ) as _i5.Future<_i6.Leave?>);
 }

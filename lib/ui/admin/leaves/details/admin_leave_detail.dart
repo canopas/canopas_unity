@@ -9,6 +9,7 @@ import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_action_button.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_date_content.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_response_text_field.dart';
+import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_used_leave_count_view.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
@@ -91,6 +92,7 @@ class _AdminLeaveApplicationDetailScreenState
             UserContent(employee: widget.leaveApplication.employee),
             AdminLeaveRequestDetailsDateContent(
                 leave: widget.leaveApplication.leave),
+            const LeaveCountsView(),
             PerDayDurationDateRange(
                 perDayDurationWithDate:
                     widget.leaveApplication.leave.getDateAndDuration()),

@@ -38,13 +38,13 @@ class EmployeeDetailBloc
       Emitter<AdminEmployeeDetailState> emit) async {
     emit(EmployeeDetailLoadingState());
     try {
-      final double usedLeaves =
+      final leaveCounts =
           await _leaveRepo.getUserUsedLeaves(uid: event.employeeId);
-      final int totalLeaves = await _spaceService.getPaidLeaves(
+      final int totalPaidLeavesCount = await _spaceService.getPaidLeaves(
           spaceId: _userManager.currentSpaceId!);
       double percentage = 0.0;
-      if (totalLeaves != 0) {
-        percentage = usedLeaves / totalLeaves;
+      if (totalPaidLeavesCount != 0) {
+        percentage = leaveCounts.totalUsedLeave / totalPaidLeavesCount;
       }
 
       return emit.forEach(
@@ -54,7 +54,7 @@ class EmployeeDetailBloc
             return EmployeeDetailLoadedState(
                 employee: employee,
                 timeOffRatio: percentage,
-                usedLeaves: usedLeaves);
+                usedLeaves: leaveCounts);
           } else {
             return EmployeeDetailFailureState(error: firestoreFetchDataError);
           }

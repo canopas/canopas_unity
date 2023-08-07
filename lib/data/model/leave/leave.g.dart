@@ -50,12 +50,7 @@ Map<String, dynamic> _$LeaveToJson(Leave instance) {
 
 const _$LeaveTypeEnumMap = {
   LeaveType.casualLeave: 0,
-  LeaveType.sickLeave: 1,
-  LeaveType.annualLeave: 2,
-  LeaveType.paternityLeave: 3,
-  LeaveType.maternityLeave: 4,
-  LeaveType.marriageLeave: 5,
-  LeaveType.bereavementLeave: 6,
+  LeaveType.urgentLeave: 1,
 };
 
 const _$LeaveStatusEnumMap = {

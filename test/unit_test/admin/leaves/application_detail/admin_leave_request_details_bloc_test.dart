@@ -34,7 +34,7 @@ void main() {
       AdminLeaveDetailsState leaveCountLoadingState =
           const AdminLeaveDetailsState(
               adminReply: '',
-              usedLeaves: 0.0,
+              usedLeavesCount: 0.0,
               error: null,
               leaveCountStatus: Status.loading,
               actionStatus: Status.initial);
@@ -45,7 +45,7 @@ void main() {
         when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenAnswer((_) async => 10);
         AdminLeaveDetailsState successState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeaves: 10,
+            usedLeavesCount: 10,
             error: null,
             actionStatus: Status.initial,
             leaveCountStatus: Status.success);
@@ -60,7 +60,7 @@ void main() {
         when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenThrow(Exception('error'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeaves: 0,
+            usedLeavesCount: 0,
             error: firestoreFetchDataError,
             actionStatus: Status.initial,
             leaveCountStatus: Status.error);
@@ -74,7 +74,7 @@ void main() {
       AdminLeaveDetailsState responseLoadingState =
           const AdminLeaveDetailsState(
               adminReply: '',
-              usedLeaves: 0,
+              usedLeavesCount: 0,
               actionStatus: Status.loading,
               leaveCountStatus: Status.initial,
               error: null);
@@ -177,7 +177,7 @@ void main() {
             leaveId: 'leave-id'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeaves: 0,
+            usedLeavesCount: 0,
             error: firestoreFetchDataError,
             actionStatus: Status.error);
         expectLater(

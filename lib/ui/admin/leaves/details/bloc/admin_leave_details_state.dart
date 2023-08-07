@@ -1,23 +1,24 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 
 class AdminLeaveDetailsState extends Equatable {
   final Status actionStatus;
   final Status leaveCountStatus;
-  final double usedLeaves;
+  final LeaveCounts usedLeavesCount;
   final String? error;
   final String adminReply;
 
   const AdminLeaveDetailsState({
     this.adminReply = "",
-    this.usedLeaves = 0.0,
+    this.usedLeavesCount = const LeaveCounts(casualLeaves: 0, urgentLeaves: 0),
     this.error,
     this.actionStatus = Status.initial,
     this.leaveCountStatus = Status.initial,
   });
 
   AdminLeaveDetailsState copyWith(
-      {double? usedLeaves,
+      {LeaveCounts? usedLeavesCount,
       String? error,
       Status? actionStatus,
       Status? leaveCountStatus,
@@ -25,7 +26,7 @@ class AdminLeaveDetailsState extends Equatable {
     return AdminLeaveDetailsState(
       adminReply: adminReply ?? this.adminReply,
       error: error,
-      usedLeaves: usedLeaves ?? this.usedLeaves,
+      usedLeavesCount: usedLeavesCount ?? this.usedLeavesCount,
       actionStatus: actionStatus ?? this.actionStatus,
       leaveCountStatus: leaveCountStatus ?? this.leaveCountStatus,
     );
@@ -33,5 +34,5 @@ class AdminLeaveDetailsState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [error, leaveCountStatus, actionStatus, usedLeaves, adminReply];
+      [error, leaveCountStatus, actionStatus, usedLeavesCount, adminReply];
 }

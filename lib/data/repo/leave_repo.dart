@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import 'package:projectunity/data/model/pagination/pagination.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/leave_service.dart';
@@ -85,7 +86,7 @@ class LeaveRepo {
       await _leaveService.getUpcomingLeavesOfUser(
           uid: uid, spaceId: _userStateNotifier.currentSpaceId!);
 
-  Future<double> getUserUsedLeaves({required String uid}) async =>
+  Future<LeaveCounts> getUserUsedLeaves({required String uid}) async =>
       await _leaveService.getUserUsedLeaves(
           uid: uid, spaceId: _userStateNotifier.currentSpaceId!);
 
