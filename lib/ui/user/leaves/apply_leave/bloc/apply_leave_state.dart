@@ -13,8 +13,10 @@ class ApplyLeaveState extends Equatable {
   final String reason;
   final bool showTextFieldError;
   final String? error;
+  final String? leaveId;
 
   const ApplyLeaveState({
+    this.leaveId,
     this.leaveRequestStatus = Status.initial,
     this.error,
     this.showTextFieldError = false,
@@ -27,6 +29,7 @@ class ApplyLeaveState extends Equatable {
   });
 
   ApplyLeaveState copyWith({
+    String? leaveId,
     Status? leaveRequestStatus,
     bool? showTextFieldError,
     LeaveType? leaveType,
@@ -38,6 +41,7 @@ class ApplyLeaveState extends Equatable {
     String? error,
   }) {
     return ApplyLeaveState(
+        leaveId: leaveId ?? this.leaveId,
         leaveRequestStatus: leaveRequestStatus ?? this.leaveRequestStatus,
         error: error,
         showTextFieldError: showTextFieldError ?? this.showTextFieldError,
@@ -53,6 +57,7 @@ class ApplyLeaveState extends Equatable {
 
   @override
   List<Object?> get props => [
+        leaveId,
         leaveRequestStatus,
         error,
         showTextFieldError,

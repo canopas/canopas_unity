@@ -78,7 +78,7 @@ class _AdminLeaveApplicationDetailScreenState
               state.actionStatus == Status.error) {
             showSnackBar(context: context, error: state.error);
           } else if (state.actionStatus == Status.success) {
-            context.pop();
+            context.pop(widget.leaveApplication.leave.leaveId);
           }
         },
         child: ListView(

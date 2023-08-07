@@ -6,11 +6,10 @@ import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_state.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/widget/admin_leaves_filter.dart';
+import 'package:projectunity/ui/admin/leaves/leave_screen/widget/month_leave_list.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'package:projectunity/ui/widget/leave_application_card.dart';
-import 'package:projectunity/ui/widget/leave_card.dart';
 import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../../data/configs/colors.dart';
@@ -64,6 +63,23 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<AdminLeavesBloc>();
+
+    void navigateToLeaveDetails(LeaveApplication la) async {
+      final String? leaveId =
+          await context.pushNamed(Routes.adminLeaveDetails, extra: la);
+      if (leaveId != null) {
+        bloc.add(UpdateLeaveApplication(leaveId: leaveId));
+      }
+    }
+
+    void navigateToApplyLeave() async {
+      final String? leaveId = await context.pushNamed(Routes.hrApplyLeave);
+      if (leaveId != null) {
+        bloc.add(UpdateLeaveApplication(leaveId: leaveId));
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -104,10 +120,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                                       monthWiseLeaveApplications.value.length,
                                 ),
                                 content: MonthLeaveList(
-                                  onCardTap: (la) {
-                                    context.goNamed(Routes.adminLeaveDetails,
-                                        extra: la);
-                                  },
+                                  onCardTap: navigateToLeaveDetails,
                                   leaveApplications:
                                       monthWiseLeaveApplications.value,
                                   showLeaveApplicationCard:
@@ -127,8 +140,8 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
           }),
       floatingActionButton: getIt<UserStateNotifier>().isHR
           ? FloatingActionButton(
+              onPressed: navigateToApplyLeave,
               child: const Icon(Icons.add),
-              onPressed: () => context.goNamed(Routes.hrApplyLeave),
             )
           : null,
       backgroundColor: AppColors.whiteColor,
@@ -136,45 +149,4 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
   }
 }
 
-class MonthLeaveList extends StatelessWidget {
-  final List<LeaveApplication> leaveApplications;
-  final bool isPaginationLoading;
-  final bool showLeaveApplicationCard;
-  final void Function(LeaveApplication) onCardTap;
 
-  const MonthLeaveList(
-      {super.key,
-      required this.leaveApplications,
-      required this.isPaginationLoading,
-      required this.showLeaveApplicationCard,
-      required this.onCardTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.all(16),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: isPaginationLoading
-          ? leaveApplications.length + 1
-          : leaveApplications.length,
-      itemBuilder: (context, index) {
-        if (index == leaveApplications.length && isPaginationLoading) {
-          return const Padding(
-            padding: EdgeInsets.all(50),
-            child: AppCircularProgressIndicator(),
-          );
-        }
-        if (showLeaveApplicationCard) {
-          return LeaveApplicationCard(
-              onTap: () => onCardTap(leaveApplications[index]),
-              leaveApplication: leaveApplications[index]);
-        }
-        return LeaveCard(
-            onTap: () => onCardTap(leaveApplications[index]),
-            leave: leaveApplications[index].leave);
-      },
-      separatorBuilder: (context, index) => const SizedBox(height: 16),
-    );
-  }
-}

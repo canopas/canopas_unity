@@ -31,13 +31,16 @@ class UserLeaveDetailPage extends StatelessWidget {
     return BlocProvider<UserLeaveDetailBloc>(
       create: (_) => getIt<UserLeaveDetailBloc>()
         ..add(FetchLeaveDetailEvent(leaveId: leaveId)),
-      child: const UserLeaveDetailScreen(),
+      child: UserLeaveDetailScreen(leaveId: leaveId),
     );
   }
 }
 
 class UserLeaveDetailScreen extends StatefulWidget {
-  const UserLeaveDetailScreen({Key? key}) : super(key: key);
+  final String leaveId;
+
+  const UserLeaveDetailScreen({Key? key, required this.leaveId})
+      : super(key: key);
 
   @override
   State<UserLeaveDetailScreen> createState() => _UserLeaveDetailScreenState();
@@ -65,9 +68,8 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
             }
             if (state is UserCancelLeaveSuccessState) {
               showSnackBar(
-                  context: context,
-                  msg: localization.cancel_leave_message);
-              context.pop();
+                  context: context, msg: localization.cancel_leave_message);
+              context.pop(widget.leaveId);
             }
           },
           builder: (context, state) {
