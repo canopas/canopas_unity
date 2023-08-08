@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import 'package:projectunity/data/model/pagination/pagination.dart';
 import '../core/utils/const/firestore.dart';
 import '../model/leave/leave.dart';
@@ -97,7 +98,8 @@ class LeaveService {
   }) async {
     final leaves = await _leaveDb(spaceId: spaceId)
         .where(FireStoreConst.uid, isEqualTo: uid)
-        .where(FireStoreConst.leaveStatus, isLessThanOrEqualTo: LeaveStatus.approved.value)
+        .where(FireStoreConst.leaveStatus,
+            isLessThanOrEqualTo: LeaveStatus.approved.value)
         .get();
 
     return leaves.docs.map((doc) => doc.data()).where((leave) {
@@ -145,7 +147,7 @@ class LeaveService {
     return data.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<double> getUserUsedLeaves(
+  Future<LeaveCounts> getUserUsedLeaves(
       {required String uid, required String spaceId}) async {
     DateTime currentTime = DateTime.now();
 
@@ -156,15 +158,20 @@ class LeaveService {
         .get();
 
     List<Leave> approvedLeaves = data.docs.map((doc) => doc.data()).toList();
-    double leaveCount = 0.0;
+    double casualLeaves = 0.0;
+    double urgentLeaves = 0.0;
     approvedLeaves
         .where((leave) =>
             leave.startDate.isBefore(currentTime) &&
             leave.startDate.year == currentTime.year)
         .forEach((leave) {
-      leaveCount += leave.total;
+      if (leave.type == LeaveType.urgentLeave) {
+        urgentLeaves += leave.total;
+      } else {
+        casualLeaves += leave.total;
+      }
     });
-    return leaveCount;
+    return LeaveCounts(urgentLeaves: urgentLeaves, casualLeaves: casualLeaves);
   }
 
   Future<Leave?> fetchLeave(

@@ -24,17 +24,17 @@ class UserLeaveCountBloc
       FetchLeaveCountEvent event, Emitter<UserLeaveCountState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final double usedLeaves =
+      final leaveCounts =
           await _leaveRepo.getUserUsedLeaves(uid: _userManger.employeeId);
       final int totalLeaves = await _spaceService.getPaidLeaves(
           spaceId: _userManger.currentSpaceId!);
       double percentage = 0;
       if (totalLeaves != 0) {
-        percentage = usedLeaves / totalLeaves;
+        percentage = leaveCounts.totalUsedLeave / totalLeaves;
       }
       emit(state.copyWith(
           status: Status.success,
-          used: usedLeaves,
+          usedLeavesCounts: leaveCounts,
           leavePercentage: percentage));
     } on Exception {
       emit(state.copyWith(

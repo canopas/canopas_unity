@@ -26,10 +26,10 @@ class AdminLeaveDetailsBloc
       Emitter<AdminLeaveDetailsState> emit) async {
     emit(state.copyWith(leaveCountStatus: Status.loading));
     try {
-      double usedLeave =
+      final leaveCounts =
           await _leaveRepo.getUserUsedLeaves(uid: event.employeeId);
       emit(state.copyWith(
-          leaveCountStatus: Status.success, usedLeaves: usedLeave));
+          leaveCountStatus: Status.success, usedLeavesCount: leaveCounts));
     } on Exception {
       emit(state.copyWith(
           error: firestoreFetchDataError, leaveCountStatus: Status.error));

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import '../../../../../data/model/employee/employee.dart';
 
 abstract class AdminEmployeeDetailState extends Equatable {
@@ -13,7 +14,7 @@ class EmployeeDetailLoadingState extends AdminEmployeeDetailState {}
 class EmployeeDetailLoadedState extends AdminEmployeeDetailState {
   final Employee employee;
   final double timeOffRatio;
-  final double usedLeaves;
+  final LeaveCounts usedLeaves;
 
   EmployeeDetailLoadedState(
       {required this.employee,

@@ -23,7 +23,7 @@ void main() {
     upcomingLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
-        type: LeaveType.marriageLeave,
+        type: LeaveType.casualLeave,
         startDate: DateTime.now().add(const Duration(days: 2)),
         endDate: DateTime.now().add(const Duration(days: 3)),
         total: 1,
@@ -35,16 +35,13 @@ void main() {
     pastLeave = Leave(
         leaveId: 'leaveId',
         uid: 'Uid',
-        type: LeaveType.marriageLeave,
-        startDate:
-            DateTime.now().subtract(const Duration(days: 3)),
-        endDate:
-            DateTime.now().subtract(const Duration(days: 2)),
+        type: LeaveType.casualLeave,
+        startDate: DateTime.now().subtract(const Duration(days: 3)),
+        endDate: DateTime.now().subtract(const Duration(days: 2)),
         total: 1,
         reason: 'Suffering from viral fever',
         status: LeaveStatus.pending,
-        appliedOn:
-            DateTime.now().subtract(const Duration(days: 4)),
+        appliedOn: DateTime.now().subtract(const Duration(days: 4)),
         perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
   });
 
@@ -73,7 +70,8 @@ void main() {
         () {
       userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
 
-      when(leaveRepo.fetchLeave(leaveId: leaveId)).thenAnswer((_) async => pastLeave);
+      when(leaveRepo.fetchLeave(leaveId: leaveId))
+          .thenAnswer((_) async => pastLeave);
       expectLater(
           userLeaveDetailBloc.stream,
           emitsInOrder([
@@ -99,7 +97,8 @@ void main() {
     test(
         'Emits loading state and error state if leaveId is not matched with any document reference and found null from firestore',
         () {
-      when(leaveRepo.fetchLeave(leaveId: leaveId)).thenAnswer((_) async => null);
+      when(leaveRepo.fetchLeave(leaveId: leaveId))
+          .thenAnswer((_) async => null);
       userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
       expectLater(
           userLeaveDetailBloc.stream,
@@ -118,12 +117,16 @@ void main() {
     });
 
     test('Emit failure state if leave canceled', () {
-      when(leaveRepo.updateLeaveStatus(leaveId: leaveId, status: LeaveStatus.cancelled)).thenThrow(Exception('error'));
+      when(leaveRepo.updateLeaveStatus(
+              leaveId: leaveId, status: LeaveStatus.cancelled))
+          .thenThrow(Exception('error'));
       userLeaveDetailBloc.add(CancelLeaveApplicationEvent(leaveId: leaveId));
       expectLater(
           userLeaveDetailBloc.stream,
-          emitsInOrder(
-              [UserLeaveDetailLoadingState(), UserLeaveDetailErrorState(error: firestoreFetchDataError)]));
+          emitsInOrder([
+            UserLeaveDetailLoadingState(),
+            UserLeaveDetailErrorState(error: firestoreFetchDataError)
+          ]));
     });
   });
 }

@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 import '../../../../../../data/core/utils/bloc_status.dart';
+import '../../../../../../data/model/leave_count.dart';
 
 class UserLeaveCountState extends Equatable {
   final Status status;
-  final double used;
+  final LeaveCounts usedLeavesCounts;
   final double leavePercentage;
   final String? error;
 
   const UserLeaveCountState(
       {this.status = Status.initial,
-      this.used = 0,
+      this.usedLeavesCounts = const LeaveCounts(),
       this.leavePercentage = 0,
       this.error});
 
   UserLeaveCountState copyWith(
       {Status? status,
-      double? used,
+      LeaveCounts? usedLeavesCounts,
       String? error,
       double? leavePercentage}) {
     return UserLeaveCountState(
         status: status ?? this.status,
-        used: used ?? this.used,
+        usedLeavesCounts: usedLeavesCounts ?? this.usedLeavesCounts,
         leavePercentage: leavePercentage ?? this.leavePercentage,
         error: error ?? this.error);
   }
 
   @override
-  List<Object?> get props =>
-      [status, used, leavePercentage, error];
+  List<Object?> get props => [status, usedLeavesCounts, leavePercentage, error];
 }

@@ -5,6 +5,7 @@ import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/data/model/leave_count.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/repo/leave_repo.dart';
 import 'package:projectunity/data/services/mail_notification_service.dart';
@@ -34,7 +35,7 @@ void main() {
       AdminLeaveDetailsState leaveCountLoadingState =
           const AdminLeaveDetailsState(
               adminReply: '',
-              usedLeaves: 0.0,
+              usedLeavesCount: LeaveCounts(),
               error: null,
               leaveCountStatus: Status.loading,
               actionStatus: Status.initial);
@@ -42,10 +43,10 @@ void main() {
       test(
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
-        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenAnswer((_) async => 10);
+        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenAnswer((_) async => const LeaveCounts(casualLeaves: 5,urgentLeaves: 5));
         AdminLeaveDetailsState successState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeaves: 10,
+            usedLeavesCount: LeaveCounts(casualLeaves: 5,urgentLeaves: 5),
             error: null,
             actionStatus: Status.initial,
             leaveCountStatus: Status.success);
@@ -60,7 +61,7 @@ void main() {
         when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenThrow(Exception('error'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeaves: 0,
+            usedLeavesCount: LeaveCounts(),
             error: firestoreFetchDataError,
             actionStatus: Status.initial,
             leaveCountStatus: Status.error);
@@ -74,7 +75,7 @@ void main() {
       AdminLeaveDetailsState responseLoadingState =
           const AdminLeaveDetailsState(
               adminReply: '',
-              usedLeaves: 0,
+              usedLeavesCount: LeaveCounts(),
               actionStatus: Status.loading,
               leaveCountStatus: Status.initial,
               error: null);
@@ -177,7 +178,7 @@ void main() {
             leaveId: 'leave-id'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeaves: 0,
+            usedLeavesCount: LeaveCounts(),
             error: firestoreFetchDataError,
             actionStatus: Status.error);
         expectLater(

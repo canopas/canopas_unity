@@ -22,7 +22,7 @@ void main() {
   final leave = Leave(
       leaveId: 'leaveId',
       uid: employeeUID,
-      type: LeaveType.sickLeave,
+      type: LeaveType.urgentLeave,
       startDate: DateTime.now().add(const Duration(days: 2)),
       endDate: DateTime.now().add(const Duration(days: 4)),
       total: 2,

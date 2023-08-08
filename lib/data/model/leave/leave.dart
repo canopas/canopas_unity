@@ -63,12 +63,7 @@ class Leave extends Equatable {
 @JsonEnum(valueField: 'value')
 enum LeaveType {
   casualLeave(0),
-  sickLeave(1),
-  annualLeave(2),
-  paternityLeave(3),
-  maternityLeave(4),
-  marriageLeave(5),
-  bereavementLeave(6);
+  urgentLeave(1);
 
   final int value;
 
