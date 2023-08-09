@@ -41,7 +41,7 @@ void main() {
   Leave initialLeaveWithChange = Leave(
       leaveId: 'Leave Id',
       uid: "user id",
-      type: LeaveType.sickLeave,
+      type: LeaveType.urgentLeave,
       startDate: today.add(const Duration(days: 1)),
       endDate: today.add(const Duration(days: 2)),
       total: 2,

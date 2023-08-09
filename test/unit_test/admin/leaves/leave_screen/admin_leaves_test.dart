@@ -42,7 +42,7 @@ void main() {
     Leave joiCurrentYearLeave = Leave(
         leaveId: 'leave-id-joi',
         uid: 'joi-id',
-        type: LeaveType.sickLeave,
+        type: LeaveType.urgentLeave,
         startDate: DateTime.now().dateOnly,
         endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
         total: 2,
