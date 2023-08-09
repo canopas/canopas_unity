@@ -8,7 +8,6 @@ import 'dart:ui' as _i12;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projectunity/data/core/functions/shared_function.dart' as _i14;
 import 'package:projectunity/data/model/account/account.dart' as _i10;
 import 'package:projectunity/data/model/employee/employee.dart' as _i4;
 import 'package:projectunity/data/model/leave/leave.dart' as _i7;
@@ -487,32 +486,4 @@ class MockNotificationService extends _i1.Mock
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
-}
-
-/// A class which mocks [AppFunctions].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockAppFunctions extends _i1.Mock implements _i14.AppFunctions {
-  MockAppFunctions() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  bool isUrgentLeave({
-    required DateTime? startDate,
-    required DateTime? appliedOn,
-    required double? totalLeaves,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #isUrgentLeave,
-          [],
-          {
-            #startDate: startDate,
-            #appliedOn: appliedOn,
-            #totalLeaves: totalLeaves,
-          },
-        ),
-        returnValue: false,
-      ) as bool);
 }
