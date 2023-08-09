@@ -255,7 +255,7 @@ void main() {
         perDayDuration: selectedDates.values.toList(),
       );
 
-      when(leaveRepo.applyForLeave(leave: leave)).thenAnswer((_) async {});
+      when(leaveRepo.applyForLeave(leave: leave)).thenThrow(Exception('error'));
       leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));
       leaveRequestBloc.add(ApplyLeaveReasonChangeEvent(reason: "reason"));
       leaveRequestBloc.add(ApplyLeaveSubmitFormEvent());
@@ -340,7 +340,7 @@ void main() {
           ownerIds: const ["uid"],
           notificationEmail: "hr@canopas.com");
 
-      when(leaveRepo.applyForLeave(leave: leave)).thenAnswer((_) async {});
+      when(leaveRepo.generateLeaveId).thenReturn(leave.leaveId);
       when(userStateNotifier.employee).thenReturn(employee);
       when(userStateNotifier.currentSpace).thenReturn(space);
       when(notificationService.notifyHRForNewLeave(
@@ -381,6 +381,7 @@ void main() {
                 selectedDates: selectedDates,
                 totalLeaveDays: totalDays,
                 reason: "reason",
+                leaveId: leave.leaveId,
                 leaveRequestStatus: Status.success),
           ]));
     });

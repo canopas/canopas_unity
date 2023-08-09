@@ -49,6 +49,19 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
 
   @override
   Widget build(BuildContext context) {
+    navigateToLeaveDetail(Leave leave) async {
+      final bloc = context.read<AdminEmployeeDetailsLeavesBLoc>();
+      final String? leaveId = await context
+          .pushNamed(Routes.adminEmployeeDetailsLeavesDetails, params: {
+        RoutesParamsConst.employeeId: leave.uid,
+        RoutesParamsConst.leaveId: leave.leaveId,
+        RoutesParamsConst.employeeName: widget.employeeName,
+      });
+      if (leaveId != null) {
+        bloc.add(UpdateLeave(leaveId: leaveId));
+      }
+    }
+
     return BlocConsumer<AdminEmployeeDetailsLeavesBLoc,
             AdminEmployeeDetailsLeavesState>(
         listenWhen: (previous, current) =>
@@ -83,16 +96,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                           count: monthWiseLeaves.value.length,
                         ),
                         content: LeaveListByMonth(
-                          onCardTap: (leave) {
-                            context.goNamed(
-                                Routes.adminEmployeeDetailsLeavesDetails,
-                                params: {
-                                  RoutesParamsConst.employeeId: leave.uid,
-                                  RoutesParamsConst.leaveId: leave.leaveId,
-                                  RoutesParamsConst.employeeName:
-                                      widget.employeeName,
-                                });
-                          },
+                          onCardTap: navigateToLeaveDetail,
                           isPaginationLoading: monthWiseLeaves.key ==
                                   state.leavesMap.keys.last &&
                               state.fetchMoreDataStatus == Status.loading,

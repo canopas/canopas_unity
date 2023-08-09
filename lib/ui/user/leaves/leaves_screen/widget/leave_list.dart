@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave_event.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
@@ -18,6 +19,16 @@ class LeaveList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Future<void> navigateToLeaveDetails(Leave leave) async {
+      final bloc = context.read<UserLeaveBloc>();
+      final String? leaveId = await context.pushNamed(Routes.userLeaveDetail,
+          params: {RoutesParamsConst.leaveId: leave.leaveId});
+      if (leaveId != null) {
+        bloc.add(UpdateLeave(leaveId: leaveId));
+      }
+    }
+
     return BlocConsumer<UserLeaveBloc, UserLeaveState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
@@ -35,11 +46,7 @@ class LeaveList extends StatelessWidget {
                           count: monthWiseLeaves.value.length,
                         ),
                         content: LeaveListByMonth(
-                          onCardTap: (leave) {
-                            context.goNamed(Routes.userLeaveDetail, params: {
-                              RoutesParamsConst.leaveId: leave.leaveId
-                            });
-                          },
+                          onCardTap: navigateToLeaveDetails,
                           isPaginationLoading: monthWiseLeaves.key ==
                                   state.leavesMap.keys.last &&
                               state.fetchMoreDataStatus == Status.loading,
@@ -72,5 +79,3 @@ class LeaveList extends StatelessWidget {
     );
   }
 }
-
-

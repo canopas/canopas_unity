@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart' show DocumentSnapshot;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -32,7 +31,22 @@ void main() {
       endDate: today.add(const Duration(days: 2)),
       total: 2,
       reason: 'Suffering from viral fever',
-      status: LeaveStatus.approved,
+      status: LeaveStatus.pending,
+      appliedOn: today,
+      perDayDuration: const [
+        LeaveDayDuration.firstHalfLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
+
+  Leave initialLeaveWithChange = Leave(
+      leaveId: 'Leave Id',
+      uid: "user id",
+      type: LeaveType.sickLeave,
+      startDate: today.add(const Duration(days: 1)),
+      endDate: today.add(const Duration(days: 2)),
+      total: 2,
+      reason: 'Suffering from viral fever',
+      status: LeaveStatus.cancelled,
       appliedOn: today,
       perDayDuration: const [
         LeaveDayDuration.firstHalfLeave,
@@ -52,7 +66,6 @@ void main() {
       perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
 
   group('Admin member details time-off leave test', () {
-
     group('Initial fetch data test', () {
       final lastDoc = MockDocumentSnapshot<Leave>();
 
@@ -151,6 +164,19 @@ void main() {
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });
+
+      test('Update leaves on list test', () {
+        when(leaveRepo.fetchLeave(leaveId: initialLeave.leaveId))
+            .thenAnswer((realInvocation) async => initialLeaveWithChange);
+        bloc.add(UpdateLeave(leaveId: initialLeave.leaveId));
+        expectLater(
+            bloc.stream,
+            emits(AdminEmployeeDetailsLeavesState(
+                fetchMoreDataStatus: Status.success,
+                status: Status.success,
+                leavesMap: [moreLeave, initialLeaveWithChange]
+                    .groupByMonth((element) => element.appliedOn))));
+      });
     });
     group('Fetch more data failure test', () {
       final lastDoc = MockDocumentSnapshot<Leave>();
@@ -164,7 +190,7 @@ void main() {
         await bloc.close();
       });
 
-      test('Load initial leave success test', () {
+      test('Initial data setup', () {
         when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
             PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
         bloc.add(LoadInitialLeaves(employeeId: employeeId));
@@ -179,7 +205,7 @@ void main() {
             ]));
       });
 
-      test('fetch more data leave success test', () {
+      test('fetch more data leave failure test', () {
         when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc))
             .thenThrow(Exception('error'));
         bloc.add(FetchMoreUserLeaves());

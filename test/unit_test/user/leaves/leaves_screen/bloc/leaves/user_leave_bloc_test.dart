@@ -33,7 +33,22 @@ void main() {
       endDate: today.add(const Duration(days: 2)),
       total: 2,
       reason: 'Suffering from viral fever',
-      status: LeaveStatus.approved,
+      status: LeaveStatus.pending,
+      appliedOn: today,
+      perDayDuration: const [
+        LeaveDayDuration.firstHalfLeave,
+        LeaveDayDuration.firstHalfLeave
+      ]);
+
+  Leave initialLeaveWithChange = Leave(
+      leaveId: 'Leave Id',
+      uid: "user id",
+      type: LeaveType.sickLeave,
+      startDate: today.add(const Duration(days: 1)),
+      endDate: today.add(const Duration(days: 2)),
+      total: 2,
+      reason: 'Suffering from viral fever',
+      status: LeaveStatus.cancelled,
       appliedOn: today,
       perDayDuration: const [
         LeaveDayDuration.firstHalfLeave,
@@ -104,7 +119,19 @@ void main() {
                   status: Status.error, error: firestoreFetchDataError),
             ]));
       });
+
+      test('Add applied leaves on leave list test', () {
+        when(leaveRepo.fetchLeave(leaveId: initialLeave.leaveId))
+            .thenAnswer((realInvocation) async => initialLeave);
+        bloc.add(UpdateLeave(leaveId: initialLeave.leaveId));
+        expectLater(
+            bloc.stream,
+            emits(UserLeaveState(
+                leavesMap: [initialLeave]
+                    .groupByMonth((element) => element.appliedOn))));
+      });
     });
+
     group('User Leave fetch more data success test', () {
       final lastDoc = MockDocumentSnapshot<Leave>();
       final moreDataLastDoc = MockDocumentSnapshot<Leave>();
@@ -155,7 +182,21 @@ void main() {
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });
+
+      test('Update leaves on list test', () {
+        when(leaveRepo.fetchLeave(leaveId: initialLeave.leaveId))
+            .thenAnswer((realInvocation) async => initialLeaveWithChange);
+        bloc.add(UpdateLeave(leaveId: initialLeave.leaveId));
+        expectLater(
+            bloc.stream,
+            emits(UserLeaveState(
+                fetchMoreDataStatus: Status.success,
+                status: Status.success,
+                leavesMap: [moreLeave, initialLeaveWithChange]
+                    .groupByMonth((element) => element.appliedOn))));
+      });
     });
+
     group('User Leave fetch more data failure test', () {
       final lastDoc = MockDocumentSnapshot<Leave>();
 
@@ -185,7 +226,7 @@ void main() {
             ]));
       });
 
-      test('fetch more data leave success test', () {
+      test('fetch more data leave failure test', () {
         when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc))
             .thenThrow(Exception('error'));
         bloc.add(FetchMoreUserLeaves());
