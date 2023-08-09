@@ -53,7 +53,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
             showSnackBar(
                 context: context,
                 msg: localization.user_leaves_apply_leave_success_message);
-            context.pop();
+            context.pop(state.leaveId);
           }
         },
         child: ListView(

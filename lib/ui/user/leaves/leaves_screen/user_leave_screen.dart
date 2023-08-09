@@ -59,6 +59,14 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void navigateToApplyLeave() async {
+      final bloc = context.read<UserLeaveBloc>();
+      final String? leaveId = await context.pushNamed(Routes.applyLeave);
+      if (leaveId != null) {
+        bloc.add(UpdateLeave(leaveId: leaveId));
+      }
+    }
+
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -73,8 +81,8 @@ class _UserLeaveScreenState extends State<UserLeaveScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: navigateToApplyLeave,
         child: const Icon(Icons.add),
-        onPressed: () => context.goNamed(Routes.applyLeave),
       ),
     );
   }

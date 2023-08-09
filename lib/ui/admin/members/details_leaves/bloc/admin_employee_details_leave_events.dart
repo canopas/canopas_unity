@@ -15,3 +15,12 @@ class FetchMoreUserLeaves extends AdminEmployeeDetailsLeavesEvents {
   @override
   List<Object?> get props => [];
 }
+
+class UpdateLeave extends AdminEmployeeDetailsLeavesEvents {
+  final String leaveId;
+
+  UpdateLeave({required this.leaveId});
+
+  @override
+  List<Object?> get props => [leaveId];
+}

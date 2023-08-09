@@ -30,3 +30,12 @@ class SearchEmployeeEvent extends AdminLeavesEvents {
   @override
   List<Object?> get props => [search];
 }
+
+class UpdateLeaveApplication extends AdminLeavesEvents {
+  final String leaveId;
+
+  UpdateLeaveApplication({required this.leaveId});
+
+  @override
+  List<Object?> get props => [leaveId];
+}

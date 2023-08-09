@@ -21,6 +21,7 @@ class AdminEmployeeDetailsLeavesBLoc extends Bloc<
       : super(const AdminEmployeeDetailsLeavesState()) {
     on<LoadInitialLeaves>(_fetchInitialLeaves);
     on<FetchMoreUserLeaves>(_fetchMoreLeaves);
+    on<UpdateLeave>(_updateLeave);
   }
 
   Future<void> _fetchInitialLeaves(LoadInitialLeaves event,
@@ -66,6 +67,16 @@ class AdminEmployeeDetailsLeavesBLoc extends Bloc<
             error: firestoreFetchDataError, fetchMoreDataStatus: Status.error));
       }
     }
+  }
+
+  Future<void> _updateLeave(
+      UpdateLeave event, Emitter<AdminEmployeeDetailsLeavesState> emit) async {
+    final leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
+    final leaves = state.leavesMap.values.merge();
+    leaves.removeWhereAndAdd(
+        leave, (element) => element.leaveId == leave?.leaveId);
+    emit(state.copyWith(
+        leavesMap: leaves.groupByMonth((leave) => leave.appliedOn)));
   }
 
   @override

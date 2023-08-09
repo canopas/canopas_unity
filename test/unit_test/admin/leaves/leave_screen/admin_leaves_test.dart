@@ -26,7 +26,7 @@ void main() {
 
   group('Admin Leaves Test', () {
     Leave andrewCurrentYearLeave = Leave(
-        leaveId: 'leave-id',
+        leaveId: 'leave-id-andrew',
         uid: 'andrew-id',
         type: LeaveType.casualLeave,
         startDate: DateTime.now().dateOnly,
@@ -40,7 +40,22 @@ void main() {
           LeaveDayDuration.firstHalfLeave
         ]);
     Leave joiCurrentYearLeave = Leave(
-        leaveId: 'leave-id',
+        leaveId: 'leave-id-joi',
+        uid: 'joi-id',
+        type: LeaveType.urgentLeave,
+        startDate: DateTime.now().dateOnly,
+        endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
+        total: 2,
+        reason: 'reason',
+        status: LeaveStatus.pending,
+        appliedOn: DateTime.now().dateOnly,
+        perDayDuration: const [
+          LeaveDayDuration.noLeave,
+          LeaveDayDuration.firstHalfLeave
+        ]);
+
+    Leave joiCurrentYearLeaveUpdate = Leave(
+        leaveId: 'leave-id-joi',
         uid: 'joi-id',
         type: LeaveType.urgentLeave,
         startDate: DateTime.now().dateOnly,
@@ -53,8 +68,9 @@ void main() {
           LeaveDayDuration.noLeave,
           LeaveDayDuration.firstHalfLeave
         ]);
+
     Leave joiPreviousYearLeave = Leave(
-        leaveId: 'leave-id',
+        leaveId: 'leave-id-joi-old',
         uid: 'joi-id',
         type: LeaveType.casualLeave,
         startDate: DateTime.now().dateOnly.subtract(const Duration(days: 365)),
@@ -245,7 +261,7 @@ void main() {
       });
     });
 
-    group('Admin leaves fetch more leaves test', () {
+    group('Fetch more leaves success test', () {
       setUpAll(() {
         leaveRepo = MockLeaveRepo();
         employeeRepo = MockEmployeeRepo();
@@ -253,7 +269,7 @@ void main() {
         bloc = AdminLeavesBloc(leaveRepo, employeeRepo);
       });
 
-      test('Admin leave initial data load test', () {
+      test('Initial data setup', () {
         when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
         when(leaveRepo.leaves()).thenAnswer((_) async => PaginatedLeaves(
             leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
@@ -286,7 +302,7 @@ void main() {
             ]));
       });
 
-      test('Fetch more leave test', () {
+      test('Fetch more leave success test', () {
         when(leaveRepo.leaves(lastDoc: anyNamed('lastDoc'))).thenAnswer(
             (_) async => PaginatedLeaves(
                 leaves: [joiPreviousYearLeave], lastDoc: lastDoc));
@@ -322,6 +338,28 @@ void main() {
                     andrew
                   ]).groupByMonth((la) => la.leave.appliedOn)),
             ]));
+      });
+
+      test('Update leave test', () {
+        when(leaveRepo.fetchLeave(leaveId: joiCurrentYearLeave.leaveId))
+            .thenAnswer((_) async => joiCurrentYearLeaveUpdate);
+        bloc.add(UpdateLeaveApplication(leaveId: joiCurrentYearLeave.leaveId));
+        expect(
+            bloc.stream,
+            emits(AdminLeavesState(
+                fetchMoreData: Status.success,
+                members: [joi, andrew],
+                membersFetchStatus: Status.success,
+                leavesFetchStatus: Status.success,
+                leaveApplicationMap:
+                    getLeaveApplicationFromLeaveEmployee(leaves: [
+                  andrewCurrentYearLeave,
+                  joiPreviousYearLeave,
+                  joiCurrentYearLeaveUpdate,
+                ], members: [
+                  joi,
+                  andrew
+                ]).groupByMonth((la) => la.leave.appliedOn))));
       });
     });
   });

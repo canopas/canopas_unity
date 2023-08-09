@@ -130,7 +130,8 @@ class ApplyLeaveBloc extends Bloc<ApplyLeaveEvent, ApplyLeaveState>
                 reason: leaveData.reason,
                 receiver: notificationEmail);
           }
-          emit(state.copyWith(leaveRequestStatus: Status.success));
+          emit(state.copyWith(
+              leaveRequestStatus: Status.success, leaveId: leaveData.leaveId));
         }
       } on Exception {
         emit(state.copyWith(

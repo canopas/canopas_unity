@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show DocumentSnapshot;
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/core/extensions/stream_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/data/model/leave_application.dart';
 import '../../../../../data/repo/employee_repo.dart';
 import '../../../../../data/repo/leave_repo.dart';
 import '../../../../../data/core/exception/error_const.dart';
@@ -27,6 +29,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
     on<FetchLeavesInitialEvent>(_fetchInitialLeaves);
     on<FetchMoreLeavesEvent>(_fetchMoreLeaves);
     on<SearchEmployeeEvent>(_searchEmployee);
+    on<UpdateLeaveApplication>(_updateLeave);
   }
 
   Future<void> _init(
@@ -101,6 +104,25 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
                     .contains(event.search.toLowerCase()) ||
                 event.search.trim().isEmpty)
             .toList()));
+  }
+
+  Future<void> _updateLeave(
+      UpdateLeaveApplication event, Emitter<AdminLeavesState> emit) async {
+    final leaveApplications = state.leaveApplicationMap.values.merge();
+
+    final leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
+    final employee =
+        _members.firstWhereOrNull((element) => element.uid == leave?.uid);
+
+    if (employee != null && leave != null) {
+      final leaveApplication =
+          LeaveApplication(employee: employee, leave: leave);
+      leaveApplications.removeWhereAndAdd(leaveApplication,
+          (element) => element.leave.leaveId == leave.leaveId);
+      emit(state.copyWith(
+          leaveApplicationMap:
+              leaveApplications.groupByMonth((la) => la.leave.appliedOn)));
+    }
   }
 
   @override
