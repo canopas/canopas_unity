@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'form.dart';
+part of 'org_form_info.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FormInfo _$FormInfoFromJson(Map<String, dynamic> json) => FormInfo(
+OrgFormInfo _$OrgFormInfoFromJson(Map<String, dynamic> json) => OrgFormInfo(
       id: json['id'] as String,
       title: json['title'] as String,
       image: json['image'] as String?,
@@ -14,7 +14,7 @@ FormInfo _$FormInfoFromJson(Map<String, dynamic> json) => FormInfo(
       oneTimeResponse: json['one_time_response'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$FormInfoToJson(FormInfo instance) {
+Map<String, dynamic> _$OrgFormInfoToJson(OrgFormInfo instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'title': instance.title,

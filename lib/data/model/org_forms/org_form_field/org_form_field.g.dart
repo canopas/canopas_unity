@@ -1,29 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'form_field.dart';
+part of 'org_form_field.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FormField _$FormFieldFromJson(Map<String, dynamic> json) => FormField(
+OrgFormField _$OrgFormFieldFromJson(Map<String, dynamic> json) => OrgFormField(
       id: json['id'] as String,
-      title: json['title'] as String,
+      index: json['index'] as int,
+      question: json['question'] as String,
       inputType:
           $enumDecodeNullable(_$FieldInputTypeEnumMap, json['input_type']) ??
               FieldInputType.text,
       type: $enumDecodeNullable(_$FieldTypeEnumMap, json['type']) ??
           FieldType.text,
       isRequired: json['is_required'] as bool? ?? false,
-      description: json['description'] as String?,
       options:
           (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$FormFieldToJson(FormField instance) {
+Map<String, dynamic> _$OrgFormFieldToJson(OrgFormField instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'title': instance.title,
+    'index': instance.index,
+    'question': instance.question,
+    'type': _$FieldTypeEnumMap[instance.type]!,
+    'input_type': _$FieldInputTypeEnumMap[instance.inputType]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -32,9 +35,6 @@ Map<String, dynamic> _$FormFieldToJson(FormField instance) {
     }
   }
 
-  writeNotNull('description', instance.description);
-  val['type'] = _$FieldTypeEnumMap[instance.type]!;
-  val['input_type'] = _$FieldInputTypeEnumMap[instance.inputType]!;
   writeNotNull('options', instance.options);
   val['is_required'] = instance.isRequired;
   return val;
@@ -48,7 +48,7 @@ const _$FieldInputTypeEnumMap = {
   FieldInputType.dropDown: 4,
   FieldInputType.checkBox: 5,
   FieldInputType.file: 6,
-  FieldInputType.noInput: 7,
+  FieldInputType.none: 7,
 };
 
 const _$FieldTypeEnumMap = {

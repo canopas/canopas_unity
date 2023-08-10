@@ -2,33 +2,33 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:projectunity/data/core/converters%20/date_converter.dart';
-import 'form_field_response/form_field_response.dart';
+import 'org_form_field_response/org_form_field_response.dart';
 
-part 'form_response.g.dart';
+part 'org_form_response.g.dart';
 
 @JsonSerializable(
     fieldRename: FieldRename.snake, converters: [DateTimeConverter()])
-class FormResponse extends Equatable {
+class OrgFormResponse extends Equatable {
   final String uid;
   final String formId;
   final DateTime submittedAt;
-  final List<FormFieldResponse> response;
+  final List<OrgFormFieldResponse> response;
 
-  const FormResponse(
+  const OrgFormResponse(
       {required this.submittedAt,
       required this.uid,
       required this.formId,
       required this.response});
 
-  factory FormResponse.fromJson(Map<String, dynamic> map) =>
-      _$FormResponseFromJson(map);
+  factory OrgFormResponse.fromJson(Map<String, dynamic> map) =>
+      _$OrgFormResponseFromJson(map);
 
-  Map<String, dynamic> toJson() => _$FormResponseToJson(this);
+  Map<String, dynamic> toJson() => _$OrgFormResponseToJson(this);
 
-  factory FormResponse.fromFireStore(
+  factory OrgFormResponse.fromFireStore(
           DocumentSnapshot<Map<String, dynamic>> snapshot,
           SnapshotOptions? options) =>
-      FormResponse.fromJson(snapshot.data()!);
+      OrgFormResponse.fromJson(snapshot.data()!);
 
   @override
   List<Object?> get props => [uid, formId, response, submittedAt];
