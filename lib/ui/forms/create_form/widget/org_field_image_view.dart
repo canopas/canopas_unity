@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/ui/forms/create_form/bloc/org_form_field_update_data_model.dart';
@@ -36,7 +37,9 @@ class FormFieldImageView extends StatelessWidget {
                 border: Border.all(color: AppColors.dividerColor),
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(File(orgFormField.image)))),
+                    image: kIsWeb
+                        ? NetworkImage(orgFormField.image) as ImageProvider
+                        : FileImage(File(orgFormField.image)))),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,

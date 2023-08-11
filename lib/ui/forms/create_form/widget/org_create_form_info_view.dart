@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/configs/colors.dart';
@@ -10,7 +11,13 @@ import 'org_form_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class OrgCreateFormInfoView extends StatelessWidget {
-  const OrgCreateFormInfoView({super.key});
+  final TextEditingController titleController;
+  final TextEditingController descriptionController;
+
+  const OrgCreateFormInfoView(
+      {super.key,
+      required this.titleController,
+      required this.descriptionController});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +29,14 @@ class OrgCreateFormInfoView extends StatelessWidget {
         const HeaderImageView(),
         FormFieldTitle(title: locale.title_tag),
         OrgFormFieldEntry(
+          controller: titleController,
           onChanged: (title) => bloc.add(UpdateFormTitleEvent(title)),
           validator: (val) =>
               (val ?? "").isEmpty ? locale.fill_require_details_error : null,
         ),
         FormFieldTitle(title: locale.description_tag),
         OrgFormFieldEntry(
+          controller: descriptionController,
           onChanged: (description) =>
               bloc.add(UpdateFormDescriptionEvent(description)),
         ),
@@ -73,7 +82,9 @@ class HeaderImageView extends StatelessWidget {
                   image: state.formHeaderImage != null
                       ? DecorationImage(
                           fit: BoxFit.scaleDown,
-                          image: FileImage(File(state.formHeaderImage!)))
+                          image: kIsWeb
+                              ? NetworkImage(state.formHeaderImage!) as ImageProvider
+                              : FileImage(File(state.formHeaderImage!)))
                       : null),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
