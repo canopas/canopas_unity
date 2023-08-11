@@ -333,7 +333,7 @@
   },
 
   "create_form_screen_title": "New Form",
-  "title_tag": "New Form",
+  "title_tag": "Title",
   "description_tag": "Description",
   "create_from_limit_to_1_response_text": "Limit To 1 Response",
   "question_tag": "Question",

@@ -21,6 +21,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     on<UpdateFormTitleEvent>(_updateFormTitle);
     on<UpdateFormDescriptionEvent>(_updateFormDescription);
     on<UpdateHeaderImageEvent>(_updateHeaderImage);
+    on<RemoveHeaderImageEvent>(_removeHeaderImage);
     on<UpdateLimitToOneResponse>(_updateLimitToOneResponse);
     on<UpdateFormFieldQuestionEvent>(_updateFormFieldQuestion);
     on<UpdateFormFieldIsRequiredEvent>(_updateFormFieldIsRequired);
@@ -50,6 +51,11 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     if (image != null) {
       emit(state.copyWith(formHeaderImage: image.path));
     }
+  }
+
+  Future<void> _removeHeaderImage(
+      RemoveHeaderImageEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(formHeaderImage: null, setPickedImageNull: true));
   }
 
   void _updateLimitToOneResponse(

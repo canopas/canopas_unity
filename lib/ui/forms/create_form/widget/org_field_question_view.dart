@@ -110,39 +110,37 @@ class OrgFormFieldOptionsView extends StatefulWidget {
 class _OrgFormFieldOptionsViewState extends State<OrgFormFieldOptionsView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.options?.length ?? 0,
-            itemBuilder: (context, index) => Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                    child: OrgFormFieldEntry(
-                  value: widget.options?[index],
-                )),
-                IconButton(
-                    onPressed: () => context.read<CreateFormBloc>().add(
-                        RemoveOrgFormFieldOption(
-                            fieldId: widget.fieldId, optionIndex: index)),
-                    icon: const Icon(Icons.delete_outline_rounded))
-              ],
-            ),
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const FormFieldTitle(title: "Options"),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: widget.options?.length ?? 0,
+          itemBuilder: (context, index) => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                  child: OrgFormFieldEntry(
+                value: widget.options?[index],
+              )),
+              IconButton(
+                  onPressed: () => context.read<CreateFormBloc>().add(
+                      RemoveOrgFormFieldOption(
+                          fieldId: widget.fieldId, optionIndex: index)),
+                  icon: const Icon(Icons.delete_outline_rounded))
+            ],
           ),
-          IconButton(
-              onPressed: () => context
-                  .read<CreateFormBloc>()
-                  .add(AddOrgFormFieldOption(widget.fieldId)),
-              icon: const Icon(Icons.add))
-        ],
-      ),
+          separatorBuilder: (context, index) => const SizedBox(height: 10),
+        ),
+        IconButton(
+            onPressed: () => context
+                .read<CreateFormBloc>()
+                .add(AddOrgFormFieldOption(widget.fieldId)),
+            icon: const Icon(Icons.add))
+      ],
     );
   }
 }

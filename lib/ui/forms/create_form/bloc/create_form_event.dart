@@ -18,6 +18,8 @@ class UpdateFormDescriptionEvent extends CreateFormEvents {
 
 class UpdateHeaderImageEvent extends CreateFormEvents {}
 
+class RemoveHeaderImageEvent extends CreateFormEvents {}
+
 class UpdateLimitToOneResponse extends CreateFormEvents {
   final bool value;
 

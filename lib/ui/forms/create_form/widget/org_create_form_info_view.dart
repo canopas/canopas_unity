@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/configs/colors.dart';
@@ -18,29 +19,8 @@ class OrgCreateFormInfoView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FilledButton.tonal(
-            onPressed: () => bloc.add(UpdateHeaderImageEvent()),
-            style: FilledButton.styleFrom(
-              padding: const EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  side: const BorderSide(
-                    color: AppColors.dividerColor,
-                  )),
-              backgroundColor: AppColors.whiteColor,
-            ),
-            child: Row(
-              children: const [
-                Icon(
-                  Icons.image_outlined,
-                ),
-                SizedBox(width: 8),
-                Text('Upload Header Image'),
-              ],
-            )),
-        const FormFieldTitle(
-          title: 'Title',
-        ),
+        const HeaderImageView(),
+        FormFieldTitle(title: locale.title_tag),
         OrgFormFieldEntry(
           onChanged: (title) => bloc.add(UpdateFormTitleEvent(title)),
           validator: (val) =>
@@ -70,5 +50,69 @@ class OrgCreateFormInfoView extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class HeaderImageView extends StatelessWidget {
+  const HeaderImageView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final bloc = context.read<CreateFormBloc>();
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+        buildWhen: (previous, current) =>
+            previous.formHeaderImage != current.formHeaderImage,
+        builder: (context, state) {
+          return Container(
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: AppColors.dividerColor),
+                  image: state.formHeaderImage != null
+                      ? DecorationImage(
+                          fit: BoxFit.cover,
+                          image: FileImage(File(state.formHeaderImage!)))
+                      : null),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 55,
+                  ),
+                  if (state.formHeaderImage == null)
+                    const Icon(Icons.image_outlined, size: 45),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: AppColors.whiteColor.withOpacity(0.60),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                              style: IconButton.styleFrom(
+                                  fixedSize: const Size.fromHeight(45)),
+                              onPressed: () =>
+                                  bloc.add(UpdateHeaderImageEvent()),
+                              icon: const Icon(Icons.edit)),
+                          if (state.formHeaderImage != null)
+                            IconButton(
+                                style: IconButton.styleFrom(
+                                    fixedSize: const Size.fromHeight(45)),
+                                onPressed: () =>
+                                    bloc.add(RemoveHeaderImageEvent()),
+                                icon: const Icon(Icons.delete_outline_rounded))
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ));
+        });
   }
 }
