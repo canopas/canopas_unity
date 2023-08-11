@@ -24,7 +24,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
   final StorageService _storageService;
   final UserStateNotifier _userStateNotifier;
   late final String _formId;
-  int index = 0;
+  int _index = 0;
 
   CreateFormBloc(this._formRepo, this._imagePicker, this._storageService,
       this._userStateNotifier)
@@ -161,7 +161,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
   void _addField(AddFieldEvent event, Emitter<CreateFormState> emit) {
     final OrgFormFieldCreateFormState orgFormField =
         OrgFormFieldCreateFormState(
-            index: index++,
+            index: _index++,
             id: _formRepo.generateNewFormFieldId(formId: _formId),
             question: TextEditingController());
     final fields = state.fields.toList();
@@ -180,7 +180,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
               question: TextEditingController(),
               inputType: FieldInputType.none,
               type: FieldType.image,
-              index: index++,
+              index: _index++,
               id: _formRepo.generateNewFormFieldId(formId: _formId),
               image: image.path);
       final fields = state.fields.toList();
