@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:projectunity/ui/forms/create_form/bloc/org_form_field_update_data_model.dart';
 import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/model/org_forms/org_form_field/org_form_field.dart';
 
 class CreateFormState extends Equatable {
-  final List<OrgFormField> fields;
+  final List<OrgFormFieldCreateFormState> fields;
   final Status status;
   final String? error;
   final String title;
@@ -22,7 +22,7 @@ class CreateFormState extends Equatable {
   });
 
   CreateFormState copyWith({
-    List<OrgFormField>? fields,
+    List<OrgFormFieldCreateFormState>? fields,
     Status? status,
     String? error,
     String? title,

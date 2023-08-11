@@ -337,10 +337,22 @@
   "description_tag": "Description",
   "create_from_limit_to_1_response_text": "Limit To 1 Response",
   "question_tag": "Question",
+  "options_tag": "Options",
   "question_text_field_hint_text": "Enter Question",
   "remove_tag":"Remove",
   "type_tag": "Type",
   "required_tag": "Required",
+  "create_tag": "Create",
+
+  "org_form_answer_type": "{type, select, 0{Text} 1{Boolean} 2{Date} 3{Time} 4{Drop-down} 5{Checkboxes} 6{File upload} 7{None} other{other}}",
+  "@org_form_answer_type": {
+    "description": "Pass the value of answer type to get answerType",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
 
   "network_connection_error": "Please check your Internet connection",
   "user_not_found_error_message": "User with this email doesn't exist, Please ask your manager to add it",

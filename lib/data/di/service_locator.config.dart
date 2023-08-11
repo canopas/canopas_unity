@@ -241,6 +241,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i45.CreateFormBloc>(() => _i45.CreateFormBloc(
           gh<_i31.FormRepo>(),
           gh<_i14.ImagePicker>(),
+          gh<_i23.StorageService>(),
+          gh<_i25.UserStateNotifier>(),
         ));
     gh.factory<_i46.CreateSpaceBLoc>(() => _i46.CreateSpaceBLoc(
           gh<_i22.SpaceService>(),

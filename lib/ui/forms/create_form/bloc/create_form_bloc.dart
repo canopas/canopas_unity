@@ -1,29 +1,41 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/list.dart';
 import 'package:projectunity/data/model/org_forms/org_form_field/org_form_field.dart';
+import 'package:projectunity/data/model/org_forms/org_form_info/org_form_info.dart';
+import 'package:projectunity/data/model/org_forms/org_forms.dart';
+import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/data/services/storage_service.dart';
 import 'package:projectunity/ui/forms/create_form/bloc/create_form_event.dart';
 import 'package:projectunity/ui/forms/create_form/bloc/create_form_state.dart';
+import 'package:projectunity/ui/forms/create_form/bloc/org_form_field_update_data_model.dart';
+import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../data/core/utils/const/image_storage_path_const.dart';
 import '../../../../data/repo/form_repo.dart';
 
 @Injectable()
 class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
   final FormRepo _formRepo;
   final ImagePicker _imagePicker;
+  final StorageService _storageService;
+  final UserStateNotifier _userStateNotifier;
   late final String _formId;
   int index = 0;
 
-  CreateFormBloc(this._formRepo, this._imagePicker)
+  CreateFormBloc(this._formRepo, this._imagePicker, this._storageService,
+      this._userStateNotifier)
       : _formId = _formRepo.generateNewFormId(),
         super(const CreateFormState()) {
     on<UpdateFormTitleEvent>(_updateFormTitle);
+    on<CreateNewFormEvent>(_createForm);
     on<UpdateFormDescriptionEvent>(_updateFormDescription);
     on<UpdateHeaderImageEvent>(_updateHeaderImage);
     on<RemoveHeaderImageEvent>(_removeHeaderImage);
     on<UpdateLimitToOneResponse>(_updateLimitToOneResponse);
-    on<UpdateFormFieldQuestionEvent>(_updateFormFieldQuestion);
     on<UpdateFormFieldIsRequiredEvent>(_updateFormFieldIsRequired);
     on<UpdateFormFieldInputTypeEvent>(_updateFormFieldInputType);
     on<AddOrgFormFieldOption>(_addOrgFormFieldOption);
@@ -63,25 +75,18 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     emit(state.copyWith(limitToOneResponse: event.value));
   }
 
-  List<OrgFormField> _updateFormFieldItem(
-      {required List<OrgFormField> orgFormFields,
+  List<OrgFormFieldCreateFormState> _updateFormFieldItem(
+      {required List<OrgFormFieldCreateFormState> orgFormFields,
       required String fieldId,
-      required OrgFormField? Function(OrgFormField? field) updater}) {
+      required OrgFormFieldCreateFormState? Function(
+              OrgFormFieldCreateFormState? field)
+          updater}) {
     final fields = orgFormFields.toList();
     final field = fields.firstWhereOrNull((element) => element.id == fieldId);
     fields.removeWhereAndAdd(
         updater(field), (fieldItem) => fieldItem.id == fieldId);
     fields.sort((a, b) => a.index.compareTo(b.index));
     return fields;
-  }
-
-  void _updateFormFieldQuestion(
-      UpdateFormFieldQuestionEvent event, Emitter<CreateFormState> emit) {
-    final fields = _updateFormFieldItem(
-        orgFormFields: state.fields,
-        fieldId: event.fieldId,
-        updater: (field) => field?.copyWith(question: event.question));
-    emit(state.copyWith(fields: fields));
   }
 
   void _updateFormFieldIsRequired(
@@ -98,7 +103,26 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     final fields = _updateFormFieldItem(
         orgFormFields: state.fields,
         fieldId: event.fieldId,
-        updater: (field) => field?.copyWith(inputType: event.type));
+        updater: (field) {
+          List<TextEditingController> options = field?.options ?? [];
+          if (event.type != FieldInputType.checkBox &&
+              event.type != FieldInputType.dropDown) {
+            for (final option in options) {
+              option.dispose();
+            }
+            options = [];
+          } else if (field?.inputType != FieldInputType.checkBox &&
+              field?.inputType != FieldInputType.dropDown &&
+              (event.type == FieldInputType.checkBox ||
+                  event.type == FieldInputType.dropDown)) {
+            options
+                .add(TextEditingController(text: 'Option ${options.length}'));
+          }
+          return field?.copyWith(
+              inputType: event.type,
+              options: options.isEmpty ? null : options,
+              allowOptionNull: true);
+        });
     emit(state.copyWith(fields: fields));
   }
 
@@ -108,8 +132,8 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<String> options = field?.options?.toList() ?? [];
-          options.add('Option ${options.length}');
+          List<TextEditingController> options = field?.options?.toList() ?? [];
+          options.add(TextEditingController(text: 'Option ${options.length}'));
           return field?.copyWith(options: options);
         });
     emit(state.copyWith(fields: fields));
@@ -121,20 +145,25 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<String>? options = field?.options?.toList();
+          List<TextEditingController>? options = field?.options?.toList();
           if (options != null) {
+            options[event.optionIndex].dispose();
             options.removeAt(event.optionIndex);
+            if (options.isEmpty) {
+              options = null;
+            }
           }
-          return field?.copyWith(options: options);
+          return field?.copyWith(options: options, allowOptionNull: true);
         });
     emit(state.copyWith(fields: fields));
   }
 
   void _addField(AddFieldEvent event, Emitter<CreateFormState> emit) {
-    final OrgFormField orgFormField = OrgFormField(
-        index: index++,
-        id: _formRepo.generateNewFormFieldId(formId: _formId),
-        question: '');
+    final OrgFormFieldCreateFormState orgFormField =
+        OrgFormFieldCreateFormState(
+            index: index++,
+            id: _formRepo.generateNewFormFieldId(formId: _formId),
+            question: TextEditingController());
     final fields = state.fields.toList();
     fields.sort((a, b) => a.index.compareTo(b.index));
     fields.add(orgFormField);
@@ -146,12 +175,14 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     final XFile? image =
         await _imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      final OrgFormField orgFormField = OrgFormField(
-          inputType: FieldInputType.none,
-          type: FieldType.image,
-          index: index++,
-          id: _formRepo.generateNewFormFieldId(formId: _formId),
-          question: image.path);
+      final OrgFormFieldCreateFormState orgFormField =
+          OrgFormFieldCreateFormState(
+              question: TextEditingController(),
+              inputType: FieldInputType.none,
+              type: FieldType.image,
+              index: index++,
+              id: _formRepo.generateNewFormFieldId(formId: _formId),
+              image: image.path);
       final fields = state.fields.toList();
       fields.sort((a, b) => a.index.compareTo(b.index));
       fields.add(orgFormField);
@@ -164,5 +195,71 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     fields.removeWhere((element) => element.id == event.fieldId);
     fields.sort((a, b) => a.index.compareTo(b.index));
     emit(state.copyWith(fields: fields));
+  }
+
+  Future<void> _createForm(
+      CreateNewFormEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    try {
+      String? headerImageUrl;
+
+      if (state.formHeaderImage != null) {
+        final String storagePath = ImageStoragePath.formHeaderImage(
+            spaceId: _userStateNotifier.currentSpaceId!, formId: _formId);
+        headerImageUrl = await _storageService.uploadProfilePic(
+            path: storagePath, imagePath: state.formHeaderImage!);
+      }
+
+      List<OrgFormField> fields =
+          await Future.wait(state.fields.map((stateFormField) async {
+        String imageUrl = '';
+
+        if (stateFormField.type == FieldType.image) {
+          final String storagePath = ImageStoragePath.formFieldImage(
+              spaceId: _userStateNotifier.currentSpaceId!,
+              formId: _formId,
+              fieldId: stateFormField.id);
+          imageUrl = await _storageService.uploadProfilePic(
+              path: storagePath, imagePath: stateFormField.image);
+        }
+
+        return OrgFormField(
+          id: stateFormField.id,
+          index: stateFormField.index,
+          type: stateFormField.type,
+          inputType: stateFormField.inputType,
+          isRequired: stateFormField.isRequired,
+          question: stateFormField.type == FieldType.image
+              ? imageUrl
+              : stateFormField.question.text,
+          options: stateFormField.options?.map((e) => e.text).toList(),
+        );
+      }).toList());
+
+      await _formRepo.createForm(
+          orgForm: OrgForm(
+              formInfo: OrgFormInfo(
+                  id: _formId,
+                  title: state.title,
+                  description: state.description,
+                  oneTimeResponse: state.limitToOneResponse,
+                  image: headerImageUrl),
+              fields: fields));
+      emit(state.copyWith(status: Status.success));
+    } on Exception {
+      emit(
+          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+    }
+  }
+
+  @override
+  Future<void> close() {
+    for (final field in state.fields) {
+      field.question.dispose();
+      for (final option in field.options ?? []) {
+        option.dispose();
+      }
+    }
+    return super.close();
   }
 }

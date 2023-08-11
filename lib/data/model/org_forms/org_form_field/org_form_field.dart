@@ -33,24 +33,6 @@ class OrgFormField extends Equatable {
           SnapshotOptions? options) =>
       OrgFormField.fromJson(snapshot.data()!);
 
-  OrgFormField copyWith(
-          {String? question,
-          int? index,
-          bool? allowDescriptionNull,
-          FieldType? type,
-          FieldInputType? inputType,
-          bool? allowOptionNull,
-          List<String>? options,
-          bool? isRequired}) =>
-      OrgFormField(
-          index: index ?? this.index,
-          id: id,
-          question: question ?? this.question,
-          inputType: inputType ?? this.inputType,
-          isRequired: isRequired ?? this.isRequired,
-          options: options ?? (allowOptionNull == true ? null : this.options),
-          type: type ?? this.type);
-
   @override
   List<Object?> get props =>
       [question, inputType, options, isRequired, type, index];

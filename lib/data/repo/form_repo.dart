@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import '../model/org_forms/org_form_field/org_form_field.dart';
 import '../model/org_forms/org_form_info/org_form_info.dart';
 import '../model/org_forms/org_form_response/org_form_response.dart';
 import '../model/org_forms/org_forms.dart';
@@ -21,11 +20,9 @@ class FormRepo {
           spaceId: _userStateNotifier.currentSpaceId!, formId: formId);
 
   Future<void> createForm(
-          {required OrgFormInfo form,
-          required List<OrgFormField> fields}) async =>
+          {required OrgForm orgForm}) async =>
       await _formService.createForm(
-          form: form,
-          fields: fields,
+          form: orgForm,
           spaceId: _userStateNotifier.currentSpaceId!);
 
   Future<List<OrgFormInfo>> getForms() async =>

@@ -17,7 +17,6 @@ class FormFieldTitle extends StatelessWidget {
 }
 
 class OrgFormFieldEntry extends StatelessWidget {
-  final String? value;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextInputAction? textInputAction;
@@ -28,7 +27,6 @@ class OrgFormFieldEntry extends StatelessWidget {
 
   const OrgFormFieldEntry(
       {Key? key,
-      this.value,
       this.textInputAction,
       this.validator,
       this.maxLine,
@@ -40,6 +38,11 @@ class OrgFormFieldEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final inputBorder = OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: const BorderSide(
+          color: AppColors.dividerColor,
+        ));
     return TextFormField(
       validator: validator,
       textInputAction: textInputAction,
@@ -56,16 +59,11 @@ class OrgFormFieldEntry extends StatelessWidget {
         filled: true,
         fillColor: AppColors.whiteColor,
         hintStyle: AppFontStyle.labelGrey,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: const BorderSide(
-              color: AppColors.primaryBlue,
-            )),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: const BorderSide(
-              color: AppColors.dividerColor,
-            )),
+        focusedBorder: inputBorder,
+        errorBorder: inputBorder,
+        border: inputBorder,
+        focusedErrorBorder: inputBorder,
+        enabledBorder: inputBorder,
         hintText: hintText,
       ),
     );

@@ -6,7 +6,6 @@ import '../model/org_forms/org_form_info/org_form_info.dart';
 import '../model/org_forms/org_form_response/org_form_response.dart';
 import '../model/org_forms/org_forms.dart';
 
-
 @Injectable()
 class FormService {
   late final FirebaseFirestore fireStore;
@@ -49,13 +48,11 @@ class FormService {
       _formsFieldDB(spaceId: spaceId, formId: formId).doc().id;
 
   Future<void> createForm(
-      {required OrgFormInfo form,
-      required List<OrgFormField> fields,
-      required String spaceId}) async {
-    await _formsDB(spaceId: spaceId).doc(form.id).set(form);
+      {required OrgForm form, required String spaceId}) async {
+    await _formsDB(spaceId: spaceId).doc(form.formInfo.id).set(form.formInfo);
 
-    for (OrgFormField field in fields) {
-      await _formsFieldDB(spaceId: spaceId, formId: form.id)
+    for (OrgFormField field in form.fields) {
+      await _formsFieldDB(spaceId: spaceId, formId: form.formInfo.id)
           .doc(field.id)
           .set(field);
     }

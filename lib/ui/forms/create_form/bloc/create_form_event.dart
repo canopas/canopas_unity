@@ -26,13 +26,6 @@ class UpdateLimitToOneResponse extends CreateFormEvents {
   UpdateLimitToOneResponse(this.value);
 }
 
-class UpdateFormFieldQuestionEvent extends CreateFormEvents {
-  final String question;
-  final String fieldId;
-
-  UpdateFormFieldQuestionEvent({required this.fieldId, required this.question});
-}
-
 class UpdateFormFieldIsRequiredEvent extends CreateFormEvents {
   final bool isRequired;
   final String fieldId;

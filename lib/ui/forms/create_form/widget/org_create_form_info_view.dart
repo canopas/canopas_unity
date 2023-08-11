@@ -72,7 +72,7 @@ class HeaderImageView extends StatelessWidget {
                   border: Border.all(color: AppColors.dividerColor),
                   image: state.formHeaderImage != null
                       ? DecorationImage(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.scaleDown,
                           image: FileImage(File(state.formHeaderImage!)))
                       : null),
               child: Column(

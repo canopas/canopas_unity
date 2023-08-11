@@ -4,12 +4,16 @@ import 'package:projectunity/data/configs/colors.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/data/model/org_forms/org_form_field/org_form_field.dart';
 import 'package:projectunity/ui/forms/create_form/bloc/create_form_bloc.dart';
+import 'package:projectunity/ui/forms/create_form/bloc/create_form_event.dart';
 import 'package:projectunity/ui/forms/create_form/bloc/create_form_state.dart';
 import 'package:projectunity/ui/forms/create_form/widget/org_create_form_add_field_button.dart';
 import 'package:projectunity/ui/forms/create_form/widget/org_create_form_info_view.dart';
 import 'package:projectunity/ui/forms/create_form/widget/org_field_image_view.dart';
 import 'package:projectunity/ui/forms/create_form/widget/org_field_question_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
+import '../../../data/core/utils/bloc_status.dart';
+import '../../widget/circular_progress_indicator.dart';
 
 class CreateFromPage extends StatelessWidget {
   const CreateFromPage({super.key});
@@ -38,7 +42,28 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfff8f8f8),
       appBar: AppBar(
-        title:  Text(AppLocalizations.of(context).create_form_screen_title),
+        title: Text(AppLocalizations.of(context).create_form_screen_title),
+        actions: [
+          BlocBuilder<CreateFormBloc, CreateFormState>(
+            buildWhen: (previous, current) => previous.status != current.status,
+            builder: (context, state) => state.status == Status.loading
+                ? const Padding(
+                    padding: EdgeInsets.only(right: 30),
+                    child: AppCircularProgressIndicator(size: 20),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: TextButton(
+                        onPressed: () {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            context.read<CreateFormBloc>().add(CreateNewFormEvent());
+                          }
+                        },
+                        child: Text(
+                            AppLocalizations.of(context).create_tag)),
+                  ),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -48,6 +73,8 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
             const OrgCreateFormInfoView(),
             const Divider(color: AppColors.darkGrey, thickness: 0.2),
             BlocBuilder<CreateFormBloc, CreateFormState>(
+                buildWhen: (previous, current) =>
+                    previous.fields != current.fields,
                 builder: (context, state) => ListView.separated(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       physics: const NeverScrollableScrollPhysics(),
