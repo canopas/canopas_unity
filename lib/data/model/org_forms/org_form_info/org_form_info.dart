@@ -1,18 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:projectunity/data/core/converters%20/date_converter.dart';
 
 part 'org_form_info.g.dart';
 
-@JsonSerializable(includeIfNull: false, fieldRename: FieldRename.snake)
+@JsonSerializable(
+    includeIfNull: false,
+    fieldRename: FieldRename.snake,
+    converters: [DateTimeConverter()])
 class OrgFormInfo extends Equatable {
   final String id;
   final String title;
+  final DateTime createdAt;
   final String? description;
   final String? image;
   final bool oneTimeResponse;
 
   const OrgFormInfo({
+    required this.createdAt,
     required this.id,
     required this.title,
     this.image,
@@ -31,5 +37,6 @@ class OrgFormInfo extends Equatable {
       OrgFormInfo.fromJson(snapshot.data()!);
 
   @override
-  List<Object?> get props => [id, title, description, oneTimeResponse, image];
+  List<Object?> get props =>
+      [id, title, description, oneTimeResponse, image, createdAt];
 }
