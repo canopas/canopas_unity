@@ -12,7 +12,7 @@ void main() {
               'index': 1,
               'question': 'question',
               'type': 0,
-              'input_type': 0,
+              'answer_type': 0,
               'options': ['option 1', 'option 2'],
               'is_required': false,
             }),
@@ -45,7 +45,7 @@ void main() {
         'index': 1,
         'question': 'question',
         'type': 0,
-        'input_type': 0,
+        'answer_type': 0,
         'options': ['option 1', 'option 2'],
         'is_required': false,
       };
