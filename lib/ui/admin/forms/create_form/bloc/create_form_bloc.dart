@@ -17,7 +17,6 @@ import 'org_form_field_update_data_model.dart';
 import 'create_form_event.dart';
 import 'create_form_state.dart';
 
-
 @Injectable()
 class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
   final FormRepo _formRepo;
@@ -240,6 +239,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
               formInfo: OrgFormInfo(
                   id: state.formId,
                   title: state.title,
+                  createdAt: DateTime.now(),
                   description: state.description,
                   oneTimeResponse: state.limitToOneResponse,
                   image: headerImageUrl),
