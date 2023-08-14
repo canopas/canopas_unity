@@ -17,19 +17,18 @@ import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/core/utils/const/image_storage_path_const.dart';
 import '../../../../data/repo/form_repo.dart';
 
+
 @Injectable()
 class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
   final FormRepo _formRepo;
   final ImagePicker _imagePicker;
   final StorageService _storageService;
   final UserStateNotifier _userStateNotifier;
-  late final String _formId;
   int _index = 0;
 
   CreateFormBloc(this._formRepo, this._imagePicker, this._storageService,
       this._userStateNotifier)
-      : _formId = _formRepo.generateNewFormId(),
-        super(const CreateFormState()) {
+      : super(CreateFormState(formId: _formRepo.generateNewFormId())) {
     on<UpdateFormTitleEvent>(_updateFormTitle);
     on<CreateNewFormEvent>(_createForm);
     on<UpdateFormDescriptionEvent>(_updateFormDescription);
@@ -162,7 +161,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     final OrgFormFieldCreateFormState orgFormField =
         OrgFormFieldCreateFormState(
             index: _index++,
-            id: _formRepo.generateNewFormFieldId(formId: _formId),
+            id: _formRepo.generateNewFormFieldId(formId: state.formId),
             question: TextEditingController());
     final fields = state.fields.toList();
     fields.sort((a, b) => a.index.compareTo(b.index));
@@ -181,7 +180,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
               inputType: FormFieldAnswerType.none,
               type: FormFieldType.image,
               index: _index++,
-              id: _formRepo.generateNewFormFieldId(formId: _formId),
+              id: _formRepo.generateNewFormFieldId(formId: state.formId),
               image: image.path);
       final fields = state.fields.toList();
       fields.sort((a, b) => a.index.compareTo(b.index));
@@ -205,7 +204,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
 
       if (state.formHeaderImage != null) {
         final String storagePath = ImageStoragePath.formHeaderImage(
-            spaceId: _userStateNotifier.currentSpaceId!, formId: _formId);
+            spaceId: _userStateNotifier.currentSpaceId!, formId: state.formId);
         headerImageUrl = await _storageService.uploadProfilePic(
             path: storagePath, imagePath: state.formHeaderImage!);
       }
@@ -217,7 +216,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         if (stateFormField.type == FormFieldType.image) {
           final String storagePath = ImageStoragePath.formFieldImage(
               spaceId: _userStateNotifier.currentSpaceId!,
-              formId: _formId,
+              formId: state.formId,
               fieldId: stateFormField.id);
           imageUrl = await _storageService.uploadProfilePic(
               path: storagePath, imagePath: stateFormField.image);
@@ -239,7 +238,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
       await _formRepo.createForm(
           orgForm: OrgForm(
               formInfo: OrgFormInfo(
-                  id: _formId,
+                  id: state.formId,
                   title: state.title,
                   description: state.description,
                   oneTimeResponse: state.limitToOneResponse,

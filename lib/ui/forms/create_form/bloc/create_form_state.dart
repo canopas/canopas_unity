@@ -4,6 +4,7 @@ import '../../../../data/core/utils/bloc_status.dart';
 
 class CreateFormState extends Equatable {
   final List<OrgFormFieldCreateFormState> fields;
+  final String formId;
   final Status status;
   final String? error;
   final String title;
@@ -12,6 +13,7 @@ class CreateFormState extends Equatable {
   final String? formHeaderImage;
 
   const CreateFormState({
+    required this.formId,
     this.error,
     this.status = Status.initial,
     this.fields = const [],
@@ -32,6 +34,7 @@ class CreateFormState extends Equatable {
     bool? setPickedImageNull,
   }) =>
       CreateFormState(
+        formId: formId,
         error: error,
         fields: fields ?? this.fields,
         status: status ?? this.status,
@@ -44,6 +47,7 @@ class CreateFormState extends Equatable {
 
   @override
   List<Object?> get props => [
+        formId,
         error,
         status,
         fields,
