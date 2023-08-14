@@ -343,6 +343,7 @@
   "type_tag": "Type",
   "required_tag": "Required",
   "create_tag": "Create",
+  "create_form_success_message":" form has been created successfully",
 
   "org_form_answer_type": "{type, select, 0{Text} 1{Boolean} 2{Date} 3{Time} 4{Drop-down} 5{Checkboxes} 6{File upload} 7{None} other{other}}",
   "@org_form_answer_type": {

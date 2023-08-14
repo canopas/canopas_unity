@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/colors.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/data/model/org_forms/org_form_field/org_form_field.dart';
@@ -11,6 +12,7 @@ import 'package:projectunity/ui/forms/create_form/widget/org_create_form_info_vi
 import 'package:projectunity/ui/forms/create_form/widget/org_field_image_view.dart';
 import 'package:projectunity/ui/forms/create_form/widget/org_field_question_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../data/core/utils/bloc_status.dart';
 import '../../widget/circular_progress_indicator.dart';
 
@@ -52,7 +54,21 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).create_form_screen_title),
         actions: [
-          BlocBuilder<CreateFormBloc, CreateFormState>(
+          BlocConsumer<CreateFormBloc, CreateFormState>(
+            listenWhen: (previous, current) =>
+                current.status == Status.error ||
+                current.status == Status.success,
+            listener: (context, state) {
+              if (state.status == Status.error && state.error != null) {
+                showSnackBar(context: context, error: state.error);
+              } else if (state.status == Status.success) {
+                showSnackBar(
+                    context: context,
+                    msg: AppLocalizations.of(context)
+                        .create_form_success_message);
+                context.pop();
+              }
+            },
             buildWhen: (previous, current) => previous.status != current.status,
             builder: (context, state) => state.status == Status.loading
                 ? const Padding(
