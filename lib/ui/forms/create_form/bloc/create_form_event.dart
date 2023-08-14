@@ -35,7 +35,7 @@ class UpdateFormFieldIsRequiredEvent extends CreateFormEvents {
 }
 
 class UpdateFormFieldInputTypeEvent extends CreateFormEvents {
-  final FieldInputType type;
+  final FormFieldAnswerType type;
   final String fieldId;
 
   UpdateFormFieldInputTypeEvent({required this.fieldId, required this.type});

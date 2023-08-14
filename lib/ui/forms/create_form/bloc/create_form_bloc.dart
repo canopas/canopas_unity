@@ -105,16 +105,16 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         fieldId: event.fieldId,
         updater: (field) {
           List<TextEditingController> options = field?.options ?? [];
-          if (event.type != FieldInputType.checkBox &&
-              event.type != FieldInputType.dropDown) {
+          if (event.type != FormFieldAnswerType.checkBox &&
+              event.type != FormFieldAnswerType.dropDown) {
             for (final option in options) {
               option.dispose();
             }
             options = [];
-          } else if (field?.inputType != FieldInputType.checkBox &&
-              field?.inputType != FieldInputType.dropDown &&
-              (event.type == FieldInputType.checkBox ||
-                  event.type == FieldInputType.dropDown)) {
+          } else if (field?.inputType != FormFieldAnswerType.checkBox &&
+              field?.inputType != FormFieldAnswerType.dropDown &&
+              (event.type == FormFieldAnswerType.checkBox ||
+                  event.type == FormFieldAnswerType.dropDown)) {
             options
                 .add(TextEditingController(text: 'Option ${options.length}'));
           }
@@ -178,8 +178,8 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
       final OrgFormFieldCreateFormState orgFormField =
           OrgFormFieldCreateFormState(
               question: TextEditingController(),
-              inputType: FieldInputType.none,
-              type: FieldType.image,
+              inputType: FormFieldAnswerType.none,
+              type: FormFieldType.image,
               index: _index++,
               id: _formRepo.generateNewFormFieldId(formId: _formId),
               image: image.path);
@@ -214,7 +214,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
           await Future.wait(state.fields.map((stateFormField) async {
         String imageUrl = '';
 
-        if (stateFormField.type == FieldType.image) {
+        if (stateFormField.type == FormFieldType.image) {
           final String storagePath = ImageStoragePath.formFieldImage(
               spaceId: _userStateNotifier.currentSpaceId!,
               formId: _formId,
@@ -227,9 +227,9 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
           id: stateFormField.id,
           index: stateFormField.index,
           type: stateFormField.type,
-          inputType: stateFormField.inputType,
+          answerType: stateFormField.inputType,
           isRequired: stateFormField.isRequired,
-          question: stateFormField.type == FieldType.image
+          question: stateFormField.type == FormFieldType.image
               ? imageUrl
               : stateFormField.question.text,
           options: stateFormField.options?.map((e) => e.text).toList(),

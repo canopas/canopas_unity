@@ -47,10 +47,10 @@ class FormFieldView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(locale.type_tag, style: AppFontStyle.bodyLarge),
-              OrgFormDropDownButton<FieldInputType>(
+              OrgFormDropDownButton<FormFieldAnswerType>(
                 value: orgFormField.inputType,
-                items: FieldInputType.values
-                    .map((fieldInputType) => DropdownMenuItem<FieldInputType>(
+                items: FormFieldAnswerType.values
+                    .map((fieldInputType) => DropdownMenuItem<FormFieldAnswerType>(
                         alignment: Alignment.center,
                         value: fieldInputType,
                         child: Text(locale.org_form_answer_type(
@@ -101,7 +101,7 @@ class FormFieldView extends StatelessWidget {
 class OrgFormFieldOptionsView extends StatelessWidget {
   final String fieldId;
   final List<TextEditingController>? options;
-  final FieldInputType inputType;
+  final FormFieldAnswerType inputType;
 
   const OrgFormFieldOptionsView(
       {super.key,
@@ -111,8 +111,8 @@ class OrgFormFieldOptionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return inputType != FieldInputType.dropDown &&
-            inputType != FieldInputType.checkBox
+    return inputType != FormFieldAnswerType.dropDown &&
+            inputType != FormFieldAnswerType.checkBox
         ? const SizedBox(height: 16)
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,

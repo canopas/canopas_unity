@@ -10,11 +10,11 @@ OrgFormField _$OrgFormFieldFromJson(Map<String, dynamic> json) => OrgFormField(
       id: json['id'] as String,
       index: json['index'] as int,
       question: json['question'] as String,
-      inputType:
+      answerType:
           $enumDecodeNullable(_$FieldInputTypeEnumMap, json['input_type']) ??
-              FieldInputType.text,
+              FormFieldAnswerType.text,
       type: $enumDecodeNullable(_$FieldTypeEnumMap, json['type']) ??
-          FieldType.text,
+          FormFieldType.text,
       isRequired: json['is_required'] as bool? ?? false,
       options:
           (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -26,7 +26,7 @@ Map<String, dynamic> _$OrgFormFieldToJson(OrgFormField instance) {
     'index': instance.index,
     'question': instance.question,
     'type': _$FieldTypeEnumMap[instance.type]!,
-    'input_type': _$FieldInputTypeEnumMap[instance.inputType]!,
+    'input_type': _$FieldInputTypeEnumMap[instance.answerType]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -41,17 +41,17 @@ Map<String, dynamic> _$OrgFormFieldToJson(OrgFormField instance) {
 }
 
 const _$FieldInputTypeEnumMap = {
-  FieldInputType.text: 0,
-  FieldInputType.boolean: 1,
-  FieldInputType.date: 2,
-  FieldInputType.time: 3,
-  FieldInputType.dropDown: 4,
-  FieldInputType.checkBox: 5,
-  FieldInputType.file: 6,
-  FieldInputType.none: 7,
+  FormFieldAnswerType.text: 0,
+  FormFieldAnswerType.boolean: 1,
+  FormFieldAnswerType.date: 2,
+  FormFieldAnswerType.time: 3,
+  FormFieldAnswerType.dropDown: 4,
+  FormFieldAnswerType.checkBox: 5,
+  FormFieldAnswerType.file: 6,
+  FormFieldAnswerType.none: 7,
 };
 
 const _$FieldTypeEnumMap = {
-  FieldType.text: 0,
-  FieldType.image: 1,
+  FormFieldType.text: 0,
+  FormFieldType.image: 1,
 };

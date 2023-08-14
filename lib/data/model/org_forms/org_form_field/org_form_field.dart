@@ -9,8 +9,8 @@ class OrgFormField extends Equatable {
   final String id;
   final int index;
   final String question;
-  final FieldType type;
-  final FieldInputType inputType;
+  final FormFieldType type;
+  final FormFieldAnswerType answerType;
   final List<String>? options;
   final bool isRequired;
 
@@ -18,8 +18,8 @@ class OrgFormField extends Equatable {
       {required this.id,
       required this.index,
       required this.question,
-      this.inputType = FieldInputType.text,
-      this.type = FieldType.text,
+      this.answerType = FormFieldAnswerType.text,
+      this.type = FormFieldType.text,
       this.isRequired = false,
       this.options});
 
@@ -35,11 +35,11 @@ class OrgFormField extends Equatable {
 
   @override
   List<Object?> get props =>
-      [question, inputType, options, isRequired, type, index];
+      [question, answerType, options, isRequired, type, index];
 }
 
 @JsonEnum(valueField: 'value')
-enum FieldInputType {
+enum FormFieldAnswerType {
   text(0),
   boolean(1),
   date(2),
@@ -51,15 +51,15 @@ enum FieldInputType {
 
   final int value;
 
-  const FieldInputType(this.value);
+  const FormFieldAnswerType(this.value);
 }
 
 @JsonEnum(valueField: 'value')
-enum FieldType {
+enum FormFieldType {
   text(0),
   image(1);
 
   final int value;
 
-  const FieldType(this.value);
+  const FormFieldType(this.value);
 }

@@ -152,7 +152,7 @@ class QuestionsView extends StatelessWidget {
               itemCount: state.fields.length,
               separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemBuilder: (context, index) =>
-                  state.fields[index].type == FieldType.text
+                  state.fields[index].type == FormFieldType.text
                       ? FormFieldView(orgFormField: state.fields[index])
                       : FormFieldImageView(orgFormField: state.fields[index]),
             ));

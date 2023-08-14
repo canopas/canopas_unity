@@ -7,8 +7,8 @@ class OrgFormFieldCreateFormState extends Equatable {
   final int index;
   final TextEditingController question;
   final String image;
-  final FieldType type;
-  final FieldInputType inputType;
+  final FormFieldType type;
+  final FormFieldAnswerType inputType;
   final List<TextEditingController>? options;
   final bool isRequired;
 
@@ -17,16 +17,16 @@ class OrgFormFieldCreateFormState extends Equatable {
       required this.index,
       required this.question,
       this.image = '',
-      this.inputType = FieldInputType.text,
-      this.type = FieldType.text,
+      this.inputType = FormFieldAnswerType.text,
+      this.type = FormFieldType.text,
       this.isRequired = false,
       this.options});
 
   OrgFormFieldCreateFormState copyWith(
           {int? index,
-          FieldType? type,
+          FormFieldType? type,
           String? image,
-          FieldInputType? inputType,
+          FormFieldAnswerType? inputType,
           bool? allowOptionNull,
           List<TextEditingController>? options,
           bool? isRequired}) =>
