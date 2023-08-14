@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:projectunity/ui/forms/create_form/bloc/org_form_field_update_data_model.dart';
-import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
+import 'org_form_field_update_data_model.dart';
 
 class CreateFormState extends Equatable {
   final List<OrgFormFieldCreateFormState> fields;

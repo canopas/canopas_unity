@@ -10,12 +10,12 @@ import 'package:projectunity/data/model/org_forms/org_form_info/org_form_info.da
 import 'package:projectunity/data/model/org_forms/org_forms.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/data/services/storage_service.dart';
-import 'package:projectunity/ui/forms/create_form/bloc/create_form_event.dart';
-import 'package:projectunity/ui/forms/create_form/bloc/create_form_state.dart';
-import 'package:projectunity/ui/forms/create_form/bloc/org_form_field_update_data_model.dart';
-import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/core/utils/const/image_storage_path_const.dart';
-import '../../../../data/repo/form_repo.dart';
+import '../../../../../data/core/utils/bloc_status.dart';
+import '../../../../../data/core/utils/const/image_storage_path_const.dart';
+import '../../../../../data/repo/form_repo.dart';
+import 'org_form_field_update_data_model.dart';
+import 'create_form_event.dart';
+import 'create_form_state.dart';
 
 
 @Injectable()

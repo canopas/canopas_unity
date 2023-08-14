@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
+import '../../../../../data/configs/colors.dart';
+import '../../../../../data/configs/text_style.dart';
 
 class FormFieldTitle extends StatelessWidget {
   final String title;

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../../data/model/org_forms/org_form_field/org_form_field.dart';
+import '../../../../../data/model/org_forms/org_form_field/org_form_field.dart';
 
 class OrgFormFieldCreateFormState extends Equatable {
   final String id;
