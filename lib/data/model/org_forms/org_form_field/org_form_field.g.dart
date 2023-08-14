@@ -10,10 +10,10 @@ OrgFormField _$OrgFormFieldFromJson(Map<String, dynamic> json) => OrgFormField(
       id: json['id'] as String,
       index: json['index'] as int,
       question: json['question'] as String,
-      answerType:
-          $enumDecodeNullable(_$FieldInputTypeEnumMap, json['input_type']) ??
-              FormFieldAnswerType.text,
-      type: $enumDecodeNullable(_$FieldTypeEnumMap, json['type']) ??
+      answerType: $enumDecodeNullable(
+              _$FormFieldAnswerTypeEnumMap, json['answer_type']) ??
+          FormFieldAnswerType.text,
+      type: $enumDecodeNullable(_$FormFieldTypeEnumMap, json['type']) ??
           FormFieldType.text,
       isRequired: json['is_required'] as bool? ?? false,
       options:
@@ -25,8 +25,8 @@ Map<String, dynamic> _$OrgFormFieldToJson(OrgFormField instance) {
     'id': instance.id,
     'index': instance.index,
     'question': instance.question,
-    'type': _$FieldTypeEnumMap[instance.type]!,
-    'input_type': _$FieldInputTypeEnumMap[instance.answerType]!,
+    'type': _$FormFieldTypeEnumMap[instance.type]!,
+    'answer_type': _$FormFieldAnswerTypeEnumMap[instance.answerType]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -40,7 +40,7 @@ Map<String, dynamic> _$OrgFormFieldToJson(OrgFormField instance) {
   return val;
 }
 
-const _$FieldInputTypeEnumMap = {
+const _$FormFieldAnswerTypeEnumMap = {
   FormFieldAnswerType.text: 0,
   FormFieldAnswerType.boolean: 1,
   FormFieldAnswerType.date: 2,
@@ -51,7 +51,7 @@ const _$FieldInputTypeEnumMap = {
   FormFieldAnswerType.none: 7,
 };
 
-const _$FieldTypeEnumMap = {
+const _$FormFieldTypeEnumMap = {
   FormFieldType.text: 0,
   FormFieldType.image: 1,
 };
