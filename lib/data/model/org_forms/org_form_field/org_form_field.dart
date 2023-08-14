@@ -35,7 +35,7 @@ class OrgFormField extends Equatable {
 
   @override
   List<Object?> get props =>
-      [question, answerType, options, isRequired, type, index];
+      [question, answerType, options, isRequired, type, index,id];
 }
 
 @JsonEnum(valueField: 'value')
