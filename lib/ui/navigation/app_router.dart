@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/ui/admin/forms/form_list/form_list_screen.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
@@ -111,12 +112,19 @@ class AppRouter {
                                     )))
                           ]),
                       GoRoute(
-                        parentNavigatorKey: _adminShellNavigatorKey,
-                        name: Routes.newForm,
-                        path: 'new-form',
-                        pageBuilder: (context, state) =>
-                            const CupertinoPage(child: CreateFromPage()),
-                      ),
+                          parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.adminForms,
+                          path: 'forms',
+                          pageBuilder: (context, state) =>
+                              const CupertinoPage(child: AdminFormListPage()),
+                          routes: [
+                            GoRoute(
+                                name: Routes.newForm,
+                                path: 'new-form',
+                                pageBuilder: (context, state) =>
+                                    const CupertinoPage(
+                                        child: CreateFromPage())),
+                          ]),
                       GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.leaveRequestDetail,
@@ -354,6 +362,7 @@ abstract class Routes {
   static const adminProfile = '/admin-home/profile';
 
   static const newForm = '/admin-home/new-form';
+  static const adminForms = '/admin-home/forms';
 
   static const adminEditProfile = "/admin-home/profile/edit";
   static const editSpaceDetails = 'edit-space';

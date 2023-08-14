@@ -141,6 +141,16 @@ class MockFormRepo extends _i1.Mock implements _i6.FormRepo {
             _i7.Future<List<_i9.OrgFormInfo>>.value(<_i9.OrgFormInfo>[]),
       ) as _i7.Future<List<_i9.OrgFormInfo>>);
   @override
+  _i7.Future<_i9.OrgFormInfo?> getFormInfo({required String? formId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFormInfo,
+          [],
+          {#formId: formId},
+        ),
+        returnValue: _i7.Future<_i9.OrgFormInfo?>.value(),
+      ) as _i7.Future<_i9.OrgFormInfo?>);
+  @override
   _i7.Future<_i8.OrgForm?> getForm({required String? formId}) =>
       (super.noSuchMethod(
         Invocation.method(

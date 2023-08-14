@@ -130,7 +130,7 @@ class DrawerOptionList extends StatelessWidget {
                 title: 'forms',
                 onTap: () {
                   context.pop();
-                  context.goNamed(Routes.newForm);
+                  context.goNamed(Routes.adminForms);
                 }),
           ),
           BlocBuilder<DrawerBloc, DrawerState>(
