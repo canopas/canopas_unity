@@ -9,13 +9,15 @@ part 'org_form_response.g.dart';
 @JsonSerializable(
     fieldRename: FieldRename.snake, converters: [DateTimeConverter()])
 class OrgFormResponse extends Equatable {
+  final String id;
   final String uid;
   final String formId;
   final DateTime submittedAt;
   final List<OrgFormFieldResponse> response;
 
   const OrgFormResponse(
-      {required this.submittedAt,
+      {required this.id,
+      required this.submittedAt,
       required this.uid,
       required this.formId,
       required this.response});
@@ -31,5 +33,5 @@ class OrgFormResponse extends Equatable {
       OrgFormResponse.fromJson(snapshot.data()!);
 
   @override
-  List<Object?> get props => [uid, formId, response, submittedAt];
+  List<Object?> get props => [id, uid, formId, response, submittedAt];
 }

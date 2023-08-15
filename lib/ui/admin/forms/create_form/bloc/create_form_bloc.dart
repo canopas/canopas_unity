@@ -244,7 +244,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
                   createdAt: DateTime.now(),
                   description: state.description.isEmpty ? null : state.description,
                   oneTimeResponse: state.limitToOneResponse,
-                  image: headerImageUrl),
+                  headerImage: headerImageUrl),
               fields: fields));
       emit(state.copyWith(status: Status.success));
     } on Exception {
