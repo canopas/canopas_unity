@@ -19,14 +19,16 @@ class FormRepo {
       _formService.generateNewFormFieldId(
           spaceId: _userStateNotifier.currentSpaceId!, formId: formId);
 
-  Future<void> createForm(
-          {required OrgForm orgForm}) async =>
+  Future<void> createForm({required OrgForm orgForm}) async =>
       await _formService.createForm(
-          form: orgForm,
-          spaceId: _userStateNotifier.currentSpaceId!);
+          form: orgForm, spaceId: _userStateNotifier.currentSpaceId!);
 
   Future<List<OrgFormInfo>> getForms() async =>
       await _formService.getForms(spaceId: _userStateNotifier.currentSpaceId!);
+
+  Future<OrgFormInfo?> getFormInfo({required String formId}) async =>
+      await _formService.getFormInfo(
+          spaceId: _userStateNotifier.currentSpaceId!, formId: formId);
 
   Future<OrgForm?> getForm({required String formId}) async => await _formService
       .getForm(spaceId: _userStateNotifier.currentSpaceId!, formId: formId);

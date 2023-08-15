@@ -50,7 +50,7 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff8f8f8),
+      backgroundColor: AppColors.backgroundGrey,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).create_form_screen_title),
         actions: [
@@ -66,7 +66,7 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
                     context: context,
                     msg: AppLocalizations.of(context)
                         .create_form_success_message);
-                context.pop();
+                context.pop(state.formId);
               }
             },
             buildWhen: (previous, current) => previous.status != current.status,

@@ -344,6 +344,12 @@
   "required_tag": "Required",
   "create_tag": "Create",
   "create_form_success_message":" form has been created successfully",
+  "forms_title":"Forms",
+  "responses_tag":"Responses",
+  "fill_up_tag":"Fill-up",
+
+  "form_list_empty_screen_title":"No forms",
+  "form_list_empty_screen_message":"Oops, No Forms Here!",
 
   "org_form_answer_type": "{type, select, 0{Text} 1{Boolean} 2{Date} 3{Time} 4{Drop-down} 5{Checkboxes} 6{File upload} 7{None} other{other}}",
   "@org_form_answer_type": {

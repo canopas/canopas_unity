@@ -34,6 +34,8 @@ class FireStoreConst {
   static const String session = 'session';
   static const String uid = 'uid';
 
+  static const String createdAt = 'created_at';
+
   static const String receiverEmail = 'receiver_email';
   static const String spaceId = 'space_id';
 }
