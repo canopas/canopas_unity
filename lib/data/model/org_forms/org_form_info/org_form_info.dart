@@ -14,14 +14,14 @@ class OrgFormInfo extends Equatable {
   final String title;
   final DateTime createdAt;
   final String? description;
-  final String? image;
+  final String? headerImage;
   final bool oneTimeResponse;
 
   const OrgFormInfo({
     required this.createdAt,
     required this.id,
     required this.title,
-    this.image,
+    this.headerImage,
     this.description,
     this.oneTimeResponse = false,
   });
@@ -38,5 +38,5 @@ class OrgFormInfo extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, title, description, oneTimeResponse, image, createdAt];
+      [id, title, description, oneTimeResponse, headerImage, createdAt];
 }

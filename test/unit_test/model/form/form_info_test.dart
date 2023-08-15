@@ -11,7 +11,7 @@ void main() {
               'id': 'id',
               'title': 'title',
               'description': 'description',
-              'image': 'image-url',
+              'header_image': 'image-url',
               'one_time_response': false,
               'created_at': DateTime(2023).timeStampToInt
             }),
@@ -20,7 +20,7 @@ void main() {
                 .having((info) => info.title, 'form title', 'title')
                 .having((info) => info.description, 'form description',
                     'description')
-                .having((info) => info.image, 'Form header url', 'image-url')
+                .having((info) => info.headerImage, 'Form header url', 'image-url')
                 .having((info) => info.createdAt, 'Form create time',
                     DateTime(2023))
                 .having((info) => info.oneTimeResponse,
@@ -34,14 +34,14 @@ void main() {
           id: 'id',
           title: 'title',
           description: 'description',
-          image: 'image-url',
+          headerImage: 'image-url',
           oneTimeResponse: false);
       Map<String, dynamic> map = <String, dynamic>{
         'created_at': DateTime(2023).timeStampToInt,
         'id': 'id',
         'title': 'title',
         'description': 'description',
-        'image': 'image-url',
+        'header_image': 'image-url',
         'one_time_response': false,
       };
 
