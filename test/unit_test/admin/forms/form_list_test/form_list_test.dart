@@ -24,7 +24,7 @@ void main() {
         title: "Dummy Form",
         description: 'Dummy Description',
         oneTimeResponse: false,
-        image: "image-url");
+        headerImage: "image-url");
 
     group('Admin forms list Initial load test', () {
       setUp(() {
@@ -71,7 +71,7 @@ void main() {
           title: "Dummy Form",
           description: 'Dummy Description',
           oneTimeResponse: false,
-          image: "image-url");
+          headerImage: "image-url");
 
       setUpAll(() {
         formRepo = MockFormRepo();
