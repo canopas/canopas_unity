@@ -123,16 +123,14 @@ class DrawerOptionList extends StatelessWidget {
                 context.goNamed(
                     isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
               }),
-          ValidateWidget(
-            isValid: isAdminOrHr,
-            child: DrawerOption(
-                icon: Icons.feed_outlined,
-                title: 'forms',
-                onTap: () {
-                  context.pop();
-                  context.goNamed(Routes.adminForms);
-                }),
-          ),
+          DrawerOption(
+              icon: Icons.feed_outlined,
+              title: locale.forms_title,
+              onTap: () {
+                context.pop();
+                context.goNamed(
+                    isAdminOrHr ? Routes.adminForms : Routes.userForms);
+              }),
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>
                 previous.signOutStatus != current.signOutStatus,
