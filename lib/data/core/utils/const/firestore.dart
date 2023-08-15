@@ -2,6 +2,9 @@ class FireStoreConst {
   //database collections
   static const String accountsCollection = 'accounts';
   static const String spacesCollection = 'spaces';
+  static const String formsCollection = 'forms';
+  static const String formFieldsCollection = 'fields';
+  static const String formResponseCollection = 'response';
   static const String membersCollection = 'members';
   static const String invitationsCollection = 'invitations';
 
@@ -30,6 +33,8 @@ class FireStoreConst {
   static const String appliedOn = 'applied_on';
   static const String session = 'session';
   static const String uid = 'uid';
+
+  static const String createdAt = 'created_at';
 
   static const String receiverEmail = 'receiver_email';
   static const String spaceId = 'space_id';

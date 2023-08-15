@@ -332,6 +332,35 @@
     }
   },
 
+  "create_form_screen_title": "New Form",
+  "title_tag": "Title",
+  "description_tag": "Description",
+  "create_from_limit_to_1_response_text": "Limit To 1 Response",
+  "question_tag": "Question",
+  "options_tag": "Options",
+  "question_text_field_hint_text": "Enter Question",
+  "remove_tag":"Remove",
+  "type_tag": "Type",
+  "required_tag": "Required",
+  "create_tag": "Create",
+  "create_form_success_message":" form has been created successfully",
+  "forms_title":"Forms",
+  "responses_tag":"Responses",
+  "fill_up_tag":"Fill-up",
+
+  "form_list_empty_screen_title":"No forms",
+  "form_list_empty_screen_message":"Oops, No Forms Here!",
+
+  "org_form_answer_type": "{type, select, 0{Text} 1{Boolean} 2{Date} 3{Time} 4{Drop-down} 5{Checkboxes} 6{File upload} 7{None} other{other}}",
+  "@org_form_answer_type": {
+    "description": "Pass the value of answer type to get answerType",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+
   "network_connection_error": "Please check your Internet connection",
   "user_not_found_error_message": "User with this email doesn't exist, Please ask your manager to add it",
   "user_data_not_update_error_message": "Error in Updating your account information, Please check that you have signed in correct account",
@@ -340,6 +369,7 @@
   "sign_out_error_message": "Your attempt to sign out failed,Please try again later",
   "error_something_went_wrong": "Something went wrong",
   "fill_all_details_error": "Please fill all details",
+  "fill_require_details_error": "Please fill required details!",
   "invalid_date_selection_error": "Please select valid date",
   "apply_leave_minimum_one_hour_error": "Please apply leave for minimum half day",
   "add_member_employee_exists_error": "Member already exists!",

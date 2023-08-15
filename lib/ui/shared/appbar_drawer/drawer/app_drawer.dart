@@ -92,7 +92,10 @@ class DrawerOptionList extends StatelessWidget {
   final String currentSpaceName;
 
   const DrawerOptionList(
-      {Key? key, required this.isAdmin, required this.isAdminOrHr, required this.currentSpaceName})
+      {Key? key,
+      required this.isAdmin,
+      required this.isAdminOrHr,
+      required this.currentSpaceName})
       : super(key: key);
 
   @override
@@ -120,16 +123,22 @@ class DrawerOptionList extends StatelessWidget {
                 context.goNamed(
                     isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
               }),
-          
+          DrawerOption(
+              icon: Icons.feed_outlined,
+              title: locale.forms_title,
+              onTap: () {
+                context.pop();
+                context.goNamed(
+                    isAdminOrHr ? Routes.adminForms : Routes.userForms);
+              }),
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
               icon: Icons.logout_rounded,
               title: locale.sign_out_from_text(currentSpaceName),
-              onTap: () => context
-                  .read<DrawerBloc>()
-                  .add(SignOutFromSpaceEvent()),
+              onTap: () =>
+                  context.read<DrawerBloc>().add(SignOutFromSpaceEvent()),
             ),
           ),
         ],

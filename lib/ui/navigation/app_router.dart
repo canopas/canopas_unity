@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:projectunity/ui/admin/forms/form_list/form_list_screen.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
@@ -11,6 +12,7 @@ import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
 import '../../data/provider/user_state.dart';
 import '../admin/drawer_options/edit_space/edit_space_screen.dart';
+import '../admin/forms/create_form/create_form.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/home/invite_member/invite_screen.dart';
 import '../admin/leaves/details/admin_leave_detail.dart';
@@ -22,6 +24,7 @@ import '../shared/dashboard/dashboard.dart';
 import '../shared/profile/edit_profile/edit_profile_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
 import '../space/join_space/join_space_screen.dart';
+import '../user/forms/form_list_screen/forms_list_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
 import '../user/leaves/apply_leave/apply_leave_screen.dart';
 import '../user/members/detail/user_employee_detail_screen.dart';
@@ -75,7 +78,8 @@ class AppRouter {
           ),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
-              builder: (context, state, child) => DashBoardScreen(tabs: adminTabs, child: child),
+              builder: (context, state, child) =>
+                  DashBoardScreen(tabs: adminTabs, child: child),
               routes: [
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
@@ -109,6 +113,20 @@ class AppRouter {
                                     )))
                           ]),
                       GoRoute(
+                          parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.adminForms,
+                          path: 'forms',
+                          pageBuilder: (context, state) =>
+                              const CupertinoPage(child: AdminFormListPage()),
+                          routes: [
+                            GoRoute(
+                                name: Routes.newForm,
+                                path: 'new-form',
+                                pageBuilder: (context, state) =>
+                                    const CupertinoPage(
+                                        child: CreateFromPage())),
+                          ]),
+                      GoRoute(
                         parentNavigatorKey: _adminShellNavigatorKey,
                         name: Routes.leaveRequestDetail,
                         path: Routes.leaveRequestDetail,
@@ -124,7 +142,7 @@ class AppRouter {
                         pageBuilder: (context, state) => CupertinoPage(
                             child: AdminLeaveDetailsPage(
                                 leaveApplication:
-                                state.extra as LeaveApplication)),
+                                    state.extra as LeaveApplication)),
                       )
                     ]),
                 GoRoute(
@@ -217,7 +235,8 @@ class AppRouter {
               ]),
           ShellRoute(
               navigatorKey: _employeeShellNavigatorKey,
-              builder: (context, state, child) => DashBoardScreen(tabs: userTabs, child: child),
+              builder: (context, state, child) =>
+                  DashBoardScreen(tabs: userTabs, child: child),
               routes: <GoRoute>[
                 GoRoute(
                     parentNavigatorKey: _employeeShellNavigatorKey,
@@ -245,6 +264,13 @@ class AppRouter {
                             ),
                           ]),
                       GoRoute(
+                        parentNavigatorKey: _employeeShellNavigatorKey,
+                        name: Routes.userForms,
+                        path: Routes.userForms,
+                        pageBuilder: (context, state) =>
+                            const CupertinoPage(child: UserFormListPage()),
+                      ),
+                      GoRoute(
                           name: Routes.userRequestDetail,
                           path: Routes.userRequestDetail,
                           pageBuilder: (context, state) {
@@ -258,8 +284,8 @@ class AppRouter {
                         path: Routes.userAbsenceDetails,
                         pageBuilder: (context, state) => CupertinoPage(
                             child: UserLeaveDetailPage(
-                                leaveId: state
-                                    .params[RoutesParamsConst.leaveId]!)),
+                                leaveId:
+                                    state.params[RoutesParamsConst.leaveId]!)),
                       ),
                     ]),
                 GoRoute(
@@ -342,6 +368,10 @@ abstract class Routes {
   static const adminAbsenceDetails = 'admin-calendar-leave-details';
   static const leaveRequestDetail = 'leave-request/details';
   static const adminProfile = '/admin-home/profile';
+
+  static const newForm = '/admin-home/new-form';
+  static const adminForms = '/admin-home/forms';
+
   static const adminEditProfile = "/admin-home/profile/edit";
   static const editSpaceDetails = 'edit-space';
 
@@ -360,6 +390,7 @@ abstract class Routes {
   static const userRequestDetail = 'leave-request-detail/:leaveId';
   static const userLeaveCalender = 'user-calender';
   static const userProfile = '/user-home/profile';
+  static const userForms = 'forms';
   static const userEditProfile = '/user-home/profile/edit';
 
   static const userLeaves = '/leaves';
