@@ -24,7 +24,7 @@ void main() {
         title: "Dummy Form",
         description: 'Dummy Description',
         oneTimeResponse: false,
-        image: "image-url");
+        headerImage: "image-url");
 
     setUp(() {
       formRepo = MockFormRepo();
