@@ -8,6 +8,7 @@ part of 'org_form_response.dart';
 
 OrgFormResponse _$OrgFormResponseFromJson(Map<String, dynamic> json) =>
     OrgFormResponse(
+      id: json['id'] as String,
       submittedAt:
           const DateTimeConverter().fromJson(json['submitted_at'] as int),
       uid: json['uid'] as String,
@@ -19,6 +20,7 @@ OrgFormResponse _$OrgFormResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$OrgFormResponseToJson(OrgFormResponse instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'uid': instance.uid,
       'form_id': instance.formId,
       'submitted_at': const DateTimeConverter().toJson(instance.submittedAt),
