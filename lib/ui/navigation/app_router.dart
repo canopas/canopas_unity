@@ -24,6 +24,7 @@ import '../shared/dashboard/dashboard.dart';
 import '../shared/profile/edit_profile/edit_profile_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
 import '../space/join_space/join_space_screen.dart';
+import '../user/forms/form_list_screen/forms_list_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
 import '../user/leaves/apply_leave/apply_leave_screen.dart';
 import '../user/members/detail/user_employee_detail_screen.dart';
@@ -263,6 +264,13 @@ class AppRouter {
                             ),
                           ]),
                       GoRoute(
+                        parentNavigatorKey: _employeeShellNavigatorKey,
+                        name: Routes.userForms,
+                        path: Routes.userForms,
+                        pageBuilder: (context, state) =>
+                            const CupertinoPage(child: UserFormListPage()),
+                      ),
+                      GoRoute(
                           name: Routes.userRequestDetail,
                           path: Routes.userRequestDetail,
                           pageBuilder: (context, state) {
@@ -382,6 +390,7 @@ abstract class Routes {
   static const userRequestDetail = 'leave-request-detail/:leaveId';
   static const userLeaveCalender = 'user-calender';
   static const userProfile = '/user-home/profile';
+  static const userForms = 'forms';
   static const userEditProfile = '/user-home/profile/edit';
 
   static const userLeaves = '/leaves';
