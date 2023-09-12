@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import '../../model/leave/leave.dart';
 
 @Injectable()
 class AppFunctions {
@@ -17,6 +18,24 @@ class AppFunctions {
       return false;
     } else {
       return true;
+    }
+  }
+
+  String getNotificationDuration(
+      {required double total,
+        required LeaveDayDuration firstLeaveDayDuration}) {
+    if (total <= 1) {
+      if (firstLeaveDayDuration == LeaveDayDuration.firstHalfLeave) {
+        return "First Half";
+      } else if (firstLeaveDayDuration == LeaveDayDuration.secondHalfLeave) {
+        return "Second Half";
+      } else if (firstLeaveDayDuration == LeaveDayDuration.fullLeave) {
+        return "Full day";
+      } else {
+        return "$total day";
+      }
+    } else {
+      return "$total days";
     }
   }
 }
