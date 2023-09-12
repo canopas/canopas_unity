@@ -25,6 +25,7 @@ class NotificationService {
       {required String name,
       required String reason,
       required DateTime startDate,
+      required String duration,
       required DateTime endDate,
       required String receiver}) async {
     if (kDebugMode) return;
@@ -36,6 +37,7 @@ class NotificationService {
                 "date": getFormatDate(startDate: startDate, endDate: endDate),
                 "status": LeaveStatus.pending.value,
                 'reason': reason,
+                'duration': duration,
                 'receiver': receiver,
               }));
       if (response.statusCode == 200) {

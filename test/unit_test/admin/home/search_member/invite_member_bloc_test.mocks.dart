@@ -433,6 +433,7 @@ class MockNotificationService extends _i1.Mock
     required String? name,
     required String? reason,
     required DateTime? startDate,
+    required String? duration,
     required DateTime? endDate,
     required String? receiver,
   }) =>
@@ -444,6 +445,7 @@ class MockNotificationService extends _i1.Mock
             #name: name,
             #reason: reason,
             #startDate: startDate,
+            #duration: duration,
             #endDate: endDate,
             #receiver: receiver,
           },

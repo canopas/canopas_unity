@@ -31,7 +31,7 @@ dependencies:
   google_sign_in: ^5.4.4
   go_router: ^6.5.8
   http: ^0.13.5
-  intl: ^0.17.0
+  intl: ^0.18.0
   injectable: ^2.1.1
   image_picker: ^0.8.7+3
   json_annotation: ^4.8.1
