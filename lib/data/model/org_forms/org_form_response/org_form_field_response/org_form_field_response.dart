@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -18,8 +17,8 @@ class OrgFormFieldResponse extends Equatable {
   Map<String, dynamic> toJson() => _$OrgFormFieldResponseToJson(this);
 
   factory OrgFormFieldResponse.fromFireStore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options) =>
+          DocumentSnapshot<Map<String, dynamic>> snapshot,
+          SnapshotOptions? options) =>
       OrgFormFieldResponse.fromJson(snapshot.data()!);
 
   @override

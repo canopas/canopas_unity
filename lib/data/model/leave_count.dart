@@ -5,8 +5,7 @@ class LeaveCounts extends Equatable {
   final double urgentLeaves;
   final double casualLeaves;
 
-  const LeaveCounts(
-      {this.casualLeaves = 0.0, this.urgentLeaves = 0.0})
+  const LeaveCounts({this.casualLeaves = 0.0, this.urgentLeaves = 0.0})
       : totalUsedLeave = urgentLeaves + casualLeaves;
 
   @override

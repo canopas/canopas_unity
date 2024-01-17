@@ -64,20 +64,17 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(top: 25, bottom: 10),
+                            padding: const EdgeInsets.only(top: 25, bottom: 10),
                             child: Text(locale.request_tag,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall),
                           ),
                           ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (context, leave) => LeaveCard(
                                   onTap: () {
-                                    context.goNamed(
-                                        Routes.userRequestDetail,
+                                    context.goNamed(Routes.userRequestDetail,
                                         pathParameters: {
                                           RoutesParamsConst.leaveId:
                                               state.requests[leave].leaveId

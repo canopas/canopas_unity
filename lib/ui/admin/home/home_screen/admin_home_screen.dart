@@ -25,13 +25,15 @@ class AdminHomeScreenPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
+          create: (context) =>
+              getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
         ),
-        BlocProvider(create: (context) => getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
+        BlocProvider(
+            create: (context) =>
+                getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
       ],
       child: const AdminHomeScreen(),
     );
-
   }
 }
 
@@ -57,15 +59,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             child: WhoIsOutCard(),
           ),
           BlocConsumer<AdminHomeBloc, AdminHomeState>(
-              listenWhen: (previous, current) =>
-              current.status == Status.error,
+              listenWhen: (previous, current) => current.status == Status.error,
               listener: (context, state) {
                 if (state.status == Status.error) {
                   showSnackBar(context: context, error: state.error);
                 }
               },
-              buildWhen: (previous, current) =>
-              current.status != Status.error,
+              buildWhen: (previous, current) => current.status != Status.error,
               builder: (context, state) {
                 if (state.status == Status.success &&
                     state.leaveAppMap.isNotEmpty) {
@@ -74,16 +74,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 return ConstrainedBox(
                   constraints: const BoxConstraints(minHeight: 300),
                   child: SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height - 500,
+                    height: MediaQuery.of(context).size.height - 500,
                     child: state.status == Status.loading
                         ? const AppCircularProgressIndicator()
                         : EmptyScreen(
-                      message: locale.empty_request_message,
-                      title: locale.empty_request_title,
-                    ),
+                            message: locale.empty_request_message,
+                            title: locale.empty_request_title,
+                          ),
                   ),
                 );
               }),

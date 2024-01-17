@@ -19,8 +19,7 @@ class CancelButton extends StatelessWidget {
             BlocProvider.of<UserLeaveDetailBloc>(context)
                 .add(CancelLeaveApplicationEvent(leaveId: leaveId));
           },
-          child: Text(AppLocalizations.of(context)
-              .cancel_button_tag)),
+          child: Text(AppLocalizations.of(context).cancel_button_tag)),
     );
   }
 }

@@ -83,7 +83,8 @@ class HeaderImageView extends StatelessWidget {
                       ? DecorationImage(
                           fit: BoxFit.scaleDown,
                           image: kIsWeb
-                              ? NetworkImage(state.formHeaderImage!) as ImageProvider
+                              ? NetworkImage(state.formHeaderImage!)
+                                  as ImageProvider
                               : FileImage(File(state.formHeaderImage!)))
                       : null),
               child: Column(

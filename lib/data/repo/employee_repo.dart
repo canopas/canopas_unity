@@ -15,7 +15,8 @@ class EmployeeRepo {
   late BehaviorSubject<List<Employee>> _employeeController;
   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
-  EmployeeRepo(this._employeeService, this._userStateNotifier, this._crashlytics) {
+  EmployeeRepo(
+      this._employeeService, this._userStateNotifier, this._crashlytics) {
     _employeeController = BehaviorSubject<List<Employee>>();
     _employeeStreamSubscription = _employeeService
         .employees(_userStateNotifier.currentSpaceId!)
@@ -33,8 +34,7 @@ class EmployeeRepo {
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();
 
-  List<Employee> get allEmployees =>
-      _employeeController.value;
+  List<Employee> get allEmployees => _employeeController.value;
 
   Stream<List<Employee>> get activeEmployees =>
       _employeeController.stream.asyncMap((employees) => employees

@@ -17,7 +17,7 @@ class FetchWhoIsOutCardLeaves extends WhoIsOutEvent {
 class ShowCalendarData extends WhoIsOutEvent {
   final List<LeaveApplication> allAbsence;
 
-  ShowCalendarData( this.allAbsence);
+  ShowCalendarData(this.allAbsence);
 
   @override
   List<Object?> get props => [allAbsence];

@@ -62,8 +62,12 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
     emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
     try {
-      await _spaceService.deleteSpace(spaceId:  _userStateNotifier.currentSpace!.id, owners: _userStateNotifier.currentSpace!.ownerIds,uid: _userStateNotifier.employeeId);
-      await _storageService.deleteStorageFolder("images/${_userStateNotifier.currentSpaceId}");
+      await _spaceService.deleteSpace(
+          spaceId: _userStateNotifier.currentSpace!.id,
+          owners: _userStateNotifier.currentSpace!.ownerIds,
+          uid: _userStateNotifier.employeeId);
+      await _storageService
+          .deleteStorageFolder("images/${_userStateNotifier.currentSpaceId}");
       await _userStateNotifier.removeEmployeeWithSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
@@ -74,7 +78,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
 
   Future<void> _pickImage(
       PickImageEvent event, Emitter<EditSpaceState> emit) async {
-    final XFile? image = await _imagePicker.pickImage(source: event.imageSource);
+    final XFile? image =
+        await _imagePicker.pickImage(source: event.imageSource);
     if (image != null) {
       emit(state.copyWith(logo: image.path, isLogoPickedDone: true));
     }
@@ -89,7 +94,8 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       String? logoURL = space.logo;
 
       if (state.logo.isNotNullOrEmpty) {
-        final String storagePath = ImageStoragePath.spaceLogoPath(spaceId: _userStateNotifier.currentSpaceId!);
+        final String storagePath = ImageStoragePath.spaceLogoPath(
+            spaceId: _userStateNotifier.currentSpaceId!);
         logoURL = await _storageService.uploadProfilePic(
             path: storagePath, imagePath: state.logo!);
       }

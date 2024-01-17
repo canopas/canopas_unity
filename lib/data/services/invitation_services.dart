@@ -27,8 +27,10 @@ class InvitationService {
       {required String spaceId, required String email}) async {
     final data = await _invitationDb
         .where(FireStoreConst.receiverEmail, isEqualTo: email)
-        .where(FireStoreConst.spaceId, isEqualTo: spaceId).count().get();
-    return data.count != null? data.count! > 0: false;
+        .where(FireStoreConst.spaceId, isEqualTo: spaceId)
+        .count()
+        .get();
+    return data.count != null ? data.count! > 0 : false;
   }
 
   Future<List<Invitation>> fetchSpaceInvitations(

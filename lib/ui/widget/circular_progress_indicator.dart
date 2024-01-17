@@ -77,7 +77,8 @@ class AppCircularProgressIndicator extends StatelessWidget {
   final Color color;
   final double size;
 
-  const AppCircularProgressIndicator({Key? key, this.size = 38,  this.color = AppColors.primaryBlue})
+  const AppCircularProgressIndicator(
+      {Key? key, this.size = 38, this.color = AppColors.primaryBlue})
       : super(key: key);
 
   @override

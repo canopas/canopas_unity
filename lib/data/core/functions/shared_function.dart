@@ -23,7 +23,7 @@ class AppFunctions {
 
   String getNotificationDuration(
       {required double total,
-        required LeaveDayDuration firstLeaveDayDuration}) {
+      required LeaveDayDuration firstLeaveDayDuration}) {
     if (total <= 1) {
       if (firstLeaveDayDuration == LeaveDayDuration.firstHalfLeave) {
         return "First Half";

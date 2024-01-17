@@ -148,5 +148,3 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
     );
   }
 }
-
-

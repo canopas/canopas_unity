@@ -54,7 +54,8 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
           title: Text(AppLocalizations.of(context).details_tag),
         ),
         body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
+          padding:
+              const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
           children: [
             ProfileCard(employee: widget.employee),
             const Divider(

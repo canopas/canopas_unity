@@ -6,7 +6,7 @@ void main() {
     group('from json and from firestore', () {
       test('returns correct Employee object ', () {
         expect(
-            Employee.fromJson( <String, dynamic>{
+            Employee.fromJson(<String, dynamic>{
               'uid': 'unique-user-doc-id',
               'role': 1,
               'name': 'Andrew jhone',
@@ -46,15 +46,17 @@ void main() {
                     'Date Of Birth-Timestamp to int', DateTime(2000))
                 .having((employee) => employee.dateOfJoining,
                     'Date Of Joining-Timestamp to int', DateTime(2000))
-                .having((employee) => employee.status,
-                'status int to enum(active, inactive)', EmployeeStatus.active)
+                .having(
+                    (employee) => employee.status,
+                    'status int to enum(active, inactive)',
+                    EmployeeStatus.active)
                 .having(
                     (employee) => employee.level, 'Level of employee', 'L1'));
       });
     });
 
     test('apply correct employee to firestore', () {
-      Employee employee =  Employee(
+      Employee employee = Employee(
           uid: 'Unique-user-id',
           role: Role.admin,
           name: 'Andrew jhone',
@@ -80,7 +82,7 @@ void main() {
         'image_url': employee.imageUrl,
         'address': employee.address,
         'level': employee.level,
-        'gender':employee.gender!.value,
+        'gender': employee.gender!.value,
         'date_of_joining': employee.dateOfJoining.millisecondsSinceEpoch,
         'status': employee.status.value,
       };

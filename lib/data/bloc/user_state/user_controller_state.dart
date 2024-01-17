@@ -1,19 +1,19 @@
-class UserControllerStatus{
+class UserControllerStatus {
   const UserControllerStatus();
 }
-class UserInitialStatus extends UserControllerStatus{
+
+class UserInitialStatus extends UserControllerStatus {
   const UserInitialStatus();
 }
 
-class UserAccessRevokedStatus extends UserControllerStatus{
+class UserAccessRevokedStatus extends UserControllerStatus {
   const UserAccessRevokedStatus();
 }
 
-class UserErrorStatus extends UserControllerStatus{
+class UserErrorStatus extends UserControllerStatus {
   const UserErrorStatus();
 }
 
-class UserUpdatedStatus extends UserControllerStatus{
+class UserUpdatedStatus extends UserControllerStatus {
   const UserUpdatedStatus();
 }
-

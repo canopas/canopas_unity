@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -57,7 +56,8 @@ class SignInScreenState extends State<SignInScreen> {
                     children: [
                       const SizedBox(height: 20),
                       Flexible(
-                        child: Image.asset(ImageConst.loginPageVectorImage, width: MediaQuery.of(context).size.width * 0.8),
+                        child: Image.asset(ImageConst.loginPageVectorImage,
+                            width: MediaQuery.of(context).size.width * 0.8),
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -74,10 +74,13 @@ class SignInScreenState extends State<SignInScreen> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20, bottom: 40),
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20, top: 20, bottom: 40),
                               child: Text(
-                                AppLocalizations.of(context).sign_in_description_text,
-                                style: AppFontStyle.bodyMedium.copyWith(fontWeight: FontWeight.w500),
+                                AppLocalizations.of(context)
+                                    .sign_in_description_text,
+                                style: AppFontStyle.bodyMedium
+                                    .copyWith(fontWeight: FontWeight.w500),
                                 overflow: TextOverflow.fade,
                                 textAlign: TextAlign.center,
                               ),
@@ -97,9 +100,12 @@ class SignInScreenState extends State<SignInScreen> {
                             : Center(
                                 child: SignInButton(
                                     onPressed: () {
-                                      context.read<SignInBloc>().add(SignInEvent());
+                                      context
+                                          .read<SignInBloc>()
+                                          .add(SignInEvent());
                                     },
-                                    title: AppLocalizations.of(context).login_button_text,
+                                    title: AppLocalizations.of(context)
+                                        .login_button_text,
                                     image: ImageConst.googleLogoImage),
                               ),
                       ),

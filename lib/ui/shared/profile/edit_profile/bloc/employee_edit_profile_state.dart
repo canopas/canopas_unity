@@ -62,5 +62,6 @@ class EmployeeEditProfileState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [gender, dateOfBirth, status, nameError, error, imageURL];
+  List<Object?> get props =>
+      [gender, dateOfBirth, status, nameError, error, imageURL];
 }

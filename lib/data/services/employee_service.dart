@@ -61,7 +61,7 @@ class EmployeeService {
             .where(FireStoreConst.email, isEqualTo: email)
             .count()
             .get();
-    return data.count != null? data.count! > 0: false;
+    return data.count != null ? data.count! > 0 : false;
   }
 
   Future<void> updateEmployeeDetails({required Employee employee}) async {

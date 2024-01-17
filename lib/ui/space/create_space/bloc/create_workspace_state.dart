@@ -19,8 +19,8 @@ class CreateSpaceState extends Equatable {
   final String? ownerName;
   final bool ownerNameError;
 
-  const CreateSpaceState({
-      this.isLogoPickedDone = false,
+  const CreateSpaceState(
+      {this.isLogoPickedDone = false,
       this.logo,
       this.page = 0,
       this.companyName = '',
@@ -69,19 +69,19 @@ class CreateSpaceState extends Equatable {
 
   @override
   List<Object?> get props => [
-    logo,
-    isLogoPickedDone,
-    page,
-    companyName,
-    domain,
-    companyNameError,
-    domainError,
-    paidTimeOff,
-    paidTimeOffError,
-    buttonState,
-    ownerNameError,
-    error,
-    createSpaceStatus,
-    ownerName,
-  ];
+        logo,
+        isLogoPickedDone,
+        page,
+        companyName,
+        domain,
+        companyNameError,
+        domainError,
+        paidTimeOff,
+        paidTimeOffError,
+        buttonState,
+        ownerNameError,
+        error,
+        createSpaceStatus,
+        ownerName,
+      ];
 }

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-
 abstract class InvitationEvent extends Equatable {}
 
 class AddEmailEvent extends InvitationEvent {

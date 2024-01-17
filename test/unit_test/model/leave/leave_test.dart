@@ -6,7 +6,7 @@ void main() {
     group('from json and from firestore', () {
       test('returns correct Leave object ', () {
         expect(
-            Leave.fromJson( <String, dynamic>{
+            Leave.fromJson(<String, dynamic>{
               'leave_id': 'unique-leave-doc-id',
               'uid': 'unique-user-id',
               'type': 1,
@@ -24,8 +24,8 @@ void main() {
                     'unique-leave-doc-id')
                 .having(
                     (leave) => leave.uid, 'Unique user id', 'unique-user-id')
-                .having(
-                    (leave) => leave.type, 'Type of leave e.g seek casual', LeaveType.urgentLeave)
+                .having((leave) => leave.type, 'Type of leave e.g seek casual',
+                    LeaveType.urgentLeave)
                 .having((leave) => leave.startDate,
                     'Leave start date timestamp to int value', DateTime(2000))
                 .having((leave) => leave.endDate,
@@ -37,8 +37,10 @@ void main() {
                     (leave) => leave.status,
                     'Status of leave: Pending-1, Approved-2, Rejected-3',
                     LeaveStatus.pending)
-                .having((leave) => leave.appliedOn,
-                    'Time of applicaton applied-TimeStamp to int', DateTime(2000))
+                .having(
+                    (leave) => leave.appliedOn,
+                    'Time of applicaton applied-TimeStamp to int',
+                    DateTime(2000))
                 .having(
                     (leave) => leave.perDayDuration,
                     'Duration of each leave day like 0-no leave, 1- first half',

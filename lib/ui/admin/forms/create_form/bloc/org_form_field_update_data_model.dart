@@ -51,5 +51,5 @@ class OrgFormFieldCreateFormState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [question, inputType, options, isRequired, type, index, image,id];
+      [question, inputType, options, isRequired, type, index, image, id];
 }

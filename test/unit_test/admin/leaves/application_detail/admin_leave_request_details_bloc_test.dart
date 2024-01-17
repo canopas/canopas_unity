@@ -26,8 +26,7 @@ void main() {
   setUp(() {
     leaveRepo = MockLeaveRepo();
     notificationService = MockNotificationService();
-    bloc = AdminLeaveDetailsBloc(
-        leaveRepo, notificationService);
+    bloc = AdminLeaveDetailsBloc(leaveRepo, notificationService);
   });
 
   group('Leave Application Detail bloc', () {
@@ -43,10 +42,11 @@ void main() {
       test(
           'Emits loading state and success state respectively if leave counts are fetched successfully from firestore',
           () {
-        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenAnswer((_) async => const LeaveCounts(casualLeaves: 5,urgentLeaves: 5));
+        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenAnswer(
+            (_) async => const LeaveCounts(casualLeaves: 5, urgentLeaves: 5));
         AdminLeaveDetailsState successState = const AdminLeaveDetailsState(
             adminReply: '',
-            usedLeavesCount: LeaveCounts(casualLeaves: 5,urgentLeaves: 5),
+            usedLeavesCount: LeaveCounts(casualLeaves: 5, urgentLeaves: 5),
             error: null,
             actionStatus: Status.initial,
             leaveCountStatus: Status.success);
@@ -58,7 +58,8 @@ void main() {
       test(
           'Emits loading state and error state if exception is thrown from any cause',
           () {
-        when(leaveRepo.getUserUsedLeaves(uid: 'id')).thenThrow(Exception('error'));
+        when(leaveRepo.getUserUsedLeaves(uid: 'id'))
+            .thenThrow(Exception('error'));
         AdminLeaveDetailsState errorState = const AdminLeaveDetailsState(
             adminReply: '',
             usedLeavesCount: LeaveCounts(),
@@ -167,7 +168,9 @@ void main() {
                 status: LeaveStatus.approved))
             .thenAnswer((realInvocation) async => true);
         when(leaveRepo.updateLeaveStatus(
-                leaveId: "leave-id", status: LeaveStatus.approved, response: ''))
+                leaveId: "leave-id",
+                status: LeaveStatus.approved,
+                response: ''))
             .thenThrow(Exception(firestoreFetchDataError));
         bloc.add(LeaveResponseEvent(
             name: "dummy",

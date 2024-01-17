@@ -1,4 +1,3 @@
-
 import '../../model/leave/leave.dart';
 import 'date_time.dart';
 
@@ -14,9 +13,7 @@ extension MapExtensions on Map<DateTime, LeaveDayDuration> {
         ..add(endDate);
     }
     for (var date in dates) {
-      putIfAbsent(
-          date.dateOnly,
-          () => date.getLeaveDayDuration());
+      putIfAbsent(date.dateOnly, () => date.getLeaveDayDuration());
     }
     removeWhere((key, value) => !dates.contains(key));
     return this;

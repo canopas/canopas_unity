@@ -104,7 +104,9 @@ class AdminEditEmployeeDetailsBloc
 
         if (state.pickedImage != null) {
           imageUrl = await _storageService.uploadProfilePic(
-              path: ImageStoragePath.membersProfilePath(spaceId: _userStateNotifier.currentSpaceId!, uid: event.previousEmployeeData.uid),
+              path: ImageStoragePath.membersProfilePath(
+                  spaceId: _userStateNotifier.currentSpaceId!,
+                  uid: event.previousEmployeeData.uid),
               imagePath: state.pickedImage!);
         }
 

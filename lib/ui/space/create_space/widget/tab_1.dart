@@ -45,7 +45,7 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
           BlocConsumer<CreateSpaceBLoc, CreateSpaceState>(
             listenWhen: (previous, current) => current.isLogoPickedDone,
             listener: (context, state) {
-              if(state.isLogoPickedDone){
+              if (state.isLogoPickedDone) {
                 context.pop();
               }
             },

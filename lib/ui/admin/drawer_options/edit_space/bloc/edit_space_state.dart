@@ -43,7 +43,8 @@ class EditSpaceState extends Equatable {
           yearlyPaidTimeOffIsValid:
               yearlyPaidTimeOffIsValid ?? this.yearlyPaidTimeOffIsValid);
 
-  bool get isDataValid => nameIsValid && yearlyPaidTimeOffIsValid && notificationEmailIsValid;
+  bool get isDataValid =>
+      nameIsValid && yearlyPaidTimeOffIsValid && notificationEmailIsValid;
 
   bool get isFailure =>
       (updateSpaceStatus != Status.error ||

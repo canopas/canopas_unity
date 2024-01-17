@@ -13,7 +13,8 @@ import 'package:projectunity/data/services/space_service.dart';
 
 import 'user_state_controller_bloc_test.mocks.dart';
 
-@GenerateMocks([EmployeeRepo, SpaceService, UserStateNotifier, SpaceChangeNotifier])
+@GenerateMocks(
+    [EmployeeRepo, SpaceService, UserStateNotifier, SpaceChangeNotifier])
 void main() {
   late UserStateControllerBloc bloc;
   late EmployeeRepo employeeRepo;
@@ -67,7 +68,7 @@ void main() {
           .thenAnswer((realInvocation) => Stream.value(employee));
 
       bloc = UserStateControllerBloc(
-          employeeRepo, userStateNotifier, spaceService,spaceChangeNotifier);
+          employeeRepo, userStateNotifier, spaceService, spaceChangeNotifier);
     });
 
     test('Should emit initial state as default state of bloc', () {

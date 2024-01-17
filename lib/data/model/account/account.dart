@@ -26,5 +26,5 @@ class Account extends Equatable {
       Account.fromJson(snapshot.data()!);
 
   @override
-  List<Object?> get props => [uid, email, spaces,name];
+  List<Object?> get props => [uid, email, spaces, name];
 }

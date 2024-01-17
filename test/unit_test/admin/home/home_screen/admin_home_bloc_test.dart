@@ -68,15 +68,16 @@ void main() {
               status: Status.loading,
             ),
             AdminHomeState(
-              status: Status.success,
-              leaveAppMap: bloc.convertListToMap([LeaveApplication(employee: employee, leave: leave)])
-            ),
+                status: Status.success,
+                leaveAppMap: bloc.convertListToMap(
+                    [LeaveApplication(employee: employee, leave: leave)])),
           ]));
     });
 
     test('Emits failure after fetch data', () {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
-      when(leaveRepo.pendingLeaves).thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      when(leaveRepo.pendingLeaves)
+          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
       bloc.add(AdminHomeInitialLoadEvent());
       expectLater(
           bloc.stream,
@@ -85,12 +86,10 @@ void main() {
               status: Status.loading,
             ),
             const AdminHomeState(
-                error: firestoreFetchDataError,
-                status: Status.error,
+              error: firestoreFetchDataError,
+              status: Status.error,
             ),
           ]));
     });
-
-
   });
 }

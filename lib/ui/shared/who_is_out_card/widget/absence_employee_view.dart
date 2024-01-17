@@ -44,8 +44,7 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
 class AbsenceEmployeeWrapLayout extends StatelessWidget {
   final List<LeaveApplication> absence;
 
-  const AbsenceEmployeeWrapLayout(
-      {Key? key, required this.absence})
+  const AbsenceEmployeeWrapLayout({Key? key, required this.absence})
       : super(key: key);
 
   @override
@@ -67,10 +66,11 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
                         userStateNotifier.isAdmin || userStateNotifier.isHR
                             ? context.pushNamed(Routes.adminAbsenceDetails,
                                 extra: absence)
-                            : context
-                                .pushNamed(Routes.userAbsenceDetails, pathParameters: {
-                                RoutesParamsConst.leaveId: absence.leave.leaveId
-                              });
+                            : context.pushNamed(Routes.userAbsenceDetails,
+                                pathParameters: {
+                                    RoutesParamsConst.leaveId:
+                                        absence.leave.leaveId
+                                  });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

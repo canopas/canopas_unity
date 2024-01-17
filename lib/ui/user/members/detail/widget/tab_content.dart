@@ -55,9 +55,10 @@ class TabContent extends StatelessWidget {
                       Leave leave = state.upcomingLeaves[index];
                       return LeaveCard(
                         onTap: () {
-                          context.goNamed(Routes.userLeaveDetail, pathParameters: {
-                            RoutesParamsConst.leaveId: leave.leaveId
-                          });
+                          context.goNamed(Routes.userLeaveDetail,
+                              pathParameters: {
+                                RoutesParamsConst.leaveId: leave.leaveId
+                              });
                         },
                         leave: leave,
                       );

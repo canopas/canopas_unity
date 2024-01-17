@@ -42,8 +42,8 @@ void main() {
       when(connectivity.onConnectivityChanged).thenAnswer(
           (_) => Stream.fromIterable([ConnectivityResult.ethernet]));
       networkConnectionBloc.add(NetworkConnectionObserveEvent());
-      expectLater(networkConnectionBloc.stream,
-          emits(NetworkConnectionFailureState()));
+      expectLater(
+          networkConnectionBloc.stream, emits(NetworkConnectionFailureState()));
     });
   });
 }

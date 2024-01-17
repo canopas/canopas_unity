@@ -20,8 +20,8 @@ class UserStateControllerBloc
   final SpaceChangeNotifier _spaceChangeNotifier;
   StreamSubscription? _subscription;
 
-  UserStateControllerBloc(
-      this._employeeRepo, this._userStateNotifier, this._spaceService, this._spaceChangeNotifier)
+  UserStateControllerBloc(this._employeeRepo, this._userStateNotifier,
+      this._spaceService, this._spaceChangeNotifier)
       : super(const UserInitialStatus()) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
@@ -30,7 +30,7 @@ class UserStateControllerBloc
 
     log("Init user status", name: "User Status");
     _spaceChangeNotifier.addListener(() async {
-      if(_subscription != null){
+      if (_subscription != null) {
         await _subscription?.cancel();
         log("Stream canceled", name: "User Status");
       }
@@ -39,7 +39,8 @@ class UserStateControllerBloc
       }
     });
     if (_userStateNotifier.currentSpaceId != null) {
-      _spaceChangeNotifier.setSpaceId(spaceId: _userStateNotifier.currentSpaceId!);
+      _spaceChangeNotifier.setSpaceId(
+          spaceId: _userStateNotifier.currentSpaceId!);
     }
   }
 
@@ -67,7 +68,9 @@ class UserStateControllerBloc
 
   Future<void> _updateData(
       UpdateUserData event, Emitter<UserControllerStatus> emit) async {
-    if (event.employee != null && event.space != null && event.employee?.status == EmployeeStatus.active) {
+    if (event.employee != null &&
+        event.space != null &&
+        event.employee?.status == EmployeeStatus.active) {
       if (event.employee != _userStateNotifier.employee) {
         await _userStateNotifier.setEmployee(member: event.employee!);
         log("Employee updated", name: "User Status");
@@ -98,7 +101,7 @@ class UserStateControllerBloc
   @override
   Future<void> close() async {
     _spaceChangeNotifier.removeSpaceId();
-    _spaceChangeNotifier.removeListener(() { });
+    _spaceChangeNotifier.removeListener(() {});
     await _subscription?.cancel();
     return super.close();
   }

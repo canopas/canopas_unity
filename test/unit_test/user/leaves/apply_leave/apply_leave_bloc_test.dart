@@ -348,7 +348,9 @@ void main() {
               receiver: 'hr@canopas.com',
               name: "dummy",
               startDate: leave.startDate,
-              duration: appFunctions.getNotificationDuration(total: leave.total, firstLeaveDayDuration:leave.perDayDuration.first),
+              duration: appFunctions.getNotificationDuration(
+                  total: leave.total,
+                  firstLeaveDayDuration: leave.perDayDuration.first),
               endDate: leave.endDate))
           .thenAnswer((realInvocation) async => true);
       leaveRequestBloc.add(ApplyLeaveEndDateChangeEvent(endDate: futureDate));

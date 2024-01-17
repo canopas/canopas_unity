@@ -32,8 +32,8 @@ void main() {
     userStateNotifier = MockUserStateNotifier();
     employeeService = MockEmployeeService();
     accountService = MockAccountService();
-    bloc = DrawerBloc(spaceService, userStateNotifier, accountService,
-        employeeService);
+    bloc = DrawerBloc(
+        spaceService, userStateNotifier, accountService, employeeService);
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.currentSpaceId).thenReturn('sid');
     when(accountService.fetchSpaceIds(uid: 'uid'))
@@ -126,7 +126,8 @@ void main() {
     });
 
     test("sign out failure test", () {
-      when(userStateNotifier.removeEmployeeWithSpace()).thenThrow(Exception("error"));
+      when(userStateNotifier.removeEmployeeWithSpace())
+          .thenThrow(Exception("error"));
       bloc.add(SignOutFromSpaceEvent());
       expect(
           bloc.stream,

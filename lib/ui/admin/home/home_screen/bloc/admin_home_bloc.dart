@@ -44,7 +44,8 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
       List<LeaveApplication> leaveApplications) {
-    leaveApplications.sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
+    leaveApplications
+        .sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
     return leaveApplications.groupBy(
         (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
   }

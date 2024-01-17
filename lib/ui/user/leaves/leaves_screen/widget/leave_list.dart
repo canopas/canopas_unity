@@ -19,7 +19,6 @@ class LeaveList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Future<void> navigateToLeaveDetails(Leave leave) async {
       final bloc = context.read<UserLeaveBloc>();
       final String? leaveId = await context.pushNamed(Routes.userLeaveDetail,

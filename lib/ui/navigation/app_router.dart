@@ -192,8 +192,8 @@ class AppRouter {
                           path: Routes.adminMemberDetails,
                           pageBuilder: (context, state) => CupertinoPage(
                               child: EmployeeDetailPage(
-                                  id: state
-                                      .pathParameters[RoutesParamsConst.employeeId]!)),
+                                  id: state.pathParameters[
+                                      RoutesParamsConst.employeeId]!)),
                           routes: [
                             GoRoute(
                                 parentNavigatorKey: _adminShellNavigatorKey,
@@ -276,16 +276,16 @@ class AppRouter {
                           pageBuilder: (context, state) {
                             return CupertinoPage(
                                 child: UserLeaveDetailPage(
-                                    leaveId: state
-                                        .pathParameters[RoutesParamsConst.leaveId]!));
+                                    leaveId: state.pathParameters[
+                                        RoutesParamsConst.leaveId]!));
                           }),
                       GoRoute(
                         name: Routes.userAbsenceDetails,
                         path: Routes.userAbsenceDetails,
                         pageBuilder: (context, state) => CupertinoPage(
                             child: UserLeaveDetailPage(
-                                leaveId:
-                                    state.pathParameters[RoutesParamsConst.leaveId]!)),
+                                leaveId: state.pathParameters[
+                                    RoutesParamsConst.leaveId]!)),
                       ),
                     ]),
                 GoRoute(
@@ -308,8 +308,8 @@ class AppRouter {
                         path: Routes.userLeaveDetail,
                         pageBuilder: (context, state) => CupertinoPage(
                             child: UserLeaveDetailPage(
-                                leaveId:
-                                    state.pathParameters[RoutesParamsConst.leaveId]!)),
+                                leaveId: state.pathParameters[
+                                    RoutesParamsConst.leaveId]!)),
                       ),
                     ]),
                 GoRoute(
@@ -332,7 +332,7 @@ class AppRouter {
               ])
         ],
         redirect: (context, GoRouterState state) {
-          final location= state.matchedLocation;
+          final location = state.matchedLocation;
           final loggingIn = location == Routes.login;
           if (userManager.state == UserState.unauthenticated) {
             return loggingIn ? null : Routes.login;
@@ -351,7 +351,6 @@ class AppRouter {
           return null;
         });
   }
-
 }
 
 extension GoRouterExtension on GoRouter {

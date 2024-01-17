@@ -57,9 +57,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 _networkConnectionBloc..add(NetworkConnectionObserveEvent())),
-        BlocProvider(
-            create: (context) =>
-                getIt<UserStateControllerBloc>()),
+        BlocProvider(create: (context) => getIt<UserStateControllerBloc>()),
       ],
       child: GestureDetector(
         onTap: () {
