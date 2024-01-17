@@ -33,7 +33,7 @@ Future<void> main() async {
   };
 
   if (kDebugMode && !kIsWeb) {
-    await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(true);
+    await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(false);
   }
 
   PlatformDispatcher.instance.onError = (error, stack) {
