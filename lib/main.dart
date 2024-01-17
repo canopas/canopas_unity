@@ -23,7 +23,7 @@ import 'ui/navigation/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await configureDependencies();
 
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
@@ -33,7 +33,7 @@ Future<void> main() async {
   };
 
   if (kDebugMode && !kIsWeb) {
-    await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(false);
+    await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(true);
   }
 
   PlatformDispatcher.instance.onError = (error, stack) {
