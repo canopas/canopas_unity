@@ -50,7 +50,7 @@ class AuthService {
           user = await _signInWithCredentials(credential);
           await googleSignIn.signOut();
         }
-      } on Exception catch (e) {
+      } catch (e) {
         rethrow;
       }
     } else if (defaultTargetPlatform == TargetPlatform.macOS ||
