@@ -34,8 +34,7 @@ class EmployeeEditProfileBloc
 
   void _init(EditProfileInitialLoadEvent event,
       Emitter<EmployeeEditProfileState> emit) {
-    emit(state.copyWith(
-        gender: event.gender, dateOfBirth: event.dateOfBirth));
+    emit(state.copyWith(gender: event.gender, dateOfBirth: event.dateOfBirth));
   }
 
   Future<void> _changeImage(
@@ -98,7 +97,8 @@ class EmployeeEditProfileBloc
   }
 
   Future<String?> _saveImage() async {
-    final String storagePath = ImageStoragePath.membersProfilePath(spaceId: _userManager.currentSpaceId!, uid: _userManager.userUID!);
+    final String storagePath = ImageStoragePath.membersProfilePath(
+        spaceId: _userManager.currentSpaceId!, uid: _userManager.userUID!);
 
     if (state.imageURL != null) {
       try {

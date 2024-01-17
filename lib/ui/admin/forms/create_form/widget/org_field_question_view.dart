@@ -50,11 +50,12 @@ class FormFieldView extends StatelessWidget {
               OrgFormDropDownButton<FormFieldAnswerType>(
                 value: orgFormField.inputType,
                 items: FormFieldAnswerType.values
-                    .map((fieldInputType) => DropdownMenuItem<FormFieldAnswerType>(
-                        alignment: Alignment.center,
-                        value: fieldInputType,
-                        child: Text(locale.org_form_answer_type(
-                            fieldInputType.value.toString()))))
+                    .map((fieldInputType) =>
+                        DropdownMenuItem<FormFieldAnswerType>(
+                            alignment: Alignment.center,
+                            value: fieldInputType,
+                            child: Text(locale.org_form_answer_type(
+                                fieldInputType.value.toString()))))
                     .toList(),
                 onChanged: (type) {
                   if (type != null) {

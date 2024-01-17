@@ -36,8 +36,9 @@ class AdminListFormCard extends StatelessWidget {
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:  [
-                Text(AppLocalizations.of(context).responses_tag, style: AppFontStyle.bodyLarge),
+              children: [
+                Text(AppLocalizations.of(context).responses_tag,
+                    style: AppFontStyle.bodyLarge),
                 const Icon(Icons.arrow_forward, size: 20)
               ],
             ),

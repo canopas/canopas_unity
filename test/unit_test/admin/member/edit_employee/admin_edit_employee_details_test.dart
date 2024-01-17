@@ -14,8 +14,7 @@ import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_empl
 
 import 'admin_edit_employee_details_test.mocks.dart';
 
-@GenerateMocks(
-    [EmployeeService, StorageService, UserStateNotifier])
+@GenerateMocks([EmployeeService, StorageService, UserStateNotifier])
 void main() {
   late UserStateNotifier userStateNotifier;
   late StorageService storageService;
@@ -77,8 +76,7 @@ void main() {
 
     test('pick and change profile image test', () {
       editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
-      expect(
-          editEmployeeDetailsBloc.stream,
+      expect(editEmployeeDetailsBloc.stream,
           emits(const AdminEditEmployeeDetailsState(pickedImage: 'path')));
     });
 
@@ -161,10 +159,11 @@ void main() {
     test('update Employee details with profile test', () async {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
 
-
-      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(roleType: emp.role, dateOfJoining: emp.dateOfJoining));
+      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
+          roleType: emp.role, dateOfJoining: emp.dateOfJoining));
       editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
-      when(storageService.uploadProfilePic(path: 'images/space-id/${emp.uid}/profile', imagePath: 'path'))
+      when(storageService.uploadProfilePic(
+              path: 'images/space-id/${emp.uid}/profile', imagePath: 'path'))
           .thenAnswer((realInvocation) async => 'image-url');
       editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
           previousEmployeeData: emp,
@@ -176,13 +175,17 @@ void main() {
       expect(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
-            AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
-            AdminEditEmployeeDetailsState(dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin,pickedImage: 'path'),
             AdminEditEmployeeDetailsState(
-                status: Status.loading,
+                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
+            AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
-                pickedImage: 'path',
+                pickedImage: 'path'),
+            AdminEditEmployeeDetailsState(
+              status: Status.loading,
+              dateOfJoining: emp.dateOfJoining.dateOnly,
+              role: Role.admin,
+              pickedImage: 'path',
             ),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,

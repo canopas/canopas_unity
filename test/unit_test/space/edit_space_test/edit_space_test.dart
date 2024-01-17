@@ -64,15 +64,19 @@ void main() {
             const EditSpaceState(deleteWorkSpaceStatus: Status.loading),
             const EditSpaceState(deleteWorkSpaceStatus: Status.success),
           ]));
-      await untilCalled(spaceService.deleteSpace(spaceId: "space-id", owners: ["uid"], uid: 'uid' ));
-      verify(spaceService.deleteSpace(spaceId: "space-id", owners: ['uid'],uid: 'uid')).called(1);
+      await untilCalled(spaceService.deleteSpace(
+          spaceId: "space-id", owners: ["uid"], uid: 'uid'));
+      verify(spaceService.deleteSpace(
+              spaceId: "space-id", owners: ['uid'], uid: 'uid'))
+          .called(1);
       await untilCalled(userStateNotifier.removeEmployeeWithSpace());
       verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("Delete space failure test", () async {
       bloc.add(DeleteSpaceEvent());
-      when(spaceService.deleteSpace(spaceId: 'space-id',  owners: ['uid'], uid: 'uid'))
+      when(spaceService.deleteSpace(
+              spaceId: 'space-id', owners: ['uid'], uid: 'uid'))
           .thenThrow(Exception("error"));
       expect(
           bloc.stream,

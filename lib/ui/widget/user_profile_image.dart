@@ -36,12 +36,12 @@ class ImageProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-          radius: radius,
-          backgroundColor: backgroundColor,
-          backgroundImage: setImage(),
-          child: (setImage() != null)
-              ? null
-              : Icon(Icons.person, size: radius, color: iconColor),
-        );
+      radius: radius,
+      backgroundColor: backgroundColor,
+      backgroundImage: setImage(),
+      child: (setImage() != null)
+          ? null
+          : Icon(Icons.person, size: radius, color: iconColor),
+    );
   }
 }

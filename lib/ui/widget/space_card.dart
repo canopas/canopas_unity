@@ -56,7 +56,7 @@ class SpaceCard extends StatelessWidget {
                           isValid: domain.isNotNullOrEmpty,
                           child: Text(domain ?? "",
                               style: AppFontStyle.subTitleGrey,
-                            overflow: TextOverflow.ellipsis)),
+                              overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),

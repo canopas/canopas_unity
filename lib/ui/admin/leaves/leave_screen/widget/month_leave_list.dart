@@ -12,10 +12,10 @@ class MonthLeaveList extends StatelessWidget {
 
   const MonthLeaveList(
       {super.key,
-        required this.leaveApplications,
-        required this.isPaginationLoading,
-        required this.showLeaveApplicationCard,
-        required this.onCardTap});
+      required this.leaveApplications,
+      required this.isPaginationLoading,
+      required this.showLeaveApplicationCard,
+      required this.onCardTap});
 
   @override
   Widget build(BuildContext context) {

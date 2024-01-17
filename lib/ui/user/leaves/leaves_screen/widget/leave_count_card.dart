@@ -52,7 +52,9 @@ class LeaveCountCard extends StatelessWidget {
                   width: 1,
                   color: AppColors.lightGreyColor,
                 ),
-                Expanded(child: UsedLeaveCountsView(leaveCounts: state.usedLeavesCounts)),
+                Expanded(
+                    child: UsedLeaveCountsView(
+                        leaveCounts: state.usedLeavesCounts)),
               ],
             );
           }),

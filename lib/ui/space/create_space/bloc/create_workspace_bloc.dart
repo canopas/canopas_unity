@@ -115,7 +115,7 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
       PickImageEvent event, Emitter<CreateSpaceState> emit) async {
     final XFile? image = await imagePicker.pickImage(source: event.imageSource);
     if (image != null) {
-      emit(state.copyWith(logo: image.path,isLogoPickedDone: true));
+      emit(state.copyWith(logo: image.path, isLogoPickedDone: true));
     }
   }
 
@@ -141,7 +141,8 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
         int timeOff = int.parse(state.paidTimeOff);
 
         if (state.logo != null) {
-          final String storagePath = ImageStoragePath.spaceLogoPath(spaceId: newSpaceId);
+          final String storagePath =
+              ImageStoragePath.spaceLogoPath(spaceId: newSpaceId);
           logoURL = await storageService.uploadProfilePic(
               path: storagePath, imagePath: state.logo!);
         }

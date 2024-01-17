@@ -16,8 +16,8 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
   final UserStateNotifier _userStateNotifier;
   final InvitationService _invitationService;
 
-  AdminMembersBloc(this._employeeRepo, this._invitationService,
-      this._userStateNotifier)
+  AdminMembersBloc(
+      this._employeeRepo, this._invitationService, this._userStateNotifier)
       : super(const AdminMembersState()) {
     on<AdminMembersInitialLoadEvent>(_onPageLoad);
     on<CancelUserInvitation>(_cancelInvitation);
@@ -31,8 +31,7 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
     try {
       _invitationService
           .fetchSpaceInvitations(spaceId: _userStateNotifier.currentSpaceId!)
-          .then((invitation) =>
-          emit(state.copyWith(
+          .then((invitation) => emit(state.copyWith(
               invitation: invitation, invitationFetchStatus: Status.success)));
     } on Exception {
       emit(state.copyWith(
@@ -40,27 +39,24 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
     }
     try {
       return emit.forEach(_employeeRepo.employees,
-          onData: (List<Employee> members) =>
-              state.copyWith(
-                  activeMembers: members
-                      .where((emp) => emp.status == EmployeeStatus.active)
-                      .toList(),
-                  inactiveMembers: members
-                      .where((emp) => emp.status == EmployeeStatus.inactive)
-                      .toList(),
-                  memberFetchStatus: Status.success),
-          onError: (error, stackTrace) =>
-              state.copyWith(
-                  error: firestoreFetchDataError,
-                  memberFetchStatus: Status.error));
+          onData: (List<Employee> members) => state.copyWith(
+              activeMembers: members
+                  .where((emp) => emp.status == EmployeeStatus.active)
+                  .toList(),
+              inactiveMembers: members
+                  .where((emp) => emp.status == EmployeeStatus.inactive)
+                  .toList(),
+              memberFetchStatus: Status.success),
+          onError: (error, stackTrace) => state.copyWith(
+              error: firestoreFetchDataError, memberFetchStatus: Status.error));
     } on Exception {
       emit(state.copyWith(
           error: firestoreFetchDataError, memberFetchStatus: Status.error));
     }
   }
 
-  Future<void> _cancelInvitation(CancelUserInvitation event,
-      Emitter<AdminMembersState> emit) async {
+  Future<void> _cancelInvitation(
+      CancelUserInvitation event, Emitter<AdminMembersState> emit) async {
     emit(state.copyWith(invitationFetchStatus: Status.loading));
     try {
       await _invitationService.deleteInvitation(id: event.id);

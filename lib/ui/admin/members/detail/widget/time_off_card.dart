@@ -37,8 +37,8 @@ class TimeOffCard extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
-          onTap: () =>
-              context.goNamed(Routes.adminEmployeeDetailsLeaves, params: {
+          onTap: () => context
+              .goNamed(Routes.adminEmployeeDetailsLeaves, pathParameters: {
             RoutesParamsConst.employeeId: employee.uid,
             RoutesParamsConst.employeeName: employee.name,
           }),

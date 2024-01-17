@@ -51,7 +51,8 @@ class LeaveApplicationCard extends StatelessWidget {
                           height: 10,
                         ),
                         _LeaveDateContent(
-                          firstDayDuration: leaveApplication.leave.perDayDuration.first,
+                          firstDayDuration:
+                              leaveApplication.leave.perDayDuration.first,
                           totalDays: leaveApplication.leave.total,
                           startDate: leaveApplication.leave.startDate,
                           endDate: leaveApplication.leave.endDate,
@@ -78,8 +79,6 @@ class LeaveApplicationCard extends StatelessWidget {
   }
 }
 
-
-
 class _LeaveDateContent extends StatelessWidget {
   final double totalDays;
   final LeaveDayDuration firstDayDuration;
@@ -90,7 +89,8 @@ class _LeaveDateContent extends StatelessWidget {
       {Key? key,
       required this.totalDays,
       required this.startDate,
-      required this.endDate, required this.firstDayDuration})
+      required this.endDate,
+      required this.firstDayDuration})
       : super(key: key);
 
   @override
@@ -98,7 +98,8 @@ class _LeaveDateContent extends StatelessWidget {
     String duration = DateFormatter(AppLocalizations.of(context))
         .dateInLine(startDate: startDate, endDate: endDate);
     String days = DateFormatter(AppLocalizations.of(context))
-        .getLeaveDurationPresentation(totalLeaves: totalDays,firstDayDuration: firstDayDuration);
+        .getLeaveDurationPresentation(
+            totalLeaves: totalDays, firstDayDuration: firstDayDuration);
 
     return Text(
       '$days, $duration ',

@@ -77,9 +77,10 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
         title: Text(AppLocalizations.of(context).edit_tag),
         actions: [
           BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
-            buildWhen: (previous, current) => previous.status != current.status || previous.isDataValid != current.isDataValid,
-            builder: (context, state) => state.status ==
-                Status.loading
+            buildWhen: (previous, current) =>
+                previous.status != current.status ||
+                previous.isDataValid != current.isDataValid,
+            builder: (context, state) => state.status == Status.loading
                 ? const Padding(
                     padding: EdgeInsets.only(right: 30),
                     child: AppCircularProgressIndicator(size: 20),
@@ -87,17 +88,19 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
                 : Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: TextButton(
-                        onPressed: state.isDataValid?() {
-                          context
-                              .read<EmployeeEditProfileBloc>()
-                              .add(EditProfileUpdateProfileEvent(
-                                address: addressController.text,
-                                level: levelController.text,
-                                name: nameController.text,
-                                designation: designationController.text,
-                                phoneNumber: phoneNumberController.text,
-                              ));
-                        }:null,
+                        onPressed: state.isDataValid
+                            ? () {
+                                context
+                                    .read<EmployeeEditProfileBloc>()
+                                    .add(EditProfileUpdateProfileEvent(
+                                      address: addressController.text,
+                                      level: levelController.text,
+                                      name: nameController.text,
+                                      designation: designationController.text,
+                                      phoneNumber: phoneNumberController.text,
+                                    ));
+                              }
+                            : null,
                         child: Text(AppLocalizations.of(context).save_tag)),
                   ),
           )

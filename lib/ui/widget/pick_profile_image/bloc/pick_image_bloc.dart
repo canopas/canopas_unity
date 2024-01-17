@@ -7,7 +7,6 @@ import 'package:projectunity/ui/widget/pick_profile_image/bloc/pick_image_state.
 
 @Injectable()
 class PickImageBloc extends Bloc<PickImageEvents, PickImageState> {
-
   final ImagePicker _imagePicker;
 
   PickImageBloc(this._imagePicker) : super(const PickImageState()) {
@@ -16,7 +15,8 @@ class PickImageBloc extends Bloc<PickImageEvents, PickImageState> {
 
   Future<void> _pickImage(
       PickImageEvent event, Emitter<PickImageState> emit) async {
-    final XFile? image = await _imagePicker.pickImage(source: event.imageSource);
+    final XFile? image =
+        await _imagePicker.pickImage(source: event.imageSource);
     if (image != null) {
       final file = File(image.path);
       emit(state.copyWith(pickedImage: file.path, isPickImageDone: true));

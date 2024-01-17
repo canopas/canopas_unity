@@ -17,5 +17,4 @@ class PickImageState extends Equatable {
 
   @override
   List<Object?> get props => [pickedImage, isPickImageDone];
-
 }

@@ -11,22 +11,21 @@ import '../user_profile_image.dart';
 import 'bloc/pick_image_bloc.dart';
 import 'bloc/pick_image_event.dart';
 
-
 class ProfileImagePicker extends StatelessWidget {
   final String? imageURl;
   final void Function(String image) onPickImageChange;
-  const ProfileImagePicker({super.key, this.imageURl, required this.onPickImageChange});
+  const ProfileImagePicker(
+      {super.key, this.imageURl, required this.onPickImageChange});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<PickImageBloc>(),
-      child: ProfileImage(imageURl: imageURl, onPickImageChange: onPickImageChange),
+      child: ProfileImage(
+          imageURl: imageURl, onPickImageChange: onPickImageChange),
     );
   }
 }
-
-
 
 class ProfileImage extends StatelessWidget {
   final String? imageURl;

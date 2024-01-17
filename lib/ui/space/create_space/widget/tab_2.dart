@@ -39,12 +39,12 @@ class _SetUpSpaceDetailsState extends State<SetUpSpaceDetails>
               height: 30,
             ),
             BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-                buildWhen: (previous,current)=>previous.paidTimeOff!= current.paidTimeOff,
-
+                buildWhen: (previous, current) =>
+                    previous.paidTimeOff != current.paidTimeOff,
                 builder: (context, state) {
                   return FieldEntry(
                     hintText:
-                    AppLocalizations.of(context).yearly_paid_time_off_tag,
+                        AppLocalizations.of(context).yearly_paid_time_off_tag,
                     keyboardType: TextInputType.number,
                     maxLength: 2,
                     inputFormatters: <TextInputFormatter>[

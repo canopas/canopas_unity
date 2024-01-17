@@ -51,61 +51,60 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
           ),
           actions: [
             BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
-              builder: (context, state){
-                if(state is EmployeeDetailLoadedState){
-                return PopupMenuButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+              builder: (context, state) {
+                if (state is EmployeeDetailLoadedState) {
+                  return PopupMenuButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 6,
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: Text(AppLocalizations.of(context).edit_tag),
+                        onTap: () {
+                          context.goNamed(Routes.adminEditEmployee,
+                              extra: state.employee,
+                              pathParameters: {
+                                RoutesParamsConst.employeeId: state.employee.uid
+                              });
+                        },
                       ),
-                      elevation: 6,
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: Text(AppLocalizations.of(context).edit_tag),
-                          onTap: () {
-                            context.goNamed(Routes.adminEditEmployee,
-                                extra: state.employee,
-                                params: {
-                                  RoutesParamsConst.employeeId:
-                                      state.employee.uid
-                                });
-                          },
+                      PopupMenuItem(
+                        child: Text(
+                          state.employee.status == EmployeeStatus.active
+                              ? AppLocalizations.of(context).deactivate_tag
+                              : AppLocalizations.of(context).activate_tag,
                         ),
-                        PopupMenuItem(
-                          child: Text(
-                            state.employee.status == EmployeeStatus.active?
-                            AppLocalizations.of(context).deactivate_tag
-                                :AppLocalizations.of(context).activate_tag,
-                          ),
-                          onTap: () {
-                            if (state.employee.status ==
-                                EmployeeStatus.inactive) {
-                              context.read<EmployeeDetailBloc>().add(
-                                  EmployeeStatusChangeEvent(
-                                      status: EmployeeStatus.active,
-                                      employeeId: widget.employeeId));
-                            } else {
-                              showAlertDialog(
-                                context: context,
-                                title:
-                                    AppLocalizations.of(context).deactivate_tag,
-                                description: AppLocalizations.of(context)
-                                    .deactivate_user_account_alert(
-                                        state.employee.name),
-                                onActionButtonPressed: () {
-                                  context.read<EmployeeDetailBloc>().add(
-                                      EmployeeStatusChangeEvent(
-                                          status: EmployeeStatus.inactive,
-                                          employeeId: widget.employeeId));
-                                  context.pop();
-                                },
-                                actionButtonTitle:
-                                    AppLocalizations.of(context).deactivate_tag,
-                              );
-                            }
-                          },
-                        ),
-                      ],
-                    );
+                        onTap: () {
+                          if (state.employee.status ==
+                              EmployeeStatus.inactive) {
+                            context.read<EmployeeDetailBloc>().add(
+                                EmployeeStatusChangeEvent(
+                                    status: EmployeeStatus.active,
+                                    employeeId: widget.employeeId));
+                          } else {
+                            showAlertDialog(
+                              context: context,
+                              title:
+                                  AppLocalizations.of(context).deactivate_tag,
+                              description: AppLocalizations.of(context)
+                                  .deactivate_user_account_alert(
+                                      state.employee.name),
+                              onActionButtonPressed: () {
+                                context.read<EmployeeDetailBloc>().add(
+                                    EmployeeStatusChangeEvent(
+                                        status: EmployeeStatus.inactive,
+                                        employeeId: widget.employeeId));
+                                context.pop();
+                              },
+                              actionButtonTitle:
+                                  AppLocalizations.of(context).deactivate_tag,
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  );
                 }
                 return const SizedBox();
               },

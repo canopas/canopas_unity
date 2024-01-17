@@ -84,7 +84,8 @@ class ViewProfileScreen extends StatelessWidget {
                       title: AppLocalizations.of(context).employee_gender_tag,
                       subtitle: employee.gender == null
                           ? null
-                          : localization.user_details_gender(employee.gender!.value)),
+                          : localization
+                              .user_details_gender(employee.gender!.value)),
                   EmployeeDetailsField(
                       title: AppLocalizations.of(context).employee_address_tag,
                       subtitle: employee.address),

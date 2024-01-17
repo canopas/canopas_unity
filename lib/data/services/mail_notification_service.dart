@@ -45,7 +45,7 @@ class NotificationService {
             name: 'Notification');
       }
     } on Exception catch (e) {
-     await _crashlytics.log(e.toString());
+      await _crashlytics.log(e.toString());
     }
   }
 
@@ -97,7 +97,7 @@ class NotificationService {
         log('Invite notification mail send successfully', name: 'Notification');
       }
     } on Exception catch (e) {
-     await  _crashlytics.log(e.toString());
+      await _crashlytics.log(e.toString());
     }
   }
 

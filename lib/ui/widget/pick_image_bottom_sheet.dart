@@ -16,7 +16,7 @@ class PickImageBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
           boxShadow: AppTheme.commonBoxShadow,
           color: AppColors.whiteColor,
           borderRadius: const BorderRadius.only(

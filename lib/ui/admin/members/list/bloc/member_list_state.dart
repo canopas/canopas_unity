@@ -13,7 +13,7 @@ class AdminMembersState extends Equatable {
 
   const AdminMembersState(
       {this.activeMembers = const [],
-        this.inactiveMembers = const [],
+      this.inactiveMembers = const [],
       this.invitation = const [],
       this.memberFetchStatus = Status.initial,
       this.invitationFetchStatus = Status.initial,
@@ -30,7 +30,8 @@ class AdminMembersState extends Equatable {
         activeMembers: activeMembers ?? this.activeMembers,
         inactiveMembers: inactiveMembers ?? this.inactiveMembers,
         memberFetchStatus: memberFetchStatus ?? this.memberFetchStatus,
-        invitationFetchStatus: invitationFetchStatus ?? this.invitationFetchStatus,
+        invitationFetchStatus:
+            invitationFetchStatus ?? this.invitationFetchStatus,
         invitation: invitation ?? this.invitation,
         error: error,
       );

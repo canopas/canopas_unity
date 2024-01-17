@@ -23,12 +23,16 @@ class DateFormatter {
     return _localization.date_format_yMMMd(dt);
   }
 
-  String getLeaveDurationPresentation({required double totalLeaves,required LeaveDayDuration firstDayDuration}) {
-    if (totalLeaves < 1 && firstDayDuration == LeaveDayDuration.firstHalfLeave) {
+  String getLeaveDurationPresentation(
+      {required double totalLeaves,
+      required LeaveDayDuration firstDayDuration}) {
+    if (totalLeaves < 1 &&
+        firstDayDuration == LeaveDayDuration.firstHalfLeave) {
       return _localization.dateFormatter_first_half_day;
-    } else if (totalLeaves < 1 && firstDayDuration == LeaveDayDuration.secondHalfLeave) {
+    } else if (totalLeaves < 1 &&
+        firstDayDuration == LeaveDayDuration.secondHalfLeave) {
       return _localization.dateFormatter_second_half_day;
-    }else if (totalLeaves == 1) {
+    } else if (totalLeaves == 1) {
       return _localization.dateFormatter_full_day;
     }
     return _localization.dateFormatter_placeholder_other_days(totalLeaves);

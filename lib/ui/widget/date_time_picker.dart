@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 
 Future<DateTime?> pickDate(
-    {required BuildContext context,
-    required DateTime initialDate}) async {
+    {required BuildContext context, required DateTime initialDate}) async {
   DateTime? pickDate = await showDatePicker(
     context: context,
     initialDate: initialDate,

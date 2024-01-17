@@ -52,7 +52,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
     navigateToLeaveDetail(Leave leave) async {
       final bloc = context.read<AdminEmployeeDetailsLeavesBLoc>();
       final String? leaveId = await context
-          .pushNamed(Routes.adminEmployeeDetailsLeavesDetails, params: {
+          .pushNamed(Routes.adminEmployeeDetailsLeavesDetails, pathParameters: {
         RoutesParamsConst.employeeId: leave.uid,
         RoutesParamsConst.leaveId: leave.leaveId,
         RoutesParamsConst.employeeName: widget.employeeName,

@@ -12,8 +12,7 @@ class UserLeaveDetailBloc
     extends Bloc<UserLeaveDetailEvent, UserLeaveDetailState> {
   final LeaveRepo _leaveRepo;
 
-  UserLeaveDetailBloc(this._leaveRepo)
-      : super(UserLeaveDetailInitialState()) {
+  UserLeaveDetailBloc(this._leaveRepo) : super(UserLeaveDetailInitialState()) {
     on<FetchLeaveDetailEvent>(_fetchLeaveDetail);
     on<CancelLeaveApplicationEvent>(_cancelLeaveApplication);
   }
@@ -41,7 +40,8 @@ class UserLeaveDetailBloc
       Emitter<UserLeaveDetailState> emit) async {
     emit(UserLeaveDetailLoadingState());
     try {
-      await _leaveRepo.updateLeaveStatus(leaveId: event.leaveId,status: LeaveStatus.cancelled);
+      await _leaveRepo.updateLeaveStatus(
+          leaveId: event.leaveId, status: LeaveStatus.cancelled);
       emit(UserCancelLeaveSuccessState());
     } on Exception {
       emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));

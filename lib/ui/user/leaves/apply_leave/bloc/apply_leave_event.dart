@@ -3,46 +3,43 @@ import 'package:projectunity/data/model/leave/leave.dart';
 
 abstract class ApplyLeaveEvent extends Equatable {}
 
-
-class ApplyLeaveStartDateChangeEvents extends ApplyLeaveEvent{
+class ApplyLeaveStartDateChangeEvents extends ApplyLeaveEvent {
   final DateTime? startDate;
   ApplyLeaveStartDateChangeEvents({required this.startDate});
   @override
   List<Object?> get props => [startDate];
 }
 
-class ApplyLeaveChangeLeaveTypeEvent extends ApplyLeaveEvent{
+class ApplyLeaveChangeLeaveTypeEvent extends ApplyLeaveEvent {
   final LeaveType? leaveType;
   ApplyLeaveChangeLeaveTypeEvent({required this.leaveType});
   @override
   List<Object?> get props => [leaveType];
 }
 
-class ApplyLeaveEndDateChangeEvent extends ApplyLeaveEvent{
+class ApplyLeaveEndDateChangeEvent extends ApplyLeaveEvent {
   final DateTime? endDate;
   ApplyLeaveEndDateChangeEvent({required this.endDate});
   @override
   List<Object?> get props => [endDate];
 }
 
-class ApplyLeaveReasonChangeEvent extends ApplyLeaveEvent{
+class ApplyLeaveReasonChangeEvent extends ApplyLeaveEvent {
   final String reason;
   ApplyLeaveReasonChangeEvent({required this.reason});
   @override
   List<Object?> get props => [reason];
 }
 
-class ApplyLeaveUpdateLeaveOfTheDayEvent extends ApplyLeaveEvent{
+class ApplyLeaveUpdateLeaveOfTheDayEvent extends ApplyLeaveEvent {
   final DateTime date;
   final LeaveDayDuration value;
-  ApplyLeaveUpdateLeaveOfTheDayEvent({required this.date,required this.value});
+  ApplyLeaveUpdateLeaveOfTheDayEvent({required this.date, required this.value});
   @override
-  List<Object?> get props => [date,value];
+  List<Object?> get props => [date, value];
 }
 
-class ApplyLeaveSubmitFormEvent extends ApplyLeaveEvent{
+class ApplyLeaveSubmitFormEvent extends ApplyLeaveEvent {
   @override
   List<Object?> get props => [];
 }
-
-

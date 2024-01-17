@@ -49,24 +49,23 @@ class LeaveTypeCard extends StatelessWidget {
                     isExpanded: true,
                     icon: const Icon(Icons.arrow_drop_down),
                     borderRadius: BorderRadius.circular(12),
-                    items: LeaveType.values
-                        .map((leaveType) {
-                          return DropdownMenuItem<LeaveType>(
-                                value: leaveType,
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: primaryHalfSpacing,
-                                    ),
-                                    Flexible(
-                                      child: Text(localization
-                                          .leave_type_placeholder_text(
-                                          leaveType.value.toString())),
-                                    ),
-                                  ],
-                                ),
-                              );
-                        }).toList(),
+                    items: LeaveType.values.map((leaveType) {
+                      return DropdownMenuItem<LeaveType>(
+                        value: leaveType,
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: primaryHalfSpacing,
+                            ),
+                            Flexible(
+                              child: Text(
+                                  localization.leave_type_placeholder_text(
+                                      leaveType.value.toString())),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
                     value: state.leaveType,
                     onChanged: (LeaveType? leaveType) {
                       context.read<ApplyLeaveBloc>().add(

@@ -36,7 +36,6 @@ class ResponseNote extends StatelessWidget {
               ),
             ),
           ],
-        )
-    );
+        ));
   }
 }

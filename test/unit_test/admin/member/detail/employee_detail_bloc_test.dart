@@ -50,9 +50,11 @@ void main() {
     employeeRepo = MockEmployeeRepo();
     employeeDetailBloc = EmployeeDetailBloc(accountService, spaceService,
         userStateNotifier, employeeService, leaveRepo, employeeRepo);
-    when(leaveRepo.getUserUsedLeaves(uid: employee.uid)).thenAnswer((_) async => const LeaveCounts(urgentLeaves: 5,casualLeaves: 5));
+    when(leaveRepo.getUserUsedLeaves(uid: employee.uid)).thenAnswer(
+        (_) async => const LeaveCounts(urgentLeaves: 5, casualLeaves: 5));
     when(userStateNotifier.currentSpaceId).thenReturn("space-id");
-    when(spaceService.getPaidLeaves(spaceId: "space-id")).thenAnswer((_) async => 12);
+    when(spaceService.getPaidLeaves(spaceId: "space-id"))
+        .thenAnswer((_) async => 12);
   });
 
   group('Employee detail bloc', () {
@@ -61,9 +63,8 @@ void main() {
     });
 
     test('Emits Failure state when employee is found null', () {
-      
       when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((_)  => Stream.value(null));
+          .thenAnswer((_) => Stream.value(null));
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       expectLater(
@@ -89,7 +90,7 @@ void main() {
     test('Emits Failure state when exception is thrown while fetching leaves',
         () {
       when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((_)  => Stream.value(employee));
+          .thenAnswer((_) => Stream.value(employee));
       when(leaveRepo.getUserUsedLeaves(uid: employee.uid))
           .thenThrow(Exception(firestoreFetchDataError));
       employeeDetailBloc
@@ -102,15 +103,18 @@ void main() {
           ]));
     });
 
-    test('Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
+    test(
+        'Emits Loading state while fetch data from firestore and then EmitsSuccess state with detail of employee ',
         () {
-          when(employeeRepo.memberDetails(employee.uid))
-              .thenAnswer((_)  => Stream.value(employee));
+      when(employeeRepo.memberDetails(employee.uid))
+          .thenAnswer((_) => Stream.value(employee));
 
       employeeDetailBloc
           .add(EmployeeDetailInitialLoadEvent(employeeId: employee.uid));
       EmployeeDetailLoadedState loadedState = EmployeeDetailLoadedState(
-          employee: employee, timeOffRatio: 10 / 12, usedLeaves: const LeaveCounts(urgentLeaves: 5,casualLeaves: 5));
+          employee: employee,
+          timeOffRatio: 10 / 12,
+          usedLeaves: const LeaveCounts(urgentLeaves: 5, casualLeaves: 5));
       expectLater(employeeDetailBloc.stream,
           emitsInOrder([EmployeeDetailLoadingState(), loadedState]));
     });
@@ -128,16 +132,22 @@ void main() {
     test('deactivate employee success test', () async {
       employeeDetailBloc.add(EmployeeStatusChangeEvent(
           employeeId: employee.uid, status: EmployeeStatus.inactive));
-      await untilCalled(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.inactive));
-      verify(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.inactive)).called(1);
+      await untilCalled(employeeService.changeAccountStatus(
+          id: employee.uid, status: EmployeeStatus.inactive));
+      verify(employeeService.changeAccountStatus(
+              id: employee.uid, status: EmployeeStatus.inactive))
+          .called(1);
 
-      await untilCalled(accountService.deleteSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid));
-      verify(accountService.deleteSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid)).called(1);
+      await untilCalled(accountService.deleteSpaceIdFromAccount(
+          spaceId: 'space-id', uid: employee.uid));
+      verify(accountService.deleteSpaceIdFromAccount(
+              spaceId: 'space-id', uid: employee.uid))
+          .called(1);
     });
 
     test('activate employee failed test', () {
       when(employeeService.changeAccountStatus(
-          id: employee.uid, status: EmployeeStatus.active))
+              id: employee.uid, status: EmployeeStatus.active))
           .thenThrow(Exception("error"));
       employeeDetailBloc.add(EmployeeStatusChangeEvent(
           employeeId: employee.uid, status: EmployeeStatus.active));
@@ -148,11 +158,17 @@ void main() {
     test('activate employee success test', () async {
       employeeDetailBloc.add(EmployeeStatusChangeEvent(
           employeeId: employee.uid, status: EmployeeStatus.active));
-      await untilCalled(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.active));
-      verify(employeeService.changeAccountStatus(id: employee.uid, status: EmployeeStatus.active)).called(1);
+      await untilCalled(employeeService.changeAccountStatus(
+          id: employee.uid, status: EmployeeStatus.active));
+      verify(employeeService.changeAccountStatus(
+              id: employee.uid, status: EmployeeStatus.active))
+          .called(1);
 
-      await untilCalled(accountService.addSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid));
-      verify(accountService.addSpaceIdFromAccount(spaceId: 'space-id', uid:employee.uid)).called(1);
+      await untilCalled(accountService.addSpaceIdFromAccount(
+          spaceId: 'space-id', uid: employee.uid));
+      verify(accountService.addSpaceIdFromAccount(
+              spaceId: 'space-id', uid: employee.uid))
+          .called(1);
     });
   });
 }

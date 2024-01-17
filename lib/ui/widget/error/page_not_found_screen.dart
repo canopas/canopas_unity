@@ -28,17 +28,16 @@ class _PageNotFoundScreenState extends State<PageNotFoundScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 Text(locale.page_not_found_error_code,
+                Text(locale.page_not_found_error_code,
                     style: const TextStyle(
                         color: AppColors.primaryBlue,
                         fontSize: 50,
                         fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
-                 Text(locale.page_not_found_error_title,
+                Text(locale.page_not_found_error_title,
                     style: AppFontStyle.titleDark),
                 const SizedBox(height: 10),
-                 Text(
-                    locale.page_not_found_error_message,
+                Text(locale.page_not_found_error_message,
                     style: AppFontStyle.subTitleGrey,
                     textAlign: TextAlign.center),
               ],

@@ -62,7 +62,7 @@ class _UserMembersScreenState extends State<UserMembersScreen> {
                       onTap: () {
                         context.goNamed(Routes.userEmployeeDetail,
                             extra: employee,
-                            params: {
+                            pathParameters: {
                               RoutesParamsConst.employeeId: employee.uid
                             });
                       },

@@ -11,18 +11,23 @@ class DrawerSpaceCard extends StatelessWidget {
   final String? logo;
   final Function()? onTap;
 
-  const DrawerSpaceCard({Key? key, required this.name, this.logo, this.onTap, required this.isSelected})
+  const DrawerSpaceCard(
+      {Key? key,
+      required this.name,
+      this.logo,
+      this.onTap,
+      required this.isSelected})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: isSelected?null:onTap,
+      onTap: isSelected ? null : onTap,
       borderRadius: AppTheme.commonBorderRadius,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
-          color: isSelected?AppColors.lightGreyColor:null,
+          color: isSelected ? AppColors.lightGreyColor : null,
         ),
         child: Padding(
           padding: const EdgeInsets.all(5),

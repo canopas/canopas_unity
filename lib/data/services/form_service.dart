@@ -59,10 +59,10 @@ class FormService {
   }
 
   Future<List<OrgFormInfo>> getForms({required String spaceId}) async {
-      final formsSnapshot = await _formsDB(spaceId: spaceId)
-          .orderBy(FireStoreConst.createdAt, descending: true)
-          .get();
-      return formsSnapshot.docs.map((formDoc) => formDoc.data()).toList();
+    final formsSnapshot = await _formsDB(spaceId: spaceId)
+        .orderBy(FireStoreConst.createdAt, descending: true)
+        .get();
+    return formsSnapshot.docs.map((formDoc) => formDoc.data()).toList();
   }
 
   Future<OrgFormInfo?> getFormInfo(

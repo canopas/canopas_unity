@@ -61,16 +61,16 @@ void main() {
   });
 
   test('Should emit loading state and then Error state in Stream have error ',
-          () {
-        bloc.add(InitialLoadevent());
-        when(userStateNotifier.employeeId).thenReturn('uid');
-        when(employeeRepo.memberDetails('uid'))
-            .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-        expectLater(
-            bloc.stream,
-            emitsInOrder([
-              ViewProfileLoadingState(),
-              ViewProfileErrorState(firestoreFetchDataError)
-            ]));
-      });
+      () {
+    bloc.add(InitialLoadevent());
+    when(userStateNotifier.employeeId).thenReturn('uid');
+    when(employeeRepo.memberDetails('uid'))
+        .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+    expectLater(
+        bloc.stream,
+        emitsInOrder([
+          ViewProfileLoadingState(),
+          ViewProfileErrorState(firestoreFetchDataError)
+        ]));
+  });
 }

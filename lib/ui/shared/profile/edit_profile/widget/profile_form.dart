@@ -38,7 +38,8 @@ class ProfileForm extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(primaryHorizontalSpacing).copyWith(top: 30),
       children: [
-        ProfileImagePicker(imageURl: profileImageURL,
+        ProfileImagePicker(
+          imageURl: profileImageURL,
           onPickImageChange: (String image) => context
               .read<EmployeeEditProfileBloc>()
               .add(ChangeImageEvent(image)),
@@ -110,8 +111,7 @@ class GenderSelection extends StatelessWidget {
                       borderRadius: AppTheme.commonBorderRadius,
                     )),
                 onPressed: () {
-                  bloc.add(EditProfileChangeGenderEvent(
-                      gender: Gender.male));
+                  bloc.add(EditProfileChangeGenderEvent(gender: Gender.male));
                 },
                 child: Text(
                   localization.gender_male_tag,
@@ -124,8 +124,7 @@ class GenderSelection extends StatelessWidget {
               Expanded(
                   child: ElevatedButton(
                 onPressed: () {
-                  bloc.add(EditProfileChangeGenderEvent(
-                      gender: Gender.female));
+                  bloc.add(EditProfileChangeGenderEvent(gender: Gender.female));
                 },
                 style: ElevatedButton.styleFrom(
                     foregroundColor: state.gender == Gender.female

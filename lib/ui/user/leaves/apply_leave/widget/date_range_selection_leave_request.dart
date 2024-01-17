@@ -113,8 +113,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.26,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-            color: AppColors.darkGrey),
+        border: Border.all(color: AppColors.darkGrey),
       ),
       child: Material(
         color: AppColors.whiteColor,
@@ -128,18 +127,19 @@ class LeaveTimePeriodBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             alignment: Alignment.center,
             value: dayTimePeriod.value,
-            items: LeaveDayDuration.values.map((dayDuration) => DropdownMenuItem(
+            items: LeaveDayDuration.values
+                .map((dayDuration) => DropdownMenuItem(
                     value: dayDuration,
                     child: Center(
                         child: Text(AppLocalizations.of(context)
                             .leave_day_duration_tag(dayDuration.name)))))
                 .toList(),
             onChanged: (value) {
-                    context.read<ApplyLeaveBloc>().add(
-                        ApplyLeaveUpdateLeaveOfTheDayEvent(
-                            date: dayTimePeriod.key,
-                            value: value ?? dayTimePeriod.value));
-                  },
+              context.read<ApplyLeaveBloc>().add(
+                  ApplyLeaveUpdateLeaveOfTheDayEvent(
+                      date: dayTimePeriod.key,
+                      value: value ?? dayTimePeriod.value));
+            },
           ),
         ),
       ),
