@@ -193,7 +193,7 @@ class AppRouter {
                           pageBuilder: (context, state) => CupertinoPage(
                               child: EmployeeDetailPage(
                                   id: state
-                                      .params[RoutesParamsConst.employeeId]!)),
+                                      .pathParameters[RoutesParamsConst.employeeId]!)),
                           routes: [
                             GoRoute(
                                 parentNavigatorKey: _adminShellNavigatorKey,
@@ -208,17 +208,17 @@ class AppRouter {
                                     pageBuilder: (context, state) =>
                                         CupertinoPage(
                                             child: UserLeaveDetailPage(
-                                                leaveId: state.params[
+                                                leaveId: state.pathParameters[
                                                     RoutesParamsConst
                                                         .leaveId]!)),
                                   ),
                                 ],
                                 pageBuilder: (context, state) => CupertinoPage(
                                         child: AdminEmployeeDetailsLeavesPage(
-                                      employeeName: state.params[
+                                      employeeName: state.pathParameters[
                                               RoutesParamsConst.employeeName] ??
                                           "",
-                                      employeeId: state.params[
+                                      employeeId: state.pathParameters[
                                           RoutesParamsConst.employeeId]!,
                                     ))),
                             GoRoute(
@@ -277,7 +277,7 @@ class AppRouter {
                             return CupertinoPage(
                                 child: UserLeaveDetailPage(
                                     leaveId: state
-                                        .params[RoutesParamsConst.leaveId]!));
+                                        .pathParameters[RoutesParamsConst.leaveId]!));
                           }),
                       GoRoute(
                         name: Routes.userAbsenceDetails,
@@ -285,7 +285,7 @@ class AppRouter {
                         pageBuilder: (context, state) => CupertinoPage(
                             child: UserLeaveDetailPage(
                                 leaveId:
-                                    state.params[RoutesParamsConst.leaveId]!)),
+                                    state.pathParameters[RoutesParamsConst.leaveId]!)),
                       ),
                     ]),
                 GoRoute(
@@ -309,7 +309,7 @@ class AppRouter {
                         pageBuilder: (context, state) => CupertinoPage(
                             child: UserLeaveDetailPage(
                                 leaveId:
-                                    state.params[RoutesParamsConst.leaveId]!)),
+                                    state.pathParameters[RoutesParamsConst.leaveId]!)),
                       ),
                     ]),
                 GoRoute(
@@ -331,24 +331,37 @@ class AppRouter {
                     ]),
               ])
         ],
-        redirect: (context, state) {
-          final loggingIn = state.subloc == Routes.login;
+        redirect: (context, GoRouterState state) {
+          final location= state.matchedLocation;
+          final loggingIn = location == Routes.login;
           if (userManager.state == UserState.unauthenticated) {
             return loggingIn ? null : Routes.login;
           }
           if (userManager.state == UserState.authenticated &&
-              !state.subloc.contains(Routes.joinSpace)) {
+              !location.contains(Routes.joinSpace)) {
             return Routes.joinSpace;
           }
           if (userManager.state == UserState.update ||
               (userManager.state == UserState.spaceJoined &&
-                  state.subloc.contains(Routes.joinSpace))) {
+                  location.contains(Routes.joinSpace))) {
             return userManager.isAdmin || userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;
           }
           return null;
         });
+  }
+
+}
+
+extension GoRouterExtension on GoRouter {
+  String location() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    final String location = matchList.uri.toString();
+    return location;
   }
 }
 

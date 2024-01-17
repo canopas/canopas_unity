@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
 import '../../../data/bloc/user_state/user_controller_state.dart';
@@ -22,7 +23,7 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  int get _currentIndex => locationToTabIndex(GoRouter.of(context).location);
+  int get _currentIndex => locationToTabIndex(GoRouter.of(context).location());
 
   @override
   Widget build(BuildContext context) {

@@ -79,7 +79,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
                                 employee: state.activeMembers[index],
                                 onTap: () => context.goNamed(
                                     Routes.adminMemberDetails,
-                                    params: {
+                                    queryParameters: {
                                       RoutesParamsConst.employeeId:
                                           state.activeMembers[index].uid
                                     }),
@@ -117,7 +117,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
                                   employee: state.inactiveMembers[index],
                                   onTap: () => context.goNamed(
                                       Routes.adminMemberDetails,
-                                      params: {
+                                      pathParameters: {
                                         RoutesParamsConst.employeeId:
                                             state.inactiveMembers[index].uid
                                       }),

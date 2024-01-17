@@ -78,7 +78,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   onTap: () {
                                     context.goNamed(
                                         Routes.userRequestDetail,
-                                        params: {
+                                        pathParameters: {
                                           RoutesParamsConst.leaveId:
                                               state.requests[leave].leaveId
                                         });

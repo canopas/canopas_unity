@@ -16,11 +16,23 @@ class AuthService {
   AuthService(this._desktopAuthManager, this.fireStore, this.firebaseAuth);
 
   Future<firebase_auth.User?> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
     firebase_auth.User? user;
-    if (kIsWeb ||
-        defaultTargetPlatform == TargetPlatform.android ||
+    if (kIsWeb) {
+      try {
+        firebase_auth.GoogleAuthProvider googleAuthProvider =
+            firebase_auth.GoogleAuthProvider();
+        firebaseAuth.setPersistence(firebase_auth.Persistence.LOCAL);
+        firebase_auth.UserCredential credential =
+            await firebaseAuth.signInWithPopup(googleAuthProvider);
+        user = credential.user;
+        return user;
+      } on Exception {
+        rethrow;
+      }
+    } else if (defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS) {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
       try {
         final GoogleSignInAccount? googleSignInAccount =
             await googleSignIn.signIn();
@@ -37,7 +49,7 @@ class AuthService {
           user = await _signInWithCredentials(credential);
           await googleSignIn.signOut();
         }
-      } on Exception {
+      } on Exception catch (e) {
         rethrow;
       }
     } else if (defaultTargetPlatform == TargetPlatform.macOS ||

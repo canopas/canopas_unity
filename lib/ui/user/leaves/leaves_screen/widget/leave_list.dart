@@ -23,7 +23,7 @@ class LeaveList extends StatelessWidget {
     Future<void> navigateToLeaveDetails(Leave leave) async {
       final bloc = context.read<UserLeaveBloc>();
       final String? leaveId = await context.pushNamed(Routes.userLeaveDetail,
-          params: {RoutesParamsConst.leaveId: leave.leaveId});
+          pathParameters: {RoutesParamsConst.leaveId: leave.leaveId});
       if (leaveId != null) {
         bloc.add(UpdateLeave(leaveId: leaveId));
       }

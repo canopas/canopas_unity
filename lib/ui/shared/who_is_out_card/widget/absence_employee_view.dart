@@ -68,7 +68,7 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
                             ? context.pushNamed(Routes.adminAbsenceDetails,
                                 extra: absence)
                             : context
-                                .pushNamed(Routes.userAbsenceDetails, params: {
+                                .pushNamed(Routes.userAbsenceDetails, pathParameters: {
                                 RoutesParamsConst.leaveId: absence.leave.leaveId
                               });
                       },
