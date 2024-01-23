@@ -75,3 +75,19 @@ flutter:
         - asset: assets/fonts/inter_medium.ttf
         - asset: assets/fonts/inter_semi_bold.ttf
 
+
+    - family: poppins
+      fonts:
+
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Italic.ttf
+          style: italic
+

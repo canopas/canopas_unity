@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/ui/style/app_theme.dart';
+import 'package:projectunity/ui/style/colors.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'data/bloc/user_state/user_state_controller_bloc.dart';
@@ -52,42 +57,78 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) =>
-                _networkConnectionBloc..add(NetworkConnectionObserveEvent())),
-        BlocProvider(create: (context) => getIt<UserStateControllerBloc>()),
-      ],
-      child: GestureDetector(
-        onTap: () {
-          if (!FocusScope.of(context).hasPrimaryFocus &&
-              FocusScope.of(context).focusedChild != null) {
-            FocusScope.of(context).focusedChild?.unfocus();
-          }
-        },
-        child: MaterialApp.router(
-            title: AppConsts.appTitle,
-            scrollBehavior: AppScrollBehaviour(),
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.theme,
-            routerConfig: _router,
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            builder: (context, widget) =>
-                BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
-                  listenWhen: (previous, current) =>
-                      current is NetworkConnectionFailureState,
-                  listener: (context, state) {
-                    if (state is NetworkConnectionFailureState) {
-                      String connectionErrorMessage =
-                          AppLocalizations.of(context).network_connection_error;
-                      showSnackBar(
-                          context: context, msg: connectionErrorMessage);
-                    }
-                  },
-                  child: widget,
-                )),
+    final isDarkMode = context.brightness == Brightness.dark;
+    final colorScheme = isDarkMode ? appColorSchemeDark : appColorSchemeLight;
+    return AppThemeWidget(
+      colorScheme: colorScheme,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) =>
+                  _networkConnectionBloc..add(NetworkConnectionObserveEvent())),
+          BlocProvider(create: (context) => getIt<UserStateControllerBloc>()),
+        ],
+        child: GestureDetector(
+          onTap: () {
+            if (!FocusScope.of(context).hasPrimaryFocus &&
+                FocusScope.of(context).focusedChild != null) {
+              FocusScope.of(context).focusedChild?.unfocus();
+            }
+          },
+          child: Platform.isIOS
+              ? CupertinoApp.router(
+                  title: AppConsts.appTitle,
+                  scrollBehavior: AppScrollBehaviour(),
+                  debugShowCheckedModeBanner: false,
+                  theme:CupertinoThemeData(
+                    brightness: context.brightness,
+                    primaryColor: colorScheme.primary,
+                    applyThemeToAll: true,
+                  ),
+                  routerConfig: _router,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  builder: (context, widget) => BlocListener<
+                          NetworkConnectionBloc, NetworkConnectionState>(
+                        listenWhen: (previous, current) =>
+                            current is NetworkConnectionFailureState,
+                        listener: (context, state) {
+                          if (state is NetworkConnectionFailureState) {
+                            String connectionErrorMessage =
+                                AppLocalizations.of(context)
+                                    .network_connection_error;
+                            showSnackBar(
+                                context: context, msg: connectionErrorMessage);
+                          }
+                        },
+                        child: widget,
+                      ))
+              : MaterialApp.router(
+                  title: AppConsts.appTitle,
+                  scrollBehavior: AppScrollBehaviour(),
+                  debugShowCheckedModeBanner: false,
+                  theme: AppTheme.theme,
+                  routerConfig: _router,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  builder: (context, widget) => BlocListener<
+                          NetworkConnectionBloc, NetworkConnectionState>(
+                        listenWhen: (previous, current) =>
+                            current is NetworkConnectionFailureState,
+                        listener: (context, state) {
+                          if (state is NetworkConnectionFailureState) {
+                            String connectionErrorMessage =
+                                AppLocalizations.of(context)
+                                    .network_connection_error;
+                            showSnackBar(
+                                context: context, msg: connectionErrorMessage);
+                          }
+                        },
+                        child: widget,
+                      )),
+        ),
       ),
     );
   }
