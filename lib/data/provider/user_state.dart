@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/repo/employee_repo.dart';
@@ -12,24 +13,29 @@ enum UserState { authenticated, unauthenticated, spaceJoined, update }
 
 @LazySingleton()
 class UserStateNotifier with ChangeNotifier {
+
+  final FirebaseAuth _firebaseAuth;
   final UserPreference _userPreference;
   final SpaceChangeNotifier _spaceChangeNotifier;
   UserState _userState = UserState.unauthenticated;
 
+
   UserState get state => _userState;
 
-  UserStateNotifier(this._userPreference, this._spaceChangeNotifier) {
+  UserStateNotifier(this._userPreference, this._spaceChangeNotifier,this._firebaseAuth) {
     getUserStatus();
   }
 
   void getUserStatus() async {
-    if (_userPreference.getAccount() == null) {
-      _userState = UserState.unauthenticated;
-    } else if (_userPreference.getSpace() != null &&
-        _userPreference.getEmployee() != null) {
-      _userState = UserState.spaceJoined;
-    } else if (_userPreference.getAccount() != null) {
-      _userState = UserState.authenticated;
+    if (_firebaseAuth.currentUser != null){
+      if (_userPreference.getAccount() == null) {
+        _userState = UserState.unauthenticated;
+      } else if (_userPreference.getSpace() != null &&
+          _userPreference.getEmployee() != null) {
+        _userState = UserState.spaceJoined;
+      } else if (_userPreference.getAccount() != null) {
+        _userState = UserState.authenticated;
+      }
     }
   }
 

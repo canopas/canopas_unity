@@ -4,8 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: type=lint
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -102,7 +101,7 @@ import 'package:projectunity/ui/widget/pick_profile_image/bloc/pick_image_bloc.d
 import 'package:shared_preferences/shared_preferences.dart' as _i20;
 
 extension GetItInjectableX on _i1.GetIt {
-  // initializes the registration of main-scope dependencies inside of GetIt
+// initializes the registration of main-scope dependencies inside of GetIt
   Future<_i1.GetIt> init({
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
@@ -157,6 +156,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i25.UserStateNotifier>(() => _i25.UserStateNotifier(
           gh<_i24.UserPreference>(),
           gh<_i21.SpaceChangeNotifier>(),
+          gh<_i9.FirebaseAuth>(),
         ));
     gh.lazySingleton<_i26.AccountService>(() => _i26.AccountService(
           gh<_i11.FirebaseFirestore>(),
