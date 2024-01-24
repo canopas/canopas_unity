@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -61,12 +62,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 child: widget.child)),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (int index) => onItemTapped(index),
-          items: widget.tabs,
+          items: widget.tabs.map((e) => e.toBottomNavigationItem(context)).toList(),
           currentIndex: _currentIndex,
         ),
       ),
     );
   }
+
 
   void onItemTapped(int index) {
     context.goNamed(widget.tabs[index].initialLocation);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/ui/style/colors.dart';
 import 'colors.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:table_calendar/table_calendar.dart'
     show HeaderStyle, CalendarStyle;
+import 'package:projectunity/ui/style/app_text_style.dart';
 
 class AppTheme {
   static ThemeData get theme {
@@ -19,12 +21,14 @@ class AppTheme {
             elevation: 0,
             centerTitle: true,
             titleTextStyle: AppFontStyle.appbarHeaderDark),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: AppColors.whiteColor,
+        bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+         // backgroundColor: AppColors.whiteColor,
           landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: AppColors.primaryBlue,
-          unselectedItemColor: AppColors.secondaryText,
+          //type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: AppTextStyle.labelStyle.copyWith(color: primaryLightColor),
+          unselectedLabelStyle: AppTextStyle.labelStyle,
+          selectedItemColor: surfaceColor,
+          unselectedItemColor: textDisabledColor,
         ),
         cardTheme: const CardTheme(
           color: AppColors.whiteColor,

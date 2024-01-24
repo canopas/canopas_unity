@@ -38,4 +38,10 @@ class AppTextStyle {
     fontWeight: FontWeight.w600,
     fontSize: 12,
   );
+
+  static const TextStyle labelStyle =  TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.50
+  );
 }
