@@ -50,7 +50,7 @@ class LeaveRepo {
         (leavesByStartDate, leavesByEndDate) {
           List<Leave> mergedList = leavesByStartDate;
           mergedList.addAll(leavesByEndDate.where((endDateLeave) =>
-              !leavesByEndDate.any((startDateLeave) =>
+              !leavesByStartDate.any((startDateLeave) =>
                   startDateLeave.leaveId == endDateLeave.leaveId)));
           return mergedList;
         },
