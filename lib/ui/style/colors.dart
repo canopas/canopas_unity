@@ -15,7 +15,7 @@ Color containerNormalColor = const Color.fromRGBO(44, 20, 68, 0.06);
 Color containerLowColor = const Color.fromRGBO(44, 20, 68, 0.02);
 Color surfaceColor= const Color(0xFFFFFFFF);
 
-Color primaryLightColor = const Color(0xff8A95FE);
+Color primaryLightColor = const Color(0xff5966EA);
 Color secondaryLightColor = const Color(0xff3B3561);
 Color tertiaryLightColor = const Color(0xffFAC05E);
 

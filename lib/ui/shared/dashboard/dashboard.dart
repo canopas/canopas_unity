@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
+import 'package:projectunity/ui/style/colors.dart';
 import '../../../data/bloc/user_state/user_controller_state.dart';
 import '../../../data/bloc/user_state/user_state_controller_bloc.dart';
 import '../../../data/bloc/user_state/user_state_controller_event.dart';
@@ -61,6 +62,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 },
                 child: widget.child)),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: surfaceColor,
+          selectedItemColor: primaryLightColor,
+          unselectedItemColor: textDisabledColor,
           onTap: (int index) => onItemTapped(index),
           items: widget.tabs.map((e) => e.toBottomNavigationItem(context)).toList(),
           currentIndex: _currentIndex,

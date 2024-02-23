@@ -9,6 +9,8 @@ class AppTextStyle {
   static const TextStyle header2 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 22);
 
+
+
   static const TextStyle header3 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 20);
   static const TextStyle header4 =
@@ -17,7 +19,7 @@ class AppTextStyle {
   static const TextStyle subTitle1 =
       TextStyle(fontWeight: FontWeight.w500, fontSize: 18);
 
-  static const TextStyle subTitle2 =
+  static const TextStyle style16 =
       TextStyle(fontWeight: FontWeight.w500, fontSize: 16);
 
   static const TextStyle body1 =
@@ -34,12 +36,8 @@ class AppTextStyle {
     fontSize: 14,
   );
 
-  static const TextStyle caption = TextStyle(
-    fontWeight: FontWeight.w600,
-    fontSize: 12,
-  );
 
-  static const TextStyle labelStyle =  TextStyle(
+  static const TextStyle style12 =  TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w500,
       letterSpacing: 0.50
