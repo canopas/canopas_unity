@@ -90,7 +90,7 @@
   "page_not_found_error_title": "page not found!",
   "page_not_found_error_message": "It looks like we can't find the page you're looking for!",
 
-  "leave_type_placeholder_text": "{leaveType, select, 0{Casual Leave} 1{Urgent Leave} other{other}}",
+  "leave_type_placeholder_text": "{leaveType, select, 0{Casual} 1{Urgent} other{other}}",
   "@leave_type_placeholder_text": {
     "description": "get leave type from leave status",
     "placeholders": {

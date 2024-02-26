@@ -86,6 +86,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                 title: AppLocalizations.of(context).no_leaves_tag);
           }
           return ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             controller: _scrollController,
             children: state.leavesMap.entries
                 .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>

@@ -221,7 +221,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i40.UserLeaveCountBloc>(() => _i40.UserLeaveCountBloc(
           gh<_i34.LeaveRepo>(),
           gh<_i25.UserStateNotifier>(),
-          gh<_i22.SpaceService>(),
         ));
     gh.factory<_i41.UserLeaveDetailBloc>(
         () => _i41.UserLeaveDetailBloc(gh<_i34.LeaveRepo>()));

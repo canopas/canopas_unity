@@ -13,9 +13,8 @@ class UserLeaveCountBloc
     extends Bloc<FetchLeaveCountEvent, UserLeaveCountState> {
   final LeaveRepo _leaveRepo;
   final UserStateNotifier _userManger;
-  final SpaceService _spaceService;
 
-  UserLeaveCountBloc(this._leaveRepo, this._userManger, this._spaceService)
+  UserLeaveCountBloc(this._leaveRepo, this._userManger)
       : super(const UserLeaveCountState()) {
     on<FetchLeaveCountEvent>(_fetchLeaveCount);
   }
@@ -26,16 +25,11 @@ class UserLeaveCountBloc
     try {
       final leaveCounts =
           await _leaveRepo.getUserUsedLeaves(uid: _userManger.employeeId);
-      final int totalLeaves = await _spaceService.getPaidLeaves(
-          spaceId: _userManger.currentSpaceId!);
-      double percentage = 0;
-      if (totalLeaves != 0) {
-        percentage = leaveCounts.totalUsedLeave / totalLeaves;
-      }
+
       emit(state.copyWith(
           status: Status.success,
           usedLeavesCounts: leaveCounts,
-          leavePercentage: percentage));
+         ));
     } on Exception {
       emit(state.copyWith(
           status: Status.success, error: firestoreFetchDataError));

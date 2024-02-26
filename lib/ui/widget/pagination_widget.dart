@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
 import '../../data/model/leave/leave.dart';
@@ -14,29 +16,21 @@ class LeaveListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(color: AppColors.whiteColor),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      color: surfaceColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title, style: AppFontStyle.headerDark),
-                  Text(
-                    count.toString(),
-                    style: AppFontStyle.headerDark,
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Divider(height: 1)
+            Text(title, style: AppTextStyle.style20),
+            Text(
+              count.toString(),
+              style:  AppTextStyle.style20,
+            )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
 

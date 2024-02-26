@@ -86,7 +86,7 @@ void main() {
             bloc.state,
             const UserLeaveState(
                 fetchMoreDataStatus: Status.initial,
-                leavesMap: {},
+                casualLeaves: {},
                 error: null,
                 status: Status.initial));
       });
@@ -102,7 +102,7 @@ void main() {
               const UserLeaveState(status: Status.loading),
               UserLeaveState(
                   status: Status.success,
-                  leavesMap: [initialLeave]
+                  casualLeaves: [initialLeave]
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });
@@ -127,7 +127,7 @@ void main() {
         expectLater(
             bloc.stream,
             emits(UserLeaveState(
-                leavesMap: [initialLeave]
+                casualLeaves: [initialLeave]
                     .groupByMonth((element) => element.appliedOn))));
       });
     });
@@ -157,7 +157,7 @@ void main() {
               const UserLeaveState(status: Status.loading),
               UserLeaveState(
                   status: Status.success,
-                  leavesMap: [initialLeave]
+                  casualLeaves: [initialLeave]
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });
@@ -173,12 +173,12 @@ void main() {
               UserLeaveState(
                   fetchMoreDataStatus: Status.loading,
                   status: Status.success,
-                  leavesMap: [initialLeave]
+                  casualLeaves: [initialLeave]
                       .groupByMonth((element) => element.appliedOn)),
               UserLeaveState(
                   fetchMoreDataStatus: Status.success,
                   status: Status.success,
-                  leavesMap: [initialLeave, moreLeave]
+                  casualLeaves: [initialLeave, moreLeave]
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });
@@ -192,7 +192,7 @@ void main() {
             emits(UserLeaveState(
                 fetchMoreDataStatus: Status.success,
                 status: Status.success,
-                leavesMap: [moreLeave, initialLeaveWithChange]
+                casualLeaves: [moreLeave, initialLeaveWithChange]
                     .groupByMonth((element) => element.appliedOn))));
       });
     });
@@ -221,7 +221,7 @@ void main() {
               const UserLeaveState(status: Status.loading),
               UserLeaveState(
                   status: Status.success,
-                  leavesMap: [initialLeave]
+                  casualLeaves: [initialLeave]
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });
@@ -236,13 +236,13 @@ void main() {
               UserLeaveState(
                   fetchMoreDataStatus: Status.loading,
                   status: Status.success,
-                  leavesMap: [initialLeave]
+                  casualLeaves: [initialLeave]
                       .groupByMonth((element) => element.appliedOn)),
               UserLeaveState(
                   fetchMoreDataStatus: Status.error,
                   error: firestoreFetchDataError,
                   status: Status.success,
-                  leavesMap: [initialLeave]
+                  casualLeaves: [initialLeave]
                       .groupByMonth((element) => element.appliedOn)),
             ]));
       });

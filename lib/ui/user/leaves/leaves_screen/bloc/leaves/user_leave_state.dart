@@ -3,30 +3,36 @@ import '../../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../../data/model/leave/leave.dart';
 
 class UserLeaveState extends Equatable {
-  final Map<DateTime, List<Leave>> leavesMap;
+  final Map<DateTime, List<Leave>> casualLeaves;
+  final Map<DateTime, List<Leave>> urgentLeaves;
+
   final String? error;
   final Status status;
   final Status fetchMoreDataStatus;
 
   const UserLeaveState(
       {this.fetchMoreDataStatus = Status.initial,
-      this.leavesMap = const {},
+      this.casualLeaves = const {},
+      this.urgentLeaves = const {},
       this.status = Status.initial,
       this.error});
 
   UserLeaveState copyWith({
     Status? fetchMoreDataStatus,
-    Map<DateTime, List<Leave>>? leavesMap,
+    Map<DateTime, List<Leave>>? casualLeaves,
+    Map<DateTime, List<Leave>>? urgentLeaves,
     String? error,
     Status? status,
   }) =>
       UserLeaveState(
         fetchMoreDataStatus: fetchMoreDataStatus ?? this.fetchMoreDataStatus,
         status: status ?? this.status,
-        leavesMap: leavesMap ?? this.leavesMap,
+        casualLeaves: casualLeaves ?? this.casualLeaves,
+        urgentLeaves: urgentLeaves ?? this.urgentLeaves,
         error: error,
       );
 
   @override
-  List<Object?> get props => [leavesMap, error, status, fetchMoreDataStatus];
+  List<Object?> get props =>
+      [casualLeaves, urgentLeaves, error, status, fetchMoreDataStatus];
 }
