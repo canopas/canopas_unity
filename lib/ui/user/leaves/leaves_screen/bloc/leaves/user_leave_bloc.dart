@@ -47,10 +47,10 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
 
       emit(state.copyWith(
           status: Status.success,
-          urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.appliedOn),
-          casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn)));
+          urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.startDate),
+          casualLeaves: casualLeaves.groupByMonth((leave) => leave.startDate)));
     } on Exception catch(e){
-
+print(e.toString());
       _isLoadedMaxCasual = true;
        _isLoadedMaxUrgent = true;
       emit(state.copyWith(
@@ -63,18 +63,22 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
   Future<void> _fetchMoreLeaves(FetchMoreUserLeaves event,
       Emitter<UserLeaveState> emit) async {
     if (state.fetchMoreDataStatus != Status.loading ) {
-      emit(state.copyWith(fetchMoreDataStatus: Status.loading));
       try {
         if(event.leaveType==LeaveType.casualLeave && !_isLoadedMaxCasual){
-         await _fetchCasualLeaves(emit);
+          emit(state.copyWith(fetchMoreDataStatus: Status.loading));
+
+          await _fetchCasualLeaves(emit);
          emit(state.copyWith(fetchMoreDataStatus: Status.success,
              casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn)));
         }else if(event.leaveType==LeaveType.urgentLeave && !_isLoadedMaxUrgent){
+          emit(state.copyWith(fetchMoreDataStatus: Status.loading));
+
           await _fetchUrgentLeaves(emit);
           emit(state.copyWith(fetchMoreDataStatus: Status.success,
               casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn)));
         }
-      } on Exception {
+      } on Exception catch(E) {
+        print(E.toString());
         emit(state.copyWith(
             error: firestoreFetchDataError, fetchMoreDataStatus: Status.error));
       }
@@ -88,6 +92,7 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
         leaveType: LeaveType.casualLeave);
     if (paginatedData.lastDoc == null) {
       _isLoadedMaxCasual = true;
+      emit(state.copyWith(fetchMoreDataStatus: Status.success));
     } else {
       _casualLastDoc = paginatedData.lastDoc;
       casualLeaves.addAll(paginatedData.leaves);
@@ -101,6 +106,8 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
           leaveType: LeaveType.urgentLeave);
       if (paginatedData.lastDoc == null) {
         _isLoadedMaxUrgent = true;
+        emit(state.copyWith(fetchMoreDataStatus: Status.success));
+
       } else {
         _urgentLastDoc = paginatedData.lastDoc;
         urgentLeaves.addAll(paginatedData.leaves);

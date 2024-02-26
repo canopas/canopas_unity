@@ -7,8 +7,7 @@ part of 'employee.dart';
 // **************************************************************************
 
 Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
-  uid:"qAGvOd5yKKhzirRpWvcuHua9lwP2",
-      //uid: json['uid'] as String,
+      uid: json['uid'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
       role: $enumDecode(_$RoleEnumMap, json['role']),

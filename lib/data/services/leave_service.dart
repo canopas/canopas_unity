@@ -38,6 +38,7 @@ class LeaveService {
       required int limit}) async {
     Query<Leave> query = leaveType != null
         ? _leaveDb(spaceId: spaceId)
+            .orderBy(FireStoreConst.appliedOn, descending: true)
             .where(FireStoreConst.type, isEqualTo: leaveType.value)
         : _leaveDb(spaceId: spaceId)
             .orderBy(FireStoreConst.appliedOn, descending: true);

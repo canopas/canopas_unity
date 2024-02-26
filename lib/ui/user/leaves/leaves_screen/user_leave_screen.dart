@@ -101,7 +101,10 @@ class _UserLeaveScreenState extends State<UserLeaveScreen>
           }),
           BlocBuilder<UserLeaveBloc, UserLeaveState>(
               buildWhen: (previous, current) =>
-                  previous.status != current.status,
+                  previous.status != current.status||
+                      previous.casualLeaves != current.casualLeaves||
+                      previous.urgentLeaves != current.urgentLeaves||
+                      previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
               builder: (context, state) {
                 if (state.status == Status.success) {
                   return Expanded(
