@@ -9,12 +9,12 @@ class DrawerOption extends StatelessWidget {
       {required this.icon,
       required this.title,
       required this.onTap,
-      this.iconColor = AppColors.textDark,
+      this.iconColor ,
       this.titleColor = AppColors.textDark,
       Key? key})
       : super(key: key);
   final Color titleColor;
-  final Color iconColor;
+  final Color? iconColor;
   final IconData icon;
   final String title;
   final void Function()? onTap;
@@ -31,13 +31,13 @@ class DrawerOption extends StatelessWidget {
             Icon(
               icon,
               size: 26,
-              color: iconColor,
+              color: iconColor??AppColors.textDark,
             ),
             const SizedBox(width: 16),
             Flexible(
               child: Text(
                 title,
-                style: AppFontStyle.bodyLarge.copyWith(color: titleColor),
+                style: AppFontStyle.bodyLarge.copyWith(color: iconColor??titleColor),
                 overflow: TextOverflow.fade,
               ),
             ),

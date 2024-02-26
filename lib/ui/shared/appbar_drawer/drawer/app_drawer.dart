@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_option.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_space_card.dart';
@@ -9,7 +12,6 @@ import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_user_p
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
@@ -48,6 +50,7 @@ class _AppDrawerState extends State<AppDrawer> {
         }
       },
       child: Container(
+        padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(30), topRight: Radius.circular(30)),
@@ -67,8 +70,9 @@ class _AppDrawerState extends State<AppDrawer> {
               children: [
                 UserProfileCard(
                   currentEmployee: userManager.employee,
-                  currentSpace: userManager.currentSpace!,
+                  isAdminOrHr:  userManager.isAdmin || userManager.isHR,
                 ),
+                const SizedBox(height: 20,),
                 SpaceList(
                     userEmail: userManager.userEmail!,
                     currentSpaceId: userManager.currentSpaceId),
@@ -115,14 +119,6 @@ class DrawerOptionList extends StatelessWidget {
                   context.pushNamed(Routes.editSpaceDetails);
                 }),
           ),
-          DrawerOption(
-              icon: Icons.person_outline_rounded,
-              title: locale.view_profile_button_tag,
-              onTap: () {
-                context.pop();
-                context.goNamed(
-                    isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
-              }),
           ValidateWidget(
             isValid: false,
             child: DrawerOption(
@@ -139,6 +135,7 @@ class DrawerOptionList extends StatelessWidget {
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
               icon: Icons.logout_rounded,
+              iconColor: redColor,
               title: locale.sign_out_from_text(currentSpaceName),
               onTap: () =>
                   context.read<DrawerBloc>().add(SignOutFromSpaceEvent()),
@@ -160,7 +157,6 @@ class SpaceList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = AppLocalizations.of(context);
     return Expanded(
       child: BlocBuilder<DrawerBloc, DrawerState>(
           buildWhen: (previous, current) =>
@@ -178,18 +174,12 @@ class SpaceList extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: Text(locale.spaces_list_title(userEmail),
-                        style:
-                            AppFontStyle.subTitleGrey.copyWith(fontSize: 16)),
-                  ),
-                  const Divider(height: 0),
+                  Text(context.l10n.spaces_title,
+                      style:
+                         AppTextStyle.style20),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 11),
+                      padding: const EdgeInsets.only(top: 10),
                       itemCount: state.spaces.length,
                       itemBuilder: (context, index) => DrawerSpaceCard(
                         isSelected: currentSpaceId == state.spaces[index].id,

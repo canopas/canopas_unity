@@ -1,4 +1,4 @@
-{
+      {
   "language": "English",
   "appTitle": "Unity",
 
@@ -35,6 +35,8 @@
   "alert_cancel_action": "Cancel",
   "all_tag": "All",
   "ok_tag": "OK",
+  "profile_tag": "Profile",
+
 
   "spaces_title": "Spaces",
   "delete_space_text": "Delete Space",
@@ -309,7 +311,7 @@
   "employee_dateOfBirth_tag": "Date Of Birth",
   "employee_dateOfJoin_tag": "Date of Joining",
   "employee_level_tag": "Level",
-  "employee_employeeID_tag": "Employee Id",
+  "employee_employeeID_tag": "Employee ID",
   "employee_name_tag": "Name",
 
   "admin_leave_detail_button_reject": "Reject",

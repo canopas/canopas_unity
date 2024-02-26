@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/configs/text_style.dart';
 
@@ -21,12 +23,12 @@ class EmployeeDetailsField extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppFontStyle.labelGrey,
+                  style: AppTextStyle.style14.copyWith(color: textDisabledColor),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   subtitle!,
-                  style: AppFontStyle.bodyLarge,
+                  style: AppTextStyle.style18   ,
                 ),
               ],
             ),

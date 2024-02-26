@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/appbar/space_notifier_widget.dart';
 
 import '../../../../data/configs/colors.dart';
@@ -39,7 +40,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     onTap();
                     context.read<DrawerBloc>().add(FetchSpacesEvent());
                   },
-                  child: const Icon(Icons.menu)),
+                  child: const Icon(Icons.menu, color: textPrimaryColor,)),
               const SizedBox(width: primaryHorizontalSpacing),
               Expanded(
                 child: SpaceNotifierWidget(
@@ -48,14 +49,9 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     builder: (context) {
                       final String name =
                           SpaceNotifierWidget.of(context)?.name ?? "";
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(name,
-                              style: AppTextStyle.style20,
-                              overflow: TextOverflow.ellipsis),
-                        ],
-                      );
+                      return Text(name,
+                          style: AppTextStyle.style20,
+                          overflow: TextOverflow.ellipsis);
                     },
                   ),
                 ),

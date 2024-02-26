@@ -81,6 +81,7 @@ class MyApp extends StatelessWidget {
                   scrollBehavior: AppScrollBehaviour(),
                   debugShowCheckedModeBanner: false,
                   theme:CupertinoThemeData(
+                    scaffoldBackgroundColor: surfaceColor,
                     brightness: context.brightness,
                     primaryColor: colorScheme.primary,
                     applyThemeToAll: true,
@@ -108,7 +109,7 @@ class MyApp extends StatelessWidget {
                   title: AppConsts.appTitle,
                   scrollBehavior: AppScrollBehaviour(),
                   debugShowCheckedModeBanner: false,
-                 theme: AppTheme.theme,
+                 theme:materialThemeDataLight,
                   routerConfig: _router,
                   supportedLocales: AppLocalizations.supportedLocales,
                   localizationsDelegates:

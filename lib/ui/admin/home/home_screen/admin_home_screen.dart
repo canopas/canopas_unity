@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/provider/user_state.dart';
+import '../../../../style/app_text_style.dart';
+import '../../../../style/colors.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
+import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';
+import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
+import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -48,9 +55,27 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
-    return Scaffold(
-      backgroundColor:Colors.white,
-      appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer(),
+    return AppPage(
+      leading: InkWell(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+            context.read<DrawerBloc>().add(FetchSpacesEvent());
+          },
+          child: const Icon(
+            Icons.menu,
+            color: textPrimaryColor,
+          )),
+      titleWidget: SpaceNotifierWidget(
+        notifier: getIt.get<UserStateNotifier>(),
+        child: Builder(
+          builder: (context) {
+            final String name =
+                SpaceNotifierWidget.of(context)?.name ?? "";
+            return Text(name,
+                style: AppTextStyle.style20,
+                overflow: TextOverflow.ellipsis);
+          },
+        ),
       ),
       body: ListView(
         children: [

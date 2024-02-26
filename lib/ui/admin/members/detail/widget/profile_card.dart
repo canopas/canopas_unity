@@ -4,6 +4,8 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -84,12 +86,12 @@ class TextColumn extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppFontStyle.labelGrey,
+            style: AppTextStyle.style14.copyWith(color: textSecondaryColor),
           ),
           const SizedBox(height: 6),
           Text(
             subtitle ?? "-",
-            style: AppFontStyle.titleRegular,
+            style: AppTextStyle.style18,
           ),
         ],
       ),

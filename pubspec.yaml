@@ -16,6 +16,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   cached_network_image: ^3.3.1
+  cupertino_icons:
   cloud_firestore: ^4.5.2
   collection: ^1.17.0
   connectivity_plus: ^3.0.5

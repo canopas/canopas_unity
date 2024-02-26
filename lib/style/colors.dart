@@ -1,24 +1,43 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:projectunity/style/app_text_style.dart';
 
-const Color primaryDarkColor = const Color(0xffE8704A);
-const Color secondaryDarkColor = const Color(0xff321153);
-const Color tertiaryDarkColor = const Color(0xff3E9598);
+const Color primaryDarkColor = Color(0xffE8704A);
+const Color secondaryDarkColor =  Color(0xff321153);
+const Color tertiaryDarkColor =  Color(0xff3E9598);
 
-const Color textPrimaryColor = const Color(0xD9000000);
-const Color textSecondaryColor = const Color(0x99000000);
-const Color textDisabledColor = const Color(0x66000000);
+const Color textPrimaryColor =  Color(0xD9000000);
+const Color textSecondaryColor =  Color(0x99000000);
+const Color textDisabledColor =  Color(0x66000000);
 
-const Color containerHighColor = const Color.fromRGBO(44, 20, 68, 0.12);
-const Color containerNormalColor = const Color.fromRGBO(44, 20, 68, 0.06);
-const Color containerLowColor = const Color.fromRGBO(44, 20, 68, 0.02);
-const Color surfaceColor= const Color(0xFFFFFFFF);
+const Color containerHighColor =  Color.fromRGBO(44, 20, 68, 0.12);
+const Color containerNormalColor =  Color.fromRGBO(44, 20, 68, 0.06);
+const Color containerLowColor =  Color.fromRGBO(44, 20, 68, 0.02);
+const Color surfaceColor=  Color(0xFFFFFFFF);
 
- const Color primaryLightColor = const Color(0xff5966EA);
-const Color secondaryLightColor = const Color(0xff3B3561);
-const Color tertiaryLightColor = const Color(0xffFAC05E);
+ const Color primaryLightColor =  Color(0xff5966EA);
+const Color secondaryLightColor =  Color(0xff3B3561);
+const Color tertiaryLightColor =  Color(0xffFAC05E);
 
+const Color redColor =  Colors.red;
+final ThemeData _materialLightTheme = ThemeData.light(useMaterial3: true);
+
+
+final ThemeData materialThemeDataLight= _materialLightTheme.copyWith(
+    primaryColor: primaryLightColor,
+  scaffoldBackgroundColor: surfaceColor,
+  dividerColor: textDisabledColor,
+  colorScheme: _materialLightTheme.colorScheme.copyWith(
+    onPrimary: Colors.black,
+    onSecondary: textSecondaryColor,
+    onSurface: textPrimaryColor
+  ),
+  appBarTheme: _materialLightTheme.appBarTheme.copyWith(
+    backgroundColor: surfaceColor,
+    titleTextStyle: AppTextStyle.style20,
+  )
+);
 
 
 class AppColorScheme {
