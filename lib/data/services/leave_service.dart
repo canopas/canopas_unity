@@ -31,13 +31,16 @@ class LeaveService {
           .snapshots()
           .asyncMap((event) => event.docs.map((e) => e.data()).toList());
 
-  Future<PaginatedLeaves> leaves(
+  Future<PaginatedLeaves> leaves(LeaveType? leaveType,
       {DocumentSnapshot<Leave>? lastDoc,
       String? uid,
       required String spaceId,
       required int limit}) async {
-    Query<Leave> query = _leaveDb(spaceId: spaceId)
-        .orderBy(FireStoreConst.appliedOn, descending: true);
+    Query<Leave> query = leaveType != null
+        ? _leaveDb(spaceId: spaceId)
+            .where(FireStoreConst.type, isEqualTo: leaveType.value)
+        : _leaveDb(spaceId: spaceId)
+            .orderBy(FireStoreConst.appliedOn, descending: true);
 
     if (uid != null) {
       query = query.where(FireStoreConst.uid, isEqualTo: uid);

@@ -23,6 +23,8 @@ class FireStoreConst {
   static const String gender = 'gender';
   static const String dateOfBirth = 'date_of_birth';
   static const String dateOfJoining = 'date_of_joining';
+  static const String type = 'type';
+
   static const String level = 'level';
   static const String totalLeavesDoc = 'totalLeaves';
   static const String leaves = 'leaves';

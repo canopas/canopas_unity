@@ -101,12 +101,9 @@ class _UserLeaveScreenState extends State<UserLeaveScreen>
           }),
           BlocBuilder<UserLeaveBloc, UserLeaveState>(
               buildWhen: (previous, current) =>
-                  previous.status != current.status ||
-                  previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
+                  previous.status != current.status,
               builder: (context, state) {
                 if (state.status == Status.success) {
-                  print(state.casualLeaves.length);
-
                   return Expanded(
                     child: TabBarView(controller: _tabController, children: [
                       LeaveList(
