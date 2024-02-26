@@ -49,8 +49,7 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
           status: Status.success,
           urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.startDate),
           casualLeaves: casualLeaves.groupByMonth((leave) => leave.startDate)));
-    } on Exception catch(e){
-print(e.toString());
+    } on Exception{
       _isLoadedMaxCasual = true;
        _isLoadedMaxUrgent = true;
       emit(state.copyWith(
@@ -77,8 +76,7 @@ print(e.toString());
           emit(state.copyWith(fetchMoreDataStatus: Status.success,
               casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn)));
         }
-      } on Exception catch(E) {
-        print(E.toString());
+      } on Exception{
         emit(state.copyWith(
             error: firestoreFetchDataError, fetchMoreDataStatus: Status.error));
       }
