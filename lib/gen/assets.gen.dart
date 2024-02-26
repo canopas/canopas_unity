@@ -26,6 +26,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_home_filled.svg
   String get icHomeFilled => 'assets/images/ic_home_filled.svg';
 
+  /// File path: assets/images/ic_menu.svg
+  String get icMenu => 'assets/images/ic_menu.svg';
+
   /// File path: assets/images/ic_users.svg
   String get icUsers => 'assets/images/ic_users.svg';
 
@@ -34,8 +37,15 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/office_growth.png');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [emptyState, googleLogo, icCalendar, icHomeFilled, icUsers, officeGrowth];
+  List<dynamic> get values => [
+        emptyState,
+        googleLogo,
+        icCalendar,
+        icHomeFilled,
+        icMenu,
+        icUsers,
+        officeGrowth
+      ];
 }
 
 class Assets {

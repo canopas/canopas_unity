@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/ui/style/colors.dart';
+import '../../style/app_text_style.dart';
+import '../../style/colors.dart';
 import 'colors.dart';
 import 'package:projectunity/data/configs/text_style.dart';
 import 'package:table_calendar/table_calendar.dart'
     show HeaderStyle, CalendarStyle;
-import 'package:projectunity/ui/style/app_text_style.dart';
 
 class AppTheme {
   static ThemeData get theme {
     return ThemeData(
-        fontFamily: 'inter',
+        fontFamily: 'poppins',
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.whiteColor,
         appBarTheme: const AppBarTheme(
@@ -22,9 +22,7 @@ class AppTheme {
             centerTitle: true,
             titleTextStyle: AppFontStyle.appbarHeaderDark),
         bottomNavigationBarTheme:  BottomNavigationBarThemeData(
-         // backgroundColor: AppColors.whiteColor,
           landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-          //type: BottomNavigationBarType.fixed,
           selectedLabelStyle: AppTextStyle.style12.copyWith(color: primaryLightColor),
           unselectedLabelStyle: AppTextStyle.style12,
           selectedItemColor: surfaceColor,
@@ -85,25 +83,22 @@ class AppTheme {
             bodyMedium: AppFontStyle.bodySmallHeavy));
   }
 
-  static CalendarStyle calendarStyle = const CalendarStyle(
+  static CalendarStyle calendarStyle =   CalendarStyle(
     outsideDaysVisible: false,
     weekendTextStyle: AppFontStyle.bodySmallHeavy,
     selectedDecoration:
-        BoxDecoration(color: AppColors.primaryBlue, shape: BoxShape.circle),
-    markerDecoration: BoxDecoration(
+    BoxDecoration(
+      color: primaryLightColor,
+      borderRadius: BorderRadius.circular(8)),
+    markerDecoration: const BoxDecoration(
       color: AppColors.orangeColor,
       shape: BoxShape.circle,
     ),
     todayDecoration:
-        BoxDecoration(color: AppColors.textFieldBg, shape: BoxShape.circle),
+        BoxDecoration(
+            border: Border.all(color: primaryLightColor), borderRadius: BorderRadius.circular(8)),
     todayTextStyle: AppFontStyle.bodySmallRegular,
   );
-
-  static HeaderStyle calendarHeaderStyle = HeaderStyle(
-      formatButtonVisible: false,
-      titleCentered: true,
-      titleTextStyle:
-          AppFontStyle.labelRegular.copyWith(fontWeight: FontWeight.w500));
 
   static List<BoxShadow> commonBoxShadow = [
     BoxShadow(

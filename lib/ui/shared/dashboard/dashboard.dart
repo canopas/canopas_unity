@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
-import 'package:projectunity/ui/style/colors.dart';
 import '../../../data/bloc/user_state/user_controller_state.dart';
 import '../../../data/bloc/user_state/user_state_controller_bloc.dart';
 import '../../../data/bloc/user_state/user_state_controller_event.dart';
 import '../../../data/di/service_locator.dart';
+import '../../../style/colors.dart';
 import '../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
@@ -33,6 +33,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return BlocProvider(
       create: (context) => getIt.get<DrawerBloc>(),
       child: Scaffold(
+        backgroundColor: Colors.white,
         drawer: const AppDrawer(),
         body: SafeArea(
             child: BlocListener<UserStateControllerBloc, UserControllerStatus>(

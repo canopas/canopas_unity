@@ -8,6 +8,7 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart'
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
+import '../../../../data/configs/colors.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
 import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
@@ -49,9 +50,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return Scaffold(
+        backgroundColor: AppColors.whiteColor,
         appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
         body: ListView(
-          padding: const EdgeInsets.all(primaryHorizontalSpacing),
           children: [
             const WhoIsOutCard(),
             BlocConsumer<UserHomeBloc, UserHomeState>(

@@ -49,15 +49,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return Scaffold(
-      appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
+      backgroundColor:Colors.white,
+      appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer(),
+      ),
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: primaryHorizontalSpacing,
-                vertical: primaryHalfSpacing),
-            child: WhoIsOutCard(),
-          ),
+          const WhoIsOutCard(),
           BlocConsumer<AdminHomeBloc, AdminHomeState>(
               listenWhen: (previous, current) => current.status == Status.error,
               listener: (context, state) {
@@ -86,7 +83,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               }),
         ],
       ),
-      backgroundColor: AppColors.whiteColor,
     );
   }
 }

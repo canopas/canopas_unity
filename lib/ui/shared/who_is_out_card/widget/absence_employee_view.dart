@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/text_style.dart';
@@ -84,7 +85,7 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
                             const SizedBox(height: 5),
                             Flexible(
                               child: Text(absence.employee.name,
-                                  style: AppFontStyle.subTitleGrey,
+                                  style: AppTextStyle.style14,
                                   maxLines: 1,
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.clip),

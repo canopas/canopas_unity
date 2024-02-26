@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:projectunity/ui/style/colors.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../../style/colors.dart';
 import '../../navigation/app_router.dart';
 
 class BottomNavigationItem  {

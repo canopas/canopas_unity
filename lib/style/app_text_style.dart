@@ -3,20 +3,19 @@ import 'package:flutter/cupertino.dart';
 class AppTextStyle {
   static const String poppinsFontFamily = "Poppins";
 
-  static const TextStyle header1 =
+  static const TextStyle style24 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 24);
 
   static const TextStyle header2 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 22);
 
 
-
-  static const TextStyle header3 =
+  static const TextStyle style20 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 20);
   static const TextStyle header4 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 18);
 
-  static const TextStyle subTitle1 =
+  static const TextStyle style18 =
       TextStyle(fontWeight: FontWeight.w500, fontSize: 18);
 
   static const TextStyle style16 =
@@ -25,7 +24,7 @@ class AppTextStyle {
   static const TextStyle body1 =
       TextStyle(fontWeight: FontWeight.normal, fontSize: 15);
 
-  static const TextStyle body2 =
+  static const TextStyle style14 =
       TextStyle(fontWeight: FontWeight.w500, fontSize: 14);
 
   static const TextStyle bodyItalic = TextStyle(

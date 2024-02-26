@@ -10,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
-import 'package:projectunity/ui/style/app_theme.dart';
-import 'package:projectunity/ui/style/colors.dart';
+import 'package:projectunity/style/app_theme.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'data/bloc/user_state/user_state_controller_bloc.dart';
@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
                   title: AppConsts.appTitle,
                   scrollBehavior: AppScrollBehaviour(),
                   debugShowCheckedModeBanner: false,
-                  theme: AppTheme.theme,
+                 theme: AppTheme.theme,
                   routerConfig: _router,
                   supportedLocales: AppLocalizations.supportedLocales,
                   localizationsDelegates:
