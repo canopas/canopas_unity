@@ -23,7 +23,6 @@ void main() {
   UserLeaveCountState loadingState = const UserLeaveCountState(
       status: Status.loading,
       usedLeavesCounts: LeaveCounts(),
-      leavePercentage: 0,
       error: null);
 
   const String employeeId = 'Employee Id';
@@ -33,7 +32,7 @@ void main() {
     userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
     userLeaveCountBloc =
-        UserLeaveCountBloc(leaveRepo, userStateNotifier, spaceService);
+        UserLeaveCountBloc(leaveRepo, userStateNotifier);
   });
 
   tearDown(() async {
@@ -49,7 +48,6 @@ void main() {
           const UserLeaveCountState(
               status: Status.initial,
               usedLeavesCounts: LeaveCounts(),
-              leavePercentage: 0,
               error: null));
     });
     test(
@@ -67,7 +65,6 @@ void main() {
       const UserLeaveCountState successState = UserLeaveCountState(
           status: Status.success,
           usedLeavesCounts: LeaveCounts(urgentLeaves: 2, casualLeaves: 5),
-          leavePercentage: 7 / 12,
           error: null);
       expectLater(userLeaveCountBloc.stream,
           emitsInOrder([loadingState, successState]));
@@ -85,7 +82,6 @@ void main() {
       const UserLeaveCountState errorState = UserLeaveCountState(
           status: Status.success,
           usedLeavesCounts: LeaveCounts(urgentLeaves: 0, casualLeaves: 0),
-          leavePercentage: 0,
           error: firestoreFetchDataError);
       expectLater(
           userLeaveCountBloc.stream, emitsInOrder([loadingState, errorState]));

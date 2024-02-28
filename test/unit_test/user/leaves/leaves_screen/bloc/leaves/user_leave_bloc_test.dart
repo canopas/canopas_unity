@@ -166,7 +166,7 @@ void main() {
         when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc)).thenAnswer(
             (_) async =>
                 PaginatedLeaves(leaves: [moreLeave], lastDoc: moreDataLastDoc));
-        bloc.add(FetchMoreUserLeaves());
+        bloc.add(FetchMoreUserLeaves(LeaveType.casualLeave));
         expectLater(
             bloc.stream,
             emitsInOrder([
@@ -229,7 +229,7 @@ void main() {
       test('fetch more data leave failure test', () {
         when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc))
             .thenThrow(Exception('error'));
-        bloc.add(FetchMoreUserLeaves());
+        bloc.add(FetchMoreUserLeaves(LeaveType.casualLeave));
         expectLater(
             bloc.stream,
             emitsInOrder([

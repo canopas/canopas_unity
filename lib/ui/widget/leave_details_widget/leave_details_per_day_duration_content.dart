@@ -38,19 +38,19 @@ class PerDayDurationDateRange extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              DateFormat('EEE', context.l10n.localeName)
-                                  .format(date.key),
-                            ),
+                                DateFormat('EEE', context.l10n.localeName)
+                                    .format(date.key),
+                                style: AppTextStyle.style14),
                             Text(
-                              DateFormat('d', context.l10n.localeName)
-                                  .format(date.key),
-                              style: AppFontStyle.titleDark.copyWith(
-                                color: AppColors.primaryBlue,
-                              ),
-                            ),
+                                DateFormat('d', context.l10n.localeName)
+                                    .format(date.key),
+                                style: AppTextStyle.style14.copyWith(
+                                    color: AppColors.primaryBlue,
+                                    fontWeight: FontWeight.bold)),
                             Text(
                               DateFormat('MMM', context.l10n.localeName)
                                   .format(date.key),
+                              style: AppTextStyle.style14,
                             ),
                             const SizedBox(
                               height: primaryVerticalSpacing,

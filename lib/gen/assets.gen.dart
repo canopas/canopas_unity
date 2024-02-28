@@ -36,6 +36,9 @@ class $AssetsImagesGen {
   AssetGenImage get officeGrowth =>
       const AssetGenImage('assets/images/office_growth.png');
 
+  /// File path: assets/images/pencil-square.svg
+  String get pencilSquare => 'assets/images/pencil-square.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         emptyState,
@@ -44,7 +47,8 @@ class $AssetsImagesGen {
         icHomeFilled,
         icMenu,
         icUsers,
-        officeGrowth
+        officeGrowth,
+        pencilSquare
       ];
 }
 

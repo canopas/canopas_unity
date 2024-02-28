@@ -151,11 +151,11 @@
   "minute_ago_tag": "minute ago",
   "minutes_ago_tag": "minutes ago",
   "dateFormatter_tomorrow": "Tomorrow",
-  "date_formatter_leave_request_total_half_day_text": "Leave request is for half day",
-  "date_formatter_leave_request_total_zero_day_text": "Leave request is for 0 day",
-  "date_formatter_leave_request_total_one_day_text": "Leave request is for 1 day",
+  "date_formatter_leave_request_total_half_day_text": "Applying leave for half day",
+  "date_formatter_leave_request_total_zero_day_text": "Applying leave for half day",
+  "date_formatter_leave_request_total_one_day_text": "Applying leave for 1 day",
 
-  "date_formatter_leave_request_total_days_text": "Leave request is for {day} days",
+  "date_formatter_leave_request_total_days_text": "Applying leave for {day} days",
   "@date_formatter_leave_request_total_days_text": {
     "placeholders": {
       "day": {

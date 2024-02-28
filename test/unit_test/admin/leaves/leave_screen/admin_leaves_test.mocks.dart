@@ -154,6 +154,7 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
   _i6.Future<_i2.PaginatedLeaves> leaves({
     _i4.DocumentSnapshot<_i9.Leave>? lastDoc,
     String? uid,
+    _i9.LeaveType? leaveType,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -162,6 +163,7 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
           {
             #lastDoc: lastDoc,
             #uid: uid,
+            #leaveType: leaveType,
           },
         ),
         returnValue:
@@ -173,6 +175,7 @@ class MockLeaveRepo extends _i1.Mock implements _i8.LeaveRepo {
             {
               #lastDoc: lastDoc,
               #uid: uid,
+              #leaveType: leaveType,
             },
           ),
         )),

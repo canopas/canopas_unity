@@ -25,7 +25,7 @@ class BottomNavigationItem  {
           tabIcon,
           width: 20,
           height: 20,
-          colorFilter: ColorFilter.mode(textDisabledColor, BlendMode.srcIn)
+          colorFilter: const ColorFilter.mode(textDisabledColor, BlendMode.srcIn)
       ),
       label: label,
       activeIcon: Container(

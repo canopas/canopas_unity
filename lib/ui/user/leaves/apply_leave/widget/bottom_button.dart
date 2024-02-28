@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -17,13 +20,14 @@ class ApplyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding:
-            const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
+            const EdgeInsets.only(left: 16),
         child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
           builder: (context, state) => state.leaveRequestStatus ==
                   Status.loading
               ? const FittedBox(child: AppCircularProgressIndicator())
               : ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryLightColor,
                       fixedSize: Size(MediaQuery.of(context).size.width, 50),
                       elevation: 2),
                   onPressed: () {
@@ -32,9 +36,9 @@ class ApplyButton extends StatelessWidget {
                         .add(ApplyLeaveSubmitFormEvent());
                   },
                   child: Text(
-                      AppLocalizations.of(context)
-                          .user_leaves_apply_leave_button_tag,
-                      style: AppFontStyle.buttonTextStyle
+                     context.l10n.
+                          user_leaves_apply_leave_button_tag,
+                      style: AppTextStyle.style14
                           .copyWith(color: AppColors.whiteColor))),
         ));
   }

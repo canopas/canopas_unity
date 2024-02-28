@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
@@ -16,21 +19,16 @@ class TotalDaysMsgBox extends StatelessWidget {
     return BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
       buildWhen: (previous, current) =>
           previous.totalLeaveDays != current.totalLeaveDays,
-      builder: (context, state) => Container(
-        margin: const EdgeInsets.symmetric(
-            vertical: primaryHalfSpacing, horizontal: primarySpacing),
-        height: MediaQuery.of(context).size.height * 0.08,
-        width: MediaQuery.of(context).size.width,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.primaryBlue.withOpacity(0.10),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          DateFormatter(AppLocalizations.of(context))
-              .getLeaveDurationPresentationLong(state.totalLeaveDays),
-          style:
-              AppFontStyle.labelRegular.copyWith(color: AppColors.primaryBlue),
+      builder: (context, state) => Align(alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16,top: 8,bottom: 20),
+          child: Text(
+          "  *${DateFormatter(context.l10n)
+                  .getLeaveDurationPresentationLong(state.totalLeaveDays)
+            }",
+            style:
+                AppTextStyle.style16.copyWith(color: awarenessColor),
+          ),
         ),
       ),
     );

@@ -19,6 +19,7 @@ const Color surfaceColor=  Color(0xFFFFFFFF);
  const Color primaryLightColor =  Color(0xff5966EA);
 const Color secondaryLightColor =  Color(0xff3B3561);
 const Color tertiaryLightColor =  Color(0xffFAC05E);
+const Color awarenessColor= Color(0xffD39800);
 
 const Color approveLeaveColor= Color(0xff47A96E);
 const Color rejectLeaveColor= Color(0xffCA2F27);

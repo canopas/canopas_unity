@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -17,61 +20,42 @@ class LeaveTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
-    return Container(
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primarySpacing),
-      padding: const EdgeInsets.all(primaryVerticalSpacing)
-          .copyWith(left: primaryHorizontalSpacing),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
-      child: Material(
-        color: AppColors.whiteColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Material(
+      color: AppColors.whiteColor,
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                localization.user_leaves_apply_leave_type_tag,
-                style: AppFontStyle.labelGrey,
+                context.l10n.user_leaves_apply_leave_type_tag,
+                style:AppTextStyle.style14.copyWith(color: textDisabledColor),
               ),
             ),
-            Expanded(
-              flex: 12,
-              child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-                buildWhen: (previous, current) =>
-                    previous.leaveType != current.leaveType,
-                builder: (context, state) => DropdownButtonHideUnderline(
-                  child: DropdownButton<LeaveType>(
-                    isExpanded: true,
-                    icon: const Icon(Icons.arrow_drop_down),
-                    borderRadius: BorderRadius.circular(12),
-                    items: LeaveType.values.map((leaveType) {
-                      return DropdownMenuItem<LeaveType>(
-                        value: leaveType,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: primaryHalfSpacing,
-                            ),
-                            Flexible(
-                              child: Text(
-                                  localization.leave_type_placeholder_text(
-                                      leaveType.value.toString())),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                    value: state.leaveType,
-                    onChanged: (LeaveType? leaveType) {
-                      context.read<ApplyLeaveBloc>().add(
-                          ApplyLeaveChangeLeaveTypeEvent(leaveType: leaveType));
-                    },
-                  ),
+            BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
+              buildWhen: (previous, current) =>
+                  previous.leaveType != current.leaveType,
+              builder: (context, state) => ButtonTheme(
+                alignedDropdown: true,
+                child: DropdownButton<LeaveType>(
+                  dropdownColor: surfaceColor,
+                  isExpanded: true,
+                  icon: const Icon(Icons.arrow_drop_down),
+                  items: LeaveType.values.map((leaveType) {
+                    return DropdownMenuItem<LeaveType>(
+                      value: leaveType,
+                      child: Text(
+                          context.l10n.leave_type_placeholder_text(
+                              leaveType.value.toString()),style: AppTextStyle.style18,),
+                    );
+                  }).toList(),
+                  value: state.leaveType,
+                  onChanged: (LeaveType? leaveType) {
+                    context.read<ApplyLeaveBloc>().add(
+                        ApplyLeaveChangeLeaveTypeEvent(leaveType: leaveType));
+                  },
                 ),
               ),
             ),

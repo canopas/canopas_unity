@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/bottom_button.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/date_range_selection_leave_request.dart';
 import 'package:projectunity/ui/user/leaves/apply_leave/widget/date_selection_buttons.dart';
@@ -37,12 +39,8 @@ class ApplyLeaveScreen extends StatefulWidget {
 class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   @override
   Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(localization.user_leaves_apply_appbar_tag),
-      ),
+    return AppPage(
+      title: context.l10n.user_leaves_apply_appbar_tag,
       body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
         listenWhen: (previous, current) =>
             current.isFailure || current.leaveRequestStatus == Status.success,
@@ -52,7 +50,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
           } else if (state.leaveRequestStatus == Status.success) {
             showSnackBar(
                 context: context,
-                msg: localization.user_leaves_apply_leave_success_message);
+                msg: context.l10n.user_leaves_apply_leave_success_message);
             context.pop(state.leaveId);
           }
         },
@@ -67,7 +65,6 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const ApplyButton(),
     );
   }
