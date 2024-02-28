@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/leave_card_status_view.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
@@ -22,9 +25,13 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     String appliedOnPresentation = DateFormatter(AppLocalizations.of(context))
         .timeAgoPresentation(appliedOn);
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: primaryHorizontalSpacing, vertical: primaryHalfSpacing),
+    return Container(
+      margin: const EdgeInsets.all( 16),
+      padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      color: leaveStatusColor(status).withOpacity(0.1)
+    ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -32,14 +39,14 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizations.of(context)
+                context.l10n
                     .leave_type_placeholder_text(leaveType.value.toString()),
-                style: AppFontStyle.titleDark,
+                style: AppTextStyle.style20,
               ),
               const SizedBox(height: 2),
               Text(
                 appliedOnPresentation,
-                style: AppFontStyle.labelGrey,
+                style: AppTextStyle.style14.copyWith(color: textDisabledColor)      ,
               ),
             ],
           ),

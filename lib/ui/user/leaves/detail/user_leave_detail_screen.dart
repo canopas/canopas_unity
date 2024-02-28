@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
@@ -52,12 +53,8 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).details_tag),
-      ),
+    return AppPage(
+      title: AppLocalizations.of(context).details_tag,
       body: BlocConsumer<UserLeaveDetailBloc, UserLeaveDetailState>(
           listenWhen: (previous, current) =>
               current is UserLeaveDetailErrorState ||

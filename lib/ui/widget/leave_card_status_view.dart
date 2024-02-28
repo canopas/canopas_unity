@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
 import '../../data/model/leave/leave.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
+import '../../style/colors.dart';
 
 class LeaveStatusView extends StatelessWidget {
   final double verticalPadding;
@@ -18,35 +21,28 @@ class LeaveStatusView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: leaveStatusColor(status),
-      ),
-      padding: EdgeInsets.symmetric(
-          vertical: verticalPadding, horizontal: horizontalPadding),
-      child: Row(
-        children: [
-          LeaveStatusIcon(status: status),
-          const SizedBox(width: 5),
-          Text(
-            AppLocalizations.of(context)
-                .leave_status_placeholder_text(status.value.toString()),
-            style: AppFontStyle.labelRegular,
+    return Row(
+      children: [
+        LeaveStatusIcon(status: status),
+        const SizedBox(width: 5),
+        Text(
+          AppLocalizations.of(context).leave_status_placeholder_text(
+            status.value.toString(),
           ),
-        ],
-      ),
+          style: AppTextStyle.style16.copyWith(color: leaveStatusColor(status)),
+        ),
+      ],
     );
   }
 }
 
 Color leaveStatusColor(LeaveStatus leaveStatus) {
   if (leaveStatus == LeaveStatus.approved) {
-    return const Color(0xffB6F5D4);
+    return approveLeaveColor;
   } else if (leaveStatus == LeaveStatus.pending) {
-    return const Color(0xffF5F5F5);
+    return pendingLeaveColor;
   }
-  return const Color(0xffFFE5E1);
+  return rejectLeaveColor;
 }
 
 class LeaveStatusIcon extends StatelessWidget {
@@ -58,13 +54,12 @@ class LeaveStatusIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     if (status == LeaveStatus.approved) {
       return const Icon(Icons.done_all_rounded,
-          color: AppColors.greenColor, size: 20);
+          color: approveLeaveColor, size: 20);
     } else if (status == LeaveStatus.rejected) {
-      return const Icon(Icons.clear_rounded,
-          color: AppColors.redColor, size: 20);
+      return const Icon(Icons.clear_rounded, color: rejectLeaveColor, size: 20);
     } else if (status == LeaveStatus.cancelled) {
       return const Icon(Icons.do_disturb_rounded,
-          color: AppColors.redColor, size: 20);
+          color: rejectLeaveColor, size: 20);
     }
     return const Icon(Icons.query_builder,
         color: AppColors.blackColor, size: 20);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
 
@@ -18,14 +20,14 @@ class ReasonField extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppFontStyle.labelGrey,
+            style: AppTextStyle.style18.copyWith(color: textDisabledColor)
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
             reason,
-            style: AppFontStyle.labelRegular,
+            style: AppTextStyle.style16,
           )
         ],
       ),

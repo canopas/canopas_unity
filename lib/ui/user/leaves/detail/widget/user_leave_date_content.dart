@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/style/app_text_style.dart';
 
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
@@ -23,8 +24,7 @@ class UserLeaveRequestDateContent extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(primaryHorizontalSpacing),
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
+      margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: AppTheme.commonBorderRadius,
@@ -34,8 +34,8 @@ class UserLeaveRequestDateContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(duration, style: AppFontStyle.labelRegular),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          Text(duration, style: AppTextStyle.style18),
+          const SizedBox(height: 10),
           Text(
             totalDays,
             style: AppFontStyle.bodySmallHeavy

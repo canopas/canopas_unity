@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../data/configs/colors.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/configs/text_style.dart';
@@ -16,7 +20,6 @@ class PerDayDurationDateRange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localization = AppLocalizations.of(context);
     return perDayDurationWithDate.length > 2
         ? SingleChildScrollView(
             padding: const EdgeInsets.all(primaryVerticalSpacing),
@@ -26,27 +29,27 @@ class PerDayDurationDateRange extends StatelessWidget {
                   .map((date) => Container(
                         padding: const EdgeInsets.all(primaryHalfSpacing),
                         margin: const EdgeInsets.symmetric(
-                            horizontal: primaryVerticalSpacing),
+                          horizontal: primaryVerticalSpacing,
+                        ),
                         decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          boxShadow: AppTheme.commonBoxShadow,
-                          borderRadius: AppTheme.commonBorderRadius,
+                          border: Border.all(color: containerHighColor),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
                           children: [
                             Text(
-                              DateFormat('EEE', localization.localeName)
+                              DateFormat('EEE', context.l10n.localeName)
                                   .format(date.key),
                             ),
                             Text(
-                              DateFormat('d', localization.localeName)
+                              DateFormat('d', context.l10n.localeName)
                                   .format(date.key),
                               style: AppFontStyle.titleDark.copyWith(
                                 color: AppColors.primaryBlue,
                               ),
                             ),
                             Text(
-                              DateFormat('MMM', localization.localeName)
+                              DateFormat('MMM', context.l10n.localeName)
                                   .format(date.key),
                             ),
                             const SizedBox(
@@ -61,8 +64,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border:
-                                    Border.all(color: AppColors.primaryGray),
+                                border: Border.all(color: containerHighColor),
                               ),
                               child: Text(AppLocalizations.of(context)
                                   .leave_day_duration_tag(date.value.name)),
@@ -76,33 +78,31 @@ class PerDayDurationDateRange extends StatelessWidget {
         : Column(
             children: perDayDurationWithDate.entries
                 .map((date) => Container(
-                    width: double.infinity,
                     padding: const EdgeInsets.all(primaryHalfSpacing),
                     margin: const EdgeInsets.symmetric(
-                        vertical: primaryHalfSpacing,
-                        horizontal: primarySpacing),
+                      vertical: primaryHalfSpacing,
+                    ),
                     decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      boxShadow: AppTheme.commonBoxShadow,
-                      borderRadius: AppTheme.commonBorderRadius,
+                      border: Border.all(color: containerHighColor),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
                         Text(
-                            DateFormat('EEEE, ', localization.localeName)
+                            DateFormat('EEEE, ', context.l10n.localeName)
                                 .format(date.key),
-                            style: AppFontStyle.bodySmallRegular),
+                            style: AppTextStyle.style14),
                         Text(
-                          DateFormat('d ', localization.localeName)
+                          DateFormat('d ', context.l10n.localeName)
                               .format(date.key),
-                          style: AppFontStyle.bodySmallRegular.copyWith(
+                          style: AppTextStyle.style14.copyWith(
                               color: AppColors.primaryBlue,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          DateFormat('MMMM', localization.localeName)
+                          DateFormat('MMMM', context.l10n.localeName)
                               .format(date.key),
-                          style: AppFontStyle.bodySmallRegular,
+                          style: AppTextStyle.style14,
                         ),
                         const Spacer(),
                         Container(
@@ -114,10 +114,13 @@ class PerDayDurationDateRange extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.26,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppColors.primaryGray),
+                            border: Border.all(color: containerHighColor),
                           ),
-                          child: Text(AppLocalizations.of(context)
-                              .leave_day_duration_tag(date.value.name)),
+                          child: Text(
+                            AppLocalizations.of(context)
+                                .leave_day_duration_tag(date.value.name),
+                            style: AppTextStyle.style14,
+                          ),
                         )
                       ],
                     )))
