@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../widget/employee_details_textfield.dart';
@@ -37,7 +36,8 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
       children: [
         Text(
           locale.create_space_enter_space_details_text,
-          style: AppTextStyle.style20,
+          style: AppTextStyle.style20
+              .copyWith(color: context.colorScheme.textPrimary),
         ),
         const SizedBox(
           height: 30,
@@ -76,12 +76,11 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
             }),
         const SizedBox(height: 20),
         BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-            buildWhen: (previous, current) =>
-                previous.domain != current.domain,
+            buildWhen: (previous, current) => previous.domain != current.domain,
             builder: (context, state) {
               return FieldEntry(
-                hintText: AppLocalizations.of(context)
-                    .create_space_Website_url_label,
+                hintText:
+                    AppLocalizations.of(context).create_space_Website_url_label,
                 errorText: state.domainError
                     ? locale.create_space_invalid_website_url_error
                     : null,

@@ -40,44 +40,44 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
-        title: context.l10n.user_leaves_apply_appbar_tag,
-        body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
-          listenWhen: (previous, current) =>
-          current.isFailure || current.leaveRequestStatus == Status.success,
-          listener: (context, state) {
-            if (state.isFailure) {
-              showSnackBar(context: context, error: state.error);
-            } else if (state.leaveRequestStatus == Status.success) {
-              showSnackBar(
-                  context: context,
-                  msg: context.l10n.user_leaves_apply_leave_success_message);
-              context.pop(state.leaveId);
-            }
-          },
-          child: ListView(
-            padding: const EdgeInsets.only(top: primaryHalfSpacing, bottom: 80),
-            children: const [
-              LeaveTypeCard(),
-              LeaveRequestDateSelection(),
-              LeaveRequestDateRange(),
-              TotalDaysMsgBox(),
-              LeaveRequestReasonCard(),
-            ],
-          ),
+      title: context.l10n.user_leaves_apply_appbar_tag,
+      body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
+        listenWhen: (previous, current) =>
+            current.isFailure || current.leaveRequestStatus == Status.success,
+        listener: (context, state) {
+          if (state.isFailure) {
+            showSnackBar(context: context, error: state.error);
+          } else if (state.leaveRequestStatus == Status.success) {
+            showSnackBar(
+                context: context,
+                msg: context.l10n.user_leaves_apply_leave_success_message);
+            context.pop(state.leaveId);
+          }
+        },
+        child: ListView(
+          padding: const EdgeInsets.only(top: primaryHalfSpacing, bottom: 80),
+          children: const [
+            LeaveTypeCard(),
+            LeaveRequestDateSelection(),
+            LeaveRequestDateRange(),
+            TotalDaysMsgBox(),
+            LeaveRequestReasonCard(),
+          ],
         ),
-        floatingActionButton: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-          builder: (context, state) =>
-              Padding(
+      ),
+      floatingActionButton: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
+          builder: (context, state) => Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: AppButton(tag: context.l10n.
-                user_leaves_apply_leave_button_tag, onTap: ()
-                          { context
-                .read<ApplyLeaveBloc>()
-                .add(ApplyLeaveSubmitFormEvent());},
-                          loading: state.leaveRequestStatus == Status.loading,),
-              )
-
-    ),
+                child: AppButton(
+                  tag: context.l10n.user_leaves_apply_leave_button_tag,
+                  onTap: () {
+                    context
+                        .read<ApplyLeaveBloc>()
+                        .add(ApplyLeaveSubmitFormEvent());
+                  },
+                  loading: state.leaveRequestStatus == Status.loading,
+                ),
+              )),
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../style/colors.dart';
 import '../bloc/apply_leave_bloc.dart';
@@ -38,16 +37,18 @@ class LeaveRequestDateRange extends StatelessWidget {
                         children: [
                           Text(
                             DateFormat('EEEE, ', locale).format(date.key),
-                            style: AppTextStyle.style14,
+                            style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary),
                           ),
                           Text(
                             DateFormat('d ', locale).format(date.key),
                             style: AppTextStyle.style20
-                                .copyWith(color: primaryLightColor),
+                                .copyWith(color: context.colorScheme.primary),
                           ),
                           Text(
                             DateFormat('MMMM', locale).format(date.key),
-                            style: AppTextStyle.style14,
+                            style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary),
                           ),
                           const Spacer(),
                           LeaveTimePeriodBox(
@@ -73,15 +74,17 @@ class LeaveRequestDateRange extends StatelessWidget {
                             children: [
                               Text(
                                 DateFormat('EEE', locale).format(date.key),
-                                style: AppTextStyle.style14,
+                                style: AppTextStyle.style14.copyWith(
+                                    color: context.colorScheme.textPrimary),
                               ),
                               Text(
                                 DateFormat('d', locale).format(date.key),
-                                style: AppTextStyle.style20
-                                    .copyWith(color: primaryLightColor),
+                                style: AppTextStyle.style20.copyWith(
+                                    color: context.colorScheme.primary),
                               ),
                               Text(DateFormat('MMM', locale).format(date.key),
-                                  style: AppTextStyle.style14),
+                                  style: AppTextStyle.style14.copyWith(
+                                      color: context.colorScheme.textPrimary)),
                               const SizedBox(
                                 height: primaryVerticalSpacing,
                               ),
@@ -117,11 +120,11 @@ class LeaveTimePeriodBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Material(
-        color: AppColors.whiteColor,
+        color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<LeaveDayDuration>(
-            dropdownColor: surfaceColor,
+            dropdownColor: context.colorScheme.surface,
             isExpanded: true,
             iconSize: 0.0,
             icon: const SizedBox(),

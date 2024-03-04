@@ -1,88 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 
 import '../../../gen/assets.gen.dart';
-import '../../../style/colors.dart';
 import '../../navigation/app_router.dart';
 
-class BottomNavigationItem  {
+class BottomNavigationItem {
   final String initialLocation;
   final String tabIcon;
   final String tabActiveIcon;
   final String label;
 
-
   BottomNavigationItem(
-      {required  this.tabIcon,
+      {required this.tabIcon,
       required this.initialLocation,
       required this.tabActiveIcon,
       required this.label});
 
-
   BottomNavigationBarItem toBottomNavigationItem(BuildContext context) {
     return BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-          tabIcon,
+      icon: SvgPicture.asset(tabIcon,
           width: 20,
           height: 20,
-          colorFilter: const ColorFilter.mode(textDisabledColor, BlendMode.srcIn)
-      ),
+          colorFilter: ColorFilter.mode(
+              context.colorScheme.textPrimary, BlendMode.srcIn)),
       label: label,
       activeIcon: Container(
-          padding: const EdgeInsets.symmetric(horizontal:20,vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           decoration: BoxDecoration(
-              color: primaryLightColor,
-              borderRadius: BorderRadius.circular(20)
-          ),
-          child:SvgPicture.asset(tabActiveIcon,
+              color: context.colorScheme.primary,
+              borderRadius: BorderRadius.circular(20)),
+          child: SvgPicture.asset(
+            tabActiveIcon,
             width: 20,
             height: 20,
-            colorFilter: const ColorFilter.mode(surfaceColor, BlendMode.srcIn),
-          )
-      ),);
+            colorFilter:
+                ColorFilter.mode(context.colorScheme.surface, BlendMode.srcIn),
+          )),
+    );
   }
-
 }
 
-List<BottomNavigationItem> userTabs= [
+List<BottomNavigationItem> userTabs = [
   BottomNavigationItem(
-          tabIcon: Assets.images.icHome,
-          tabActiveIcon: Assets.images.icHome,
-          label: "Home",
-          initialLocation: Routes.userHome,
-          ),
+    tabIcon: Assets.images.icHome,
+    tabActiveIcon: Assets.images.icHome,
+    label: "Home",
+    initialLocation: Routes.userHome,
+  ),
   BottomNavigationItem(
-          tabIcon: Assets.images.icCalendar,
-          tabActiveIcon: Assets.images.icCalendar,
-          label: "Leaves",
-          initialLocation: Routes.userLeaves,
-          ),
+    tabIcon: Assets.images.icCalendar,
+    tabActiveIcon: Assets.images.icCalendar,
+    label: "Leaves",
+    initialLocation: Routes.userLeaves,
+  ),
   BottomNavigationItem(
-          tabIcon: Assets.images.icUsers,
-          tabActiveIcon: Assets.images.icUsers,
-          label: "Members",
-          initialLocation: Routes.userMembers,
-         ),
-    ];
+    tabIcon: Assets.images.icUsers,
+    tabActiveIcon: Assets.images.icUsers,
+    label: "Members",
+    initialLocation: Routes.userMembers,
+  ),
+];
 
 List<BottomNavigationItem> adminTabs = [
   BottomNavigationItem(
-      tabIcon: Assets.images.icHome,
-      tabActiveIcon: Assets.images.icHome,
-      label: "Home",
-      initialLocation: Routes.adminHome,
-     ),
+    tabIcon: Assets.images.icHome,
+    tabActiveIcon: Assets.images.icHome,
+    label: "Home",
+    initialLocation: Routes.adminHome,
+  ),
   BottomNavigationItem(
-      tabIcon: Assets.images.icCalendar,
-      tabActiveIcon: Assets.images.icCalendar,
-      label: "Leaves",
-      initialLocation: Routes.adminLeaves,
-     ),
+    tabIcon: Assets.images.icCalendar,
+    tabActiveIcon: Assets.images.icCalendar,
+    label: "Leaves",
+    initialLocation: Routes.adminLeaves,
+  ),
   BottomNavigationItem(
-      tabIcon: Assets.images.icUsers,
-      tabActiveIcon: Assets.images.icUsers,
-      label: "Members",
-      initialLocation: Routes.adminMembers,
-      ),
+    tabIcon: Assets.images.icUsers,
+    tabActiveIcon: Assets.images.icUsers,
+    label: "Members",
+    initialLocation: Routes.adminMembers,
+  ),
 ];
-

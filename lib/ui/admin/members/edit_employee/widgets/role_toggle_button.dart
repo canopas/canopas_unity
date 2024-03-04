@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/style/app_text_style.dart';
 
 class ToggleButton extends StatelessWidget {
   final Role role;
@@ -21,9 +21,9 @@ class ToggleButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5),
         height: 60.0,
-        decoration: const BoxDecoration(
-          color: AppColors.textFieldBg,
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          color: context.colorScheme.containerNormal,
+          borderRadius: const BorderRadius.all(
             Radius.circular(12.0),
           ),
         ),
@@ -36,9 +36,9 @@ class ToggleButton extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               child: Container(
                 width: width,
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryDarkYellow,
-                  borderRadius: BorderRadius.all(
+                decoration: BoxDecoration(
+                  color: context.colorScheme.tertiary,
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),
                   ),
                 ),
@@ -58,7 +58,9 @@ class ToggleButton extends StatelessWidget {
                             localization.user_detail_role_type(
                                 roleTypeAlignment.key.name),
                             textAlign: TextAlign.start,
-                            style: AppFontStyle.bodySmallHeavy),
+                            style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary,
+                                fontWeight: FontWeight.w700)),
                       ),
                     ),
                   ),

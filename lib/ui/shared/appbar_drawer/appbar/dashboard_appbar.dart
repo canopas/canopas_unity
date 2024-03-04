@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/appbar/space_notifier_widget.dart';
-
-import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../style/app_text_style.dart';
-import '../../../widget/space_logo_view.dart';
-import '../../../widget/widget_validation.dart';
 import '../drawer/bloc/app_drawer_bloc.dart';
 import '../drawer/bloc/app_drawer_event.dart';
 
@@ -28,7 +23,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
       alignment: Alignment.bottomCenter,
-      decoration: const BoxDecoration(color: AppColors.whiteColor),
+      decoration: BoxDecoration(color: context.colorScheme.surface),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -40,7 +35,10 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     onTap();
                     context.read<DrawerBloc>().add(FetchSpacesEvent());
                   },
-                  child: const Icon(Icons.menu, color: textPrimaryColor,)),
+                  child: Icon(
+                    Icons.menu,
+                    color: context.colorScheme.textPrimary,
+                  )),
               const SizedBox(width: primaryHorizontalSpacing),
               Expanded(
                 child: SpaceNotifierWidget(
@@ -50,7 +48,8 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                       final String name =
                           SpaceNotifierWidget.of(context)?.name ?? "";
                       return Text(name,
-                          style: AppTextStyle.style20,
+                          style: AppTextStyle.style20
+                              .copyWith(color: context.colorScheme.textPrimary),
                           overflow: TextOverflow.ellipsis);
                     },
                   ),

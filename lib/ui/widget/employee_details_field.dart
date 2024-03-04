@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import '../../data/configs/space_constant.dart';
-import '../../data/configs/text_style.dart';
 
 class EmployeeDetailsField extends StatelessWidget {
   const EmployeeDetailsField(
@@ -23,12 +22,14 @@ class EmployeeDetailsField extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTextStyle.style14.copyWith(color: textDisabledColor),
+                  style: AppTextStyle.style14
+                      .copyWith(color: context.colorScheme.textDisabled),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   subtitle!,
-                  style: AppTextStyle.style18,
+                  style: AppTextStyle.style18
+                      .copyWith(color: context.colorScheme.textPrimary),
                 ),
               ],
             ),

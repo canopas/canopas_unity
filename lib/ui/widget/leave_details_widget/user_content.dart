@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../data/configs/space_constant.dart';
 import '../../../data/model/employee/employee.dart';
@@ -14,8 +15,7 @@ class UserContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing),
+      padding: const EdgeInsets.symmetric(vertical: primaryHalfSpacing),
       child: Row(
         children: [
           ImageProfile(radius: 30, imageUrl: employee.imageUrl),
@@ -28,7 +28,7 @@ class UserContent extends StatelessWidget {
               children: [
                 Text(
                   employee.name,
-                  style: AppFontStyle.labelRegular,
+                  style: AppTextStyle.style16,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
@@ -38,7 +38,8 @@ class UserContent extends StatelessWidget {
                   isValid: employee.designation.isNotNullOrEmpty,
                   child: Text(
                     employee.designation ?? '',
-                    style: AppFontStyle.bodySmallRegular,
+                    style: AppTextStyle.style14
+                        .copyWith(color: context.colorScheme.textPrimary),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/data/model/org_forms/org_form_field/org_form_field.dart';
 import 'package:projectunity/ui/admin/forms/create_form/bloc/create_form_bloc.dart';
@@ -14,6 +14,7 @@ import 'package:projectunity/ui/admin/forms/create_form/widget/org_field_questio
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../style/app_page.dart';
 import '../../../widget/circular_progress_indicator.dart';
 
 class CreateFromPage extends StatelessWidget {
@@ -49,47 +50,44 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundGrey,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).create_form_screen_title),
-        actions: [
-          BlocConsumer<CreateFormBloc, CreateFormState>(
-            listenWhen: (previous, current) =>
-                current.status == Status.error ||
-                current.status == Status.success,
-            listener: (context, state) {
-              if (state.status == Status.error && state.error != null) {
-                showSnackBar(context: context, error: state.error);
-              } else if (state.status == Status.success) {
-                showSnackBar(
-                    context: context,
-                    msg: AppLocalizations.of(context)
-                        .create_form_success_message);
-                context.pop(state.formId);
-              }
-            },
-            buildWhen: (previous, current) => previous.status != current.status,
-            builder: (context, state) => state.status == Status.loading
-                ? const Padding(
-                    padding: EdgeInsets.only(right: 30),
-                    child: AppCircularProgressIndicator(size: 20),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: TextButton(
-                        onPressed: () {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            context
-                                .read<CreateFormBloc>()
-                                .add(CreateNewFormEvent());
-                          }
-                        },
-                        child: Text(AppLocalizations.of(context).create_tag)),
-                  ),
-          )
-        ],
-      ),
+    return AppPage(
+      title: context.l10n.create_form_screen_title,
+      actions: [
+        BlocConsumer<CreateFormBloc, CreateFormState>(
+          listenWhen: (previous, current) =>
+              current.status == Status.error ||
+              current.status == Status.success,
+          listener: (context, state) {
+            if (state.status == Status.error && state.error != null) {
+              showSnackBar(context: context, error: state.error);
+            } else if (state.status == Status.success) {
+              showSnackBar(
+                  context: context,
+                  msg:
+                      AppLocalizations.of(context).create_form_success_message);
+              context.pop(state.formId);
+            }
+          },
+          buildWhen: (previous, current) => previous.status != current.status,
+          builder: (context, state) => state.status == Status.loading
+              ? const Padding(
+                  padding: EdgeInsets.only(right: 30),
+                  child: AppCircularProgressIndicator(size: 20),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          context
+                              .read<CreateFormBloc>()
+                              .add(CreateNewFormEvent());
+                        }
+                      },
+                      child: Text(AppLocalizations.of(context).create_tag)),
+                ),
+        )
+      ],
       body: Form(
           key: _formKey,
           child: LayoutBuilder(
@@ -101,8 +99,9 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
                         OrgCreateFormInfoView(
                             titleController: _titleController,
                             descriptionController: _descriptionController),
-                        const Divider(
-                            color: AppColors.darkGrey, thickness: 0.2),
+                        Divider(
+                            color: context.colorScheme.textDisabled,
+                            thickness: 0.2),
                         const QuestionsView(),
                         const CreateOrgFormAddFieldButton(),
                       ],

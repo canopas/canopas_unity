@@ -1,19 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
-import 'package:projectunity/data/core/extensions/double_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
-import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_count_card.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -87,24 +82,25 @@ class _UserLeaveScreenState extends State<UserLeaveScreen>
             return TabBar(
               padding: const EdgeInsets.only(bottom: 16),
               indicatorSize: TabBarIndicatorSize.tab,
-              labelStyle: AppTextStyle.style16,
+              labelStyle: AppTextStyle.style16
+                  .copyWith(color: context.colorScheme.textPrimary),
               labelPadding: const EdgeInsets.all(10),
               controller: _tabController,
               tabs: [
                 Text(
-                    "${context.l10n.leave_type_placeholder_text(LeaveType.casualLeave.value.toString())}(${casualLeaves})"),
+                    "${context.l10n.leave_type_placeholder_text(LeaveType.casualLeave.value.toString())}($casualLeaves)"),
                 Text(
-                  "${context.l10n.leave_type_placeholder_text(LeaveType.urgentLeave.value.toString())}(${urgentLeaves})",
+                  "${context.l10n.leave_type_placeholder_text(LeaveType.urgentLeave.value.toString())}($urgentLeaves)",
                 ),
               ],
             );
           }),
           BlocBuilder<UserLeaveBloc, UserLeaveState>(
               buildWhen: (previous, current) =>
-                  previous.status != current.status||
-                      previous.casualLeaves != current.casualLeaves||
-                      previous.urgentLeaves != current.urgentLeaves||
-                      previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
+                  previous.status != current.status ||
+                  previous.casualLeaves != current.casualLeaves ||
+                  previous.urgentLeaves != current.urgentLeaves ||
+                  previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
               builder: (context, state) {
                 if (state.status == Status.success) {
                   return Expanded(

@@ -21,9 +21,7 @@ void main() {
   late UserLeaveCountBloc userLeaveCountBloc;
 
   UserLeaveCountState loadingState = const UserLeaveCountState(
-      status: Status.loading,
-      usedLeavesCounts: LeaveCounts(),
-      error: null);
+      status: Status.loading, usedLeavesCounts: LeaveCounts(), error: null);
 
   const String employeeId = 'Employee Id';
 
@@ -31,8 +29,7 @@ void main() {
     leaveRepo = MockLeaveRepo();
     userStateNotifier = MockUserStateNotifier();
     spaceService = MockSpaceService();
-    userLeaveCountBloc =
-        UserLeaveCountBloc(leaveRepo, userStateNotifier);
+    userLeaveCountBloc = UserLeaveCountBloc(leaveRepo, userStateNotifier);
   });
 
   tearDown(() async {

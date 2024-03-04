@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
-import '../../data/configs/colors.dart';
-import '../../data/configs/text_style.dart';
 import '../../data/model/leave/leave.dart';
 import 'circular_progress_indicator.dart';
 import 'leave_card.dart';
@@ -16,16 +14,19 @@ class LeaveListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: surfaceColor,
+      color: context.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: AppTextStyle.style20),
+            Text(title,
+                style: AppTextStyle.style20
+                    .copyWith(color: context.colorScheme.textPrimary)),
             Text(
               count.toString(),
-              style:  AppTextStyle.style20,
+              style: AppTextStyle.style20
+                  .copyWith(color: context.colorScheme.textPrimary),
             )
           ],
         ),

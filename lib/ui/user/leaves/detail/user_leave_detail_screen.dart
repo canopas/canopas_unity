@@ -14,7 +14,6 @@ import 'package:projectunity/ui/user/leaves/detail/widget/response_note.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_content.dart';
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
@@ -91,7 +90,10 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                   ValidateWidget(
                     isValid: userIsAbleToSeeAllData,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8,),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8,
+                      ),
                       child: ReasonField(
                         title: localization.reason_tag,
                         reason: state.leave.reason,

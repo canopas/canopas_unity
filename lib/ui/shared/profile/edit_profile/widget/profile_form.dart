@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/pick_profile_image/pick_user_profile_image.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/date_time_picker.dart';
@@ -104,9 +104,9 @@ class GenderSelection extends StatelessWidget {
                   child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     foregroundColor: state.gender == Gender.male
-                        ? AppColors.darkText
-                        : AppColors.secondaryText,
-                    backgroundColor: AppColors.textFieldBg,
+                        ? context.colorScheme.textPrimary
+                        : context.colorScheme.textDisabled,
+                    backgroundColor: context.colorScheme.containerNormal,
                     shape: RoundedRectangleBorder(
                       borderRadius: AppTheme.commonBorderRadius,
                     )),
@@ -115,7 +115,8 @@ class GenderSelection extends StatelessWidget {
                 },
                 child: Text(
                   localization.gender_male_tag,
-                  style: AppFontStyle.labelRegular,
+                  style: AppTextStyle.style16
+                      .copyWith(color: context.colorScheme.textPrimary),
                 ),
               )),
               const SizedBox(
@@ -128,15 +129,16 @@ class GenderSelection extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                     foregroundColor: state.gender == Gender.female
-                        ? AppColors.darkText
-                        : AppColors.secondaryText,
-                    backgroundColor: AppColors.textFieldBg,
+                        ? context.colorScheme.textPrimary
+                        : context.colorScheme.textDisabled,
+                    backgroundColor: context.colorScheme.containerNormal,
                     shape: RoundedRectangleBorder(
                       borderRadius: AppTheme.commonBorderRadius,
                     )),
                 child: Text(
                   localization.gender_female_tag,
-                  style: AppFontStyle.labelRegular,
+                  style: AppTextStyle.style16
+                      .copyWith(color: context.colorScheme.textPrimary),
                 ),
               )),
             ],
@@ -157,10 +159,10 @@ class DateOfBirthButton extends StatelessWidget {
           previous.dateOfBirth != current.dateOfBirth,
       builder: (context, state) => ElevatedButton(
           style: ElevatedButton.styleFrom(
-              foregroundColor: AppColors.darkText,
+              foregroundColor: context.colorScheme.textDisabled,
               fixedSize: Size(MediaQuery.of(context).size.width, 50),
               alignment: Alignment.centerLeft,
-              backgroundColor: AppColors.textFieldBg,
+              backgroundColor: context.colorScheme.containerNormal,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               )),
@@ -172,13 +174,13 @@ class DateOfBirthButton extends StatelessWidget {
                 EditProfileChangeDateOfBirthEvent(dateOfBirth: pickedDate));
           },
           child: state.dateOfBirth != null
-              ? Text(
-                  localization.date_format_yMMMd(state.dateOfBirth!),
-                  style: AppFontStyle.labelRegular,
-                )
+              ? Text(localization.date_format_yMMMd(state.dateOfBirth!),
+                  style: AppTextStyle.style16
+                      .copyWith(color: context.colorScheme.textPrimary))
               : Text(
                   localization.user_settings_edit_select_tag,
-                  style: AppFontStyle.labelGrey,
+                  style: AppTextStyle.style16
+                      .copyWith(color: context.colorScheme.textPrimary),
                 )),
     );
   }

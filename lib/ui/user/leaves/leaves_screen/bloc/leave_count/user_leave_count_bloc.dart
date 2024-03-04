@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_cout_event.dart';
 import '../../../../../../data/core/exception/error_const.dart';
@@ -27,9 +26,9 @@ class UserLeaveCountBloc
           await _leaveRepo.getUserUsedLeaves(uid: _userManger.employeeId);
 
       emit(state.copyWith(
-          status: Status.success,
-          usedLeavesCounts: leaveCounts,
-         ));
+        status: Status.success,
+        usedLeavesCounts: leaveCounts,
+      ));
     } on Exception {
       emit(state.copyWith(
           status: Status.success, error: firestoreFetchDataError));

@@ -44,8 +44,6 @@ import 'package:projectunity/data/services/space_service.dart' as _i22;
 import 'package:projectunity/data/services/storage_service.dart' as _i23;
 import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manager.dart'
     as _i6;
-import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart'
-    as _i29;
 import 'package:projectunity/ui/admin/forms/create_form/bloc/create_form_bloc.dart'
     as _i47;
 import 'package:projectunity/ui/admin/forms/form_list/bloc/admin_form_list_bloc.dart'
@@ -78,6 +76,8 @@ import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i35;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
     as _i48;
+import 'package:projectunity/ui/space/edit_space/bloc/edit_space_bloc.dart'
+    as _i29;
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
     as _i33;
 import 'package:projectunity/ui/user/forms/form_list_screen/bloc/user_forms_list_screen_bloc.dart'

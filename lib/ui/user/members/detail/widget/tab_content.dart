@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
@@ -41,7 +42,9 @@ class TabContent extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8, left: 16),
                   child: Text(
                     localization.user_leave_upcoming_leaves_tag,
-                    style: AppFontStyle.titleDark,
+                    style: AppTextStyle.style20.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: context.colorScheme.textPrimary),
                   ),
                 ),
                 ListView.separated(

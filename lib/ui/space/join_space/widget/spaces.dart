@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/space_card.dart';
@@ -16,9 +14,9 @@ class Spaces extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
+    return BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
         buildWhen: (previous, current) =>
-        current.fetchSpaceStatus == Status.success ||
+            current.fetchSpaceStatus == Status.success ||
             current.fetchSpaceStatus == Status.error,
         builder: (context, state) {
           if (state.fetchSpaceStatus == Status.loading ||
@@ -28,8 +26,7 @@ class Spaces extends StatelessWidget {
               child: AppCircularProgressIndicator(),
             );
           } else {
-            if (state.ownSpaces.isEmpty &&
-                state.requestedSpaces.isEmpty) {
+            if (state.ownSpaces.isEmpty && state.requestedSpaces.isEmpty) {
               return Text(context.l10n.empty_space_list_msg);
             }
             return Expanded(
@@ -40,14 +37,13 @@ class Spaces extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: state.ownSpaces
                           .map((space) => SpaceCard(
-                        name: space.name,
-                        domain: space.domain,
-                        logo: space.logo,
-                        onPressed: () => context
-                            .read<JoinSpaceBloc>()
-                            .add(SelectSpaceEvent(
-                            space: space)),
-                      ))
+                                name: space.name,
+                                domain: space.domain,
+                                logo: space.logo,
+                                onPressed: () => context
+                                    .read<JoinSpaceBloc>()
+                                    .add(SelectSpaceEvent(space: space)),
+                              ))
                           .toList(),
                     ),
                   if (state.requestedSpaces.isNotEmpty)
@@ -55,22 +51,22 @@ class Spaces extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0),
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
                           child: Text(context.l10n.request_tag,
-                              style: AppTextStyle.style18),
+                              style: AppTextStyle.style18.copyWith(
+                                  color: context.colorScheme.textPrimary)),
                         ),
                         Column(
                           children: state.requestedSpaces
                               .map((space) => SpaceCard(
-                            name: space.name,
-                            domain: space.domain,
-                            logo: space.logo,
-                            onPressed: () => context
-                                .read<JoinSpaceBloc>()
-                                .add(JoinRequestedSpaceEvent(
-                                space: space)),
-                          ))
+                                    name: space.name,
+                                    domain: space.domain,
+                                    logo: space.logo,
+                                    onPressed: () => context
+                                        .read<JoinSpaceBloc>()
+                                        .add(JoinRequestedSpaceEvent(
+                                            space: space)),
+                                  ))
                               .toList(),
                         )
                       ],

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/leave_application.dart';
@@ -28,9 +27,9 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (status == Status.loading || status == Status.initial) {
-      return const Padding(
-        padding: EdgeInsets.all(43),
-        child: ThreeBounceLoading(size: 15, color: AppColors.primaryBlue),
+      return Padding(
+        padding: const EdgeInsets.all(43),
+        child: ThreeBounceLoading(size: 15, color: context.colorScheme.primary),
       );
     } else if (status == Status.success) {
       return absence.isEmpty
@@ -59,7 +58,7 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
                   height: 100,
                   width: 100,
                   child: Material(
-                    color: AppColors.whiteColor,
+                    color: context.colorScheme.surface,
                     borderRadius: AppTheme.commonBorderRadius,
                     child: InkWell(
                       borderRadius: AppTheme.commonBorderRadius,
@@ -85,7 +84,8 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
                             const SizedBox(height: 5),
                             Flexible(
                               child: Text(absence.employee.name,
-                                  style: AppTextStyle.style14,
+                                  style: AppTextStyle.style14.copyWith(
+                                      color: context.colorScheme.textPrimary),
                                   maxLines: 1,
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.clip),
@@ -117,14 +117,15 @@ class WhoIsOutAbsenceEmptyView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            locale.who_is_out_card_no_leave_present_title,
-            style: AppFontStyle.titleDark,
-          ),
+          Text(locale.who_is_out_card_no_leave_present_title,
+              style: AppTextStyle.style20.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: context.colorScheme.textPrimary)),
           const SizedBox(height: 5),
           Text(
             locale.who_is_out_card_no_leave_present_message,
-            style: AppFontStyle.labelGrey,
+            style: AppTextStyle.style16
+                .copyWith(color: context.colorScheme.textPrimary),
           ),
         ],
       ),

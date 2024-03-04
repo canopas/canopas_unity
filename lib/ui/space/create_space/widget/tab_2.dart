@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-
-import '../../../../data/configs/text_style.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../bloc/create_workspace_bloc.dart';
 import '../bloc/create_workspace_event.dart';
@@ -32,7 +31,8 @@ class _SetUpSpaceDetailsState extends State<SetUpSpaceDetails>
       children: [
         Text(
           locale.create_space_set_up_your_space_text,
-          style: AppTextStyle.style20,
+          style: AppTextStyle.style20
+              .copyWith(color: context.colorScheme.textPrimary),
         ),
         const SizedBox(
           height: 30,
@@ -42,8 +42,7 @@ class _SetUpSpaceDetailsState extends State<SetUpSpaceDetails>
                 previous.paidTimeOff != current.paidTimeOff,
             builder: (context, state) {
               return FieldEntry(
-                hintText:
-                    AppLocalizations.of(context).yearly_paid_time_off_tag,
+                hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
                 keyboardType: TextInputType.number,
                 maxLength: 2,
                 inputFormatters: <TextInputFormatter>[

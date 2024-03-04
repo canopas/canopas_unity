@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../data/configs/space_constant.dart';
 
 class BottomSheetTopSlider extends StatelessWidget {
@@ -13,7 +13,7 @@ class BottomSheetTopSlider extends StatelessWidget {
       width: 30,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: AppColors.primaryGray,
+        color: context.colorScheme.outlineColor,
       ),
     );
   }

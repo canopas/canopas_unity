@@ -24,5 +24,5 @@ class UserLeaveCountState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, usedLeavesCounts,error];
+  List<Object?> get props => [status, usedLeavesCounts, error];
 }

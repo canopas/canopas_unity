@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_page.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/admin/members/detail/widget/time_off_card.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/di/service_locator.dart';
@@ -30,7 +29,6 @@ class EmployeeDetailPage extends StatelessWidget {
     return BlocProvider<EmployeeDetailBloc>(
         create: (_) => getIt<EmployeeDetailBloc>()
           ..add(EmployeeDetailInitialLoadEvent(employeeId: id)),
-
         child: EmployeeDetailScreen(employeeId: id));
   }
 }
@@ -48,102 +46,94 @@ class EmployeeDetailScreen extends StatefulWidget {
 class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return AppPage(
-            title: context.l10n.details_tag,
-            actions: [
-              BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
-                builder: (context, state) {
-                  if (state is EmployeeDetailLoadedState) {
-                    return PopupMenuButton(
-                      color: surfaceColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+    return AppPage(
+        title: context.l10n.details_tag,
+        actions: [
+          BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
+            builder: (context, state) {
+              if (state is EmployeeDetailLoadedState) {
+                return PopupMenuButton(
+                  color: context.colorScheme.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 6,
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text(context.l10n.edit_tag),
+                      onTap: () {
+                        context.goNamed(
+                          Routes.adminEditEmployee,
+                          extra: state.employee,
+                        );
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: Text(
+                        state.employee.status == EmployeeStatus.active
+                            ? AppLocalizations.of(context).deactivate_tag
+                            : AppLocalizations.of(context).activate_tag,
                       ),
-                      elevation: 6,
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: Text(context.l10n.edit_tag),
-                          onTap: () {
-                            context.goNamed(Routes.adminEditEmployee,
-                                extra: state.employee,
-                              );
-                          },
-                        ),
-                        PopupMenuItem(
-                          child: Text(
-                            state.employee.status == EmployeeStatus.active
-                                ? AppLocalizations.of(context).deactivate_tag
-                                : AppLocalizations.of(context).activate_tag,
-                          ),
-                          onTap: () {
-                            if (state.employee.status == EmployeeStatus.inactive) {
-                              context.read<EmployeeDetailBloc>().add(
-                                  EmployeeStatusChangeEvent(
-                                      status: EmployeeStatus.active,
-                                      employeeId: widget.employeeId));
-                            } else {
-                              showAdaptiveDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AppAlertDialogue(
-                                        title: context.l10n.deactivate_tag,
-                                        actionButtonTitle:
-                                            context.l10n.deactivate_tag,
-                                        description: context.l10n
-                                            .deactivate_user_account_alert(
-                                                state.employee.name),
-                                        onActionButtonPressed: () {
-                                          context.read<EmployeeDetailBloc>().add(
-                                              EmployeeStatusChangeEvent(
-                                                  status: EmployeeStatus.inactive,
-                                                  employeeId: widget.employeeId));
-                                          Navigator.of(context).pop();
-                                        });
-                                  });
-                            }
-                          },
-                        ),
-                      ],
-                    );
-                  }
-                  return const SizedBox();
-                },
-              ),
-            ],
-            body: BlocConsumer<EmployeeDetailBloc, AdminEmployeeDetailState>(
-              builder: (BuildContext context, AdminEmployeeDetailState state) {
-                if (state is EmployeeDetailLoadingState) {
-                  return const AppCircularProgressIndicator();
-                } else if (state is EmployeeDetailLoadedState) {
-                  return ListView(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: primaryHorizontalSpacing),
-                      physics: const ClampingScrollPhysics(),
-                      children: [
-                        ProfileCard(employee: state.employee),
-                        ValidateWidget(
-                          isValid: state.employee.role != Role.admin,
-                          child: TimeOffCard(
-                            employee: state.employee,
-                            percentage: state.timeOffRatio,
-                            usedLeaves: state.usedLeaves,
-                          ),
-                        ),
-                        ProfileDetail(employee: state.employee),
-                      ]);
-                }
-                return const SizedBox();
-              },
-              listener: (BuildContext context, AdminEmployeeDetailState state) {
-                if (state is EmployeeDetailFailureState) {
-                  showSnackBar(context: context, error: state.error);
-                  context.pop();
-                }
-              },
-            ));
-      }
-    );
+                      onTap: () {
+                        if (state.employee.status == EmployeeStatus.inactive) {
+                          context.read<EmployeeDetailBloc>().add(
+                              EmployeeStatusChangeEvent(
+                                  status: EmployeeStatus.active,
+                                  employeeId: widget.employeeId));
+                        } else {
+                          showAppAlertDialog(
+                              context: context,
+                              title: context.l10n.deactivate_tag,
+                              actionButtonTitle: context.l10n.deactivate_tag,
+                              description: context.l10n
+                                  .deactivate_user_account_alert(
+                                      state.employee.name),
+                              onActionButtonPressed: () {
+                                context.read<EmployeeDetailBloc>().add(
+                                    EmployeeStatusChangeEvent(
+                                        status: EmployeeStatus.inactive,
+                                        employeeId: widget.employeeId));
+                              });
+                        }
+                      },
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ],
+        body: BlocConsumer<EmployeeDetailBloc, AdminEmployeeDetailState>(
+          builder: (BuildContext context, AdminEmployeeDetailState state) {
+            if (state is EmployeeDetailLoadingState) {
+              return const AppCircularProgressIndicator();
+            } else if (state is EmployeeDetailLoadedState) {
+              return ListView(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: primaryHorizontalSpacing),
+                  physics: const ClampingScrollPhysics(),
+                  children: [
+                    ProfileCard(employee: state.employee),
+                    ValidateWidget(
+                      isValid: state.employee.role != Role.admin,
+                      child: TimeOffCard(
+                        employee: state.employee,
+                        percentage: state.timeOffRatio,
+                        usedLeaves: state.usedLeaves,
+                      ),
+                    ),
+                    ProfileDetail(employee: state.employee),
+                  ]);
+            }
+            return const SizedBox();
+          },
+          listener: (BuildContext context, AdminEmployeeDetailState state) {
+            if (state is EmployeeDetailFailureState) {
+              showSnackBar(context: context, error: state.error);
+              context.pop();
+            }
+          },
+        ));
   }
 }

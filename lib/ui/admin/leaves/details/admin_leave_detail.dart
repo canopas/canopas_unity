@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_state.dart';
@@ -12,7 +11,6 @@ import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_response_text_field.dart';
 import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_used_leave_count_view.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/employee/employee.dart';
@@ -77,8 +75,7 @@ class _AdminLeaveApplicationDetailScreenState
           }
         },
         child: ListView(
-          padding: const EdgeInsets.only(
-              bottom: 100, top: primaryHalfSpacing),
+          padding: const EdgeInsets.only(bottom: 100, top: primaryHalfSpacing),
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -113,8 +110,8 @@ class _AdminLeaveApplicationDetailScreenState
                     ),
                   ),
                   ValidateWidget(
-                    isValid:
-                    (widget.leaveApplication.leave.response ?? "").isNotEmpty,
+                    isValid: (widget.leaveApplication.leave.response ?? "")
+                        .isNotEmpty,
                     child: ReasonField(
                       reason: (widget.leaveApplication.leave.response ?? ""),
                       title: localization.admin_leave_detail_note_tag,
@@ -122,13 +119,14 @@ class _AdminLeaveApplicationDetailScreenState
                   ),
                   ValidateWidget(
                       isValid: !(getIt<UserStateNotifier>().isHR &&
-                          widget.leaveApplication.employee.role == Role.hr) &&
-                          widget.leaveApplication.leave.status == LeaveStatus.pending,
+                              widget.leaveApplication.employee.role ==
+                                  Role.hr) &&
+                          widget.leaveApplication.leave.status ==
+                              LeaveStatus.pending,
                       child: const ApproveRejectionMessage()),
                 ],
               ),
             ),
-
           ],
         ),
       ),

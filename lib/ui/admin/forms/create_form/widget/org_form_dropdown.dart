@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 
 class OrgFormDropDownButton<T> extends StatelessWidget {
   final T? value;
@@ -17,7 +17,7 @@ class OrgFormDropDownButton<T> extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: AppColors.dividerColor),
+        border: Border.all(color: context.colorScheme.outlineColor),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<T>(

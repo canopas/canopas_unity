@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/style/app_page.dart';
@@ -39,11 +40,14 @@ class ViewProfileScreen extends StatelessWidget {
       title: localization.admin_employee_detail_profile_tag,
       actions: [
         TextButton(
-          onPressed: () => context.pushNamed(
-              getIt<UserStateNotifier>().isAdmin
-                  ? Routes.adminEditProfile
-                  : Routes.userEditProfile),
-          child: Text(localization.edit_tag, style: AppTextStyle.style16,),
+          onPressed: () => context.pushNamed(getIt<UserStateNotifier>().isAdmin
+              ? Routes.adminEditProfile
+              : Routes.userEditProfile),
+          child: Text(
+            localization.edit_tag,
+            style: AppTextStyle.style16
+                .copyWith(color: context.colorScheme.textPrimary),
+          ),
         ),
       ],
       body: BlocConsumer<ViewProfileBloc, ViewProfileState>(

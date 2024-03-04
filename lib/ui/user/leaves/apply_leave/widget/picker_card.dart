@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
-import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/gen/assets.gen.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/colors.dart';
-
-import '../../../../../data/configs/colors.dart';
 
 class DatePickerCard extends StatelessWidget {
   final Function() onPress;
@@ -41,20 +38,27 @@ class DatePickerCard extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 Assets.images.icCalendar,
-                colorFilter: const ColorFilter.mode(
-                    textDisabledColor, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(
+                    context.colorScheme.textDisabled, BlendMode.srcIn),
               ),
-              const SizedBox(width: 10,),
+              const SizedBox(
+                width: 10,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: AppTextStyle.style14.copyWith(color: textDisabledColor),
+                    style: AppTextStyle.style14
+                        .copyWith(color: context.colorScheme.textDisabled),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Text(localization.date_format_yMMMd(date),
-                      style: AppTextStyle.style18.copyWith(textBaseline: TextBaseline.alphabetic)),
+                      style: AppTextStyle.style18.copyWith(
+                          color: context.colorScheme.textPrimary,
+                          textBaseline: TextBaseline.alphabetic)),
                 ],
               ),
             ],

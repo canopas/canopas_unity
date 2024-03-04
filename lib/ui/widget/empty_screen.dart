@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../data/core/utils/const/image_constant.dart';
 
 class EmptyScreen extends StatelessWidget {
@@ -30,12 +31,17 @@ class EmptyScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            Text(title, style: AppFontStyle.titleDark),
+            Text(title,
+                style: AppTextStyle.style20.copyWith(
+                    color: context.colorScheme.textPrimary,
+                    fontWeight: FontWeight.w700)),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(message,
-                textAlign: TextAlign.center, style: AppFontStyle.labelGrey),
+                textAlign: TextAlign.center,
+                style: AppTextStyle.style16
+                    .copyWith(color: context.colorScheme.textDisabled)),
           ],
         ),
       ),

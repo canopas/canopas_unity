@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/configs/colors.dart';
-
-import '../../../../../data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../widget/space_logo_view.dart';
 
@@ -27,7 +26,7 @@ class DrawerSpaceCard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
-          color: isSelected ? AppColors.lightGreyColor : null,
+          color: isSelected ? context.colorScheme.containerHigh : null,
         ),
         child: Padding(
           padding: const EdgeInsets.all(5),
@@ -37,7 +36,8 @@ class DrawerSpaceCard extends StatelessWidget {
               const SizedBox(width: 10),
               Flexible(
                   child: Text(name,
-                      style: AppFontStyle.bodyLarge,
+                      style: AppTextStyle.style16
+                          .copyWith(color: context.colorScheme.textPrimary),
                       overflow: TextOverflow.ellipsis)),
             ],
           ),

@@ -24,7 +24,6 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
   bool _isLoadedMaxCasual = false;
   bool _isLoadedMaxUrgent = false;
 
-
   UserLeaveBloc(this._userManager, this._leaveRepo)
       : super(const UserLeaveState()) {
     on<LoadInitialUserLeaves>(_fetchInitialLeaves);
@@ -32,8 +31,8 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
     on<UpdateLeave>(_updateLeave);
   }
 
-  Future<void> _fetchInitialLeaves(LoadInitialUserLeaves event,
-      Emitter<UserLeaveState> emit) async {
+  Future<void> _fetchInitialLeaves(
+      LoadInitialUserLeaves event, Emitter<UserLeaveState> emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
       final casualPaginated = await _leaveRepo.leaves(
@@ -49,9 +48,9 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
           status: Status.success,
           urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.startDate),
           casualLeaves: casualLeaves.groupByMonth((leave) => leave.startDate)));
-    } on Exception{
+    } on Exception {
       _isLoadedMaxCasual = true;
-       _isLoadedMaxUrgent = true;
+      _isLoadedMaxUrgent = true;
       emit(state.copyWith(
         status: Status.error,
         error: firestoreFetchDataError,
@@ -59,24 +58,29 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
     }
   }
 
-  Future<void> _fetchMoreLeaves(FetchMoreUserLeaves event,
-      Emitter<UserLeaveState> emit) async {
-    if (state.fetchMoreDataStatus != Status.loading ) {
+  Future<void> _fetchMoreLeaves(
+      FetchMoreUserLeaves event, Emitter<UserLeaveState> emit) async {
+    if (state.fetchMoreDataStatus != Status.loading) {
       try {
-        if(event.leaveType==LeaveType.casualLeave && !_isLoadedMaxCasual){
+        if (event.leaveType == LeaveType.casualLeave && !_isLoadedMaxCasual) {
           emit(state.copyWith(fetchMoreDataStatus: Status.loading));
 
           await _fetchCasualLeaves(emit);
-         emit(state.copyWith(fetchMoreDataStatus: Status.success,
-             casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn)));
-        }else if(event.leaveType==LeaveType.urgentLeave && !_isLoadedMaxUrgent){
+          emit(state.copyWith(
+              fetchMoreDataStatus: Status.success,
+              casualLeaves:
+                  casualLeaves.groupByMonth((leave) => leave.appliedOn)));
+        } else if (event.leaveType == LeaveType.urgentLeave &&
+            !_isLoadedMaxUrgent) {
           emit(state.copyWith(fetchMoreDataStatus: Status.loading));
 
           await _fetchUrgentLeaves(emit);
-          emit(state.copyWith(fetchMoreDataStatus: Status.success,
-              casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn)));
+          emit(state.copyWith(
+              fetchMoreDataStatus: Status.success,
+              casualLeaves:
+                  casualLeaves.groupByMonth((leave) => leave.appliedOn)));
         }
-      } on Exception{
+      } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError, fetchMoreDataStatus: Status.error));
       }
@@ -97,40 +101,35 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
     }
   }
 
-    Future<void> _fetchUrgentLeaves(Emitter<UserLeaveState> emit) async {
-      final paginatedData = await _leaveRepo.leaves(
-          lastDoc: _urgentLastDoc,
-          uid: _userManager.employeeId,
-          leaveType: LeaveType.urgentLeave);
-      if (paginatedData.lastDoc == null) {
-        _isLoadedMaxUrgent = true;
-        emit(state.copyWith(fetchMoreDataStatus: Status.success));
-
-      } else {
-        _urgentLastDoc = paginatedData.lastDoc;
-        urgentLeaves.addAll(paginatedData.leaves);
-      }
-    }
-
-    Future<void> _updateLeave(UpdateLeave event,
-        Emitter<UserLeaveState> emit) async {
-      final leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
-      final leaves = state.casualLeaves.values.merge();
-      leaves.removeWhereAndAdd(
-          leave, (element) => element.leaveId == leave?.leaveId);
-      List<Leave> casualLeaves = leaves
-          .where((element) => element.type == LeaveType.casualLeave)
-          .toList();
-      List<Leave> urgentLeaves = leaves
-          .where((element) => element.type == LeaveType.urgentLeave)
-          .toList();
-      emit(state.copyWith(
-          casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn),
-          urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.appliedOn)));
-    }
-
-    @override
-    Future<void> close() {
-      return super.close();
+  Future<void> _fetchUrgentLeaves(Emitter<UserLeaveState> emit) async {
+    final paginatedData = await _leaveRepo.leaves(
+        lastDoc: _urgentLastDoc,
+        uid: _userManager.employeeId,
+        leaveType: LeaveType.urgentLeave);
+    if (paginatedData.lastDoc == null) {
+      _isLoadedMaxUrgent = true;
+      emit(state.copyWith(fetchMoreDataStatus: Status.success));
+    } else {
+      _urgentLastDoc = paginatedData.lastDoc;
+      urgentLeaves.addAll(paginatedData.leaves);
     }
   }
+
+  Future<void> _updateLeave(
+      UpdateLeave event, Emitter<UserLeaveState> emit) async {
+    final leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
+    final leaves = state.casualLeaves.values.merge();
+    leaves.removeWhereAndAdd(
+        leave, (element) => element.leaveId == leave?.leaveId);
+    List<Leave> casualLeaves = leaves
+        .where((element) => element.type == LeaveType.casualLeave)
+        .toList();
+    List<Leave> urgentLeaves = leaves
+        .where((element) => element.type == LeaveType.urgentLeave)
+        .toList();
+    emit(state.copyWith(
+        casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn),
+        urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.appliedOn)));
+  }
+
+}

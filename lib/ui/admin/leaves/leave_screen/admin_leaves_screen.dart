@@ -14,7 +14,6 @@ import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/leave_application.dart';
 import '../../../navigation/app_router.dart';
@@ -81,13 +80,15 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
         bloc.add(UpdateLeaveApplication(leaveId: leaveId));
       }
     }
+
     return AppPage(
       title: context.l10n.leaves_tag,
       body: Column(
         children: [
           const AdminLeavesFilter(),
           BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
-              listenWhen: (previous, current) => previous.error != current.error,
+              listenWhen: (previous, current) =>
+                  previous.error != current.error,
               listener: (context, state) {
                 if (state.error != null) {
                   showSnackBar(context: context, error: state.error);
@@ -104,7 +105,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                 }
                 return state.leaveApplicationMap.isNotEmpty
                     ? Expanded(
-                      child: ListView(
+                        child: ListView(
                           controller: _scrollController,
                           children: state.leaveApplicationMap.entries
                               .map((MapEntry<DateTime, List<LeaveApplication>>
@@ -114,8 +115,8 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                                         title: AppLocalizations.of(context)
                                             .date_format_yMMMM(
                                                 monthWiseLeaveApplications.key),
-                                        count:
-                                            monthWiseLeaveApplications.value.length,
+                                        count: monthWiseLeaveApplications
+                                            .value.length,
                                       ),
                                       content: MonthLeaveList(
                                         onCardTap: navigateToLeaveDetails,
@@ -125,13 +126,14 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
                                             state.selectedMember == null,
                                         isPaginationLoading:
                                             monthWiseLeaveApplications.key ==
-                                                    state.leaveApplicationMap.keys
-                                                        .last &&
-                                                state.fetchMoreData == Status.loading,
+                                                    state.leaveApplicationMap
+                                                        .keys.last &&
+                                                state.fetchMoreData ==
+                                                    Status.loading,
                                       )))
                               .toList(),
                         ),
-                    )
+                      )
                     : EmptyScreen(
                         title: AppLocalizations.of(context).no_leaves_tag,
                         message: AppLocalizations.of(context)

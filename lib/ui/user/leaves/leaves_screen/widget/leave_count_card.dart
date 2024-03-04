@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'package:projectunity/ui/widget/leave_count_view.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave/leave.dart';
 import '../../../../../style/colors.dart';
@@ -26,7 +24,7 @@ class LeaveCountCard extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: context.colorScheme.surface,
         boxShadow: AppTheme.commonBoxShadow,
         borderRadius: AppTheme.commonBorderRadius,
       ),
@@ -45,14 +43,17 @@ class LeaveCountCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(state.usedLeavesCounts.casualLeaves.fixedAt(2).toString(),
-                          style: AppFontStyle.titleDark),
+                      Text(
+                          state.usedLeavesCounts.casualLeaves
+                              .fixedAt(2)
+                              .toString(),
+                          style: AppTextStyle.style20),
                       const SizedBox(height: 4),
                       Text(
                         context.l10n.leave_type_placeholder_text(
                             LeaveType.casualLeave.value.toString()),
-                        style: AppFontStyle.bodyMedium
-                            .copyWith(color: AppColors.primaryBlue),
+                        style: AppTextStyle.style16
+                            .copyWith(color: context.colorScheme.primary),
                       )
                     ],
                   ),
@@ -66,14 +67,18 @@ class LeaveCountCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(state.usedLeavesCounts.urgentLeaves.fixedAt(2).toString(),
-                          style: AppFontStyle.titleDark),
+                      Text(
+                          state.usedLeavesCounts.urgentLeaves
+                              .fixedAt(2)
+                              .toString(),
+                          style: AppTextStyle.style20.copyWith(
+                              color: context.colorScheme.textPrimary)),
                       const SizedBox(height: 4),
                       Text(
                         context.l10n.leave_type_placeholder_text(
                             LeaveType.urgentLeave.value.toString()),
-                        style: AppFontStyle.bodyMedium
-                            .copyWith(color: AppColors.primaryBlue),
+                        style: AppTextStyle.style16
+                            .copyWith(color: context.colorScheme.primary),
                       )
                     ],
                   ),

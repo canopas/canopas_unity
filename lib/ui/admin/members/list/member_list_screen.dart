@@ -87,8 +87,9 @@ class _MemberListScreenState extends State<MemberListScreen> {
                                 child: Text(
                                   AppLocalizations.of(context)
                                       .inactive_members_title,
-                                  style: AppTextStyle.style20
-                                      .copyWith(fontWeight: FontWeight.w600),
+                                  style: AppTextStyle.style20.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: context.colorScheme.textPrimary),
                                 ),
                               ),
                               const Divider(height: 0),
@@ -132,8 +133,9 @@ class _MemberListScreenState extends State<MemberListScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Text(
                               context.l10n.invited_members_title,
-                              style: AppTextStyle.style20
-                                  .copyWith(fontWeight: FontWeight.w600),
+                              style: AppTextStyle.style20.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: context.colorScheme.textPrimary),
                             ),
                           ),
                           const Divider(

@@ -18,15 +18,17 @@ class LeaveRepo {
   Stream<List<Leave>> get pendingLeaves => _leaveService
       .allPendingLeaveRequests(spaceId: _userStateNotifier.currentSpaceId!);
 
-  Future<PaginatedLeaves> leaves(
-          {DocumentSnapshot<Leave>? lastDoc, String? uid,LeaveType? leaveType,}) async =>
+  Future<PaginatedLeaves> leaves({
+    DocumentSnapshot<Leave>? lastDoc,
+    String? uid,
+    LeaveType? leaveType,
+  }) async =>
       await _leaveService.leaves(
         leaveType,
         limit: 8,
         uid: uid,
         lastDoc: lastDoc,
         spaceId: _userStateNotifier.currentSpaceId!,
-
       );
 
   Stream<List<Leave>> userLeaveRequest(String uid) =>

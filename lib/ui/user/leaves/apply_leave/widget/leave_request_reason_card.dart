@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/colors.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
-import '../../../../../data/configs/theme.dart';
 import '../../../../../gen/assets.gen.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
@@ -31,7 +27,8 @@ class LeaveRequestReasonCard extends StatelessWidget {
               ),
               Text(
                 context.l10n.reason_tag,
-                style: AppTextStyle.style18,
+                style: AppTextStyle.style18
+                    .copyWith(color: context.colorScheme.textPrimary),
               )
             ],
           ),
@@ -49,8 +46,9 @@ class LeaveRequestReasonCard extends StatelessWidget {
                     current.reason != previous.reason ||
                     current.showTextFieldError != previous.showTextFieldError,
                 builder: (context, state) => TextField(
-                      style: AppTextStyle.style14,
-                      cursorColor: textDisabledColor,
+                      style: AppTextStyle.style14
+                          .copyWith(color: context.colorScheme.textPrimary),
+                      cursorColor: context.colorScheme.textDisabled,
                       maxLines: 5,
                       decoration: InputDecoration(
                         errorText: state.showTextFieldError

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
-
-import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
-import '../../data/configs/text_style.dart';
 
 class FieldTitle extends StatelessWidget {
   final String title;
@@ -17,7 +14,9 @@ class FieldTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Text(title,
-          textAlign: TextAlign.start, style: AppTextStyle.style16.copyWith(color: textDisabledColor)),
+          textAlign: TextAlign.start,
+          style: AppTextStyle.style16
+              .copyWith(color: context.colorScheme.textDisabled)),
     );
   }
 }
@@ -60,10 +59,11 @@ class FieldEntry extends StatelessWidget {
       decoration: InputDecoration(
         isCollapsed: true,
         contentPadding: const EdgeInsets.all(primaryHorizontalSpacing),
-        fillColor: textFieldBg,
+        fillColor: context.colorScheme.containerNormal,
         filled: true,
         errorText: errorText,
-        hintStyle: AppTextStyle.style16.copyWith(color: textDisabledColor),
+        hintStyle: AppTextStyle.style16
+            .copyWith(color: context.colorScheme.textDisabled),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide.none),

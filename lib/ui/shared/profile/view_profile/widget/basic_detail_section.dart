@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/colors.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../admin/members/detail/widget/profile_card.dart';
 import '../../../../widget/user_profile_image.dart';
@@ -29,7 +28,9 @@ class BasicDetailSection extends StatelessWidget {
           role: employee.role,
           employeeId: employee.employeeId,
         ),
-        const Divider(color: containerHighColor,)
+        const Divider(
+          color: containerHighColor,
+        )
       ]),
     );
   }
@@ -80,7 +81,6 @@ class ProfileSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -88,13 +88,15 @@ class ProfileSection extends StatelessWidget {
         ),
         Text(
           employee.name,
-          style: AppTextStyle.style20,
+          style: AppTextStyle.style20
+              .copyWith(color: context.colorScheme.textPrimary),
         ),
         ValidateWidget(
           isValid: employee.designation.isNotNullOrEmpty,
           child: Text(
             employee.designation ?? "",
-            style: AppTextStyle.style14.copyWith(color:textDisabledColor ),
+            style: AppTextStyle.style14
+                .copyWith(color: context.colorScheme.textDisabled),
             overflow: TextOverflow.ellipsis,
           ),
         )

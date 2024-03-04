@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../navigation/app_router.dart';
 import '../../../widget/employee_details_textfield.dart';
@@ -58,7 +58,8 @@ class _PersonalInfoState extends State<PersonalInfo>
           children: [
             Text(
               locale.create_space_enter_your_details_text,
-              style: AppFontStyle.titleDark,
+              style: AppTextStyle.style20
+                  .copyWith(color: context.colorScheme.textPrimary),
             ),
             const SizedBox(
               height: 30,

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../../../../data/configs/theme.dart';
 import '../bloc/org_form_field_update_data_model.dart';
 import '../bloc/create_form_bloc.dart';
@@ -22,7 +22,7 @@ class FormFieldImageView extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: AppColors.dividerColor),
+        border: Border.all(color: context.colorScheme.outlineColor),
         borderRadius: AppTheme.commonBorderRadius,
       ),
       child: Column(
@@ -32,9 +32,9 @@ class FormFieldImageView extends StatelessWidget {
             height: 200,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: AppColors.whiteColor,
+                color: context.colorScheme.surface,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.dividerColor),
+                border: Border.all(color: context.colorScheme.outlineColor),
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: kIsWeb

@@ -4,14 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/navigation/app_router.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_option.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_space_card.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_user_profile_card.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
@@ -51,10 +49,10 @@ class _AppDrawerState extends State<AppDrawer> {
       },
       child: Container(
         padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(30), topRight: Radius.circular(30)),
-          color: AppColors.whiteColor,
+          color: context.colorScheme.surface,
         ),
         constraints: const BoxConstraints(
           maxWidth: 300,
@@ -64,15 +62,17 @@ class _AppDrawerState extends State<AppDrawer> {
         width: MediaQuery.of(context).size.width * 0.8,
         child: SafeArea(
           child: Material(
-            color: AppColors.whiteColor,
+            color: context.colorScheme.surface,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UserProfileCard(
                   currentEmployee: userManager.employee,
-                  isAdminOrHr:  userManager.isAdmin || userManager.isHR,
+                  isAdminOrHr: userManager.isAdmin || userManager.isHR,
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 SpaceList(
                     userEmail: userManager.userEmail!,
                     currentSpaceId: userManager.currentSpaceId),
@@ -135,7 +135,7 @@ class DrawerOptionList extends StatelessWidget {
                 previous.signOutStatus != current.signOutStatus,
             builder: (context, state) => DrawerOption(
               icon: Icons.logout_rounded,
-              iconColor: redColor,
+              iconColor: context.colorScheme.rejectColor,
               title: locale.sign_out_from_text(currentSpaceName),
               onTap: () =>
                   context.read<DrawerBloc>().add(SignOutFromSpaceEvent()),
@@ -163,8 +163,8 @@ class SpaceList extends StatelessWidget {
               previous.fetchSpacesStatus != current.fetchSpacesStatus,
           builder: (context, state) {
             if (state.fetchSpacesStatus == Status.loading) {
-              return const ThreeBounceLoading(
-                color: AppColors.primaryBlue,
+              return ThreeBounceLoading(
+                color: context.colorScheme.primary,
                 size: 20,
               );
             } else if (state.fetchSpacesStatus == Status.success) {
@@ -175,8 +175,8 @@ class SpaceList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(context.l10n.spaces_title,
-                      style:
-                         AppTextStyle.style20),
+                      style: AppTextStyle.style20
+                          .copyWith(color: context.colorScheme.textPrimary)),
                   Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.only(top: 10),

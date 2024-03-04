@@ -2,22 +2,23 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/colors.dart';
 
 class ImageProfile extends StatelessWidget {
   final String? imageUrl;
   final double radius;
   final Color backgroundColor;
-  final Color iconColor;
+  final Color? iconColor;
   final String? pickedImage;
 
   const ImageProfile(
       {Key? key,
       this.imageUrl,
       required this.radius,
-      this.backgroundColor = AppColors.dividerColor,
+      this.backgroundColor = containerHighColor,
       this.pickedImage,
-      this.iconColor = AppColors.greyColor})
+      this.iconColor})
       : super(key: key);
 
   ImageProvider? setImage() {
@@ -41,7 +42,9 @@ class ImageProfile extends StatelessWidget {
       backgroundImage: setImage(),
       child: (setImage() != null)
           ? null
-          : Icon(Icons.person, size: radius, color: iconColor),
+          : Icon(Icons.person,
+              size: radius,
+              color: iconColor ?? context.colorScheme.containerHigh),
     );
   }
 }

@@ -9,21 +9,18 @@ import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../navigation/app_router.dart';
-import '../../../../widget/circular_progress_indicator.dart';
-import '../../../../widget/error_snack_bar.dart';
 import '../bloc/leaves/user_leave_bloc.dart';
-import '../bloc/leaves/user_leave_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class LeaveList extends StatefulWidget {
   final Map<DateTime, List<Leave>> leaves;
   final LeaveType leaveType;
   final Status status;
 
-  const LeaveList({Key? key,
-    required this.leaves,
-    required this.leaveType,
-    required this.status})
+  const LeaveList(
+      {Key? key,
+      required this.leaves,
+      required this.leaveType,
+      required this.status})
       : super(key: key);
 
   @override
@@ -66,28 +63,29 @@ class _LeaveListState extends State<LeaveList> {
         bloc.add(UpdateLeave(leaveId: leaveId));
       }
     }
+
     return widget.leaves.isNotEmpty
         ? ListView(
-        controller: _scrollController,
-        children: widget.leaves.entries
-            .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
-            StickyHeader(
-                header: LeaveListHeader(
-                  title: context.l10n
-                      .date_format_yMMMM(monthWiseLeaves.key),
-                  count: monthWiseLeaves.value.length,
-                ),
-                content: LeaveListByMonth(
-                  onCardTap: navigateToLeaveDetails,
-                  isPaginationLoading:
-                  monthWiseLeaves.key == widget.leaves.keys.last &&
-                      widget.status == Status.loading,
-                  leaves: monthWiseLeaves.value,
-                )))
-            .toList(),
-    )
+            controller: _scrollController,
+            children: widget.leaves.entries
+                .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
+                    StickyHeader(
+                        header: LeaveListHeader(
+                          title: context.l10n
+                              .date_format_yMMMM(monthWiseLeaves.key),
+                          count: monthWiseLeaves.value.length,
+                        ),
+                        content: LeaveListByMonth(
+                          onCardTap: navigateToLeaveDetails,
+                          isPaginationLoading:
+                              monthWiseLeaves.key == widget.leaves.keys.last &&
+                                  widget.status == Status.loading,
+                          leaves: monthWiseLeaves.value,
+                        )))
+                .toList(),
+          )
         : EmptyScreen(
-    title: context.l10n.no_leaves_tag,
-    message: context.l10n.user_leave_empty_screen_message);
+            title: context.l10n.no_leaves_tag,
+            message: context.l10n.user_leave_empty_screen_message);
   }
 }

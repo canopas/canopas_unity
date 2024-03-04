@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
-import '../../../../../data/configs/theme.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave/leave.dart';
 
@@ -26,12 +22,14 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(duration, style:AppTextStyle.style16),
+        Text(duration,
+            style: AppTextStyle.style16
+                .copyWith(color: context.colorScheme.textPrimary)),
         const SizedBox(height: 8),
         Text(
           totalDays,
           style:
-          AppTextStyle.style16.copyWith(color: primaryLightColor),
+              AppTextStyle.style16.copyWith(color: context.colorScheme.primary),
         ),
       ],
     );

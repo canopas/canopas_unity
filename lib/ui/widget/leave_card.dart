@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/colors.dart';
-import '../../data/configs/colors.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/leave/leave.dart';
 import 'leave_card_status_view.dart';
@@ -42,7 +42,8 @@ class LeaveCard extends StatelessWidget {
                           .getDatePeriodPresentation(
                               startDate: leave.startDate,
                               endDate: leave.endDate),
-                      style: AppFontStyle.bodyMedium,
+                      style: AppTextStyle.style16
+                          .copyWith(color: context.colorScheme.textPrimary),
                       overflow: TextOverflow.ellipsis),
                 ],
               ),
@@ -57,7 +58,8 @@ class LeaveCard extends StatelessWidget {
                               .dateInLine(
                                   startDate: leave.startDate,
                                   endDate: leave.endDate),
-                          style: AppFontStyle.bodyMedium,
+                          style: AppTextStyle.style16
+                              .copyWith(color: context.colorScheme.textPrimary),
                           overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 8),
                       Text(
@@ -66,7 +68,8 @@ class LeaveCard extends StatelessWidget {
                                 totalLeaves: leave.total,
                                 firstDayDuration: leave.perDayDuration.first)
                             .toString(),
-                        style: AppFontStyle.bodySmallRegular,
+                        style: AppTextStyle.style14
+                            .copyWith(color: context.colorScheme.textPrimary),
                       ),
                     ],
                   ),

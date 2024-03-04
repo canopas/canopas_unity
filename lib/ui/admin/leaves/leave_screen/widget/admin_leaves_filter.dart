@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/bottom_sheet_top_divider.dart';
 import 'package:projectunity/ui/widget/employee_card.dart';
 import 'package:projectunity/ui/widget/employee_details_textfield.dart';
 import 'package:projectunity/ui/widget/space_logo_view.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/di/service_locator.dart';
 import '../../../../widget/widget_validation.dart';
@@ -45,33 +41,36 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
         onTap: () async {
           await showModalBottomSheet(
             isScrollControlled: true,
-            backgroundColor: AppColors.whiteColor,
+            backgroundColor: context.colorScheme.surface,
             context: context,
             builder: (_) => BlocProvider.value(
               value: context.read<AdminLeavesBloc>(),
               child: Container(
                 padding: const EdgeInsets.all(16),
-                height: MediaQuery.of(context).size.height*0.7,
+                height: MediaQuery.of(context).size.height * 0.7,
                 width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                decoration: BoxDecoration(
+                  color: context.colorScheme.surface,
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(30)),
                 ),
                 child: Column(
                   children: [
                     const BottomSheetTopSlider(),
                     FieldEntry(
                       controller: _searchController,
-                      hintText:
-                          context.l10n.search_employee_tag,
+                      hintText: context.l10n.search_employee_tag,
                       onChanged: (searchInput) => context
                           .read<AdminLeavesBloc>()
                           .add(SearchEmployeeEvent(search: searchInput)),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     const Divider(height: 0),
-                    const SizedBox(height: 20,),
-
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Expanded(
                       child: BlocBuilder<AdminLeavesBloc, AdminLeavesState>(
                         buildWhen: (previous, current) =>
@@ -120,13 +119,15 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
                     : ImageProfile(
                         radius: 15, imageUrl: state.selectedMember!.imageUrl),
                 const SizedBox(width: 10),
-                Text(
-                    state.selectedMember?.name ??
-                       context.l10n.all_tag,
-                    style:AppTextStyle.style18,
+                Text(state.selectedMember?.name ?? context.l10n.all_tag,
+                    style: AppTextStyle.style18
+                        .copyWith(color: context.colorScheme.textPrimary),
                     overflow: TextOverflow.ellipsis),
                 const Spacer(),
-                const Icon(Icons.filter_list_rounded,color: textPrimaryColor,)
+                Icon(
+                  Icons.filter_list_rounded,
+                  color: context.colorScheme.textPrimary,
+                )
               ],
             ),
           ),
@@ -159,8 +160,9 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
             SpaceLogoView(
                 spaceLogoUrl: getIt<UserStateNotifier>().currentSpace?.logo),
             const SizedBox(width: 20),
-            Text(AppLocalizations.of(context).all_tag,
-                style: AppFontStyle.bodyMedium,
+            Text(context.l10n.all_tag,
+                style: AppTextStyle.style16
+                    .copyWith(color: context.colorScheme.textPrimary),
                 overflow: TextOverflow.ellipsis),
           ],
         ),

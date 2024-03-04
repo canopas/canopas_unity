@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../../style/app_text_style.dart';
-import '../../../../style/colors.dart';
 import '../../../navigation/app_router.dart';
-import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';
@@ -62,9 +59,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               Scaffold.of(context).openDrawer();
               context.read<DrawerBloc>().add(FetchSpacesEvent());
             },
-            child: const Icon(
+            child: Icon(
               Icons.menu,
-              color: textPrimaryColor,
+              color: context.colorScheme.textPrimary,
             )),
         titleWidget: SpaceNotifierWidget(
           notifier: getIt.get<UserStateNotifier>(),
@@ -72,7 +69,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             builder: (context) {
               final String name = SpaceNotifierWidget.of(context)?.name ?? "";
               return Text(name,
-                  style: AppTextStyle.style20, overflow: TextOverflow.ellipsis);
+                  style: AppTextStyle.style20
+                      .copyWith(color: context.colorScheme.textPrimary),
+                  overflow: TextOverflow.ellipsis);
             },
           ),
         ),

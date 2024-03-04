@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/ui/widget/space_logo_view.dart';
-import '../../../../data/configs/colors.dart';
 
 class OrgLogoView extends StatelessWidget {
   final void Function()? onButtonTap;
@@ -20,13 +20,14 @@ class OrgLogoView extends StatelessWidget {
           IconButton(
             style: IconButton.styleFrom(
                 fixedSize: const Size(45, 45),
-                side: const BorderSide(color: AppColors.textFieldBg, width: 3),
-                backgroundColor: AppColors.whiteColor),
+                side: BorderSide(
+                    color: context.colorScheme.containerNormal, width: 3),
+                backgroundColor: context.colorScheme.surface),
             onPressed: onButtonTap,
-            icon: const Icon(
+            icon: Icon(
               Icons.edit,
               size: 20,
-              color: AppColors.greyColor,
+              color: context.colorScheme.containerHigh,
             ),
           )
         ],

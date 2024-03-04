@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/shared/profile/edit_profile/widget/profile_form.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../widget/circular_progress_indicator.dart';

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
-import '../../data/configs/text_style.dart';
 import '../../data/core/utils/date_formatter.dart';
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
@@ -28,11 +26,11 @@ class LeaveApplicationCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
-          color: AppColors.whiteColor,
+          color: context.colorScheme.surface,
           boxShadow: AppTheme.commonBoxShadow),
       child: Material(
         borderRadius: AppTheme.commonBorderRadius,
-        color: AppColors.whiteColor,
+        color: context.colorScheme.surface,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
           onTap: onTap,
@@ -104,7 +102,8 @@ class _LeaveDateContent extends StatelessWidget {
 
     return Text(
       '$days, $duration ',
-      style: AppTextStyle.style16,
+      style:
+          AppTextStyle.style16.copyWith(color: context.colorScheme.textPrimary),
       overflow: TextOverflow.ellipsis,
     );
   }
@@ -133,7 +132,8 @@ class _EmployeeContent extends StatelessWidget {
             children: [
               Text(
                 employee.name,
-                style: AppTextStyle.style16,
+                style: AppTextStyle.style16
+                    .copyWith(color: context.colorScheme.textPrimary),
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
@@ -143,7 +143,8 @@ class _EmployeeContent extends StatelessWidget {
                 isValid: employee.employeeId.isNotNullOrEmpty,
                 child: Text(
                   employee.employeeId ?? '',
-                  style:  AppTextStyle.style16.copyWith(color: textDisabledColor),
+                  style: AppTextStyle.style16
+                      .copyWith(color: context.colorScheme.textDisabled),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

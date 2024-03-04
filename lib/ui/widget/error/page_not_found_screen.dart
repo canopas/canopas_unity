@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/configs/colors.dart';
-import 'package:projectunity/data/configs/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../data/di/service_locator.dart';
 import '../../../data/provider/user_state.dart';
 
@@ -29,16 +29,19 @@ class _PageNotFoundScreenState extends State<PageNotFoundScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(locale.page_not_found_error_code,
-                    style: const TextStyle(
-                        color: AppColors.primaryBlue,
+                    style: TextStyle(
+                        color: context.colorScheme.primary,
                         fontSize: 50,
                         fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 Text(locale.page_not_found_error_title,
-                    style: AppFontStyle.titleDark),
+                    style: AppTextStyle.style20.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: context.colorScheme.textPrimary)),
                 const SizedBox(height: 10),
                 Text(locale.page_not_found_error_message,
-                    style: AppFontStyle.subTitleGrey,
+                    style: AppTextStyle.style18
+                        .copyWith(color: context.colorScheme.textPrimary),
                     textAlign: TextAlign.center),
               ],
             ),

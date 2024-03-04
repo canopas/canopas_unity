@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:projectunity/data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/space_constant.dart';
-import '../../data/configs/text_style.dart';
 import '../../data/configs/theme.dart';
 import '../../data/model/employee/employee.dart';
 
@@ -41,8 +39,10 @@ class EmployeeCard extends StatelessWidget {
                   Text(employee.name,
                       style: employee.status == EmployeeStatus.inactive
                           ? AppTextStyle.style18
-                              .copyWith(color: textDisabledColor)
-                          : AppTextStyle.style18.copyWith(height: 1.5),
+                              .copyWith(color: context.colorScheme.textDisabled)
+                          : AppTextStyle.style18.copyWith(
+                              color: context.colorScheme.textPrimary,
+                              height: 1.5),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1),
                   ValidateWidget(
@@ -50,8 +50,8 @@ class EmployeeCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 2),
                       child: Text(employee.designation ?? "",
-                          style: AppTextStyle.style14
-                              .copyWith(color: textDisabledColor),
+                          style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.textDisabled),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1),
                     ),

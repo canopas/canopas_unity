@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../data/configs/theme.dart';
 
 class SpaceLogoView extends StatelessWidget {
@@ -34,8 +34,8 @@ class SpaceLogoView extends StatelessWidget {
       height: size,
       width: size,
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.dividerColor),
-          color: AppColors.whiteColor,
+          border: Border.all(color: context.colorScheme.outlineColor),
+          color: context.colorScheme.surface,
           borderRadius: AppTheme.commonBorderRadius,
           image: setImage() != null
               ? DecorationImage(fit: BoxFit.cover, image: setImage()!)
@@ -44,7 +44,7 @@ class SpaceLogoView extends StatelessWidget {
           ? Icon(
               Icons.business,
               size: (size * 0.5),
-              color: AppColors.greyColor,
+              color: context.colorScheme.containerHigh,
             )
           : null,
     );

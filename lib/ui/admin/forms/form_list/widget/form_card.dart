@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/model/org_forms/org_form_info/org_form_info.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
+import '../../../../../style/app_text_style.dart';
 
 class AdminListFormCard extends StatelessWidget {
   final OrgFormInfo formInfo;
@@ -16,17 +17,20 @@ class AdminListFormCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: context.colorScheme.surface,
           borderRadius: AppTheme.commonBorderRadius,
           boxShadow: AppTheme.commonBoxShadow),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(formInfo.title, style: AppFontStyle.titleDark),
+          Text(formInfo.title,
+              style: AppTextStyle.style20.copyWith(
+                  color: context.colorScheme.textPrimary,
+                  fontWeight: FontWeight.w600)),
           const SizedBox(height: 16),
           FilledButton.tonal(
             style: FilledButton.styleFrom(
-                backgroundColor: AppColors.backgroundGrey,
+                backgroundColor: containerHighColor,
                 fixedSize: Size(MediaQuery.of(context).size.width, 45),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -37,8 +41,9 @@ class AdminListFormCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(AppLocalizations.of(context).responses_tag,
-                    style: AppFontStyle.bodyLarge),
+                Text(context.l10n.responses_tag,
+                    style: AppTextStyle.style16
+                        .copyWith(color: context.colorScheme.textPrimary)),
                 const Icon(Icons.arrow_forward, size: 20)
               ],
             ),

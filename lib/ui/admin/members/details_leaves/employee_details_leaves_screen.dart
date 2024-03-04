@@ -41,10 +41,8 @@ class _AdminEmployeeDetailsLeavesScreenState
   @override
   Widget build(BuildContext context) {
     return AppPage(
-
-        title:AppLocalizations.of(context).employee_details_leaves_title(
-            widget.employeeName.split(" ").first),
-
+      title: AppLocalizations.of(context)
+          .employee_details_leaves_title(widget.employeeName.split(" ").first),
       body: EmployeeLeaveList(employeeName: widget.employeeName),
     );
   }

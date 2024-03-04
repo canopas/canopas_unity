@@ -11,7 +11,6 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
 import '../../data/provider/user_state.dart';
-import '../admin/drawer_options/edit_space/edit_space_screen.dart';
 import '../admin/forms/create_form/create_form.dart';
 import '../admin/home/home_screen/admin_home_screen.dart';
 import '../admin/home/invite_member/invite_screen.dart';
@@ -23,6 +22,7 @@ import '../admin/members/list/member_list_screen.dart';
 import '../shared/dashboard/dashboard.dart';
 import '../shared/profile/edit_profile/edit_profile_screen.dart';
 import '../space/create_space/create_workspace_screen.dart';
+import '../space/edit_space/edit_space_screen.dart';
 import '../space/join_space/join_space_screen.dart';
 import '../user/forms/form_list_screen/forms_list_screen.dart';
 import '../user/home/home_screen/user_home_screen.dart';
@@ -191,16 +191,15 @@ class AppRouter {
                           name: Routes.adminMemberDetails,
                           path: Routes.adminMemberDetails,
                           pageBuilder: (context, state) {
-                            String id ='';
-                            if(state.extra.runtimeType == Employee){
-                             final employee= state.extra as Employee ;
-                             id = employee.uid;
-                            }else{
+                            String id = '';
+                            if (state.extra.runtimeType == Employee) {
+                              final employee = state.extra as Employee;
+                              id = employee.uid;
+                            } else {
                               id = state.extra as String;
                             }
                             return CupertinoPage(
-                                child: EmployeeDetailPage(
-                                    id: id));
+                                child: EmployeeDetailPage(id: id));
                           },
                           routes: [
                             GoRoute(

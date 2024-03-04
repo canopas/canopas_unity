@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
@@ -52,7 +51,7 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
-        title: context.l10n  .details_tag,
+        title: context.l10n.details_tag,
         body: ListView(
           padding:
               const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
