@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_page.dart';
 import '../../../../data/configs/colors.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
@@ -36,11 +38,8 @@ class UserMembersScreen extends StatefulWidget {
 class _UserMembersScreenState extends State<UserMembersScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).members_tag),
-      ),
-      backgroundColor: AppColors.whiteColor,
+    return AppPage(
+      title: context.l10n.members_tag,
       body: BlocConsumer<UserEmployeesBloc, UserEmployeesState>(
           listenWhen: (previous, current) =>
               current is UserEmployeesFailureState,

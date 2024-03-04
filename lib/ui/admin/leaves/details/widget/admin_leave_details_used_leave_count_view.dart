@@ -14,23 +14,13 @@ class LeaveCountsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(primaryHorizontalSpacing),
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow,
-      ),
-      child: BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
-        buildWhen: (previous, current) =>
-            previous.leaveCountStatus != current.leaveCountStatus,
-        builder: (context, state) => state.leaveCountStatus == Status.loading
-            ? const SizedBox(
-                height: 60, child: AppCircularProgressIndicator(size: 28))
-            : UsedLeaveCountsView(leaveCounts: state.usedLeavesCount),
-      ),
+    return BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
+      buildWhen: (previous, current) =>
+          previous.leaveCountStatus != current.leaveCountStatus,
+      builder: (context, state) => state.leaveCountStatus == Status.loading
+          ? const SizedBox(
+              height: 60, child: AppCircularProgressIndicator(size: 28))
+          : UsedLeaveCountsView(leaveCounts: state.usedLeavesCount),
     );
   }
 }

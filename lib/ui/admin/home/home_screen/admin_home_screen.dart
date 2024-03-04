@@ -5,13 +5,10 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../../style/app_text_style.dart';
 import '../../../../style/colors.dart';
-import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
 import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';
@@ -80,6 +77,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       body: ListView(
         children: [
           const WhoIsOutCard(),
+          const SizedBox(height: 20,),
           BlocConsumer<AdminHomeBloc, AdminHomeState>(
               listenWhen: (previous, current) => current.status == Status.error,
               listener: (context, state) {
@@ -93,18 +91,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     state.leaveAppMap.isNotEmpty) {
                   return LeaveRequestList(map: state.leaveAppMap);
                 }
-                return ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 300),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height - 500,
-                    child: state.status == Status.loading
-                        ? const AppCircularProgressIndicator()
-                        : EmptyScreen(
-                            message: locale.empty_request_message,
-                            title: locale.empty_request_title,
-                          ),
-                  ),
-                );
+                return state.status == Status.loading
+                    ? const AppCircularProgressIndicator()
+                    : EmptyScreen(
+                        message: locale.empty_request_message,
+                        title: locale.empty_request_title,
+                      );
               }),
         ],
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
@@ -20,28 +22,18 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
     String duration = DateFormatter(AppLocalizations.of(context))
         .dateInLine(startDate: leave.startDate, endDate: leave.endDate);
 
-    return Container(
-      padding: const EdgeInsets.all(primaryHorizontalSpacing),
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(duration, style: AppFontStyle.titleDark),
-          const SizedBox(height: 8),
-          Text(
-            totalDays,
-            style:
-                AppFontStyle.bodyMedium.copyWith(color: AppColors.primaryBlue),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(duration, style:AppTextStyle.style16),
+        const SizedBox(height: 8),
+        Text(
+          totalDays,
+          style:
+          AppTextStyle.style16.copyWith(color: primaryLightColor),
+        ),
+      ],
     );
   }
 }

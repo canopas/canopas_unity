@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/app_logo.svg
+  String get appLogo => 'assets/images/app_logo.svg';
+
   /// File path: assets/images/empty_state.png
   AssetGenImage get emptyState =>
       const AssetGenImage('assets/images/empty_state.png');
@@ -23,8 +26,8 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_calendar.svg
   String get icCalendar => 'assets/images/ic_calendar.svg';
 
-  /// File path: assets/images/ic_home_filled.svg
-  String get icHomeFilled => 'assets/images/ic_home_filled.svg';
+  /// File path: assets/images/ic_home.svg
+  String get icHome => 'assets/images/ic_home.svg';
 
   /// File path: assets/images/ic_menu.svg
   String get icMenu => 'assets/images/ic_menu.svg';
@@ -41,10 +44,11 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        appLogo,
         emptyState,
         googleLogo,
         icCalendar,
-        icHomeFilled,
+        icHome,
         icMenu,
         icUsers,
         officeGrowth,

@@ -59,12 +59,12 @@ class AppPage extends StatelessWidget {
           : null,
     ),
     child: Stack(
-      alignment: Alignment.bottomRight,
+      alignment: Alignment.bottomCenter,
       children: [
         body ?? const SizedBox(),
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(right: 16, bottom: 16),
+            padding: const EdgeInsets.only(bottom: 16),
             child: floatingActionButton ?? const SizedBox(),
           ),
         ),

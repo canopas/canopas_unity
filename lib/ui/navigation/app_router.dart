@@ -190,10 +190,18 @@ class AppRouter {
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.adminMemberDetails,
                           path: Routes.adminMemberDetails,
-                          pageBuilder: (context, state) => CupertinoPage(
-                              child: EmployeeDetailPage(
-                                  id: state.pathParameters[
-                                      RoutesParamsConst.employeeId]!)),
+                          pageBuilder: (context, state) {
+                            String id ='';
+                            if(state.extra.runtimeType == Employee){
+                             final employee= state.extra as Employee ;
+                             id = employee.uid;
+                            }else{
+                              id = state.extra as String;
+                            }
+                            return CupertinoPage(
+                                child: EmployeeDetailPage(
+                                    id: id));
+                          },
                           routes: [
                             GoRoute(
                                 parentNavigatorKey: _adminShellNavigatorKey,
@@ -218,8 +226,7 @@ class AppRouter {
                                       employeeName: state.pathParameters[
                                               RoutesParamsConst.employeeName] ??
                                           "",
-                                      employeeId: state.pathParameters[
-                                          RoutesParamsConst.employeeId]!,
+                                      employeeId: state.extra as String,
                                     ))),
                             GoRoute(
                               parentNavigatorKey: _adminShellNavigatorKey,
@@ -392,7 +399,7 @@ abstract class Routes {
   static const hrApplyLeave = 'hr/apply-leave';
 
   static const adminMembers = '/admin/members';
-  static const adminMemberDetails = 'details/:employeeId';
+  static const adminMemberDetails = 'details';
   static const adminEmployeeDetailsLeaves = 'leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails = 'leave-details/:leaveId';
   static const adminEditEmployee = 'edit-user-details';

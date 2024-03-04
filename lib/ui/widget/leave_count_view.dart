@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
 import 'package:projectunity/data/model/leave_count.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/colors.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
@@ -22,14 +23,13 @@ class UsedLeaveCountsView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(leaveCounts.casualLeaves.fixedAt(2).toString(),
-                  style: AppFontStyle.titleDark),
+                  style: AppTextStyle.style18.copyWith(color: primaryLightColor)),
               const SizedBox(height: 4),
               Text(
                 AppLocalizations.of(context).leave_type_placeholder_text(
                     LeaveType.casualLeave.value.toString()),
-                style: AppFontStyle.bodyMedium
-                    .copyWith(color: AppColors.primaryBlue),
-              )
+                style: AppTextStyle.style16),
+
             ],
           ),
         ),
@@ -43,13 +43,12 @@ class UsedLeaveCountsView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(leaveCounts.urgentLeaves.fixedAt(2).toString(),
-                  style: AppFontStyle.titleDark),
+                  style: AppTextStyle.style18.copyWith(color: primaryLightColor)),
               const SizedBox(height: 4),
               Text(
                 AppLocalizations.of(context).leave_type_placeholder_text(
                     LeaveType.urgentLeave.value.toString()),
-                style: AppFontStyle.bodyMedium
-                    .copyWith(color: AppColors.primaryBlue),
+                style:  AppTextStyle.style16
               )
             ],
           ),

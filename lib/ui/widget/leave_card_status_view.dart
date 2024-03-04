@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../data/configs/colors.dart';
 import '../../data/configs/text_style.dart';
@@ -26,7 +27,7 @@ class LeaveStatusView extends StatelessWidget {
         LeaveStatusIcon(status: status),
         const SizedBox(width: 5),
         Text(
-          AppLocalizations.of(context).leave_status_placeholder_text(
+          context.l10n.leave_status_placeholder_text(
             status.value.toString(),
           ),
           style: AppTextStyle.style16.copyWith(color: leaveStatusColor(status)),
@@ -40,7 +41,7 @@ Color leaveStatusColor(LeaveStatus leaveStatus) {
   if (leaveStatus == LeaveStatus.approved) {
     return approveLeaveColor;
   } else if (leaveStatus == LeaveStatus.pending) {
-    return pendingLeaveColor;
+    return textDisabledColor;
   }
   return rejectLeaveColor;
 }
@@ -62,6 +63,6 @@ class LeaveStatusIcon extends StatelessWidget {
           color: rejectLeaveColor, size: 20);
     }
     return const Icon(Icons.query_builder,
-        color: AppColors.blackColor, size: 20);
+        color: textDisabledColor, size: 20);
   }
 }

@@ -25,6 +25,9 @@ const Color approveLeaveColor= Color(0xff47A96E);
 const Color rejectLeaveColor= Color(0xffCA2F27);
 const Color pendingLeaveColor= Color(0xffF5F5F5);
 
+ const Color textFieldBg = Color(0xFFf2f3f7);
+
+
 const Color redColor =  Colors.red;
 final ThemeData _materialLightTheme = ThemeData.light(useMaterial3: true);
 

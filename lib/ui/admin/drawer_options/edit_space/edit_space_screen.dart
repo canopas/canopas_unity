@@ -4,7 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/space_logo_view.dart';
 import '../../../../data/configs/colors.dart';
@@ -71,9 +75,8 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).space_tag),
+    return AppPage(
+        title: context.l10n.space_tag,
         actions: [
           BlocBuilder<EditSpaceBloc, EditSpaceState>(
               buildWhen: (previous, current) =>
@@ -81,30 +84,23 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                   previous.isDataValid != current.isDataValid,
               builder: (context, state) => state.updateSpaceStatus ==
                       Status.loading
-                  ? const Padding(
-                      padding: EdgeInsets.only(right: 30),
-                      child: AppCircularProgressIndicator(size: 20),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: TextButton(
-                          onPressed: state.isDataValid
-                              ? () {
-                                  context.read<EditSpaceBloc>().add(
-                                      SaveSpaceDetails(
-                                          paidTimeOff:
-                                              _paidTimeOffLeaveController.text,
-                                          spaceName: _nameController.text,
-                                          spaceDomain: _domainController.text,
-                                          notificationEmail:
-                                              _notificationEmailController
-                                                  .text));
-                                }
-                              : null,
-                          child: Text(AppLocalizations.of(context).save_tag)),
-                    )),
+                  ? const AppCircularProgressIndicator(size: 20)
+                  : TextButton(
+                      onPressed: state.isDataValid
+                          ? () {
+                              context.read<EditSpaceBloc>().add(
+                                  SaveSpaceDetails(
+                                      paidTimeOff:
+                                          _paidTimeOffLeaveController.text,
+                                      spaceName: _nameController.text,
+                                      spaceDomain: _domainController.text,
+                                      notificationEmail:
+                                          _notificationEmailController
+                                              .text));
+                            }
+                          : null,
+                      child: Text(context.l10n.save_tag,style: AppTextStyle.style16.copyWith(color: primaryLightColor),))),
         ],
-      ),
       body: BlocListener<EditSpaceBloc, EditSpaceState>(
         listenWhen: (previous, current) =>
             previous.updateSpaceStatus != current.updateSpaceStatus ||
@@ -155,7 +151,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
               FieldEntry(
                 controller: _domainController,
                 hintText:
-                    AppLocalizations.of(context).create_space_Website_url_label,
+                    context.l10n.create_space_Website_url_label,
               ),
               const SizedBox(height: 20),
               FieldEntry(
@@ -167,7 +163,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                     .read<EditSpaceBloc>()
                     .add(YearlyPaidTimeOffChangeEvent(timeOff: timeOff)),
                 controller: _paidTimeOffLeaveController,
-                hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
+                hintText: context.l10n.yearly_paid_time_off_tag,
               ),
               const SizedBox(height: 20),
               FieldEntry(
@@ -176,7 +172,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                     .add(NotificationEmailChangeEvent(notificationEmail)),
                 controller: _notificationEmailController,
                 hintText:
-                    AppLocalizations.of(context).leave_notification_email_tag,
+                    context.l10n.leave_notification_email_tag,
               ),
               const DeleteSpaceButton(),
             ],
@@ -207,20 +203,23 @@ class DeleteSpaceButton extends StatelessWidget {
                 ? const AppCircularProgressIndicator()
                 : TextButton(
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: AppColors.redColor,
+                      foregroundColor: rejectLeaveColor,
                     ),
                     child: Text(AppLocalizations.of(context).delete_space_text),
-                    onPressed: () => showAlertDialog(
-                      title: AppLocalizations.of(context).delete_space_text,
-                      context: context,
-                      actionButtonTitle:
-                          AppLocalizations.of(context).delete_space_text,
-                      description: AppLocalizations.of(context)
-                          .delete_dialog_description_text,
-                      onActionButtonPressed: () {
-                        context.read<EditSpaceBloc>().add(DeleteSpaceEvent());
-                      },
-                    ),
+                    onPressed: () {
+                      showAdaptiveDialog(
+                          context: context, builder: (context){
+                            return AppAlertDialogue(
+                                title: context.l10n.delete_space_text,
+                                actionButtonTitle: context.l10n.delete_space_text,
+                                description: context.l10n.delete_dialog_description_text,
+                                onActionButtonPressed: (){
+                                  Navigator.of(context).pop();
+                                  context.read<EditSpaceBloc>().add(DeleteSpaceEvent());
+
+                                });
+                      });
+                    }
                   ),
       ),
     );

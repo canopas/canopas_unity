@@ -32,44 +32,48 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     final locale = AppLocalizations.of(context);
     return BlocProvider(
       create: (context) => getIt.get<DrawerBloc>(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        drawer: const AppDrawer(),
-        body: SafeArea(
-            child: BlocListener<UserStateControllerBloc, UserControllerStatus>(
-                listener: (context, state) {
-                  if (state is UserAccessRevokedStatus) {
-                    showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (_) {
-                          return AlertDialog(
-                            title: Text(locale
-                                .state_controller_access_revoked_alert_dialogue_title),
-                            content: Text(locale
-                                .state_controller_access_revoked_alert_dialogue_subtitle),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    context
-                                        .read<UserStateControllerBloc>()
-                                        .add(ClearDataForDisableUser());
-                                  },
-                                  child: Text(locale.ok_tag))
-                            ],
-                          );
-                        });
-                  }
-                },
-                child: widget.child)),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: surfaceColor,
-          selectedItemColor: primaryLightColor,
-          unselectedItemColor: textDisabledColor,
-          onTap: (int index) => onItemTapped(index),
-          items: widget.tabs.map((e) => e.toBottomNavigationItem(context)).toList(),
-          currentIndex: _currentIndex,
-        ),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            drawer: const AppDrawer(),
+            body: SafeArea(
+                child: BlocListener<UserStateControllerBloc, UserControllerStatus>(
+                    listener: (context, state) {
+                      if (state is UserAccessRevokedStatus) {
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                title: Text(locale
+                                    .state_controller_access_revoked_alert_dialogue_title),
+                                content: Text(locale
+                                    .state_controller_access_revoked_alert_dialogue_subtitle),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        context
+                                            .read<UserStateControllerBloc>()
+                                            .add(ClearDataForDisableUser());
+                                      },
+                                      child: Text(locale.ok_tag))
+                                ],
+                              );
+                            });
+                      }
+                    },
+                    child: widget.child)),
+            bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: surfaceColor,
+              selectedItemColor: primaryLightColor,
+              unselectedItemColor: textDisabledColor,
+              onTap: (int index) => onItemTapped(index),
+              items: widget.tabs.map((e) => e.toBottomNavigationItem(context)).toList(),
+              currentIndex: _currentIndex,
+            ),
+          );
+        }
       ),
     );
   }

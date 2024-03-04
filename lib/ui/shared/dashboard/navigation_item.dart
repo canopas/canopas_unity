@@ -37,7 +37,7 @@ class BottomNavigationItem  {
           child:SvgPicture.asset(tabActiveIcon,
             width: 20,
             height: 20,
-            colorFilter: ColorFilter.mode(surfaceColor, BlendMode.srcIn),
+            colorFilter: const ColorFilter.mode(surfaceColor, BlendMode.srcIn),
           )
       ),);
   }
@@ -46,8 +46,8 @@ class BottomNavigationItem  {
 
 List<BottomNavigationItem> userTabs= [
   BottomNavigationItem(
-          tabIcon: Assets.images.icHomeFilled,
-          tabActiveIcon: Assets.images.icHomeFilled,
+          tabIcon: Assets.images.icHome,
+          tabActiveIcon: Assets.images.icHome,
           label: "Home",
           initialLocation: Routes.userHome,
           ),
@@ -67,8 +67,8 @@ List<BottomNavigationItem> userTabs= [
 
 List<BottomNavigationItem> adminTabs = [
   BottomNavigationItem(
-      tabIcon: Assets.images.icHomeFilled,
-      tabActiveIcon: Assets.images.icHomeFilled,
+      tabIcon: Assets.images.icHome,
+      tabActiveIcon: Assets.images.icHome,
       label: "Home",
       initialLocation: Routes.adminHome,
      ),

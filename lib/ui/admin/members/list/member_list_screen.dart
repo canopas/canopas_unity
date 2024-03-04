@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/employee_card.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../navigation/app_router.dart';
@@ -39,25 +40,17 @@ class MemberListScreen extends StatefulWidget {
 class _MemberListScreenState extends State<MemberListScreen> {
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context).members_tag,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: TextButton(
-                onPressed: () => context.pushNamed(Routes.inviteMember),
-                child: Text(localizations.invite_tag)),
-          )
-        ],
-      ),
+    return AppPage(
+      title: AppLocalizations.of(context).members_tag,
+      actions: [
+        TextButton(
+            onPressed: () => context.pushNamed(Routes.inviteMember),
+            child: Text(context.l10n.invite_tag))
+      ],
       body: BlocConsumer<AdminMembersBloc, AdminMembersState>(
         builder: (BuildContext context, AdminMembersState state) {
           return ListView(
+            padding: const EdgeInsets.all(16),
             children: [
               state.memberFetchStatus == Status.loading
                   ? const AppCircularProgressIndicator()
@@ -71,61 +64,63 @@ class _MemberListScreenState extends State<MemberListScreen> {
                                   endIndent: primaryVerticalSpacing,
                                   indent: primaryVerticalSpacing,
                                 ),
-                            padding:
-                                const EdgeInsets.all(primaryVerticalSpacing),
                             itemCount: state.activeMembers.length,
                             itemBuilder: (BuildContext context, int index) {
                               return EmployeeCard(
                                 employee: state.activeMembers[index],
                                 onTap: () => context.goNamed(
                                     Routes.adminMemberDetails,
-                                    queryParameters: {
-                                      RoutesParamsConst.employeeId:
-                                          state.activeMembers[index].uid
-                                    }),
+                                    extra: state.activeMembers[index].uid),
                               );
                             }),
-                        ValidateWidget(
-                          isValid: state.inactiveMembers.isNotEmpty,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Text(
-                              AppLocalizations.of(context)
-                                  .inactive_members_title,
-                              style: AppFontStyle.headerDark,
-                            ),
-                          ),
+                        const SizedBox(
+                          height: 10,
                         ),
                         ValidateWidget(
-                            isValid: state.inactiveMembers.isNotEmpty,
-                            child: const Divider(height: 0)),
-                        ValidateWidget(
-                          isValid: state.inactiveMembers.isNotEmpty,
-                          child: ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              separatorBuilder: (context, index) =>
-                                  const Divider(
-                                    endIndent: primaryVerticalSpacing,
-                                    indent: primaryVerticalSpacing,
-                                  ),
-                              padding:
-                                  const EdgeInsets.all(primaryVerticalSpacing),
-                              itemCount: state.inactiveMembers.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return EmployeeCard(
-                                  employee: state.inactiveMembers[index],
-                                  onTap: () => context.goNamed(
-                                      Routes.adminMemberDetails,
-                                      pathParameters: {
-                                        RoutesParamsConst.employeeId:
-                                            state.inactiveMembers[index].uid
-                                      }),
-                                );
-                              }),
+                          isValid: true,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .inactive_members_title,
+                                  style: AppTextStyle.style20
+                                      .copyWith(fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              const Divider(height: 0),
+                              ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  separatorBuilder: (context, index) =>
+                                      const Divider(
+                                        endIndent: primaryVerticalSpacing,
+                                        indent: primaryVerticalSpacing,
+                                      ),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  itemCount: state.inactiveMembers.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return EmployeeCard(
+                                      employee: state.inactiveMembers[index],
+                                      onTap: () => context.goNamed(
+                                          Routes.adminMemberDetails,
+                                          extra:
+                                              state.inactiveMembers[index].uid),
+                                    );
+                                  }),
+                            ],
+                          ),
                         ),
                       ],
                     ),
+              const SizedBox(
+                height: 10,
+              ),
               state.invitationFetchStatus == Status.loading
                   ? const AppCircularProgressIndicator()
                   : ValidateWidget(
@@ -134,23 +129,20 @@ class _MemberListScreenState extends State<MemberListScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Text(
-                              localizations.invited_members_title,
-                              style: AppFontStyle.headerDark,
+                              context.l10n.invited_members_title,
+                              style: AppTextStyle.style20
+                                  .copyWith(fontWeight: FontWeight.w600),
                             ),
                           ),
-                          const Divider(height: 0),
-                          ListView.separated(
+                          const Divider(
+                            height: 0,
+                          ),
+                          ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              separatorBuilder: (context, index) =>
-                                  const Divider(
-                                    endIndent: primaryVerticalSpacing,
-                                    indent: primaryVerticalSpacing,
-                                  ),
-                              padding: const EdgeInsets.all(
-                                  primaryHorizontalSpacing),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               itemCount: state.invitation.length,
                               itemBuilder: (BuildContext context, int index) =>
                                   InvitedMemberCard(

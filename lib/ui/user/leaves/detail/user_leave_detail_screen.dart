@@ -78,18 +78,24 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                   userStateNotifier.employeeId == state.leave.uid;
               return ListView(
                 children: [
-                  LeaveTypeAgoTitleWithStatus(
-                      appliedOn: state.leave.appliedOn,
-                      leaveType: state.leave.type,
-                      status: state.leave.status),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: LeaveTypeAgoTitleWithStatus(
+                        appliedOn: state.leave.appliedOn,
+                        leaveType: state.leave.type,
+                        status: state.leave.status),
+                  ),
                   UserLeaveRequestDateContent(leave: state.leave),
                   PerDayDurationDateRange(
                       perDayDurationWithDate: state.leave.getDateAndDuration()),
                   ValidateWidget(
                     isValid: userIsAbleToSeeAllData,
-                    child: ReasonField(
-                      title: localization.reason_tag,
-                      reason: state.leave.reason,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8,),
+                      child: ReasonField(
+                        title: localization.reason_tag,
+                        reason: state.leave.reason,
+                      ),
                     ),
                   ),
                   ValidateWidget(

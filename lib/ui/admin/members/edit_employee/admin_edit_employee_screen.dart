@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/admin/members/edit_employee/widgets/admin_edit_employee_form.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../data/configs/colors.dart';
@@ -73,10 +77,8 @@ class _AdminEditEmployeeDetailsViewState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).edit_tag),
+    return AppPage(
+        title: context.l10n.edit_tag,
         actions: [
           BlocBuilder<AdminEditEmployeeDetailsBloc,
               AdminEditEmployeeDetailsState>(
@@ -84,34 +86,27 @@ class _AdminEditEmployeeDetailsViewState
                 previous.isValid != current.isValid ||
                 previous.status != current.status,
             builder: (context, state) => state.status == Status.loading
-                ? const Padding(
-                    padding: EdgeInsets.only(right: 30),
-                    child: AppCircularProgressIndicator(size: 20),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: TextButton(
-                        onPressed: state.isValid
-                            ? () {
-                                context
-                                    .read<AdminEditEmployeeDetailsBloc>()
-                                    .add(UpdateEmployeeByAdminEvent(
-                                      previousEmployeeData: widget.employee,
-                                      name: nameFieldController.text,
-                                      level: levelFieldController.text,
-                                      employeeId:
-                                          employeeIDFieldController.text,
-                                      email: emailFieldController.text,
-                                      designation:
-                                          designationFieldController.text,
-                                    ));
-                              }
-                            : null,
-                        child: Text(AppLocalizations.of(context).save_tag)),
-                  ),
+                ? const AppCircularProgressIndicator(size: 20)
+                : TextButton(
+                    onPressed: state.isValid
+                        ? () {
+                            context
+                                .read<AdminEditEmployeeDetailsBloc>()
+                                .add(UpdateEmployeeByAdminEvent(
+                                  previousEmployeeData: widget.employee,
+                                  name: nameFieldController.text,
+                                  level: levelFieldController.text,
+                                  employeeId:
+                                      employeeIDFieldController.text,
+                                  email: emailFieldController.text,
+                                  designation:
+                                      designationFieldController.text,
+                                ));
+                          }
+                        : null,
+                    child: Text(context.l10n.save_tag,style: AppTextStyle.style16.copyWith(color: primaryLightColor),)),
           )
         ],
-      ),
       body: AdminEditEmployeeDetailsForm(
         profileImageUrl: widget.employee.imageUrl,
         employeeId: widget.employee.uid,

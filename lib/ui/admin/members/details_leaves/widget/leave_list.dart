@@ -52,8 +52,9 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
     navigateToLeaveDetail(Leave leave) async {
       final bloc = context.read<AdminEmployeeDetailsLeavesBLoc>();
       final String? leaveId = await context
-          .pushNamed(Routes.adminEmployeeDetailsLeavesDetails, pathParameters: {
-        RoutesParamsConst.employeeId: leave.uid,
+          .pushNamed(Routes.adminEmployeeDetailsLeavesDetails,
+
+          pathParameters: {
         RoutesParamsConst.leaveId: leave.leaveId,
         RoutesParamsConst.employeeName: widget.employeeName,
       });
@@ -86,7 +87,6 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                 title: AppLocalizations.of(context).no_leaves_tag);
           }
           return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
             controller: _scrollController,
             children: state.leavesMap.entries
                 .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>

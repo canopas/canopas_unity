@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/colors.dart';
@@ -62,7 +64,6 @@ class LeaveApplicationCard extends StatelessWidget {
                     const Icon(
                       Icons.arrow_forward_ios,
                       size: 15,
-                      color: AppColors.greyColor,
                     )
                   ],
                 ),
@@ -103,7 +104,7 @@ class _LeaveDateContent extends StatelessWidget {
 
     return Text(
       '$days, $duration ',
-      style: AppFontStyle.subTitleGrey,
+      style: AppTextStyle.style16,
       overflow: TextOverflow.ellipsis,
     );
   }
@@ -132,7 +133,7 @@ class _EmployeeContent extends StatelessWidget {
             children: [
               Text(
                 employee.name,
-                style: AppFontStyle.bodyMedium,
+                style: AppTextStyle.style16,
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
@@ -142,7 +143,7 @@ class _EmployeeContent extends StatelessWidget {
                 isValid: employee.employeeId.isNotNullOrEmpty,
                 child: Text(
                   employee.employeeId ?? '',
-                  style: AppFontStyle.subTitleGrey,
+                  style:  AppTextStyle.style16.copyWith(color: textDisabledColor),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

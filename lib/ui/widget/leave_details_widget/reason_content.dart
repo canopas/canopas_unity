@@ -12,25 +12,21 @@ class ReasonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: AppTextStyle.style18.copyWith(color: textDisabledColor)
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            reason,
-            style: AppTextStyle.style16,
-          )
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppTextStyle.style18.copyWith(color: textDisabledColor)
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          reason,
+          style: AppTextStyle.style16,
+        )
+      ],
     );
   }
 }

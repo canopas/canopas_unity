@@ -19,52 +19,47 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
-    return Container(
-      decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
-      margin: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
-          .copyWith(bottom: primaryVerticalSpacing),
-      padding: const EdgeInsets.symmetric(
-          vertical: 30, horizontal: primaryHorizontalSpacing),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ImageProfile(imageUrl: employee.imageUrl, radius: 45),
           const SizedBox(height: 10),
           Text(
             employee.name,
-            style: AppFontStyle.titleDark,
-            textAlign: TextAlign.center,
+            style: AppTextStyle.style20,
           ),
           const SizedBox(height: 6),
           ValidateWidget(
             isValid: employee.designation.isNotNullOrEmpty,
             child: Text(
               employee.designation ?? "",
-              style: AppFontStyle.labelGrey,
-              textAlign: TextAlign.center,
+              style: AppTextStyle.style14.copyWith(color: textDisabledColor),
             ),
           ),
-          const Divider(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextColumn(
-                title: localization.employee_role_tag,
-                subtitle:
-                    localization.user_detail_role_type(employee.role.name),
-              ),
-              Container(
-                height: 60,
-                width: 1,
-                color: AppColors.lightGreyColor,
-              ),
-              TextColumn(
-                title: localization.employee_employeeID_tag,
-                subtitle: employee.employeeId,
-              ),
-            ],
+          const SizedBox(height: 20,),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextColumn(
+                  title: localization.employee_role_tag,
+                  subtitle:
+                      localization.user_detail_role_type(employee.role.name),
+                ),
+                Container(
+                  height: 40,
+                  width: 1,
+                  color: AppColors.lightGreyColor,
+                ),
+                TextColumn(
+                  title: localization.employee_employeeID_tag,
+                  subtitle: employee.employeeId,
+                ),
+              ],
+            ),
           ),
         ],
       ),

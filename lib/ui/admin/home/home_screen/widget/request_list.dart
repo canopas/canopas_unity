@@ -7,6 +7,8 @@ import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave_application.dart';
+import '../../../../../style/app_text_style.dart';
+import '../../../../../style/colors.dart';
 import '../../../../navigation/app_router.dart';
 import '../../../../widget/leave_application_card.dart';
 
@@ -34,23 +36,21 @@ class LeaveRequestList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                                 DateFormatter(AppLocalizations.of(context))
                                     .getDateRepresentation(mapEntry.key),
-                                style: AppFontStyle.headerDark),
+                                style: AppTextStyle.style20),
                             Text(
                               mapEntry.value.length.toString(),
-                              style: AppFontStyle.headerDark,
+                              style: AppTextStyle.style20,
                             )
                           ],
                         ),
-                        const SizedBox(height: primaryHalfSpacing),
-                        const Divider(
-                          height: 1,
-                        )
+                        const SizedBox(height: 16),
                       ],
                     )),
                 content: Padding(

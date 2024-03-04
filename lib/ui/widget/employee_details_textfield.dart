@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/colors.dart';
 
 import '../../data/configs/colors.dart';
 import '../../data/configs/space_constant.dart';
@@ -15,7 +17,7 @@ class FieldTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Text(title,
-          textAlign: TextAlign.start, style: AppFontStyle.labelGrey),
+          textAlign: TextAlign.start, style: AppTextStyle.style16.copyWith(color: textDisabledColor)),
     );
   }
 }
@@ -52,19 +54,18 @@ class FieldEntry extends StatelessWidget {
       maxLines: maxLine,
       maxLength: maxLength,
       controller: controller,
-      cursorColor: Colors.black,
       autocorrect: false,
-      style: AppFontStyle.labelRegular,
+      style: AppTextStyle.style16,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         isCollapsed: true,
         contentPadding: const EdgeInsets.all(primaryHorizontalSpacing),
-        fillColor: AppColors.textFieldBg,
+        fillColor: textFieldBg,
         filled: true,
         errorText: errorText,
-        hintStyle: AppFontStyle.labelGrey,
+        hintStyle: AppTextStyle.style16.copyWith(color: textDisabledColor),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide.none),
         hintText: hintText,
       ),
