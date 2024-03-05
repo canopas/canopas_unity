@@ -26,11 +26,11 @@ class LeaveApplicationCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
-          color: context.colorScheme.surface,
-          boxShadow: AppTheme.commonBoxShadow(context)),
+          color: context.colorScheme.containerLow,
+         ),
       child: Material(
         borderRadius: AppTheme.commonBorderRadius,
-        color: context.colorScheme.surface,
+        color: context.colorScheme.containerLow,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
           onTap: onTap,

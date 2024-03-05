@@ -37,6 +37,8 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       body: SafeArea(
         child: BlocListener<JoinSpaceBloc, JoinSpaceState>(
           listenWhen: (previous, current) =>

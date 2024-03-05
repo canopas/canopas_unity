@@ -82,6 +82,7 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
     }
 
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
       title: context.l10n.leaves_tag,
       body: Column(
         children: [

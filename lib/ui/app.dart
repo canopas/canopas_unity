@@ -22,7 +22,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   void initState() {
-     // context.read<NetworkConnectionBloc>().add(NetworkConnectionObserveEvent());
     super.initState();
   }
 

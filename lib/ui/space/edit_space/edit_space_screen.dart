@@ -75,6 +75,8 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: context.l10n.space_tag,
       actions: [
         BlocBuilder<EditSpaceBloc, EditSpaceState>(

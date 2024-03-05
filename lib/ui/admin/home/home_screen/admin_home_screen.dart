@@ -53,6 +53,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       leading: InkWell(
           onTap: () {
             Scaffold.of(context).openDrawer();

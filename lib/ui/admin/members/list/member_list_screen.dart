@@ -41,6 +41,8 @@ class _MemberListScreenState extends State<MemberListScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: AppLocalizations.of(context).members_tag,
       actions: [
         TextButton(

@@ -75,6 +75,8 @@ class _AdminEditEmployeeDetailsViewState
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: context.l10n.edit_tag,
       actions: [
         BlocBuilder<AdminEditEmployeeDetailsBloc,

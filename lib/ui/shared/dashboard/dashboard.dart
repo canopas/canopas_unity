@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/app_router.dart';
+import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
 import 'package:projectunity/ui/widget/app_dialog.dart';
-import '../../../data/bloc/user_state/user_controller_state.dart';
-import '../../../data/bloc/user_state/user_state_controller_bloc.dart';
-import '../../../data/bloc/user_state/user_state_controller_event.dart';
-import '../../../data/di/service_locator.dart';
-import '../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
+import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
+import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart';
+import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 
@@ -36,9 +35,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       body: SafeArea(
           child:
       BlocListener<UserStateControllerBloc, UserControllerStatus>(
-        bloc: BlocProvider.of<UserStateControllerBloc>(context),
+        listenWhen: (previous, current)=>current is UserAccessRevokedStatus,
           listener: (context, state) {
-          print(context.read<UserStateControllerBloc>());
             if (state is UserAccessRevokedStatus) {
               showAppAlertDialog(
                   context: context,

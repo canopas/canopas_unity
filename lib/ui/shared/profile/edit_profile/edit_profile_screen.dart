@@ -24,7 +24,8 @@ class EmployeeEditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployeeEditProfileBloc>(),
+      create: (context) => getIt<EmployeeEditProfileBloc>()..add(EditProfileInitialLoadEvent(
+      dateOfBirth: employee.dateOfBirth, gender:employee.gender)),
       child: EmployeeEditProfileScreen(employee: employee),
     );
   }
@@ -66,14 +67,13 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
     phoneNumberController.dispose();
     addressController.dispose();
     levelController.dispose();
-    context.read<EmployeeEditProfileBloc>().add(EditProfileInitialLoadEvent(
-        dateOfBirth: widget.employee.dateOfBirth, gender: widget.employee.gender));
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
       title: AppLocalizations.of(context).edit_tag,
       actions: [
         BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(

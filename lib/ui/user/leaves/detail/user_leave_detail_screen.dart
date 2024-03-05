@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
@@ -53,6 +54,8 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: AppLocalizations.of(context).details_tag,
       body: BlocConsumer<UserLeaveDetailBloc, UserLeaveDetailState>(
           listenWhen: (previous, current) =>

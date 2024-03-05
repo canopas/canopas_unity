@@ -44,19 +44,19 @@ class BottomNavigationItem {
 List<BottomNavigationItem> userTabs = [
   BottomNavigationItem(
     tabIcon: Assets.images.icHome,
-    tabActiveIcon: Assets.images.icHome,
+    tabActiveIcon: Assets.images.homeFilled,
     label: "Home",
     initialLocation: Routes.userHome,
   ),
   BottomNavigationItem(
     tabIcon: Assets.images.icCalendar,
-    tabActiveIcon: Assets.images.icCalendar,
+    tabActiveIcon: Assets.images.calendarFilled,
     label: "Leaves",
     initialLocation: Routes.userLeaves,
   ),
   BottomNavigationItem(
     tabIcon: Assets.images.icUsers,
-    tabActiveIcon: Assets.images.icUsers,
+    tabActiveIcon: Assets.images.usersFilled,
     label: "Members",
     initialLocation: Routes.userMembers,
   ),
@@ -65,19 +65,19 @@ List<BottomNavigationItem> userTabs = [
 List<BottomNavigationItem> adminTabs = [
   BottomNavigationItem(
     tabIcon: Assets.images.icHome,
-    tabActiveIcon: Assets.images.icHome,
+    tabActiveIcon: Assets.images.homeFilled,
     label: "Home",
     initialLocation: Routes.adminHome,
   ),
   BottomNavigationItem(
     tabIcon: Assets.images.icCalendar,
-    tabActiveIcon: Assets.images.icCalendar,
+    tabActiveIcon: Assets.images.calendarFilled,
     label: "Leaves",
     initialLocation: Routes.adminLeaves,
   ),
   BottomNavigationItem(
     tabIcon: Assets.images.icUsers,
-    tabActiveIcon: Assets.images.icUsers,
+    tabActiveIcon: Assets.images.usersFilled    ,
     label: "Members",
     initialLocation: Routes.adminMembers,
   ),

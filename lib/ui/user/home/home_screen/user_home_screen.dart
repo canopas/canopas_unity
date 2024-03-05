@@ -54,6 +54,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return AppPage(
+        backGroundColor: context.colorScheme.surface,
+
         leading: InkWell(
             onTap: () {
               Scaffold.of(context).openDrawer();

@@ -36,7 +36,7 @@ class ViewProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
     return AppPage(
-      automaticallyImplyLeading: true,
+      backGroundColor: context.colorScheme.surface,
       title: localization.admin_employee_detail_profile_tag,
       actions: [
         TextButton(

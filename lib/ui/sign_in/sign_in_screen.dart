@@ -33,6 +33,8 @@ class SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       body: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInFailureState) {

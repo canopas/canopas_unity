@@ -42,6 +42,8 @@ class _UserFormListScreenState extends State<UserFormListScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: context.l10n.forms_title,
       body: BlocConsumer<UserFormListBloc, UserFormListState>(
         listenWhen: (previous, current) => current.status != previous.status,

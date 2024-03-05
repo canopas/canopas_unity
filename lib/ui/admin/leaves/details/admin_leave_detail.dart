@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/provider/user_state.dart';
@@ -61,6 +62,8 @@ class _AdminLeaveApplicationDetailScreenState
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: AppLocalizations.of(context).details_tag,
       body: BlocListener<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
         listenWhen: (previous, current) =>
@@ -131,7 +134,7 @@ class _AdminLeaveApplicationDetailScreenState
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.all(16.0),
         child: AdminLeaveDetailsActionButton(
           leaveApplication: widget.leaveApplication,
         ),

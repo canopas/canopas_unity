@@ -45,6 +45,8 @@ class _AdminFormListScreenState extends State<AdminFormListScreen> {
   Widget build(BuildContext context) {
     final bloc = context.read<AdminFormListBloc>();
     return AppPage(
+      backGroundColor: context.colorScheme.surface,
+
       title: context.l10n.forms_title,
       body: BlocConsumer<AdminFormListBloc, AdminFormListState>(
         listenWhen: (previous, current) => current.status != previous.status,
