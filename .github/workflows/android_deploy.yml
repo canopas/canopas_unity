@@ -32,6 +32,7 @@ jobs:
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: 2.7.2
           bundler-cache: true
 
       - name: Retrieve the secret and decode it to a file

@@ -28,7 +28,8 @@ class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
 class AdminEmployeeDetailsLeavesScreen extends StatefulWidget {
   final String employeeName;
 
-  const AdminEmployeeDetailsLeavesScreen({super.key, required this.employeeName});
+  const AdminEmployeeDetailsLeavesScreen(
+      {super.key, required this.employeeName});
 
   @override
   State<AdminEmployeeDetailsLeavesScreen> createState() =>

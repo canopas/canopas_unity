@@ -40,7 +40,13 @@ jobs:
           aws-region: ap-south-1
 
       - name: Build Web App
-        run: flutter build web
+        run: |
+          flutter pub cache repair
+          flutter clean
+          flutter pub cache clean
+          flutter pub upgrade
+          flutter pub get
+          flutter build web
 
       - name: Deploy to AWS S3
         run: aws s3 sync build/web/ s3://${{ secrets.AWS_S3_BUCKET_NAME }}

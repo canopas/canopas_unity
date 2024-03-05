@@ -8,7 +8,8 @@ class ToggleButton extends StatelessWidget {
   final Role role;
   final Function(Role role) onRoleChange;
 
-  const ToggleButton({super.key, required this.onRoleChange, required this.role});
+  const ToggleButton(
+      {super.key, required this.onRoleChange, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -43,28 +44,26 @@ class ToggleButton extends StatelessWidget {
                 ),
               ),
             ),
-            ...roleTypeSelectionToggleButtonAlignment.entries
-                .map(
-                  (roleTypeAlignment) => GestureDetector(
-                    onTap: () => onRoleChange(roleTypeAlignment.key),
-                    child: Align(
-                      alignment: Alignment(roleTypeAlignment.value, 0),
-                      child: Container(
-                        width: width,
-                        color: Colors.transparent,
-                        alignment: Alignment.center,
-                        child: Text(
-                            localization.user_detail_role_type(
-                                roleTypeAlignment.key.name),
-                            textAlign: TextAlign.start,
-                            style: AppTextStyle.style14.copyWith(
-                                color: context.colorScheme.textPrimary,
-                                fontWeight: FontWeight.w700)),
-                      ),
-                    ),
+            ...roleTypeSelectionToggleButtonAlignment.entries.map(
+              (roleTypeAlignment) => GestureDetector(
+                onTap: () => onRoleChange(roleTypeAlignment.key),
+                child: Align(
+                  alignment: Alignment(roleTypeAlignment.value, 0),
+                  child: Container(
+                    width: width,
+                    color: Colors.transparent,
+                    alignment: Alignment.center,
+                    child: Text(
+                        localization
+                            .user_detail_role_type(roleTypeAlignment.key.name),
+                        textAlign: TextAlign.start,
+                        style: AppTextStyle.style14.copyWith(
+                            color: context.colorScheme.textPrimary,
+                            fontWeight: FontWeight.w700)),
                   ),
-                )
-                
+                ),
+              ),
+            )
           ],
         ),
       ),
