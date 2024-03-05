@@ -10,7 +10,7 @@ const Color textSecondaryColor = Color(0x99000000);
 const Color textDisabledColor = Color(0x66000000);
 
 const Color textPrimaryDarkColor = Color(0xF7FFFFFF);
-const Color textSecondaryDarkColor =  Color(0xB3FFFFFF);
+const Color textSecondaryDarkColor = Color(0xB3FFFFFF);
 
 const outlineLightColor = Color(0x14000000);
 const outlineDarkColor = Color(0x14FFFFFF);
@@ -36,8 +36,6 @@ const Color awarenessColor = Color(0xffD39800);
 const Color approveLeaveColor = Color(0xff47A96E);
 const Color rejectLeaveColor = Color(0xffCA2F27);
 const Color pendingLeaveColor = Color(0xffF5F5F5);
-
-
 
 final ThemeData _materialLightTheme = ThemeData.light(useMaterial3: true);
 final ThemeData _materialDarkTheme = ThemeData.dark(useMaterial3: true);
@@ -99,7 +97,6 @@ class AppColorScheme {
   final Color primaryInverseColor;
   final Color onPrimary;
 
-
   AppColorScheme(
       {required this.primary,
       required this.secondary,
@@ -115,8 +112,7 @@ class AppColorScheme {
       required this.awarenessColor,
       required this.outlineColor,
       required this.primaryInverseColor,
-      required this.onPrimary
-      });
+      required this.onPrimary});
 }
 
 final appColorSchemeLight = AppColorScheme(
@@ -134,8 +130,7 @@ final appColorSchemeLight = AppColorScheme(
     awarenessColor: awarenessColor,
     outlineColor: outlineLightColor,
     primaryInverseColor: primaryDarkColor,
-  onPrimary: Colors.black
-);
+    onPrimary: Colors.black);
 
 final appColorSchemeDark = AppColorScheme(
     primary: primaryDarkColor,
@@ -152,4 +147,4 @@ final appColorSchemeDark = AppColorScheme(
     awarenessColor: awarenessColor,
     outlineColor: outlineDarkColor,
     primaryInverseColor: tertiaryLightColor,
-onPrimary: Colors.black);
+    onPrimary: Colors.black);

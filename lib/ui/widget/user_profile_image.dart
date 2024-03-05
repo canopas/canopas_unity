@@ -15,7 +15,7 @@ class ImageProfile extends StatelessWidget {
       {Key? key,
       this.imageUrl,
       required this.radius,
-      this.backgroundColor ,
+      this.backgroundColor,
       this.pickedImage,
       this.iconColor})
       : super(key: key);
@@ -37,7 +37,7 @@ class ImageProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: backgroundColor?? context.colorScheme.containerHigh,
+      backgroundColor: backgroundColor ?? context.colorScheme.containerHigh,
       backgroundImage: setImage(),
       child: (setImage() != null)
           ? null

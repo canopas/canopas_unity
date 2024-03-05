@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 import '../../../data/configs/space_constant.dart';
 
 class PerDayDurationDateRange extends StatelessWidget {
@@ -28,7 +27,8 @@ class PerDayDurationDateRange extends StatelessWidget {
                           horizontal: primaryVerticalSpacing,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: context.colorScheme.containerHigh),
+                          border: Border.all(
+                              color: context.colorScheme.containerHigh),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
@@ -62,7 +62,8 @@ class PerDayDurationDateRange extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: context.colorScheme.containerHigh),
+                                border: Border.all(
+                                    color: context.colorScheme.containerHigh),
                               ),
                               child: Text(AppLocalizations.of(context)
                                   .leave_day_duration_tag(date.value.name)),
@@ -83,7 +84,8 @@ class PerDayDurationDateRange extends StatelessWidget {
                           vertical: primaryHalfSpacing,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: context.colorScheme.containerHigh),
+                          border: Border.all(
+                              color: context.colorScheme.containerHigh),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
@@ -116,7 +118,8 @@ class PerDayDurationDateRange extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: context.colorScheme.containerHigh),
+                                border: Border.all(
+                                    color: context.colorScheme.containerHigh),
                               ),
                               child: Text(
                                 context.l10n

@@ -24,8 +24,9 @@ class EmployeeEditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployeeEditProfileBloc>()..add(EditProfileInitialLoadEvent(
-      dateOfBirth: employee.dateOfBirth, gender:employee.gender)),
+      create: (context) => getIt<EmployeeEditProfileBloc>()
+        ..add(EditProfileInitialLoadEvent(
+            dateOfBirth: employee.dateOfBirth, gender: employee.gender)),
       child: EmployeeEditProfileScreen(employee: employee),
     );
   }
@@ -103,26 +104,26 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
                           style: AppTextStyle.style16
                               .copyWith(color: context.colorScheme.primary),
                         )),
-            )
-          ],
-          body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
-            listenWhen: (previous, current) => previous.status != current.status,
-            listener: (context, state) {
-              if (state.status == Status.error) {
-                showSnackBar(context: context, error: state.error);
-              } else if (state.status == Status.success) {
-                context.pop();
-              }
-            },
-            child: ProfileForm(
-              profileImageURL: widget.employee.imageUrl,
-              nameController: nameController,
-              levelController: levelController,
-              designationController: designationController,
-              addressController: addressController,
-              phoneNumberController: phoneNumberController,
-            ),
-          ),
-        );
-      }
+        )
+      ],
+      body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          if (state.status == Status.error) {
+            showSnackBar(context: context, error: state.error);
+          } else if (state.status == Status.success) {
+            context.pop();
+          }
+        },
+        child: ProfileForm(
+          profileImageURL: widget.employee.imageUrl,
+          nameController: nameController,
+          levelController: levelController,
+          designationController: designationController,
+          addressController: addressController,
+          phoneNumberController: phoneNumberController,
+        ),
+      ),
+    );
+  }
 }

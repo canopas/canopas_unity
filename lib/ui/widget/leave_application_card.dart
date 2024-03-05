@@ -25,9 +25,9 @@ class LeaveApplicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: AppTheme.commonBorderRadius,
-          color: context.colorScheme.containerLow,
-         ),
+        borderRadius: AppTheme.commonBorderRadius,
+        color: context.colorScheme.containerLow,
+      ),
       child: Material(
         borderRadius: AppTheme.commonBorderRadius,
         color: context.colorScheme.containerLow,

@@ -48,14 +48,14 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)=>getIt.get<EmployeeDetailBloc>()..add(EmployeeDetailInitialLoadEvent(employeeId: widget.employeeId)),
-
+      create: (context) => getIt.get<EmployeeDetailBloc>()
+        ..add(EmployeeDetailInitialLoadEvent(employeeId: widget.employeeId)),
       child: AppPage(
           backGroundColor: context.colorScheme.surface,
-
           title: context.l10n.details_tag,
           actions: [
             BlocBuilder<EmployeeDetailBloc, AdminEmployeeDetailState>(
@@ -69,7 +69,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     elevation: 6,
                     itemBuilder: (context) => [
                       PopupMenuItem(
-                        child: Text(context.l10n.edit_tag, style: AppTextStyle.style14.copyWith(color:context.colorScheme.textSecondary ),),
+                        child: Text(
+                          context.l10n.edit_tag,
+                          style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.textSecondary),
+                        ),
                         onTap: () {
                           context.goNamed(
                             Routes.adminEditEmployee,
@@ -79,12 +83,14 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       ),
                       PopupMenuItem(
                         child: Text(
-                          state.employee.status == EmployeeStatus.active
-                              ? AppLocalizations.of(context).deactivate_tag
-                              : AppLocalizations.of(context).activate_tag,
-                            style: AppTextStyle.style14.copyWith(color:context.colorScheme.textSecondary)                      ),
+                            state.employee.status == EmployeeStatus.active
+                                ? AppLocalizations.of(context).deactivate_tag
+                                : AppLocalizations.of(context).activate_tag,
+                            style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textSecondary)),
                         onTap: () {
-                          if (state.employee.status == EmployeeStatus.inactive) {
+                          if (state.employee.status ==
+                              EmployeeStatus.inactive) {
                             context.read<EmployeeDetailBloc>().add(
                                 EmployeeStatusChangeEvent(
                                     status: EmployeeStatus.active,

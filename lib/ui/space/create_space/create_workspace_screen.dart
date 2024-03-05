@@ -59,7 +59,6 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
     final locale = context.l10n;
     return AppPage(
         backGroundColor: context.colorScheme.surface,
-
         title: locale.create_new_space_title,
         body: Material(
           color: context.colorScheme.surface,

@@ -55,7 +55,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     final locale = AppLocalizations.of(context);
     return AppPage(
         backGroundColor: context.colorScheme.surface,
-
         leading: InkWell(
             onTap: () {
               Scaffold.of(context).openDrawer();

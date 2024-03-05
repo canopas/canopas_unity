@@ -71,7 +71,6 @@ class _UserLeaveScreenState extends State<UserLeaveScreen>
 
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: AppLocalizations.of(context).leaves_tag,
       body: Column(
         children: [

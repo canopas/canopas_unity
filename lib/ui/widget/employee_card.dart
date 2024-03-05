@@ -38,8 +38,8 @@ class EmployeeCard extends StatelessWidget {
                 children: [
                   Text(employee.name,
                       style: employee.status == EmployeeStatus.inactive
-                          ? AppTextStyle.style18
-                              .copyWith(color: context.colorScheme.textSecondary)
+                          ? AppTextStyle.style18.copyWith(
+                              color: context.colorScheme.textSecondary)
                           : AppTextStyle.style18.copyWith(
                               color: context.colorScheme.textPrimary,
                               height: 1.5),

@@ -6,7 +6,6 @@ import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/gen/assets.gen.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/style/colors.dart';
 
 class DatePickerCard extends StatelessWidget {
   final Function() onPress;
@@ -26,8 +25,9 @@ class DatePickerCard extends StatelessWidget {
     return Expanded(
         child: Container(
       margin: const EdgeInsets.all(primaryHalfSpacing),
-      decoration:  BoxDecoration(
-          border: Border(bottom: BorderSide(color: context.colorScheme.containerHigh))),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(color: context.colorScheme.containerHigh))),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: onPress,

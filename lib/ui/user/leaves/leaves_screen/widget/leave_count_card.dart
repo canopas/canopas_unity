@@ -7,7 +7,6 @@ import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../../style/colors.dart';
 import '../bloc/leave_count/user_leave_count_bloc.dart';
 import '../bloc/leave_count/user_leave_count_state.dart';
 

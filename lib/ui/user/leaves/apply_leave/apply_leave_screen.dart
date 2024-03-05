@@ -41,7 +41,6 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   Widget build(BuildContext context) {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: context.l10n.user_leaves_apply_appbar_tag,
       body: BlocListener<ApplyLeaveBloc, ApplyLeaveState>(
         listenWhen: (previous, current) =>

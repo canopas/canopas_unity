@@ -42,12 +42,15 @@ class _MemberListScreenState extends State<MemberListScreen> {
   Widget build(BuildContext context) {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: AppLocalizations.of(context).members_tag,
       actions: [
         TextButton(
             onPressed: () => context.pushNamed(Routes.inviteMember),
-            child: Text(context.l10n.invite_tag,style: AppTextStyle.style16.copyWith(color: context.colorScheme.primary),))
+            child: Text(
+              context.l10n.invite_tag,
+              style: AppTextStyle.style16
+                  .copyWith(color: context.colorScheme.primary),
+            ))
       ],
       body: BlocConsumer<AdminMembersBloc, AdminMembersState>(
         builder: (BuildContext context, AdminMembersState state) {

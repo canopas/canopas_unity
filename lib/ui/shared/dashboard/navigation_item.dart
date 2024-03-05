@@ -77,7 +77,7 @@ List<BottomNavigationItem> adminTabs = [
   ),
   BottomNavigationItem(
     tabIcon: Assets.images.icUsers,
-    tabActiveIcon: Assets.images.usersFilled    ,
+    tabActiveIcon: Assets.images.usersFilled,
     label: "Members",
     initialLocation: Routes.adminMembers,
   ),

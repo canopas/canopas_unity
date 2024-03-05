@@ -43,7 +43,7 @@ class SpaceLogoView extends StatelessWidget {
           ? Icon(
               Icons.business,
               size: (size * 0.5),
-              color:  context.colorScheme.outlineColor,
+              color: context.colorScheme.outlineColor,
             )
           : null,
     );

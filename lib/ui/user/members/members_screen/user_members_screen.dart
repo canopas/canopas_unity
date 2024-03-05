@@ -38,7 +38,6 @@ class _UserMembersScreenState extends State<UserMembersScreen> {
   Widget build(BuildContext context) {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: context.l10n.members_tag,
       body: BlocConsumer<UserEmployeesBloc, UserEmployeesState>(
           listenWhen: (previous, current) =>

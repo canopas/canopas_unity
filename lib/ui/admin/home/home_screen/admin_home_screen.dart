@@ -54,7 +54,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     final locale = AppLocalizations.of(context);
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       leading: InkWell(
           onTap: () {
             Scaffold.of(context).openDrawer();

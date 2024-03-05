@@ -6,7 +6,6 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../style/colors.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -30,7 +29,8 @@ class LeaveRequestDateRange extends StatelessWidget {
                           vertical: primaryHalfSpacing),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        border: Border.all(color: context.colorScheme.containerHigh),
+                        border: Border.all(
+                            color: context.colorScheme.containerHigh),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -67,7 +67,8 @@ class LeaveRequestDateRange extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(
                               horizontal: primaryHalfSpacing),
                           decoration: BoxDecoration(
-                            border: Border.all(color: context.colorScheme.containerHigh),
+                            border: Border.all(
+                                color: context.colorScheme.containerHigh),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(

@@ -28,7 +28,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers:[
+      providers: [
         BlocProvider(create: (context) => getIt.get<DrawerBloc>()),
         BlocProvider(
             create: (context) => getIt<NetworkConnectionBloc>()

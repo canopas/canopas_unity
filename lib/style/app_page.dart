@@ -1,10 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 
 class AppPage extends StatelessWidget {
@@ -26,7 +20,8 @@ class AppPage extends StatelessWidget {
     this.actions,
     this.leading,
     this.body,
-    this.floatingActionButtonLocation= FloatingActionButtonLocation.centerFloat,
+    this.floatingActionButtonLocation =
+        FloatingActionButtonLocation.centerFloat,
     this.automaticallyImplyLeading = true,
     this.floatingActionButton,
   });
@@ -40,7 +35,7 @@ class AppPage extends StatelessWidget {
               leading == null
           ? null
           : AppBar(
-        backgroundColor: backGroundColor,
+              backgroundColor: backGroundColor,
               title: titleWidget ?? _title(),
               actions: actions,
               leading: leading,

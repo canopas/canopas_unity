@@ -40,7 +40,6 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
     final locale = AppLocalizations.of(context);
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: locale.admin_home_invite_member_appbar_tag,
       body: BlocConsumer<InviteMemberBloc, InviteMemberState>(
         listenWhen: (previous, current) =>

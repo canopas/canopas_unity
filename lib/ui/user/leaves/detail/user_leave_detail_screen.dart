@@ -55,7 +55,6 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
     final localization = AppLocalizations.of(context);
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: AppLocalizations.of(context).details_tag,
       body: BlocConsumer<UserLeaveDetailBloc, UserLeaveDetailState>(
           listenWhen: (previous, current) =>

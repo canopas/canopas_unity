@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/pick_profile_image/pick_user_profile_image.dart';
@@ -102,27 +101,31 @@ class GenderSelection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               RadioMenuButton<Gender>(
-                  value: Gender.male,
-                  groupValue: state.gender,
-                  onChanged: (Gender? gender){
-                    bloc.add(EditProfileChangeGenderEvent(gender: Gender.male));
-                  },
-                  child: Text(
-              localization.gender_male_tag,
-              style: AppTextStyle.style16
-                  .copyWith(color: state.gender==Gender.male?context.colorScheme.primary:context.colorScheme.textPrimary),
-            ),
-          ),
+                value: Gender.male,
+                groupValue: state.gender,
+                onChanged: (Gender? gender) {
+                  bloc.add(EditProfileChangeGenderEvent(gender: Gender.male));
+                },
+                child: Text(
+                  localization.gender_male_tag,
+                  style: AppTextStyle.style16.copyWith(
+                      color: state.gender == Gender.male
+                          ? context.colorScheme.primary
+                          : context.colorScheme.textPrimary),
+                ),
+              ),
               RadioMenuButton<Gender>(
                 value: Gender.female,
                 groupValue: state.gender,
-                onChanged: (Gender? gender){
+                onChanged: (Gender? gender) {
                   bloc.add(EditProfileChangeGenderEvent(gender: Gender.female));
                 },
                 child: Text(
                   localization.gender_female_tag,
-                  style: AppTextStyle.style16
-                      .copyWith(color: state.gender==Gender.female?context.colorScheme.primary:context.colorScheme.textPrimary),
+                  style: AppTextStyle.style16.copyWith(
+                      color: state.gender == Gender.female
+                          ? context.colorScheme.primary
+                          : context.colorScheme.textPrimary),
                 ),
               )
               // Expanded(

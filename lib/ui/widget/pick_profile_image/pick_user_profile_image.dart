@@ -78,7 +78,7 @@ class ProfileImage extends StatelessWidget {
               backgroundColor: context.colorScheme.surface,
               elevation: 2,
               mini: true,
-              child:  Icon(
+              child: Icon(
                 Icons.edit,
                 color: context.colorScheme.containerHigh,
               )),

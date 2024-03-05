@@ -43,7 +43,6 @@ class _AdminEmployeeDetailsLeavesScreenState
   Widget build(BuildContext context) {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-
       title: AppLocalizations.of(context)
           .employee_details_leaves_title(widget.employeeName.split(" ").first),
       body: EmployeeLeaveList(employeeName: widget.employeeName),

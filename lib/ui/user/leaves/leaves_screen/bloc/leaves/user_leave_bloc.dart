@@ -131,5 +131,4 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
         casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn),
         urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.appliedOn)));
   }
-
 }
