@@ -15,7 +15,6 @@ import 'package:projectunity/ui/app.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'data/core/utils/const/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
-import 'data/bloc/network/network_connection_bloc.dart';
 import 'data/di/service_locator.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'firebase_options.dart';

@@ -69,7 +69,7 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
           emit(state.copyWith(
               fetchMoreDataStatus: Status.success,
               casualLeaves:
-                  casualLeaves.groupByMonth((leave) => leave.appliedOn)));
+                  casualLeaves.groupByMonth((leave) => leave.startDate)));
         } else if (event.leaveType == LeaveType.urgentLeave &&
             !_isLoadedMaxUrgent) {
           emit(state.copyWith(fetchMoreDataStatus: Status.loading));
@@ -78,7 +78,7 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
           emit(state.copyWith(
               fetchMoreDataStatus: Status.success,
               casualLeaves:
-                  casualLeaves.groupByMonth((leave) => leave.appliedOn)));
+                  casualLeaves.groupByMonth((leave) => leave.startDate)));
         }
       } on Exception {
         emit(state.copyWith(
@@ -118,7 +118,10 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
   Future<void> _updateLeave(
       UpdateLeave event, Emitter<UserLeaveState> emit) async {
     final leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
-    final leaves = state.casualLeaves.values.merge();
+    final leaves = [
+      ...state.casualLeaves.values.merge(),
+      ...state.urgentLeaves.values.merge()
+    ];
     leaves.removeWhereAndAdd(
         leave, (element) => element.leaveId == leave?.leaveId);
     List<Leave> casualLeaves = leaves
@@ -128,7 +131,7 @@ class UserLeaveBloc extends Bloc<UserLeavesEvents, UserLeaveState> {
         .where((element) => element.type == LeaveType.urgentLeave)
         .toList();
     emit(state.copyWith(
-        casualLeaves: casualLeaves.groupByMonth((leave) => leave.appliedOn),
-        urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.appliedOn)));
+        casualLeaves: casualLeaves.groupByMonth((leave) => leave.startDate),
+        urgentLeaves: urgentLeaves.groupByMonth((leave) => leave.startDate)));
   }
 }
