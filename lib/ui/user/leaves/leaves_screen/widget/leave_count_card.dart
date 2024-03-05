@@ -12,8 +12,8 @@ import '../bloc/leave_count/user_leave_count_state.dart';
 
 class LeaveCountCard extends StatelessWidget {
   const LeaveCountCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

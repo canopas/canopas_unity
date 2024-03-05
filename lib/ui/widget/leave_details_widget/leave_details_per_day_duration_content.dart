@@ -10,8 +10,7 @@ class PerDayDurationDateRange extends StatelessWidget {
   final Map<DateTime, LeaveDayDuration> perDayDurationWithDate;
 
   const PerDayDurationDateRange(
-      {Key? key, required this.perDayDurationWithDate})
-      : super(key: key);
+      {super.key, required this.perDayDurationWithDate});
 
   @override
   Widget build(BuildContext context) {

@@ -12,13 +12,12 @@ class ImageProfile extends StatelessWidget {
   final String? pickedImage;
 
   const ImageProfile(
-      {Key? key,
+      {super.key,
       this.imageUrl,
       required this.radius,
       this.backgroundColor,
       this.pickedImage,
-      this.iconColor})
-      : super(key: key);
+      this.iconColor});
 
   ImageProvider? setImage() {
     if (imageUrl != null) {

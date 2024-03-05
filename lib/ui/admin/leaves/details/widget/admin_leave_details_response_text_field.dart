@@ -8,7 +8,7 @@ import '../bloc/admin_leave_details_bloc.dart';
 import '../bloc/admin_leave_details_event.dart';
 
 class ApproveRejectionMessage extends StatelessWidget {
-  const ApproveRejectionMessage({Key? key}) : super(key: key);
+  const ApproveRejectionMessage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -23,7 +23,7 @@ import '../../../widget/leave_card.dart';
 import 'bloc/user_home_bloc.dart';
 
 class UserHomeScreenPage extends StatelessWidget {
-  const UserHomeScreenPage({Key? key}) : super(key: key);
+  const UserHomeScreenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class UserHomeScreenPage extends StatelessWidget {
 }
 
 class UserHomeScreen extends StatefulWidget {
-  const UserHomeScreen({Key? key}) : super(key: key);
+  const UserHomeScreen({super.key});
 
   @override
   State<UserHomeScreen> createState() => _UserHomeScreenState();

@@ -21,7 +21,7 @@ import 'bloc /admin_leave_event.dart';
 import 'bloc /admin_leaves_bloc.dart';
 
 class AdminLeavesPage extends StatelessWidget {
-  const AdminLeavesPage({Key? key}) : super(key: key);
+  const AdminLeavesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class AdminLeavesPage extends StatelessWidget {
 }
 
 class AdminLeavesScreen extends StatefulWidget {
-  const AdminLeavesScreen({Key? key}) : super(key: key);
+  const AdminLeavesScreen({super.key});
 
   @override
   State<AdminLeavesScreen> createState() => _AdminLeavesScreenState();

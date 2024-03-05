@@ -16,9 +16,9 @@ class SpaceBasicDetails extends StatefulWidget {
   final void Function()? onNextButtonPressed;
 
   const SpaceBasicDetails({
-    Key? key,
+    super.key,
     this.onNextButtonPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<SpaceBasicDetails> createState() => _SpaceBasicDetailsState();

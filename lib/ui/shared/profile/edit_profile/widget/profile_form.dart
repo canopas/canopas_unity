@@ -21,14 +21,14 @@ class ProfileForm extends StatelessWidget {
   final TextEditingController levelController;
 
   const ProfileForm({
-    Key? key,
+    super.key,
     required this.profileImageURL,
     required this.nameController,
     required this.designationController,
     required this.phoneNumberController,
     required this.addressController,
     required this.levelController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class ProfileForm extends StatelessWidget {
 }
 
 class GenderSelection extends StatelessWidget {
-  const GenderSelection({Key? key}) : super(key: key);
+  const GenderSelection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +182,7 @@ class GenderSelection extends StatelessWidget {
 }
 
 class DateOfBirthButton extends StatelessWidget {
-  const DateOfBirthButton({Key? key}) : super(key: key);
+  const DateOfBirthButton({super.key});
 
   @override
   Widget build(BuildContext context) {

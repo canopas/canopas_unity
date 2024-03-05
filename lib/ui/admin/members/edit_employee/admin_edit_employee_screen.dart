@@ -15,8 +15,7 @@ import 'bloc/admin_edit_employee_state.dart';
 class AdminEditEmployeeDetailsPage extends StatelessWidget {
   final Employee employee;
 
-  const AdminEditEmployeeDetailsPage({Key? key, required this.employee})
-      : super(key: key);
+  const AdminEditEmployeeDetailsPage({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +33,7 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
 class AdminEditEmployeeDetailsView extends StatefulWidget {
   final Employee employee;
 
-  const AdminEditEmployeeDetailsView({Key? key, required this.employee})
-      : super(key: key);
+  const AdminEditEmployeeDetailsView({super.key, required this.employee});
 
   @override
   State<AdminEditEmployeeDetailsView> createState() =>

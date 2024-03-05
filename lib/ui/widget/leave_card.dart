@@ -12,10 +12,10 @@ class LeaveCard extends StatelessWidget {
   final void Function()? onTap;
 
   const LeaveCard({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.leave,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

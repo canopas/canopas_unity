@@ -14,7 +14,7 @@ import 'bloc/create_workspace_bloc.dart';
 import 'bloc/create_workspace_event.dart';
 
 class CreateWorkSpacePage extends StatelessWidget {
-  const CreateWorkSpacePage({Key? key}) : super(key: key);
+  const CreateWorkSpacePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CreateWorkSpacePage extends StatelessWidget {
 }
 
 class CreateWorkSpaceScreen extends StatefulWidget {
-  const CreateWorkSpaceScreen({Key? key}) : super(key: key);
+  const CreateWorkSpaceScreen({super.key});
 
   @override
   State<CreateWorkSpaceScreen> createState() => _CreateWorkSpaceScreenState();

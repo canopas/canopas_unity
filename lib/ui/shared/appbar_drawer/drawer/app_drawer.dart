@@ -20,7 +20,7 @@ import 'bloc/app_drawer_event.dart';
 import 'bloc/app_drawer_state.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  const AppDrawer({super.key});
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
@@ -96,11 +96,10 @@ class DrawerOptionList extends StatelessWidget {
   final String currentSpaceName;
 
   const DrawerOptionList(
-      {Key? key,
+      {super.key,
       required this.isAdmin,
       required this.isAdminOrHr,
-      required this.currentSpaceName})
-      : super(key: key);
+      required this.currentSpaceName});
 
   @override
   Widget build(BuildContext context) {
@@ -152,8 +151,7 @@ class SpaceList extends StatelessWidget {
   final String? currentSpaceId;
 
   const SpaceList(
-      {Key? key, required this.userEmail, required this.currentSpaceId})
-      : super(key: key);
+      {super.key, required this.userEmail, required this.currentSpaceId});
 
   @override
   Widget build(BuildContext context) {

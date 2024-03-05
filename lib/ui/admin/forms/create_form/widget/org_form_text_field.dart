@@ -26,15 +26,14 @@ class OrgFormFieldEntry extends StatelessWidget {
   final int? maxLength;
 
   const OrgFormFieldEntry(
-      {Key? key,
+      {super.key,
       this.textInputAction,
       this.validator,
       this.maxLine,
       this.onChanged,
       this.controller,
       this.maxLength,
-      this.hintText})
-      : super(key: key);
+      this.hintText});
 
   @override
   Widget build(BuildContext context) {

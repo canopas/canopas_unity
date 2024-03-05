@@ -9,8 +9,7 @@ class DrawerOption extends StatelessWidget {
       required this.title,
       required this.onTap,
       this.iconColor,
-      Key? key})
-      : super(key: key);
+      super.key});
   final Color? iconColor;
   final IconData icon;
   final String title;

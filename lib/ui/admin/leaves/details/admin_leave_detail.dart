@@ -29,8 +29,7 @@ import 'bloc/admin_leave_details_state.dart';
 class AdminLeaveDetailsPage extends StatelessWidget {
   final LeaveApplication leaveApplication;
 
-  const AdminLeaveDetailsPage({Key? key, required this.leaveApplication})
-      : super(key: key);
+  const AdminLeaveDetailsPage({super.key, required this.leaveApplication});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +47,7 @@ class AdminLeaveApplicationDetailScreen extends StatefulWidget {
   final LeaveApplication leaveApplication;
 
   const AdminLeaveApplicationDetailScreen(
-      {Key? key, required this.leaveApplication})
-      : super(key: key);
+      {super.key, required this.leaveApplication});
 
   @override
   State<AdminLeaveApplicationDetailScreen> createState() =>

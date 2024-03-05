@@ -7,9 +7,9 @@ class ProfileDetail extends StatelessWidget {
   final Employee employee;
 
   const ProfileDetail({
-    Key? key,
+    super.key,
     required this.employee,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

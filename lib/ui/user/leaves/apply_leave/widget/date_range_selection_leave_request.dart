@@ -11,7 +11,7 @@ import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
 
 class LeaveRequestDateRange extends StatelessWidget {
-  const LeaveRequestDateRange({Key? key}) : super(key: key);
+  const LeaveRequestDateRange({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +104,9 @@ class LeaveTimePeriodBox extends StatelessWidget {
   final MapEntry<DateTime, LeaveDayDuration> dayTimePeriod;
 
   const LeaveTimePeriodBox({
-    Key? key,
+    super.key,
     required this.dayTimePeriod,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

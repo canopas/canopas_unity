@@ -13,21 +13,20 @@ enum UserState { authenticated, unauthenticated, spaceJoined, update }
 
 @LazySingleton()
 class UserStateNotifier with ChangeNotifier {
-
   final FirebaseAuth _firebaseAuth;
   final UserPreference _userPreference;
   final SpaceChangeNotifier _spaceChangeNotifier;
   UserState _userState = UserState.unauthenticated;
 
-
   UserState get state => _userState;
 
-  UserStateNotifier(this._userPreference, this._spaceChangeNotifier,this._firebaseAuth) {
+  UserStateNotifier(
+      this._userPreference, this._spaceChangeNotifier, this._firebaseAuth) {
     getUserStatus();
   }
 
   void getUserStatus() async {
-    if (_firebaseAuth.currentUser != null){
+    if (_firebaseAuth.currentUser != null) {
       if (_userPreference.getAccount() == null) {
         _userState = UserState.unauthenticated;
       } else if (_userPreference.getSpace() != null &&

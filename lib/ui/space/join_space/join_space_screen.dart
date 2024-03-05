@@ -15,7 +15,7 @@ import '../../../data/core/utils/bloc_status.dart';
 import '../../widget/app_dialog.dart';
 
 class JoinSpacePage extends StatelessWidget {
-  const JoinSpacePage({Key? key}) : super(key: key);
+  const JoinSpacePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class JoinSpacePage extends StatelessWidget {
 }
 
 class JoinSpaceScreen extends StatefulWidget {
-  const JoinSpaceScreen({Key? key}) : super(key: key);
+  const JoinSpaceScreen({super.key});
 
   @override
   State<JoinSpaceScreen> createState() => _JoinSpaceScreenState();

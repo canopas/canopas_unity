@@ -8,8 +8,7 @@ import '../../../../../data/model/leave/leave.dart';
 class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
   final Leave leave;
 
-  const AdminLeaveRequestDetailsDateContent({Key? key, required this.leave})
-      : super(key: key);
+  const AdminLeaveRequestDetailsDateContent({super.key, required this.leave});
 
   @override
   Widget build(BuildContext context) {

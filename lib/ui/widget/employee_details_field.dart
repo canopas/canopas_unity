@@ -5,8 +5,7 @@ import '../../data/configs/space_constant.dart';
 
 class EmployeeDetailsField extends StatelessWidget {
   const EmployeeDetailsField(
-      {Key? key, required this.title, required this.subtitle})
-      : super(key: key);
+      {super.key, required this.title, required this.subtitle});
 
   final String title;
   final String? subtitle;

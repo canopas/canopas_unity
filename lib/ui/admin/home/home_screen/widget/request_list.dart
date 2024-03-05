@@ -12,9 +12,9 @@ import '../../../../widget/leave_application_card.dart';
 
 class LeaveRequestList extends StatelessWidget {
   const LeaveRequestList({
-    Key? key,
+    super.key,
     required this.map,
-  }) : super(key: key);
+  });
 
   final Map<DateTime, List<LeaveApplication>> map;
 

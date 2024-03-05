@@ -8,8 +8,7 @@ class ToggleButton extends StatelessWidget {
   final Role role;
   final Function(Role role) onRoleChange;
 
-  const ToggleButton({Key? key, required this.onRoleChange, required this.role})
-      : super(key: key);
+  const ToggleButton({super.key, required this.onRoleChange, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class ToggleButton extends StatelessWidget {
                     ),
                   ),
                 )
-                .toList()
+                
           ],
         ),
       ),

@@ -3,8 +3,7 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 
 class ReasonField extends StatelessWidget {
-  const ReasonField({Key? key, required this.reason, required this.title})
-      : super(key: key);
+  const ReasonField({super.key, required this.reason, required this.title});
   final String reason;
   final String title;
 

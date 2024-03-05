@@ -11,7 +11,7 @@ import 'bloc/sign_in_view_bloc.dart';
 import 'bloc/sign_in_view_state.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SignInPage extends StatelessWidget {
 }
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key});
 
   @override
   SignInScreenState createState() => SignInScreenState();

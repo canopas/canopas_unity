@@ -13,11 +13,11 @@ class DatePickerCard extends StatelessWidget {
   final DateTime date;
 
   const DatePickerCard({
-    Key? key,
+    super.key,
     required this.onPress,
     required this.title,
     required this.date,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

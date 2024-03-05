@@ -17,7 +17,7 @@ import '../bloc /admin_leaves_bloc.dart';
 import '../bloc /admin_leaves_state.dart';
 
 class AdminLeavesFilter extends StatefulWidget {
-  const AdminLeavesFilter({Key? key}) : super(key: key);
+  const AdminLeavesFilter({super.key});
 
   @override
   State<AdminLeavesFilter> createState() => _AdminLeavesFilterState();
@@ -141,8 +141,7 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
   final bool employeeIsSelected;
 
   const SearchEmployeeShowAllMemberLeaveButton(
-      {Key? key, required this.employeeIsSelected})
-      : super(key: key);
+      {super.key, required this.employeeIsSelected});
 
   @override
   Widget build(BuildContext context) {

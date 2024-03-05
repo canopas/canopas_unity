@@ -18,8 +18,7 @@ class LeaveApplicationCard extends StatelessWidget {
   final LeaveApplication leaveApplication;
 
   const LeaveApplicationCard(
-      {Key? key, required this.leaveApplication, this.onTap})
-      : super(key: key);
+      {super.key, required this.leaveApplication, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +84,10 @@ class _LeaveDateContent extends StatelessWidget {
   final DateTime endDate;
 
   const _LeaveDateContent(
-      {Key? key,
-      required this.totalDays,
+      {required this.totalDays,
       required this.startDate,
       required this.endDate,
-      required this.firstDayDuration})
-      : super(key: key);
+      required this.firstDayDuration});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +109,7 @@ class _LeaveDateContent extends StatelessWidget {
 class _EmployeeContent extends StatelessWidget {
   final Employee employee;
 
-  const _EmployeeContent({Key? key, required this.employee}) : super(key: key);
+  const _EmployeeContent({required this.employee});
 
   @override
   Widget build(BuildContext context) {

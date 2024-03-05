@@ -18,7 +18,7 @@ import '../../../../app_router.dart';
 import '../../../widget/employee_details_field.dart';
 
 class ViewProfilePage extends StatelessWidget {
-  const ViewProfilePage({Key? key}) : super(key: key);
+  const ViewProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ViewProfilePage extends StatelessWidget {
 }
 
 class ViewProfileScreen extends StatelessWidget {
-  const ViewProfileScreen({Key? key}) : super(key: key);
+  const ViewProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

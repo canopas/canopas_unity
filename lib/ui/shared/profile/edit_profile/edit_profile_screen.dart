@@ -18,8 +18,7 @@ import 'bloc/employee_edit_profile_state.dart';
 class EmployeeEditProfilePage extends StatelessWidget {
   final Employee employee;
 
-  const EmployeeEditProfilePage({Key? key, required this.employee})
-      : super(key: key);
+  const EmployeeEditProfilePage({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +34,7 @@ class EmployeeEditProfilePage extends StatelessWidget {
 class EmployeeEditProfileScreen extends StatefulWidget {
   final Employee employee;
 
-  const EmployeeEditProfileScreen({Key? key, required this.employee})
-      : super(key: key);
+  const EmployeeEditProfileScreen({super.key, required this.employee});
 
   @override
   State<EmployeeEditProfileScreen> createState() =>

@@ -7,7 +7,7 @@ import '../../data/configs/space_constant.dart';
 class FieldTitle extends StatelessWidget {
   final String title;
 
-  const FieldTitle({Key? key, required this.title}) : super(key: key);
+  const FieldTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class FieldEntry extends StatelessWidget {
   final int? maxLength;
 
   const FieldEntry(
-      {Key? key,
+      {super.key,
       this.maxLine,
       this.onChanged,
       this.errorText,
@@ -40,8 +40,7 @@ class FieldEntry extends StatelessWidget {
       this.controller,
       this.keyboardType,
       this.maxLength,
-      this.inputFormatters})
-      : super(key: key);
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {

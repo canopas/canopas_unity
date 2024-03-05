@@ -7,8 +7,7 @@ class OrgLogoView extends StatelessWidget {
 
   final String? pickedLogoFile;
 
-  const OrgLogoView({Key? key, this.onButtonTap, this.pickedLogoFile})
-      : super(key: key);
+  const OrgLogoView({super.key, this.onButtonTap, this.pickedLogoFile});
 
   @override
   Widget build(BuildContext context) {

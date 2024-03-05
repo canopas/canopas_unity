@@ -12,8 +12,7 @@ class SpaceLogoView extends StatelessWidget {
   final String? pickedLogoFile;
 
   const SpaceLogoView(
-      {Key? key, this.spaceLogoUrl, this.pickedLogoFile, this.size = 50})
-      : super(key: key);
+      {super.key, this.spaceLogoUrl, this.pickedLogoFile, this.size = 50});
 
   ImageProvider? setImage() {
     if (pickedLogoFile != null) {

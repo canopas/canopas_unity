@@ -22,7 +22,7 @@ import 'bloc/admin_home_event.dart';
 import 'bloc/admin_home_state.dart';
 
 class AdminHomeScreenPage extends StatelessWidget {
-  const AdminHomeScreenPage({Key? key}) : super(key: key);
+  const AdminHomeScreenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class AdminHomeScreenPage extends StatelessWidget {
 }
 
 class AdminHomeScreen extends StatefulWidget {
-  const AdminHomeScreen({Key? key}) : super(key: key);
+  const AdminHomeScreen({super.key});
 
   @override
   State<AdminHomeScreen> createState() => _AdminHomeScreenState();

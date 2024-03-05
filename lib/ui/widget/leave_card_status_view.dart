@@ -9,11 +9,10 @@ class LeaveStatusView extends StatelessWidget {
   final LeaveStatus status;
 
   const LeaveStatusView(
-      {Key? key,
+      {super.key,
       required this.status,
       this.verticalPadding = 4,
-      this.horizontalPadding = 10})
-      : super(key: key);
+      this.horizontalPadding = 10});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ Color leaveStatusColor(LeaveStatus leaveStatus, BuildContext context) {
 class LeaveStatusIcon extends StatelessWidget {
   final LeaveStatus status;
 
-  const LeaveStatusIcon({Key? key, required this.status}) : super(key: key);
+  const LeaveStatusIcon({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {

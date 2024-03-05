@@ -13,8 +13,7 @@ class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
   final String employeeId;
 
   const AdminEmployeeDetailsLeavesPage(
-      {Key? key, required this.employeeName, required this.employeeId})
-      : super(key: key);
+      {super.key, required this.employeeName, required this.employeeId});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,7 @@ class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
 class AdminEmployeeDetailsLeavesScreen extends StatefulWidget {
   final String employeeName;
 
-  const AdminEmployeeDetailsLeavesScreen({Key? key, required this.employeeName})
-      : super(key: key);
+  const AdminEmployeeDetailsLeavesScreen({super.key, required this.employeeName});
 
   @override
   State<AdminEmployeeDetailsLeavesScreen> createState() =>
