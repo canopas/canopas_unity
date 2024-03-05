@@ -9,8 +9,8 @@ import '../bloc/apply_leave_state.dart';
 
 class LeaveTypeCard extends StatelessWidget {
   const LeaveTypeCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

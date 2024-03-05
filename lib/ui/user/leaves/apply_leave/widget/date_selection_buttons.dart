@@ -9,7 +9,7 @@ import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
 
 class LeaveRequestDateSelection extends StatelessWidget {
-  const LeaveRequestDateSelection({Key? key}) : super(key: key);
+  const LeaveRequestDateSelection({super.key});
 
   @override
   Widget build(BuildContext context) {

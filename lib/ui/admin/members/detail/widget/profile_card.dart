@@ -8,7 +8,7 @@ import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/user_profile_image.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({Key? key, required this.employee}) : super(key: key);
+  const ProfileCard({super.key, required this.employee});
 
   final Employee employee;
 
@@ -69,8 +69,7 @@ class ProfileCard extends StatelessWidget {
 }
 
 class TextColumn extends StatelessWidget {
-  const TextColumn({Key? key, required this.title, required this.subtitle})
-      : super(key: key);
+  const TextColumn({super.key, required this.title, required this.subtitle});
 
   final String title;
   final String? subtitle;

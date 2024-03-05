@@ -19,7 +19,7 @@ import 'bloc/member_list_state.dart';
 import 'inivitation_card.dart';
 
 class MemberListPage extends StatelessWidget {
-  const MemberListPage({Key? key}) : super(key: key);
+  const MemberListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class MemberListPage extends StatelessWidget {
 }
 
 class MemberListScreen extends StatefulWidget {
-  const MemberListScreen({Key? key}) : super(key: key);
+  const MemberListScreen({super.key});
 
   @override
   State<MemberListScreen> createState() => _MemberListScreenState();

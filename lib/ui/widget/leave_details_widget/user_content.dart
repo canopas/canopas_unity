@@ -10,7 +10,7 @@ import '../user_profile_image.dart';
 class UserContent extends StatelessWidget {
   final Employee employee;
 
-  const UserContent({Key? key, required this.employee}) : super(key: key);
+  const UserContent({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {

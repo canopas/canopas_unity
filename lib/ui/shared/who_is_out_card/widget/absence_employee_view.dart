@@ -18,11 +18,10 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
   final Status status;
 
   const AbsenceEmployeesListWhoIsOutCardView(
-      {Key? key,
+      {super.key,
       required this.dateOfEmployeeAbsence,
       required this.absence,
-      required this.status})
-      : super(key: key);
+      required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +43,7 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
 class AbsenceEmployeeWrapLayout extends StatelessWidget {
   final List<LeaveApplication> absence;
 
-  const AbsenceEmployeeWrapLayout({Key? key, required this.absence})
-      : super(key: key);
+  const AbsenceEmployeeWrapLayout({super.key, required this.absence});
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +104,7 @@ class WhoIsOutAbsenceEmptyView extends StatelessWidget {
   final DateTime dateOfEmployeeAbsence;
 
   const WhoIsOutAbsenceEmptyView(
-      {Key? key, required this.dateOfEmployeeAbsence})
-      : super(key: key);
+      {super.key, required this.dateOfEmployeeAbsence});
 
   @override
   Widget build(BuildContext context) {

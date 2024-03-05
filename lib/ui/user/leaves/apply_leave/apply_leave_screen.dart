@@ -18,7 +18,7 @@ import 'bloc/apply_leave_event.dart';
 import 'bloc/apply_leave_state.dart';
 
 class ApplyLeavePage extends StatelessWidget {
-  const ApplyLeavePage({Key? key}) : super(key: key);
+  const ApplyLeavePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ApplyLeavePage extends StatelessWidget {
 }
 
 class ApplyLeaveScreen extends StatefulWidget {
-  const ApplyLeaveScreen({Key? key}) : super(key: key);
+  const ApplyLeaveScreen({super.key});
 
   @override
   State<ApplyLeaveScreen> createState() => _ApplyLeaveScreenState();

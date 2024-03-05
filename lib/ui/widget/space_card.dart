@@ -13,12 +13,11 @@ class SpaceCard extends StatelessWidget {
   final String? logo;
 
   const SpaceCard(
-      {Key? key,
+      {super.key,
       this.onPressed,
       this.logo,
       required this.name,
-      required this.domain})
-      : super(key: key);
+      required this.domain});
 
   @override
   Widget build(BuildContext context) {

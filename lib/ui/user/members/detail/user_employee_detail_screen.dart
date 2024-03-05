@@ -15,8 +15,7 @@ import 'bloc/user_employee_detail_event.dart';
 class UserEmployeeDetailPage extends StatelessWidget {
   final Employee employee;
 
-  const UserEmployeeDetailPage({Key? key, required this.employee})
-      : super(key: key);
+  const UserEmployeeDetailPage({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,7 @@ class UserEmployeeDetailPage extends StatelessWidget {
 class UserEmployeeDetailScreen extends StatefulWidget {
   final Employee employee;
 
-  const UserEmployeeDetailScreen({Key? key, required this.employee})
-      : super(key: key);
+  const UserEmployeeDetailScreen({super.key, required this.employee});
 
   @override
   State<UserEmployeeDetailScreen> createState() =>

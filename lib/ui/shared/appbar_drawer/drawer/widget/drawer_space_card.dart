@@ -11,12 +11,11 @@ class DrawerSpaceCard extends StatelessWidget {
   final Function()? onTap;
 
   const DrawerSpaceCard(
-      {Key? key,
+      {super.key,
       required this.name,
       this.logo,
       this.onTap,
-      required this.isSelected})
-      : super(key: key);
+      required this.isSelected});
 
   @override
   Widget build(BuildContext context) {

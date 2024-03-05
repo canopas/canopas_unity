@@ -17,11 +17,10 @@ class LeaveList extends StatefulWidget {
   final Status status;
 
   const LeaveList(
-      {Key? key,
+      {super.key,
       required this.leaves,
       required this.leaveType,
-      required this.status})
-      : super(key: key);
+      required this.status});
 
   @override
   State<LeaveList> createState() => _LeaveListState();

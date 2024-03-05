@@ -12,8 +12,7 @@ import '../bloc/create_workspace_state.dart';
 class SetUpSpaceDetails extends StatefulWidget {
   final void Function()? onNextButtonPressed;
 
-  const SetUpSpaceDetails({Key? key, this.onNextButtonPressed})
-      : super(key: key);
+  const SetUpSpaceDetails({super.key, this.onNextButtonPressed});
 
   @override
   State<SetUpSpaceDetails> createState() => _SetUpSpaceDetailsState();

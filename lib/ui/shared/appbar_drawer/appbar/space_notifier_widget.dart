@@ -6,8 +6,7 @@ import '../../../../data/model/space/space.dart';
 
 class SpaceNotifierWidget extends InheritedNotifier<UserStateNotifier> {
   const SpaceNotifierWidget(
-      {super.key, required UserStateNotifier notifier, required Widget child})
-      : super(notifier: notifier, child: child);
+      {super.key, required UserStateNotifier super.notifier, required super.child});
 
   static Space? of(BuildContext context) {
     return context

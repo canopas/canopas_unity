@@ -23,7 +23,7 @@ import 'widget/profile_detail.dart';
 class EmployeeDetailPage extends StatelessWidget {
   final String id;
 
-  const EmployeeDetailPage({Key? key, required this.id}) : super(key: key);
+  const EmployeeDetailPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,7 @@ class EmployeeDetailPage extends StatelessWidget {
 class EmployeeDetailScreen extends StatefulWidget {
   final String employeeId;
 
-  const EmployeeDetailScreen({Key? key, required this.employeeId})
-      : super(key: key);
+  const EmployeeDetailScreen({super.key, required this.employeeId});
 
   @override
   State<EmployeeDetailScreen> createState() => _EmployeeDetailScreenState();

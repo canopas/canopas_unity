@@ -13,7 +13,7 @@ import 'bloc/who_is_out_card_event.dart';
 import 'bloc/who_is_out_card_state.dart';
 
 class WhoIsOutCard extends StatelessWidget {
-  const WhoIsOutCard({Key? key}) : super(key: key);
+  const WhoIsOutCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class WhoIsOutCard extends StatelessWidget {
 }
 
 class LeaveCalendar extends StatefulWidget {
-  const LeaveCalendar({Key? key}) : super(key: key);
+  const LeaveCalendar({super.key});
 
   @override
   State<LeaveCalendar> createState() => _LeaveCalendarState();
@@ -145,7 +145,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
 }
 
 class CalendarFormatButton extends StatelessWidget {
-  const CalendarFormatButton({Key? key}) : super(key: key);
+  const CalendarFormatButton({super.key});
 
   getCalendarFormat(CalendarFormat format) {
     if (format == CalendarFormat.week) {

@@ -6,7 +6,7 @@ import '../../../../widget/employee_details_field.dart';
 class EmployeeInfo extends StatelessWidget {
   final Employee employee;
 
-  const EmployeeInfo({Key? key, required this.employee}) : super(key: key);
+  const EmployeeInfo({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {

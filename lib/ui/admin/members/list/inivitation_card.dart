@@ -10,8 +10,7 @@ import '../../../../data/model/invitation/invitation.dart';
 class InvitedMemberCard extends StatelessWidget {
   final Invitation invitation;
 
-  const InvitedMemberCard({Key? key, required this.invitation})
-      : super(key: key);
+  const InvitedMemberCard({super.key, required this.invitation});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import '../bloc/user_leave_detail_event.dart';
 
 class CancelButton extends StatelessWidget {
   final String leaveId;
-  const CancelButton({Key? key, required this.leaveId}) : super(key: key);
+  const CancelButton({super.key, required this.leaveId});
 
   @override
   Widget build(BuildContext context) {

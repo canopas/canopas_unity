@@ -24,8 +24,8 @@ import 'bloc/edit_space_state.dart';
 
 class EditSpacePage extends StatelessWidget {
   const EditSpacePage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class EditSpacePage extends StatelessWidget {
 }
 
 class EditSpaceScreen extends StatefulWidget {
-  const EditSpaceScreen({Key? key}) : super(key: key);
+  const EditSpaceScreen({super.key});
 
   @override
   State<EditSpaceScreen> createState() => _EditSpaceScreenState();
@@ -183,7 +183,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
 }
 
 class DeleteSpaceButton extends StatelessWidget {
-  const DeleteSpaceButton({Key? key}) : super(key: key);
+  const DeleteSpaceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -226,8 +226,7 @@ class _OrgLogoView extends StatelessWidget {
   final String? imageURL;
 
   const _OrgLogoView(
-      {Key? key, this.onButtonTap, this.pickedLogo, required this.imageURL})
-      : super(key: key);
+      {this.onButtonTap, this.pickedLogo, required this.imageURL});
 
   @override
   Widget build(BuildContext context) {

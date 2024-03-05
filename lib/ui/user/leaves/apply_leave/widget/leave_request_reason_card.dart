@@ -10,7 +10,7 @@ import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
 
 class LeaveRequestReasonCard extends StatelessWidget {
-  const LeaveRequestReasonCard({Key? key}) : super(key: key);
+  const LeaveRequestReasonCard({super.key});
 
   @override
   Widget build(BuildContext context) {

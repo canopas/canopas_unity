@@ -15,8 +15,7 @@ class DashBoardScreen extends StatefulWidget {
   final Widget child;
   final List<BottomNavigationItem> tabs;
 
-  const DashBoardScreen({Key? key, required this.child, required this.tabs})
-      : super(key: key);
+  const DashBoardScreen({super.key, required this.child, required this.tabs});
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();

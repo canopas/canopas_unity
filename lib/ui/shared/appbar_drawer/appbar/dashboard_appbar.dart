@@ -14,9 +14,8 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
   @override
   final Size preferredSize;
 
-  const DashBoardAppBar({Key? key, required this.onTap})
-      : preferredSize = const Size.fromHeight(80),
-        super(key: key);
+  const DashBoardAppBar({super.key, required this.onTap})
+      : preferredSize = const Size.fromHeight(80);
 
   @override
   Widget build(BuildContext context) {

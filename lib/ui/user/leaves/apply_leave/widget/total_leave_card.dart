@@ -7,7 +7,7 @@ import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_state.dart';
 
 class TotalDaysMsgBox extends StatelessWidget {
-  const TotalDaysMsgBox({Key? key}) : super(key: key);
+  const TotalDaysMsgBox({super.key});
 
   @override
   Widget build(BuildContext context) {

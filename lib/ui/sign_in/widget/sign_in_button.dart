@@ -10,8 +10,8 @@ import '../bloc/sign_in_view_state.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

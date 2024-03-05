@@ -11,8 +11,7 @@ class UserProfileCard extends StatelessWidget {
   final bool isAdminOrHr;
 
   const UserProfileCard(
-      {Key? key, required this.currentEmployee, required this.isAdminOrHr})
-      : super(key: key);
+      {super.key, required this.currentEmployee, required this.isAdminOrHr});
 
   @override
   Widget build(BuildContext context) {

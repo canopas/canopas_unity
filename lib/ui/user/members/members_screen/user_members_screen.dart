@@ -15,7 +15,7 @@ import 'bloc/user_members_event.dart';
 import 'bloc/user_members_state.dart';
 
 class UserMembersPage extends StatelessWidget {
-  const UserMembersPage({Key? key}) : super(key: key);
+  const UserMembersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class UserMembersPage extends StatelessWidget {
 }
 
 class UserMembersScreen extends StatefulWidget {
-  const UserMembersScreen({Key? key}) : super(key: key);
+  const UserMembersScreen({super.key});
 
   @override
   State<UserMembersScreen> createState() => _UserMembersScreenState();

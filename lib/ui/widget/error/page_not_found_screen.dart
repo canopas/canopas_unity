@@ -6,7 +6,7 @@ import '../../../data/di/service_locator.dart';
 import '../../../data/provider/user_state.dart';
 
 class PageNotFoundScreen extends StatefulWidget {
-  const PageNotFoundScreen({Key? key}) : super(key: key);
+  const PageNotFoundScreen({super.key});
 
   @override
   State<PageNotFoundScreen> createState() => _PageNotFoundScreenState();

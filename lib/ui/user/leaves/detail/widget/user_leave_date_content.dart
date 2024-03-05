@@ -10,8 +10,7 @@ import '../../../../../data/model/leave/leave.dart';
 class UserLeaveRequestDateContent extends StatelessWidget {
   final Leave leave;
 
-  const UserLeaveRequestDateContent({Key? key, required this.leave})
-      : super(key: key);
+  const UserLeaveRequestDateContent({super.key, required this.leave});
 
   @override
   Widget build(BuildContext context) {

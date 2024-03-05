@@ -3,7 +3,7 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../data/configs/space_constant.dart';
 
 class BottomSheetTopSlider extends StatelessWidget {
-  const BottomSheetTopSlider({Key? key}) : super(key: key);
+  const BottomSheetTopSlider({super.key});
 
   @override
   Widget build(BuildContext context) {

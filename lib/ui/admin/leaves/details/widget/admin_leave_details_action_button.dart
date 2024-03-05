@@ -20,9 +20,9 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
   final LeaveApplication leaveApplication;
 
   const AdminLeaveDetailsActionButton({
-    Key? key,
+    super.key,
     required this.leaveApplication,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -17,8 +17,7 @@ import '../bloc/admin_employee_details_leave_state.dart';
 class EmployeeLeaveList extends StatefulWidget {
   final String employeeName;
 
-  const EmployeeLeaveList({Key? key, required this.employeeName})
-      : super(key: key);
+  const EmployeeLeaveList({super.key, required this.employeeName});
 
   @override
   State<EmployeeLeaveList> createState() => _EmployeeLeaveListState();

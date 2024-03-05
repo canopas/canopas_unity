@@ -4,7 +4,7 @@ import 'package:projectunity/data/core/exception/exception_msg.dart';
 class ErrorScreen extends StatelessWidget {
   final String error;
 
-  const ErrorScreen({Key? key, required this.error}) : super(key: key);
+  const ErrorScreen({super.key, required this.error});
 
   @override
   Widget build(BuildContext context) {

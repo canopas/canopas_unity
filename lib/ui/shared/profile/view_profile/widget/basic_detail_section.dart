@@ -12,8 +12,7 @@ import '../../../../widget/widget_validation.dart';
 class BasicDetailSection extends StatelessWidget {
   final Employee employee;
 
-  const BasicDetailSection({Key? key, required this.employee})
-      : super(key: key);
+  const BasicDetailSection({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {

@@ -9,10 +9,10 @@ class EmptyScreen extends StatelessWidget {
   final String message;
 
   const EmptyScreen({
-    Key? key,
+    super.key,
     required this.message,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

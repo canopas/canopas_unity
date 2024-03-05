@@ -3,8 +3,7 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'dart:math' as math show sin, pi;
 
 class DelayTween extends Tween<double> {
-  DelayTween({double? begin, double? end, required this.delay})
-      : super(begin: begin, end: end);
+  DelayTween({super.begin, super.end, required this.delay});
   final double delay;
 
   @override
@@ -21,11 +20,11 @@ class ThreeBounceLoading extends StatefulWidget {
   final Duration duration;
 
   const ThreeBounceLoading({
-    Key? key,
+    super.key,
     this.color,
     this.size = 50.0,
     this.duration = const Duration(milliseconds: 1400),
-  }) : super(key: key);
+  });
 
   @override
   State<ThreeBounceLoading> createState() => _ThreeBounceLoadingState();
@@ -76,8 +75,7 @@ class AppCircularProgressIndicator extends StatelessWidget {
   final Color? color;
   final double size;
 
-  const AppCircularProgressIndicator({Key? key, this.size = 38, this.color})
-      : super(key: key);
+  const AppCircularProgressIndicator({super.key, this.size = 38, this.color});
 
   @override
   Widget build(BuildContext context) {

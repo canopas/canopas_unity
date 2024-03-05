@@ -78,7 +78,7 @@ class LeaveService {
         .where(FireStoreConst.endLeaveDate,
             isLessThan: DateTime(year, month + 1).timeStampToInt)
         .where(FireStoreConst.endLeaveDate,
-        isGreaterThanOrEqualTo: DateTime(year, month).timeStampToInt)
+            isGreaterThanOrEqualTo: DateTime(year, month).timeStampToInt)
         .snapshots()
         .asyncMap((event) => event.docs
             .map((leave) {

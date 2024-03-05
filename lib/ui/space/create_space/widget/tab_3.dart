@@ -14,7 +14,7 @@ import '../bloc/create_workspace_event.dart';
 import '../bloc/create_workspace_state.dart';
 
 class PersonalInfo extends StatefulWidget {
-  const PersonalInfo({Key? key}) : super(key: key);
+  const PersonalInfo({super.key});
 
   @override
   State<PersonalInfo> createState() => _PersonalInfoState();

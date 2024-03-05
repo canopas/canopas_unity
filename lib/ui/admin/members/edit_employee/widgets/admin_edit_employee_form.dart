@@ -27,15 +27,14 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
   final TextEditingController employeeIDFieldController;
 
   const AdminEditEmployeeDetailsForm(
-      {Key? key,
+      {super.key,
       required this.profileImageUrl,
       required this.employeeId,
       required this.nameFieldController,
       required this.emailFieldController,
       required this.designationFieldController,
       required this.levelFieldController,
-      required this.employeeIDFieldController})
-      : super(key: key);
+      required this.employeeIDFieldController});
 
   @override
   Widget build(BuildContext context) {

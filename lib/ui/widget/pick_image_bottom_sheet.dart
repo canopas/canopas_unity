@@ -9,8 +9,7 @@ import '../../data/configs/theme.dart';
 class PickImageBottomSheet extends StatelessWidget {
   final void Function(ImageSource) onButtonTap;
 
-  const PickImageBottomSheet({Key? key, required this.onButtonTap})
-      : super(key: key);
+  const PickImageBottomSheet({super.key, required this.onButtonTap});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +47,7 @@ class SelectButton extends StatelessWidget {
   final IconData icon;
 
   const SelectButton(
-      {Key? key, required this.label, required this.icon, this.onPressed})
-      : super(key: key);
+      {super.key, required this.label, required this.icon, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

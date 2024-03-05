@@ -12,8 +12,7 @@ class EmployeeCard extends StatelessWidget {
   final void Function()? onTap;
   final Employee employee;
 
-  const EmployeeCard({Key? key, this.onTap, required this.employee})
-      : super(key: key);
+  const EmployeeCard({super.key, this.onTap, required this.employee});
 
   @override
   Widget build(BuildContext context) {

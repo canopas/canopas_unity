@@ -24,8 +24,7 @@ import '../../../widget/leave_details_widget/reason_content.dart';
 class UserLeaveDetailPage extends StatelessWidget {
   final String leaveId;
 
-  const UserLeaveDetailPage({Key? key, required this.leaveId})
-      : super(key: key);
+  const UserLeaveDetailPage({super.key, required this.leaveId});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +39,7 @@ class UserLeaveDetailPage extends StatelessWidget {
 class UserLeaveDetailScreen extends StatefulWidget {
   final String leaveId;
 
-  const UserLeaveDetailScreen({Key? key, required this.leaveId})
-      : super(key: key);
+  const UserLeaveDetailScreen({super.key, required this.leaveId});
 
   @override
   State<UserLeaveDetailScreen> createState() => _UserLeaveDetailScreenState();

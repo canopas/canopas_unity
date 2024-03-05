@@ -12,11 +12,11 @@ import '../../../../../app_router.dart';
 
 class TimeOffCard extends StatelessWidget {
   const TimeOffCard({
-    Key? key,
+    super.key,
     required this.percentage,
     required this.usedLeaves,
     required this.employee,
-  }) : super(key: key);
+  });
   final Employee employee;
   final double percentage;
   final LeaveCounts usedLeaves;

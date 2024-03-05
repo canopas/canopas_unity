@@ -16,7 +16,7 @@ import 'bloc/invite_member_event.dart';
 import 'bloc/invite_member_state.dart';
 
 class InviteMemberPage extends StatelessWidget {
-  const InviteMemberPage({Key? key}) : super(key: key);
+  const InviteMemberPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class InviteMemberPage extends StatelessWidget {
 }
 
 class SearchMemberScreen extends StatefulWidget {
-  const SearchMemberScreen({Key? key}) : super(key: key);
+  const SearchMemberScreen({super.key});
 
   @override
   State<SearchMemberScreen> createState() => _SearchMemberScreenState();

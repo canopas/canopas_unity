@@ -8,11 +8,10 @@ import '../../../data/model/leave/leave.dart';
 
 class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
   const LeaveTypeAgoTitleWithStatus(
-      {Key? key,
+      {super.key,
       required this.appliedOn,
       required this.leaveType,
-      required this.status})
-      : super(key: key);
+      required this.status});
 
   final DateTime appliedOn;
   final LeaveType leaveType;

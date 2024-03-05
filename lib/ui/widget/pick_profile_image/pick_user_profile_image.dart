@@ -32,8 +32,7 @@ class ProfileImage extends StatelessWidget {
   final void Function(String image) onPickImageChange;
 
   const ProfileImage(
-      {Key? key, required this.imageURl, required this.onPickImageChange})
-      : super(key: key);
+      {super.key, required this.imageURl, required this.onPickImageChange});
 
   @override
   Widget build(BuildContext context) {

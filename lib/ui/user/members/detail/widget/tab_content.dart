@@ -13,7 +13,7 @@ import '../../../../widget/error_snack_bar.dart';
 import '../../../../widget/leave_card.dart';
 
 class TabContent extends StatelessWidget {
-  const TabContent({Key? key}) : super(key: key);
+  const TabContent({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import '../../../../../data/configs/theme.dart';
 class ResponseNote extends StatelessWidget {
   final String leaveResponse;
 
-  const ResponseNote({Key? key, required this.leaveResponse}) : super(key: key);
+  const ResponseNote({super.key, required this.leaveResponse});
 
   @override
   Widget build(BuildContext context) {
