@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/model/org_forms/org_form_field/org_form_field.dart';
 import '../bloc/org_form_field_update_data_model.dart';
@@ -25,7 +25,7 @@ class FormFieldView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: context.colorScheme.surface,
           borderRadius: AppTheme.commonBorderRadius),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +46,9 @@ class FormFieldView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(locale.type_tag, style: AppFontStyle.bodyLarge),
+              Text(locale.type_tag,
+                  style: AppTextStyle.style16
+                      .copyWith(color: context.colorScheme.textPrimary)),
               OrgFormDropDownButton<FormFieldAnswerType>(
                 value: orgFormField.inputType,
                 items: FormFieldAnswerType.values
@@ -72,13 +74,15 @@ class FormFieldView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(locale.required_tag, style: AppFontStyle.bodyLarge),
+                Text(locale.required_tag,
+                    style: AppTextStyle.style16
+                        .copyWith(color: context.colorScheme.textPrimary)),
                 const SizedBox(width: 16),
                 BlocBuilder<CreateFormBloc, CreateFormState>(
                     buildWhen: (previous, current) =>
                         previous.fields != current.fields,
                     builder: (context, state) => Switch(
-                        activeColor: AppColors.primaryBlue,
+                        activeColor: context.colorScheme.primary,
                         value: state.fields[state.fields.indexOf(orgFormField)]
                             .isRequired,
                         onChanged: (isRequired) => bloc.add(

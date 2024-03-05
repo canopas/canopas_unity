@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/data/model/leave_application.dart';
+import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/style/other/app_button.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/di/service_locator.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -28,31 +27,19 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userStateNotifier = getIt<UserStateNotifier>();
-    final localization = AppLocalizations.of(context);
     if ((leaveApplication.leave.status == LeaveStatus.approved &&
             !(userStateNotifier.isHR &&
                 leaveApplication.employee.role == Role.hr)) ||
         (leaveApplication.leave.uid == userStateNotifier.employeeId &&
             leaveApplication.leave.status == LeaveStatus.pending)) {
-      return CancelButton(onTap: () {
-        showAlertDialog(
-          context: context,
-          title: AppLocalizations.of(context).cancel_button_tag,
-          description: AppLocalizations.of(context).remove_user_leave_alert,
-          actionButtonTitle: AppLocalizations.of(context).cancel_button_tag,
-          onActionButtonPressed: () {
-            context.read<AdminLeaveDetailsBloc>().add(LeaveResponseEvent(
-                  endDate: leaveApplication.leave.endDate,
-                  startDate: leaveApplication.leave.startDate,
-                  email: leaveApplication.employee.email,
-                  name: leaveApplication.employee.name,
-                  responseStatus: LeaveStatus.cancelled,
-                  leaveId: leaveApplication.leave.leaveId,
-                ));
-            context.pop();
-          },
-        );
-      });
+      return BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
+          buildWhen: (previous, current) =>
+              previous.actionStatus != current.actionStatus,
+          builder: (context, state) => AppButton(
+                onTap: () async => _showAlertDialogue(context),
+                tag: context.l10n.cancel_button_tag,
+                loading: state.actionStatus == Status.loading,
+              ));
     }
     if (leaveApplication.leave.status == LeaveStatus.pending &&
         !(userStateNotifier.isHR &&
@@ -62,9 +49,9 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
         height: 65,
         width: MediaQuery.of(context).size.width * 0.75,
         decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: context.colorScheme.surface,
           borderRadius: BorderRadius.circular(50),
-          boxShadow: AppTheme.commonBoxShadow,
+          boxShadow: AppTheme.commonBoxShadow(context),
         ),
         child: BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
           buildWhen: (previous, current) =>
@@ -78,7 +65,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         fixedSize:
                             Size(MediaQuery.of(context).size.width * 0.3, 45),
-                        backgroundColor: AppColors.redColor,
+                        backgroundColor: context.colorScheme.rejectColor,
                       ),
                       onPressed: () {
                         context
@@ -93,14 +80,15 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                             ));
                       },
                       child: Text(
-                          localization.admin_leave_detail_reject_button_tag,
-                          style: AppFontStyle.labelRegular),
+                          context.l10n.admin_leave_detail_reject_button_tag,
+                          style: AppTextStyle.style16.copyWith(
+                              color: context.colorScheme.textPrimary)),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize:
                             Size(MediaQuery.of(context).size.width * 0.3, 45),
-                        backgroundColor: AppColors.greenColor,
+                        backgroundColor: context.colorScheme.approveColor,
                       ),
                       onPressed: () {
                         context.read<AdminLeaveDetailsBloc>().add(
@@ -113,8 +101,9 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                                 leaveId: leaveApplication.leave.leaveId));
                       },
                       child: Text(
-                          localization.admin_leave_detail_approve_button_tag,
-                          style: AppFontStyle.labelRegular),
+                          context.l10n.admin_leave_detail_approve_button_tag,
+                          style: AppTextStyle.style16.copyWith(
+                              color: context.colorScheme.textPrimary)),
                     ),
                   ],
                 ),
@@ -123,30 +112,22 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
     }
     return const SizedBox();
   }
-}
 
-class CancelButton extends StatelessWidget {
-  const CancelButton({Key? key, required this.onTap}) : super(key: key);
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
-    return BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
-      buildWhen: (previous, current) =>
-          previous.actionStatus != current.actionStatus,
-      builder: (context, state) => ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryBlue,
-          fixedSize: Size(MediaQuery.of(context).size.width * 0.918518, 45),
-        ),
-        child: state.actionStatus == Status.loading
-            ? const AppCircularProgressIndicator(
-                color: AppColors.whiteColor, size: 25)
-            : Text(localization.cancel_button_tag,
-                style: AppFontStyle.labelRegular),
-      ),
-    );
+  void _showAlertDialogue(BuildContext context) async {
+    await showAppAlertDialog(
+        context: context,
+        title: context.l10n.cancel_button_tag,
+        actionButtonTitle: context.l10n.ok_tag,
+        description: context.l10n.remove_user_leave_alert,
+        onActionButtonPressed: () {
+          context.read<AdminLeaveDetailsBloc>().add(LeaveResponseEvent(
+                endDate: leaveApplication.leave.endDate,
+                startDate: leaveApplication.leave.startDate,
+                email: leaveApplication.employee.email,
+                name: leaveApplication.employee.name,
+                responseStatus: LeaveStatus.cancelled,
+                leaveId: leaveApplication.leave.leaveId,
+              ));
+        });
   }
 }

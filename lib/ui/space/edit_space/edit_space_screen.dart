@@ -4,17 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/space_logo_view.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../navigation/app_router.dart';
-import '../../../widget/app_dialog.dart';
-import '../../../widget/employee_details_textfield.dart';
-import '../../../widget/error_snack_bar.dart';
-import '../../../widget/pick_image_bottom_sheet.dart';
+
+import '../../../app_router.dart';
+import '../../widget/app_dialog.dart';
+import '../../widget/employee_details_textfield.dart';
+import '../../widget/error_snack_bar.dart';
+import '../../widget/pick_image_bottom_sheet.dart';
 import 'bloc/edit_space_bloc.dart';
 import 'bloc/edit_space_event.dart';
 import 'bloc/edit_space_state.dart';
@@ -71,40 +74,34 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).space_tag),
-        actions: [
-          BlocBuilder<EditSpaceBloc, EditSpaceState>(
-              buildWhen: (previous, current) =>
-                  previous.updateSpaceStatus != current.updateSpaceStatus ||
-                  previous.isDataValid != current.isDataValid,
-              builder: (context, state) => state.updateSpaceStatus ==
-                      Status.loading
-                  ? const Padding(
-                      padding: EdgeInsets.only(right: 30),
-                      child: AppCircularProgressIndicator(size: 20),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: TextButton(
-                          onPressed: state.isDataValid
-                              ? () {
-                                  context.read<EditSpaceBloc>().add(
-                                      SaveSpaceDetails(
-                                          paidTimeOff:
-                                              _paidTimeOffLeaveController.text,
-                                          spaceName: _nameController.text,
-                                          spaceDomain: _domainController.text,
-                                          notificationEmail:
-                                              _notificationEmailController
-                                                  .text));
-                                }
-                              : null,
-                          child: Text(AppLocalizations.of(context).save_tag)),
-                    )),
-        ],
-      ),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      title: context.l10n.space_tag,
+      actions: [
+        BlocBuilder<EditSpaceBloc, EditSpaceState>(
+            buildWhen: (previous, current) =>
+                previous.updateSpaceStatus != current.updateSpaceStatus ||
+                previous.isDataValid != current.isDataValid,
+            builder: (context, state) => state.updateSpaceStatus ==
+                    Status.loading
+                ? const AppCircularProgressIndicator(size: 20)
+                : TextButton(
+                    onPressed: state.isDataValid
+                        ? () {
+                            context.read<EditSpaceBloc>().add(SaveSpaceDetails(
+                                paidTimeOff: _paidTimeOffLeaveController.text,
+                                spaceName: _nameController.text,
+                                spaceDomain: _domainController.text,
+                                notificationEmail:
+                                    _notificationEmailController.text));
+                          }
+                        : null,
+                    child: Text(
+                      context.l10n.save_tag,
+                      style: AppTextStyle.style16
+                          .copyWith(color: context.colorScheme.primary),
+                    ))),
+      ],
       body: BlocListener<EditSpaceBloc, EditSpaceState>(
         listenWhen: (previous, current) =>
             previous.updateSpaceStatus != current.updateSpaceStatus ||
@@ -154,8 +151,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
               const SizedBox(height: 20),
               FieldEntry(
                 controller: _domainController,
-                hintText:
-                    AppLocalizations.of(context).create_space_Website_url_label,
+                hintText: context.l10n.create_space_Website_url_label,
               ),
               const SizedBox(height: 20),
               FieldEntry(
@@ -167,7 +163,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                     .read<EditSpaceBloc>()
                     .add(YearlyPaidTimeOffChangeEvent(timeOff: timeOff)),
                 controller: _paidTimeOffLeaveController,
-                hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
+                hintText: context.l10n.yearly_paid_time_off_tag,
               ),
               const SizedBox(height: 20),
               FieldEntry(
@@ -175,8 +171,7 @@ class _EditSpaceScreenState extends State<EditSpaceScreen> {
                     .read<EditSpaceBloc>()
                     .add(NotificationEmailChangeEvent(notificationEmail)),
                 controller: _notificationEmailController,
-                hintText:
-                    AppLocalizations.of(context).leave_notification_email_tag,
+                hintText: context.l10n.leave_notification_email_tag,
               ),
               const DeleteSpaceButton(),
             ],
@@ -202,26 +197,24 @@ class DeleteSpaceButton extends StatelessWidget {
       child: BlocBuilder<EditSpaceBloc, EditSpaceState>(
         buildWhen: (previous, current) =>
             previous.deleteWorkSpaceStatus != current.deleteWorkSpaceStatus,
-        builder: (context, state) =>
-            state.deleteWorkSpaceStatus == Status.loading
-                ? const AppCircularProgressIndicator()
-                : TextButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: AppColors.redColor,
-                    ),
-                    child: Text(AppLocalizations.of(context).delete_space_text),
-                    onPressed: () => showAlertDialog(
-                      title: AppLocalizations.of(context).delete_space_text,
+        builder: (context, state) => state.deleteWorkSpaceStatus ==
+                Status.loading
+            ? const AppCircularProgressIndicator()
+            : TextButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: context.colorScheme.rejectColor,
+                ),
+                child: Text(AppLocalizations.of(context).delete_space_text),
+                onPressed: () {
+                  showAppAlertDialog(
                       context: context,
-                      actionButtonTitle:
-                          AppLocalizations.of(context).delete_space_text,
-                      description: AppLocalizations.of(context)
-                          .delete_dialog_description_text,
+                      title: context.l10n.delete_space_text,
+                      actionButtonTitle: context.l10n.delete_space_text,
+                      description: context.l10n.delete_dialog_description_text,
                       onActionButtonPressed: () {
                         context.read<EditSpaceBloc>().add(DeleteSpaceEvent());
-                      },
-                    ),
-                  ),
+                      });
+                }),
       ),
     );
   }
@@ -250,13 +243,14 @@ class _OrgLogoView extends StatelessWidget {
           IconButton(
             style: IconButton.styleFrom(
                 fixedSize: const Size(45, 45),
-                side: const BorderSide(color: AppColors.textFieldBg, width: 3),
-                backgroundColor: AppColors.whiteColor),
+                side: BorderSide(
+                    color: context.colorScheme.containerNormal, width: 3),
+                backgroundColor: context.colorScheme.surface),
             onPressed: onButtonTap,
-            icon: const Icon(
+            icon: Icon(
               Icons.edit,
               size: 20,
-              color: AppColors.greyColor,
+              color: context.colorScheme.containerHigh,
             ),
           )
         ],

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/di/service_locator.dart';
 import '../../../../../data/provider/user_state.dart';
 import '../../../../widget/date_time_picker.dart';
@@ -40,7 +39,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localization = AppLocalizations.of(context);
+    final localization = context.l10n;
     final bloc = context.read<AdminEditEmployeeDetailsBloc>();
     return BlocListener<AdminEditEmployeeDetailsBloc,
         AdminEditEmployeeDetailsState>(
@@ -150,9 +149,12 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   previous.dateOfJoining != current.dateOfJoining,
               builder: (context, state) => ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: AppColors.darkText,
+                    elevation: 0,
+                    shadowColor: context.colorScheme.containerNormal,
+                    surfaceTintColor: context.colorScheme.containerNormal,
+                    foregroundColor: context.colorScheme.textPrimary,
                     alignment: Alignment.centerLeft,
-                    backgroundColor: AppColors.textFieldBg,
+                    backgroundColor: context.colorScheme.containerNormal,
                     fixedSize: Size(MediaQuery.of(context).size.height, 53),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -170,7 +172,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   child: Text(
                     localization.date_format_yMMMd(
                         state.dateOfJoining ?? DateTime.now()),
-                    style: AppFontStyle.labelRegular,
+                    style: AppTextStyle.style16,
                   ))),
         ],
       ),

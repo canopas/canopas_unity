@@ -1,43 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 
-import '../../navigation/app_router.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../app_router.dart';
 
-class BottomNavigationItem extends BottomNavigationBarItem {
+class BottomNavigationItem {
   final String initialLocation;
+  final String tabIcon;
+  final String tabActiveIcon;
+  final String label;
 
   BottomNavigationItem(
-      {required Widget icon,
+      {required this.tabIcon,
       required this.initialLocation,
-      required String label})
-      : super(icon: icon, label: label);
-}
+      required this.tabActiveIcon,
+      required this.label});
 
-List<BottomNavigationItem> adminTabs = [
-  BottomNavigationItem(
-      label: 'Home',
-      icon: const Icon(Icons.home_filled),
-      initialLocation: Routes.adminHome),
-  BottomNavigationItem(
-      label: 'Leaves',
-      icon: const Icon(Icons.calendar_month_sharp),
-      initialLocation: Routes.adminLeaves),
-  BottomNavigationItem(
-      label: 'Members',
-      icon: const Icon(Icons.person),
-      initialLocation: Routes.adminMembers),
-];
+  BottomNavigationBarItem toBottomNavigationItem(BuildContext context) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(tabIcon,
+          width: 20,
+          height: 20,
+          colorFilter: ColorFilter.mode(
+              context.colorScheme.textPrimary, BlendMode.srcIn)),
+      label: label,
+      activeIcon: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+          decoration: BoxDecoration(
+              color: context.colorScheme.primary,
+              borderRadius: BorderRadius.circular(20)),
+          child: SvgPicture.asset(
+            tabActiveIcon,
+            width: 20,
+            height: 20,
+            colorFilter:
+                ColorFilter.mode(context.colorScheme.surface, BlendMode.srcIn),
+          )),
+    );
+  }
+}
 
 List<BottomNavigationItem> userTabs = [
   BottomNavigationItem(
-      label: 'Home',
-      icon: const Icon(Icons.home_filled),
-      initialLocation: Routes.userHome),
+    tabIcon: Assets.images.icHome,
+    tabActiveIcon: Assets.images.homeFilled,
+    label: "Home",
+    initialLocation: Routes.userHome,
+  ),
   BottomNavigationItem(
-      label: 'Leaves',
-      icon: const Icon(Icons.calendar_month_sharp),
-      initialLocation: Routes.userLeaves),
+    tabIcon: Assets.images.icCalendar,
+    tabActiveIcon: Assets.images.calendarFilled,
+    label: "Leaves",
+    initialLocation: Routes.userLeaves,
+  ),
   BottomNavigationItem(
-      label: 'Members',
-      icon: const Icon(Icons.person),
-      initialLocation: Routes.userMembers),
+    tabIcon: Assets.images.icUsers,
+    tabActiveIcon: Assets.images.usersFilled,
+    label: "Members",
+    initialLocation: Routes.userMembers,
+  ),
+];
+
+List<BottomNavigationItem> adminTabs = [
+  BottomNavigationItem(
+    tabIcon: Assets.images.icHome,
+    tabActiveIcon: Assets.images.homeFilled,
+    label: "Home",
+    initialLocation: Routes.adminHome,
+  ),
+  BottomNavigationItem(
+    tabIcon: Assets.images.icCalendar,
+    tabActiveIcon: Assets.images.calendarFilled,
+    label: "Leaves",
+    initialLocation: Routes.adminLeaves,
+  ),
+  BottomNavigationItem(
+    tabIcon: Assets.images.icUsers,
+    tabActiveIcon: Assets.images.usersFilled,
+    label: "Members",
+    initialLocation: Routes.adminMembers,
+  ),
 ];

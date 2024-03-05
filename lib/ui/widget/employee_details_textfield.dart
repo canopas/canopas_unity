@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../data/configs/space_constant.dart';
-import '../../data/configs/text_style.dart';
 
 class FieldTitle extends StatelessWidget {
   final String title;
@@ -15,7 +14,9 @@ class FieldTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Text(title,
-          textAlign: TextAlign.start, style: AppFontStyle.labelGrey),
+          textAlign: TextAlign.start,
+          style: AppTextStyle.style16
+              .copyWith(color: context.colorScheme.textSecondary)),
     );
   }
 }
@@ -52,19 +53,20 @@ class FieldEntry extends StatelessWidget {
       maxLines: maxLine,
       maxLength: maxLength,
       controller: controller,
-      cursorColor: Colors.black,
       autocorrect: false,
-      style: AppFontStyle.labelRegular,
+      style: AppTextStyle.style16
+          .copyWith(color: context.colorScheme.textSecondary),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         isCollapsed: true,
         contentPadding: const EdgeInsets.all(primaryHorizontalSpacing),
-        fillColor: AppColors.textFieldBg,
+        fillColor: context.colorScheme.containerNormal,
         filled: true,
         errorText: errorText,
-        hintStyle: AppFontStyle.labelGrey,
+        hintStyle: AppTextStyle.style16
+            .copyWith(color: context.colorScheme.textSecondary),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide.none),
         hintText: hintText,
       ),

@@ -1,13 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/admin/forms/form_list/bloc/admin_form_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/ui/admin/forms/form_list/bloc/admin_form_list_event.dart';
 import 'package:projectunity/ui/admin/forms/form_list/bloc/admin_form_list_state.dart';
 import 'package:projectunity/ui/admin/forms/form_list/widget/form_card.dart';
-import 'package:projectunity/ui/navigation/app_router.dart';
+import 'package:projectunity/app_router.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../data/di/service_locator.dart';
@@ -43,11 +44,9 @@ class _AdminFormListScreenState extends State<AdminFormListScreen> {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<AdminFormListBloc>();
-    return Scaffold(
-      backgroundColor: AppColors.backgroundGrey,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).forms_title),
-      ),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      title: context.l10n.forms_title,
       body: BlocConsumer<AdminFormListBloc, AdminFormListState>(
         listenWhen: (previous, current) => current.status != previous.status,
         listener: (context, state) {

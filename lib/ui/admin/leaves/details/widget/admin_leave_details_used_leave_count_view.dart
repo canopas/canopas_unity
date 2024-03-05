@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/ui/widget/leave_count_view.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/theme.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../bloc/admin_leave_details_bloc.dart';
@@ -14,23 +11,13 @@ class LeaveCountsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(primaryHorizontalSpacing),
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow,
-      ),
-      child: BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
-        buildWhen: (previous, current) =>
-            previous.leaveCountStatus != current.leaveCountStatus,
-        builder: (context, state) => state.leaveCountStatus == Status.loading
-            ? const SizedBox(
-                height: 60, child: AppCircularProgressIndicator(size: 28))
-            : UsedLeaveCountsView(leaveCounts: state.usedLeavesCount),
-      ),
+    return BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
+      buildWhen: (previous, current) =>
+          previous.leaveCountStatus != current.leaveCountStatus,
+      builder: (context, state) => state.leaveCountStatus == Status.loading
+          ? const SizedBox(
+              height: 60, child: AppCircularProgressIndicator(size: 28))
+          : UsedLeaveCountsView(leaveCounts: state.usedLeavesCount),
     );
   }
 }

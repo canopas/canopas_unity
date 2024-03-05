@@ -25,10 +25,10 @@ void main() {
   const String employeeId = 'CA 1044';
   DateTime today = DateTime.now().dateOnly;
 
-  Leave initialLeave = Leave(
+  Leave casualLeave = Leave(
       leaveId: 'Leave Id',
       uid: "user id",
-      type: LeaveType.urgentLeave,
+      type: LeaveType.casualLeave,
       startDate: today.add(const Duration(days: 1)),
       endDate: today.add(const Duration(days: 2)),
       total: 2,
@@ -43,7 +43,7 @@ void main() {
   Leave initialLeaveWithChange = Leave(
       leaveId: 'Leave Id',
       uid: "user id",
-      type: LeaveType.urgentLeave,
+      type: LeaveType.casualLeave,
       startDate: today.add(const Duration(days: 1)),
       endDate: today.add(const Duration(days: 2)),
       total: 2,
@@ -55,7 +55,7 @@ void main() {
         LeaveDayDuration.firstHalfLeave
       ]);
 
-  Leave moreLeave = Leave(
+  Leave urgentLeave = Leave(
       leaveId: 'Leave-Id',
       uid: "user id",
       type: LeaveType.urgentLeave,
@@ -86,15 +86,22 @@ void main() {
             bloc.state,
             const UserLeaveState(
                 fetchMoreDataStatus: Status.initial,
-                leavesMap: {},
+                casualLeaves: {},
+                urgentLeaves: {},
                 error: null,
                 status: Status.initial));
       });
 
       test('Load initial leave success test', () {
         when(userStateNotifier.employeeId).thenReturn(employeeId);
-        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
-            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.casualLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [casualLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.urgentLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [urgentLeave], lastDoc: lastDoc));
         bloc.add(LoadInitialUserLeaves());
         expectLater(
             bloc.stream,
@@ -102,14 +109,22 @@ void main() {
               const UserLeaveState(status: Status.loading),
               UserLeaveState(
                   status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
             ]));
       });
 
       test('Load initial leave failure test', () {
         when(userStateNotifier.employeeId).thenReturn(employeeId);
-        when(leaveRepo.leaves(uid: employeeId)).thenThrow(Exception('error'));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.casualLeave))
+            .thenThrow(Exception('error'));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.urgentLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [urgentLeave], lastDoc: lastDoc));
         bloc.add(LoadInitialUserLeaves());
         expectLater(
             bloc.stream,
@@ -121,13 +136,13 @@ void main() {
       });
 
       test('Add applied leaves on leave list test', () {
-        when(leaveRepo.fetchLeave(leaveId: initialLeave.leaveId))
-            .thenAnswer((realInvocation) async => initialLeave);
-        bloc.add(UpdateLeave(leaveId: initialLeave.leaveId));
+        when(leaveRepo.fetchLeave(leaveId: casualLeave.leaveId))
+            .thenAnswer((realInvocation) async => casualLeave);
+        bloc.add(UpdateLeave(leaveId: casualLeave.leaveId));
         expectLater(
             bloc.stream,
             emits(UserLeaveState(
-                leavesMap: [initialLeave]
+                casualLeaves: [casualLeave]
                     .groupByMonth((element) => element.appliedOn))));
       });
     });
@@ -146,10 +161,16 @@ void main() {
         await bloc.close();
       });
 
-      test('Load initial leave success test', () {
+      test('Load initial leave success test for casualLeave', () {
         when(userStateNotifier.employeeId).thenReturn(employeeId);
-        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
-            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.casualLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [casualLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.urgentLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [urgentLeave], lastDoc: lastDoc));
         bloc.add(LoadInitialUserLeaves());
         expectLater(
             bloc.stream,
@@ -157,43 +178,58 @@ void main() {
               const UserLeaveState(status: Status.loading),
               UserLeaveState(
                   status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
             ]));
       });
 
-      test('fetch more data leave success test', () {
-        when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc)).thenAnswer(
-            (_) async =>
-                PaginatedLeaves(leaves: [moreLeave], lastDoc: moreDataLastDoc));
-        bloc.add(FetchMoreUserLeaves());
+      test('fetch more data leave success test for Casual leave', () {
+        when(leaveRepo.leaves(
+                uid: employeeId,
+                lastDoc: lastDoc,
+                leaveType: LeaveType.casualLeave))
+            .thenAnswer((_) async => PaginatedLeaves(
+                leaves: [casualLeave], lastDoc: moreDataLastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.urgentLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [casualLeave], lastDoc: lastDoc));
+        bloc.add(FetchMoreUserLeaves(LeaveType.casualLeave));
         expectLater(
             bloc.stream,
             emitsInOrder([
               UserLeaveState(
                   fetchMoreDataStatus: Status.loading,
                   status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
               UserLeaveState(
                   fetchMoreDataStatus: Status.success,
                   status: Status.success,
-                  leavesMap: [initialLeave, moreLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave, casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
             ]));
       });
 
       test('Update leaves on list test', () {
-        when(leaveRepo.fetchLeave(leaveId: initialLeave.leaveId))
-            .thenAnswer((realInvocation) async => initialLeaveWithChange);
-        bloc.add(UpdateLeave(leaveId: initialLeave.leaveId));
+        when(leaveRepo.fetchLeave(leaveId: initialLeaveWithChange.leaveId))
+            .thenAnswer((_) async => initialLeaveWithChange);
+        bloc.add(UpdateLeave(leaveId: casualLeave.leaveId));
         expectLater(
             bloc.stream,
             emits(UserLeaveState(
                 fetchMoreDataStatus: Status.success,
                 status: Status.success,
-                leavesMap: [moreLeave, initialLeaveWithChange]
-                    .groupByMonth((element) => element.appliedOn))));
+                casualLeaves: [initialLeaveWithChange]
+                    .groupByMonth((element) => element.startDate),
+                urgentLeaves: [urgentLeave]
+                    .groupByMonth((element) => element.startDate))));
       });
     });
 
@@ -212,8 +248,14 @@ void main() {
 
       test('Load initial leave success test', () {
         when(userStateNotifier.employeeId).thenReturn(employeeId);
-        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
-            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.casualLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [casualLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(
+                uid: employeeId, leaveType: LeaveType.urgentLeave))
+            .thenAnswer((_) async =>
+                PaginatedLeaves(leaves: [urgentLeave], lastDoc: lastDoc));
         bloc.add(LoadInitialUserLeaves());
         expectLater(
             bloc.stream,
@@ -221,29 +263,38 @@ void main() {
               const UserLeaveState(status: Status.loading),
               UserLeaveState(
                   status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
             ]));
       });
 
       test('fetch more data leave failure test', () {
-        when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc))
+        when(leaveRepo.leaves(
+                uid: employeeId,
+                lastDoc: lastDoc,
+                leaveType: LeaveType.casualLeave))
             .thenThrow(Exception('error'));
-        bloc.add(FetchMoreUserLeaves());
+        bloc.add(FetchMoreUserLeaves(LeaveType.casualLeave));
         expectLater(
             bloc.stream,
             emitsInOrder([
               UserLeaveState(
                   fetchMoreDataStatus: Status.loading,
                   status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
               UserLeaveState(
                   fetchMoreDataStatus: Status.error,
                   error: firestoreFetchDataError,
                   status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
+                  casualLeaves: [casualLeave]
+                      .groupByMonth((element) => element.startDate),
+                  urgentLeaves: [urgentLeave]
+                      .groupByMonth((element) => element.startDate)),
             ]));
       });
     });

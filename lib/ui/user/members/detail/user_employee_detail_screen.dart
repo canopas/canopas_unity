@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
 import 'package:projectunity/ui/user/members/detail/widget/employee_info.dart';
 import 'package:projectunity/ui/user/members/detail/widget/tab_content.dart';
@@ -49,10 +50,9 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context).details_tag),
-        ),
+    return AppPage(
+        backGroundColor: context.colorScheme.surface,
+        title: context.l10n.details_tag,
         body: ListView(
           padding:
               const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),

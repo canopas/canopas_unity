@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../data/configs/space_constant.dart';
 
 class BottomSheetTopSlider extends StatelessWidget {
@@ -7,19 +7,14 @@ class BottomSheetTopSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.all(primaryVerticalSpacing),
-          height: 5,
-          width: MediaQuery.of(context).size.width * 0.15,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: AppColors.primaryGray,
-          ),
-        ),
-      ],
+    return Container(
+      margin: const EdgeInsets.all(primaryVerticalSpacing),
+      height: 5,
+      width: 30,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: context.colorScheme.outlineColor,
+      ),
     );
   }
 }

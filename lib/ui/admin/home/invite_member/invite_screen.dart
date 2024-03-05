@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/style/other/app_button.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../style/app_page.dart';
 import '../../../widget/employee_details_textfield.dart';
 import 'bloc/invite_member_bloc.dart';
 import 'bloc/invite_member_event.dart';
@@ -38,10 +38,9 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(locale.admin_home_invite_member_appbar_tag),
-      ),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      title: locale.admin_home_invite_member_appbar_tag,
       body: BlocConsumer<InviteMemberBloc, InviteMemberState>(
         listenWhen: (previous, current) =>
             current.status == Status.success || current.error.isNotNullOrEmpty,
@@ -59,12 +58,11 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
           if (state.status == Status.loading) {
             return const AppCircularProgressIndicator();
           }
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(primaryHorizontalSpacing)
-                    .copyWith(bottom: 0),
-                child: BlocBuilder<InviteMemberBloc, InviteMemberState>(
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                BlocBuilder<InviteMemberBloc, InviteMemberState>(
                     builder: (context, state) {
                   return FieldEntry(
                     hintText: locale.admin_home_invite_member_hint_text,
@@ -76,20 +74,14 @@ class _SearchMemberScreenState extends State<SearchMemberScreen> {
                         .add(AddEmailEvent(query)),
                   );
                 }),
-              ),
-              const SizedBox(height: 20),
-              FloatingActionButton.extended(
-                extendedPadding: const EdgeInsets.symmetric(horizontal: 60),
-                elevation: 0,
-                onPressed: () =>
-                    context.read<InviteMemberBloc>().add(InviteMemberEvent()),
-                label: Text(
-                  locale.invite_tag,
-                  style: AppFontStyle.buttonTextStyle
-                      .copyWith(color: AppColors.whiteColor),
-                ),
-              )
-            ],
+                const SizedBox(height: 40),
+                AppButton(
+                  tag: context.l10n.invite_tag,
+                  onTap: () =>
+                      context.read<InviteMemberBloc>().add(InviteMemberEvent()),
+                )
+              ],
+            ),
           );
         },
       ),

@@ -5,7 +5,7 @@ import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_events.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/empty_screen.dart';
 import '../../../../widget/error_snack_bar.dart';
@@ -53,7 +53,6 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
       final bloc = context.read<AdminEmployeeDetailsLeavesBLoc>();
       final String? leaveId = await context
           .pushNamed(Routes.adminEmployeeDetailsLeavesDetails, pathParameters: {
-        RoutesParamsConst.employeeId: leave.uid,
         RoutesParamsConst.leaveId: leave.leaveId,
         RoutesParamsConst.employeeName: widget.employeeName,
       });

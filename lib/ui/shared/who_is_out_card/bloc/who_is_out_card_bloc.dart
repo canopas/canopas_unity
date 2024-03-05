@@ -35,8 +35,9 @@ class WhoIsOutCardBloc extends Bloc<WhoIsOutEvent, WhoIsOutCardState> {
   FutureOr<void> _fetchWhoIsOutCardLeaves(
       FetchWhoIsOutCardLeaves event, Emitter<WhoIsOutCardState> emit) async {
     emit(state.copyWith(
-        status: state.selectedDayAbsences == null ? Status.loading : null,
-        focusDay: event.focusDay));
+        status:
+            state.selectedDayAbsences == null ? Status.loading : state.status,
+        focusDay: event.focusDay ?? state.focusDay));
     try {
       if (_subscription != null) {
         await _subscription?.cancel();

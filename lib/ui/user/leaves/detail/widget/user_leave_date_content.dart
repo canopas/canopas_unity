@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave/leave.dart';
@@ -23,23 +22,22 @@ class UserLeaveRequestDateContent extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(primaryHorizontalSpacing),
-      margin: const EdgeInsets.symmetric(
-          vertical: primaryHalfSpacing, horizontal: primaryHorizontalSpacing),
+      margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: context.colorScheme.surface,
         borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow,
+        boxShadow: AppTheme.commonBoxShadow(context),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(duration, style: AppFontStyle.labelRegular),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          Text(duration, style: AppTextStyle.style18),
+          const SizedBox(height: 10),
           Text(
             totalDays,
-            style: AppFontStyle.bodySmallHeavy
-                .copyWith(color: AppColors.primaryBlue),
+            style: AppTextStyle.style14
+                .copyWith(color: context.colorScheme.primary),
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-{
+      {
   "language": "English",
   "appTitle": "Unity",
 
@@ -35,6 +35,8 @@
   "alert_cancel_action": "Cancel",
   "all_tag": "All",
   "ok_tag": "OK",
+  "profile_tag": "Profile",
+
 
   "spaces_title": "Spaces",
   "delete_space_text": "Delete Space",
@@ -149,11 +151,11 @@
   "minute_ago_tag": "minute ago",
   "minutes_ago_tag": "minutes ago",
   "dateFormatter_tomorrow": "Tomorrow",
-  "date_formatter_leave_request_total_half_day_text": "Leave request is for half day",
-  "date_formatter_leave_request_total_zero_day_text": "Leave request is for 0 day",
-  "date_formatter_leave_request_total_one_day_text": "Leave request is for 1 day",
+  "date_formatter_leave_request_total_half_day_text": "Total leave duration: half day",
+  "date_formatter_leave_request_total_zero_day_text": "Total leave duration: 0 day",
+  "date_formatter_leave_request_total_one_day_text": "Total leave duration 1 day",
 
-  "date_formatter_leave_request_total_days_text": "Leave request is for {day} days",
+  "date_formatter_leave_request_total_days_text": "Total leave duration: {day} days",
   "@date_formatter_leave_request_total_days_text": {
     "placeholders": {
       "day": {
@@ -309,7 +311,7 @@
   "employee_dateOfBirth_tag": "Date Of Birth",
   "employee_dateOfJoin_tag": "Date of Joining",
   "employee_level_tag": "Level",
-  "employee_employeeID_tag": "Employee Id",
+  "employee_employeeID_tag": "Employee ID",
   "employee_name_tag": "Name",
 
   "admin_leave_detail_button_reject": "Reject",

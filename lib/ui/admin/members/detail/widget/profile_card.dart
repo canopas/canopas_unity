@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import 'package:projectunity/data/configs/space_constant.dart';
-import 'package:projectunity/data/configs/text_style.dart';
-import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/user_profile_image.dart';
 
@@ -17,52 +15,52 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
-    return Container(
-      decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
-      margin: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
-          .copyWith(bottom: primaryVerticalSpacing),
-      padding: const EdgeInsets.symmetric(
-          vertical: 30, horizontal: primaryHorizontalSpacing),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ImageProfile(imageUrl: employee.imageUrl, radius: 45),
           const SizedBox(height: 10),
           Text(
             employee.name,
-            style: AppFontStyle.titleDark,
-            textAlign: TextAlign.center,
+            style: AppTextStyle.style20.copyWith(
+              color: context.colorScheme.textPrimary,
+            ),
           ),
           const SizedBox(height: 6),
           ValidateWidget(
             isValid: employee.designation.isNotNullOrEmpty,
             child: Text(
               employee.designation ?? "",
-              style: AppFontStyle.labelGrey,
-              textAlign: TextAlign.center,
+              style: AppTextStyle.style14
+                  .copyWith(color: context.colorScheme.textSecondary),
             ),
           ),
-          const Divider(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextColumn(
-                title: localization.employee_role_tag,
-                subtitle:
-                    localization.user_detail_role_type(employee.role.name),
-              ),
-              Container(
-                height: 60,
-                width: 1,
-                color: AppColors.lightGreyColor,
-              ),
-              TextColumn(
-                title: localization.employee_employeeID_tag,
-                subtitle: employee.employeeId,
-              ),
-            ],
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextColumn(
+                  title: localization.employee_role_tag,
+                  subtitle:
+                      localization.user_detail_role_type(employee.role.name),
+                ),
+                Container(
+                  height: 40,
+                  width: 1,
+                  color: context.colorScheme.outlineColor,
+                ),
+                TextColumn(
+                  title: localization.employee_employeeID_tag,
+                  subtitle: employee.employeeId,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -84,12 +82,14 @@ class TextColumn extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppFontStyle.labelGrey,
+            style: AppTextStyle.style14
+                .copyWith(color: context.colorScheme.textSecondary),
           ),
           const SizedBox(height: 6),
           Text(
             subtitle ?? "-",
-            style: AppFontStyle.titleRegular,
+            style: AppTextStyle.style18
+                .copyWith(color: context.colorScheme.textPrimary),
           ),
         ],
       ),

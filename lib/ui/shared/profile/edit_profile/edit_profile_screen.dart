@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/shared/profile/edit_profile/widget/profile_form.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -71,41 +73,39 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).edit_tag),
-        actions: [
-          BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
-            buildWhen: (previous, current) =>
-                previous.status != current.status ||
-                previous.isDataValid != current.isDataValid,
-            builder: (context, state) => state.status == Status.loading
-                ? const Padding(
-                    padding: EdgeInsets.only(right: 30),
-                    child: AppCircularProgressIndicator(size: 20),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: TextButton(
-                        onPressed: state.isDataValid
-                            ? () {
-                                context
-                                    .read<EmployeeEditProfileBloc>()
-                                    .add(EditProfileUpdateProfileEvent(
-                                      address: addressController.text,
-                                      level: levelController.text,
-                                      name: nameController.text,
-                                      designation: designationController.text,
-                                      phoneNumber: phoneNumberController.text,
-                                    ));
-                              }
-                            : null,
-                        child: Text(AppLocalizations.of(context).save_tag)),
-                  ),
-          )
-        ],
-      ),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      title: AppLocalizations.of(context).edit_tag,
+      actions: [
+        BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
+          buildWhen: (previous, current) =>
+              previous.status != current.status ||
+              previous.isDataValid != current.isDataValid,
+          builder: (context, state) => state.status == Status.loading
+              ? const AppCircularProgressIndicator(size: 20)
+              : TextButton(
+                  onPressed: state.isDataValid
+                      ? () {
+                          context
+                              .read<EmployeeEditProfileBloc>()
+                              .add(EditProfileUpdateProfileEvent(
+                                address: addressController.text,
+                                level: levelController.text,
+                                name: nameController.text,
+                                designation: designationController.text,
+                                phoneNumber: phoneNumberController.text,
+                              ));
+                        }
+                      : null,
+                  child: state.status == Status.loading
+                      ? const AppCircularProgressIndicator(size: 20)
+                      : Text(
+                          AppLocalizations.of(context).save_tag,
+                          style: AppTextStyle.style16
+                              .copyWith(color: context.colorScheme.primary),
+                        )),
+        )
+      ],
       body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {

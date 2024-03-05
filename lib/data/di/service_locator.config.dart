@@ -18,6 +18,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:http/http.dart' as _i4;
 import 'package:image_picker/image_picker.dart' as _i14;
 import 'package:injectable/injectable.dart' as _i2;
+import 'package:projectunity/app_router.dart' as _i27;
 import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
     as _i17;
 import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart'
@@ -44,8 +45,6 @@ import 'package:projectunity/data/services/space_service.dart' as _i22;
 import 'package:projectunity/data/services/storage_service.dart' as _i23;
 import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manager.dart'
     as _i6;
-import 'package:projectunity/ui/admin/drawer_options/edit_space/bloc/edit_space_bloc.dart'
-    as _i29;
 import 'package:projectunity/ui/admin/forms/create_form/bloc/create_form_bloc.dart'
     as _i47;
 import 'package:projectunity/ui/admin/forms/form_list/bloc/admin_form_list_bloc.dart'
@@ -66,7 +65,6 @@ import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_empl
     as _i42;
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
     as _i58;
-import 'package:projectunity/ui/navigation/app_router.dart' as _i27;
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
     as _i49;
 import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
@@ -78,6 +76,8 @@ import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i35;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
     as _i48;
+import 'package:projectunity/ui/space/edit_space/bloc/edit_space_bloc.dart'
+    as _i29;
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
     as _i33;
 import 'package:projectunity/ui/user/forms/form_list_screen/bloc/user_forms_list_screen_bloc.dart'
@@ -222,7 +222,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i40.UserLeaveCountBloc>(() => _i40.UserLeaveCountBloc(
           gh<_i34.LeaveRepo>(),
           gh<_i25.UserStateNotifier>(),
-          gh<_i22.SpaceService>(),
         ));
     gh.factory<_i41.UserLeaveDetailBloc>(
         () => _i41.UserLeaveDetailBloc(gh<_i34.LeaveRepo>()));

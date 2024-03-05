@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'dart:math' as math show sin, pi;
-
-import '../../data/configs/colors.dart';
 
 class DelayTween extends Tween<double> {
   DelayTween({double? begin, double? end, required this.delay})
@@ -74,11 +73,10 @@ class _ThreeBounceLoadingState extends State<ThreeBounceLoading>
 }
 
 class AppCircularProgressIndicator extends StatelessWidget {
-  final Color color;
+  final Color? color;
   final double size;
 
-  const AppCircularProgressIndicator(
-      {Key? key, this.size = 38, this.color = AppColors.primaryBlue})
+  const AppCircularProgressIndicator({Key? key, this.size = 38, this.color})
       : super(key: key);
 
   @override
@@ -89,7 +87,7 @@ class AppCircularProgressIndicator extends StatelessWidget {
         width: size,
         child: CircularProgressIndicator(
           strokeWidth: size / 9,
-          color: color,
+          color: color ?? context.colorScheme.primary,
         ),
       ),
     );

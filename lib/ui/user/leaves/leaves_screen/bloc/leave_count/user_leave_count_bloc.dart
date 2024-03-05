@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:projectunity/data/services/space_service.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_cout_event.dart';
 import '../../../../../../data/core/exception/error_const.dart';
@@ -13,9 +12,8 @@ class UserLeaveCountBloc
     extends Bloc<FetchLeaveCountEvent, UserLeaveCountState> {
   final LeaveRepo _leaveRepo;
   final UserStateNotifier _userManger;
-  final SpaceService _spaceService;
 
-  UserLeaveCountBloc(this._leaveRepo, this._userManger, this._spaceService)
+  UserLeaveCountBloc(this._leaveRepo, this._userManger)
       : super(const UserLeaveCountState()) {
     on<FetchLeaveCountEvent>(_fetchLeaveCount);
   }
@@ -26,16 +24,11 @@ class UserLeaveCountBloc
     try {
       final leaveCounts =
           await _leaveRepo.getUserUsedLeaves(uid: _userManger.employeeId);
-      final int totalLeaves = await _spaceService.getPaidLeaves(
-          spaceId: _userManger.currentSpaceId!);
-      double percentage = 0;
-      if (totalLeaves != 0) {
-        percentage = leaveCounts.totalUsedLeave / totalLeaves;
-      }
+
       emit(state.copyWith(
-          status: Status.success,
-          usedLeavesCounts: leaveCounts,
-          leavePercentage: percentage));
+        status: Status.success,
+        usedLeavesCounts: leaveCounts,
+      ));
     } on Exception {
       emit(state.copyWith(
           status: Status.success, error: firestoreFetchDataError));

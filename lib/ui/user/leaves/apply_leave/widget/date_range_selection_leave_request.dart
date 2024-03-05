@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
-import '../../../../../data/configs/theme.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
@@ -30,23 +29,26 @@ class LeaveRequestDateRange extends StatelessWidget {
                           vertical: primaryHalfSpacing),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: AppTheme.commonBorderRadius,
-                          boxShadow: AppTheme.commonBoxShadow),
+                        border: Border.all(
+                            color: context.colorScheme.containerHigh),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       child: Row(
                         children: [
                           Text(
                             DateFormat('EEEE, ', locale).format(date.key),
-                            style: AppFontStyle.bodySmallRegular,
+                            style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary),
                           ),
                           Text(
                             DateFormat('d ', locale).format(date.key),
-                            style: AppFontStyle.bodySmallHeavy
-                                .copyWith(color: AppColors.primaryBlue),
+                            style: AppTextStyle.style20
+                                .copyWith(color: context.colorScheme.primary),
                           ),
                           Text(
                             DateFormat('MMMM', locale).format(date.key),
-                            style: AppFontStyle.bodySmallRegular,
+                            style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary),
                           ),
                           const Spacer(),
                           LeaveTimePeriodBox(
@@ -65,22 +67,25 @@ class LeaveRequestDateRange extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(
                               horizontal: primaryHalfSpacing),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: AppTheme.commonBorderRadius,
-                              boxShadow: AppTheme.commonBoxShadow),
+                            border: Border.all(
+                                color: context.colorScheme.containerHigh),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           child: Column(
                             children: [
                               Text(
                                 DateFormat('EEE', locale).format(date.key),
+                                style: AppTextStyle.style14.copyWith(
+                                    color: context.colorScheme.textPrimary),
                               ),
                               Text(
                                 DateFormat('d', locale).format(date.key),
-                                style: AppFontStyle.titleDark
-                                    .copyWith(color: AppColors.primaryBlue),
+                                style: AppTextStyle.style20.copyWith(
+                                    color: context.colorScheme.primary),
                               ),
-                              Text(
-                                DateFormat('MMM', locale).format(date.key),
-                              ),
+                              Text(DateFormat('MMM', locale).format(date.key),
+                                  style: AppTextStyle.style14.copyWith(
+                                      color: context.colorScheme.textPrimary)),
                               const SizedBox(
                                 height: primaryVerticalSpacing,
                               ),
@@ -112,15 +117,15 @@ class LeaveTimePeriodBox extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width * 0.26,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.darkGrey),
+        border: Border.all(color: context.colorScheme.containerHigh),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Material(
-        color: AppColors.whiteColor,
+        color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<LeaveDayDuration>(
-            style: AppFontStyle.bodySmallRegular,
+            dropdownColor: context.colorScheme.surface,
             isExpanded: true,
             iconSize: 0.0,
             icon: const SizedBox(),
@@ -131,8 +136,10 @@ class LeaveTimePeriodBox extends StatelessWidget {
                 .map((dayDuration) => DropdownMenuItem(
                     value: dayDuration,
                     child: Center(
-                        child: Text(AppLocalizations.of(context)
-                            .leave_day_duration_tag(dayDuration.name)))))
+                        child: Text(
+                      context.l10n.leave_day_duration_tag(dayDuration.name),
+                      style: AppTextStyle.style14,
+                    ))))
                 .toList(),
             onChanged: (value) {
               context.read<ApplyLeaveBloc>().add(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/user/forms/form_list_screen/widget/form_card.dart';
-import '../../../../data/configs/colors.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -40,11 +41,9 @@ class _UserFormListScreenState extends State<UserFormListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundGrey,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).forms_title),
-      ),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      title: context.l10n.forms_title,
       body: BlocConsumer<UserFormListBloc, UserFormListState>(
         listenWhen: (previous, current) => current.status != previous.status,
         listener: (context, state) {

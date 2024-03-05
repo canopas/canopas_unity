@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/data/core/extensions/date_formatter.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/widget/absence_employee_view.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../data/configs/colors.dart';
-import '../../../data/configs/space_constant.dart';
-import '../../../data/configs/text_style.dart';
 import '../../../data/configs/theme.dart';
 import '../../../data/core/utils/bloc_status.dart';
 import '../../widget/error_snack_bar.dart';
@@ -26,32 +25,39 @@ class WhoIsOutCard extends StatelessWidget {
           showSnackBar(context: context, error: state.error);
         }
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 16),
-            child: Text(
-              AppLocalizations.of(context).who_is_out_card_title,
-              style: AppFontStyle.headerDark,
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: AppTheme.commonBorderRadius,
-              color: AppColors.whiteColor,
-              boxShadow: AppTheme.commonBoxShadow,
-            ),
-            child: Column(
+      child: BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
+          buildWhen: (previous, current) =>
+              previous.status != current.status ||
+              previous.selectedDate != current.selectedDate ||
+              previous.calendarFormat != current.calendarFormat,
+          builder: (context, state) {
+            final calendarFormat = state.calendarFormat;
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LeaveCalendar(),
-                const SizedBox(height: 10),
-                const Divider(
-                    indent: primaryHorizontalSpacing,
-                    endIndent: primaryHorizontalSpacing,
-                    height: 0),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.surface,
+                    boxShadow: calendarFormat == CalendarFormat.week
+                        ? [
+                            BoxShadow(
+                              color: context.colorScheme.textSecondary,
+                              blurRadius: 5.0,
+                              offset: const Offset(0, 3),
+                            )
+                          ]
+                        : null,
+                  ),
+                  child: const LeaveCalendar(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(context.l10n.who_is_out_card_title,
+                      style: AppTextStyle.style20
+                          .copyWith(color: context.colorScheme.textPrimary)),
+                ),
                 BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
                   buildWhen: (previous, current) =>
                       previous.status != current.status ||
@@ -64,10 +70,8 @@ class WhoIsOutCard extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
+            );
+          }),
     );
   }
 }
@@ -88,7 +92,24 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
             previous.selectedDate != current.selectedDate ||
             previous.calendarFormat != current.calendarFormat,
         builder: (context, state) {
+          final calendarFormat = state.calendarFormat;
           return TableCalendar(
+            calendarBuilders:
+                CalendarBuilders(headerTitleBuilder: (context, day) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      calendarFormat == CalendarFormat.week
+                          ? day.toDate()
+                          : day.toMonthYear(),
+                      style: AppTextStyle.style18
+                          .copyWith(color: context.colorScheme.textPrimary)),
+                  const CalendarFormatButton(),
+                ],
+              );
+            }),
+            headerVisible: true,
             rangeSelectionMode: RangeSelectionMode.disabled,
             onPageChanged: (focusedDay) => context
                 .read<WhoIsOutCardBloc>()
@@ -104,23 +125,15 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
             availableGestures: AvailableGestures.horizontalSwipe,
             calendarFormat: state.calendarFormat,
             selectedDayPredicate: (day) => isSameDay(state.selectedDate, day),
-            firstDay: DateTime(2020),
-            lastDay: DateTime(2025),
+            firstDay: DateTime(2022),
+            lastDay: DateTime(2026),
             startingDayOfWeek: StartingDayOfWeek.sunday,
-            calendarStyle: AppTheme.calendarStyle,
+            calendarStyle: AppTheme.calendarStyle(context),
             headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                leftChevronMargin: EdgeInsets.zero,
-                leftChevronPadding: EdgeInsets.zero,
-                leftChevronIcon: SizedBox(),
-                headerPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                rightChevronMargin: EdgeInsets.zero,
-                rightChevronPadding: EdgeInsets.zero,
-                titleCentered: true,
-                leftChevronVisible: true,
-                rightChevronIcon: CalendarFormatButton(),
-                titleTextStyle: AppFontStyle.labelRegular),
+              formatButtonVisible: false,
+              rightChevronVisible: false,
+              leftChevronVisible: false,
+            ),
             eventLoader: (day) => context
                 .read<WhoIsOutCardBloc>()
                 .getSelectedDateAbsences(
@@ -136,8 +149,6 @@ class CalendarFormatButton extends StatelessWidget {
 
   getCalendarFormat(CalendarFormat format) {
     if (format == CalendarFormat.week) {
-      return CalendarFormat.twoWeeks;
-    } else if (format == CalendarFormat.twoWeeks) {
       return CalendarFormat.month;
     } else {
       return CalendarFormat.week;
@@ -153,8 +164,8 @@ class CalendarFormatButton extends StatelessWidget {
           onPressed: () => context.read<WhoIsOutCardBloc>().add(
               ChangeCalendarFormat(getCalendarFormat(state.calendarFormat))),
           icon: Icon(state.calendarFormat == CalendarFormat.month
-              ? Icons.keyboard_arrow_up_rounded
-              : Icons.keyboard_arrow_down_rounded)),
+              ? Icons.arrow_drop_up
+              : Icons.arrow_drop_down)),
     );
   }
 }

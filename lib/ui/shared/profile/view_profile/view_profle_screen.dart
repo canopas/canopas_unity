@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
 import 'package:projectunity/data/provider/user_state.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_state.dart';
@@ -11,7 +14,7 @@ import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import '../../../widget/employee_details_field.dart';
 
 class ViewProfilePage extends StatelessWidget {
@@ -32,21 +35,21 @@ class ViewProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(
-          title: Text(localization.admin_employee_detail_profile_tag),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: TextButton(
-                onPressed: () => context.pushNamed(
-                    getIt<UserStateNotifier>().isAdmin
-                        ? Routes.adminEditProfile
-                        : Routes.userEditProfile),
-                child: Text(localization.edit_tag),
-              ),
-            ),
-          ]),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      title: localization.admin_employee_detail_profile_tag,
+      actions: [
+        TextButton(
+          onPressed: () => context.pushNamed(getIt<UserStateNotifier>().isAdmin
+              ? Routes.adminEditProfile
+              : Routes.userEditProfile),
+          child: Text(
+            localization.edit_tag,
+            style: AppTextStyle.style16
+                .copyWith(color: context.colorScheme.primary),
+          ),
+        ),
+      ],
       body: BlocConsumer<ViewProfileBloc, ViewProfileState>(
           listenWhen: (previous, current) => current is ViewProfileErrorState,
           listener: (context, state) {
@@ -65,6 +68,9 @@ class ViewProfileScreen extends StatelessWidget {
               return ListView(
                 children: [
                   BasicDetailSection(employee: employee),
+                  EmployeeDetailsField(
+                      title: AppLocalizations.of(context).employee_email_tag,
+                      subtitle: employee.email),
                   EmployeeDetailsField(
                       title: AppLocalizations.of(context).employee_level_tag,
                       subtitle: employee.level),

@@ -28,7 +28,7 @@ class AuthService {
             await firebaseAuth.signInWithPopup(googleAuthProvider);
         user = credential.user;
         return user;
-      } catch(e) {
+      } catch (e) {
         rethrow;
       }
     } else if (defaultTargetPlatform == TargetPlatform.android ||

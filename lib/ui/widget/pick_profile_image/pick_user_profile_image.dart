@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/ui/widget/pick_profile_image/bloc/pick_image_state.dart';
-import '../../../data/configs/colors.dart';
 import '../../../data/di/service_locator.dart';
 import '../pick_image_bottom_sheet.dart';
 import '../user_profile_image.dart';
@@ -43,7 +43,7 @@ class ProfileImage extends StatelessWidget {
         children: [
           CircleAvatar(
               radius: 70,
-              backgroundColor: AppColors.textFieldBg,
+              backgroundColor: context.colorScheme.containerNormal,
               child: BlocConsumer<PickImageBloc, PickImageState>(
                   listener: (context, state) {
                     if (state.isPickImageDone && state.pickedImage != null) {
@@ -72,14 +72,15 @@ class ProfileImage extends StatelessWidget {
                       );
                     });
               },
-              shape: const CircleBorder(
-                  side: BorderSide(color: AppColors.textFieldBg, width: 2)),
-              backgroundColor: AppColors.whiteColor,
+              shape: CircleBorder(
+                  side: BorderSide(
+                      color: context.colorScheme.containerNormal, width: 2)),
+              backgroundColor: context.colorScheme.surface,
               elevation: 2,
               mini: true,
-              child: const Icon(
+              child: Icon(
                 Icons.edit,
-                color: AppColors.darkGrey,
+                color: context.colorScheme.containerHigh,
               )),
         ],
       ),

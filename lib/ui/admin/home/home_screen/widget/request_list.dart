@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave_application.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../style/app_text_style.dart';
+import '../../../../../app_router.dart';
 import '../../../../widget/leave_application_card.dart';
 
 class LeaveRequestList extends StatelessWidget {
@@ -25,12 +25,14 @@ class LeaveRequestList extends StatelessWidget {
           .map(
             (mapEntry) => StickyHeader(
                 header: Container(
-                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: primaryHorizontalSpacing),
+                    //width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.symmetric(
                             horizontal: primaryHorizontalSpacing)
                         .copyWith(top: primaryHalfSpacing),
                     decoration:
-                        const BoxDecoration(color: AppColors.whiteColor),
+                        BoxDecoration(color: context.colorScheme.surface),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -40,17 +42,16 @@ class LeaveRequestList extends StatelessWidget {
                             Text(
                                 DateFormatter(AppLocalizations.of(context))
                                     .getDateRepresentation(mapEntry.key),
-                                style: AppFontStyle.headerDark),
+                                style: AppTextStyle.style20.copyWith(
+                                  color: context.colorScheme.textPrimary,
+                                )),
                             Text(
                               mapEntry.value.length.toString(),
-                              style: AppFontStyle.headerDark,
+                              style: AppTextStyle.style20,
                             )
                           ],
                         ),
-                        const SizedBox(height: primaryHalfSpacing),
-                        const Divider(
-                          height: 1,
-                        )
+                        const SizedBox(height: 16),
                       ],
                     )),
                 content: Padding(

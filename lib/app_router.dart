@@ -8,28 +8,28 @@ import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.d
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
-import '../../data/model/employee/employee.dart';
-import '../../data/model/leave_application.dart';
-import '../../data/provider/user_state.dart';
-import '../admin/drawer_options/edit_space/edit_space_screen.dart';
-import '../admin/forms/create_form/create_form.dart';
-import '../admin/home/home_screen/admin_home_screen.dart';
-import '../admin/home/invite_member/invite_screen.dart';
-import '../admin/leaves/details/admin_leave_detail.dart';
-import '../admin/members/detail/employee_detail_screen.dart';
-import '../admin/members/details_leaves/employee_details_leaves_screen.dart';
-import '../admin/members/edit_employee/admin_edit_employee_screen.dart';
-import '../admin/members/list/member_list_screen.dart';
-import '../shared/dashboard/dashboard.dart';
-import '../shared/profile/edit_profile/edit_profile_screen.dart';
-import '../space/create_space/create_workspace_screen.dart';
-import '../space/join_space/join_space_screen.dart';
-import '../user/forms/form_list_screen/forms_list_screen.dart';
-import '../user/home/home_screen/user_home_screen.dart';
-import '../user/leaves/apply_leave/apply_leave_screen.dart';
-import '../user/members/detail/user_employee_detail_screen.dart';
-import '../user/members/members_screen/user_members_screen.dart';
-import '../widget/error/page_not_found_screen.dart';
+import 'data/model/employee/employee.dart';
+import 'data/model/leave_application.dart';
+import 'data/provider/user_state.dart';
+import 'ui/admin/forms/create_form/create_form.dart';
+import 'ui/admin/home/home_screen/admin_home_screen.dart';
+import 'ui/admin/home/invite_member/invite_screen.dart';
+import 'ui/admin/leaves/details/admin_leave_detail.dart';
+import 'ui/admin/members/detail/employee_detail_screen.dart';
+import 'ui/admin/members/details_leaves/employee_details_leaves_screen.dart';
+import 'ui/admin/members/edit_employee/admin_edit_employee_screen.dart';
+import 'ui/admin/members/list/member_list_screen.dart';
+import 'ui/shared/dashboard/dashboard.dart';
+import 'ui/shared/profile/edit_profile/edit_profile_screen.dart';
+import 'ui/space/create_space/create_workspace_screen.dart';
+import 'ui/space/edit_space/edit_space_screen.dart';
+import 'ui/space/join_space/join_space_screen.dart';
+import 'ui/user/forms/form_list_screen/forms_list_screen.dart';
+import 'ui/user/home/home_screen/user_home_screen.dart';
+import 'ui/user/leaves/apply_leave/apply_leave_screen.dart';
+import 'ui/user/members/detail/user_employee_detail_screen.dart';
+import 'ui/user/members/members_screen/user_members_screen.dart';
+import 'ui/widget/error/page_not_found_screen.dart';
 
 @Injectable()
 class AppRouter {
@@ -78,8 +78,9 @@ class AppRouter {
           ),
           ShellRoute(
               navigatorKey: _adminShellNavigatorKey,
-              builder: (context, state, child) =>
-                  DashBoardScreen(tabs: adminTabs, child: child),
+              builder: (context, state, child) {
+                return DashBoardScreen(tabs: adminTabs, child: child);
+              },
               routes: [
                 GoRoute(
                     parentNavigatorKey: _adminShellNavigatorKey,
@@ -190,10 +191,17 @@ class AppRouter {
                           parentNavigatorKey: _adminShellNavigatorKey,
                           name: Routes.adminMemberDetails,
                           path: Routes.adminMemberDetails,
-                          pageBuilder: (context, state) => CupertinoPage(
-                              child: EmployeeDetailPage(
-                                  id: state.pathParameters[
-                                      RoutesParamsConst.employeeId]!)),
+                          pageBuilder: (context, state) {
+                            String id = '';
+                            if (state.extra.runtimeType == Employee) {
+                              final employee = state.extra as Employee;
+                              id = employee.uid;
+                            } else {
+                              id = state.extra as String;
+                            }
+                            return CupertinoPage(
+                                child: EmployeeDetailPage(id: id));
+                          },
                           routes: [
                             GoRoute(
                                 parentNavigatorKey: _adminShellNavigatorKey,
@@ -218,8 +226,7 @@ class AppRouter {
                                       employeeName: state.pathParameters[
                                               RoutesParamsConst.employeeName] ??
                                           "",
-                                      employeeId: state.pathParameters[
-                                          RoutesParamsConst.employeeId]!,
+                                      employeeId: state.extra as String,
                                     ))),
                             GoRoute(
                               parentNavigatorKey: _adminShellNavigatorKey,
@@ -259,7 +266,7 @@ class AppRouter {
                               name: Routes.userEditProfile,
                               pageBuilder: (context, state) => CupertinoPage(
                                   child: EmployeeEditProfilePage(
-                                employee: userManager.employee,
+                                employee: _userManager.employee,
                               )),
                             ),
                           ]),
@@ -392,7 +399,7 @@ abstract class Routes {
   static const hrApplyLeave = 'hr/apply-leave';
 
   static const adminMembers = '/admin/members';
-  static const adminMemberDetails = 'details/:employeeId';
+  static const adminMemberDetails = 'details';
   static const adminEmployeeDetailsLeaves = 'leaves/:employeeName';
   static const adminEmployeeDetailsLeavesDetails = 'leave-details/:leaveId';
   static const adminEditEmployee = 'edit-user-details';

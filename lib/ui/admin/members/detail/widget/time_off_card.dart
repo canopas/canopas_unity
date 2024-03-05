@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/theme.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/double_extension.dart';
 import 'package:projectunity/data/model/leave_count.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/leave_count_view.dart';
-import '../../../../../data/configs/colors.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/model/employee/employee.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 
 class TimeOffCard extends StatelessWidget {
   const TimeOffCard({
@@ -29,26 +28,26 @@ class TimeOffCard extends StatelessWidget {
           vertical: primaryVerticalSpacing,
           horizontal: primaryHorizontalSpacing),
       decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: context.colorScheme.surface,
           borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
+          boxShadow: AppTheme.commonBoxShadow(context)),
       child: Material(
-        color: AppColors.whiteColor,
+        color: context.colorScheme.surface,
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
-          onTap: () => context
-              .goNamed(Routes.adminEmployeeDetailsLeaves, pathParameters: {
-            RoutesParamsConst.employeeId: employee.uid,
-            RoutesParamsConst.employeeName: employee.name,
-          }),
+          onTap: () => context.goNamed(Routes.adminEmployeeDetailsLeaves,
+              extra: employee.uid,
+              pathParameters: {
+                RoutesParamsConst.employeeName: employee.name,
+              }),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 DecoratedBox(
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.dividerColor),
+                    border: Border.all(color: context.colorScheme.outlineColor),
                     borderRadius: AppTheme.commonBorderRadius,
                   ),
                   child: UsedLeaveCountsView(leaveCounts: usedLeaves),
@@ -61,17 +60,18 @@ class TimeOffCard extends StatelessWidget {
                       children: [
                         CircularProgressIndicator(
                           strokeWidth: 8,
-                          backgroundColor: AppColors.lightPrimaryBlue,
-                          color: AppColors.primaryBlue,
+                          backgroundColor:
+                              context.colorScheme.primary.withOpacity(0.5),
+                          color: context.colorScheme.primary,
                           value: percentage,
                         ),
                         const SizedBox(
                           width: 15,
                         ),
                         Text(
-                          AppLocalizations.of(context)
-                              .admin_employees_detail_time_off_tag,
-                          style: AppFontStyle.labelGrey,
+                          context.l10n.admin_employees_detail_time_off_tag,
+                          style: AppTextStyle.style16
+                              .copyWith(color: context.colorScheme.textPrimary),
                         ),
                       ],
                     ),
@@ -79,12 +79,11 @@ class TimeOffCard extends StatelessWidget {
                       children: [
                         Text(
                           usedLeaves.totalUsedLeave.fixedAt(2).toString(),
-                          style: AppFontStyle.titleRegular,
+                          style: AppTextStyle.style16,
                         ),
                         const SizedBox(width: 10),
                         const Icon(
                           Icons.arrow_forward_ios_outlined,
-                          color: AppColors.greyColor,
                           size: 20,
                         ),
                       ],

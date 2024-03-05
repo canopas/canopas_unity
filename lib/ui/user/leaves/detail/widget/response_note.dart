@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
-import '../../../../../data/configs/text_style.dart';
 import '../../../../../data/configs/theme.dart';
 
 class ResponseNote extends StatelessWidget {
@@ -19,20 +18,22 @@ class ResponseNote extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context).admin_leave_detail_note_tag,
-              style: AppFontStyle.labelGrey,
+              context.l10n.admin_leave_detail_note_tag,
+              style: AppTextStyle.style16
+                  .copyWith(color: context.colorScheme.textSecondary),
             ),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(5).copyWith(bottom: 4),
               decoration: BoxDecoration(
-                boxShadow: AppTheme.commonBoxShadow,
+                boxShadow: AppTheme.commonBoxShadow(context),
                 borderRadius: AppTheme.commonBorderRadius,
-                color: AppColors.lightPrimaryBlue,
+                color: context.colorScheme.primary.withOpacity(0.5),
               ),
               child: Text(
                 leaveResponse,
-                style: AppFontStyle.labelRegular,
+                style: AppTextStyle.style16
+                    .copyWith(color: context.colorScheme.textPrimary),
               ),
             ),
           ],

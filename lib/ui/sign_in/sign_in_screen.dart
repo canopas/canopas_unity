@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/sign_in/widget/sign_in_button.dart';
-import '../../data/configs/colors.dart';
-import '../../data/configs/text_style.dart';
 import '../../data/core/utils/const/image_constant.dart';
 import '../../data/di/service_locator.dart';
-import '../widget/circular_progress_indicator.dart';
 import '../widget/error_snack_bar.dart';
 import 'bloc/sign_in_view_bloc.dart';
-import 'bloc/sign_in_view_event.dart';
 import 'bloc/sign_in_view_state.dart';
 
 class SignInPage extends StatelessWidget {
@@ -34,8 +32,8 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
       body: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInFailureState) {
@@ -64,9 +62,10 @@ class SignInScreenState extends State<SignInScreen> {
                         children: [
                           Flexible(
                             child: Text(
-                              AppLocalizations.of(context).sign_in_title_text,
+                              context.l10n.sign_in_title_text,
                               textAlign: TextAlign.center,
-                              style: AppFontStyle.titleDark.copyWith(
+                              style: AppTextStyle.style24.copyWith(
+                                color: context.colorScheme.textPrimary,
                                 overflow: TextOverflow.fade,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -77,10 +76,9 @@ class SignInScreenState extends State<SignInScreen> {
                               padding: const EdgeInsets.only(
                                   left: 20.0, right: 20, top: 20, bottom: 40),
                               child: Text(
-                                AppLocalizations.of(context)
-                                    .sign_in_description_text,
-                                style: AppFontStyle.bodyMedium
-                                    .copyWith(fontWeight: FontWeight.w500),
+                                context.l10n.sign_in_description_text,
+                                style: AppTextStyle.style16.copyWith(
+                                    color: context.colorScheme.textPrimary),
                                 overflow: TextOverflow.fade,
                                 textAlign: TextAlign.center,
                               ),
@@ -88,27 +86,7 @@ class SignInScreenState extends State<SignInScreen> {
                           ),
                         ],
                       ),
-                      BlocBuilder<SignInBloc, SignInState>(
-                        buildWhen: (previous, current) =>
-                            previous is SignInLoadingState ||
-                            current is SignInLoadingState,
-                        builder: (context, state) => state is SignInLoadingState
-                            ? const Padding(
-                                padding: EdgeInsets.all(6),
-                                child: AppCircularProgressIndicator(),
-                              )
-                            : Center(
-                                child: SignInButton(
-                                    onPressed: () {
-                                      context
-                                          .read<SignInBloc>()
-                                          .add(SignInEvent());
-                                    },
-                                    title: AppLocalizations.of(context)
-                                        .login_button_text,
-                                    image: ImageConst.googleLogoImage),
-                              ),
-                      ),
+                      const SignInButton()
                     ],
                   ),
                 ),

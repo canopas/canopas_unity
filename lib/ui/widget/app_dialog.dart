@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 
-showAlertDialog(
+showAppAlertDialog(
         {required BuildContext context,
         required String title,
         required String actionButtonTitle,
         required String description,
-        required void Function()? onActionButtonPressed}) =>
-    showDialog(
+        required void Function()? onActionButtonPressed}) async =>
+    await showAdaptiveDialog(
         context: context,
         builder: (context) => AlertDialog(
+              backgroundColor: context.colorScheme.surface,
               title: Text(title),
               content: Text(description),
               actions: [
@@ -18,10 +19,12 @@ showAlertDialog(
                     onPressed: () {
                       context.pop();
                     },
-                    child:
-                        Text(AppLocalizations.of(context).alert_cancel_action)),
+                    child: Text(context.l10n.alert_cancel_action)),
                 ElevatedButton(
-                    onPressed: onActionButtonPressed,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      onActionButtonPressed?.call();
+                    },
                     child: Text(actionButtonTitle)),
               ],
             ));

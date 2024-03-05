@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../data/configs/colors.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../../../../data/configs/theme.dart';
 import '../bloc/create_form_bloc.dart';
 import '../bloc/create_form_event.dart';
@@ -16,7 +16,7 @@ class CreateOrgFormAddFieldButton extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: AppColors.whiteColor,
+            color: context.colorScheme.surface,
             borderRadius: AppTheme.commonBorderRadius,
           ),
           child: Row(

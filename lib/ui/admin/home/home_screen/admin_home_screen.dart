@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
-import '../../../../data/configs/colors.dart';
-import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../shared/appbar_drawer/appbar/dashboard_appbar.dart';
+import '../../../../data/provider/user_state.dart';
+import '../../../../style/app_text_style.dart';
+import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';
+import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
+import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -48,15 +52,35 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: DashBoardAppBar(onTap: () => Scaffold.of(context).openDrawer()),
+    return AppPage(
+      backGroundColor: context.colorScheme.surface,
+      leading: InkWell(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+            context.read<DrawerBloc>().add(FetchSpacesEvent());
+          },
+          child: Icon(
+            Icons.menu,
+            color: context.colorScheme.textPrimary,
+          )),
+      titleWidget: SpaceNotifierWidget(
+        notifier: getIt.get<UserStateNotifier>(),
+        child: Builder(
+          builder: (context) {
+            final String name = SpaceNotifierWidget.of(context)?.name ?? "";
+            return Text(name,
+                style: AppTextStyle.style20.copyWith(
+                  color: context.colorScheme.textPrimary,
+                ),
+                overflow: TextOverflow.ellipsis);
+          },
+        ),
+      ),
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: primaryHorizontalSpacing,
-                vertical: primaryHalfSpacing),
-            child: WhoIsOutCard(),
+          const WhoIsOutCard(),
+          const SizedBox(
+            height: 20,
           ),
           BlocConsumer<AdminHomeBloc, AdminHomeState>(
               listenWhen: (previous, current) => current.status == Status.error,
@@ -71,22 +95,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     state.leaveAppMap.isNotEmpty) {
                   return LeaveRequestList(map: state.leaveAppMap);
                 }
-                return ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 300),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height - 500,
-                    child: state.status == Status.loading
-                        ? const AppCircularProgressIndicator()
-                        : EmptyScreen(
-                            message: locale.empty_request_message,
-                            title: locale.empty_request_title,
-                          ),
-                  ),
-                );
+                return state.status == Status.loading
+                    ? const AppCircularProgressIndicator()
+                    : EmptyScreen(
+                        message: locale.empty_request_message,
+                        title: locale.empty_request_title,
+                      );
               }),
         ],
       ),
-      backgroundColor: AppColors.whiteColor,
     );
   }
 }

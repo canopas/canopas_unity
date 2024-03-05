@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../data/configs/colors.dart';
-import '../../../../../data/configs/text_style.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import '../bloc/create_form_bloc.dart';
 import '../bloc/create_form_event.dart';
 import '../bloc/create_form_state.dart';
@@ -46,12 +46,13 @@ class OrgCreateFormInfoView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(locale.create_from_limit_to_1_response_text,
-                style: AppFontStyle.bodyLarge),
+                style: AppTextStyle.style16
+                    .copyWith(color: context.colorScheme.textPrimary)),
             BlocBuilder<CreateFormBloc, CreateFormState>(
                 buildWhen: (previous, current) =>
                     previous.limitToOneResponse != current.limitToOneResponse,
                 builder: (context, state) => Switch(
-                    activeColor: AppColors.primaryBlue,
+                    activeColor: context.colorScheme.primary,
                     value: state.limitToOneResponse,
                     onChanged: (value) =>
                         bloc.add(UpdateLimitToOneResponse(value))))
@@ -76,9 +77,9 @@ class HeaderImageView extends StatelessWidget {
               height: 200,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
+                  color: context.colorScheme.surface,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.dividerColor),
+                  border: Border.all(color: context.colorScheme.outlineColor),
                   image: state.formHeaderImage != null
                       ? DecorationImage(
                           fit: BoxFit.scaleDown,
@@ -101,7 +102,7 @@ class HeaderImageView extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          color: AppColors.whiteColor.withOpacity(0.60),
+                          color: context.colorScheme.surface.withOpacity(0.60),
                           borderRadius: BorderRadius.circular(50)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
