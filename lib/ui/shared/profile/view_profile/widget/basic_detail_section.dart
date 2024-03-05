@@ -28,8 +28,8 @@ class BasicDetailSection extends StatelessWidget {
           role: employee.role,
           employeeId: employee.employeeId,
         ),
-        const Divider(
-          color: containerHighColor,
+         Divider(
+          color: context.colorScheme.containerHigh,
         )
       ]),
     );
@@ -59,7 +59,7 @@ class IdSection extends StatelessWidget {
         Container(
           height: 60,
           width: 1,
-          color: containerHighColor,
+          color: context.colorScheme.containerHigh,
         ),
         TextColumn(
           title: localization.employee_employeeID_tag,
@@ -96,7 +96,7 @@ class ProfileSection extends StatelessWidget {
           child: Text(
             employee.designation ?? "",
             style: AppTextStyle.style14
-                .copyWith(color: context.colorScheme.textDisabled),
+                .copyWith(color: context.colorScheme.textSecondary),
             overflow: TextOverflow.ellipsis,
           ),
         )

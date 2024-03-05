@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/shared/profile/edit_profile/widget/profile_form.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/employee/employee.dart';
@@ -22,9 +24,7 @@ class EmployeeEditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployeeEditProfileBloc>()
-        ..add(EditProfileInitialLoadEvent(
-            dateOfBirth: employee.dateOfBirth, gender: employee.gender)),
+      create: (context) => getIt<EmployeeEditProfileBloc>(),
       child: EmployeeEditProfileScreen(employee: employee),
     );
   }
@@ -66,6 +66,8 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
     phoneNumberController.dispose();
     addressController.dispose();
     levelController.dispose();
+    context.read<EmployeeEditProfileBloc>().add(EditProfileInitialLoadEvent(
+        dateOfBirth: widget.employee.dateOfBirth, gender: widget.employee.gender));
     super.dispose();
   }
 
@@ -94,27 +96,33 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
                               ));
                         }
                       : null,
-                  child: Text(AppLocalizations.of(context).save_tag)),
-        )
-      ],
-      body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          if (state.status == Status.error) {
-            showSnackBar(context: context, error: state.error);
-          } else if (state.status == Status.success) {
-            context.pop();
-          }
-        },
-        child: ProfileForm(
-          profileImageURL: widget.employee.imageUrl,
-          nameController: nameController,
-          levelController: levelController,
-          designationController: designationController,
-          addressController: addressController,
-          phoneNumberController: phoneNumberController,
-        ),
-      ),
-    );
-  }
+                  child: state.status == Status.loading
+                      ? const AppCircularProgressIndicator(size: 20)
+                      : Text(
+                          AppLocalizations.of(context).save_tag,
+                          style: AppTextStyle.style16
+                              .copyWith(color: context.colorScheme.primary),
+                        )),
+            )
+          ],
+          body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
+            listenWhen: (previous, current) => previous.status != current.status,
+            listener: (context, state) {
+              if (state.status == Status.error) {
+                showSnackBar(context: context, error: state.error);
+              } else if (state.status == Status.success) {
+                context.pop();
+              }
+            },
+            child: ProfileForm(
+              profileImageURL: widget.employee.imageUrl,
+              nameController: nameController,
+              levelController: levelController,
+              designationController: designationController,
+              addressController: addressController,
+              phoneNumberController: phoneNumberController,
+            ),
+          ),
+        );
+      }
 }

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../style/app_text_style.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 import '../../../../widget/user_profile_image.dart';
 
 class UserProfileCard extends StatelessWidget {
@@ -52,7 +52,7 @@ class UserProfileCard extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.arrow_forward_ios_rounded,
-                  color: context.colorScheme.textDisabled,
+                  color: context.colorScheme.primary,
                   size: 15,
                 )),
           ],

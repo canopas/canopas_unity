@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../bloc/create_workspace_bloc.dart';

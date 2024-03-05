@@ -1,12 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:projectunity/data/core/exception/exception_msg.dart';
 
-SnackBar showSnackBar(
-    {required BuildContext context, String? msg, String? error}) {
-  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-  SnackBar snackBar = SnackBar(
+
+void showSnackBar({required BuildContext context, String? msg, String? error}) {
+  if (Platform.isIOS) {
+    Fluttertoast.showToast(
+      msg: error!= null?error.errorMessage(context):msg!,
+      gravity: ToastGravity.BOTTOM,
+    );
+  } else {
+    final snackBar = SnackBar(
+      content: error != null ? Text(error.errorMessage(context)) : Text(msg!),
       behavior: SnackBarBehavior.floating,
-      content: error != null ? Text(error.errorMessage(context)) : Text(msg!));
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  return snackBar;
+      duration: Duration(seconds: 1),
+    );
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 }

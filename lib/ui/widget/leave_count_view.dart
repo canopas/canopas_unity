@@ -36,7 +36,7 @@ class UsedLeaveCountsView extends StatelessWidget {
         Container(
           height: 60,
           width: 1,
-          color: containerHighColor,
+          color: context.colorScheme.containerHigh,
         ),
         Expanded(
           child: Column(

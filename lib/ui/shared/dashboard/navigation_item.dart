@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 
 import '../../../gen/assets.gen.dart';
-import '../../navigation/app_router.dart';
+import '../../../app_router.dart';
 
 class BottomNavigationItem {
   final String initialLocation;

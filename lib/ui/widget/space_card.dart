@@ -25,7 +25,7 @@ class SpaceCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Material(
-        color: Colors.transparent,
+        color: context.colorScheme.surface,
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,

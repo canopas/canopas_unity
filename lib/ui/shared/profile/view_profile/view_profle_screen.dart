@@ -14,7 +14,7 @@ import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import '../../../widget/employee_details_field.dart';
 
 class ViewProfilePage extends StatelessWidget {
@@ -46,7 +46,7 @@ class ViewProfileScreen extends StatelessWidget {
           child: Text(
             localization.edit_tag,
             style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.textPrimary),
+                .copyWith(color: context.colorScheme.primary),
           ),
         ),
       ],

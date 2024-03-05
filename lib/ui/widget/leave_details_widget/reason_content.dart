@@ -15,7 +15,7 @@ class ReasonField extends StatelessWidget {
       children: [
         Text(title,
             style: AppTextStyle.style18
-                .copyWith(color: context.colorScheme.textDisabled)),
+                .copyWith(color: context.colorScheme.textSecondary)),
         const SizedBox(
           height: 10,
         ),

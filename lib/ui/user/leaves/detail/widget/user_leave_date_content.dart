@@ -26,7 +26,7 @@ class UserLeaveRequestDateContent extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
         borderRadius: AppTheme.commonBorderRadius,
-        boxShadow: AppTheme.commonBoxShadow,
+        boxShadow: AppTheme.commonBoxShadow(context),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

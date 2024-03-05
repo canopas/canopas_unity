@@ -27,7 +27,7 @@ class LeaveApplicationCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
           color: context.colorScheme.surface,
-          boxShadow: AppTheme.commonBoxShadow),
+          boxShadow: AppTheme.commonBoxShadow(context)),
       child: Material(
         borderRadius: AppTheme.commonBorderRadius,
         color: context.colorScheme.surface,
@@ -144,7 +144,7 @@ class _EmployeeContent extends StatelessWidget {
                 child: Text(
                   employee.employeeId ?? '',
                   style: AppTextStyle.style16
-                      .copyWith(color: context.colorScheme.textDisabled),
+                      .copyWith(color: context.colorScheme.textSecondary),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

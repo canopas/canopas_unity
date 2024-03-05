@@ -16,7 +16,7 @@ import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/model/leave_application.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import 'bloc /admin_leave_event.dart';
 import 'bloc /admin_leaves_bloc.dart';
 

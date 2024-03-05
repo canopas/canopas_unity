@@ -44,7 +44,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
               Text(
                 appliedOnPresentation,
                 style: AppTextStyle.style14
-                    .copyWith(color: context.colorScheme.textDisabled),
+                    .copyWith(color: context.colorScheme.textSecondary),
               ),
             ],
           ),

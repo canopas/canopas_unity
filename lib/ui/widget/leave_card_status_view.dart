@@ -37,7 +37,7 @@ Color leaveStatusColor(LeaveStatus leaveStatus, BuildContext context) {
   if (leaveStatus == LeaveStatus.approved) {
     return context.colorScheme.approveColor;
   } else if (leaveStatus == LeaveStatus.pending) {
-    return context.colorScheme.textDisabled;
+    return context.colorScheme.textSecondary;
   }
   return context.colorScheme.rejectColor;
 }
@@ -60,6 +60,6 @@ class LeaveStatusIcon extends StatelessWidget {
           color: context.colorScheme.rejectColor, size: 20);
     }
     return Icon(Icons.query_builder,
-        color: context.colorScheme.textDisabled, size: 20);
+        color: context.colorScheme.textSecondary, size: 20);
   }
 }

@@ -6,7 +6,7 @@ import 'package:projectunity/style/app_page.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/employee/employee.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/employee_card.dart';
 import '../../../widget/error_snack_bar.dart';

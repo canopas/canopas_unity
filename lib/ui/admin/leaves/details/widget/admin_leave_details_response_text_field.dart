@@ -20,7 +20,7 @@ class ApproveRejectionMessage extends StatelessWidget {
           Text(
             context.l10n.admin_leave_detail_note_tag,
             style: AppTextStyle.style18
-                .copyWith(color: context.colorScheme.textDisabled),
+                .copyWith(color: context.colorScheme.textSecondary),
           ),
           const SizedBox(height: 10),
           Container(
@@ -28,13 +28,13 @@ class ApproveRejectionMessage extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
                     .copyWith(bottom: 4),
             decoration: BoxDecoration(
-              boxShadow: AppTheme.commonBoxShadow,
+              boxShadow: AppTheme.commonBoxShadow(context),
               borderRadius: AppTheme.commonBorderRadius,
               color: context.colorScheme.surface,
             ),
             child: TextField(
               style: AppTextStyle.style16
-                  .copyWith(color: context.colorScheme.textDisabled),
+                  .copyWith(color: context.colorScheme.textSecondary),
               onChanged: (value) {
                 context
                     .read<AdminLeaveDetailsBloc>()

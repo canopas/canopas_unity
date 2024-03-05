@@ -16,7 +16,7 @@ class FieldTitle extends StatelessWidget {
       child: Text(title,
           textAlign: TextAlign.start,
           style: AppTextStyle.style16
-              .copyWith(color: context.colorScheme.textDisabled)),
+              .copyWith(color: context.colorScheme.textSecondary)),
     );
   }
 }
@@ -54,7 +54,7 @@ class FieldEntry extends StatelessWidget {
       maxLength: maxLength,
       controller: controller,
       autocorrect: false,
-      style: AppTextStyle.style16,
+      style: AppTextStyle.style16.copyWith(color: context.colorScheme.textSecondary),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         isCollapsed: true,
@@ -63,7 +63,7 @@ class FieldEntry extends StatelessWidget {
         filled: true,
         errorText: errorText,
         hintStyle: AppTextStyle.style16
-            .copyWith(color: context.colorScheme.textDisabled),
+            .copyWith(color: context.colorScheme.textSecondary),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide.none),

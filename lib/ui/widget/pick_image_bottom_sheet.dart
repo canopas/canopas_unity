@@ -17,7 +17,7 @@ class PickImageBottomSheet extends StatelessWidget {
     final locale = AppLocalizations.of(context);
     return Container(
       decoration: BoxDecoration(
-          boxShadow: AppTheme.commonBoxShadow,
+          boxShadow: AppTheme.commonBoxShadow(context),
           color: context.colorScheme.surface,
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
@@ -72,7 +72,7 @@ class SelectButton extends StatelessWidget {
           Text(
             label,
             style: AppTextStyle.style14
-                .copyWith(color: context.colorScheme.textDisabled),
+                .copyWith(color: context.colorScheme.textSecondary),
           )
         ],
       ),

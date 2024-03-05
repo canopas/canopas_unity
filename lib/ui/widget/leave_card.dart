@@ -22,7 +22,7 @@ class LeaveCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: containerNormalColor,
+        color: context.colorScheme.containerNormal,
         borderRadius: AppTheme.commonBorderRadius,
       ),
       child: InkWell(

@@ -13,7 +13,7 @@ import 'package:projectunity/ui/widget/space_logo_view.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 
-import '../../navigation/app_router.dart';
+import '../../../app_router.dart';
 import '../../widget/app_dialog.dart';
 import '../../widget/employee_details_textfield.dart';
 import '../../widget/error_snack_bar.dart';

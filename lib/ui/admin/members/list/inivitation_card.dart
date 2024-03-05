@@ -22,7 +22,7 @@ class InvitedMemberCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25,
-            backgroundColor: containerHighColor,
+            backgroundColor: context.colorScheme.containerHigh,
             child: Icon(Icons.person,
                 size: 25, color: context.colorScheme.containerHigh),
           ),

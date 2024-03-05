@@ -28,7 +28,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                           horizontal: primaryVerticalSpacing,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: containerHighColor),
+                          border: Border.all(color: context.colorScheme.containerHigh),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
@@ -62,7 +62,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: containerHighColor),
+                                border: Border.all(color: context.colorScheme.containerHigh),
                               ),
                               child: Text(AppLocalizations.of(context)
                                   .leave_day_duration_tag(date.value.name)),
@@ -83,7 +83,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                           vertical: primaryHalfSpacing,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: containerHighColor),
+                          border: Border.all(color: context.colorScheme.containerHigh),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
@@ -116,7 +116,7 @@ class PerDayDurationDateRange extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: containerHighColor),
+                                border: Border.all(color: context.colorScheme.containerHigh),
                               ),
                               child: Text(
                                 context.l10n

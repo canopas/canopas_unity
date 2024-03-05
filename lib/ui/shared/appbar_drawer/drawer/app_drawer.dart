@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/ui/navigation/app_router.dart';
+import 'package:projectunity/app_router.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_option.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_space_card.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/widget/drawer_user_profile_card.dart';

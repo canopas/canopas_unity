@@ -41,7 +41,7 @@ class EmptyScreen extends StatelessWidget {
             Text(message,
                 textAlign: TextAlign.center,
                 style: AppTextStyle.style16
-                    .copyWith(color: context.colorScheme.textDisabled)),
+                    .copyWith(color: context.colorScheme.textSecondary)),
           ],
         ),
       ),

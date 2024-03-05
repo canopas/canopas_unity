@@ -60,7 +60,7 @@ class OrgFormFieldEntry extends StatelessWidget {
         filled: true,
         fillColor: context.colorScheme.surface,
         hintStyle: AppTextStyle.style16
-            .copyWith(color: context.colorScheme.textDisabled),
+            .copyWith(color: context.colorScheme.textSecondary),
         focusedBorder: inputBorder,
         errorBorder: inputBorder,
         border: inputBorder,

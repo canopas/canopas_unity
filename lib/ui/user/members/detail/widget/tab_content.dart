@@ -8,7 +8,7 @@ import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bl
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_state.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import '../../../../../data/model/leave/leave.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 import '../../../../widget/error_snack_bar.dart';
 import '../../../../widget/leave_card.dart';
 

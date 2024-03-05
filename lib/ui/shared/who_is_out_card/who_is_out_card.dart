@@ -43,7 +43,7 @@ class WhoIsOutCard extends StatelessWidget {
                     boxShadow: calendarFormat == CalendarFormat.week
                         ? [
                             BoxShadow(
-                              color: context.colorScheme.textDisabled,
+                              color: context.colorScheme.textSecondary,
                               blurRadius: 5.0,
                               offset: const Offset(0, 3),
                             )

@@ -39,7 +39,7 @@ class EmployeeCard extends StatelessWidget {
                   Text(employee.name,
                       style: employee.status == EmployeeStatus.inactive
                           ? AppTextStyle.style18
-                              .copyWith(color: context.colorScheme.textDisabled)
+                              .copyWith(color: context.colorScheme.textSecondary)
                           : AppTextStyle.style18.copyWith(
                               color: context.colorScheme.textPrimary,
                               height: 1.5),
@@ -51,7 +51,7 @@ class EmployeeCard extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 2),
                       child: Text(employee.designation ?? "",
                           style: AppTextStyle.style14.copyWith(
-                              color: context.colorScheme.textDisabled),
+                              color: context.colorScheme.textSecondary),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1),
                     ),

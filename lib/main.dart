@@ -12,6 +12,9 @@ import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_theme.dart';
 import 'package:projectunity/style/colors.dart';
+import 'package:projectunity/ui/app.dart';
+import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
+import 'package:projectunity/ui/widget/app_dialog.dart';
 import 'package:projectunity/ui/widget/error/error_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'data/bloc/user_state/user_state_controller_bloc.dart';
@@ -23,7 +26,7 @@ import 'data/bloc/network/network_connection_state.dart';
 import 'data/di/service_locator.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'firebase_options.dart';
-import 'ui/navigation/app_router.dart';
+import 'app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,80 +61,44 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = context.brightness == Brightness.dark;
     final colorScheme = isDarkMode ? appColorSchemeDark : appColorSchemeLight;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) =>
-                _networkConnectionBloc..add(NetworkConnectionObserveEvent())),
-        BlocProvider(create: (context) => getIt<UserStateControllerBloc>()),
-      ],
-      child: AppThemeWidget(
-        colorScheme: colorScheme,
-        child: GestureDetector(
-            onTap: () {
-              if (!FocusScope.of(context).hasPrimaryFocus &&
-                  FocusScope.of(context).focusedChild != null) {
-                FocusScope.of(context).focusedChild?.unfocus();
-              }
-            },
-            child: kIsWeb || !Platform.isIOS
-                ? MaterialApp.router(
-                    title: AppConsts.appTitle,
-                    scrollBehavior: AppScrollBehaviour(),
-                    debugShowCheckedModeBanner: false,
-                    theme: materialThemeDataLight,
-                    darkTheme: materialThemeDataDark,
-                    routerConfig: _router,
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    localizationsDelegates:
-                        AppLocalizations.localizationsDelegates,
-                    builder: (context, widget) => BlocListener<
-                            NetworkConnectionBloc, NetworkConnectionState>(
-                          listenWhen: (previous, current) =>
-                              current is NetworkConnectionFailureState,
-                          listener: (context, state) {
-                            if (state is NetworkConnectionFailureState) {
-                              String connectionErrorMessage =
-                                  AppLocalizations.of(context)
-                                      .network_connection_error;
-                              showSnackBar(
-                                  context: context,
-                                  msg: connectionErrorMessage);
-                            }
-                          },
-                          child: widget,
-                        ))
-                : CupertinoApp.router(
-                    title: AppConsts.appTitle,
-                    scrollBehavior: AppScrollBehaviour(),
-                    debugShowCheckedModeBanner: false,
-                    theme: CupertinoThemeData(
-                      scaffoldBackgroundColor: surfaceDarkColor,
-                      brightness: context.brightness,
-                      primaryColor: colorScheme.primary,
-                      applyThemeToAll: true,
-                    ),
-                    routerConfig: _router,
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    localizationsDelegates:
-                        AppLocalizations.localizationsDelegates,
-                    builder: (context, widget) => BlocListener<
-                            NetworkConnectionBloc, NetworkConnectionState>(
-                          listenWhen: (previous, current) =>
-                              current is NetworkConnectionFailureState,
-                          listener: (context, state) {
-                            if (state is NetworkConnectionFailureState) {
-                              String connectionErrorMessage =
-                                  AppLocalizations.of(context)
-                                      .network_connection_error;
-                              showSnackBar(
-                                  context: context,
-                                  msg: connectionErrorMessage);
-                            }
-                          },
-                          child: widget,
-                        ))),
-      ),
+    return AppThemeWidget(
+      colorScheme: colorScheme,
+      child: GestureDetector(
+          onTap: () {
+            if (!FocusScope.of(context).hasPrimaryFocus &&
+                FocusScope.of(context).focusedChild != null) {
+              FocusScope.of(context).focusedChild?.unfocus();
+            }
+          },
+          child: kIsWeb || !Platform.isIOS
+              ? MaterialApp.router(
+                  title: AppConsts.appTitle,
+                  scrollBehavior: AppScrollBehaviour(),
+                  debugShowCheckedModeBanner: false,
+                  theme: materialThemeDataLight,
+                  darkTheme: materialThemeDataDark,
+                  routerConfig: _router,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  builder: (context, widget) =>App(child: widget!))
+              : CupertinoApp.router(
+                  title: AppConsts.appTitle,
+                  scrollBehavior: AppScrollBehaviour(),
+                  debugShowCheckedModeBanner: false,
+                  theme: CupertinoThemeData(
+                    scaffoldBackgroundColor: colorScheme.surface,
+                    primaryContrastingColor: colorScheme.onPrimary,
+                    brightness: context.brightness,
+                    barBackgroundColor: colorScheme.surface,
+                    primaryColor: colorScheme.primary,
+                    applyThemeToAll: true,
+                  ),
+                  routerConfig: _router,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  builder: (context, widget) =>App(child: widget!))),
     );
   }
 }

@@ -3,12 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
-import 'package:projectunity/style/colors.dart';
 
 class ImageProfile extends StatelessWidget {
   final String? imageUrl;
   final double radius;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Color? iconColor;
   final String? pickedImage;
 
@@ -16,7 +15,7 @@ class ImageProfile extends StatelessWidget {
       {Key? key,
       this.imageUrl,
       required this.radius,
-      this.backgroundColor = containerHighColor,
+      this.backgroundColor ,
       this.pickedImage,
       this.iconColor})
       : super(key: key);
@@ -38,7 +37,7 @@ class ImageProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor?? context.colorScheme.containerHigh,
       backgroundImage: setImage(),
       child: (setImage() != null)
           ? null

@@ -51,7 +51,7 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: context.colorScheme.surface,
           borderRadius: BorderRadius.circular(50),
-          boxShadow: AppTheme.commonBoxShadow,
+          boxShadow: AppTheme.commonBoxShadow(context),
         ),
         child: BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
           buildWhen: (previous, current) =>

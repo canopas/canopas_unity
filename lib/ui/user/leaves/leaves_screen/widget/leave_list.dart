@@ -8,7 +8,7 @@ import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import '../../../../../data/core/utils/bloc_status.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 import '../bloc/leaves/user_leave_bloc.dart';
 
 class LeaveList extends StatefulWidget {

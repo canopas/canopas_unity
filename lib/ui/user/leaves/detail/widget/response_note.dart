@@ -20,13 +20,13 @@ class ResponseNote extends StatelessWidget {
             Text(
               context.l10n.admin_leave_detail_note_tag,
               style: AppTextStyle.style16
-                  .copyWith(color: context.colorScheme.textDisabled),
+                  .copyWith(color: context.colorScheme.textSecondary),
             ),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(5).copyWith(bottom: 4),
               decoration: BoxDecoration(
-                boxShadow: AppTheme.commonBoxShadow,
+                boxShadow: AppTheme.commonBoxShadow(context),
                 borderRadius: AppTheme.commonBorderRadius,
                 color: context.colorScheme.primary.withOpacity(0.5),
               ),

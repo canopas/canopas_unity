@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/style/app_text_style.dart';
-import 'package:projectunity/ui/navigation/app_router.dart';
+import 'package:projectunity/app_router.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
 import '../../../../data/core/utils/bloc_status.dart';

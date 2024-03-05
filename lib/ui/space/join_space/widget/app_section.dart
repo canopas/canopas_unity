@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../style/app_text_style.dart';
 import '../../../../style/other/app_button.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 
 class AppSection extends StatelessWidget {
   const AppSection({super.key});

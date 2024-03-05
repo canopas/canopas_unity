@@ -25,7 +25,7 @@ class LeaveCountCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
-        boxShadow: AppTheme.commonBoxShadow,
+        boxShadow: AppTheme.commonBoxShadow(context),
         borderRadius: AppTheme.commonBorderRadius,
       ),
       child: BlocConsumer<UserLeaveCountBloc, UserLeaveCountState>(
@@ -61,7 +61,7 @@ class LeaveCountCard extends StatelessWidget {
                 Container(
                   height: 60,
                   width: 1,
-                  color: containerHighColor,
+                  color: context.colorScheme.containerHigh,
                 ),
                 Expanded(
                   child: Column(

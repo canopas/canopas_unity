@@ -34,7 +34,7 @@ class ProfileCard extends StatelessWidget {
             child: Text(
               employee.designation ?? "",
               style: AppTextStyle.style14
-                  .copyWith(color: context.colorScheme.textDisabled),
+                  .copyWith(color: context.colorScheme.textSecondary),
             ),
           ),
           const SizedBox(
@@ -83,7 +83,7 @@ class TextColumn extends StatelessWidget {
           Text(
             title,
             style: AppTextStyle.style14
-                .copyWith(color: context.colorScheme.textDisabled),
+                .copyWith(color: context.colorScheme.textSecondary),
           ),
           const SizedBox(height: 6),
           Text(

@@ -100,7 +100,7 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
                             titleController: _titleController,
                             descriptionController: _descriptionController),
                         Divider(
-                            color: context.colorScheme.textDisabled,
+                            color: context.colorScheme.textSecondary,
                             thickness: 0.2),
                         const QuestionsView(),
                         const CreateOrgFormAddFieldButton(),

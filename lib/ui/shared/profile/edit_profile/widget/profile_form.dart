@@ -103,9 +103,12 @@ class GenderSelection extends StatelessWidget {
               Expanded(
                   child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shadowColor: context.colorScheme.containerNormal,
+                    surfaceTintColor: context.colorScheme.containerNormal,
                     foregroundColor: state.gender == Gender.male
                         ? context.colorScheme.textPrimary
-                        : context.colorScheme.textDisabled,
+                        : context.colorScheme.textSecondary,
                     backgroundColor: context.colorScheme.containerNormal,
                     shape: RoundedRectangleBorder(
                       borderRadius: AppTheme.commonBorderRadius,
@@ -128,9 +131,12 @@ class GenderSelection extends StatelessWidget {
                   bloc.add(EditProfileChangeGenderEvent(gender: Gender.female));
                 },
                 style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  shadowColor: context.colorScheme.containerNormal,
+                  surfaceTintColor: context.colorScheme.containerNormal,
                     foregroundColor: state.gender == Gender.female
                         ? context.colorScheme.textPrimary
-                        : context.colorScheme.textDisabled,
+                        : context.colorScheme.textSecondary,
                     backgroundColor: context.colorScheme.containerNormal,
                     shape: RoundedRectangleBorder(
                       borderRadius: AppTheme.commonBorderRadius,
@@ -159,7 +165,10 @@ class DateOfBirthButton extends StatelessWidget {
           previous.dateOfBirth != current.dateOfBirth,
       builder: (context, state) => ElevatedButton(
           style: ElevatedButton.styleFrom(
-              foregroundColor: context.colorScheme.textDisabled,
+              elevation: 0,
+              shadowColor: context.colorScheme.containerNormal,
+              surfaceTintColor: context.colorScheme.containerNormal,
+              foregroundColor: context.colorScheme.textSecondary,
               fixedSize: Size(MediaQuery.of(context).size.width, 50),
               alignment: Alignment.centerLeft,
               backgroundColor: context.colorScheme.containerNormal,

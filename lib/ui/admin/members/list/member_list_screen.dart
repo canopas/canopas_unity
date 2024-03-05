@@ -10,7 +10,7 @@ import 'package:projectunity/ui/widget/employee_card.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/member_list_bloc.dart';
@@ -45,7 +45,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
       actions: [
         TextButton(
             onPressed: () => context.pushNamed(Routes.inviteMember),
-            child: Text(context.l10n.invite_tag))
+            child: Text(context.l10n.invite_tag,style: AppTextStyle.style16.copyWith(color: context.colorScheme.primary),))
       ],
       body: BlocConsumer<AdminMembersBloc, AdminMembersState>(
         builder: (BuildContext context, AdminMembersState state) {

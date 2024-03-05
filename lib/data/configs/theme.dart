@@ -8,7 +8,8 @@ import 'package:table_calendar/table_calendar.dart'
 class AppTheme {
   static CalendarStyle calendarStyle(BuildContext context) => CalendarStyle(
         outsideDaysVisible: false,
-        weekendTextStyle: AppTextStyle.style14,
+        defaultTextStyle: AppTextStyle.style16.copyWith(color: context.colorScheme.textPrimary),
+        weekendTextStyle: AppTextStyle.style14.copyWith(color: context.colorScheme.textSecondary),
         selectedDecoration: BoxDecoration(
             color: context.colorScheme.primary, shape: BoxShape.circle),
         markerDecoration: BoxDecoration(
@@ -19,12 +20,12 @@ class AppTheme {
           border: Border.all(color: context.colorScheme.primary),
           shape: BoxShape.circle,
         ),
-        todayTextStyle: AppTextStyle.style14,
+        todayTextStyle: AppTextStyle.style14.copyWith(color: context.colorScheme.textSecondary),
       );
 
-  static List<BoxShadow> commonBoxShadow = [
+  static List<BoxShadow> commonBoxShadow(BuildContext context) => [
     BoxShadow(
-      color: outlineColor.withOpacity(0.60),
+      color: context.colorScheme.outlineColor.withOpacity(0.60),
       blurRadius: 3,
       offset: const Offset(0, 0),
       spreadRadius: 1,

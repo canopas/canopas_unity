@@ -12,7 +12,7 @@ import 'package:projectunity/ui/widget/empty_screen.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../../style/app_text_style.dart';
-import '../../../navigation/app_router.dart';
+import '../../../../app_router.dart';
 import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';

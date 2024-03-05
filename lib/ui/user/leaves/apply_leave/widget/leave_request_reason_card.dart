@@ -38,7 +38,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: containerHighColor)),
+                border: Border.all(color: context.colorScheme.containerHigh)),
             padding: const EdgeInsets.all(primaryHorizontalSpacing)
                 .copyWith(top: 0, bottom: primaryVerticalSpacing),
             child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
@@ -48,7 +48,7 @@ class LeaveRequestReasonCard extends StatelessWidget {
                 builder: (context, state) => TextField(
                       style: AppTextStyle.style14
                           .copyWith(color: context.colorScheme.textPrimary),
-                      cursorColor: context.colorScheme.textDisabled,
+                      cursorColor: context.colorScheme.textSecondary,
                       maxLines: 5,
                       decoration: InputDecoration(
                         errorText: state.showTextFieldError

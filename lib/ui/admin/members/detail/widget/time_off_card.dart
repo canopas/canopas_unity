@@ -8,7 +8,7 @@ import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/leave_count_view.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/model/employee/employee.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 
 class TimeOffCard extends StatelessWidget {
   const TimeOffCard({
@@ -30,7 +30,7 @@ class TimeOffCard extends StatelessWidget {
       decoration: BoxDecoration(
           color: context.colorScheme.surface,
           borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
+          boxShadow: AppTheme.commonBoxShadow(context)),
       child: Material(
         color: context.colorScheme.surface,
         borderRadius: AppTheme.commonBorderRadius,

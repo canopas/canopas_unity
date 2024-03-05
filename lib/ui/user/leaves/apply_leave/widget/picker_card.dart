@@ -26,8 +26,8 @@ class DatePickerCard extends StatelessWidget {
     return Expanded(
         child: Container(
       margin: const EdgeInsets.all(primaryHalfSpacing),
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: containerHighColor))),
+      decoration:  BoxDecoration(
+          border: Border(bottom: BorderSide(color: context.colorScheme.containerHigh))),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: onPress,
@@ -39,7 +39,7 @@ class DatePickerCard extends StatelessWidget {
               SvgPicture.asset(
                 Assets.images.icCalendar,
                 colorFilter: ColorFilter.mode(
-                    context.colorScheme.textDisabled, BlendMode.srcIn),
+                    context.colorScheme.textSecondary, BlendMode.srcIn),
               ),
               const SizedBox(
                 width: 10,
@@ -50,7 +50,7 @@ class DatePickerCard extends StatelessWidget {
                   Text(
                     title,
                     style: AppTextStyle.style14
-                        .copyWith(color: context.colorScheme.textDisabled),
+                        .copyWith(color: context.colorScheme.textSecondary),
                   ),
                   const SizedBox(
                     height: 5,

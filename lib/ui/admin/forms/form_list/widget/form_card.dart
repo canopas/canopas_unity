@@ -19,7 +19,7 @@ class AdminListFormCard extends StatelessWidget {
       decoration: BoxDecoration(
           color: context.colorScheme.surface,
           borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow),
+          boxShadow: AppTheme.commonBoxShadow(context)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,7 +30,7 @@ class AdminListFormCard extends StatelessWidget {
           const SizedBox(height: 16),
           FilledButton.tonal(
             style: FilledButton.styleFrom(
-                backgroundColor: containerHighColor,
+                backgroundColor: context.colorScheme.containerHigh,
                 fixedSize: Size(MediaQuery.of(context).size.width, 45),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

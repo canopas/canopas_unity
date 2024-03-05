@@ -23,7 +23,7 @@ class EmployeeDetailsField extends StatelessWidget {
                 Text(
                   title,
                   style: AppTextStyle.style14
-                      .copyWith(color: context.colorScheme.textDisabled),
+                      .copyWith(color: context.colorScheme.textSecondary),
                 ),
                 const SizedBox(height: 6),
                 Text(

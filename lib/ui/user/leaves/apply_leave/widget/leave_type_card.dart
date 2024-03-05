@@ -26,7 +26,7 @@ class LeaveTypeCard extends StatelessWidget {
               child: Text(
                 context.l10n.user_leaves_apply_leave_type_tag,
                 style: AppTextStyle.style14
-                    .copyWith(color: context.colorScheme.textDisabled),
+                    .copyWith(color: context.colorScheme.textSecondary),
               ),
             ),
             BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(

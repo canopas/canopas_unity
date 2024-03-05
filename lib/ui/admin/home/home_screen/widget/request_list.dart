@@ -7,7 +7,7 @@ import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/core/utils/date_formatter.dart';
 import '../../../../../data/model/leave_application.dart';
 import '../../../../../style/app_text_style.dart';
-import '../../../../navigation/app_router.dart';
+import '../../../../../app_router.dart';
 import '../../../../widget/leave_application_card.dart';
 
 class LeaveRequestList extends StatelessWidget {
@@ -25,7 +25,8 @@ class LeaveRequestList extends StatelessWidget {
           .map(
             (mapEntry) => StickyHeader(
                 header: Container(
-                    width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
+                    //width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.symmetric(
                             horizontal: primaryHorizontalSpacing)
                         .copyWith(top: primaryHalfSpacing),

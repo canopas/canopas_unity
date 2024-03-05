@@ -64,7 +64,7 @@ import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_empl
     as _i42;
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
     as _i58;
-import 'package:projectunity/ui/navigation/app_router.dart' as _i27;
+import 'package:projectunity/app_router.dart' as _i27;
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
     as _i49;
 import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'

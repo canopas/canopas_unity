@@ -30,7 +30,7 @@ class LeaveRequestDateRange extends StatelessWidget {
                           vertical: primaryHalfSpacing),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        border: Border.all(color: containerHighColor),
+                        border: Border.all(color: context.colorScheme.containerHigh),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -67,7 +67,7 @@ class LeaveRequestDateRange extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(
                               horizontal: primaryHalfSpacing),
                           decoration: BoxDecoration(
-                            border: Border.all(color: containerHighColor),
+                            border: Border.all(color: context.colorScheme.containerHigh),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
@@ -116,7 +116,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width * 0.26,
       decoration: BoxDecoration(
-        border: Border.all(color: containerHighColor),
+        border: Border.all(color: context.colorScheme.containerHigh),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Material(
