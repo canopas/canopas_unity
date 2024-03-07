@@ -16,4 +16,3 @@ class AdminMembersState with _$AdminMembersState {
       @Default(Status.initial) Status invitationFetchStatus,
       String? error}) = _AdminMembersState;
 }
-

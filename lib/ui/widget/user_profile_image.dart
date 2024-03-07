@@ -19,7 +19,6 @@ class ImageProfile extends StatelessWidget {
       this.pickedImage,
       this.iconColor});
 
-
   Widget setCachedImage(BuildContext context) {
     if (imageUrl != null) {
       return cachedNetworkImage(imageUrl!);
@@ -27,8 +26,7 @@ class ImageProfile extends StatelessWidget {
       return showFileImage(pickedImage!);
     } else {
       return Icon(Icons.person,
-          size: radius ,
-          color: iconColor ?? context.colorScheme.textDisable);
+          size: radius, color: iconColor ?? context.colorScheme.textDisable);
     }
   }
 
@@ -46,8 +44,7 @@ class ImageProfile extends StatelessWidget {
       imageUrl: imageUrl,
       placeholder: (context, string) {
         return Icon(Icons.person,
-            size: radius ,
-            color: iconColor ?? context.colorScheme.textDisable);
+            size: radius, color: iconColor ?? context.colorScheme.textDisable);
       },
     );
   }
@@ -62,7 +59,7 @@ class ImageProfile extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(radius),
             child: setCachedImage(context)));
   }
 }
