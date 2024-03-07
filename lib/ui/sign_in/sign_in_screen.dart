@@ -78,7 +78,7 @@ class SignInScreenState extends State<SignInScreen> {
                               child: Text(
                                 context.l10n.sign_in_description_text,
                                 style: AppTextStyle.style16.copyWith(
-                                    color: context.colorScheme.textPrimary),
+                                    color: context.colorScheme.textSecondary),
                                 overflow: TextOverflow.fade,
                                 textAlign: TextAlign.center,
                               ),

@@ -21,6 +21,7 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
       : super(const AdminMembersState()) {
     on<AdminMembersInitialLoadEvent>(_onPageLoad);
     on<CancelUserInvitation>(_cancelInvitation);
+    on<ExpansionChangeEvent>(_changeExpansion);
   }
 
   Future<void> _onPageLoad(AdminMembersInitialLoadEvent event,
@@ -52,6 +53,18 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
     } on Exception {
       emit(state.copyWith(
           error: firestoreFetchDataError, memberFetchStatus: Status.error));
+    }
+  }
+
+  void _changeExpansion(
+      ExpansionChangeEvent event, Emitter<AdminMembersState> emit) {
+    if (state.expanded.contains(event.id)) {
+      List<int> list = [...state.expanded];
+      list.remove(event.id);
+      emit(state.copyWith(expanded: list));
+    } else {
+      final list = [...state.expanded, event.id];
+      emit(state.copyWith(expanded: list));
     }
   }
 

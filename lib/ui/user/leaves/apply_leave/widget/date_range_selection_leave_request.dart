@@ -122,7 +122,7 @@ class LeaveTimePeriodBox extends StatelessWidget {
       ),
       child: Material(
         color: context.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<LeaveDayDuration>(
             dropdownColor: context.colorScheme.surface,

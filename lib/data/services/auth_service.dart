@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
 import '../state_manager/auth/desktop/desktop_auth_manager.dart';
 
-@Singleton()
+@LazySingleton()
 class AuthService {
   final DesktopAuthManager _desktopAuthManager;
   final FirebaseFirestore fireStore;

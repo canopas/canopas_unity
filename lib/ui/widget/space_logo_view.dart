@@ -14,37 +14,47 @@ class SpaceLogoView extends StatelessWidget {
   const SpaceLogoView(
       {super.key, this.spaceLogoUrl, this.pickedLogoFile, this.size = 50});
 
-  ImageProvider? setImage() {
-    if (pickedLogoFile != null) {
-      if (kIsWeb) {
-        return CachedNetworkImageProvider(pickedLogoFile!);
-      } else {
-        return FileImage(File(pickedLogoFile!));
-      }
-    } else if (spaceLogoUrl != null) {
-      return CachedNetworkImageProvider(spaceLogoUrl!);
+  Widget setCachedImage(BuildContext context) {
+    if (spaceLogoUrl != null) {
+      return cachedNetworkImage(spaceLogoUrl!);
+    } else if (pickedLogoFile != null) {
+      return showFileImage(pickedLogoFile!);
+    } else {
+      return Icon(Icons.business,
+          size: size * 0.5, color: context.colorScheme.textDisable);
     }
-    return null;
+  }
+
+  Widget showFileImage(String url) {
+    if (kIsWeb) {
+      return cachedNetworkImage(url);
+    } else {
+      return Image.file(File(url));
+    }
+  }
+
+  Widget cachedNetworkImage(String imageUrl) {
+    return CachedNetworkImage(
+      fit: BoxFit.cover,
+      imageUrl: imageUrl,
+      placeholder: (context, string) {
+        return Icon(Icons.business,
+            size: size * 0.5, color: context.colorScheme.textDisable);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size,
-      width: size,
-      decoration: BoxDecoration(
-          border: Border.all(color: context.colorScheme.outlineColor),
+        height: size,
+        width: size,
+        decoration: BoxDecoration(
+          border: Border.all(color: context.colorScheme.textDisable),
           borderRadius: AppTheme.commonBorderRadius,
-          image: setImage() != null
-              ? DecorationImage(fit: BoxFit.cover, image: setImage()!)
-              : null),
-      child: setImage() == null
-          ? Icon(
-              Icons.business,
-              size: (size * 0.5),
-              color: context.colorScheme.outlineColor,
-            )
-          : null,
-    );
+        ),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: setCachedImage(context)));
   }
 }

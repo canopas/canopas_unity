@@ -22,7 +22,7 @@ class InvitedMemberCard extends StatelessWidget {
             radius: 25,
             backgroundColor: context.colorScheme.containerHigh,
             child: Icon(Icons.person,
-                size: 25, color: context.colorScheme.containerHigh),
+                size: 25, color: context.colorScheme.textDisable),
           ),
           const SizedBox(width: primaryHorizontalSpacing),
           Expanded(

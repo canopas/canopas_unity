@@ -108,11 +108,11 @@ void main() {
                 memberFetchStatus: Status.loading,
                 error: firestoreFetchDataError),
             AdminMembersState(
-              invitationFetchStatus: Status.error,
-              memberFetchStatus: Status.success,
-              activeMembers: [activeEmployee],
-              inactiveMembers: [inactiveEmployee],
-            ),
+                invitationFetchStatus: Status.error,
+                memberFetchStatus: Status.success,
+                activeMembers: [activeEmployee],
+                inactiveMembers: [inactiveEmployee],
+                error: firestoreFetchDataError),
           ]));
     });
 

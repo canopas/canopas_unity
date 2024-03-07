@@ -19,30 +19,46 @@ class ImageProfile extends StatelessWidget {
       this.pickedImage,
       this.iconColor});
 
-  ImageProvider? setImage() {
+  Widget setCachedImage(BuildContext context) {
     if (imageUrl != null) {
-      return CachedNetworkImageProvider(imageUrl!);
+      return cachedNetworkImage(imageUrl!);
     } else if (pickedImage != null) {
-      if (kIsWeb) {
-        return CachedNetworkImageProvider(pickedImage!);
-      } else {
-        return FileImage(File(pickedImage!));
-      }
+      return showFileImage(pickedImage!);
+    } else {
+      return Icon(Icons.person,
+          size: radius, color: iconColor ?? context.colorScheme.textDisable);
     }
-    return null;
+  }
+
+  Widget showFileImage(String url) {
+    if (kIsWeb) {
+      return cachedNetworkImage(url);
+    } else {
+      return Image.file(File(url));
+    }
+  }
+
+  Widget cachedNetworkImage(String imageUrl) {
+    return CachedNetworkImage(
+      fit: BoxFit.cover,
+      imageUrl: imageUrl,
+      placeholder: (context, string) {
+        return Icon(Icons.person,
+            size: radius, color: iconColor ?? context.colorScheme.textDisable);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: backgroundColor ?? context.colorScheme.containerHigh,
-      backgroundImage: setImage(),
-      child: (setImage() != null)
-          ? null
-          : Icon(Icons.person,
-              size: radius,
-              color: iconColor ?? context.colorScheme.containerHigh),
-    );
+    return Container(
+        height: radius * 2,
+        width: radius * 2,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, color: context.colorScheme.containerHigh),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(radius),
+            child: setCachedImage(context)));
   }
 }

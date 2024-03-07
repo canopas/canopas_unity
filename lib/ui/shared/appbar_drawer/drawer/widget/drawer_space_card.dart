@@ -25,7 +25,7 @@ class DrawerSpaceCard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: AppTheme.commonBorderRadius,
-          color: isSelected ? context.colorScheme.containerHigh : null,
+          color: isSelected ? context.colorScheme.containerNormal : null,
         ),
         child: Padding(
           padding: const EdgeInsets.all(5),
