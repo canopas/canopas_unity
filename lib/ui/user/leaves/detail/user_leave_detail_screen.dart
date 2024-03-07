@@ -7,6 +7,7 @@ import 'package:projectunity/data/core/extensions/leave_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/style/other/app_button.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_bloc.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_event.dart';
 import 'package:projectunity/ui/user/leaves/detail/bloc/user_leave_detail_state.dart';
@@ -72,7 +73,7 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
             if (state is UserLeaveDetailLoadingState) {
               return const AppCircularProgressIndicator();
             } else if (state is UserLeaveDetailSuccessState) {
-              bool userIsAbleToSeeAllData = userStateNotifier.isAdmin ||
+              final userIsAbleToSeeAllData = userStateNotifier.isAdmin ||
                   userStateNotifier.isHR ||
                   userStateNotifier.employeeId == state.leave.uid;
               return ListView(
@@ -105,15 +106,36 @@ class _UserLeaveDetailScreenState extends State<UserLeaveDetailScreen> {
                           userIsAbleToSeeAllData,
                       child: ResponseNote(
                           leaveResponse: state.leave.response ?? "")),
-                  ValidateWidget(
-                      isValid: state.showCancelButton && userIsAbleToSeeAllData,
-                      child: CancelButton(leaveId: state.leave.leaveId))
                 ],
               );
             }
             //error screen
             return const SizedBox();
           }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:
+          BlocBuilder<UserLeaveDetailBloc, UserLeaveDetailState>(
+              builder: (context, state) {
+        if (state is UserLeaveDetailSuccessState) {
+          final userIsAbleToSeeAllData = userStateNotifier.isAdmin ||
+              userStateNotifier.isHR ||
+              userStateNotifier.employeeId == state.leave.uid;
+          return ValidateWidget(
+              isValid: state.showCancelButton && userIsAbleToSeeAllData,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: AppButton(
+                  tag: context.l10n.cancel_button_tag,
+                  onTap: () {
+                    BlocProvider.of<UserLeaveDetailBloc>(context).add(
+                        CancelLeaveApplicationEvent(
+                            leaveId: state.leave.leaveId));
+                  },
+                ),
+              ));
+        }
+        return const SizedBox();
+      }),
     );
   }
 }

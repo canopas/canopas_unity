@@ -67,7 +67,8 @@ class _UserMembersScreenState extends State<UserMembersScreen> {
                     );
                   },
                   separatorBuilder: (context, index) =>
-                      const Divider(endIndent: 8, indent: 8),
+                       Divider(endIndent: 8, indent: 8,color: context.colorScheme.outlineColor,
+                      ),
                   itemCount: state.employees.length);
             }
             return const SizedBox();

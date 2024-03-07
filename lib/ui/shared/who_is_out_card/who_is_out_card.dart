@@ -43,8 +43,8 @@ class WhoIsOutCard extends StatelessWidget {
                     boxShadow: calendarFormat == CalendarFormat.week
                         ? [
                             BoxShadow(
-                              color: context.colorScheme.textSecondary,
-                              blurRadius: 5.0,
+                              color: context.colorScheme.outlineColor,
+                              blurRadius: 3.0,
                               offset: const Offset(0, 3),
                             )
                           ]
@@ -56,7 +56,7 @@ class WhoIsOutCard extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(context.l10n.who_is_out_card_title,
                       style: AppTextStyle.style20
-                          .copyWith(color: context.colorScheme.textPrimary)),
+                          .copyWith(color: context.colorScheme.primary, fontWeight: FontWeight.w600)),
                 ),
                 BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
                   buildWhen: (previous, current) =>
@@ -94,6 +94,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
         builder: (context, state) {
           final calendarFormat = state.calendarFormat;
           return TableCalendar(
+
             calendarBuilders:
                 CalendarBuilders(headerTitleBuilder: (context, day) {
               return Row(
@@ -129,6 +130,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
             lastDay: DateTime(2026),
             startingDayOfWeek: StartingDayOfWeek.sunday,
             calendarStyle: AppTheme.calendarStyle(context),
+            daysOfWeekStyle: AppTheme.daysOfWeekStyle(context),
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,
               rightChevronVisible: false,

@@ -152,7 +152,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i23.StorageService>(
         () => _i23.StorageService(gh<_i12.FirebaseStorage>()));
     gh.singleton<_i24.UserPreference>(
-        _i24.UserPreference(gh<_i20.SharedPreferences>()));
+        () => _i24.UserPreference(gh<_i20.SharedPreferences>()));
     gh.lazySingleton<_i25.UserStateNotifier>(() => _i25.UserStateNotifier(
           gh<_i24.UserPreference>(),
           gh<_i21.SpaceChangeNotifier>(),
@@ -164,11 +164,11 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i27.AppRouter>(
         () => _i27.AppRouter(gh<_i25.UserStateNotifier>()));
-    gh.singleton<_i28.AuthService>(_i28.AuthService(
-      gh<_i6.DesktopAuthManager>(),
-      gh<_i11.FirebaseFirestore>(),
-      gh<_i9.FirebaseAuth>(),
-    ));
+    gh.singleton<_i28.AuthService>(() => _i28.AuthService(
+          gh<_i6.DesktopAuthManager>(),
+          gh<_i11.FirebaseFirestore>(),
+          gh<_i9.FirebaseAuth>(),
+        ));
     gh.factory<_i29.EditSpaceBloc>(() => _i29.EditSpaceBloc(
           gh<_i22.SpaceService>(),
           gh<_i25.UserStateNotifier>(),

@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/data/core/extensions/widget_extension.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../../style/app_text_style.dart';
 import '../../../../../app_router.dart';
@@ -43,19 +45,17 @@ class UserProfileCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            IconButton(
-                onPressed: () {
-                  context.pop();
-                  context.goNamed(
-                      isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
-                },
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: context.colorScheme.primary,
-                  size: 15,
-                )),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: context.colorScheme.primary,
+              size: 15,
+            ),
           ],
-        ),
+        ).onTapGesture(() {
+          context.pop();
+          context
+              .goNamed(isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
+        }),
         const SizedBox(
           height: 20,
         ),

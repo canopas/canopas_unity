@@ -33,7 +33,7 @@ class EmptyScreen extends StatelessWidget {
             ),
             Text(title,
                 style: AppTextStyle.style20.copyWith(
-                    color: context.colorScheme.textPrimary,
+                    color: context.colorScheme.primary,
                     fontWeight: FontWeight.w700)),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.01,

@@ -33,16 +33,17 @@ class SpaceLogoView extends StatelessWidget {
       height: size,
       width: size,
       decoration: BoxDecoration(
-          border: Border.all(color: context.colorScheme.outlineColor),
+          border: Border.all(color: context.colorScheme.textDisable),
           borderRadius: AppTheme.commonBorderRadius,
           image: setImage() != null
-              ? DecorationImage(fit: BoxFit.cover, image: setImage()!)
+              ? DecorationImage(fit: BoxFit.cover,
+              image: setImage()!)
               : null),
       child: setImage() == null
           ? Icon(
               Icons.business,
               size: (size * 0.5),
-              color: context.colorScheme.outlineColor,
+              color: context.colorScheme.textDisable,
             )
           : null,
     );

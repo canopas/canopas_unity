@@ -102,7 +102,7 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
     return Row(children: <Widget>[
       Expanded(
           child: Divider(
-        color: context.colorScheme.outlineColor,
+        color: context.colorScheme.containerHigh,
         indent: 15,
         endIndent: 15,
       )),
@@ -110,10 +110,10 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Text(context.l10n.or_tag,
               style: AppTextStyle.style14
-                  .copyWith(color: context.colorScheme.outlineColor))),
+                  .copyWith(color: context.colorScheme.textDisable))),
       Expanded(
           child: Divider(
-        color: context.colorScheme.outlineColor,
+        color: context.colorScheme.containerHigh,
         indent: 15,
         endIndent: 15,
       )),

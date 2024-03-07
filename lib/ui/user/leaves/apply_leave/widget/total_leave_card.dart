@@ -22,7 +22,7 @@ class TotalDaysMsgBox extends StatelessWidget {
           child: Text(
             "  *${DateFormatter(context.l10n).getLeaveDurationPresentationLong(state.totalLeaveDays)}",
             style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.awarenessColor),
+                .copyWith(color: context.colorScheme.tertiary),
           ),
         ),
       ),

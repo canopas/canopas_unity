@@ -27,7 +27,6 @@ class LeaveRequestList extends StatelessWidget {
                 header: Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: primaryHorizontalSpacing),
-                    //width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.symmetric(
                             horizontal: primaryHorizontalSpacing)
                         .copyWith(top: primaryHalfSpacing),
