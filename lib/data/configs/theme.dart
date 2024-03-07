@@ -27,10 +27,12 @@ class AppTheme {
 
   static DaysOfWeekStyle daysOfWeekStyle(BuildContext context) =>
       DaysOfWeekStyle(
-        weekdayStyle: AppTextStyle.style16
-            .copyWith(color: context.colorScheme.textSecondary),
-        weekendStyle: AppTextStyle.style16
-            .copyWith(color: context.colorScheme.textDisable),
+        weekdayStyle: AppTextStyle.style16.copyWith(
+            color: context.colorScheme.textPrimary,
+            fontWeight: FontWeight.w600),
+        weekendStyle: AppTextStyle.style16.copyWith(
+            color: context.colorScheme.textDisable,
+            fontWeight: FontWeight.w600),
       );
 
   static List<BoxShadow> commonBoxShadow(BuildContext context) => [

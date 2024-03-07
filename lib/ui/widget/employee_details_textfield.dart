@@ -53,8 +53,8 @@ class FieldEntry extends StatelessWidget {
       maxLength: maxLength,
       controller: controller,
       autocorrect: false,
-      style: AppTextStyle.style16
-          .copyWith(color: context.colorScheme.textSecondary),
+      style:
+          AppTextStyle.style16.copyWith(color: context.colorScheme.textPrimary),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         isCollapsed: true,
