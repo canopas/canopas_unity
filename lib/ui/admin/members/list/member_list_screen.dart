@@ -174,11 +174,15 @@ class MembersTile extends StatelessWidget {
                     itemCount: employees.length,
                     itemBuilder: (context, index) {
                       final employee = employees[index];
-                      return invited? InvitedMemberCard(invitation: employee as Invitation) :EmployeeCard(
-                        employee: employee,
-                        onTap: () => context.goNamed(Routes.adminMemberDetails,
-                            extra: employee.uid),
-                      );
+                      return invited
+                          ? InvitedMemberCard(
+                              invitation: employee as Invitation)
+                          : EmployeeCard(
+                              employee: employee,
+                              onTap: () => context.goNamed(
+                                  Routes.adminMemberDetails,
+                                  extra: employee.uid),
+                            );
                     },
                     separatorBuilder: (context, index) => const Divider()))
     ]);

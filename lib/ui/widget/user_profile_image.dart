@@ -55,10 +55,8 @@ class ImageProfile extends StatelessWidget {
         height: radius * 2,
         width: radius * 2,
         clipBehavior: Clip.antiAlias,
-        decoration:  BoxDecoration(
-          shape: BoxShape.circle,
-          color:  context.colorScheme.containerHigh
-        ),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, color: context.colorScheme.containerHigh),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
             child: setCachedImage(context)));
