@@ -4,8 +4,10 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/widget_extension.dart';
+import 'package:projectunity/data/model/invitation/invitation.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/style/app_text_style.dart';
+import 'package:projectunity/ui/admin/members/list/inivitation_card.dart';
 import 'package:projectunity/ui/widget/employee_card.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
@@ -172,7 +174,7 @@ class MembersTile extends StatelessWidget {
                     itemCount: employees.length,
                     itemBuilder: (context, index) {
                       final employee = employees[index];
-                      return EmployeeCard(
+                      return invited? InvitedMemberCard(invitation: employee as Invitation) :EmployeeCard(
                         employee: employee,
                         onTap: () => context.goNamed(Routes.adminMemberDetails,
                             extra: employee.uid),

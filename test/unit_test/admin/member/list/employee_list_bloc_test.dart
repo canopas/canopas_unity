@@ -112,6 +112,7 @@ void main() {
               memberFetchStatus: Status.success,
               activeMembers: [activeEmployee],
               inactiveMembers: [inactiveEmployee],
+                error: firestoreFetchDataError
             ),
           ]));
     });

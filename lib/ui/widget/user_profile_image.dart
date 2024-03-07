@@ -55,8 +55,9 @@ class ImageProfile extends StatelessWidget {
         height: radius * 2,
         width: radius * 2,
         clipBehavior: Clip.antiAlias,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           shape: BoxShape.circle,
+          color:  context.colorScheme.containerHigh
         ),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
