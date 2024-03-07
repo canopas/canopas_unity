@@ -28,8 +28,8 @@ class AppSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Text(context.l10n.create_own_space_title,
-            style: AppTextStyle.style18
-                .copyWith(height: 2.0, color: context.colorScheme.textSecondary)),
+            style: AppTextStyle.style18.copyWith(
+                height: 2.0, color: context.colorScheme.textSecondary)),
         const SizedBox(height: 20),
         AppButton(
             tag: context.l10n.create_new_space_title,

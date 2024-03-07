@@ -66,8 +66,10 @@ class _UserMembersScreenState extends State<UserMembersScreen> {
                       },
                     );
                   },
-                  separatorBuilder: (context, index) =>
-                       Divider(endIndent: 8, indent: 8,color: context.colorScheme.outlineColor,
+                  separatorBuilder: (context, index) => Divider(
+                        endIndent: 8,
+                        indent: 8,
+                        color: context.colorScheme.outlineColor,
                       ),
                   itemCount: state.employees.length);
             }

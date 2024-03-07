@@ -55,8 +55,9 @@ class WhoIsOutCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(context.l10n.who_is_out_card_title,
-                      style: AppTextStyle.style20
-                          .copyWith(color: context.colorScheme.primary, fontWeight: FontWeight.w600)),
+                      style: AppTextStyle.style20.copyWith(
+                          color: context.colorScheme.primary,
+                          fontWeight: FontWeight.w600)),
                 ),
                 BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
                   buildWhen: (previous, current) =>
@@ -94,7 +95,6 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
         builder: (context, state) {
           final calendarFormat = state.calendarFormat;
           return TableCalendar(
-
             calendarBuilders:
                 CalendarBuilders(headerTitleBuilder: (context, day) {
               return Row(

@@ -91,10 +91,12 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 16, bottom: 16),
+                              padding:
+                                  const EdgeInsets.only(top: 16, bottom: 16),
                               child: Text(locale.request_tag,
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                             ListView.separated(
                                 physics: const NeverScrollableScrollPhysics(),

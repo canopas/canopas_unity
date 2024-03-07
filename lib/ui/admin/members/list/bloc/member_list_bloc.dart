@@ -56,15 +56,16 @@ class AdminMembersBloc extends Bloc<AdminMembersEvents, AdminMembersState> {
     }
   }
 
-  void _changeExpansion(ExpansionChangeEvent event, Emitter<AdminMembersState> emit){
-    if(state.expanded.contains(event.id)){
-      List<int> list=[... state.expanded];
+  void _changeExpansion(
+      ExpansionChangeEvent event, Emitter<AdminMembersState> emit) {
+    if (state.expanded.contains(event.id)) {
+      List<int> list = [...state.expanded];
       list.remove(event.id);
       emit(state.copyWith(expanded: list));
-    }else{
+    } else {
       final list = [...state.expanded, event.id];
-     emit(state.copyWith(expanded: list)) ;
-    };
+      emit(state.copyWith(expanded: list));
+    }
   }
 
   Future<void> _cancelInvitation(

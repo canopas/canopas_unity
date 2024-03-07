@@ -3,7 +3,6 @@ import 'package:projectunity/style/app_text_style.dart';
 
 const Color primaryColor = Color(0xff5966EA);
 
-
 const Color secondaryLightColor = Color(0xff3B3561);
 const Color tertiaryLightColor = Color(0xffFAC05E);
 
@@ -58,7 +57,6 @@ final ThemeData materialThemeDataLight = _materialLightTheme.copyWith(
     surfaceTintColor: surfaceLightColor,
     color: surfaceLightColor,
   ),
-
 );
 
 final ThemeData materialThemeDataDark = _materialDarkTheme.copyWith(
@@ -107,7 +105,7 @@ class AppColorScheme {
       required this.surface,
       required this.textPrimary,
       required this.textSecondary,
-        required this.textDisable,
+      required this.textDisable,
       required this.containerHigh,
       required this.containerNormal,
       required this.containerLow,

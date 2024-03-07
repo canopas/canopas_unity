@@ -6,7 +6,7 @@ import '../model/account/account.dart';
 import '../model/employee/employee.dart';
 import '../model/space/space.dart';
 
-@Singleton()
+@LazySingleton()
 class UserPreference {
   final SharedPreferences _preferences;
 
