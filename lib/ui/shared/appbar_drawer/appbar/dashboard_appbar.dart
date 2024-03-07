@@ -47,8 +47,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                       final String name =
                           SpaceNotifierWidget.of(context)?.name ?? "";
                       return Text(name,
-                          style: AppTextStyle.style20
-                              .copyWith(color: context.colorScheme.textPrimary),
+                          style: AppTextStyle.headerStyle(context),
                           overflow: TextOverflow.ellipsis);
                     },
                   ),

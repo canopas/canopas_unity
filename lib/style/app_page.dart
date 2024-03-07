@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 
 class AppPage extends StatelessWidget {
@@ -36,7 +37,7 @@ class AppPage extends StatelessWidget {
           ? null
           : AppBar(
               backgroundColor: backGroundColor,
-              title: titleWidget ?? _title(),
+              title: titleWidget ?? _title(context),
               actions: actions,
               leading: leading,
               automaticallyImplyLeading: automaticallyImplyLeading,
@@ -47,10 +48,14 @@ class AppPage extends StatelessWidget {
     );
   }
 
-  Widget _title() => Text(
+  Widget _title(BuildContext context) => Text(
         title ?? '',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontFamily: AppTextStyle.poppinsFontFamily),
+        style: TextStyle(
+            fontFamily: AppTextStyle.poppinsFontFamily,
+            fontSize: 22,
+            color: context.colorScheme.textPrimary,
+            fontWeight: FontWeight.w600),
       );
 }

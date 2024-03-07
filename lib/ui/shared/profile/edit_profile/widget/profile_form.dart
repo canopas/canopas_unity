@@ -73,6 +73,7 @@ class ProfileForm extends StatelessWidget {
         const GenderSelection(),
         FieldTitle(title: localization.employee_mobile_tag),
         FieldEntry(
+          keyboardType: TextInputType.phone,
           controller: phoneNumberController,
           hintText: localization.admin_home_add_member_mobile_number_hint_text,
         ),
