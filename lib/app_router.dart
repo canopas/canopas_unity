@@ -39,7 +39,10 @@ class AppRouter {
 
   GoRouter get router => _goRouter(_userManager);
   final _rootNavigatorKey = GlobalKey<NavigatorState>();
-  final _adminShellNavigatorKey = GlobalKey<NavigatorState>();
+  final _adminShellHomeNavigatorKey = GlobalKey<NavigatorState>();
+  final _adminShellLeavesNavigatorKey = GlobalKey<NavigatorState>();
+  final _adminShellEmployeeNavigatorKey = GlobalKey<NavigatorState>();
+
   final _employeeShellNavigatorKey = GlobalKey<NavigatorState>();
 
   GoRouter _goRouter(UserStateNotifier userManager) {
@@ -76,169 +79,187 @@ class AppRouter {
               ),
             ],
           ),
-          ShellRoute(
-              navigatorKey: _adminShellNavigatorKey,
+          StatefulShellRoute.indexedStack(
+              // navigatorKey: _adminShellNavigatorKey,
               builder: (context, state, child) {
                 return DashBoardScreen(tabs: adminTabs, child: child);
               },
-              routes: [
-                GoRoute(
-                    parentNavigatorKey: _adminShellNavigatorKey,
-                    name: Routes.adminHome,
-                    path: Routes.adminHome,
-                    pageBuilder: (context, state) {
-                      return CupertinoPage(
-                          key: ValueKey(userManager.currentSpaceId),
-                          child: const AdminHomeScreenPage());
-                    },
-                    routes: <GoRoute>[
+              branches: [
+                StatefulShellBranch(
+                    navigatorKey: _adminShellHomeNavigatorKey,
+                    routes: [
                       GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.editSpaceDetails,
-                          path: Routes.editSpaceDetails,
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(child: EditSpacePage())),
-                      GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.adminProfile,
-                          path: 'profile',
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(child: ViewProfilePage()),
-                          routes: [
+                        //  parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.adminHome,
+                          path: Routes.adminHome,
+                          pageBuilder: (context, state) {
+                            return CupertinoPage(
+                                key: ValueKey(userManager.currentSpaceId),
+                                child: const AdminHomeScreenPage());
+                          },
+                          routes: <GoRoute>[
                             GoRoute(
-                                path: 'edit',
-                                name: Routes.adminEditProfile,
-                                pageBuilder: (context, state) => CupertinoPage(
-                                        child: EmployeeEditProfilePage(
-                                      employee: _userManager.employee,
-                                    )))
-                          ]),
-                      GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.adminForms,
-                          path: 'forms',
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(child: AdminFormListPage()),
-                          routes: [
-                            GoRoute(
-                                name: Routes.newForm,
-                                path: 'new-form',
+                               // parentNavigatorKey: _adminShellNavigatorKey,
+                                name: Routes.editSpaceDetails,
+                                path: Routes.editSpaceDetails,
                                 pageBuilder: (context, state) =>
                                     const CupertinoPage(
-                                        child: CreateFromPage())),
-                          ]),
-                      GoRoute(
-                        parentNavigatorKey: _adminShellNavigatorKey,
-                        name: Routes.leaveRequestDetail,
-                        path: Routes.leaveRequestDetail,
-                        pageBuilder: (context, state) => CupertinoPage(
-                            child: AdminLeaveDetailsPage(
-                                leaveApplication:
-                                    state.extra as LeaveApplication)),
-                      ),
-                      GoRoute(
-                        parentNavigatorKey: _adminShellNavigatorKey,
-                        name: Routes.adminAbsenceDetails,
-                        path: 'absence/details',
-                        pageBuilder: (context, state) => CupertinoPage(
-                            child: AdminLeaveDetailsPage(
-                                leaveApplication:
-                                    state.extra as LeaveApplication)),
-                      )
-                    ]),
-                GoRoute(
-                    parentNavigatorKey: _adminShellNavigatorKey,
-                    name: Routes.adminLeaves,
-                    path: Routes.adminLeaves,
-                    pageBuilder: (context, state) {
-                      return CupertinoPage(
-                          key: ValueKey(userManager.currentSpaceId),
-                          child: const AdminLeavesPage());
-                    },
-                    routes: <GoRoute>[
-                      GoRoute(
-                        name: Routes.hrApplyLeave,
-                        path: Routes.hrApplyLeave,
-                        pageBuilder: (context, state) => const CupertinoPage(
-                          child: ApplyLeavePage(),
-                        ),
-                      ),
-                      GoRoute(
-                        parentNavigatorKey: _adminShellNavigatorKey,
-                        name: Routes.adminLeaveDetails,
-                        path: 'details',
-                        pageBuilder: (context, state) => CupertinoPage(
-                            child: AdminLeaveDetailsPage(
-                                leaveApplication:
-                                    state.extra as LeaveApplication)),
-                      ),
-                    ]),
-                GoRoute(
-                    parentNavigatorKey: _adminShellNavigatorKey,
-                    name: Routes.adminMembers,
-                    path: Routes.adminMembers,
-                    pageBuilder: (context, state) => CupertinoPage(
-                        key: ValueKey(userManager.currentSpaceId),
-                        child: const MemberListPage()),
-                    routes: <GoRoute>[
-                      GoRoute(
-                          path: Routes.inviteMember,
-                          name: Routes.inviteMember,
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          pageBuilder: (context, state) =>
-                              const CupertinoPage(child: InviteMemberPage())),
-                      GoRoute(
-                          parentNavigatorKey: _adminShellNavigatorKey,
-                          name: Routes.adminMemberDetails,
-                          path: Routes.adminMemberDetails,
-                          pageBuilder: (context, state) {
-                            String id = '';
-                            if (state.extra.runtimeType == Employee) {
-                              final employee = state.extra as Employee;
-                              id = employee.uid;
-                            } else {
-                              id = state.extra as String;
-                            }
-                            return CupertinoPage(
-                                child: EmployeeDetailPage(id: id));
-                          },
-                          routes: [
+                                        child: EditSpacePage())),
                             GoRoute(
-                                parentNavigatorKey: _adminShellNavigatorKey,
-                                name: Routes.adminEmployeeDetailsLeaves,
-                                path: Routes.adminEmployeeDetailsLeaves,
+                             //   parentNavigatorKey: _adminShellNavigatorKey,
+                                name: Routes.adminProfile,
+                                path: 'profile',
+                                pageBuilder: (context, state) =>
+                                    const CupertinoPage(
+                                        child: ViewProfilePage()),
                                 routes: [
                                   GoRoute(
-                                    name: Routes
-                                        .adminEmployeeDetailsLeavesDetails,
-                                    path: Routes
-                                        .adminEmployeeDetailsLeavesDetails,
-                                    pageBuilder: (context, state) =>
-                                        CupertinoPage(
-                                            child: UserLeaveDetailPage(
-                                                leaveId: state.pathParameters[
-                                                    RoutesParamsConst
-                                                        .leaveId]!)),
-                                  ),
-                                ],
-                                pageBuilder: (context, state) => CupertinoPage(
-                                        child: AdminEmployeeDetailsLeavesPage(
-                                      employeeName: state.pathParameters[
-                                              RoutesParamsConst.employeeName] ??
-                                          "",
-                                      employeeId: state.extra as String,
-                                    ))),
+                                      path: 'edit',
+                                      name: Routes.adminEditProfile,
+                                      pageBuilder: (context, state) =>
+                                          CupertinoPage(
+                                              child: EmployeeEditProfilePage(
+                                            employee: _userManager.employee,
+                                          )))
+                                ]),
                             GoRoute(
-                              parentNavigatorKey: _adminShellNavigatorKey,
-                              path: Routes.adminEditEmployee,
-                              name: Routes.adminEditEmployee,
+                               // parentNavigatorKey: _adminShellNavigatorKey,
+                                name: Routes.adminForms,
+                                path: 'forms',
+                                pageBuilder: (context, state) =>
+                                    const CupertinoPage(
+                                        child: AdminFormListPage()),
+                                routes: [
+                                  GoRoute(
+                                      name: Routes.newForm,
+                                      path: 'new-form',
+                                      pageBuilder: (context, state) =>
+                                          const CupertinoPage(
+                                              child: CreateFromPage())),
+                                ]),
+                            GoRoute(
+                             // parentNavigatorKey: _adminShellNavigatorKey,
+                              name: Routes.leaveRequestDetail,
+                              path: Routes.leaveRequestDetail,
                               pageBuilder: (context, state) => CupertinoPage(
-                                  child: AdminEditEmployeeDetailsPage(
-                                employee: state.extra as Employee,
-                              )),
+                                  child: AdminLeaveDetailsPage(
+                                      leaveApplication:
+                                          state.extra as LeaveApplication)),
                             ),
+                            GoRoute(
+                             // parentNavigatorKey: _adminShellNavigatorKey,
+                              name: Routes.adminAbsenceDetails,
+                              path: 'absence/details',
+                              pageBuilder: (context, state) => CupertinoPage(
+                                  child: AdminLeaveDetailsPage(
+                                      leaveApplication:
+                                          state.extra as LeaveApplication)),
+                            )
                           ]),
                     ]),
+                StatefulShellBranch(
+                  navigatorKey: _adminShellLeavesNavigatorKey,
+                    routes: [
+                  GoRoute(
+                    //  parentNavigatorKey: _adminShellNavigatorKey,
+                      name: Routes.adminLeaves,
+                      path: Routes.adminLeaves,
+                      pageBuilder: (context, state) {
+                        return CupertinoPage(
+                            key: ValueKey(userManager.currentSpaceId),
+                            child: const AdminLeavesPage());
+                      },
+                      routes: <GoRoute>[
+                        GoRoute(
+                          name: Routes.hrApplyLeave,
+                          path: Routes.hrApplyLeave,
+                          pageBuilder: (context, state) => const CupertinoPage(
+                            child: ApplyLeavePage(),
+                          ),
+                        ),
+                        GoRoute(
+                          //parentNavigatorKey: _adminShellNavigatorKey,
+                          name: Routes.adminLeaveDetails,
+                          path: 'details',
+                          pageBuilder: (context, state) => CupertinoPage(
+                              child: AdminLeaveDetailsPage(
+                                  leaveApplication:
+                                      state.extra as LeaveApplication)),
+                        ),
+                      ]),
+                ]),
+                StatefulShellBranch(
+                    navigatorKey: _adminShellEmployeeNavigatorKey,
+                    routes: [
+                  GoRoute(
+                     // parentNavigatorKey: _adminShellNavigatorKey,
+                      name: Routes.adminMembers,
+                      path: Routes.adminMembers,
+                      pageBuilder: (context, state) => CupertinoPage(
+                          key: ValueKey(userManager.currentSpaceId),
+                          child: const MemberListPage()),
+                      routes: <GoRoute>[
+                        GoRoute(
+                            path: Routes.inviteMember,
+                            name: Routes.inviteMember,
+                           // parentNavigatorKey: _adminShellNavigatorKey,
+                            pageBuilder: (context, state) =>
+                                const CupertinoPage(child: InviteMemberPage())),
+                        GoRoute(
+                           // parentNavigatorKey: _adminShellNavigatorKey,
+                            name: Routes.adminMemberDetails,
+                            path: Routes.adminMemberDetails,
+                            pageBuilder: (context, state) {
+                              String id = '';
+                              if (state.extra.runtimeType == Employee) {
+                                final employee = state.extra as Employee;
+                                id = employee.uid;
+                              } else {
+                                id = state.extra as String;
+                              }
+                              return CupertinoPage(
+                                  child: EmployeeDetailPage(id: id));
+                            },
+                            routes: [
+                              GoRoute(
+                                 // parentNavigatorKey: _adminShellNavigatorKey,
+                                  name: Routes.adminEmployeeDetailsLeaves,
+                                  path: Routes.adminEmployeeDetailsLeaves,
+                                  routes: [
+                                    GoRoute(
+                                      name: Routes
+                                          .adminEmployeeDetailsLeavesDetails,
+                                      path: Routes
+                                          .adminEmployeeDetailsLeavesDetails,
+                                      pageBuilder: (context, state) =>
+                                          CupertinoPage(
+                                              child: UserLeaveDetailPage(
+                                                  leaveId: state.pathParameters[
+                                                      RoutesParamsConst
+                                                          .leaveId]!)),
+                                    ),
+                                  ],
+                                  pageBuilder: (context, state) =>
+                                      CupertinoPage(
+                                          child: AdminEmployeeDetailsLeavesPage(
+                                        employeeName: state.pathParameters[
+                                                RoutesParamsConst
+                                                    .employeeName] ??
+                                            "",
+                                        employeeId: state.extra as String,
+                                      ))),
+                              GoRoute(
+                                //parentNavigatorKey: _adminShellNavigatorKey,
+                                path: Routes.adminEditEmployee,
+                                name: Routes.adminEditEmployee,
+                                pageBuilder: (context, state) => CupertinoPage(
+                                    child: AdminEditEmployeeDetailsPage(
+                                  employee: state.extra as Employee,
+                                )),
+                              ),
+                            ]),
+                      ]),
+                ]),
               ]),
           ShellRoute(
               navigatorKey: _employeeShellNavigatorKey,
@@ -246,7 +267,7 @@ class AppRouter {
                   DashBoardScreen(tabs: userTabs, child: child),
               routes: <GoRoute>[
                 GoRoute(
-                    parentNavigatorKey: _employeeShellNavigatorKey,
+                   // parentNavigatorKey: _employeeShellNavigatorKey,
                     path: Routes.userHome,
                     name: Routes.userHome,
                     pageBuilder: (context, state) => CupertinoPage(
@@ -254,7 +275,7 @@ class AppRouter {
                         child: const UserHomeScreenPage()),
                     routes: <GoRoute>[
                       GoRoute(
-                          parentNavigatorKey: _employeeShellNavigatorKey,
+                         // parentNavigatorKey: _employeeShellNavigatorKey,
                           name: Routes.userProfile,
                           path: 'profile',
                           pageBuilder: (context, state) => const CupertinoPage(
@@ -271,7 +292,7 @@ class AppRouter {
                             ),
                           ]),
                       GoRoute(
-                        parentNavigatorKey: _employeeShellNavigatorKey,
+                       // parentNavigatorKey: _employeeShellNavigatorKey,
                         name: Routes.userForms,
                         path: Routes.userForms,
                         pageBuilder: (context, state) =>
@@ -296,7 +317,7 @@ class AppRouter {
                       ),
                     ]),
                 GoRoute(
-                    parentNavigatorKey: _employeeShellNavigatorKey,
+                  //  parentNavigatorKey: _employeeShellNavigatorKey,
                     path: Routes.userLeaves,
                     name: Routes.userLeaves,
                     pageBuilder: (context, state) => CupertinoPage(
@@ -320,7 +341,7 @@ class AppRouter {
                       ),
                     ]),
                 GoRoute(
-                    parentNavigatorKey: _employeeShellNavigatorKey,
+                   // parentNavigatorKey: _employeeShellNavigatorKey,
                     path: Routes.userMembers,
                     name: Routes.userMembers,
                     pageBuilder: (context, state) => CupertinoPage(
@@ -328,7 +349,7 @@ class AppRouter {
                         child: const UserMembersPage()),
                     routes: <GoRoute>[
                       GoRoute(
-                        parentNavigatorKey: _employeeShellNavigatorKey,
+                      //  parentNavigatorKey: _employeeShellNavigatorKey,
                         name: Routes.userEmployeeDetail,
                         path: Routes.userEmployeeDetail,
                         pageBuilder: (context, state) => CupertinoPage(

@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
+import 'package:projectunity/data/core/extensions/widget_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
@@ -27,52 +28,47 @@ class LeaveApplicationCard extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
         color: context.colorScheme.containerLow,
       ),
-      child: Material(
-        borderRadius: AppTheme.commonBorderRadius,
-        color: context.colorScheme.containerLow,
-        child: InkWell(
-          borderRadius: AppTheme.commonBorderRadius,
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(primaryHorizontalSpacing),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(primaryHorizontalSpacing),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LeaveStatusView(status: leaveApplication.leave.status),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _LeaveDateContent(
-                          firstDayDuration:
-                              leaveApplication.leave.perDayDuration.first,
-                          totalDays: leaveApplication.leave.total,
-                          startDate: leaveApplication.leave.startDate,
-                          endDate: leaveApplication.leave.endDate,
-                        ),
-                      ],
+                    LeaveStatusView(status: leaveApplication.leave.status),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                    )
+                    _LeaveDateContent(
+                      firstDayDuration:
+                          leaveApplication.leave.perDayDuration.first,
+                      totalDays: leaveApplication.leave.total,
+                      startDate: leaveApplication.leave.startDate,
+                      endDate: leaveApplication.leave.endDate,
+                    ),
                   ],
                 ),
-                const Divider(height: 30),
-                _EmployeeContent(
-                  employee: leaveApplication.employee,
-                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                )
               ],
             ),
-          ),
+             Divider(height: 30, color: context.colorScheme.outlineColor,),
+            _EmployeeContent(
+              employee: leaveApplication.employee,
+            ),
+          ],
         ),
-      ),
+      )
+      .onTapGesture((){
+        onTap?.call();
+      }),
     );
   }
 }
