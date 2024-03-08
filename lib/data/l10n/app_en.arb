@@ -4,9 +4,8 @@
 
   "sign_in_description_text": "Help you to manage your office leaves and employees easily with unity.",
   "sign_in_title_text": "Effortless Leave\nManagement with Unity",
-  "login_button_text": "Sign in with Google",
-  "company_name": "Canopas Software",
-  "company_subtitle": "www.canopas.com",
+  "google_login_button_text": "Sign in with Google",
+  "apple_login_button_text": "Sign in with Apple",
 
   "settings_tag": "Settings",
   "members_tag": "Members",

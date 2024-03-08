@@ -19,7 +19,7 @@ class AccountService {
                 fromFirestore: Account.fromFireStore,
                 toFirestore: (Account user, _) => user.toJson());
 
-  Future<Account> getUser(firebase_auth.User authData) async {
+  Future<Account> getUser(firebase_auth.User authData, {String? name}) async {
     final userDataDoc = await _accountsDb.doc(authData.uid).get();
     final Account user;
     final Account? userData = userDataDoc.data();
@@ -29,7 +29,7 @@ class AccountService {
       user = Account(
           uid: authData.uid,
           email: authData.email!,
-          name: authData.displayName);
+          name:name?? authData.displayName);
       await _accountsDb.doc(authData.uid).set(user);
     }
     await _setUserSession(authData.uid);

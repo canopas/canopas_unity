@@ -15,6 +15,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/app_logo.svg
   String get appLogo => 'assets/images/app_logo.svg';
 
+  /// File path: assets/images/apple_logo.svg
+  String get appleLogo => 'assets/images/apple_logo.svg';
+
   /// File path: assets/images/calendar_filled.svg
   String get calendarFilled => 'assets/images/calendar_filled.svg';
 
@@ -22,9 +25,8 @@ class $AssetsImagesGen {
   AssetGenImage get emptyState =>
       const AssetGenImage('assets/images/empty_state.png');
 
-  /// File path: assets/images/google_logo.png
-  AssetGenImage get googleLogo =>
-      const AssetGenImage('assets/images/google_logo.png');
+  /// File path: assets/images/google_logo.svg
+  String get googleLogo => 'assets/images/google_logo.svg';
 
   /// File path: assets/images/home_filled.svg
   String get homeFilled => 'assets/images/home_filled.svg';
@@ -54,6 +56,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<dynamic> get values => [
         appLogo,
+        appleLogo,
         calendarFilled,
         emptyState,
         googleLogo,

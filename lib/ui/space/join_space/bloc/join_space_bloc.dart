@@ -135,7 +135,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
       SignOutEvent event, Emitter<JoinSpaceState> emit) async {
     emit(state.copyWith(signOutStatus: Status.loading));
     try {
-      bool isLogOut = await _authService.signOutWithGoogle();
+      bool isLogOut = await _authService.signOut();
       if (isLogOut) {
         await _userManager.removeAll();
         emit(state.copyWith(signOutStatus: Status.success));

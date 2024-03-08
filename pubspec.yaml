@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore: ^4.5.2
   collection: ^1.17.0
   connectivity_plus: ^5.0.2
+  crypto:
   device_info_plus: ^9.1.2
   equatable: ^2.0.5
   freezed: ^2.4.7
@@ -42,9 +43,9 @@ dependencies:
   json_annotation: ^4.8.1
   oauth2: ^2.0.2
   package_info_plus: ^5.0.1
-  simple_gesture_detector:
   rxdart: ^0.27.7
   shared_preferences: ^2.1.1
+  sign_in_with_apple: ^6.0.0
   sticky_headers: ^0.3.0+2
   table_calendar: ^3.0.7
   url_launcher: ^6.1.11

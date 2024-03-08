@@ -489,16 +489,22 @@ class MockAccountService extends _i1.Mock implements _i15.AccountService {
       ) as _i4.DeviceInfoProvider);
 
   @override
-  _i8.Future<_i5.Account> getUser(_i6.User? authData) => (super.noSuchMethod(
+  _i8.Future<_i5.Account> getUser(
+    _i6.User? authData, {
+    String? name,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [authData],
+          {#name: name},
         ),
         returnValue: _i8.Future<_i5.Account>.value(_FakeAccount_3(
           this,
           Invocation.method(
             #getUser,
             [authData],
+            {#name: name},
           ),
         )),
       ) as _i8.Future<_i5.Account>);
@@ -725,9 +731,73 @@ class MockAuthService extends _i1.Mock implements _i17.AuthService {
       ) as _i8.Future<_i6.User?>);
 
   @override
-  _i8.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
+  _i8.Future<_i6.User?> signInWithCredentials(
+          _i6.AuthCredential? authCredential) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #signOutWithGoogle,
+          #signInWithCredentials,
+          [authCredential],
+        ),
+        returnValue: _i8.Future<_i6.User?>.value(),
+      ) as _i8.Future<_i6.User?>);
+
+  @override
+  _i8.Future<_i5.Account?> signInWithApple() => (super.noSuchMethod(
+        Invocation.method(
+          #signInWithApple,
+          [],
+        ),
+        returnValue: _i8.Future<_i5.Account?>.value(),
+      ) as _i8.Future<_i5.Account?>);
+
+  @override
+  _i8.Future<_i5.Account?> setUser(
+    _i6.User? authUser, {
+    String? name,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setUser,
+          [authUser],
+          {#name: name},
+        ),
+        returnValue: _i8.Future<_i5.Account?>.value(),
+      ) as _i8.Future<_i5.Account?>);
+
+  @override
+  String generateNounce([int? length = 32]) => (super.noSuchMethod(
+        Invocation.method(
+          #generateNounce,
+          [length],
+        ),
+        returnValue: _i11.dummyValue<String>(
+          this,
+          Invocation.method(
+            #generateNounce,
+            [length],
+          ),
+        ),
+      ) as String);
+
+  @override
+  String sha256ofString(String? input) => (super.noSuchMethod(
+        Invocation.method(
+          #sha256ofString,
+          [input],
+        ),
+        returnValue: _i11.dummyValue<String>(
+          this,
+          Invocation.method(
+            #sha256ofString,
+            [input],
+          ),
+        ),
+      ) as String);
+
+  @override
+  _i8.Future<bool> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
           [],
         ),
         returnValue: _i8.Future<bool>.value(false),
