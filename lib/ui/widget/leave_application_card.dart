@@ -59,14 +59,16 @@ class LeaveApplicationCard extends StatelessWidget {
                 )
               ],
             ),
-             Divider(height: 30, color: context.colorScheme.outlineColor,),
+            Divider(
+              height: 30,
+              color: context.colorScheme.outlineColor,
+            ),
             _EmployeeContent(
               employee: leaveApplication.employee,
             ),
           ],
         ),
-      )
-      .onTapGesture((){
+      ).onTapGesture(() {
         onTap?.call();
       }),
     );

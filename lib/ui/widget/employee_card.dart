@@ -6,7 +6,6 @@ import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/space_constant.dart';
-import '../../data/configs/theme.dart';
 import '../../data/model/employee/employee.dart';
 
 class EmployeeCard extends StatelessWidget {
@@ -35,8 +34,8 @@ class EmployeeCard extends StatelessWidget {
               children: [
                 Text(employee.name,
                     style: employee.status == EmployeeStatus.inactive
-                        ? AppTextStyle.style18.copyWith(
-                            color: context.colorScheme.textSecondary)
+                        ? AppTextStyle.style18
+                            .copyWith(color: context.colorScheme.textSecondary)
                         : AppTextStyle.style18.copyWith(
                             color: context.colorScheme.textPrimary,
                             height: 1.5),
@@ -47,8 +46,8 @@ class EmployeeCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 2),
                     child: Text(employee.designation ?? "",
-                        style: AppTextStyle.style14.copyWith(
-                            color: context.colorScheme.textSecondary),
+                        style: AppTextStyle.style14
+                            .copyWith(color: context.colorScheme.textSecondary),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1),
                   ),
@@ -58,7 +57,8 @@ class EmployeeCard extends StatelessWidget {
           )
         ],
       ),
-    )
-    .onTapGesture((){onTap?.call();});
+    ).onTapGesture(() {
+      onTap?.call();
+    });
   }
 }

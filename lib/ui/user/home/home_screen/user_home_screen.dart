@@ -94,7 +94,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   const EdgeInsets.only(top: 16, bottom: 16),
                               child: Text(locale.request_tag,
                                   style: AppTextStyle.style20.copyWith(
-                                    fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w600,
                                       color: context.colorScheme.textPrimary)),
                             ),
                             ListView.separated(

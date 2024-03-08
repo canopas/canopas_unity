@@ -142,7 +142,8 @@ class MembersTile extends StatelessWidget {
                 color: context.colorScheme.containerLow,
                 borderRadius: BorderRadius.circular(12)),
             child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -186,9 +187,9 @@ class MembersTile extends StatelessWidget {
                                   extra: employee.uid),
                             );
                     },
-                    separatorBuilder: (context, index) =>  Divider(
-                      color: context.colorScheme.outlineColor,
-                    )))
+                    separatorBuilder: (context, index) => Divider(
+                          color: context.colorScheme.outlineColor,
+                        )))
     ]);
   }
 }

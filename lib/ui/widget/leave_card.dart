@@ -37,24 +37,24 @@ class LeaveCard extends StatelessWidget {
                 Text(
                     DateFormatter(AppLocalizations.of(context))
                         .getDatePeriodPresentation(
-                            startDate: leave.startDate,
-                            endDate: leave.endDate),
+                            startDate: leave.startDate, endDate: leave.endDate),
                     style: AppTextStyle.style16
                         .copyWith(color: context.colorScheme.textPrimary),
                     overflow: TextOverflow.ellipsis),
               ],
             ),
-             Divider(height: 30, color: context.colorScheme.outlineColor,),
+            Divider(
+              height: 30,
+              color: context.colorScheme.outlineColor,
+            ),
             Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        DateFormatter(AppLocalizations.of(context))
-                            .dateInLine(
-                                startDate: leave.startDate,
-                                endDate: leave.endDate),
+                        DateFormatter(AppLocalizations.of(context)).dateInLine(
+                            startDate: leave.startDate, endDate: leave.endDate),
                         style: AppTextStyle.style16
                             .copyWith(color: context.colorScheme.textPrimary),
                         overflow: TextOverflow.ellipsis),
@@ -79,9 +79,8 @@ class LeaveCard extends StatelessWidget {
             ),
           ],
         ),
-      )
-        .onTapGesture((){
-          onTap?.call();
+      ).onTapGesture(() {
+        onTap?.call();
       }),
     );
   }
