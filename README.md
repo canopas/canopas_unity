@@ -7,16 +7,16 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 ---- Cover image----
 
 ## Download App
-<img src="./cta/play_store .png" width="200"></img> <img src="./cta/app-store.jpeg" width="200"></img></a>
+<img src="./cta/play_store.png" width="200"></img>  <img src="./cta/app-store.jpeg" width="200"></img></a>
 
 ## Features 🌟🌟
 
-- Multi-Platform support🌐: Unity gracefully adapts to your preferred platform – Android, iOS, or web, delivering a unified and professional leave management solution.
-- Space Management🗂️: Create and manage multiple spaces effortlessly, allowing for organized leave tracking across different spaces.
-- Role-based access🔒: Assign different roles to users, including Employees, HR and Admin, ensuring secure and efficient leave management with the right permissions.
-- Real-time Updates🚀: Stay informed with real-time updates on leave request, approvals, and rejections, providing a transparent and efficient leave management.
-- Team Coordination👥: Enhance team coordination by allowing users to view coworkers on leave, promoting a collaborative and informed workplace environment
-- Leave Analytics📊: Keep a record of yearly paid leaves and overall counts.
+- **Multi-Platform support**🌐: Unity gracefully adapts to your preferred platform – Android, iOS, or web, delivering a unified and professional leave management solution.
+- **Space Management**🗂️: Create and manage multiple spaces effortlessly, allowing for organized leave tracking across different spaces.
+- **Role-based access**🔒: Assign different roles to users, including Employees, HR and Admin, ensuring secure and efficient leave management with the right permissions.
+- **Real-time Updates**🚀: Stay informed with real-time updates on leave request, approvals, and rejections, providing a transparent and efficient leave management.
+- **Team Coordination**👥: Enhance team coordination by allowing users to view coworkers on leave, promoting a collaborative and informed workplace environment
+- **Leave Analytics**📊: Keep a record of yearly paid leaves and overall counts.
 
 ## Getting Stated
 
@@ -34,6 +34,7 @@ To get started using Unity, refer to the User Guide for detailed information on 
 ## Support 🤝
 
 We welcome and appreciate any suggestions you may have for improvement. For bugs, questions and discussions please use the Github Issues.
+
 <a href="https://canopas.com/contact"><img src="./cta/cta_btn.png" width=300></a>
 
 ##  Created & Maintained By
