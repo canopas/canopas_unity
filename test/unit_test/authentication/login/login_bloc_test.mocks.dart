@@ -9,13 +9,13 @@ import 'dart:ui' as _i13;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:mockito/src/dummies.dart' as _i11;
 import 'package:projectunity/data/model/account/account.dart' as _i5;
 import 'package:projectunity/data/model/employee/employee.dart' as _i6;
 import 'package:projectunity/data/model/space/space.dart' as _i12;
 import 'package:projectunity/data/provider/device_info.dart' as _i4;
-import 'package:projectunity/data/provider/user_state.dart' as _i11;
-import 'package:projectunity/data/services/account_service.dart' as _i10;
+import 'package:projectunity/data/provider/user_state.dart' as _i10;
+import 'package:projectunity/data/services/account_service.dart' as _i9;
 import 'package:projectunity/data/services/auth_service.dart' as _i7;
 
 // ignore_for_file: type=lint
@@ -201,50 +201,6 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
       ) as _i8.Future<_i3.User?>);
 
   @override
-  _i8.Future<_i5.Account?> setUser(
-    _i3.User? authUser, {
-    String? name,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setUser,
-          [authUser],
-          {#name: name},
-        ),
-        returnValue: _i8.Future<_i5.Account?>.value(),
-      ) as _i8.Future<_i5.Account?>);
-
-  @override
-  String generateNounce([int? length = 32]) => (super.noSuchMethod(
-        Invocation.method(
-          #generateNounce,
-          [length],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #generateNounce,
-            [length],
-          ),
-        ),
-      ) as String);
-
-  @override
-  String sha256ofString(String? input) => (super.noSuchMethod(
-        Invocation.method(
-          #sha256ofString,
-          [input],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #sha256ofString,
-            [input],
-          ),
-        ),
-      ) as String);
-
-  @override
   _i8.Future<bool> signOut() => (super.noSuchMethod(
         Invocation.method(
           #signOut,
@@ -257,7 +213,7 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
 /// A class which mocks [AccountService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAccountService extends _i1.Mock implements _i10.AccountService {
+class MockAccountService extends _i1.Mock implements _i9.AccountService {
   MockAccountService() {
     _i1.throwOnMissingStub(this);
   }
@@ -281,22 +237,16 @@ class MockAccountService extends _i1.Mock implements _i10.AccountService {
       ) as _i4.DeviceInfoProvider);
 
   @override
-  _i8.Future<_i5.Account> getUser(
-    _i3.User? authData, {
-    String? name,
-  }) =>
-      (super.noSuchMethod(
+  _i8.Future<_i5.Account> getUser(_i3.User? authData) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [authData],
-          {#name: name},
         ),
         returnValue: _i8.Future<_i5.Account>.value(_FakeAccount_3(
           this,
           Invocation.method(
             #getUser,
             [authData],
-            {#name: name},
           ),
         )),
       ) as _i8.Future<_i5.Account>);
@@ -370,21 +320,21 @@ class MockAccountService extends _i1.Mock implements _i10.AccountService {
 /// A class which mocks [UserStateNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserStateNotifier extends _i1.Mock implements _i11.UserStateNotifier {
+class MockUserStateNotifier extends _i1.Mock implements _i10.UserStateNotifier {
   MockUserStateNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i11.UserState get state => (super.noSuchMethod(
+  _i10.UserState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i11.UserState.authenticated,
-      ) as _i11.UserState);
+        returnValue: _i10.UserState.authenticated,
+      ) as _i10.UserState);
 
   @override
   String get employeeId => (super.noSuchMethod(
         Invocation.getter(#employeeId),
-        returnValue: _i9.dummyValue<String>(
+        returnValue: _i11.dummyValue<String>(
           this,
           Invocation.getter(#employeeId),
         ),
@@ -589,7 +539,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   @override
   String get uid => (super.noSuchMethod(
         Invocation.getter(#uid),
-        returnValue: _i9.dummyValue<String>(
+        returnValue: _i11.dummyValue<String>(
           this,
           Invocation.getter(#uid),
         ),

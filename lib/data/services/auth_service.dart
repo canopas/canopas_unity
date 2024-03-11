@@ -7,19 +7,16 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
 import 'package:projectunity/data/services/account_service.dart';
-import '../model/account/account.dart';
 import '../state_manager/auth/desktop/desktop_auth_manager.dart';
 
 @LazySingleton()
 class AuthService {
   final DesktopAuthManager _desktopAuthManager;
   final FirebaseFirestore fireStore;
-  final AccountService _accountService;
 
   final firebase_auth.FirebaseAuth firebaseAuth;
 
-  AuthService(this._desktopAuthManager, this.fireStore, this.firebaseAuth,
-      this._accountService);
+  AuthService(this._desktopAuthManager, this.fireStore, this.firebaseAuth);
 
   Future<firebase_auth.User?> signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -107,14 +104,6 @@ class AuthService {
     }
 
     return credential.user;
-  }
-
-  Future<Account?> setUser(firebase_auth.User? authUser, {String? name}) async {
-    if (authUser != null) {
-      final Account user = await _accountService.getUser(authUser, name: name);
-      return user;
-    }
-    return null;
   }
 
   Future<bool> signOut() async {

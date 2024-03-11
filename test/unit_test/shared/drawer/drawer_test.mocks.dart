@@ -502,22 +502,16 @@ class MockAccountService extends _i1.Mock implements _i13.AccountService {
       ) as _i4.DeviceInfoProvider);
 
   @override
-  _i8.Future<_i5.Account> getUser(
-    _i14.User? authData, {
-    String? name,
-  }) =>
-      (super.noSuchMethod(
+  _i8.Future<_i5.Account> getUser(_i14.User? authData) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [authData],
-          {#name: name},
         ),
         returnValue: _i8.Future<_i5.Account>.value(_FakeAccount_3(
           this,
           Invocation.method(
             #getUser,
             [authData],
-            {#name: name},
           ),
         )),
       ) as _i8.Future<_i5.Account>);

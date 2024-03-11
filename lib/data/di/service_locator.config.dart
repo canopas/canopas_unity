@@ -168,7 +168,6 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i6.DesktopAuthManager>(),
           gh<_i11.FirebaseFirestore>(),
           gh<_i9.FirebaseAuth>(),
-          gh<_i26.AccountService>(),
         ));
     gh.factory<_i29.EditSpaceBloc>(() => _i29.EditSpaceBloc(
           gh<_i22.SpaceService>(),
