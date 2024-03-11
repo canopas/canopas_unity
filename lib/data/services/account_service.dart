@@ -29,7 +29,7 @@ class AccountService {
       user = Account(
           uid: authData.uid,
           email: authData.email!,
-          name:name?? authData.displayName);
+          name: name ?? authData.displayName);
       await _accountsDb.doc(authData.uid).set(user);
     }
     await _setUserSession(authData.uid);

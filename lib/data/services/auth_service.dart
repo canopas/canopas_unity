@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
 import 'package:projectunity/data/services/account_service.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../model/account/account.dart';
 import '../state_manager/auth/desktop/desktop_auth_manager.dart';
 
@@ -119,20 +117,6 @@ class AuthService {
       return user;
     }
     return null;
-  }
-
-  String generateNounce([int length = 32]) {
-    const charset =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-    final random = Random.secure();
-    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
-        .join();
-  }
-
-  String sha256ofString(String input) {
-    final bytes = utf8.encode(input);
-    final digest = sha256.convert(bytes);
-    return digest.toString();
   }
 
   Future<bool> signOut() async {

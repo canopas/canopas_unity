@@ -36,7 +36,6 @@ void main() {
     bloc = SignInBloc(userStateNotifier, authService, accountService);
   });
 
-
   group("Log in with google test", () {
     test("Set initial state on cancel login test", () async {
       when(authService.signInWithGoogle()).thenAnswer((_) async => null);
@@ -59,7 +58,7 @@ void main() {
           bloc.stream,
           emitsInOrder([
             const SignInState(googleSignInLoading: true),
-            const SignInState(googleSignInLoading: false,signInSuccess: true),
+            const SignInState(googleSignInLoading: false, signInSuccess: true),
           ]));
       await untilCalled(userStateNotifier.setUser(user));
       verify(userStateNotifier.setUser(user)).called(1);

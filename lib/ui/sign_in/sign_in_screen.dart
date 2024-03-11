@@ -42,7 +42,7 @@ class SignInScreenState extends State<SignInScreen> {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
       body: BlocListener<SignInBloc, SignInState>(
-        listenWhen: (previous,current)=>current.error != null,
+          listenWhen: (previous, current) => current.error != null,
           listener: (context, state) {
             if (state.error != null) {
               showSnackBar(context: context, error: state.error);
@@ -58,10 +58,13 @@ class SignInScreenState extends State<SignInScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(ImageConst.loginPageVectorImage,
-                            fit: BoxFit.cover,
-                           ),
-                        const SizedBox(height: 50,),
+                        Image.asset(
+                          ImageConst.loginPageVectorImage,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
                         Text(
                           context.l10n.sign_in_title_text,
                           textAlign: TextAlign.center,
@@ -76,23 +79,20 @@ class SignInScreenState extends State<SignInScreen> {
                               left: 20.0, right: 20, top: 20, bottom: 40),
                           child: Text(
                             context.l10n.sign_in_description_text,
-                            style: AppTextStyle.style16
-                                .copyWith(color: context.colorScheme.textSecondary),
+                            style: AppTextStyle.style16.copyWith(
+                                color: context.colorScheme.textSecondary),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
                           ),
                         ),
-                    
                       ],
-                      
                     ),
                   ),
                   const GoogleSignInButton(),
                   const SizedBox(
                     height: 20,
                   ),
-                  if(kIsWeb || Platform.isIOS)
-                  const AppleSignInButton()
+                  if (kIsWeb || Platform.isIOS) const AppleSignInButton()
                 ],
               ),
             ),

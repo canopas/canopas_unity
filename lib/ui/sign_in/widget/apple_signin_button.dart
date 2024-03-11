@@ -17,7 +17,8 @@ class AppleSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
-        buildWhen: (previous, current) => previous.appleSignInLoading!=current.appleSignInLoading,
+        buildWhen: (previous, current) =>
+            previous.appleSignInLoading != current.appleSignInLoading,
         builder: (context, state) {
           return AppButton(
             onTap: () => context.read<SignInBloc>().add(AppleSignInEvent()),
@@ -26,7 +27,7 @@ class AppleSignInButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: context.colorScheme.surface),

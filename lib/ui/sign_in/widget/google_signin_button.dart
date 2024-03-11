@@ -18,7 +18,8 @@ class GoogleSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
-        buildWhen: (previous, current) => previous.googleSignInLoading != current.googleSignInLoading,
+        buildWhen: (previous, current) =>
+            previous.googleSignInLoading != current.googleSignInLoading,
         builder: (context, state) {
           return AppButton(
             onTap: () => context.read<SignInBloc>().add(GoogleSignInEvent()),
@@ -27,11 +28,11 @@ class GoogleSignInButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: context.colorScheme.surface),
-                    child:  SvgPicture.asset(
+                    child: SvgPicture.asset(
                       Assets.images.googleLogo,
                     )),
                 const SizedBox(
