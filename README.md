@@ -7,8 +7,7 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 ---- Cover image----
 
 ## Download App
-<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200"></img>
-  <img src="./cta/app-store.jpeg" width="200"></img>
+<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200"></img> <img src="./cta/app-store.jpeg" width="200"></img>
 
 ## Features 🌟🌟
 
