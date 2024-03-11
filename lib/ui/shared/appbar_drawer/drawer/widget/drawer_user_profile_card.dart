@@ -27,37 +27,36 @@ class UserProfileCard extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ImageProfile(
-              backgroundColor: context.colorScheme.surface,
-              imageUrl: currentEmployee.imageUrl,
-              radius: 24,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                currentEmployee.name,
-                style: AppTextStyle.style20
-                    .copyWith(color: context.colorScheme.textPrimary),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: context.colorScheme.primary,
-              size: 15,
-            ),
-          ],
-        ).onTapGesture(() {
+        Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ImageProfile(
+                  backgroundColor: context.colorScheme.surface,
+                  imageUrl: currentEmployee.imageUrl,
+                  radius: 24,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    currentEmployee.name,
+                    style: AppTextStyle.style20
+                        .copyWith(color: context.colorScheme.textPrimary),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: context.colorScheme.primary,
+                  size: 15,
+                ),
+              ],
+            )).onTapGesture(() {
           context.pop();
           context
               .goNamed(isAdminOrHr ? Routes.adminProfile : Routes.userProfile);
         }),
-        const SizedBox(
-          height: 20,
-        ),
         const Divider(),
       ],
     );

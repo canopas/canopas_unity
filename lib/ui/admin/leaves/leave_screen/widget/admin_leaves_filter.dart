@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
+import 'package:projectunity/data/core/extensions/widget_extension.dart';
 import 'package:projectunity/data/provider/user_state.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/bottom_sheet_top_divider.dart';
@@ -145,27 +146,24 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (employeeIsSelected) {
-          context.read<AdminLeavesBloc>().add(FetchLeavesInitialEvent());
-        }
-        context.pop();
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            SpaceLogoView(
-                spaceLogoUrl: getIt<UserStateNotifier>().currentSpace?.logo),
-            const SizedBox(width: 20),
-            Text(context.l10n.all_tag,
-                style: AppTextStyle.style16
-                    .copyWith(color: context.colorScheme.textPrimary),
-                overflow: TextOverflow.ellipsis),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        children: [
+          SpaceLogoView(
+              spaceLogoUrl: getIt<UserStateNotifier>().currentSpace?.logo),
+          const SizedBox(width: 20),
+          Text(context.l10n.all_tag,
+              style: AppTextStyle.style16
+                  .copyWith(color: context.colorScheme.textPrimary),
+              overflow: TextOverflow.ellipsis),
+        ],
       ),
-    );
+    ).onTapGesture(() {
+      if (employeeIsSelected) {
+        context.read<AdminLeavesBloc>().add(FetchLeavesInitialEvent());
+      }
+      context.pop();
+    });
   }
 }

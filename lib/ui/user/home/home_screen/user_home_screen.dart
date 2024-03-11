@@ -93,9 +93,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               padding:
                                   const EdgeInsets.only(top: 16, bottom: 16),
                               child: Text(locale.request_tag,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall),
+                                  style: AppTextStyle.style20.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: context.colorScheme.textPrimary)),
                             ),
                             ListView.separated(
                                 physics: const NeverScrollableScrollPhysics(),

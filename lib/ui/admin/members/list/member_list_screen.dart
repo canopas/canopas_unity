@@ -104,7 +104,7 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 60;
+  double get maxExtent => 100;
 
   @override
   double get minExtent => 60;
@@ -137,31 +137,34 @@ class MembersTile extends StatelessWidget {
           pinned: true,
           delegate: HeaderDelegate(
               child: Container(
-            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-                color: context.colorScheme.surface,
+                color: context.colorScheme.containerLow,
                 borderRadius: BorderRadius.circular(12)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.style20.copyWith(
+            child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: AppTextStyle.style20.copyWith(
+                          color: isExpanded
+                              ? context.colorScheme.primary
+                              : context.colorScheme.textPrimary),
+                    ),
+                    Icon(
+                      Icons.arrow_drop_down,
                       color: isExpanded
                           ? context.colorScheme.primary
-                          : context.colorScheme.textPrimary),
-                ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: isExpanded
-                      ? context.colorScheme.primary
-                      : context.colorScheme.textPrimary,
-                )
-              ],
-            ),
-          ).onTapGesture(() {
-            context.read<AdminMembersBloc>().add(ExpansionChangeEvent(index));
-          }))),
+                          : context.colorScheme.textPrimary,
+                    )
+                  ],
+                )).onTapGesture(() {
+              context.read<AdminMembersBloc>().add(ExpansionChangeEvent(index));
+            }),
+          ))),
       if (isExpanded)
         SliverPadding(
             padding: const EdgeInsets.all(16),
@@ -184,7 +187,9 @@ class MembersTile extends StatelessWidget {
                                   extra: employee.uid),
                             );
                     },
-                    separatorBuilder: (context, index) => const Divider()))
+                    separatorBuilder: (context, index) => Divider(
+                          color: context.colorScheme.outlineColor,
+                        )))
     ]);
   }
 }
