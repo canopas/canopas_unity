@@ -58,8 +58,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       AppleSignInEvent event, Emitter<SignInState> emit) async {
     try {
       emit(state.copyWith(appleSignInLoading: true));
-      Account? user = await _authService.signInWithApple();
-      if (user != null) {
+      firebase_auth.User? authUser = await _authService.signInWithApple();
+      print(authUser);
+      if (authUser != null) {
+        final Account user = await _accountService.getUser(authUser);
         await _userStateNotifier.setUser(user);
         emit(state.copyWith(appleSignInLoading: false, signInSuccess: true));
       } else {
@@ -67,7 +69,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       }
     } on Exception catch (e) {
       emit(
-          state.copyWith(appleSignInLoading: false, error: firesbaseAuthError));
+          state.copyWith(appleSignInLoading: false, error: somethingWentWrongError));
       throw Exception(e.toString());
     }
   }

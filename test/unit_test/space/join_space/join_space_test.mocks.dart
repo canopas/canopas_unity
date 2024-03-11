@@ -742,13 +742,13 @@ class MockAuthService extends _i1.Mock implements _i17.AuthService {
       ) as _i8.Future<_i6.User?>);
 
   @override
-  _i8.Future<_i5.Account?> signInWithApple() => (super.noSuchMethod(
+  _i8.Future<_i6.User?> signInWithApple() => (super.noSuchMethod(
         Invocation.method(
           #signInWithApple,
           [],
         ),
-        returnValue: _i8.Future<_i5.Account?>.value(),
-      ) as _i8.Future<_i5.Account?>);
+        returnValue: _i8.Future<_i6.User?>.value(),
+      ) as _i8.Future<_i6.User?>);
 
   @override
   _i8.Future<_i5.Account?> setUser(

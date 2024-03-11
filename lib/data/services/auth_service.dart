@@ -97,24 +97,20 @@ class AuthService {
     return user;
   }
 
-  Future<Account?> signInWithApple() async {
-    final rawNounce = generateNonce();
-    final nounce = sha256ofString(rawNounce);
+  Future<firebase_auth.User?> signInWithApple() async {
+    final firebase_auth.UserCredential? credential;
 
-    final appleCredential = await SignInWithApple.getAppleIDCredential(scopes: [
-      AppleIDAuthorizationScopes.email,
-      AppleIDAuthorizationScopes.fullName
-    ], nonce: nounce);
-
-    final oAuthCredential = firebase_auth.OAuthProvider("apple.com").credential(
-        idToken: appleCredential.identityToken, rawNonce: rawNounce);
-
-    final name = appleCredential.givenName;
-    final authUser = await signInWithCredentials(oAuthCredential);
-    if (name != null) {
-      return await setUser(authUser, name: name);
+    firebase_auth.AppleAuthProvider appleProvider =
+        firebase_auth.AppleAuthProvider();
+    if (kIsWeb) {
+      credential = await firebase_auth.FirebaseAuth.instance
+          .signInWithPopup(appleProvider);
+    } else {
+      credential = await firebase_auth.FirebaseAuth.instance
+          .signInWithProvider(appleProvider);
     }
-    return await setUser(authUser);
+
+    return credential.user;
   }
 
   Future<Account?> setUser(firebase_auth.User? authUser, {String? name}) async {
