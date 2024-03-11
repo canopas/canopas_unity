@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part "sign_in_view_state.freezed.dart";

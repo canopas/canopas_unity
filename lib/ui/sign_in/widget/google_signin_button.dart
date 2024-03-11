@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/other/app_button.dart';
-import '../../../data/core/utils/const/image_constant.dart';
 import '../../../gen/assets.gen.dart';
 import '../bloc/sign_in_view_bloc.dart';
 import '../bloc/sign_in_view_event.dart';
