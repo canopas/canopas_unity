@@ -27,10 +27,10 @@ class AppTheme {
 
   static DaysOfWeekStyle daysOfWeekStyle(BuildContext context) =>
       DaysOfWeekStyle(
-        weekdayStyle: AppTextStyle.style16.copyWith(
+        weekdayStyle: AppTextStyle.style14.copyWith(
             color: context.colorScheme.textPrimary,
             fontWeight: FontWeight.w600),
-        weekendStyle: AppTextStyle.style16.copyWith(
+        weekendStyle: AppTextStyle.style14.copyWith(
             color: context.colorScheme.textDisable,
             fontWeight: FontWeight.w600),
       );

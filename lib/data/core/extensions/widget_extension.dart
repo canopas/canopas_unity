@@ -8,10 +8,7 @@ extension GestureExtension on Widget {
       child: Material(
         borderRadius: BorderRadius.circular(12),
         color: Colors.transparent,
-        child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-            child: this),
+        child: this,
       ),
     );
   }
