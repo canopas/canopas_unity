@@ -7,7 +7,7 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 ---- Cover image----
 
 ## Download App
-<img src="./cta/play_store.png" width="200"></img>  <img src="./cta/app-store.jpeg" width="200"></img></a>
+<img src="./cta/play_store.png" width="200"></img>  <img src="./cta/app-store.jpeg" width="200"></img>
 
 ## Features 🌟🌟
 
@@ -18,6 +18,35 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 - **Team Coordination**👥: Enhance team coordination by allowing users to view coworkers on leave, promoting a collaborative and informed workplace environment
 - **Leave Analytics**📊: Keep a record of yearly paid leaves and overall counts.
 
+## Screenshots
+
+<table>
+  <tr>
+  <th width="33%" >Create/Join Space</th>
+  <th  width="33%" >Create Space</th>
+   <th  width="33%" >Admin Dashboard Screen</th>
+  </tr>
+    <tr>
+  <td><img src="./screenshots/join-space.png" /></td>
+  <td> <img src="./screenshots/create-space.png"  /> </td>
+  <td> <img src="./screenshots/home-screen.png" /> </td>
+  </tr>  
+</table>
+
+<table>
+  <tr>
+  <th width="33%" > Admin Leaves Screen</th>
+  <th  width="33%" >Leave Approval</th>
+   <th  width="33%" >Employees Screen</th>
+  </tr>
+    <tr>
+  <td><img src="./screenshots/leaves-screen.png" /></td>
+  <td> <img src="./screenshots/leave-detail.png"  /> </td>
+  <td> <img src="./screenshots/employees.png" /> </td>
+  </tr>  
+</table>
+
+
 ## Getting Stated
 
 ### Project setup
@@ -27,8 +56,6 @@ Project setup instructions are given at [wiki]() section.
 ### Using the App
 
 To get started using Unity, refer to the User Guide for detailed information on how to navigate, create spaces, add employees, and manage leaves efficiently.
-
-## Screenshots
 
 
 ## Support 🤝
