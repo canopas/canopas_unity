@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oauth2/oauth2.dart';
-import 'package:projectunity/data/services/account_service.dart';
 import '../state_manager/auth/desktop/desktop_auth_manager.dart';
 
 @LazySingleton()
