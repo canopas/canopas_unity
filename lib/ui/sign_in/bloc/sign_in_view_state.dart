@@ -1,27 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class SignInState extends Equatable {}
+part "sign_in_view_state.freezed.dart";
 
-class SignInInitialState extends SignInState {
-  @override
-  List<Object?> get props => [];
-}
-
-class SignInLoadingState extends SignInState {
-  @override
-  List<Object?> get props => [];
-}
-
-class SignInFailureState extends SignInState {
-  final String error;
-
-  SignInFailureState({required this.error});
-
-  @override
-  List<Object?> get props => [error];
-}
-
-class SignInSuccessState extends SignInState {
-  @override
-  List<Object?> get props => [];
+@freezed
+class SignInState with _$SignInState {
+  const factory SignInState(
+      {@Default(false) appleSignInAvailable,
+      @Default(false) googleSignInLoading,
+      @Default(false) appleSignInLoading,
+      @Default(false) signInSuccess,
+      String? error}) = _SignInState;
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
@@ -46,7 +48,7 @@ class AuthService {
             idToken: googleSignInAuthentication.idToken,
           );
 
-          user = await _signInWithCredentials(credential);
+          user = await signInWithCredentials(credential);
           await googleSignIn.signOut();
         }
       } catch (e) {
@@ -63,7 +65,7 @@ class AuthService {
                 idToken: credentials.idToken,
                 accessToken: credentials.accessToken);
 
-        user = await _signInWithCredentials(authCredential);
+        user = await signInWithCredentials(authCredential);
 
         await _desktopAuthManager.signOutFromGoogle(credentials.accessToken);
       } on Exception {
@@ -73,8 +75,9 @@ class AuthService {
     return user;
   }
 
-  Future<firebase_auth.User?> _signInWithCredentials(
-      firebase_auth.AuthCredential authCredential) async {
+  Future<firebase_auth.User?> signInWithCredentials(
+    firebase_auth.AuthCredential authCredential,
+  ) async {
     firebase_auth.User? user;
     try {
       final firebase_auth.UserCredential userCredential =
@@ -86,7 +89,23 @@ class AuthService {
     return user;
   }
 
-  Future<bool> signOutWithGoogle() async {
+  Future<firebase_auth.User?> signInWithApple() async {
+    final firebase_auth.UserCredential? credential;
+
+    firebase_auth.AppleAuthProvider appleProvider =
+        firebase_auth.AppleAuthProvider();
+    if (kIsWeb) {
+      credential = await firebase_auth.FirebaseAuth.instance
+          .signInWithPopup(appleProvider);
+    } else {
+      credential = await firebase_auth.FirebaseAuth.instance
+          .signInWithProvider(appleProvider);
+    }
+
+    return credential.user;
+  }
+
+  Future<bool> signOut() async {
     try {
       await firebaseAuth.signOut();
       return true;

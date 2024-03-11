@@ -39,12 +39,12 @@ void main() {
   group("Log in with google test", () {
     test("Set initial state on cancel login test", () async {
       when(authService.signInWithGoogle()).thenAnswer((_) async => null);
-      bloc.add(SignInEvent());
+      bloc.add(GoogleSignInEvent());
       expect(
           bloc.stream,
           emitsInOrder([
-            SignInLoadingState(),
-            SignInInitialState(),
+            const SignInState(googleSignInLoading: true),
+            const SignInState(googleSignInLoading: false),
           ]));
     });
 
@@ -53,12 +53,12 @@ void main() {
       when(authUser.email).thenAnswer((realInvocation) => user.email);
       when(authService.signInWithGoogle()).thenAnswer((_) async => authUser);
       when(accountService.getUser(authUser)).thenAnswer((_) async => user);
-      bloc.add(SignInEvent());
+      bloc.add(GoogleSignInEvent());
       expect(
           bloc.stream,
           emitsInOrder([
-            SignInLoadingState(),
-            SignInSuccessState(),
+            const SignInState(googleSignInLoading: true),
+            const SignInState(googleSignInLoading: false, signInSuccess: true),
           ]));
       await untilCalled(userStateNotifier.setUser(user));
       verify(userStateNotifier.setUser(user)).called(1);

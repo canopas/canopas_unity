@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -19,23 +20,44 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     this._userStateNotifier,
     this._authService,
     this._accountService,
-  ) : super(SignInInitialState()) {
-    on<SignInEvent>(_signIn);
+  ) : super(const SignInState()) {
+    on<GoogleSignInEvent>(_googleSignIn);
+    on<AppleSignInEvent>(_appleSignIn);
   }
 
-  Future<void> _signIn(SignInEvent event, Emitter<SignInState> emit) async {
-    emit(SignInLoadingState());
+  Future<void> _googleSignIn(
+      SignInEvent event, Emitter<SignInState> emit) async {
     try {
+      emit(state.copyWith(googleSignInLoading: true));
       firebase_auth.User? authUser = await _authService.signInWithGoogle();
       if (authUser != null) {
         final Account user = await _accountService.getUser(authUser);
         await _userStateNotifier.setUser(user);
-        emit(SignInSuccessState());
+        emit(state.copyWith(googleSignInLoading: false, signInSuccess: true));
       } else {
-        emit(SignInInitialState());
+        emit(state.copyWith(googleSignInLoading: false));
       }
     } on Exception {
-      emit(SignInFailureState(error: firesbaseAuthError));
+      emit(state.copyWith(
+          googleSignInLoading: false, error: firesbaseAuthError));
+    }
+  }
+
+  Future<void> _appleSignIn(
+      AppleSignInEvent event, Emitter<SignInState> emit) async {
+    try {
+      emit(state.copyWith(appleSignInLoading: true));
+      firebase_auth.User? authUser = await _authService.signInWithApple();
+      if (authUser != null) {
+        final Account user = await _accountService.getUser(authUser);
+        await _userStateNotifier.setUser(user);
+        emit(state.copyWith(appleSignInLoading: false, signInSuccess: true));
+      } else {
+        emit(state.copyWith(appleSignInLoading: false));
+      }
+    } on Exception {
+      emit(state.copyWith(
+          appleSignInLoading: false, error: somethingWentWrongError));
     }
   }
 }

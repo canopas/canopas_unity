@@ -181,9 +181,29 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
       ) as _i8.Future<_i3.User?>);
 
   @override
-  _i8.Future<bool> signOutWithGoogle() => (super.noSuchMethod(
+  _i8.Future<_i3.User?> signInWithCredentials(
+          _i3.AuthCredential? authCredential) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #signOutWithGoogle,
+          #signInWithCredentials,
+          [authCredential],
+        ),
+        returnValue: _i8.Future<_i3.User?>.value(),
+      ) as _i8.Future<_i3.User?>);
+
+  @override
+  _i8.Future<_i3.User?> signInWithApple() => (super.noSuchMethod(
+        Invocation.method(
+          #signInWithApple,
+          [],
+        ),
+        returnValue: _i8.Future<_i3.User?>.value(),
+      ) as _i8.Future<_i3.User?>);
+
+  @override
+  _i8.Future<bool> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
           [],
         ),
         returnValue: _i8.Future<bool>.value(false),

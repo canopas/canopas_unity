@@ -230,8 +230,7 @@ void main() {
   });
   group("sign out test ", () {
     test("sign out successful test with navigation test", () async {
-      when(authService.signOutWithGoogle())
-          .thenAnswer((_) => Future(() => true));
+      when(authService.signOut()).thenAnswer((_) => Future(() => true));
       bloc.add(SignOutEvent());
       expect(
           bloc.stream,
@@ -244,8 +243,7 @@ void main() {
     });
 
     test("sign out failure test", () {
-      when(authService.signOutWithGoogle())
-          .thenAnswer((_) => Future(() => false));
+      when(authService.signOut()).thenAnswer((_) => Future(() => false));
       bloc.add(SignOutEvent());
       expect(
           bloc.stream,
@@ -257,7 +255,7 @@ void main() {
     });
 
     test("sign out failure test on exception", () {
-      when(authService.signOutWithGoogle()).thenThrow(Exception(signOutError));
+      when(authService.signOut()).thenThrow(Exception(signOutError));
       bloc.add(SignOutEvent());
       expect(
           bloc.stream,

@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
+abstract class SignInEvent {}
 
-class SignInEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+class GoogleSignInEvent extends SignInEvent {}
+
+class AppleSignInEvent extends SignInEvent {}
