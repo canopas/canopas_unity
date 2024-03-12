@@ -1,6 +1,8 @@
 <p align="center"> <a href="https://canopas.com/contact"><img src="./cta/cta_banner.png"></a></p>
 
-# Unity, Leave & Employee Management - Smarter HR Solution!
+# Unity 
+
+## Leave & Employee Management - Smarter HR Solution!
 
 Welcome to Unity, your all-in-one solution for seamless leave and employee management within your organizations!
 
@@ -8,7 +10,7 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 ## Download App
 
-<img src="./cta/play-store.png" width="200"> </img> <img src="./cta/app-store.png" width="200"></img>
+<img src=""./cta/play-store.png"" width="200"></img> <img src="./cta/app-store.svg" width="200"></img>
 
 ## Features 🌟🌟
 
@@ -23,9 +25,9 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 <table>
   <tr>
-  <th width="33%" >Create/Join Space</th>
-  <th  width="33%" >Create Space</th>
-   <th  width="33%" >Admin Dashboard Screen</th>
+  <th width="32%" >Create/Join Space</th>
+  <th  width="32%" >Create Space</th>
+   <th  width="32%" >Admin Dashboard Screen</th>
   </tr>
     <tr>
   <td><img src="./screenshots/join-space.png" /></td>
@@ -36,9 +38,9 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 <table>
   <tr>
-  <th width="33%" > Admin Leaves Screen</th>
-  <th  width="33%" >Leave Approval</th>
-   <th  width="33%" >Employees Screen</th>
+  <th width="32%" > Admin Leaves Screen</th>
+  <th  width="32%" >Leave Approval</th>
+   <th  width="32%" >Employees Screen</th>
   </tr>
     <tr>
   <td><img src="./screenshots/leaves-screen.png" /></td>
@@ -50,14 +52,17 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 ## Getting Stated
 
-### Project setup
-
-Project setup instructions are given at [wiki]() section.
-
 ### Using the App
 
 To get started using Unity, refer to the User Guide for detailed information on how to navigate, create spaces, add employees, and manage leaves efficiently.
 
+> **Note**: This project use 
+> For project setup instructions, please refer to the Wiki section
+
+
+## What's next?
+
+- 
 
 ## Support 🤝
 
