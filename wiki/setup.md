@@ -1,4 +1,4 @@
-## App Guides
+## Set-up Guides
 
 #### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
 > **Note**: Flutter sdk version `'>=3.2.0 <4.0.0'` is recommended to run project.

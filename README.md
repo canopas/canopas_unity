@@ -59,12 +59,12 @@ It is an open-source cross-platform Leave management app written in Dart using F
 
 ### Using the App
 
-To get started using Unity, refer to the User Guide for detailed information on how to navigate, create spaces, add employees, and manage leaves efficiently.
+To get started using Unity, refer to the [User Guide](https://github.com/canopas/canopas_unity/blob/update-readme/wiki/user_guide.md) for detailed information on how to navigate, create spaces, add employees, and manage leaves efficiently.
 
 ### Run locally
 > **Note**: This project uses firebase realtime and firestore database and firebase authentication💥
 
- For project setup instructions, please refer to the [Wiki]() section
+ For project setup instructions, please refer to the [Set up Guide](https://github.com/canopas/canopas_unity/blob/update-readme/wiki/setup.md) section
 
 
 ## What's next?
