@@ -1,7 +1,7 @@
 ## App Guides
 
 #### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
-> **Note**: Flutter sdk vesion `'>=3.2.0 <4.0.0'` is recommended to run project.
+> **Note**: Flutter sdk version `'>=3.2.0 <4.0.0'` is recommended to run project.
 
 #### 2. Clone the repo
 ```sh
@@ -32,7 +32,7 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * Click on the Flutter Icon to add the Flutter app.
 * Follow the instructions to add the Flutter app.
 
-  <img width="1050" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/flutter_firebase_register.png">
+  <img width="1050" src="./screenshots/flutter_firebase_register.png">
 
 * It will create a `firebase_options.dart` file in the `lib` folder.
 
@@ -41,7 +41,7 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * On the top bar, Choose your project from the drop-down menu if the selected default project is not your current project.
 * Click on the "API APIs and services".
 
-  <img width="1080" alt="Screenshot 2020-05-04 at 6 01 40 PM" src="https://github.com/canopas/canopas-unity/blob/update-doc/screenshots/Google%20cloud-console.png">
+  <img width="1080" src="./screenshots/google-cloud-console.png">
 
 * On the left side menu, Select "Credentials".
 * Click on the "Web client(auto created by Google Service)".
