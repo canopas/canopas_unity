@@ -57,23 +57,26 @@ To get started using Unity, refer to the User Guide for detailed information on 
 ### Run locally
 > **Note**: This project uses firebase realtime and firestore database and firebase authentication💥
 
- For project setup instructions, please refer to the Wiki section
+ For project setup instructions, please refer to the [Wiki]() section
 
 
 ## What's next?
 
 - [ ] Show Upcoming Events(Birthdays and Work Anniversaries)
 - [ ] Implement Notification
-- [ ]  Add Custom Events in to the Calendar
+- [ ] Add Custom Events in to the Calendar
 
 ## Support 🤝
 
-We welcome and appreciate any suggestions you may have for improvement. For bugs, questions and discussions please use the Github Issues.
+We welcome and appreciate any suggestions you may have for improvement. 
+
+For bugs, questions and discussions please use the [Github Issues](https://github.com/canopas/canopas_unity/issues).
 
 
 ##  Created & Maintained By
 
 **canopas_unity** is owned and maintained by the [Canopas team](https://canopas.com/).
+
 You can follow them on Twitter at [@canopassoftware](https://twitter.com/canopassoftware) for
 project updates and releases. If you are interested in building apps or designing products, please let us know. We'd love to hear from you!
 
