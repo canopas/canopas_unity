@@ -1,8 +1,6 @@
 <p align="center"> <a href="https://canopas.com/contact"><img src="./cta/cta_banner.png"></a></p>
 
-# Unity 
-
-## Leave & Employee Management - Smarter HR Solution!
+## Unity, Leave & Employee Management - Smarter HR Solution!
 
 Welcome to Unity, your all-in-one solution for seamless leave and employee management within your organizations!
 
@@ -10,7 +8,7 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 ## Download App
 
-<img src=""./cta/play-store.png"" width="200"></img> <img src="./cta/app-store.svg" width="200"></img>
+<img src=""./cta/google-play.png"" width="200"></img> <img src="./cta/app-store.svg" width="200"></img>
 
 ## Features 🌟🌟
 
@@ -56,7 +54,7 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 To get started using Unity, refer to the User Guide for detailed information on how to navigate, create spaces, add employees, and manage leaves efficiently.
 
-> **Note**: This project use 
+> **Note**: This project uses firebase realtime and firestore database and firebase authentication💥
 > For project setup instructions, please refer to the Wiki section
 
 
