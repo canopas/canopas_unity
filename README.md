@@ -67,12 +67,6 @@ To get started using Unity, refer to the [User Guide](https://github.com/canopas
  For project setup instructions, please refer to the [Set up Guide](https://github.com/canopas/canopas_unity/blob/update-readme/wiki/setup.md) section
 
 
-## What's next?
-
-- [ ] Show Upcoming Events(Birthdays and Work Anniversaries)
-- [ ] Implement Notification
-- [ ] Add Custom Events in to the Calendar
-
 ## Support 🤝
 
 We welcome and appreciate any suggestions you may have for improvement. 
