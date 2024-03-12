@@ -13,10 +13,15 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 ## Features 🌟🌟
 
 - **Multi-Platform support**🌐: Unity gracefully adapts to your preferred platform – Android, iOS, or web, delivering a unified and professional leave management solution.
+  
 - **Space Management**🗂️: Create and manage multiple spaces effortlessly, allowing for organized leave tracking across different spaces.
+  
 - **Role-based access**🔒: Assign different roles to users, including Employees, HR and Admin, ensuring secure and efficient leave management with the right permissions.
+  
 - **Real-time Updates**🚀: Stay informed with real-time updates on leave request, approvals, and rejections, providing a transparent and efficient leave management.
+  
 - **Team Coordination**👥: Enhance team coordination by allowing users to view coworkers on leave, promoting a collaborative and informed workplace environment
+  
 - **Leave Analytics**📊: Keep a record of yearly paid leaves and overall counts.
 
 ## Screenshots
