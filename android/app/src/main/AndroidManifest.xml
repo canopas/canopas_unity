@@ -1,10 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.canopas.projectunity">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
-       android:label="projectunity"
+       android:label="Unity"
        android:name="${applicationName}"
        android:roundIcon="@mipmap/round_launcher"
-       android:icon="@mipmap/ic_launcher">
+       android:icon="@mipmap/round_launcher">
        <activity
            android:name=".MainActivity"
            android:exported="true"
