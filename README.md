@@ -56,12 +56,15 @@ To get started using Unity, refer to the User Guide for detailed information on 
 
 ### Run locally
 > **Note**: This project uses firebase realtime and firestore database and firebase authentication💥
-> For project setup instructions, please refer to the Wiki section
+
+ For project setup instructions, please refer to the Wiki section
 
 
 ## What's next?
 
-- 
+- [ ] Show Upcoming Events(Birthdays and Work Anniversaries)
+- [ ] Implement Notification
+- [ ]  Add Custom Events in to the Calendar
 
 ## Support 🤝
 
