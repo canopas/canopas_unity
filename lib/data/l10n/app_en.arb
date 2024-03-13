@@ -259,7 +259,7 @@
   "birthdays_tag":"Birthdays",
   "work_anniversaries_tag":"Work Anniversary",
   "no_event_text":"No festivities on the calendar this week",
-  "upcoming_birthday_text":"{name}'s birthday is coming up on  ",
+  "upcoming_birthday_text":"{name}'s birthday is coming up on",
   "@upcoming_birthday_text":{
      "placeholders":{
          "name":{
@@ -267,7 +267,7 @@
              }
          }
      },
-      "present_birthday_text":"Today is {name}'s birthday 🥳🥳! Let's make it sparkle with cheerful wishes!  ",
+      "present_birthday_text":"Today is {name}'s birthday 🥳🥳! Let's make it sparkle with cheerful wishes!",
           "@present_birthday_text":{
             "placeholders":{
                 "name":{
@@ -276,7 +276,7 @@
               }
           },
 
-            "upcoming_anniversary_text":"{name} will have successfully completed {years} years with us on ",
+            "upcoming_anniversary_text":"{name} will have successfully completed {years} years with us on",
             "@upcoming_anniversary_text":{
                "placeholders":{
                    "name":{
@@ -287,7 +287,7 @@
                      }
                    }
                },
-                "present_anniversary_text":"Congratulations on {years} with us {name} 💐💐! Keep up the good work!  ",
+                "present_anniversary_text":"Congratulations on {years} with us {name} 💐💐! Keep up the good work!",
                     "@present_anniversary_text":{
                       "placeholders":{
                           "name":{

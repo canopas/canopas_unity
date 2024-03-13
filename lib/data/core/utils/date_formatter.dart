@@ -91,7 +91,7 @@ class DateFormatter {
     if (dateTime.dateOnly.isAtSameMomentAs(today)) {
       return _localization.present_birthday_text(name);
     } else {
-      return "${_localization.upcoming_birthday_text(name)} ${getDateRepresentation(dateTime)}🎉";
+      return "${_localization.upcoming_birthday_text(name)} ${getDateRepresentation(dateTime).toLowerCase()}!🎂🎁";
     }
   }
 
@@ -103,7 +103,7 @@ class DateFormatter {
     if (dateTime.dateOnly.isAtSameMomentAs(today)) {
       return _localization.present_anniversary_text(name, yearDifference);
     } else {
-      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getDateRepresentation(dateTime)}🎉";
+      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getDateRepresentation(dateTime)}!🎉";
     }
   }
 
