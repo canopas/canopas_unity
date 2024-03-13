@@ -102,7 +102,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
                 children: [
                   Text(
                       calendarFormat == CalendarFormat.week
-                          ? day.toDate()
+                          ? day.toDateWithYear()
                           : day.toMonthYear(),
                       style: AppTextStyle.style18
                           .copyWith(color: context.colorScheme.textPrimary)),

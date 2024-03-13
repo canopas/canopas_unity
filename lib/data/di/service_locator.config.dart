@@ -26,7 +26,7 @@ import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart'
 import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart'
     as _i53;
 import 'package:projectunity/data/core/functions/shared_function.dart' as _i3;
-import 'package:projectunity/data/di/app_module.dart' as _i60;
+import 'package:projectunity/data/di/app_module.dart' as _i61;
 import 'package:projectunity/data/pref/user_preference.dart' as _i24;
 import 'package:projectunity/data/provider/device_info.dart' as _i8;
 import 'package:projectunity/data/provider/user_state.dart' as _i25;
@@ -58,7 +58,7 @@ import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bl
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
     as _i57;
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
-    as _i59;
+    as _i60;
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
     as _i43;
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
@@ -67,6 +67,8 @@ import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
     as _i58;
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
     as _i49;
+import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart'
+    as _i59;
 import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
     as _i50;
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
@@ -307,7 +309,9 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i15.InvitationService>(),
           gh<_i25.UserStateNotifier>(),
         ));
-    gh.factory<_i59.EmployeeDetailBloc>(() => _i59.EmployeeDetailBloc(
+    gh.factory<_i59.CelebrationsBloc>(
+        () => _i59.CelebrationsBloc(gh<_i51.EmployeeRepo>()));
+    gh.factory<_i60.EmployeeDetailBloc>(() => _i60.EmployeeDetailBloc(
           gh<_i26.AccountService>(),
           gh<_i22.SpaceService>(),
           gh<_i25.UserStateNotifier>(),
@@ -319,4 +323,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$AppModule extends _i60.AppModule {}
+class _$AppModule extends _i61.AppModule {}

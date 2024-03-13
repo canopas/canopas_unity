@@ -86,6 +86,24 @@ class DateFormatter {
     }
   }
 
+  String showBirthdays({required DateTime dateTime,required String name}){
+    final today = DateTime.now().dateOnly;
+   if(dateTime.dateOnly.isAtSameMomentAs(today)){
+      return _localization.present_birthday_text(name);
+    }else{
+      return "${_localization.upcoming_birthday_text(name)} ${getDateRepresentation(dateTime)}🎉";
+    }
+  }
+
+  String showAnniversaries({required DateTime dateTime,required String name, int? number}){
+    final today = DateTime.now().dateOnly;
+  if(dateTime.dateOnly.isAtSameMomentAs(today)){
+      return _localization.present_birthday_text(name);
+    }else{
+      return "${_localization.upcoming_birthday_text(name)} ${getDateRepresentation(dateTime)}🎉";
+    }
+  }
+
   String timeAgoPresentation(DateTime date) {
     Duration difference = today.difference(date);
     if (difference.inDays > 365) {

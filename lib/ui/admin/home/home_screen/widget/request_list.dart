@@ -39,7 +39,7 @@ class LeaveRequestList extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                DateFormatter(AppLocalizations.of(context))
+                                DateFormatter(context.l10n)
                                     .getDateRepresentation(mapEntry.key),
                                 style: AppTextStyle.style20.copyWith(
                                   color: context.colorScheme.textPrimary,

@@ -5,6 +5,8 @@ import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/admin/home/home_screen/widget/request_list.dart';
+import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
+import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
@@ -12,6 +14,7 @@ import '../../../../style/app_text_style.dart';
 import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart';
 import '../../../shared/appbar_drawer/drawer/bloc/app_drawer_event.dart';
+import '../../../shared/events/celebrations_event_card.dart';
 import '../../../shared/who_is_out_card/bloc/who_is_out_card_bloc.dart';
 import '../../../shared/who_is_out_card/who_is_out_card.dart';
 import '../../../widget/circular_progress_indicator.dart';
@@ -35,6 +38,9 @@ class AdminHomeScreenPage extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
+        BlocProvider(
+            create: (context) => getIt<CelebrationsBloc>()
+              ..add(FetchCelebrations(DateTime.now()))),
       ],
       child: const AdminHomeScreen(),
     );
@@ -77,6 +83,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       body: ListView(
         children: [
           const WhoIsOutCard(),
+          const EventCard(),
+
           const SizedBox(
             height: 20,
           ),
