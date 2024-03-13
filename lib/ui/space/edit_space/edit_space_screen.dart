@@ -243,13 +243,13 @@ class _OrgLogoView extends StatelessWidget {
             style: IconButton.styleFrom(
                 fixedSize: const Size(45, 45),
                 side: BorderSide(
-                    color: context.colorScheme.containerNormal, width: 3),
+                    color: context.colorScheme.textDisable, width: 3),
                 backgroundColor: context.colorScheme.surface),
             onPressed: onButtonTap,
             icon: Icon(
               Icons.edit,
               size: 20,
-              color: context.colorScheme.containerHigh,
+              color: context.colorScheme.textDisable,
             ),
           )
         ],

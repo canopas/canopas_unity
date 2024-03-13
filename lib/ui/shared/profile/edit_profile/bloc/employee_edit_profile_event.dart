@@ -24,6 +24,15 @@ class EditProfileNameChangedEvent extends EditProfileEvent {
   List<Object?> get props => [name];
 }
 
+class EditProfileNumberChangedEvent extends EditProfileEvent {
+  final String number;
+
+  EditProfileNumberChangedEvent({required this.number});
+
+  @override
+  List<Object?> get props => [number];
+}
+
 class EditProfileChangeDateOfBirthEvent extends EditProfileEvent {
   final DateTime? dateOfBirth;
 

@@ -1,9 +1,7 @@
-abstract class CelebrationEvent{}
+abstract class CelebrationEvent {}
 
-class FetchCelebrations extends CelebrationEvent{
-  final DateTime dateTime;
-  FetchCelebrations( this.dateTime);
- }
+class FetchCelebrations extends CelebrationEvent {}
 
- class ShowBirthdaysEvent extends CelebrationEvent{}
-class ShowAnniversariesEvent extends CelebrationEvent{}
+class ShowBirthdaysEvent extends CelebrationEvent {}
+
+class ShowAnniversariesEvent extends CelebrationEvent {}

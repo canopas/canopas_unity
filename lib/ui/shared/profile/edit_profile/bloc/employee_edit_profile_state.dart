@@ -8,6 +8,7 @@ class EmployeeEditProfileState extends Equatable {
   final Gender? gender;
   final DateTime? dateOfBirth;
   final bool nameError;
+  final bool numberError;
   final String? error;
   final String? imageURL;
 
@@ -17,15 +18,17 @@ class EmployeeEditProfileState extends Equatable {
     this.status = Status.initial,
     this.error,
     this.nameError = false,
+    this.numberError = false,
     this.imageURL,
   });
 
-  bool get isDataValid => !nameError;
+  bool get isDataValid => !nameError && !numberError;
 
   EmployeeEditProfileState copyWith({
     Gender? gender,
     DateTime? dateOfBirth,
     bool? nameError,
+    bool? numberError,
     String? error,
     Status? status,
     String? imageURL,
@@ -35,6 +38,7 @@ class EmployeeEditProfileState extends Equatable {
         dateOfBirth: dateOfBirth ?? this.dateOfBirth,
         error: error,
         nameError: nameError ?? this.nameError,
+        numberError: numberError ?? this.numberError,
         status: status ?? this.status,
         imageURL: imageURL ?? this.imageURL);
   }
@@ -44,6 +48,7 @@ class EmployeeEditProfileState extends Equatable {
       status: status,
       dateOfBirth: dateOfBirth,
       nameError: nameError,
+      numberError: numberError,
       error: error,
       gender: gender,
       imageURL: imageURL,
@@ -55,6 +60,7 @@ class EmployeeEditProfileState extends Equatable {
       status: status,
       dateOfBirth: dateOfBirth,
       nameError: nameError,
+      numberError: numberError,
       error: error,
       gender: gender,
       imageURL: imageURL,
@@ -63,5 +69,5 @@ class EmployeeEditProfileState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [gender, dateOfBirth, status, nameError, error, imageURL];
+      [gender, dateOfBirth, status, nameError, numberError, error, imageURL];
 }

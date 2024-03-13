@@ -1,12 +1,8 @@
-import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/date_formatter.dart';
-import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/widget_extension.dart';
 import 'package:projectunity/data/core/utils/date_formatter.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
@@ -17,7 +13,6 @@ import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 
 import '../../../data/core/utils/bloc_status.dart';
-import '../../../data/model/employee/employee.dart';
 import '../../../style/app_text_style.dart';
 import 'model/event.dart';
 
@@ -61,23 +56,23 @@ class _EventCardState extends State<EventCard> {
                     if (state.status == Status.loading) {
                       return const AppCircularProgressIndicator();
                     } else if (state.status == Status.success) {
-
-                        return Column(
-                          children: [
-                            EventsList(
-                              header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
-                              events: state.birthdays,
-                              expanded: state.showAllBdays,
-                              isAnniversary: false,
-                            ),
-                            EventsList(
-                              header: "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
-                              events: state.anniversaries,
-                              expanded: state.showAllAnniversaries,
-                              isAnniversary: true,
-                            )
-                          ],
-                        );
+                      return Column(
+                        children: [
+                          EventsList(
+                            header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
+                            events: state.birthdays,
+                            expanded: state.showAllBdays,
+                            isAnniversary: false,
+                          ),
+                          EventsList(
+                            header:
+                                "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
+                            events: state.anniversaries,
+                            expanded: state.showAllAnniversaries,
+                            isAnniversary: true,
+                          )
+                        ],
+                      );
                     }
                     return const SizedBox();
                   },
@@ -112,7 +107,7 @@ class EventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0,right: 16,bottom: 16),
+      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -122,7 +117,7 @@ class EventsList extends StatelessWidget {
               Text(
                 header,
                 style: AppTextStyle.style18.copyWith(
-                    color: context.colorScheme.textPrimary,
+                    color: context.colorScheme.primary,
                     fontWeight: FontWeight.w700),
               ),
               Container(
@@ -157,20 +152,22 @@ class EventsList extends StatelessWidget {
               })
             ],
           ),
-          const SizedBox(height: 16,),
-          events.isEmpty?
-          const EmptyCelebrationCard():   Column(
-            children:
-            events.map((event) {
-              return expanded
-                  ? AllEventCard(
-                      imageUrl: event.imageUrl,
-                      name: event.name,
-                      date: event.dateTime)
-                  : CurrentWeekEventCard(
-                      event: event, isAnniversary: isAnniversary);
-            }).toList(),
+          const SizedBox(
+            height: 16,
           ),
+          events.isEmpty
+              ? const EmptyCelebrationCard()
+              : Column(
+                  children: events.map((event) {
+                    return expanded
+                        ? AllEventCard(
+                            imageUrl: event.imageUrl,
+                            name: event.name,
+                            date: event.dateTime)
+                        : CurrentWeekEventCard(
+                            event: event, isAnniversary: isAnniversary);
+                  }).toList(),
+                ),
         ],
       ),
     );
@@ -189,7 +186,7 @@ class CurrentWeekEventCard extends StatelessWidget {
     return Container(
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric( vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
             color: context.colorScheme.containerLow,
             borderRadius: AppTheme.commonBorderRadius),
@@ -258,7 +255,10 @@ class EmptyCelebrationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(context.l10n.no_event_text,style: AppTextStyle.style16.copyWith(color: context.colorScheme.textSecondary),);
+    return Text(
+      context.l10n.no_event_text,
+      style: AppTextStyle.style16
+          .copyWith(color: context.colorScheme.textSecondary),
+    );
   }
 }
-

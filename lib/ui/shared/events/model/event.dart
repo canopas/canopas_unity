@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 
-class Event {
+class Event extends Equatable {
   final String name;
   final String? imageUrl;
-  DateTime dateTime;
+  final DateTime dateTime;
 
-  Event({required this.name, required this.dateTime, this.imageUrl}) {
-    dateTime = DateUtils.dateOnly(dateTime);
-  }
+  const Event({required this.name, required this.dateTime, this.imageUrl});
+
+  @override
+  List<Object?> get props => [name, imageUrl, dateTime];
 }

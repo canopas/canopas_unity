@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CelebrationsState {
   Status get status => throw _privateConstructorUsedError;
-  DateTime get currentWeek => throw _privateConstructorUsedError;
   bool get showAllBdays => throw _privateConstructorUsedError;
   bool get showAllAnniversaries => throw _privateConstructorUsedError;
   List<Event> get birthdays => throw _privateConstructorUsedError;
@@ -37,7 +36,6 @@ abstract class $CelebrationsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Status status,
-      DateTime currentWeek,
       bool showAllBdays,
       bool showAllAnniversaries,
       List<Event> birthdays,
@@ -59,7 +57,6 @@ class _$CelebrationsStateCopyWithImpl<$Res, $Val extends CelebrationsState>
   @override
   $Res call({
     Object? status = null,
-    Object? currentWeek = null,
     Object? showAllBdays = null,
     Object? showAllAnniversaries = null,
     Object? birthdays = null,
@@ -71,10 +68,6 @@ class _$CelebrationsStateCopyWithImpl<$Res, $Val extends CelebrationsState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      currentWeek: null == currentWeek
-          ? _value.currentWeek
-          : currentWeek // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       showAllBdays: null == showAllBdays
           ? _value.showAllBdays
           : showAllBdays // ignore: cast_nullable_to_non_nullable
@@ -109,7 +102,6 @@ abstract class _$$CelebrationsStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Status status,
-      DateTime currentWeek,
       bool showAllBdays,
       bool showAllAnniversaries,
       List<Event> birthdays,
@@ -129,7 +121,6 @@ class __$$CelebrationsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? currentWeek = null,
     Object? showAllBdays = null,
     Object? showAllAnniversaries = null,
     Object? birthdays = null,
@@ -141,10 +132,6 @@ class __$$CelebrationsStateImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      currentWeek: null == currentWeek
-          ? _value.currentWeek
-          : currentWeek // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       showAllBdays: null == showAllBdays
           ? _value.showAllBdays
           : showAllBdays // ignore: cast_nullable_to_non_nullable
@@ -174,7 +161,6 @@ class __$$CelebrationsStateImplCopyWithImpl<$Res>
 class _$CelebrationsStateImpl implements _CelebrationsState {
   const _$CelebrationsStateImpl(
       {this.status = Status.initial,
-      required this.currentWeek,
       this.showAllBdays = false,
       this.showAllAnniversaries = false,
       final List<Event> birthdays = const [],
@@ -186,8 +172,6 @@ class _$CelebrationsStateImpl implements _CelebrationsState {
   @override
   @JsonKey()
   final Status status;
-  @override
-  final DateTime currentWeek;
   @override
   @JsonKey()
   final bool showAllBdays;
@@ -217,7 +201,7 @@ class _$CelebrationsStateImpl implements _CelebrationsState {
 
   @override
   String toString() {
-    return 'CelebrationsState(status: $status, currentWeek: $currentWeek, showAllBdays: $showAllBdays, showAllAnniversaries: $showAllAnniversaries, birthdays: $birthdays, anniversaries: $anniversaries, error: $error)';
+    return 'CelebrationsState(status: $status, showAllBdays: $showAllBdays, showAllAnniversaries: $showAllAnniversaries, birthdays: $birthdays, anniversaries: $anniversaries, error: $error)';
   }
 
   @override
@@ -226,8 +210,6 @@ class _$CelebrationsStateImpl implements _CelebrationsState {
         (other.runtimeType == runtimeType &&
             other is _$CelebrationsStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.currentWeek, currentWeek) ||
-                other.currentWeek == currentWeek) &&
             (identical(other.showAllBdays, showAllBdays) ||
                 other.showAllBdays == showAllBdays) &&
             (identical(other.showAllAnniversaries, showAllAnniversaries) ||
@@ -243,7 +225,6 @@ class _$CelebrationsStateImpl implements _CelebrationsState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
-      currentWeek,
       showAllBdays,
       showAllAnniversaries,
       const DeepCollectionEquality().hash(_birthdays),
@@ -261,7 +242,6 @@ class _$CelebrationsStateImpl implements _CelebrationsState {
 abstract class _CelebrationsState implements CelebrationsState {
   const factory _CelebrationsState(
       {final Status status,
-      required final DateTime currentWeek,
       final bool showAllBdays,
       final bool showAllAnniversaries,
       final List<Event> birthdays,
@@ -270,8 +250,6 @@ abstract class _CelebrationsState implements CelebrationsState {
 
   @override
   Status get status;
-  @override
-  DateTime get currentWeek;
   @override
   bool get showAllBdays;
   @override

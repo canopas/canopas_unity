@@ -420,6 +420,7 @@
   "fill_require_details_error": "Please fill required details!",
   "invalid_date_selection_error": "Please select valid date",
   "apply_leave_minimum_one_hour_error": "Please apply leave for minimum half day",
+  "invalid_mobile_number_error":"Please enter valid phone number",
   "add_member_employee_exists_error": "Member already exists!",
   "leave_already_applied_error_message": "Leave request has been already applied!",
   "provide_required_information": "Please provide the required information to continue",

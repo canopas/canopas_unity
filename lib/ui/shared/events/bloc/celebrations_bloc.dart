@@ -17,18 +17,17 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
   List<Employee> employees = [];
   List<Event> allBirthdayEvents = [];
   List<Event> allAnniversaryEvents = [];
-  List<Event> currentWeekBday=[];
-  List<Event> currentWeekAnniversaries=[];
+  List<Event> currentWeekBday = [];
+  List<Event> currentWeekAnniversaries = [];
 
-  CelebrationsBloc(this._employeeRepo)
-      : super(CelebrationsState(currentWeek: DateTime.now())) {
+  CelebrationsBloc(this._employeeRepo) : super(const CelebrationsState()) {
     on<FetchCelebrations>(_fetchEvent);
     on<ShowBirthdaysEvent>(_showAllBirthdays);
     on<ShowAnniversariesEvent>(_showAllAnniversaries);
   }
 
-  Future<void> _fetchEvent(FetchCelebrations event,
-      Emitter<CelebrationsState> emit) async {
+  Future<void> _fetchEvent(
+      FetchCelebrations event, Emitter<CelebrationsState> emit) async {
     try {
       emit(state.copyWith(status: Status.loading));
       employees = _employeeRepo.allEmployees
@@ -37,33 +36,37 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
       employees = employees.map((e) {
         if (e.dateOfBirth != null) {
           final birthdate = e.dateOfBirth!.convertToUpcomingDay();
-          final Event event =
-          Event(name: e.name, dateTime: birthdate, imageUrl: e.imageUrl);
+          final Event event = Event(
+              name: e.name,
+              dateTime: DateUtils.dateOnly(birthdate),
+              imageUrl: e.imageUrl);
           allBirthdayEvents.add(event);
         }
         final joiningDate = e.dateOfJoining.convertToUpcomingDay();
-        final Event event =
-        Event(name: e.name, dateTime: joiningDate, imageUrl: e.imageUrl);
+        final Event event = Event(
+            name: e.name,
+            dateTime: DateUtils.dateOnly(joiningDate),
+            imageUrl: e.imageUrl);
         allAnniversaryEvents.add(event);
         return e;
       }).toList();
       allBirthdayEvents.sort((a, b) => a.dateTime.compareTo(b.dateTime));
       allAnniversaryEvents.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
-
       currentWeekBday = _getBirthdays();
-       currentWeekAnniversaries = _getAnniversaries();
-      emit(state
-          .copyWith(status: Status.success, birthdays: currentWeekBday,
-          anniversaries:currentWeekAnniversaries));
+      currentWeekAnniversaries = _getAnniversaries();
+      emit(state.copyWith(
+          status: Status.success,
+          birthdays: currentWeekBday,
+          anniversaries: currentWeekAnniversaries));
     } on Exception {
       emit(
           state.copyWith(status: Status.error, error: firestoreFetchDataError));
     }
   }
 
-  void _showAllBirthdays(ShowBirthdaysEvent event,
-      Emitter<CelebrationsState> emit) {
+  void _showAllBirthdays(
+      ShowBirthdaysEvent event, Emitter<CelebrationsState> emit) {
     bool showAllBirthdays = !state.showAllBdays;
     if (showAllBirthdays) {
       emit(state.copyWith(
@@ -74,8 +77,8 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
     }
   }
 
-  void _showAllAnniversaries(ShowAnniversariesEvent event,
-      Emitter<CelebrationsState> emit) {
+  void _showAllAnniversaries(
+      ShowAnniversariesEvent event, Emitter<CelebrationsState> emit) {
     bool allAnniversaries = !state.showAllAnniversaries;
     if (allAnniversaries) {
       emit(state.copyWith(
@@ -90,16 +93,16 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
 
   List<Event> _getBirthdays() {
     final List<Event> birthdays = allBirthdayEvents.where((event) {
-      return event.dateTime.isDateInCurrentWeek(
-          DateUtils.dateOnly(DateTime.now()));
+      return event.dateTime
+          .isDateInCurrentWeek(DateUtils.dateOnly(DateTime.now()));
     }).toList();
     return birthdays;
   }
 
   List<Event> _getAnniversaries() {
     final List<Event> anniversaries = allAnniversaryEvents.where((event) {
-      return event.dateTime.isDateInCurrentWeek(
-          DateUtils.dateOnly(DateTime.now()));
+      return event.dateTime
+          .isDateInCurrentWeek(DateUtils.dateOnly(DateTime.now()));
     }).toList();
     return anniversaries;
   }

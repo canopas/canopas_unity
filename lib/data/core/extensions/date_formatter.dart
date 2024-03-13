@@ -10,9 +10,10 @@ extension DateExtension on DateTime {
   String toMonthYear() {
     return DateFormat("MMMM, yyyy").format(this);
   }
+
   String toDateWithoutYear(BuildContext context) {
-    final today= DateUtils.dateOnly(DateTime.now());
-    if(isAtSameMomentAs(today)){
+    final today = DateUtils.dateOnly(DateTime.now());
+    if (isAtSameMomentAs(today)) {
       return context.l10n.dateFormatter_today;
     }
     return DateFormat("MMMM d, EEE").format(this);

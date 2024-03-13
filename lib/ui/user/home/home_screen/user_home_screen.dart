@@ -4,6 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_page.dart';
+import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
+import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/events/celebrations_event_card.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_event.dart';
@@ -37,6 +39,8 @@ class UserHomeScreenPage extends StatelessWidget {
         BlocProvider(
             create: (_) =>
                 getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
+        BlocProvider(
+            create: (_) => getIt<CelebrationsBloc>()..add(FetchCelebrations())),
       ],
       child: const UserHomeScreen(),
     );
@@ -79,7 +83,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         body: ListView(
           children: [
             const WhoIsOutCard(),
-             const EventCard(),
+            const EventCard(),
             BlocConsumer<UserHomeBloc, UserHomeState>(
                 buildWhen: (previous, current) =>
                     current is! UserHomeErrorState,

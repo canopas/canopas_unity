@@ -39,8 +39,8 @@ class AdminHomeScreenPage extends StatelessWidget {
             create: (context) =>
                 getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
         BlocProvider(
-            create: (context) => getIt<CelebrationsBloc>()
-              ..add(FetchCelebrations(DateTime.now()))),
+            create: (context) =>
+                getIt<CelebrationsBloc>()..add(FetchCelebrations())),
       ],
       child: const AdminHomeScreen(),
     );
@@ -84,7 +84,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         children: [
           const WhoIsOutCard(),
           const EventCard(),
-
           const SizedBox(
             height: 20,
           ),

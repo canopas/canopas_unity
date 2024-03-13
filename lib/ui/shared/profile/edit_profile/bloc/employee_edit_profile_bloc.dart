@@ -26,6 +26,7 @@ class EmployeeEditProfileBloc
       : super(const EmployeeEditProfileState()) {
     on<EditProfileInitialLoadEvent>(_init);
     on<EditProfileNameChangedEvent>(_validName);
+    on<EditProfileNumberChangedEvent>(_validNumber);
     on<EditProfileChangeDateOfBirthEvent>(_changeDateOfBirth);
     on<EditProfileChangeGenderEvent>(_changeGender);
     on<EditProfileUpdateProfileEvent>(_updateEmployeeDetails);
@@ -48,6 +49,15 @@ class EmployeeEditProfileBloc
       emit(state.copyWith(nameError: false));
     } else {
       emit(state.copyWith(nameError: true));
+    }
+  }
+
+  void _validNumber(EditProfileNumberChangedEvent event,
+      Emitter<EmployeeEditProfileState> emit) {
+    if (validPhoneNumber(event.number)) {
+      emit(state.copyWith(numberError: false));
+    } else {
+      emit(state.copyWith(numberError: true));
     }
   }
 
