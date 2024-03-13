@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -39,7 +38,7 @@ class LeaveRequestList extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                DateFormatter(AppLocalizations.of(context))
+                                DateFormatter(context.l10n)
                                     .getDateRepresentation(mapEntry.key),
                                 style: AppTextStyle.style20.copyWith(
                                   color: context.colorScheme.textPrimary,

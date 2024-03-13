@@ -72,11 +72,23 @@ class ProfileForm extends StatelessWidget {
         FieldTitle(title: localization.employee_gender_tag),
         const GenderSelection(),
         FieldTitle(title: localization.employee_mobile_tag),
-        FieldEntry(
-          keyboardType: TextInputType.phone,
-          controller: phoneNumberController,
-          hintText: localization.admin_home_add_member_mobile_number_hint_text,
-        ),
+        BlocBuilder<EmployeeEditProfileBloc, EmployeeEditProfileState>(
+            buildWhen: (previous, current) =>
+                previous.numberError != current.numberError,
+            builder: (context, state) {
+              return FieldEntry(
+                maxLength: 13,
+                errorText: state.numberError
+                    ? context.l10n.invalid_mobile_number_error
+                    : null,
+                keyboardType: TextInputType.phone,
+                controller: phoneNumberController,
+                hintText:
+                    localization.admin_home_add_member_mobile_number_hint_text,
+                onChanged: (value) =>
+                    bloc.add(EditProfileNumberChangedEvent(number: value)),
+              );
+            }),
         FieldTitle(title: localization.employee_address_tag),
         FieldEntry(
           maxLine: 3,

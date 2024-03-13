@@ -35,6 +35,7 @@
   "all_tag": "All",
   "ok_tag": "OK",
   "profile_tag": "Profile",
+  "view_all_tag":"View All",
 
 
   "spaces_title": "Spaces",
@@ -254,6 +255,52 @@
   "admin_home_add_member_blood_group_hint_text": "B+",
   "admin_home_add_member_address_hint_text": "552_554, Laxmi Enclave-2, Katargam, surat-395004",
 
+  "event_card_title":"Celebrations of the Week",
+  "birthdays_tag":"Birthdays",
+  "work_anniversaries_tag":"Work Anniversary",
+  "no_event_text":"No festivities on the calendar this week",
+  "upcoming_birthday_text":"{name}'s birthday is coming up on  ",
+  "@upcoming_birthday_text":{
+     "placeholders":{
+         "name":{
+             "type":"String"
+             }
+         }
+     },
+      "present_birthday_text":"Today is {name}'s birthday 🥳🥳! Let's make it sparkle with cheerful wishes!  ",
+          "@present_birthday_text":{
+            "placeholders":{
+                "name":{
+                 "type":"String"
+                 }
+              }
+          },
+
+            "upcoming_anniversary_text":"{name} will have successfully completed {years} years with us on ",
+            "@upcoming_anniversary_text":{
+               "placeholders":{
+                   "name":{
+                       "type":"String"
+                       },
+                   "years":{
+                       "type":"int"
+                     }
+                   }
+               },
+                "present_anniversary_text":"Congratulations on {years} with us {name} 💐💐! Keep up the good work!  ",
+                    "@present_anniversary_text":{
+                      "placeholders":{
+                          "name":{
+                           "type":"String"
+                           },
+                           "years":{
+                            "type":"int"
+                           }
+                        }
+                    },
+
+
+
   "search_employee_tag": "Search employee",
   "empty_leaves_message": "There is no any leaves, yet",
 
@@ -373,6 +420,7 @@
   "fill_require_details_error": "Please fill required details!",
   "invalid_date_selection_error": "Please select valid date",
   "apply_leave_minimum_one_hour_error": "Please apply leave for minimum half day",
+  "invalid_mobile_number_error":"Please enter valid phone number",
   "add_member_employee_exists_error": "Member already exists!",
   "leave_already_applied_error_message": "Leave request has been already applied!",
   "provide_required_information": "Please provide the required information to continue",

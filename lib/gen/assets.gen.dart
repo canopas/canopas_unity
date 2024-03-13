@@ -50,6 +50,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/pencil-square.svg
   String get pencilSquare => 'assets/images/pencil-square.svg';
 
+  /// File path: assets/images/round_logo.svg
+  String get roundLogo => 'assets/images/round_logo.svg';
+
   /// File path: assets/images/users_filled.svg
   String get usersFilled => 'assets/images/users_filled.svg';
 
@@ -67,6 +70,7 @@ class $AssetsImagesGen {
         icUsers,
         officeGrowth,
         pencilSquare,
+        roundLogo,
         usersFilled
       ];
 }

@@ -42,7 +42,7 @@ class ProfileImage extends StatelessWidget {
         children: [
           CircleAvatar(
               radius: 70,
-              backgroundColor: context.colorScheme.containerNormal,
+              backgroundColor: context.colorScheme.containerHigh,
               child: BlocConsumer<PickImageBloc, PickImageState>(
                   listener: (context, state) {
                     if (state.isPickImageDone && state.pickedImage != null) {
@@ -79,7 +79,7 @@ class ProfileImage extends StatelessWidget {
               mini: true,
               child: Icon(
                 Icons.edit,
-                color: context.colorScheme.containerHigh,
+                color: context.colorScheme.textDisable,
               )),
         ],
       ),

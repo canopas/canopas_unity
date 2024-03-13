@@ -10,4 +10,10 @@ mixin InputValidationMixin {
       email.length >= 4 &&
       email.contains('@') &&
       email.contains('.');
+
+  bool validPhoneNumber(String? number) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10}$)';
+    RegExp regExp = RegExp(pattern);
+    return number != null && regExp.hasMatch(number);
+  }
 }

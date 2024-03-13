@@ -17,6 +17,14 @@ extension DateExtention on int {
 extension TimestampExtension on DateTime {
   int get futureDateSelectionYear => year + 2;
 
+  bool isDateInCurrentWeek(DateTime currentDate) =>
+      month == currentDate.month &&
+      day >= currentDate.day &&
+      day <=
+          currentDate
+              .add(Duration(days: DateTime.daysPerWeek - currentDate.weekday))
+              .day;
+
   bool isBeforeOrSame(DateTime date) =>
       isBefore(date) || isAtSameMomentAs(date);
 
@@ -25,6 +33,16 @@ extension TimestampExtension on DateTime {
   int get timeStampToInt => millisecondsSinceEpoch;
 
   DateTime get dateOnly => DateUtils.dateOnly(this);
+
+  DateTime convertToUpcomingDay() {
+    DateTime now = DateUtils.dateOnly(DateTime.now());
+    DateTime targetDate = DateUtils.dateOnly(DateTime(now.year, month, day));
+    if (targetDate.areSameOrUpcoming(now)) {
+      return targetDate;
+    } else {
+      return DateUtils.dateOnly(DateTime(now.year + 1, month, day));
+    }
+  }
 
   bool get isWeekend =>
       weekday == DateTime.sunday || weekday == DateTime.saturday;
