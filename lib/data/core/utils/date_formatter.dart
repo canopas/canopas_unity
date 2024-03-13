@@ -97,10 +97,12 @@ class DateFormatter {
 
   String showAnniversaries({required DateTime dateTime,required String name, int? number}){
     final today = DateTime.now().dateOnly;
+    final difference= dateTime.difference(today);
+    int yearDifference= (difference.inDays/365).floor();
   if(dateTime.dateOnly.isAtSameMomentAs(today)){
-      return _localization.present_birthday_text(name);
+      return _localization.present_anniversary_text(name, yearDifference);
     }else{
-      return "${_localization.upcoming_birthday_text(name)} ${getDateRepresentation(dateTime)}🎉";
+      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getDateRepresentation(dateTime)}🎉";
     }
   }
 

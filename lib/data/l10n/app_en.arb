@@ -287,7 +287,7 @@
                      }
                    }
                },
-                "present_anniversary_text":"Congratulations on {years} with us {name}! Keep up the good work!  ",
+                "present_anniversary_text":"Congratulations on {years} with us {name} 💐💐! Keep up the good work!  ",
                     "@present_anniversary_text":{
                       "placeholders":{
                           "name":{
