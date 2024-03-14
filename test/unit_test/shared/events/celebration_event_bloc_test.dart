@@ -45,11 +45,13 @@ void main() {
 
   Event event = Event(
       name: employee1.name,
-      dateTime: employee1.dateOfBirth!.convertToUpcomingDay(),
+      dateTime: employee1.dateOfBirth!,
+      upcomingDate: employee1.dateOfBirth!.convertToUpcomingDay(),
       imageUrl: employee1.imageUrl);
   Event event2 = Event(
       name: employee2.name,
-      dateTime: employee2.dateOfBirth!.convertToUpcomingDay(),
+      dateTime: employee2.dateOfBirth!,
+      upcomingDate: employee2.dateOfBirth!.convertToUpcomingDay(),
       imageUrl: employee2.imageUrl);
 
   setUp(() {

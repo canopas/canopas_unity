@@ -38,19 +38,26 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
           final birthdate = e.dateOfBirth!.convertToUpcomingDay();
           final Event event = Event(
               name: e.name,
-              dateTime: DateUtils.dateOnly(birthdate),
+              dateTime: DateUtils.dateOnly(e.dateOfBirth!),
+              upcomingDate: DateUtils.dateOnly(birthdate),
               imageUrl: e.imageUrl);
           allBirthdayEvents.add(event);
         }
-        final Event event = Event(
-            name: e.name,
-            dateTime: DateUtils.dateOnly(e.dateOfJoining),
-            imageUrl: e.imageUrl);
-        allAnniversaryEvents.add(event);
+        if (e.role != Role.admin) {
+          final upcomingDate = e.dateOfJoining.convertToUpcomingDay();
+          final Event event = Event(
+              name: e.name,
+              dateTime: DateUtils.dateOnly(e.dateOfJoining),
+              upcomingDate: DateUtils.dateOnly(upcomingDate),
+              imageUrl: e.imageUrl);
+          allAnniversaryEvents.add(event);
+        }
         return e;
       }).toList();
-      allBirthdayEvents.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-      allAnniversaryEvents.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+      allBirthdayEvents
+          .sort((a, b) => a.upcomingDate.compareTo(b.upcomingDate));
+      allAnniversaryEvents
+          .sort((a, b) => a.upcomingDate.compareTo(b.upcomingDate));
 
       currentWeekBday = _getBirthdays();
       currentWeekAnniversaries = _getAnniversaries();

@@ -163,7 +163,7 @@ class EventsList extends StatelessWidget {
                         ? AllEventCard(
                             imageUrl: event.imageUrl,
                             name: event.name,
-                            date: event.dateTime)
+                            date: event.upcomingDate)
                         : CurrentWeekEventCard(
                             event: event, isAnniversary: isAnniversary);
                   }).toList(),
@@ -200,7 +200,9 @@ class CurrentWeekEventCard extends StatelessWidget {
             Expanded(
                 child: Text(isAnniversary
                     ? DateFormatter(context.l10n).showAnniversaries(
-                        dateOfJoining: event.dateTime, name: event.name)
+                        dateOfJoining: event.dateTime,
+                        upcomingDate: event.upcomingDate,
+                        name: event.name)
                     : DateFormatter(context.l10n).showBirthdays(
                         dateTime: event.dateTime, name: event.name))),
           ],
