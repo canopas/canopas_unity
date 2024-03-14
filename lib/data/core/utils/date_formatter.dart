@@ -96,14 +96,15 @@ class DateFormatter {
   }
 
   String showAnniversaries(
-      {required DateTime dateTime, required String name, int? number}) {
+      {required DateTime dateOfJoining, required String name, int? number}) {
     final today = DateTime.now().dateOnly;
-    final difference = dateTime.difference(today);
-    int yearDifference = (difference.inDays / 365).floor();
-    if (dateTime.dateOnly.isAtSameMomentAs(today)) {
+    final difference = dateOfJoining.difference(today);
+    int yearDifference = (difference.inDays / 365).floor().abs();
+    final upcomingAnniversaryDate = dateOfJoining.convertToUpcomingDay();
+    if (upcomingAnniversaryDate.isAtSameMomentAs(today)) {
       return _localization.present_anniversary_text(name, yearDifference);
     } else {
-      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getDateRepresentation(dateTime)}!🎉";
+      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getDateRepresentation(upcomingAnniversaryDate).toLowerCase()}!🎉";
     }
   }
 

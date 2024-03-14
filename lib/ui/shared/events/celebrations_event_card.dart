@@ -121,7 +121,7 @@ class EventsList extends StatelessWidget {
                     fontWeight: FontWeight.w700),
               ),
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     border:
@@ -129,7 +129,7 @@ class EventsList extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(context.l10n.view_all_tag,
-                        style: AppTextStyle.style18.copyWith(
+                        style: AppTextStyle.style16.copyWith(
                             color: expanded
                                 ? context.colorScheme.textPrimary
                                 : context.colorScheme.primary)),
@@ -185,7 +185,7 @@ class CurrentWeekEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
             color: context.colorScheme.containerLow,
@@ -193,14 +193,14 @@ class CurrentWeekEventCard extends StatelessWidget {
         child: Row(
           children: [
             ImageProfile(
-              radius: 16,
+              radius: 20,
               imageUrl: event.imageUrl,
             ),
             const SizedBox(width: 10),
             Expanded(
                 child: Text(isAnniversary
                     ? DateFormatter(context.l10n).showAnniversaries(
-                        dateTime: event.dateTime, name: event.name)
+                        dateOfJoining: event.dateTime, name: event.name)
                     : DateFormatter(context.l10n).showBirthdays(
                         dateTime: event.dateTime, name: event.name))),
           ],
@@ -223,28 +223,32 @@ class AllEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          ImageProfile(radius: 16, imageUrl: imageUrl),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                date.toDateWithoutYear(context),
-                style: AppTextStyle.style16.copyWith(
-                    color: context.colorScheme.textPrimary,
-                    fontWeight: FontWeight.w600,
-                    height: 1.5),
-              ),
-              Text(
-                name,
-                style: AppTextStyle.style16
-                    .copyWith(color: context.colorScheme.textSecondary),
-              )
-            ],
-          )
-        ],
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+            color: context.colorScheme.containerLow,
+            borderRadius: AppTheme.commonBorderRadius),
+        child: Row(
+          children: [
+            ImageProfile(radius: 20, imageUrl: imageUrl),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  date.toDateWithoutYear(context),
+                  style: AppTextStyle.style16.copyWith(
+                      color: context.colorScheme.textPrimary, height: 1.5),
+                ),
+                Text(
+                  name,
+                  style: AppTextStyle.style14
+                      .copyWith(color: context.colorScheme.textSecondary),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

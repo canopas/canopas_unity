@@ -42,10 +42,9 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
               imageUrl: e.imageUrl);
           allBirthdayEvents.add(event);
         }
-        final joiningDate = e.dateOfJoining.convertToUpcomingDay();
         final Event event = Event(
             name: e.name,
-            dateTime: DateUtils.dateOnly(joiningDate),
+            dateTime: DateUtils.dateOnly(e.dateOfJoining),
             imageUrl: e.imageUrl);
         allAnniversaryEvents.add(event);
         return e;

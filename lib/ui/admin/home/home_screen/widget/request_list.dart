@@ -26,30 +26,24 @@ class LeaveRequestList extends StatelessWidget {
                 header: Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: primaryHorizontalSpacing),
-                    padding: const EdgeInsets.symmetric(
-                            horizontal: primaryHorizontalSpacing)
-                        .copyWith(top: primaryHalfSpacing),
+                    padding: const EdgeInsets.only(
+                        top: primaryHalfSpacing,
+                        bottom: primaryHorizontalSpacing),
                     decoration:
                         BoxDecoration(color: context.colorScheme.surface),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                                DateFormatter(context.l10n)
-                                    .getDateRepresentation(mapEntry.key),
-                                style: AppTextStyle.style20.copyWith(
-                                  color: context.colorScheme.textPrimary,
-                                )),
-                            Text(
-                              mapEntry.value.length.toString(),
-                              style: AppTextStyle.style20,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 16),
+                        Text(
+                            DateFormatter(context.l10n)
+                                .getDateRepresentation(mapEntry.key),
+                            style: AppTextStyle.style20.copyWith(
+                              color: context.colorScheme.textPrimary,
+                            )),
+                        Text(
+                          mapEntry.value.length.toString(),
+                          style: AppTextStyle.style20,
+                        )
                       ],
                     )),
                 content: Padding(
