@@ -43,13 +43,15 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
               imageUrl: e.imageUrl);
           allBirthdayEvents.add(event);
         }
-        final upcomingDate = e.dateOfJoining.convertToUpcomingDay();
-        final Event event = Event(
-            name: e.name,
-            dateTime: DateUtils.dateOnly(e.dateOfJoining),
-            upcomingDate: DateUtils.dateOnly(upcomingDate),
-            imageUrl: e.imageUrl);
-        allAnniversaryEvents.add(event);
+        if (e.role != Role.admin) {
+          final upcomingDate = e.dateOfJoining.convertToUpcomingDay();
+          final Event event = Event(
+              name: e.name,
+              dateTime: DateUtils.dateOnly(e.dateOfJoining),
+              upcomingDate: DateUtils.dateOnly(upcomingDate),
+              imageUrl: e.imageUrl);
+          allAnniversaryEvents.add(event);
+        }
         return e;
       }).toList();
       allBirthdayEvents
