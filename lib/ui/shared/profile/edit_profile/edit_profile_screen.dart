@@ -80,7 +80,10 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
               previous.status != current.status ||
               previous.isDataValid != current.isDataValid,
           builder: (context, state) => state.status == Status.loading
-              ? const AppCircularProgressIndicator(size: 20)
+              ? const Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: AppCircularProgressIndicator(size: 20),
+                )
               : TextButton(
                   onPressed: state.isDataValid
                       ? () {
