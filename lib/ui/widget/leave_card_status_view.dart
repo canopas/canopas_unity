@@ -7,10 +7,12 @@ class LeaveStatusView extends StatelessWidget {
   final double verticalPadding;
   final double horizontalPadding;
   final LeaveStatus status;
+  final LeaveType? leaveType;
 
   const LeaveStatusView(
       {super.key,
       required this.status,
+      this.leaveType,
       this.verticalPadding = 4,
       this.horizontalPadding = 10});
 
@@ -27,6 +29,22 @@ class LeaveStatusView extends StatelessWidget {
           style: AppTextStyle.style16
               .copyWith(color: leaveStatusColor(status, context)),
         ),
+        if (leaveType != null)
+          const SizedBox(
+            width: 8,
+          ),
+        if (leaveType != null)
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: context.colorScheme.containerLow,
+                borderRadius: BorderRadius.circular(5)),
+            child: Text(
+                context.l10n
+                    .leave_type_placeholder_text(leaveType!.value.toString())
+                    .split(" ")[0],
+                style: AppTextStyle.style12),
+          )
       ],
     );
   }

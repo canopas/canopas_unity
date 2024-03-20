@@ -40,7 +40,10 @@ class LeaveApplicationCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LeaveStatusView(status: leaveApplication.leave.status),
+                    LeaveStatusView(
+                      status: leaveApplication.leave.status,
+                      leaveType: leaveApplication.leave.type,
+                    ),
                     const SizedBox(
                       height: 10,
                     ),

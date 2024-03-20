@@ -8,7 +8,6 @@ import 'package:projectunity/data/core/utils/date_formatter.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_state.dart';
-import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 
@@ -24,67 +23,39 @@ class EventCard extends StatefulWidget {
 }
 
 class _EventCardState extends State<EventCard> {
-  bool expanded = false;
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Divider(color: context.colorScheme.outlineColor),
-        Material(
-          color: context.colorScheme.surface,
-          child: ExpansionTile(
-            onExpansionChanged: (value) {
-              setState(() {
-                expanded = !expanded;
-              });
+        BlocConsumer<CelebrationsBloc, CelebrationsState>(
+            builder: (context, state) {
+              if (state.status == Status.success) {
+                return Column(
+                  children: [
+                    EventsList(
+                      header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
+                      events: state.birthdays,
+                      expanded: state.showAllBdays,
+                      isAnniversary: false,
+                    ),
+                    EventsList(
+                      header: "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
+                      events: state.anniversaries,
+                      expanded: state.showAllAnniversaries,
+                      isAnniversary: true,
+                    )
+                  ],
+                );
+              }
+              return const SizedBox();
             },
-            shape: const Border(),
-            trailing: expanded
-                ? const Icon(Icons.arrow_drop_up)
-                : const Icon(Icons.arrow_drop_down),
-            iconColor: context.colorScheme.textPrimary,
-            collapsedIconColor: context.colorScheme.primary,
-            collapsedTextColor: context.colorScheme.primary,
-            textColor: context.colorScheme.textPrimary,
-            title: Text("${context.l10n.event_card_title} 🎉",
-                style:
-                    AppTextStyle.style20.copyWith(fontWeight: FontWeight.w600)),
-            children: [
-              BlocConsumer<CelebrationsBloc, CelebrationsState>(
-                  builder: (context, state) {
-                    if (state.status == Status.loading) {
-                      return const AppCircularProgressIndicator();
-                    } else if (state.status == Status.success) {
-                      return Column(
-                        children: [
-                          EventsList(
-                            header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
-                            events: state.birthdays,
-                            expanded: state.showAllBdays,
-                            isAnniversary: false,
-                          ),
-                          EventsList(
-                            header:
-                                "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
-                            events: state.anniversaries,
-                            expanded: state.showAllAnniversaries,
-                            isAnniversary: true,
-                          )
-                        ],
-                      );
-                    }
-                    return const SizedBox();
-                  },
-                  listenWhen: (previous, current) => current.error != null,
-                  listener: (context, state) {
-                    if (state.error != null) {
-                      showSnackBar(context: context, error: state.error);
-                    }
-                  })
-            ],
-          ),
-        ),
+            listenWhen: (previous, current) => current.error != null,
+            listener: (context, state) {
+              if (state.error != null) {
+                showSnackBar(context: context, error: state.error);
+              }
+            }),
         Divider(color: context.colorScheme.outlineColor),
       ],
     );
@@ -114,11 +85,15 @@ class EventsList extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                header,
-                style: AppTextStyle.style18.copyWith(
-                    color: context.colorScheme.primary,
-                    fontWeight: FontWeight.w700),
+              Expanded(
+                child: Text(
+                  header,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.style18.copyWith(
+                      color: context.colorScheme.primary,
+                      fontWeight: FontWeight.w700),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.all(5),
