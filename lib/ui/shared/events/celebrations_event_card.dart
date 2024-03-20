@@ -90,9 +90,9 @@ class EventsList extends StatelessWidget {
                   header,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.style18.copyWith(
+                  style: AppTextStyle.style20.copyWith(
                       color: context.colorScheme.primary,
-                      fontWeight: FontWeight.w700),
+                      fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
