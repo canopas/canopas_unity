@@ -36,6 +36,7 @@ class AppPage extends StatelessWidget {
               leading == null
           ? null
           : AppBar(
+              scrolledUnderElevation: 0.0,
               backgroundColor: backGroundColor,
               title: titleWidget ?? _title(context),
               actions: actions,
