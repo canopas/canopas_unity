@@ -274,7 +274,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i25.UserStateNotifier>(),
           gh<_i23.StorageService>(),
         ));
-    gh.singleton<_i52.EmployeeRepo>(
+    gh.lazySingleton<_i52.EmployeeRepo>(
       () => _i52.EmployeeRepo(
         gh<_i30.EmployeeService>(),
         gh<_i25.UserStateNotifier>(),
