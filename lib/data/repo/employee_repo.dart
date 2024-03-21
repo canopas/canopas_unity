@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 import '../model/employee/employee.dart';
 import '../services/employee_service.dart';
 
-@LazySingleton()
+@Singleton()
 class EmployeeRepo {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
@@ -34,7 +34,12 @@ class EmployeeRepo {
   Stream<List<Employee>> get employees =>
       _employeeController.stream.asBroadcastStream();
 
-  List<Employee> get allEmployees => _employeeController.value;
+  List<Employee> get allEmployees {
+    if (_employeeController.hasValue) {
+      return _employeeController.stream.value;
+    }
+    return [];
+  }
 
   Stream<List<Employee>> get activeEmployees =>
       _employeeController.stream.asyncMap((employees) => employees
