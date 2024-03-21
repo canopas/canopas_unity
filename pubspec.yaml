@@ -37,7 +37,7 @@ dependencies:
   go_router: ^13.0.1
   http: ^1.2.0
   intl: ^0.18.1
-  injectable: ^2.1.1
+  injectable: ^2.3.5
   image_picker: ^1.0.7
   json_annotation: ^4.8.1
   oauth2: ^2.0.2
@@ -60,7 +60,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.1.7
   flutter_lints: ^3.0.1
-  injectable_generator: ^2.1.5
+  injectable_generator: ^2.4.1
   json_serializable: ^6.6.1
   mockito: ^5.4.0
   flutter_gen_runner:
