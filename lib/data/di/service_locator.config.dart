@@ -24,13 +24,13 @@ import 'package:projectunity/data/bloc/network/network_connection_bloc.dart'
 import 'package:projectunity/data/bloc/user_state/space_change_notifier.dart'
     as _i21;
 import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart'
-    as _i53;
+    as _i54;
 import 'package:projectunity/data/core/functions/shared_function.dart' as _i3;
 import 'package:projectunity/data/di/app_module.dart' as _i61;
 import 'package:projectunity/data/pref/user_preference.dart' as _i24;
 import 'package:projectunity/data/provider/device_info.dart' as _i8;
 import 'package:projectunity/data/provider/user_state.dart' as _i25;
-import 'package:projectunity/data/repo/employee_repo.dart' as _i51;
+import 'package:projectunity/data/repo/employee_repo.dart' as _i52;
 import 'package:projectunity/data/repo/form_repo.dart' as _i31;
 import 'package:projectunity/data/repo/leave_repo.dart' as _i34;
 import 'package:projectunity/data/services/account_service.dart' as _i26;
@@ -46,17 +46,17 @@ import 'package:projectunity/data/services/storage_service.dart' as _i23;
 import 'package:projectunity/data/state_manager/auth/desktop/desktop_auth_manager.dart'
     as _i6;
 import 'package:projectunity/ui/admin/forms/create_form/bloc/create_form_bloc.dart'
-    as _i47;
+    as _i48;
 import 'package:projectunity/ui/admin/forms/form_list/bloc/admin_form_list_bloc.dart'
     as _i44;
 import 'package:projectunity/ui/admin/home/home_screen/bloc/admin_home_bloc.dart'
-    as _i56;
+    as _i57;
 import 'package:projectunity/ui/admin/home/invite_member/bloc/invite_member_bloc.dart'
     as _i32;
 import 'package:projectunity/ui/admin/leaves/details/bloc/admin_leave_details_bloc.dart'
     as _i45;
 import 'package:projectunity/ui/admin/leaves/leave_screen/bloc%20/admin_leaves_bloc.dart'
-    as _i57;
+    as _i58;
 import 'package:projectunity/ui/admin/members/detail/bloc/employee_detail_bloc.dart'
     as _i60;
 import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee_details_leave_bloc.dart'
@@ -64,20 +64,20 @@ import 'package:projectunity/ui/admin/members/details_leaves/bloc/admin_employee
 import 'package:projectunity/ui/admin/members/edit_employee/bloc/admin_edit_employee_bloc.dart'
     as _i42;
 import 'package:projectunity/ui/admin/members/list/bloc/member_list_bloc.dart'
-    as _i58;
-import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
-    as _i49;
-import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart'
     as _i59;
-import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
+import 'package:projectunity/ui/shared/appbar_drawer/drawer/bloc/app_drawer_bloc.dart'
     as _i50;
+import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart'
+    as _i47;
+import 'package:projectunity/ui/shared/profile/edit_profile/bloc/employee_edit_profile_bloc.dart'
+    as _i51;
 import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_bloc.dart'
-    as _i54;
-import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
     as _i55;
+import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_bloc.dart'
+    as _i56;
 import 'package:projectunity/ui/sign_in/bloc/sign_in_view_bloc.dart' as _i35;
 import 'package:projectunity/ui/space/create_space/bloc/create_workspace_bloc.dart'
-    as _i48;
+    as _i49;
 import 'package:projectunity/ui/space/edit_space/bloc/edit_space_bloc.dart'
     as _i29;
 import 'package:projectunity/ui/space/join_space/bloc/join_space_bloc.dart'
@@ -97,7 +97,7 @@ import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leaves/user_leave
 import 'package:projectunity/ui/user/members/detail/bloc/user_employee_detail_bloc.dart'
     as _i36;
 import 'package:projectunity/ui/user/members/members_screen/bloc/user_members_bloc.dart'
-    as _i52;
+    as _i53;
 import 'package:projectunity/ui/widget/pick_profile_image/bloc/pick_image_bloc.dart'
     as _i19;
 import 'package:shared_preferences/shared_preferences.dart' as _i20;
@@ -247,77 +247,77 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i18.NotificationService>(),
           gh<_i3.AppFunctions>(),
         ));
-    gh.factory<_i47.CreateFormBloc>(() => _i47.CreateFormBloc(
+    gh.factory<_i47.CelebrationsBloc>(
+        () => _i47.CelebrationsBloc(gh<_i30.EmployeeService>()));
+    gh.factory<_i48.CreateFormBloc>(() => _i48.CreateFormBloc(
           gh<_i31.FormRepo>(),
           gh<_i14.ImagePicker>(),
           gh<_i23.StorageService>(),
           gh<_i25.UserStateNotifier>(),
         ));
-    gh.factory<_i48.CreateSpaceBLoc>(() => _i48.CreateSpaceBLoc(
+    gh.factory<_i49.CreateSpaceBLoc>(() => _i49.CreateSpaceBLoc(
           gh<_i22.SpaceService>(),
           gh<_i25.UserStateNotifier>(),
           gh<_i30.EmployeeService>(),
           gh<_i14.ImagePicker>(),
           gh<_i23.StorageService>(),
         ));
-    gh.factory<_i49.DrawerBloc>(() => _i49.DrawerBloc(
+    gh.factory<_i50.DrawerBloc>(() => _i50.DrawerBloc(
           gh<_i22.SpaceService>(),
           gh<_i25.UserStateNotifier>(),
           gh<_i26.AccountService>(),
           gh<_i30.EmployeeService>(),
         ));
-    gh.factory<_i50.EmployeeEditProfileBloc>(() => _i50.EmployeeEditProfileBloc(
+    gh.factory<_i51.EmployeeEditProfileBloc>(() => _i51.EmployeeEditProfileBloc(
           gh<_i30.EmployeeService>(),
           gh<_i24.UserPreference>(),
           gh<_i25.UserStateNotifier>(),
           gh<_i23.StorageService>(),
         ));
-    gh.singleton<_i51.EmployeeRepo>(
-      () => _i51.EmployeeRepo(
+    gh.singleton<_i52.EmployeeRepo>(
+      () => _i52.EmployeeRepo(
         gh<_i30.EmployeeService>(),
         gh<_i25.UserStateNotifier>(),
         gh<_i10.FirebaseCrashlytics>(),
       ),
       dispose: (i) => i.dispose(),
     );
-    gh.factory<_i52.UserEmployeesBloc>(
-        () => _i52.UserEmployeesBloc(gh<_i51.EmployeeRepo>()));
-    gh.factory<_i53.UserStateControllerBloc>(() => _i53.UserStateControllerBloc(
-          gh<_i51.EmployeeRepo>(),
+    gh.factory<_i53.UserEmployeesBloc>(
+        () => _i53.UserEmployeesBloc(gh<_i52.EmployeeRepo>()));
+    gh.factory<_i54.UserStateControllerBloc>(() => _i54.UserStateControllerBloc(
+          gh<_i52.EmployeeRepo>(),
           gh<_i25.UserStateNotifier>(),
           gh<_i22.SpaceService>(),
           gh<_i21.SpaceChangeNotifier>(),
         ));
-    gh.factory<_i54.ViewProfileBloc>(() => _i54.ViewProfileBloc(
+    gh.factory<_i55.ViewProfileBloc>(() => _i55.ViewProfileBloc(
           gh<_i25.UserStateNotifier>(),
-          gh<_i51.EmployeeRepo>(),
+          gh<_i52.EmployeeRepo>(),
         ));
-    gh.factory<_i55.WhoIsOutCardBloc>(() => _i55.WhoIsOutCardBloc(
-          gh<_i51.EmployeeRepo>(),
+    gh.factory<_i56.WhoIsOutCardBloc>(() => _i56.WhoIsOutCardBloc(
+          gh<_i52.EmployeeRepo>(),
           gh<_i34.LeaveRepo>(),
         ));
-    gh.factory<_i56.AdminHomeBloc>(() => _i56.AdminHomeBloc(
+    gh.factory<_i57.AdminHomeBloc>(() => _i57.AdminHomeBloc(
           gh<_i34.LeaveRepo>(),
-          gh<_i51.EmployeeRepo>(),
+          gh<_i52.EmployeeRepo>(),
         ));
-    gh.factory<_i57.AdminLeavesBloc>(() => _i57.AdminLeavesBloc(
+    gh.factory<_i58.AdminLeavesBloc>(() => _i58.AdminLeavesBloc(
           gh<_i34.LeaveRepo>(),
-          gh<_i51.EmployeeRepo>(),
+          gh<_i52.EmployeeRepo>(),
         ));
-    gh.factory<_i58.AdminMembersBloc>(() => _i58.AdminMembersBloc(
-          gh<_i51.EmployeeRepo>(),
+    gh.factory<_i59.AdminMembersBloc>(() => _i59.AdminMembersBloc(
+          gh<_i52.EmployeeRepo>(),
           gh<_i15.InvitationService>(),
           gh<_i25.UserStateNotifier>(),
         ));
-    gh.factory<_i59.CelebrationsBloc>(
-        () => _i59.CelebrationsBloc(gh<_i51.EmployeeRepo>()));
     gh.factory<_i60.EmployeeDetailBloc>(() => _i60.EmployeeDetailBloc(
           gh<_i26.AccountService>(),
           gh<_i22.SpaceService>(),
           gh<_i25.UserStateNotifier>(),
           gh<_i30.EmployeeService>(),
           gh<_i34.LeaveRepo>(),
-          gh<_i51.EmployeeRepo>(),
+          gh<_i52.EmployeeRepo>(),
         ));
     return this;
   }

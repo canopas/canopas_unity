@@ -4,23 +4,23 @@ import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
+import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_state.dart';
 
 import '../../../../data/core/utils/bloc_status.dart';
-import '../../../../data/repo/employee_repo.dart';
 import '../model/event.dart';
 import 'celebrations_event.dart';
 
 @Injectable()
 class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
-  final EmployeeRepo _employeeRepo;
+  final EmployeeService _employeeService;
   List<Employee> employees = [];
   List<Event> allBirthdayEvents = [];
   List<Event> allAnniversaryEvents = [];
   List<Event> currentWeekBday = [];
   List<Event> currentWeekAnniversaries = [];
 
-  CelebrationsBloc(this._employeeRepo) : super(const CelebrationsState()) {
+  CelebrationsBloc(this._employeeService) : super(const CelebrationsState()) {
     on<FetchCelebrations>(_fetchEvent);
     on<ShowBirthdaysEvent>(_showAllBirthdays);
     on<ShowAnniversariesEvent>(_showAllAnniversaries);
@@ -30,10 +30,8 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
       FetchCelebrations event, Emitter<CelebrationsState> emit) async {
     try {
       emit(state.copyWith(status: Status.loading));
-      employees = _employeeRepo.allEmployees
-          .where((employee) => employee.status == EmployeeStatus.active)
-          .toList();
-      employees = employees.map((e) {
+      final List<Employee> allEmployees = await _employeeService.getEmployees();
+      employees = allEmployees.map((e) {
         if (e.dateOfBirth != null) {
           final birthdate = e.dateOfBirth!.convertToUpcomingDay();
           final Event event = Event(

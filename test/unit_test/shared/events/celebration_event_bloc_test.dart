@@ -4,17 +4,16 @@ import 'package:mockito/mockito.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/data/model/employee/employee.dart';
-import 'package:projectunity/data/repo/employee_repo.dart';
+import 'package:projectunity/data/services/employee_service.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_state.dart';
 import 'package:projectunity/ui/shared/events/model/event.dart';
+import 'celebration_event_bloc_test.mocks.dart';
 
-import '../../admin/home/home_screen/admin_home_bloc_test.mocks.dart';
-
-@GenerateMocks([EmployeeRepo])
+@GenerateMocks([EmployeeService])
 void main() {
-  late EmployeeRepo employeeRepo;
+  late EmployeeService employeeService;
   late CelebrationsBloc celebrationsBloc;
   const CelebrationsState celebrationsState = CelebrationsState();
   Employee employee1 = Employee(
@@ -55,8 +54,8 @@ void main() {
       imageUrl: employee2.imageUrl);
 
   setUp(() {
-    employeeRepo = MockEmployeeRepo();
-    celebrationsBloc = CelebrationsBloc(employeeRepo);
+    employeeService = MockEmployeeService();
+    celebrationsBloc = CelebrationsBloc(employeeService);
   });
 
   group("All tests of events", () {
@@ -66,7 +65,8 @@ void main() {
 
     test("Test FetchCelebrations- emit loading state and then success state",
         () {
-      when(employeeRepo.allEmployees).thenReturn([employee1, employee2]);
+      when(employeeService.getEmployees())
+          .thenAnswer((_) async => [employee1, employee2]);
       celebrationsBloc.add(FetchCelebrations());
       expectLater(
         celebrationsBloc.stream,
@@ -82,7 +82,8 @@ void main() {
 
     test("Test ShowBirthdaysEvent- emit success state with all the birthdays",
         () {
-      when(employeeRepo.allEmployees).thenReturn([employee1, employee2]);
+      when(employeeService.getEmployees())
+          .thenAnswer((_) async => [employee1, employee2]);
       celebrationsBloc.add(FetchCelebrations());
       celebrationsBloc.add(ShowBirthdaysEvent());
 
@@ -105,7 +106,8 @@ void main() {
     test(
         "Test ShowAnniversariesEvent- emit success state with all the anniversary",
         () {
-      when(employeeRepo.allEmployees).thenReturn([employee1, employee2]);
+      when(employeeService.getEmployees())
+          .thenAnswer((_) async => [employee1, employee2]);
       celebrationsBloc.add(FetchCelebrations());
       celebrationsBloc.add(ShowAnniversariesEvent());
 

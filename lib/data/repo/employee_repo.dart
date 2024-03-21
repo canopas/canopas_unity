@@ -36,7 +36,7 @@ class EmployeeRepo {
 
   List<Employee> get allEmployees {
     if (_employeeController.hasValue) {
-      return _employeeController.stream.value;
+      return _employeeController.value;
     }
     return [];
   }
