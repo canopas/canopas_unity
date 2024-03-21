@@ -9,15 +9,21 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onTap;
   final bool loading;
   final Widget? child;
+  final Color? backgroundColor;
 
   const AppButton(
-      {super.key, this.tag, this.onTap, this.loading = false, this.child});
+      {super.key,
+      this.tag,
+      this.onTap,
+      this.loading = false,
+      this.child,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: context.colorScheme.primary,
+            backgroundColor: backgroundColor ?? context.colorScheme.primary,
             fixedSize: Size(MediaQuery.of(context).size.width, 50),
             elevation: 2),
         onPressed: onTap,

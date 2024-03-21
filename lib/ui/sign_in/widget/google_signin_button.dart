@@ -21,27 +21,23 @@ class GoogleSignInButton extends StatelessWidget {
             previous.googleSignInLoading != current.googleSignInLoading,
         builder: (context, state) {
           return AppButton(
+            backgroundColor: Colors.white,
             onTap: () => context.read<SignInBloc>().add(GoogleSignInEvent()),
             loading: state.googleSignInLoading,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: context.colorScheme.surface),
-                    child: SvgPicture.asset(
-                      Assets.images.googleLogo,
-                    )),
+                SvgPicture.asset(
+                  Assets.images.googleLogo,
+                ),
                 const SizedBox(
                   width: 20,
                 ),
                 Flexible(
                   child: Text(
                     context.l10n.google_login_button_text,
-                    style: AppTextStyle.style18
-                        .copyWith(color: context.colorScheme.surface),
+                    style: AppTextStyle.style18.copyWith(
+                        color: Colors.black, fontWeight: FontWeight.w600),
                     overflow: TextOverflow.clip,
                   ),
                 ),

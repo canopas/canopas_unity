@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
@@ -21,25 +21,25 @@ class AppleSignInButton extends StatelessWidget {
             previous.appleSignInLoading != current.appleSignInLoading,
         builder: (context, state) {
           return AppButton(
+            backgroundColor: Colors.white,
             onTap: () => context.read<SignInBloc>().add(AppleSignInEvent()),
             loading: state.appleSignInLoading,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: context.colorScheme.surface),
-                    child: SvgPicture.asset(Assets.images.appleLogo)),
+                SvgPicture.asset(
+                  Assets.images.appleLogo,
+                  colorFilter:
+                      const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                ),
                 const SizedBox(
                   width: 20,
                 ),
                 Flexible(
                   child: Text(
                     context.l10n.apple_login_button_text,
-                    style: AppTextStyle.style18
-                        .copyWith(color: context.colorScheme.surface),
+                    style: AppTextStyle.style18.copyWith(
+                        color: Colors.black, fontWeight: FontWeight.w600),
                     overflow: TextOverflow.clip,
                   ),
                 ),

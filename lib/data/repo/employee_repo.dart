@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 import '../model/employee/employee.dart';
 import '../services/employee_service.dart';
 
-@Singleton()
+@LazySingleton()
 class EmployeeRepo {
   final EmployeeService _employeeService;
   final UserStateNotifier _userStateNotifier;
