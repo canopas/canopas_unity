@@ -45,6 +45,10 @@ jobs:
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
         cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
         
+        
+    
+    
+
     - name: Set up Flutter SDK
       uses: subosito/flutter-action@v2
       with:
@@ -66,6 +70,7 @@ jobs:
         IFS=''
         buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
         echo "Uploading build $buildName"
+        chmod +x ios/install_dist_profile.sh && ./ios/install_dist_profile.sh
         flutter build ipa --build-number=$buildNumber --build-name=$buildName --export-options-plist=ios/Runner/ExportOptions.plist
         echo "Uploading app to iTC..."
         xcrun altool --upload-app -t ios -f build/ios/ipa/*.ipa -u $ITC_USER_NAME -p $ITC_USER_PASSWORD
