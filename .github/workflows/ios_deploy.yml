@@ -25,36 +25,27 @@ jobs:
       run: |
         # create variables  
         CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-        PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
         KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
         
-         # import certificate and provisioning profile from secrets
-        echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
-        echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+        # import certificate and provisioning profile from secrets
+        echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode > $CERTIFICATE_PATH
         
-         # create temporary keychain
+        # create temporary keychain
         security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
         security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         
-         # import certificate to keychain
+        # import certificate to keychain
         security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
         security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         
-        # apply provisioning profile
-        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-        cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-        
-        
-    
-    
+        chmod +x ios/install_dist_profile.sh && ./ios/install_dist_profile.sh
 
     - name: Set up Flutter SDK
       uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
         cache: true
-
 
     - name: Install dependencies
       run: |
@@ -70,7 +61,6 @@ jobs:
         IFS=''
         buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
         echo "Uploading build $buildName"
-        chmod +x ios/install_dist_profile.sh && ./ios/install_dist_profile.sh
         flutter build ipa --build-number=$buildNumber --build-name=$buildName --export-options-plist=ios/Runner/ExportOptions.plist
         echo "Uploading app to iTC..."
         xcrun altool --upload-app -t ios -f build/ios/ipa/*.ipa -u $ITC_USER_NAME -p $ITC_USER_PASSWORD
