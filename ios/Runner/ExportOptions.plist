@@ -7,10 +7,10 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.canopas.projectunity</key>
-		<string>205d1b89-17ca-49a3-bc88-1b79ea02204f</string>
+		<string>65398d54-66da-45c4-9fb8-f34d5959a2c7</string>
 	</dict>
 	<key>signingCertificate</key>
-	<string>1EDB213DC565912BC6BC866ADEBF192575C633DC</string>
+	<string>FD8B18062AE40F0F83E5336333ED7500205AF4FF</string>
 	<key>signingStyle</key>
 	<string>manual</string>
 	<key>stripSwiftSymbols</key>
