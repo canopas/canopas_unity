@@ -18,6 +18,7 @@ jobs:
         BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE }}
         P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
         BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE }}
+        DIST_PROVISION_UUID: ${{ secrets.DIST_PROVISION_UUID }}
         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
       run: |
