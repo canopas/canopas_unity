@@ -28,6 +28,8 @@ jobs:
         
         # import certificate and provisioning profile from secrets
         echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode > $CERTIFICATE_PATH
+        echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o > $DIST_PROFILE_FILE
+        
         
         # create temporary keychain
         security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
@@ -38,8 +40,12 @@ jobs:
         security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
         security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         
+        DIST_PROFILE_FILE=${DIST_PROVISION_UUID}.mobileprovision
 
-        chmod +x ios/install_dist_profile.sh && ./ios/install_dist_profile.sh
+
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+  
+        cp ${DIST_PROFILE_FILE} ~/Library/MobileDevice/Provisioning\ Profiles
 
     - name: Set up Flutter SDK
       uses: subosito/flutter-action@v2
