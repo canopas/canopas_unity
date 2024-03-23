@@ -14,5 +14,6 @@ if [ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}
     echo "Provisioning profile copied successfully."
 else
     echo "Error: Provisioning profile copy failed."
+fi
 # clean
 rm -fr *.mobileprovision
