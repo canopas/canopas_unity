@@ -11,7 +11,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.canopas.projectunity</key>
-		<string>c0babb80-a073-45d8-aefa-4021ef3fdb9b</string>
+		<string>unity-distribution-21-march-2024</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>1EDB213DC565912BC6BC866ADEBF192575C633DC</string>
