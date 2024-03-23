@@ -46,8 +46,8 @@ jobs:
 
 
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-  
-        cp ${DIST_PROFILE_FILE} ~/Library/MobileDevice/Provisioning\ Profiles
+        cp ${DIST_PROFILE_FILE} "$HOME/Library/MobileDevice/Provisioning\ Profiles/${DIST_PROVISION_UUID}.mobileprovision"
+        
 
     - name: Set up Flutter SDK
       uses: subosito/flutter-action@v2
