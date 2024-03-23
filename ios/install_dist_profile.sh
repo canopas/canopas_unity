@@ -3,7 +3,7 @@
 DIST_PROFILE_FILE=${DIST_PROVISION_UUID}.mobileprovision
 
 # Recreate the certificate from the secure environment variable
-echo $DIST_PROVISION | base64 --decode > $DIST_PROFILE_FILE
+echo $BUILD_PROVISION_PROFILE_BASE64 | base64 --decode > $DIST_PROFILE_FILE
 
 mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
 
