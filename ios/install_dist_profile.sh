@@ -12,6 +12,8 @@ cp ${DIST_PROFILE_FILE} "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST
 
 if [ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision" ]; then
     grep -a -A 1 'UUID' "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision"
+    grep -a -A 1 -E 'UUID|<key>SHA1</key>' "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision" | grep -A 1 'UUID'
+
     echo "Provisioning profile copied successfully."
 else
     echo "Error: Provisioning profile copy failed."
