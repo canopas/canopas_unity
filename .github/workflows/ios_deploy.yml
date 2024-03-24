@@ -55,6 +55,12 @@ jobs:
 
     - name: Building ipa
       run: |
+        whoami
+        pwd
+        security find-identity
+        security list-keychain -d user
+        cat "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision"
+        
         flutter --version
         file='VERSION'
         fileData=`cat $file`
