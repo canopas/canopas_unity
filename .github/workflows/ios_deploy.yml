@@ -29,6 +29,9 @@ jobs:
         # import certificate and provisioning profile from secrets
         echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode > $CERTIFICATE_PATH
         
+        grep -a -A 1 'CERTIFICATE' "$RUNNER_TEMP/build_certificate.p12"
+        
+        
         # create temporary keychain
         security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
