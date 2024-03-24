@@ -49,16 +49,16 @@ jobs:
       run: |
         flutter pub get
 
-#    - name: Building ipa
-#      run: |
-#        file='VERSION'
-#        fileData=`cat $file`
-#        IFS='.'
-#        read -a versionValue <<< "$fileData"
-#        buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
-#        IFS=''
-#        buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
-#        echo "Uploading build $buildName"
-#        flutter build ipa --build-number=$buildNumber --build-name=$buildName --export-options-plist=ios/Runner/ExportOptions.plist
-#        echo "Uploading app to iTC..."
-#        xcrun altool --upload-app -t ios -f build/ios/ipa/*.ipa -u $ITC_USER_NAME -p $ITC_USER_PASSWORD
+    - name: Building ipa
+      run: |
+        file='VERSION'
+        fileData=`cat $file`
+        IFS='.'
+        read -a versionValue <<< "$fileData"
+        buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+        IFS=''
+        buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+        echo "Uploading build $buildName"
+        flutter build ipa --build-number=$buildNumber --build-name=$buildName --export-options-plist=ios/Runner/ExportOptions.plist
+        echo "Uploading app to iTC..."
+        xcrun altool --upload-app -t ios -f build/ios/ipa/*.ipa -u $ITC_USER_NAME -p $ITC_USER_PASSWORD
