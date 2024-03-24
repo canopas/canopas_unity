@@ -7,6 +7,9 @@ jobs:
     runs-on: macos-latest
 
     steps:
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '15.3'
 
     - name: Checkout
       uses: actions/checkout@v2
@@ -32,7 +35,7 @@ jobs:
         security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         
         # import certificate to keychain
-        security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+        security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -k $KEYCHAIN_PATH -T /usr/bin/codesign;
         security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         
         chmod +x ios/install_dist_profile.sh && ./ios/install_dist_profile.sh
@@ -41,28 +44,21 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
-        cache: true
 
     - name: Install dependencies
       run: |
         flutter pub get
 
-    - name: Building ipa
-      run: |
-        file='VERSION'
-        fileData=`cat $file`
-        IFS='.'
-        read -a versionValue <<< "$fileData"
-        buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
-        IFS=''
-        buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
-        echo "Uploading build $buildName"
-        flutter build ipa --build-number=$buildNumber --build-name=$buildName --export-options-plist=ios/Runner/ExportOptions.plist
-        echo "Uploading app to iTC..."
-        xcrun altool --upload-app -t ios -f build/ios/ipa/*.ipa -u $ITC_USER_NAME -p $ITC_USER_PASSWORD
-        
-    - name: Clean up keychain and provisioning profile
-      if: ${{ always() }}
-      run: |
-        security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
-        rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
+#    - name: Building ipa
+#      run: |
+#        file='VERSION'
+#        fileData=`cat $file`
+#        IFS='.'
+#        read -a versionValue <<< "$fileData"
+#        buildNumber=$(( ${versionValue[0]} * 1000000 + ${versionValue[1]} * 10000 + ${{ github.run_number }} ))
+#        IFS=''
+#        buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
+#        echo "Uploading build $buildName"
+#        flutter build ipa --build-number=$buildNumber --build-name=$buildName --export-options-plist=ios/Runner/ExportOptions.plist
+#        echo "Uploading app to iTC..."
+#        xcrun altool --upload-app -t ios -f build/ios/ipa/*.ipa -u $ITC_USER_NAME -p $ITC_USER_PASSWORD

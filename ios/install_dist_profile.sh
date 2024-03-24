@@ -11,6 +11,7 @@ mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
 cp ${DIST_PROFILE_FILE} "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision"
 
 if [ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision" ]; then
+    grep -a -A 1 'UUID' "$HOME/Library/MobileDevice/Provisioning Profiles/${DIST_PROVISION_UUID}.mobileprovision"
     echo "Provisioning profile copied successfully."
 else
     echo "Error: Provisioning profile copy failed."
