@@ -55,6 +55,7 @@ jobs:
 
     - name: Building ipa
       run: |
+        flutter --version
         file='VERSION'
         fileData=`cat $file`
         IFS='.'
