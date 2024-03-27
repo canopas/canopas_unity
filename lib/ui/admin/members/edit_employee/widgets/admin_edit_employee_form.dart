@@ -64,16 +64,15 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,
                 AdminEditEmployeeDetailsState>(
               buildWhen: (previous, current) => previous.role != current.role,
-              builder: (context, state) => Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: ToggleButton(
-                    onRoleChange: (role) {
+              builder: (context, state) => ToggleButton(
+                  onRoleChange: (role) {
+                    if (role != null) {
                       context
                           .read<AdminEditEmployeeDetailsBloc>()
                           .add(ChangeEmployeeRoleEvent(roleType: role));
-                    },
-                    role: state.role),
-              ),
+                    }
+                  },
+                  role: state.role),
             ),
           ),
           FieldTitle(title: localization.employee_employeeID_tag),
@@ -175,9 +174,9 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   ))),
           FieldTitle(title: localization.employee_dateOfBirth_tag),
           BlocBuilder<AdminEditEmployeeDetailsBloc,
-              AdminEditEmployeeDetailsState>(
+                  AdminEditEmployeeDetailsState>(
               buildWhen: (previous, current) =>
-              previous.dateOfBirth != current.dateOfBirth,
+                  previous.dateOfBirth != current.dateOfBirth,
               builder: (context, state) => ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
@@ -196,13 +195,12 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                         context: context,
                         initialDate: state.dateOfJoining ?? DateTime.now());
                     bloc.add(ChangeEmployeeDateOfJoiningEvent(
-                        dateOfJoining: birthDate ??
-                            state.dateOfBirth ??
-                            DateTime.now()));
+                        dateOfJoining:
+                            birthDate ?? state.dateOfBirth ?? DateTime.now()));
                   },
                   child: Text(
-                    localization.date_format_yMMMd(
-                        state.dateOfBirth ?? DateTime.now()),
+                    localization
+                        .date_format_yMMMd(state.dateOfBirth ?? DateTime.now()),
                     style: AppTextStyle.style16,
                   ))),
         ],

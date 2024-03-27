@@ -24,8 +24,7 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
         ..add(EditEmployeeByAdminInitialEvent(
             roleType: employee.role,
             dateOfJoining: employee.dateOfJoining,
-          dateOfBirth: employee.dateOfBirth
-        )),
+            dateOfBirth: employee.dateOfBirth)),
       child: AdminEditEmployeeDetailsView(
         employee: employee,
       ),

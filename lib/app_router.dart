@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/forms/form_list/form_list_screen.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
-import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
@@ -44,13 +42,11 @@ class AppRouter {
   final _adminShellLeavesNavigatorKey = GlobalKey<NavigatorState>();
   final _adminShellEmployeeNavigatorKey = GlobalKey<NavigatorState>();
 
-
   final _employeeShellHomeNavigatorKey = GlobalKey<NavigatorState>();
   final _employeeShellLeaveNavigatorKey = GlobalKey<NavigatorState>();
   final _employeeShellEmployeeNavigatorKey = GlobalKey<NavigatorState>();
 
   GoRouter router() {
-
     return GoRouter(
         debugLogDiagnostics: true,
         errorPageBuilder: (context, state) =>
@@ -88,7 +84,8 @@ class AppRouter {
               builder: (context, state, child) {
                 return DashBoardScreen(
                     key: ValueKey(_userManager.currentSpaceId),
-                    tabs: adminTabs, child: child);
+                    tabs: adminTabs,
+                    child: child);
               },
               branches: [
                 StatefulShellBranch(
@@ -261,10 +258,10 @@ class AppRouter {
                     ]),
               ]),
           StatefulShellRoute.indexedStack(
-              builder: (context, state, child) =>
-                  DashBoardScreen(
-                      key: ValueKey(_userManager.currentSpaceId),
-                      tabs: userTabs, child: child),
+              builder: (context, state, child) => DashBoardScreen(
+                  key: ValueKey(_userManager.currentSpaceId),
+                  tabs: userTabs,
+                  child: child),
               branches: [
                 StatefulShellBranch(
                     navigatorKey: _employeeShellHomeNavigatorKey,

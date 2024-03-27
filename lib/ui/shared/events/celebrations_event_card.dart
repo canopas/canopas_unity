@@ -8,6 +8,7 @@ import 'package:projectunity/data/core/utils/date_formatter.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_state.dart';
+import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 
@@ -30,25 +31,24 @@ class _EventCardState extends State<EventCard> {
         Divider(color: context.colorScheme.outlineColor),
         BlocConsumer<CelebrationsBloc, CelebrationsState>(
             builder: (context, state) {
-              if (state.status == Status.success) {
-                return Column(
-                  children: [
-                    EventsList(
-                      header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
-                      events: state.birthdays,
-                      expanded: state.showAllBdays,
-                      isAnniversary: false,
-                    ),
-                    EventsList(
-                      header: "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
-                      events: state.anniversaries,
-                      expanded: state.showAllAnniversaries,
-                      isAnniversary: true,
-                    )
-                  ],
-                );
-              }
-              return const SizedBox();
+              return Column(
+                children: [
+                  EventsList(
+                    header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
+                    events: state.birthdays,
+                    expanded: state.showAllBdays,
+                    status: state.status,
+                    isAnniversary: false,
+                  ),
+                  EventsList(
+                    header: "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
+                    events: state.anniversaries,
+                    expanded: state.showAllAnniversaries,
+                    status: state.status,
+                    isAnniversary: true,
+                  )
+                ],
+              );
             },
             listenWhen: (previous, current) => current.error != null,
             listener: (context, state) {
@@ -67,13 +67,15 @@ class EventsList extends StatelessWidget {
   final String header;
   final bool isAnniversary;
   final bool expanded;
+  final Status status;
 
   const EventsList(
       {super.key,
       required this.events,
       required this.header,
       required this.expanded,
-      required this.isAnniversary});
+      required this.isAnniversary,
+      required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -130,19 +132,24 @@ class EventsList extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          events.isEmpty
-              ? const EmptyCelebrationCard()
-              : Column(
-                  children: events.map((event) {
-                    return expanded
-                        ? AllEventCard(
-                            imageUrl: event.imageUrl,
-                            name: event.name,
-                            date: event.upcomingDate)
-                        : CurrentWeekEventCard(
-                            event: event, isAnniversary: isAnniversary);
-                  }).toList(),
-                ),
+          switch (status) {
+            Status.initial => const SizedBox(),
+            Status.loading => const ThreeBounceLoading(),
+            Status.success => events.isEmpty
+                ? const EmptyCelebrationCard()
+                : Column(
+                    children: events.map((event) {
+                      return expanded
+                          ? AllEventCard(
+                              imageUrl: event.imageUrl,
+                              name: event.name,
+                              date: event.upcomingDate)
+                          : CurrentWeekEventCard(
+                              event: event, isAnniversary: isAnniversary);
+                    }).toList(),
+                  ),
+            Status.error => const EmptyCelebrationCard()
+          },
         ],
       ),
     );

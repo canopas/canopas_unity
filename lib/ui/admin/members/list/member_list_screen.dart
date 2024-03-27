@@ -103,7 +103,6 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
     return SizedBox.expand(child: child);
   }
 
-
   @override
   double get maxExtent => 80;
 
@@ -133,8 +132,7 @@ class MembersTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverMainAxisGroup(
-        slivers: [
+    return SliverMainAxisGroup(slivers: [
       SliverPersistentHeader(
           pinned: true,
           delegate: HeaderDelegate(

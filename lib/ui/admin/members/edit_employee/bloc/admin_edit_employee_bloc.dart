@@ -31,7 +31,6 @@ class AdminEditEmployeeDetailsBloc
     on<ChangeEmployeeNameEvent>(_validName);
     on<ChangeProfileImageEvent>(_changeImage);
     on<ChangeEmployeeDateOfBirth>(_changeDateOfBirth);
-
   }
 
   void _initRoleTypeAndDate(EditEmployeeByAdminInitialEvent event,
@@ -39,8 +38,7 @@ class AdminEditEmployeeDetailsBloc
     emit(state.copyWith(
         role: event.roleType,
         dateOfJoining: event.dateOfJoining ?? DateTime.now().dateOnly,
-      dateOfBirth:  event.dateOfBirth?? DateTime.now().dateOnly
-    ));
+        dateOfBirth: event.dateOfBirth ?? DateTime.now().dateOnly));
   }
 
   void _changeRoleType(ChangeEmployeeRoleEvent event,
@@ -57,6 +55,7 @@ class AdminEditEmployeeDetailsBloc
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(dateOfBirth: event.dateOfBirth));
   }
+
   void _validName(ChangeEmployeeNameEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     if (event.name.length < 4) {

@@ -10,7 +10,9 @@ class EditEmployeeByAdminInitialEvent extends EditEmployeeByAdminEvent {
   final DateTime? dateOfBirth;
 
   EditEmployeeByAdminInitialEvent(
-      {required this.roleType, required this.dateOfJoining,required this.dateOfBirth});
+      {required this.roleType,
+      required this.dateOfJoining,
+      required this.dateOfBirth});
 
   @override
   List<Object?> get props => [roleType, dateOfJoining, dateOfBirth];
@@ -69,6 +71,7 @@ class ChangeEmployeeDateOfJoiningEvent extends EditEmployeeByAdminEvent {
   @override
   List<Object?> get props => [dateOfJoining];
 }
+
 class ChangeEmployeeDateOfBirth extends EditEmployeeByAdminEvent {
   final DateTime dateOfBirth;
 

@@ -44,7 +44,8 @@ class _AppDrawerState extends State<AppDrawer> {
         } else if (state.changeSpaceStatus == Status.success) {
           try {
             GoRouter.of(context).refresh();
-            context.replaceNamed(userManager.isEmployee? Routes.userHome:Routes.adminHome);
+            context.replaceNamed(
+                userManager.isEmployee ? Routes.userHome : Routes.adminHome);
             context.pop();
           } catch (_) {}
         }
@@ -76,8 +77,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   height: 20,
                 ),
                 SpaceList(
-                    userEmail: userManager.userEmail!,
-                    currentSpaceId: userManager.currentSpaceId,
+                  userEmail: userManager.userEmail!,
+                  currentSpaceId: userManager.currentSpaceId,
                 ),
                 const Divider(height: 0),
                 DrawerOptionList(
@@ -183,14 +184,14 @@ class SpaceList extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10),
                       itemCount: state.spaces.length,
                       itemBuilder: (context, index) => DrawerSpaceCard(
-                        isSelected: currentSpaceId == state.spaces[index].id,
-                        logo: state.spaces[index].logo,
-                        name: state.spaces[index].name,
-                        onTap: ()async {
-                          context.read<DrawerBloc>()
-                              .add(ChangeSpaceEvent(state.spaces[index]));
-                        }
-                      ),
+                          isSelected: currentSpaceId == state.spaces[index].id,
+                          logo: state.spaces[index].logo,
+                          name: state.spaces[index].name,
+                          onTap: () async {
+                            context
+                                .read<DrawerBloc>()
+                                .add(ChangeSpaceEvent(state.spaces[index]));
+                          }),
                     ),
                   ),
                 ],

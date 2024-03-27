@@ -42,7 +42,6 @@ class AdminEditEmployeeDetailsState extends Equatable {
     bool? emailError,
     DateTime? dateOfJoining,
     DateTime? dateOfBirth,
-
     String? pickedImage,
     Role? role,
     Status? status,
@@ -50,7 +49,7 @@ class AdminEditEmployeeDetailsState extends Equatable {
     return AdminEditEmployeeDetailsState(
       pickedImage: pickedImage ?? this.pickedImage,
       dateOfJoining: dateOfJoining ?? this.dateOfJoining,
-      dateOfBirth: dateOfBirth?? this.dateOfBirth,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       designationError: designationError ?? this.designationError,
       emailError: emailError ?? this.emailError,
       employeeIdError: employeeIdError ?? this.employeeIdError,
