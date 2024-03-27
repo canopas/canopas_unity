@@ -43,6 +43,8 @@ class _AppDrawerState extends State<AppDrawer> {
           showSnackBar(context: context, error: state.error);
         } else if (state.changeSpaceStatus == Status.success) {
           try {
+            GoRouter.of(context).refresh();
+            context.replaceNamed(userManager.isEmployee? Routes.userHome:Routes.adminHome);
             context.pop();
           } catch (_) {}
         }
@@ -75,7 +77,8 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 SpaceList(
                     userEmail: userManager.userEmail!,
-                    currentSpaceId: userManager.currentSpaceId),
+                    currentSpaceId: userManager.currentSpaceId,
+                ),
                 const Divider(height: 0),
                 DrawerOptionList(
                     isAdmin: userManager.isAdmin,
@@ -183,9 +186,10 @@ class SpaceList extends StatelessWidget {
                         isSelected: currentSpaceId == state.spaces[index].id,
                         logo: state.spaces[index].logo,
                         name: state.spaces[index].name,
-                        onTap: () => context
-                            .read<DrawerBloc>()
-                            .add(ChangeSpaceEvent(state.spaces[index])),
+                        onTap: ()async {
+                          context.read<DrawerBloc>()
+                              .add(ChangeSpaceEvent(state.spaces[index]));
+                        }
                       ),
                     ),
                   ),

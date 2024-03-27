@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/ui/admin/forms/form_list/form_list_screen.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
+import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
@@ -37,23 +39,24 @@ class AppRouter {
 
   AppRouter(this._userManager);
 
-  GoRouter get router => _goRouter(_userManager);
   final _rootNavigatorKey = GlobalKey<NavigatorState>();
   final _adminShellHomeNavigatorKey = GlobalKey<NavigatorState>();
   final _adminShellLeavesNavigatorKey = GlobalKey<NavigatorState>();
   final _adminShellEmployeeNavigatorKey = GlobalKey<NavigatorState>();
 
+
   final _employeeShellHomeNavigatorKey = GlobalKey<NavigatorState>();
   final _employeeShellLeaveNavigatorKey = GlobalKey<NavigatorState>();
   final _employeeShellEmployeeNavigatorKey = GlobalKey<NavigatorState>();
 
-  GoRouter _goRouter(UserStateNotifier userManager) {
+  GoRouter router() {
+
     return GoRouter(
         debugLogDiagnostics: true,
         errorPageBuilder: (context, state) =>
             const CupertinoPage(child: PageNotFoundScreen()),
-        refreshListenable: userManager,
-        initialLocation: (userManager.isAdmin || _userManager.isHR)
+        refreshListenable: _userManager,
+        initialLocation: (_userManager.isAdmin || _userManager.isHR)
             ? Routes.adminHome
             : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
@@ -83,7 +86,9 @@ class AppRouter {
           ),
           StatefulShellRoute.indexedStack(
               builder: (context, state, child) {
-                return DashBoardScreen(tabs: adminTabs, child: child);
+                return DashBoardScreen(
+                    key: ValueKey(_userManager.currentSpaceId),
+                    tabs: adminTabs, child: child);
               },
               branches: [
                 StatefulShellBranch(
@@ -94,7 +99,7 @@ class AppRouter {
                           path: Routes.adminHome,
                           pageBuilder: (context, state) {
                             return CupertinoPage(
-                                key: ValueKey(userManager.currentSpaceId),
+                                key: ValueKey(_userManager.currentSpaceId),
                                 child: const AdminHomeScreenPage());
                           },
                           routes: <GoRoute>[
@@ -160,7 +165,7 @@ class AppRouter {
                           path: Routes.adminLeaves,
                           pageBuilder: (context, state) {
                             return CupertinoPage(
-                                key: ValueKey(userManager.currentSpaceId),
+                                key: ValueKey(_userManager.currentSpaceId),
                                 child: const AdminLeavesPage());
                           },
                           routes: <GoRoute>[
@@ -189,7 +194,7 @@ class AppRouter {
                           name: Routes.adminMembers,
                           path: Routes.adminMembers,
                           pageBuilder: (context, state) => CupertinoPage(
-                              key: ValueKey(userManager.currentSpaceId),
+                              key: ValueKey(_userManager.currentSpaceId),
                               child: const MemberListPage()),
                           routes: <GoRoute>[
                             GoRoute(
@@ -257,7 +262,9 @@ class AppRouter {
               ]),
           StatefulShellRoute.indexedStack(
               builder: (context, state, child) =>
-                  DashBoardScreen(tabs: userTabs, child: child),
+                  DashBoardScreen(
+                      key: ValueKey(_userManager.currentSpaceId),
+                      tabs: userTabs, child: child),
               branches: [
                 StatefulShellBranch(
                     navigatorKey: _employeeShellHomeNavigatorKey,
@@ -266,7 +273,7 @@ class AppRouter {
                           path: Routes.userHome,
                           name: Routes.userHome,
                           pageBuilder: (context, state) => CupertinoPage(
-                              key: ValueKey(userManager.currentSpaceId),
+                              key: ValueKey(_userManager.currentSpaceId),
                               child: const UserHomeScreenPage()),
                           routes: <GoRoute>[
                             GoRoute(
@@ -321,7 +328,7 @@ class AppRouter {
                           path: Routes.userLeaves,
                           name: Routes.userLeaves,
                           pageBuilder: (context, state) => CupertinoPage(
-                              key: ValueKey(userManager.currentSpaceId),
+                              key: ValueKey(_userManager.currentSpaceId),
                               child: const UserLeavePage()),
                           routes: <GoRoute>[
                             GoRoute(
@@ -349,7 +356,7 @@ class AppRouter {
                           path: Routes.userMembers,
                           name: Routes.userMembers,
                           pageBuilder: (context, state) => CupertinoPage(
-                              key: ValueKey(userManager.currentSpaceId),
+                              key: ValueKey(_userManager.currentSpaceId),
                               child: const UserMembersPage()),
                           routes: <GoRoute>[
                             GoRoute(
@@ -366,17 +373,17 @@ class AppRouter {
         redirect: (context, GoRouterState state) {
           final location = state.matchedLocation;
           final loggingIn = location == Routes.login;
-          if (userManager.state == UserState.unauthenticated) {
+          if (_userManager.state == UserState.unauthenticated) {
             return loggingIn ? null : Routes.login;
           }
-          if (userManager.state == UserState.authenticated &&
+          if (_userManager.state == UserState.authenticated &&
               !location.contains(Routes.joinSpace)) {
             return Routes.joinSpace;
           }
-          if (userManager.state == UserState.update ||
-              (userManager.state == UserState.spaceJoined &&
+          if (_userManager.state == UserState.update ||
+              (_userManager.state == UserState.spaceJoined &&
                   location.contains(Routes.joinSpace))) {
-            return userManager.isAdmin || userManager.isHR
+            return _userManager.isAdmin || _userManager.isHR
                 ? Routes.adminHome
                 : Routes.userHome;
           }
