@@ -6,6 +6,8 @@ class AdminEditEmployeeDetailsState extends Equatable {
   final Status status;
   final Role role;
   final DateTime? dateOfJoining;
+  final DateTime? dateOfBirth;
+
   final String? error;
   final String? pickedImage;
   final bool nameError;
@@ -16,6 +18,7 @@ class AdminEditEmployeeDetailsState extends Equatable {
   const AdminEditEmployeeDetailsState({
     this.pickedImage,
     this.dateOfJoining,
+    this.dateOfBirth,
     this.nameError = false,
     this.emailError = false,
     this.employeeIdError = false,
@@ -38,6 +41,8 @@ class AdminEditEmployeeDetailsState extends Equatable {
     bool? employeeIdError,
     bool? emailError,
     DateTime? dateOfJoining,
+    DateTime? dateOfBirth,
+
     String? pickedImage,
     Role? role,
     Status? status,
@@ -45,6 +50,7 @@ class AdminEditEmployeeDetailsState extends Equatable {
     return AdminEditEmployeeDetailsState(
       pickedImage: pickedImage ?? this.pickedImage,
       dateOfJoining: dateOfJoining ?? this.dateOfJoining,
+      dateOfBirth: dateOfBirth?? this.dateOfBirth,
       designationError: designationError ?? this.designationError,
       emailError: emailError ?? this.emailError,
       employeeIdError: employeeIdError ?? this.employeeIdError,

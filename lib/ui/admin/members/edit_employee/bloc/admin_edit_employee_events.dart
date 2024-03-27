@@ -7,12 +7,13 @@ abstract class EditEmployeeByAdminEvent extends Equatable {}
 class EditEmployeeByAdminInitialEvent extends EditEmployeeByAdminEvent {
   final Role? roleType;
   final DateTime? dateOfJoining;
+  final DateTime? dateOfBirth;
 
   EditEmployeeByAdminInitialEvent(
-      {required this.roleType, required this.dateOfJoining});
+      {required this.roleType, required this.dateOfJoining,required this.dateOfBirth});
 
   @override
-  List<Object?> get props => [roleType, dateOfJoining];
+  List<Object?> get props => [roleType, dateOfJoining, dateOfBirth];
 }
 
 class ChangeEmployeeNameEvent extends EditEmployeeByAdminEvent {
@@ -67,6 +68,14 @@ class ChangeEmployeeDateOfJoiningEvent extends EditEmployeeByAdminEvent {
 
   @override
   List<Object?> get props => [dateOfJoining];
+}
+class ChangeEmployeeDateOfBirth extends EditEmployeeByAdminEvent {
+  final DateTime dateOfBirth;
+
+  ChangeEmployeeDateOfBirth({required this.dateOfBirth});
+
+  @override
+  List<Object?> get props => [dateOfBirth];
 }
 
 class ChangeProfileImageEvent extends EditEmployeeByAdminEvent {

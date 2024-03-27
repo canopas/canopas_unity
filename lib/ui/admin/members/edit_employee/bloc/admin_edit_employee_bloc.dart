@@ -30,13 +30,17 @@ class AdminEditEmployeeDetailsBloc
     on<ChangeEmployeeIdEvent>(_validEmployeeId);
     on<ChangeEmployeeNameEvent>(_validName);
     on<ChangeProfileImageEvent>(_changeImage);
+    on<ChangeEmployeeDateOfBirth>(_changeDateOfBirth);
+
   }
 
   void _initRoleTypeAndDate(EditEmployeeByAdminInitialEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     emit(state.copyWith(
         role: event.roleType,
-        dateOfJoining: event.dateOfJoining ?? DateTime.now().dateOnly));
+        dateOfJoining: event.dateOfJoining ?? DateTime.now().dateOnly,
+      dateOfBirth:  event.dateOfBirth?? DateTime.now().dateOnly
+    ));
   }
 
   void _changeRoleType(ChangeEmployeeRoleEvent event,
@@ -49,6 +53,10 @@ class AdminEditEmployeeDetailsBloc
     emit(state.copyWith(dateOfJoining: event.dateOfJoining));
   }
 
+  void _changeDateOfBirth(ChangeEmployeeDateOfBirth event,
+      Emitter<AdminEditEmployeeDetailsState> emit) {
+    emit(state.copyWith(dateOfBirth: event.dateOfBirth));
+  }
   void _validName(ChangeEmployeeNameEvent event,
       Emitter<AdminEditEmployeeDetailsState> emit) {
     if (event.name.length < 4) {
@@ -122,7 +130,7 @@ class AdminEditEmployeeDetailsBloc
             dateOfJoining: state.dateOfJoining!,
             phone: event.previousEmployeeData.phone,
             address: event.previousEmployeeData.address,
-            dateOfBirth: event.previousEmployeeData.dateOfBirth,
+            dateOfBirth: state.dateOfBirth,
             gender: event.previousEmployeeData.gender,
             imageUrl: imageUrl ?? event.previousEmployeeData.imageUrl,
           ),
