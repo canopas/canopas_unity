@@ -61,7 +61,7 @@ It is an open-source cross-platform Leave management app written in Dart using F
 
 <details>
 
-<summary>**User Guide**</summary>
+<summary>User Guide</summary>
 
 ### Getting Started With Unity
 Welcome to Unity, your all-in-one solution for seamless leave and employee management within your organizations.
@@ -144,7 +144,6 @@ As an Employee, you can:
 - Click on **_Personal Details_** to Update it.
   (As an employee, you can't change your role within the organization.)
 
-
 </details>
 
 ### Run locally
@@ -152,7 +151,8 @@ As an Employee, you can:
  
 <details>
 
-<summary>**Project setup instructions**</summary>
+<summary>Project setup instructions</summary>
+
 ## Set-up Guide
 
 #### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
