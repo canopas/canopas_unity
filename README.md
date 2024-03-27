@@ -10,7 +10,7 @@ It is an open-source cross-platform Leave management app written in Dart using F
 
 ## Download App
 
-<img src="./cta/google play.png" width="200" ></img> <img src="./cta/app store.png" width="200"></img>
+<a href="https://play.google.com/store/apps/details?id=com.canopas.projectunity&hl=en_IN&gl=US"><img src="./cta/google play.png" width="200" ></img> <img src="./cta/app store.png" width="200"></img>
 
 ## Features 🌟🌟
 
