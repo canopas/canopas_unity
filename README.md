@@ -151,7 +151,7 @@ As an Employee, you can:
  
 <details>
 
-<summary>Project setup instructions</summary>
+<summary>Project Setup Instructions</summary>
 
 ## Set-up Guide
 
@@ -258,6 +258,7 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 * Replace the port with the one you added to the  `Authorized JavaScript origins` fields.
 
 </details>
+
 ## Support 🤝
 
 We welcome and appreciate any suggestions you may have for improvement. 
