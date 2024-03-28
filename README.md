@@ -6,7 +6,7 @@ Welcome to Unity, your all-in-one solution for seamless leave and employee manag
 
 It is an open-source cross-platform Leave management app written in Dart using Flutter.
 
----- Cover image----
+<img src="./screenshots/Unity.png" />
 
 ## Download App
 
