@@ -46,7 +46,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-  final GoRouter _router = getIt<AppRouter>().router;
+  final GoRouter _router = getIt<AppRouter>().router();
 
   @override
   Widget build(BuildContext context) {

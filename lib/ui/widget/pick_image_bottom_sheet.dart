@@ -27,7 +27,7 @@ class PickImageBottomSheet extends StatelessWidget {
         children: [
           SelectButton(
             onPressed: () => onButtonTap(ImageSource.camera),
-            label: locale.user_setting_take_photo_tag,
+            label: locale.user_setting_camera_tag,
             icon: Icons.camera_alt_rounded,
           ),
           SelectButton(
@@ -69,6 +69,9 @@ class SelectButton extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             label,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: AppTextStyle.style14
                 .copyWith(color: context.colorScheme.textSecondary),
           )

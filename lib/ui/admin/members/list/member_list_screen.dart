@@ -107,11 +107,11 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 80;
 
   @override
-  double get minExtent => 60;
+  double get minExtent => 80;
 
   @override
   bool shouldRebuild(HeaderDelegate oldDelegate) {
-    return child != oldDelegate.child;
+    return true;
   }
 }
 
@@ -137,9 +137,8 @@ class MembersTile extends StatelessWidget {
           pinned: true,
           delegate: HeaderDelegate(
               child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-                color: context.colorScheme.containerLow,
+                color: context.colorScheme.surface,
                 borderRadius: BorderRadius.circular(12)),
             child: Padding(
                 padding:

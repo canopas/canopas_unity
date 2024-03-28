@@ -22,7 +22,9 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<AdminEditEmployeeDetailsBloc>()
         ..add(EditEmployeeByAdminInitialEvent(
-            roleType: employee.role, dateOfJoining: employee.dateOfJoining)),
+            roleType: employee.role,
+            dateOfJoining: employee.dateOfJoining,
+            dateOfBirth: employee.dateOfBirth)),
       child: AdminEditEmployeeDetailsView(
         employee: employee,
       ),

@@ -30,6 +30,7 @@ void main() {
     email: "dummy.t@canopas.com",
     designation: "Application Tester",
     dateOfJoining: DateTime.now().dateOnly,
+    dateOfBirth: DateTime.now().dateOnly,
     level: "SW-L2",
   );
 
@@ -44,11 +45,15 @@ void main() {
 
     test('test initial test', () {
       editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
-          dateOfJoining: emp.dateOfJoining, roleType: emp.role));
+          dateOfJoining: emp.dateOfJoining,
+          roleType: emp.role,
+          dateOfBirth: emp.dateOfBirth));
       expect(
           editEmployeeDetailsBloc.stream,
           emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin)));
+              dateOfJoining: emp.dateOfJoining.dateOnly,
+              role: Role.admin,
+              dateOfBirth: emp.dateOfBirth)));
     });
 
     test('change role type test', () {
@@ -130,7 +135,9 @@ void main() {
 
     test('update Employee details test', () async {
       editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
-          roleType: emp.role, dateOfJoining: emp.dateOfJoining));
+          roleType: emp.role,
+          dateOfJoining: emp.dateOfJoining,
+          dateOfBirth: emp.dateOfBirth));
       editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
           previousEmployeeData: emp,
           designation: emp.designation!,
@@ -142,13 +149,17 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
+                dateOfJoining: emp.dateOfJoining.dateOnly,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
+                role: Role.admin),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
                 role: Role.admin,
                 status: Status.loading),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
                 role: Role.admin,
                 status: Status.success),
           ]));
@@ -160,7 +171,9 @@ void main() {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
 
       editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
-          roleType: emp.role, dateOfJoining: emp.dateOfJoining));
+          roleType: emp.role,
+          dateOfJoining: emp.dateOfJoining,
+          dateOfBirth: emp.dateOfBirth));
       editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
       when(storageService.uploadProfilePic(
               path: 'images/space-id/${emp.uid}/profile', imagePath: 'path'))
@@ -176,20 +189,26 @@ void main() {
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
+              dateOfJoining: emp.dateOfJoining.dateOnly,
+              role: Role.admin,
+              dateOfBirth: emp.dateOfBirth?.dateOnly,
+            ),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
                 pickedImage: 'path'),
             AdminEditEmployeeDetailsState(
               status: Status.loading,
               dateOfJoining: emp.dateOfJoining.dateOnly,
               role: Role.admin,
+              dateOfBirth: emp.dateOfBirth?.dateOnly,
               pickedImage: 'path',
             ),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
                 pickedImage: 'path',
                 status: Status.success),
           ]));
@@ -199,7 +218,9 @@ void main() {
 
     test('update Employee details failed test', () async {
       editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
-          dateOfJoining: emp.dateOfJoining, roleType: emp.role));
+          dateOfJoining: emp.dateOfJoining,
+          roleType: emp.role,
+          dateOfBirth: emp.dateOfBirth));
       when(employeeService.updateEmployeeDetails(employee: emp))
           .thenThrow(Exception("error"));
       editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
@@ -217,10 +238,12 @@ void main() {
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
                 status: Status.loading),
             AdminEditEmployeeDetailsState(
                 dateOfJoining: emp.dateOfJoining.dateOnly,
                 role: Role.admin,
+                dateOfBirth: emp.dateOfBirth?.dateOnly,
                 status: Status.error,
                 error: firestoreFetchDataError),
           ]));

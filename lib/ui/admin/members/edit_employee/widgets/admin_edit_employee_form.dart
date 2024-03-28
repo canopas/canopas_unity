@@ -64,16 +64,15 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
             child: BlocBuilder<AdminEditEmployeeDetailsBloc,
                 AdminEditEmployeeDetailsState>(
               buildWhen: (previous, current) => previous.role != current.role,
-              builder: (context, state) => Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: ToggleButton(
-                    onRoleChange: (role) {
+              builder: (context, state) => ToggleButton(
+                  onRoleChange: (role) {
+                    if (role != null) {
                       context
                           .read<AdminEditEmployeeDetailsBloc>()
                           .add(ChangeEmployeeRoleEvent(roleType: role));
-                    },
-                    role: state.role),
-              ),
+                    }
+                  },
+                  role: state.role),
             ),
           ),
           FieldTitle(title: localization.employee_employeeID_tag),
@@ -156,7 +155,7 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                     backgroundColor: context.colorScheme.containerNormal,
                     fixedSize: Size(MediaQuery.of(context).size.height, 53),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(24),
                     ),
                   ),
                   onPressed: () async {
@@ -171,6 +170,37 @@ class AdminEditEmployeeDetailsForm extends StatelessWidget {
                   child: Text(
                     localization.date_format_yMMMd(
                         state.dateOfJoining ?? DateTime.now()),
+                    style: AppTextStyle.style16,
+                  ))),
+          FieldTitle(title: localization.employee_dateOfBirth_tag),
+          BlocBuilder<AdminEditEmployeeDetailsBloc,
+                  AdminEditEmployeeDetailsState>(
+              buildWhen: (previous, current) =>
+                  previous.dateOfBirth != current.dateOfBirth,
+              builder: (context, state) => ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shadowColor: context.colorScheme.containerNormal,
+                    surfaceTintColor: context.colorScheme.containerNormal,
+                    foregroundColor: context.colorScheme.textPrimary,
+                    alignment: Alignment.centerLeft,
+                    backgroundColor: context.colorScheme.containerNormal,
+                    fixedSize: Size(MediaQuery.of(context).size.height, 53),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  onPressed: () async {
+                    DateTime? birthDate = await pickDate(
+                        context: context,
+                        initialDate: state.dateOfJoining ?? DateTime.now());
+                    bloc.add(ChangeEmployeeDateOfJoiningEvent(
+                        dateOfJoining:
+                            birthDate ?? state.dateOfBirth ?? DateTime.now()));
+                  },
+                  child: Text(
+                    localization
+                        .date_format_yMMMd(state.dateOfBirth ?? DateTime.now()),
                     style: AppTextStyle.style16,
                   ))),
         ],

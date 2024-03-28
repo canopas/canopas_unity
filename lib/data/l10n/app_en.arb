@@ -344,7 +344,7 @@
   "cancel_leave_message": "Leave is cancelled successfully!",
 
   "user_settings_edit_select_tag": "Select",
-  "user_setting_take_photo_tag": "Take Photo",
+  "user_setting_camera_tag": "Camera",
   "user_setting_gallery_tag": "Gallery",
 
   "employee_designation_tag": "Designation",
