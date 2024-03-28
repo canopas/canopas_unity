@@ -71,7 +71,7 @@ Unity introduces three distinct roles: **Admin**, **HR**, and **Employee**. Let'
 - To get started with unity, signing in with Google or Apple
 
 #### Create a new Space
-- After signing in, you have a option to create a new space. By default, the creator is assigned as the **Admin** role, granting full access,including the ability to edit or remove the space if no longer needed.
+- After signing in, you have an option to create a new space. By default, the creator is assigned as the **Admin** role, granting full access,including the ability to edit or remove the space if no longer needed.
 
 #### Joining a Existing Space:
 - If you've been invited to join a space, these invitations will be visible after signing in. Simply select the space to join it.
@@ -84,7 +84,7 @@ As an Admin, you have the highest level of permissions, allowing you to:
 
 #### * Create Spaces
 - After Successful Sign in With Google or Apple.
-- Navigate to Spaces screen.
+- Navigate to the Spaces screen.
 - Click on **_Create New Space_**.
 - Fill in the required details and confirm.
 
@@ -104,10 +104,10 @@ As an Admin, you have the highest level of permissions, allowing you to:
 #### * Manage Employees
 - Go to **_Members_** tab
 - Invite New Member,
-    - To Invite new member, Click on **_Invite_** button.
+    - To Invite a new member, Click on **_Invite_** button.
     - Add Email of user and confirm.
       (User will receive invitation mail - planned.)
-- For existing members,
+- for existing members,
     - Click on a specific employee to see detailed information.
     - You can _**Edit**_ or _**Deactivate**_ them.
       (After Deactivate user, User will lose access of the space.)
@@ -135,12 +135,12 @@ As an Employee, you can:
   (Only Admin/HR can review your leave request and approve/reject it.)
 
 #### * View Leave History
-- Can see Leave Details of coworkers except reason .
+- Can see Leave Details of coworkers except reason.
 - Can see only upcoming Leaves of coworkers.
   (Go to Members tab, Click on member and you can see upcoming leaves of the member.)
 
 #### * Update Personal Information
-- Click on **☰** button on the left side on Home screen.
+- Click on the **☰** button on the left side on Home screen.
 - Click on **_Personal Details_** to Update it.
   (As an employee, you can't change your role within the organization.)
 
@@ -151,9 +151,9 @@ As an Employee, you can:
  
 <details>
 
-<summary>Project Setup Instructions</summary>
+<summary>Project Set up Instructions</summary>
 
-## Set-up Guide
+## Set up Guide
 
 #### 1. [Flutter Environment Setup](https://docs.flutter.dev/get-started/install)
 > **Note**: Flutter sdk version `'>=3.2.0 <4.0.0'` is recommended to run project.
@@ -166,7 +166,7 @@ $ git clone https://github.com/canopas/canopas-unity.git
 * Rename the app package name (because this can affect the Firebase).
 * You can do it manually or using this package [Rename Package](https://pub.dev/packages/rename) or look at this [Stackoverflow Question](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter).
 
-#### 4. Setup the Firebase app
+#### 4. Set up the Firebase app
 * You'll need to create a Firebase instance. Follow the instructions at https://console.firebase.google.com.
 
 #### 5. Enable Google Authentication
