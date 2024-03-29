@@ -31,7 +31,8 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
     try {
       emit(state.copyWith(status: Status.loading));
       final List<Employee> allEmployees = await _employeeService.getEmployees();
-      employees = allEmployees.map((e) {
+      employees = allEmployees.where((employee) => employee.status == EmployeeStatus.active).
+      map((e) {
         if (e.dateOfBirth != null) {
           final birthdate = e.dateOfBirth!.convertToUpcomingDay();
           final Event event = Event(
