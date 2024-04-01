@@ -276,7 +276,9 @@
               }
           },
 
-            "upcoming_anniversary_text":"{name} will have successfully completed {years} years with us on",
+
+
+            "upcoming_anniversary_text":"{years, plural, =1{{name} will have successfully completed {years} year with us on} other {{name} will have successfully completed {years} years with us on}}",
             "@upcoming_anniversary_text":{
                "placeholders":{
                    "name":{
@@ -287,7 +289,8 @@
                      }
                    }
                },
-                "present_anniversary_text":"Congratulations on {years} with us {name} 💐💐! Keep up the good work!",
+
+                "present_anniversary_text":"{years,plural, =1{Congratulations on {years} year with us {name} 💐💐! Keep up the good work!} other {Congratulations on {years} years with us {name} 💐💐! Keep up the good work!}}",
                     "@present_anniversary_text":{
                       "placeholders":{
                           "name":{

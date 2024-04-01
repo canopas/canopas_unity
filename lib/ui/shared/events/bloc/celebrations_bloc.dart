@@ -33,8 +33,8 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
       final List<Employee> allEmployees = await _employeeService.getEmployees();
       employees = allEmployees
           .where((employee) => employee.status == EmployeeStatus.active)
-          .where((employee) => employee.status == EmployeeStatus.active).
-      map((e) {
+          .where((employee) => employee.status == EmployeeStatus.active)
+          .map((e) {
         if (e.dateOfBirth != null) {
           final birthdate = e.dateOfBirth!.convertToUpcomingDay();
           final Event event = Event(
@@ -44,8 +44,10 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
               imageUrl: e.imageUrl);
           allBirthdayEvents.add(event);
         }
-        if (e.role != Role.admin) {
+        if (e.role != Role.admin &&
+            e.dateOfJoining.calculateDifferenceInYears(DateTime.now()) >= 1) {
           final upcomingDate = e.dateOfJoining.convertToUpcomingDay();
+
           final Event event = Event(
               name: e.name,
               dateTime: DateUtils.dateOnly(e.dateOfJoining),
