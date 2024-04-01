@@ -25,6 +25,14 @@ extension TimestampExtension on DateTime {
               .add(Duration(days: DateTime.daysPerWeek - currentDate.weekday))
               .day;
 
+  int calculateDifferenceInYears(DateTime currentDate) {
+    int yearDifference = year - currentDate.year;
+    if (month < currentDate.month || !isDateInCurrentWeek(currentDate)) {
+      yearDifference--;
+    }
+    return yearDifference.abs();
+  }
+
   bool isBeforeOrSame(DateTime date) =>
       isBefore(date) || isAtSameMomentAs(date);
 

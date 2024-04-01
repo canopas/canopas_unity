@@ -23,7 +23,7 @@ void main() {
       employeeId: "CA-1000",
       email: "dummy.t@canopas.com",
       designation: "Application Tester",
-      dateOfJoining: DateTime.now().dateOnly,
+      dateOfJoining: DateTime.now().dateOnly.add(const Duration(days: 360)),
       level: "SW-L2",
       gender: Gender.male,
       dateOfBirth: DateTime.now().dateOnly,
@@ -36,16 +36,21 @@ void main() {
     employeeId: "CA-1000",
     email: "dummy.t@canopas.com",
     designation: "Application Tester",
-    dateOfJoining: DateTime.now().add(const Duration(days: 7)).dateOnly,
+    dateOfJoining: DateTime.now().dateOnly.add(const Duration(days: 367)),
     level: "SW-L2",
     gender: Gender.male,
     dateOfBirth: DateTime.now().add(const Duration(days: 7)).dateOnly,
   );
 
-  Event event = Event(
+  Event birthEvent = Event(
       name: employee1.name,
       dateTime: employee1.dateOfBirth!,
       upcomingDate: employee1.dateOfBirth!.convertToUpcomingDay(),
+      imageUrl: employee1.imageUrl);
+  Event anniversaryEvent2 = Event(
+      name: employee2.name,
+      dateTime: employee2.dateOfJoining,
+      upcomingDate: employee2.dateOfJoining.convertToUpcomingDay(),
       imageUrl: employee1.imageUrl);
   Event event2 = Event(
       name: employee2.name,
@@ -74,8 +79,8 @@ void main() {
           const CelebrationsState(status: Status.loading),
           CelebrationsState(
               status: Status.success,
-              birthdays: [event],
-              anniversaries: [event]),
+              birthdays: [birthEvent],
+              anniversaries: [anniversaryEvent2]),
         ]),
       );
     });
@@ -88,11 +93,13 @@ void main() {
       celebrationsBloc.add(ShowBirthdaysEvent());
 
       final successState = CelebrationsState(
-          status: Status.success, birthdays: [event], anniversaries: [event]);
+          status: Status.success,
+          birthdays: [birthEvent],
+          anniversaries: [anniversaryEvent2]);
       final allBdayState = successState.copyWith(
           showAllBdays: !celebrationsState.showAllBdays,
-          birthdays: [event, event2],
-          anniversaries: [event]);
+          birthdays: [birthEvent, event2],
+          anniversaries: [anniversaryEvent2]);
       expectLater(
         celebrationsBloc.stream,
         emitsInOrder([
@@ -112,11 +119,13 @@ void main() {
       celebrationsBloc.add(ShowAnniversariesEvent());
 
       final successState = CelebrationsState(
-          status: Status.success, birthdays: [event], anniversaries: [event]);
+          status: Status.success,
+          birthdays: [birthEvent],
+          anniversaries: [anniversaryEvent2]);
       final allAnniversariesState = successState.copyWith(
           showAllAnniversaries: !celebrationsState.showAllAnniversaries,
-          birthdays: [event],
-          anniversaries: [event, event2]);
+          birthdays: [birthEvent],
+          anniversaries: [anniversaryEvent2]);
       expectLater(
         celebrationsBloc.stream,
         emitsInOrder([
