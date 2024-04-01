@@ -33,7 +33,6 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
       final List<Employee> allEmployees = await _employeeService.getEmployees();
       employees = allEmployees
           .where((employee) => employee.status == EmployeeStatus.active)
-          .where((employee) => employee.status == EmployeeStatus.active)
           .map((e) {
         if (e.dateOfBirth != null) {
           final birthdate = e.dateOfBirth!.convertToUpcomingDay();
