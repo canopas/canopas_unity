@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,7 +108,7 @@ class SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      if (Platform.isIOS) const AppleSignInButton()
+                      if (kIsWeb || Platform.isIOS) const AppleSignInButton()
                     ],
                   ),
                 ),
