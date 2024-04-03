@@ -95,11 +95,11 @@ class DateFormatter {
     }
   }
 
-  String showAnniversaries(
-      {required DateTime dateOfJoining,
-      required DateTime upcomingDate,
-      required String name,
-     }) {
+  String showAnniversaries({
+    required DateTime dateOfJoining,
+    required DateTime upcomingDate,
+    required String name,
+  }) {
     final today = DateTime.now().dateOnly;
     int yearDifference = dateOfJoining.calculateDifferenceInYears(today);
     if (upcomingDate.isAtSameMomentAs(today)) {

@@ -55,8 +55,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       } else {
         emit(state.copyWith(appleSignInLoading: false));
       }
-    } on Exception catch(e) {
-      throw Exception(e);
+    } on Exception catch (e) {
       emit(state.copyWith(
           appleSignInLoading: false, error: somethingWentWrongError));
     }
