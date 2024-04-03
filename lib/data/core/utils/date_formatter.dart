@@ -99,10 +99,9 @@ class DateFormatter {
       {required DateTime dateOfJoining,
       required DateTime upcomingDate,
       required String name,
-      int? number}) {
+     }) {
     final today = DateTime.now().dateOnly;
-    final difference = dateOfJoining.difference(today);
-    int yearDifference = (difference.inDays / 365).floor().abs();
+    int yearDifference = dateOfJoining.calculateDifferenceInYears(today);
     if (upcomingDate.isAtSameMomentAs(today)) {
       return _localization.present_anniversary_text(name, yearDifference);
     } else {

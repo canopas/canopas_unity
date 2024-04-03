@@ -94,6 +94,8 @@ class AuthService {
 
     firebase_auth.AppleAuthProvider appleProvider =
         firebase_auth.AppleAuthProvider();
+    appleProvider.addScope('email');
+    appleProvider.addScope('name');
     if (kIsWeb) {
       credential = await firebase_auth.FirebaseAuth.instance
           .signInWithPopup(appleProvider);

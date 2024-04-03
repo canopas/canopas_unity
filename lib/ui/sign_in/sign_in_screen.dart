@@ -108,7 +108,7 @@ class SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      if (kIsWeb || Platform.isIOS) const AppleSignInButton()
+                      if (Platform.isIOS) const AppleSignInButton()
                     ],
                   ),
                 ),
