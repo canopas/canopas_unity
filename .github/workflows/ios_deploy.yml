@@ -1,13 +1,15 @@
 name: Publish to App Store Connect
 
-on: push
-
-
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 
 jobs:
   ios_deploy_testflight:
-    runs-on: macos-latest
+    runs-on: macos-13
     env:
       APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
       APP_STORE_CONNECT_KEY_IDENTIFIER: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
