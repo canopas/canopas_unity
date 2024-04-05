@@ -1,6 +1,10 @@
 name: Publish to App Store Connect
 
-on: push
+on:
+  workflow_dispatch:
+    push:
+        branches:
+        - main
 
 
 
