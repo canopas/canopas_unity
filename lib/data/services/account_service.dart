@@ -36,6 +36,24 @@ class AccountService {
     return user;
   }
 
+  Future<Account?> getAppleUser(firebase_auth.User authData) async {
+    final userDataDoc = await _accountsDb.doc(authData.uid).get();
+    final Account? userData = userDataDoc.data();
+    if (userData != null) {
+      await _setUserSession(authData.uid);
+      return userData;
+    } else if(authData.email != null ){
+      final user = Account(
+          uid: authData.uid,
+          email: authData.email!,
+          name: authData.displayName);
+      await _accountsDb.doc(authData.uid).set(user);
+      await _setUserSession(authData.uid);
+
+      return user;
+    }
+  }
+
   Future<void> _setUserSession(String uid) async {
     final Session? session = await deviceInfoProvider.getDeviceInfo();
     if (session != null) {

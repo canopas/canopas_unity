@@ -50,14 +50,19 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       emit(state.copyWith(appleSignInLoading: true));
       firebase_auth.User? authUser = await _authService.signInWithApple();
       if (authUser != null) {
-        final Account user = await _accountService.getUser(authUser);
+        final Account? user = await _accountService.getAppleUser(authUser);
+        if(user == null) {
+          emit(state.copyWith(
+              appleSignInLoading: false, error:"Please grant permission to access your email address"));
+          return;
+        }
         await _userStateNotifier.setUser(user);
         emit(state.copyWith(appleSignInLoading: false, signInSuccess: true));
       } else {
         emit(state.copyWith(appleSignInLoading: false));
       }
     } catch(e,stack) {
-      FirebaseCrashlytics.instance.recordError(e, stack);
+      FirebaseCrashlytics.instance.recordError(e, stack,reason: 'Apple Sign In Error');
       emit(state.copyWith(
           appleSignInLoading: false, error: somethingWentWrongError));
     }
