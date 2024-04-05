@@ -60,7 +60,7 @@ jobs:
         keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $DIST_CERTIFICATE_PASSWORD
 
     - name: Setup Code signing settings on Xcode project
-      run: xcode-project user-profiles
+      run: xcode-project use-profiles
 
 
     - name: Build ipa for Distribution
