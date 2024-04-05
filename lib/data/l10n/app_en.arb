@@ -427,6 +427,7 @@
   "add_member_employee_exists_error": "Member already exists!",
   "leave_already_applied_error_message": "Leave request has been already applied!",
   "provide_required_information": "Please provide the required information to continue",
+  "apple_sign_in_error_message": "Oops! It looks like you haven't granted permission to access your email. Please check and grant permission to access your email address",
 
   "sign_out_alert": "Are you sure you want to sign out?",
 

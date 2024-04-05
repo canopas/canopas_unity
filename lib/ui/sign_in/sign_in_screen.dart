@@ -11,6 +11,7 @@ import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/other/smart_scroll_view.dart';
 import 'package:projectunity/ui/sign_in/widget/apple_signin_button.dart';
 import 'package:projectunity/ui/sign_in/widget/google_signin_button.dart';
+import '../../data/core/exception/error_const.dart';
 import '../../data/core/utils/const/image_constant.dart';
 import '../../data/di/service_locator.dart';
 import '../widget/error_snack_bar.dart';
@@ -61,7 +62,13 @@ class SignInScreenState extends State<SignInScreen> {
               listenWhen: (previous, current) => current.error != null,
               listener: (context, state) {
                 if (state.error != null) {
-                  showSnackBar(context: context, error: state.error);
+                  if (state.error == appleSigninError) {
+                    showSnackBar(
+                        context: context,
+                        msg: context.l10n.apple_sign_in_error_message);
+                  } else {
+                    showSnackBar(context: context, error: state.error);
+                  }
                 }
               },
               child: SafeArea(
@@ -108,7 +115,7 @@ class SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      if (kIsWeb || Platform.isIOS) const AppleSignInButton()
+                      if (!kIsWeb && Platform.isIOS) const AppleSignInButton()
                     ],
                   ),
                 ),

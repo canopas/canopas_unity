@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
@@ -49,13 +51,24 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       emit(state.copyWith(appleSignInLoading: true));
       firebase_auth.User? authUser = await _authService.signInWithApple();
       if (authUser != null) {
-        final Account user = await _accountService.getUser(authUser);
+        final Account? user = await _accountService.getAppleUser(authUser);
+        if (user == null) {
+          emit(state.copyWith(
+              appleSignInLoading: false, error: appleSigninError));
+          return;
+        }
         await _userStateNotifier.setUser(user);
         emit(state.copyWith(appleSignInLoading: false, signInSuccess: true));
       } else {
         emit(state.copyWith(appleSignInLoading: false));
       }
-    } on Exception {
+    } catch (e, stack) {
+      if (e is FirebaseAuthException && e.code == 'canceled') {
+        emit(state.copyWith(appleSignInLoading: false));
+        return;
+      }
+      FirebaseCrashlytics.instance
+          .recordError(e, stack, reason: 'Apple Sign In Error');
       emit(state.copyWith(
           appleSignInLoading: false, error: somethingWentWrongError));
     }
