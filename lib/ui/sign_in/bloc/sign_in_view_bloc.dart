@@ -52,7 +52,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       firebase_auth.User? authUser = await _authService.signInWithApple();
       if (authUser != null) {
         final Account? user = await _accountService.getAppleUser(authUser);
-        if(user == null) {
+        if (user == null) {
           emit(state.copyWith(
               appleSignInLoading: false, error: appleSigninError));
           return;
@@ -62,13 +62,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       } else {
         emit(state.copyWith(appleSignInLoading: false));
       }
-    } catch(e,stack) {
-      if(e is FirebaseAuthException && e.code == 'canceled') {
-        emit(state.copyWith(
-            appleSignInLoading: false));
+    } catch (e, stack) {
+      if (e is FirebaseAuthException && e.code == 'canceled') {
+        emit(state.copyWith(appleSignInLoading: false));
         return;
       }
-      FirebaseCrashlytics.instance.recordError(e, stack,reason: 'Apple Sign In Error');
+      FirebaseCrashlytics.instance
+          .recordError(e, stack, reason: 'Apple Sign In Error');
       emit(state.copyWith(
           appleSignInLoading: false, error: somethingWentWrongError));
     }

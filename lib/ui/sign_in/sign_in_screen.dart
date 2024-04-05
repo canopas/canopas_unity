@@ -63,7 +63,9 @@ class SignInScreenState extends State<SignInScreen> {
               listener: (context, state) {
                 if (state.error != null) {
                   if (state.error == appleSigninError) {
-                    showSnackBar(context: context, msg: context.l10n.apple_sign_in_error_message);
+                    showSnackBar(
+                        context: context,
+                        msg: context.l10n.apple_sign_in_error_message);
                   } else {
                     showSnackBar(context: context, error: state.error);
                   }

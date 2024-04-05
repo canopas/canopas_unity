@@ -42,16 +42,16 @@ class AccountService {
     if (userData != null) {
       await _setUserSession(authData.uid);
       return userData;
-    } else if(authData.email != null ){
+    } else if (authData.email != null) {
       final user = Account(
           uid: authData.uid,
           email: authData.email!,
           name: authData.displayName);
       await _accountsDb.doc(authData.uid).set(user);
       await _setUserSession(authData.uid);
-
       return user;
     }
+    return null;
   }
 
   Future<void> _setUserSession(String uid) async {
