@@ -56,7 +56,7 @@ jobs:
 
     - name: Set up signing certificate
       run: |
-        echo DIST_CERTIFICATE | base64 --decode > /tmp/certificate.p12
+        echo $DIST_CERTIFICATE | base64 --decode > /tmp/certificate.p12
         keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $DIST_CERTIFICATE_PASSWORD
 
     - name: Setup Code signing settings on Xcode project
