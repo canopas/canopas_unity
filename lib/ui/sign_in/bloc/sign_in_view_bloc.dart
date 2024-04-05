@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
@@ -55,7 +56,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       } else {
         emit(state.copyWith(appleSignInLoading: false));
       }
-    } on Exception {
+    } catch(e,stack) {
+      FirebaseCrashlytics.instance.recordError(e, stack);
       emit(state.copyWith(
           appleSignInLoading: false, error: somethingWentWrongError));
     }
