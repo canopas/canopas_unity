@@ -141,53 +141,6 @@ class GenderSelection extends StatelessWidget {
                           : context.colorScheme.textPrimary),
                 ),
               )
-              // Expanded(
-              //     child: ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //       elevation: 0,
-              //       shadowColor: context.colorScheme.containerNormal,
-              //       surfaceTintColor: context.colorScheme.containerNormal,
-              //       foregroundColor: state.gender == Gender.male
-              //           ? context.colorScheme.textPrimary
-              //           : context.colorScheme.textSecondary,
-              //       backgroundColor: context.colorScheme.containerNormal,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: AppTheme.commonBorderRadius,
-              //       )),
-              //   onPressed: () {
-              //     bloc.add(EditProfileChangeGenderEvent(gender: Gender.male));
-              //   },
-              //   child: Text(
-              //     localization.gender_male_tag,
-              //     style: AppTextStyle.style16
-              //         .copyWith(color: context.colorScheme.textPrimary),
-              //   ),
-              // )),
-              // const SizedBox(
-              //   width: primaryHorizontalSpacing,
-              // ),
-              // Expanded(
-              //     child: ElevatedButton(
-              //   onPressed: () {
-              //     bloc.add(EditProfileChangeGenderEvent(gender: Gender.female));
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     elevation: 0,
-              //     shadowColor: context.colorScheme.containerNormal,
-              //     surfaceTintColor: context.colorScheme.containerNormal,
-              //       foregroundColor: state.gender == Gender.female
-              //           ? context.colorScheme.textPrimary
-              //           : context.colorScheme.textSecondary,
-              //       backgroundColor: context.colorScheme.containerNormal,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: AppTheme.commonBorderRadius,
-              //       )),
-              //   child: Text(
-              //     localization.gender_female_tag,
-              //     style: AppTextStyle.style16
-              //         .copyWith(color: context.colorScheme.textPrimary),
-              //   ),
-              // )),
             ],
           );
         });
@@ -214,7 +167,7 @@ class DateOfBirthButton extends StatelessWidget {
               alignment: Alignment.centerLeft,
               backgroundColor: context.colorScheme.containerNormal,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(24),
               )),
           onPressed: () async {
             DateTime? pickedDate = await pickDate(

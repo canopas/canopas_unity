@@ -71,7 +71,11 @@ class FieldEntry extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide.none),
         hintText: hintText,
+
       ),
+      onTapOutside: (pointerDownEvent){
+        FocusScope.of(context).unfocus();
+      },
     );
   }
 }

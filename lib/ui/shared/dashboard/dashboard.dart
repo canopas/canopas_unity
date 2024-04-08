@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/app_router.dart';
+import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/appbar_drawer/drawer/app_drawer.dart';
 import 'package:projectunity/ui/widget/app_dialog.dart';
@@ -28,6 +29,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return Scaffold(
+      backgroundColor: context.colorScheme.surface,
       drawer: const AppDrawer(),
       body: SafeArea(
           child: BlocListener<UserStateControllerBloc, UserControllerStatus>(

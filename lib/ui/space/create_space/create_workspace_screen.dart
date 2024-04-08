@@ -60,8 +60,7 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
     return AppPage(
         backGroundColor: context.colorScheme.surface,
         title: locale.create_new_space_title,
-        body: Material(
-          color: context.colorScheme.surface,
+        body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -90,36 +89,65 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
                     ],
                   ),
                 ),
+                BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
+                  buildWhen: (previous, current) =>
+                  previous.buttonState != current.buttonState ||
+                      previous.page != current.page ||
+                      previous.createSpaceStatus != current.createSpaceStatus,
+                  builder: (context, state) {
+                    return AppButton(
+                      backgroundColor: state.buttonState == ButtonState.enable
+                          ? context.colorScheme.primary
+                          : context.colorScheme.primary.withOpacity(0.5),
+                      loading: state.createSpaceStatus == Status.loading,
+                      tag: state.page == 2
+                          ? locale.create_space_tag
+                          : locale.next_tag,
+                      onTap: () {
+                        if (state.page < 2) {
+                          _tabController.animateTo(state.page + 1);
+                          bloc.add(PageChangeEvent(page: state.page + 1));
+                        }
+                        if (state.page == 2) {
+                          bloc.add(CreateSpaceButtonTapEvent());
+                        }
+                      }
+                          ,
+                    );
+                  }),
               ],
             ),
           ),
-        ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-              buildWhen: (previous, current) =>
-                  previous.buttonState != current.buttonState ||
-                  previous.page != current.page ||
-                  previous.createSpaceStatus != current.createSpaceStatus,
-              builder: (context, state) {
-                return AppButton(
-                  loading: state.createSpaceStatus == Status.loading,
-                  tag: state.page == 2
-                      ? locale.create_space_tag
-                      : locale.next_tag,
-                  onTap: state.buttonState == ButtonState.enable
-                      ? () {
-                          if (state.page < 2) {
-                            _tabController.animateTo(state.page + 1);
-                            bloc.add(PageChangeEvent(page: state.page + 1));
-                          }
-                          if (state.page == 2) {
-                            bloc.add(CreateSpaceButtonTapEvent());
-                          }
-                        }
-                      : null,
-                );
-              }),
         ));
+        // floatingActionButton: Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        //   child: BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
+        //       buildWhen: (previous, current) =>
+        //           previous.buttonState != current.buttonState ||
+        //           previous.page != current.page ||
+        //           previous.createSpaceStatus != current.createSpaceStatus,
+        //       builder: (context, state) {
+        //         return AppButton(
+        //           backgroundColor: state.buttonState == ButtonState.enable
+        //               ? context.colorScheme.primary
+        //               : context.colorScheme.primary.withOpacity(0.5),
+        //           loading: state.createSpaceStatus == Status.loading,
+        //           tag: state.page == 2
+        //               ? locale.create_space_tag
+        //               : locale.next_tag,
+        //           onTap: state.buttonState == ButtonState.enable
+        //               ? () {
+        //                   if (state.page < 2) {
+        //                     _tabController.animateTo(state.page + 1);
+        //                     bloc.add(PageChangeEvent(page: state.page + 1));
+        //                   }
+        //                   if (state.page == 2) {
+        //                     bloc.add(CreateSpaceButtonTapEvent());
+        //                   }
+        //                 }
+        //               : null,
+        //         );
+        //       }),
+        // ));
   }
 }
