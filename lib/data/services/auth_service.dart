@@ -103,7 +103,6 @@ class AuthService {
       credential = await firebase_auth.FirebaseAuth.instance
           .signInWithProvider(appleProvider);
     }
-
     return credential.user;
   }
 

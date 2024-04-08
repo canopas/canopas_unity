@@ -5,6 +5,7 @@ import 'package:projectunity/ui/admin/forms/form_list/form_list_screen.dart';
 import 'package:projectunity/ui/admin/leaves/leave_screen/admin_leaves_screen.dart';
 import 'package:projectunity/ui/shared/dashboard/navigation_item.dart';
 import 'package:projectunity/ui/shared/profile/view_profile/view_profle_screen.dart';
+import 'package:projectunity/ui/sign_in/setup_profile/setup_profile_screen.dart';
 import 'package:projectunity/ui/sign_in/sign_in_screen.dart';
 import 'package:projectunity/ui/user/leaves/detail/user_leave_detail_screen.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/user_leave_screen.dart';
@@ -30,6 +31,7 @@ import 'ui/user/leaves/apply_leave/apply_leave_screen.dart';
 import 'ui/user/members/detail/user_employee_detail_screen.dart';
 import 'ui/user/members/members_screen/user_members_screen.dart';
 import 'ui/widget/error/page_not_found_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 @Injectable()
 class AppRouter {
@@ -57,6 +59,15 @@ class AppRouter {
             : Routes.userHome,
         navigatorKey: _rootNavigatorKey,
         routes: [
+          GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: Routes.setupProfile,
+              name: Routes.setupProfile,
+              pageBuilder: (context, state) {
+                final firebase_auth.User user =
+                    state.extra as firebase_auth.User;
+                return CupertinoPage(child: SetUpProfilePage(user: user));
+              }),
           GoRoute(
             parentNavigatorKey: _rootNavigatorKey,
             path: Routes.login,
@@ -370,8 +381,9 @@ class AppRouter {
         redirect: (context, GoRouterState state) {
           final location = state.matchedLocation;
           final loggingIn = location == Routes.login;
+          final setupProfile = location == Routes.setupProfile;
           if (_userManager.state == UserState.unauthenticated) {
-            return loggingIn ? null : Routes.login;
+            return loggingIn || setupProfile ? null : Routes.login;
           }
           if (_userManager.state == UserState.authenticated &&
               !location.contains(Routes.joinSpace)) {
@@ -410,6 +422,7 @@ abstract class Routes {
   static const login = '/login';
   static const joinSpace = '/spaces';
   static const createSpace = 'create-space';
+  static const setupProfile = '/setup-profile';
 
   static const adminHome = '/admin/home';
   static const inviteMember = 'invite';

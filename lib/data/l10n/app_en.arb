@@ -430,6 +430,8 @@
   "apple_sign_in_error_message": "Oops! It looks like you haven't granted permission to access your email. Please check and grant permission to access your email address",
 
   "sign_out_alert": "Are you sure you want to sign out?",
+  "setup_profile_title": "Setup Profile",
+  "submit_button_tag": "Submit",
 
   "deactivate_user_account_alert": "Are you sure you want to deactivate {username}'s account? This action cannot be undone.",
   "@deactivate_user_account_alert": {

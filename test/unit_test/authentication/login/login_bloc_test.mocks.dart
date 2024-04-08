@@ -252,6 +252,26 @@ class MockAccountService extends _i1.Mock implements _i9.AccountService {
       ) as _i8.Future<_i5.Account>);
 
   @override
+  _i8.Future<_i5.Account?> getAppleUser(_i3.User? authData) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAppleUser,
+          [authData],
+        ),
+        returnValue: _i8.Future<_i5.Account?>.value(),
+      ) as _i8.Future<_i5.Account?>);
+
+  @override
+  _i8.Future<void> setUserAccount(_i5.Account? user) => (super.noSuchMethod(
+        Invocation.method(
+          #setUserAccount,
+          [user],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+
+  @override
   _i8.Future<void> updateSpaceOfUser({
     required String? spaceID,
     required String? uid,

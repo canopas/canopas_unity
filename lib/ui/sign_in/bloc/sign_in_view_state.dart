@@ -9,5 +9,6 @@ class SignInState with _$SignInState {
       @Default(false) googleSignInLoading,
       @Default(false) appleSignInLoading,
       @Default(false) signInSuccess,
+      Object? firebaseAuthUser,
       String? error}) = _SignInState;
 }
