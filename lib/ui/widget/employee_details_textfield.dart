@@ -30,6 +30,7 @@ class FieldEntry extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
   final int? maxLength;
+  final String? labelText;
 
   const FieldEntry(
       {super.key,
@@ -40,7 +41,8 @@ class FieldEntry extends StatelessWidget {
       this.controller,
       this.keyboardType,
       this.maxLength,
-      this.inputFormatters});
+      this.inputFormatters,
+      this.labelText});
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,7 @@ class FieldEntry extends StatelessWidget {
           AppTextStyle.style16.copyWith(color: context.colorScheme.textPrimary),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
+        labelText: labelText,
         isCollapsed: true,
         contentPadding: const EdgeInsets.all(primaryHorizontalSpacing),
         fillColor: context.colorScheme.containerNormal,

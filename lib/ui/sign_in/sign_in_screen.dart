@@ -5,13 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectunity/app_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/style/other/smart_scroll_view.dart';
 import 'package:projectunity/ui/sign_in/widget/apple_signin_button.dart';
 import 'package:projectunity/ui/sign_in/widget/google_signin_button.dart';
-import '../../data/core/exception/error_const.dart';
 import '../../data/core/utils/const/image_constant.dart';
 import '../../data/di/service_locator.dart';
 import '../widget/error_snack_bar.dart';
@@ -62,10 +63,9 @@ class SignInScreenState extends State<SignInScreen> {
               listenWhen: (previous, current) => current.error != null,
               listener: (context, state) {
                 if (state.error != null) {
-                  if (state.error == appleSigninError) {
-                    showSnackBar(
-                        context: context,
-                        msg: context.l10n.apple_sign_in_error_message);
+                  if (state.firebaseAuthUser != null) {
+                    context.goNamed(Routes.setupProfile,
+                        extra: state.firebaseAuthUser);
                   } else {
                     showSnackBar(context: context, error: state.error);
                   }

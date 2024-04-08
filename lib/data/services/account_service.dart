@@ -54,6 +54,11 @@ class AccountService {
     return null;
   }
 
+  Future<void> setUserAccount(Account user) async {
+    await _accountsDb.doc(user.uid).set(user);
+    await _setUserSession(user.uid);
+  }
+
   Future<void> _setUserSession(String uid) async {
     final Session? session = await deviceInfoProvider.getDeviceInfo();
     if (session != null) {

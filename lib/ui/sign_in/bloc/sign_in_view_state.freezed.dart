@@ -20,6 +20,7 @@ mixin _$SignInState {
   dynamic get googleSignInLoading => throw _privateConstructorUsedError;
   dynamic get appleSignInLoading => throw _privateConstructorUsedError;
   dynamic get signInSuccess => throw _privateConstructorUsedError;
+  Object? get firebaseAuthUser => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,6 +39,7 @@ abstract class $SignInStateCopyWith<$Res> {
       dynamic googleSignInLoading,
       dynamic appleSignInLoading,
       dynamic signInSuccess,
+      Object? firebaseAuthUser,
       String? error});
 }
 
@@ -58,6 +60,7 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
     Object? googleSignInLoading = freezed,
     Object? appleSignInLoading = freezed,
     Object? signInSuccess = freezed,
+    Object? firebaseAuthUser = freezed,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -77,6 +80,9 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
           ? _value.signInSuccess
           : signInSuccess // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      firebaseAuthUser: freezed == firebaseAuthUser
+          ? _value.firebaseAuthUser
+          : firebaseAuthUser,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -98,6 +104,7 @@ abstract class _$$SignInStateImplCopyWith<$Res>
       dynamic googleSignInLoading,
       dynamic appleSignInLoading,
       dynamic signInSuccess,
+      Object? firebaseAuthUser,
       String? error});
 }
 
@@ -116,6 +123,7 @@ class __$$SignInStateImplCopyWithImpl<$Res>
     Object? googleSignInLoading = freezed,
     Object? appleSignInLoading = freezed,
     Object? signInSuccess = freezed,
+    Object? firebaseAuthUser = freezed,
     Object? error = freezed,
   }) {
     return _then(_$SignInStateImpl(
@@ -130,6 +138,9 @@ class __$$SignInStateImplCopyWithImpl<$Res>
           : appleSignInLoading,
       signInSuccess:
           freezed == signInSuccess ? _value.signInSuccess! : signInSuccess,
+      firebaseAuthUser: freezed == firebaseAuthUser
+          ? _value.firebaseAuthUser
+          : firebaseAuthUser,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -146,6 +157,7 @@ class _$SignInStateImpl implements _SignInState {
       this.googleSignInLoading = false,
       this.appleSignInLoading = false,
       this.signInSuccess = false,
+      this.firebaseAuthUser,
       this.error});
 
   @override
@@ -161,11 +173,13 @@ class _$SignInStateImpl implements _SignInState {
   @JsonKey()
   final dynamic signInSuccess;
   @override
+  final Object? firebaseAuthUser;
+  @override
   final String? error;
 
   @override
   String toString() {
-    return 'SignInState(appleSignInAvailable: $appleSignInAvailable, googleSignInLoading: $googleSignInLoading, appleSignInLoading: $appleSignInLoading, signInSuccess: $signInSuccess, error: $error)';
+    return 'SignInState(appleSignInAvailable: $appleSignInAvailable, googleSignInLoading: $googleSignInLoading, appleSignInLoading: $appleSignInLoading, signInSuccess: $signInSuccess, firebaseAuthUser: $firebaseAuthUser, error: $error)';
   }
 
   @override
@@ -181,6 +195,8 @@ class _$SignInStateImpl implements _SignInState {
                 .equals(other.appleSignInLoading, appleSignInLoading) &&
             const DeepCollectionEquality()
                 .equals(other.signInSuccess, signInSuccess) &&
+            const DeepCollectionEquality()
+                .equals(other.firebaseAuthUser, firebaseAuthUser) &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -191,6 +207,7 @@ class _$SignInStateImpl implements _SignInState {
       const DeepCollectionEquality().hash(googleSignInLoading),
       const DeepCollectionEquality().hash(appleSignInLoading),
       const DeepCollectionEquality().hash(signInSuccess),
+      const DeepCollectionEquality().hash(firebaseAuthUser),
       error);
 
   @JsonKey(ignore: true)
@@ -206,6 +223,7 @@ abstract class _SignInState implements SignInState {
       final dynamic googleSignInLoading,
       final dynamic appleSignInLoading,
       final dynamic signInSuccess,
+      final Object? firebaseAuthUser,
       final String? error}) = _$SignInStateImpl;
 
   @override
@@ -216,6 +234,8 @@ abstract class _SignInState implements SignInState {
   dynamic get appleSignInLoading;
   @override
   dynamic get signInSuccess;
+  @override
+  Object? get firebaseAuthUser;
   @override
   String? get error;
   @override

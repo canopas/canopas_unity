@@ -54,7 +54,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         final Account? user = await _accountService.getAppleUser(authUser);
         if (user == null) {
           emit(state.copyWith(
-              appleSignInLoading: false, error: appleSigninError));
+              appleSignInLoading: false,
+              error: appleSigninError,
+              firebaseAuthUser: authUser));
           return;
         }
         await _userStateNotifier.setUser(user);
