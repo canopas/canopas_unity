@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
@@ -52,64 +53,70 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
     return AppPage(
         backGroundColor: context.colorScheme.surface,
         title: context.l10n.setup_profile_title,
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new),color: context.colorScheme.textPrimary,onPressed: (){
+          context.goNamed(Routes.login);
+        }),
         body: SafeArea(
-            child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
-          child: BlocListener<SetupProfileBloc, SetupProfileState>(
-            listener: (BuildContext context, SetupProfileState state) {
-              if (state.error != null) {
-                showSnackBar(context: context, error: state.error);
-                context.goNamed(Routes.login);
-              }
-            },
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              FieldTitle(title: context.l10n.employee_name_tag),
-              BlocBuilder<SetupProfileBloc, SetupProfileState>(
-                  builder: (context, state) {
-                return FieldEntry(
-                  controller: nameController,
-                  hintText: context.l10n.employee_name_tag,
-                  onChanged: (value) => context
-                      .read<SetupProfileBloc>()
-                      .add(NameChangedEvent(name: value)),
-                  errorText: state.nameError
-                      ? context.l10n.admin_home_add_member_error_name
-                      : null,
-                );
-              }),
-              FieldTitle(title: context.l10n.employee_email_tag),
-              BlocBuilder<SetupProfileBloc, SetupProfileState>(
-                  builder: (context, state) {
-                return FieldEntry(
-                  controller: emailController,
-                  hintText: context.l10n.employee_email_tag,
-                  onChanged: (value) => context
-                      .read<SetupProfileBloc>()
-                      .add(EmailChangedEvent(email: value)),
-                  errorText: state.emailError
-                      ? context.l10n.admin_home_add_member_error_email
-                      : null,
-                );
-              }),
-              const Spacer(),
-              BlocBuilder<SetupProfileBloc, SetupProfileState>(
-                  builder: (context, state) {
-                return AppButton(
-                  backgroundColor: state.buttonEnabled
-                      ? context.colorScheme.primary
-                      : context.colorScheme.primary.withOpacity(0.5),
-                  loading: state.isSubmitting,
-                  tag: context.l10n.submit_button_tag,
-                  onTap: () => context
-                      .read<SetupProfileBloc>()
-                      .add(SubmitProfileEvent(uid: widget.user.uid)),
-                );
-              }),
-              const SizedBox(height: 16),
-            ]),
-          ),
-        )));
+          child: Padding(
+                    padding:
+            const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing),
+                    child: BlocListener<SetupProfileBloc, SetupProfileState>(
+          listener: (BuildContext context, SetupProfileState state) {
+            if (state.error != null) {
+              showSnackBar(context: context, error: state.error);
+              context.goNamed(Routes.login);
+            }
+          },
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            FieldTitle(title: context.l10n.employee_name_tag),
+            BlocBuilder<SetupProfileBloc, SetupProfileState>(
+                builder: (context, state) {
+              return FieldEntry(
+                textInputAction: TextInputAction.next,
+                controller: nameController,
+                hintText: context.l10n.employee_name_tag,
+                onChanged: (value) => context
+                    .read<SetupProfileBloc>()
+                    .add(NameChangedEvent(name: value)),
+                errorText: state.nameError
+                    ? context.l10n.admin_home_add_member_error_name
+                    : null,
+              );
+            }),
+            FieldTitle(title: context.l10n.employee_email_tag),
+            BlocBuilder<SetupProfileBloc, SetupProfileState>(
+                builder: (context, state) {
+              return FieldEntry(
+                textInputAction: TextInputAction.done,
+                controller: emailController,
+                hintText: context.l10n.employee_email_tag,
+                onChanged: (value) => context
+                    .read<SetupProfileBloc>()
+                    .add(EmailChangedEvent(email: value)),
+                errorText: state.emailError
+                    ? context.l10n.admin_home_add_member_error_email
+                    : null,
+              );
+            }),
+            const Spacer(),
+            BlocBuilder<SetupProfileBloc, SetupProfileState>(
+                builder: (context, state) {
+              return AppButton(
+                backgroundColor: state.buttonEnabled
+                    ? context.colorScheme.primary
+                    : context.colorScheme.primary.withOpacity(0.5),
+                loading: state.isSubmitting,
+                tag: context.l10n.submit_button_tag,
+                onTap: () => context
+                    .read<SetupProfileBloc>()
+                    .add(SubmitProfileEvent(uid: widget.user.uid)),
+              );
+            }),
+            const SizedBox(height: 16),
+          ]),
+                    ),
+                  ),
+        ));
   }
 }
