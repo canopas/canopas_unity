@@ -32,7 +32,7 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
     final bloc = BlocProvider.of<CreateSpaceBLoc>(context);
     final locale = context.l10n;
     return ListView(
-     // crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           locale.create_space_enter_space_details_text,

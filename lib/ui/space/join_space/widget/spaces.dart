@@ -27,7 +27,11 @@ class Spaces extends StatelessWidget {
             );
           } else {
             if (state.ownSpaces.isEmpty && state.requestedSpaces.isEmpty) {
-              return Text(context.l10n.empty_space_list_msg,style: AppTextStyle.style14.copyWith(color: context.colorScheme.textSecondary),);
+              return Text(
+                context.l10n.empty_space_list_msg,
+                style: AppTextStyle.style14
+                    .copyWith(color: context.colorScheme.textSecondary),
+              );
             }
             return Expanded(
               child: ListView(
