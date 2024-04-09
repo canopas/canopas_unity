@@ -28,6 +28,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return Scaffold(
+      backgroundColor: context.colorScheme.surface,
       drawer: const AppDrawer(),
       body: SafeArea(
           child: BlocListener<UserStateControllerBloc, UserControllerStatus>(

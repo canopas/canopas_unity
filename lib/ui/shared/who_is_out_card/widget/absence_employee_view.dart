@@ -122,7 +122,7 @@ class WhoIsOutAbsenceEmptyView extends StatelessWidget {
           Text(
             locale.who_is_out_card_no_leave_present_message,
             style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.textPrimary),
+                .copyWith(color: context.colorScheme.textSecondary),
           ),
         ],
       ),

@@ -31,8 +31,8 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
     super.build(context);
     final bloc = BlocProvider.of<CreateSpaceBLoc>(context);
     final locale = context.l10n;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           locale.create_space_enter_space_details_text,

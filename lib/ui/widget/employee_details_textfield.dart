@@ -31,6 +31,7 @@ class FieldEntry extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLength;
   final String? labelText;
+  final TextInputAction? textInputAction;
 
   const FieldEntry(
       {super.key,
@@ -42,14 +43,15 @@ class FieldEntry extends StatelessWidget {
       this.keyboardType,
       this.maxLength,
       this.inputFormatters,
-      this.labelText});
+      this.labelText,
+      this.textInputAction});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      textInputAction: TextInputAction.next,
+      textInputAction: textInputAction,
       onChanged: onChanged,
       maxLines: maxLine,
       maxLength: maxLength,
@@ -72,6 +74,9 @@ class FieldEntry extends StatelessWidget {
             borderSide: BorderSide.none),
         hintText: hintText,
       ),
+      onTapOutside: (pointerDownEvent) {
+        FocusScope.of(context).unfocus();
+      },
     );
   }
 }

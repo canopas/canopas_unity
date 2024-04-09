@@ -10,7 +10,7 @@ class AppPage extends StatelessWidget {
   final Widget? leading;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation floatingActionButtonLocation;
-  final Widget? body;
+  final Widget body;
   final bool automaticallyImplyLeading;
 
   const AppPage({
@@ -20,7 +20,7 @@ class AppPage extends StatelessWidget {
     required this.backGroundColor,
     this.actions,
     this.leading,
-    this.body,
+    required this.body,
     this.floatingActionButtonLocation =
         FloatingActionButtonLocation.centerFloat,
     this.automaticallyImplyLeading = true,
@@ -36,6 +36,7 @@ class AppPage extends StatelessWidget {
               leading == null
           ? null
           : AppBar(
+              foregroundColor: context.colorScheme.textPrimary,
               scrolledUnderElevation: 0.0,
               backgroundColor: backGroundColor,
               title: titleWidget ?? _title(context),
