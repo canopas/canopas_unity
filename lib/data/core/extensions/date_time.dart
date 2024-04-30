@@ -17,13 +17,22 @@ extension DateExtention on int {
 extension TimestampExtension on DateTime {
   int get futureDateSelectionYear => year + 2;
 
-  bool isDateInCurrentWeek(DateTime currentDate) =>
-      month == currentDate.month &&
-      day >= currentDate.day &&
-      day <=
-          currentDate
-              .add(Duration(days: DateTime.daysPerWeek - currentDate.weekday))
-              .day;
+  bool isDateInCurrentWeek(DateTime currentDate) {
+    DateTime now = DateTime.now().dateOnly;
+    DateTime startOfWeek =
+        now.dateOnly.subtract(Duration(days: now.weekday - 1));
+    DateTime endOfWeek = startOfWeek.dateOnly
+        .add(const Duration(days: DateTime.daysPerWeek - 1));
+
+    DateTime birthdayThisYear = DateTime(currentDate.year, month, day).dateOnly;
+    DateTime birthdayNextYear =
+        DateTime(currentDate.year + 1, month, day).dateOnly;
+
+    return (birthdayThisYear.isAfterOrSame(now) &&
+            birthdayThisYear.isBefore(endOfWeek)) ||
+        (birthdayNextYear.isAfterOrSame(now) &&
+            birthdayNextYear.isBefore(endOfWeek));
+  }
 
   int calculateDifferenceInYears(DateTime currentDate) {
     int yearDifference = year - currentDate.year;
@@ -36,7 +45,7 @@ extension TimestampExtension on DateTime {
   bool isBeforeOrSame(DateTime date) =>
       isBefore(date) || isAtSameMomentAs(date);
 
-  bool isAfterOrSame(DateTime date) => isBefore(date) || isAtSameMomentAs(date);
+  bool isAfterOrSame(DateTime date) => isAfter(date) || isAtSameMomentAs(date);
 
   int get timeStampToInt => millisecondsSinceEpoch;
 

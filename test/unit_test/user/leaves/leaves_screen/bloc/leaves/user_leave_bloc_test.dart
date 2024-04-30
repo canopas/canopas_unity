@@ -137,13 +137,13 @@ void main() {
 
       test('Add applied leaves on leave list test', () {
         when(leaveRepo.fetchLeave(leaveId: casualLeave.leaveId))
-            .thenAnswer((realInvocation) async => casualLeave);
+            .thenAnswer((_) async => casualLeave);
         bloc.add(UpdateLeave(leaveId: casualLeave.leaveId));
         expectLater(
             bloc.stream,
             emits(UserLeaveState(
                 casualLeaves: [casualLeave]
-                    .groupByMonth((element) => element.appliedOn))));
+                    .groupByMonth((element) => element.startDate))));
       });
     });
 

@@ -1,6 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
+import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 
 class DateFormatter {
@@ -86,12 +87,21 @@ class DateFormatter {
     }
   }
 
+  String getEventDateRepresentation(DateTime dt) {
+    if (today.dateOnly.isAtSameMomentAs(dt.dateOnly)) {
+      return _localization.dateFormatter_today.toLowerCase();
+    } else if (today.add(oneDay).dateOnly.isAtSameMomentAs(dt.dateOnly)) {
+      return _localization.dateFormatter_tomorrow.toLowerCase();
+    }
+    return _localization.date_format_MMMd(dt).capitalize();
+  }
+
   String showBirthdays({required DateTime dateTime, required String name}) {
     final today = DateTime.now().dateOnly;
     if (dateTime.dateOnly.isAtSameMomentAs(today)) {
       return _localization.present_birthday_text(name);
     } else {
-      return "${_localization.upcoming_birthday_text(name)} ${getDateRepresentation(dateTime).toLowerCase()}!🎂🎁";
+      return "${_localization.upcoming_birthday_text(name)} ${getEventDateRepresentation(dateTime)}!🎂🎁";
     }
   }
 
@@ -105,7 +115,7 @@ class DateFormatter {
     if (upcomingDate.isAtSameMomentAs(today)) {
       return _localization.present_anniversary_text(name, yearDifference);
     } else {
-      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getDateRepresentation(upcomingDate).toLowerCase()}!🎉";
+      return "${_localization.upcoming_anniversary_text(name, yearDifference)} ${getEventDateRepresentation(upcomingDate)}!🎉";
     }
   }
 

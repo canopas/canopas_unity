@@ -175,6 +175,18 @@
     }
   },
 
+
+        "date_format_MMMd": "{date}",
+        "@date_format_MMMd": {
+          "placeholders": {
+            "date": {
+              "type": "DateTime",
+              "format": "MMMMd"
+            }
+          }
+        },
+
+
   "date_format_yMMMM": "{date}",
   "@date_format_yMMMM": {
     "placeholders": {
