@@ -180,13 +180,18 @@ class CurrentWeekEventCard extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Expanded(
-                child: Text(isAnniversary
+              child: Text(
+                isAnniversary
                     ? DateFormatter(context.l10n).showAnniversaries(
                         dateOfJoining: event.dateTime,
                         upcomingDate: event.upcomingDate,
                         name: event.name)
                     : DateFormatter(context.l10n).showBirthdays(
-                        dateTime: event.dateTime, name: event.name))),
+                        dateTime: event.dateTime, name: event.name),
+                style: AppTextStyle.style14
+                    .copyWith(color: context.colorScheme.textPrimary),
+              ),
+            ),
           ],
         ));
   }
