@@ -68,7 +68,6 @@ jobs:
     - name: Setup Code signing settings on Xcode project
       run: xcode-project use-profiles
 
-
     - name: Build ipa for Distribution
       run: |
         file='VERSION'
@@ -80,7 +79,6 @@ jobs:
         buildName="${versionValue[0]}.${versionValue[1]}.${{ github.run_number }}"
         echo "Uploading build $buildName"
         cd ios
-#     flutter build ipa --release --build-number=$buildNumber --build-name=$buildName --export-options-plist=$HOME/export_options.plist
         xcode-project build-ipa --workspace=Runner.xcworkspace --scheme="Runner" --export-options-plist=$HOME/export_options.plist
 
     - name: Upload to App Store Connect
