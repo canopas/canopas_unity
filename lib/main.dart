@@ -31,9 +31,13 @@ Future<void> main() async {
     return ErrorScreen(error: error);
   };
 
-  if (kDebugMode && !kIsWeb) {
+if(!kIsWeb){
+  if(kDebugMode){
     await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(false);
+  }else{
+    await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(true);
   }
+}
 
   PlatformDispatcher.instance.onError = (error, stack) {
     getIt<FirebaseCrashlytics>().recordError(error, stack, fatal: true);

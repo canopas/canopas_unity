@@ -8,7 +8,7 @@ part of 'org_form_field.dart';
 
 OrgFormField _$OrgFormFieldFromJson(Map<String, dynamic> json) => OrgFormField(
       id: json['id'] as String,
-      index: json['index'] as int,
+      index: (json['index'] as num).toInt(),
       question: json['question'] as String,
       answerType: $enumDecodeNullable(
               _$FormFieldAnswerTypeEnumMap, json['answer_type']) ??

@@ -7,7 +7,8 @@ part of 'org_form_info.dart';
 // **************************************************************************
 
 OrgFormInfo _$OrgFormInfoFromJson(Map<String, dynamic> json) => OrgFormInfo(
-      createdAt: const DateTimeConverter().fromJson(json['created_at'] as int),
+      createdAt: const DateTimeConverter()
+          .fromJson((json['created_at'] as num).toInt()),
       id: json['id'] as String,
       title: json['title'] as String,
       headerImage: json['header_image'] as String?,

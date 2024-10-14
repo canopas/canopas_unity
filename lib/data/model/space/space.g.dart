@@ -9,8 +9,9 @@ part of 'space.dart';
 Space _$SpaceFromJson(Map<String, dynamic> json) => Space(
       id: json['id'] as String,
       name: json['name'] as String,
-      createdAt: const DateTimeConverter().fromJson(json['created_at'] as int),
-      paidTimeOff: json['paid_time_off'] as int,
+      createdAt: const DateTimeConverter()
+          .fromJson((json['created_at'] as num).toInt()),
+      paidTimeOff: (json['paid_time_off'] as num).toInt(),
       ownerIds:
           (json['owner_ids'] as List<dynamic>).map((e) => e as String).toList(),
       domain: json['domain'] as String?,

@@ -96,12 +96,14 @@ class DateFormatter {
     return _localization.date_format_MMMd(dt).capitalize();
   }
 
-  String showBirthdays({required DateTime dateTime, required String name}) {
+  String showBirthdays({required DateTime birthDate, required String name}) {
+    print(birthDate);
     final today = DateTime.now().dateOnly;
-    if (dateTime.dateOnly.isAtSameMomentAs(today)) {
+
+    if (birthDate.day == today.day && birthDate.month == today.month) {
       return _localization.present_birthday_text(name);
     } else {
-      return "${_localization.upcoming_birthday_text(name)} ${getEventDateRepresentation(dateTime)}!🎂🎁";
+      return "${_localization.upcoming_birthday_text(name)} ${getEventDateRepresentation(birthDate)}!🎂🎁";
     }
   }
 

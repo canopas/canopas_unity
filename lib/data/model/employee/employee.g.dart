@@ -19,8 +19,8 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
       dateOfBirth: _$JsonConverterFromJson<int, DateTime>(
           json['date_of_birth'], const DateTimeConverter().fromJson),
-      dateOfJoining:
-          const DateTimeConverter().fromJson(json['date_of_joining'] as int),
+      dateOfJoining: const DateTimeConverter()
+          .fromJson((json['date_of_joining'] as num).toInt()),
       level: json['level'] as String?,
       status: $enumDecodeNullable(_$EmployeeStatusEnumMap, json['status']) ??
           EmployeeStatus.active,
