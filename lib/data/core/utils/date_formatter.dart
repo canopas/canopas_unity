@@ -97,7 +97,6 @@ class DateFormatter {
   }
 
   String showBirthdays({required DateTime birthDate, required String name}) {
-    print(birthDate);
     final today = DateTime.now().dateOnly;
 
     if (birthDate.day == today.day && birthDate.month == today.month) {
