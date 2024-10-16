@@ -10,12 +10,15 @@ Leave _$LeaveFromJson(Map<String, dynamic> json) => Leave(
       leaveId: json['leave_id'] as String,
       uid: json['uid'] as String,
       type: $enumDecode(_$LeaveTypeEnumMap, json['type']),
-      startDate: const DateTimeConverter().fromJson(json['start_date'] as int),
-      endDate: const DateTimeConverter().fromJson(json['end_date'] as int),
+      startDate: const DateTimeConverter()
+          .fromJson((json['start_date'] as num).toInt()),
+      endDate:
+          const DateTimeConverter().fromJson((json['end_date'] as num).toInt()),
       total: (json['total'] as num).toDouble(),
       reason: json['reason'] as String,
       status: $enumDecode(_$LeaveStatusEnumMap, json['status']),
-      appliedOn: const DateTimeConverter().fromJson(json['applied_on'] as int),
+      appliedOn: const DateTimeConverter()
+          .fromJson((json['applied_on'] as num).toInt()),
       perDayDuration: (json['per_day_duration'] as List<dynamic>)
           .map((e) => $enumDecode(_$LeaveDayDurationEnumMap, e))
           .toList(),

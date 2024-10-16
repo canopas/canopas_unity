@@ -24,9 +24,9 @@ class NetworkConnectionBloc
     });
   }
 
-  void _checkNetworkConnection(ConnectivityResult result) {
-    if (result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi) {
+  void _checkNetworkConnection(List<ConnectivityResult> result) {
+    if (result.contains(ConnectivityResult.mobile) ||
+        result.contains(ConnectivityResult.wifi)) {
       add(const NetworkConnectionChangeEvent(hasConnection: true));
     } else {
       add(const NetworkConnectionChangeEvent(hasConnection: false));

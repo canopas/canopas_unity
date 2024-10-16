@@ -28,25 +28,24 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt.get<DrawerBloc>()),
-        BlocProvider(
-            create: (context) => getIt<NetworkConnectionBloc>()
-              ..add(NetworkConnectionObserveEvent())),
-        BlocProvider(create: (context) => getIt<UserStateControllerBloc>()),
-      ],
-      child: BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
-        listenWhen: (previous, current) =>
-            current is NetworkConnectionFailureState,
-        listener: (context, state) {
-          if (state is NetworkConnectionFailureState) {
-            String connectionErrorMessage =
-                context.l10n.network_connection_error;
-            showSnackBar(context: context, msg: connectionErrorMessage);
-          }
-        },
-        child: widget.child,
-      ),
-    );
+        providers: [
+          BlocProvider(create: (context) => getIt.get<DrawerBloc>()),
+          BlocProvider(
+              create: (context) => getIt<NetworkConnectionBloc>()
+                ..add(NetworkConnectionObserveEvent())),
+          BlocProvider(create: (context) => getIt<UserStateControllerBloc>()),
+        ],
+        child: BlocListener<NetworkConnectionBloc, NetworkConnectionState>(
+          listenWhen: (previous, current) =>
+              current is NetworkConnectionFailureState,
+          listener: (context, state) {
+            if (state is NetworkConnectionFailureState) {
+              String connectionErrorMessage =
+                  context.l10n.network_connection_error;
+              showSnackBar(context: context, msg: connectionErrorMessage);
+            }
+          },
+          child: widget.child,
+        ));
   }
 }

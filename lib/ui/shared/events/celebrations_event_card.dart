@@ -187,7 +187,7 @@ class CurrentWeekEventCard extends StatelessWidget {
                         upcomingDate: event.upcomingDate,
                         name: event.name)
                     : DateFormatter(context.l10n).showBirthdays(
-                        dateTime: event.dateTime, name: event.name),
+                        birthDate: event.dateTime, name: event.name),
                 style: AppTextStyle.style14
                     .copyWith(color: context.colorScheme.textPrimary),
               ),

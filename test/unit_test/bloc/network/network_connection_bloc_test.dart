@@ -31,7 +31,7 @@ void main() {
         'Emits NetworkConnectionSuccessState if device is connected to either mobile or wifi',
         () async {
       when(connectivity.onConnectivityChanged)
-          .thenAnswer((_) => Stream.fromIterable(connections));
+          .thenAnswer((_) => Stream.fromIterable([connections]));
       networkConnectionBloc.add(NetworkConnectionObserveEvent());
       expectLater(
           networkConnectionBloc.stream, emits(NetWorkConnectionSuccessState()));
@@ -40,7 +40,7 @@ void main() {
         'Emits NetworkConnectionFailureState if device is not connected to mobile or wifi',
         () {
       when(connectivity.onConnectivityChanged).thenAnswer(
-          (_) => Stream.fromIterable([ConnectivityResult.ethernet]));
+          (_) => Stream.fromIterable([[ConnectivityResult.ethernet]]));
       networkConnectionBloc.add(NetworkConnectionObserveEvent());
       expectLater(
           networkConnectionBloc.stream, emits(NetworkConnectionFailureState()));

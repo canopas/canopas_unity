@@ -10,7 +10,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       deviceId: json['device_id'] as String?,
       deviceToken: json['device_token'] as String?,
       deviceType: $enumDecodeNullable(_$DeviceTypeEnumMap, json['device_type']),
-      version: json['version'] as int?,
+      version: (json['version'] as num?)?.toInt(),
       deviceName: json['device_name'] as String?,
       osVersion: json['os_version'] as String?,
       lastAccessedOn: _$JsonConverterFromJson<int, DateTime>(
