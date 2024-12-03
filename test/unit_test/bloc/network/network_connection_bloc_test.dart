@@ -39,8 +39,10 @@ void main() {
     test(
         'Emits NetworkConnectionFailureState if device is not connected to mobile or wifi',
         () {
-      when(connectivity.onConnectivityChanged).thenAnswer(
-          (_) => Stream.fromIterable([[ConnectivityResult.ethernet]]));
+      when(connectivity.onConnectivityChanged)
+          .thenAnswer((_) => Stream.fromIterable([
+                [ConnectivityResult.ethernet]
+              ]));
       networkConnectionBloc.add(NetworkConnectionObserveEvent());
       expectLater(
           networkConnectionBloc.stream, emits(NetworkConnectionFailureState()));

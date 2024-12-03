@@ -14,10 +14,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: set up JDK 1.8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
           java-version: 17.0.6
           cache: 'gradle'
@@ -57,7 +57,7 @@ jobs:
           APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ProjectUnity APK
           path: ProjectUnity*.apk
@@ -70,10 +70,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: set up JDK 1.8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
           java-version: 17.0.6
           cache: 'gradle'
@@ -113,7 +113,7 @@ jobs:
           APKSIGN_KEY_PASS: ${{ secrets.APKSIGN_KEY_PASS }}
 
       - name: Upload AAB Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ProjectUnity AAB
           path: app-release.aab
