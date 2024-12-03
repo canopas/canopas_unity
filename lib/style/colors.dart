@@ -65,17 +65,17 @@ final ThemeData materialThemeDataDark = _materialDarkTheme.copyWith(
   primaryColor: primaryColor,
   scaffoldBackgroundColor: surfaceDarkColor,
   dividerColor: outlineDarkColor,
-  colorScheme: _materialLightTheme.colorScheme.copyWith(
+  colorScheme: _materialDarkTheme.colorScheme.copyWith(
       onPrimary: primaryColor,
       onSecondary: textSecondaryDarkColor,
       surface: surfaceDarkColor,
       onSurface: textPrimaryDarkColor),
-  appBarTheme: _materialLightTheme.appBarTheme.copyWith(
+  appBarTheme: _materialDarkTheme.appBarTheme.copyWith(
       backgroundColor: surfaceDarkColor,
       titleTextStyle: AppTextStyle.style20,
       foregroundColor: textPrimaryDarkColor,
       centerTitle: true),
-  popupMenuTheme: _materialLightTheme.popupMenuTheme.copyWith(
+  popupMenuTheme: _materialDarkTheme.popupMenuTheme.copyWith(
     surfaceTintColor: surfaceDarkColor,
     color: surfaceDarkColor,
   ),
