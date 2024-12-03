@@ -6,7 +6,6 @@ Future<DateTime?> pickDate(
     {required BuildContext context, required DateTime initialDate}) async {
   DateTime? pickDate = await showDatePicker(
     context: context,
-    barrierColor: context.colorScheme.surface,
     initialDate: initialDate,
     firstDate: DateTime(1990),
     lastDate: DateTime(DateTime.now().futureDateSelectionYear),
@@ -19,7 +18,6 @@ Future<TimeOfDay?> pickTime(
   TimeOfDay? time = await showTimePicker(
     context: context,
     initialTime: initialTime,
-    barrierColor: context.colorScheme.surface,
   );
   return time;
 }
