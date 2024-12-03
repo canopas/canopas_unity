@@ -59,7 +59,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
           leavesFetchStatus: Status.success,
           leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
                   leaves: paginatedData.leaves, members: _members)
-              .groupByMonth((la) => la.leave.appliedOn)));
+              .groupByMonth((la) => la.leave.startDate)));
     } on Exception {
       _isLoadedMax = true;
       emit(state.copyWith(
@@ -86,7 +86,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
         emit(state.copyWith(
             fetchMoreData: Status.success,
             leaveApplicationMap:
-                leaveApplications.groupByMonth((la) => la.leave.appliedOn)));
+                leaveApplications.groupByMonth((la) => la.leave.startDate)));
       } on Exception {
         emit(state.copyWith(
             error: firestoreFetchDataError, fetchMoreData: Status.error));
@@ -121,7 +121,7 @@ class AdminLeavesBloc extends Bloc<AdminLeavesEvents, AdminLeavesState> {
           (element) => element.leave.leaveId == leave.leaveId);
       emit(state.copyWith(
           leaveApplicationMap:
-              leaveApplications.groupByMonth((la) => la.leave.appliedOn)));
+              leaveApplications.groupByMonth((la) => la.leave.startDate)));
     }
   }
 
