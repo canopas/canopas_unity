@@ -154,7 +154,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByMonth((la) => la.leave.appliedOn)),
+                  ]).groupByMonth((la) => la.leave.startDate)),
             ]));
       });
 
@@ -197,7 +197,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByMonth((la) => la.leave.appliedOn)),
+                  ]).groupByMonth((la) => la.leave.startDate)),
               AdminLeavesState(
                   members: [joi],
                   selectedMember: joi,
@@ -210,7 +210,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByMonth((la) => la.leave.appliedOn))
+                  ]).groupByMonth((la) => la.leave.startDate))
             ]));
       });
     });
@@ -298,7 +298,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByMonth((la) => la.leave.appliedOn)),
+                  ]).groupByMonth((la) => la.leave.startDate)),
             ]));
       });
 
@@ -322,7 +322,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByMonth((la) => la.leave.appliedOn)),
+                  ]).groupByMonth((la) => la.leave.startDate)),
               AdminLeavesState(
                   fetchMoreData: Status.success,
                   members: [joi, andrew],
@@ -336,7 +336,7 @@ void main() {
                   ], members: [
                     joi,
                     andrew
-                  ]).groupByMonth((la) => la.leave.appliedOn)),
+                  ]).groupByMonth((la) => la.leave.startDate)),
             ]));
       });
 
@@ -359,7 +359,7 @@ void main() {
                 ], members: [
                   joi,
                   andrew
-                ]).groupByMonth((la) => la.leave.appliedOn))));
+                ]).groupByMonth((la) => la.leave.startDate))));
       });
     });
   });
