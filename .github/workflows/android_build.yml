@@ -50,7 +50,7 @@ jobs:
           echo $APKSIGN_KEYSTORE_BASE64 | base64 -di > release.jks
           export APKSIGN_KEYSTORE=`pwd`/release.jks
           flutter build apk --release --build-number=$buildNumber --build-name=$buildName
-          mv build/app/outputs/apk/release/ProjectUnity*.apk .
+          mv build/app/outputs/apk/release/*.apk .
         env:
           APKSIGN_KEYSTORE_BASE64: ${{ secrets.APKSIGN_KEYSTORE_BASE64 }}
           APKSIGN_KEYSTORE_PASS: ${{ secrets.APKSIGN_KEYSTORE_PASS }}
