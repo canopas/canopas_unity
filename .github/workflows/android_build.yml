@@ -1,10 +1,10 @@
 name: Android Build
 
-on: push
-#  push:
-#    branches:
-#      - main
-#  workflow_dispatch:
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
 
