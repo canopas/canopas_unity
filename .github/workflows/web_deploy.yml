@@ -23,7 +23,6 @@ jobs:
         name: Set up Flutter SDK
         with:
           channel: stable
-          flutter-version: 3.24.3
 
       - name: Retrieve the secret and decode it to a file
         env:
