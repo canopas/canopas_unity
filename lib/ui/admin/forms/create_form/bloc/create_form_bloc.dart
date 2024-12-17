@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -101,7 +102,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<EquatableTextEditingController> options = field?.options ?? [];
+          List<TextEditingController> options = field?.options ?? [];
           if (event.type != FormFieldAnswerType.checkBox &&
               event.type != FormFieldAnswerType.dropDown) {
             for (final option in options) {
@@ -112,8 +113,8 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
               field?.inputType != FormFieldAnswerType.dropDown &&
               (event.type == FormFieldAnswerType.checkBox ||
                   event.type == FormFieldAnswerType.dropDown)) {
-            options.add(EquatableTextEditingController(
-                text: 'Option ${options.length}'));
+            options
+                .add(TextEditingController(text: 'Option ${options.length}'));
           }
           return field?.copyWith(
               inputType: event.type,
@@ -129,10 +130,8 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<EquatableTextEditingController> options =
-              field?.options?.toList() ?? [];
-          options.add(
-              EquatableTextEditingController(text: 'Option ${options.length}'));
+          List<TextEditingController> options = field?.options?.toList() ?? [];
+          options.add(TextEditingController(text: 'Option ${options.length}'));
           return field?.copyWith(options: options);
         });
     emit(state.copyWith(fields: fields));
@@ -144,8 +143,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<EquatableTextEditingController>? options =
-              field?.options?.toList();
+          List<TextEditingController>? options = field?.options?.toList();
           if (options != null) {
             options[event.optionIndex].dispose();
             options.removeAt(event.optionIndex);
@@ -163,7 +161,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         OrgFormFieldCreateFormState(
             index: _index++,
             id: _formRepo.generateNewFormFieldId(formId: state.formId),
-            question: EquatableTextEditingController());
+            question: TextEditingController());
     final fields = state.fields.toList();
     fields.sort((a, b) => a.index.compareTo(b.index));
     fields.add(orgFormField);
@@ -177,7 +175,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
     if (image != null) {
       final OrgFormFieldCreateFormState orgFormField =
           OrgFormFieldCreateFormState(
-              question: EquatableTextEditingController(),
+              question: TextEditingController(),
               inputType: FormFieldAnswerType.none,
               type: FormFieldType.image,
               index: _index++,

@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/core/exception/error_const.dart';
@@ -50,7 +49,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
 
     return await Future.wait(invitations.map((invitation) async {
       return await _spaceService.getSpace(invitation.spaceId);
-    })).then((value) => value.whereNotNull().toList());
+    })).then((value) => value.nonNulls.toList());
   }
 
   Future<List<Space>> joinedSpace() async {
@@ -58,7 +57,7 @@ class JoinSpaceBloc extends Bloc<JoinSpaceEvents, JoinSpaceState> {
         await accountService.fetchSpaceIds(uid: _userManager.userUID!);
     return await Future.wait(spaceIds.map((spaceId) async {
       return await _spaceService.getSpace(spaceId);
-    })).then((value) => value.whereNotNull().toList());
+    })).then((value) => value.nonNulls.toList());
   }
 
   Future<void> _init(

@@ -34,7 +34,7 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
           await _accountService.fetchSpaceIds(uid: _userManager.userUID!);
       final spaces = await Future.wait(spaceIds.map((spaceId) async {
         return await _spaceService.getSpace(spaceId);
-      })).then((value) => value.whereNotNull().toList());
+      })).then((value) => value.nonNulls.toList());
       emit(state.copyWith(fetchSpacesStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copyWith(

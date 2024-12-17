@@ -26,6 +26,6 @@ List<LeaveApplication> getLeaveApplicationFromLeaveEmployee(
         }
         return null;
       })
-      .whereNotNull()
+      .nonNulls
       .toList();
 }

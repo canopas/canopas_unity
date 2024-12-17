@@ -98,7 +98,8 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
                       return AppButton(
                         backgroundColor: state.buttonState == ButtonState.enable
                             ? context.colorScheme.primary
-                            : context.colorScheme.primary.withOpacity(0.5),
+                            : context.colorScheme.primary
+                                .withValues(alpha: 0.5),
                         loading: state.createSpaceStatus == Status.loading,
                         tag: state.page == 2
                             ? locale.create_space_tag
