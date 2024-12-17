@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -25,7 +24,7 @@ void main() {
   late StorageService storageService;
   late UserStateNotifier userStateNotifier;
   late CreateFormBloc bloc;
-  late TextEditingController fistQuestionController;
+  late EquatableTextEditingController fistQuestionController;
 
   const formId = 'form-id';
 
@@ -41,7 +40,7 @@ void main() {
             .thenReturn('field-1-id');
         bloc = CreateFormBloc(
             formRepo, imagePicker, storageService, userStateNotifier);
-        fistQuestionController = TextEditingController();
+        fistQuestionController = EquatableTextEditingController();
       });
 
       tearDown(() async {
@@ -189,8 +188,8 @@ void main() {
           () {
         bloc.add(UpdateFormFieldInputTypeEvent(
             type: FormFieldAnswerType.checkBox, fieldId: 'field-1-id'));
-        final TextEditingController optionController =
-            TextEditingController(text: 'Option 0');
+        final EquatableTextEditingController optionController =
+            EquatableTextEditingController(text: 'Option 0');
         expect(
             bloc.stream,
             emits(CreateFormState(
@@ -266,7 +265,7 @@ void main() {
     });
 
     group('create form success test', () {
-      late TextEditingController optionController;
+      late EquatableTextEditingController optionController;
       setUpAll(() {
         formRepo = MockFormRepo();
         imagePicker = MockImagePicker();
@@ -277,8 +276,8 @@ void main() {
             .thenReturn('field-1-id');
         bloc = CreateFormBloc(
             formRepo, imagePicker, storageService, userStateNotifier);
-        fistQuestionController = TextEditingController();
-        optionController = TextEditingController(text: 'Option 0');
+        fistQuestionController = EquatableTextEditingController();
+        optionController = EquatableTextEditingController(text: 'Option 0');
       });
 
       tearDownAll(() async {
@@ -445,7 +444,7 @@ void main() {
             .thenReturn('field-1-id');
         bloc = CreateFormBloc(
             formRepo, imagePicker, storageService, userStateNotifier);
-        fistQuestionController = TextEditingController();
+        fistQuestionController = EquatableTextEditingController();
       });
 
       tearDownAll(() async {
@@ -538,7 +537,7 @@ void main() {
             .thenReturn('field-1-id');
         bloc = CreateFormBloc(
             formRepo, imagePicker, storageService, userStateNotifier);
-        fistQuestionController = TextEditingController();
+        fistQuestionController = EquatableTextEditingController();
       });
 
       tearDownAll(() async {
@@ -548,8 +547,8 @@ void main() {
 
       test('Add form field option test', () {
         bloc.add(AddOrgFormFieldOption('field-1-id'));
-        final TextEditingController optionController =
-            TextEditingController(text: 'Option 0');
+        final EquatableTextEditingController optionController =
+            EquatableTextEditingController(text: 'Option 0');
 
         expect(
             bloc.stream,
