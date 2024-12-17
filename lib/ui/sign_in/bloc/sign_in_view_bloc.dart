@@ -39,7 +39,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       } else {
         emit(state.copyWith(googleSignInLoading: false));
       }
-    } catch(e) {
+    } catch (e) {
       emit(state.copyWith(
           googleSignInLoading: false, error: firesbaseAuthError));
     }

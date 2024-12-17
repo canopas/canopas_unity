@@ -53,7 +53,7 @@ class SignInScreenState extends State<SignInScreen> {
                       end: Alignment.bottomCenter,
                       colors: [
                     context.colorScheme.surface,
-                    context.colorScheme.primary.withOpacity(0.5)
+                    context.colorScheme.primary.withValues(alpha: 0.5)
                   ],
                       stops: const [
                     0.5,

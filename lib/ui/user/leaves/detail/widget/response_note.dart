@@ -28,7 +28,7 @@ class ResponseNote extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: AppTheme.commonBoxShadow(context),
                 borderRadius: AppTheme.commonBorderRadius,
-                color: context.colorScheme.primary.withOpacity(0.5),
+                color: context.colorScheme.primary.withValues(alpha: 0.5),
               ),
               child: Text(
                 leaveResponse,

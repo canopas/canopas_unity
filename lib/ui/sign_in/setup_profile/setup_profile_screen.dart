@@ -108,7 +108,8 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                       return AppButton(
                         backgroundColor: state.buttonEnabled
                             ? context.colorScheme.primary
-                            : context.colorScheme.primary.withOpacity(0.5),
+                            : context.colorScheme.primary
+                                .withValues(alpha: 0.5),
                         loading: state.isSubmitting,
                         tag: context.l10n.submit_button_tag,
                         onTap: () => context

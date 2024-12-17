@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:projectunity/data/services/account_service.dart';
@@ -34,7 +33,7 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
           await _accountService.fetchSpaceIds(uid: _userManager.userUID!);
       final spaces = await Future.wait(spaceIds.map((spaceId) async {
         return await _spaceService.getSpace(spaceId);
-      })).then((value) => value.whereNotNull().toList());
+      })).then((value) => value.nonNulls.toList());
       emit(state.copyWith(fetchSpacesStatus: Status.success, spaces: spaces));
     } on Exception {
       emit(state.copyWith(

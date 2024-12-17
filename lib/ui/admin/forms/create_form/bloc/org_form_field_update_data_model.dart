@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../../data/model/org_forms/org_form_field/org_form_field.dart';
 import 'package:flutter/cupertino.dart' show TextEditingController;
 
+// ignore: must_be_immutable
 class EquatableTextEditingController extends TextEditingController
     with EquatableMixin {
   EquatableTextEditingController({super.text});

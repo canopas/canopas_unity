@@ -102,7 +102,8 @@ class HeaderImageView extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          color: context.colorScheme.surface.withOpacity(0.60),
+                          color: context.colorScheme.surface
+                              .withValues(alpha: 0.60),
                           borderRadius: BorderRadius.circular(50)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

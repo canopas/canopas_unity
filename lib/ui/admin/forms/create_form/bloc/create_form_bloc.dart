@@ -112,8 +112,8 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
               field?.inputType != FormFieldAnswerType.dropDown &&
               (event.type == FormFieldAnswerType.checkBox ||
                   event.type == FormFieldAnswerType.dropDown)) {
-            options.add(EquatableTextEditingController(
-                text: 'Option ${options.length}'));
+            options
+                .add(EquatableTextEditingController(text: 'Option ${options.length}'));
           }
           return field?.copyWith(
               inputType: event.type,
@@ -129,10 +129,8 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<EquatableTextEditingController> options =
-              field?.options?.toList() ?? [];
-          options.add(
-              EquatableTextEditingController(text: 'Option ${options.length}'));
+          List<EquatableTextEditingController> options = field?.options?.toList() ?? [];
+          options.add(EquatableTextEditingController(text: 'Option ${options.length}'));
           return field?.copyWith(options: options);
         });
     emit(state.copyWith(fields: fields));
@@ -144,8 +142,7 @@ class CreateFormBloc extends Bloc<CreateFormEvents, CreateFormState> {
         orgFormFields: state.fields,
         fieldId: event.fieldId,
         updater: (field) {
-          List<EquatableTextEditingController>? options =
-              field?.options?.toList();
+          List<EquatableTextEditingController>? options = field?.options?.toList();
           if (options != null) {
             options[event.optionIndex].dispose();
             options.removeAt(event.optionIndex);

@@ -16,38 +16,38 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  cached_network_image: ^3.3.1
-  cupertino_icons:
-  cloud_firestore: ^5.4.3
-  collection: ^1.17.0
-  connectivity_plus: ^6.0.3
-  device_info_plus: ^10.1.0
-  equatable: ^2.0.5
-  freezed: ^2.4.7
+  cached_network_image: ^3.4.1
+  cupertino_icons: ^1.0.8
+  cloud_firestore: ^5.5.1
+  collection: ^1.19.0
+  connectivity_plus: ^6.1.1
+  device_info_plus: ^11.2.0
+  equatable: ^2.0.7
+  freezed: ^2.5.7
   freezed_annotation: ^2.4.1
-  firebase_auth: ^5.3.1
-  firebase_core: ^3.6.0
-  firebase_crashlytics: ^4.1.3
-  firebase_storage: ^12.3.3
-  flutter_bloc: ^8.1.3
-  flutter_secure_storage: ^9.0.0
-  flutter_svg: ^2.0.9
-  fluttertoast: ^8.2.4
-  get_it: ^7.3.0
-  google_sign_in: ^6.2.1
-  go_router: ^14.1.3
-  http: ^1.2.0
-  injectable: ^2.3.5
+  firebase_auth: ^5.3.4
+  firebase_core: ^3.8.1
+  firebase_crashlytics: ^4.2.0
+  firebase_storage: ^12.3.7
+  flutter_bloc: ^8.1.6
+  flutter_secure_storage: ^9.2.2
+  flutter_svg: ^2.0.16
+  fluttertoast: ^8.2.10
+  get_it: ^8.0.3
+  google_sign_in: ^6.2.2
+  go_router: ^14.6.2
+  http: ^1.2.2
+  injectable: ^2.5.0
   intl: any
-  image_picker: ^1.0.7
-  json_annotation: ^4.8.1
-  oauth2: ^2.0.2
-  package_info_plus: ^8.0.0
-  rxdart: ^0.27.7
-  shared_preferences: ^2.1.1
+  image_picker: ^1.1.2
+  json_annotation: ^4.9.0
+  oauth2: ^2.0.3
+  package_info_plus: ^8.1.2
+  rxdart: ^0.28.0
+  shared_preferences: ^2.3.3
   sticky_headers: ^0.3.0+2
-  table_calendar: ^3.0.7
-  url_launcher: ^6.1.11
+  table_calendar: ^3.1.3
+  url_launcher: ^6.3.1
   window_to_front: ^0.0.3
 
 dev_dependencies:

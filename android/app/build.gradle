@@ -26,8 +26,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.canopas.projectunity"
-        minSdkVersion 34
-        targetSdk = flutter.targetSdkVersion
+        minSdkVersion 23
+        targetSdk = 34
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         android.applicationVariants.all { variant ->

@@ -60,8 +60,8 @@ class TimeOffCard extends StatelessWidget {
                       children: [
                         CircularProgressIndicator(
                           strokeWidth: 8,
-                          backgroundColor:
-                              context.colorScheme.primary.withOpacity(0.5),
+                          backgroundColor: context.colorScheme.primary
+                              .withValues(alpha: 0.5),
                           color: context.colorScheme.primary,
                           value: percentage,
                         ),

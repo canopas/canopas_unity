@@ -26,7 +26,7 @@ class LeaveTypeAgoTitleWithStatus extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: leaveStatusColor(status, context).withOpacity(0.1)),
+          color: leaveStatusColor(status, context).withValues(alpha: 0.1)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
