@@ -4,9 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 
-// ignore: depend_on_referenced_packages
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
-
 class ImageProfile extends StatelessWidget {
   final String? imageUrl;
   final double radius;
@@ -23,6 +20,9 @@ class ImageProfile extends StatelessWidget {
       this.iconColor});
 
   Widget setCachedImage(BuildContext context) {
+    if(kIsWeb){
+      return Image.network(imageUrl?? pickedImage??'',fit: BoxFit.cover,);
+    }
     if (imageUrl != null) {
       return cachedNetworkImage(imageUrl!);
     } else if (pickedImage != null) {
@@ -45,7 +45,6 @@ class ImageProfile extends StatelessWidget {
     return CachedNetworkImage(
       fit: BoxFit.cover,
       imageUrl: imageUrl,
-      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
       placeholder: (context, string) {
         return Icon(Icons.person,
             size: radius, color: iconColor ?? context.colorScheme.textDisable);
