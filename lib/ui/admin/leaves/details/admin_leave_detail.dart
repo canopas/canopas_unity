@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
@@ -14,6 +13,7 @@ import 'package:projectunity/ui/admin/leaves/details/widget/admin_leave_details_
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/configs/space_constant.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../../data/model/leave_application.dart';

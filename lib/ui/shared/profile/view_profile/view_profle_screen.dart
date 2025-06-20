@@ -12,9 +12,9 @@ import 'package:projectunity/ui/shared/profile/view_profile/bloc/view_profile_st
 import 'package:projectunity/ui/shared/profile/view_profile/widget/basic_detail_section.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../app_router.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../widget/employee_details_field.dart';
 
 class ViewProfilePage extends StatelessWidget {

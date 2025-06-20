@@ -11,9 +11,9 @@ import 'package:projectunity/ui/admin/forms/create_form/widget/org_create_form_a
 import 'package:projectunity/ui/admin/forms/create_form/widget/org_create_form_info_view.dart';
 import 'package:projectunity/ui/admin/forms/create_form/widget/org_field_image_view.dart';
 import 'package:projectunity/ui/admin/forms/create_form/widget/org_field_question_view.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../style/app_page.dart';
 import '../../../widget/circular_progress_indicator.dart';
 

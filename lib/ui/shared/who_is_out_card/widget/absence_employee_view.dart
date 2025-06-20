@@ -7,10 +7,10 @@ import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/user_profile_image.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/model/leave_application.dart';
 import '../../../../app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
   final DateTime dateOfEmployeeAbsence;

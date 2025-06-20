@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/theme.dart';
+import '../../../../../data/l10n/app_localization.dart';
 import '../../../../../data/model/org_forms/org_form_field/org_form_field.dart';
 import '../bloc/org_form_field_update_data_model.dart';
 import '../bloc/create_form_bloc.dart';
@@ -10,7 +11,6 @@ import '../bloc/create_form_event.dart';
 import '../bloc/create_form_state.dart';
 import 'org_form_dropdown.dart';
 import 'org_form_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class FormFieldView extends StatelessWidget {
   final OrgFormFieldCreateFormState orgFormField;

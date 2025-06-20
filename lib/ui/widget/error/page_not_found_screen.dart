@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../data/di/service_locator.dart';
+import '../../../data/l10n/app_localization.dart';
 import '../../../data/provider/user_state.dart';
 
 class PageNotFoundScreen extends StatefulWidget {

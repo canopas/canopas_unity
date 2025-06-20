@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
@@ -10,6 +9,7 @@ import 'package:projectunity/app_router.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/bloc/leave_count/user_leave_count_state.dart';
 import 'package:projectunity/ui/user/leaves/leaves_screen/widget/leave_list.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/model/leave/leave.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/empty_screen.dart';

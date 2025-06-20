@@ -5,13 +5,13 @@ import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/user/forms/form_list_screen/widget/form_card.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/empty_screen.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_forms_list_screen_bloc.dart';
 import 'bloc/user_forms_list_screen_event.dart';
 import 'bloc/user_forms_list_screen_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class UserFormListPage extends StatelessWidget {
   const UserFormListPage({super.key});

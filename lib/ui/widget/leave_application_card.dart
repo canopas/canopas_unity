@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/configs/theme.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
@@ -10,6 +9,7 @@ import 'package:projectunity/ui/widget/user_profile_image.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../data/configs/space_constant.dart';
 import '../../data/core/utils/date_formatter.dart';
+import '../../data/l10n/app_localization.dart';
 import '../../data/model/employee/employee.dart';
 import '../../data/model/leave_application.dart';
 import 'leave_card_status_view.dart';

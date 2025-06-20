@@ -9,7 +9,8 @@ import 'package:projectunity/ui/widget/app_dialog.dart';
 import 'package:projectunity/data/bloc/user_state/user_controller_state.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_bloc.dart';
 import 'package:projectunity/data/bloc/user_state/user_state_controller_event.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
+import '../../../data/l10n/app_localization.dart';
 
 class DashBoardScreen extends StatefulWidget {
   final Widget child;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/widget_extension.dart';
@@ -12,6 +11,7 @@ import 'package:projectunity/ui/widget/employee_card.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../app_router.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';
 import 'bloc/member_list_bloc.dart';

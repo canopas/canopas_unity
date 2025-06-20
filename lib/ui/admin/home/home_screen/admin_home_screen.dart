@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/utils/bloc_status.dart';
 import 'package:projectunity/style/app_page.dart';
@@ -9,6 +8,7 @@ import 'package:projectunity/ui/shared/events/bloc/celebrations_bloc.dart';
 import 'package:projectunity/ui/shared/events/bloc/celebrations_event.dart';
 import 'package:projectunity/ui/shared/who_is_out_card/bloc/who_is_out_card_event.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../../style/app_text_style.dart';
 import '../../../shared/appbar_drawer/appbar/space_notifier_widget.dart';

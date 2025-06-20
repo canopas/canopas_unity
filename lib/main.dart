@@ -6,7 +6,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_theme.dart';
@@ -17,6 +16,7 @@ import 'data/core/utils/const/app_const.dart';
 import 'data/configs/scroll_behavior.dart';
 import 'data/di/service_locator.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'data/l10n/app_localization.dart';
 import 'firebase_options.dart';
 import 'app_router.dart';
 

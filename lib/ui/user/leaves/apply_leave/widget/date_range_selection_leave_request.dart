@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/l10n/app_localization.dart';
 import '../bloc/apply_leave_bloc.dart';
 import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';

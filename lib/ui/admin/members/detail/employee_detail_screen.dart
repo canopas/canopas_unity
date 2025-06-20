@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/configs/space_constant.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
@@ -9,6 +8,7 @@ import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/admin/members/detail/widget/time_off_card.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/model/employee/employee.dart';
 import '../../../../app_router.dart';
 import '../../../widget/app_dialog.dart';

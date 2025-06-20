@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
+import '../../../../../data/l10n/app_localization.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/user_profile_image.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_page.dart';
@@ -13,6 +12,7 @@ import 'package:projectunity/ui/user/home/home_screen/bloc/user_home_state.dart'
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../../style/app_text_style.dart';
 import '../../../../app_router.dart';

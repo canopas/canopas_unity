@@ -12,8 +12,8 @@ import 'package:projectunity/app_router.dart';
 import 'package:projectunity/ui/widget/empty_screen.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../data/di/service_locator.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../widget/circular_progress_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AdminFormListPage extends StatelessWidget {
   const AdminFormListPage({super.key});

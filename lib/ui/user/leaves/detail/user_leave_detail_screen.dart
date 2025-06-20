@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
@@ -15,6 +14,7 @@ import 'package:projectunity/ui/user/leaves/detail/widget/response_note.dart';
 import 'package:projectunity/ui/user/leaves/detail/widget/user_leave_date_content.dart';
 import 'package:projectunity/ui/widget/leave_details_widget/leave_details_header_content.dart';
 import 'package:projectunity/ui/widget/widget_validation.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../widget/circular_progress_indicator.dart';
 import '../../../widget/error_snack_bar.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import 'package:projectunity/ui/widget/pick_profile_image/pick_user_profile_image.dart';
 import '../../../../../data/configs/space_constant.dart';
+import '../../../../../data/l10n/app_localization.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/date_time_picker.dart';
 import '../../../../widget/employee_details_textfield.dart';

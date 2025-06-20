@@ -1,8 +1,9 @@
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
+
+import '../../l10n/app_localization.dart';
 
 class DateFormatter {
   final AppLocalizations _localization;

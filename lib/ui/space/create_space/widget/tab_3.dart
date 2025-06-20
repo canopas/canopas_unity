@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../app_router.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../widget/employee_details_textfield.dart';
 import '../../../widget/error_snack_bar.dart';
 import '../bloc/create_workspace_bloc.dart';

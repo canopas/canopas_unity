@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
@@ -15,6 +14,7 @@ import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import 'package:projectunity/ui/widget/pagination_widget.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../../data/core/utils/bloc_status.dart';
+import '../../../../data/l10n/app_localization.dart';
 import '../../../../data/model/leave_application.dart';
 import '../../../../app_router.dart';
 import 'bloc /admin_leave_event.dart';

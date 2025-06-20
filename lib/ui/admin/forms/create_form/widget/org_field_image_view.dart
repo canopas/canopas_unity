@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import '../../../../../data/configs/theme.dart';
+import '../../../../../data/l10n/app_localization.dart';
 import '../bloc/org_form_field_update_data_model.dart';
 import '../bloc/create_form_bloc.dart';
 import '../bloc/create_form_event.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class FormFieldImageView extends StatelessWidget {
   final OrgFormFieldCreateFormState orgFormField;
