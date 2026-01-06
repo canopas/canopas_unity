@@ -31,7 +31,8 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backGroundColor,
-      appBar: (title == null && titleWidget == null) &&
+      appBar:
+          (title == null && titleWidget == null) &&
               actions == null &&
               leading == null
           ? null
@@ -51,13 +52,14 @@ class AppPage extends StatelessWidget {
   }
 
   Widget _title(BuildContext context) => Text(
-        title ?? '',
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-            fontFamily: AppTextStyle.poppinsFontFamily,
-            fontSize: 22,
-            color: context.colorScheme.textPrimary,
-            fontWeight: FontWeight.w600),
-      );
+    title ?? '',
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    style: TextStyle(
+      fontFamily: AppTextStyle.poppinsFontFamily,
+      fontSize: 22,
+      color: context.colorScheme.textPrimary,
+      fontWeight: FontWeight.w600,
+    ),
+  );
 }

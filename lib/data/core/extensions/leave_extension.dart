@@ -4,11 +4,13 @@ import '../../model/leave/leave.dart';
 extension LeaveExtension on Leave {
   Map<DateTime, LeaveDayDuration> getDateAndDuration() {
     List<DateTime> dates = List.generate(
-        endDate.dateOnly.difference(startDate.dateOnly).inDays,
-        (days) => startDate.dateOnly.add(Duration(days: days)))
-      ..add(endDate.dateOnly);
-    return Map<DateTime, LeaveDayDuration>.fromIterable(dates,
-        value: (date) => perDayDuration[dates.indexOf(date)]);
+      endDate.dateOnly.difference(startDate.dateOnly).inDays,
+      (days) => startDate.dateOnly.add(Duration(days: days)),
+    )..add(endDate.dateOnly);
+    return Map<DateTime, LeaveDayDuration>.fromIterable(
+      dates,
+      value: (date) => perDayDuration[dates.indexOf(date)],
+    );
   }
 
   bool findUserOnLeaveByDate({required DateTime day}) =>

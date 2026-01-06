@@ -8,11 +8,7 @@ class EmptyScreen extends StatelessWidget {
   final String title;
   final String message;
 
-  const EmptyScreen({
-    super.key,
-    required this.message,
-    required this.title,
-  });
+  const EmptyScreen({super.key, required this.message, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +24,22 @@ class EmptyScreen extends StatelessWidget {
               height: 100,
               width: 100,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            Text(
+              title,
+              style: AppTextStyle.style20.copyWith(
+                color: context.colorScheme.primary,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-            Text(title,
-                style: AppTextStyle.style20.copyWith(
-                    color: context.colorScheme.primary,
-                    fontWeight: FontWeight.w700)),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: AppTextStyle.style16.copyWith(
+                color: context.colorScheme.textSecondary,
+              ),
             ),
-            Text(message,
-                textAlign: TextAlign.center,
-                style: AppTextStyle.style16
-                    .copyWith(color: context.colorScheme.textSecondary)),
           ],
         ),
       ),

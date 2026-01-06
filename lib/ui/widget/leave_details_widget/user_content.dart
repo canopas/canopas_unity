@@ -19,28 +19,26 @@ class UserContent extends StatelessWidget {
       child: Row(
         children: [
           ImageProfile(radius: 30, imageUrl: employee.imageUrl),
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   employee.name,
-                  style: AppTextStyle.style16
-                      .copyWith(color: context.colorScheme.textPrimary),
+                  style: AppTextStyle.style16.copyWith(
+                    color: context.colorScheme.textPrimary,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(
-                  height: 3,
-                ),
+                const SizedBox(height: 3),
                 ValidateWidget(
                   isValid: employee.designation.isNotNullOrEmpty,
                   child: Text(
                     employee.designation ?? '',
-                    style: AppTextStyle.style14
-                        .copyWith(color: context.colorScheme.textSecondary),
+                    style: AppTextStyle.style14.copyWith(
+                      color: context.colorScheme.textSecondary,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

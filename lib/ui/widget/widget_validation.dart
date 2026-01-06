@@ -5,11 +5,12 @@ class ValidateWidget extends StatelessWidget {
   final Widget child;
   final Widget unValidWidget;
 
-  const ValidateWidget(
-      {super.key,
-      required this.isValid,
-      required this.child,
-      this.unValidWidget = const SizedBox()});
+  const ValidateWidget({
+    super.key,
+    required this.isValid,
+    required this.child,
+    this.unValidWidget = const SizedBox(),
+  });
 
   @override
   Widget build(BuildContext context) {

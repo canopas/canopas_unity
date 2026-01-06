@@ -50,58 +50,69 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
   Widget build(BuildContext context) {
     navigateToLeaveDetail(Leave leave) async {
       final bloc = context.read<AdminEmployeeDetailsLeavesBLoc>();
-      final String? leaveId = await context
-          .pushNamed(Routes.adminEmployeeDetailsLeavesDetails, pathParameters: {
-        RoutesParamsConst.leaveId: leave.leaveId,
-        RoutesParamsConst.employeeName: widget.employeeName,
-      });
+      final String? leaveId = await context.pushNamed(
+        Routes.adminEmployeeDetailsLeavesDetails,
+        pathParameters: {
+          RoutesParamsConst.leaveId: leave.leaveId,
+          RoutesParamsConst.employeeName: widget.employeeName,
+        },
+      );
       if (leaveId != null) {
         bloc.add(UpdateLeave(leaveId: leaveId));
       }
     }
 
-    return BlocConsumer<AdminEmployeeDetailsLeavesBLoc,
-            AdminEmployeeDetailsLeavesState>(
-        listenWhen: (previous, current) =>
-            current.status == Status.error ||
-            current.fetchMoreDataStatus == Status.error,
-        listener: (context, state) {
-          if (state.error == null) {
-            showSnackBar(context: context, error: state.error);
-          }
-        },
-        buildWhen: (previous, current) =>
-            previous.leavesMap != current.leavesMap ||
-            previous.status != current.status ||
-            previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
-        builder: (context, state) {
-          if (state.status == Status.loading) {
-            return const AppCircularProgressIndicator();
-          } else if (state.leavesMap.isEmpty) {
-            return EmptyScreen(
-                message: AppLocalizations.of(context)
-                    .employee_empty_leave_message(widget.employeeName),
-                title: AppLocalizations.of(context).no_leaves_tag);
-          }
-          return ListView(
-            controller: _scrollController,
-            children: state.leavesMap.entries
-                .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
-                    StickyHeader(
-                        header: LeaveListHeader(
-                          title: AppLocalizations.of(context)
-                              .date_format_yMMMM(monthWiseLeaves.key),
-                          count: monthWiseLeaves.value.length,
-                        ),
-                        content: LeaveListByMonth(
-                          onCardTap: navigateToLeaveDetail,
-                          isPaginationLoading: monthWiseLeaves.key ==
-                                  state.leavesMap.keys.last &&
-                              state.fetchMoreDataStatus == Status.loading,
-                          leaves: monthWiseLeaves.value,
-                        )))
-                .toList(),
+    return BlocConsumer<
+      AdminEmployeeDetailsLeavesBLoc,
+      AdminEmployeeDetailsLeavesState
+    >(
+      listenWhen: (previous, current) =>
+          current.status == Status.error ||
+          current.fetchMoreDataStatus == Status.error,
+      listener: (context, state) {
+        if (state.error == null) {
+          showSnackBar(context: context, error: state.error);
+        }
+      },
+      buildWhen: (previous, current) =>
+          previous.leavesMap != current.leavesMap ||
+          previous.status != current.status ||
+          previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
+      builder: (context, state) {
+        if (state.status == Status.loading) {
+          return const AppCircularProgressIndicator();
+        } else if (state.leavesMap.isEmpty) {
+          return EmptyScreen(
+            message: AppLocalizations.of(
+              context,
+            ).employee_empty_leave_message(widget.employeeName),
+            title: AppLocalizations.of(context).no_leaves_tag,
           );
-        });
+        }
+        return ListView(
+          controller: _scrollController,
+          children: state.leavesMap.entries
+              .map(
+                (MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
+                    StickyHeader(
+                      header: LeaveListHeader(
+                        title: AppLocalizations.of(
+                          context,
+                        ).date_format_yMMMM(monthWiseLeaves.key),
+                        count: monthWiseLeaves.value.length,
+                      ),
+                      content: LeaveListByMonth(
+                        onCardTap: navigateToLeaveDetail,
+                        isPaginationLoading:
+                            monthWiseLeaves.key == state.leavesMap.keys.last &&
+                            state.fetchMoreDataStatus == Status.loading,
+                        leaves: monthWiseLeaves.value,
+                      ),
+                    ),
+              )
+              .toList(),
+        );
+      },
+    );
   }
 }

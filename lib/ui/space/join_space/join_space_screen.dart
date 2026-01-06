@@ -20,9 +20,10 @@ class JoinSpacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        child: const JoinSpaceScreen(),
-        create: (context) =>
-            getIt<JoinSpaceBloc>()..add(JoinSpaceInitialFetchEvent()));
+      child: const JoinSpaceScreen(),
+      create: (context) =>
+          getIt<JoinSpaceBloc>()..add(JoinSpaceInitialFetchEvent()),
+    );
   }
 }
 
@@ -49,45 +50,48 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.all(primaryHorizontalSpacing)
-                .copyWith(top: 32),
+            padding: const EdgeInsets.all(
+              primaryHorizontalSpacing,
+            ).copyWith(top: 32),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const AppSection(),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 _divider(),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 Text(
-                    context.l10n.spaces_list_title(
-                        context.read<JoinSpaceBloc>().userEmail),
-                    style: AppTextStyle.style18.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: context.colorScheme.textPrimary)),
+                  context.l10n.spaces_list_title(
+                    context.read<JoinSpaceBloc>().userEmail,
+                  ),
+                  style: AppTextStyle.style18.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: context.colorScheme.textPrimary,
+                  ),
+                ),
                 const SizedBox(height: 30),
                 const Spaces(),
                 const SizedBox(height: 10),
                 TextButton(
                   onPressed: () {
                     showAppAlertDialog(
-                        context: context,
-                        title: context.l10n.sign_out_tag,
-                        actionButtonTitle: context.l10n.sign_out_tag,
-                        description: context.l10n.sign_out_alert,
-                        onActionButtonPressed: () {
-                          context.read<JoinSpaceBloc>().add(SignOutEvent());
-                        });
+                      context: context,
+                      title: context.l10n.sign_out_tag,
+                      actionButtonTitle: context.l10n.sign_out_tag,
+                      description: context.l10n.sign_out_alert,
+                      onActionButtonPressed: () {
+                        context.read<JoinSpaceBloc>().add(SignOutEvent());
+                      },
+                    );
                   },
                   style: TextButton.styleFrom(
-                      fixedSize: Size(MediaQuery.of(context).size.width, 50)),
+                    fixedSize: Size(MediaQuery.of(context).size.width, 50),
+                  ),
                   child: Text(
                     context.l10n.sign_out_tag,
-                    style: AppTextStyle.style16
-                        .copyWith(color: context.colorScheme.rejectColor),
+                    style: AppTextStyle.style16.copyWith(
+                      color: context.colorScheme.rejectColor,
+                    ),
                   ),
                 ),
               ],
@@ -99,24 +103,32 @@ class _JoinSpaceScreenState extends State<JoinSpaceScreen> {
   }
 
   Widget _divider() {
-    return Row(children: <Widget>[
-      Expanded(
+    return Row(
+      children: <Widget>[
+        Expanded(
           child: Divider(
-        color: context.colorScheme.containerHigh,
-        indent: 15,
-        endIndent: 15,
-      )),
-      Padding(
+            color: context.colorScheme.containerHigh,
+            indent: 15,
+            endIndent: 15,
+          ),
+        ),
+        Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Text(context.l10n.or_tag,
-              style: AppTextStyle.style14
-                  .copyWith(color: context.colorScheme.textDisable))),
-      Expanded(
+          child: Text(
+            context.l10n.or_tag,
+            style: AppTextStyle.style14.copyWith(
+              color: context.colorScheme.textDisable,
+            ),
+          ),
+        ),
+        Expanded(
           child: Divider(
-        color: context.colorScheme.containerHigh,
-        indent: 15,
-        endIndent: 15,
-      )),
-    ]);
+            color: context.colorScheme.containerHigh,
+            indent: 15,
+            endIndent: 15,
+          ),
+        ),
+      ],
+    );
   }
 }

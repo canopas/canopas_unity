@@ -15,7 +15,7 @@ class SetupProfileBloc extends Bloc<SetUpProfileEvent, SetupProfileState>
   final AccountService _accountService;
   final UserStateNotifier _userStateNotifier;
   SetupProfileBloc(this._accountService, this._userStateNotifier)
-      : super(const SetupProfileState()) {
+    : super(const SetupProfileState()) {
     on<NameChangedEvent>(_validName);
     on<EmailChangedEvent>(_validEmail);
     on<SubmitProfileEvent>(_onSubmitProfile);
@@ -44,18 +44,26 @@ class SetupProfileBloc extends Bloc<SetUpProfileEvent, SetupProfileState>
   }
 
   void _onSubmitProfile(
-      SubmitProfileEvent event, Emitter<SetupProfileState> emit) async {
+    SubmitProfileEvent event,
+    Emitter<SetupProfileState> emit,
+  ) async {
     try {
       emit(state.copyWith(isSubmitting: true));
-      final user =
-          Account(uid: event.uid, email: state.email, name: state.name);
+      final user = Account(
+        uid: event.uid,
+        email: state.email,
+        name: state.name,
+      );
 
       await _accountService.setUserAccount(user);
       await _userStateNotifier.setUser(user);
       emit(state.copyWith(isSubmitting: false, isSuccess: true));
     } catch (error, stackTrace) {
-      FirebaseCrashlytics.instance
-          .recordError(error, stackTrace, reason: "Error setting up profile");
+      FirebaseCrashlytics.instance.recordError(
+        error,
+        stackTrace,
+        reason: "Error setting up profile",
+      );
       emit(state.copyWith(isSubmitting: false, error: error.toString()));
     }
   }

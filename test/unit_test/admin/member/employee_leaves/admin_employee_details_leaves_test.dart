@@ -24,46 +24,49 @@ void main() {
   DateTime today = DateTime.now().dateOnly;
 
   Leave initialLeave = Leave(
-      leaveId: 'Leave Id',
-      uid: "user id",
-      type: LeaveType.urgentLeave,
-      startDate: today.add(const Duration(days: 1)),
-      endDate: today.add(const Duration(days: 2)),
-      total: 2,
-      reason: 'Suffering from viral fever',
-      status: LeaveStatus.pending,
-      appliedOn: today,
-      perDayDuration: const [
-        LeaveDayDuration.firstHalfLeave,
-        LeaveDayDuration.firstHalfLeave
-      ]);
+    leaveId: 'Leave Id',
+    uid: "user id",
+    type: LeaveType.urgentLeave,
+    startDate: today.add(const Duration(days: 1)),
+    endDate: today.add(const Duration(days: 2)),
+    total: 2,
+    reason: 'Suffering from viral fever',
+    status: LeaveStatus.pending,
+    appliedOn: today,
+    perDayDuration: const [
+      LeaveDayDuration.firstHalfLeave,
+      LeaveDayDuration.firstHalfLeave,
+    ],
+  );
 
   Leave initialLeaveWithChange = Leave(
-      leaveId: 'Leave Id',
-      uid: "user id",
-      type: LeaveType.urgentLeave,
-      startDate: today.add(const Duration(days: 1)),
-      endDate: today.add(const Duration(days: 2)),
-      total: 2,
-      reason: 'Suffering from viral fever',
-      status: LeaveStatus.cancelled,
-      appliedOn: today,
-      perDayDuration: const [
-        LeaveDayDuration.firstHalfLeave,
-        LeaveDayDuration.firstHalfLeave
-      ]);
+    leaveId: 'Leave Id',
+    uid: "user id",
+    type: LeaveType.urgentLeave,
+    startDate: today.add(const Duration(days: 1)),
+    endDate: today.add(const Duration(days: 2)),
+    total: 2,
+    reason: 'Suffering from viral fever',
+    status: LeaveStatus.cancelled,
+    appliedOn: today,
+    perDayDuration: const [
+      LeaveDayDuration.firstHalfLeave,
+      LeaveDayDuration.firstHalfLeave,
+    ],
+  );
 
   Leave moreLeave = Leave(
-      leaveId: 'Leave-Id',
-      uid: "user id",
-      type: LeaveType.urgentLeave,
-      startDate: today.subtract(const Duration(days: 2)),
-      endDate: today.subtract(const Duration(days: 1)),
-      total: 1,
-      reason: 'Suffering from viral fever',
-      status: LeaveStatus.approved,
-      appliedOn: today,
-      perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+    leaveId: 'Leave-Id',
+    uid: "user id",
+    type: LeaveType.urgentLeave,
+    startDate: today.subtract(const Duration(days: 2)),
+    endDate: today.subtract(const Duration(days: 1)),
+    total: 1,
+    reason: 'Suffering from viral fever',
+    status: LeaveStatus.approved,
+    appliedOn: today,
+    perDayDuration: const [LeaveDayDuration.firstHalfLeave],
+  );
 
   group('Admin member details time-off leave test', () {
     group('Initial fetch data test', () {
@@ -80,39 +83,49 @@ void main() {
 
       test('Emits initial state test', () {
         expect(
-            bloc.state,
-            const AdminEmployeeDetailsLeavesState(
-                fetchMoreDataStatus: Status.initial,
-                leavesMap: {},
-                error: null,
-                status: Status.initial));
+          bloc.state,
+          const AdminEmployeeDetailsLeavesState(
+            fetchMoreDataStatus: Status.initial,
+            leavesMap: {},
+            error: null,
+            status: Status.initial,
+          ),
+        );
       });
 
       test('Load initial leave success test', () {
-        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
-            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(uid: employeeId)).thenAnswer(
+          (_) async =>
+              PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc),
+        );
         bloc.add(LoadInitialLeaves(employeeId: employeeId));
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              const AdminEmployeeDetailsLeavesState(status: Status.loading),
-              AdminEmployeeDetailsLeavesState(
-                  status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminEmployeeDetailsLeavesState(status: Status.loading),
+            AdminEmployeeDetailsLeavesState(
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+          ]),
+        );
       });
 
       test('Load initial leave failure test', () {
         when(leaveRepo.leaves(uid: employeeId)).thenThrow(Exception('error'));
         bloc.add(LoadInitialLeaves(employeeId: employeeId));
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              const AdminEmployeeDetailsLeavesState(status: Status.loading),
-              const AdminEmployeeDetailsLeavesState(
-                  status: Status.error, error: firestoreFetchDataError),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminEmployeeDetailsLeavesState(status: Status.loading),
+            const AdminEmployeeDetailsLeavesState(
+              status: Status.error,
+              error: firestoreFetchDataError,
+            ),
+          ]),
+        );
       });
     });
 
@@ -130,52 +143,71 @@ void main() {
       });
 
       test('Load initial leave success test', () {
-        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
-            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(uid: employeeId)).thenAnswer(
+          (_) async =>
+              PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc),
+        );
         bloc.add(LoadInitialLeaves(employeeId: employeeId));
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              const AdminEmployeeDetailsLeavesState(status: Status.loading),
-              AdminEmployeeDetailsLeavesState(
-                  status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminEmployeeDetailsLeavesState(status: Status.loading),
+            AdminEmployeeDetailsLeavesState(
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+          ]),
+        );
       });
 
       test('fetch more data leave success test', () {
         when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc)).thenAnswer(
-            (_) async =>
-                PaginatedLeaves(leaves: [moreLeave], lastDoc: moreDataLastDoc));
+          (_) async =>
+              PaginatedLeaves(leaves: [moreLeave], lastDoc: moreDataLastDoc),
+        );
         bloc.add(FetchMoreUserLeaves());
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              AdminEmployeeDetailsLeavesState(
-                  fetchMoreDataStatus: Status.loading,
-                  status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-              AdminEmployeeDetailsLeavesState(
-                  fetchMoreDataStatus: Status.success,
-                  status: Status.success,
-                  leavesMap: [initialLeave, moreLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            AdminEmployeeDetailsLeavesState(
+              fetchMoreDataStatus: Status.loading,
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+            AdminEmployeeDetailsLeavesState(
+              fetchMoreDataStatus: Status.success,
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+                moreLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+          ]),
+        );
       });
 
       test('Update leaves on list test', () {
-        when(leaveRepo.fetchLeave(leaveId: initialLeave.leaveId))
-            .thenAnswer((realInvocation) async => initialLeaveWithChange);
+        when(
+          leaveRepo.fetchLeave(leaveId: initialLeave.leaveId),
+        ).thenAnswer((realInvocation) async => initialLeaveWithChange);
         bloc.add(UpdateLeave(leaveId: initialLeave.leaveId));
         expectLater(
-            bloc.stream,
-            emits(AdminEmployeeDetailsLeavesState(
-                fetchMoreDataStatus: Status.success,
-                status: Status.success,
-                leavesMap: [moreLeave, initialLeaveWithChange]
-                    .groupByMonth((element) => element.appliedOn))));
+          bloc.stream,
+          emits(
+            AdminEmployeeDetailsLeavesState(
+              fetchMoreDataStatus: Status.success,
+              status: Status.success,
+              leavesMap: [
+                moreLeave,
+                initialLeaveWithChange,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+          ),
+        );
       });
     });
     group('Fetch more data failure test', () {
@@ -191,39 +223,50 @@ void main() {
       });
 
       test('Initial data setup', () {
-        when(leaveRepo.leaves(uid: employeeId)).thenAnswer((_) async =>
-            PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc));
+        when(leaveRepo.leaves(uid: employeeId)).thenAnswer(
+          (_) async =>
+              PaginatedLeaves(leaves: [initialLeave], lastDoc: lastDoc),
+        );
         bloc.add(LoadInitialLeaves(employeeId: employeeId));
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              const AdminEmployeeDetailsLeavesState(status: Status.loading),
-              AdminEmployeeDetailsLeavesState(
-                  status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminEmployeeDetailsLeavesState(status: Status.loading),
+            AdminEmployeeDetailsLeavesState(
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+          ]),
+        );
       });
 
       test('fetch more data leave failure test', () {
-        when(leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc))
-            .thenThrow(Exception('error'));
+        when(
+          leaveRepo.leaves(uid: employeeId, lastDoc: lastDoc),
+        ).thenThrow(Exception('error'));
         bloc.add(FetchMoreUserLeaves());
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              AdminEmployeeDetailsLeavesState(
-                  fetchMoreDataStatus: Status.loading,
-                  status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-              AdminEmployeeDetailsLeavesState(
-                  fetchMoreDataStatus: Status.error,
-                  error: firestoreFetchDataError,
-                  status: Status.success,
-                  leavesMap: [initialLeave]
-                      .groupByMonth((element) => element.appliedOn)),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            AdminEmployeeDetailsLeavesState(
+              fetchMoreDataStatus: Status.loading,
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+            AdminEmployeeDetailsLeavesState(
+              fetchMoreDataStatus: Status.error,
+              error: firestoreFetchDataError,
+              status: Status.success,
+              leavesMap: [
+                initialLeave,
+              ].groupByMonth((element) => element.appliedOn),
+            ),
+          ]),
+        );
       });
     });
   });

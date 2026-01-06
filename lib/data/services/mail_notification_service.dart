@@ -21,52 +21,60 @@ class NotificationService {
     _httpClient.close();
   }
 
-  Future<void> notifyHRForNewLeave(
-      {required String name,
-      required String reason,
-      required DateTime startDate,
-      required String duration,
-      required DateTime endDate,
-      required String receiver}) async {
+  Future<void> notifyHRForNewLeave({
+    required String name,
+    required String reason,
+    required DateTime startDate,
+    required String duration,
+    required DateTime endDate,
+    required String receiver,
+  }) async {
     if (kDebugMode) return;
     try {
-      http.Response response =
-          await _httpClient.post(Uri.https(baseURL, 'api/leave/new'),
-              body: json.encode({
-                'name': name,
-                "date": getFormatDate(startDate: startDate, endDate: endDate),
-                "status": LeaveStatus.pending.value,
-                'reason': reason,
-                'duration': duration,
-                'receiver': receiver,
-              }));
+      http.Response response = await _httpClient.post(
+        Uri.https(baseURL, 'api/leave/new'),
+        body: json.encode({
+          'name': name,
+          "date": getFormatDate(startDate: startDate, endDate: endDate),
+          "status": LeaveStatus.pending.value,
+          'reason': reason,
+          'duration': duration,
+          'receiver': receiver,
+        }),
+      );
       if (response.statusCode == 200) {
-        log('New Leave notification mail send successfully',
-            name: 'Notification');
+        log(
+          'New Leave notification mail send successfully',
+          name: 'Notification',
+        );
       }
     } on Exception catch (e) {
       await _crashlytics.log(e.toString());
     }
   }
 
-  Future<void> leaveResponse(
-      {required String name,
-      required DateTime startDate,
-      required DateTime endDate,
-      required LeaveStatus status,
-      required String receiver}) async {
+  Future<void> leaveResponse({
+    required String name,
+    required DateTime startDate,
+    required DateTime endDate,
+    required LeaveStatus status,
+    required String receiver,
+  }) async {
     try {
-      http.Response response =
-          await _httpClient.post(Uri.https(baseURL, 'api/leave/update'),
-              body: json.encode({
-                "name": name,
-                "date": getFormatDate(startDate: startDate, endDate: endDate),
-                "status": status.value,
-                "receiver": receiver,
-              }));
+      http.Response response = await _httpClient.post(
+        Uri.https(baseURL, 'api/leave/update'),
+        body: json.encode({
+          "name": name,
+          "date": getFormatDate(startDate: startDate, endDate: endDate),
+          "status": status.value,
+          "receiver": receiver,
+        }),
+      );
       if (response.statusCode == 200) {
-        log('Leave request update notification mail send successfully',
-            name: 'Notification');
+        log(
+          'Leave request update notification mail send successfully',
+          name: 'Notification',
+        );
       }
     } on Exception catch (e) {
       await _crashlytics.log(e.toString());
@@ -83,16 +91,19 @@ class NotificationService {
     return '${DateFormat('dd MMM yyyy').format(startDate)} to ${DateFormat('dd MMM yyyy').format(endDate)}';
   }
 
-  Future<void> sendInviteNotification(
-      {required String companyName, required String receiver}) async {
+  Future<void> sendInviteNotification({
+    required String companyName,
+    required String receiver,
+  }) async {
     try {
-      http.Response response =
-          await _httpClient.post(Uri.https(baseURL, '/api/invitation'),
-              body: json.encode({
-                "receiver": receiver,
-                "companyname": companyName,
-                "spacelink": "https://unity.canopas.com/home",
-              }));
+      http.Response response = await _httpClient.post(
+        Uri.https(baseURL, '/api/invitation'),
+        body: json.encode({
+          "receiver": receiver,
+          "companyname": companyName,
+          "spacelink": "https://unity.canopas.com/home",
+        }),
+      );
       if (response.statusCode == 200) {
         log('Invite notification mail send successfully', name: 'Notification');
       }
@@ -101,18 +112,20 @@ class NotificationService {
     }
   }
 
-  Future<void> sendSpaceInviteAcceptNotification(
-      {required String sender, required String receiver}) async {
+  Future<void> sendSpaceInviteAcceptNotification({
+    required String sender,
+    required String receiver,
+  }) async {
     try {
-      http.Response response =
-          await _httpClient.post(Uri.https(baseURL, '/api/acceptence'),
-              body: json.encode({
-                "receiver": receiver,
-                "sender": sender,
-              }));
+      http.Response response = await _httpClient.post(
+        Uri.https(baseURL, '/api/acceptence'),
+        body: json.encode({"receiver": receiver, "sender": sender}),
+      );
       if (response.statusCode == 200) {
-        log('Accept invitation notification mail send successfully',
-            name: 'Notification');
+        log(
+          'Accept invitation notification mail send successfully',
+          name: 'Notification',
+        );
       }
     } on Exception catch (e) {
       await _crashlytics.log(e.toString());

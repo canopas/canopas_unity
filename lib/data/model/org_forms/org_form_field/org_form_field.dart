@@ -14,14 +14,15 @@ class OrgFormField extends Equatable {
   final List<String>? options;
   final bool isRequired;
 
-  const OrgFormField(
-      {required this.id,
-      required this.index,
-      required this.question,
-      this.answerType = FormFieldAnswerType.text,
-      this.type = FormFieldType.text,
-      this.isRequired = false,
-      this.options});
+  const OrgFormField({
+    required this.id,
+    required this.index,
+    required this.question,
+    this.answerType = FormFieldAnswerType.text,
+    this.type = FormFieldType.text,
+    this.isRequired = false,
+    this.options,
+  });
 
   factory OrgFormField.fromJson(Map<String, dynamic> map) =>
       _$OrgFormFieldFromJson(map);
@@ -29,13 +30,20 @@ class OrgFormField extends Equatable {
   Map<String, dynamic> toJson() => _$OrgFormFieldToJson(this);
 
   factory OrgFormField.fromFireStore(
-          DocumentSnapshot<Map<String, dynamic>> snapshot,
-          SnapshotOptions? options) =>
-      OrgFormField.fromJson(snapshot.data()!);
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) => OrgFormField.fromJson(snapshot.data()!);
 
   @override
-  List<Object?> get props =>
-      [question, answerType, options, isRequired, type, index, id];
+  List<Object?> get props => [
+    question,
+    answerType,
+    options,
+    isRequired,
+    type,
+    index,
+    id,
+  ];
 }
 
 @JsonEnum(valueField: 'value')

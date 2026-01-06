@@ -15,7 +15,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
   final Size preferredSize;
 
   const DashBoardAppBar({super.key, required this.onTap})
-      : preferredSize = const Size.fromHeight(80);
+    : preferredSize = const Size.fromHeight(80);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +30,12 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InkWell(
-                  onTap: () {
-                    onTap();
-                    context.read<DrawerBloc>().add(FetchSpacesEvent());
-                  },
-                  child: Icon(
-                    Icons.menu,
-                    color: context.colorScheme.textPrimary,
-                  )),
+                onTap: () {
+                  onTap();
+                  context.read<DrawerBloc>().add(FetchSpacesEvent());
+                },
+                child: Icon(Icons.menu, color: context.colorScheme.textPrimary),
+              ),
               const SizedBox(width: primaryHorizontalSpacing),
               Expanded(
                 child: SpaceNotifierWidget(
@@ -46,9 +44,11 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
                     builder: (context) {
                       final String name =
                           SpaceNotifierWidget.of(context)?.name ?? "";
-                      return Text(name,
-                          style: AppTextStyle.headerStyle(context),
-                          overflow: TextOverflow.ellipsis);
+                      return Text(
+                        name,
+                        style: AppTextStyle.headerStyle(context),
+                        overflow: TextOverflow.ellipsis,
+                      );
                     },
                   ),
                 ),
@@ -56,7 +56,7 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSize {
             ],
           ),
           const SizedBox(height: primaryHalfSpacing),
-          const Divider(height: 1)
+          const Divider(height: 1),
         ],
       ),
     );

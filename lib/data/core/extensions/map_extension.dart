@@ -2,15 +2,18 @@ import '../../model/leave/leave.dart';
 import 'date_time.dart';
 
 extension MapExtensions on Map<DateTime, LeaveDayDuration> {
-  Map<DateTime, LeaveDayDuration> getSelectedLeaveOfTheDays(
-      {required DateTime startDate, required DateTime endDate}) {
+  Map<DateTime, LeaveDayDuration> getSelectedLeaveOfTheDays({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) {
     List<DateTime> dates = [];
     if (startDate.isAtSameMomentAs(endDate)) {
       dates = [startDate];
     } else if (startDate.isBefore(endDate)) {
-      dates = List.generate(endDate.difference(startDate).inDays,
-          (days) => startDate.add(Duration(days: days)))
-        ..add(endDate);
+      dates = List.generate(
+        endDate.difference(startDate).inDays,
+        (days) => startDate.add(Duration(days: days)),
+      )..add(endDate);
     }
     for (var date in dates) {
       putIfAbsent(date.dateOnly, () => date.getLeaveDayDuration());

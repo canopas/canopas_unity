@@ -12,13 +12,15 @@ class NetworkConnectionBloc
   final Connectivity _connectivity;
 
   NetworkConnectionBloc(this._connectivity)
-      : super(NetworkConnectionInitialState()) {
+    : super(NetworkConnectionInitialState()) {
     on<NetworkConnectionObserveEvent>(_observeConnection);
     on<NetworkConnectionChangeEvent>(_changeConnection);
   }
 
-  Future<void> _observeConnection(NetworkConnectionObserveEvent event,
-      Emitter<NetworkConnectionState> emit) async {
+  Future<void> _observeConnection(
+    NetworkConnectionObserveEvent event,
+    Emitter<NetworkConnectionState> emit,
+  ) async {
     _subscription = _connectivity.onConnectivityChanged.listen((result) {
       _checkNetworkConnection(result);
     });
@@ -33,8 +35,10 @@ class NetworkConnectionBloc
     }
   }
 
-  void _changeConnection(NetworkConnectionChangeEvent event,
-      Emitter<NetworkConnectionState> emit) {
+  void _changeConnection(
+    NetworkConnectionChangeEvent event,
+    Emitter<NetworkConnectionState> emit,
+  ) {
     if (event.hasConnection == true) {
       emit(NetWorkConnectionSuccessState());
     } else {

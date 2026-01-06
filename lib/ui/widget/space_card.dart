@@ -12,12 +12,13 @@ class SpaceCard extends StatelessWidget {
   final void Function()? onPressed;
   final String? logo;
 
-  const SpaceCard(
-      {super.key,
-      this.onPressed,
-      this.logo,
-      required this.name,
-      required this.domain});
+  const SpaceCard({
+    super.key,
+    this.onPressed,
+    this.logo,
+    required this.name,
+    required this.domain,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +44,21 @@ class SpaceCard extends StatelessWidget {
                       Text(
                         name,
                         style: AppTextStyle.style16.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: context.colorScheme.textPrimary),
+                          fontWeight: FontWeight.w600,
+                          color: context.colorScheme.textPrimary,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                       ValidateWidget(
-                          isValid: domain.isNotNullOrEmpty,
-                          child: Text(domain ?? "",
-                              style: AppTextStyle.style14.copyWith(
-                                  color: context.colorScheme.textPrimary),
-                              overflow: TextOverflow.ellipsis)),
+                        isValid: domain.isNotNullOrEmpty,
+                        child: Text(
+                          domain ?? "",
+                          style: AppTextStyle.style14.copyWith(
+                            color: context.colorScheme.textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                 ),

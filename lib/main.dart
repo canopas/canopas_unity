@@ -59,41 +59,42 @@ class MyApp extends StatelessWidget {
     return AppThemeWidget(
       colorScheme: colorScheme,
       child: GestureDetector(
-          onTap: () {
-            if (!FocusScope.of(context).hasPrimaryFocus &&
-                FocusScope.of(context).focusedChild != null) {
-              FocusScope.of(context).focusedChild?.unfocus();
-            }
-          },
-          child: kIsWeb || !Platform.isIOS
-              ? MaterialApp.router(
-                  title: AppConsts.appTitle,
-                  scrollBehavior: AppScrollBehaviour(),
-                  debugShowCheckedModeBanner: false,
-                  theme: materialThemeDataLight,
-                  darkTheme: materialThemeDataDark,
-                  routerConfig: _router,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  builder: (context, widget) => App(child: widget!))
-              : CupertinoApp.router(
-                  title: AppConsts.appTitle,
-                  scrollBehavior: AppScrollBehaviour(),
-                  debugShowCheckedModeBanner: false,
-                  theme: CupertinoThemeData(
-                    scaffoldBackgroundColor: colorScheme.surface,
-                    primaryContrastingColor: colorScheme.onPrimary,
-                    brightness: context.brightness,
-                    barBackgroundColor: colorScheme.surface,
-                    primaryColor: colorScheme.primary,
-                    applyThemeToAll: true,
-                  ),
-                  routerConfig: _router,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  builder: (context, widget) => App(child: widget!))),
+        onTap: () {
+          if (!FocusScope.of(context).hasPrimaryFocus &&
+              FocusScope.of(context).focusedChild != null) {
+            FocusScope.of(context).focusedChild?.unfocus();
+          }
+        },
+        child: kIsWeb || !Platform.isIOS
+            ? MaterialApp.router(
+                title: AppConsts.appTitle,
+                scrollBehavior: AppScrollBehaviour(),
+                debugShowCheckedModeBanner: false,
+                theme: materialThemeDataLight,
+                darkTheme: materialThemeDataDark,
+                routerConfig: _router,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                builder: (context, widget) => App(child: widget!),
+              )
+            : CupertinoApp.router(
+                title: AppConsts.appTitle,
+                scrollBehavior: AppScrollBehaviour(),
+                debugShowCheckedModeBanner: false,
+                theme: CupertinoThemeData(
+                  scaffoldBackgroundColor: colorScheme.surface,
+                  primaryContrastingColor: colorScheme.onPrimary,
+                  brightness: context.brightness,
+                  barBackgroundColor: colorScheme.surface,
+                  primaryColor: colorScheme.primary,
+                  applyThemeToAll: true,
+                ),
+                routerConfig: _router,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                builder: (context, widget) => App(child: widget!),
+              ),
+      ),
     );
   }
 }

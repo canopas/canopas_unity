@@ -15,70 +15,78 @@ class Spaces extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<JoinSpaceBloc, JoinSpaceState>(
-        buildWhen: (previous, current) =>
-            current.fetchSpaceStatus == Status.success ||
-            current.fetchSpaceStatus == Status.error,
-        builder: (context, state) {
-          if (state.fetchSpaceStatus == Status.loading ||
-              state.fetchSpaceStatus == Status.initial) {
-            return const Padding(
-              padding: EdgeInsets.all(20),
-              child: AppCircularProgressIndicator(),
+      buildWhen: (previous, current) =>
+          current.fetchSpaceStatus == Status.success ||
+          current.fetchSpaceStatus == Status.error,
+      builder: (context, state) {
+        if (state.fetchSpaceStatus == Status.loading ||
+            state.fetchSpaceStatus == Status.initial) {
+          return const Padding(
+            padding: EdgeInsets.all(20),
+            child: AppCircularProgressIndicator(),
+          );
+        } else {
+          if (state.ownSpaces.isEmpty && state.requestedSpaces.isEmpty) {
+            return Text(
+              context.l10n.empty_space_list_msg,
+              style: AppTextStyle.style14.copyWith(
+                color: context.colorScheme.textSecondary,
+              ),
             );
-          } else {
-            if (state.ownSpaces.isEmpty && state.requestedSpaces.isEmpty) {
-              return Text(
-                context.l10n.empty_space_list_msg,
-                style: AppTextStyle.style14
-                    .copyWith(color: context.colorScheme.textSecondary),
-              );
-            }
-            return Expanded(
-              child: ListView(
-                children: [
-                  if (state.ownSpaces.isNotEmpty)
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: state.ownSpaces
-                          .map((space) => SpaceCard(
+          }
+          return Expanded(
+            child: ListView(
+              children: [
+                if (state.ownSpaces.isNotEmpty)
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: state.ownSpaces
+                        .map(
+                          (space) => SpaceCard(
+                            name: space.name,
+                            domain: space.domain,
+                            logo: space.logo,
+                            onPressed: () => context.read<JoinSpaceBloc>().add(
+                              SelectSpaceEvent(space: space),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                if (state.requestedSpaces.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Text(
+                          context.l10n.request_tag,
+                          style: AppTextStyle.style18.copyWith(
+                            color: context.colorScheme.textPrimary,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: state.requestedSpaces
+                            .map(
+                              (space) => SpaceCard(
                                 name: space.name,
                                 domain: space.domain,
                                 logo: space.logo,
                                 onPressed: () => context
                                     .read<JoinSpaceBloc>()
-                                    .add(SelectSpaceEvent(space: space)),
-                              ))
-                          .toList(),
-                    ),
-                  if (state.requestedSpaces.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Text(context.l10n.request_tag,
-                              style: AppTextStyle.style18.copyWith(
-                                  color: context.colorScheme.textPrimary)),
-                        ),
-                        Column(
-                          children: state.requestedSpaces
-                              .map((space) => SpaceCard(
-                                    name: space.name,
-                                    domain: space.domain,
-                                    logo: space.logo,
-                                    onPressed: () => context
-                                        .read<JoinSpaceBloc>()
-                                        .add(JoinRequestedSpaceEvent(
-                                            space: space)),
-                                  ))
-                              .toList(),
-                        )
-                      ],
-                    ),
-                ],
-              ),
-            );
-          }
-        });
+                                    .add(JoinRequestedSpaceEvent(space: space)),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 }

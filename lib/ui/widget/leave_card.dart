@@ -12,11 +12,7 @@ class LeaveCard extends StatelessWidget {
   final Leave leave;
   final void Function()? onTap;
 
-  const LeaveCard({
-    super.key,
-    required this.onTap,
-    required this.leave,
-  });
+  const LeaveCard({super.key, required this.onTap, required this.leave});
 
   @override
   Widget build(BuildContext context) {
@@ -25,63 +21,71 @@ class LeaveCard extends StatelessWidget {
         color: context.colorScheme.containerLow,
         borderRadius: AppTheme.commonBorderRadius,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child:
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LeaveStatusView(status: leave.status),
-                Text(
-                    DateFormatter(AppLocalizations.of(context))
-                        .getDatePeriodPresentation(
-                            startDate: leave.startDate, endDate: leave.endDate),
-                    style: AppTextStyle.style16
-                        .copyWith(color: context.colorScheme.textPrimary),
-                    overflow: TextOverflow.ellipsis),
-              ],
-            ),
-            Divider(
-              height: 30,
-              color: context.colorScheme.outlineColor,
-            ),
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    LeaveStatusView(status: leave.status),
                     Text(
-                        DateFormatter(AppLocalizations.of(context)).dateInLine(
-                            startDate: leave.startDate, endDate: leave.endDate),
-                        style: AppTextStyle.style16
-                            .copyWith(color: context.colorScheme.textPrimary),
-                        overflow: TextOverflow.ellipsis),
-                    const SizedBox(height: 8),
-                    Text(
-                      DateFormatter(AppLocalizations.of(context))
-                          .getLeaveDurationPresentation(
-                              totalLeaves: leave.total,
-                              firstDayDuration: leave.perDayDuration.first)
-                          .toString(),
-                      style: AppTextStyle.style14
-                          .copyWith(color: context.colorScheme.textPrimary),
+                      DateFormatter(
+                        AppLocalizations.of(context),
+                      ).getDatePeriodPresentation(
+                        startDate: leave.startDate,
+                        endDate: leave.endDate,
+                      ),
+                      style: AppTextStyle.style16.copyWith(
+                        color: context.colorScheme.textPrimary,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 16,
-                )
+                Divider(height: 30, color: context.colorScheme.outlineColor),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          DateFormatter(
+                            AppLocalizations.of(context),
+                          ).dateInLine(
+                            startDate: leave.startDate,
+                            endDate: leave.endDate,
+                          ),
+                          style: AppTextStyle.style16.copyWith(
+                            color: context.colorScheme.textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          DateFormatter(AppLocalizations.of(context))
+                              .getLeaveDurationPresentation(
+                                totalLeaves: leave.total,
+                                firstDayDuration: leave.perDayDuration.first,
+                              )
+                              .toString(),
+                          style: AppTextStyle.style14.copyWith(
+                            color: context.colorScheme.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-      ).onTapGesture(() {
-        onTap?.call();
-      }),
+          ).onTapGesture(() {
+            onTap?.call();
+          }),
     );
   }
 }

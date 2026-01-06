@@ -6,9 +6,10 @@ import 'package:projectunity/data/core/converters%20/date_converter.dart';
 part 'employee.g.dart';
 
 @JsonSerializable(
-    includeIfNull: false,
-    converters: [DateTimeConverter()],
-    fieldRename: FieldRename.snake)
+  includeIfNull: false,
+  converters: [DateTimeConverter()],
+  fieldRename: FieldRename.snake,
+)
 class Employee extends Equatable {
   final String uid;
   final Role role;
@@ -91,21 +92,21 @@ class Employee extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        uid,
-        role,
-        name,
-        employeeId,
-        email,
-        designation,
-        phone,
-        imageUrl,
-        address,
-        gender,
-        dateOfBirth,
-        dateOfJoining,
-        level,
-      ];
+    status,
+    uid,
+    role,
+    name,
+    employeeId,
+    email,
+    designation,
+    phone,
+    imageUrl,
+    address,
+    gender,
+    dateOfBirth,
+    dateOfJoining,
+    level,
+  ];
 }
 
 @JsonEnum(valueField: 'value')

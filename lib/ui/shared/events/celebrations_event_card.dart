@@ -30,32 +30,33 @@ class _EventCardState extends State<EventCard> {
       children: [
         Divider(color: context.colorScheme.outlineColor),
         BlocConsumer<CelebrationsBloc, CelebrationsState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  EventsList(
-                    header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
-                    events: state.birthdays,
-                    expanded: state.showAllBdays,
-                    status: state.status,
-                    isAnniversary: false,
-                  ),
-                  EventsList(
-                    header: "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
-                    events: state.anniversaries,
-                    expanded: state.showAllAnniversaries,
-                    status: state.status,
-                    isAnniversary: true,
-                  )
-                ],
-              );
-            },
-            listenWhen: (previous, current) => current.error != null,
-            listener: (context, state) {
-              if (state.error != null) {
-                showSnackBar(context: context, error: state.error);
-              }
-            }),
+          builder: (context, state) {
+            return Column(
+              children: [
+                EventsList(
+                  header: "🎂 ${context.l10n.birthdays_tag} 🎂 ",
+                  events: state.birthdays,
+                  expanded: state.showAllBdays,
+                  status: state.status,
+                  isAnniversary: false,
+                ),
+                EventsList(
+                  header: "🎊 ${context.l10n.work_anniversaries_tag} 🎊 ",
+                  events: state.anniversaries,
+                  expanded: state.showAllAnniversaries,
+                  status: state.status,
+                  isAnniversary: true,
+                ),
+              ],
+            );
+          },
+          listenWhen: (previous, current) => current.error != null,
+          listener: (context, state) {
+            if (state.error != null) {
+              showSnackBar(context: context, error: state.error);
+            }
+          },
+        ),
         Divider(color: context.colorScheme.outlineColor),
       ],
     );
@@ -69,13 +70,14 @@ class EventsList extends StatelessWidget {
   final bool expanded;
   final Status status;
 
-  const EventsList(
-      {super.key,
-      required this.events,
-      required this.header,
-      required this.expanded,
-      required this.isAnniversary,
-      required this.status});
+  const EventsList({
+    super.key,
+    required this.events,
+    required this.header,
+    required this.expanded,
+    required this.isAnniversary,
+    required this.status,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -93,62 +95,68 @@ class EventsList extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.style20.copyWith(
-                      color: context.colorScheme.primary,
-                      fontWeight: FontWeight.w600),
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border:
-                        Border.all(color: context.colorScheme.outlineColor)),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: context.colorScheme.outlineColor),
+                ),
                 child: Row(
                   children: [
-                    Text(context.l10n.view_all_tag,
-                        style: AppTextStyle.style16.copyWith(
-                            color: expanded
-                                ? context.colorScheme.textPrimary
-                                : context.colorScheme.primary)),
+                    Text(
+                      context.l10n.view_all_tag,
+                      style: AppTextStyle.style16.copyWith(
+                        color: expanded
+                            ? context.colorScheme.textPrimary
+                            : context.colorScheme.primary,
+                      ),
+                    ),
                     Icon(
                       expanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
                       color: expanded
                           ? context.colorScheme.textPrimary
                           : context.colorScheme.primary,
-                    )
+                    ),
                   ],
                 ),
               ).onTapGesture(() {
                 isAnniversary
-                    ? context
-                        .read<CelebrationsBloc>()
-                        .add(ShowAnniversariesEvent())
-                    : context
-                        .read<CelebrationsBloc>()
-                        .add(ShowBirthdaysEvent());
-              })
+                    ? context.read<CelebrationsBloc>().add(
+                        ShowAnniversariesEvent(),
+                      )
+                    : context.read<CelebrationsBloc>().add(
+                        ShowBirthdaysEvent(),
+                      );
+              }),
             ],
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           switch (status) {
             Status.initial => const SizedBox(),
             Status.loading => const ThreeBounceLoading(),
-            Status.success => events.isEmpty
-                ? const EmptyCelebrationCard()
-                : Column(
-                    children: events.map((event) {
-                      return expanded
-                          ? AllEventCard(
-                              imageUrl: event.imageUrl,
-                              name: event.name,
-                              date: event.upcomingDate)
-                          : CurrentWeekEventCard(
-                              event: event, isAnniversary: isAnniversary);
-                    }).toList(),
-                  ),
-            Status.error => const EmptyCelebrationCard()
+            Status.success =>
+              events.isEmpty
+                  ? const EmptyCelebrationCard()
+                  : Column(
+                      children: events.map((event) {
+                        return expanded
+                            ? AllEventCard(
+                                imageUrl: event.imageUrl,
+                                name: event.name,
+                                date: event.upcomingDate,
+                              )
+                            : CurrentWeekEventCard(
+                                event: event,
+                                isAnniversary: isAnniversary,
+                              );
+                      }).toList(),
+                    ),
+            Status.error => const EmptyCelebrationCard(),
           },
         ],
       ),
@@ -160,40 +168,46 @@ class CurrentWeekEventCard extends StatelessWidget {
   final Event event;
   final bool isAnniversary;
 
-  const CurrentWeekEventCard(
-      {super.key, required this.event, required this.isAnniversary});
+  const CurrentWeekEventCard({
+    super.key,
+    required this.event,
+    required this.isAnniversary,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-            color: context.colorScheme.containerLow,
-            borderRadius: AppTheme.commonBorderRadius),
-        child: Row(
-          children: [
-            ImageProfile(
-              radius: 20,
-              imageUrl: event.imageUrl,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                isAnniversary
-                    ? DateFormatter(context.l10n).showAnniversaries(
-                        dateOfJoining: event.dateTime,
-                        upcomingDate: event.upcomingDate,
-                        name: event.name)
-                    : DateFormatter(context.l10n).showBirthdays(
-                        birthDate: event.dateTime, name: event.name),
-                style: AppTextStyle.style14
-                    .copyWith(color: context.colorScheme.textPrimary),
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        color: context.colorScheme.containerLow,
+        borderRadius: AppTheme.commonBorderRadius,
+      ),
+      child: Row(
+        children: [
+          ImageProfile(radius: 20, imageUrl: event.imageUrl),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              isAnniversary
+                  ? DateFormatter(context.l10n).showAnniversaries(
+                      dateOfJoining: event.dateTime,
+                      upcomingDate: event.upcomingDate,
+                      name: event.name,
+                    )
+                  : DateFormatter(context.l10n).showBirthdays(
+                      birthDate: event.dateTime,
+                      name: event.name,
+                    ),
+              style: AppTextStyle.style14.copyWith(
+                color: context.colorScheme.textPrimary,
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -202,11 +216,12 @@ class AllEventCard extends StatelessWidget {
   final String name;
   final DateTime date;
 
-  const AllEventCard(
-      {super.key,
-      required this.imageUrl,
-      required this.name,
-      required this.date});
+  const AllEventCard({
+    super.key,
+    required this.imageUrl,
+    required this.name,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -215,8 +230,9 @@ class AllEventCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            color: context.colorScheme.containerLow,
-            borderRadius: AppTheme.commonBorderRadius),
+          color: context.colorScheme.containerLow,
+          borderRadius: AppTheme.commonBorderRadius,
+        ),
         child: Row(
           children: [
             ImageProfile(radius: 20, imageUrl: imageUrl),
@@ -227,15 +243,18 @@ class AllEventCard extends StatelessWidget {
                 Text(
                   date.toDateWithoutYear(context),
                   style: AppTextStyle.style16.copyWith(
-                      color: context.colorScheme.textPrimary, height: 1.5),
+                    color: context.colorScheme.textPrimary,
+                    height: 1.5,
+                  ),
                 ),
                 Text(
                   name,
-                  style: AppTextStyle.style14
-                      .copyWith(color: context.colorScheme.textSecondary),
-                )
+                  style: AppTextStyle.style14.copyWith(
+                    color: context.colorScheme.textSecondary,
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -250,8 +269,9 @@ class EmptyCelebrationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.l10n.no_event_text,
-      style: AppTextStyle.style16
-          .copyWith(color: context.colorScheme.textSecondary),
+      style: AppTextStyle.style16.copyWith(
+        color: context.colorScheme.textSecondary,
+      ),
     );
   }
 }

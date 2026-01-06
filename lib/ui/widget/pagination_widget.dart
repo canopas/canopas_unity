@@ -20,14 +20,18 @@ class LeaveListHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title,
-                style: AppTextStyle.style20
-                    .copyWith(color: context.colorScheme.textPrimary)),
+            Text(
+              title,
+              style: AppTextStyle.style20.copyWith(
+                color: context.colorScheme.textPrimary,
+              ),
+            ),
             Text(
               count.toString(),
-              style: AppTextStyle.style20
-                  .copyWith(color: context.colorScheme.textPrimary),
-            )
+              style: AppTextStyle.style20.copyWith(
+                color: context.colorScheme.textPrimary,
+              ),
+            ),
           ],
         ),
       ),
@@ -40,11 +44,12 @@ class LeaveListByMonth extends StatelessWidget {
   final bool isPaginationLoading;
   final void Function(Leave leave) onCardTap;
 
-  const LeaveListByMonth(
-      {super.key,
-      required this.leaves,
-      required this.isPaginationLoading,
-      required this.onCardTap});
+  const LeaveListByMonth({
+    super.key,
+    required this.leaves,
+    required this.isPaginationLoading,
+    required this.onCardTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +66,9 @@ class LeaveListByMonth extends StatelessWidget {
           );
         }
         return LeaveCard(
-            onTap: () => onCardTap(leaves[index]), leave: leaves[index]);
+          onTap: () => onCardTap(leaves[index]),
+          leave: leaves[index],
+        );
       },
       separatorBuilder: (context, index) => const SizedBox(height: 16),
     );

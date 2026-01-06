@@ -37,10 +37,12 @@ class UserHomeScreenPage extends StatelessWidget {
               getIt<UserHomeBloc>()..add(UserHomeFetchLeaveRequest()),
         ),
         BlocProvider(
-            create: (_) =>
-                getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
+          create: (_) =>
+              getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves()),
+        ),
         BlocProvider(
-            create: (_) => getIt<CelebrationsBloc>()..add(FetchCelebrations())),
+          create: (_) => getIt<CelebrationsBloc>()..add(FetchCelebrations()),
+        ),
       ],
       child: const UserHomeScreen(),
     );
@@ -59,89 +61,97 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context);
     return AppPage(
-        backGroundColor: context.colorScheme.surface,
-        leading: InkWell(
-            onTap: () {
-              Scaffold.of(context).openDrawer();
-              context.read<DrawerBloc>().add(FetchSpacesEvent());
+      backGroundColor: context.colorScheme.surface,
+      leading: InkWell(
+        onTap: () {
+          Scaffold.of(context).openDrawer();
+          context.read<DrawerBloc>().add(FetchSpacesEvent());
+        },
+        child: Icon(Icons.menu, color: context.colorScheme.textPrimary),
+      ),
+      titleWidget: SpaceNotifierWidget(
+        notifier: getIt.get<UserStateNotifier>(),
+        child: Builder(
+          builder: (context) {
+            final String name = SpaceNotifierWidget.of(context)?.name ?? "";
+            return Text(
+              name,
+              style: AppTextStyle.headerStyle(context),
+              overflow: TextOverflow.ellipsis,
+            );
+          },
+        ),
+      ),
+      body: ListView(
+        children: [
+          const WhoIsOutCard(),
+          const EventCard(),
+          BlocConsumer<UserHomeBloc, UserHomeState>(
+            buildWhen: (previous, current) => current is! UserHomeErrorState,
+            builder: (context, state) {
+              if (state is UserHomeSuccessState && state.requests.isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, bottom: 16),
+                        child: Text(
+                          locale.request_tag,
+                          style: AppTextStyle.style20.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: context.colorScheme.textPrimary,
+                          ),
+                        ),
+                      ),
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, leave) => LeaveCard(
+                          onTap: () {
+                            context.goNamed(
+                              Routes.userRequestDetail,
+                              pathParameters: {
+                                RoutesParamsConst.leaveId:
+                                    state.requests[leave].leaveId,
+                              },
+                            );
+                          },
+                          leave: state.requests[leave],
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 16),
+                        itemCount: state.requests.length,
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 300),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height - 500,
+                  child:
+                      state is UserHomeLoadingState ||
+                          state is UserHomeInitialState
+                      ? const AppCircularProgressIndicator()
+                      : EmptyScreen(
+                          title: locale.empty_request_title,
+                          message: locale.empty_request_message,
+                        ),
+                ),
+              );
             },
-            child: Icon(
-              Icons.menu,
-              color: context.colorScheme.textPrimary,
-            )),
-        titleWidget: SpaceNotifierWidget(
-          notifier: getIt.get<UserStateNotifier>(),
-          child: Builder(
-            builder: (context) {
-              final String name = SpaceNotifierWidget.of(context)?.name ?? "";
-              return Text(name,
-                  style: AppTextStyle.headerStyle(context),
-                  overflow: TextOverflow.ellipsis);
+            listenWhen: (previous, current) => current is UserHomeErrorState,
+            listener: (context, state) {
+              if (state is UserHomeErrorState) {
+                showSnackBar(context: context, error: state.error);
+              }
             },
           ),
-        ),
-        body: ListView(
-          children: [
-            const WhoIsOutCard(),
-            const EventCard(),
-            BlocConsumer<UserHomeBloc, UserHomeState>(
-                buildWhen: (previous, current) =>
-                    current is! UserHomeErrorState,
-                builder: (context, state) {
-                  if (state is UserHomeSuccessState &&
-                      state.requests.isNotEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 16, bottom: 16),
-                              child: Text(locale.request_tag,
-                                  style: AppTextStyle.style20.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: context.colorScheme.textPrimary)),
-                            ),
-                            ListView.separated(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, leave) => LeaveCard(
-                                    onTap: () {
-                                      context.goNamed(Routes.userRequestDetail,
-                                          pathParameters: {
-                                            RoutesParamsConst.leaveId:
-                                                state.requests[leave].leaveId
-                                          });
-                                    },
-                                    leave: state.requests[leave]),
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(height: 16),
-                                itemCount: state.requests.length),
-                          ]),
-                    );
-                  }
-                  return ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minHeight: 300,
-                      ),
-                      child: SizedBox(
-                          height: MediaQuery.of(context).size.height - 500,
-                          child: state is UserHomeLoadingState ||
-                                  state is UserHomeInitialState
-                              ? const AppCircularProgressIndicator()
-                              : EmptyScreen(
-                                  title: locale.empty_request_title,
-                                  message: locale.empty_request_message)));
-                },
-                listenWhen: (previous, current) =>
-                    current is UserHomeErrorState,
-                listener: (context, state) {
-                  if (state is UserHomeErrorState) {
-                    showSnackBar(context: context, error: state.error);
-                  }
-                })
-          ],
-        ));
+        ],
+      ),
+    );
   }
 }

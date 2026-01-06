@@ -16,7 +16,9 @@ class LeaveCountsView extends StatelessWidget {
           previous.leaveCountStatus != current.leaveCountStatus,
       builder: (context, state) => state.leaveCountStatus == Status.loading
           ? const SizedBox(
-              height: 60, child: AppCircularProgressIndicator(size: 28))
+              height: 60,
+              child: AppCircularProgressIndicator(size: 28),
+            )
           : UsedLeaveCountsView(leaveCounts: state.usedLeavesCount),
     );
   }

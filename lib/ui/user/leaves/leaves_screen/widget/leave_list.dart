@@ -16,11 +16,12 @@ class LeaveList extends StatefulWidget {
   final LeaveType leaveType;
   final Status status;
 
-  const LeaveList(
-      {super.key,
-      required this.leaves,
-      required this.leaveType,
-      required this.status});
+  const LeaveList({
+    super.key,
+    required this.leaves,
+    required this.leaveType,
+    required this.status,
+  });
 
   @override
   State<LeaveList> createState() => _LeaveListState();
@@ -56,8 +57,10 @@ class _LeaveListState extends State<LeaveList> {
   Widget build(BuildContext context) {
     Future<void> navigateToLeaveDetails(Leave leave) async {
       final bloc = context.read<UserLeaveBloc>();
-      final String? leaveId = await context.pushNamed(Routes.userLeaveDetail,
-          pathParameters: {RoutesParamsConst.leaveId: leave.leaveId});
+      final String? leaveId = await context.pushNamed(
+        Routes.userLeaveDetail,
+        pathParameters: {RoutesParamsConst.leaveId: leave.leaveId},
+      );
       if (leaveId != null) {
         bloc.add(UpdateLeave(leaveId: leaveId));
       }
@@ -67,24 +70,29 @@ class _LeaveListState extends State<LeaveList> {
         ? ListView(
             controller: _scrollController,
             children: widget.leaves.entries
-                .map((MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
-                    StickyHeader(
+                .map(
+                  (MapEntry<DateTime, List<Leave>> monthWiseLeaves) =>
+                      StickyHeader(
                         header: LeaveListHeader(
-                          title: context.l10n
-                              .date_format_yMMMM(monthWiseLeaves.key),
+                          title: context.l10n.date_format_yMMMM(
+                            monthWiseLeaves.key,
+                          ),
                           count: monthWiseLeaves.value.length,
                         ),
                         content: LeaveListByMonth(
                           onCardTap: navigateToLeaveDetails,
                           isPaginationLoading:
                               monthWiseLeaves.key == widget.leaves.keys.last &&
-                                  widget.status == Status.loading,
+                              widget.status == Status.loading,
                           leaves: monthWiseLeaves.value,
-                        )))
+                        ),
+                      ),
+                )
                 .toList(),
           )
         : EmptyScreen(
             title: context.l10n.no_leaves_tag,
-            message: context.l10n.user_leave_empty_screen_message);
+            message: context.l10n.user_leave_empty_screen_message,
+          );
   }
 }

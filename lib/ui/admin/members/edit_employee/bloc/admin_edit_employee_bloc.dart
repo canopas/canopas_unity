@@ -19,8 +19,10 @@ class AdminEditEmployeeDetailsBloc
   final StorageService _storageService;
 
   AdminEditEmployeeDetailsBloc(
-      this._employeeService, this._userStateNotifier, this._storageService)
-      : super(const AdminEditEmployeeDetailsState()) {
+    this._employeeService,
+    this._userStateNotifier,
+    this._storageService,
+  ) : super(const AdminEditEmployeeDetailsState()) {
     on<EditEmployeeByAdminInitialEvent>(_initRoleTypeAndDate);
     on<ChangeEmployeeRoleEvent>(_changeRoleType);
     on<UpdateEmployeeByAdminEvent>(_updateEmployee);
@@ -33,31 +35,44 @@ class AdminEditEmployeeDetailsBloc
     on<ChangeEmployeeDateOfBirth>(_changeDateOfBirth);
   }
 
-  void _initRoleTypeAndDate(EditEmployeeByAdminInitialEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
-    emit(state.copyWith(
+  void _initRoleTypeAndDate(
+    EditEmployeeByAdminInitialEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
+    emit(
+      state.copyWith(
         role: event.roleType,
         dateOfJoining: event.dateOfJoining ?? DateTime.now().dateOnly,
-        dateOfBirth: event.dateOfBirth ?? DateTime.now().dateOnly));
+        dateOfBirth: event.dateOfBirth ?? DateTime.now().dateOnly,
+      ),
+    );
   }
 
-  void _changeRoleType(ChangeEmployeeRoleEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _changeRoleType(
+    ChangeEmployeeRoleEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     emit(state.copyWith(role: event.roleType));
   }
 
-  void _changeDateOfJoining(ChangeEmployeeDateOfJoiningEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _changeDateOfJoining(
+    ChangeEmployeeDateOfJoiningEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     emit(state.copyWith(dateOfJoining: event.dateOfJoining));
   }
 
-  void _changeDateOfBirth(ChangeEmployeeDateOfBirth event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _changeDateOfBirth(
+    ChangeEmployeeDateOfBirth event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     emit(state.copyWith(dateOfBirth: event.dateOfBirth));
   }
 
-  void _validName(ChangeEmployeeNameEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validName(
+    ChangeEmployeeNameEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     if (event.name.length < 4) {
       emit(state.copyWith(nameError: true));
     } else {
@@ -65,8 +80,10 @@ class AdminEditEmployeeDetailsBloc
     }
   }
 
-  void _validEmail(ChangeEmployeeEmailEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validEmail(
+    ChangeEmployeeEmailEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     if (event.email.isEmpty || !event.email.contains('@')) {
       emit(state.copyWith(emailError: true));
     } else {
@@ -74,8 +91,10 @@ class AdminEditEmployeeDetailsBloc
     }
   }
 
-  void _validDesignation(ChangeEmployeeDesignationEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validDesignation(
+    ChangeEmployeeDesignationEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     if (event.designation.isEmpty) {
       emit(state.copyWith(designationError: true));
     } else {
@@ -83,8 +102,10 @@ class AdminEditEmployeeDetailsBloc
     }
   }
 
-  void _validEmployeeId(ChangeEmployeeIdEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) {
+  void _validEmployeeId(
+    ChangeEmployeeIdEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) {
     if (event.employeeId.isEmpty) {
       emit(state.copyWith(employeeIdError: true));
     } else {
@@ -92,13 +113,17 @@ class AdminEditEmployeeDetailsBloc
     }
   }
 
-  Future<void> _changeImage(ChangeProfileImageEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) async {
+  Future<void> _changeImage(
+    ChangeProfileImageEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) async {
     emit(state.copyWith(pickedImage: event.imagePath));
   }
 
-  void _updateEmployee(UpdateEmployeeByAdminEvent event,
-      Emitter<AdminEditEmployeeDetailsState> emit) async {
+  void _updateEmployee(
+    UpdateEmployeeByAdminEvent event,
+    Emitter<AdminEditEmployeeDetailsState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     if (state.nameError ||
         state.designationError ||
@@ -111,10 +136,12 @@ class AdminEditEmployeeDetailsBloc
 
         if (state.pickedImage != null) {
           imageUrl = await _storageService.uploadProfilePic(
-              path: ImageStoragePath.membersProfilePath(
-                  spaceId: _userStateNotifier.currentSpaceId!,
-                  uid: event.previousEmployeeData.uid),
-              imagePath: state.pickedImage!);
+            path: ImageStoragePath.membersProfilePath(
+              spaceId: _userStateNotifier.currentSpaceId!,
+              uid: event.previousEmployeeData.uid,
+            ),
+            imagePath: state.pickedImage!,
+          );
         }
 
         await _employeeService.updateEmployeeDetails(
@@ -136,8 +163,9 @@ class AdminEditEmployeeDetailsBloc
         );
         emit(state.copyWith(status: Status.success));
       } on Exception {
-        emit(state.copyWith(
-            status: Status.error, error: firestoreFetchDataError));
+        emit(
+          state.copyWith(status: Status.error, error: firestoreFetchDataError),
+        );
       }
     }
   }

@@ -18,22 +18,26 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   final EmployeeRepo employeeRepo;
 
   AdminHomeBloc(this.leaveRepo, this.employeeRepo)
-      : super(const AdminHomeState()) {
+    : super(const AdminHomeState()) {
     on<AdminHomeInitialLoadEvent>(_loadLeaveApplication);
   }
 
   Future<void> _loadLeaveApplication(
-      AdminHomeInitialLoadEvent event, Emitter<AdminHomeState> emit) async {
+    AdminHomeInitialLoadEvent event,
+    Emitter<AdminHomeState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
 
     try {
       return emit.forEach(
         getLeaveApplicationStream(
-            leaveStream: leaveRepo.pendingLeaves,
-            membersStream: employeeRepo.employees),
+          leaveStream: leaveRepo.pendingLeaves,
+          membersStream: employeeRepo.employees,
+        ),
         onData: (List<LeaveApplication> applications) => state.copyWith(
-            status: Status.success,
-            leaveAppMap: convertListToMap(applications)),
+          status: Status.success,
+          leaveAppMap: convertListToMap(applications),
+        ),
         onError: (error, stackTrace) =>
             state.failureState(failureMessage: firestoreFetchDataError),
       );
@@ -43,10 +47,13 @@ class AdminHomeBloc extends Bloc<AdminHomeEvent, AdminHomeState> {
   }
 
   Map<DateTime, List<LeaveApplication>> convertListToMap(
-      List<LeaveApplication> leaveApplications) {
-    leaveApplications
-        .sort((a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn));
+    List<LeaveApplication> leaveApplications,
+  ) {
+    leaveApplications.sort(
+      (a, b) => b.leave.appliedOn.compareTo(a.leave.appliedOn),
+    );
     return leaveApplications.groupBy(
-        (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly);
+      (leaveApplication) => leaveApplication.leave.appliedOn.dateOnly,
+    );
   }
 }

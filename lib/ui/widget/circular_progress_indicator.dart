@@ -56,13 +56,20 @@ class _ThreeBounceLoadingState extends State<ThreeBounceLoading>
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(3, (i) {
             return ScaleTransition(
-              scale: DelayTween(begin: 0.0, end: 1.0, delay: i * .2)
-                  .animate(_controller),
+              scale: DelayTween(
+                begin: 0.0,
+                end: 1.0,
+                delay: i * .2,
+              ).animate(_controller),
               child: SizedBox.fromSize(
-                  size: Size.square(widget.size * 0.5),
-                  child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: widget.color, shape: BoxShape.circle))),
+                size: Size.square(widget.size * 0.5),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: widget.color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
             );
           }),
         ),

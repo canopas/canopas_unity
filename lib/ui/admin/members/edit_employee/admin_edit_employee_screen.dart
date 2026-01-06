@@ -21,13 +21,14 @@ class AdminEditEmployeeDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminEditEmployeeDetailsBloc>()
-        ..add(EditEmployeeByAdminInitialEvent(
+        ..add(
+          EditEmployeeByAdminInitialEvent(
             roleType: employee.role,
             dateOfJoining: employee.dateOfJoining,
-            dateOfBirth: employee.dateOfBirth)),
-      child: AdminEditEmployeeDetailsView(
-        employee: employee,
-      ),
+            dateOfBirth: employee.dateOfBirth,
+          ),
+        ),
+      child: AdminEditEmployeeDetailsView(employee: employee),
     );
   }
 }
@@ -78,8 +79,10 @@ class _AdminEditEmployeeDetailsViewState
       backGroundColor: context.colorScheme.surface,
       title: context.l10n.edit_tag,
       actions: [
-        BlocBuilder<AdminEditEmployeeDetailsBloc,
-            AdminEditEmployeeDetailsState>(
+        BlocBuilder<
+          AdminEditEmployeeDetailsBloc,
+          AdminEditEmployeeDetailsState
+        >(
           buildWhen: (previous, current) =>
               previous.isValid != current.isValid ||
               previous.status != current.status,
@@ -88,24 +91,26 @@ class _AdminEditEmployeeDetailsViewState
               : TextButton(
                   onPressed: state.isValid
                       ? () {
-                          context
-                              .read<AdminEditEmployeeDetailsBloc>()
-                              .add(UpdateEmployeeByAdminEvent(
-                                previousEmployeeData: widget.employee,
-                                name: nameFieldController.text,
-                                level: levelFieldController.text,
-                                employeeId: employeeIDFieldController.text,
-                                email: emailFieldController.text,
-                                designation: designationFieldController.text,
-                              ));
+                          context.read<AdminEditEmployeeDetailsBloc>().add(
+                            UpdateEmployeeByAdminEvent(
+                              previousEmployeeData: widget.employee,
+                              name: nameFieldController.text,
+                              level: levelFieldController.text,
+                              employeeId: employeeIDFieldController.text,
+                              email: emailFieldController.text,
+                              designation: designationFieldController.text,
+                            ),
+                          );
                         }
                       : null,
                   child: Text(
                     context.l10n.save_tag,
-                    style: AppTextStyle.style16
-                        .copyWith(color: context.colorScheme.primary),
-                  )),
-        )
+                    style: AppTextStyle.style16.copyWith(
+                      color: context.colorScheme.primary,
+                    ),
+                  ),
+                ),
+        ),
       ],
       body: AdminEditEmployeeDetailsForm(
         profileImageUrl: widget.employee.imageUrl,

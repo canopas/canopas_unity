@@ -40,129 +40,179 @@ void main() {
       storageService = MockStorageService();
       userStateNotifier = MockUserStateNotifier();
       editEmployeeDetailsBloc = AdminEditEmployeeDetailsBloc(
-          employeeService, userStateNotifier, storageService);
+        employeeService,
+        userStateNotifier,
+        storageService,
+      );
     });
 
     test('test initial test', () {
-      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
+      editEmployeeDetailsBloc.add(
+        EditEmployeeByAdminInitialEvent(
           dateOfJoining: emp.dateOfJoining,
           roleType: emp.role,
-          dateOfBirth: emp.dateOfBirth));
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining.dateOnly,
-              role: Role.admin,
-              dateOfBirth: emp.dateOfBirth)));
+        editEmployeeDetailsBloc.stream,
+        emits(
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth,
+          ),
+        ),
+      );
     });
 
     test('change role type test', () {
-      editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(
-          dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin));
-      editEmployeeDetailsBloc
-          .add(ChangeEmployeeRoleEvent(roleType: Role.employee));
+      editEmployeeDetailsBloc.emit(
+        AdminEditEmployeeDetailsState(
+          dateOfJoining: emp.dateOfJoining.dateOnly,
+          role: Role.admin,
+        ),
+      );
+      editEmployeeDetailsBloc.add(
+        ChangeEmployeeRoleEvent(roleType: Role.employee),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.employee)));
+        editEmployeeDetailsBloc.stream,
+        emits(
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.employee,
+          ),
+        ),
+      );
     });
 
     test('change joining date test', () {
-      editEmployeeDetailsBloc.emit(AdminEditEmployeeDetailsState(
-          dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin));
+      editEmployeeDetailsBloc.emit(
+        AdminEditEmployeeDetailsState(
+          dateOfJoining: emp.dateOfJoining.dateOnly,
+          role: Role.admin,
+        ),
+      );
       DateTime otherDate = DateTime.now().add(const Duration(days: 5)).dateOnly;
-      editEmployeeDetailsBloc
-          .add(ChangeEmployeeDateOfJoiningEvent(dateOfJoining: otherDate));
+      editEmployeeDetailsBloc.add(
+        ChangeEmployeeDateOfJoiningEvent(dateOfJoining: otherDate),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emits(AdminEditEmployeeDetailsState(
-              dateOfJoining: otherDate, role: Role.admin)));
+        editEmployeeDetailsBloc.stream,
+        emits(
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: otherDate,
+            role: Role.admin,
+          ),
+        ),
+      );
     });
 
     test('pick and change profile image test', () {
       editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
-      expect(editEmployeeDetailsBloc.stream,
-          emits(const AdminEditEmployeeDetailsState(pickedImage: 'path')));
+      expect(
+        editEmployeeDetailsBloc.stream,
+        emits(const AdminEditEmployeeDetailsState(pickedImage: 'path')),
+      );
     });
 
     test('test validation validation', () {
       editEmployeeDetailsBloc.add(ChangeEmployeeNameEvent(name: ""));
-      editEmployeeDetailsBloc
-          .add(ChangeEmployeeNameEvent(name: "Tester Dummy"));
+      editEmployeeDetailsBloc.add(
+        ChangeEmployeeNameEvent(name: "Tester Dummy"),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            const AdminEditEmployeeDetailsState(nameError: true),
-            const AdminEditEmployeeDetailsState(nameError: false)
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          const AdminEditEmployeeDetailsState(nameError: true),
+          const AdminEditEmployeeDetailsState(nameError: false),
+        ]),
+      );
     });
 
     test('test email validation', () {
       editEmployeeDetailsBloc.add(ChangeEmployeeEmailEvent(email: ""));
-      editEmployeeDetailsBloc
-          .add(ChangeEmployeeEmailEvent(email: "dummy123@gmail.com"));
+      editEmployeeDetailsBloc.add(
+        ChangeEmployeeEmailEvent(email: "dummy123@gmail.com"),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            const AdminEditEmployeeDetailsState(emailError: true),
-            const AdminEditEmployeeDetailsState(emailError: false)
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          const AdminEditEmployeeDetailsState(emailError: true),
+          const AdminEditEmployeeDetailsState(emailError: false),
+        ]),
+      );
     });
 
     test('test designation validation', () {
-      editEmployeeDetailsBloc
-          .add(ChangeEmployeeDesignationEvent(designation: ""));
       editEmployeeDetailsBloc.add(
-          ChangeEmployeeDesignationEvent(designation: "Application Tester"));
+        ChangeEmployeeDesignationEvent(designation: ""),
+      );
+      editEmployeeDetailsBloc.add(
+        ChangeEmployeeDesignationEvent(designation: "Application Tester"),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            const AdminEditEmployeeDetailsState(designationError: true),
-            const AdminEditEmployeeDetailsState(designationError: false)
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          const AdminEditEmployeeDetailsState(designationError: true),
+          const AdminEditEmployeeDetailsState(designationError: false),
+        ]),
+      );
     });
 
     test('test employeeId validation', () {
       editEmployeeDetailsBloc.add(ChangeEmployeeIdEvent(employeeId: ""));
       editEmployeeDetailsBloc.add(ChangeEmployeeIdEvent(employeeId: "CA-1000"));
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            const AdminEditEmployeeDetailsState(employeeIdError: true),
-            const AdminEditEmployeeDetailsState(employeeIdError: false)
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          const AdminEditEmployeeDetailsState(employeeIdError: true),
+          const AdminEditEmployeeDetailsState(employeeIdError: false),
+        ]),
+      );
     });
 
     test('update Employee details test', () async {
-      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
+      editEmployeeDetailsBloc.add(
+        EditEmployeeByAdminInitialEvent(
           roleType: emp.role,
           dateOfJoining: emp.dateOfJoining,
-          dateOfBirth: emp.dateOfBirth));
-      editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
+      editEmployeeDetailsBloc.add(
+        UpdateEmployeeByAdminEvent(
           previousEmployeeData: emp,
           designation: emp.designation!,
           email: emp.email,
           employeeId: emp.employeeId!,
           level: emp.level!,
-          name: emp.name));
+          name: emp.name,
+        ),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                role: Role.admin),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                role: Role.admin,
-                status: Status.loading),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                role: Role.admin,
-                status: Status.success),
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            role: Role.admin,
+          ),
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            role: Role.admin,
+            status: Status.loading,
+          ),
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            role: Role.admin,
+            status: Status.success,
+          ),
+        ]),
+      );
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
     });
@@ -170,83 +220,107 @@ void main() {
     test('update Employee details with profile test', () async {
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
 
-      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
+      editEmployeeDetailsBloc.add(
+        EditEmployeeByAdminInitialEvent(
           roleType: emp.role,
           dateOfJoining: emp.dateOfJoining,
-          dateOfBirth: emp.dateOfBirth));
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
       editEmployeeDetailsBloc.add(ChangeProfileImageEvent('path'));
-      when(storageService.uploadProfilePic(
-              path: 'images/space-id/${emp.uid}/profile', imagePath: 'path'))
-          .thenAnswer((realInvocation) async => 'image-url');
-      editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
+      when(
+        storageService.uploadProfilePic(
+          path: 'images/space-id/${emp.uid}/profile',
+          imagePath: 'path',
+        ),
+      ).thenAnswer((realInvocation) async => 'image-url');
+      editEmployeeDetailsBloc.add(
+        UpdateEmployeeByAdminEvent(
           previousEmployeeData: emp,
           designation: emp.designation!,
           email: emp.email,
           employeeId: emp.employeeId!,
           level: emp.level!,
-          name: emp.name));
+          name: emp.name,
+        ),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            AdminEditEmployeeDetailsState(
-              dateOfJoining: emp.dateOfJoining.dateOnly,
-              role: Role.admin,
-              dateOfBirth: emp.dateOfBirth?.dateOnly,
-            ),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                role: Role.admin,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                pickedImage: 'path'),
-            AdminEditEmployeeDetailsState(
-              status: Status.loading,
-              dateOfJoining: emp.dateOfJoining.dateOnly,
-              role: Role.admin,
-              dateOfBirth: emp.dateOfBirth?.dateOnly,
-              pickedImage: 'path',
-            ),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                role: Role.admin,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                pickedImage: 'path',
-                status: Status.success),
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+          ),
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            pickedImage: 'path',
+          ),
+          AdminEditEmployeeDetailsState(
+            status: Status.loading,
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            pickedImage: 'path',
+          ),
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            pickedImage: 'path',
+            status: Status.success,
+          ),
+        ]),
+      );
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
     });
 
     test('update Employee details failed test', () async {
-      editEmployeeDetailsBloc.add(EditEmployeeByAdminInitialEvent(
+      editEmployeeDetailsBloc.add(
+        EditEmployeeByAdminInitialEvent(
           dateOfJoining: emp.dateOfJoining,
           roleType: emp.role,
-          dateOfBirth: emp.dateOfBirth));
-      when(employeeService.updateEmployeeDetails(employee: emp))
-          .thenThrow(Exception("error"));
-      editEmployeeDetailsBloc.add(UpdateEmployeeByAdminEvent(
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
+      when(
+        employeeService.updateEmployeeDetails(employee: emp),
+      ).thenThrow(Exception("error"));
+      editEmployeeDetailsBloc.add(
+        UpdateEmployeeByAdminEvent(
           designation: emp.designation!,
           email: emp.email,
           employeeId: emp.employeeId!,
           level: emp.level!,
           name: emp.name,
-          previousEmployeeData: emp));
+          previousEmployeeData: emp,
+        ),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly, role: Role.admin),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                role: Role.admin,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                status: Status.loading),
-            AdminEditEmployeeDetailsState(
-                dateOfJoining: emp.dateOfJoining.dateOnly,
-                role: Role.admin,
-                dateOfBirth: emp.dateOfBirth?.dateOnly,
-                status: Status.error,
-                error: firestoreFetchDataError),
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+          ),
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            status: Status.loading,
+          ),
+          AdminEditEmployeeDetailsState(
+            dateOfJoining: emp.dateOfJoining.dateOnly,
+            role: Role.admin,
+            dateOfBirth: emp.dateOfBirth?.dateOnly,
+            status: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
     });

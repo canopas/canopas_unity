@@ -17,11 +17,12 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
   final List<LeaveApplication> absence;
   final Status status;
 
-  const AbsenceEmployeesListWhoIsOutCardView(
-      {super.key,
-      required this.dateOfEmployeeAbsence,
-      required this.absence,
-      required this.status});
+  const AbsenceEmployeesListWhoIsOutCardView({
+    super.key,
+    required this.dateOfEmployeeAbsence,
+    required this.absence,
+    required this.status,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,8 @@ class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
     } else if (status == Status.success) {
       return absence.isEmpty
           ? WhoIsOutAbsenceEmptyView(
-              dateOfEmployeeAbsence: dateOfEmployeeAbsence)
+              dateOfEmployeeAbsence: dateOfEmployeeAbsence,
+            )
           : AbsenceEmployeeWrapLayout(absence: absence);
     }
     return Container();
@@ -52,48 +54,58 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Wrap(
         children: absence
-            .map((absence) => SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Material(
-                    color: context.colorScheme.surface,
+            .map(
+              (absence) => SizedBox(
+                height: 100,
+                width: 100,
+                child: Material(
+                  color: context.colorScheme.surface,
+                  borderRadius: AppTheme.commonBorderRadius,
+                  child: InkWell(
                     borderRadius: AppTheme.commonBorderRadius,
-                    child: InkWell(
-                      borderRadius: AppTheme.commonBorderRadius,
-                      onTap: () {
-                        userStateNotifier.isAdmin || userStateNotifier.isHR
-                            ? context.pushNamed(Routes.adminAbsenceDetails,
-                                extra: absence)
-                            : context.pushNamed(Routes.userAbsenceDetails,
-                                pathParameters: {
-                                    RoutesParamsConst.leaveId:
-                                        absence.leave.leaveId
-                                  });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ImageProfile(
-                                radius: 25,
-                                imageUrl: absence.employee.imageUrl),
-                            const SizedBox(height: 5),
-                            Flexible(
-                              child: Text(absence.employee.name,
-                                  style: AppTextStyle.style14.copyWith(
-                                      color: context.colorScheme.textPrimary),
-                                  maxLines: 1,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.clip),
+                    onTap: () {
+                      userStateNotifier.isAdmin || userStateNotifier.isHR
+                          ? context.pushNamed(
+                              Routes.adminAbsenceDetails,
+                              extra: absence,
+                            )
+                          : context.pushNamed(
+                              Routes.userAbsenceDetails,
+                              pathParameters: {
+                                RoutesParamsConst.leaveId:
+                                    absence.leave.leaveId,
+                              },
+                            );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ImageProfile(
+                            radius: 25,
+                            imageUrl: absence.employee.imageUrl,
+                          ),
+                          const SizedBox(height: 5),
+                          Flexible(
+                            child: Text(
+                              absence.employee.name,
+                              style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary,
+                              ),
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.clip,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ))
+                ),
+              ),
+            )
             .toList(),
       ),
     );
@@ -103,8 +115,10 @@ class AbsenceEmployeeWrapLayout extends StatelessWidget {
 class WhoIsOutAbsenceEmptyView extends StatelessWidget {
   final DateTime dateOfEmployeeAbsence;
 
-  const WhoIsOutAbsenceEmptyView(
-      {super.key, required this.dateOfEmployeeAbsence});
+  const WhoIsOutAbsenceEmptyView({
+    super.key,
+    required this.dateOfEmployeeAbsence,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -114,15 +128,19 @@ class WhoIsOutAbsenceEmptyView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(locale.who_is_out_card_no_leave_present_title,
-              style: AppTextStyle.style20.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: context.colorScheme.textPrimary)),
+          Text(
+            locale.who_is_out_card_no_leave_present_title,
+            style: AppTextStyle.style20.copyWith(
+              fontWeight: FontWeight.w700,
+              color: context.colorScheme.textPrimary,
+            ),
+          ),
           const SizedBox(height: 5),
           Text(
             locale.who_is_out_card_no_leave_present_message,
-            style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.textSecondary),
+            style: AppTextStyle.style16.copyWith(
+              color: context.colorScheme.textSecondary,
+            ),
           ),
         ],
       ),

@@ -17,12 +17,13 @@ class AdminLeaveDetailsState extends Equatable {
     this.leaveCountStatus = Status.initial,
   });
 
-  AdminLeaveDetailsState copyWith(
-      {LeaveCounts? usedLeavesCount,
-      String? error,
-      Status? actionStatus,
-      Status? leaveCountStatus,
-      String? adminReply}) {
+  AdminLeaveDetailsState copyWith({
+    LeaveCounts? usedLeavesCount,
+    String? error,
+    Status? actionStatus,
+    Status? leaveCountStatus,
+    String? adminReply,
+  }) {
     return AdminLeaveDetailsState(
       adminReply: adminReply ?? this.adminReply,
       error: error,
@@ -33,6 +34,11 @@ class AdminLeaveDetailsState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [error, leaveCountStatus, actionStatus, usedLeavesCount, adminReply];
+  List<Object?> get props => [
+    error,
+    leaveCountStatus,
+    actionStatus,
+    usedLeavesCount,
+    adminReply,
+  ];
 }

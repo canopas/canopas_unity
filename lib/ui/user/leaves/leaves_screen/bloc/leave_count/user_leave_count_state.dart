@@ -7,20 +7,23 @@ class UserLeaveCountState extends Equatable {
   final LeaveCounts usedLeavesCounts;
   final String? error;
 
-  const UserLeaveCountState(
-      {this.status = Status.initial,
-      this.usedLeavesCounts = const LeaveCounts(),
-      this.error});
+  const UserLeaveCountState({
+    this.status = Status.initial,
+    this.usedLeavesCounts = const LeaveCounts(),
+    this.error,
+  });
 
-  UserLeaveCountState copyWith(
-      {Status? status,
-      LeaveCounts? usedLeavesCounts,
-      String? error,
-      double? leavePercentage}) {
+  UserLeaveCountState copyWith({
+    Status? status,
+    LeaveCounts? usedLeavesCounts,
+    String? error,
+    double? leavePercentage,
+  }) {
     return UserLeaveCountState(
-        status: status ?? this.status,
-        usedLeavesCounts: usedLeavesCounts ?? this.usedLeavesCounts,
-        error: error ?? this.error);
+      status: status ?? this.status,
+      usedLeavesCounts: usedLeavesCounts ?? this.usedLeavesCounts,
+      error: error ?? this.error,
+    );
   }
 
   @override

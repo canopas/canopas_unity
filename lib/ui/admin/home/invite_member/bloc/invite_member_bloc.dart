@@ -16,15 +16,20 @@ class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
   final NotificationService _notificationService;
   final UserStateNotifier _userManager;
 
-  InviteMemberBloc(this._invitationService, this._userManager,
-      this._employeeService, this._notificationService)
-      : super(const InviteMemberState()) {
+  InviteMemberBloc(
+    this._invitationService,
+    this._userManager,
+    this._employeeService,
+    this._notificationService,
+  ) : super(const InviteMemberState()) {
     on<AddEmailEvent>(_enterEmailEvent);
     on<InviteMemberEvent>(_inviteMember);
   }
 
   Future<void> _enterEmailEvent(
-      AddEmailEvent event, Emitter<InviteMemberState> emit) async {
+    AddEmailEvent event,
+    Emitter<InviteMemberState> emit,
+  ) async {
     if (validEmail(event.query)) {
       emit(state.copyWith(email: event.query, emailError: false));
     } else {
@@ -33,19 +38,24 @@ class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
   }
 
   Future<void> _inviteMember(
-      InviteMemberEvent event, Emitter<InviteMemberState> emit) async {
+    InviteMemberEvent event,
+    Emitter<InviteMemberState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     if (validEmail(state.email)) {
       try {
         if (await _employeeService.hasUser(state.email) ||
             await _invitationService.checkMemberInvitationAlreadyExist(
-                spaceId: _userManager.currentSpaceId!, email: state.email)) {
+              spaceId: _userManager.currentSpaceId!,
+              email: state.email,
+            )) {
           emit(state.copyWith(error: userAlreadyInvited, status: Status.error));
         } else {
           await _invitationService.addInvitation(
-              senderId: _userManager.userUID!,
-              spaceId: _userManager.currentSpaceId!,
-              receiverEmail: state.email);
+            senderId: _userManager.userUID!,
+            spaceId: _userManager.currentSpaceId!,
+            receiverEmail: state.email,
+          );
           await _notificationService.sendInviteNotification(
             companyName: _userManager.currentSpaceName!,
             receiver: state.email,
@@ -53,12 +63,14 @@ class InviteMemberBloc extends Bloc<InvitationEvent, InviteMemberState> {
           emit(state.copyWith(status: Status.success));
         }
       } on Exception {
-        emit(state.copyWith(
-            status: Status.error, error: firestoreFetchDataError));
+        emit(
+          state.copyWith(status: Status.error, error: firestoreFetchDataError),
+        );
       }
     } else {
-      emit(state.copyWith(
-          error: provideRequiredInformation, status: Status.error));
+      emit(
+        state.copyWith(error: provideRequiredInformation, status: Status.error),
+      );
     }
   }
 

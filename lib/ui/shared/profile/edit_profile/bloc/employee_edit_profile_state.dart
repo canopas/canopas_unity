@@ -34,13 +34,14 @@ class EmployeeEditProfileState extends Equatable {
     String? imageURL,
   }) {
     return EmployeeEditProfileState(
-        gender: gender ?? this.gender,
-        dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-        error: error,
-        nameError: nameError ?? this.nameError,
-        numberError: numberError ?? this.numberError,
-        status: status ?? this.status,
-        imageURL: imageURL ?? this.imageURL);
+      gender: gender ?? this.gender,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      error: error,
+      nameError: nameError ?? this.nameError,
+      numberError: numberError ?? this.numberError,
+      status: status ?? this.status,
+      imageURL: imageURL ?? this.imageURL,
+    );
   }
 
   EmployeeEditProfileState changeDateOfBirth({DateTime? dateOfBirth}) {
@@ -68,6 +69,13 @@ class EmployeeEditProfileState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [gender, dateOfBirth, status, nameError, numberError, error, imageURL];
+  List<Object?> get props => [
+    gender,
+    dateOfBirth,
+    status,
+    nameError,
+    numberError,
+    error,
+    imageURL,
+  ];
 }

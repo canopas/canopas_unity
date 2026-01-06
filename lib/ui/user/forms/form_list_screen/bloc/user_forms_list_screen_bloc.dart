@@ -14,15 +14,18 @@ class UserFormListBloc extends Bloc<UserFormListEvents, UserFormListState> {
     on<UserFormListInitialLoadEvent>(_init);
   }
 
-  Future<void> _init(UserFormListInitialLoadEvent event,
-      Emitter<UserFormListState> emit) async {
+  Future<void> _init(
+    UserFormListInitialLoadEvent event,
+    Emitter<UserFormListState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     try {
       final forms = await _formRepo.getForms();
       emit(state.copyWith(status: Status.success, forms: forms));
     } on Exception {
       emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+        state.copyWith(status: Status.error, error: firestoreFetchDataError),
+      );
     }
   }
 }

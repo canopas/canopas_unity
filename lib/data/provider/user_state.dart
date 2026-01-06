@@ -21,7 +21,10 @@ class UserStateNotifier with ChangeNotifier {
   UserState get state => _userState;
 
   UserStateNotifier(
-      this._userPreference, this._spaceChangeNotifier, this._firebaseAuth) {
+    this._userPreference,
+    this._spaceChangeNotifier,
+    this._firebaseAuth,
+  ) {
     getUserStatus();
   }
 
@@ -44,8 +47,10 @@ class UserStateNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setEmployeeWithSpace(
-      {required Space space, required Employee spaceUser}) async {
+  Future<void> setEmployeeWithSpace({
+    required Space space,
+    required Employee spaceUser,
+  }) async {
     await _userPreference.setSpace(space);
     await _userPreference.setEmployee(spaceUser);
     _spaceChangeNotifier.setSpaceId(spaceId: space.id);

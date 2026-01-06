@@ -18,17 +18,16 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final AuthService _authService;
   final AccountService _accountService;
 
-  SignInBloc(
-    this._userStateNotifier,
-    this._authService,
-    this._accountService,
-  ) : super(const SignInState()) {
+  SignInBloc(this._userStateNotifier, this._authService, this._accountService)
+    : super(const SignInState()) {
     on<GoogleSignInEvent>(_googleSignIn);
     on<AppleSignInEvent>(_appleSignIn);
   }
 
   Future<void> _googleSignIn(
-      SignInEvent event, Emitter<SignInState> emit) async {
+    SignInEvent event,
+    Emitter<SignInState> emit,
+  ) async {
     try {
       emit(state.copyWith(googleSignInLoading: true));
       firebase_auth.User? authUser = await _authService.signInWithGoogle();
@@ -40,23 +39,29 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(state.copyWith(googleSignInLoading: false));
       }
     } catch (e) {
-      emit(state.copyWith(
-          googleSignInLoading: false, error: firesbaseAuthError));
+      emit(
+        state.copyWith(googleSignInLoading: false, error: firesbaseAuthError),
+      );
     }
   }
 
   Future<void> _appleSignIn(
-      AppleSignInEvent event, Emitter<SignInState> emit) async {
+    AppleSignInEvent event,
+    Emitter<SignInState> emit,
+  ) async {
     try {
       emit(state.copyWith(appleSignInLoading: true));
       firebase_auth.User? authUser = await _authService.signInWithApple();
       if (authUser != null) {
         final Account? user = await _accountService.getAppleUser(authUser);
         if (user == null) {
-          emit(state.copyWith(
+          emit(
+            state.copyWith(
               appleSignInLoading: false,
               error: appleSigninError,
-              firebaseAuthUser: authUser));
+              firebaseAuthUser: authUser,
+            ),
+          );
           return;
         }
         await _userStateNotifier.setUser(user);
@@ -69,10 +74,17 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(state.copyWith(appleSignInLoading: false));
         return;
       }
-      FirebaseCrashlytics.instance
-          .recordError(e, stack, reason: 'Apple Sign In Error');
-      emit(state.copyWith(
-          appleSignInLoading: false, error: somethingWentWrongError));
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        stack,
+        reason: 'Apple Sign In Error',
+      );
+      emit(
+        state.copyWith(
+          appleSignInLoading: false,
+          error: somethingWentWrongError,
+        ),
+      );
     }
   }
 }

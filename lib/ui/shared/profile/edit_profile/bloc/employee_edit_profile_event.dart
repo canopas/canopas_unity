@@ -8,8 +8,10 @@ class EditProfileInitialLoadEvent extends EditProfileEvent {
   final Gender? gender;
   final DateTime? dateOfBirth;
 
-  EditProfileInitialLoadEvent(
-      {required this.gender, required this.dateOfBirth});
+  EditProfileInitialLoadEvent({
+    required this.gender,
+    required this.dateOfBirth,
+  });
 
   @override
   List<Object?> get props => [gender, dateOfBirth];
@@ -45,9 +47,7 @@ class EditProfileChangeDateOfBirthEvent extends EditProfileEvent {
 class EditProfileChangeGenderEvent extends EditProfileEvent {
   final Gender? gender;
 
-  EditProfileChangeGenderEvent({
-    required this.gender,
-  });
+  EditProfileChangeGenderEvent({required this.gender});
 
   @override
   List<Object?> get props => [gender];
@@ -69,12 +69,13 @@ class EditProfileUpdateProfileEvent extends EditProfileEvent {
   final String phoneNumber;
   final String address;
 
-  EditProfileUpdateProfileEvent(
-      {required this.name,
-      required this.designation,
-      required this.phoneNumber,
-      required this.address,
-      required this.level});
+  EditProfileUpdateProfileEvent({
+    required this.name,
+    required this.designation,
+    required this.phoneNumber,
+    required this.address,
+    required this.level,
+  });
 
   @override
   List<Object?> get props => [name, designation, level, phoneNumber, address];

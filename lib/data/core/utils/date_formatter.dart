@@ -24,9 +24,10 @@ class DateFormatter {
     return _localization.date_format_yMMMd(dt);
   }
 
-  String getLeaveDurationPresentation(
-      {required double totalLeaves,
-      required LeaveDayDuration firstDayDuration}) {
+  String getLeaveDurationPresentation({
+    required double totalLeaves,
+    required LeaveDayDuration firstDayDuration,
+  }) {
     if (totalLeaves < 1 &&
         firstDayDuration == LeaveDayDuration.firstHalfLeave) {
       return _localization.dateFormatter_first_half_day;
@@ -47,14 +48,16 @@ class DateFormatter {
     } else if (totalLeaves == 1) {
       return _localization.date_formatter_leave_request_total_one_day_text;
     }
-    return _localization
-        .date_formatter_leave_request_total_days_text(totalLeaves);
+    return _localization.date_formatter_leave_request_total_days_text(
+      totalLeaves,
+    );
   }
 
-  String dateInLine(
-      {required DateTime startDate,
-      required DateTime endDate,
-      bool lastTwoLine = false}) {
+  String dateInLine({
+    required DateTime startDate,
+    required DateTime endDate,
+    bool lastTwoLine = false,
+  }) {
     String localeName = _localization.localeName;
 
     String startLeaveDay = DateFormat.d(localeName).format(startDate);
@@ -75,8 +78,10 @@ class DateFormatter {
     return '${_localization.date_format_yMMMd(startDate)} - ${_localization.date_format_yMMMd(endDate)}';
   }
 
-  String getDatePeriodPresentation(
-      {required DateTime startDate, required DateTime endDate}) {
+  String getDatePeriodPresentation({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) {
     final currentDate = DateTime.now().dateOnly;
     if (endDate.dateOnly.isBefore(currentDate)) {
       return _localization.past_tag;

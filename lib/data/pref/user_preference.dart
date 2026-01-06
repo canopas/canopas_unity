@@ -27,7 +27,9 @@ class UserPreference {
 
   Future<void> setSpace(Space space) async {
     await _preferences.setString(
-        PrefKeys.space, jsonEncode(space.toFirestore()));
+      PrefKeys.space,
+      jsonEncode(space.toFirestore()),
+    );
   }
 
   Space? getSpace() {

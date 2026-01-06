@@ -21,9 +21,12 @@ class EmployeeEditProfileBloc
   final UserPreference _preference;
   final StorageService storageService;
 
-  EmployeeEditProfileBloc(this._employeeService, this._preference,
-      this._userManager, this.storageService)
-      : super(const EmployeeEditProfileState()) {
+  EmployeeEditProfileBloc(
+    this._employeeService,
+    this._preference,
+    this._userManager,
+    this.storageService,
+  ) : super(const EmployeeEditProfileState()) {
     on<EditProfileInitialLoadEvent>(_init);
     on<EditProfileNameChangedEvent>(_validName);
     on<EditProfileNumberChangedEvent>(_validNumber);
@@ -33,18 +36,24 @@ class EmployeeEditProfileBloc
     on<ChangeImageEvent>(_changeImage);
   }
 
-  void _init(EditProfileInitialLoadEvent event,
-      Emitter<EmployeeEditProfileState> emit) {
+  void _init(
+    EditProfileInitialLoadEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) {
     emit(state.copyWith(gender: event.gender, dateOfBirth: event.dateOfBirth));
   }
 
   Future<void> _changeImage(
-      ChangeImageEvent event, Emitter<EmployeeEditProfileState> emit) async {
+    ChangeImageEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) async {
     emit(state.copyWith(imageURL: event.imagePath));
   }
 
-  void _validName(EditProfileNameChangedEvent event,
-      Emitter<EmployeeEditProfileState> emit) {
+  void _validName(
+    EditProfileNameChangedEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) {
     if (validInputLength(event.name)) {
       emit(state.copyWith(nameError: false));
     } else {
@@ -52,8 +61,10 @@ class EmployeeEditProfileBloc
     }
   }
 
-  void _validNumber(EditProfileNumberChangedEvent event,
-      Emitter<EmployeeEditProfileState> emit) {
+  void _validNumber(
+    EditProfileNumberChangedEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) {
     if (validPhoneNumber(event.number)) {
       emit(state.copyWith(numberError: false));
     } else {
@@ -61,18 +72,24 @@ class EmployeeEditProfileBloc
     }
   }
 
-  void _changeDateOfBirth(EditProfileChangeDateOfBirthEvent event,
-      Emitter<EmployeeEditProfileState> emit) {
+  void _changeDateOfBirth(
+    EditProfileChangeDateOfBirthEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) {
     emit(state.changeDateOfBirth(dateOfBirth: event.dateOfBirth));
   }
 
-  void _changeGender(EditProfileChangeGenderEvent event,
-      Emitter<EmployeeEditProfileState> emit) {
+  void _changeGender(
+    EditProfileChangeGenderEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) {
     emit(state.changeGender(gender: event.gender));
   }
 
-  void _updateEmployeeDetails(EditProfileUpdateProfileEvent event,
-      Emitter<EmployeeEditProfileState> emit) async {
+  void _updateEmployeeDetails(
+    EditProfileUpdateProfileEvent event,
+    Emitter<EmployeeEditProfileState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     if (state.nameError) {
       emit(state.copyWith(status: Status.error, error: fillDetailsError));
@@ -100,20 +117,25 @@ class EmployeeEditProfileBloc
         ///TODO: updateUserDataOnUserProfile
         emit(state.copyWith(status: Status.success));
       } on Exception {
-        emit(state.copyWith(
-            status: Status.error, error: firestoreFetchDataError));
+        emit(
+          state.copyWith(status: Status.error, error: firestoreFetchDataError),
+        );
       }
     }
   }
 
   Future<String?> _saveImage() async {
     final String storagePath = ImageStoragePath.membersProfilePath(
-        spaceId: _userManager.currentSpaceId!, uid: _userManager.userUID!);
+      spaceId: _userManager.currentSpaceId!,
+      uid: _userManager.userUID!,
+    );
 
     if (state.imageURL != null) {
       try {
         final imageURL = await storageService.uploadProfilePic(
-            path: storagePath, imagePath: state.imageURL!);
+          path: storagePath,
+          imagePath: state.imageURL!,
+        );
         return imageURL;
       } on Exception {
         throw Exception();

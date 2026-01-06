@@ -5,10 +5,11 @@ import 'package:projectunity/data/provider/user_state.dart';
 import '../../../../data/model/space/space.dart';
 
 class SpaceNotifierWidget extends InheritedNotifier<UserStateNotifier> {
-  const SpaceNotifierWidget(
-      {super.key,
-      required UserStateNotifier super.notifier,
-      required super.child});
+  const SpaceNotifierWidget({
+    super.key,
+    required UserStateNotifier super.notifier,
+    required super.child,
+  });
 
   static Space? of(BuildContext context) {
     return context
@@ -19,7 +20,8 @@ class SpaceNotifierWidget extends InheritedNotifier<UserStateNotifier> {
 
   @override
   bool updateShouldNotify(
-      covariant InheritedNotifier<UserStateNotifier> oldWidget) {
+    covariant InheritedNotifier<UserStateNotifier> oldWidget,
+  ) {
     return notifier!.currentSpace != oldWidget.notifier!.currentSpace;
   }
 }

@@ -7,7 +7,9 @@ import 'org_form_field_response/org_form_field_response.dart';
 part 'org_form_response.g.dart';
 
 @JsonSerializable(
-    fieldRename: FieldRename.snake, converters: [DateTimeConverter()])
+  fieldRename: FieldRename.snake,
+  converters: [DateTimeConverter()],
+)
 class OrgFormResponse extends Equatable {
   final String id;
   final String uid;
@@ -15,12 +17,13 @@ class OrgFormResponse extends Equatable {
   final DateTime submittedAt;
   final List<OrgFormFieldResponse> response;
 
-  const OrgFormResponse(
-      {required this.id,
-      required this.submittedAt,
-      required this.uid,
-      required this.formId,
-      required this.response});
+  const OrgFormResponse({
+    required this.id,
+    required this.submittedAt,
+    required this.uid,
+    required this.formId,
+    required this.response,
+  });
 
   factory OrgFormResponse.fromJson(Map<String, dynamic> map) =>
       _$OrgFormResponseFromJson(map);
@@ -28,9 +31,9 @@ class OrgFormResponse extends Equatable {
   Map<String, dynamic> toJson() => _$OrgFormResponseToJson(this);
 
   factory OrgFormResponse.fromFireStore(
-          DocumentSnapshot<Map<String, dynamic>> snapshot,
-          SnapshotOptions? options) =>
-      OrgFormResponse.fromJson(snapshot.data()!);
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) => OrgFormResponse.fromJson(snapshot.data()!);
 
   @override
   List<Object?> get props => [id, uid, formId, response, submittedAt];

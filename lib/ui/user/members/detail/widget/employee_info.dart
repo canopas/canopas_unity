@@ -19,7 +19,9 @@ class EmployeeInfo extends StatelessWidget {
           subtitle: employee.phone,
         ),
         EmployeeDetailsField(
-            title: localization.employee_email_tag, subtitle: employee.email),
+          title: localization.employee_email_tag,
+          subtitle: employee.email,
+        ),
         EmployeeDetailsField(
           title: localization.employee_level_tag,
           subtitle: employee.level,

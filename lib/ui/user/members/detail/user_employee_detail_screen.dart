@@ -20,8 +20,9 @@ class UserEmployeeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UserEmployeeDetailBloc>(
-        create: (_) => getIt<UserEmployeeDetailBloc>(),
-        child: UserEmployeeDetailScreen(employee: employee));
+      create: (_) => getIt<UserEmployeeDetailBloc>(),
+      child: UserEmployeeDetailScreen(employee: employee),
+    );
   }
 }
 
@@ -39,9 +40,9 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
   @override
   void initState() {
     if (widget.employee.role != Role.admin) {
-      context
-          .read<UserEmployeeDetailBloc>()
-          .add(UserEmployeeDetailFetchEvent(uid: widget.employee.uid));
+      context.read<UserEmployeeDetailBloc>().add(
+        UserEmployeeDetailFetchEvent(uid: widget.employee.uid),
+      );
     }
     super.initState();
   }
@@ -49,31 +50,31 @@ class _UserEmployeeDetailScreenState extends State<UserEmployeeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return AppPage(
-        backGroundColor: context.colorScheme.surface,
-        title: context.l10n.details_tag,
-        body: ListView(
-          padding:
-              const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
-          children: [
-            ProfileCard(employee: widget.employee),
-            const Divider(
-              indent: primaryHorizontalSpacing,
-              endIndent: primaryHorizontalSpacing,
-            ),
-            EmployeeInfo(employee: widget.employee),
-            const SizedBox(height: 16),
-            BlocBuilder<UserEmployeeDetailBloc, UserEmployeeDetailState>(
-              builder: (context, state) =>
-                  state is UserEmployeeDetailSuccessState &&
-                          state.upcomingLeaves.isNotEmpty
-                      ? const Divider(
-                          indent: primaryHorizontalSpacing,
-                          endIndent: primaryHorizontalSpacing,
-                        )
-                      : const SizedBox(),
-            ),
-            const TabContent(),
-          ],
-        ));
+      backGroundColor: context.colorScheme.surface,
+      title: context.l10n.details_tag,
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: primaryHorizontalSpacing),
+        children: [
+          ProfileCard(employee: widget.employee),
+          const Divider(
+            indent: primaryHorizontalSpacing,
+            endIndent: primaryHorizontalSpacing,
+          ),
+          EmployeeInfo(employee: widget.employee),
+          const SizedBox(height: 16),
+          BlocBuilder<UserEmployeeDetailBloc, UserEmployeeDetailState>(
+            builder: (context, state) =>
+                state is UserEmployeeDetailSuccessState &&
+                    state.upcomingLeaves.isNotEmpty
+                ? const Divider(
+                    indent: primaryHorizontalSpacing,
+                    endIndent: primaryHorizontalSpacing,
+                  )
+                : const SizedBox(),
+          ),
+          const TabContent(),
+        ],
+      ),
+    );
   }
 }

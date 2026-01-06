@@ -13,24 +13,28 @@ class ViewProfileBloc extends Bloc<ViewProfileEvent, ViewProfileState> {
   final EmployeeRepo _employeeRepo;
 
   ViewProfileBloc(this._userManager, this._employeeRepo)
-      : super(ViewProfileInitialState()) {
+    : super(ViewProfileInitialState()) {
     on<InitialLoadevent>(_initialLoad);
   }
 
   Future<void> _initialLoad(
-      InitialLoadevent event, Emitter<ViewProfileState> emit) async {
+    InitialLoadevent event,
+    Emitter<ViewProfileState> emit,
+  ) async {
     emit(ViewProfileLoadingState());
     try {
-      return emit.forEach(_employeeRepo.memberDetails(_userManager.employeeId),
-          onData: (Employee? employee) {
-            if (employee == null) {
-              return ViewProfileErrorState(firestoreFetchDataError);
-            } else {
-              return ViewProfileSuccessState(employee);
-            }
-          },
-          onError: (error, stackTrace) =>
-              ViewProfileErrorState(firestoreFetchDataError));
+      return emit.forEach(
+        _employeeRepo.memberDetails(_userManager.employeeId),
+        onData: (Employee? employee) {
+          if (employee == null) {
+            return ViewProfileErrorState(firestoreFetchDataError);
+          } else {
+            return ViewProfileSuccessState(employee);
+          }
+        },
+        onError: (error, stackTrace) =>
+            ViewProfileErrorState(firestoreFetchDataError),
+      );
     } on Exception {
       emit(ViewProfileErrorState(firestoreFetchDataError));
     }

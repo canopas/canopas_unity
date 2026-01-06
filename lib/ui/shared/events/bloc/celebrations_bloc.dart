@@ -27,90 +27,122 @@ class CelebrationsBloc extends Bloc<CelebrationEvent, CelebrationsState> {
   }
 
   Future<void> _fetchEvent(
-      FetchCelebrations event, Emitter<CelebrationsState> emit) async {
+    FetchCelebrations event,
+    Emitter<CelebrationsState> emit,
+  ) async {
     try {
       emit(state.copyWith(status: Status.loading));
       final List<Employee> allEmployees = await _employeeService.getEmployees();
       employees = allEmployees
           .where((employee) => employee.status == EmployeeStatus.active)
           .map((e) {
-        if (e.dateOfBirth != null) {
-          final birthdate = e.dateOfBirth!.convertToUpcomingDay();
-          final Event event = Event(
-              name: e.name,
-              dateTime: DateUtils.dateOnly(e.dateOfBirth!),
-              upcomingDate: DateUtils.dateOnly(birthdate),
-              imageUrl: e.imageUrl);
-          allBirthdayEvents.add(event);
-        }
-        if (e.role != Role.admin &&
-            e.dateOfJoining.calculateDifferenceInYears(DateTime.now()) >= 1) {
-          final upcomingDate = e.dateOfJoining.convertToUpcomingDay();
+            if (e.dateOfBirth != null) {
+              final birthdate = e.dateOfBirth!.convertToUpcomingDay();
+              final Event event = Event(
+                name: e.name,
+                dateTime: DateUtils.dateOnly(e.dateOfBirth!),
+                upcomingDate: DateUtils.dateOnly(birthdate),
+                imageUrl: e.imageUrl,
+              );
+              allBirthdayEvents.add(event);
+            }
+            if (e.role != Role.admin &&
+                e.dateOfJoining.calculateDifferenceInYears(DateTime.now()) >=
+                    1) {
+              final upcomingDate = e.dateOfJoining.convertToUpcomingDay();
 
-          final Event event = Event(
-              name: e.name,
-              dateTime: DateUtils.dateOnly(e.dateOfJoining),
-              upcomingDate: DateUtils.dateOnly(upcomingDate),
-              imageUrl: e.imageUrl);
-          allAnniversaryEvents.add(event);
-        }
-        return e;
-      }).toList();
-      allBirthdayEvents
-          .sort((a, b) => a.upcomingDate.compareTo(b.upcomingDate));
-      allAnniversaryEvents
-          .sort((a, b) => a.upcomingDate.compareTo(b.upcomingDate));
+              final Event event = Event(
+                name: e.name,
+                dateTime: DateUtils.dateOnly(e.dateOfJoining),
+                upcomingDate: DateUtils.dateOnly(upcomingDate),
+                imageUrl: e.imageUrl,
+              );
+              allAnniversaryEvents.add(event);
+            }
+            return e;
+          })
+          .toList();
+      allBirthdayEvents.sort(
+        (a, b) => a.upcomingDate.compareTo(b.upcomingDate),
+      );
+      allAnniversaryEvents.sort(
+        (a, b) => a.upcomingDate.compareTo(b.upcomingDate),
+      );
 
       currentWeekBday = _getBirthdays();
       currentWeekAnniversaries = _getAnniversaries();
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: Status.success,
           birthdays: currentWeekBday,
-          anniversaries: currentWeekAnniversaries));
+          anniversaries: currentWeekAnniversaries,
+        ),
+      );
     } on Exception {
       emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+        state.copyWith(status: Status.error, error: firestoreFetchDataError),
+      );
     }
   }
 
   void _showAllBirthdays(
-      ShowBirthdaysEvent event, Emitter<CelebrationsState> emit) {
+    ShowBirthdaysEvent event,
+    Emitter<CelebrationsState> emit,
+  ) {
     bool showAllBirthdays = !state.showAllBdays;
     if (showAllBirthdays) {
-      emit(state.copyWith(
-          showAllBdays: showAllBirthdays, birthdays: allBirthdayEvents));
+      emit(
+        state.copyWith(
+          showAllBdays: showAllBirthdays,
+          birthdays: allBirthdayEvents,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-          showAllBdays: showAllBirthdays, birthdays: currentWeekBday));
+      emit(
+        state.copyWith(
+          showAllBdays: showAllBirthdays,
+          birthdays: currentWeekBday,
+        ),
+      );
     }
   }
 
   void _showAllAnniversaries(
-      ShowAnniversariesEvent event, Emitter<CelebrationsState> emit) {
+    ShowAnniversariesEvent event,
+    Emitter<CelebrationsState> emit,
+  ) {
     bool allAnniversaries = !state.showAllAnniversaries;
     if (allAnniversaries) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           showAllAnniversaries: allAnniversaries,
-          anniversaries: allAnniversaryEvents));
+          anniversaries: allAnniversaryEvents,
+        ),
+      );
     } else {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           showAllAnniversaries: allAnniversaries,
-          anniversaries: currentWeekAnniversaries));
+          anniversaries: currentWeekAnniversaries,
+        ),
+      );
     }
   }
 
   List<Event> _getBirthdays() {
     final List<Event> birthdays = allBirthdayEvents.where((event) {
-      return event.dateTime
-          .isDateInCurrentWeek(DateUtils.dateOnly(DateTime.now()));
+      return event.dateTime.isDateInCurrentWeek(
+        DateUtils.dateOnly(DateTime.now()),
+      );
     }).toList();
     return birthdays;
   }
 
   List<Event> _getAnniversaries() {
     final List<Event> anniversaries = allAnniversaryEvents.where((event) {
-      return event.dateTime
-          .isDateInCurrentWeek(DateUtils.dateOnly(DateTime.now()));
+      return event.dateTime.isDateInCurrentWeek(
+        DateUtils.dateOnly(DateTime.now()),
+      );
     }).toList();
     return anniversaries;
   }

@@ -14,10 +14,11 @@ class OrgCreateFormInfoView extends StatelessWidget {
   final TextEditingController titleController;
   final TextEditingController descriptionController;
 
-  const OrgCreateFormInfoView(
-      {super.key,
-      required this.titleController,
-      required this.descriptionController});
+  const OrgCreateFormInfoView({
+    super.key,
+    required this.titleController,
+    required this.descriptionController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +46,21 @@ class OrgCreateFormInfoView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(locale.create_from_limit_to_1_response_text,
-                style: AppTextStyle.style16
-                    .copyWith(color: context.colorScheme.textPrimary)),
+            Text(
+              locale.create_from_limit_to_1_response_text,
+              style: AppTextStyle.style16.copyWith(
+                color: context.colorScheme.textPrimary,
+              ),
+            ),
             BlocBuilder<CreateFormBloc, CreateFormState>(
-                buildWhen: (previous, current) =>
-                    previous.limitToOneResponse != current.limitToOneResponse,
-                builder: (context, state) => Switch(
-                    activeThumbColor: context.colorScheme.primary,
-                    value: state.limitToOneResponse,
-                    onChanged: (value) =>
-                        bloc.add(UpdateLimitToOneResponse(value))))
+              buildWhen: (previous, current) =>
+                  previous.limitToOneResponse != current.limitToOneResponse,
+              builder: (context, state) => Switch(
+                activeThumbColor: context.colorScheme.primary,
+                value: state.limitToOneResponse,
+                onChanged: (value) => bloc.add(UpdateLimitToOneResponse(value)),
+              ),
+            ),
           ],
         ),
       ],
@@ -70,63 +75,66 @@ class HeaderImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<CreateFormBloc>();
     return BlocBuilder<CreateFormBloc, CreateFormState>(
-        buildWhen: (previous, current) =>
-            previous.formHeaderImage != current.formHeaderImage,
-        builder: (context, state) {
-          return Container(
-              height: 200,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: context.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: context.colorScheme.outlineColor),
-                  image: state.formHeaderImage != null
-                      ? DecorationImage(
-                          fit: BoxFit.scaleDown,
-                          image: kIsWeb
-                              ? NetworkImage(state.formHeaderImage!)
-                                  as ImageProvider
-                              : FileImage(File(state.formHeaderImage!)))
-                      : null),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 55,
+      buildWhen: (previous, current) =>
+          previous.formHeaderImage != current.formHeaderImage,
+      builder: (context, state) {
+        return Container(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: context.colorScheme.surface,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: context.colorScheme.outlineColor),
+            image: state.formHeaderImage != null
+                ? DecorationImage(
+                    fit: BoxFit.scaleDown,
+                    image: kIsWeb
+                        ? NetworkImage(state.formHeaderImage!) as ImageProvider
+                        : FileImage(File(state.formHeaderImage!)),
+                  )
+                : null,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 55),
+              if (state.formHeaderImage == null)
+                const Icon(Icons.image_outlined, size: 45),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.surface.withValues(alpha: 0.60),
+                    borderRadius: BorderRadius.circular(50),
                   ),
-                  if (state.formHeaderImage == null)
-                    const Icon(Icons.image_outlined, size: 45),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: context.colorScheme.surface
-                              .withValues(alpha: 0.60),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                              style: IconButton.styleFrom(
-                                  fixedSize: const Size.fromHeight(45)),
-                              onPressed: () =>
-                                  bloc.add(UpdateHeaderImageEvent()),
-                              icon: const Icon(Icons.edit)),
-                          if (state.formHeaderImage != null)
-                            IconButton(
-                                style: IconButton.styleFrom(
-                                    fixedSize: const Size.fromHeight(45)),
-                                onPressed: () =>
-                                    bloc.add(RemoveHeaderImageEvent()),
-                                icon: const Icon(Icons.delete_outline_rounded))
-                        ],
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        style: IconButton.styleFrom(
+                          fixedSize: const Size.fromHeight(45),
+                        ),
+                        onPressed: () => bloc.add(UpdateHeaderImageEvent()),
+                        icon: const Icon(Icons.edit),
                       ),
-                    ),
+                      if (state.formHeaderImage != null)
+                        IconButton(
+                          style: IconButton.styleFrom(
+                            fixedSize: const Size.fromHeight(45),
+                          ),
+                          onPressed: () => bloc.add(RemoveHeaderImageEvent()),
+                          icon: const Icon(Icons.delete_outline_rounded),
+                        ),
+                    ],
                   ),
-                ],
-              ));
-        });
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

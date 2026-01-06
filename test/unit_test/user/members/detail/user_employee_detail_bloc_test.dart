@@ -17,19 +17,20 @@ void main() {
   late UserEmployeeDetailBloc bloc;
 
   Leave upcomingApproveLeave = Leave(
-      leaveId: 'leaveId',
-      uid: 'uid',
-      type: LeaveType.casualLeave,
-      startDate: DateTime.now().add(const Duration(days: 2)).dateOnly,
-      endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
-      total: 2,
-      reason: 'Suffering from viral fever',
-      status: LeaveStatus.approved,
-      appliedOn: DateTime.now().dateOnly,
-      perDayDuration: const [
-        LeaveDayDuration.firstHalfLeave,
-        LeaveDayDuration.firstHalfLeave
-      ]);
+    leaveId: 'leaveId',
+    uid: 'uid',
+    type: LeaveType.casualLeave,
+    startDate: DateTime.now().add(const Duration(days: 2)).dateOnly,
+    endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
+    total: 2,
+    reason: 'Suffering from viral fever',
+    status: LeaveStatus.approved,
+    appliedOn: DateTime.now().dateOnly,
+    perDayDuration: const [
+      LeaveDayDuration.firstHalfLeave,
+      LeaveDayDuration.firstHalfLeave,
+    ],
+  );
 
   setUp(() {
     leaveRepo = MockLeaveRepo();
@@ -42,31 +43,38 @@ void main() {
     });
 
     test(
-        'Emits loading state and success state after data is fetched successfully from firestore',
-        () {
-      when(leaveRepo.getUpcomingLeavesOfUser(uid: 'uid'))
-          .thenAnswer((_) async => [upcomingApproveLeave]);
-      expectLater(
+      'Emits loading state and success state after data is fetched successfully from firestore',
+      () {
+        when(
+          leaveRepo.getUpcomingLeavesOfUser(uid: 'uid'),
+        ).thenAnswer((_) async => [upcomingApproveLeave]);
+        expectLater(
           bloc.stream,
           emitsInOrder([
             UserEmployeeDetailLoadingState(),
             UserEmployeeDetailSuccessState(
-                upcomingLeaves: [upcomingApproveLeave])
-          ]));
-      bloc.add(UserEmployeeDetailFetchEvent(uid: 'uid'));
-    });
+              upcomingLeaves: [upcomingApproveLeave],
+            ),
+          ]),
+        );
+        bloc.add(UserEmployeeDetailFetchEvent(uid: 'uid'));
+      },
+    );
     test(
-        'Emits loading state and error state if exception is thrown from firestore',
-        () {
-      when(leaveRepo.getUpcomingLeavesOfUser(uid: 'uid'))
-          .thenThrow(Exception(firestoreFetchDataError));
-      expectLater(
+      'Emits loading state and error state if exception is thrown from firestore',
+      () {
+        when(
+          leaveRepo.getUpcomingLeavesOfUser(uid: 'uid'),
+        ).thenThrow(Exception(firestoreFetchDataError));
+        expectLater(
           bloc.stream,
           emitsInOrder([
             UserEmployeeDetailLoadingState(),
-            UserEmployeeDetailErrorState(error: firestoreFetchDataError)
-          ]));
-      bloc.add(UserEmployeeDetailFetchEvent(uid: 'uid'));
-    });
+            UserEmployeeDetailErrorState(error: firestoreFetchDataError),
+          ]),
+        );
+        bloc.add(UserEmployeeDetailFetchEvent(uid: 'uid'));
+      },
+    );
   });
 }

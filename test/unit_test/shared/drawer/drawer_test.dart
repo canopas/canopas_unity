@@ -33,19 +33,25 @@ void main() {
     employeeService = MockEmployeeService();
     accountService = MockAccountService();
     bloc = DrawerBloc(
-        spaceService, userStateNotifier, accountService, employeeService);
+      spaceService,
+      userStateNotifier,
+      accountService,
+      employeeService,
+    );
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.currentSpaceId).thenReturn('sid');
-    when(accountService.fetchSpaceIds(uid: 'uid'))
-        .thenAnswer((realInvocation) async => ['space-id']);
+    when(
+      accountService.fetchSpaceIds(uid: 'uid'),
+    ).thenAnswer((realInvocation) async => ['space-id']);
   });
 
   Space space = Space(
-      id: "space-id",
-      name: 'dummy space',
-      createdAt: DateTime.now(),
-      paidTimeOff: 12,
-      ownerIds: const ['uid']);
+    id: "space-id",
+    name: 'dummy space',
+    createdAt: DateTime.now(),
+    paidTimeOff: 12,
+    ownerIds: const ['uid'],
+  );
 
   final Employee employee = Employee(
     uid: 'uid',
@@ -60,81 +66,97 @@ void main() {
       when(spaceService.getSpace('space-id')).thenAnswer((_) async => space);
       bloc.add(FetchSpacesEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const DrawerState(fetchSpacesStatus: Status.loading),
-            DrawerState(fetchSpacesStatus: Status.success, spaces: [space]),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const DrawerState(fetchSpacesStatus: Status.loading),
+          DrawerState(fetchSpacesStatus: Status.success, spaces: [space]),
+        ]),
+      );
     });
 
     test('Fetch spaces failure test', () {
       when(spaceService.getSpace('space-id')).thenThrow(Exception('error'));
       bloc.add(FetchSpacesEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const DrawerState(fetchSpacesStatus: Status.loading),
-            const DrawerState(
-                fetchSpacesStatus: Status.error,
-                error: firestoreFetchDataError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const DrawerState(fetchSpacesStatus: Status.loading),
+          const DrawerState(
+            fetchSpacesStatus: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
     });
 
     test('Change space success test', () async {
-      when(employeeService.getEmployeeBySpaceId(
-              userId: 'uid', spaceId: space.id))
-          .thenAnswer((_) async => employee);
+      when(
+        employeeService.getEmployeeBySpaceId(userId: 'uid', spaceId: space.id),
+      ).thenAnswer((_) async => employee);
       bloc.add(ChangeSpaceEvent(space));
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const DrawerState(changeSpaceStatus: Status.loading),
-            const DrawerState(changeSpaceStatus: Status.success),
-          ]));
-      await untilCalled(userStateNotifier.setEmployeeWithSpace(
-          space: space, spaceUser: employee));
-      verify(userStateNotifier.setEmployeeWithSpace(
-              space: space, spaceUser: employee))
-          .called(1);
+        bloc.stream,
+        emitsInOrder([
+          const DrawerState(changeSpaceStatus: Status.loading),
+          const DrawerState(changeSpaceStatus: Status.success),
+        ]),
+      );
+      await untilCalled(
+        userStateNotifier.setEmployeeWithSpace(
+          space: space,
+          spaceUser: employee,
+        ),
+      );
+      verify(
+        userStateNotifier.setEmployeeWithSpace(
+          space: space,
+          spaceUser: employee,
+        ),
+      ).called(1);
     });
 
     test('Change space failure test', () {
-      when(employeeService.getEmployeeBySpaceId(
-              userId: 'uid', spaceId: space.id))
-          .thenThrow(Exception('error'));
+      when(
+        employeeService.getEmployeeBySpaceId(userId: 'uid', spaceId: space.id),
+      ).thenThrow(Exception('error'));
       bloc.add(ChangeSpaceEvent(space));
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const DrawerState(changeSpaceStatus: Status.loading),
-            const DrawerState(
-                changeSpaceStatus: Status.error,
-                error: firestoreFetchDataError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const DrawerState(changeSpaceStatus: Status.loading),
+          const DrawerState(
+            changeSpaceStatus: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
     });
 
     test("sign out successful test with navigation test", () async {
       bloc.add(SignOutFromSpaceEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const DrawerState(signOutStatus: Status.loading),
-            const DrawerState(signOutStatus: Status.success),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const DrawerState(signOutStatus: Status.loading),
+          const DrawerState(signOutStatus: Status.success),
+        ]),
+      );
       await untilCalled(userStateNotifier.removeEmployeeWithSpace());
       verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
     });
 
     test("sign out failure test", () {
-      when(userStateNotifier.removeEmployeeWithSpace())
-          .thenThrow(Exception("error"));
+      when(
+        userStateNotifier.removeEmployeeWithSpace(),
+      ).thenThrow(Exception("error"));
       bloc.add(SignOutFromSpaceEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const DrawerState(signOutStatus: Status.loading),
-            const DrawerState(signOutStatus: Status.error, error: signOutError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const DrawerState(signOutStatus: Status.loading),
+          const DrawerState(signOutStatus: Status.error, error: signOutError),
+        ]),
+      );
     });
   });
 }

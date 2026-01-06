@@ -15,36 +15,44 @@ class UserListFormCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: context.colorScheme.surface,
-          borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow(context)),
+        color: context.colorScheme.surface,
+        borderRadius: AppTheme.commonBorderRadius,
+        boxShadow: AppTheme.commonBoxShadow(context),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(formInfo.title,
-              style: AppTextStyle.style20
-                  .copyWith(color: context.colorScheme.textPrimary)),
+          Text(
+            formInfo.title,
+            style: AppTextStyle.style20.copyWith(
+              color: context.colorScheme.textPrimary,
+            ),
+          ),
           const SizedBox(height: 16),
           FilledButton.tonal(
             style: FilledButton.styleFrom(
-                backgroundColor: context.colorScheme.containerHigh,
-                fixedSize: Size(MediaQuery.of(context).size.width, 45),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                )),
+              backgroundColor: context.colorScheme.containerHigh,
+              fixedSize: Size(MediaQuery.of(context).size.width, 45),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
             onPressed: () {
               ///TODO: Add navigation for form fill-up screen
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(context.l10n.fill_up_tag,
-                    style: AppTextStyle.style18
-                        .copyWith(color: context.colorScheme.textPrimary)),
-                const Icon(Icons.arrow_forward, size: 20)
+                Text(
+                  context.l10n.fill_up_tag,
+                  style: AppTextStyle.style18.copyWith(
+                    color: context.colorScheme.textPrimary,
+                  ),
+                ),
+                const Icon(Icons.arrow_forward, size: 20),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

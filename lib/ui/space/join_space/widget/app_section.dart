@@ -17,9 +17,7 @@ class AppSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SvgPicture.asset(Assets.images.appLogo),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Text(
           context.l10n.welcome_to_unity_text,
           style: AppTextStyle.style24.copyWith(
@@ -27,13 +25,18 @@ class AppSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Text(context.l10n.create_own_space_title,
-            style: AppTextStyle.style18.copyWith(
-                height: 2.0, color: context.colorScheme.textSecondary)),
+        Text(
+          context.l10n.create_own_space_title,
+          style: AppTextStyle.style18.copyWith(
+            height: 2.0,
+            color: context.colorScheme.textSecondary,
+          ),
+        ),
         const SizedBox(height: 20),
         AppButton(
-            tag: context.l10n.create_new_space_title,
-            onTap: () => context.goNamed(Routes.createSpace)),
+          tag: context.l10n.create_new_space_title,
+          onTap: () => context.goNamed(Routes.createSpace),
+        ),
       ],
     );
   }

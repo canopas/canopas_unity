@@ -30,8 +30,10 @@ class UpdateFormFieldIsRequiredEvent extends CreateFormEvents {
   final bool isRequired;
   final String fieldId;
 
-  UpdateFormFieldIsRequiredEvent(
-      {required this.fieldId, required this.isRequired});
+  UpdateFormFieldIsRequiredEvent({
+    required this.fieldId,
+    required this.isRequired,
+  });
 }
 
 class UpdateFormFieldInputTypeEvent extends CreateFormEvents {

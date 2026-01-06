@@ -24,9 +24,7 @@ class SmartScrollView extends StatelessWidget {
             constraints: BoxConstraints(
               minHeight: constraints.maxHeight - (padding?.vertical ?? 0),
             ),
-            child: IntrinsicHeight(
-              child: child,
-            ),
+            child: IntrinsicHeight(child: child),
           ),
         );
       },

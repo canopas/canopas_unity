@@ -26,63 +26,67 @@ void main() {
 
   group('Admin Leaves Test', () {
     Leave andrewCurrentYearLeave = Leave(
-        leaveId: 'leave-id-andrew',
-        uid: 'andrew-id',
-        type: LeaveType.casualLeave,
-        startDate: DateTime.now().dateOnly,
-        endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
-        total: 2,
-        reason: 'reason',
-        status: LeaveStatus.approved,
-        appliedOn: DateTime.now().dateOnly,
-        perDayDuration: const [
-          LeaveDayDuration.noLeave,
-          LeaveDayDuration.firstHalfLeave
-        ]);
+      leaveId: 'leave-id-andrew',
+      uid: 'andrew-id',
+      type: LeaveType.casualLeave,
+      startDate: DateTime.now().dateOnly,
+      endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
+      total: 2,
+      reason: 'reason',
+      status: LeaveStatus.approved,
+      appliedOn: DateTime.now().dateOnly,
+      perDayDuration: const [
+        LeaveDayDuration.noLeave,
+        LeaveDayDuration.firstHalfLeave,
+      ],
+    );
     Leave joiCurrentYearLeave = Leave(
-        leaveId: 'leave-id-joi',
-        uid: 'joi-id',
-        type: LeaveType.urgentLeave,
-        startDate: DateTime.now().dateOnly,
-        endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
-        total: 2,
-        reason: 'reason',
-        status: LeaveStatus.pending,
-        appliedOn: DateTime.now().dateOnly,
-        perDayDuration: const [
-          LeaveDayDuration.noLeave,
-          LeaveDayDuration.firstHalfLeave
-        ]);
+      leaveId: 'leave-id-joi',
+      uid: 'joi-id',
+      type: LeaveType.urgentLeave,
+      startDate: DateTime.now().dateOnly,
+      endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
+      total: 2,
+      reason: 'reason',
+      status: LeaveStatus.pending,
+      appliedOn: DateTime.now().dateOnly,
+      perDayDuration: const [
+        LeaveDayDuration.noLeave,
+        LeaveDayDuration.firstHalfLeave,
+      ],
+    );
 
     Leave joiCurrentYearLeaveUpdate = Leave(
-        leaveId: 'leave-id-joi',
-        uid: 'joi-id',
-        type: LeaveType.urgentLeave,
-        startDate: DateTime.now().dateOnly,
-        endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
-        total: 2,
-        reason: 'reason',
-        status: LeaveStatus.approved,
-        appliedOn: DateTime.now().dateOnly,
-        perDayDuration: const [
-          LeaveDayDuration.noLeave,
-          LeaveDayDuration.firstHalfLeave
-        ]);
+      leaveId: 'leave-id-joi',
+      uid: 'joi-id',
+      type: LeaveType.urgentLeave,
+      startDate: DateTime.now().dateOnly,
+      endDate: DateTime.now().dateOnly.add(const Duration(days: 1)),
+      total: 2,
+      reason: 'reason',
+      status: LeaveStatus.approved,
+      appliedOn: DateTime.now().dateOnly,
+      perDayDuration: const [
+        LeaveDayDuration.noLeave,
+        LeaveDayDuration.firstHalfLeave,
+      ],
+    );
 
     Leave joiPreviousYearLeave = Leave(
-        leaveId: 'leave-id-joi-old',
-        uid: 'joi-id',
-        type: LeaveType.casualLeave,
-        startDate: DateTime.now().dateOnly.subtract(const Duration(days: 365)),
-        endDate: DateTime.now().dateOnly.subtract(const Duration(days: 364)),
-        total: 2,
-        reason: 'reason',
-        status: LeaveStatus.approved,
-        appliedOn: DateTime.now().dateOnly,
-        perDayDuration: const [
-          LeaveDayDuration.noLeave,
-          LeaveDayDuration.firstHalfLeave
-        ]);
+      leaveId: 'leave-id-joi-old',
+      uid: 'joi-id',
+      type: LeaveType.casualLeave,
+      startDate: DateTime.now().dateOnly.subtract(const Duration(days: 365)),
+      endDate: DateTime.now().dateOnly.subtract(const Duration(days: 364)),
+      total: 2,
+      reason: 'reason',
+      status: LeaveStatus.approved,
+      appliedOn: DateTime.now().dateOnly,
+      perDayDuration: const [
+        LeaveDayDuration.noLeave,
+        LeaveDayDuration.firstHalfLeave,
+      ],
+    );
     final andrew = Employee(
       uid: 'andrew-id',
       role: Role.employee,
@@ -112,106 +116,105 @@ void main() {
 
       test('Initial value test', () {
         expect(
-            bloc.state,
-            AdminLeavesState(
-              fetchMoreData: Status.initial,
-              membersFetchStatus: Status.initial,
-              selectedMember: null,
-              leaveApplicationMap: const {},
-              selectedYear: DateTime.now().year,
-              leavesFetchStatus: Status.initial,
-              members: const [],
-              error: null,
-            ));
+          bloc.state,
+          AdminLeavesState(
+            fetchMoreData: Status.initial,
+            membersFetchStatus: Status.initial,
+            selectedMember: null,
+            leaveApplicationMap: const {},
+            selectedYear: DateTime.now().year,
+            leavesFetchStatus: Status.initial,
+            members: const [],
+            error: null,
+          ),
+        );
       });
 
       test('Admin leave initial data load test', () {
         when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
-        when(leaveRepo.leaves()).thenAnswer((_) async => PaginatedLeaves(
+        when(leaveRepo.leaves()).thenAnswer(
+          (_) async => PaginatedLeaves(
             leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
-            lastDoc: lastDoc));
+            lastDoc: lastDoc,
+          ),
+        );
         bloc.add(InitialAdminLeavesEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(
+          bloc.stream,
+          emitsInOrder([
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+            ),
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.loading,
+            ),
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
                 members: [joi, andrew],
-                membersFetchStatus: Status.success,
-              ),
-              AdminLeavesState(
-                members: [joi, andrew],
-                membersFetchStatus: Status.success,
-                leavesFetchStatus: Status.loading,
-              ),
-              AdminLeavesState(
-                  members: [joi, andrew],
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.success,
-                  leaveApplicationMap:
-                      getLeaveApplicationFromLeaveEmployee(leaves: [
-                    joiCurrentYearLeave,
-                    andrewCurrentYearLeave,
-                  ], members: [
-                    joi,
-                    andrew
-                  ]).groupByMonth((la) => la.leave.startDate)),
-            ]));
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+          ]),
+        );
       });
 
       test('Search employee test', () {
         bloc.add(SearchEmployeeEvent(search: 'joi'));
         expectLater(
-            bloc.stream,
-            emits(AdminLeavesState(
-                members: [joi],
-                membersFetchStatus: Status.success,
-                leavesFetchStatus: Status.success,
-                leaveApplicationMap:
-                    getLeaveApplicationFromLeaveEmployee(leaves: [
-                  joiCurrentYearLeave,
-                  andrewCurrentYearLeave,
-                ], members: [
-                  joi,
-                  andrew
-                ]).groupByMonth((la) => la.leave.appliedOn))));
+          bloc.stream,
+          emits(
+            AdminLeavesState(
+              members: [joi],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
+                members: [joi, andrew],
+              ).groupByMonth((la) => la.leave.appliedOn),
+            ),
+          ),
+        );
       });
 
       test('select employee test', () {
         bloc.add(FetchLeavesInitialEvent(member: joi));
-        when(leaveRepo.leaves(uid: joi.uid)).thenAnswer((_) async =>
-            PaginatedLeaves(
-                leaves: [joiCurrentYearLeave, joiPreviousYearLeave],
-                lastDoc: lastDoc));
+        when(leaveRepo.leaves(uid: joi.uid)).thenAnswer(
+          (_) async => PaginatedLeaves(
+            leaves: [joiCurrentYearLeave, joiPreviousYearLeave],
+            lastDoc: lastDoc,
+          ),
+        );
         expectLater(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(
-                  members: [joi],
-                  selectedMember: joi,
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.loading,
-                  leaveApplicationMap:
-                      getLeaveApplicationFromLeaveEmployee(leaves: [
-                    joiCurrentYearLeave,
-                    andrewCurrentYearLeave,
-                  ], members: [
-                    joi,
-                    andrew
-                  ]).groupByMonth((la) => la.leave.startDate)),
-              AdminLeavesState(
-                  members: [joi],
-                  selectedMember: joi,
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.success,
-                  leaveApplicationMap:
-                      getLeaveApplicationFromLeaveEmployee(leaves: [
-                    joiCurrentYearLeave,
-                    joiPreviousYearLeave,
-                  ], members: [
-                    joi,
-                    andrew
-                  ]).groupByMonth((la) => la.leave.startDate))
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            AdminLeavesState(
+              members: [joi],
+              selectedMember: joi,
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.loading,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
+                members: [joi, andrew],
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+            AdminLeavesState(
+              members: [joi],
+              selectedMember: joi,
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [joiCurrentYearLeave, joiPreviousYearLeave],
+                members: [joi, andrew],
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+          ]),
+        );
       });
     });
 
@@ -228,12 +231,14 @@ void main() {
 
         bloc.add(InitialAdminLeavesEvent());
         expect(
-            bloc.stream,
-            emits(
-              const AdminLeavesState(
-                  membersFetchStatus: Status.error,
-                  error: firestoreFetchDataError),
-            ));
+          bloc.stream,
+          emits(
+            const AdminLeavesState(
+              membersFetchStatus: Status.error,
+              error: firestoreFetchDataError,
+            ),
+          ),
+        );
       });
 
       test('test failure state on fetch leave exception', () {
@@ -241,23 +246,25 @@ void main() {
         when(leaveRepo.leaves()).thenThrow(Exception('Error'));
         bloc.add(InitialAdminLeavesEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(
-                members: [joi, andrew],
-                membersFetchStatus: Status.success,
-              ),
-              AdminLeavesState(
-                members: [joi, andrew],
-                membersFetchStatus: Status.success,
-                leavesFetchStatus: Status.loading,
-              ),
-              AdminLeavesState(
-                  members: [joi, andrew],
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.error,
-                  error: firestoreFetchDataError),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+            ),
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.loading,
+            ),
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.error,
+              error: firestoreFetchDataError,
+            ),
+          ]),
+        );
       });
     });
 
@@ -271,95 +278,99 @@ void main() {
 
       test('Initial data setup', () {
         when(employeeRepo.allEmployees).thenReturn([joi, andrew]);
-        when(leaveRepo.leaves()).thenAnswer((_) async => PaginatedLeaves(
+        when(leaveRepo.leaves()).thenAnswer(
+          (_) async => PaginatedLeaves(
             leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
-            lastDoc: lastDoc));
+            lastDoc: lastDoc,
+          ),
+        );
         bloc.add(InitialAdminLeavesEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(
+          bloc.stream,
+          emitsInOrder([
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+            ),
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.loading,
+            ),
+            AdminLeavesState(
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
                 members: [joi, andrew],
-                membersFetchStatus: Status.success,
-              ),
-              AdminLeavesState(
-                members: [joi, andrew],
-                membersFetchStatus: Status.success,
-                leavesFetchStatus: Status.loading,
-              ),
-              AdminLeavesState(
-                  members: [joi, andrew],
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.success,
-                  leaveApplicationMap:
-                      getLeaveApplicationFromLeaveEmployee(leaves: [
-                    joiCurrentYearLeave,
-                    andrewCurrentYearLeave,
-                  ], members: [
-                    joi,
-                    andrew
-                  ]).groupByMonth((la) => la.leave.startDate)),
-            ]));
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+          ]),
+        );
       });
 
       test('Fetch more leave success test', () {
         when(leaveRepo.leaves(lastDoc: anyNamed('lastDoc'))).thenAnswer(
-            (_) async => PaginatedLeaves(
-                leaves: [joiPreviousYearLeave], lastDoc: lastDoc));
+          (_) async =>
+              PaginatedLeaves(leaves: [joiPreviousYearLeave], lastDoc: lastDoc),
+        );
         bloc.add(FetchMoreLeavesEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              AdminLeavesState(
-                  fetchMoreData: Status.loading,
-                  members: [joi, andrew],
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.success,
-                  leaveApplicationMap:
-                      getLeaveApplicationFromLeaveEmployee(leaves: [
-                    joiCurrentYearLeave,
-                    andrewCurrentYearLeave,
-                  ], members: [
-                    joi,
-                    andrew
-                  ]).groupByMonth((la) => la.leave.startDate)),
-              AdminLeavesState(
-                  fetchMoreData: Status.success,
-                  members: [joi, andrew],
-                  membersFetchStatus: Status.success,
-                  leavesFetchStatus: Status.success,
-                  leaveApplicationMap:
-                      getLeaveApplicationFromLeaveEmployee(leaves: [
-                    joiCurrentYearLeave,
-                    andrewCurrentYearLeave,
-                    joiPreviousYearLeave,
-                  ], members: [
-                    joi,
-                    andrew
-                  ]).groupByMonth((la) => la.leave.startDate)),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            AdminLeavesState(
+              fetchMoreData: Status.loading,
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [joiCurrentYearLeave, andrewCurrentYearLeave],
+                members: [joi, andrew],
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+            AdminLeavesState(
+              fetchMoreData: Status.success,
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [
+                  joiCurrentYearLeave,
+                  andrewCurrentYearLeave,
+                  joiPreviousYearLeave,
+                ],
+                members: [joi, andrew],
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+          ]),
+        );
       });
 
       test('Update leave test', () {
-        when(leaveRepo.fetchLeave(leaveId: joiCurrentYearLeave.leaveId))
-            .thenAnswer((_) async => joiCurrentYearLeaveUpdate);
+        when(
+          leaveRepo.fetchLeave(leaveId: joiCurrentYearLeave.leaveId),
+        ).thenAnswer((_) async => joiCurrentYearLeaveUpdate);
         bloc.add(UpdateLeaveApplication(leaveId: joiCurrentYearLeave.leaveId));
         expect(
-            bloc.stream,
-            emits(AdminLeavesState(
-                fetchMoreData: Status.success,
-                members: [joi, andrew],
-                membersFetchStatus: Status.success,
-                leavesFetchStatus: Status.success,
-                leaveApplicationMap:
-                    getLeaveApplicationFromLeaveEmployee(leaves: [
+          bloc.stream,
+          emits(
+            AdminLeavesState(
+              fetchMoreData: Status.success,
+              members: [joi, andrew],
+              membersFetchStatus: Status.success,
+              leavesFetchStatus: Status.success,
+              leaveApplicationMap: getLeaveApplicationFromLeaveEmployee(
+                leaves: [
                   andrewCurrentYearLeave,
                   joiPreviousYearLeave,
                   joiCurrentYearLeaveUpdate,
-                ], members: [
-                  joi,
-                  andrew
-                ]).groupByMonth((la) => la.leave.startDate))));
+                ],
+                members: [joi, andrew],
+              ).groupByMonth((la) => la.leave.startDate),
+            ),
+          ),
+        );
       });
     });
   });

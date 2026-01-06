@@ -41,8 +41,9 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(() {
-      BlocProvider.of<CreateSpaceBLoc>(context)
-          .add(PageChangeEvent(page: _tabController.index));
+      BlocProvider.of<CreateSpaceBLoc>(
+        context,
+      ).add(PageChangeEvent(page: _tabController.index));
     });
   }
 
@@ -58,67 +59,69 @@ class _CreateWorkSpaceScreenState extends State<CreateWorkSpaceScreen>
     final bloc = BlocProvider.of<CreateSpaceBLoc>(context);
     final locale = context.l10n;
     return AppPage(
-        backGroundColor: context.colorScheme.surface,
-        title: locale.create_new_space_title,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                TabBar(
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  labelStyle: AppTextStyle.style16
-                      .copyWith(color: context.colorScheme.textPrimary),
+      backGroundColor: context.colorScheme.surface,
+      title: locale.create_new_space_title,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TabBar(
+                indicatorSize: TabBarIndicatorSize.tab,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                labelStyle: AppTextStyle.style16.copyWith(
+                  color: context.colorScheme.textPrimary,
+                ),
+                controller: _tabController,
+                indicatorColor: context.colorScheme.primary,
+                labelColor: context.colorScheme.primary,
+                tabs: [
+                  Tab(text: locale.create_space_tab_1_tag),
+                  Tab(text: locale.create_space_tab_2_tag),
+                  Tab(text: locale.create_space_tab_3_tag),
+                ],
+              ),
+              Expanded(
+                child: TabBarView(
                   controller: _tabController,
-                  indicatorColor: context.colorScheme.primary,
-                  labelColor: context.colorScheme.primary,
-                  tabs: [
-                    Tab(text: locale.create_space_tab_1_tag),
-                    Tab(text: locale.create_space_tab_2_tag),
-                    Tab(text: locale.create_space_tab_3_tag)
+                  children: const [
+                    SpaceBasicDetails(),
+                    SetUpSpaceDetails(),
+                    PersonalInfo(),
                   ],
                 ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: const [
-                      SpaceBasicDetails(),
-                      SetUpSpaceDetails(),
-                      PersonalInfo(),
-                    ],
-                  ),
-                ),
-                BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-                    buildWhen: (previous, current) =>
-                        previous.buttonState != current.buttonState ||
-                        previous.page != current.page ||
-                        previous.createSpaceStatus != current.createSpaceStatus,
-                    builder: (context, state) {
-                      return AppButton(
-                        backgroundColor: state.buttonState == ButtonState.enable
-                            ? context.colorScheme.primary
-                            : context.colorScheme.primary
-                                .withValues(alpha: 0.5),
-                        loading: state.createSpaceStatus == Status.loading,
-                        tag: state.page == 2
-                            ? locale.create_space_tag
-                            : locale.next_tag,
-                        onTap: () {
-                          if (state.page < 2) {
-                            _tabController.animateTo(state.page + 1);
-                            bloc.add(PageChangeEvent(page: state.page + 1));
-                          }
-                          if (state.page == 2) {
-                            bloc.add(CreateSpaceButtonTapEvent());
-                          }
-                        },
-                      );
-                    }),
-              ],
-            ),
+              ),
+              BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
+                buildWhen: (previous, current) =>
+                    previous.buttonState != current.buttonState ||
+                    previous.page != current.page ||
+                    previous.createSpaceStatus != current.createSpaceStatus,
+                builder: (context, state) {
+                  return AppButton(
+                    backgroundColor: state.buttonState == ButtonState.enable
+                        ? context.colorScheme.primary
+                        : context.colorScheme.primary.withValues(alpha: 0.5),
+                    loading: state.createSpaceStatus == Status.loading,
+                    tag: state.page == 2
+                        ? locale.create_space_tag
+                        : locale.next_tag,
+                    onTap: () {
+                      if (state.page < 2) {
+                        _tabController.animateTo(state.page + 1);
+                        bloc.add(PageChangeEvent(page: state.page + 1));
+                      }
+                      if (state.page == 2) {
+                        bloc.add(CreateSpaceButtonTapEvent());
+                      }
+                    },
+                  );
+                },
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
     // floatingActionButton: Padding(
     //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
     //   child: BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(

@@ -23,25 +23,29 @@ class EmployeeDetailBloc
   final SpaceService _spaceService;
 
   EmployeeDetailBloc(
-      this._accountService,
-      this._spaceService,
-      this._userManager,
-      this._employeeService,
-      this._leaveRepo,
-      this._employeeRepo)
-      : super(EmployeeDetailInitialState()) {
+    this._accountService,
+    this._spaceService,
+    this._userManager,
+    this._employeeService,
+    this._leaveRepo,
+    this._employeeRepo,
+  ) : super(EmployeeDetailInitialState()) {
     on<EmployeeDetailInitialLoadEvent>(_onInitialLoad);
     on<EmployeeStatusChangeEvent>(_onEmployeeStatusChangeEvent);
   }
 
-  Future<void> _onInitialLoad(EmployeeDetailInitialLoadEvent event,
-      Emitter<AdminEmployeeDetailState> emit) async {
+  Future<void> _onInitialLoad(
+    EmployeeDetailInitialLoadEvent event,
+    Emitter<AdminEmployeeDetailState> emit,
+  ) async {
     emit(EmployeeDetailLoadingState());
     try {
-      final leaveCounts =
-          await _leaveRepo.getUserUsedLeaves(uid: event.employeeId);
+      final leaveCounts = await _leaveRepo.getUserUsedLeaves(
+        uid: event.employeeId,
+      );
       final int totalPaidLeavesCount = await _spaceService.getPaidLeaves(
-          spaceId: _userManager.currentSpaceId!);
+        spaceId: _userManager.currentSpaceId!,
+      );
       double percentage = 0.0;
       if (totalPaidLeavesCount != 0) {
         percentage = leaveCounts.totalUsedLeave / totalPaidLeavesCount;
@@ -52,9 +56,10 @@ class EmployeeDetailBloc
         onData: (Employee? employee) {
           if (employee != null) {
             return EmployeeDetailLoadedState(
-                employee: employee,
-                timeOffRatio: percentage,
-                usedLeaves: leaveCounts);
+              employee: employee,
+              timeOffRatio: percentage,
+              usedLeaves: leaveCounts,
+            );
           } else {
             return EmployeeDetailFailureState(error: firestoreFetchDataError);
           }
@@ -67,17 +72,25 @@ class EmployeeDetailBloc
     }
   }
 
-  Future<void> _onEmployeeStatusChangeEvent(EmployeeStatusChangeEvent event,
-      Emitter<AdminEmployeeDetailState> emit) async {
+  Future<void> _onEmployeeStatusChangeEvent(
+    EmployeeStatusChangeEvent event,
+    Emitter<AdminEmployeeDetailState> emit,
+  ) async {
     try {
       await _employeeService.changeAccountStatus(
-          id: event.employeeId, status: event.status);
+        id: event.employeeId,
+        status: event.status,
+      );
       if (event.status == EmployeeStatus.inactive) {
         await _accountService.deleteSpaceIdFromAccount(
-            spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
+          spaceId: _userManager.currentSpaceId!,
+          uid: event.employeeId,
+        );
       } else if (event.status == EmployeeStatus.active) {
         await _accountService.addSpaceIdFromAccount(
-            spaceId: _userManager.currentSpaceId!, uid: event.employeeId);
+          spaceId: _userManager.currentSpaceId!,
+          uid: event.employeeId,
+        );
       }
     } on Exception {
       emit(EmployeeDetailFailureState(error: firestoreFetchDataError));

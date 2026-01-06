@@ -18,43 +18,47 @@ class EmployeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: primaryVerticalSpacing, vertical: primaryHalfSpacing),
+        horizontal: primaryVerticalSpacing,
+        vertical: primaryHalfSpacing,
+      ),
       child: Row(
         children: [
-          ImageProfile(
-            imageUrl: employee.imageUrl,
-            radius: 25,
-          ),
-          const SizedBox(
-            width: primaryHorizontalSpacing,
-          ),
+          ImageProfile(imageUrl: employee.imageUrl, radius: 25),
+          const SizedBox(width: primaryHorizontalSpacing),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(employee.name,
-                    style: employee.status == EmployeeStatus.inactive
-                        ? AppTextStyle.style18
-                            .copyWith(color: context.colorScheme.textSecondary)
-                        : AppTextStyle.style18.copyWith(
-                            color: context.colorScheme.textPrimary,
-                            height: 1.5),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1),
+                Text(
+                  employee.name,
+                  style: employee.status == EmployeeStatus.inactive
+                      ? AppTextStyle.style18.copyWith(
+                          color: context.colorScheme.textSecondary,
+                        )
+                      : AppTextStyle.style18.copyWith(
+                          color: context.colorScheme.textPrimary,
+                          height: 1.5,
+                        ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
                 ValidateWidget(
                   isValid: employee.designation.isNotNullOrEmpty,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 2),
-                    child: Text(employee.designation ?? "",
-                        style: AppTextStyle.style14
-                            .copyWith(color: context.colorScheme.textSecondary),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1),
+                    child: Text(
+                      employee.designation ?? "",
+                      style: AppTextStyle.style14.copyWith(
+                        color: context.colorScheme.textSecondary,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     ).onTapGesture(() {

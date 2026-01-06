@@ -24,9 +24,10 @@ class MemberListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AdminMembersBloc>(
-        create: (_) =>
-            getIt<AdminMembersBloc>()..add(AdminMembersInitialLoadEvent()),
-        child: const MemberListScreen());
+      create: (_) =>
+          getIt<AdminMembersBloc>()..add(AdminMembersInitialLoadEvent()),
+      child: const MemberListScreen(),
+    );
   }
 }
 
@@ -45,12 +46,14 @@ class _MemberListScreenState extends State<MemberListScreen> {
       title: AppLocalizations.of(context).members_tag,
       actions: [
         TextButton(
-            onPressed: () => context.pushNamed(Routes.inviteMember),
-            child: Text(
-              context.l10n.invite_tag,
-              style: AppTextStyle.style16
-                  .copyWith(color: context.colorScheme.primary),
-            ))
+          onPressed: () => context.pushNamed(Routes.inviteMember),
+          child: Text(
+            context.l10n.invite_tag,
+            style: AppTextStyle.style16.copyWith(
+              color: context.colorScheme.primary,
+            ),
+          ),
+        ),
       ],
       body: BlocConsumer<AdminMembersBloc, AdminMembersState>(
         builder: (BuildContext context, AdminMembersState state) {
@@ -99,7 +102,10 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return SizedBox.expand(child: child);
   }
 
@@ -122,73 +128,90 @@ class MembersTile extends StatelessWidget {
   final bool isExpanded;
   final bool invited;
 
-  const MembersTile(
-      {super.key,
-      required this.index,
-      required this.employees,
-      required this.title,
-      required this.invited,
-      required this.isExpanded});
+  const MembersTile({
+    super.key,
+    required this.index,
+    required this.employees,
+    required this.title,
+    required this.invited,
+    required this.isExpanded,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SliverMainAxisGroup(slivers: [
-      SliverPersistentHeader(
+    return SliverMainAxisGroup(
+      slivers: [
+        SliverPersistentHeader(
           pinned: true,
           delegate: HeaderDelegate(
-              child: Container(
-            decoration: BoxDecoration(
+            child: Container(
+              decoration: BoxDecoration(
                 color: context.colorScheme.surface,
-                borderRadius: BorderRadius.circular(12)),
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: AppTextStyle.style20.copyWith(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child:
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          title,
+                          style: AppTextStyle.style20.copyWith(
+                            color: isExpanded
+                                ? context.colorScheme.primary
+                                : context.colorScheme.textPrimary,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_drop_down,
                           color: isExpanded
                               ? context.colorScheme.primary
-                              : context.colorScheme.textPrimary),
+                              : context.colorScheme.textPrimary,
+                        ),
+                      ],
                     ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: isExpanded
-                          ? context.colorScheme.primary
-                          : context.colorScheme.textPrimary,
-                    )
-                  ],
-                )).onTapGesture(() {
-              context.read<AdminMembersBloc>().add(ExpansionChangeEvent(index));
-            }),
-          ))),
-      if (isExpanded)
-        SliverPadding(
+                  ).onTapGesture(() {
+                    context.read<AdminMembersBloc>().add(
+                      ExpansionChangeEvent(index),
+                    );
+                  }),
+            ),
+          ),
+        ),
+        if (isExpanded)
+          SliverPadding(
             padding: const EdgeInsets.all(16),
             sliver: employees.isEmpty
                 ? SliverToBoxAdapter(
                     child: Center(
-                        child:
-                            Text("No any $title", style: AppTextStyle.style16)))
+                      child: Text("No any $title", style: AppTextStyle.style16),
+                    ),
+                  )
                 : SliverList.separated(
                     itemCount: employees.length,
                     itemBuilder: (context, index) {
                       final employee = employees[index];
                       return invited
                           ? InvitedMemberCard(
-                              invitation: employee as Invitation)
+                              invitation: employee as Invitation,
+                            )
                           : EmployeeCard(
                               employee: employee,
                               onTap: () => context.goNamed(
-                                  Routes.adminMemberDetails,
-                                  extra: employee.uid),
+                                Routes.adminMemberDetails,
+                                extra: employee.uid,
+                              ),
                             );
                     },
-                    separatorBuilder: (context, index) => Divider(
-                          color: context.colorScheme.outlineColor,
-                        )))
-    ]);
+                    separatorBuilder: (context, index) =>
+                        Divider(color: context.colorScheme.outlineColor),
+                  ),
+          ),
+      ],
+    );
   }
 }

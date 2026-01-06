@@ -15,18 +15,17 @@ class AdminEmployeeDetailsLeavesState extends Equatable {
     this.fetchMoreDataStatus = Status.initial,
   });
 
-  copyWith({
+  AdminEmployeeDetailsLeavesState copyWith({
     Map<DateTime, List<Leave>>? leavesMap,
     Status? status,
     Status? fetchMoreDataStatus,
     String? error,
-  }) =>
-      AdminEmployeeDetailsLeavesState(
-        error: error,
-        leavesMap: leavesMap ?? this.leavesMap,
-        status: status ?? this.status,
-        fetchMoreDataStatus: fetchMoreDataStatus ?? this.fetchMoreDataStatus,
-      );
+  }) => AdminEmployeeDetailsLeavesState(
+    error: error,
+    leavesMap: leavesMap ?? this.leavesMap,
+    status: status ?? this.status,
+    fetchMoreDataStatus: fetchMoreDataStatus ?? this.fetchMoreDataStatus,
+  );
 
   @override
   List<Object?> get props => [error, leavesMap, fetchMoreDataStatus, status];

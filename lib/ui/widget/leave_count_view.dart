@@ -20,15 +20,21 @@ class UsedLeaveCountsView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(leaveCounts.casualLeaves.fixedAt(2).toString(),
-                  style: AppTextStyle.style18
-                      .copyWith(color: context.colorScheme.primary)),
+              Text(
+                leaveCounts.casualLeaves.fixedAt(2).toString(),
+                style: AppTextStyle.style18.copyWith(
+                  color: context.colorScheme.primary,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(
-                  AppLocalizations.of(context).leave_type_placeholder_text(
-                      LeaveType.casualLeave.value.toString()),
-                  style: AppTextStyle.style16
-                      .copyWith(color: context.colorScheme.textPrimary)),
+                AppLocalizations.of(context).leave_type_placeholder_text(
+                  LeaveType.casualLeave.value.toString(),
+                ),
+                style: AppTextStyle.style16.copyWith(
+                  color: context.colorScheme.textPrimary,
+                ),
+              ),
             ],
           ),
         ),
@@ -41,18 +47,24 @@ class UsedLeaveCountsView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(leaveCounts.urgentLeaves.fixedAt(2).toString(),
-                  style: AppTextStyle.style18
-                      .copyWith(color: context.colorScheme.primary)),
+              Text(
+                leaveCounts.urgentLeaves.fixedAt(2).toString(),
+                style: AppTextStyle.style18.copyWith(
+                  color: context.colorScheme.primary,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(
-                  AppLocalizations.of(context).leave_type_placeholder_text(
-                      LeaveType.urgentLeave.value.toString()),
-                  style: AppTextStyle.style16
-                      .copyWith(color: context.colorScheme.textPrimary))
+                AppLocalizations.of(context).leave_type_placeholder_text(
+                  LeaveType.urgentLeave.value.toString(),
+                ),
+                style: AppTextStyle.style16.copyWith(
+                  color: context.colorScheme.textPrimary,
+                ),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

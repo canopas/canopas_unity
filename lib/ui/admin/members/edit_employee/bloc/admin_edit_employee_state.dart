@@ -34,7 +34,7 @@ class AdminEditEmployeeDetailsState extends Equatable {
       employeeIdError == false &&
       designationError == false;
 
-  copyWith({
+  AdminEditEmployeeDetailsState copyWith({
     String? error,
     bool? nameError,
     bool? designationError,
@@ -62,14 +62,14 @@ class AdminEditEmployeeDetailsState extends Equatable {
 
   @override
   List<Object?> get props => [
-        pickedImage,
-        status,
-        role,
-        error,
-        dateOfJoining,
-        nameError,
-        emailError,
-        designationError,
-        employeeIdError
-      ];
+    pickedImage,
+    status,
+    role,
+    error,
+    dateOfJoining,
+    nameError,
+    emailError,
+    designationError,
+    employeeIdError,
+  ];
 }

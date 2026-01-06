@@ -11,8 +11,12 @@ class SpaceLogoView extends StatelessWidget {
   final String? spaceLogoUrl;
   final String? pickedLogoFile;
 
-  const SpaceLogoView(
-      {super.key, this.spaceLogoUrl, this.pickedLogoFile, this.size = 50});
+  const SpaceLogoView({
+    super.key,
+    this.spaceLogoUrl,
+    this.pickedLogoFile,
+    this.size = 50,
+  });
 
   Widget setCachedImage(BuildContext context) {
     if (spaceLogoUrl != null) {
@@ -20,8 +24,11 @@ class SpaceLogoView extends StatelessWidget {
     } else if (pickedLogoFile != null) {
       return showFileImage(pickedLogoFile!);
     } else {
-      return Icon(Icons.business,
-          size: size * 0.5, color: context.colorScheme.textDisable);
+      return Icon(
+        Icons.business,
+        size: size * 0.5,
+        color: context.colorScheme.textDisable,
+      );
     }
   }
 
@@ -38,8 +45,11 @@ class SpaceLogoView extends StatelessWidget {
       fit: BoxFit.cover,
       imageUrl: imageUrl,
       placeholder: (context, string) {
-        return Icon(Icons.business,
-            size: size * 0.5, color: context.colorScheme.textDisable);
+        return Icon(
+          Icons.business,
+          size: size * 0.5,
+          color: context.colorScheme.textDisable,
+        );
       },
     );
   }
@@ -47,14 +57,16 @@ class SpaceLogoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: size,
-        width: size,
-        decoration: BoxDecoration(
-          border: Border.all(color: context.colorScheme.textDisable),
-          borderRadius: AppTheme.commonBorderRadius,
-        ),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: setCachedImage(context)));
+      height: size,
+      width: size,
+      decoration: BoxDecoration(
+        border: Border.all(color: context.colorScheme.textDisable),
+        borderRadius: AppTheme.commonBorderRadius,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: setCachedImage(context),
+      ),
+    );
   }
 }

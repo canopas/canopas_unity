@@ -29,15 +29,22 @@ class LeaveResponseEvent extends AdminLeaveDetailsEvents {
   final DateTime endDate;
   final String email;
 
-  LeaveResponseEvent(
-      {required this.leaveId,
-      required this.responseStatus,
-      required this.name,
-      required this.startDate,
-      required this.endDate,
-      required this.email});
+  LeaveResponseEvent({
+    required this.leaveId,
+    required this.responseStatus,
+    required this.name,
+    required this.startDate,
+    required this.endDate,
+    required this.email,
+  });
 
   @override
-  List<Object?> get props =>
-      [leaveId, responseStatus, name, startDate, endDate, email];
+  List<Object?> get props => [
+    leaveId,
+    responseStatus,
+    name,
+    startDate,
+    endDate,
+    email,
+  ];
 }

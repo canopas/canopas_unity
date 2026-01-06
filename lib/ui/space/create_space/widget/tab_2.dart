@@ -30,31 +30,31 @@ class _SetUpSpaceDetailsState extends State<SetUpSpaceDetails>
       children: [
         Text(
           locale.create_space_set_up_your_space_text,
-          style: AppTextStyle.style20
-              .copyWith(color: context.colorScheme.textPrimary),
+          style: AppTextStyle.style20.copyWith(
+            color: context.colorScheme.textPrimary,
+          ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-            buildWhen: (previous, current) =>
-                previous.paidTimeOff != current.paidTimeOff,
-            builder: (context, state) {
-              return FieldEntry(
-                hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
-                keyboardType: TextInputType.number,
-                maxLength: 2,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                onChanged: (String? value) {
-                  bloc.add(PaidTimeOffChangeEvent(paidTimeOff: value));
-                },
-                errorText: state.paidTimeOffError
-                    ? locale.create_space_invalid_time_off_error
-                    : null,
-              );
-            }),
+          buildWhen: (previous, current) =>
+              previous.paidTimeOff != current.paidTimeOff,
+          builder: (context, state) {
+            return FieldEntry(
+              hintText: AppLocalizations.of(context).yearly_paid_time_off_tag,
+              keyboardType: TextInputType.number,
+              maxLength: 2,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              onChanged: (String? value) {
+                bloc.add(PaidTimeOffChangeEvent(paidTimeOff: value));
+              },
+              errorText: state.paidTimeOffError
+                  ? locale.create_space_invalid_time_off_error
+                  : null,
+            );
+          },
+        ),
       ],
     );
   }

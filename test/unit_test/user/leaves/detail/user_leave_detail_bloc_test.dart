@@ -21,28 +21,30 @@ void main() {
     leaveRepo = MockLeaveRepo();
     userLeaveDetailBloc = UserLeaveDetailBloc(leaveRepo);
     upcomingLeave = Leave(
-        leaveId: 'leaveId',
-        uid: 'Uid',
-        type: LeaveType.casualLeave,
-        startDate: DateTime.now().add(const Duration(days: 2)),
-        endDate: DateTime.now().add(const Duration(days: 3)),
-        total: 1,
-        reason: 'Suffering from viral fever',
-        status: LeaveStatus.pending,
-        appliedOn: DateTime.now(),
-        perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+      leaveId: 'leaveId',
+      uid: 'Uid',
+      type: LeaveType.casualLeave,
+      startDate: DateTime.now().add(const Duration(days: 2)),
+      endDate: DateTime.now().add(const Duration(days: 3)),
+      total: 1,
+      reason: 'Suffering from viral fever',
+      status: LeaveStatus.pending,
+      appliedOn: DateTime.now(),
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave],
+    );
 
     pastLeave = Leave(
-        leaveId: 'leaveId',
-        uid: 'Uid',
-        type: LeaveType.casualLeave,
-        startDate: DateTime.now().subtract(const Duration(days: 3)),
-        endDate: DateTime.now().subtract(const Duration(days: 2)),
-        total: 1,
-        reason: 'Suffering from viral fever',
-        status: LeaveStatus.pending,
-        appliedOn: DateTime.now().subtract(const Duration(days: 4)),
-        perDayDuration: const [LeaveDayDuration.firstHalfLeave]);
+      leaveId: 'leaveId',
+      uid: 'Uid',
+      type: LeaveType.casualLeave,
+      startDate: DateTime.now().subtract(const Duration(days: 3)),
+      endDate: DateTime.now().subtract(const Duration(days: 2)),
+      total: 1,
+      reason: 'Suffering from viral fever',
+      status: LeaveStatus.pending,
+      appliedOn: DateTime.now().subtract(const Duration(days: 4)),
+      perDayDuration: const [LeaveDayDuration.firstHalfLeave],
+    );
   });
 
   group('User leave Detail bloc state', () {
@@ -51,82 +53,105 @@ void main() {
     });
 
     test(
-        'Emits Loading state and successState if leave data fetched successfully from firestore respectively ',
-        () {
-      userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
+      'Emits Loading state and successState if leave data fetched successfully from firestore respectively ',
+      () {
+        userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
 
-      when(leaveRepo.fetchLeave(leaveId: leaveId))
-          .thenAnswer((_) async => upcomingLeave);
-      expectLater(
+        when(
+          leaveRepo.fetchLeave(leaveId: leaveId),
+        ).thenAnswer((_) async => upcomingLeave);
+        expectLater(
           userLeaveDetailBloc.stream,
           emitsInOrder([
             UserLeaveDetailLoadingState(),
             UserLeaveDetailSuccessState(
-                leave: upcomingLeave!, showCancelButton: true)
-          ]));
-    });
+              leave: upcomingLeave!,
+              showCancelButton: true,
+            ),
+          ]),
+        );
+      },
+    );
     test(
-        'Emits success state with showCancelButton flag as false if leave is in past days',
-        () {
-      userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
+      'Emits success state with showCancelButton flag as false if leave is in past days',
+      () {
+        userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
 
-      when(leaveRepo.fetchLeave(leaveId: leaveId))
-          .thenAnswer((_) async => pastLeave);
-      expectLater(
+        when(
+          leaveRepo.fetchLeave(leaveId: leaveId),
+        ).thenAnswer((_) async => pastLeave);
+        expectLater(
           userLeaveDetailBloc.stream,
           emitsInOrder([
             UserLeaveDetailLoadingState(),
             UserLeaveDetailSuccessState(
-                leave: pastLeave!, showCancelButton: false)
-          ]));
-    });
+              leave: pastLeave!,
+              showCancelButton: false,
+            ),
+          ]),
+        );
+      },
+    );
 
     test(
-        'Emits loading state and error state if exception is thrown from firestore',
-        () {
-      when(leaveRepo.fetchLeave(leaveId: leaveId))
-          .thenThrow(Exception(firestoreFetchDataError));
-      userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
-      expectLater(
+      'Emits loading state and error state if exception is thrown from firestore',
+      () {
+        when(
+          leaveRepo.fetchLeave(leaveId: leaveId),
+        ).thenThrow(Exception(firestoreFetchDataError));
+        userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
+        expectLater(
           userLeaveDetailBloc.stream,
           emitsInOrder([
             UserLeaveDetailLoadingState(),
-            UserLeaveDetailErrorState(error: firestoreFetchDataError)
-          ]));
-    });
+            UserLeaveDetailErrorState(error: firestoreFetchDataError),
+          ]),
+        );
+      },
+    );
     test(
-        'Emits loading state and error state if leaveId is not matched with any document reference and found null from firestore',
-        () {
-      when(leaveRepo.fetchLeave(leaveId: leaveId))
-          .thenAnswer((_) async => null);
-      userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
-      expectLater(
+      'Emits loading state and error state if leaveId is not matched with any document reference and found null from firestore',
+      () {
+        when(
+          leaveRepo.fetchLeave(leaveId: leaveId),
+        ).thenAnswer((_) async => null);
+        userLeaveDetailBloc.add(FetchLeaveDetailEvent(leaveId: leaveId));
+        expectLater(
           userLeaveDetailBloc.stream,
           emitsInOrder([
             UserLeaveDetailLoadingState(),
-            UserLeaveDetailErrorState(error: firestoreFetchDataError)
-          ]));
-    });
+            UserLeaveDetailErrorState(error: firestoreFetchDataError),
+          ]),
+        );
+      },
+    );
 
     test('Emit success state if leave canceled', () {
       userLeaveDetailBloc.add(CancelLeaveApplicationEvent(leaveId: leaveId));
       expectLater(
-          userLeaveDetailBloc.stream,
-          emitsInOrder(
-              [UserLeaveDetailLoadingState(), UserCancelLeaveSuccessState()]));
+        userLeaveDetailBloc.stream,
+        emitsInOrder([
+          UserLeaveDetailLoadingState(),
+          UserCancelLeaveSuccessState(),
+        ]),
+      );
     });
 
     test('Emit failure state if leave canceled', () {
-      when(leaveRepo.updateLeaveStatus(
-              leaveId: leaveId, status: LeaveStatus.cancelled))
-          .thenThrow(Exception('error'));
+      when(
+        leaveRepo.updateLeaveStatus(
+          leaveId: leaveId,
+          status: LeaveStatus.cancelled,
+        ),
+      ).thenThrow(Exception('error'));
       userLeaveDetailBloc.add(CancelLeaveApplicationEvent(leaveId: leaveId));
       expectLater(
-          userLeaveDetailBloc.stream,
-          emitsInOrder([
-            UserLeaveDetailLoadingState(),
-            UserLeaveDetailErrorState(error: firestoreFetchDataError)
-          ]));
+        userLeaveDetailBloc.stream,
+        emitsInOrder([
+          UserLeaveDetailLoadingState(),
+          UserLeaveDetailErrorState(error: firestoreFetchDataError),
+        ]),
+      );
     });
   });
 }

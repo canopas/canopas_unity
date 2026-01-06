@@ -213,43 +213,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String leave_type_placeholder_text(String leaveType) {
-    String _temp0 = intl.Intl.selectLogic(
-      leaveType,
-      {
-        '0': 'Casual Leave',
-        '1': 'Urgent Leave',
-        'other': 'other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(leaveType, {
+      '0': 'Casual Leave',
+      '1': 'Urgent Leave',
+      'other': 'other',
+    });
     return '$_temp0';
   }
 
   @override
   String leave_status_placeholder_text(String leaveStatus) {
-    String _temp0 = intl.Intl.selectLogic(
-      leaveStatus,
-      {
-        '1': 'Pending',
-        '2': 'Approved',
-        '3': 'Rejected',
-        '4': 'Cancelled',
-        'other': 'other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(leaveStatus, {
+      '1': 'Pending',
+      '2': 'Approved',
+      '3': 'Rejected',
+      '4': 'Cancelled',
+      'other': 'other',
+    });
     return '$_temp0';
   }
 
   @override
   String user_detail_role_type(String role) {
-    String _temp0 = intl.Intl.selectLogic(
-      role,
-      {
-        'admin': 'Admin',
-        'employee': 'Employee',
-        'hr': 'HR',
-        'other': 'other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(role, {
+      'admin': 'Admin',
+      'employee': 'Employee',
+      'hr': 'HR',
+      'other': 'other',
+    });
     return '$_temp0';
   }
 
@@ -336,8 +327,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String date_formatter_leave_request_total_days_text(double day) {
-    final intl.NumberFormat dayNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat dayNumberFormat = intl.NumberFormat.decimalPattern(
+      localeName,
+    );
     final String dayString = dayNumberFormat.format(day);
 
     return 'Total leave duration: $dayString days';
@@ -369,16 +361,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String leave_day_duration_tag(String dayDuration) {
-    String _temp0 = intl.Intl.selectLogic(
-      dayDuration,
-      {
-        'fullLeave': 'Full Leave',
-        'firstHalfLeave': 'First-half',
-        'secondHalfLeave': 'Second-half',
-        'noLeave': 'No Leave',
-        'other': 'Other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(dayDuration, {
+      'fullLeave': 'Full Leave',
+      'firstHalfLeave': 'First-half',
+      'secondHalfLeave': 'Second-half',
+      'noLeave': 'No Leave',
+      'other': 'Other',
+    });
     return '$_temp0';
   }
 
@@ -398,8 +387,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String range_calendar_no_leave_msg(DateTime startDate, DateTime endDate) {
-    final intl.DateFormat startDateDateFormat =
-        intl.DateFormat.yMMMd(localeName);
+    final intl.DateFormat startDateDateFormat = intl.DateFormat.yMMMd(
+      localeName,
+    );
     final String startDateString = startDateDateFormat.format(startDate);
     final intl.DateFormat endDateDateFormat = intl.DateFormat.yMMMd(localeName);
     final String endDateString = endDateDateFormat.format(endDate);
@@ -716,6 +706,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String user_details_gender(num gender) {
+    final intl.NumberFormat genderNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String genderString = genderNumberFormat.format(gender);
+
     String _temp0 = intl.Intl.pluralLogic(
       gender,
       locale: localeName,
@@ -780,20 +775,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String org_form_answer_type(String type) {
-    String _temp0 = intl.Intl.selectLogic(
-      type,
-      {
-        '0': 'Text',
-        '1': 'Boolean',
-        '2': 'Date',
-        '3': 'Time',
-        '4': 'Drop-down',
-        '5': 'Checkboxes',
-        '6': 'File upload',
-        '7': 'None',
-        'other': 'other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(type, {
+      '0': 'Text',
+      '1': 'Boolean',
+      '2': 'Date',
+      '3': 'Time',
+      '4': 'Drop-down',
+      '5': 'Checkboxes',
+      '6': 'File upload',
+      '7': 'None',
+      'other': 'other',
+    });
     return '$_temp0';
   }
 

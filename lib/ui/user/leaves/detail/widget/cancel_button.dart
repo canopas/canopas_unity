@@ -13,13 +13,17 @@ class CancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: primaryHorizontalSpacing),
+        vertical: 8.0,
+        horizontal: primaryHorizontalSpacing,
+      ),
       child: ElevatedButton(
-          onPressed: () {
-            BlocProvider.of<UserLeaveDetailBloc>(context)
-                .add(CancelLeaveApplicationEvent(leaveId: leaveId));
-          },
-          child: Text(AppLocalizations.of(context).cancel_button_tag)),
+        onPressed: () {
+          BlocProvider.of<UserLeaveDetailBloc>(
+            context,
+          ).add(CancelLeaveApplicationEvent(leaveId: leaveId));
+        },
+        child: Text(AppLocalizations.of(context).cancel_button_tag),
+      ),
     );
   }
 }

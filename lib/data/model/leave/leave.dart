@@ -6,9 +6,10 @@ import 'package:projectunity/data/core/converters%20/date_converter.dart';
 part 'leave.g.dart';
 
 @JsonSerializable(
-    includeIfNull: false,
-    converters: [DateTimeConverter()],
-    fieldRename: FieldRename.snake)
+  includeIfNull: false,
+  converters: [DateTimeConverter()],
+  fieldRename: FieldRename.snake,
+)
 class Leave extends Equatable {
   final String leaveId;
   final String uid;
@@ -22,21 +23,24 @@ class Leave extends Equatable {
   final DateTime appliedOn;
   final List<LeaveDayDuration> perDayDuration;
 
-  const Leave(
-      {required this.leaveId,
-      required this.uid,
-      required this.type,
-      required this.startDate,
-      required this.endDate,
-      required this.total,
-      required this.reason,
-      required this.status,
-      required this.appliedOn,
-      required this.perDayDuration,
-      this.response});
+  const Leave({
+    required this.leaveId,
+    required this.uid,
+    required this.type,
+    required this.startDate,
+    required this.endDate,
+    required this.total,
+    required this.reason,
+    required this.status,
+    required this.appliedOn,
+    required this.perDayDuration,
+    this.response,
+  });
 
-  factory Leave.fromFireStore(DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options) {
+  factory Leave.fromFireStore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     Map<String, dynamic>? data = snapshot.data();
     return Leave.fromJson(data!);
   }
@@ -47,17 +51,17 @@ class Leave extends Equatable {
 
   @override
   List<Object?> get props => [
-        leaveId,
-        uid,
-        type,
-        startDate,
-        endDate,
-        total,
-        reason,
-        status,
-        appliedOn,
-        response
-      ];
+    leaveId,
+    uid,
+    type,
+    startDate,
+    endDate,
+    total,
+    reason,
+    status,
+    appliedOn,
+    response,
+  ];
 }
 
 @JsonEnum(valueField: 'value')

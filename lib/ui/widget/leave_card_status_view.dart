@@ -9,12 +9,13 @@ class LeaveStatusView extends StatelessWidget {
   final LeaveStatus status;
   final LeaveType? leaveType;
 
-  const LeaveStatusView(
-      {super.key,
-      required this.status,
-      this.leaveType,
-      this.verticalPadding = 4,
-      this.horizontalPadding = 10});
+  const LeaveStatusView({
+    super.key,
+    required this.status,
+    this.leaveType,
+    this.verticalPadding = 4,
+    this.horizontalPadding = 10,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +24,26 @@ class LeaveStatusView extends StatelessWidget {
         LeaveStatusIcon(status: status),
         const SizedBox(width: 5),
         Text(
-          context.l10n.leave_status_placeholder_text(
-            status.value.toString(),
+          context.l10n.leave_status_placeholder_text(status.value.toString()),
+          style: AppTextStyle.style16.copyWith(
+            color: leaveStatusColor(status, context),
           ),
-          style: AppTextStyle.style16
-              .copyWith(color: leaveStatusColor(status, context)),
         ),
-        if (leaveType != null)
-          const SizedBox(
-            width: 8,
-          ),
+        if (leaveType != null) const SizedBox(width: 8),
         if (leaveType != null)
           Container(
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: context.colorScheme.containerLow,
-                borderRadius: BorderRadius.circular(5)),
+              color: context.colorScheme.containerLow,
+              borderRadius: BorderRadius.circular(5),
+            ),
             child: Text(
-                context.l10n
-                    .leave_type_placeholder_text(leaveType!.value.toString())
-                    .split(" ")[0],
-                style: AppTextStyle.style12),
-          )
+              context.l10n
+                  .leave_type_placeholder_text(leaveType!.value.toString())
+                  .split(" ")[0],
+              style: AppTextStyle.style12,
+            ),
+          ),
       ],
     );
   }
@@ -67,16 +66,28 @@ class LeaveStatusIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (status == LeaveStatus.approved) {
-      return Icon(Icons.done_all_rounded,
-          color: context.colorScheme.approveColor, size: 20);
+      return Icon(
+        Icons.done_all_rounded,
+        color: context.colorScheme.approveColor,
+        size: 20,
+      );
     } else if (status == LeaveStatus.rejected) {
-      return Icon(Icons.clear_rounded,
-          color: context.colorScheme.rejectColor, size: 20);
+      return Icon(
+        Icons.clear_rounded,
+        color: context.colorScheme.rejectColor,
+        size: 20,
+      );
     } else if (status == LeaveStatus.cancelled) {
-      return Icon(Icons.do_disturb_rounded,
-          color: context.colorScheme.rejectColor, size: 20);
+      return Icon(
+        Icons.do_disturb_rounded,
+        color: context.colorScheme.rejectColor,
+        size: 20,
+      );
     }
-    return Icon(Icons.query_builder,
-        color: context.colorScheme.textSecondary, size: 20);
+    return Icon(
+      Icons.query_builder,
+      color: context.colorScheme.textSecondary,
+      size: 20,
+    );
   }
 }

@@ -12,23 +12,29 @@ class AdminLeaveRequestDetailsDateContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String totalDays = DateFormatter(AppLocalizations.of(context))
-        .getLeaveDurationPresentationLong(leave.total);
-    String duration = DateFormatter(AppLocalizations.of(context))
-        .dateInLine(startDate: leave.startDate, endDate: leave.endDate);
+    String totalDays = DateFormatter(
+      AppLocalizations.of(context),
+    ).getLeaveDurationPresentationLong(leave.total);
+    String duration = DateFormatter(
+      AppLocalizations.of(context),
+    ).dateInLine(startDate: leave.startDate, endDate: leave.endDate);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(duration,
-            style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.textPrimary)),
+        Text(
+          duration,
+          style: AppTextStyle.style16.copyWith(
+            color: context.colorScheme.textPrimary,
+          ),
+        ),
         const SizedBox(height: 8),
         Text(
           totalDays,
-          style:
-              AppTextStyle.style16.copyWith(color: context.colorScheme.primary),
+          style: AppTextStyle.style16.copyWith(
+            color: context.colorScheme.primary,
+          ),
         ),
       ],
     );

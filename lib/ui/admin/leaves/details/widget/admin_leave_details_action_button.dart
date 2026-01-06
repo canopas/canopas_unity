@@ -33,13 +33,14 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
         (leaveApplication.leave.uid == userStateNotifier.employeeId &&
             leaveApplication.leave.status == LeaveStatus.pending)) {
       return BlocBuilder<AdminLeaveDetailsBloc, AdminLeaveDetailsState>(
-          buildWhen: (previous, current) =>
-              previous.actionStatus != current.actionStatus,
-          builder: (context, state) => AppButton(
-                onTap: () async => _showAlertDialogue(context),
-                tag: context.l10n.cancel_button_tag,
-                loading: state.actionStatus == Status.loading,
-              ));
+        buildWhen: (previous, current) =>
+            previous.actionStatus != current.actionStatus,
+        builder: (context, state) => AppButton(
+          onTap: () async => _showAlertDialogue(context),
+          tag: context.l10n.cancel_button_tag,
+          loading: state.actionStatus == Status.loading,
+        ),
+      );
     }
     if (leaveApplication.leave.status == LeaveStatus.pending &&
         !(userStateNotifier.isHR &&
@@ -63,47 +64,57 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.3, 45),
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width * 0.3,
+                          45,
+                        ),
                         backgroundColor: context.colorScheme.rejectColor,
                       ),
                       onPressed: () {
-                        context
-                            .read<AdminLeaveDetailsBloc>()
-                            .add(LeaveResponseEvent(
-                              endDate: leaveApplication.leave.endDate,
-                              startDate: leaveApplication.leave.startDate,
-                              email: leaveApplication.employee.email,
-                              name: leaveApplication.employee.name,
-                              responseStatus: LeaveStatus.rejected,
-                              leaveId: leaveApplication.leave.leaveId,
-                            ));
+                        context.read<AdminLeaveDetailsBloc>().add(
+                          LeaveResponseEvent(
+                            endDate: leaveApplication.leave.endDate,
+                            startDate: leaveApplication.leave.startDate,
+                            email: leaveApplication.employee.email,
+                            name: leaveApplication.employee.name,
+                            responseStatus: LeaveStatus.rejected,
+                            leaveId: leaveApplication.leave.leaveId,
+                          ),
+                        );
                       },
                       child: Text(
-                          context.l10n.admin_leave_detail_reject_button_tag,
-                          style: AppTextStyle.style16.copyWith(
-                              color: context.colorScheme.textPrimary)),
+                        context.l10n.admin_leave_detail_reject_button_tag,
+                        style: AppTextStyle.style16.copyWith(
+                          color: context.colorScheme.textPrimary,
+                        ),
+                      ),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.3, 45),
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width * 0.3,
+                          45,
+                        ),
                         backgroundColor: context.colorScheme.approveColor,
                       ),
                       onPressed: () {
                         context.read<AdminLeaveDetailsBloc>().add(
-                            LeaveResponseEvent(
-                                endDate: leaveApplication.leave.endDate,
-                                startDate: leaveApplication.leave.startDate,
-                                email: leaveApplication.employee.email,
-                                name: leaveApplication.employee.name,
-                                responseStatus: LeaveStatus.approved,
-                                leaveId: leaveApplication.leave.leaveId));
+                          LeaveResponseEvent(
+                            endDate: leaveApplication.leave.endDate,
+                            startDate: leaveApplication.leave.startDate,
+                            email: leaveApplication.employee.email,
+                            name: leaveApplication.employee.name,
+                            responseStatus: LeaveStatus.approved,
+                            leaveId: leaveApplication.leave.leaveId,
+                          ),
+                        );
                       },
                       child: Text(
-                          context.l10n.admin_leave_detail_approve_button_tag,
-                          style: AppTextStyle.style16.copyWith(
-                              color: context.colorScheme.textPrimary)),
+                        context.l10n.admin_leave_detail_approve_button_tag,
+                        style: AppTextStyle.style16.copyWith(
+                          color: context.colorScheme.textPrimary,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -115,19 +126,22 @@ class AdminLeaveDetailsActionButton extends StatelessWidget {
 
   void _showAlertDialogue(BuildContext context) async {
     await showAppAlertDialog(
-        context: context,
-        title: context.l10n.cancel_button_tag,
-        actionButtonTitle: context.l10n.ok_tag,
-        description: context.l10n.remove_user_leave_alert,
-        onActionButtonPressed: () {
-          context.read<AdminLeaveDetailsBloc>().add(LeaveResponseEvent(
-                endDate: leaveApplication.leave.endDate,
-                startDate: leaveApplication.leave.startDate,
-                email: leaveApplication.employee.email,
-                name: leaveApplication.employee.name,
-                responseStatus: LeaveStatus.cancelled,
-                leaveId: leaveApplication.leave.leaveId,
-              ));
-        });
+      context: context,
+      title: context.l10n.cancel_button_tag,
+      actionButtonTitle: context.l10n.ok_tag,
+      description: context.l10n.remove_user_leave_alert,
+      onActionButtonPressed: () {
+        context.read<AdminLeaveDetailsBloc>().add(
+          LeaveResponseEvent(
+            endDate: leaveApplication.leave.endDate,
+            startDate: leaveApplication.leave.startDate,
+            email: leaveApplication.employee.email,
+            name: leaveApplication.employee.name,
+            responseStatus: LeaveStatus.cancelled,
+            leaveId: leaveApplication.leave.leaveId,
+          ),
+        );
+      },
+    );
   }
 }

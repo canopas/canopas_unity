@@ -15,14 +15,18 @@ class UserEmployeesBloc extends Bloc<UserEmployeesEvent, UserEmployeesState> {
   }
 
   Future<void> _fetchEmployee(
-      FetchEmployeesEvent event, Emitter<UserEmployeesState> emit) async {
+    FetchEmployeesEvent event,
+    Emitter<UserEmployeesState> emit,
+  ) async {
     emit(UserEmployeesLoadingState());
     try {
-      return emit.forEach(_employeeRepo.activeEmployees,
-          onData: (List<Employee> employees) =>
-              UserEmployeesSuccessState(employees: employees),
-          onError: (error, stackTrace) =>
-              UserEmployeesFailureState(error: firestoreFetchDataError));
+      return emit.forEach(
+        _employeeRepo.activeEmployees,
+        onData: (List<Employee> employees) =>
+            UserEmployeesSuccessState(employees: employees),
+        onError: (error, stackTrace) =>
+            UserEmployeesFailureState(error: firestoreFetchDataError),
+      );
     } on Exception {
       emit(UserEmployeesFailureState(error: firestoreFetchDataError));
     }

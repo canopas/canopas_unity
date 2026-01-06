@@ -7,8 +7,11 @@ class AdminHomeState extends Equatable {
   final Map<DateTime, List<LeaveApplication>> leaveAppMap;
   final String? error;
 
-  const AdminHomeState(
-      {this.status = Status.initial, this.leaveAppMap = const {}, this.error});
+  const AdminHomeState({
+    this.status = Status.initial,
+    this.leaveAppMap = const {},
+    this.error,
+  });
 
   AdminHomeState copyWith({
     Status? status,
@@ -20,8 +23,10 @@ class AdminHomeState extends Equatable {
     );
   }
 
-  AdminHomeState failureState(
-      {Status? status, required String failureMessage}) {
+  AdminHomeState failureState({
+    Status? status,
+    required String failureMessage,
+  }) {
     return AdminHomeState(status: Status.error, error: failureMessage);
   }
 

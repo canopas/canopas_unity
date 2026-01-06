@@ -21,48 +21,48 @@ class LeaveRequestReasonCard extends StatelessWidget {
           Row(
             children: [
               SvgPicture.asset(Assets.images.pencilSquare),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Text(
                 context.l10n.reason_tag,
-                style: AppTextStyle.style18
-                    .copyWith(color: context.colorScheme.textPrimary),
-              )
+                style: AppTextStyle.style18.copyWith(
+                  color: context.colorScheme.textPrimary,
+                ),
+              ),
             ],
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: context.colorScheme.containerHigh)),
-            padding: const EdgeInsets.all(primaryHorizontalSpacing)
-                .copyWith(top: 0, bottom: primaryVerticalSpacing),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: context.colorScheme.containerHigh),
+            ),
+            padding: const EdgeInsets.all(
+              primaryHorizontalSpacing,
+            ).copyWith(top: 0, bottom: primaryVerticalSpacing),
             child: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-                buildWhen: (previous, current) =>
-                    current.reason != previous.reason ||
-                    current.showTextFieldError != previous.showTextFieldError,
-                builder: (context, state) => TextField(
-                      style: AppTextStyle.style14
-                          .copyWith(color: context.colorScheme.textPrimary),
-                      cursorColor: context.colorScheme.textSecondary,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                        errorText: state.showTextFieldError
-                            ? context
-                                .l10n.user_leaves_apply_leave_error_valid_reason
-                            : null,
-                        border: InputBorder.none,
-                      ),
-                      onChanged: (reason) {
-                        context
-                            .read<ApplyLeaveBloc>()
-                            .add(ApplyLeaveReasonChangeEvent(reason: reason));
-                      },
-                      keyboardType: TextInputType.text,
-                    )),
+              buildWhen: (previous, current) =>
+                  current.reason != previous.reason ||
+                  current.showTextFieldError != previous.showTextFieldError,
+              builder: (context, state) => TextField(
+                style: AppTextStyle.style14.copyWith(
+                  color: context.colorScheme.textPrimary,
+                ),
+                cursorColor: context.colorScheme.textSecondary,
+                maxLines: 5,
+                decoration: InputDecoration(
+                  errorText: state.showTextFieldError
+                      ? context.l10n.user_leaves_apply_leave_error_valid_reason
+                      : null,
+                  border: InputBorder.none,
+                ),
+                onChanged: (reason) {
+                  context.read<ApplyLeaveBloc>().add(
+                    ApplyLeaveReasonChangeEvent(reason: reason),
+                  );
+                },
+                keyboardType: TextInputType.text,
+              ),
+            ),
           ),
         ],
       ),

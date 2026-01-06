@@ -5,13 +5,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'who_is_out_card_state.freezed.dart';
 
 @freezed
-class WhoIsOutCardState with _$WhoIsOutCardState {
-  const factory WhoIsOutCardState(
-      {@Default(Status.initial) Status status,
-      required DateTime selectedDate,
-      required DateTime focusDay,
-      @Default(CalendarFormat.week) CalendarFormat calendarFormat,
-      @Default([]) List<LeaveApplication> allAbsences,
-      List<LeaveApplication>? selectedDayAbsences,
-      String? error}) = _WhoIsOutCardState;
+abstract class WhoIsOutCardState with _$WhoIsOutCardState {
+  const factory WhoIsOutCardState({
+    @Default(Status.initial) Status status,
+    required DateTime selectedDate,
+    required DateTime focusDay,
+    @Default(CalendarFormat.week) CalendarFormat calendarFormat,
+    @Default([]) List<LeaveApplication> allAbsences,
+    List<LeaveApplication>? selectedDayAbsences,
+    String? error,
+  }) = _WhoIsOutCardState;
 }

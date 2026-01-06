@@ -19,26 +19,28 @@ class ApproveRejectionMessage extends StatelessWidget {
         children: [
           Text(
             context.l10n.admin_leave_detail_note_tag,
-            style: AppTextStyle.style18
-                .copyWith(color: context.colorScheme.textSecondary),
+            style: AppTextStyle.style18.copyWith(
+              color: context.colorScheme.textSecondary,
+            ),
           ),
           const SizedBox(height: 10),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: primaryHorizontalSpacing)
-                    .copyWith(bottom: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: primaryHorizontalSpacing,
+            ).copyWith(bottom: 4),
             decoration: BoxDecoration(
               boxShadow: AppTheme.commonBoxShadow(context),
               borderRadius: AppTheme.commonBorderRadius,
               color: context.colorScheme.surface,
             ),
             child: TextField(
-              style: AppTextStyle.style16
-                  .copyWith(color: context.colorScheme.textSecondary),
+              style: AppTextStyle.style16.copyWith(
+                color: context.colorScheme.textSecondary,
+              ),
               onChanged: (value) {
-                context
-                    .read<AdminLeaveDetailsBloc>()
-                    .add(ReasonChangedEvent(value));
+                context.read<AdminLeaveDetailsBloc>().add(
+                  ReasonChangedEvent(value),
+                );
               },
               maxLines: 5,
               textInputAction: TextInputAction.done,

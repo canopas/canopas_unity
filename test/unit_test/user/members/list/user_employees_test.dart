@@ -35,41 +35,48 @@ void main() {
     });
 
     test(
-        'Emits Loading state while fetching data from database and the emits success state with list of employees',
-        () {
-      when(employeeRepo.activeEmployees)
-          .thenAnswer((realInvocation) => Stream.value([employee, employee]));
-      bloc.add(FetchEmployeesEvent());
-      expectLater(
+      'Emits Loading state while fetching data from database and the emits success state with list of employees',
+      () {
+        when(
+          employeeRepo.activeEmployees,
+        ).thenAnswer((realInvocation) => Stream.value([employee, employee]));
+        bloc.add(FetchEmployeesEvent());
+        expectLater(
           bloc.stream,
           emitsInOrder([
             UserEmployeesLoadingState(),
-            UserEmployeesSuccessState(employees: [employee, employee])
-          ]));
-    });
+            UserEmployeesSuccessState(employees: [employee, employee]),
+          ]),
+        );
+      },
+    );
 
     test('Emits failure state when Exception is thrown from any cause', () {
-      when(employeeRepo.activeEmployees)
-          .thenThrow(Exception(firestoreFetchDataError));
+      when(
+        employeeRepo.activeEmployees,
+      ).thenThrow(Exception(firestoreFetchDataError));
       bloc.add(FetchEmployeesEvent());
       expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserEmployeesLoadingState(),
-            UserEmployeesFailureState(error: firestoreFetchDataError)
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          UserEmployeesLoadingState(),
+          UserEmployeesFailureState(error: firestoreFetchDataError),
+        ]),
+      );
     });
 
     test('Emits failure state when stream get error', () {
-      when(employeeRepo.activeEmployees).thenAnswer(
-          (realInvocation) => Stream.error(firestoreFetchDataError));
+      when(
+        employeeRepo.activeEmployees,
+      ).thenAnswer((realInvocation) => Stream.error(firestoreFetchDataError));
       bloc.add(FetchEmployeesEvent());
       expectLater(
-          bloc.stream,
-          emitsInOrder([
-            UserEmployeesLoadingState(),
-            UserEmployeesFailureState(error: firestoreFetchDataError)
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          UserEmployeesLoadingState(),
+          UserEmployeesFailureState(error: firestoreFetchDataError),
+        ]),
+      );
     });
   });
 }

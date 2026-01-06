@@ -20,19 +20,20 @@ void main() {
   const employeeUID = 'uid';
 
   final leave = Leave(
-      leaveId: 'leaveId',
-      uid: employeeUID,
-      type: LeaveType.urgentLeave,
-      startDate: DateTime.now().add(const Duration(days: 2)),
-      endDate: DateTime.now().add(const Duration(days: 4)),
-      total: 2,
-      reason: 'Suffering from fever',
-      status: LeaveStatus.pending,
-      appliedOn: DateTime.now(),
-      perDayDuration: const [
-        LeaveDayDuration.firstHalfLeave,
-        LeaveDayDuration.firstHalfLeave
-      ]);
+    leaveId: 'leaveId',
+    uid: employeeUID,
+    type: LeaveType.urgentLeave,
+    startDate: DateTime.now().add(const Duration(days: 2)),
+    endDate: DateTime.now().add(const Duration(days: 4)),
+    total: 2,
+    reason: 'Suffering from fever',
+    status: LeaveStatus.pending,
+    appliedOn: DateTime.now(),
+    perDayDuration: const [
+      LeaveDayDuration.firstHalfLeave,
+      LeaveDayDuration.firstHalfLeave,
+    ],
+  );
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
@@ -47,42 +48,50 @@ void main() {
     });
 
     test(
-        'Emits loading state and then success state with requests if user has applied for any request',
-        () {
-      when(leaveRepo.userLeaveRequest(employeeUID))
-          .thenAnswer((_) => Stream.value([leave]));
-      expectLater(
+      'Emits loading state and then success state with requests if user has applied for any request',
+      () {
+        when(
+          leaveRepo.userLeaveRequest(employeeUID),
+        ).thenAnswer((_) => Stream.value([leave]));
+        expectLater(
           bLoc.stream,
           emitsInOrder([
             UserHomeLoadingState(),
-            UserHomeSuccessState(requests: [leave])
-          ]));
-      bLoc.add(UserHomeFetchLeaveRequest());
-    });
+            UserHomeSuccessState(requests: [leave]),
+          ]),
+        );
+        bLoc.add(UserHomeFetchLeaveRequest());
+      },
+    );
 
     test(
-        'Emits loading state and then error state if exception is thrown by stream',
-        () {
-      when(leaveRepo.userLeaveRequest(employeeUID))
-          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-      expectLater(
+      'Emits loading state and then error state if exception is thrown by stream',
+      () {
+        when(
+          leaveRepo.userLeaveRequest(employeeUID),
+        ).thenAnswer((_) => Stream.error(firestoreFetchDataError));
+        expectLater(
           bLoc.stream,
           emitsInOrder([
             UserHomeLoadingState(),
-            UserHomeErrorState(error: firestoreFetchDataError)
-          ]));
-      bLoc.add(UserHomeFetchLeaveRequest());
-    });
+            UserHomeErrorState(error: firestoreFetchDataError),
+          ]),
+        );
+        bLoc.add(UserHomeFetchLeaveRequest());
+      },
+    );
 
     test('Emits loading state and then error state if their any exception', () {
-      when(leaveRepo.userLeaveRequest(employeeUID))
-          .thenThrow(Exception(firestoreFetchDataError));
+      when(
+        leaveRepo.userLeaveRequest(employeeUID),
+      ).thenThrow(Exception(firestoreFetchDataError));
       expectLater(
-          bLoc.stream,
-          emitsInOrder([
-            UserHomeLoadingState(),
-            UserHomeErrorState(error: firestoreFetchDataError)
-          ]));
+        bLoc.stream,
+        emitsInOrder([
+          UserHomeLoadingState(),
+          UserHomeErrorState(error: firestoreFetchDataError),
+        ]),
+      );
       bLoc.add(UserHomeFetchLeaveRequest());
     });
   });

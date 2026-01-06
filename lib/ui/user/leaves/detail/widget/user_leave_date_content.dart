@@ -14,10 +14,12 @@ class UserLeaveRequestDateContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String totalDays = DateFormatter(AppLocalizations.of(context))
-        .getLeaveDurationPresentationLong(leave.total);
-    String duration = DateFormatter(AppLocalizations.of(context))
-        .dateInLine(startDate: leave.startDate, endDate: leave.endDate);
+    String totalDays = DateFormatter(
+      AppLocalizations.of(context),
+    ).getLeaveDurationPresentationLong(leave.total);
+    String duration = DateFormatter(
+      AppLocalizations.of(context),
+    ).dateInLine(startDate: leave.startDate, endDate: leave.endDate);
 
     return Container(
       padding: const EdgeInsets.all(primaryHorizontalSpacing),
@@ -35,8 +37,9 @@ class UserLeaveRequestDateContent extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             totalDays,
-            style: AppTextStyle.style14
-                .copyWith(color: context.colorScheme.primary),
+            style: AppTextStyle.style14.copyWith(
+              color: context.colorScheme.primary,
+            ),
           ),
         ],
       ),

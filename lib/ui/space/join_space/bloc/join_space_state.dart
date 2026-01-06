@@ -19,28 +19,29 @@ class JoinSpaceState extends Equatable {
     this.error,
   });
 
-  JoinSpaceState copyWith(
-          {Status? signOutStatus,
-          Status? fetchSpaceStatus,
-          Status? selectSpaceStatus,
-          List<Space>? ownSpaces,
-          List<Space>? requestedSpaces,
-          String? error}) =>
-      JoinSpaceState(
-          error: error,
-          signOutStatus: signOutStatus ?? this.signOutStatus,
-          selectSpaceStatus: selectSpaceStatus ?? this.selectSpaceStatus,
-          fetchSpaceStatus: fetchSpaceStatus ?? this.fetchSpaceStatus,
-          requestedSpaces: requestedSpaces ?? this.requestedSpaces,
-          ownSpaces: ownSpaces ?? this.ownSpaces);
+  JoinSpaceState copyWith({
+    Status? signOutStatus,
+    Status? fetchSpaceStatus,
+    Status? selectSpaceStatus,
+    List<Space>? ownSpaces,
+    List<Space>? requestedSpaces,
+    String? error,
+  }) => JoinSpaceState(
+    error: error,
+    signOutStatus: signOutStatus ?? this.signOutStatus,
+    selectSpaceStatus: selectSpaceStatus ?? this.selectSpaceStatus,
+    fetchSpaceStatus: fetchSpaceStatus ?? this.fetchSpaceStatus,
+    requestedSpaces: requestedSpaces ?? this.requestedSpaces,
+    ownSpaces: ownSpaces ?? this.ownSpaces,
+  );
 
   @override
   List<Object?> get props => [
-        fetchSpaceStatus,
-        ownSpaces,
-        requestedSpaces,
-        error,
-        selectSpaceStatus,
-        signOutStatus
-      ];
+    fetchSpaceStatus,
+    ownSpaces,
+    requestedSpaces,
+    error,
+    selectSpaceStatus,
+    signOutStatus,
+  ];
 }

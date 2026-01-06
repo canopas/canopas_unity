@@ -48,79 +48,82 @@ class SignInScreenState extends State<SignInScreen> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
                     context.colorScheme.surface,
-                    context.colorScheme.primary.withValues(alpha: 0.5)
+                    context.colorScheme.primary.withValues(alpha: 0.5),
                   ],
-                      stops: const [
-                    0.5,
-                    1
-                  ])),
+                  stops: const [0.5, 1],
+                ),
+              ),
             ),
             BlocListener<SignInBloc, SignInState>(
-                listenWhen: (previous, current) => current.error != null,
-                listener: (context, state) {
-                  if (state.error != null) {
-                    if (state.firebaseAuthUser != null) {
-                      context.goNamed(Routes.setupProfile,
-                          extra: state.firebaseAuthUser);
-                    } else {
-                      showSnackBar(context: context, error: state.error);
-                    }
+              listenWhen: (previous, current) => current.error != null,
+              listener: (context, state) {
+                if (state.error != null) {
+                  if (state.firebaseAuthUser != null) {
+                    context.goNamed(
+                      Routes.setupProfile,
+                      extra: state.firebaseAuthUser,
+                    );
+                  } else {
+                    showSnackBar(context: context, error: state.error);
                   }
-                },
-                child: SafeArea(
-                  child: SmartScrollView(
-                    padding: const EdgeInsets.all(16).copyWith(bottom: 50),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                ImageConst.loginPageVectorImage,
-                                fit: BoxFit.cover,
+                }
+              },
+              child: SafeArea(
+                child: SmartScrollView(
+                  padding: const EdgeInsets.all(16).copyWith(bottom: 50),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              ImageConst.loginPageVectorImage,
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(height: 50),
+                            Text(
+                              context.l10n.sign_in_title_text,
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.style24.copyWith(
+                                color: context.colorScheme.textPrimary,
+                                overflow: TextOverflow.fade,
+                                fontWeight: FontWeight.w700,
                               ),
-                              const SizedBox(
-                                height: 50,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20.0,
+                                right: 20,
+                                top: 20,
+                                bottom: 40,
                               ),
-                              Text(
-                                context.l10n.sign_in_title_text,
+                              child: Text(
+                                context.l10n.sign_in_description_text,
+                                style: AppTextStyle.style16.copyWith(
+                                  color: context.colorScheme.textSecondary,
+                                ),
+                                overflow: TextOverflow.fade,
                                 textAlign: TextAlign.center,
-                                style: AppTextStyle.style24.copyWith(
-                                  color: context.colorScheme.textPrimary,
-                                  overflow: TextOverflow.fade,
-                                  fontWeight: FontWeight.w700,
-                                ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20, top: 20, bottom: 40),
-                                child: Text(
-                                  context.l10n.sign_in_description_text,
-                                  style: AppTextStyle.style16.copyWith(
-                                      color: context.colorScheme.textSecondary),
-                                  overflow: TextOverflow.fade,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        const GoogleSignInButton(),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        if (!kIsWeb && Platform.isIOS) const AppleSignInButton()
-                      ],
-                    ),
+                      ),
+                      const GoogleSignInButton(),
+                      const SizedBox(height: 20),
+                      if (!kIsWeb && Platform.isIOS) const AppleSignInButton(),
+                    ],
                   ),
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),

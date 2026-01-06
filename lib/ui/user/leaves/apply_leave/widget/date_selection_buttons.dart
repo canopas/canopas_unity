@@ -22,11 +22,14 @@ class LeaveRequestDateSelection extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.startDate != current.startDate,
             builder: (context, state) => DatePickerCard(
-              title: AppLocalizations.of(context)
-                  .user_leaves_apply_leave_start_tag,
+              title: AppLocalizations.of(
+                context,
+              ).user_leaves_apply_leave_start_tag,
               onPress: () async {
                 DateTime? date = await pickDate(
-                    context: context, initialDate: state.startDate);
+                  context: context,
+                  initialDate: state.startDate,
+                );
                 bloc.add(ApplyLeaveStartDateChangeEvents(startDate: date));
               },
               date: state.startDate,
@@ -36,11 +39,14 @@ class LeaveRequestDateSelection extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.endDate != current.endDate,
             builder: (context, state) => DatePickerCard(
-              title:
-                  AppLocalizations.of(context).user_leaves_apply_leave_end_tag,
+              title: AppLocalizations.of(
+                context,
+              ).user_leaves_apply_leave_end_tag,
               onPress: () async {
                 DateTime? date = await pickDate(
-                    context: context, initialDate: state.endDate);
+                  context: context,
+                  initialDate: state.endDate,
+                );
                 bloc.add(ApplyLeaveEndDateChangeEvent(endDate: date));
               },
               date: state.endDate,

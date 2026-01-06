@@ -25,23 +25,23 @@ class OrgFormFieldEntry extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLength;
 
-  const OrgFormFieldEntry(
-      {super.key,
-      this.textInputAction,
-      this.validator,
-      this.maxLine,
-      this.onChanged,
-      this.controller,
-      this.maxLength,
-      this.hintText});
+  const OrgFormFieldEntry({
+    super.key,
+    this.textInputAction,
+    this.validator,
+    this.maxLine,
+    this.onChanged,
+    this.controller,
+    this.maxLength,
+    this.hintText,
+  });
 
   @override
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide: BorderSide(
-          color: context.colorScheme.outlineColor,
-        ));
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(color: context.colorScheme.outlineColor),
+    );
     return TextFormField(
       validator: validator,
       textInputAction: textInputAction,
@@ -50,16 +50,18 @@ class OrgFormFieldEntry extends StatelessWidget {
       maxLength: maxLength,
       controller: controller,
       cursorColor: Colors.black,
-      style:
-          AppTextStyle.style16.copyWith(color: context.colorScheme.textPrimary),
+      style: AppTextStyle.style16.copyWith(
+        color: context.colorScheme.textPrimary,
+      ),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(12),
         isDense: true,
         filled: true,
         fillColor: context.colorScheme.surface,
-        hintStyle: AppTextStyle.style16
-            .copyWith(color: context.colorScheme.textSecondary),
+        hintStyle: AppTextStyle.style16.copyWith(
+          color: context.colorScheme.textSecondary,
+        ),
         focusedBorder: inputBorder,
         errorBorder: inputBorder,
         border: inputBorder,

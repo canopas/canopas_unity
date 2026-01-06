@@ -16,16 +16,22 @@ class EmployeeRepo {
   StreamSubscription<List<Employee>>? _employeeStreamSubscription;
 
   EmployeeRepo(
-      this._employeeService, this._userStateNotifier, this._crashlytics) {
+    this._employeeService,
+    this._userStateNotifier,
+    this._crashlytics,
+  ) {
     _employeeController = BehaviorSubject<List<Employee>>();
     _employeeStreamSubscription = _employeeService
         .employees(_userStateNotifier.currentSpaceId!)
-        .listen((value) {
-      _employeeController.add(value);
-    }, onError: (e, s) async {
-      _employeeController.addError(e);
-      await _crashlytics.recordError(e, s);
-    });
+        .listen(
+          (value) {
+            _employeeController.add(value);
+          },
+          onError: (e, s) async {
+            _employeeController.addError(e);
+            await _crashlytics.recordError(e, s);
+          },
+        );
   }
 
   Stream<Employee?> memberDetails(String uid) => _employeeController.stream
@@ -42,21 +48,26 @@ class EmployeeRepo {
   }
 
   Stream<List<Employee>> get activeEmployees =>
-      _employeeController.stream.asyncMap((employees) => employees
-          .where((employee) => employee.status == EmployeeStatus.active)
-          .toList());
+      _employeeController.stream.asyncMap(
+        (employees) => employees
+            .where((employee) => employee.status == EmployeeStatus.active)
+            .toList(),
+      );
 
   Future<void> reset() async {
     _employeeController = BehaviorSubject<List<Employee>>();
     await _employeeStreamSubscription?.cancel();
     _employeeStreamSubscription = _employeeService
         .employees(_userStateNotifier.currentSpaceId!)
-        .listen((value) {
-      _employeeController.add(value);
-    }, onError: (e, s) async {
-      _employeeController.addError(e);
-      await _crashlytics.recordError(e, s);
-    });
+        .listen(
+          (value) {
+            _employeeController.add(value);
+          },
+          onError: (e, s) async {
+            _employeeController.addError(e);
+            await _crashlytics.recordError(e, s);
+          },
+        );
   }
 
   @disposeMethod

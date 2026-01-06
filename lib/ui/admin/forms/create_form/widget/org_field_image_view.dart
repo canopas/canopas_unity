@@ -32,22 +32,25 @@ class FormFieldImageView extends StatelessWidget {
             height: 200,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: context.colorScheme.outlineColor),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: kIsWeb
-                        ? NetworkImage(orgFormField.image) as ImageProvider
-                        : FileImage(File(orgFormField.image)))),
+              color: context.colorScheme.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: context.colorScheme.outlineColor),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: kIsWeb
+                    ? NetworkImage(orgFormField.image) as ImageProvider
+                    : FileImage(File(orgFormField.image)),
+              ),
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                  onPressed: () => bloc.add(RemoveFieldEvent(orgFormField.id)),
-                  child: Text(AppLocalizations.of(context).remove_tag)),
+                onPressed: () => bloc.add(RemoveFieldEvent(orgFormField.id)),
+                child: Text(AppLocalizations.of(context).remove_tag),
+              ),
             ],
           ),
         ],

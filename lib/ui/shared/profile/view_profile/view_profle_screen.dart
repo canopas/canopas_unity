@@ -40,66 +40,75 @@ class ViewProfileScreen extends StatelessWidget {
       title: localization.admin_employee_detail_profile_tag,
       actions: [
         TextButton(
-          onPressed: () => context.pushNamed(getIt<UserStateNotifier>().isAdmin
-              ? Routes.adminEditProfile
-              : Routes.userEditProfile),
+          onPressed: () => context.pushNamed(
+            getIt<UserStateNotifier>().isAdmin
+                ? Routes.adminEditProfile
+                : Routes.userEditProfile,
+          ),
           child: Text(
             localization.edit_tag,
-            style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.primary),
+            style: AppTextStyle.style16.copyWith(
+              color: context.colorScheme.primary,
+            ),
           ),
         ),
       ],
       body: BlocConsumer<ViewProfileBloc, ViewProfileState>(
-          listenWhen: (previous, current) => current is ViewProfileErrorState,
-          listener: (context, state) {
-            if (state is ViewProfileErrorState) {
-              showSnackBar(context: context, error: state.error);
-            }
-          },
-          buildWhen: (previous, current) =>
-              current is ViewProfileSuccessState ||
-              current is ViewProfileLoadingState,
-          builder: (context, state) {
-            if (state is ViewProfileLoadingState) {
-              return const AppCircularProgressIndicator();
-            } else if (state is ViewProfileSuccessState) {
-              final Employee employee = state.employee;
-              return ListView(
-                children: [
-                  BasicDetailSection(employee: employee),
-                  EmployeeDetailsField(
-                      title: AppLocalizations.of(context).employee_email_tag,
-                      subtitle: employee.email),
-                  EmployeeDetailsField(
-                      title: AppLocalizations.of(context).employee_level_tag,
-                      subtitle: employee.level),
-                  EmployeeDetailsField(
-                      title:
-                          AppLocalizations.of(context).employee_dateOfJoin_tag,
-                      subtitle: localization
-                          .date_format_yMMMd(employee.dateOfJoining)),
-                  EmployeeDetailsField(
-                      title:
-                          AppLocalizations.of(context).employee_dateOfBirth_tag,
-                      subtitle: employee.dateOfBirth == null
-                          ? null
-                          : localization
-                              .date_format_yMMMd(employee.dateOfBirth!)),
-                  EmployeeDetailsField(
-                      title: AppLocalizations.of(context).employee_gender_tag,
-                      subtitle: employee.gender == null
-                          ? null
-                          : localization
-                              .user_details_gender(employee.gender!.value)),
-                  EmployeeDetailsField(
-                      title: AppLocalizations.of(context).employee_address_tag,
-                      subtitle: employee.address),
-                ],
-              );
-            }
-            return const SizedBox();
-          }),
+        listenWhen: (previous, current) => current is ViewProfileErrorState,
+        listener: (context, state) {
+          if (state is ViewProfileErrorState) {
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        buildWhen: (previous, current) =>
+            current is ViewProfileSuccessState ||
+            current is ViewProfileLoadingState,
+        builder: (context, state) {
+          if (state is ViewProfileLoadingState) {
+            return const AppCircularProgressIndicator();
+          } else if (state is ViewProfileSuccessState) {
+            final Employee employee = state.employee;
+            return ListView(
+              children: [
+                BasicDetailSection(employee: employee),
+                EmployeeDetailsField(
+                  title: AppLocalizations.of(context).employee_email_tag,
+                  subtitle: employee.email,
+                ),
+                EmployeeDetailsField(
+                  title: AppLocalizations.of(context).employee_level_tag,
+                  subtitle: employee.level,
+                ),
+                EmployeeDetailsField(
+                  title: AppLocalizations.of(context).employee_dateOfJoin_tag,
+                  subtitle: localization.date_format_yMMMd(
+                    employee.dateOfJoining,
+                  ),
+                ),
+                EmployeeDetailsField(
+                  title: AppLocalizations.of(context).employee_dateOfBirth_tag,
+                  subtitle: employee.dateOfBirth == null
+                      ? null
+                      : localization.date_format_yMMMd(employee.dateOfBirth!),
+                ),
+                EmployeeDetailsField(
+                  title: AppLocalizations.of(context).employee_gender_tag,
+                  subtitle: employee.gender == null
+                      ? null
+                      : localization.user_details_gender(
+                          employee.gender!.value,
+                        ),
+                ),
+                EmployeeDetailsField(
+                  title: AppLocalizations.of(context).employee_address_tag,
+                  subtitle: employee.address,
+                ),
+              ],
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 }

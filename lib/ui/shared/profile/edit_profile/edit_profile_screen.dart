@@ -24,8 +24,12 @@ class EmployeeEditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<EmployeeEditProfileBloc>()
-        ..add(EditProfileInitialLoadEvent(
-            dateOfBirth: employee.dateOfBirth, gender: employee.gender)),
+        ..add(
+          EditProfileInitialLoadEvent(
+            dateOfBirth: employee.dateOfBirth,
+            gender: employee.gender,
+          ),
+        ),
       child: EmployeeEditProfileScreen(employee: employee),
     );
   }
@@ -87,25 +91,27 @@ class _EmployeeEditProfileScreenState extends State<EmployeeEditProfileScreen> {
               : TextButton(
                   onPressed: state.isDataValid
                       ? () {
-                          context
-                              .read<EmployeeEditProfileBloc>()
-                              .add(EditProfileUpdateProfileEvent(
-                                address: addressController.text,
-                                level: levelController.text,
-                                name: nameController.text,
-                                designation: designationController.text,
-                                phoneNumber: phoneNumberController.text,
-                              ));
+                          context.read<EmployeeEditProfileBloc>().add(
+                            EditProfileUpdateProfileEvent(
+                              address: addressController.text,
+                              level: levelController.text,
+                              name: nameController.text,
+                              designation: designationController.text,
+                              phoneNumber: phoneNumberController.text,
+                            ),
+                          );
                         }
                       : null,
                   child: state.status == Status.loading
                       ? const AppCircularProgressIndicator(size: 20)
                       : Text(
                           AppLocalizations.of(context).save_tag,
-                          style: AppTextStyle.style16
-                              .copyWith(color: context.colorScheme.primary),
-                        )),
-        )
+                          style: AppTextStyle.style16.copyWith(
+                            color: context.colorScheme.primary,
+                          ),
+                        ),
+                ),
+        ),
       ],
       body: BlocListener<EmployeeEditProfileBloc, EmployeeEditProfileState>(
         listenWhen: (previous, current) => previous.status != current.status,

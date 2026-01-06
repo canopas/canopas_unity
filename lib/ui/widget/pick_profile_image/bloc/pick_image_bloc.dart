@@ -14,9 +14,12 @@ class PickImageBloc extends Bloc<PickImageEvents, PickImageState> {
   }
 
   Future<void> _pickImage(
-      PickImageEvent event, Emitter<PickImageState> emit) async {
-    final XFile? image =
-        await _imagePicker.pickImage(source: event.imageSource);
+    PickImageEvent event,
+    Emitter<PickImageState> emit,
+  ) async {
+    final XFile? image = await _imagePicker.pickImage(
+      source: event.imageSource,
+    );
     if (image != null) {
       final file = File(image.path);
       emit(state.copyWith(pickedImage: file.path, isPickImageDone: true));

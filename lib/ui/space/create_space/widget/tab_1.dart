@@ -15,10 +15,7 @@ import 'org_logo_view.dart';
 class SpaceBasicDetails extends StatefulWidget {
   final void Function()? onNextButtonPressed;
 
-  const SpaceBasicDetails({
-    super.key,
-    this.onNextButtonPressed,
-  });
+  const SpaceBasicDetails({super.key, this.onNextButtonPressed});
 
   @override
   State<SpaceBasicDetails> createState() => _SpaceBasicDetailsState();
@@ -36,12 +33,11 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
       children: [
         Text(
           locale.create_space_enter_space_details_text,
-          style: AppTextStyle.style20
-              .copyWith(color: context.colorScheme.textPrimary),
+          style: AppTextStyle.style20.copyWith(
+            color: context.colorScheme.textPrimary,
+          ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         BlocConsumer<CreateSpaceBLoc, CreateSpaceState>(
           listenWhen: (previous, current) => current.isLogoPickedDone,
           listener: (context, state) {
@@ -51,44 +47,50 @@ class _SpaceBasicDetailsState extends State<SpaceBasicDetails>
           },
           buildWhen: (previous, current) => previous.logo != current.logo,
           builder: (context, state) => OrgLogoView(
-              pickedLogoFile: state.logo,
-              onButtonTap: () => showModalBottomSheet(
-                  context: context,
-                  builder: (_) => PickImageBottomSheet(
-                      onButtonTap: (ImageSource source) => context
-                          .read<CreateSpaceBLoc>()
-                          .add(PickImageEvent(imageSource: source))))),
+            pickedLogoFile: state.logo,
+            onButtonTap: () => showModalBottomSheet(
+              context: context,
+              builder: (_) => PickImageBottomSheet(
+                onButtonTap: (ImageSource source) => context
+                    .read<CreateSpaceBLoc>()
+                    .add(PickImageEvent(imageSource: source)),
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 32),
         BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-            buildWhen: (previous, current) =>
-                previous.companyName != current.companyName,
-            builder: (context, state) {
-              return FieldEntry(
-                hintText: AppLocalizations.of(context).company_name_tag,
-                errorText: state.companyNameError
-                    ? locale.create_space_invalid_name_error
-                    : null,
-                onChanged: (String? value) {
-                  bloc.add(CompanyNameChangeEvent(companyName: value ?? ''));
-                },
-              );
-            }),
+          buildWhen: (previous, current) =>
+              previous.companyName != current.companyName,
+          builder: (context, state) {
+            return FieldEntry(
+              hintText: AppLocalizations.of(context).company_name_tag,
+              errorText: state.companyNameError
+                  ? locale.create_space_invalid_name_error
+                  : null,
+              onChanged: (String? value) {
+                bloc.add(CompanyNameChangeEvent(companyName: value ?? ''));
+              },
+            );
+          },
+        ),
         const SizedBox(height: 20),
         BlocBuilder<CreateSpaceBLoc, CreateSpaceState>(
-            buildWhen: (previous, current) => previous.domain != current.domain,
-            builder: (context, state) {
-              return FieldEntry(
-                hintText:
-                    AppLocalizations.of(context).create_space_Website_url_label,
-                errorText: state.domainError
-                    ? locale.create_space_invalid_website_url_error
-                    : null,
-                onChanged: (String? value) {
-                  bloc.add(CompanyDomainChangeEvent(domain: value));
-                },
-              );
-            }),
+          buildWhen: (previous, current) => previous.domain != current.domain,
+          builder: (context, state) {
+            return FieldEntry(
+              hintText: AppLocalizations.of(
+                context,
+              ).create_space_Website_url_label,
+              errorText: state.domainError
+                  ? locale.create_space_invalid_website_url_error
+                  : null,
+              onChanged: (String? value) {
+                bloc.add(CompanyDomainChangeEvent(domain: value));
+              },
+            );
+          },
+        ),
       ],
     );
   }

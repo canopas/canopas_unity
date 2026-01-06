@@ -36,11 +36,13 @@ class AdminHomeScreenPage extends StatelessWidget {
               getIt.get<AdminHomeBloc>()..add(AdminHomeInitialLoadEvent()),
         ),
         BlocProvider(
-            create: (context) =>
-                getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves())),
+          create: (context) =>
+              getIt<WhoIsOutCardBloc>()..add(FetchWhoIsOutCardLeaves()),
+        ),
         BlocProvider(
-            create: (context) =>
-                getIt<CelebrationsBloc>()..add(FetchCelebrations())),
+          create: (context) =>
+              getIt<CelebrationsBloc>()..add(FetchCelebrations()),
+        ),
       ],
       child: const AdminHomeScreen(),
     );
@@ -61,22 +63,22 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
       leading: InkWell(
-          onTap: () {
-            Scaffold.of(context).openDrawer();
-            context.read<DrawerBloc>().add(FetchSpacesEvent());
-          },
-          child: Icon(
-            Icons.menu,
-            color: context.colorScheme.textPrimary,
-          )),
+        onTap: () {
+          Scaffold.of(context).openDrawer();
+          context.read<DrawerBloc>().add(FetchSpacesEvent());
+        },
+        child: Icon(Icons.menu, color: context.colorScheme.textPrimary),
+      ),
       titleWidget: SpaceNotifierWidget(
         notifier: getIt.get<UserStateNotifier>(),
         child: Builder(
           builder: (context) {
             final String name = SpaceNotifierWidget.of(context)?.name ?? "";
-            return Text(name,
-                style: AppTextStyle.headerStyle(context),
-                overflow: TextOverflow.ellipsis);
+            return Text(
+              name,
+              style: AppTextStyle.headerStyle(context),
+              overflow: TextOverflow.ellipsis,
+            );
           },
         ),
       ),
@@ -84,29 +86,28 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         children: [
           const WhoIsOutCard(),
           const EventCard(),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           BlocConsumer<AdminHomeBloc, AdminHomeState>(
-              listenWhen: (previous, current) => current.status == Status.error,
-              listener: (context, state) {
-                if (state.status == Status.error) {
-                  showSnackBar(context: context, error: state.error);
-                }
-              },
-              buildWhen: (previous, current) => current.status != Status.error,
-              builder: (context, state) {
-                if (state.status == Status.success &&
-                    state.leaveAppMap.isNotEmpty) {
-                  return LeaveRequestList(map: state.leaveAppMap);
-                }
-                return state.status == Status.loading
-                    ? const AppCircularProgressIndicator()
-                    : EmptyScreen(
-                        message: locale.empty_request_message,
-                        title: locale.empty_request_title,
-                      );
-              }),
+            listenWhen: (previous, current) => current.status == Status.error,
+            listener: (context, state) {
+              if (state.status == Status.error) {
+                showSnackBar(context: context, error: state.error);
+              }
+            },
+            buildWhen: (previous, current) => current.status != Status.error,
+            builder: (context, state) {
+              if (state.status == Status.success &&
+                  state.leaveAppMap.isNotEmpty) {
+                return LeaveRequestList(map: state.leaveAppMap);
+              }
+              return state.status == Status.loading
+                  ? const AppCircularProgressIndicator()
+                  : EmptyScreen(
+                      message: locale.empty_request_message,
+                      title: locale.empty_request_title,
+                    );
+            },
+          ),
         ],
       ),
     );

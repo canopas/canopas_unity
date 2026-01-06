@@ -26,53 +26,57 @@ class WhoIsOutCard extends StatelessWidget {
         }
       },
       child: BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
-          buildWhen: (previous, current) =>
-              previous.status != current.status ||
-              previous.selectedDate != current.selectedDate ||
-              previous.calendarFormat != current.calendarFormat,
-          builder: (context, state) {
-            final calendarFormat = state.calendarFormat;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(bottom: 20),
-                  decoration: BoxDecoration(
-                    color: context.colorScheme.surface,
-                    boxShadow: calendarFormat == CalendarFormat.week
-                        ? [
-                            BoxShadow(
-                              color: context.colorScheme.outlineColor,
-                              blurRadius: 3.0,
-                              offset: const Offset(0, 3),
-                            )
-                          ]
-                        : null,
-                  ),
-                  child: const LeaveCalendar(),
+        buildWhen: (previous, current) =>
+            previous.status != current.status ||
+            previous.selectedDate != current.selectedDate ||
+            previous.calendarFormat != current.calendarFormat,
+        builder: (context, state) {
+          final calendarFormat = state.calendarFormat;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: context.colorScheme.surface,
+                  boxShadow: calendarFormat == CalendarFormat.week
+                      ? [
+                          BoxShadow(
+                            color: context.colorScheme.outlineColor,
+                            blurRadius: 3.0,
+                            offset: const Offset(0, 3),
+                          ),
+                        ]
+                      : null,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(context.l10n.who_is_out_card_title,
-                      style: AppTextStyle.style20.copyWith(
-                          color: context.colorScheme.primary,
-                          fontWeight: FontWeight.w600)),
-                ),
-                BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
-                  buildWhen: (previous, current) =>
-                      previous.status != current.status ||
-                      previous.selectedDate != current.selectedDate,
-                  builder: (context, state) =>
-                      AbsenceEmployeesListWhoIsOutCardView(
-                    status: state.status,
-                    absence: state.selectedDayAbsences ?? [],
-                    dateOfEmployeeAbsence: state.selectedDate,
+                child: const LeaveCalendar(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  context.l10n.who_is_out_card_title,
+                  style: AppTextStyle.style20.copyWith(
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
-            );
-          }),
+              ),
+              BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
+                buildWhen: (previous, current) =>
+                    previous.status != current.status ||
+                    previous.selectedDate != current.selectedDate,
+                builder: (context, state) =>
+                    AbsenceEmployeesListWhoIsOutCardView(
+                      status: state.status,
+                      absence: state.selectedDayAbsences ?? [],
+                      dateOfEmployeeAbsence: state.selectedDate,
+                    ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -88,68 +92,73 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WhoIsOutCardBloc, WhoIsOutCardState>(
-        buildWhen: (previous, current) =>
-            previous.allAbsences != current.allAbsences ||
-            previous.selectedDate != current.selectedDate ||
-            previous.calendarFormat != current.calendarFormat,
-        builder: (context, state) {
-          final calendarFormat = state.calendarFormat;
-          return TableCalendar(
-            calendarBuilders:
-                CalendarBuilders(headerTitleBuilder: (context, day) {
+      buildWhen: (previous, current) =>
+          previous.allAbsences != current.allAbsences ||
+          previous.selectedDate != current.selectedDate ||
+          previous.calendarFormat != current.calendarFormat,
+      builder: (context, state) {
+        final calendarFormat = state.calendarFormat;
+        return TableCalendar(
+          calendarBuilders: CalendarBuilders(
+            headerTitleBuilder: (context, day) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      calendarFormat == CalendarFormat.week
-                          ? day.toDateWithYear()
-                          : day.toMonthYear(),
-                      style: AppTextStyle.style18
-                          .copyWith(color: context.colorScheme.textPrimary)),
+                    calendarFormat == CalendarFormat.week
+                        ? day.toDateWithYear()
+                        : day.toMonthYear(),
+                    style: AppTextStyle.style18.copyWith(
+                      color: context.colorScheme.textPrimary,
+                    ),
+                  ),
                   const CalendarFormatButton(),
                 ],
               );
-            }),
-            headerVisible: true,
-            rangeSelectionMode: RangeSelectionMode.disabled,
-            onPageChanged: (focusedDay) => context
-                .read<WhoIsOutCardBloc>()
-                .add(FetchWhoIsOutCardLeaves(focusDay: focusedDay)),
-            onDaySelected: (selectedDay, focusedDay) {
-              context
-                  .read<WhoIsOutCardBloc>()
-                  .add(ChangeCalendarDate(selectedDay));
             },
-            onFormatChanged: (format) => context
-                .read<WhoIsOutCardBloc>()
-                .add(ChangeCalendarFormat(format)),
-            availableGestures: AvailableGestures.horizontalSwipe,
-            calendarFormat: state.calendarFormat,
-            selectedDayPredicate: (day) => isSameDay(state.selectedDate, day),
-            firstDay: DateTime(2022),
-            lastDay: DateTime(2040),
-            startingDayOfWeek: StartingDayOfWeek.sunday,
-            calendarStyle: AppTheme.calendarStyle(context),
-            daysOfWeekStyle: AppTheme.daysOfWeekStyle(context),
-            headerStyle: const HeaderStyle(
-              formatButtonVisible: false,
-              rightChevronVisible: false,
-              leftChevronVisible: false,
-            ),
-            eventLoader: (day) => context
-                .read<WhoIsOutCardBloc>()
-                .getSelectedDateAbsences(
-                    date: day, allAbsences: state.allAbsences),
-            focusedDay: state.focusDay,
-          );
-        });
+          ),
+          headerVisible: true,
+          rangeSelectionMode: RangeSelectionMode.disabled,
+          onPageChanged: (focusedDay) => context.read<WhoIsOutCardBloc>().add(
+            FetchWhoIsOutCardLeaves(focusDay: focusedDay),
+          ),
+          onDaySelected: (selectedDay, focusedDay) {
+            context.read<WhoIsOutCardBloc>().add(
+              ChangeCalendarDate(selectedDay),
+            );
+          },
+          onFormatChanged: (format) => context.read<WhoIsOutCardBloc>().add(
+            ChangeCalendarFormat(format),
+          ),
+          availableGestures: AvailableGestures.horizontalSwipe,
+          calendarFormat: state.calendarFormat,
+          selectedDayPredicate: (day) => isSameDay(state.selectedDate, day),
+          firstDay: DateTime(2022),
+          lastDay: DateTime(2040),
+          startingDayOfWeek: StartingDayOfWeek.sunday,
+          calendarStyle: AppTheme.calendarStyle(context),
+          daysOfWeekStyle: AppTheme.daysOfWeekStyle(context),
+          headerStyle: const HeaderStyle(
+            formatButtonVisible: false,
+            rightChevronVisible: false,
+            leftChevronVisible: false,
+          ),
+          eventLoader: (day) =>
+              context.read<WhoIsOutCardBloc>().getSelectedDateAbsences(
+                date: day,
+                allAbsences: state.allAbsences,
+              ),
+          focusedDay: state.focusDay,
+        );
+      },
+    );
   }
 }
 
 class CalendarFormatButton extends StatelessWidget {
   const CalendarFormatButton({super.key});
 
-  getCalendarFormat(CalendarFormat format) {
+  CalendarFormat getCalendarFormat(CalendarFormat format) {
     if (format == CalendarFormat.week) {
       return CalendarFormat.month;
     } else {
@@ -163,11 +172,15 @@ class CalendarFormatButton extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.calendarFormat != current.calendarFormat,
       builder: (context, state) => IconButton(
-          onPressed: () => context.read<WhoIsOutCardBloc>().add(
-              ChangeCalendarFormat(getCalendarFormat(state.calendarFormat))),
-          icon: Icon(state.calendarFormat == CalendarFormat.month
+        onPressed: () => context.read<WhoIsOutCardBloc>().add(
+          ChangeCalendarFormat(getCalendarFormat(state.calendarFormat)),
+        ),
+        icon: Icon(
+          state.calendarFormat == CalendarFormat.month
               ? Icons.arrow_drop_up
-              : Icons.arrow_drop_down)),
+              : Icons.arrow_drop_down,
+        ),
+      ),
     );
   }
 }

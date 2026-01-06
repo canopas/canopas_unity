@@ -10,12 +10,13 @@ class SpaceService {
   late final CollectionReference<Map> _accountsDb;
 
   SpaceService(this.fireStore)
-      : _spaceDb = fireStore
-            .collection(FireStoreConst.spacesCollection)
-            .withConverter(
-                fromFirestore: Space.fromFirestore,
-                toFirestore: (Space space, _) => space.toFirestore()),
-        _accountsDb = fireStore.collection(FireStoreConst.accountsCollection);
+    : _spaceDb = fireStore
+          .collection(FireStoreConst.spacesCollection)
+          .withConverter(
+            fromFirestore: Space.fromFirestore,
+            toFirestore: (Space space, _) => space.toFirestore(),
+          ),
+      _accountsDb = fireStore.collection(FireStoreConst.accountsCollection);
 
   Future<Space?> getSpace(String spaceId) async {
     final spaceDoc = await _spaceDb.doc(spaceId).get();
@@ -37,12 +38,15 @@ class SpaceService {
     await _spaceDb.doc(space.id).update(space.toFirestore());
   }
 
-  Future<void> deleteSpace(
-      {required String spaceId,
-      required List<String> owners,
-      required String uid}) async {
-    final leavesDocs =
-        await _spaceDb.doc(spaceId).collection(FireStoreConst.leaves).get();
+  Future<void> deleteSpace({
+    required String spaceId,
+    required List<String> owners,
+    required String uid,
+  }) async {
+    final leavesDocs = await _spaceDb
+        .doc(spaceId)
+        .collection(FireStoreConst.leaves)
+        .get();
     for (var doc in leavesDocs.docs) {
       await doc.reference.delete();
     }

@@ -59,18 +59,17 @@ class _AdminFormListScreenState extends State<AdminFormListScreen> {
             return const AppCircularProgressIndicator();
           } else if (state.status == Status.success && state.forms.isNotEmpty) {
             return ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemBuilder: (context, index) =>
-                    AdminListFormCard(formInfo: state.forms[index]),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
-                itemCount: state.forms.length);
+              padding: const EdgeInsets.all(16),
+              itemBuilder: (context, index) =>
+                  AdminListFormCard(formInfo: state.forms[index]),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemCount: state.forms.length,
+            );
           }
           return EmptyScreen(
-              message:
-                  AppLocalizations.of(context).form_list_empty_screen_title,
-              title:
-                  AppLocalizations.of(context).form_list_empty_screen_message);
+            message: AppLocalizations.of(context).form_list_empty_screen_title,
+            title: AppLocalizations.of(context).form_list_empty_screen_message,
+          );
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
