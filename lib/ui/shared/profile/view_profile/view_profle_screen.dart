@@ -96,7 +96,7 @@ class ViewProfileScreen extends StatelessWidget {
                   subtitle: employee.gender == null
                       ? null
                       : localization.user_details_gender(
-                          employee.gender!.value,
+                          employee.gender!.value.toString(),
                         ),
                 ),
                 EmployeeDetailsField(

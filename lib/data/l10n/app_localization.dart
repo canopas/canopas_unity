@@ -1237,8 +1237,8 @@ abstract class AppLocalizations {
   /// Pass the value of gender to get gender of user
   ///
   /// In en, this message translates to:
-  /// **'{gender, plural, =1{Male} =2{Female} other{Other}}'**
-  String user_details_gender(num gender);
+  /// **'{gender, select, 1{Male} 2{Female} other{Other}}'**
+  String user_details_gender(String gender);
 
   /// No description provided for @create_form_screen_title.
   ///

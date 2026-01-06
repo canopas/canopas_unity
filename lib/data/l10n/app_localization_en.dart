@@ -705,19 +705,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gender_female_tag => 'Female';
 
   @override
-  String user_details_gender(num gender) {
-    final intl.NumberFormat genderNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String genderString = genderNumberFormat.format(gender);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      gender,
-      locale: localeName,
-      other: 'Other',
-      two: 'Female',
-      one: 'Male',
-    );
+  String user_details_gender(String gender) {
+    String _temp0 = intl.Intl.selectLogic(gender, {
+      '1': 'Male',
+      '2': 'Female',
+      'other': 'Other',
+    });
     return '$_temp0';
   }
 
