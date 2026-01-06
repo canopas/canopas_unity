@@ -26,7 +26,7 @@ import 'join_space_test.mocks.dart';
   AccountService,
   EmployeeService,
   AuthService,
-  NotificationService
+  NotificationService,
 ])
 void main() {
   late SpaceService spaceService;
@@ -38,10 +38,11 @@ void main() {
   late NotificationService notificationService;
   late JoinSpaceBloc bloc;
   const invitation = Invitation(
-      id: 'id',
-      spaceId: 'spaceId',
-      senderId: 'senderId',
-      receiverEmail: 'email');
+    id: 'id',
+    spaceId: 'spaceId',
+    senderId: 'senderId',
+    receiverEmail: 'email',
+  );
   setUp(() {
     authService = MockAuthService();
     spaceService = MockSpaceService();
@@ -51,19 +52,27 @@ void main() {
     accountService = MockAccountService();
     notificationService = MockNotificationService();
 
-    bloc = JoinSpaceBloc(invitationService, spaceService, userStateNotifier,
-        accountService, employeeService, authService, notificationService);
+    bloc = JoinSpaceBloc(
+      invitationService,
+      spaceService,
+      userStateNotifier,
+      accountService,
+      employeeService,
+      authService,
+      notificationService,
+    );
     when(userStateNotifier.userUID).thenReturn('uid');
     when(userStateNotifier.userEmail).thenReturn('email');
   });
 
   Space space = Space(
-      id: "spaceId",
-      name: 'dummy space',
-      createdAt: DateTime.now(),
-      paidTimeOff: 12,
-      notificationEmail: 'hr@canopas.com',
-      ownerIds: const ['uid']);
+    id: "spaceId",
+    name: 'dummy space',
+    createdAt: DateTime.now(),
+    paidTimeOff: 12,
+    notificationEmail: 'hr@canopas.com',
+    ownerIds: const ['uid'],
+  );
 
   final employee = Employee(
     uid: 'uid',
@@ -75,169 +84,220 @@ void main() {
 
   group('Fetch requested spaces', () {
     setUp(() {
-      when(accountService.fetchSpaceIds(uid: 'uid'))
-          .thenAnswer((_) async => []);
-      when(invitationService.fetchSpaceInvitationsForUserEmail('email'))
-          .thenAnswer((_) async => [invitation]);
+      when(
+        accountService.fetchSpaceIds(uid: 'uid'),
+      ).thenAnswer((_) async => []);
+      when(
+        invitationService.fetchSpaceInvitationsForUserEmail('email'),
+      ).thenAnswer((_) async => [invitation]);
     });
     test('Fetch spaces success test for requested spaces for user', () {
       when(spaceService.getSpace('spaceId')).thenAnswer((_) async => space);
 
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(fetchSpaceStatus: Status.loading),
-            JoinSpaceState(
-                fetchSpaceStatus: Status.success, requestedSpaces: [space]),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(fetchSpaceStatus: Status.loading),
+          JoinSpaceState(
+            fetchSpaceStatus: Status.success,
+            requestedSpaces: [space],
+          ),
+        ]),
+      );
     });
     test('Should emit error state if exception is thrown by firestore', () {
-      when(spaceService.getSpace('spaceId'))
-          .thenThrow(Exception(firestoreFetchDataError));
+      when(
+        spaceService.getSpace('spaceId'),
+      ).thenThrow(Exception(firestoreFetchDataError));
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(fetchSpaceStatus: Status.loading),
-            const JoinSpaceState(
-                fetchSpaceStatus: Status.error, error: firestoreFetchDataError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(fetchSpaceStatus: Status.loading),
+          const JoinSpaceState(
+            fetchSpaceStatus: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
     });
   });
 
   group('Join space test', () {
     setUp(() {
-      when(accountService.fetchSpaceIds(uid: 'uid'))
-          .thenAnswer((_) async => [space.id]);
-      when(invitationService.fetchSpaceInvitationsForUserEmail('email'))
-          .thenAnswer((_) async => []);
+      when(
+        accountService.fetchSpaceIds(uid: 'uid'),
+      ).thenAnswer((_) async => [space.id]);
+      when(
+        invitationService.fetchSpaceInvitationsForUserEmail('email'),
+      ).thenAnswer((_) async => []);
     });
     test('Fetch spaces success test of created space by user', () {
       when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(fetchSpaceStatus: Status.loading),
-            JoinSpaceState(
-                fetchSpaceStatus: Status.success, ownSpaces: [space]),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(fetchSpaceStatus: Status.loading),
+          JoinSpaceState(fetchSpaceStatus: Status.success, ownSpaces: [space]),
+        ]),
+      );
     });
 
     test('Fetch spaces failure test for created space by user', () {
-      when(spaceService.getSpace(space.id))
-          .thenThrow(Exception(firestoreFetchDataError));
+      when(
+        spaceService.getSpace(space.id),
+      ).thenThrow(Exception(firestoreFetchDataError));
       bloc.add(JoinSpaceInitialFetchEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(fetchSpaceStatus: Status.loading),
-            const JoinSpaceState(
-                fetchSpaceStatus: Status.error, error: firestoreFetchDataError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(fetchSpaceStatus: Status.loading),
+          const JoinSpaceState(
+            fetchSpaceStatus: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
     });
   });
 
   group('Select SPace test', () {
     test('Change space success test', () async {
-      when(employeeService.getEmployeeBySpaceId(
-              userId: 'uid', spaceId: space.id))
-          .thenAnswer((_) async => employee);
+      when(
+        employeeService.getEmployeeBySpaceId(userId: 'uid', spaceId: space.id),
+      ).thenAnswer((_) async => employee);
       bloc.add(SelectSpaceEvent(space: space));
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(selectSpaceStatus: Status.loading),
-            const JoinSpaceState(selectSpaceStatus: Status.success),
-          ]));
-      await untilCalled(userStateNotifier.setEmployeeWithSpace(
-          space: space, spaceUser: employee));
-      verify(userStateNotifier.setEmployeeWithSpace(
-              space: space, spaceUser: employee))
-          .called(1);
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(selectSpaceStatus: Status.loading),
+          const JoinSpaceState(selectSpaceStatus: Status.success),
+        ]),
+      );
+      await untilCalled(
+        userStateNotifier.setEmployeeWithSpace(
+          space: space,
+          spaceUser: employee,
+        ),
+      );
+      verify(
+        userStateNotifier.setEmployeeWithSpace(
+          space: space,
+          spaceUser: employee,
+        ),
+      ).called(1);
     });
 
     test('Change space failure test', () {
-      when(employeeService.getEmployeeBySpaceId(
-              userId: 'uid', spaceId: space.id))
-          .thenThrow(Exception('error'));
+      when(
+        employeeService.getEmployeeBySpaceId(userId: 'uid', spaceId: space.id),
+      ).thenThrow(Exception('error'));
       bloc.add(SelectSpaceEvent(space: space));
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(selectSpaceStatus: Status.loading),
-            const JoinSpaceState(
-                selectSpaceStatus: Status.error,
-                error: firestoreFetchDataError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(selectSpaceStatus: Status.loading),
+          const JoinSpaceState(
+            selectSpaceStatus: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
     });
   });
 
   group('Select space from Requests test', () {
     test(
-        'Should emit loading and success state if user select space from requested spaces',
-        () {
-      when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
-      when(notificationService.sendSpaceInviteAcceptNotification(
-              sender: 'dummy@canopas.com', receiver: space.notificationEmail!))
-          .thenAnswer((_) async => true);
-      bloc.invitations = [invitation];
-      when(employeeService.addEmployeeBySpaceId(
-              employee: employee, spaceId: space.id))
-          .thenAnswer((_) async {});
-      when(accountService.updateSpaceOfUser(spaceID: space.id, uid: 'uid'))
-          .thenAnswer((_) async {});
-      when(invitationService.deleteInvitation(id: invitation.id))
-          .thenAnswer((_) async {});
-      when(userStateNotifier.setEmployeeWithSpace(
-              space: space, spaceUser: employee))
-          .thenAnswer((_) async {});
-      when(userStateNotifier.userFirebaseAuthName).thenReturn(employee.name);
-      bloc.add(JoinRequestedSpaceEvent(space: space));
-      expectLater(
+      'Should emit loading and success state if user select space from requested spaces',
+      () {
+        when(userStateNotifier.userEmail).thenReturn('dummy@canopas.com');
+        when(
+          notificationService.sendSpaceInviteAcceptNotification(
+            sender: 'dummy@canopas.com',
+            receiver: space.notificationEmail!,
+          ),
+        ).thenAnswer((_) async => true);
+        bloc.invitations = [invitation];
+        when(
+          employeeService.addEmployeeBySpaceId(
+            employee: employee,
+            spaceId: space.id,
+          ),
+        ).thenAnswer((_) async {});
+        when(
+          accountService.updateSpaceOfUser(spaceID: space.id, uid: 'uid'),
+        ).thenAnswer((_) async {});
+        when(
+          invitationService.deleteInvitation(id: invitation.id),
+        ).thenAnswer((_) async {});
+        when(
+          userStateNotifier.setEmployeeWithSpace(
+            space: space,
+            spaceUser: employee,
+          ),
+        ).thenAnswer((_) async {});
+        when(userStateNotifier.userFirebaseAuthName).thenReturn(employee.name);
+        bloc.add(JoinRequestedSpaceEvent(space: space));
+        expectLater(
           bloc.stream,
           emitsInOrder([
             const JoinSpaceState(selectSpaceStatus: Status.loading),
-            const JoinSpaceState(selectSpaceStatus: Status.success)
-          ]));
-    });
+            const JoinSpaceState(selectSpaceStatus: Status.success),
+          ]),
+        );
+      },
+    );
 
     test(
-        'Should emit loading and error state if user select space from requested spaces and firestore trows exception',
-        () {
-      bloc.invitations = [invitation];
-      when(employeeService.addEmployeeBySpaceId(
-              employee: employee, spaceId: space.id))
-          .thenThrow(Exception(firestoreFetchDataError));
-      when(accountService.updateSpaceOfUser(spaceID: space.id, uid: 'uid'))
-          .thenThrow(Exception(firestoreFetchDataError));
-      when(invitationService.deleteInvitation(id: invitation.id))
-          .thenAnswer((_) async {});
-      when(userStateNotifier.setEmployeeWithSpace(
-              space: space, spaceUser: employee))
-          .thenAnswer((_) async {});
-      when(userStateNotifier.userFirebaseAuthName).thenReturn(employee.name);
-      bloc.add(JoinRequestedSpaceEvent(space: space));
-      expectLater(
+      'Should emit loading and error state if user select space from requested spaces and firestore trows exception',
+      () {
+        bloc.invitations = [invitation];
+        when(
+          employeeService.addEmployeeBySpaceId(
+            employee: employee,
+            spaceId: space.id,
+          ),
+        ).thenThrow(Exception(firestoreFetchDataError));
+        when(
+          accountService.updateSpaceOfUser(spaceID: space.id, uid: 'uid'),
+        ).thenThrow(Exception(firestoreFetchDataError));
+        when(
+          invitationService.deleteInvitation(id: invitation.id),
+        ).thenAnswer((_) async {});
+        when(
+          userStateNotifier.setEmployeeWithSpace(
+            space: space,
+            spaceUser: employee,
+          ),
+        ).thenAnswer((_) async {});
+        when(userStateNotifier.userFirebaseAuthName).thenReturn(employee.name);
+        bloc.add(JoinRequestedSpaceEvent(space: space));
+        expectLater(
           bloc.stream,
           emitsInOrder([
             const JoinSpaceState(selectSpaceStatus: Status.loading),
             const JoinSpaceState(
-                selectSpaceStatus: Status.error, error: firestoreFetchDataError)
-          ]));
-    });
+              selectSpaceStatus: Status.error,
+              error: firestoreFetchDataError,
+            ),
+          ]),
+        );
+      },
+    );
   });
   group("sign out test ", () {
     test("sign out successful test with navigation test", () async {
       when(authService.signOut()).thenAnswer((_) => Future(() => true));
       bloc.add(SignOutEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(signOutStatus: Status.loading),
-            const JoinSpaceState(signOutStatus: Status.success),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(signOutStatus: Status.loading),
+          const JoinSpaceState(signOutStatus: Status.success),
+        ]),
+      );
       await untilCalled(userStateNotifier.removeAll());
       verify(userStateNotifier.removeAll()).called(1);
     });
@@ -246,24 +306,30 @@ void main() {
       when(authService.signOut()).thenAnswer((_) => Future(() => false));
       bloc.add(SignOutEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(signOutStatus: Status.loading),
-            const JoinSpaceState(
-                signOutStatus: Status.error, error: signOutError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(signOutStatus: Status.loading),
+          const JoinSpaceState(
+            signOutStatus: Status.error,
+            error: signOutError,
+          ),
+        ]),
+      );
     });
 
     test("sign out failure test on exception", () {
       when(authService.signOut()).thenThrow(Exception(signOutError));
       bloc.add(SignOutEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const JoinSpaceState(signOutStatus: Status.loading),
-            const JoinSpaceState(
-                signOutStatus: Status.error, error: signOutError),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const JoinSpaceState(signOutStatus: Status.loading),
+          const JoinSpaceState(
+            signOutStatus: Status.error,
+            error: signOutError,
+          ),
+        ]),
+      );
     });
   });
 }

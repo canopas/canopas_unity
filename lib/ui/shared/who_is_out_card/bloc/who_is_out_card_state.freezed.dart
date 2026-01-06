@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,283 +9,295 @@ part of 'who_is_out_card_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$WhoIsOutCardState {
-  Status get status => throw _privateConstructorUsedError;
-  DateTime get selectedDate => throw _privateConstructorUsedError;
-  DateTime get focusDay => throw _privateConstructorUsedError;
-  CalendarFormat get calendarFormat => throw _privateConstructorUsedError;
-  List<LeaveApplication> get allAbsences => throw _privateConstructorUsedError;
-  List<LeaveApplication>? get selectedDayAbsences =>
-      throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $WhoIsOutCardStateCopyWith<WhoIsOutCardState> get copyWith =>
-      throw _privateConstructorUsedError;
+ Status get status; DateTime get selectedDate; DateTime get focusDay; CalendarFormat get calendarFormat; List<LeaveApplication> get allAbsences; List<LeaveApplication>? get selectedDayAbsences; String? get error;
+/// Create a copy of WhoIsOutCardState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WhoIsOutCardStateCopyWith<WhoIsOutCardState> get copyWith => _$WhoIsOutCardStateCopyWithImpl<WhoIsOutCardState>(this as WhoIsOutCardState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WhoIsOutCardState&&(identical(other.status, status) || other.status == status)&&(identical(other.selectedDate, selectedDate) || other.selectedDate == selectedDate)&&(identical(other.focusDay, focusDay) || other.focusDay == focusDay)&&(identical(other.calendarFormat, calendarFormat) || other.calendarFormat == calendarFormat)&&const DeepCollectionEquality().equals(other.allAbsences, allAbsences)&&const DeepCollectionEquality().equals(other.selectedDayAbsences, selectedDayAbsences)&&(identical(other.error, error) || other.error == error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,selectedDate,focusDay,calendarFormat,const DeepCollectionEquality().hash(allAbsences),const DeepCollectionEquality().hash(selectedDayAbsences),error);
+
+@override
+String toString() {
+  return 'WhoIsOutCardState(status: $status, selectedDate: $selectedDate, focusDay: $focusDay, calendarFormat: $calendarFormat, allAbsences: $allAbsences, selectedDayAbsences: $selectedDayAbsences, error: $error)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $WhoIsOutCardStateCopyWith<$Res> {
-  factory $WhoIsOutCardStateCopyWith(
-          WhoIsOutCardState value, $Res Function(WhoIsOutCardState) then) =
-      _$WhoIsOutCardStateCopyWithImpl<$Res, WhoIsOutCardState>;
-  @useResult
-  $Res call(
-      {Status status,
-      DateTime selectedDate,
-      DateTime focusDay,
-      CalendarFormat calendarFormat,
-      List<LeaveApplication> allAbsences,
-      List<LeaveApplication>? selectedDayAbsences,
-      String? error});
-}
+abstract mixin class $WhoIsOutCardStateCopyWith<$Res>  {
+  factory $WhoIsOutCardStateCopyWith(WhoIsOutCardState value, $Res Function(WhoIsOutCardState) _then) = _$WhoIsOutCardStateCopyWithImpl;
+@useResult
+$Res call({
+ Status status, DateTime selectedDate, DateTime focusDay, CalendarFormat calendarFormat, List<LeaveApplication> allAbsences, List<LeaveApplication>? selectedDayAbsences, String? error
+});
 
+
+
+
+}
 /// @nodoc
-class _$WhoIsOutCardStateCopyWithImpl<$Res, $Val extends WhoIsOutCardState>
+class _$WhoIsOutCardStateCopyWithImpl<$Res>
     implements $WhoIsOutCardStateCopyWith<$Res> {
-  _$WhoIsOutCardStateCopyWithImpl(this._value, this._then);
+  _$WhoIsOutCardStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final WhoIsOutCardState _self;
+  final $Res Function(WhoIsOutCardState) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = null,
-    Object? selectedDate = null,
-    Object? focusDay = null,
-    Object? calendarFormat = null,
-    Object? allAbsences = null,
-    Object? selectedDayAbsences = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as Status,
-      selectedDate: null == selectedDate
-          ? _value.selectedDate
-          : selectedDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      focusDay: null == focusDay
-          ? _value.focusDay
-          : focusDay // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      calendarFormat: null == calendarFormat
-          ? _value.calendarFormat
-          : calendarFormat // ignore: cast_nullable_to_non_nullable
-              as CalendarFormat,
-      allAbsences: null == allAbsences
-          ? _value.allAbsences
-          : allAbsences // ignore: cast_nullable_to_non_nullable
-              as List<LeaveApplication>,
-      selectedDayAbsences: freezed == selectedDayAbsences
-          ? _value.selectedDayAbsences
-          : selectedDayAbsences // ignore: cast_nullable_to_non_nullable
-              as List<LeaveApplication>?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
+/// Create a copy of WhoIsOutCardState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? selectedDate = null,Object? focusDay = null,Object? calendarFormat = null,Object? allAbsences = null,Object? selectedDayAbsences = freezed,Object? error = freezed,}) {
+  return _then(_self.copyWith(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as Status,selectedDate: null == selectedDate ? _self.selectedDate : selectedDate // ignore: cast_nullable_to_non_nullable
+as DateTime,focusDay: null == focusDay ? _self.focusDay : focusDay // ignore: cast_nullable_to_non_nullable
+as DateTime,calendarFormat: null == calendarFormat ? _self.calendarFormat : calendarFormat // ignore: cast_nullable_to_non_nullable
+as CalendarFormat,allAbsences: null == allAbsences ? _self.allAbsences : allAbsences // ignore: cast_nullable_to_non_nullable
+as List<LeaveApplication>,selectedDayAbsences: freezed == selectedDayAbsences ? _self.selectedDayAbsences : selectedDayAbsences // ignore: cast_nullable_to_non_nullable
+as List<LeaveApplication>?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [WhoIsOutCardState].
+extension WhoIsOutCardStatePatterns on WhoIsOutCardState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WhoIsOutCardState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WhoIsOutCardState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WhoIsOutCardState value)  $default,){
+final _that = this;
+switch (_that) {
+case _WhoIsOutCardState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WhoIsOutCardState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WhoIsOutCardState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Status status,  DateTime selectedDate,  DateTime focusDay,  CalendarFormat calendarFormat,  List<LeaveApplication> allAbsences,  List<LeaveApplication>? selectedDayAbsences,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WhoIsOutCardState() when $default != null:
+return $default(_that.status,_that.selectedDate,_that.focusDay,_that.calendarFormat,_that.allAbsences,_that.selectedDayAbsences,_that.error);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Status status,  DateTime selectedDate,  DateTime focusDay,  CalendarFormat calendarFormat,  List<LeaveApplication> allAbsences,  List<LeaveApplication>? selectedDayAbsences,  String? error)  $default,) {final _that = this;
+switch (_that) {
+case _WhoIsOutCardState():
+return $default(_that.status,_that.selectedDate,_that.focusDay,_that.calendarFormat,_that.allAbsences,_that.selectedDayAbsences,_that.error);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Status status,  DateTime selectedDate,  DateTime focusDay,  CalendarFormat calendarFormat,  List<LeaveApplication> allAbsences,  List<LeaveApplication>? selectedDayAbsences,  String? error)?  $default,) {final _that = this;
+switch (_that) {
+case _WhoIsOutCardState() when $default != null:
+return $default(_that.status,_that.selectedDate,_that.focusDay,_that.calendarFormat,_that.allAbsences,_that.selectedDayAbsences,_that.error);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$WhoIsOutCardStateImplCopyWith<$Res>
-    implements $WhoIsOutCardStateCopyWith<$Res> {
-  factory _$$WhoIsOutCardStateImplCopyWith(_$WhoIsOutCardStateImpl value,
-          $Res Function(_$WhoIsOutCardStateImpl) then) =
-      __$$WhoIsOutCardStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Status status,
-      DateTime selectedDate,
-      DateTime focusDay,
-      CalendarFormat calendarFormat,
-      List<LeaveApplication> allAbsences,
-      List<LeaveApplication>? selectedDayAbsences,
-      String? error});
+
+
+class _WhoIsOutCardState implements WhoIsOutCardState {
+  const _WhoIsOutCardState({this.status = Status.initial, required this.selectedDate, required this.focusDay, this.calendarFormat = CalendarFormat.week, final  List<LeaveApplication> allAbsences = const [], final  List<LeaveApplication>? selectedDayAbsences, this.error}): _allAbsences = allAbsences,_selectedDayAbsences = selectedDayAbsences;
+  
+
+@override@JsonKey() final  Status status;
+@override final  DateTime selectedDate;
+@override final  DateTime focusDay;
+@override@JsonKey() final  CalendarFormat calendarFormat;
+ final  List<LeaveApplication> _allAbsences;
+@override@JsonKey() List<LeaveApplication> get allAbsences {
+  if (_allAbsences is EqualUnmodifiableListView) return _allAbsences;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_allAbsences);
+}
+
+ final  List<LeaveApplication>? _selectedDayAbsences;
+@override List<LeaveApplication>? get selectedDayAbsences {
+  final value = _selectedDayAbsences;
+  if (value == null) return null;
+  if (_selectedDayAbsences is EqualUnmodifiableListView) return _selectedDayAbsences;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override final  String? error;
+
+/// Create a copy of WhoIsOutCardState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WhoIsOutCardStateCopyWith<_WhoIsOutCardState> get copyWith => __$WhoIsOutCardStateCopyWithImpl<_WhoIsOutCardState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WhoIsOutCardState&&(identical(other.status, status) || other.status == status)&&(identical(other.selectedDate, selectedDate) || other.selectedDate == selectedDate)&&(identical(other.focusDay, focusDay) || other.focusDay == focusDay)&&(identical(other.calendarFormat, calendarFormat) || other.calendarFormat == calendarFormat)&&const DeepCollectionEquality().equals(other._allAbsences, _allAbsences)&&const DeepCollectionEquality().equals(other._selectedDayAbsences, _selectedDayAbsences)&&(identical(other.error, error) || other.error == error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,selectedDate,focusDay,calendarFormat,const DeepCollectionEquality().hash(_allAbsences),const DeepCollectionEquality().hash(_selectedDayAbsences),error);
+
+@override
+String toString() {
+  return 'WhoIsOutCardState(status: $status, selectedDate: $selectedDate, focusDay: $focusDay, calendarFormat: $calendarFormat, allAbsences: $allAbsences, selectedDayAbsences: $selectedDayAbsences, error: $error)';
+}
+
+
 }
 
 /// @nodoc
-class __$$WhoIsOutCardStateImplCopyWithImpl<$Res>
-    extends _$WhoIsOutCardStateCopyWithImpl<$Res, _$WhoIsOutCardStateImpl>
-    implements _$$WhoIsOutCardStateImplCopyWith<$Res> {
-  __$$WhoIsOutCardStateImplCopyWithImpl(_$WhoIsOutCardStateImpl _value,
-      $Res Function(_$WhoIsOutCardStateImpl) _then)
-      : super(_value, _then);
+abstract mixin class _$WhoIsOutCardStateCopyWith<$Res> implements $WhoIsOutCardStateCopyWith<$Res> {
+  factory _$WhoIsOutCardStateCopyWith(_WhoIsOutCardState value, $Res Function(_WhoIsOutCardState) _then) = __$WhoIsOutCardStateCopyWithImpl;
+@override @useResult
+$Res call({
+ Status status, DateTime selectedDate, DateTime focusDay, CalendarFormat calendarFormat, List<LeaveApplication> allAbsences, List<LeaveApplication>? selectedDayAbsences, String? error
+});
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = null,
-    Object? selectedDate = null,
-    Object? focusDay = null,
-    Object? calendarFormat = null,
-    Object? allAbsences = null,
-    Object? selectedDayAbsences = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(_$WhoIsOutCardStateImpl(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as Status,
-      selectedDate: null == selectedDate
-          ? _value.selectedDate
-          : selectedDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      focusDay: null == focusDay
-          ? _value.focusDay
-          : focusDay // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      calendarFormat: null == calendarFormat
-          ? _value.calendarFormat
-          : calendarFormat // ignore: cast_nullable_to_non_nullable
-              as CalendarFormat,
-      allAbsences: null == allAbsences
-          ? _value._allAbsences
-          : allAbsences // ignore: cast_nullable_to_non_nullable
-              as List<LeaveApplication>,
-      selectedDayAbsences: freezed == selectedDayAbsences
-          ? _value._selectedDayAbsences
-          : selectedDayAbsences // ignore: cast_nullable_to_non_nullable
-              as List<LeaveApplication>?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+
+
+
 }
-
 /// @nodoc
+class __$WhoIsOutCardStateCopyWithImpl<$Res>
+    implements _$WhoIsOutCardStateCopyWith<$Res> {
+  __$WhoIsOutCardStateCopyWithImpl(this._self, this._then);
 
-class _$WhoIsOutCardStateImpl implements _WhoIsOutCardState {
-  const _$WhoIsOutCardStateImpl(
-      {this.status = Status.initial,
-      required this.selectedDate,
-      required this.focusDay,
-      this.calendarFormat = CalendarFormat.week,
-      final List<LeaveApplication> allAbsences = const [],
-      final List<LeaveApplication>? selectedDayAbsences,
-      this.error})
-      : _allAbsences = allAbsences,
-        _selectedDayAbsences = selectedDayAbsences;
+  final _WhoIsOutCardState _self;
+  final $Res Function(_WhoIsOutCardState) _then;
 
-  @override
-  @JsonKey()
-  final Status status;
-  @override
-  final DateTime selectedDate;
-  @override
-  final DateTime focusDay;
-  @override
-  @JsonKey()
-  final CalendarFormat calendarFormat;
-  final List<LeaveApplication> _allAbsences;
-  @override
-  @JsonKey()
-  List<LeaveApplication> get allAbsences {
-    if (_allAbsences is EqualUnmodifiableListView) return _allAbsences;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_allAbsences);
-  }
-
-  final List<LeaveApplication>? _selectedDayAbsences;
-  @override
-  List<LeaveApplication>? get selectedDayAbsences {
-    final value = _selectedDayAbsences;
-    if (value == null) return null;
-    if (_selectedDayAbsences is EqualUnmodifiableListView)
-      return _selectedDayAbsences;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final String? error;
-
-  @override
-  String toString() {
-    return 'WhoIsOutCardState(status: $status, selectedDate: $selectedDate, focusDay: $focusDay, calendarFormat: $calendarFormat, allAbsences: $allAbsences, selectedDayAbsences: $selectedDayAbsences, error: $error)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WhoIsOutCardStateImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.selectedDate, selectedDate) ||
-                other.selectedDate == selectedDate) &&
-            (identical(other.focusDay, focusDay) ||
-                other.focusDay == focusDay) &&
-            (identical(other.calendarFormat, calendarFormat) ||
-                other.calendarFormat == calendarFormat) &&
-            const DeepCollectionEquality()
-                .equals(other._allAbsences, _allAbsences) &&
-            const DeepCollectionEquality()
-                .equals(other._selectedDayAbsences, _selectedDayAbsences) &&
-            (identical(other.error, error) || other.error == error));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      status,
-      selectedDate,
-      focusDay,
-      calendarFormat,
-      const DeepCollectionEquality().hash(_allAbsences),
-      const DeepCollectionEquality().hash(_selectedDayAbsences),
-      error);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WhoIsOutCardStateImplCopyWith<_$WhoIsOutCardStateImpl> get copyWith =>
-      __$$WhoIsOutCardStateImplCopyWithImpl<_$WhoIsOutCardStateImpl>(
-          this, _$identity);
+/// Create a copy of WhoIsOutCardState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? selectedDate = null,Object? focusDay = null,Object? calendarFormat = null,Object? allAbsences = null,Object? selectedDayAbsences = freezed,Object? error = freezed,}) {
+  return _then(_WhoIsOutCardState(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as Status,selectedDate: null == selectedDate ? _self.selectedDate : selectedDate // ignore: cast_nullable_to_non_nullable
+as DateTime,focusDay: null == focusDay ? _self.focusDay : focusDay // ignore: cast_nullable_to_non_nullable
+as DateTime,calendarFormat: null == calendarFormat ? _self.calendarFormat : calendarFormat // ignore: cast_nullable_to_non_nullable
+as CalendarFormat,allAbsences: null == allAbsences ? _self._allAbsences : allAbsences // ignore: cast_nullable_to_non_nullable
+as List<LeaveApplication>,selectedDayAbsences: freezed == selectedDayAbsences ? _self._selectedDayAbsences : selectedDayAbsences // ignore: cast_nullable_to_non_nullable
+as List<LeaveApplication>?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-abstract class _WhoIsOutCardState implements WhoIsOutCardState {
-  const factory _WhoIsOutCardState(
-      {final Status status,
-      required final DateTime selectedDate,
-      required final DateTime focusDay,
-      final CalendarFormat calendarFormat,
-      final List<LeaveApplication> allAbsences,
-      final List<LeaveApplication>? selectedDayAbsences,
-      final String? error}) = _$WhoIsOutCardStateImpl;
 
-  @override
-  Status get status;
-  @override
-  DateTime get selectedDate;
-  @override
-  DateTime get focusDay;
-  @override
-  CalendarFormat get calendarFormat;
-  @override
-  List<LeaveApplication> get allAbsences;
-  @override
-  List<LeaveApplication>? get selectedDayAbsences;
-  @override
-  String? get error;
-  @override
-  @JsonKey(ignore: true)
-  _$$WhoIsOutCardStateImplCopyWith<_$WhoIsOutCardStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+// dart format on

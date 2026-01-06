@@ -11,25 +11,29 @@ class ImageProfile extends StatelessWidget {
   final Color? iconColor;
   final String? pickedImage;
 
-  const ImageProfile(
-      {super.key,
-      this.imageUrl,
-      required this.radius,
-      this.backgroundColor,
-      this.pickedImage,
-      this.iconColor});
+  const ImageProfile({
+    super.key,
+    this.imageUrl,
+    required this.radius,
+    this.backgroundColor,
+    this.pickedImage,
+    this.iconColor,
+  });
 
   Widget setCachedImage(BuildContext context) {
-    if(kIsWeb){
-      return Image.network(imageUrl?? pickedImage??'',fit: BoxFit.cover,);
+    if (kIsWeb) {
+      return Image.network(imageUrl ?? pickedImage ?? '', fit: BoxFit.cover);
     }
     if (imageUrl != null) {
       return cachedNetworkImage(imageUrl!);
     } else if (pickedImage != null) {
       return showFileImage(pickedImage!);
     } else {
-      return Icon(Icons.person,
-          size: radius, color: iconColor ?? context.colorScheme.textDisable);
+      return Icon(
+        Icons.person,
+        size: radius,
+        color: iconColor ?? context.colorScheme.textDisable,
+      );
     }
   }
 
@@ -46,8 +50,11 @@ class ImageProfile extends StatelessWidget {
       fit: BoxFit.cover,
       imageUrl: imageUrl,
       placeholder: (context, string) {
-        return Icon(Icons.person,
-            size: radius, color: iconColor ?? context.colorScheme.textDisable);
+        return Icon(
+          Icons.person,
+          size: radius,
+          color: iconColor ?? context.colorScheme.textDisable,
+        );
       },
     );
   }
@@ -55,13 +62,17 @@ class ImageProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: radius * 2,
-        width: radius * 2,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: context.colorScheme.containerHigh),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(radius),
-            child: setCachedImage(context)));
+      height: radius * 2,
+      width: radius * 2,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: context.colorScheme.containerHigh,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius),
+        child: setCachedImage(context),
+      ),
+    );
   }
 }

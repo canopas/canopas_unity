@@ -4,12 +4,13 @@ import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/theme.dart';
 
 class DrawerOption extends StatelessWidget {
-  const DrawerOption(
-      {required this.icon,
-      required this.title,
-      required this.onTap,
-      this.iconColor,
-      super.key});
+  const DrawerOption({
+    required this.icon,
+    required this.title,
+    required this.onTap,
+    this.iconColor,
+    super.key,
+  });
   final Color? iconColor;
   final IconData icon;
   final String title;
@@ -34,7 +35,8 @@ class DrawerOption extends StatelessWidget {
               child: Text(
                 title,
                 style: AppTextStyle.style18.copyWith(
-                    color: iconColor ?? context.colorScheme.textPrimary),
+                  color: iconColor ?? context.colorScheme.textPrimary,
+                ),
                 overflow: TextOverflow.fade,
               ),
             ),

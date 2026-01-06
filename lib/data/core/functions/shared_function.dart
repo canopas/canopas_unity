@@ -3,10 +3,11 @@ import '../../model/leave/leave.dart';
 
 @Injectable()
 class AppFunctions {
-  bool isUrgentLeave(
-      {required DateTime startDate,
-      required DateTime appliedOn,
-      required double totalLeaves}) {
+  bool isUrgentLeave({
+    required DateTime startDate,
+    required DateTime appliedOn,
+    required double totalLeaves,
+  }) {
     Duration diff = startDate.difference(appliedOn);
     if (totalLeaves <= 1 && diff.inDays >= 2) {
       return false;
@@ -21,9 +22,10 @@ class AppFunctions {
     }
   }
 
-  String getNotificationDuration(
-      {required double total,
-      required LeaveDayDuration firstLeaveDayDuration}) {
+  String getNotificationDuration({
+    required double total,
+    required LeaveDayDuration firstLeaveDayDuration,
+  }) {
     if (total <= 1) {
       if (firstLeaveDayDuration == LeaveDayDuration.firstHalfLeave) {
         return "First Half";

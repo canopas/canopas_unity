@@ -8,8 +8,10 @@ class StorageService {
 
   StorageService(this.firebaseStorage);
 
-  Future<String> uploadProfilePic(
-      {required String path, required String imagePath}) async {
+  Future<String> uploadProfilePic({
+    required String path,
+    required String imagePath,
+  }) async {
     final Reference storageRef = firebaseStorage.ref().child(path);
     final data = await XFile(imagePath).readAsBytes();
     await storageRef.putData(data);

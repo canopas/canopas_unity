@@ -16,12 +16,13 @@ class DeviceInfoProvider {
       if (kIsWeb) {
         WebBrowserInfo webBrowserInfo = await deviceInfoPlugin.webBrowserInfo;
         return Session(
-            lastAccessedOn: DateTime.now(),
-            deviceType: DeviceType.web,
-            deviceId: webBrowserInfo.appVersion,
-            version: int.parse(packageInfo.buildNumber),
-            deviceName: webBrowserInfo.browserName.name,
-            osVersion: webBrowserInfo.platform);
+          lastAccessedOn: DateTime.now(),
+          deviceType: DeviceType.web,
+          deviceId: webBrowserInfo.appVersion,
+          version: int.parse(packageInfo.buildNumber),
+          deviceName: webBrowserInfo.browserName.name,
+          osVersion: webBrowserInfo.platform,
+        );
       } else if (defaultTargetPlatform == TargetPlatform.android) {
         AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
         return Session(
@@ -35,41 +36,44 @@ class DeviceInfoProvider {
       } else if (defaultTargetPlatform == TargetPlatform.iOS) {
         IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
         return Session(
-            lastAccessedOn: DateTime.now(),
-            deviceType: DeviceType.ios,
-            deviceId: iosInfo.identifierForVendor,
-            version: int.parse(packageInfo.buildNumber),
-            deviceName: iosInfo.utsname.machine,
-            osVersion: iosInfo.systemVersion);
+          lastAccessedOn: DateTime.now(),
+          deviceType: DeviceType.ios,
+          deviceId: iosInfo.identifierForVendor,
+          version: int.parse(packageInfo.buildNumber),
+          deviceName: iosInfo.utsname.machine,
+          osVersion: iosInfo.systemVersion,
+        );
       } else if (defaultTargetPlatform == TargetPlatform.macOS) {
         MacOsDeviceInfo macInfo = await deviceInfoPlugin.macOsInfo;
         return Session(
-            lastAccessedOn: DateTime.now(),
-            deviceType: DeviceType.macOS,
-            deviceId: macInfo.systemGUID,
-            version: int.parse(packageInfo.buildNumber),
-            deviceName: macInfo.model,
-            osVersion:
-                "${macInfo.majorVersion}.${macInfo.minorVersion}.${macInfo.patchVersion}");
+          lastAccessedOn: DateTime.now(),
+          deviceType: DeviceType.macOS,
+          deviceId: macInfo.systemGUID,
+          version: int.parse(packageInfo.buildNumber),
+          deviceName: macInfo.model,
+          osVersion:
+              "${macInfo.majorVersion}.${macInfo.minorVersion}.${macInfo.patchVersion}",
+        );
       } else if (defaultTargetPlatform == TargetPlatform.linux) {
         LinuxDeviceInfo linuxInfo = await deviceInfoPlugin.linuxInfo;
         return Session(
-            lastAccessedOn: DateTime.now(),
-            deviceType: DeviceType.linux,
-            deviceId: linuxInfo.id,
-            version: int.parse(packageInfo.buildNumber),
-            deviceName: linuxInfo.name,
-            osVersion: linuxInfo.version);
+          lastAccessedOn: DateTime.now(),
+          deviceType: DeviceType.linux,
+          deviceId: linuxInfo.id,
+          version: int.parse(packageInfo.buildNumber),
+          deviceName: linuxInfo.name,
+          osVersion: linuxInfo.version,
+        );
       } else if (defaultTargetPlatform == TargetPlatform.windows) {
         WindowsDeviceInfo windowsInfo = await deviceInfoPlugin.windowsInfo;
         return Session(
-            lastAccessedOn: DateTime.now(),
-            deviceType: DeviceType.windows,
-            deviceId: windowsInfo.deviceId,
-            version: int.parse(packageInfo.buildNumber),
-            deviceName: windowsInfo.productName,
-            osVersion:
-                "${windowsInfo.majorVersion}.${windowsInfo.minorVersion}");
+          lastAccessedOn: DateTime.now(),
+          deviceType: DeviceType.windows,
+          deviceId: windowsInfo.deviceId,
+          version: int.parse(packageInfo.buildNumber),
+          deviceName: windowsInfo.productName,
+          osVersion: "${windowsInfo.majorVersion}.${windowsInfo.minorVersion}",
+        );
       }
     } on Exception {
       return null;

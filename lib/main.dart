@@ -6,7 +6,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_theme.dart';
@@ -59,41 +59,42 @@ class MyApp extends StatelessWidget {
     return AppThemeWidget(
       colorScheme: colorScheme,
       child: GestureDetector(
-          onTap: () {
-            if (!FocusScope.of(context).hasPrimaryFocus &&
-                FocusScope.of(context).focusedChild != null) {
-              FocusScope.of(context).focusedChild?.unfocus();
-            }
-          },
-          child: kIsWeb || !Platform.isIOS
-              ? MaterialApp.router(
-                  title: AppConsts.appTitle,
-                  scrollBehavior: AppScrollBehaviour(),
-                  debugShowCheckedModeBanner: false,
-                  theme: materialThemeDataLight,
-                  darkTheme: materialThemeDataDark,
-                  routerConfig: _router,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  builder: (context, widget) => App(child: widget!))
-              : CupertinoApp.router(
-                  title: AppConsts.appTitle,
-                  scrollBehavior: AppScrollBehaviour(),
-                  debugShowCheckedModeBanner: false,
-                  theme: CupertinoThemeData(
-                    scaffoldBackgroundColor: colorScheme.surface,
-                    primaryContrastingColor: colorScheme.onPrimary,
-                    brightness: context.brightness,
-                    barBackgroundColor: colorScheme.surface,
-                    primaryColor: colorScheme.primary,
-                    applyThemeToAll: true,
-                  ),
-                  routerConfig: _router,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  builder: (context, widget) => App(child: widget!))),
+        onTap: () {
+          if (!FocusScope.of(context).hasPrimaryFocus &&
+              FocusScope.of(context).focusedChild != null) {
+            FocusScope.of(context).focusedChild?.unfocus();
+          }
+        },
+        child: kIsWeb || !Platform.isIOS
+            ? MaterialApp.router(
+                title: AppConsts.appTitle,
+                scrollBehavior: AppScrollBehaviour(),
+                debugShowCheckedModeBanner: false,
+                theme: materialThemeDataLight,
+                darkTheme: materialThemeDataDark,
+                routerConfig: _router,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                builder: (context, widget) => App(child: widget!),
+              )
+            : CupertinoApp.router(
+                title: AppConsts.appTitle,
+                scrollBehavior: AppScrollBehaviour(),
+                debugShowCheckedModeBanner: false,
+                theme: CupertinoThemeData(
+                  scaffoldBackgroundColor: colorScheme.surface,
+                  primaryContrastingColor: colorScheme.onPrimary,
+                  brightness: context.brightness,
+                  barBackgroundColor: colorScheme.surface,
+                  primaryColor: colorScheme.primary,
+                  applyThemeToAll: true,
+                ),
+                routerConfig: _router,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                builder: (context, widget) => App(child: widget!),
+              ),
+      ),
     );
   }
 }

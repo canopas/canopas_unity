@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
@@ -9,8 +9,10 @@ import '../../../data/configs/space_constant.dart';
 class PerDayDurationDateRange extends StatelessWidget {
   final Map<DateTime, LeaveDayDuration> perDayDurationWithDate;
 
-  const PerDayDurationDateRange(
-      {super.key, required this.perDayDurationWithDate});
+  const PerDayDurationDateRange({
+    super.key,
+    required this.perDayDurationWithDate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,116 +22,146 @@ class PerDayDurationDateRange extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: perDayDurationWithDate.entries
-                  .map((date) => Container(
-                        padding: const EdgeInsets.all(primaryHalfSpacing),
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: primaryVerticalSpacing,
+                  .map(
+                    (date) => Container(
+                      padding: const EdgeInsets.all(primaryHalfSpacing),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: primaryVerticalSpacing,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: context.colorScheme.containerHigh,
                         ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: context.colorScheme.containerHigh),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                                DateFormat('EEE', context.l10n.localeName)
-                                    .format(date.key),
-                                style: AppTextStyle.style14.copyWith(
-                                    color: context.colorScheme.textPrimary)),
-                            Text(
-                                DateFormat('d', context.l10n.localeName)
-                                    .format(date.key),
-                                style: AppTextStyle.style14.copyWith(
-                                    color: context.colorScheme.primary,
-                                    fontWeight: FontWeight.bold)),
-                            Text(
-                              DateFormat('MMM', context.l10n.localeName)
-                                  .format(date.key),
-                              style: AppTextStyle.style14.copyWith(
-                                  color: context.colorScheme.textPrimary),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            DateFormat(
+                              'EEE',
+                              context.l10n.localeName,
+                            ).format(date.key),
+                            style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.textPrimary,
                             ),
-                            const SizedBox(
-                              height: primaryVerticalSpacing,
+                          ),
+                          Text(
+                            DateFormat(
+                              'd',
+                              context.l10n.localeName,
+                            ).format(date.key),
+                            style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Container(
-                              constraints: const BoxConstraints(
-                                maxWidth: 150,
+                          ),
+                          Text(
+                            DateFormat(
+                              'MMM',
+                              context.l10n.localeName,
+                            ).format(date.key),
+                            style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: primaryVerticalSpacing),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 150),
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: MediaQuery.of(context).size.width * 0.26,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: context.colorScheme.containerHigh,
                               ),
-                              alignment: Alignment.center,
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.26,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                    color: context.colorScheme.containerHigh),
-                              ),
-                              child: Text(AppLocalizations.of(context)
-                                  .leave_day_duration_tag(date.value.name)),
                             ),
-                          ],
-                        ),
-                      ))
+                            child: Text(
+                              AppLocalizations.of(
+                                context,
+                              ).leave_day_duration_tag(date.value.name),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           )
         : Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
-                children: perDayDurationWithDate.entries
-                    .map((date) => Container(
-                        padding: const EdgeInsets.all(primaryHalfSpacing),
-                        margin: const EdgeInsets.symmetric(
-                          vertical: primaryHalfSpacing,
+              children: perDayDurationWithDate.entries
+                  .map(
+                    (date) => Container(
+                      padding: const EdgeInsets.all(primaryHalfSpacing),
+                      margin: const EdgeInsets.symmetric(
+                        vertical: primaryHalfSpacing,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: context.colorScheme.containerHigh,
                         ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: context.colorScheme.containerHigh),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                                DateFormat('EEEE, ', context.l10n.localeName)
-                                    .format(date.key),
-                                style: AppTextStyle.style14.copyWith(
-                                    color: context.colorScheme.textPrimary)),
-                            Text(
-                              DateFormat('d ', context.l10n.localeName)
-                                  .format(date.key),
-                              style: AppTextStyle.style14.copyWith(
-                                  color: context.colorScheme.primary,
-                                  fontWeight: FontWeight.bold),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            DateFormat(
+                              'EEEE, ',
+                              context.l10n.localeName,
+                            ).format(date.key),
+                            style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.textPrimary,
                             ),
-                            Text(
-                              DateFormat('MMMM', context.l10n.localeName)
-                                  .format(date.key),
-                              style: AppTextStyle.style14.copyWith(
-                                  color: context.colorScheme.textPrimary),
+                          ),
+                          Text(
+                            DateFormat(
+                              'd ',
+                              context.l10n.localeName,
+                            ).format(date.key),
+                            style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const Spacer(),
-                            Container(
-                              constraints: const BoxConstraints(
-                                maxWidth: 150,
+                          ),
+                          Text(
+                            DateFormat(
+                              'MMMM',
+                              context.l10n.localeName,
+                            ).format(date.key),
+                            style: AppTextStyle.style14.copyWith(
+                              color: context.colorScheme.textPrimary,
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 150),
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: MediaQuery.of(context).size.width * 0.26,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: context.colorScheme.containerHigh,
                               ),
-                              alignment: Alignment.center,
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.26,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                    color: context.colorScheme.containerHigh),
+                            ),
+                            child: Text(
+                              context.l10n.leave_day_duration_tag(
+                                date.value.name,
                               ),
-                              child: Text(
-                                context.l10n
-                                    .leave_day_duration_tag(date.value.name),
-                                style: AppTextStyle.style14.copyWith(
-                                    color: context.colorScheme.textPrimary),
+                              style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary,
                               ),
-                            )
-                          ],
-                        )))
-                    .toList()),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
           );
   }
 }

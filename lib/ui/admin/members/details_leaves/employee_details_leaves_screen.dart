@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/style/app_page.dart';
 import 'package:projectunity/ui/admin/members/details_leaves/widget/leave_list.dart';
@@ -12,14 +12,18 @@ class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
   final String employeeName;
   final String employeeId;
 
-  const AdminEmployeeDetailsLeavesPage(
-      {super.key, required this.employeeName, required this.employeeId});
+  const AdminEmployeeDetailsLeavesPage({
+    super.key,
+    required this.employeeName,
+    required this.employeeId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AdminEmployeeDetailsLeavesBLoc>()
-        ..add(LoadInitialLeaves(employeeId: employeeId)),
+      create: (context) =>
+          getIt<AdminEmployeeDetailsLeavesBLoc>()
+            ..add(LoadInitialLeaves(employeeId: employeeId)),
       child: AdminEmployeeDetailsLeavesScreen(employeeName: employeeName),
     );
   }
@@ -28,8 +32,10 @@ class AdminEmployeeDetailsLeavesPage extends StatelessWidget {
 class AdminEmployeeDetailsLeavesScreen extends StatefulWidget {
   final String employeeName;
 
-  const AdminEmployeeDetailsLeavesScreen(
-      {super.key, required this.employeeName});
+  const AdminEmployeeDetailsLeavesScreen({
+    super.key,
+    required this.employeeName,
+  });
 
   @override
   State<AdminEmployeeDetailsLeavesScreen> createState() =>
@@ -42,8 +48,9 @@ class _AdminEmployeeDetailsLeavesScreenState
   Widget build(BuildContext context) {
     return AppPage(
       backGroundColor: context.colorScheme.surface,
-      title: AppLocalizations.of(context)
-          .employee_details_leaves_title(widget.employeeName.split(" ").first),
+      title: AppLocalizations.of(
+        context,
+      ).employee_details_leaves_title(widget.employeeName.split(" ").first),
       body: EmployeeLeaveList(employeeName: widget.employeeName),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
@@ -24,13 +24,18 @@ class UserLeavePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
           create: (_) =>
-              getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent())),
-      BlocProvider(
-          create: (_) => getIt<UserLeaveBloc>()..add(LoadInitialUserLeaves()))
-    ], child: const UserLeaveScreen());
+              getIt<UserLeaveCountBloc>()..add(FetchLeaveCountEvent()),
+        ),
+        BlocProvider(
+          create: (_) => getIt<UserLeaveBloc>()..add(LoadInitialUserLeaves()),
+        ),
+      ],
+      child: const UserLeaveScreen(),
+    );
   }
 }
 
@@ -75,37 +80,42 @@ class _UserLeaveScreenState extends State<UserLeaveScreen>
       body: Column(
         children: [
           BlocBuilder<UserLeaveCountBloc, UserLeaveCountState>(
-              builder: (context, state) {
-            if (state.status == Status.success) {
-              casualLeaves = state.usedLeavesCounts.casualLeaves;
-              urgentLeaves = state.usedLeavesCounts.urgentLeaves;
-            }
-            return TabBar(
-              padding: const EdgeInsets.only(bottom: 16),
-              indicatorSize: TabBarIndicatorSize.tab,
-              labelStyle: AppTextStyle.style16
-                  .copyWith(color: context.colorScheme.textPrimary),
-              labelPadding: const EdgeInsets.all(10),
-              controller: _tabController,
-              tabs: [
-                Text(
-                    "${context.l10n.leave_type_placeholder_text(LeaveType.casualLeave.value.toString())}($casualLeaves)"),
-                Text(
-                  "${context.l10n.leave_type_placeholder_text(LeaveType.urgentLeave.value.toString())}($urgentLeaves)",
+            builder: (context, state) {
+              if (state.status == Status.success) {
+                casualLeaves = state.usedLeavesCounts.casualLeaves;
+                urgentLeaves = state.usedLeavesCounts.urgentLeaves;
+              }
+              return TabBar(
+                padding: const EdgeInsets.only(bottom: 16),
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelStyle: AppTextStyle.style16.copyWith(
+                  color: context.colorScheme.textPrimary,
                 ),
-              ],
-            );
-          }),
+                labelPadding: const EdgeInsets.all(10),
+                controller: _tabController,
+                tabs: [
+                  Text(
+                    "${context.l10n.leave_type_placeholder_text(LeaveType.casualLeave.value.toString())}($casualLeaves)",
+                  ),
+                  Text(
+                    "${context.l10n.leave_type_placeholder_text(LeaveType.urgentLeave.value.toString())}($urgentLeaves)",
+                  ),
+                ],
+              );
+            },
+          ),
           BlocBuilder<UserLeaveBloc, UserLeaveState>(
-              buildWhen: (previous, current) =>
-                  previous.status != current.status ||
-                  previous.casualLeaves != current.casualLeaves ||
-                  previous.urgentLeaves != current.urgentLeaves ||
-                  previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
-              builder: (context, state) {
-                if (state.status == Status.success) {
-                  return Expanded(
-                    child: TabBarView(controller: _tabController, children: [
+            buildWhen: (previous, current) =>
+                previous.status != current.status ||
+                previous.casualLeaves != current.casualLeaves ||
+                previous.urgentLeaves != current.urgentLeaves ||
+                previous.fetchMoreDataStatus != current.fetchMoreDataStatus,
+            builder: (context, state) {
+              if (state.status == Status.success) {
+                return Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
                       LeaveList(
                         leaves: state.casualLeaves,
                         status: state.fetchMoreDataStatus,
@@ -116,25 +126,28 @@ class _UserLeaveScreenState extends State<UserLeaveScreen>
                         status: state.fetchMoreDataStatus,
                         leaveType: LeaveType.urgentLeave,
                       ),
-                    ]),
-                  );
-                }
-                return Expanded(
-                  child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minHeight: 300,
-                      ),
-                      child: SizedBox(
-                          height: MediaQuery.of(context).size.height - 500,
-                          child: state.status == Status.loading
-                              ? const AppCircularProgressIndicator()
-                              : EmptyScreen(
-                                  title: AppLocalizations.of(context)
-                                      .no_leaves_tag,
-                                  message: AppLocalizations.of(context)
-                                      .user_leave_empty_screen_message))),
+                    ],
+                  ),
                 );
-              })
+              }
+              return Expanded(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 300),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height - 500,
+                    child: state.status == Status.loading
+                        ? const AppCircularProgressIndicator()
+                        : EmptyScreen(
+                            title: AppLocalizations.of(context).no_leaves_tag,
+                            message: AppLocalizations.of(
+                              context,
+                            ).user_leave_empty_screen_message,
+                          ),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

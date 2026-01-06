@@ -19,12 +19,13 @@ void main() {
 
   group('Admin forms list test', () {
     OrgFormInfo formInfo1 = OrgFormInfo(
-        createdAt: DateTime.now().dateOnly,
-        id: 'form-info-1-id',
-        title: "Dummy Form",
-        description: 'Dummy Description',
-        oneTimeResponse: false,
-        headerImage: "image-url");
+      createdAt: DateTime.now().dateOnly,
+      id: 'form-info-1-id',
+      title: "Dummy Form",
+      description: 'Dummy Description',
+      oneTimeResponse: false,
+      headerImage: "image-url",
+    );
 
     group('Admin forms list Initial load test', () {
       setUp(() {
@@ -34,44 +35,54 @@ void main() {
 
       test('Initial state test', () {
         expect(
-            bloc.state,
-            const AdminFormListState(
-                error: null, status: Status.initial, forms: []));
+          bloc.state,
+          const AdminFormListState(
+            error: null,
+            status: Status.initial,
+            forms: [],
+          ),
+        );
       });
 
       test('Fetch forms success test', () {
-        when(formRepo.getForms())
-            .thenAnswer((realInvocation) async => [formInfo1]);
+        when(
+          formRepo.getForms(),
+        ).thenAnswer((realInvocation) async => [formInfo1]);
         bloc.add(AdminFormListInitialLoadEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              const AdminFormListState(status: Status.loading),
-              AdminFormListState(status: Status.success, forms: [formInfo1]),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminFormListState(status: Status.loading),
+            AdminFormListState(status: Status.success, forms: [formInfo1]),
+          ]),
+        );
       });
 
       test('Fetch forms failure test', () {
         when(formRepo.getForms()).thenThrow(Exception(firestoreFetchDataError));
         bloc.add(AdminFormListInitialLoadEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              const AdminFormListState(status: Status.loading),
-              const AdminFormListState(
-                  status: Status.error, error: firestoreFetchDataError),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminFormListState(status: Status.loading),
+            const AdminFormListState(
+              status: Status.error,
+              error: firestoreFetchDataError,
+            ),
+          ]),
+        );
       });
     });
 
     group('Admin forms list test', () {
       OrgFormInfo formInfo2 = OrgFormInfo(
-          createdAt: DateTime.now().dateOnly,
-          id: 'form-info-2-id',
-          title: "Dummy Form",
-          description: 'Dummy Description',
-          oneTimeResponse: false,
-          headerImage: "image-url");
+        createdAt: DateTime.now().dateOnly,
+        id: 'form-info-2-id',
+        title: "Dummy Form",
+        description: 'Dummy Description',
+        oneTimeResponse: false,
+        headerImage: "image-url",
+      );
 
       setUpAll(() {
         formRepo = MockFormRepo();
@@ -79,27 +90,33 @@ void main() {
       });
 
       test('Fetch forms success test', () {
-        when(formRepo.getForms())
-            .thenAnswer((realInvocation) async => [formInfo1]);
+        when(
+          formRepo.getForms(),
+        ).thenAnswer((realInvocation) async => [formInfo1]);
         bloc.add(AdminFormListInitialLoadEvent());
         expect(
-            bloc.stream,
-            emitsInOrder([
-              const AdminFormListState(status: Status.loading),
-              AdminFormListState(status: Status.success, forms: [formInfo1]),
-            ]));
+          bloc.stream,
+          emitsInOrder([
+            const AdminFormListState(status: Status.loading),
+            AdminFormListState(status: Status.success, forms: [formInfo1]),
+          ]),
+        );
       });
 
       test('Fetch forms success test', () {
-        when(formRepo.getFormInfo(formId: 'form-info-2-id'))
-            .thenAnswer((realInvocation) async => formInfo2);
+        when(
+          formRepo.getFormInfo(formId: 'form-info-2-id'),
+        ).thenAnswer((realInvocation) async => formInfo2);
         bloc.add(UpdateFormEvent('form-info-2-id'));
         expect(
-            bloc.stream,
-            emits(
-              AdminFormListState(
-                  status: Status.success, forms: [formInfo1, formInfo2]),
-            ));
+          bloc.stream,
+          emits(
+            AdminFormListState(
+              status: Status.success,
+              forms: [formInfo1, formInfo2],
+            ),
+          ),
+        );
       });
     });
   });

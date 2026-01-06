@@ -19,14 +19,19 @@ extension TimestampExtension on DateTime {
 
   bool isDateInCurrentWeek(DateTime currentDate) {
     DateTime now = DateTime.now().dateOnly;
-    DateTime startOfWeek =
-        now.dateOnly.subtract(Duration(days: now.weekday - 1));
-    DateTime endOfWeek = startOfWeek.dateOnly
-        .add(const Duration(days: DateTime.daysPerWeek - 1));
+    DateTime startOfWeek = now.dateOnly.subtract(
+      Duration(days: now.weekday - 1),
+    );
+    DateTime endOfWeek = startOfWeek.dateOnly.add(
+      const Duration(days: DateTime.daysPerWeek - 1),
+    );
 
     DateTime birthdayThisYear = DateTime(currentDate.year, month, day).dateOnly;
-    DateTime birthdayNextYear =
-        DateTime(currentDate.year + 1, month, day).dateOnly;
+    DateTime birthdayNextYear = DateTime(
+      currentDate.year + 1,
+      month,
+      day,
+    ).dateOnly;
 
     return (birthdayThisYear.isAfterOrSame(now) &&
             birthdayThisYear.isBefore(endOfWeek)) ||
@@ -66,15 +71,16 @@ extension TimestampExtension on DateTime {
 
   LeaveDayDuration getLeaveDayDuration() => isWeekend
       ? isNotForthSaturday()
-          ? LeaveDayDuration.noLeave
-          : LeaveDayDuration.firstHalfLeave
+            ? LeaveDayDuration.noLeave
+            : LeaveDayDuration.firstHalfLeave
       : LeaveDayDuration.fullLeave;
 
   bool isNotForthSaturday() {
     DateTime monthFirstDate = DateTime(year, month);
     List<DateTime> allDatesInMonth = List.generate(
-        DateTime(year, month + 1).difference(monthFirstDate).inDays,
-        (days) => monthFirstDate.add(Duration(days: days)));
+      DateTime(year, month + 1).difference(monthFirstDate).inDays,
+      (days) => monthFirstDate.add(Duration(days: days)),
+    );
     int saturdayCount = 0;
     DateTime forthSaturdayDate = allDatesInMonth.where((date) {
       if (date.weekday == DateTime.saturday) {

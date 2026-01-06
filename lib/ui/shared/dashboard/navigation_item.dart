@@ -11,32 +11,41 @@ class BottomNavigationItem {
   final String tabActiveIcon;
   final String label;
 
-  BottomNavigationItem(
-      {required this.tabIcon,
-      required this.initialLocation,
-      required this.tabActiveIcon,
-      required this.label});
+  BottomNavigationItem({
+    required this.tabIcon,
+    required this.initialLocation,
+    required this.tabActiveIcon,
+    required this.label,
+  });
 
   BottomNavigationBarItem toBottomNavigationItem(BuildContext context) {
     return BottomNavigationBarItem(
-      icon: SvgPicture.asset(tabIcon,
+      icon: SvgPicture.asset(
+        tabIcon,
+        width: 20,
+        height: 20,
+        colorFilter: ColorFilter.mode(
+          context.colorScheme.textPrimary,
+          BlendMode.srcIn,
+        ),
+      ),
+      label: label,
+      activeIcon: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+        decoration: BoxDecoration(
+          color: context.colorScheme.primary,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: SvgPicture.asset(
+          tabActiveIcon,
           width: 20,
           height: 20,
           colorFilter: ColorFilter.mode(
-              context.colorScheme.textPrimary, BlendMode.srcIn)),
-      label: label,
-      activeIcon: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-          decoration: BoxDecoration(
-              color: context.colorScheme.primary,
-              borderRadius: BorderRadius.circular(20)),
-          child: SvgPicture.asset(
-            tabActiveIcon,
-            width: 20,
-            height: 20,
-            colorFilter:
-                ColorFilter.mode(context.colorScheme.surface, BlendMode.srcIn),
-          )),
+            context.colorScheme.surface,
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
     );
   }
 }

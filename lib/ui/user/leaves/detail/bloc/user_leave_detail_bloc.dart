@@ -18,7 +18,9 @@ class UserLeaveDetailBloc
   }
 
   Future<void> _fetchLeaveDetail(
-      FetchLeaveDetailEvent event, Emitter<UserLeaveDetailState> emit) async {
+    FetchLeaveDetailEvent event,
+    Emitter<UserLeaveDetailState> emit,
+  ) async {
     emit(UserLeaveDetailLoadingState());
     try {
       Leave? leave = await _leaveRepo.fetchLeave(leaveId: event.leaveId);
@@ -27,21 +29,29 @@ class UserLeaveDetailBloc
       } else {
         bool canCancel =
             leave.startDate.areSameOrUpcoming(DateTime.now().dateOnly) &&
-                leave.status == LeaveStatus.pending;
-        emit(UserLeaveDetailSuccessState(
-            leave: leave, showCancelButton: canCancel));
+            leave.status == LeaveStatus.pending;
+        emit(
+          UserLeaveDetailSuccessState(
+            leave: leave,
+            showCancelButton: canCancel,
+          ),
+        );
       }
     } on Exception {
       emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));
     }
   }
 
-  Future<void> _cancelLeaveApplication(CancelLeaveApplicationEvent event,
-      Emitter<UserLeaveDetailState> emit) async {
+  Future<void> _cancelLeaveApplication(
+    CancelLeaveApplicationEvent event,
+    Emitter<UserLeaveDetailState> emit,
+  ) async {
     emit(UserLeaveDetailLoadingState());
     try {
       await _leaveRepo.updateLeaveStatus(
-          leaveId: event.leaveId, status: LeaveStatus.cancelled);
+        leaveId: event.leaveId,
+        status: LeaveStatus.cancelled,
+      );
       emit(UserCancelLeaveSuccessState());
     } on Exception {
       emit(UserLeaveDetailErrorState(error: firestoreFetchDataError));

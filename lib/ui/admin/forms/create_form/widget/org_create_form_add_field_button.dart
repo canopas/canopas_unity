@@ -22,14 +22,16 @@ class CreateOrgFormAddFieldButton extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                  onPressed: () => bloc.add(AddFieldEvent()),
-                  icon: const Icon(Icons.add_rounded)),
+                onPressed: () => bloc.add(AddFieldEvent()),
+                icon: const Icon(Icons.add_rounded),
+              ),
               IconButton(
-                  onPressed: () => bloc.add(AddFieldImageEvent()),
-                  icon: const Icon(Icons.image_outlined))
+                onPressed: () => bloc.add(AddFieldImageEvent()),
+                icon: const Icon(Icons.image_outlined),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

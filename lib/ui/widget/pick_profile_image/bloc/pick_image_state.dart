@@ -6,10 +6,7 @@ class PickImageState extends Equatable {
 
   const PickImageState({this.pickedImage, this.isPickImageDone = false});
 
-  copyWith({
-    String? pickedImage,
-    bool? isPickImageDone,
-  }) =>
+  PickImageState copyWith({String? pickedImage, bool? isPickImageDone}) =>
       PickImageState(
         pickedImage: pickedImage ?? this.pickedImage,
         isPickImageDone: isPickImageDone ?? false,

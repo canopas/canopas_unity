@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import '../../../../../data/model/employee/employee.dart';
 import '../../../../widget/employee_details_field.dart';
 
@@ -19,7 +19,9 @@ class EmployeeInfo extends StatelessWidget {
           subtitle: employee.phone,
         ),
         EmployeeDetailsField(
-            title: localization.employee_email_tag, subtitle: employee.email),
+          title: localization.employee_email_tag,
+          subtitle: employee.email,
+        ),
         EmployeeDetailsField(
           title: localization.employee_level_tag,
           subtitle: employee.level,

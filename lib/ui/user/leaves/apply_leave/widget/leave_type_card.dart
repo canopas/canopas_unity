@@ -8,9 +8,7 @@ import '../bloc/apply_leave_event.dart';
 import '../bloc/apply_leave_state.dart';
 
 class LeaveTypeCard extends StatelessWidget {
-  const LeaveTypeCard({
-    super.key,
-  });
+  const LeaveTypeCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +23,9 @@ class LeaveTypeCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 context.l10n.user_leaves_apply_leave_type_tag,
-                style: AppTextStyle.style14
-                    .copyWith(color: context.colorScheme.textSecondary),
+                style: AppTextStyle.style14.copyWith(
+                  color: context.colorScheme.textSecondary,
+                ),
               ),
             ),
             BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
@@ -43,16 +42,19 @@ class LeaveTypeCard extends StatelessWidget {
                       value: leaveType,
                       child: Text(
                         context.l10n.leave_type_placeholder_text(
-                            leaveType.value.toString()),
-                        style: AppTextStyle.style18
-                            .copyWith(color: context.colorScheme.textPrimary),
+                          leaveType.value.toString(),
+                        ),
+                        style: AppTextStyle.style18.copyWith(
+                          color: context.colorScheme.textPrimary,
+                        ),
                       ),
                     );
                   }).toList(),
                   value: state.leaveType,
                   onChanged: (LeaveType? leaveType) {
                     context.read<ApplyLeaveBloc>().add(
-                        ApplyLeaveChangeLeaveTypeEvent(leaveType: leaveType));
+                      ApplyLeaveChangeLeaveTypeEvent(leaveType: leaveType),
+                    );
                   },
                 ),
               ),

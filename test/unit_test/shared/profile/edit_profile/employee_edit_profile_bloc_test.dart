@@ -29,18 +29,19 @@ void main() {
   late EmployeeEditProfileBloc editEmployeeDetailsBloc;
 
   Employee emp = Employee(
-      uid: "123",
-      role: Role.admin,
-      name: "dummy tester",
-      employeeId: "CA-1000",
-      email: "dummy.t@canopas.com",
-      designation: "Application Tester",
-      dateOfJoining: DateTime.now().dateOnly,
-      level: "SW-L2",
-      gender: Gender.male,
-      dateOfBirth: DateTime.now().dateOnly,
-      address: "california",
-      phone: "+1 000000-0000");
+    uid: "123",
+    role: Role.admin,
+    name: "dummy tester",
+    employeeId: "CA-1000",
+    email: "dummy.t@canopas.com",
+    designation: "Application Tester",
+    dateOfJoining: DateTime.now().dateOnly,
+    level: "SW-L2",
+    gender: Gender.male,
+    dateOfBirth: DateTime.now().dateOnly,
+    address: "california",
+    phone: "+1 000000-0000",
+  );
 
   group("admin-edit-employee-details-test", () {
     setUp(() {
@@ -49,7 +50,11 @@ void main() {
       preference = MockUserPreference();
       storageService = MockStorageService();
       editEmployeeDetailsBloc = EmployeeEditProfileBloc(
-          employeeService, preference, userStateNotifier, storageService);
+        employeeService,
+        preference,
+        userStateNotifier,
+        storageService,
+      );
       when(userStateNotifier.employeeId).thenReturn(emp.uid);
       when(userStateNotifier.employee).thenReturn(emp);
       when(userStateNotifier.currentSpaceId).thenReturn('sid');
@@ -57,81 +62,116 @@ void main() {
     });
 
     test('test initial test', () {
-      editEmployeeDetailsBloc.add(EditProfileInitialLoadEvent(
-          gender: emp.gender, dateOfBirth: emp.dateOfBirth));
+      editEmployeeDetailsBloc.add(
+        EditProfileInitialLoadEvent(
+          gender: emp.gender,
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emits(EmployeeEditProfileState(
-              dateOfBirth: emp.dateOfBirth!, gender: emp.gender)));
+        editEmployeeDetailsBloc.stream,
+        emits(
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: emp.gender,
+          ),
+        ),
+      );
     });
 
     test('test name validation', () {
       editEmployeeDetailsBloc.add(EditProfileNameChangedEvent(name: ""));
-      editEmployeeDetailsBloc
-          .add(EditProfileNameChangedEvent(name: "Tester Dummy"));
+      editEmployeeDetailsBloc.add(
+        EditProfileNameChangedEvent(name: "Tester Dummy"),
+      );
       expect(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            const EmployeeEditProfileState(nameError: true),
-            const EmployeeEditProfileState(nameError: false)
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          const EmployeeEditProfileState(nameError: true),
+          const EmployeeEditProfileState(nameError: false),
+        ]),
+      );
     });
 
     test('Emits state with change image', () {
       editEmployeeDetailsBloc.add(ChangeImageEvent('path'));
-      expectLater(editEmployeeDetailsBloc.stream,
-          emits(const EmployeeEditProfileState(imageURL: 'path')));
+      expectLater(
+        editEmployeeDetailsBloc.stream,
+        emits(const EmployeeEditProfileState(imageURL: 'path')),
+      );
     });
 
-    test('Should upload profile on storage if user set profile picture',
-        () async {
-      editEmployeeDetailsBloc.add(ChangeImageEvent('path'));
+    test(
+      'Should upload profile on storage if user set profile picture',
+      () async {
+        editEmployeeDetailsBloc.add(ChangeImageEvent('path'));
 
-      const storagePath = 'images/sid/123/profile';
-      when(storageService.uploadProfilePic(
-              path: storagePath, imagePath: 'path'))
-          .thenAnswer((_) async => 'uid');
+        const storagePath = 'images/sid/123/profile';
+        when(
+          storageService.uploadProfilePic(path: storagePath, imagePath: 'path'),
+        ).thenAnswer((_) async => 'uid');
 
-      editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
-          name: emp.name,
-          designation: emp.designation!,
-          phoneNumber: emp.phone!,
-          address: emp.address!,
-          level: emp.level!));
+        editEmployeeDetailsBloc.add(
+          EditProfileUpdateProfileEvent(
+            name: emp.name,
+            designation: emp.designation!,
+            phoneNumber: emp.phone!,
+            address: emp.address!,
+            level: emp.level!,
+          ),
+        );
 
-      expectLater(
+        expectLater(
           editEmployeeDetailsBloc.stream,
           emitsInOrder([
             const EmployeeEditProfileState(
-                status: Status.initial, imageURL: 'path'),
+              status: Status.initial,
+              imageURL: 'path',
+            ),
             const EmployeeEditProfileState(
-                status: Status.loading, imageURL: 'path')
-          ]));
-    });
+              status: Status.loading,
+              imageURL: 'path',
+            ),
+          ]),
+        );
+      },
+    );
 
     test('update Employee details success test', () async {
-      editEmployeeDetailsBloc.add(EditProfileInitialLoadEvent(
-          gender: emp.gender, dateOfBirth: emp.dateOfBirth));
-      editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
+      editEmployeeDetailsBloc.add(
+        EditProfileInitialLoadEvent(
+          gender: emp.gender,
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
+      editEmployeeDetailsBloc.add(
+        EditProfileUpdateProfileEvent(
           name: emp.name,
           designation: emp.designation!,
           phoneNumber: emp.phone!,
           address: emp.address!,
-          level: emp.level!));
+          level: emp.level!,
+        ),
+      );
       expectLater(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!, gender: emp.gender),
-            EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!,
-                gender: emp.gender,
-                status: Status.loading),
-            EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!,
-                gender: emp.gender,
-                status: Status.success),
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: emp.gender,
+          ),
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: emp.gender,
+            status: Status.loading,
+          ),
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: emp.gender,
+            status: Status.success,
+          ),
+        ]),
+      );
 
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);
@@ -141,31 +181,44 @@ void main() {
     });
 
     test('Emits error state while updating data on firestore', () async {
-      editEmployeeDetailsBloc.add(EditProfileInitialLoadEvent(
-          gender: emp.gender, dateOfBirth: emp.dateOfBirth));
-      when(employeeService.updateEmployeeDetails(employee: emp))
-          .thenThrow(Exception("error"));
-      editEmployeeDetailsBloc.add(EditProfileUpdateProfileEvent(
+      editEmployeeDetailsBloc.add(
+        EditProfileInitialLoadEvent(
+          gender: emp.gender,
+          dateOfBirth: emp.dateOfBirth,
+        ),
+      );
+      when(
+        employeeService.updateEmployeeDetails(employee: emp),
+      ).thenThrow(Exception("error"));
+      editEmployeeDetailsBloc.add(
+        EditProfileUpdateProfileEvent(
           name: emp.name,
           designation: emp.designation!,
           phoneNumber: emp.phone!,
           address: emp.address!,
-          level: emp.level!));
+          level: emp.level!,
+        ),
+      );
       expectLater(
-          editEmployeeDetailsBloc.stream,
-          emitsInOrder([
-            EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!, gender: emp.gender),
-            EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!,
-                gender: Gender.male,
-                status: Status.loading),
-            EmployeeEditProfileState(
-                dateOfBirth: emp.dateOfBirth!,
-                gender: Gender.male,
-                status: Status.error,
-                error: firestoreFetchDataError),
-          ]));
+        editEmployeeDetailsBloc.stream,
+        emitsInOrder([
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: emp.gender,
+          ),
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: Gender.male,
+            status: Status.loading,
+          ),
+          EmployeeEditProfileState(
+            dateOfBirth: emp.dateOfBirth!,
+            gender: Gender.male,
+            status: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
 
       await untilCalled(employeeService.updateEmployeeDetails(employee: emp));
       verify(employeeService.updateEmployeeDetails(employee: emp)).called(1);

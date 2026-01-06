@@ -11,9 +11,7 @@ import '../bloc/leave_count/user_leave_count_bloc.dart';
 import '../bloc/leave_count/user_leave_count_state.dart';
 
 class LeaveCountCard extends StatelessWidget {
-  const LeaveCountCard({
-    super.key,
-  });
+  const LeaveCountCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,63 +26,67 @@ class LeaveCountCard extends StatelessWidget {
         borderRadius: AppTheme.commonBorderRadius,
       ),
       child: BlocConsumer<UserLeaveCountBloc, UserLeaveCountState>(
-          listenWhen: (previous, current) => current.status == Status.error,
-          listener: (context, state) {
-            if (state.status == Status.error) {
-              showSnackBar(context: context, error: state.error);
-            }
-          },
-          builder: (context, state) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                          state.usedLeavesCounts.casualLeaves
-                              .fixedAt(2)
-                              .toString(),
-                          style: AppTextStyle.style20),
-                      const SizedBox(height: 4),
-                      Text(
-                        context.l10n.leave_type_placeholder_text(
-                            LeaveType.casualLeave.value.toString()),
-                        style: AppTextStyle.style16
-                            .copyWith(color: context.colorScheme.primary),
-                      )
-                    ],
-                  ),
+        listenWhen: (previous, current) => current.status == Status.error,
+        listener: (context, state) {
+          if (state.status == Status.error) {
+            showSnackBar(context: context, error: state.error);
+          }
+        },
+        builder: (context, state) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      state.usedLeavesCounts.casualLeaves.fixedAt(2).toString(),
+                      style: AppTextStyle.style20,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      context.l10n.leave_type_placeholder_text(
+                        LeaveType.casualLeave.value.toString(),
+                      ),
+                      style: AppTextStyle.style16.copyWith(
+                        color: context.colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  height: 60,
-                  width: 1,
-                  color: context.colorScheme.containerHigh,
+              ),
+              Container(
+                height: 60,
+                width: 1,
+                color: context.colorScheme.containerHigh,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      state.usedLeavesCounts.urgentLeaves.fixedAt(2).toString(),
+                      style: AppTextStyle.style20.copyWith(
+                        color: context.colorScheme.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      context.l10n.leave_type_placeholder_text(
+                        LeaveType.urgentLeave.value.toString(),
+                      ),
+                      style: AppTextStyle.style16.copyWith(
+                        color: context.colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                          state.usedLeavesCounts.urgentLeaves
-                              .fixedAt(2)
-                              .toString(),
-                          style: AppTextStyle.style20.copyWith(
-                              color: context.colorScheme.textPrimary)),
-                      const SizedBox(height: 4),
-                      Text(
-                        context.l10n.leave_type_placeholder_text(
-                            LeaveType.urgentLeave.value.toString()),
-                        style: AppTextStyle.style16
-                            .copyWith(color: context.colorScheme.primary),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            );
-          }),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

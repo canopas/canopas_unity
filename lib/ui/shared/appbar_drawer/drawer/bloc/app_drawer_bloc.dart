@@ -16,53 +16,85 @@ class DrawerBloc extends Bloc<DrawerEvents, DrawerState> {
   final UserStateNotifier _userManager;
   final EmployeeService _employeeService;
 
-  DrawerBloc(this._spaceService, this._userManager, this._accountService,
-      this._employeeService)
-      : super(const DrawerState()) {
+  DrawerBloc(
+    this._spaceService,
+    this._userManager,
+    this._accountService,
+    this._employeeService,
+  ) : super(const DrawerState()) {
     on<FetchSpacesEvent>(_fetchSpaces);
     on<ChangeSpaceEvent>(_changeSpace);
     on<SignOutFromSpaceEvent>(_signOutFromCurrentSpace);
   }
 
   Future<void> _fetchSpaces(
-      FetchSpacesEvent event, Emitter<DrawerState> emit) async {
-    emit(state.copyWith(
-        fetchSpacesStatus: Status.loading, changeSpaceStatus: Status.initial));
+    FetchSpacesEvent event,
+    Emitter<DrawerState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        fetchSpacesStatus: Status.loading,
+        changeSpaceStatus: Status.initial,
+      ),
+    );
     try {
-      final List<String> spaceIds =
-          await _accountService.fetchSpaceIds(uid: _userManager.userUID!);
-      final spaces = await Future.wait(spaceIds.map((spaceId) async {
-        return await _spaceService.getSpace(spaceId);
-      })).then((value) => value.nonNulls.toList());
+      final List<String> spaceIds = await _accountService.fetchSpaceIds(
+        uid: _userManager.userUID!,
+      );
+      final spaces = await Future.wait(
+        spaceIds.map((spaceId) async {
+          return await _spaceService.getSpace(spaceId);
+        }),
+      ).then((value) => value.nonNulls.toList());
       emit(state.copyWith(fetchSpacesStatus: Status.success, spaces: spaces));
     } on Exception {
-      emit(state.copyWith(
-          fetchSpacesStatus: Status.error, error: firestoreFetchDataError));
+      emit(
+        state.copyWith(
+          fetchSpacesStatus: Status.error,
+          error: firestoreFetchDataError,
+        ),
+      );
     }
   }
 
   Future<void> _changeSpace(
-      ChangeSpaceEvent event, Emitter<DrawerState> emit) async {
+    ChangeSpaceEvent event,
+    Emitter<DrawerState> emit,
+  ) async {
     emit(state.copyWith(changeSpaceStatus: Status.loading));
     try {
       final spaceUser = await _employeeService.getEmployeeBySpaceId(
-          spaceId: event.space.id, userId: _userManager.userUID!);
+        spaceId: event.space.id,
+        userId: _userManager.userUID!,
+      );
       if (spaceUser != null) {
         await _userManager.setEmployeeWithSpace(
-            space: event.space, spaceUser: spaceUser);
+          space: event.space,
+          spaceUser: spaceUser,
+        );
         emit(state.copyWith(changeSpaceStatus: Status.success));
       } else {
-        emit(state.copyWith(
-            changeSpaceStatus: Status.error, error: firestoreFetchDataError));
+        emit(
+          state.copyWith(
+            changeSpaceStatus: Status.error,
+            error: firestoreFetchDataError,
+          ),
+        );
       }
     } on Exception {
-      emit(state.copyWith(
-          changeSpaceStatus: Status.error, error: firestoreFetchDataError));
+      emit(
+        state.copyWith(
+          changeSpaceStatus: Status.error,
+          error: firestoreFetchDataError,
+        ),
+      );
     }
   }
 
   Future<void> _signOutFromCurrentSpace(
-      SignOutFromSpaceEvent event, Emitter<DrawerState> emit) async {
+    SignOutFromSpaceEvent event,
+    Emitter<DrawerState> emit,
+  ) async {
     emit(state.copyWith(signOutStatus: Status.loading));
     try {
       await _userManager.removeEmployeeWithSpace();

@@ -16,7 +16,7 @@ import 'invite_member_bloc_test.mocks.dart';
   InvitationService,
   UserStateNotifier,
   EmployeeService,
-  NotificationService
+  NotificationService,
 ])
 void main() {
   late InviteMemberBloc inviteMemberBloc;
@@ -30,146 +30,212 @@ void main() {
     invitationService = MockInvitationService();
     employeeService = MockEmployeeService();
     notificationService = MockNotificationService();
-    inviteMemberBloc = InviteMemberBloc(invitationService, userStateNotifier,
-        employeeService, notificationService);
+    inviteMemberBloc = InviteMemberBloc(
+      invitationService,
+      userStateNotifier,
+      employeeService,
+      notificationService,
+    );
   });
 
   test('Should emit state initial state as default state ', () {
-    expect(inviteMemberBloc.state,
-        const InviteMemberState(status: Status.initial));
-  });
-
-  test(
-      'Should emit state with emailError false if user has not added any input',
-      () {
-    expect(inviteMemberBloc.state, const InviteMemberState(emailError: false));
-  });
-
-  test(
-      'Should emit state with input that contains properly formatted email if user add any input in textField',
-      () {
-    inviteMemberBloc.add(AddEmailEvent('Andrew.j@google.com'));
     expect(
+      inviteMemberBloc.state,
+      const InviteMemberState(status: Status.initial),
+    );
+  });
+
+  test(
+    'Should emit state with emailError false if user has not added any input',
+    () {
+      expect(
+        inviteMemberBloc.state,
+        const InviteMemberState(emailError: false),
+      );
+    },
+  );
+
+  test(
+    'Should emit state with input that contains properly formatted email if user add any input in textField',
+    () {
+      inviteMemberBloc.add(AddEmailEvent('Andrew.j@google.com'));
+      expect(
         inviteMemberBloc.stream,
-        emits(const InviteMemberState(
-            email: 'Andrew.j@google.com', emailError: false)));
-  });
+        emits(
+          const InviteMemberState(
+            email: 'Andrew.j@google.com',
+            emailError: false,
+          ),
+        ),
+      );
+    },
+  );
 
   test(
-      'Should emit error state with input that contains does not  properly formatted email if user add any input in textField',
-      () {
-    inviteMemberBloc.add(AddEmailEvent('Andrew'));
-    expect(inviteMemberBloc.stream,
-        emits(const InviteMemberState(email: 'Andrew', emailError: true)));
-  });
+    'Should emit error state with input that contains does not  properly formatted email if user add any input in textField',
+    () {
+      inviteMemberBloc.add(AddEmailEvent('Andrew'));
+      expect(
+        inviteMemberBloc.stream,
+        emits(const InviteMemberState(email: 'Andrew', emailError: true)),
+      );
+    },
+  );
 
   test(
-      'Should emit loading and error state if email input is not valid on InviteMemberEvent',
-      () {
-    inviteMemberBloc.add(InviteMemberEvent());
-    expect(
+    'Should emit loading and error state if email input is not valid on InviteMemberEvent',
+    () {
+      inviteMemberBloc.add(InviteMemberEvent());
+      expect(
         inviteMemberBloc.stream,
         emitsInOrder([
           const InviteMemberState(status: Status.loading),
           const InviteMemberState(
-              status: Status.error, error: provideRequiredInformation)
-        ]));
-  });
+            status: Status.error,
+            error: provideRequiredInformation,
+          ),
+        ]),
+      );
+    },
+  );
 
   test(
-      'Should emit loading state and success state  if email input is valid on InviteMemberEvent',
-      () async {
-    when(userStateNotifier.currentSpaceName).thenReturn('canopas');
-    when(notificationService.sendInviteNotification(
-            companyName: 'canopas', receiver: 'andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => true);
-    when(userStateNotifier.userUID).thenReturn('uid');
-    when(userStateNotifier.currentSpaceId).thenReturn('space_id');
-    when(employeeService.hasUser('andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => false);
-    when(invitationService.checkMemberInvitationAlreadyExist(
-            spaceId: 'space_id', email: 'andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => false);
-    when(invitationService.addInvitation(
-            senderId: 'uid',
-            spaceId: 'space_id',
-            receiverEmail: 'andrew.j@google.com'))
-        .thenAnswer((_) async => {});
-    inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
-    inviteMemberBloc.add(InviteMemberEvent());
-    expectLater(
+    'Should emit loading state and success state  if email input is valid on InviteMemberEvent',
+    () async {
+      when(userStateNotifier.currentSpaceName).thenReturn('canopas');
+      when(
+        notificationService.sendInviteNotification(
+          companyName: 'canopas',
+          receiver: 'andrew.j@google.com',
+        ),
+      ).thenAnswer((realInvocation) async => true);
+      when(userStateNotifier.userUID).thenReturn('uid');
+      when(userStateNotifier.currentSpaceId).thenReturn('space_id');
+      when(
+        employeeService.hasUser('andrew.j@google.com'),
+      ).thenAnswer((realInvocation) async => false);
+      when(
+        invitationService.checkMemberInvitationAlreadyExist(
+          spaceId: 'space_id',
+          email: 'andrew.j@google.com',
+        ),
+      ).thenAnswer((realInvocation) async => false);
+      when(
+        invitationService.addInvitation(
+          senderId: 'uid',
+          spaceId: 'space_id',
+          receiverEmail: 'andrew.j@google.com',
+        ),
+      ).thenAnswer((_) async => {});
+      inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
+      inviteMemberBloc.add(InviteMemberEvent());
+      expectLater(
         inviteMemberBloc.stream,
         emitsInOrder([
           const InviteMemberState(
-              status: Status.initial, email: 'andrew.j@google.com'),
+            status: Status.initial,
+            email: 'andrew.j@google.com',
+          ),
           const InviteMemberState(
-              status: Status.loading, email: 'andrew.j@google.com'),
+            status: Status.loading,
+            email: 'andrew.j@google.com',
+          ),
           const InviteMemberState(
-              status: Status.success, email: 'andrew.j@google.com')
-        ]));
-  });
+            status: Status.success,
+            email: 'andrew.j@google.com',
+          ),
+        ]),
+      );
+    },
+  );
 
   test(
-      'Should emit loading state and error state  if Exception is thrown by firestore',
-      () {
-    when(invitationService.addInvitation(
-            senderId: 'uid',
-            spaceId: 'space_id',
-            receiverEmail: 'andrew.j@google.com'))
-        .thenThrow(Exception(firestoreFetchDataError));
-    when(userStateNotifier.userUID).thenReturn('uid');
-    when(userStateNotifier.currentSpaceId).thenReturn('space_id');
-    when(employeeService.hasUser('andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => false);
-    when(invitationService.checkMemberInvitationAlreadyExist(
-            spaceId: 'space_id', email: 'andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => false);
-    inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
-    inviteMemberBloc.add(InviteMemberEvent());
+    'Should emit loading state and error state  if Exception is thrown by firestore',
+    () {
+      when(
+        invitationService.addInvitation(
+          senderId: 'uid',
+          spaceId: 'space_id',
+          receiverEmail: 'andrew.j@google.com',
+        ),
+      ).thenThrow(Exception(firestoreFetchDataError));
+      when(userStateNotifier.userUID).thenReturn('uid');
+      when(userStateNotifier.currentSpaceId).thenReturn('space_id');
+      when(
+        employeeService.hasUser('andrew.j@google.com'),
+      ).thenAnswer((realInvocation) async => false);
+      when(
+        invitationService.checkMemberInvitationAlreadyExist(
+          spaceId: 'space_id',
+          email: 'andrew.j@google.com',
+        ),
+      ).thenAnswer((realInvocation) async => false);
+      inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
+      inviteMemberBloc.add(InviteMemberEvent());
 
-    expectLater(
+      expectLater(
         inviteMemberBloc.stream,
         emitsInOrder([
           const InviteMemberState(
-              status: Status.initial, email: 'andrew.j@google.com'),
+            status: Status.initial,
+            email: 'andrew.j@google.com',
+          ),
           const InviteMemberState(
-              status: Status.loading, email: 'andrew.j@google.com'),
+            status: Status.loading,
+            email: 'andrew.j@google.com',
+          ),
           const InviteMemberState(
-              status: Status.error,
-              email: 'andrew.j@google.com',
-              error: firestoreFetchDataError)
-        ]));
-  });
+            status: Status.error,
+            email: 'andrew.j@google.com',
+            error: firestoreFetchDataError,
+          ),
+        ]),
+      );
+    },
+  );
 
   test(
-      'Should emit loading state and error state if user already invited exception',
-      () {
-    when(invitationService.addInvitation(
-            senderId: 'uid',
-            spaceId: 'space_id',
-            receiverEmail: 'andrew.j@google.com'))
-        .thenThrow(Exception(firestoreFetchDataError));
-    when(userStateNotifier.userUID).thenReturn('uid');
-    when(userStateNotifier.currentSpaceId).thenReturn('space_id');
-    when(employeeService.hasUser('andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => true);
-    when(invitationService.checkMemberInvitationAlreadyExist(
-            spaceId: 'space_id', email: 'andrew.j@google.com'))
-        .thenAnswer((realInvocation) async => true);
-    inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
-    inviteMemberBloc.add(InviteMemberEvent());
+    'Should emit loading state and error state if user already invited exception',
+    () {
+      when(
+        invitationService.addInvitation(
+          senderId: 'uid',
+          spaceId: 'space_id',
+          receiverEmail: 'andrew.j@google.com',
+        ),
+      ).thenThrow(Exception(firestoreFetchDataError));
+      when(userStateNotifier.userUID).thenReturn('uid');
+      when(userStateNotifier.currentSpaceId).thenReturn('space_id');
+      when(
+        employeeService.hasUser('andrew.j@google.com'),
+      ).thenAnswer((realInvocation) async => true);
+      when(
+        invitationService.checkMemberInvitationAlreadyExist(
+          spaceId: 'space_id',
+          email: 'andrew.j@google.com',
+        ),
+      ).thenAnswer((realInvocation) async => true);
+      inviteMemberBloc.add(AddEmailEvent('andrew.j@google.com'));
+      inviteMemberBloc.add(InviteMemberEvent());
 
-    expectLater(
+      expectLater(
         inviteMemberBloc.stream,
         emitsInOrder([
           const InviteMemberState(
-              status: Status.initial, email: 'andrew.j@google.com'),
+            status: Status.initial,
+            email: 'andrew.j@google.com',
+          ),
           const InviteMemberState(
-              status: Status.loading, email: 'andrew.j@google.com'),
+            status: Status.loading,
+            email: 'andrew.j@google.com',
+          ),
           const InviteMemberState(
-              status: Status.error,
-              email: 'andrew.j@google.com',
-              error: userAlreadyInvited)
-        ]));
-  });
+            status: Status.error,
+            email: 'andrew.j@google.com',
+            error: userAlreadyInvited,
+          ),
+        ]),
+      );
+    },
+  );
 }

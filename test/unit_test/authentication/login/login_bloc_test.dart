@@ -41,11 +41,12 @@ void main() {
       when(authService.signInWithGoogle()).thenAnswer((_) async => null);
       bloc.add(GoogleSignInEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const SignInState(googleSignInLoading: true),
-            const SignInState(googleSignInLoading: false),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const SignInState(googleSignInLoading: true),
+          const SignInState(googleSignInLoading: false),
+        ]),
+      );
     });
 
     test("Login success test", () async {
@@ -55,11 +56,12 @@ void main() {
       when(accountService.getUser(authUser)).thenAnswer((_) async => user);
       bloc.add(GoogleSignInEvent());
       expect(
-          bloc.stream,
-          emitsInOrder([
-            const SignInState(googleSignInLoading: true),
-            const SignInState(googleSignInLoading: false, signInSuccess: true),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const SignInState(googleSignInLoading: true),
+          const SignInState(googleSignInLoading: false, signInSuccess: true),
+        ]),
+      );
       await untilCalled(userStateNotifier.setUser(user));
       verify(userStateNotifier.setUser(user)).called(1);
     });

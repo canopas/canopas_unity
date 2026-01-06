@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'setup_profile_state.freezed.dart';
 
 @freezed
-class SetupProfileState with _$SetupProfileState {
+abstract class SetupProfileState with _$SetupProfileState {
   const factory SetupProfileState({
     @Default("") String name,
     @Default("") String email,

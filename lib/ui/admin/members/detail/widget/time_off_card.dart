@@ -25,22 +25,24 @@ class TimeOffCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(
-          vertical: primaryVerticalSpacing,
-          horizontal: primaryHorizontalSpacing),
+        vertical: primaryVerticalSpacing,
+        horizontal: primaryHorizontalSpacing,
+      ),
       decoration: BoxDecoration(
-          color: context.colorScheme.surface,
-          borderRadius: AppTheme.commonBorderRadius,
-          boxShadow: AppTheme.commonBoxShadow(context)),
+        color: context.colorScheme.surface,
+        borderRadius: AppTheme.commonBorderRadius,
+        boxShadow: AppTheme.commonBoxShadow(context),
+      ),
       child: Material(
         color: context.colorScheme.surface,
         borderRadius: AppTheme.commonBorderRadius,
         child: InkWell(
           borderRadius: AppTheme.commonBorderRadius,
-          onTap: () => context.goNamed(Routes.adminEmployeeDetailsLeaves,
-              extra: employee.uid,
-              pathParameters: {
-                RoutesParamsConst.employeeName: employee.name,
-              }),
+          onTap: () => context.goNamed(
+            Routes.adminEmployeeDetailsLeaves,
+            extra: employee.uid,
+            pathParameters: {RoutesParamsConst.employeeName: employee.name},
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -65,13 +67,12 @@ class TimeOffCard extends StatelessWidget {
                           color: context.colorScheme.primary,
                           value: percentage,
                         ),
-                        const SizedBox(
-                          width: 15,
-                        ),
+                        const SizedBox(width: 15),
                         Text(
                           context.l10n.admin_employees_detail_time_off_tag,
-                          style: AppTextStyle.style16
-                              .copyWith(color: context.colorScheme.textPrimary),
+                          style: AppTextStyle.style16.copyWith(
+                            color: context.colorScheme.textPrimary,
+                          ),
                         ),
                       ],
                     ),
@@ -82,10 +83,7 @@ class TimeOffCard extends StatelessWidget {
                           style: AppTextStyle.style16,
                         ),
                         const SizedBox(width: 10),
-                        const Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          size: 20,
-                        ),
+                        const Icon(Icons.arrow_forward_ios_outlined, size: 20),
                       ],
                     ),
                   ],

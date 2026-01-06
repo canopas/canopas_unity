@@ -17,8 +17,10 @@ class UserLeaveDetailSuccessState extends UserLeaveDetailState {
   final Leave leave;
   final bool showCancelButton;
 
-  UserLeaveDetailSuccessState(
-      {required this.leave, required this.showCancelButton});
+  UserLeaveDetailSuccessState({
+    required this.leave,
+    required this.showCancelButton,
+  });
 
   @override
   List<Object?> get props => [leave, showCancelButton];

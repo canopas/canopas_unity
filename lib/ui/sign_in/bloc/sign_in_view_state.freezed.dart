@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,237 +9,278 @@ part of 'sign_in_view_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$SignInState {
-  dynamic get appleSignInAvailable => throw _privateConstructorUsedError;
-  dynamic get googleSignInLoading => throw _privateConstructorUsedError;
-  dynamic get appleSignInLoading => throw _privateConstructorUsedError;
-  dynamic get signInSuccess => throw _privateConstructorUsedError;
-  Object? get firebaseAuthUser => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $SignInStateCopyWith<SignInState> get copyWith =>
-      throw _privateConstructorUsedError;
+ bool get appleSignInAvailable; bool get googleSignInLoading; bool get appleSignInLoading; bool get signInSuccess; firebase_auth.User? get firebaseAuthUser; String? get error;
+/// Create a copy of SignInState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SignInStateCopyWith<SignInState> get copyWith => _$SignInStateCopyWithImpl<SignInState>(this as SignInState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInState&&(identical(other.appleSignInAvailable, appleSignInAvailable) || other.appleSignInAvailable == appleSignInAvailable)&&(identical(other.googleSignInLoading, googleSignInLoading) || other.googleSignInLoading == googleSignInLoading)&&(identical(other.appleSignInLoading, appleSignInLoading) || other.appleSignInLoading == appleSignInLoading)&&(identical(other.signInSuccess, signInSuccess) || other.signInSuccess == signInSuccess)&&(identical(other.firebaseAuthUser, firebaseAuthUser) || other.firebaseAuthUser == firebaseAuthUser)&&(identical(other.error, error) || other.error == error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,appleSignInAvailable,googleSignInLoading,appleSignInLoading,signInSuccess,firebaseAuthUser,error);
+
+@override
+String toString() {
+  return 'SignInState(appleSignInAvailable: $appleSignInAvailable, googleSignInLoading: $googleSignInLoading, appleSignInLoading: $appleSignInLoading, signInSuccess: $signInSuccess, firebaseAuthUser: $firebaseAuthUser, error: $error)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SignInStateCopyWith<$Res> {
-  factory $SignInStateCopyWith(
-          SignInState value, $Res Function(SignInState) then) =
-      _$SignInStateCopyWithImpl<$Res, SignInState>;
-  @useResult
-  $Res call(
-      {dynamic appleSignInAvailable,
-      dynamic googleSignInLoading,
-      dynamic appleSignInLoading,
-      dynamic signInSuccess,
-      Object? firebaseAuthUser,
-      String? error});
-}
+abstract mixin class $SignInStateCopyWith<$Res>  {
+  factory $SignInStateCopyWith(SignInState value, $Res Function(SignInState) _then) = _$SignInStateCopyWithImpl;
+@useResult
+$Res call({
+ bool appleSignInAvailable, bool googleSignInLoading, bool appleSignInLoading, bool signInSuccess, firebase_auth.User? firebaseAuthUser, String? error
+});
 
+
+
+
+}
 /// @nodoc
-class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
+class _$SignInStateCopyWithImpl<$Res>
     implements $SignInStateCopyWith<$Res> {
-  _$SignInStateCopyWithImpl(this._value, this._then);
+  _$SignInStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final SignInState _self;
+  final $Res Function(SignInState) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appleSignInAvailable = freezed,
-    Object? googleSignInLoading = freezed,
-    Object? appleSignInLoading = freezed,
-    Object? signInSuccess = freezed,
-    Object? firebaseAuthUser = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(_value.copyWith(
-      appleSignInAvailable: freezed == appleSignInAvailable
-          ? _value.appleSignInAvailable
-          : appleSignInAvailable // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      googleSignInLoading: freezed == googleSignInLoading
-          ? _value.googleSignInLoading
-          : googleSignInLoading // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      appleSignInLoading: freezed == appleSignInLoading
-          ? _value.appleSignInLoading
-          : appleSignInLoading // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      signInSuccess: freezed == signInSuccess
-          ? _value.signInSuccess
-          : signInSuccess // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      firebaseAuthUser: freezed == firebaseAuthUser
-          ? _value.firebaseAuthUser
-          : firebaseAuthUser,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
+/// Create a copy of SignInState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? appleSignInAvailable = null,Object? googleSignInLoading = null,Object? appleSignInLoading = null,Object? signInSuccess = null,Object? firebaseAuthUser = freezed,Object? error = freezed,}) {
+  return _then(_self.copyWith(
+appleSignInAvailable: null == appleSignInAvailable ? _self.appleSignInAvailable : appleSignInAvailable // ignore: cast_nullable_to_non_nullable
+as bool,googleSignInLoading: null == googleSignInLoading ? _self.googleSignInLoading : googleSignInLoading // ignore: cast_nullable_to_non_nullable
+as bool,appleSignInLoading: null == appleSignInLoading ? _self.appleSignInLoading : appleSignInLoading // ignore: cast_nullable_to_non_nullable
+as bool,signInSuccess: null == signInSuccess ? _self.signInSuccess : signInSuccess // ignore: cast_nullable_to_non_nullable
+as bool,firebaseAuthUser: freezed == firebaseAuthUser ? _self.firebaseAuthUser : firebaseAuthUser // ignore: cast_nullable_to_non_nullable
+as firebase_auth.User?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SignInState].
+extension SignInStatePatterns on SignInState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SignInState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SignInState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SignInState value)  $default,){
+final _that = this;
+switch (_that) {
+case _SignInState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SignInState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SignInState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool appleSignInAvailable,  bool googleSignInLoading,  bool appleSignInLoading,  bool signInSuccess,  firebase_auth.User? firebaseAuthUser,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SignInState() when $default != null:
+return $default(_that.appleSignInAvailable,_that.googleSignInLoading,_that.appleSignInLoading,_that.signInSuccess,_that.firebaseAuthUser,_that.error);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool appleSignInAvailable,  bool googleSignInLoading,  bool appleSignInLoading,  bool signInSuccess,  firebase_auth.User? firebaseAuthUser,  String? error)  $default,) {final _that = this;
+switch (_that) {
+case _SignInState():
+return $default(_that.appleSignInAvailable,_that.googleSignInLoading,_that.appleSignInLoading,_that.signInSuccess,_that.firebaseAuthUser,_that.error);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool appleSignInAvailable,  bool googleSignInLoading,  bool appleSignInLoading,  bool signInSuccess,  firebase_auth.User? firebaseAuthUser,  String? error)?  $default,) {final _that = this;
+switch (_that) {
+case _SignInState() when $default != null:
+return $default(_that.appleSignInAvailable,_that.googleSignInLoading,_that.appleSignInLoading,_that.signInSuccess,_that.firebaseAuthUser,_that.error);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$SignInStateImplCopyWith<$Res>
-    implements $SignInStateCopyWith<$Res> {
-  factory _$$SignInStateImplCopyWith(
-          _$SignInStateImpl value, $Res Function(_$SignInStateImpl) then) =
-      __$$SignInStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {dynamic appleSignInAvailable,
-      dynamic googleSignInLoading,
-      dynamic appleSignInLoading,
-      dynamic signInSuccess,
-      Object? firebaseAuthUser,
-      String? error});
+
+
+class _SignInState implements SignInState {
+  const _SignInState({this.appleSignInAvailable = false, this.googleSignInLoading = false, this.appleSignInLoading = false, this.signInSuccess = false, this.firebaseAuthUser, this.error});
+  
+
+@override@JsonKey() final  bool appleSignInAvailable;
+@override@JsonKey() final  bool googleSignInLoading;
+@override@JsonKey() final  bool appleSignInLoading;
+@override@JsonKey() final  bool signInSuccess;
+@override final  firebase_auth.User? firebaseAuthUser;
+@override final  String? error;
+
+/// Create a copy of SignInState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SignInStateCopyWith<_SignInState> get copyWith => __$SignInStateCopyWithImpl<_SignInState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInState&&(identical(other.appleSignInAvailable, appleSignInAvailable) || other.appleSignInAvailable == appleSignInAvailable)&&(identical(other.googleSignInLoading, googleSignInLoading) || other.googleSignInLoading == googleSignInLoading)&&(identical(other.appleSignInLoading, appleSignInLoading) || other.appleSignInLoading == appleSignInLoading)&&(identical(other.signInSuccess, signInSuccess) || other.signInSuccess == signInSuccess)&&(identical(other.firebaseAuthUser, firebaseAuthUser) || other.firebaseAuthUser == firebaseAuthUser)&&(identical(other.error, error) || other.error == error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,appleSignInAvailable,googleSignInLoading,appleSignInLoading,signInSuccess,firebaseAuthUser,error);
+
+@override
+String toString() {
+  return 'SignInState(appleSignInAvailable: $appleSignInAvailable, googleSignInLoading: $googleSignInLoading, appleSignInLoading: $appleSignInLoading, signInSuccess: $signInSuccess, firebaseAuthUser: $firebaseAuthUser, error: $error)';
+}
+
+
 }
 
 /// @nodoc
-class __$$SignInStateImplCopyWithImpl<$Res>
-    extends _$SignInStateCopyWithImpl<$Res, _$SignInStateImpl>
-    implements _$$SignInStateImplCopyWith<$Res> {
-  __$$SignInStateImplCopyWithImpl(
-      _$SignInStateImpl _value, $Res Function(_$SignInStateImpl) _then)
-      : super(_value, _then);
+abstract mixin class _$SignInStateCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
+  factory _$SignInStateCopyWith(_SignInState value, $Res Function(_SignInState) _then) = __$SignInStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool appleSignInAvailable, bool googleSignInLoading, bool appleSignInLoading, bool signInSuccess, firebase_auth.User? firebaseAuthUser, String? error
+});
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appleSignInAvailable = freezed,
-    Object? googleSignInLoading = freezed,
-    Object? appleSignInLoading = freezed,
-    Object? signInSuccess = freezed,
-    Object? firebaseAuthUser = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(_$SignInStateImpl(
-      appleSignInAvailable: freezed == appleSignInAvailable
-          ? _value.appleSignInAvailable!
-          : appleSignInAvailable,
-      googleSignInLoading: freezed == googleSignInLoading
-          ? _value.googleSignInLoading!
-          : googleSignInLoading,
-      appleSignInLoading: freezed == appleSignInLoading
-          ? _value.appleSignInLoading!
-          : appleSignInLoading,
-      signInSuccess:
-          freezed == signInSuccess ? _value.signInSuccess! : signInSuccess,
-      firebaseAuthUser: freezed == firebaseAuthUser
-          ? _value.firebaseAuthUser
-          : firebaseAuthUser,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+
+
+
 }
-
 /// @nodoc
+class __$SignInStateCopyWithImpl<$Res>
+    implements _$SignInStateCopyWith<$Res> {
+  __$SignInStateCopyWithImpl(this._self, this._then);
 
-class _$SignInStateImpl implements _SignInState {
-  const _$SignInStateImpl(
-      {this.appleSignInAvailable = false,
-      this.googleSignInLoading = false,
-      this.appleSignInLoading = false,
-      this.signInSuccess = false,
-      this.firebaseAuthUser,
-      this.error});
+  final _SignInState _self;
+  final $Res Function(_SignInState) _then;
 
-  @override
-  @JsonKey()
-  final dynamic appleSignInAvailable;
-  @override
-  @JsonKey()
-  final dynamic googleSignInLoading;
-  @override
-  @JsonKey()
-  final dynamic appleSignInLoading;
-  @override
-  @JsonKey()
-  final dynamic signInSuccess;
-  @override
-  final Object? firebaseAuthUser;
-  @override
-  final String? error;
-
-  @override
-  String toString() {
-    return 'SignInState(appleSignInAvailable: $appleSignInAvailable, googleSignInLoading: $googleSignInLoading, appleSignInLoading: $appleSignInLoading, signInSuccess: $signInSuccess, firebaseAuthUser: $firebaseAuthUser, error: $error)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SignInStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other.appleSignInAvailable, appleSignInAvailable) &&
-            const DeepCollectionEquality()
-                .equals(other.googleSignInLoading, googleSignInLoading) &&
-            const DeepCollectionEquality()
-                .equals(other.appleSignInLoading, appleSignInLoading) &&
-            const DeepCollectionEquality()
-                .equals(other.signInSuccess, signInSuccess) &&
-            const DeepCollectionEquality()
-                .equals(other.firebaseAuthUser, firebaseAuthUser) &&
-            (identical(other.error, error) || other.error == error));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(appleSignInAvailable),
-      const DeepCollectionEquality().hash(googleSignInLoading),
-      const DeepCollectionEquality().hash(appleSignInLoading),
-      const DeepCollectionEquality().hash(signInSuccess),
-      const DeepCollectionEquality().hash(firebaseAuthUser),
-      error);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SignInStateImplCopyWith<_$SignInStateImpl> get copyWith =>
-      __$$SignInStateImplCopyWithImpl<_$SignInStateImpl>(this, _$identity);
+/// Create a copy of SignInState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? appleSignInAvailable = null,Object? googleSignInLoading = null,Object? appleSignInLoading = null,Object? signInSuccess = null,Object? firebaseAuthUser = freezed,Object? error = freezed,}) {
+  return _then(_SignInState(
+appleSignInAvailable: null == appleSignInAvailable ? _self.appleSignInAvailable : appleSignInAvailable // ignore: cast_nullable_to_non_nullable
+as bool,googleSignInLoading: null == googleSignInLoading ? _self.googleSignInLoading : googleSignInLoading // ignore: cast_nullable_to_non_nullable
+as bool,appleSignInLoading: null == appleSignInLoading ? _self.appleSignInLoading : appleSignInLoading // ignore: cast_nullable_to_non_nullable
+as bool,signInSuccess: null == signInSuccess ? _self.signInSuccess : signInSuccess // ignore: cast_nullable_to_non_nullable
+as bool,firebaseAuthUser: freezed == firebaseAuthUser ? _self.firebaseAuthUser : firebaseAuthUser // ignore: cast_nullable_to_non_nullable
+as firebase_auth.User?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-abstract class _SignInState implements SignInState {
-  const factory _SignInState(
-      {final dynamic appleSignInAvailable,
-      final dynamic googleSignInLoading,
-      final dynamic appleSignInLoading,
-      final dynamic signInSuccess,
-      final Object? firebaseAuthUser,
-      final String? error}) = _$SignInStateImpl;
 
-  @override
-  dynamic get appleSignInAvailable;
-  @override
-  dynamic get googleSignInLoading;
-  @override
-  dynamic get appleSignInLoading;
-  @override
-  dynamic get signInSuccess;
-  @override
-  Object? get firebaseAuthUser;
-  @override
-  String? get error;
-  @override
-  @JsonKey(ignore: true)
-  _$$SignInStateImplCopyWith<_$SignInStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+// dart format on

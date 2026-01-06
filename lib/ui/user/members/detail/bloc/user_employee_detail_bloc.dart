@@ -11,12 +11,14 @@ class UserEmployeeDetailBloc
   final LeaveRepo _leaveRepo;
 
   UserEmployeeDetailBloc(this._leaveRepo)
-      : super(UserEmployeeDetailInitialState()) {
+    : super(UserEmployeeDetailInitialState()) {
     on<UserEmployeeDetailFetchEvent>(_fetchInitialData);
   }
 
-  Future<void> _fetchInitialData(UserEmployeeDetailFetchEvent event,
-      Emitter<UserEmployeeDetailState> emit) async {
+  Future<void> _fetchInitialData(
+    UserEmployeeDetailFetchEvent event,
+    Emitter<UserEmployeeDetailState> emit,
+  ) async {
     emit(UserEmployeeDetailLoadingState());
     try {
       final leaves = await _leaveRepo.getUpcomingLeavesOfUser(uid: event.uid);

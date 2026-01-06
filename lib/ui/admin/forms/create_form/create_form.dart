@@ -11,7 +11,7 @@ import 'package:projectunity/ui/admin/forms/create_form/widget/org_create_form_a
 import 'package:projectunity/ui/admin/forms/create_form/widget/org_create_form_info_view.dart';
 import 'package:projectunity/ui/admin/forms/create_form/widget/org_field_image_view.dart';
 import 'package:projectunity/ui/admin/forms/create_form/widget/org_field_question_view.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../style/app_page.dart';
@@ -63,9 +63,9 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
               showSnackBar(context: context, error: state.error);
             } else if (state.status == Status.success) {
               showSnackBar(
-                  context: context,
-                  msg:
-                      AppLocalizations.of(context).create_form_success_message);
+                context: context,
+                msg: AppLocalizations.of(context).create_form_success_message,
+              );
               context.pop(state.formId);
             }
           },
@@ -78,78 +78,86 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
               : Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: TextButton(
-                      onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          context
-                              .read<CreateFormBloc>()
-                              .add(CreateNewFormEvent());
-                        }
-                      },
-                      child: Text(AppLocalizations.of(context).create_tag)),
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        context.read<CreateFormBloc>().add(
+                          CreateNewFormEvent(),
+                        );
+                      }
+                    },
+                    child: Text(AppLocalizations.of(context).create_tag),
+                  ),
                 ),
-        )
+        ),
       ],
       body: Form(
-          key: _formKey,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return constraints.maxWidth < 800
-                  ? ListView(
-                      padding: const EdgeInsets.all(16),
-                      children: [
-                        OrgCreateFormInfoView(
-                            titleController: _titleController,
-                            descriptionController: _descriptionController),
-                        Divider(
-                            color: context.colorScheme.textSecondary,
-                            thickness: 0.2),
-                        const QuestionsView(),
-                        const CreateOrgFormAddFieldButton(),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: 600,
+        key: _formKey,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return constraints.maxWidth < 800
+                ? ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      OrgCreateFormInfoView(
+                        titleController: _titleController,
+                        descriptionController: _descriptionController,
+                      ),
+                      Divider(
+                        color: context.colorScheme.textSecondary,
+                        thickness: 0.2,
+                      ),
+                      const QuestionsView(),
+                      const CreateOrgFormAddFieldButton(),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 600),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              right: 8,
+                              left: 16,
+                              bottom: 16,
+                              top: 16,
+                            ),
+                            child: OrgCreateFormInfoView(
+                              titleController: _titleController,
+                              descriptionController: _descriptionController,
+                            ),
                           ),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Padding(
+                        ),
+                      ),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 600),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: ScrollConfiguration(
+                            behavior: ScrollConfiguration.of(
+                              context,
+                            ).copyWith(scrollbars: false),
+                            child: ListView(
                               padding: const EdgeInsets.only(
-                                  right: 8, left: 16, bottom: 16, top: 16),
-                              child: OrgCreateFormInfoView(
-                                  titleController: _titleController,
-                                  descriptionController:
-                                      _descriptionController),
-                            ),
-                          ),
-                        ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: 600,
-                          ),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: ScrollConfiguration(
-                              behavior: ScrollConfiguration.of(context)
-                                  .copyWith(scrollbars: false),
-                              child: ListView(
-                                padding: const EdgeInsets.only(
-                                    right: 16, left: 8, bottom: 16),
-                                children: const [
-                                  QuestionsView(),
-                                  CreateOrgFormAddFieldButton(),
-                                ],
+                                right: 16,
+                                left: 8,
+                                bottom: 16,
                               ),
+                              children: const [
+                                QuestionsView(),
+                                CreateOrgFormAddFieldButton(),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    );
-            },
-          )),
+                      ),
+                    ],
+                  );
+          },
+        ),
+      ),
     );
   }
 }
@@ -160,17 +168,18 @@ class QuestionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
-        buildWhen: (previous, current) => previous.fields != current.fields,
-        builder: (context, state) => ListView.separated(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: state.fields.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
-              itemBuilder: (context, index) =>
-                  state.fields[index].type == FormFieldType.text
-                      ? FormFieldView(orgFormField: state.fields[index])
-                      : FormFieldImageView(orgFormField: state.fields[index]),
-            ));
+      buildWhen: (previous, current) => previous.fields != current.fields,
+      builder: (context, state) => ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: state.fields.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        itemBuilder: (context, index) =>
+            state.fields[index].type == FormFieldType.text
+            ? FormFieldView(orgFormField: state.fields[index])
+            : FormFieldImageView(orgFormField: state.fields[index]),
+      ),
+    );
   }
 }

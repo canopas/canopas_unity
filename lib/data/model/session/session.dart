@@ -5,9 +5,10 @@ import '../../core/converters /date_converter.dart';
 part 'session.g.dart';
 
 @JsonSerializable(
-    fieldRename: FieldRename.snake,
-    includeIfNull: false,
-    converters: [DateTimeConverter()])
+  fieldRename: FieldRename.snake,
+  includeIfNull: false,
+  converters: [DateTimeConverter()],
+)
 class Session {
   String? deviceId;
   String? deviceToken;
@@ -17,14 +18,15 @@ class Session {
   String? osVersion;
   DateTime? lastAccessedOn;
 
-  Session(
-      {this.deviceId,
-      this.deviceToken,
-      this.deviceType,
-      this.version,
-      this.deviceName,
-      this.osVersion,
-      this.lastAccessedOn});
+  Session({
+    this.deviceId,
+    this.deviceToken,
+    this.deviceType,
+    this.version,
+    this.deviceName,
+    this.osVersion,
+    this.lastAccessedOn,
+  });
 
   factory Session.fromJson(Map<String, dynamic> map) => _$SessionFromJson(map);
 

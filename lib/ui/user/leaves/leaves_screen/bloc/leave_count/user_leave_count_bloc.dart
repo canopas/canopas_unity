@@ -14,24 +14,27 @@ class UserLeaveCountBloc
   final UserStateNotifier _userManger;
 
   UserLeaveCountBloc(this._leaveRepo, this._userManger)
-      : super(const UserLeaveCountState()) {
+    : super(const UserLeaveCountState()) {
     on<FetchLeaveCountEvent>(_fetchLeaveCount);
   }
 
   Future<void> _fetchLeaveCount(
-      FetchLeaveCountEvent event, Emitter<UserLeaveCountState> emit) async {
+    FetchLeaveCountEvent event,
+    Emitter<UserLeaveCountState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final leaveCounts =
-          await _leaveRepo.getUserUsedLeaves(uid: _userManger.employeeId);
+      final leaveCounts = await _leaveRepo.getUserUsedLeaves(
+        uid: _userManger.employeeId,
+      );
 
-      emit(state.copyWith(
-        status: Status.success,
-        usedLeavesCounts: leaveCounts,
-      ));
+      emit(
+        state.copyWith(status: Status.success, usedLeavesCounts: leaveCounts),
+      );
     } on Exception {
-      emit(state.copyWith(
-          status: Status.success, error: firestoreFetchDataError));
+      emit(
+        state.copyWith(status: Status.success, error: firestoreFetchDataError),
+      );
     }
   }
 }

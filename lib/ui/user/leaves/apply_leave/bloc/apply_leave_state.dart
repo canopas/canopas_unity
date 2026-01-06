@@ -41,31 +41,32 @@ class ApplyLeaveState extends Equatable {
     String? error,
   }) {
     return ApplyLeaveState(
-        leaveId: leaveId ?? this.leaveId,
-        leaveRequestStatus: leaveRequestStatus ?? this.leaveRequestStatus,
-        error: error,
-        showTextFieldError: showTextFieldError ?? this.showTextFieldError,
-        startDate: startDate ?? this.startDate,
-        endDate: endDate ?? this.endDate,
-        leaveType: leaveType ?? this.leaveType,
-        reason: reason ?? this.reason,
-        selectedDates: selectedDates ?? this.selectedDates,
-        totalLeaveDays: totalLeaveDays ?? this.totalLeaveDays);
+      leaveId: leaveId ?? this.leaveId,
+      leaveRequestStatus: leaveRequestStatus ?? this.leaveRequestStatus,
+      error: error,
+      showTextFieldError: showTextFieldError ?? this.showTextFieldError,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      leaveType: leaveType ?? this.leaveType,
+      reason: reason ?? this.reason,
+      selectedDates: selectedDates ?? this.selectedDates,
+      totalLeaveDays: totalLeaveDays ?? this.totalLeaveDays,
+    );
   }
 
   bool get isFailure => error != null && leaveRequestStatus == Status.error;
 
   @override
   List<Object?> get props => [
-        leaveId,
-        leaveRequestStatus,
-        error,
-        showTextFieldError,
-        leaveType,
-        startDate,
-        selectedDates,
-        endDate,
-        totalLeaveDays,
-        reason
-      ];
+    leaveId,
+    leaveRequestStatus,
+    error,
+    showTextFieldError,
+    leaveType,
+    startDate,
+    selectedDates,
+    endDate,
+    totalLeaveDays,
+    reason,
+  ];
 }

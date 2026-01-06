@@ -9,8 +9,9 @@ part of 'org_form_response.dart';
 OrgFormResponse _$OrgFormResponseFromJson(Map<String, dynamic> json) =>
     OrgFormResponse(
       id: json['id'] as String,
-      submittedAt: const DateTimeConverter()
-          .fromJson((json['submitted_at'] as num).toInt()),
+      submittedAt: const DateTimeConverter().fromJson(
+        (json['submitted_at'] as num).toInt(),
+      ),
       uid: json['uid'] as String,
       formId: json['form_id'] as String,
       response: (json['response'] as List<dynamic>)

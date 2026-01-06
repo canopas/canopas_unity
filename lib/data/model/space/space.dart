@@ -6,9 +6,10 @@ import 'package:projectunity/data/core/converters%20/date_converter.dart';
 part 'space.g.dart';
 
 @JsonSerializable(
-    includeIfNull: false,
-    fieldRename: FieldRename.snake,
-    converters: [DateTimeConverter()])
+  includeIfNull: false,
+  fieldRename: FieldRename.snake,
+  converters: [DateTimeConverter()],
+)
 class Space extends Equatable {
   final String id;
   final String name;
@@ -34,21 +35,23 @@ class Space extends Equatable {
 
   Map<String, dynamic> toFirestore() => _$SpaceToJson(this);
 
-  factory Space.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options) {
+  factory Space.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     Map<String, dynamic> map = snapshot.data()!;
     return Space.fromJson(map);
   }
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        createdAt,
-        paidTimeOff,
-        ownerIds,
-        domain,
-        logo,
-        notificationEmail
-      ];
+    id,
+    name,
+    createdAt,
+    paidTimeOff,
+    ownerIds,
+    domain,
+    logo,
+    notificationEmail,
+  ];
 }

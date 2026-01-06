@@ -11,7 +11,7 @@ import '../../../widget/error_snack_bar.dart';
 import 'bloc/user_forms_list_screen_bloc.dart';
 import 'bloc/user_forms_list_screen_event.dart';
 import 'bloc/user_forms_list_screen_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 
 class UserFormListPage extends StatelessWidget {
   const UserFormListPage({super.key});
@@ -56,18 +56,17 @@ class _UserFormListScreenState extends State<UserFormListScreen> {
             return const AppCircularProgressIndicator();
           } else if (state.status == Status.success && state.forms.isNotEmpty) {
             return ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemBuilder: (context, index) =>
-                    UserListFormCard(formInfo: state.forms[index]),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
-                itemCount: state.forms.length);
+              padding: const EdgeInsets.all(16),
+              itemBuilder: (context, index) =>
+                  UserListFormCard(formInfo: state.forms[index]),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemCount: state.forms.length,
+            );
           }
           return EmptyScreen(
-              message:
-                  AppLocalizations.of(context).form_list_empty_screen_title,
-              title:
-                  AppLocalizations.of(context).form_list_empty_screen_message);
+            message: AppLocalizations.of(context).form_list_empty_screen_title,
+            title: AppLocalizations.of(context).form_list_empty_screen_message,
+          );
         },
       ),
     );

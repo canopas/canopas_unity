@@ -10,41 +10,38 @@ import '../bloc/sign_in_view_event.dart';
 import '../bloc/sign_in_view_state.dart';
 
 class GoogleSignInButton extends StatelessWidget {
-  const GoogleSignInButton({
-    super.key,
-  });
+  const GoogleSignInButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
-        buildWhen: (previous, current) =>
-            previous.googleSignInLoading != current.googleSignInLoading,
-        builder: (context, state) {
-          return AppButton(
-            backgroundColor: Colors.white,
-            onTap: () => context.read<SignInBloc>().add(GoogleSignInEvent()),
-            loading: state.googleSignInLoading,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  Assets.images.googleLogo,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Flexible(
-                  child: Text(
-                    context.l10n.google_login_button_text,
-                    style: AppTextStyle.style18.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.clip,
+      buildWhen: (previous, current) =>
+          previous.googleSignInLoading != current.googleSignInLoading,
+      builder: (context, state) {
+        return AppButton(
+          backgroundColor: Colors.white,
+          onTap: () => context.read<SignInBloc>().add(GoogleSignInEvent()),
+          loading: state.googleSignInLoading,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(Assets.images.googleLogo),
+              const SizedBox(width: 20),
+              Flexible(
+                child: Text(
+                  context.l10n.google_login_button_text,
+                  style: AppTextStyle.style18.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
                   ),
+                  overflow: TextOverflow.clip,
                 ),
-                const SizedBox(width: 35),
-              ],
-            ),
-          );
-        });
+              ),
+              const SizedBox(width: 35),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

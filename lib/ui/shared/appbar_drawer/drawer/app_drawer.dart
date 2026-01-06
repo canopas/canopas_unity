@@ -14,7 +14,7 @@ import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../widget/circular_progress_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'bloc/app_drawer_bloc.dart';
 import 'bloc/app_drawer_event.dart';
 import 'bloc/app_drawer_state.dart';
@@ -45,7 +45,8 @@ class _AppDrawerState extends State<AppDrawer> {
           try {
             GoRouter.of(context).refresh();
             context.replaceNamed(
-                userManager.isEmployee ? Routes.userHome : Routes.adminHome);
+              userManager.isEmployee ? Routes.userHome : Routes.adminHome,
+            );
             context.pop();
           } catch (_) {}
         }
@@ -54,13 +55,12 @@ class _AppDrawerState extends State<AppDrawer> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(30), topRight: Radius.circular(30)),
+            bottomRight: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
           color: context.colorScheme.surface,
         ),
-        constraints: const BoxConstraints(
-          maxWidth: 300,
-          minWidth: 200,
-        ),
+        constraints: const BoxConstraints(maxWidth: 300, minWidth: 200),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.8,
         child: SafeArea(
@@ -73,18 +73,17 @@ class _AppDrawerState extends State<AppDrawer> {
                   currentEmployee: userManager.employee,
                   isAdminOrHr: userManager.isAdmin || userManager.isHR,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 SpaceList(
                   userEmail: userManager.userEmail!,
                   currentSpaceId: userManager.currentSpaceId,
                 ),
                 const Divider(height: 0),
                 DrawerOptionList(
-                    isAdmin: userManager.isAdmin,
-                    currentSpaceName: userManager.currentSpace!.name,
-                    isAdminOrHr: userManager.isAdmin || userManager.isHR),
+                  isAdmin: userManager.isAdmin,
+                  currentSpaceName: userManager.currentSpace!.name,
+                  isAdminOrHr: userManager.isAdmin || userManager.isHR,
+                ),
               ],
             ),
           ),
@@ -99,11 +98,12 @@ class DrawerOptionList extends StatelessWidget {
   final bool isAdminOrHr;
   final String currentSpaceName;
 
-  const DrawerOptionList(
-      {super.key,
-      required this.isAdmin,
-      required this.isAdminOrHr,
-      required this.currentSpaceName});
+  const DrawerOptionList({
+    super.key,
+    required this.isAdmin,
+    required this.isAdminOrHr,
+    required this.currentSpaceName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,23 +115,26 @@ class DrawerOptionList extends StatelessWidget {
           ValidateWidget(
             isValid: isAdmin,
             child: DrawerOption(
-                icon: Icons.edit_note_rounded,
-                title: locale.edit_space_button_tag,
-                onTap: () {
-                  context.pop();
-                  context.pushNamed(Routes.editSpaceDetails);
-                }),
+              icon: Icons.edit_note_rounded,
+              title: locale.edit_space_button_tag,
+              onTap: () {
+                context.pop();
+                context.pushNamed(Routes.editSpaceDetails);
+              },
+            ),
           ),
           ValidateWidget(
             isValid: false,
             child: DrawerOption(
-                icon: Icons.feed_outlined,
-                title: locale.forms_title,
-                onTap: () {
-                  context.pop();
-                  context.goNamed(
-                      isAdminOrHr ? Routes.adminForms : Routes.userForms);
-                }),
+              icon: Icons.feed_outlined,
+              title: locale.forms_title,
+              onTap: () {
+                context.pop();
+                context.goNamed(
+                  isAdminOrHr ? Routes.adminForms : Routes.userForms,
+                );
+              },
+            ),
           ),
           BlocBuilder<DrawerBloc, DrawerState>(
             buildWhen: (previous, current) =>
@@ -154,51 +157,59 @@ class SpaceList extends StatelessWidget {
   final String userEmail;
   final String? currentSpaceId;
 
-  const SpaceList(
-      {super.key, required this.userEmail, required this.currentSpaceId});
+  const SpaceList({
+    super.key,
+    required this.userEmail,
+    required this.currentSpaceId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: BlocBuilder<DrawerBloc, DrawerState>(
-          buildWhen: (previous, current) =>
-              previous.fetchSpacesStatus != current.fetchSpacesStatus,
-          builder: (context, state) {
-            if (state.fetchSpacesStatus == Status.loading) {
-              return ThreeBounceLoading(
-                color: context.colorScheme.primary,
-                size: 20,
-              );
-            } else if (state.fetchSpacesStatus == Status.success) {
-              if (state.spaces.isEmpty) {
-                return const SizedBox();
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(context.l10n.spaces_title,
-                      style: AppTextStyle.style20
-                          .copyWith(color: context.colorScheme.textPrimary)),
-                  Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 10),
-                      itemCount: state.spaces.length,
-                      itemBuilder: (context, index) => DrawerSpaceCard(
-                          isSelected: currentSpaceId == state.spaces[index].id,
-                          logo: state.spaces[index].logo,
-                          name: state.spaces[index].name,
-                          onTap: () async {
-                            context
-                                .read<DrawerBloc>()
-                                .add(ChangeSpaceEvent(state.spaces[index]));
-                          }),
+        buildWhen: (previous, current) =>
+            previous.fetchSpacesStatus != current.fetchSpacesStatus,
+        builder: (context, state) {
+          if (state.fetchSpacesStatus == Status.loading) {
+            return ThreeBounceLoading(
+              color: context.colorScheme.primary,
+              size: 20,
+            );
+          } else if (state.fetchSpacesStatus == Status.success) {
+            if (state.spaces.isEmpty) {
+              return const SizedBox();
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.l10n.spaces_title,
+                  style: AppTextStyle.style20.copyWith(
+                    color: context.colorScheme.textPrimary,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(top: 10),
+                    itemCount: state.spaces.length,
+                    itemBuilder: (context, index) => DrawerSpaceCard(
+                      isSelected: currentSpaceId == state.spaces[index].id,
+                      logo: state.spaces[index].logo,
+                      name: state.spaces[index].name,
+                      onTap: () async {
+                        context.read<DrawerBloc>().add(
+                          ChangeSpaceEvent(state.spaces[index]),
+                        );
+                      },
                     ),
                   ),
-                ],
-              );
-            }
-            return const SizedBox();
-          }),
+                ),
+              ],
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 }

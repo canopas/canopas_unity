@@ -52,8 +52,9 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: context.colorScheme.surface,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(30)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(30),
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -65,13 +66,9 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
                           .read<AdminLeavesBloc>()
                           .add(SearchEmployeeEvent(search: searchInput)),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     const Divider(height: 0),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: BlocBuilder<AdminLeavesBloc, AdminLeavesState>(
                         buildWhen: (previous, current) =>
@@ -86,19 +83,22 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
                                       state.selectedMember != null,
                                 ),
                               ),
-                              ...state.members.map((member) => EmployeeCard(
+                              ...state.members.map(
+                                (member) => EmployeeCard(
                                   employee: member,
                                   onTap: () {
                                     context.read<AdminLeavesBloc>().add(
-                                        FetchLeavesInitialEvent(
-                                            member: member));
+                                      FetchLeavesInitialEvent(member: member),
+                                    );
                                     context.pop();
-                                  })),
+                                  },
+                                ),
+                              ),
                             ],
                           );
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -116,19 +116,25 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
                     ? SpaceLogoView(
                         spaceLogoUrl:
                             getIt<UserStateNotifier>().currentSpace?.logo,
-                        size: 30)
+                        size: 30,
+                      )
                     : ImageProfile(
-                        radius: 15, imageUrl: state.selectedMember!.imageUrl),
+                        radius: 15,
+                        imageUrl: state.selectedMember!.imageUrl,
+                      ),
                 const SizedBox(width: 10),
-                Text(state.selectedMember?.name ?? context.l10n.all_tag,
-                    style: AppTextStyle.style18
-                        .copyWith(color: context.colorScheme.textPrimary),
-                    overflow: TextOverflow.ellipsis),
+                Text(
+                  state.selectedMember?.name ?? context.l10n.all_tag,
+                  style: AppTextStyle.style18.copyWith(
+                    color: context.colorScheme.textPrimary,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
                 const Spacer(),
                 Icon(
                   Icons.filter_list_rounded,
                   color: context.colorScheme.textPrimary,
-                )
+                ),
               ],
             ),
           ),
@@ -141,8 +147,10 @@ class _AdminLeavesFilterState extends State<AdminLeavesFilter> {
 class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
   final bool employeeIsSelected;
 
-  const SearchEmployeeShowAllMemberLeaveButton(
-      {super.key, required this.employeeIsSelected});
+  const SearchEmployeeShowAllMemberLeaveButton({
+    super.key,
+    required this.employeeIsSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -151,12 +159,16 @@ class SearchEmployeeShowAllMemberLeaveButton extends StatelessWidget {
       child: Row(
         children: [
           SpaceLogoView(
-              spaceLogoUrl: getIt<UserStateNotifier>().currentSpace?.logo),
+            spaceLogoUrl: getIt<UserStateNotifier>().currentSpace?.logo,
+          ),
           const SizedBox(width: 20),
-          Text(context.l10n.all_tag,
-              style: AppTextStyle.style16
-                  .copyWith(color: context.colorScheme.textPrimary),
-              overflow: TextOverflow.ellipsis),
+          Text(
+            context.l10n.all_tag,
+            style: AppTextStyle.style16.copyWith(
+              color: context.colorScheme.textPrimary,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     ).onTapGesture(() {

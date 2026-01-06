@@ -13,8 +13,12 @@ import 'package:projectunity/data/services/space_service.dart';
 
 import 'user_state_controller_bloc_test.mocks.dart';
 
-@GenerateMocks(
-    [EmployeeRepo, SpaceService, UserStateNotifier, SpaceChangeNotifier])
+@GenerateMocks([
+  EmployeeRepo,
+  SpaceService,
+  UserStateNotifier,
+  SpaceChangeNotifier,
+])
 void main() {
   late UserStateControllerBloc bloc;
   late EmployeeRepo employeeRepo;
@@ -23,34 +27,38 @@ void main() {
   late SpaceChangeNotifier spaceChangeNotifier;
 
   final employee = Employee(
-      uid: 'uid',
-      name: 'Andrew jhone',
-      email: 'andrew.j@gmail.com',
-      role: Role.admin,
-      status: EmployeeStatus.active,
-      dateOfJoining: DateTime(2000));
+    uid: 'uid',
+    name: 'Andrew jhone',
+    email: 'andrew.j@gmail.com',
+    role: Role.admin,
+    status: EmployeeStatus.active,
+    dateOfJoining: DateTime(2000),
+  );
 
   final inActiveEmployee = Employee(
-      uid: 'uid',
-      name: 'Andrew jhone',
-      email: 'andrew.j@gmail.com',
-      role: Role.admin,
-      status: EmployeeStatus.inactive,
-      dateOfJoining: DateTime(2000));
+    uid: 'uid',
+    name: 'Andrew jhone',
+    email: 'andrew.j@gmail.com',
+    role: Role.admin,
+    status: EmployeeStatus.inactive,
+    dateOfJoining: DateTime(2000),
+  );
 
   final Space space = Space(
-      id: 'space_id',
-      name: 'Google',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(20),
-      paidTimeOff: 20,
-      ownerIds: [employee.uid]);
+    id: 'space_id',
+    name: 'Google',
+    createdAt: DateTime.fromMillisecondsSinceEpoch(20),
+    paidTimeOff: 20,
+    ownerIds: [employee.uid],
+  );
 
   final Space newSpace = Space(
-      id: 'new_space_id',
-      name: 'Alphabet',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(20),
-      paidTimeOff: 20,
-      ownerIds: [employee.uid]);
+    id: 'new_space_id',
+    name: 'Alphabet',
+    createdAt: DateTime.fromMillisecondsSinceEpoch(20),
+    paidTimeOff: 20,
+    ownerIds: [employee.uid],
+  );
 
   group('User state controller test', () {
     setUp(() {
@@ -62,13 +70,19 @@ void main() {
       when(userStateNotifier.userUID).thenReturn(employee.uid);
       when(userStateNotifier.currentSpace).thenReturn(space);
       when(userStateNotifier.employee).thenReturn(employee);
-      when(spaceService.getSpace(space.id))
-          .thenAnswer((realInvocation) async => space);
-      when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((realInvocation) => Stream.value(employee));
+      when(
+        spaceService.getSpace(space.id),
+      ).thenAnswer((realInvocation) async => space);
+      when(
+        employeeRepo.memberDetails(employee.uid),
+      ).thenAnswer((realInvocation) => Stream.value(employee));
 
       bloc = UserStateControllerBloc(
-          employeeRepo, userStateNotifier, spaceService, spaceChangeNotifier);
+        employeeRepo,
+        userStateNotifier,
+        spaceService,
+        spaceChangeNotifier,
+      );
     });
 
     test('Should emit initial state as default state of bloc', () {
@@ -76,54 +90,62 @@ void main() {
     });
 
     test(
-        'Fetch data of user and space from firestore and update it on CheckUserStatusEvent',
-        () async {
-      when(spaceService.getSpace(space.id)).thenAnswer((_) async => newSpace);
-      when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((_) => Stream.value(employee));
-      when(userStateNotifier.currentSpace).thenReturn(space);
-      when(userStateNotifier.employee).thenReturn(employee);
-      bloc.add(CheckUserStatus());
-      expectLater(bloc.stream, emits(const UserUpdatedStatus()));
-      await untilCalled(userStateNotifier.setSpace(space: newSpace));
-      verify(userStateNotifier.setSpace(space: newSpace)).called(1);
-    });
+      'Fetch data of user and space from firestore and update it on CheckUserStatusEvent',
+      () async {
+        when(spaceService.getSpace(space.id)).thenAnswer((_) async => newSpace);
+        when(
+          employeeRepo.memberDetails(employee.uid),
+        ).thenAnswer((_) => Stream.value(employee));
+        when(userStateNotifier.currentSpace).thenReturn(space);
+        when(userStateNotifier.employee).thenReturn(employee);
+        bloc.add(CheckUserStatus());
+        expectLater(bloc.stream, emits(const UserUpdatedStatus()));
+        await untilCalled(userStateNotifier.setSpace(space: newSpace));
+        verify(userStateNotifier.setSpace(space: newSpace)).called(1);
+      },
+    );
 
     test('Update user data listen check inactive status', () async {
-      when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((_) => Stream.value(inActiveEmployee));
+      when(
+        employeeRepo.memberDetails(employee.uid),
+      ).thenAnswer((_) => Stream.value(inActiveEmployee));
       when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
       bloc.add(CheckUserStatus());
       expect(bloc.stream, emits(const UserAccessRevokedStatus()));
     });
 
     test(
-        'Fetch data of user and space from firestore and if error is emit then emits state as disable user',
-        () async {
-      bloc.add(CheckUserStatus());
-      when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((_) => Stream.error('error'));
-      when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
-      expectLater(bloc.stream, emits(const UserErrorStatus()));
-    });
+      'Fetch data of user and space from firestore and if error is emit then emits state as disable user',
+      () async {
+        bloc.add(CheckUserStatus());
+        when(
+          employeeRepo.memberDetails(employee.uid),
+        ).thenAnswer((_) => Stream.error('error'));
+        when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
+        expectLater(bloc.stream, emits(const UserErrorStatus()));
+      },
+    );
 
     test(
-        'Fetch data of user and space from firestore and if exception is thrown then emits state as disable user',
-        () async {
-      bloc.add(CheckUserStatus());
-      when(employeeRepo.memberDetails(employee.uid))
-          .thenThrow(Exception('error'));
-      when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
-      expectLater(bloc.stream, emits(const UserErrorStatus()));
-    });
+      'Fetch data of user and space from firestore and if exception is thrown then emits state as disable user',
+      () async {
+        bloc.add(CheckUserStatus());
+        when(
+          employeeRepo.memberDetails(employee.uid),
+        ).thenThrow(Exception('error'));
+        when(spaceService.getSpace(space.id)).thenAnswer((_) async => space);
+        expectLater(bloc.stream, emits(const UserErrorStatus()));
+      },
+    );
 
     test(
-        'Clear data of user on ClearDataClearDataForDisableUser event when user status is disable',
-        () async {
-      bloc.add(ClearDataForDisableUser());
-      await untilCalled(userStateNotifier.removeEmployeeWithSpace());
-      verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
-    });
+      'Clear data of user on ClearDataClearDataForDisableUser event when user status is disable',
+      () async {
+        bloc.add(ClearDataForDisableUser());
+        await untilCalled(userStateNotifier.removeEmployeeWithSpace());
+        verify(userStateNotifier.removeEmployeeWithSpace()).called(1);
+      },
+    );
   });
 
   group('User status check when space is null', () {
@@ -139,13 +161,19 @@ void main() {
     });
 
     test('Emit user access revoked status if space is null', () async {
-      when(spaceService.getSpace(space.id))
-          .thenAnswer((realInvocation) async => null);
-      when(employeeRepo.memberDetails(employee.uid))
-          .thenAnswer((realInvocation) => Stream.value(employee));
+      when(
+        spaceService.getSpace(space.id),
+      ).thenAnswer((realInvocation) async => null);
+      when(
+        employeeRepo.memberDetails(employee.uid),
+      ).thenAnswer((realInvocation) => Stream.value(employee));
 
       bloc = UserStateControllerBloc(
-          employeeRepo, userStateNotifier, spaceService, spaceChangeNotifier);
+        employeeRepo,
+        userStateNotifier,
+        spaceService,
+        spaceChangeNotifier,
+      );
 
       bloc.add(CheckUserStatus());
 

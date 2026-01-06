@@ -32,19 +32,20 @@ void main() {
   );
 
   Leave leave = Leave(
-      leaveId: 'leave-id',
-      uid: 'uid',
-      type: LeaveType.casualLeave,
-      startDate: DateTime.now().dateOnly,
-      endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
-      total: 2,
-      reason: 'reason',
-      status: LeaveStatus.pending,
-      appliedOn: DateTime.now().dateOnly,
-      perDayDuration: const [
-        LeaveDayDuration.noLeave,
-        LeaveDayDuration.firstHalfLeave
-      ]);
+    leaveId: 'leave-id',
+    uid: 'uid',
+    type: LeaveType.casualLeave,
+    startDate: DateTime.now().dateOnly,
+    endDate: DateTime.now().add(const Duration(days: 1)).dateOnly,
+    total: 2,
+    reason: 'reason',
+    status: LeaveStatus.pending,
+    appliedOn: DateTime.now().dateOnly,
+    perDayDuration: const [
+      LeaveDayDuration.noLeave,
+      LeaveDayDuration.firstHalfLeave,
+    ],
+  );
 
   setUp(() {
     employeeRepo = MockEmployeeRepo();
@@ -62,34 +63,35 @@ void main() {
       when(leaveRepo.pendingLeaves).thenAnswer((_) => Stream.value([leave]));
       bloc.add(AdminHomeInitialLoadEvent());
       expectLater(
-          bloc.stream,
-          emitsInOrder([
-            const AdminHomeState(
-              status: Status.loading,
-            ),
-            AdminHomeState(
-                status: Status.success,
-                leaveAppMap: bloc.convertListToMap(
-                    [LeaveApplication(employee: employee, leave: leave)])),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const AdminHomeState(status: Status.loading),
+          AdminHomeState(
+            status: Status.success,
+            leaveAppMap: bloc.convertListToMap([
+              LeaveApplication(employee: employee, leave: leave),
+            ]),
+          ),
+        ]),
+      );
     });
 
     test('Emits failure after fetch data', () {
       when(employeeRepo.employees).thenAnswer((_) => Stream.value([employee]));
-      when(leaveRepo.pendingLeaves)
-          .thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      when(
+        leaveRepo.pendingLeaves,
+      ).thenAnswer((_) => Stream.error(firestoreFetchDataError));
       bloc.add(AdminHomeInitialLoadEvent());
       expectLater(
-          bloc.stream,
-          emitsInOrder([
-            const AdminHomeState(
-              status: Status.loading,
-            ),
-            const AdminHomeState(
-              error: firestoreFetchDataError,
-              status: Status.error,
-            ),
-          ]));
+        bloc.stream,
+        emitsInOrder([
+          const AdminHomeState(status: Status.loading),
+          const AdminHomeState(
+            error: firestoreFetchDataError,
+            status: Status.error,
+          ),
+        ]),
+      );
     });
   });
 }

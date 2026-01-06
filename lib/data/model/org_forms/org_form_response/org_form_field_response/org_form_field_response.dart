@@ -17,9 +17,9 @@ class OrgFormFieldResponse extends Equatable {
   Map<String, dynamic> toJson() => _$OrgFormFieldResponseToJson(this);
 
   factory OrgFormFieldResponse.fromFireStore(
-          DocumentSnapshot<Map<String, dynamic>> snapshot,
-          SnapshotOptions? options) =>
-      OrgFormFieldResponse.fromJson(snapshot.data()!);
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) => OrgFormFieldResponse.fromJson(snapshot.data()!);
 
   @override
   List<Object?> get props => [fieldId, answer];

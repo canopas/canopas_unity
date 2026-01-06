@@ -17,11 +17,12 @@ void main() {
   late UserStateNotifier userStateNotifier;
   late EmployeeRepo employeeRepo;
   final employee = Employee(
-      uid: 'uid',
-      name: 'Andrew jhone',
-      email: 'andrew.j@gmail.com',
-      role: Role.employee,
-      dateOfJoining: DateTime(2000));
+    uid: 'uid',
+    name: 'Andrew jhone',
+    email: 'andrew.j@gmail.com',
+    role: Role.employee,
+    dateOfJoining: DateTime(2000),
+  );
 
   setUp(() {
     userStateNotifier = MockUserStateNotifier();
@@ -34,43 +35,56 @@ void main() {
   });
 
   test(
-      'Should emit loading state and then success state when fetched data from firestore successfully',
-      () {
-    bloc.add(InitialLoadevent());
-    when(userStateNotifier.employeeId).thenReturn('uid');
-    when(employeeRepo.memberDetails('uid'))
-        .thenAnswer((_) => Stream.value(employee));
-    expectLater(
-        bloc.stream,
-        emitsInOrder(
-            [ViewProfileLoadingState(), ViewProfileSuccessState(employee)]));
-  });
-
-  test('Should emit loading state and then Error state in case of Exception ',
-      () {
-    bloc.add(InitialLoadevent());
-    when(userStateNotifier.employeeId).thenReturn('uid');
-    when(employeeRepo.memberDetails('uid'))
-        .thenThrow(Exception(firestoreFetchDataError));
-    expectLater(
+    'Should emit loading state and then success state when fetched data from firestore successfully',
+    () {
+      bloc.add(InitialLoadevent());
+      when(userStateNotifier.employeeId).thenReturn('uid');
+      when(
+        employeeRepo.memberDetails('uid'),
+      ).thenAnswer((_) => Stream.value(employee));
+      expectLater(
         bloc.stream,
         emitsInOrder([
           ViewProfileLoadingState(),
-          ViewProfileErrorState(firestoreFetchDataError)
-        ]));
-  });
+          ViewProfileSuccessState(employee),
+        ]),
+      );
+    },
+  );
 
-  test('Should emit loading state and then Error state in Stream have error ',
-      () {
-    bloc.add(InitialLoadevent());
-    when(userStateNotifier.employeeId).thenReturn('uid');
-    when(employeeRepo.memberDetails('uid'))
-        .thenAnswer((_) => Stream.error(firestoreFetchDataError));
-    expectLater(
+  test(
+    'Should emit loading state and then Error state in case of Exception ',
+    () {
+      bloc.add(InitialLoadevent());
+      when(userStateNotifier.employeeId).thenReturn('uid');
+      when(
+        employeeRepo.memberDetails('uid'),
+      ).thenThrow(Exception(firestoreFetchDataError));
+      expectLater(
         bloc.stream,
         emitsInOrder([
           ViewProfileLoadingState(),
-          ViewProfileErrorState(firestoreFetchDataError)
-        ]));
-  });
+          ViewProfileErrorState(firestoreFetchDataError),
+        ]),
+      );
+    },
+  );
+
+  test(
+    'Should emit loading state and then Error state in Stream have error ',
+    () {
+      bloc.add(InitialLoadevent());
+      when(userStateNotifier.employeeId).thenReturn('uid');
+      when(
+        employeeRepo.memberDetails('uid'),
+      ).thenAnswer((_) => Stream.error(firestoreFetchDataError));
+      expectLater(
+        bloc.stream,
+        emitsInOrder([
+          ViewProfileLoadingState(),
+          ViewProfileErrorState(firestoreFetchDataError),
+        ]),
+      );
+    },
+  );
 }

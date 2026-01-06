@@ -384,13 +384,12 @@
   "gender_male_tag": "Male",
   "gender_female_tag": "Female",
 
-  "user_details_gender": "{gender, plural, =1{Male} =2{Female} other{Other}}",
+  "user_details_gender": "{gender, select, 1{Male} 2{Female} other{Other}}",
   "@user_details_gender": {
     "description": "Pass the value of gender to get gender of user",
     "placeholders": {
       "gender": {
-        "type": "num",
-        "format": "compact"
+        "type": "String"
       }
     }
   },

@@ -13,10 +13,13 @@ class FieldTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
-      child: Text(title,
-          textAlign: TextAlign.start,
-          style: AppTextStyle.style16
-              .copyWith(color: context.colorScheme.textSecondary)),
+      child: Text(
+        title,
+        textAlign: TextAlign.start,
+        style: AppTextStyle.style16.copyWith(
+          color: context.colorScheme.textSecondary,
+        ),
+      ),
     );
   }
 }
@@ -33,18 +36,19 @@ class FieldEntry extends StatelessWidget {
   final String? labelText;
   final TextInputAction? textInputAction;
 
-  const FieldEntry(
-      {super.key,
-      this.maxLine,
-      this.onChanged,
-      this.errorText,
-      this.hintText,
-      this.controller,
-      this.keyboardType,
-      this.maxLength,
-      this.inputFormatters,
-      this.labelText,
-      this.textInputAction});
+  const FieldEntry({
+    super.key,
+    this.maxLine,
+    this.onChanged,
+    this.errorText,
+    this.hintText,
+    this.controller,
+    this.keyboardType,
+    this.maxLength,
+    this.inputFormatters,
+    this.labelText,
+    this.textInputAction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +61,9 @@ class FieldEntry extends StatelessWidget {
       maxLength: maxLength,
       controller: controller,
       autocorrect: false,
-      style:
-          AppTextStyle.style16.copyWith(color: context.colorScheme.textPrimary),
+      style: AppTextStyle.style16.copyWith(
+        color: context.colorScheme.textPrimary,
+      ),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         labelText: labelText,
@@ -67,11 +72,13 @@ class FieldEntry extends StatelessWidget {
         fillColor: context.colorScheme.containerNormal,
         filled: true,
         errorText: errorText,
-        hintStyle: AppTextStyle.style16
-            .copyWith(color: context.colorScheme.textSecondary),
+        hintStyle: AppTextStyle.style16.copyWith(
+          color: context.colorScheme.textSecondary,
+        ),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24),
-            borderSide: BorderSide.none),
+          borderRadius: BorderRadius.circular(24),
+          borderSide: BorderSide.none,
+        ),
         hintText: hintText,
       ),
       onTapOutside: (pointerDownEvent) {

@@ -21,28 +21,35 @@ class InvitedMemberCard extends StatelessWidget {
           CircleAvatar(
             radius: 25,
             backgroundColor: context.colorScheme.containerHigh,
-            child: Icon(Icons.person,
-                size: 25, color: context.colorScheme.textDisable),
+            child: Icon(
+              Icons.person,
+              size: 25,
+              color: context.colorScheme.textDisable,
+            ),
           ),
           const SizedBox(width: primaryHorizontalSpacing),
           Expanded(
-            child: Text(invitation.receiverEmail,
-                style: AppTextStyle.style16
-                    .copyWith(color: context.colorScheme.textPrimary),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1),
+            child: Text(
+              invitation.receiverEmail,
+              style: AppTextStyle.style16.copyWith(
+                color: context.colorScheme.textPrimary,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
           IconButton(
-              onPressed: () {
-                context
-                    .read<AdminMembersBloc>()
-                    .add(CancelUserInvitation(invitation.id));
-              },
-              icon: Icon(
-                Icons.close,
-                color: context.colorScheme.textPrimary,
-                size: 15,
-              ))
+            onPressed: () {
+              context.read<AdminMembersBloc>().add(
+                CancelUserInvitation(invitation.id),
+              );
+            },
+            icon: Icon(
+              Icons.close,
+              color: context.colorScheme.textPrimary,
+              size: 15,
+            ),
+          ),
         ],
       ),
     );

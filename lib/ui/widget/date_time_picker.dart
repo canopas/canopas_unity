@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/date_time.dart';
 
-Future<DateTime?> pickDate(
-    {required BuildContext context, required DateTime initialDate}) async {
+Future<DateTime?> pickDate({
+  required BuildContext context,
+  required DateTime initialDate,
+}) async {
   DateTime? pickDate = await showDatePicker(
     context: context,
     initialDate: initialDate,
@@ -12,8 +14,10 @@ Future<DateTime?> pickDate(
   return pickDate;
 }
 
-Future<TimeOfDay?> pickTime(
-    {required BuildContext context, required TimeOfDay initialTime}) async {
+Future<TimeOfDay?> pickTime({
+  required BuildContext context,
+  required TimeOfDay initialTime,
+}) async {
   TimeOfDay? time = await showTimePicker(
     context: context,
     initialTime: initialTime,

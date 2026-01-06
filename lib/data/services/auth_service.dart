@@ -18,16 +18,16 @@ class AuthService {
   AuthService(this._desktopAuthManager, this.fireStore, this.firebaseAuth);
 
   Future<firebase_auth.User?> signInWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
     firebase_auth.User? user;
+    await GoogleSignIn.instance.initialize();
+
     if (kIsWeb) {
       try {
         firebase_auth.GoogleAuthProvider googleAuthProvider =
             firebase_auth.GoogleAuthProvider();
         firebaseAuth.setPersistence(firebase_auth.Persistence.LOCAL);
-        firebase_auth.UserCredential credential =
-            await firebaseAuth.signInWithPopup(googleAuthProvider);
+        firebase_auth.UserCredential credential = await firebaseAuth
+            .signInWithPopup(googleAuthProvider);
         user = credential.user;
         return user;
       } catch (e) {
@@ -36,21 +36,23 @@ class AuthService {
     } else if (defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS) {
       try {
-        final GoogleSignInAccount? googleSignInAccount =
-            await googleSignIn.signIn();
-        if (googleSignInAccount != null) {
-          final GoogleSignInAuthentication googleSignInAuthentication =
-              await googleSignInAccount.authentication;
+        final GoogleSignInAccount account = await GoogleSignIn.instance
+            .authenticate();
+        final GoogleSignInAuthentication auth = account.authentication;
+        final GoogleSignInClientAuthorization authz = await account
+            .authorizationClient
+            .authorizeScopes(const ['email', 'profile']);
 
+        if (auth.idToken != null) {
           final firebase_auth.AuthCredential credential =
               firebase_auth.GoogleAuthProvider.credential(
-            accessToken: googleSignInAuthentication.accessToken,
-            idToken: googleSignInAuthentication.idToken,
-          );
+                accessToken: authz.accessToken,
+                idToken: auth.idToken,
+              );
 
           user = await signInWithCredentials(credential);
-          await googleSignIn.signOut();
         }
+        await GoogleSignIn.instance.signOut();
       } catch (e) {
         rethrow;
       }
@@ -62,8 +64,9 @@ class AuthService {
 
         firebase_auth.AuthCredential authCredential =
             firebase_auth.GoogleAuthProvider.credential(
-                idToken: credentials.idToken,
-                accessToken: credentials.accessToken);
+              idToken: credentials.idToken,
+              accessToken: credentials.accessToken,
+            );
 
         user = await signInWithCredentials(authCredential);
 
@@ -80,8 +83,8 @@ class AuthService {
   ) async {
     firebase_auth.User? user;
     try {
-      final firebase_auth.UserCredential userCredential =
-          await firebaseAuth.signInWithCredential(authCredential);
+      final firebase_auth.UserCredential userCredential = await firebaseAuth
+          .signInWithCredential(authCredential);
       user = userCredential.user;
     } on Exception {
       rethrow;
@@ -97,11 +100,13 @@ class AuthService {
     appleProvider.addScope('email');
     appleProvider.addScope('name');
     if (kIsWeb) {
-      credential = await firebase_auth.FirebaseAuth.instance
-          .signInWithPopup(appleProvider);
+      credential = await firebase_auth.FirebaseAuth.instance.signInWithPopup(
+        appleProvider,
+      );
     } else {
-      credential = await firebase_auth.FirebaseAuth.instance
-          .signInWithProvider(appleProvider);
+      credential = await firebase_auth.FirebaseAuth.instance.signInWithProvider(
+        appleProvider,
+      );
     }
     return credential.user;
   }

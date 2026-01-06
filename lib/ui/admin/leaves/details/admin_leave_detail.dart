@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/leave_extension.dart';
@@ -35,10 +35,14 @@ class AdminLeaveDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminLeaveDetailsBloc>()
-        ..add(AdminLeaveDetailsFetchLeaveCountEvent(
-            employeeId: leaveApplication.employee.uid)),
-      child:
-          AdminLeaveApplicationDetailScreen(leaveApplication: leaveApplication),
+        ..add(
+          AdminLeaveDetailsFetchLeaveCountEvent(
+            employeeId: leaveApplication.employee.uid,
+          ),
+        ),
+      child: AdminLeaveApplicationDetailScreen(
+        leaveApplication: leaveApplication,
+      ),
     );
   }
 }
@@ -46,8 +50,10 @@ class AdminLeaveDetailsPage extends StatelessWidget {
 class AdminLeaveApplicationDetailScreen extends StatefulWidget {
   final LeaveApplication leaveApplication;
 
-  const AdminLeaveApplicationDetailScreen(
-      {super.key, required this.leaveApplication});
+  const AdminLeaveApplicationDetailScreen({
+    super.key,
+    required this.leaveApplication,
+  });
 
   @override
   State<AdminLeaveApplicationDetailScreen> createState() =>
@@ -86,17 +92,20 @@ class _AdminLeaveApplicationDetailScreenState
                   const LeaveCountsView(),
                   const Divider(),
                   LeaveTypeAgoTitleWithStatus(
-                      status: widget.leaveApplication.leave.status,
-                      appliedOn: widget.leaveApplication.leave.appliedOn,
-                      leaveType: widget.leaveApplication.leave.type),
+                    status: widget.leaveApplication.leave.status,
+                    appliedOn: widget.leaveApplication.leave.appliedOn,
+                    leaveType: widget.leaveApplication.leave.type,
+                  ),
                   AdminLeaveRequestDetailsDateContent(
-                      leave: widget.leaveApplication.leave),
+                    leave: widget.leaveApplication.leave,
+                  ),
                 ],
               ),
             ),
             PerDayDurationDateRange(
-                perDayDurationWithDate:
-                    widget.leaveApplication.leave.getDateAndDuration()),
+              perDayDurationWithDate: widget.leaveApplication.leave
+                  .getDateAndDuration(),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -118,12 +127,13 @@ class _AdminLeaveApplicationDetailScreenState
                     ),
                   ),
                   ValidateWidget(
-                      isValid: !(getIt<UserStateNotifier>().isHR &&
-                              widget.leaveApplication.employee.role ==
-                                  Role.hr) &&
-                          widget.leaveApplication.leave.status ==
-                              LeaveStatus.pending,
-                      child: const ApproveRejectionMessage()),
+                    isValid:
+                        !(getIt<UserStateNotifier>().isHR &&
+                            widget.leaveApplication.employee.role == Role.hr) &&
+                        widget.leaveApplication.leave.status ==
+                            LeaveStatus.pending,
+                    child: const ApproveRejectionMessage(),
+                  ),
                 ],
               ),
             ),

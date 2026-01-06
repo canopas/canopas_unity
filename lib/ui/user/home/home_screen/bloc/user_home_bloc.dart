@@ -14,12 +14,14 @@ class UserHomeBloc extends Bloc<UserHomeEvent, UserHomeState> {
   final LeaveRepo _leaveRepo;
 
   UserHomeBloc(this._userManager, this._leaveRepo)
-      : super(UserHomeInitialState()) {
+    : super(UserHomeInitialState()) {
     on<UserHomeFetchLeaveRequest>(_fetchLeaveRequest);
   }
 
   Future<void> _fetchLeaveRequest(
-      UserHomeFetchLeaveRequest event, Emitter<UserHomeState> emit) async {
+    UserHomeFetchLeaveRequest event,
+    Emitter<UserHomeState> emit,
+  ) async {
     emit(UserHomeLoadingState());
     try {
       return emit.forEach(

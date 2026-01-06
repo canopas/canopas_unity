@@ -10,11 +10,12 @@ class Invitation {
   final String senderId;
   final String receiverEmail;
 
-  const Invitation(
-      {required this.id,
-      required this.spaceId,
-      required this.senderId,
-      required this.receiverEmail});
+  const Invitation({
+    required this.id,
+    required this.spaceId,
+    required this.senderId,
+    required this.receiverEmail,
+  });
 
   factory Invitation.fromJson(Map<String, dynamic> json) =>
       _$InvitationFromJson(json);

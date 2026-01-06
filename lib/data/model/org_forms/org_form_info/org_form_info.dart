@@ -6,9 +6,10 @@ import 'package:projectunity/data/core/converters%20/date_converter.dart';
 part 'org_form_info.g.dart';
 
 @JsonSerializable(
-    includeIfNull: false,
-    fieldRename: FieldRename.snake,
-    converters: [DateTimeConverter()])
+  includeIfNull: false,
+  fieldRename: FieldRename.snake,
+  converters: [DateTimeConverter()],
+)
 class OrgFormInfo extends Equatable {
   final String id;
   final String title;
@@ -32,11 +33,17 @@ class OrgFormInfo extends Equatable {
   Map<String, dynamic> toJson() => _$OrgFormInfoToJson(this);
 
   factory OrgFormInfo.fromFireStore(
-          DocumentSnapshot<Map<String, dynamic>> snapshot,
-          SnapshotOptions? options) =>
-      OrgFormInfo.fromJson(snapshot.data()!);
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) => OrgFormInfo.fromJson(snapshot.data()!);
 
   @override
-  List<Object?> get props =>
-      [id, title, description, oneTimeResponse, headerImage, createdAt];
+  List<Object?> get props => [
+    id,
+    title,
+    description,
+    oneTimeResponse,
+    headerImage,
+    createdAt,
+  ];
 }

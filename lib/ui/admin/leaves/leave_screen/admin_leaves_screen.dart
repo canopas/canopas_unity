@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
@@ -67,8 +67,10 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
     final bloc = context.read<AdminLeavesBloc>();
 
     void navigateToLeaveDetails(LeaveApplication la) async {
-      final String? leaveId =
-          await context.pushNamed(Routes.adminLeaveDetails, extra: la);
+      final String? leaveId = await context.pushNamed(
+        Routes.adminLeaveDetails,
+        extra: la,
+      );
       if (leaveId != null) {
         bloc.add(UpdateLeaveApplication(leaveId: leaveId));
       }
@@ -88,58 +90,63 @@ class _AdminLeavesScreenState extends State<AdminLeavesScreen> {
         children: [
           const AdminLeavesFilter(),
           BlocConsumer<AdminLeavesBloc, AdminLeavesState>(
-              listenWhen: (previous, current) =>
-                  previous.error != current.error,
-              listener: (context, state) {
-                if (state.error != null) {
-                  showSnackBar(context: context, error: state.error);
-                }
-              },
-              buildWhen: (previous, current) =>
-                  previous.fetchMoreData != current.fetchMoreData ||
-                  previous.selectedMember != current.selectedMember ||
-                  previous.leaveApplicationMap != current.leaveApplicationMap ||
-                  previous.leavesFetchStatus != current.leavesFetchStatus,
-              builder: (context, state) {
-                if (state.leavesFetchStatus == Status.loading) {
-                  return const AppCircularProgressIndicator();
-                }
-                return state.leaveApplicationMap.isNotEmpty
-                    ? Expanded(
-                        child: ListView(
-                          controller: _scrollController,
-                          children: state.leaveApplicationMap.entries
-                              .map((MapEntry<DateTime, List<LeaveApplication>>
-                                      monthWiseLeaveApplications) =>
-                                  StickyHeader(
-                                      header: LeaveListHeader(
-                                        title: AppLocalizations.of(context)
-                                            .date_format_yMMMM(
-                                                monthWiseLeaveApplications.key),
-                                        count: monthWiseLeaveApplications
-                                            .value.length,
+            listenWhen: (previous, current) => previous.error != current.error,
+            listener: (context, state) {
+              if (state.error != null) {
+                showSnackBar(context: context, error: state.error);
+              }
+            },
+            buildWhen: (previous, current) =>
+                previous.fetchMoreData != current.fetchMoreData ||
+                previous.selectedMember != current.selectedMember ||
+                previous.leaveApplicationMap != current.leaveApplicationMap ||
+                previous.leavesFetchStatus != current.leavesFetchStatus,
+            builder: (context, state) {
+              if (state.leavesFetchStatus == Status.loading) {
+                return const AppCircularProgressIndicator();
+              }
+              return state.leaveApplicationMap.isNotEmpty
+                  ? Expanded(
+                      child: ListView(
+                        controller: _scrollController,
+                        children: state.leaveApplicationMap.entries
+                            .map(
+                              (
+                                MapEntry<DateTime, List<LeaveApplication>>
+                                monthWiseLeaveApplications,
+                              ) => StickyHeader(
+                                header: LeaveListHeader(
+                                  title: AppLocalizations.of(context)
+                                      .date_format_yMMMM(
+                                        monthWiseLeaveApplications.key,
                                       ),
-                                      content: MonthLeaveList(
-                                        onCardTap: navigateToLeaveDetails,
-                                        leaveApplications:
-                                            monthWiseLeaveApplications.value,
-                                        showLeaveApplicationCard:
-                                            state.selectedMember == null,
-                                        isPaginationLoading:
-                                            monthWiseLeaveApplications.key ==
-                                                    state.leaveApplicationMap
-                                                        .keys.last &&
-                                                state.fetchMoreData ==
-                                                    Status.loading,
-                                      )))
-                              .toList(),
-                        ),
-                      )
-                    : EmptyScreen(
-                        title: AppLocalizations.of(context).no_leaves_tag,
-                        message: AppLocalizations.of(context)
-                            .admin_leave_empty_screen_message);
-              }),
+                                  count:
+                                      monthWiseLeaveApplications.value.length,
+                                ),
+                                content: MonthLeaveList(
+                                  onCardTap: navigateToLeaveDetails,
+                                  leaveApplications:
+                                      monthWiseLeaveApplications.value,
+                                  showLeaveApplicationCard:
+                                      state.selectedMember == null,
+                                  isPaginationLoading:
+                                      monthWiseLeaveApplications.key ==
+                                          state.leaveApplicationMap.keys.last &&
+                                      state.fetchMoreData == Status.loading,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    )
+                  : EmptyScreen(
+                      title: AppLocalizations.of(context).no_leaves_tag,
+                      message: AppLocalizations.of(
+                        context,
+                      ).admin_leave_empty_screen_message,
+                    );
+            },
+          ),
         ],
       ),
       floatingActionButton: getIt<UserStateNotifier>().isHR

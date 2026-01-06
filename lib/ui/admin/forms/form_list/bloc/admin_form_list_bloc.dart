@@ -17,20 +17,25 @@ class AdminFormListBloc extends Bloc<AdminFormListEvents, AdminFormListState> {
     on<UpdateFormEvent>(_updateForm);
   }
 
-  Future<void> _init(AdminFormListInitialLoadEvent event,
-      Emitter<AdminFormListState> emit) async {
+  Future<void> _init(
+    AdminFormListInitialLoadEvent event,
+    Emitter<AdminFormListState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     try {
       final forms = await _formRepo.getForms();
       emit(state.copyWith(status: Status.success, forms: forms));
     } on Exception {
       emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+        state.copyWith(status: Status.error, error: firestoreFetchDataError),
+      );
     }
   }
 
   Future<void> _updateForm(
-      UpdateFormEvent event, Emitter<AdminFormListState> emit) async {
+    UpdateFormEvent event,
+    Emitter<AdminFormListState> emit,
+  ) async {
     try {
       List<OrgFormInfo> forms = state.forms.toList();
       final form = await _formRepo.getFormInfo(formId: event.formId);
@@ -39,7 +44,8 @@ class AdminFormListBloc extends Bloc<AdminFormListEvents, AdminFormListState> {
       emit(state.copyWith(status: Status.success, forms: forms));
     } on Exception {
       emit(
-          state.copyWith(status: Status.error, error: firestoreFetchDataError));
+        state.copyWith(status: Status.error, error: firestoreFetchDataError),
+      );
     }
   }
 }

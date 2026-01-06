@@ -13,11 +13,12 @@ class AccountService {
   final CollectionReference<Account> _accountsDb;
 
   AccountService(this.fireStore, this.deviceInfoProvider)
-      : _accountsDb = fireStore
-            .collection(FireStoreConst.accountsCollection)
-            .withConverter(
-                fromFirestore: Account.fromFireStore,
-                toFirestore: (Account user, _) => user.toJson());
+    : _accountsDb = fireStore
+          .collection(FireStoreConst.accountsCollection)
+          .withConverter(
+            fromFirestore: Account.fromFireStore,
+            toFirestore: (Account user, _) => user.toJson(),
+          );
 
   Future<Account> getUser(firebase_auth.User authData) async {
     final userDataDoc = await _accountsDb.doc(authData.uid).get();
@@ -27,9 +28,10 @@ class AccountService {
       user = userData;
     } else {
       user = Account(
-          uid: authData.uid,
-          email: authData.email!,
-          name: authData.displayName);
+        uid: authData.uid,
+        email: authData.email!,
+        name: authData.displayName,
+      );
       await _accountsDb.doc(authData.uid).set(user);
     }
     await _setUserSession(authData.uid);
@@ -44,9 +46,10 @@ class AccountService {
       return userData;
     } else if (authData.email != null) {
       final user = Account(
-          uid: authData.uid,
-          email: authData.email!,
-          name: authData.displayName);
+        uid: authData.uid,
+        email: authData.email!,
+        name: authData.displayName,
+      );
       await _accountsDb.doc(authData.uid).set(user);
       await _setUserSession(authData.uid);
       return user;
@@ -70,24 +73,30 @@ class AccountService {
     }
   }
 
-  Future<void> updateSpaceOfUser(
-      {required String spaceID, required String uid}) async {
+  Future<void> updateSpaceOfUser({
+    required String spaceID,
+    required String uid,
+  }) async {
     await _accountsDb.doc(uid).update({
-      FireStoreConst.spaces: FieldValue.arrayUnion([spaceID])
+      FireStoreConst.spaces: FieldValue.arrayUnion([spaceID]),
     });
   }
 
-  Future<void> deleteSpaceIdFromAccount(
-      {required String spaceId, required String uid}) async {
+  Future<void> deleteSpaceIdFromAccount({
+    required String spaceId,
+    required String uid,
+  }) async {
     await _accountsDb.doc(uid).update({
-      FireStoreConst.spaces: FieldValue.arrayRemove([spaceId])
+      FireStoreConst.spaces: FieldValue.arrayRemove([spaceId]),
     });
   }
 
-  Future<void> addSpaceIdFromAccount(
-      {required String spaceId, required String uid}) async {
+  Future<void> addSpaceIdFromAccount({
+    required String spaceId,
+    required String uid,
+  }) async {
     await _accountsDb.doc(uid).update({
-      FireStoreConst.spaces: FieldValue.arrayUnion([spaceId])
+      FireStoreConst.spaces: FieldValue.arrayUnion([spaceId]),
     });
   }
 

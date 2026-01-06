@@ -55,17 +55,18 @@ class SaveSpaceDetails extends EditSpaceEvent {
   final String spaceDomain;
   final String notificationEmail;
 
-  SaveSpaceDetails(
-      {required this.notificationEmail,
-      required this.paidTimeOff,
-      required this.spaceName,
-      required this.spaceDomain});
+  SaveSpaceDetails({
+    required this.notificationEmail,
+    required this.paidTimeOff,
+    required this.spaceName,
+    required this.spaceDomain,
+  });
 
   @override
   List<Object?> get props => [
-        notificationEmail,
-        paidTimeOff,
-        spaceName,
-        spaceDomain,
-      ];
+    notificationEmail,
+    paidTimeOff,
+    spaceName,
+    spaceDomain,
+  ];
 }

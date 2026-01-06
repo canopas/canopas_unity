@@ -17,12 +17,17 @@ class TotalDaysMsgBox extends StatelessWidget {
       builder: (context, state) => Align(
         alignment: Alignment.bottomRight,
         child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16.0, right: 16, top: 8, bottom: 20),
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            right: 16,
+            top: 8,
+            bottom: 20,
+          ),
           child: Text(
             "  *${DateFormatter(context.l10n).getLeaveDurationPresentationLong(state.totalLeaveDays)}",
-            style: AppTextStyle.style16
-                .copyWith(color: context.colorScheme.tertiary),
+            style: AppTextStyle.style16.copyWith(
+              color: context.colorScheme.tertiary,
+            ),
           ),
         ),
       ),

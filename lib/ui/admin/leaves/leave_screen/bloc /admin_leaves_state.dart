@@ -12,17 +12,18 @@ class AdminLeavesState extends Equatable {
   final Map<DateTime, List<LeaveApplication>> leaveApplicationMap;
   final Employee? selectedMember;
 
-  const AdminLeavesState(
-      {this.leavesFetchStatus = Status.initial,
-      this.membersFetchStatus = Status.initial,
-      this.error,
-      this.fetchMoreData = Status.initial,
-      int? selectedYear,
-      this.leaveApplicationMap = const {},
-      this.members = const [],
-      this.selectedMember});
+  const AdminLeavesState({
+    this.leavesFetchStatus = Status.initial,
+    this.membersFetchStatus = Status.initial,
+    this.error,
+    this.fetchMoreData = Status.initial,
+    int? selectedYear,
+    this.leaveApplicationMap = const {},
+    this.members = const [],
+    this.selectedMember,
+  });
 
-  copyWith({
+  AdminLeavesState copyWith({
     Status? fetchMoreData,
     Status? leavesFetchStatus,
     Status? membersFetchStatus,
@@ -31,26 +32,26 @@ class AdminLeavesState extends Equatable {
     Map<DateTime, List<LeaveApplication>>? leaveApplicationMap,
     Employee? selectedMember,
     bool assignSelectedEmployeeNull = false,
-  }) =>
-      AdminLeavesState(
-        selectedMember: selectedMember ??
-            (assignSelectedEmployeeNull ? null : this.selectedMember),
-        leaveApplicationMap: leaveApplicationMap ?? this.leaveApplicationMap,
-        members: members ?? this.members,
-        membersFetchStatus: membersFetchStatus ?? this.membersFetchStatus,
-        leavesFetchStatus: leavesFetchStatus ?? this.leavesFetchStatus,
-        fetchMoreData: fetchMoreData ?? this.fetchMoreData,
-        error: error,
-      );
+  }) => AdminLeavesState(
+    selectedMember:
+        selectedMember ??
+        (assignSelectedEmployeeNull ? null : this.selectedMember),
+    leaveApplicationMap: leaveApplicationMap ?? this.leaveApplicationMap,
+    members: members ?? this.members,
+    membersFetchStatus: membersFetchStatus ?? this.membersFetchStatus,
+    leavesFetchStatus: leavesFetchStatus ?? this.leavesFetchStatus,
+    fetchMoreData: fetchMoreData ?? this.fetchMoreData,
+    error: error,
+  );
 
   @override
   List<Object?> get props => [
-        membersFetchStatus,
-        fetchMoreData,
-        leavesFetchStatus,
-        error,
-        leaveApplicationMap,
-        members,
-        selectedMember
-      ];
+    membersFetchStatus,
+    fetchMoreData,
+    leavesFetchStatus,
+    error,
+    leaveApplicationMap,
+    members,
+    selectedMember,
+  ];
 }

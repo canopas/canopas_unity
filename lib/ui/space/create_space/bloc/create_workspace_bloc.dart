@@ -23,9 +23,13 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
   final EmployeeService _employeeService;
   final UserStateNotifier _userManager;
 
-  CreateSpaceBLoc(this._spaceService, this._userManager, this._employeeService,
-      this.imagePicker, this.storageService)
-      : super(CreateSpaceState(ownerName: _userManager.userFirebaseAuthName)) {
+  CreateSpaceBLoc(
+    this._spaceService,
+    this._userManager,
+    this._employeeService,
+    this.imagePicker,
+    this.storageService,
+  ) : super(CreateSpaceState(ownerName: _userManager.userFirebaseAuthName)) {
     on<PageChangeEvent>(_onPageChange);
     on<CompanyNameChangeEvent>(_onNameChanged);
     on<CompanyDomainChangeEvent>(_onDomainChanged);
@@ -56,22 +60,32 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
   }
 
   void _onNameChanged(
-      CompanyNameChangeEvent event, Emitter<CreateSpaceState> emit) {
+    CompanyNameChangeEvent event,
+    Emitter<CreateSpaceState> emit,
+  ) {
     if (validInputLength(event.companyName)) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           companyName: event.companyName,
           companyNameError: false,
-          buttonState: ButtonState.enable));
+          buttonState: ButtonState.enable,
+        ),
+      );
     } else {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           companyName: event.companyName,
           companyNameError: true,
-          buttonState: ButtonState.disable));
+          buttonState: ButtonState.disable,
+        ),
+      );
     }
   }
 
   void _onDomainChanged(
-      CompanyDomainChangeEvent event, Emitter<CreateSpaceState> emit) {
+    CompanyDomainChangeEvent event,
+    Emitter<CreateSpaceState> emit,
+  ) {
     if (validDomain(event.domain)) {
       emit(state.copyWith(domain: event.domain, domainError: false));
     } else {
@@ -80,39 +94,55 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
   }
 
   void _onTimeOffChanged(
-      PaidTimeOffChangeEvent event, Emitter<CreateSpaceState> emit) {
+    PaidTimeOffChangeEvent event,
+    Emitter<CreateSpaceState> emit,
+  ) {
     if (event.paidTimeOff == '') {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           paidTimeOff: event.paidTimeOff,
           paidTimeOffError: true,
-          buttonState: ButtonState.disable));
+          buttonState: ButtonState.disable,
+        ),
+      );
     } else {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           paidTimeOff: event.paidTimeOff,
           paidTimeOffError: false,
-          buttonState: ButtonState.enable));
+          buttonState: ButtonState.enable,
+        ),
+      );
     }
   }
 
   void _changeUserName(
-      UserNameChangeEvent event, Emitter<CreateSpaceState> emit) {
+    UserNameChangeEvent event,
+    Emitter<CreateSpaceState> emit,
+  ) {
     if (validInputLength(event.name)) {
-      emit(state.copyWith(
-        buttonState: ButtonState.enable,
-        ownerName: event.name,
-        ownerNameError: false,
-      ));
+      emit(
+        state.copyWith(
+          buttonState: ButtonState.enable,
+          ownerName: event.name,
+          ownerNameError: false,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        buttonState: ButtonState.disable,
-        ownerName: event.name,
-        ownerNameError: true,
-      ));
+      emit(
+        state.copyWith(
+          buttonState: ButtonState.disable,
+          ownerName: event.name,
+          ownerNameError: true,
+        ),
+      );
     }
   }
 
   Future<void> _pickImage(
-      PickImageEvent event, Emitter<CreateSpaceState> emit) async {
+    PickImageEvent event,
+    Emitter<CreateSpaceState> emit,
+  ) async {
     final XFile? image = await imagePicker.pickImage(source: event.imageSource);
     if (image != null) {
       emit(state.copyWith(logo: image.path, isLogoPickedDone: true));
@@ -132,7 +162,9 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
       validInputLength(state.ownerName) && !state.companyNameError;
 
   Future<void> _createSpace(
-      CreateSpaceButtonTapEvent event, Emitter<CreateSpaceState> emit) async {
+    CreateSpaceButtonTapEvent event,
+    Emitter<CreateSpaceState> emit,
+  ) async {
     if (validateFirstStep && validateSecondStep && validateThirdStep) {
       emit(state.copyWith(createSpaceStatus: Status.loading));
       String? logoURL;
@@ -141,20 +173,24 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
         int timeOff = int.parse(state.paidTimeOff);
 
         if (state.logo != null) {
-          final String storagePath =
-              ImageStoragePath.spaceLogoPath(spaceId: newSpaceId);
+          final String storagePath = ImageStoragePath.spaceLogoPath(
+            spaceId: newSpaceId,
+          );
           logoURL = await storageService.uploadProfilePic(
-              path: storagePath, imagePath: state.logo!);
+            path: storagePath,
+            imagePath: state.logo!,
+          );
         }
 
         final newSpace = Space(
-            id: newSpaceId,
-            logo: logoURL,
-            name: state.companyName,
-            domain: state.domain.isEmpty ? null : state.domain,
-            paidTimeOff: timeOff,
-            createdAt: DateTime.now(),
-            ownerIds: [_userManager.userUID!]);
+          id: newSpaceId,
+          logo: logoURL,
+          name: state.companyName,
+          domain: state.domain.isEmpty ? null : state.domain,
+          paidTimeOff: timeOff,
+          createdAt: DateTime.now(),
+          ownerIds: [_userManager.userUID!],
+        );
 
         await _spaceService.createSpace(space: newSpace);
 
@@ -167,18 +203,30 @@ class CreateSpaceBLoc extends Bloc<CreateSpaceEvent, CreateSpaceState>
         );
 
         await _employeeService.addEmployeeBySpaceId(
-            spaceId: newSpace.id, employee: employee);
+          spaceId: newSpace.id,
+          employee: employee,
+        );
 
         emit(state.copyWith(createSpaceStatus: Status.success));
         await _userManager.setEmployeeWithSpace(
-            space: newSpace, spaceUser: employee);
+          space: newSpace,
+          spaceUser: employee,
+        );
       } on Exception {
-        emit(state.copyWith(
-            error: firestoreFetchDataError, createSpaceStatus: Status.error));
+        emit(
+          state.copyWith(
+            error: firestoreFetchDataError,
+            createSpaceStatus: Status.error,
+          ),
+        );
       }
     } else {
-      emit(state.copyWith(
-          error: provideRequiredInformation, createSpaceStatus: Status.error));
+      emit(
+        state.copyWith(
+          error: provideRequiredInformation,
+          createSpaceStatus: Status.error,
+        ),
+      );
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:intl/intl.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/model/leave/leave.dart';
@@ -22,15 +22,18 @@ class LeaveRequestDateRange extends StatelessWidget {
       builder: (context, state) => state.selectedDates.length < 3
           ? Column(
               children: state.selectedDates.entries
-                  .map((date) => Container(
+                  .map(
+                    (date) => Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
-                          horizontal: primarySpacing,
-                          vertical: primaryHalfSpacing),
+                        horizontal: primarySpacing,
+                        vertical: primaryHalfSpacing,
+                      ),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: context.colorScheme.containerHigh),
+                          color: context.colorScheme.containerHigh,
+                        ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -38,61 +41,72 @@ class LeaveRequestDateRange extends StatelessWidget {
                           Text(
                             DateFormat('EEEE, ', locale).format(date.key),
                             style: AppTextStyle.style14.copyWith(
-                                color: context.colorScheme.textPrimary),
+                              color: context.colorScheme.textPrimary,
+                            ),
                           ),
                           Text(
                             DateFormat('d ', locale).format(date.key),
-                            style: AppTextStyle.style20
-                                .copyWith(color: context.colorScheme.primary),
+                            style: AppTextStyle.style20.copyWith(
+                              color: context.colorScheme.primary,
+                            ),
                           ),
                           Text(
                             DateFormat('MMMM', locale).format(date.key),
                             style: AppTextStyle.style14.copyWith(
-                                color: context.colorScheme.textPrimary),
+                              color: context.colorScheme.textPrimary,
+                            ),
                           ),
                           const Spacer(),
-                          LeaveTimePeriodBox(
-                            dayTimePeriod: date,
-                          ),
+                          LeaveTimePeriodBox(dayTimePeriod: date),
                         ],
-                      )))
-                  .toList())
+                      ),
+                    ),
+                  )
+                  .toList(),
+            )
           : SingleChildScrollView(
               padding: const EdgeInsets.all(primaryHalfSpacing),
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: state.selectedDates.entries
-                    .map((date) => Container(
-                          padding: const EdgeInsets.all(12),
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: primaryHalfSpacing),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: context.colorScheme.containerHigh),
-                            borderRadius: BorderRadius.circular(8),
+                    .map(
+                      (date) => Container(
+                        padding: const EdgeInsets.all(12),
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: primaryHalfSpacing,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: context.colorScheme.containerHigh,
                           ),
-                          child: Column(
-                            children: [
-                              Text(
-                                DateFormat('EEE', locale).format(date.key),
-                                style: AppTextStyle.style14.copyWith(
-                                    color: context.colorScheme.textPrimary),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              DateFormat('EEE', locale).format(date.key),
+                              style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary,
                               ),
-                              Text(
-                                DateFormat('d', locale).format(date.key),
-                                style: AppTextStyle.style20.copyWith(
-                                    color: context.colorScheme.primary),
+                            ),
+                            Text(
+                              DateFormat('d', locale).format(date.key),
+                              style: AppTextStyle.style20.copyWith(
+                                color: context.colorScheme.primary,
                               ),
-                              Text(DateFormat('MMM', locale).format(date.key),
-                                  style: AppTextStyle.style14.copyWith(
-                                      color: context.colorScheme.textPrimary)),
-                              const SizedBox(
-                                height: primaryVerticalSpacing,
+                            ),
+                            Text(
+                              DateFormat('MMM', locale).format(date.key),
+                              style: AppTextStyle.style14.copyWith(
+                                color: context.colorScheme.textPrimary,
                               ),
-                              LeaveTimePeriodBox(dayTimePeriod: date),
-                            ],
-                          ),
-                        ))
+                            ),
+                            const SizedBox(height: primaryVerticalSpacing),
+                            LeaveTimePeriodBox(dayTimePeriod: date),
+                          ],
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
             ),
@@ -103,17 +117,12 @@ class LeaveRequestDateRange extends StatelessWidget {
 class LeaveTimePeriodBox extends StatelessWidget {
   final MapEntry<DateTime, LeaveDayDuration> dayTimePeriod;
 
-  const LeaveTimePeriodBox({
-    super.key,
-    required this.dayTimePeriod,
-  });
+  const LeaveTimePeriodBox({super.key, required this.dayTimePeriod});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 150,
-      ),
+      constraints: const BoxConstraints(maxWidth: 150),
       height: 50,
       width: MediaQuery.of(context).size.width * 0.26,
       decoration: BoxDecoration(
@@ -133,19 +142,25 @@ class LeaveTimePeriodBox extends StatelessWidget {
             alignment: Alignment.center,
             value: dayTimePeriod.value,
             items: LeaveDayDuration.values
-                .map((dayDuration) => DropdownMenuItem(
+                .map(
+                  (dayDuration) => DropdownMenuItem(
                     value: dayDuration,
                     child: Center(
-                        child: Text(
-                      context.l10n.leave_day_duration_tag(dayDuration.name),
-                      style: AppTextStyle.style14,
-                    ))))
+                      child: Text(
+                        context.l10n.leave_day_duration_tag(dayDuration.name),
+                        style: AppTextStyle.style14,
+                      ),
+                    ),
+                  ),
+                )
                 .toList(),
             onChanged: (value) {
               context.read<ApplyLeaveBloc>().add(
-                  ApplyLeaveUpdateLeaveOfTheDayEvent(
-                      date: dayTimePeriod.key,
-                      value: value ?? dayTimePeriod.value));
+                ApplyLeaveUpdateLeaveOfTheDayEvent(
+                  date: dayTimePeriod.key,
+                  value: value ?? dayTimePeriod.value,
+                ),
+              );
             },
           ),
         ),

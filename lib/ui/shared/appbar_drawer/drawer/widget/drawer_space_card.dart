@@ -10,12 +10,13 @@ class DrawerSpaceCard extends StatelessWidget {
   final String? logo;
   final Function()? onTap;
 
-  const DrawerSpaceCard(
-      {super.key,
-      required this.name,
-      this.logo,
-      this.onTap,
-      required this.isSelected});
+  const DrawerSpaceCard({
+    super.key,
+    required this.name,
+    this.logo,
+    this.onTap,
+    required this.isSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +35,14 @@ class DrawerSpaceCard extends StatelessWidget {
               SpaceLogoView(size: 45, spaceLogoUrl: logo),
               const SizedBox(width: 10),
               Flexible(
-                  child: Text(name,
-                      style: AppTextStyle.style16
-                          .copyWith(color: context.colorScheme.textPrimary),
-                      overflow: TextOverflow.ellipsis)),
+                child: Text(
+                  name,
+                  style: AppTextStyle.style16.copyWith(
+                    color: context.colorScheme.textPrimary,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         ),

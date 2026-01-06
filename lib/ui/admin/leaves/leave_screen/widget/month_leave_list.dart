@@ -10,12 +10,13 @@ class MonthLeaveList extends StatelessWidget {
   final bool showLeaveApplicationCard;
   final void Function(LeaveApplication) onCardTap;
 
-  const MonthLeaveList(
-      {super.key,
-      required this.leaveApplications,
-      required this.isPaginationLoading,
-      required this.showLeaveApplicationCard,
-      required this.onCardTap});
+  const MonthLeaveList({
+    super.key,
+    required this.leaveApplications,
+    required this.isPaginationLoading,
+    required this.showLeaveApplicationCard,
+    required this.onCardTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +36,14 @@ class MonthLeaveList extends StatelessWidget {
         }
         if (showLeaveApplicationCard) {
           return LeaveApplicationCard(
-              onTap: () => onCardTap(leaveApplications[index]),
-              leaveApplication: leaveApplications[index]);
+            onTap: () => onCardTap(leaveApplications[index]),
+            leaveApplication: leaveApplications[index],
+          );
         }
         return LeaveCard(
-            onTap: () => onCardTap(leaveApplications[index]),
-            leave: leaveApplications[index].leave);
+          onTap: () => onCardTap(leaveApplications[index]),
+          leave: leaveApplications[index].leave,
+        );
       },
       separatorBuilder: (context, index) => const SizedBox(height: 16),
     );

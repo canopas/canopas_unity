@@ -12,17 +12,19 @@ class ReasonField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: AppTextStyle.style18
-                .copyWith(color: context.colorScheme.textSecondary)),
-        const SizedBox(
-          height: 10,
+        Text(
+          title,
+          style: AppTextStyle.style18.copyWith(
+            color: context.colorScheme.textSecondary,
+          ),
         ),
+        const SizedBox(height: 10),
         Text(
           reason,
-          style: AppTextStyle.style16
-              .copyWith(color: context.colorScheme.textPrimary),
-        )
+          style: AppTextStyle.style16.copyWith(
+            color: context.colorScheme.textPrimary,
+          ),
+        ),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projectunity/data/core/extensions/context_extension.dart';
 import 'package:projectunity/data/core/extensions/string_extension.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:projectunity/style/app_text_style.dart';
 import '../../../../../data/configs/space_constant.dart';
 import '../../../../../data/model/employee/employee.dart';
@@ -17,19 +17,17 @@ class BasicDetailSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.all(primaryHorizontalSpacing).copyWith(bottom: 0),
-      child: Column(children: [
-        ProfileSection(employee: employee),
-        const SizedBox(height: 20),
-        IdSection(
-          role: employee.role,
-          employeeId: employee.employeeId,
-        ),
-        Divider(
-          color: context.colorScheme.containerHigh,
-        )
-      ]),
+      padding: const EdgeInsets.all(
+        primaryHorizontalSpacing,
+      ).copyWith(bottom: 0),
+      child: Column(
+        children: [
+          ProfileSection(employee: employee),
+          const SizedBox(height: 20),
+          IdSection(role: employee.role, employeeId: employee.employeeId),
+          Divider(color: context.colorScheme.containerHigh),
+        ],
+      ),
     );
   }
 }
@@ -38,11 +36,7 @@ class IdSection extends StatelessWidget {
   final Role role;
   final String? employeeId;
 
-  const IdSection({
-    super.key,
-    required this.role,
-    this.employeeId,
-  });
+  const IdSection({super.key, required this.role, this.employeeId});
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +63,7 @@ class IdSection extends StatelessWidget {
 }
 
 class ProfileSection extends StatelessWidget {
-  const ProfileSection({
-    super.key,
-    required this.employee,
-  });
+  const ProfileSection({super.key, required this.employee});
 
   final Employee employee;
 
@@ -86,18 +77,20 @@ class ProfileSection extends StatelessWidget {
         ),
         Text(
           employee.name,
-          style: AppTextStyle.style20
-              .copyWith(color: context.colorScheme.textPrimary),
+          style: AppTextStyle.style20.copyWith(
+            color: context.colorScheme.textPrimary,
+          ),
         ),
         ValidateWidget(
           isValid: employee.designation.isNotNullOrEmpty,
           child: Text(
             employee.designation ?? "",
-            style: AppTextStyle.style14
-                .copyWith(color: context.colorScheme.textSecondary),
+            style: AppTextStyle.style14.copyWith(
+              color: context.colorScheme.textSecondary,
+            ),
             overflow: TextOverflow.ellipsis,
           ),
-        )
+        ),
       ],
     );
   }

@@ -10,12 +10,13 @@ class UserLeaveState extends Equatable {
   final Status status;
   final Status fetchMoreDataStatus;
 
-  const UserLeaveState(
-      {this.fetchMoreDataStatus = Status.initial,
-      this.casualLeaves = const {},
-      this.urgentLeaves = const {},
-      this.status = Status.initial,
-      this.error});
+  const UserLeaveState({
+    this.fetchMoreDataStatus = Status.initial,
+    this.casualLeaves = const {},
+    this.urgentLeaves = const {},
+    this.status = Status.initial,
+    this.error,
+  });
 
   UserLeaveState copyWith({
     Status? fetchMoreDataStatus,
@@ -23,16 +24,20 @@ class UserLeaveState extends Equatable {
     Map<DateTime, List<Leave>>? urgentLeaves,
     String? error,
     Status? status,
-  }) =>
-      UserLeaveState(
-        fetchMoreDataStatus: fetchMoreDataStatus ?? this.fetchMoreDataStatus,
-        status: status ?? this.status,
-        casualLeaves: casualLeaves ?? this.casualLeaves,
-        urgentLeaves: urgentLeaves ?? this.urgentLeaves,
-        error: error,
-      );
+  }) => UserLeaveState(
+    fetchMoreDataStatus: fetchMoreDataStatus ?? this.fetchMoreDataStatus,
+    status: status ?? this.status,
+    casualLeaves: casualLeaves ?? this.casualLeaves,
+    urgentLeaves: urgentLeaves ?? this.urgentLeaves,
+    error: error,
+  );
 
   @override
-  List<Object?> get props =>
-      [casualLeaves, urgentLeaves, error, status, fetchMoreDataStatus];
+  List<Object?> get props => [
+    casualLeaves,
+    urgentLeaves,
+    error,
+    status,
+    fetchMoreDataStatus,
+  ];
 }

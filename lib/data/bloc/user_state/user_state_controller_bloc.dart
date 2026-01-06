@@ -20,9 +20,12 @@ class UserStateControllerBloc
   final SpaceChangeNotifier _spaceChangeNotifier;
   StreamSubscription? _subscription;
 
-  UserStateControllerBloc(this._employeeRepo, this._userStateNotifier,
-      this._spaceService, this._spaceChangeNotifier)
-      : super(const UserInitialStatus()) {
+  UserStateControllerBloc(
+    this._employeeRepo,
+    this._userStateNotifier,
+    this._spaceService,
+    this._spaceChangeNotifier,
+  ) : super(const UserInitialStatus()) {
     on<CheckUserStatus>(_updateEmployee);
     on<ClearDataForDisableUser>(_clearData);
     on<UpdateUserData>(_updateData);
@@ -40,34 +43,41 @@ class UserStateControllerBloc
     });
     if (_userStateNotifier.currentSpaceId != null) {
       _spaceChangeNotifier.setSpaceId(
-          spaceId: _userStateNotifier.currentSpaceId!);
+        spaceId: _userStateNotifier.currentSpaceId!,
+      );
     }
   }
 
   Future<void> _updateEmployee(
-      CheckUserStatus event, Emitter<UserControllerStatus> emit) async {
+    CheckUserStatus event,
+    Emitter<UserControllerStatus> emit,
+  ) async {
     try {
       log("Function called", name: "User Status");
-      final Space? space =
-          await _spaceService.getSpace(_userStateNotifier.currentSpaceId!);
-      log("space fetched", name: "User Status");
-      _subscription =
-          _employeeRepo.memberDetails(_userStateNotifier.userUID!).listen(
-        (Employee? employee) async {
-          log("Employee fetched", name: "User Status");
-          add(UpdateUserData(employee: employee, space: space));
-        },
-        onError: (error, _) {
-          add(ShowUserStatusFetchError());
-        },
+      final Space? space = await _spaceService.getSpace(
+        _userStateNotifier.currentSpaceId!,
       );
+      log("space fetched", name: "User Status");
+      _subscription = _employeeRepo
+          .memberDetails(_userStateNotifier.userUID!)
+          .listen(
+            (Employee? employee) async {
+              log("Employee fetched", name: "User Status");
+              add(UpdateUserData(employee: employee, space: space));
+            },
+            onError: (error, _) {
+              add(ShowUserStatusFetchError());
+            },
+          );
     } on Exception {
       add(ShowUserStatusFetchError());
     }
   }
 
   Future<void> _updateData(
-      UpdateUserData event, Emitter<UserControllerStatus> emit) async {
+    UpdateUserData event,
+    Emitter<UserControllerStatus> emit,
+  ) async {
     if (event.employee != null &&
         event.space != null &&
         event.employee?.status == EmployeeStatus.active) {
@@ -86,14 +96,18 @@ class UserStateControllerBloc
     }
   }
 
-  Future<void> _showError(ShowUserStatusFetchError event,
-      Emitter<UserControllerStatus> emit) async {
+  Future<void> _showError(
+    ShowUserStatusFetchError event,
+    Emitter<UserControllerStatus> emit,
+  ) async {
     log("Error occurs", name: "User Status");
     emit(const UserErrorStatus());
   }
 
   Future<void> _clearData(
-      ClearDataForDisableUser event, Emitter<UserControllerStatus> emit) async {
+    ClearDataForDisableUser event,
+    Emitter<UserControllerStatus> emit,
+  ) async {
     await _userStateNotifier.removeEmployeeWithSpace();
     log("All data cleared", name: "User Status");
   }

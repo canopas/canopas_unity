@@ -21,9 +21,12 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
   final ImagePicker _imagePicker;
   final StorageService _storageService;
 
-  EditSpaceBloc(this._spaceService, this._userStateNotifier, this._imagePicker,
-      this._storageService)
-      : super(const EditSpaceState()) {
+  EditSpaceBloc(
+    this._spaceService,
+    this._userStateNotifier,
+    this._imagePicker,
+    this._storageService,
+  ) : super(const EditSpaceState()) {
     on<EditSpaceInitialEvent>(_init);
 
     on<CompanyNameChangeEvent>(_onNameChangeValidation);
@@ -37,19 +40,29 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
   void _init(EditSpaceInitialEvent event, Emitter<EditSpaceState> emit) async {}
 
   void _onNameChangeValidation(
-      CompanyNameChangeEvent event, Emitter<EditSpaceState> emit) {
+    CompanyNameChangeEvent event,
+    Emitter<EditSpaceState> emit,
+  ) {
     emit(state.copyWith(nameIsValid: validInputLength(event.companyName)));
   }
 
   void _notificationEmailChangeValidation(
-      NotificationEmailChangeEvent event, Emitter<EditSpaceState> emit) {
-    emit(state.copyWith(
-        nameIsValid: event.notificationEmail.trim().isEmpty ||
-            validEmail(event.notificationEmail)));
+    NotificationEmailChangeEvent event,
+    Emitter<EditSpaceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        nameIsValid:
+            event.notificationEmail.trim().isEmpty ||
+            validEmail(event.notificationEmail),
+      ),
+    );
   }
 
   void _timeOffChangeValidation(
-      YearlyPaidTimeOffChangeEvent event, Emitter<EditSpaceState> emit) {
+    YearlyPaidTimeOffChangeEvent event,
+    Emitter<EditSpaceState> emit,
+  ) {
     try {
       int.parse(event.timeOff);
       emit(state.copyWith(yearlyPaidTimeOffIsValid: true));
@@ -59,34 +72,47 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
   }
 
   Future<void> _deleteSpace(
-      DeleteSpaceEvent event, Emitter<EditSpaceState> emit) async {
+    DeleteSpaceEvent event,
+    Emitter<EditSpaceState> emit,
+  ) async {
     emit(state.copyWith(deleteWorkSpaceStatus: Status.loading));
     try {
       await _spaceService.deleteSpace(
-          spaceId: _userStateNotifier.currentSpace!.id,
-          owners: _userStateNotifier.currentSpace!.ownerIds,
-          uid: _userStateNotifier.employeeId);
-      await _storageService
-          .deleteStorageFolder("images/${_userStateNotifier.currentSpaceId}");
+        spaceId: _userStateNotifier.currentSpace!.id,
+        owners: _userStateNotifier.currentSpace!.ownerIds,
+        uid: _userStateNotifier.employeeId,
+      );
+      await _storageService.deleteStorageFolder(
+        "images/${_userStateNotifier.currentSpaceId}",
+      );
       await _userStateNotifier.removeEmployeeWithSpace();
       emit(state.copyWith(deleteWorkSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(
-          deleteWorkSpaceStatus: Status.error, error: firestoreFetchDataError));
+      emit(
+        state.copyWith(
+          deleteWorkSpaceStatus: Status.error,
+          error: firestoreFetchDataError,
+        ),
+      );
     }
   }
 
   Future<void> _pickImage(
-      PickImageEvent event, Emitter<EditSpaceState> emit) async {
-    final XFile? image =
-        await _imagePicker.pickImage(source: event.imageSource);
+    PickImageEvent event,
+    Emitter<EditSpaceState> emit,
+  ) async {
+    final XFile? image = await _imagePicker.pickImage(
+      source: event.imageSource,
+    );
     if (image != null) {
       emit(state.copyWith(logo: image.path, isLogoPickedDone: true));
     }
   }
 
   Future<void> _saveSpace(
-      SaveSpaceDetails event, Emitter<EditSpaceState> emit) async {
+    SaveSpaceDetails event,
+    Emitter<EditSpaceState> emit,
+  ) async {
     emit(state.copyWith(updateSpaceStatus: Status.loading));
     try {
       final space = _userStateNotifier.currentSpace!;
@@ -95,9 +121,12 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
 
       if (state.logo.isNotNullOrEmpty) {
         final String storagePath = ImageStoragePath.spaceLogoPath(
-            spaceId: _userStateNotifier.currentSpaceId!);
+          spaceId: _userStateNotifier.currentSpaceId!,
+        );
         logoURL = await _storageService.uploadProfilePic(
-            path: storagePath, imagePath: state.logo!);
+          path: storagePath,
+          imagePath: state.logo!,
+        );
       }
 
       final Space updatedSpace = Space(
@@ -116,8 +145,12 @@ class EditSpaceBloc extends Bloc<EditSpaceEvent, EditSpaceState>
       await _userStateNotifier.updateSpace(updatedSpace);
       emit(state.copyWith(updateSpaceStatus: Status.success));
     } on Exception {
-      emit(state.copyWith(
-          updateSpaceStatus: Status.error, error: firestoreFetchDataError));
+      emit(
+        state.copyWith(
+          updateSpaceStatus: Status.error,
+          error: firestoreFetchDataError,
+        ),
+      );
     }
   }
 }

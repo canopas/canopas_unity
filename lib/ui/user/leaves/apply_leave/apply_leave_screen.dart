@@ -50,8 +50,9 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
             showSnackBar(context: context, error: state.error);
           } else if (state.leaveRequestStatus == Status.success) {
             showSnackBar(
-                context: context,
-                msg: context.l10n.user_leaves_apply_leave_success_message);
+              context: context,
+              msg: context.l10n.user_leaves_apply_leave_success_message,
+            );
             context.pop(state.leaveId);
           }
         },
@@ -67,18 +68,17 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
         ),
       ),
       floatingActionButton: BlocBuilder<ApplyLeaveBloc, ApplyLeaveState>(
-          builder: (context, state) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: AppButton(
-                  tag: context.l10n.user_leaves_apply_leave_button_tag,
-                  onTap: () {
-                    context
-                        .read<ApplyLeaveBloc>()
-                        .add(ApplyLeaveSubmitFormEvent());
-                  },
-                  loading: state.leaveRequestStatus == Status.loading,
-                ),
-              )),
+        builder: (context, state) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: AppButton(
+            tag: context.l10n.user_leaves_apply_leave_button_tag,
+            onTap: () {
+              context.read<ApplyLeaveBloc>().add(ApplyLeaveSubmitFormEvent());
+            },
+            loading: state.leaveRequestStatus == Status.loading,
+          ),
+        ),
+      ),
     );
   }
 }

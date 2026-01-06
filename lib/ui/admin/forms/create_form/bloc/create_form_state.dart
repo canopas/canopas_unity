@@ -32,28 +32,28 @@ class CreateFormState extends Equatable {
     bool? limitToOneResponse,
     String? formHeaderImage,
     bool? setPickedImageNull,
-  }) =>
-      CreateFormState(
-        formId: formId,
-        error: error,
-        fields: fields ?? this.fields,
-        status: status ?? this.status,
-        description: description ?? this.description,
-        limitToOneResponse: limitToOneResponse ?? this.limitToOneResponse,
-        formHeaderImage: formHeaderImage ??
-            (setPickedImageNull == true ? null : this.formHeaderImage),
-        title: title ?? this.title,
-      );
+  }) => CreateFormState(
+    formId: formId,
+    error: error,
+    fields: fields ?? this.fields,
+    status: status ?? this.status,
+    description: description ?? this.description,
+    limitToOneResponse: limitToOneResponse ?? this.limitToOneResponse,
+    formHeaderImage:
+        formHeaderImage ??
+        (setPickedImageNull == true ? null : this.formHeaderImage),
+    title: title ?? this.title,
+  );
 
   @override
   List<Object?> get props => [
-        formId,
-        error,
-        status,
-        fields,
-        title,
-        description,
-        limitToOneResponse,
-        formHeaderImage,
-      ];
+    formId,
+    error,
+    status,
+    fields,
+    title,
+    description,
+    limitToOneResponse,
+    formHeaderImage,
+  ];
 }

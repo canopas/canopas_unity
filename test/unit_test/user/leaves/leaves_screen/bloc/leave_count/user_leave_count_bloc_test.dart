@@ -19,7 +19,10 @@ void main() {
   late UserLeaveCountBloc userLeaveCountBloc;
 
   UserLeaveCountState loadingState = const UserLeaveCountState(
-      status: Status.loading, usedLeavesCounts: LeaveCounts(), error: null);
+    status: Status.loading,
+    usedLeavesCounts: LeaveCounts(),
+    error: null,
+  );
 
   const String employeeId = 'Employee Id';
 
@@ -35,47 +38,59 @@ void main() {
 
   group('User Leave count State', () {
     test(
-        'Emits initial  state when screen is open and fetching data from service',
-        () {
-      expect(
+      'Emits initial  state when screen is open and fetching data from service',
+      () {
+        expect(
           userLeaveCountBloc.state,
           const UserLeaveCountState(
-              status: Status.initial,
-              usedLeavesCounts: LeaveCounts(),
-              error: null));
-    });
+            status: Status.initial,
+            usedLeavesCounts: LeaveCounts(),
+            error: null,
+          ),
+        );
+      },
+    );
     test(
-        'emits loading state and success state after add FetchUserLeaveCountEvent respectively',
-        () {
-      userLeaveCountBloc.add(FetchLeaveCountEvent());
+      'emits loading state and success state after add FetchUserLeaveCountEvent respectively',
+      () {
+        userLeaveCountBloc.add(FetchLeaveCountEvent());
 
-      when(userStateNotifier.employeeId).thenReturn(employeeId);
-      when(userStateNotifier.currentSpaceId).thenReturn("space-id");
-      when(leaveRepo.getUserUsedLeaves(uid: employeeId)).thenAnswer(
-          (_) async => const LeaveCounts(urgentLeaves: 2, casualLeaves: 5));
+        when(userStateNotifier.employeeId).thenReturn(employeeId);
+        when(userStateNotifier.currentSpaceId).thenReturn("space-id");
+        when(leaveRepo.getUserUsedLeaves(uid: employeeId)).thenAnswer(
+          (_) async => const LeaveCounts(urgentLeaves: 2, casualLeaves: 5),
+        );
 
-      const UserLeaveCountState successState = UserLeaveCountState(
+        const UserLeaveCountState successState = UserLeaveCountState(
           status: Status.success,
           usedLeavesCounts: LeaveCounts(urgentLeaves: 2, casualLeaves: 5),
-          error: null);
-      expectLater(userLeaveCountBloc.stream,
-          emitsInOrder([loadingState, successState]));
-    });
+          error: null,
+        );
+        expectLater(
+          userLeaveCountBloc.stream,
+          emitsInOrder([loadingState, successState]),
+        );
+      },
+    );
 
     test('emits error state when Exception is thrown', () {
       userLeaveCountBloc.add(FetchLeaveCountEvent());
 
       when(userStateNotifier.employeeId).thenReturn('Ca 1044');
       when(userStateNotifier.currentSpaceId).thenReturn('space-id');
-      when(leaveRepo.getUserUsedLeaves(uid: 'Ca 1044'))
-          .thenThrow(Exception('error'));
+      when(
+        leaveRepo.getUserUsedLeaves(uid: 'Ca 1044'),
+      ).thenThrow(Exception('error'));
 
       const UserLeaveCountState errorState = UserLeaveCountState(
-          status: Status.success,
-          usedLeavesCounts: LeaveCounts(urgentLeaves: 0, casualLeaves: 0),
-          error: firestoreFetchDataError);
+        status: Status.success,
+        usedLeavesCounts: LeaveCounts(urgentLeaves: 0, casualLeaves: 0),
+        error: firestoreFetchDataError,
+      );
       expectLater(
-          userLeaveCountBloc.stream, emitsInOrder([loadingState, errorState]));
+        userLeaveCountBloc.stream,
+        emitsInOrder([loadingState, errorState]),
+      );
     });
   });
 }

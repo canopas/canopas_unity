@@ -24,16 +24,20 @@ class DrawerState extends Equatable {
     String? error,
     Status? fetchSpacesStatus,
     List<Space>? spaces,
-  }) =>
-      DrawerState(
-        signOutStatus: signOutStatus ?? this.signOutStatus,
-        changeSpaceStatus: changeSpaceStatus ?? this.changeSpaceStatus,
-        error: error,
-        spaces: spaces ?? this.spaces,
-        fetchSpacesStatus: fetchSpacesStatus ?? this.fetchSpacesStatus,
-      );
+  }) => DrawerState(
+    signOutStatus: signOutStatus ?? this.signOutStatus,
+    changeSpaceStatus: changeSpaceStatus ?? this.changeSpaceStatus,
+    error: error,
+    spaces: spaces ?? this.spaces,
+    fetchSpacesStatus: fetchSpacesStatus ?? this.fetchSpacesStatus,
+  );
 
   @override
-  List<Object?> get props =>
-      [spaces, error, fetchSpacesStatus, changeSpaceStatus, signOutStatus];
+  List<Object?> get props => [
+    spaces,
+    error,
+    fetchSpacesStatus,
+    changeSpaceStatus,
+    signOutStatus,
+  ];
 }

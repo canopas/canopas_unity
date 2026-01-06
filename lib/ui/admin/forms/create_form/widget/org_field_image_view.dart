@@ -7,7 +7,7 @@ import '../../../../../data/configs/theme.dart';
 import '../bloc/org_form_field_update_data_model.dart';
 import '../bloc/create_form_bloc.dart';
 import '../bloc/create_form_event.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 
 class FormFieldImageView extends StatelessWidget {
   final OrgFormFieldCreateFormState orgFormField;
@@ -32,22 +32,25 @@ class FormFieldImageView extends StatelessWidget {
             height: 200,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: context.colorScheme.outlineColor),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: kIsWeb
-                        ? NetworkImage(orgFormField.image) as ImageProvider
-                        : FileImage(File(orgFormField.image)))),
+              color: context.colorScheme.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: context.colorScheme.outlineColor),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: kIsWeb
+                    ? NetworkImage(orgFormField.image) as ImageProvider
+                    : FileImage(File(orgFormField.image)),
+              ),
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                  onPressed: () => bloc.add(RemoveFieldEvent(orgFormField.id)),
-                  child: Text(AppLocalizations.of(context).remove_tag)),
+                onPressed: () => bloc.add(RemoveFieldEvent(orgFormField.id)),
+                child: Text(AppLocalizations.of(context).remove_tag),
+              ),
             ],
           ),
         ],
