@@ -7,7 +7,7 @@ import '../../../../../data/configs/theme.dart';
 import '../bloc/org_form_field_update_data_model.dart';
 import '../bloc/create_form_bloc.dart';
 import '../bloc/create_form_event.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 
 class FormFieldImageView extends StatelessWidget {
   final OrgFormFieldCreateFormState orgFormField;

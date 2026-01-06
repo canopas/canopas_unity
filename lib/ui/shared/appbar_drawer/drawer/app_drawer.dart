@@ -14,7 +14,7 @@ import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../data/di/service_locator.dart';
 import '../../../../data/provider/user_state.dart';
 import '../../../widget/circular_progress_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'bloc/app_drawer_bloc.dart';
 import 'bloc/app_drawer_event.dart';
 import 'bloc/app_drawer_state.dart';

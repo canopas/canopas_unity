@@ -8,7 +8,7 @@ import '../bloc/create_form_bloc.dart';
 import '../bloc/create_form_event.dart';
 import '../bloc/create_form_state.dart';
 import 'org_form_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 
 class OrgCreateFormInfoView extends StatelessWidget {
   final TextEditingController titleController;
@@ -52,7 +52,7 @@ class OrgCreateFormInfoView extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous.limitToOneResponse != current.limitToOneResponse,
                 builder: (context, state) => Switch(
-                    activeColor: context.colorScheme.primary,
+                    activeThumbColor: context.colorScheme.primary,
                     value: state.limitToOneResponse,
                     onChanged: (value) =>
                         bloc.add(UpdateLimitToOneResponse(value))))

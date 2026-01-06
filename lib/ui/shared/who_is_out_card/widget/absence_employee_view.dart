@@ -10,7 +10,7 @@ import '../../../../data/di/service_locator.dart';
 import '../../../../data/model/leave_application.dart';
 import '../../../../app_router.dart';
 import '../../../widget/circular_progress_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 
 class AbsenceEmployeesListWhoIsOutCardView extends StatelessWidget {
   final DateTime dateOfEmployeeAbsence;

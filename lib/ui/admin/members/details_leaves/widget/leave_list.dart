@@ -9,7 +9,7 @@ import '../../../../../app_router.dart';
 import '../../../../widget/circular_progress_indicator.dart';
 import '../../../../widget/empty_screen.dart';
 import '../../../../widget/error_snack_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import '../../../../widget/pagination_widget.dart';
 import '../bloc/admin_employee_details_leave_bloc.dart';
 import '../bloc/admin_employee_details_leave_state.dart';

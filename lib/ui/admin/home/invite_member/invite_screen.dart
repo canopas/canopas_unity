@@ -6,7 +6,7 @@ import 'package:projectunity/data/core/extensions/string_extension.dart';
 import 'package:projectunity/data/di/service_locator.dart';
 import 'package:projectunity/style/other/app_button.dart';
 import 'package:projectunity/ui/widget/circular_progress_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 import 'package:projectunity/ui/widget/error_snack_bar.dart';
 import '../../../../data/core/utils/bloc_status.dart';
 import '../../../../style/app_page.dart';

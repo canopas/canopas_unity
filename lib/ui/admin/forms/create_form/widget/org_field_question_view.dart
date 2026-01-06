@@ -10,7 +10,7 @@ import '../bloc/create_form_event.dart';
 import '../bloc/create_form_state.dart';
 import 'org_form_dropdown.dart';
 import 'org_form_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:projectunity/data/l10n/app_localization.dart';
 
 class FormFieldView extends StatelessWidget {
   final OrgFormFieldCreateFormState orgFormField;
@@ -82,7 +82,7 @@ class FormFieldView extends StatelessWidget {
                     buildWhen: (previous, current) =>
                         previous.fields != current.fields,
                     builder: (context, state) => Switch(
-                        activeColor: context.colorScheme.primary,
+                        activeThumbColor: context.colorScheme.primary,
                         value: state.fields[state.fields.indexOf(orgFormField)]
                             .isRequired,
                         onChanged: (isRequired) => bloc.add(

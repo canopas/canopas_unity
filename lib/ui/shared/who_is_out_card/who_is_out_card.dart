@@ -127,7 +127,7 @@ class _LeaveCalendarState extends State<LeaveCalendar> {
             calendarFormat: state.calendarFormat,
             selectedDayPredicate: (day) => isSameDay(state.selectedDate, day),
             firstDay: DateTime(2022),
-            lastDay: DateTime(2026),
+            lastDay: DateTime(2040),
             startingDayOfWeek: StartingDayOfWeek.sunday,
             calendarStyle: AppTheme.calendarStyle(context),
             daysOfWeekStyle: AppTheme.daysOfWeekStyle(context),
